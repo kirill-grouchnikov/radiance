@@ -3,13 +3,13 @@
 Radiance is a collection of libraries for writing modern, elegant and fast Swing applications. It is built with Java 9, and runs on Java 9 or later.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="254" border=0>
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/gemini2.png" width="340" height="254" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/gemini2.png" width="340" height="258" border=0>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitechalk1.png" width="340" height="254" border=0>
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade2.png" width="340" height="254" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitechalk1.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade2.png" width="340" height="258" border=0>
 </p>
 
 ## Core Java libraries

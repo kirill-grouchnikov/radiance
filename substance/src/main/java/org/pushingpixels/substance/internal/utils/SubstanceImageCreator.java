@@ -150,12 +150,11 @@ public final class SubstanceImageCreator {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // create curved checkbox path
+        // create straight checkbox path
         GeneralPath path = new GeneralPath();
-
-        path.moveTo(0.25f * dimension, 0.5f * dimension);
-        path.quadTo(0.37f * dimension, 0.6f * dimension, 0.47f * dimension, 0.8f * dimension);
-        path.quadTo(0.55f * dimension, 0.5f * dimension, 0.85f * dimension, 0f);
+        path.moveTo(0.22f * dimension, 0.55f * dimension);
+        path.lineTo(0.45f * dimension, 0.8f * dimension);
+        path.lineTo(0.73f * dimension, 0.35f * dimension);
 
         // compute the x-based clip for the visibility
         float xClipStart = 0.15f * dimension;

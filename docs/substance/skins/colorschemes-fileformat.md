@@ -104,6 +104,6 @@ Sentinel Decorations Separator {
 
 This way you can have a small collection of "core" colors define the entire appearance of the skin. Here is a screenshot of the [Sentinel skin](toneddown.md#sentinel):
 
-<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/sentinel1.png" width="340" height="254">
+<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/sentinel1.png" width="340" height="258">
 
 This entire skin is defined by a dozen or so core colors, and around 30 color schemes created from these core colors.

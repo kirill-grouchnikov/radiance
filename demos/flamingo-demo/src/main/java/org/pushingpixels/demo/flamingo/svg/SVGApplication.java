@@ -1,34 +1,36 @@
 /*
  * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.flamingo.svg;
 
+import org.apache.batik.anim.dom.SVGOMElement;
+import org.apache.batik.dom.svg.SVGContext;
 import org.apache.batik.ext.awt.LinearGradientPaint;
 import org.apache.batik.ext.awt.MultipleGradientPaint;
 import org.apache.batik.ext.awt.MultipleGradientPaint.ColorSpaceEnum;
@@ -46,6 +48,9 @@ import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.pushingpixels.photon.api.transcoder.SvgTranscoder;
 import org.pushingpixels.photon.api.transcoder.TranscoderListener;
 import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,9 +68,8 @@ public class SVGApplication {
 
     /**
      * Main method for testing.
-     * 
-     * @param args
-     *            Ignored.
+     *
+     * @param args Ignored.
      */
     public static void main(String[] args) {
         JFrame f = new JFrame("Batik");
@@ -94,6 +98,27 @@ public class SVGApplication {
 
     public SVGApplication(JFrame f) {
         frame = f;
+    }
+
+    public void traverse(Node node, String prefix) {
+        System.err.print(prefix + " " + node.getLocalName() + " [" + node.getClass().getName() + "]");
+        NamedNodeMap attrs = node.getAttributes();
+        if (attrs != null) {
+            for (int i = 0; i < attrs.getLength(); i++) {
+                Node attr = attrs.item(i);
+                System.err.print(" " + attr.getNodeName() + "=" + attr.getNodeValue());
+            }
+        }
+        System.err.println();
+        if ("animate".equals(node.getLocalName())) {
+            if (node instanceof SVGOMElement) {
+                SVGOMElement elt = (SVGOMElement) node;
+                SVGContext ctx = elt.getSVGContext();
+            }
+        }
+        for (Node n = node.getFirstChild(); n != null; n = n.getNextSibling()) {
+            traverse(n, prefix + "   ");
+        }
     }
 
     public JComponent createComponents() {
@@ -136,9 +161,10 @@ public class SVGApplication {
                             JOptionPane.showMessageDialog(null, "Finished");
                         }
                     });
-                    transcoder.transcode(this.getClass().getResourceAsStream(
+                    Document svgDoc = transcoder.transcode(this.getClass().getResourceAsStream(
                             "/org/pushingpixels/photon/api/transcoder/java" +
                                     "/SvgTranscoderTemplateResizable.templ"));
+                    traverse(svgDoc, "");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -175,40 +201,40 @@ public class SVGApplication {
                 for (PathIterator i = egPath.getPathIterator(null); !i.isDone(); i.next()) {
                     int type = i.currentSegment(coords);
                     switch (type) {
-                    case PathIterator.SEG_CUBICTO:
-                        // offset(offset + 1);
-                        // pw.println("CUBICTO " + coords[0] + ":" + coords[1]
-                        // + ":" + coords[2] + ":" + coords[3] + ":"
-                        // + coords[4] + ":" + coords[5]);
-                        pw.println("((GeneralPath)shape).curveTo(" + coords[0] + ", " + coords[1]
-                                + ", " + coords[2] + ", " + coords[3] + ", " + coords[4] + ", "
-                                + coords[5] + ");");
-                        break;
-                    case PathIterator.SEG_QUADTO:
-                        // offset(offset + 1);
-                        // pw.println("QUADTO " + coords[0] + ":" + coords[1]
-                        // + ":" + coords[2] + ":" + coords[3]);
-                        pw.println("((GeneralPath)shape).quadTo(" + coords[0] + ", " + coords[1]
-                                + ", " + coords[2] + ", " + coords[3] + ");");
-                        break;
-                    case PathIterator.SEG_MOVETO:
-                        // offset(offset + 1);
-                        // pw.println("MOVETO " + coords[0] + ":" + coords[1]);
-                        pw.println("((GeneralPath)shape).moveTo(" + coords[0] + ", " + coords[1]
-                                + ");");
-                        break;
-                    case PathIterator.SEG_LINETO:
-                        // offset(offset + 1);
-                        // pw.println("LINETO " + coords[0] + ":" + coords[1]);
-                        pw.println("((GeneralPath)shape).lineTo(" + coords[0] + ", " + coords[1]
-                                + ");");
-                        break;
-                    // through
-                    case PathIterator.SEG_CLOSE:
-                        // offset(offset + 1);
-                        // pw.println("CLOSE");
-                        pw.println("((GeneralPath)shape).closePath();");
-                        break;
+                        case PathIterator.SEG_CUBICTO:
+                            // offset(offset + 1);
+                            // pw.println("CUBICTO " + coords[0] + ":" + coords[1]
+                            // + ":" + coords[2] + ":" + coords[3] + ":"
+                            // + coords[4] + ":" + coords[5]);
+                            pw.println("((GeneralPath)shape).curveTo(" + coords[0] + ", " + coords[1]
+                                    + ", " + coords[2] + ", " + coords[3] + ", " + coords[4] + ", "
+                                    + coords[5] + ");");
+                            break;
+                        case PathIterator.SEG_QUADTO:
+                            // offset(offset + 1);
+                            // pw.println("QUADTO " + coords[0] + ":" + coords[1]
+                            // + ":" + coords[2] + ":" + coords[3]);
+                            pw.println("((GeneralPath)shape).quadTo(" + coords[0] + ", " + coords[1]
+                                    + ", " + coords[2] + ", " + coords[3] + ");");
+                            break;
+                        case PathIterator.SEG_MOVETO:
+                            // offset(offset + 1);
+                            // pw.println("MOVETO " + coords[0] + ":" + coords[1]);
+                            pw.println("((GeneralPath)shape).moveTo(" + coords[0] + ", " + coords[1]
+                                    + ");");
+                            break;
+                        case PathIterator.SEG_LINETO:
+                            // offset(offset + 1);
+                            // pw.println("LINETO " + coords[0] + ":" + coords[1]);
+                            pw.println("((GeneralPath)shape).lineTo(" + coords[0] + ", " + coords[1]
+                                    + ");");
+                            break;
+                        // through
+                        case PathIterator.SEG_CLOSE:
+                            // offset(offset + 1);
+                            // pw.println("CLOSE");
+                            pw.println("((GeneralPath)shape).closePath();");
+                            break;
                     }
                 }
             }

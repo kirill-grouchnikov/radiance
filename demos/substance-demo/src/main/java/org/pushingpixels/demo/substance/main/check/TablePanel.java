@@ -30,8 +30,10 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableCellRenderer;
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
@@ -52,6 +54,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.Supplier;
 
 /**
  * Test application panel for testing {@link JTable} component.
@@ -289,10 +292,14 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional, 1.0);
         this.add(instructional, BorderLayout.NORTH);
 
-        // create a looping animation to change the label foreground
-        // from black to blue and back to draw some attention.
+        // create a looping animation to change the label foreground to draw some attention.
         SwingComponentTimeline.componentBuilder(instructional)
-                .addPropertyToInterpolate("foreground", Color.black, new Color(224, 20, 10))
+                .addPropertyToInterpolate("foreground",
+                        () -> SubstanceCortex.ComponentScope.getCurrentSkin(table)
+                                .getColorScheme(table, ComponentState.ENABLED).getForegroundColor(),
+                        () -> SubstanceCortex.ComponentScope.getCurrentSkin(table)
+                                .getColorScheme(table, ComponentState.ENABLED).isDark()
+                                ? new Color(255, 180, 180) : new Color(224, 20, 10))
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);
 

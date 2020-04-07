@@ -58,6 +58,7 @@ public class GraphiteElectricSkin extends GraphiteSkin {
 
 		// highlight fill scheme + custom alpha for rollover unselected state
 		SubstanceColorScheme highlightScheme = schemes.get("Graphite Electric");
+		SubstanceColorScheme borderScheme = schemes.get("Graphite Border");
 		defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
 		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
 		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
@@ -69,11 +70,6 @@ public class GraphiteElectricSkin extends GraphiteSkin {
 		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(highlightScheme, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.BORDER,
-				ComponentState.ROLLOVER_ARMED,
-				ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
 				ColorSchemeAssociationKind.FILL,
 				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 		defaultSchemeBundle.registerColorScheme(highlightScheme.shade(0.2).saturate(0.2),
@@ -83,9 +79,10 @@ public class GraphiteElectricSkin extends GraphiteSkin {
 				ColorSchemeAssociationKind.TAB,
 				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState
-						.getActiveStates());
+		defaultSchemeBundle.registerColorScheme(borderScheme,
+				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState.getActiveStates());
+		defaultSchemeBundle.registerColorScheme(borderScheme,
+				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState.getActiveStates());
 
 		defaultSchemeBundle.registerColorScheme(highlightScheme,
 				ColorSchemeAssociationKind.MARK,

@@ -573,10 +573,14 @@ public class ControlPanelFactory {
                             1.0);
                     dialog.add(instructional, BorderLayout.NORTH);
 
-                    // create a looping animation to change the label foreground
-                    // from black to blue and back to draw some attention.
+                    // create a looping animation to change the label foreground to draw some attention.
                     SwingComponentTimeline.componentBuilder(instructional)
-                            .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                            .addPropertyToInterpolate("foreground",
+                                    () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
+                                            .getColorScheme(myContentPane, ComponentState.ENABLED).getForegroundColor(),
+                                    () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
+                                            .getColorScheme(myContentPane, ComponentState.ENABLED).isDark()
+                                            ? new Color(255, 180, 180) : new Color(224, 20, 10))
                             .setDuration(1000)
                             .playLoop(RepeatBehavior.REVERSE);
 
@@ -614,10 +618,14 @@ public class ControlPanelFactory {
                             1.0);
                     dialog.add(instructional, BorderLayout.NORTH);
 
-                    // create a looping animation to change the label foreground
-                    // from black to blue and back to draw some attention.
+                    // create a looping animation to change the label foreground to draw some attention.
                     SwingComponentTimeline.componentBuilder(instructional)
-                            .addPropertyToInterpolate("foreground", Color.black, Color.blue)
+                            .addPropertyToInterpolate("foreground",
+                                    () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
+                                            .getColorScheme(myContentPane, ComponentState.ENABLED).getForegroundColor(),
+                                    () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
+                                            .getColorScheme(myContentPane, ComponentState.ENABLED).isDark()
+                                            ? new Color(255, 180, 180) : new Color(224, 20, 10))
                             .setDuration(1000)
                             .playLoop(RepeatBehavior.REVERSE);
 

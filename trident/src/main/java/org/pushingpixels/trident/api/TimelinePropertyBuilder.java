@@ -37,6 +37,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.function.Supplier;
 
 public class TimelinePropertyBuilder<T> {
 
@@ -104,8 +105,10 @@ public class TimelinePropertyBuilder<T> {
     private Object target; // may be null
     private final String propertyName; // required
     private T from; // optional
+    private Supplier<T> fromSupplier;
     private boolean isFromCurrent;
     private T to; // must be optional because of KeyFrames
+    private Supplier<T> toSupplier;
     private PropertyInterpolator<T> interpolator; // optional
     private PropertyGetter<T> getter; // optional
     private PropertySetter<T> setter; // optional
@@ -123,10 +126,30 @@ public class TimelinePropertyBuilder<T> {
         if (this.isFromCurrent) {
             throw new IllegalArgumentException("from() cannot be called after fromCurrent()");
         }
+        if (this.fromSupplier != null) {
+            throw new IllegalArgumentException("from() cannot be called after fromSupplier()");
+        }
         if (this.keyFrames != null) {
             throw new IllegalArgumentException("from() cannot be called after goingThrough()");
         }
         this.from = startValue;
+        return this;
+    }
+
+    public TimelinePropertyBuilder<T> fromSupplier(Supplier<T> supplier) {
+        if (this.fromSupplier != null) {
+            throw new IllegalArgumentException("fromSupplier() can only be called once");
+        }
+        if (this.isFromCurrent) {
+            throw new IllegalArgumentException("fromSupplier() cannot be called after fromCurrent()");
+        }
+        if (this.from != null) {
+            throw new IllegalArgumentException("fromSupplier() cannot be called after from()");
+        }
+        if (this.keyFrames != null) {
+            throw new IllegalArgumentException("fromSupplier() cannot be called after goingThrough()");
+        }
+        this.fromSupplier = supplier;
         return this;
     }
 
@@ -136,6 +159,9 @@ public class TimelinePropertyBuilder<T> {
         }
         if (this.from != null) {
             throw new IllegalArgumentException("fromCurrent() cannot be called after from()");
+        }
+        if (this.fromSupplier != null) {
+            throw new IllegalArgumentException("fromCurrent() cannot be called after fromSupplier()");
         }
         if (this.keyFrames != null) {
             throw new IllegalArgumentException(
@@ -149,10 +175,27 @@ public class TimelinePropertyBuilder<T> {
         if (this.to != null) {
             throw new IllegalArgumentException("to() can only be called once");
         }
+        if (this.toSupplier != null) {
+            throw new IllegalArgumentException("to() cannot be called after toSupplier()");
+        }
         if (this.keyFrames != null) {
             throw new IllegalArgumentException("to() cannot be called after goingThrough()");
         }
         this.to = endValue;
+        return this;
+    }
+
+    public TimelinePropertyBuilder<T> toSupplier(Supplier<T> supplier) {
+        if (this.toSupplier != null) {
+            throw new IllegalArgumentException("toSupplier() can only be called once");
+        }
+        if (this.to != null) {
+            throw new IllegalArgumentException("toSupplier() cannot be called after to()");
+        }
+        if (this.keyFrames != null) {
+            throw new IllegalArgumentException("toSupplier() cannot be called after goingThrough()");
+        }
+        this.toSupplier = supplier;
         return this;
     }
 
@@ -205,8 +248,14 @@ public class TimelinePropertyBuilder<T> {
         if (this.from != null) {
             throw new IllegalArgumentException("goingThrough() cannot be called after from()");
         }
+        if (this.fromSupplier != null) {
+            throw new IllegalArgumentException("goingThrough() cannot be called after fromSupplier()");
+        }
         if (this.to != null) {
             throw new IllegalArgumentException("goingThrough() cannot be called after to()");
+        }
+        if (this.toSupplier != null) {
+            throw new IllegalArgumentException("goingThrough() cannot be called after toSupplier()");
         }
         this.keyFrames = keyFrames;
         return this;
@@ -224,28 +273,30 @@ public class TimelinePropertyBuilder<T> {
 
         if (this.isFromCurrent) {
             if (this.interpolator == null) {
-                this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(Collections.singleton(this.to));
+                this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(
+                        Collections.singleton((this.to != null) ? this.to : this.toSupplier.get()));
 
                 if (this.interpolator == null) {
                     throw new IllegalArgumentException(
                             "No interpolator found for " + this.to.getClass().getName());
                 }
             }
-            return new GenericFieldInfoTo<>(this.target, this.propertyName, this.to,
+            return new GenericFieldInfoTo<>(this.target, this.propertyName, this.to, this.toSupplier,
                     this.interpolator, this.getter, this.setter);
         }
 
         if (this.interpolator == null) {
             this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(
-                    Arrays.asList(this.from, this.to));
+                    Arrays.asList((this.from != null) ? this.from : this.fromSupplier.get(),
+                            (this.to != null) ? this.to : this.toSupplier.get()));
 
             if (this.interpolator == null) {
                 throw new IllegalArgumentException("No interpolator found for "
                         + this.from.getClass().getName() + ":" + this.to.getClass().getName());
             }
         }
-        return new GenericFieldInfo<>(this.target, this.propertyName, this.from, this.to,
-                this.interpolator, this.setter);
+        return new GenericFieldInfo<>(this.target, this.propertyName, this.from, this.fromSupplier,
+                this.to, this.toSupplier, this.interpolator, this.setter);
     }
 
     abstract static class AbstractFieldInfo<F> {
@@ -257,7 +308,9 @@ public class TimelinePropertyBuilder<T> {
         protected PropertySetter<F> setter;
 
         protected F from;
+        protected Supplier<F> fromSupplier;
         protected F to;
+        protected Supplier<F> toSupplier;
 
         AbstractFieldInfo(Object obj, String fieldName, PropertyGetter<F> pGetter,
                 PropertySetter<F> pSetter) {
@@ -268,12 +321,18 @@ public class TimelinePropertyBuilder<T> {
             this.setter = pSetter;
         }
 
-        void setValues(F from, F to) {
-            this.from = from;
-            this.to = to;
+        void setValues(F from, Supplier<F> fromSupplier, F to, Supplier<F> toSupplier) {
+            this.fromSupplier = fromSupplier;
+            this.from = (this.fromSupplier == null) ? from : this.fromSupplier.get();
+            this.toSupplier = toSupplier;
+            this.to = (this.toSupplier == null) ? to : this.toSupplier.get();
         }
 
         abstract void onStart();
+
+        abstract void updateTo();
+
+        abstract void updateFrom();
 
         abstract boolean isFromCurrent();
 
@@ -297,22 +356,31 @@ public class TimelinePropertyBuilder<T> {
     private static class GenericFieldInfoTo<T> extends AbstractFieldInfo<T> {
         private PropertyInterpolator<T> propertyInterpolator;
 
-        private T to;
-
-        GenericFieldInfoTo(Object obj, String fieldName, T to,
+        GenericFieldInfoTo(Object obj, String fieldName, T to, Supplier<T> toSupplier,
                 PropertyInterpolator<T> propertyInterpolator, PropertyGetter<T> propertyGetter,
                 PropertySetter<T> propertySetter) {
             super(obj, fieldName, getPropertyGetter(obj, fieldName, propertyGetter),
                     getPropertySetter(obj, fieldName, propertySetter));
             this.propertyInterpolator = propertyInterpolator;
-            this.to = to;
-            //System.out.println("Created @" + hashCode() + " for " + fieldName);
+            this.toSupplier = toSupplier;
+            this.to = (this.toSupplier == null) ? to : this.toSupplier.get();
         }
 
         @Override
         void onStart() {
             this.from = getter.get(object, fieldName);
-            //System.out.println("onStart on @" + hashCode());
+            this.updateTo();
+        }
+
+        @Override
+        void updateFrom() {
+        }
+
+        @Override
+        void updateTo() {
+            if (this.toSupplier != null) {
+                this.to = this.toSupplier.get();
+            }
         }
 
         @Override
@@ -339,15 +407,32 @@ public class TimelinePropertyBuilder<T> {
     private static class GenericFieldInfo<T> extends AbstractFieldInfo<T> {
         private PropertyInterpolator<T> propertyInterpolator;
 
-        GenericFieldInfo(Object obj, String fieldName, T from, T to,
+        GenericFieldInfo(Object obj, String fieldName, T from, Supplier<T> fromSupplier,
+                T to, Supplier<T> toSupplier,
                 PropertyInterpolator<T> propertyInterpolator, PropertySetter<T> propertySetter) {
             super(obj, fieldName, null, getPropertySetter(obj, fieldName, propertySetter));
             this.propertyInterpolator = propertyInterpolator;
-            this.setValues(from, to);
+            this.setValues(from, fromSupplier, to, toSupplier);
         }
 
         @Override
         void onStart() {
+            this.updateFrom();
+            this.updateTo();
+        }
+
+        @Override
+        void updateFrom() {
+            if (this.fromSupplier != null) {
+                this.from = this.fromSupplier.get();
+            }
+        }
+
+        @Override
+        void updateTo() {
+            if (this.toSupplier != null) {
+                this.to = this.toSupplier.get();
+            }
         }
 
         @Override
@@ -381,6 +466,14 @@ public class TimelinePropertyBuilder<T> {
 
         @Override
         void onStart() {
+        }
+
+        @Override
+        void updateFrom() {
+        }
+
+        @Override
+        void updateTo() {
         }
 
         @Override

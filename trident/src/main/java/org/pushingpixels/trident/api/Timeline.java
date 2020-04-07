@@ -43,6 +43,7 @@ import org.pushingpixels.trident.internal.swing.SwingUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.function.Supplier;
 
 /**
  * The main entry point into Trident. Use {@link #builder()} or {@link #builder(Object)}
@@ -153,11 +154,30 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             if (newState == TimelineState.READY) {
                 for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
-                    if (mainObjectIsUiComponent
-                            && !SwingUtils.isComponentInReadyState(fInfo.object)) {
+                    if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                         continue;
                     }
                     fInfo.onStart();
+                }
+            }
+
+            if (newState == TimelineState.PLAYING_FORWARD) {
+                for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+                    // check whether the object is in the ready state
+                    if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
+                        continue;
+                    }
+                    fInfo.updateTo();
+                }
+            }
+
+            if (newState == TimelineState.PLAYING_REVERSE) {
+                for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+                    // check whether the object is in the ready state
+                    if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
+                        continue;
+                    }
+                    fInfo.updateFrom();
                 }
             }
 
@@ -694,6 +714,11 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         public <P> B addPropertyToInterpolate(String propName, P from, P to) {
             return this.addPropertyToInterpolate(Timeline.<P>property(propName).from(from).to(to));
+        }
+
+        public <P> B addPropertyToInterpolate(String propName, Supplier<P> fromSupplier, Supplier<P> toSupplier) {
+            return this.addPropertyToInterpolate(Timeline.<P>property(propName).fromSupplier(fromSupplier).
+                    toSupplier(toSupplier));
         }
 
         @SuppressWarnings("unchecked")

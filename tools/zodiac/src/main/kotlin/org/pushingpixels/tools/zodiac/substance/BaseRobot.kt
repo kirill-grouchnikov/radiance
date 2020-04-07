@@ -76,7 +76,7 @@ abstract class BaseRobot(protected var skin: SubstanceSkin, private val screensh
                             DecorationAreaType.PRIMARY_TITLE_PANE,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED))
-            sf!!.setSize(340, 254)
+            sf!!.setSize(340, 258)
             sf!!.setLocationRelativeTo(null)
             sf!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
             sf!!.isVisible = true

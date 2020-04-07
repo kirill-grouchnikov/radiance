@@ -5,7 +5,7 @@ The Neon library provides a core set of APIs to work with images and text that s
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon) `radiance-neon` for build instructions of the latest stable release.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="254" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="258" border=0>
 </p>
 
 ### Querying the underlying platform

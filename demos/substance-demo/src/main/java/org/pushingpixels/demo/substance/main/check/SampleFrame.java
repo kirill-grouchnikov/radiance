@@ -337,7 +337,7 @@ public class SampleFrame extends JFrame {
             }
             JFrame.setDefaultLookAndFeelDecorated(true);
             SampleFrame sf = new SampleFrame();
-            sf.setSize(340, 254);
+            sf.setSize(340, 258);
             sf.setLocationRelativeTo(null);
             sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             sf.setVisible(true);

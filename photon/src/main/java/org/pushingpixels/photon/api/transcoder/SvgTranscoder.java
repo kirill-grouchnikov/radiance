@@ -29,12 +29,17 @@
  */
 package org.pushingpixels.photon.api.transcoder;
 
-import org.apache.batik.bridge.*;
+import org.apache.batik.bridge.BridgeContext;
+import org.apache.batik.bridge.DocumentLoader;
+import org.apache.batik.bridge.GVTBuilder;
+import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.gvt.GraphicsNode;
 import org.w3c.dom.Document;
 
-import java.io.*;
-import java.util.logging.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * SVG to Java2D transcoder.
@@ -65,15 +70,13 @@ public class SvgTranscoder extends SvgBaseTranscoder {
      *
      * @param templateStream Stream with the template content
      */
-    public void transcode(InputStream templateStream) {
+    public Document transcode(InputStream templateStream) {
         if (this.listener == null)
-            return;
+            return null;
 
         UserAgentAdapter ua = new UserAgentAdapter();
         DocumentLoader loader = new DocumentLoader(ua);
-        /**
-         * Batik bridge context.
-         */
+
         BridgeContext batikBridgeContext = new BridgeContext(ua, loader);
         batikBridgeContext.setDynamicState(BridgeContext.DYNAMIC);
         ua.setBridgeContext(batikBridgeContext);
@@ -82,20 +85,19 @@ public class SvgTranscoder extends SvgBaseTranscoder {
         Document svgDoc;
         try {
             svgDoc = loader.loadDocument(this.uri);
-            // System.out.println("Building: " + this.uri);
             GraphicsNode gvtRoot = builder.build(batikBridgeContext, svgDoc);
 
             this.transcode(gvtRoot, templateStream);
+            return svgDoc;
         } catch (IOException ex) {
-            Logger.getLogger(SvgTranscoder.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(SvgTranscoder.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } finally {
             try {
                 loader.dispose();
                 batikBridgeContext.dispose();
             } catch (Throwable t) {
-                Logger.getLogger(SvgTranscoder.class.getName()).log(Level.SEVERE,
-                        null, t);
+                Logger.getLogger(SvgTranscoder.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

@@ -235,3 +235,9 @@ Graphite Electric {
     colorUltraDark=#62DD96
     colorForeground=#000000
 }
+
+Graphite Sienna {
+    kind=Dark
+    colorBackground=#A97868
+    colorForeground=#202020
+}

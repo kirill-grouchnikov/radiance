@@ -53,6 +53,7 @@ class GraphiteChalk : SkinRobot(GraphiteChalkSkin(), "substance/skins/graphitech
 class GraphiteElectric : SkinRobot(GraphiteElectricSkin(), "substance/skins/graphiteelectric")
 class GraphiteGlass : SkinRobot(GraphiteGlassSkin(), "substance/skins/graphiteglass")
 class GraphiteGold : SkinRobot(GraphiteGoldSkin(), "substance/skins/graphitegold")
+class GraphiteSienna : SkinRobot(GraphiteSiennaSkin(), "substance/skins/graphitesienna")
 class GraphiteSunset : SkinRobot(GraphiteSunsetSkin(), "substance/skins/graphitesunset")
 class Magellan : SkinRobot(MagellanSkin(), "substance/skins/magellan")
 class Mariner : SkinRobot(MarinerSkin(), "substance/skins/mariner")

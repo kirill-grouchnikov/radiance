@@ -143,6 +143,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         this.rolledOverIndices = new HashSet<>();
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         this.rolledOverColumn = -1;
+        this.rolledOverRow = -1;
 
         this.cellId = new TableCellId(-1, -1);
     }
@@ -2144,7 +2145,8 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             int row = cellIndex.row;
             int column = cellIndex.column;
             TableCellId cellId = this.getId(row, column);
-            boolean isRollover = rolledOverIndices.contains(cellId);
+            boolean isRollover = _hasRolloverAnimations() ? rolledOverIndices.contains(cellId) :
+                    (row == rolledOverRow);
             boolean isSelected = false;
             boolean hasSelectionAnimations = (this.updateInfo != null)
                     ? this.updateInfo.hasSelectionAnimations
