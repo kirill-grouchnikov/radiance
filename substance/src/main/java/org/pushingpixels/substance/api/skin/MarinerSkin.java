@@ -87,21 +87,23 @@ public class MarinerSkin extends SubstanceSkin {
 		SubstanceColorScheme activeScheme = schemes.get("Mariner Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Mariner Enabled");
 		SubstanceColorScheme disabledScheme = schemes.get("Mariner Disabled");
+		SubstanceColorScheme disabledSelectedScheme = schemes.get("Mariner Disabled Selected");
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, disabledScheme);
 
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerAlpha(0.8f, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerAlpha(0.8f, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledSelectedScheme, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
 
 		// borders
 		SubstanceColorScheme activeBorderScheme = schemes.get("Mariner Active Border");
 		SubstanceColorScheme enabledBorderScheme = schemes.get("Mariner Enabled Border");
+		SubstanceColorScheme disabledSelectedBorderScheme = schemes.get("Mariner Disabled Selected Border");
 		defaultSchemeBundle.registerColorScheme(activeBorderScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-		defaultSchemeBundle.registerColorScheme(activeBorderScheme,
+		defaultSchemeBundle.registerColorScheme(disabledSelectedBorderScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(enabledBorderScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);

@@ -20,6 +20,17 @@ Mariner Disabled {
     colorForeground=#666666
 }
 
+Mariner Disabled Selected {
+    kind=Light
+    colorUltraLight=#FFF7E3
+    colorExtraLight=#FEF4DF
+    colorLight=#F5ECD4
+    colorMid=#EEE1C3
+    colorDark=#E2D6BC
+    colorUltraDark=#E1CFB6
+    colorForeground=#4A1903
+}
+
 Mariner Enabled Border {
     kind=Light
     colorUltraLight=#9599A4
@@ -29,6 +40,17 @@ Mariner Enabled Border {
     colorDark=#74768B
     colorUltraDark=#626473
     colorForeground=#1F1B29
+}
+
+Mariner Disabled Selected Border {
+    kind=Dark
+    colorUltraLight=#8D7569
+    colorExtraLight=#8C7468
+    colorLight=#816F66
+    colorMid=#7B6D66
+    colorDark=#756C68
+    colorUltraDark=#726A67
+    colorForeground=#CDA96E
 }
 
 Mariner Enabled Mark {

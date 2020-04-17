@@ -36,8 +36,7 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 
 /**
- * <code>Graphite Chalk</code> skin. This class is part of officially
- * supported API.
+ * <code>Graphite Chalk</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
@@ -78,7 +77,6 @@ public class GraphiteChalkSkin extends GraphiteSkin {
 				ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
 
 		this.borderPainter = new ClassicBorderPainter();
-
 	}
 
 	@Override

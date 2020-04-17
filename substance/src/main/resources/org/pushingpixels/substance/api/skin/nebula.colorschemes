@@ -108,3 +108,13 @@ Nebula Determinate Disabled Border {
     colorForeground=#DCD7D3
 }
 
+Nebula Decorations {
+    kind=Light
+    colorUltraLight=#F8F9FA
+    colorExtraLight=#E6EAED
+    colorLight=#D5E0E9
+    colorMid=#B7C2CB
+    colorDark=#76818A
+    colorUltraDark=#56616A
+    colorForeground=#000000
+}

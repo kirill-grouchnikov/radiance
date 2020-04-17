@@ -29,24 +29,12 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
-
 /**
  * <code>Mist Silver</code> skin.
  * 
  * @author Kirill Grouchnikov
  */
-public class MistSilverSkin extends SubstanceSkin {
+public class MistSilverSkin extends MistAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -56,48 +44,7 @@ public class MistSilverSkin extends SubstanceSkin {
 	 * Creates a new <code>Silver</code> skin.
 	 */
 	public MistSilverSkin() {
-		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-						"org/pushingpixels/substance/api/skin/mist.colorschemes"));
-
-		SubstanceColorScheme activeScheme = colorSchemes.get("Mist Silver Active");
-		SubstanceColorScheme enabledScheme = colorSchemes.get("Mist Enabled");
-		SubstanceColorScheme disabledScheme = colorSchemes.get("Mist Disabled");
-		SubstanceColorScheme lightBlueScheme = colorSchemes.get("Mist Silver Light Blue");
-
-		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-				activeScheme, enabledScheme, disabledScheme);
-		defaultSchemeBundle.registerColorScheme(enabledScheme.tone(0.4),
-				ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(lightBlueScheme,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerColorScheme(enabledScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(enabledScheme.shade(0.1),
-				ColorSchemeAssociationKind.TAB,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-				DecorationAreaType.NONE);
-
-		this.registerDecorationAreaSchemeBundle(new SubstanceColorSchemeBundle(
-				activeScheme, enabledScheme, disabledScheme), lightBlueScheme,
-				DecorationAreaType.GENERAL);
-
-		this.registerAsDecorationArea(enabledScheme,
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.SECONDARY_TITLE_PANE,
-				DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
-				DecorationAreaType.TOOLBAR);
-
-		this.buttonShaper = new StandardButtonShaper();
-		this.fillPainter = new MatteFillPainter();
-		this.borderPainter = new ClassicBorderPainter();
-
-		this.decorationPainter = new MatteDecorationPainter();
-		this.highlightPainter = new ClassicHighlightPainter();
+		super("org/pushingpixels/substance/api/skin/mist.colorschemes", "Mist Silver Light Blue");
 	}
 
 	@Override

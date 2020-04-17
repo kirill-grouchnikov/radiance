@@ -120,6 +120,21 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteGoldSkin`. In add
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitegold2.png" width="340" height="258">
 </p>
 
+### Graphite Sienna
+
+Available in the `org.pushingpixels.substance.api.skin.GraphiteSiennaSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteSiennaLookAndFeel` can be used with one of the following options:
+
+* `SubstanceCortex.GlobalScope.setSkin(new GraphiteSiennaSkin())`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteSiennaSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteSiennaLookAndFeel`
+* `UIManager.setLookAndFeel(new SubstanceGraphiteSiennaLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteSiennaLookAndFeel");`
+
+<p align="left">
+<img alt="GraphiteSienna" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitesienna1.png" width="340" height="258">
+<img alt="GraphiteSienna" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitesienna2.png" width="340" height="258">
+</p>
+
 ### Graphite Sunset
 
 Available in the `org.pushingpixels.substance.api.skin.GraphiteSunsetSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel` can be used with one of the following options:

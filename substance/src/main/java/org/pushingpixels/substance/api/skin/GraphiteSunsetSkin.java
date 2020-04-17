@@ -31,16 +31,14 @@ package org.pushingpixels.substance.api.skin;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 
 /**
- * <code>Graphite Sunset</code> skin. This class is part of officially supported
- * API.
+ * <code>Graphite Sunset</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class GraphiteSunsetSkin extends GraphiteSkin {
+public class GraphiteSunsetSkin extends GraphiteAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -50,57 +48,17 @@ public class GraphiteSunsetSkin extends GraphiteSkin {
 	 * Creates a new <code>Graphite Sunset</code> skin.
 	 */
 	public GraphiteSunsetSkin() {
-		super();
+		super(new SunsetColorScheme());
 
-		// highlight fill scheme + custom alpha for rollover unselected state
-		SubstanceColorScheme highlightScheme = new SunsetColorScheme();
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.BORDER,
-				ComponentState.ROLLOVER_ARMED,
-				ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.FILL,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme.shade(0.2).saturate(0.2),
-				ColorSchemeAssociationKind.FILL,
-				ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.TAB,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState
-						.getActiveStates());
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
+		// Sunset needs tweaks for the enabled / disabled visuals of checkbox and radio button marks
+		// for better contrast
+		defaultSchemeBundle.registerColorScheme(this.getAccentColorScheme(),
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.SELECTED);
 		defaultSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme.shade(0.4),
+		defaultSchemeBundle.registerColorScheme(this.getAccentColorScheme().shade(0.4),
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.DISABLED_SELECTED);
-
-		// text highlight scheme
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.ROLLOVER_UNSELECTED);
 	}
 
 	@Override

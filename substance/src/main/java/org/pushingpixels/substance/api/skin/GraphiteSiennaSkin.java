@@ -29,18 +29,12 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-
 /**
- * <code>Graphite Sienna</code> skin. This class is part of officially supported
- * API.
+ * <code>Graphite Sienna</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class GraphiteSiennaSkin extends GraphiteSkin {
+public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -50,58 +44,7 @@ public class GraphiteSiennaSkin extends GraphiteSkin {
 	 * Creates a new <code>Graphite Sienna</code> skin.
 	 */
 	public GraphiteSiennaSkin() {
-		super();
-
-		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
-
-		// highlight fill scheme + custom alpha for rollover unselected state
-		SubstanceColorScheme highlightScheme = schemes.get("Graphite Sienna");
-		SubstanceColorScheme borderScheme = schemes.get("Graphite Border");
-		defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.FILL,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme.shade(0.2).saturate(0.2),
-				ColorSchemeAssociationKind.FILL,
-				ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.TAB,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(borderScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState.getActiveStates());
-		defaultSchemeBundle.registerColorScheme(borderScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState.getActiveStates());
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.MARK,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.MARK,
-				ComponentState.DISABLED_SELECTED);
-
-		// text highlight scheme
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.ROLLOVER_UNSELECTED);
+		super("org/pushingpixels/substance/api/skin/graphite.colorschemes", "Graphite Sienna");
 	}
 
 	@Override

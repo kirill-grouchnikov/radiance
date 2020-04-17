@@ -41,12 +41,11 @@ import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
- * <code>Graphite Glass</code> skin. This class is part of officially supported
- * API.
+ * <code>Graphite Glass</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class GraphiteGlassSkin extends GraphiteBaseSkin {
+public class GraphiteGlassSkin extends GraphiteSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */

@@ -33,9 +33,7 @@ import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle
 import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery
-import org.pushingpixels.substance.api.colorscheme.DarkMetallicColorScheme
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
+import org.pushingpixels.substance.api.colorscheme.*
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -50,23 +48,10 @@ import org.pushingpixels.substance.api.watermark.SubstanceNullWatermark
  *
  * @author Kirill Grouchnikov
  */
-class RobotDefaultDarkSkin(colorScheme: SubstanceColorScheme) : SubstanceSkin() {
+class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
+        SubstanceSkin.Accented(accentColorScheme) {
 
     init {
-        val inactiveScheme = colorScheme.blendWith(DarkMetallicColorScheme(), 0.6)
-        val defaultSchemeBundle = SubstanceColorSchemeBundle(
-                colorScheme, inactiveScheme, inactiveScheme)
-        defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
-        defaultSchemeBundle.registerColorScheme(inactiveScheme,
-                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
-
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE)
-
-        this.registerAsDecorationArea(colorScheme,
-                DecorationAreaType.PRIMARY_TITLE_PANE,
-                DecorationAreaType.SECONDARY_TITLE_PANE,
-                DecorationAreaType.HEADER)
-
         this.tabFadeStart = 1.0
         this.tabFadeEnd = 1.0
 
@@ -78,7 +63,7 @@ class RobotDefaultDarkSkin(colorScheme: SubstanceColorScheme) : SubstanceSkin() 
                 DecorationAreaType.HEADER)
 
         this.watermark = SubstanceNullWatermark()
-        this.watermarkScheme = colorScheme.blendWith(DarkMetallicColorScheme(), 0.5)
+        this.watermarkScheme = accentColorScheme.blendWith(DarkMetallicColorScheme(), 0.5)
 
         this.buttonShaper = ClassicButtonShaper()
         this.fillPainter = ClassicFillPainter()
@@ -91,10 +76,25 @@ class RobotDefaultDarkSkin(colorScheme: SubstanceColorScheme) : SubstanceSkin() 
 
         this.highlightPainter = ClassicHighlightPainter()
         this.borderPainter = ClassicBorderPainter()
+
+        val inactiveScheme = this.accentColorScheme.blendWith(DarkMetallicColorScheme(), 0.6)
+        val defaultSchemeBundle = SubstanceColorSchemeBundle(
+                this.accentColorScheme, inactiveScheme, inactiveScheme)
+        defaultSchemeBundle.registerAlpha(0.5f,
+                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
+        defaultSchemeBundle.registerColorScheme(inactiveScheme,
+                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
+
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE)
+
+        this.registerAsDecorationArea(this.accentColorScheme,
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE,
+                DecorationAreaType.HEADER)
     }
 
     override fun getDisplayName(): String {
-        return NAME
+        return NAME + " accent " + this.getAccentColorScheme().displayName
     }
 
     companion object {

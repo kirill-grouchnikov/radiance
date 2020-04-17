@@ -34,7 +34,6 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.PurpleColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
 
 /**
@@ -43,7 +42,7 @@ import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainte
  * 
  * @author Kirill Grouchnikov
  */
-public class NebulaAmethystSkin extends NebulaSkin {
+public class NebulaAmethystSkin extends NebulaAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -53,27 +52,19 @@ public class NebulaAmethystSkin extends NebulaSkin {
 	 * Creates a new <code>Nebula Amethyst</code> skin.
 	 */
 	public NebulaAmethystSkin() {
-		super();
+		super(new PurpleColorScheme());
 
-		SubstanceColorScheme purpleColorScheme = new PurpleColorScheme();
-
-		this.registerAsDecorationArea(purpleColorScheme,
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.SECONDARY_TITLE_PANE,
-				DecorationAreaType.TOOLBAR,
-				DecorationAreaType.HEADER);
-
+		// Also apply the accent color on the TOOLBAR area
+		this.registerAsDecorationArea(this.accentColorScheme, DecorationAreaType.TOOLBAR);
 		this.clearOverlayPainters(DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),
-				DecorationAreaType.TOOLBAR);
-		this.addOverlayPainter(this.bottomLineOverlayPainter,
-				DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
+		this.addOverlayPainter(this.bottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
 		SubstanceColorSchemeBundle toolbarBundle = new SubstanceColorSchemeBundle(
-				purpleColorScheme.saturate(0.1f), purpleColorScheme, purpleColorScheme);
+				this.accentColorScheme.saturate(0.1f), this.accentColorScheme, this.accentColorScheme);
 		toolbarBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED,
 				ComponentState.DISABLED_UNSELECTED);
-		toolbarBundle.registerColorScheme(purpleColorScheme.saturate(0.08f),
+		toolbarBundle.registerColorScheme(this.accentColorScheme.saturate(0.08f),
 				SubstanceSlices.ColorSchemeAssociationKind.SEPARATOR);
 		this.registerDecorationAreaSchemeBundle(toolbarBundle, DecorationAreaType.TOOLBAR);
 	}

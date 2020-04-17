@@ -35,12 +35,11 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 /**
- * <code>Graphite Aqua</code> skin. This class is part of officially supported
- * API.
+ * <code>Graphite Aqua</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class GraphiteAquaSkin extends GraphiteSkin {
+public class GraphiteAquaSkin extends GraphiteAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -50,55 +49,16 @@ public class GraphiteAquaSkin extends GraphiteSkin {
 	 * Creates a new <code>Graphite Aqua</code> skin.
 	 */
 	public GraphiteAquaSkin() {
-		super();
-		
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+		super("org/pushingpixels/substance/api/skin/graphite.colorschemes", "Graphite Aqua");
+
+		// Use disabled color scheme for marks of disabled selected checkboxes and radio buttons
+		// for better contrast
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
-
-		// highlight fill scheme + custom alpha for rollover unselected state
-		SubstanceColorScheme highlightScheme = schemes.get("Graphite Aqua");
-		SubstanceColorScheme borderScheme = schemes.get("Graphite Border");
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightScheme, ComponentState.ROLLOVER_UNSELECTED,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.FILL,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.MARK,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme.shade(0.2),
-				ColorSchemeAssociationKind.FILL, 
-				ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.TAB,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		// border schemes
-		defaultSchemeBundle.registerColorScheme(borderScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-		defaultSchemeBundle.registerColorScheme(borderScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_BORDER, ComponentState.getActiveStates());
-
-		// text highlight scheme
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-
-		defaultSchemeBundle.registerColorScheme(highlightScheme,
-				ComponentState.ROLLOVER_SELECTED);
+		SubstanceColorScheme disabledScheme = schemes.get("Graphite Disabled");
+		defaultSchemeBundle.registerColorScheme(disabledScheme,
+				ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED);
 	}
 
 	@Override

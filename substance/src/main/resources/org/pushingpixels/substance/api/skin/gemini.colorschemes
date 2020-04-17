@@ -119,6 +119,17 @@ Gemini Highlight Border {
     colorForeground=#70430B
 }
 
+Gemini Disabled {
+    kind=Light
+    colorUltraLight=#C8CBCC
+    colorExtraLight=#BDC1C1
+    colorLight=#BABEBD
+    colorMid=#B0B3B3
+    colorDark=#848786
+    colorUltraDark=#747776
+    colorForeground=#1E1E1E
+}
+
 Gemini Black Active Header {
     kind=Dark
     colorUltraLight=#52595F

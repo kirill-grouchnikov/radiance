@@ -29,16 +29,14 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.OrangeColorScheme;
 
 /**
- * <code>Nebula Brick Wall</code> skin. This class is part of officially
- * supported API.
+ * <code>Nebula Brick Wall</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class NebulaBrickWallSkin extends NebulaSkin {
+public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -48,12 +46,7 @@ public class NebulaBrickWallSkin extends NebulaSkin {
 	 * Creates a new <code>Nebula Brick Wall</code> skin.
 	 */
 	public NebulaBrickWallSkin() {
-		super();
-
-		this.registerAsDecorationArea(new OrangeColorScheme(),
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.SECONDARY_TITLE_PANE,
-				DecorationAreaType.HEADER);
+		super(new OrangeColorScheme());
 	}
 
 	@Override

@@ -29,7 +29,11 @@
  */
 package org.pushingpixels.substance.api.skin;
 
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
@@ -39,7 +43,7 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
  * 
  * @author Kirill Grouchnikov
  */
-public class GraphiteSkin extends GraphiteBaseSkin {
+public class GraphiteSkin extends GraphiteAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -49,13 +53,39 @@ public class GraphiteSkin extends GraphiteBaseSkin {
 	 * Creates a new <code>Graphite</code> skin.
 	 */
 	public GraphiteSkin() {
-		super();
+		super(SubstanceSkin.getColorSchemes(
+				GraphiteAccentedSkin.class.getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"))
+				.get("Graphite Highlight"));
 
-		this.fillPainter = new FractionBasedFillPainter("Graphite", new float[] { 0.0f, 0.5f, 1.0f },
-				new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.ULTRALIGHT,
-						ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT });
-		this.decorationPainter = new FlatDecorationPainter();
-		this.highlightPainter = new ClassicHighlightPainter();
+		// Unlike other accented Graphite skins that use the same highlight appearance on
+		// checkboxes and radio buttons as on active renderers, this skin uses a more muted
+		// appearance for checkboxes and radio buttons.
+		// The following sections remove the accent from those controls and use darker, less
+		// vibrant appearance.
+		defaultSchemeBundle.registerAlpha(0.65f, ComponentState.DISABLED_SELECTED);
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
+		SubstanceColorScheme highlightMarkScheme = schemes.get("Graphite Highlight Mark");
+		defaultSchemeBundle.registerColorScheme(highlightMarkScheme,
+				SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT_MARK, ComponentState.getActiveStates());
+		defaultSchemeBundle.registerColorScheme(highlightMarkScheme,
+				SubstanceSlices.ColorSchemeAssociationKind.MARK, ComponentState.ROLLOVER_SELECTED,
+				ComponentState.ROLLOVER_UNSELECTED);
+
+		SubstanceColorScheme selectedScheme = schemes.get("Graphite Selected");
+		SubstanceColorScheme borderScheme = schemes.get("Graphite Border");
+		defaultSchemeBundle.registerColorScheme(selectedScheme, ComponentState.SELECTED);
+		defaultSchemeBundle.registerColorScheme(borderScheme, SubstanceSlices.ColorSchemeAssociationKind.MARK,
+				ComponentState.SELECTED);
+
+		SubstanceColorScheme selectedDisabledScheme = schemes.get("Graphite Selected Disabled");
+		SubstanceColorScheme disabledScheme = schemes.get("Graphite Disabled");
+		defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(selectedDisabledScheme, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(disabledScheme, SubstanceSlices.ColorSchemeAssociationKind.MARK,
+				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 	}
 
 	@Override

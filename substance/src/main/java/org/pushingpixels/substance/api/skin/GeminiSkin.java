@@ -47,6 +47,8 @@ import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
+import java.awt.*;
+
 /**
  * <code>Gemini</code> skin. This class is part of officially supported API.
  * 
@@ -89,11 +91,11 @@ public class GeminiSkin extends SubstanceSkin {
 						"org/pushingpixels/substance/api/skin/gemini.colorschemes"));
 
 		SubstanceColorScheme grayScheme = schemes.get("Gemini Gray");
-		SubstanceColorScheme lightGrayScheme = schemes.get("Gemini Light Gray");
+		SubstanceColorScheme disabledScheme = schemes.get("Gemini Disabled");
 
 		// use the same color scheme for active and enabled controls
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(grayScheme,
-				grayScheme, lightGrayScheme);
+				grayScheme, disabledScheme);
 
 		// highlight fill scheme + custom alpha for rollover unselected state
 		SubstanceColorScheme highlightScheme = schemes.get("Gemini Highlight");
@@ -115,8 +117,7 @@ public class GeminiSkin extends SubstanceSkin {
 				ColorSchemeAssociationKind.SEPARATOR);
 		defaultSchemeBundle.registerColorScheme(grayScheme, ColorSchemeAssociationKind.MARK);
 
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(lightGrayScheme, ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 		defaultSchemeBundle.registerColorScheme(highlightScheme.tone(0.2f), ComponentState.DISABLED_SELECTED);
 
 		SubstanceColorScheme whiteBackgroundScheme = schemes.get("Gemini White Background");
@@ -126,11 +127,11 @@ public class GeminiSkin extends SubstanceSkin {
 
 		// general color scheme bundle
 		SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(grayScheme,
-				grayScheme, lightGrayScheme);
+				grayScheme, disabledScheme);
 		generalSchemeBundle.registerColorScheme(grayScheme, ComponentState.ROLLOVER_UNSELECTED);
 		generalSchemeBundle.registerColorScheme(grayScheme, ColorSchemeAssociationKind.MARK);
-		generalSchemeBundle.registerColorScheme(grayBorderScheme,
-				ColorSchemeAssociationKind.BORDER);
+		generalSchemeBundle.registerColorScheme(grayBorderScheme, ColorSchemeAssociationKind.BORDER);
+		generalSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 		applyHighlightColorScheme(generalSchemeBundle, highlightScheme, highlightBorderScheme);
 		applyHighlightAsFill(generalSchemeBundle, highlightScheme, highlightBorderScheme);
 		this.registerDecorationAreaSchemeBundle(generalSchemeBundle, grayScheme,

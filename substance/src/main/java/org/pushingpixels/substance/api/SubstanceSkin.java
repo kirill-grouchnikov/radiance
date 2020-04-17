@@ -41,6 +41,7 @@ import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
+import org.pushingpixels.substance.api.skin.CremeAccentedSkin;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SkinUtilities;
@@ -60,6 +61,18 @@ import java.util.*;
 public abstract class SubstanceSkin implements SubstanceTrait {
     public static final double DEFAULT_TAB_FADE_START = 0.1;
     public static final double DEFAULT_TAB_FADE_END = 0.3;
+
+    public static abstract class Accented extends SubstanceSkin {
+        protected SubstanceColorScheme accentColorScheme;
+
+        protected Accented(SubstanceColorScheme accentColorScheme) {
+            this.accentColorScheme = accentColorScheme;
+        }
+
+        public SubstanceColorScheme getAccentColorScheme() {
+            return this.accentColorScheme;
+        }
+    }
 
     /**
      * Maps decoration area type to the color scheme bundles. Must contain an
@@ -1054,7 +1067,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * Returns the collection of color schemes in the specified input stream.
      *
      * @param inputStream Input stream for the resource containing the description of
-     *            Substance color schemes.
+     *                    Substance color schemes.
      * @return The collection of color schemes in the specified input stream.
      */
     public static ColorSchemes getColorSchemes(InputStream inputStream) {

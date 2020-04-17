@@ -20,7 +20,7 @@ Mist Disabled {
     colorForeground=#797D82
 }
 
-Mist Aqua Background {
+Mist General Background {
     kind=Light
     colorUltraLight=#DAE6EE
     colorExtraLight=#D5E2EB
