@@ -397,8 +397,6 @@ public class SubstanceTextUtilities {
                 : SubstanceColorSchemeUtilities.getColorScheme(component, state)
                         .getForegroundColor();
 
-        // System.out.println(text + ":" + prevState.name() + "->" +
-        // state.name() + ":" + fgColor);
         if (textAlpha < 1.0f) {
             Color bgFillColor = SubstanceColorUtilities.getBackgroundFillColor(component);
             fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);
@@ -435,8 +433,6 @@ public class SubstanceTextUtilities {
             fgColor = SubstanceColorUtilities.getForegroundColor(component, modelStateInfo);
         }
 
-        // System.out.println(text + ":" + prevState.name() + "->" +
-        // state.name() + ":" + fgColor);
         if (textAlpha < 1.0f) {
             Color bgFillColor = SubstanceColorUtilities.getBackgroundFillColor(component);
             fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);

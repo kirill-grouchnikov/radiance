@@ -463,8 +463,6 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
                 shouldValidate = true;
             }
 
-            // SubstanceCoreUtilities.workaroundBug6576507(graphics);
-
             if (this.comboBox.getComponentOrientation().isLeftToRight()) {
                 this.currentValuePane.paintComponent(graphics, rendererComponent, this.comboBox,
                         r.x, r.y, r.width, r.height, shouldValidate);

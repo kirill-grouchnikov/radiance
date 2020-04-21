@@ -59,14 +59,14 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
     /**
      * The associated combo box.
      */
-    private JComboBox combo;
+    private final JComboBox<?> combo;
 
     /**
      * Simple constructor.
      *
      * @param combo The associated combo box.
      */
-    public SubstanceDefaultComboBoxRenderer(JComboBox combo) {
+    public SubstanceDefaultComboBoxRenderer(JComboBox<?> combo) {
         super();
         this.combo = combo;
 
@@ -96,10 +96,10 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
                 StateTransitionTracker stateTransitionTracker = comboUI
                         .getTransitionTracker();
                 ModelStateInfo modelStateInfo = stateTransitionTracker.getModelStateInfo();
-                ComponentState currState = modelStateInfo.getCurrModelState();
-                float comboAlpha = SubstanceColorSchemeUtilities.getAlpha(combo, currState);
+                // Pass 1.0f as the alpha, even for disabled comboboxes. The alpha will be
+                // applied at painting time of the label itself.
                 Color fg = SubstanceTextUtilities.getForegroundColor(combo,
-                        ((JLabel) result).getText(), modelStateInfo, comboAlpha);
+                        ((JLabel) result).getText(), modelStateInfo, 1.0f);
                 result.setForeground(fg);
 
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :

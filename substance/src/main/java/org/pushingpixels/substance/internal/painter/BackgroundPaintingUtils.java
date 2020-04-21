@@ -93,8 +93,7 @@ public class BackgroundPaintingUtils {
 				c.getClientProperty(WidgetUtilities.PREVIEW_MODE));
 
 		Graphics2D graphics = (Graphics2D) g.create();
-		// optimization - do not call fillRect on graphics
-		// with anti-alias turned on
+		// optimization - do not call fillRect on graphics with anti-alias turned on
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_OFF);
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
@@ -102,24 +101,27 @@ public class BackgroundPaintingUtils {
 		DecorationAreaType decorationType = ComponentOrParentChainScope.getDecorationType(c);
 		SubstanceSkin skin = SubstanceCoreUtilities.getSkin(c);
 		boolean isShowing = c.isShowing();
+		boolean showOverlays = true;
+		if (c.getParent() instanceof JPopupMenu) {
+			// Don't show any overlays on content in popup menus
+			showOverlays = false;
+		} else {
+			if (c instanceof JMenuItem) {
+				showOverlays = false;
+				if (c instanceof JMenu) {
+					// Show overlays on top-level menu content
+					showOverlays = ((JMenu) c).isTopLevelMenu();
+				}
+			} else if (c instanceof JMenuBar) {
+				// Show overlays on menu bar
+				showOverlays = true;
+			}
+		}
+
 		if (isShowing && (decorationType != DecorationAreaType.NONE)
 				&& (skin.isRegisteredAsDecorationArea(decorationType))) {
 			// use the decoration painter
 			DecorationPainterUtils.paintDecorationBackground(graphics, c, force);
-			// and add overlays unless it's not a top-level menu
-			boolean showOverlays = true;
-			if (c.getParent() instanceof JPopupMenu) {
-				showOverlays = false;
-			} else {
-				if (c instanceof JMenuItem) {
-					showOverlays = false;
-					if (c instanceof JMenu) {
-						showOverlays = ((JMenu) c).isTopLevelMenu();
-					}
-				} else if (c instanceof JMenuBar) {
-					showOverlays = true;
-				}
-			}
 			if (showOverlays) {
 				OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
 			}
@@ -132,8 +134,10 @@ public class BackgroundPaintingUtils {
 			graphics.fillRect(0, 0, c.getWidth(), c.getHeight());
 
 			if (isShowing) {
-				// add overlays
-				OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
+				if (showOverlays) {
+					// add overlays
+					OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
+				}
 
 				// and paint watermark
 				SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();

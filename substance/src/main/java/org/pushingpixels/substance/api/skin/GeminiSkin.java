@@ -158,19 +158,17 @@ public class GeminiSkin extends SubstanceSkin {
 
 		// toolbar color scheme bundle
 		SubstanceColorScheme darkBlueColorScheme = schemes.get("Gemini Dark Blue");
-		SubstanceColorScheme darkBlueBackgroundColorScheme = schemes
-				.get("Gemini Dark Blue Background");
+		SubstanceColorScheme darkBlueBackgroundColorScheme = schemes.get("Gemini Dark Blue Background");
+		SubstanceColorScheme darkBlueSeparatorColorScheme = schemes.get("Gemini Dark Blue Separator");
 		SubstanceColorSchemeBundle toolbarSchemeBundle = new SubstanceColorSchemeBundle(
 				blackColorScheme, darkBlueColorScheme, darkBlueColorScheme);
 		toolbarSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 		toolbarSchemeBundle.registerColorScheme(blackColorScheme, ComponentState.DISABLED_SELECTED);
 		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme, ComponentState.DISABLED_UNSELECTED);
-		toolbarSchemeBundle.registerColorScheme(blackColorScheme,
-				ComponentState.ROLLOVER_UNSELECTED);
-		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme,
-				ColorSchemeAssociationKind.MARK);
-		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme,
-				ColorSchemeAssociationKind.BORDER);
+		toolbarSchemeBundle.registerColorScheme(blackColorScheme, ComponentState.ROLLOVER_UNSELECTED);
+		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme, ColorSchemeAssociationKind.MARK);
+		toolbarSchemeBundle.registerColorScheme(darkBlueColorScheme, ColorSchemeAssociationKind.BORDER);
+		toolbarSchemeBundle.registerColorScheme(darkBlueSeparatorColorScheme, ColorSchemeAssociationKind.SEPARATOR);
 		toolbarSchemeBundle.registerColorScheme(highlightScheme, ColorSchemeAssociationKind.MARK,
 				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
 				ComponentState.PRESSED_SELECTED);

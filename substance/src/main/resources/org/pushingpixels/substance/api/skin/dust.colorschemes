@@ -88,13 +88,8 @@ Dust Header Disabled {
 
 Dust Header Separator {
     kind=Dark
-    colorUltraLight=#373532
-    colorExtraLight=#353330
-    colorLight=#2F2E2A
-    colorMid=#2D2A28
-    colorDark=#262321
-    colorUltraDark=#262321
-    colorForeground=#21201D
+    colorBackground=#676562->#1C1916
+    colorForeground=#1C1916
 }
 
 Dust Header Background {

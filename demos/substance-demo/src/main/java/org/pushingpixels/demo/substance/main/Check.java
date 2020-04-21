@@ -59,10 +59,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.net.URL;
 import java.util.EnumSet;
 import java.util.Set;
@@ -538,6 +535,15 @@ public class Check extends JFrame {
         buttonCopy.setEnabled(false);
         toolBar.add(buttonCopy);
         JButton buttonPaste = new JButton(edit_paste.of(size, size));
+        buttonPaste.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                JPopupMenu pastePopup = new JPopupMenu();
+                pastePopup.add(new JMenuItem("sub 1", computer.of(16, 16)));
+                pastePopup.add(new JMenuItem("sub 2", system_search.of(16, 16)));
+                pastePopup.add(new JMenuItem("sub 3", help_browser.of(16, 16)));
+                pastePopup.show( buttonPaste, 0, buttonPaste.getHeight() );
+            }
+        });
         toolBar.add(buttonPaste);
         JButton buttonSelectAll = new JButton(edit_select_all.of(size, size));
         toolBar.add(buttonSelectAll);

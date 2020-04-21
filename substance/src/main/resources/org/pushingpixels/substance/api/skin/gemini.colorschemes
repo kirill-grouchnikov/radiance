@@ -9,6 +9,12 @@ Gemini Dark Blue Background {
     colorForeground=#CAD9D2
 }
 
+Gemini Dark Blue Separator {
+    kind=Dark
+    colorBackground=#505F6C->#0E1830
+    colorForeground=#000000
+}
+
 Gemini White Background {
     kind=Light
     colorUltraLight=#EBF1F1

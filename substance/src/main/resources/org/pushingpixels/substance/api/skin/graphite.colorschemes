@@ -132,13 +132,8 @@ Graphite Text Highlight {
 
 Graphite Separator {
     kind=Dark
-    colorUltraLight=#565656
-    colorExtraLight=#525252
-    colorLight=#4F4F4F
-    colorMid=#383838
-    colorDark=#353535
-    colorUltraDark=#333333
-    colorForeground=#B4B4B4
+    colorBackground=#666666->#2A2A2A
+    colorForeground=#C4C4C4
 }
 
 Graphite Aqua {
