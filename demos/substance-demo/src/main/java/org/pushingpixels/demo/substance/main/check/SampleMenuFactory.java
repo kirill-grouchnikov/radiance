@@ -41,6 +41,7 @@ import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.GlassHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.substance.api.skin.NebulaAccentedSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;
@@ -238,10 +239,26 @@ public class SampleMenuFactory {
         JMenuItem jmiSkin = new JMenuItem(customSkin.getDisplayName());
         jmiSkin.addActionListener(
                 (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customSkin));
+        final CustomAccentedSkin customAccentedSkin = new CustomAccentedSkin();
+        JMenuItem jmiAccentedSkin = new JMenuItem(customAccentedSkin.getDisplayName());
+        jmiAccentedSkin.addActionListener(
+                (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customAccentedSkin));
 
         jmSkin.add(jmiSkin);
+        jmSkin.add(jmiAccentedSkin);
 
         return jmSkin;
+    }
+
+    protected static class CustomAccentedSkin extends NebulaAccentedSkin {
+        public CustomAccentedSkin() {
+            super(new OliveColorScheme() );
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "Nebula Olive";
+        }
     }
 
     protected static class CustomSkin extends SubstanceSkin {

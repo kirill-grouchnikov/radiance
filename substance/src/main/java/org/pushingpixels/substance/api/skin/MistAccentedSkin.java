@@ -50,9 +50,9 @@ import java.awt.*;
  */
 public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
     /**
-     * Creates a new base <code>Mist</code> skin.
+     * Creates a new base accented <code>Mist</code> skin.
      */
-    public MistAccentedSkin(SubstanceColorScheme accentColorScheme) {
+    protected MistAccentedSkin(SubstanceColorScheme accentColorScheme) {
         super(accentColorScheme);
 
         ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
@@ -101,8 +101,7 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
 
     protected MistAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
         this(SubstanceSkin.getColorSchemes(
-                MistAccentedSkin.class.getClassLoader().getResourceAsStream(
-                        colorSchemeResourceName))
+                MistAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
                 .get(accentColorSchemeName));
     }
 }

@@ -42,8 +42,7 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
 /**
- * <code>Business Blue Steel</code> skin. This class is part of officially
- * supported API.
+ * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */

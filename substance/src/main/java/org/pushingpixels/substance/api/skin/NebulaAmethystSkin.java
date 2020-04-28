@@ -37,8 +37,7 @@ import org.pushingpixels.substance.api.colorscheme.PurpleColorScheme;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
 
 /**
- * <code>Nebula Amethyst</code> skin. This class is part of officially
- * supported API.
+ * <code>Nebula Amethyst</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */

@@ -62,6 +62,16 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     public static final double DEFAULT_TAB_FADE_START = 0.1;
     public static final double DEFAULT_TAB_FADE_END = 0.3;
 
+    /**
+     * Base class for skins that "accept" an accent color scheme. Accented skins can
+     * be extended to apply that color scheme in a way that highlights certain parts of
+     * the UI while still retaining the "core" feel of the specific skin family. Note that
+     * it is up to the specific implementation of the base accented skin to decide which
+     * parts of the UI are painted with the accent color scheme, and that decision may vary
+     * between different base accented skins. Use {@link #getAccentColorScheme()} to get
+     * the accent color scheme if you want to apply that accent in custom-painted parts of
+     * your UI.
+     */
     public static abstract class Accented extends SubstanceSkin {
         protected SubstanceColorScheme accentColorScheme;
 

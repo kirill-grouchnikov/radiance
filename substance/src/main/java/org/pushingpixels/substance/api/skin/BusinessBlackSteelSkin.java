@@ -43,8 +43,7 @@ import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
 /**
- * <code>Business Black Steel</code> skin. This class is part of officially
- * supported API.
+ * <code>Business Black Steel</code> skin. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */

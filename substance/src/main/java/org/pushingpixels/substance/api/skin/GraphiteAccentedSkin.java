@@ -108,8 +108,6 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
         this.decorationPainter = new FlatDecorationPainter();
         this.highlightPainter = new ClassicHighlightPainter();
 
-        // FROM HERE WE'RE APPLYING THE ACCENT
-
         // highlight fill scheme + custom alpha for rollover unselected state
         defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);
         defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
@@ -158,8 +156,7 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
 
     protected GraphiteAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
         this(SubstanceSkin.getColorSchemes(
-                GraphiteAccentedSkin.class.getClassLoader().getResourceAsStream(
-                        colorSchemeResourceName))
+                GraphiteAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
                 .get(accentColorSchemeName));
     }
 }

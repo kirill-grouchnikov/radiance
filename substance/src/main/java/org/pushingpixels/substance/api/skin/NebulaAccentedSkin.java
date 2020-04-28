@@ -58,9 +58,9 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 	protected BottomLineOverlayPainter bottomLineOverlayPainter;
 
 	/**
-	 * Creates a new base <code>Nebula</code> skin.
+	 * Creates a new base accented <code>Nebula</code> skin.
 	 */
-	public NebulaAccentedSkin(SubstanceColorScheme accentColorScheme) {
+	protected NebulaAccentedSkin(SubstanceColorScheme accentColorScheme) {
 		super(accentColorScheme);
 
 		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
@@ -153,6 +153,11 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 				DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER);
 
+		this.registerAsDecorationArea(this.accentColorScheme,
+				DecorationAreaType.PRIMARY_TITLE_PANE,
+				DecorationAreaType.SECONDARY_TITLE_PANE,
+				DecorationAreaType.HEADER);
+
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new SubduedFillPainter();
 
@@ -164,18 +169,11 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 		this.highlightPainter = new ClassicHighlightPainter();
 		this.borderPainter = new FlatBorderPainter();
 
-		// FROM HERE WE'RE APPLYING THE ACCENT
-
-		this.registerAsDecorationArea(this.accentColorScheme,
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.SECONDARY_TITLE_PANE,
-				DecorationAreaType.HEADER);
 	}
 
 	protected NebulaAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
 		this(SubstanceSkin.getColorSchemes(
-				NebulaAccentedSkin.class.getClassLoader().getResourceAsStream(
-						colorSchemeResourceName))
+				NebulaAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
 				.get(accentColorSchemeName));
 	}
 }

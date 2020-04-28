@@ -312,6 +312,30 @@ public interface ColorSchemeTransform {
 }
 ```
 
+### Accented skins
+
+Another, more fine grained mechanism for deriving a skin is using **accented skins**. This can be done by extending a skin that extends the `SubstanceSkin.Accented` super class.
+
+Such skins "declare" themselves to support one particular, narrowly scoped kind of derivation - providing a single [color scheme](colorschemes.md) as accent color scheme. It is up to a skin that declares itself as accented to "decide" how to apply that accent color.
+
+For example, here are two `Creme` skins that extend the core `CremeAccentedSkin` class:
+
+<p>
+<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/creme1.png" width="340" height="258">
+<img alt="Creme Coffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cremecoffee1.png" width="340" height="258">
+</p>
+
+The first passes a light blue color scheme as the accent, while the second passes a light brown scheme as the accent. In this particular accented skin family, the accent is applied on selected tabs, checkboxes, radio buttons, default buttons and scroll bars.
+
+As another example, here are two `Nebula` skins that extend the core `NebulaAccentedSkin` class:
+
+<p>
+<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="258">
+<img alt="Nebula Brick Wall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="258">
+</p>
+
+The first passes a light silver scheme as the accent, while the second passes an orange scheme as the accent. In this particular accented skin family, the accent is applied on the root pane border, the title pane and the menu bar.
+
 ### Providing custom skins
 
 Substance provides an option for specifying custom skin. This option uses the Substance plugin mechanism to register additional skins at runtime.

@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.SubstanceSkin;
-
 /**
  * <code>Creme</code> skin. This class is part of officially supported API.
  *
