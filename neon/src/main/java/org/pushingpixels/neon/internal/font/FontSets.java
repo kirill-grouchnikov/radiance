@@ -35,6 +35,7 @@ import org.pushingpixels.neon.api.font.FontSet;
 
 import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.UIResource;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.text.AttributedCharacterIterator;
@@ -171,7 +172,7 @@ public final class FontSets {
 		}
 
 		public DefaultUIResourceFont(final String name, final int style, final int size) {
-			super(name, style, size);
+			super(StyleContext.getDefaultStyleContext().getFont(name, style, size));
 		}
 
 		@Override

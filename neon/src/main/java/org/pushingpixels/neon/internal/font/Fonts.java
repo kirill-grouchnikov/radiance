@@ -393,7 +393,8 @@ public final class Fonts {
 	 */
 	private static Font getDesktopFont(String fontName) {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		return new FontSets.DefaultUIResourceFont((Font) toolkit.getDesktopProperty(fontName));
+		Font font = (Font) toolkit.getDesktopProperty(fontName);
+		return new FontSets.DefaultUIResourceFont(font.getFamily(), font.getStyle(), font.getSize());
 	}
 
 }
