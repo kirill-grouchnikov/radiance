@@ -44,7 +44,10 @@ public class GraphiteElectricSkin extends GraphiteAccentedSkin {
 	 * Creates a new <code>Graphite Electric</code> skin.
 	 */
 	public GraphiteElectricSkin() {
-		super("org/pushingpixels/substance/api/skin/graphite.colorschemes", "Graphite Electric");
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/graphite.colorschemes")
+				.withActiveControlsAccent("Graphite Electric")
+				.withHighlightsAccent("Graphite Electric"));
 	}
 
 	@Override

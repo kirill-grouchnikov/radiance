@@ -29,133 +29,27 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.substance.api.painter.border.DelegateBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.StandardFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-
 /**
  * <code>Dust</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class DustSkin extends SubstanceSkin {
+public class DustSkin extends DustAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
 	public static final String NAME = "Dust";
 
 	/**
-	 * Overlay painter to paint a dark line along the bottom edge of the
-	 * menubar.
-	 */
-	private BottomLineOverlayPainter menuOverlayPainter;
-
-	/**
-	 * Overlay painter to paint a light line along the top edge of the toolbars.
-	 */
-	private TopLineOverlayPainter toolbarOverlayPainter;
-
-	/**
 	 * Creates a new <code>Dust</code> skin.
 	 */
 	public DustSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-						"org/pushingpixels/substance/api/skin/dust.colorschemes"));
-		SubstanceColorScheme activeScheme = schemes.get("Dust Active");
-		SubstanceColorScheme enabledScheme = schemes.get("Dust Enabled");
-
-		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-				activeScheme, enabledScheme, enabledScheme);
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
-
-		// borders
-		SubstanceColorScheme borderEnabledScheme = schemes.get("Dust Border Enabled");
-		SubstanceColorScheme borderActiveScheme = schemes.get("Dust Border Active");
-
-		defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED,
-				ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(borderActiveScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-		defaultSchemeBundle.registerColorScheme(borderEnabledScheme.shade(0.3),
-				ColorSchemeAssociationKind.MARK);
-
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
-
-		// header color scheme bundle
-		SubstanceColorScheme headerActiveScheme = schemes.get("Dust Header Active");
-		SubstanceColorScheme headerEnabledScheme = schemes.get("Dust Header Enabled");
-		SubstanceColorScheme headerDisabledScheme = schemes.get("Dust Header Disabled");
-
-		SubstanceColorScheme headerBackgroundScheme = schemes.get("Dust Header Background");
-
-		SubstanceColorScheme headerSeparatorScheme = schemes.get("Dust Header Separator");
-
-		SubstanceColorScheme headerBorderScheme = schemes.get("Dust Header Border");
-
-		SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
-				headerActiveScheme, headerEnabledScheme, headerDisabledScheme);
-		headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		headerSchemeBundle.registerColorScheme(headerDisabledScheme,
-				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-
-		headerSchemeBundle.registerColorScheme(headerBorderScheme,
-				ColorSchemeAssociationKind.BORDER);
-		headerSchemeBundle.registerColorScheme(headerSeparatorScheme,
-				ColorSchemeAssociationKind.SEPARATOR);
-
-		headerSchemeBundle.registerHighlightAlpha(1.0f);
-		headerSchemeBundle.registerHighlightColorScheme(headerActiveScheme);
-		// the next line is to have consistent coloring during the rollover
-		// menu animations
-		headerSchemeBundle.registerHighlightAlpha(0.0f, ComponentState.ENABLED);
-
-		this.registerDecorationAreaSchemeBundle(headerSchemeBundle, DecorationAreaType.TOOLBAR);
-
-		this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerBackgroundScheme,
-				DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
-				DecorationAreaType.HEADER, DecorationAreaType.FOOTER);
-
-		setTabFadeStart(0.1);
-		setTabFadeEnd(0.3);
-
-		// add two overlay painters to create a bezel line between
-		// menu bar and toolbars
-		this.menuOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-						scheme.getUltraDarkColor(), -0.5f));
-		this.toolbarOverlayPainter = new TopLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getForegroundColor(), 32));
-		this.addOverlayPainter(this.menuOverlayPainter, DecorationAreaType.HEADER);
-		this.addOverlayPainter(this.toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
-
-		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
-		this.fillPainter = new StandardFillPainter();
-		this.decorationPainter = new MatteDecorationPainter();
-		this.highlightPainter = new ClassicHighlightPainter();
-		this.borderPainter = new CompositeBorderPainter("Dust", new ClassicBorderPainter(),
-				new DelegateBorderPainter("Dust Inner", new ClassicBorderPainter(),
-						0x60FFFFFF, 0x30FFFFFF, 0x18FFFFFF, 
-						(SubstanceColorScheme scheme) -> scheme.shiftBackground(
-								scheme.getUltraLightColor(), 0.8).tint(0.6).saturate(0.2)));
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/dust.colorschemes")
+				.withActiveControlsAccent("Dust Active")
+				.withEnabledControlsAccent("Dust Enabled")
+				.withBackgroundAccent("Dust Enabled")
+				.withHighlightsAccent("Dust Highlight"));
 	}
 
 	@Override

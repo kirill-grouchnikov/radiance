@@ -334,7 +334,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
             SubstanceColorScheme scheme = getColorSchemeForState(table, ui, currState);
             if (isDropLocation) {
                 scheme = SubstanceColorSchemeUtilities.getColorScheme(table,
-                        ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+                        ColorSchemeAssociationKind.HIGHLIGHT, currState);
             }
             boolean isActive = currState.isFacetActive(
                     SubstanceSlices.ComponentStateFacet.ROLLOVER) ||

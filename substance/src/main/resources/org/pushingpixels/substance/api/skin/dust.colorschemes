@@ -31,6 +31,17 @@ Dust Border Enabled {
     colorForeground=#5E574A
 }
 
+Dust Mark Enabled {
+    kind=Light
+    colorUltraLight=#8A8579
+    colorExtraLight=#797367
+    colorLight=#6E675B
+    colorMid=#635C4F
+    colorDark=#5E584B
+    colorUltraDark=#5E584A
+    colorForeground=#575044
+}
+
 Dust Header Border {
     kind=Dark
     colorUltraLight=#2D251E
@@ -51,6 +62,17 @@ Dust Enabled {
     colorDark=#CFC9BC
     colorUltraDark=#CDC7B9
     colorForeground=#3B3639
+}
+
+Dust Highlight {
+    kind=Light
+    colorUltraLight=#B4A181
+    colorExtraLight=#B4A181
+    colorLight=#AE9C7B
+    colorMid=#A89476
+    colorDark=#A29172
+    colorUltraDark=#9E8D6E
+    colorForeground=#222629
 }
 
 Dust Header Active {
@@ -101,6 +123,17 @@ Dust Header Background {
     colorDark=#292827
     colorUltraDark=#292827
     colorForeground=#999999
+}
+
+Dust Coffee Active {
+    kind=Light
+    colorUltraLight=#F4E5C0
+    colorExtraLight=#F0DEB3
+    colorLight=#EBD7A6
+    colorMid=#C7A67B
+    colorDark=#AA8363
+    colorUltraDark=#946F4A
+    colorForeground=#32220F
 }
 
 Dust Coffee Enabled {

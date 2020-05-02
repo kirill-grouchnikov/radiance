@@ -616,7 +616,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
                         currState);
                 if (alpha > 0.0f) {
                     SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                            this.header, ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+                            this.header, ColorSchemeAssociationKind.HIGHLIGHT, currState);
                     SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                             .getColorScheme(this.header,
                                     ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
@@ -634,7 +634,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
                     if (alpha == 0.0f)
                         continue;
                     SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                            this.header, ColorSchemeAssociationKind.HIGHLIGHT_TEXT, activeState);
+                            this.header, ColorSchemeAssociationKind.HIGHLIGHT, activeState);
                     SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                             .getColorScheme(this.header,
                                     ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
@@ -818,7 +818,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
                             : ComponentState.DISABLED_UNSELECTED;
 
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                    this.header, ColorSchemeAssociationKind.HIGHLIGHT_TEXT, backgroundState);
+                    this.header, ColorSchemeAssociationKind.HIGHLIGHT, backgroundState);
             SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
                     this.header, ColorSchemeAssociationKind.HIGHLIGHT_BORDER, backgroundState);
 

@@ -572,7 +572,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         if (dropLocation != null && !dropLocation.isInsert() && dropLocation.getIndex() == row) {
             // mark drop location
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(list,
-                    ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+                    ColorSchemeAssociationKind.HIGHLIGHT, currState);
             SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(list,
                     ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
             Rectangle cellRect = new Rectangle(cx, cy, cw, ch);

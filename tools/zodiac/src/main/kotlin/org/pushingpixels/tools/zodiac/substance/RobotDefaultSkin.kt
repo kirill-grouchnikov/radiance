@@ -50,7 +50,9 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
  * @author Kirill Grouchnikov
  */
 class RobotDefaultSkin(accentColorScheme: SubstanceColorScheme) :
-        SubstanceSkin.Accented(accentColorScheme) {
+        SubstanceSkin.Accented(AccentBuilder()
+                .withActiveControlsAccent(accentColorScheme)
+                .withWindowChromeAccent(accentColorScheme)) {
 
     init {
         val bottomLineOverlayPainter = BottomLineOverlayPainter(
@@ -73,18 +75,18 @@ class RobotDefaultSkin(accentColorScheme: SubstanceColorScheme) :
         this.borderPainter = ClassicBorderPainter()
 
         val defaultSchemeBundle = SubstanceColorSchemeBundle(
-                this.accentColorScheme, MetallicColorScheme(), LightGrayColorScheme())
+                this.activeControlsAccent, MetallicColorScheme(), LightGrayColorScheme())
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.accentColorScheme,
+        this.registerAsDecorationArea(this.activeControlsAccent,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER)
     }
 
     override fun getDisplayName(): String {
-        return NAME + " accent " + this.getAccentColorScheme().displayName
+        return NAME + " accent " + this.activeControlsAccent.displayName
     }
 
     companion object {

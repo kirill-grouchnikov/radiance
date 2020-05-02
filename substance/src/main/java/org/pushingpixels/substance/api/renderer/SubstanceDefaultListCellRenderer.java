@@ -120,7 +120,7 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                 SubstanceColorScheme scheme = getColorSchemeForState(list, ui, currState);
                 if (isDropLocation) {
                     scheme = SubstanceColorSchemeUtilities.getColorScheme(list,
-                            ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+                            ColorSchemeAssociationKind.HIGHLIGHT, currState);
                 }
                 boolean isActive = currState.isFacetActive(
                         SubstanceSlices.ComponentStateFacet.ROLLOVER) ||

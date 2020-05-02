@@ -123,11 +123,11 @@ public class SubstanceCortex {
 
         private static SubstanceIconPack iconPack;
 
-        private static SubstanceSlices.ButtonOrder buttonBarButtonOrder = SubstanceSlices
-                .ButtonOrder.PLATFORM;
+        private static SubstanceSlices.ButtonOrder buttonBarButtonOrder =
+                SubstanceSlices.ButtonOrder.PLATFORM;
 
-        private static SubstanceSlices.HorizontalGravity buttonBarGravity = SubstanceSlices
-                .HorizontalGravity.PLATFORM;
+        private static SubstanceSlices.HorizontalGravity buttonBarGravity =
+                SubstanceSlices.HorizontalGravity.PLATFORM;
 
         /**
          * Sets the specified skin. If the current look-and-feel is not Substance, this method will
@@ -980,6 +980,8 @@ public class SubstanceCortex {
          *                will show a lock icon. Pass <code>null</code> to reset to the default
          *                behavior.
          * @see ComponentScope#setLockIconVisible(JComponent, Boolean)
+         * @see GlobalScope#setExtraWidgetsPresence(Boolean)
+         * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setLockIconVisible(Boolean visible) {
             UIManager.put(SubstanceSynapse.HAS_LOCK_ICON, visible);
@@ -996,6 +998,8 @@ public class SubstanceCortex {
          *                icon when they are focused and caps lock is on. Pass <code>null</code> to reset to the
          *                default behavior.
          * @see ComponentScope#setCapsLockIconVisible(JPasswordField, Boolean)
+         * @see GlobalScope#setExtraWidgetsPresence(Boolean)
+         * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setCapsLockIconVisible(Boolean visible) {
             UIManager.put(SubstanceSynapse.HAS_CAPS_LOCK_ICON, visible);
@@ -1061,6 +1065,8 @@ public class SubstanceCortex {
          *                           <code>null</code> to reset to
          *                           the default behavior.
          * @see ComponentScope#setAutomaticScrollPresence(JScrollPane, Boolean)
+         * @see GlobalScope#setExtraWidgetsPresence(Boolean)
+         * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setAutomaticScrollPresence(Boolean hasAutomaticScroll) {
             UIManager.put(SubstanceSynapse.AUTO_SCROLL, hasAutomaticScroll);
@@ -1575,6 +1581,8 @@ public class SubstanceCortex {
          *                when it is in non-editable mode. Pass <code>null</code> to reset to the
          *                default behavior.
          * @see GlobalScope#setLockIconVisible(Boolean)
+         * @see GlobalScope#setExtraWidgetsPresence(Boolean)
+         * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setLockIconVisible(JComponent comp, Boolean visible) {
             if (comp == null) {
@@ -1593,6 +1601,8 @@ public class SubstanceCortex {
          *                      when it is focused and caps lock is on. Pass <code>null</code> to reset to the
          *                      default behavior.
          * @see GlobalScope#setCapsLockIconVisible(Boolean)
+         * @see GlobalScope#setExtraWidgetsPresence(Boolean)
+         * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setCapsLockIconVisible(JPasswordField passwordField, Boolean visible) {
             if (passwordField == null) {
@@ -1683,6 +1693,8 @@ public class SubstanceCortex {
          *                           <code>null</code> to
          *                           reset to the default behavior.
          * @see GlobalScope#setAutomaticScrollPresence(Boolean)
+         * @see GlobalScope#setExtraWidgetsPresence(Boolean)
+         * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setAutomaticScrollPresence(JScrollPane scrollPane,
                 Boolean hasAutomaticScroll) {

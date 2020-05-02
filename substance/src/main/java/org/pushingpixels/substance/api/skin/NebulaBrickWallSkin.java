@@ -46,7 +46,7 @@ public class NebulaBrickWallSkin extends NebulaAccentedSkin {
 	 * Creates a new <code>Nebula Brick Wall</code> skin.
 	 */
 	public NebulaBrickWallSkin() {
-		super(new OrangeColorScheme());
+		super(new AccentBuilder().withWindowChromeAccent(new OrangeColorScheme()));
 	}
 
 	@Override

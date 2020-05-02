@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.SubstanceSkin;
-
 /**
  * <code>Nebula</code> skin. This class is part of officially supported API.
  *
@@ -46,10 +44,9 @@ public class NebulaSkin extends NebulaAccentedSkin {
      * Creates a new <code>Nebula</code> skin.
      */
     public NebulaSkin() {
-        super(SubstanceSkin.getColorSchemes(
-                NebulaAccentedSkin.class.getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/substance/api/skin/nebula.colorschemes"))
-                .get("Nebula Decorations"));
+        super(new AccentBuilder()
+                .withAccentResource("org/pushingpixels/substance/api/skin/nebula.colorschemes")
+                .withWindowChromeAccent("Nebula Decorations"));
     }
 
     @Override

@@ -60,8 +60,8 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 	/**
 	 * Creates a new base accented <code>Nebula</code> skin.
 	 */
-	protected NebulaAccentedSkin(SubstanceColorScheme accentColorScheme) {
-		super(accentColorScheme);
+	protected NebulaAccentedSkin(AccentBuilder accentBuilder) {
+		super(accentBuilder);
 
 		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
@@ -69,11 +69,9 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 
 		SubstanceColorScheme activeScheme = schemes.get("Nebula Active");
 		SubstanceColorScheme enabledScheme = schemes.get("Nebula Enabled");
-		SubstanceColorScheme rolloverUnselectedScheme = schemes
-				.get("Nebula Rollover Unselected");
+		SubstanceColorScheme rolloverUnselectedScheme = schemes.get("Nebula Rollover Unselected");
 		SubstanceColorScheme pressedScheme = schemes.get("Nebula Pressed");
-		SubstanceColorScheme rolloverSelectedScheme = schemes
-				.get("Nebula Rollover Selected");
+		SubstanceColorScheme rolloverSelectedScheme = schemes.get("Nebula Rollover Selected");
 		SubstanceColorScheme disabledScheme = schemes.get("Nebula Disabled");
 
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
@@ -153,7 +151,7 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 				DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER);
 
-		this.registerAsDecorationArea(this.accentColorScheme,
+		this.registerAsDecorationArea(this.getWindowChromeAccent(),
 				DecorationAreaType.PRIMARY_TITLE_PANE,
 				DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER);
@@ -169,11 +167,5 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 		this.highlightPainter = new ClassicHighlightPainter();
 		this.borderPainter = new FlatBorderPainter();
 
-	}
-
-	protected NebulaAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
-		this(SubstanceSkin.getColorSchemes(
-				NebulaAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
-				.get(accentColorSchemeName));
 	}
 }

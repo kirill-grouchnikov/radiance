@@ -55,8 +55,8 @@ public abstract class CremeAccentedSkin extends SubstanceSkin.Accented {
     /**
      * Creates a new accented <code>Creme</code> skin.
      */
-    protected CremeAccentedSkin(SubstanceColorScheme accentColorScheme) {
-        super(accentColorScheme);
+    protected CremeAccentedSkin(AccentBuilder accentBuilder) {
+        super(accentBuilder);
 
         ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
                 this.getClass().getClassLoader().getResourceAsStream(
@@ -65,7 +65,8 @@ public abstract class CremeAccentedSkin extends SubstanceSkin.Accented {
         SubstanceColorScheme disabledScheme = kitchenSinkSchemes.get("Creme Disabled");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-                this.accentColorScheme, enabledScheme, disabledScheme);
+                this.getActiveControlsAccent(), enabledScheme, disabledScheme);
+        defaultSchemeBundle.registerHighlightColorScheme(this.getHighlightsAccent());
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
@@ -91,11 +92,5 @@ public abstract class CremeAccentedSkin extends SubstanceSkin.Accented {
                 new ClassicBorderPainter(), new DelegateBorderPainter(
                 "Creme Inner", new ClassicBorderPainter(),
                 (SubstanceColorScheme scheme) -> scheme.tint(0.9f)));
-    }
-
-    protected CremeAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
-        this(SubstanceSkin.getColorSchemes(
-                CremeAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
-                .get(accentColorSchemeName));
     }
 }

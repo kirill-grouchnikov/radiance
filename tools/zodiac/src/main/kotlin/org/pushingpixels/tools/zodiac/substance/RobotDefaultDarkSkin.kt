@@ -49,7 +49,9 @@ import org.pushingpixels.substance.api.watermark.SubstanceNullWatermark
  * @author Kirill Grouchnikov
  */
 class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
-        SubstanceSkin.Accented(accentColorScheme) {
+        SubstanceSkin.Accented(AccentBuilder()
+                .withActiveControlsAccent(accentColorScheme)
+                .withWindowChromeAccent(accentColorScheme)) {
 
     init {
         this.tabFadeStart = 1.0
@@ -63,7 +65,7 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
                 DecorationAreaType.HEADER)
 
         this.watermark = SubstanceNullWatermark()
-        this.watermarkScheme = accentColorScheme.blendWith(DarkMetallicColorScheme(), 0.5)
+        this.watermarkScheme = this.activeControlsAccent.blendWith(DarkMetallicColorScheme(), 0.5)
 
         this.buttonShaper = ClassicButtonShaper()
         this.fillPainter = ClassicFillPainter()
@@ -77,9 +79,9 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
         this.highlightPainter = ClassicHighlightPainter()
         this.borderPainter = ClassicBorderPainter()
 
-        val inactiveScheme = this.accentColorScheme.blendWith(DarkMetallicColorScheme(), 0.6)
+        val inactiveScheme = this.activeControlsAccent.blendWith(DarkMetallicColorScheme(), 0.6)
         val defaultSchemeBundle = SubstanceColorSchemeBundle(
-                this.accentColorScheme, inactiveScheme, inactiveScheme)
+                this.activeControlsAccent, inactiveScheme, inactiveScheme)
         defaultSchemeBundle.registerAlpha(0.5f,
                 ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
         defaultSchemeBundle.registerColorScheme(inactiveScheme,
@@ -87,14 +89,14 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
 
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE)
 
-        this.registerAsDecorationArea(this.accentColorScheme,
+        this.registerAsDecorationArea(this.windowChromeAccent,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER)
     }
 
     override fun getDisplayName(): String {
-        return NAME + " accent " + this.getAccentColorScheme().displayName
+        return NAME + " accent " + this.activeControlsAccent.displayName
     }
 
     companion object {

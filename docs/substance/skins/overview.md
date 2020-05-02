@@ -316,7 +316,7 @@ public interface ColorSchemeTransform {
 
 Another, more fine grained mechanism for deriving a skin is using **accented skins**. This can be done by extending a skin that extends the `SubstanceSkin.Accented` super class.
 
-Such skins "declare" themselves to support one particular, narrowly scoped kind of derivation - providing a single [color scheme](colorschemes.md) as accent color scheme. It is up to a skin that declares itself as accented to "decide" how to apply that accent color.
+Such skins "declare" themselves to support one particular, narrowly scoped kind of derivation - providing up to five [color schemes](colorschemes.md) as accents. It is up to a skin that declares itself as accented to "decide" how to apply those accent colors.
 
 For example, here are two `Creme` skins that extend the core `CremeAccentedSkin` class:
 
@@ -325,7 +325,7 @@ For example, here are two `Creme` skins that extend the core `CremeAccentedSkin`
 <img alt="Creme Coffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/cremecoffee1.png" width="340" height="258">
 </p>
 
-The first passes a light blue color scheme as the accent, while the second passes a light brown scheme as the accent. In this particular accented skin family, the accent is applied on selected tabs, checkboxes, radio buttons, default buttons and scroll bars.
+The first passes a light blue color scheme as the accent for active controls and cell highlights, while the second passes a light brown scheme as the accent for the same parts of the UI. This particular accented skin family uses these two accent types for selected tabs, checkboxes, radio buttons, default buttons, scroll bars and active cells in tables, trees, and lists.
 
 As another example, here are two `Nebula` skins that extend the core `NebulaAccentedSkin` class:
 
@@ -334,7 +334,7 @@ As another example, here are two `Nebula` skins that extend the core `NebulaAcce
 <img alt="Nebula Brick Wall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="258">
 </p>
 
-The first passes a light silver scheme as the accent, while the second passes an orange scheme as the accent. In this particular accented skin family, the accent is applied on the root pane border, the title pane and the menu bar.
+The first passes a light silver scheme as the window chrome accent, while the second passes an orange scheme as the window chrome accent. This particular accented skin family uses the window chrome accent on the root pane border, the title pane and the menu bar - while maintaining the overall consistency of its visual "language", such as decoration painter, fill painter, color scheme for active controls in the main UI area, etc.
 
 ### Providing custom skins
 

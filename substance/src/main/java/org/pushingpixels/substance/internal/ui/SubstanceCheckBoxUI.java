@@ -117,7 +117,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         SubstanceColorScheme baseFillColorScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(button, ColorSchemeAssociationKind.FILL, currState);
+                .getColorScheme(button, ColorSchemeAssociationKind.MARK_BOX, currState);
         SubstanceColorScheme baseMarkColorScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(button, ColorSchemeAssociationKind.MARK, currState);
         SubstanceColorScheme baseBorderColorScheme = SubstanceColorSchemeUtilities
@@ -167,7 +167,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
             if (stateContribution > 0.0f) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
                 SubstanceColorScheme fillColorScheme = SubstanceColorSchemeUtilities
-                        .getColorScheme(button, ColorSchemeAssociationKind.FILL, activeState);
+                        .getColorScheme(button, ColorSchemeAssociationKind.MARK_BOX, activeState);
                 SubstanceColorScheme markColorScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(button, ColorSchemeAssociationKind.MARK, activeState);
                 SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities

@@ -99,20 +99,17 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
         int checkMarkSize = this.size;
 
-        SubstanceFillPainter fillPainter = SubstanceCoreUtilities
-                .getFillPainter(this.menuItem);
-        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
-                .getBorderPainter(this.menuItem);
+        SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(this.menuItem);
+        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(this.menuItem);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         SubstanceColorScheme baseFillColorScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.FILL, currState);
+                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK_BOX, currState);
         SubstanceColorScheme baseMarkColorScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK, currState);
         SubstanceColorScheme baseBorderColorScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, currState);
-        float visibility = stateTransitionTracker
-                .getFacetStrength(ComponentStateFacet.SELECTION);
+        float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
         float alpha = SubstanceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
         HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize,
@@ -148,17 +145,13 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver
-                        .derive(stateContribution));
+                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
                 SubstanceColorScheme fillColorScheme = SubstanceColorSchemeUtilities
-                        .getColorScheme(this.menuItem,
-                                ColorSchemeAssociationKind.FILL, activeState);
+                        .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK_BOX, activeState);
                 SubstanceColorScheme markColorScheme = SubstanceColorSchemeUtilities
-                        .getColorScheme(this.menuItem,
-                                ColorSchemeAssociationKind.MARK, activeState);
+                        .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK, activeState);
                 SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities
-                        .getColorScheme(this.menuItem,
-                                ColorSchemeAssociationKind.BORDER, activeState);
+                        .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, activeState);
 
                 HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(
                         fontSize, checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),

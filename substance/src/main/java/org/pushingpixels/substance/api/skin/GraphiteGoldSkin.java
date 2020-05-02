@@ -44,7 +44,10 @@ public class GraphiteGoldSkin extends GraphiteAccentedSkin {
 	 * Creates a new <code>Graphite Gold</code> skin.
 	 */
 	public GraphiteGoldSkin() {
-		super("org/pushingpixels/substance/api/skin/graphite.colorschemes", "Graphite Gold");
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/graphite.colorschemes")
+				.withActiveControlsAccent("Graphite Gold")
+				.withHighlightsAccent("Graphite Gold"));
 	}
 
 	@Override

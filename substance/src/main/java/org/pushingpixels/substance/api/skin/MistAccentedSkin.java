@@ -41,8 +41,6 @@ import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
 
-import java.awt.*;
-
 /**
  * Base class for accented <code>Mist</code> skins. This class is part of officially supported API.
  *
@@ -52,8 +50,8 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
     /**
      * Creates a new base accented <code>Mist</code> skin.
      */
-    protected MistAccentedSkin(SubstanceColorScheme accentColorScheme) {
-        super(accentColorScheme);
+    protected MistAccentedSkin(AccentBuilder accentBuilder) {
+        super(accentBuilder);
 
         ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
                 this.getClass().getClassLoader().getResourceAsStream(
@@ -63,16 +61,16 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
         SubstanceColorScheme disabledScheme = colorSchemes.get("Mist Disabled");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-                this.accentColorScheme, enabledScheme, disabledScheme);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+                this.getActiveControlsAccent(), enabledScheme, disabledScheme);
+        defaultSchemeBundle.registerColorScheme(this.getHighlightsAccent(),
                 ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getHighlightsAccent(),
                 ComponentState.SELECTED);
         defaultSchemeBundle.registerColorScheme(enabledScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
 
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.TAB,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 
@@ -81,7 +79,7 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
 
         SubstanceColorScheme generalBackgroundScheme = colorSchemes.get("Mist General Background");
         this.registerDecorationAreaSchemeBundle(
-                new SubstanceColorSchemeBundle(this.accentColorScheme, enabledScheme, disabledScheme),
+                new SubstanceColorSchemeBundle(this.getActiveControlsAccent(), enabledScheme, disabledScheme),
                 generalBackgroundScheme,
                 DecorationAreaType.GENERAL);
 
@@ -97,11 +95,5 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
 
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightPainter = new ClassicHighlightPainter();
-    }
-
-    protected MistAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
-        this(SubstanceSkin.getColorSchemes(
-                MistAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
-                .get(accentColorSchemeName));
     }
 }

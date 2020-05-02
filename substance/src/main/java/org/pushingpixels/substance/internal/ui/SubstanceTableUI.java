@@ -1116,7 +1116,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                         && dropLocation.getColumn() == column) {
                     // mark drop location
                     SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(
-                            table, ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+                            table, ColorSchemeAssociationKind.HIGHLIGHT, currState);
                     SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                             .getColorScheme(table, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
                                     currState);

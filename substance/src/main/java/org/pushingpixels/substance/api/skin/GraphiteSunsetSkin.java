@@ -48,15 +48,18 @@ public class GraphiteSunsetSkin extends GraphiteAccentedSkin {
 	 * Creates a new <code>Graphite Sunset</code> skin.
 	 */
 	public GraphiteSunsetSkin() {
-		super(new SunsetColorScheme());
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/graphite.colorschemes")
+				.withActiveControlsAccent(new SunsetColorScheme())
+				.withHighlightsAccent(new SunsetColorScheme()));
 
 		// Sunset needs tweaks for the enabled / disabled visuals of checkbox and radio button marks
 		// for better contrast
-		defaultSchemeBundle.registerColorScheme(this.getAccentColorScheme(),
+		defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.SELECTED);
 		defaultSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(this.getAccentColorScheme().shade(0.4),
+		defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent().shade(0.4),
 				ColorSchemeAssociationKind.MARK,
 				ComponentState.DISABLED_SELECTED);
 	}

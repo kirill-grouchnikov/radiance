@@ -29,26 +29,8 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.CremeColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SchemeBaseColors;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.substance.api.painter.border.DelegateBorderPainter;
-import org.pushingpixels.substance.api.painter.border.GlassBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-
 /**
- * <code>Creme Coffee</code> skin. This class is part of officially supported
- * API.
+ * <code>Creme Coffee</code> skin. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
@@ -62,7 +44,10 @@ public class CremeCoffeeSkin extends CremeAccentedSkin {
      * Creates a new <code>Creme Coffee</code> skin.
      */
     public CremeCoffeeSkin() {
-        super("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes", "Coffee Active");
+        super(new AccentBuilder()
+                .withAccentResource("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes")
+                .withActiveControlsAccent("Coffee Active")
+                .withHighlightsAccent("Coffee Highlights"));
     }
 
     @Override

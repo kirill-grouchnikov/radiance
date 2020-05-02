@@ -52,8 +52,8 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
     protected SubstanceColorSchemeBundle defaultSchemeBundle;
 
-    protected GraphiteAccentedSkin(SubstanceColorScheme accentColorScheme) {
-        super(accentColorScheme);
+    protected GraphiteAccentedSkin(AccentBuilder accentBuilder) {
+        super(accentBuilder);
 
         ColorSchemes schemes = SubstanceSkin.getColorSchemes(
                 this.getClass().getClassLoader().getResourceAsStream(
@@ -113,19 +113,20 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
         defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED);
         defaultSchemeBundle.registerHighlightAlpha(1.0f, ComponentState.ROLLOVER_SELECTED,
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-        defaultSchemeBundle.registerHighlightColorScheme(this.accentColorScheme, ComponentState.ROLLOVER_UNSELECTED,
+        defaultSchemeBundle.registerHighlightColorScheme(this.getHighlightsAccent(),
+                ComponentState.ROLLOVER_UNSELECTED,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
         defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme, ComponentState.DISABLED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(), ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.FILL,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme.shade(0.2).saturate(0.2),
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent().shade(0.2).saturate(0.2),
                 ColorSchemeAssociationKind.FILL,
                 ComponentState.PRESSED_SELECTED, ComponentState.PRESSED_UNSELECTED);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.TAB,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 
@@ -134,29 +135,23 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
         defaultSchemeBundle.registerColorScheme(borderScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
 
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.MARK,
                 ComponentState.SELECTED);
         defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.MARK,
                 ComponentState.DISABLED_SELECTED);
 
         // text highlight scheme
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getHighlightsAccent(),
                 ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
 
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
-        defaultSchemeBundle.registerColorScheme(this.accentColorScheme,
+        defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ComponentState.ROLLOVER_UNSELECTED);
-    }
-
-    protected GraphiteAccentedSkin(String colorSchemeResourceName, String accentColorSchemeName) {
-        this(SubstanceSkin.getColorSchemes(
-                GraphiteAccentedSkin.class.getClassLoader().getResourceAsStream(colorSchemeResourceName))
-                .get(accentColorSchemeName));
     }
 }

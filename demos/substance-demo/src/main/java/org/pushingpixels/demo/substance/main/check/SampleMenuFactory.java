@@ -252,7 +252,7 @@ public class SampleMenuFactory {
 
     protected static class CustomAccentedSkin extends NebulaAccentedSkin {
         public CustomAccentedSkin() {
-            super(new OliveColorScheme() );
+            super(new AccentBuilder().withWindowChromeAccent(new OliveColorScheme()));
         }
 
         @Override
@@ -286,7 +286,7 @@ public class SampleMenuFactory {
             SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
                     activeScheme.saturate(0.3), activeScheme, disabledScheme);
             this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
-                    headerSchemeBundle.getActiveColorScheme(),
+                    activeScheme.saturate(0.3),
                     DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                     DecorationAreaType.HEADER);
 

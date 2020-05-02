@@ -103,7 +103,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         SubstanceColorScheme baseFillColorScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.FILL, currState);
+                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK_BOX, currState);
         SubstanceColorScheme baseMarkColorScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK, currState);
         SubstanceColorScheme baseBorderColorScheme = SubstanceColorSchemeUtilities
@@ -151,7 +151,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
             if (stateContribution > 0.0f) {
                 g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
                 SubstanceColorScheme fillColorScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                        this.menuItem, ColorSchemeAssociationKind.FILL, activeState);
+                        this.menuItem, ColorSchemeAssociationKind.MARK_BOX, activeState);
                 SubstanceColorScheme markColorScheme = SubstanceColorSchemeUtilities.getColorScheme(
                         this.menuItem, ColorSchemeAssociationKind.MARK, activeState);
                 SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities

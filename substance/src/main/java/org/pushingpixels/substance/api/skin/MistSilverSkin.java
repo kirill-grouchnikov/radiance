@@ -44,7 +44,10 @@ public class MistSilverSkin extends MistAccentedSkin {
 	 * Creates a new <code>Silver</code> skin.
 	 */
 	public MistSilverSkin() {
-		super("org/pushingpixels/substance/api/skin/mist.colorschemes", "Mist Silver Light Blue");
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/mist.colorschemes")
+				.withActiveControlsAccent("Mist Silver Light Blue")
+				.withHighlightsAccent("Mist Silver Light Blue"));
 	}
 
 	@Override

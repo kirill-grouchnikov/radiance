@@ -41,7 +41,6 @@ import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.api.skin.CremeAccentedSkin;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SkinUtilities;
@@ -63,24 +62,134 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     public static final double DEFAULT_TAB_FADE_END = 0.3;
 
     /**
-     * Base class for skins that "accept" an accent color scheme. Accented skins can
-     * be extended to apply that color scheme in a way that highlights certain parts of
+     * Base class for skins that "accept" accent color schemes. Accented skins can
+     * be extended to apply those color schemes in a way that highlights certain parts of
      * the UI while still retaining the "core" feel of the specific skin family. Note that
      * it is up to the specific implementation of the base accented skin to decide which
-     * parts of the UI are painted with the accent color scheme, and that decision may vary
-     * between different base accented skins. Use {@link #getAccentColorScheme()} to get
-     * the accent color scheme if you want to apply that accent in custom-painted parts of
-     * your UI.
+     * parts of the UI are painted with specific accent color schemes, and that decision may vary
+     * between different base accented skins.
+     * <p>
+     * Use {@link #getWindowChromeAccent()}, {@link #getActiveControlsAccent()},
+     * {@link #getEnabledControlsAccent()}, {@link #getHighlightsAccent()} and
+     * {@link #getBackgroundAccent()} to get the accent color schemes if you want to apply
+     * accents in custom-painted parts of your UI.
      */
     public static abstract class Accented extends SubstanceSkin {
-        protected SubstanceColorScheme accentColorScheme;
+        public static class AccentBuilder {
+            private SubstanceColorScheme windowChromeAccent;
+            private SubstanceColorScheme enabledControlsAccent;
+            private SubstanceColorScheme activeControlsAccent;
+            private SubstanceColorScheme highlightsAccent;
+            private SubstanceColorScheme backgroundAccent;
+            private ColorSchemes accentColorSchemes;
 
-        protected Accented(SubstanceColorScheme accentColorScheme) {
-            this.accentColorScheme = accentColorScheme;
+            public AccentBuilder() {
+            }
+
+            public AccentBuilder withAccentResource(String colorSchemeResourceName) {
+                this.accentColorSchemes = SubstanceSkin.getColorSchemes(
+                        AccentBuilder.class.getClassLoader().getResourceAsStream(colorSchemeResourceName));
+                return this;
+            }
+
+            public AccentBuilder withWindowChromeAccent(String windowChromeAccentName) {
+                if (this.accentColorSchemes == null) {
+                    throw new IllegalStateException("Builder not configured with accent resource file");
+                }
+                this.windowChromeAccent = this.accentColorSchemes.get(windowChromeAccentName);
+                return this;
+            }
+
+            public AccentBuilder withWindowChromeAccent(SubstanceColorScheme windowChromeAccent) {
+                this.windowChromeAccent = windowChromeAccent;
+                return this;
+            }
+
+            public AccentBuilder withActiveControlsAccent(String activeControlsAccentName) {
+                if (this.accentColorSchemes == null) {
+                    throw new IllegalStateException("Builder not configured with accent resource file");
+                }
+                this.activeControlsAccent = this.accentColorSchemes.get(activeControlsAccentName);
+                return this;
+            }
+
+            public AccentBuilder withActiveControlsAccent(SubstanceColorScheme activeControlsAccent) {
+                this.activeControlsAccent = activeControlsAccent;
+                return this;
+            }
+
+            public AccentBuilder withEnabledControlsAccent(String enabledControlsAccentName) {
+                if (this.accentColorSchemes == null) {
+                    throw new IllegalStateException("Builder not configured with accent resource file");
+                }
+                this.enabledControlsAccent = this.accentColorSchemes.get(enabledControlsAccentName);
+                return this;
+            }
+
+            public AccentBuilder withEnabledControlsAccent(SubstanceColorScheme enabledControlsAccent) {
+                this.enabledControlsAccent = enabledControlsAccent;
+                return this;
+            }
+
+            public AccentBuilder withHighlightsAccent(String highlightsAccentName) {
+                if (this.accentColorSchemes == null) {
+                    throw new IllegalStateException("Builder not configured with accent resource file");
+                }
+                this.highlightsAccent = this.accentColorSchemes.get(highlightsAccentName);
+                return this;
+            }
+
+            public AccentBuilder withHighlightsAccent(SubstanceColorScheme highlightsAccent) {
+                this.highlightsAccent = highlightsAccent;
+                return this;
+            }
+
+            public AccentBuilder withBackgroundAccent(String backgroundAccentName) {
+                if (this.accentColorSchemes == null) {
+                    throw new IllegalStateException("Builder not configured with accent resource file");
+                }
+                this.backgroundAccent = this.accentColorSchemes.get(backgroundAccentName);
+                return this;
+            }
+
+            public AccentBuilder withBackgroundAccent(SubstanceColorScheme backgroundAccent) {
+                this.backgroundAccent = backgroundAccent;
+                return this;
+            }
         }
 
-        public SubstanceColorScheme getAccentColorScheme() {
-            return this.accentColorScheme;
+        private SubstanceColorScheme windowChromeAccent;
+        private SubstanceColorScheme activeControlsAccent;
+        private SubstanceColorScheme enabledControlsAccent;
+        private SubstanceColorScheme highlightsAccent;
+        private SubstanceColorScheme backgroundAccent;
+
+        protected Accented(AccentBuilder accentBuilder) {
+            this.windowChromeAccent = accentBuilder.windowChromeAccent;
+            this.activeControlsAccent = accentBuilder.activeControlsAccent;
+            this.enabledControlsAccent = accentBuilder.enabledControlsAccent;
+            this.highlightsAccent = accentBuilder.highlightsAccent;
+            this.backgroundAccent = accentBuilder.backgroundAccent;
+        }
+
+        public SubstanceColorScheme getBackgroundAccent() {
+            return this.backgroundAccent;
+        }
+
+        public SubstanceColorScheme getActiveControlsAccent() {
+            return this.activeControlsAccent;
+        }
+
+        public SubstanceColorScheme getEnabledControlsAccent() {
+            return this.enabledControlsAccent;
+        }
+
+        public SubstanceColorScheme getHighlightsAccent() {
+            return this.highlightsAccent;
+        }
+
+        public SubstanceColorScheme getWindowChromeAccent() {
+            return this.windowChromeAccent;
         }
     }
 

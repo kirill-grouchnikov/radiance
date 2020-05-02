@@ -278,7 +278,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 				&& tree.getRowForPath(dropLocation.getPath()) == row) {
 			// mark drop location
 			SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(tree,
-					ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+					ColorSchemeAssociationKind.HIGHLIGHT, currState);
 			SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(tree,
 					ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
 			HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, renderer, rowRectangle,
@@ -291,7 +291,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 					if (alpha > 0.0f) {
 						SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
 								.getColorScheme(this.tree,
-										ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+										ColorSchemeAssociationKind.HIGHLIGHT, currState);
 						SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
 								.getColorScheme(this.tree,
 										ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
@@ -312,7 +312,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 							continue;
 						SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
 								.getColorScheme(this.tree,
-										ColorSchemeAssociationKind.HIGHLIGHT_TEXT, activeState);
+										ColorSchemeAssociationKind.HIGHLIGHT, activeState);
 						SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
 								.getColorScheme(this.tree,
 										ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);

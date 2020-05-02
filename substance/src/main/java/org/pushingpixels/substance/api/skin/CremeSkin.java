@@ -44,7 +44,10 @@ public class CremeSkin extends CremeAccentedSkin {
      * Creates a new <code>Creme</code> skin.
      */
     public CremeSkin() {
-        super("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes", "Creme Active");
+        super(new AccentBuilder()
+                .withAccentResource("org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes")
+                .withActiveControlsAccent("Creme Active")
+                .withHighlightsAccent("Creme Highlights"));
     }
 
     @Override

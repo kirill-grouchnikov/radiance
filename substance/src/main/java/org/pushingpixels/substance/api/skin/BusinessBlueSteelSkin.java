@@ -34,19 +34,13 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.substance.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
 /**
  * <code>Business Blue Steel</code> skin. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class BusinessBlueSteelSkin extends SubstanceSkin {
+public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -56,23 +50,17 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 	 * Creates a new <code>Business Blue Steel</code> skin.
 	 */
 	public BusinessBlueSteelSkin() {
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/business.colorschemes")
+				.withWindowChromeAccent("Business Blue Steel Active Header")
+				.withActiveControlsAccent("Business Blue Steel Active")
+				.withHighlightsAccent("Business Blue Steel Highlight"));
+
 		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/business.colorschemes"));
 
-		SubstanceColorScheme activeScheme = businessSchemes.get("Business Blue Steel Active");
-		SubstanceColorScheme enabledScheme = businessSchemes.get("Business Blue Steel Enabled");
 		SubstanceColorScheme disabledScheme = businessSchemes.get("Business Blue Steel Disabled");
-
-		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-				activeScheme, enabledScheme, disabledScheme);
-
-		SubstanceColorScheme highlightColorScheme = businessSchemes
-				.get("Business Blue Steel Highlight");
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(highlightColorScheme);
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
 		SubstanceColorScheme activeHeaderScheme = businessSchemes
 				.get("Business Blue Steel Active Header");
@@ -85,7 +73,7 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 				ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 		this.registerDecorationAreaSchemeBundle(headerSchemeBundle,
 				DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
-				DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
+				DecorationAreaType.HEADER);
 
 		SubstanceColorScheme activeGeneralScheme = businessSchemes
 				.get("Business Blue Steel Active General");
@@ -97,18 +85,6 @@ public class BusinessBlueSteelSkin extends SubstanceSkin {
 		generalSchemeBundle.registerColorScheme(enabledGeneralScheme, ComponentState.DISABLED_UNSELECTED);
 		this.registerDecorationAreaSchemeBundle(generalSchemeBundle, DecorationAreaType.FOOTER,
 				DecorationAreaType.GENERAL);
-
-		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new ClassicFillPainter();
-		this.borderPainter = new ClassicBorderPainter();
-
-		BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
-		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
-		decorationPainter.setTextureAlpha(0.3f);
-		this.decorationPainter = decorationPainter;
-
-		this.highlightPainter = new ClassicHighlightPainter();
-		this.borderPainter = new ClassicBorderPainter();
 	}
 
 	@Override

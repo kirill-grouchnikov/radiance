@@ -37,6 +37,8 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.skin.CremeCoffeeSkin;
+import org.pushingpixels.substance.api.skin.CremeSkin;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import javax.swing.*;
@@ -333,7 +335,7 @@ public class SampleFrame extends JFrame {
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
             if (System.getProperty("swing.defaultlaf") == null) {
-                SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+                SubstanceCortex.GlobalScope.setSkin(new CremeCoffeeSkin());
             }
             JFrame.setDefaultLookAndFeelDecorated(true);
             SampleFrame sf = new SampleFrame();

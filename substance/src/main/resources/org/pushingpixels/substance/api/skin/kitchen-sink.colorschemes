@@ -9,6 +9,17 @@ Coffee Active {
     colorForeground=#32220F
 }
 
+Coffee Highlights {
+    kind=Light
+    colorUltraLight=#F4DA9A
+    colorExtraLight=#F0D38F
+    colorLight=#EBCD85
+    colorMid=#C79B62
+    colorDark=#AA784F
+    colorUltraDark=#94683B
+    colorForeground=#32220F
+}
+
 LightGray General Background {
     kind=Light
     colorUltraLight=#E9EEF7
@@ -49,6 +60,17 @@ Creme Active {
     colorLight=#C5ECF7
     colorMid=#ACDEF4
     colorDark=#97CEEB
+    colorUltraDark=#9999B9
+    colorForeground=#32220F
+}
+
+Creme Highlights {
+    kind=Light
+    colorUltraLight=#B6E2FC
+    colorExtraLight=#ACDCF3
+    colorLight=#9EE3F7
+    colorMid=#8AD3F4
+    colorDark=#79C4EB
     colorUltraDark=#9999B9
     colorForeground=#32220F
 }

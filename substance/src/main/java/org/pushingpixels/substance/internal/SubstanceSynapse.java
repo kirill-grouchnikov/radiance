@@ -200,11 +200,6 @@ public class SubstanceSynapse {
     public final static String TRACE_FILE = "substancelaf.internal.traceFile";
 
     /**
-     * Client property name for specifying the heap status trace file.
-     */
-    public static final String HEAP_STATUS_TRACE_FILE = "substancelaf.internal.heapStatusTraceFile";
-
-    /**
      * Client property name for specifying the kind of focus indication.
      */
     public final static String FOCUS_KIND = "substancelaf.internal.focusKind";
@@ -236,11 +231,6 @@ public class SubstanceSynapse {
      * Client property name for specifying the preferred height of the title pane.
      */
     public final static String ROOT_PANE_PREFERRED_TITLE_PANE_HEIGHT = "substancelaf.internal.rootPanePreferredTitlePaneHeight";
-
-    /**
-     * Client property name for specifying the horizontal gravity of the button bar content.
-     */
-    public final static String BUTTON_BAR_GRAVITY = "substancelaf.internal.buttonBarGravity";
 
     /**
      * Client property name for specifying the horizontal gravity of the title pane text.

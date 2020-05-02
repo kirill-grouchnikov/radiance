@@ -29,21 +29,12 @@
  */
 package org.pushingpixels.substance.api.skin;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
-
 /**
- * <code>Dust Coffee</code> skin. This class is part of officially supported
- * API.
+ * <code>Dust Coffee</code> skin. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public class DustCoffeeSkin extends DustSkin {
+public class DustCoffeeSkin extends DustAccentedSkin {
     /**
      * Display name for <code>this</code> skin.
      */
@@ -53,54 +44,12 @@ public class DustCoffeeSkin extends DustSkin {
      * Creates a new <code>Dust Coffee</code> skin.
      */
     public DustCoffeeSkin() {
-        SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes"));
-        SubstanceColorScheme activeScheme = kitchenSinkSchemes.get("Coffee Active");
-
-        SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
-                this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/substance/api/skin/dust.colorschemes"));
-        SubstanceColorScheme enabledScheme = schemes.get("Dust Coffee Enabled");
-
-        SubstanceColorScheme backgroundScheme = schemes.get("Dust Coffee Background");
-
-        SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-                activeScheme, enabledScheme, enabledScheme);
-        defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-        defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
-        defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
-
-        // borders and marks
-        SubstanceColorScheme borderEnabledScheme = schemes.get("Dust Border Enabled");
-        defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED,
-                ComponentState.DISABLED_SELECTED,
-                ComponentState.DISABLED_UNSELECTED);
-        defaultSchemeBundle.registerColorScheme(activeScheme,
-                ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
-        defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
-                ColorSchemeAssociationKind.MARK);
-
-        // text highlight
-        SubstanceColorScheme textHighlightScheme = schemes.get("Dust Coffee Text Highlight");
-        defaultSchemeBundle.registerColorScheme(textHighlightScheme,
-                ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
-                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
-
-        // custom highlight alphas
-        defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED);
-        defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
-        defaultSchemeBundle.registerHighlightAlpha(1.0f,
-                ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
-        defaultSchemeBundle.registerHighlightColorScheme(activeScheme,
-                ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.SELECTED,
-                ComponentState.ROLLOVER_SELECTED, ComponentState.ROLLOVER_ARMED);
-
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-                backgroundScheme, DecorationAreaType.NONE);
-
-        this.fillPainter = new MatteFillPainter();
+        super(new AccentBuilder()
+                .withAccentResource("org/pushingpixels/substance/api/skin/dust.colorschemes")
+                .withActiveControlsAccent("Dust Coffee Active")
+                .withEnabledControlsAccent("Dust Coffee Enabled")
+                .withBackgroundAccent("Dust Coffee Background")
+                .withHighlightsAccent("Dust Coffee Text Highlight"));
     }
 
     @Override

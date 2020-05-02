@@ -46,7 +46,9 @@ public class MistAquaSkin extends MistAccentedSkin {
      * Creates a new <code>Mist Aqua</code> skin.
      */
     public MistAquaSkin() {
-        super(new AquaColorScheme());
+        super(new AccentBuilder()
+                .withActiveControlsAccent(new AquaColorScheme())
+                .withHighlightsAccent(new AquaColorScheme()));
     }
 
     @Override

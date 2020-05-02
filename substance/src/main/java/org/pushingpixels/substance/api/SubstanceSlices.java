@@ -132,7 +132,7 @@ public final class SubstanceSlices {
 
                 graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[] { dashLength, dashGap }, dashPhase));
+                        new float[] {dashLength, dashGap}, dashPhase));
 
                 int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
                         : 1;
@@ -172,7 +172,7 @@ public final class SubstanceSlices {
                             - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
                     graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
                             BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] { dashLength, dashGap }, dashPhase));
+                            new float[] {dashLength, dashGap}, dashPhase));
 
                     Shape contour = shaper.getButtonOutline((AbstractButton) mainComp,
                             2 * SubstanceSizeUtils.getBorderStrokeWidth(), mainComp.getWidth(),
@@ -195,7 +195,7 @@ public final class SubstanceSlices {
                             - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
                     graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
                             BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] { dashLength, dashGap }, dashPhase));
+                            new float[] {dashLength, dashGap}, dashPhase));
                     graphics.draw(contour);
                 }
             }
@@ -230,7 +230,7 @@ public final class SubstanceSlices {
                                 - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
                         graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
                                 BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                                new float[] { dashLength, dashGap }, dashPhase));
+                                new float[] {dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
 
                         Shape contour = shaper.getButtonOutline((AbstractButton) mainComp,
@@ -255,7 +255,7 @@ public final class SubstanceSlices {
 
                     graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
                             BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] { dashLength, dashGap }, dashPhase));
+                            new float[] {dashLength, dashGap}, dashPhase));
                     graphics.draw(contour);
                 }
             }
@@ -323,7 +323,7 @@ public final class SubstanceSlices {
 
                 graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[] { dashLength, dashGap }, dashPhase));
+                        new float[] {dashLength, dashGap}, dashPhase));
 
                 graphics.translate(textRect.x - 1, textRect.y);
                 graphics.drawLine(0, textRect.height - 1, textRect.width, textRect.height - 1);
@@ -810,7 +810,7 @@ public final class SubstanceSlices {
      * @author Kirill Grouchnikov
      */
     public final static class DecorationAreaType {
-        String displayName;
+        private String displayName;
 
         public DecorationAreaType(String displayName) {
             this.displayName = displayName;
@@ -876,7 +876,7 @@ public final class SubstanceSlices {
      * example, the {@link JCheckBox} has three different visual areas:
      * <ul>
      * <li>Border - assciated with {@link #BORDER}</li>
-     * <li>Fill - associated with {@link #FILL}</li>
+     * <li>Fill - associated with {@link #MARK_BOX}</li>
      * <li>Check mark - associated with {@link #MARK}</li>
      * </ul>
      * <p>
@@ -912,15 +912,11 @@ public final class SubstanceSlices {
          *
          * @param name     Association kind name.
          * @param fallback Fallback association kind. This is used when no color scheme is
-         *                 associated
-         *                 with this kind. For example, {@link #TAB_BORDER} specifies that its
-         *                 fallback
-         *                 is {@link #BORDER}. When the {@link JTabbedPane} UI delegate is
-         *                 painting the
-         *                 tabs, it will try to use the color scheme associated with
+         *                 associated with this kind. For example, {@link #TAB_BORDER} specifies that its
+         *                 fallback is {@link #BORDER}. When the {@link JTabbedPane} UI delegate is
+         *                 painting the tabs, it will try to use the color scheme associated with
          *                 {@link #TAB_BORDER}.
-         *                 If none was registered, it will fall back to use the color scheme
-         *                 associated
+         *                 If none was registered, it will fall back to use the color scheme associated
          *                 with {@link #BORDER}, and if that is not registered as well, will use the
          *                 color scheme associated with {@link #FILL}.
          */
@@ -938,66 +934,61 @@ public final class SubstanceSlices {
         /**
          * The default visual area that is used for the inner part of most controls.
          */
-        public static final ColorSchemeAssociationKind FILL = new ColorSchemeAssociationKind("fill",
-                null);
+        public static final ColorSchemeAssociationKind FILL = new ColorSchemeAssociationKind("fill", null);
 
         /**
          * Visual area of separators.
          */
-        public static final ColorSchemeAssociationKind SEPARATOR = new ColorSchemeAssociationKind(
-                "separator", FILL);
+        public static final ColorSchemeAssociationKind SEPARATOR = new ColorSchemeAssociationKind("separator", FILL);
 
         /**
          * Fill visual area of the tabs.
          */
-        public static final ColorSchemeAssociationKind TAB = new ColorSchemeAssociationKind("tab",
-                FILL);
+        public static final ColorSchemeAssociationKind TAB = new ColorSchemeAssociationKind("tab", FILL);
 
         /**
          * Border visual area of non-tab controls.
          */
-        public static final ColorSchemeAssociationKind BORDER = new ColorSchemeAssociationKind(
-                "border", FILL);
+        public static final ColorSchemeAssociationKind BORDER = new ColorSchemeAssociationKind("border", FILL);
 
         /**
          * Visual area of marks. Used for painting check marks of checkboxes and radio buttons, as
          * well as arrow icons of combo boxes, spinners and more.
          */
-        public static final ColorSchemeAssociationKind MARK = new ColorSchemeAssociationKind("mark",
-                BORDER);
+        public static final ColorSchemeAssociationKind MARK = new ColorSchemeAssociationKind("mark", BORDER);
+
+        /**
+         * Visual area of mark boxes. Used for painting the box of checkboxes and radio buttons.
+         */
+        public static final ColorSchemeAssociationKind MARK_BOX = new ColorSchemeAssociationKind("markBox", FILL);
 
         /**
          * Border visual area of the tabs.
          */
-        public static final ColorSchemeAssociationKind TAB_BORDER = new ColorSchemeAssociationKind(
-                "tabBorder", BORDER);
+        public static final ColorSchemeAssociationKind TAB_BORDER = new ColorSchemeAssociationKind("tabBorder", BORDER);
 
         /**
          * Highlight visual areas for lists, tables, trees and menus.
          */
-        public static final ColorSchemeAssociationKind HIGHLIGHT = new ColorSchemeAssociationKind(
-                "highlight", FILL);
+        public static final ColorSchemeAssociationKind HIGHLIGHT = new ColorSchemeAssociationKind("highlight", FILL);
 
         /**
          * Highlight visual areas for text components.
          */
         public static final ColorSchemeAssociationKind HIGHLIGHT_TEXT =
-                new ColorSchemeAssociationKind(
-                        "highlightText", HIGHLIGHT);
+                new ColorSchemeAssociationKind("highlightText", HIGHLIGHT);
 
         /**
          * Border visual areas for highlighted regions of lists, tables, trees and menus.
          */
         public static final ColorSchemeAssociationKind HIGHLIGHT_BORDER =
-                new ColorSchemeAssociationKind(
-                        "highlightBorder", BORDER);
+                new ColorSchemeAssociationKind("highlightBorder", BORDER);
 
         /**
          * Visual area of marks in highlighted regions of lists, tables, trees and menus.
          */
         public static final ColorSchemeAssociationKind HIGHLIGHT_MARK =
-                new ColorSchemeAssociationKind(
-                        "highlightMark", MARK);
+                new ColorSchemeAssociationKind("highlightMark", MARK);
 
         /**
          * Returns all available association kinds.
@@ -1075,10 +1066,8 @@ public final class SubstanceSlices {
          *
          * @param name  Facet name.
          * @param value Facet value. This is used in the matching algorithm described in the
-         *              javadocs
-         *              of {@link ComponentState}. The larger the value, the more importance is
-         *              given
-         *              to the specific facet.
+         *              javadocs of {@link ComponentState}. The larger the value, the more importance is
+         *              given to the specific facet.
          */
         public ComponentStateFacet(String name, int value) {
             this.name = name;

@@ -44,7 +44,10 @@ public class GraphiteSiennaSkin extends GraphiteAccentedSkin {
 	 * Creates a new <code>Graphite Sienna</code> skin.
 	 */
 	public GraphiteSiennaSkin() {
-		super("org/pushingpixels/substance/api/skin/graphite.colorschemes", "Graphite Sienna");
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/graphite.colorschemes")
+				.withActiveControlsAccent("Graphite Sienna")
+				.withHighlightsAccent("Graphite Sienna"));
 	}
 
 	@Override

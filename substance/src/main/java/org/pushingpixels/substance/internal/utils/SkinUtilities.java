@@ -114,10 +114,17 @@ public class SkinUtilities {
         Color selectionTextForegroundColor = new ColorUIResource(
                 textHighlightColorScheme.getSelectionForegroundColor());
 
+        SubstanceColorScheme highlightColorScheme = skin.getColorScheme(
+                (Component) null, ColorSchemeAssociationKind.HIGHLIGHT,
+                ComponentState.SELECTED);
+        if (highlightColorScheme == null) {
+            highlightColorScheme = skin.getColorScheme(null,
+                    ComponentState.ROLLOVER_SELECTED);
+        }
         Color selectionCellForegroundColor = new ColorUIResource(
-                textHighlightColorScheme.getForegroundColor());
+                highlightColorScheme.getForegroundColor());
         Color selectionCellBackgroundColor = new ColorUIResource(
-                textHighlightColorScheme.getBackgroundFillColor());
+                highlightColorScheme.getBackgroundFillColor());
 
         UIDefaults.LazyValue popupMenuBorder = (UIDefaults table) -> new SubstancePopupMenuBorder();
 

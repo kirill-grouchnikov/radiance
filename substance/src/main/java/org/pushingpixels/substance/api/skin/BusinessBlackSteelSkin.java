@@ -34,20 +34,13 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.substance.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
 /**
  * <code>Business Black Steel</code> skin. This class is part of officially supported API.
  *
  * @author Kirill Grouchnikov
  */
-public class BusinessBlackSteelSkin extends SubstanceSkin {
+public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -57,28 +50,18 @@ public class BusinessBlackSteelSkin extends SubstanceSkin {
 	 * Creates a new <code>Business Black Steel</code> skin.
 	 */
 	public BusinessBlackSteelSkin() {
+		super(new AccentBuilder()
+				.withAccentResource("org/pushingpixels/substance/api/skin/business.colorschemes")
+				.withWindowChromeAccent("Business Black Steel Active Header")
+				.withActiveControlsAccent("Business Black Steel Active")
+				.withHighlightsAccent("Business Black Steel Active"));
+
 		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/business.colorschemes"));
 
 		SubstanceColorScheme activeScheme = businessSchemes.get("Business Black Steel Active");
-		SubstanceColorScheme enabledScheme = businessSchemes.get("Business Black Steel Enabled");
 		SubstanceColorScheme disabledScheme = businessSchemes.get("Business Black Steel Disabled");
-
-		// the default color scheme bundle
-		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-				activeScheme, enabledScheme, disabledScheme);
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme,
-				ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_UNSELECTED,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
 		// color scheme bundle for title panes
 		SubstanceColorScheme activeHeaderScheme = businessSchemes
@@ -113,23 +96,6 @@ public class BusinessBlackSteelSkin extends SubstanceSkin {
 		generalSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
 		this.registerDecorationAreaSchemeBundle(generalSchemeBundle, DecorationAreaType.FOOTER,
 				DecorationAreaType.GENERAL);
-
-		// add an overlay painter to paint a drop shadow along the top
-		// edge of toolbars
-		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
-
-		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new ClassicFillPainter();
-		this.borderPainter = new ClassicBorderPainter();
-
-		BrushedMetalDecorationPainter decorationPainter = new BrushedMetalDecorationPainter();
-		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());
-		decorationPainter.setTextureAlpha(0.02f);
-		this.decorationPainter = decorationPainter;
-
-		this.highlightPainter = new ClassicHighlightPainter();
-
-		this.borderPainter = new ClassicBorderPainter();
 	}
 
 	@Override

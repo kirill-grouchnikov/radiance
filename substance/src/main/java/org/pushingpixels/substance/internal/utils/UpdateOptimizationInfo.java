@@ -41,110 +41,109 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UpdateOptimizationInfo {
-	private JComponent component;
+    private JComponent component;
 
-	public boolean toDrawWatermark;
+    public boolean toDrawWatermark;
 
-	private Map<ComponentState, SubstanceColorScheme> highlightSchemeMap;
+    private Map<ComponentState, SubstanceColorScheme> highlightSchemeMap;
 
-	private Map<ComponentState, SubstanceColorScheme> highlightBorderSchemeMap;
+    private Map<ComponentState, SubstanceColorScheme> highlightBorderSchemeMap;
 
-	private Map<ComponentState, SubstanceColorScheme> borderSchemeMap;
+    private Map<ComponentState, SubstanceColorScheme> borderSchemeMap;
 
-	private Map<ComponentState, SubstanceColorScheme> fillSchemeMap;
+    private Map<ComponentState, SubstanceColorScheme> fillSchemeMap;
 
-	private Map<ComponentState, Float> highlightAlphaMap;
+    private Map<ComponentState, Float> highlightAlphaMap;
 
-	private SubstanceColorScheme defaultScheme;
+    private SubstanceColorScheme defaultScheme;
 
-	public DecorationAreaType decorationAreaType;
+    public DecorationAreaType decorationAreaType;
 
-	public boolean isInDecorationArea;
+    public boolean isInDecorationArea;
 
-	public UpdateOptimizationInfo(JComponent component) {
-		this.component = component;
+    public UpdateOptimizationInfo(JComponent component) {
+        this.component = component;
 
-		this.toDrawWatermark = SubstanceCoreUtilities.toDrawWatermark(this.component);
-		this.defaultScheme = SubstanceColorSchemeUtilities.getColorScheme(
-				this.component, ComponentState.ENABLED);
-		this.decorationAreaType = ComponentOrParentChainScope.getDecorationType(this.component);
+        this.toDrawWatermark = SubstanceCoreUtilities.toDrawWatermark(this.component);
+        this.defaultScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                this.component, ComponentState.ENABLED);
+        this.decorationAreaType = ComponentOrParentChainScope.getDecorationType(this.component);
 
-		SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.component);
-		this.isInDecorationArea = (this.decorationAreaType != null)
-				&& skin.isRegisteredAsDecorationArea(this.decorationAreaType)
-				&& SubstanceCoreUtilities.isOpaque(this.component);
-	}
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.component);
+        this.isInDecorationArea = (this.decorationAreaType != null)
+                && skin.isRegisteredAsDecorationArea(this.decorationAreaType)
+                && SubstanceCoreUtilities.isOpaque(this.component);
+    }
 
-	public SubstanceColorScheme getHighlightColorScheme(ComponentState state) {
-		if (this.highlightSchemeMap == null) {
-			this.highlightSchemeMap = new HashMap<>();
-		}
-		SubstanceColorScheme result = this.highlightSchemeMap.get(state);
-		if (result == null) {
-			result = SubstanceColorSchemeUtilities
-					.getColorScheme(this.component,
-							ColorSchemeAssociationKind.HIGHLIGHT_TEXT, state);
-			this.highlightSchemeMap.put(state, result);
-		}
-		return result;
-	}
+    public SubstanceColorScheme getHighlightColorScheme(ComponentState state) {
+        if (this.highlightSchemeMap == null) {
+            this.highlightSchemeMap = new HashMap<>();
+        }
+        SubstanceColorScheme result = this.highlightSchemeMap.get(state);
+        if (result == null) {
+            result = SubstanceColorSchemeUtilities.getColorScheme(this.component,
+                    ColorSchemeAssociationKind.HIGHLIGHT, state);
+            this.highlightSchemeMap.put(state, result);
+        }
+        return result;
+    }
 
-	public SubstanceColorScheme getBorderColorScheme(ComponentState state) {
-		if (this.borderSchemeMap == null) {
-			this.borderSchemeMap = new HashMap<>();
-		}
-		SubstanceColorScheme result = this.borderSchemeMap.get(state);
-		if (result == null) {
-			result = SubstanceColorSchemeUtilities.getColorScheme(
-					this.component, ColorSchemeAssociationKind.BORDER, state);
-			this.borderSchemeMap.put(state, result);
-		}
-		return result;
-	}
+    public SubstanceColorScheme getBorderColorScheme(ComponentState state) {
+        if (this.borderSchemeMap == null) {
+            this.borderSchemeMap = new HashMap<>();
+        }
+        SubstanceColorScheme result = this.borderSchemeMap.get(state);
+        if (result == null) {
+            result = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.component, ColorSchemeAssociationKind.BORDER, state);
+            this.borderSchemeMap.put(state, result);
+        }
+        return result;
+    }
 
-	public SubstanceColorScheme getFillColorScheme(ComponentState state) {
-		if (state == ComponentState.ENABLED) {
-			return this.defaultScheme;
-		}
-		if (this.fillSchemeMap == null) {
-			this.fillSchemeMap = new HashMap<>();
-		}
-		SubstanceColorScheme result = this.fillSchemeMap.get(state);
-		if (result == null) {
-			result = SubstanceColorSchemeUtilities.getColorScheme(
-					this.component, state);
-			this.fillSchemeMap.put(state, result);
-		}
-		return result;
-	}
+    public SubstanceColorScheme getFillColorScheme(ComponentState state) {
+        if (state == ComponentState.ENABLED) {
+            return this.defaultScheme;
+        }
+        if (this.fillSchemeMap == null) {
+            this.fillSchemeMap = new HashMap<>();
+        }
+        SubstanceColorScheme result = this.fillSchemeMap.get(state);
+        if (result == null) {
+            result = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.component, state);
+            this.fillSchemeMap.put(state, result);
+        }
+        return result;
+    }
 
-	public SubstanceColorScheme getHighlightBorderColorScheme(
-			ComponentState state) {
-		if (this.highlightBorderSchemeMap == null) {
-			this.highlightBorderSchemeMap = new HashMap<>();
-		}
-		SubstanceColorScheme result = this.highlightBorderSchemeMap.get(state);
-		if (result == null) {
-			result = SubstanceColorSchemeUtilities.getColorScheme(
-					this.component,
-					ColorSchemeAssociationKind.HIGHLIGHT_BORDER, state);
-			this.highlightBorderSchemeMap.put(state, result);
-		}
-		return result;
-	}
+    public SubstanceColorScheme getHighlightBorderColorScheme(
+            ComponentState state) {
+        if (this.highlightBorderSchemeMap == null) {
+            this.highlightBorderSchemeMap = new HashMap<>();
+        }
+        SubstanceColorScheme result = this.highlightBorderSchemeMap.get(state);
+        if (result == null) {
+            result = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.component,
+                    ColorSchemeAssociationKind.HIGHLIGHT_BORDER, state);
+            this.highlightBorderSchemeMap.put(state, result);
+        }
+        return result;
+    }
 
-	public float getHighlightAlpha(ComponentState state) {
-		if (this.highlightAlphaMap == null) {
-			this.highlightAlphaMap = new HashMap<>();
-		}
-		if (!this.highlightAlphaMap.containsKey(state)) {
-			this.highlightAlphaMap.put(state, SubstanceColorSchemeUtilities
-					.getHighlightAlpha(this.component, state));
-		}
-		return this.highlightAlphaMap.get(state);
-	}
+    public float getHighlightAlpha(ComponentState state) {
+        if (this.highlightAlphaMap == null) {
+            this.highlightAlphaMap = new HashMap<>();
+        }
+        if (!this.highlightAlphaMap.containsKey(state)) {
+            this.highlightAlphaMap.put(state, SubstanceColorSchemeUtilities
+                    .getHighlightAlpha(this.component, state));
+        }
+        return this.highlightAlphaMap.get(state);
+    }
 
-	public SubstanceColorScheme getDefaultScheme() {
-		return this.defaultScheme;
-	}
+    public SubstanceColorScheme getDefaultScheme() {
+        return this.defaultScheme;
+    }
 }

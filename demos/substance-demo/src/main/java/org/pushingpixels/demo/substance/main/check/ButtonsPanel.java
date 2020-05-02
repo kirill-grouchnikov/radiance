@@ -289,7 +289,7 @@ public class ButtonsPanel extends JPanel {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 48).padding(Paddings.DIALOG);
+                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 50).padding(Paddings.DIALOG);
 
         builder.append("");
         JLabel bLabel = new JLabel("Buttons");
@@ -400,6 +400,10 @@ public class ButtonsPanel extends JPanel {
                 new ChainCommand<>(
                         new FontCommand(new Font("Arial Unicode MS", Font.PLAIN, 11)),
                         new TextCommand("\u4E01\u4E02\u4E03"), new IconCommand(cn.of(16, 16))));
+        this.addRow(builder, "Japanese", null,
+                new ChainCommand<>(
+                        new FontCommand(new Font("Arial Unicode MS", Font.PLAIN, 11)),
+                        new TextCommand("\u30A2\u30B2\u30C2"), new IconCommand(jp.of(16, 16))));
         this.addRow(builder, "Cyrillic", null, new ChainCommand<>(
                 new TextCommand("\u0430\u0431\u0432"), new IconCommand(ru.of(16, 16))));
         this.addRow(builder, "Greek", null, new ChainCommand<>(

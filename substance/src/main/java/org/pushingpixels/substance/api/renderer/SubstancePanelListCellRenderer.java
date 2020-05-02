@@ -174,7 +174,7 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
                 SubstanceColorScheme scheme = getColorSchemeForState(list, ui, currState);
                 if (isDropLocation) {
                     scheme = SubstanceColorSchemeUtilities.getColorScheme(list,
-                            SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT_TEXT, currState);
+                            SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
                 }
                 labelForeground = new ColorUIResource(scheme.getForegroundColor());
             }

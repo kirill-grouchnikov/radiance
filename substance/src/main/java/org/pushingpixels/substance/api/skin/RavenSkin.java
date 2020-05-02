@@ -85,8 +85,7 @@ public class RavenSkin extends SubstanceSkin {
 						.getActiveStates());
 
 		// text highlight scheme
-		SubstanceColorScheme textHighlightScheme = schemes
-				.get("Graphite Text Highlight");
+		SubstanceColorScheme textHighlightScheme = schemes.get("Graphite Text Highlight");
 		defaultSchemeBundle.registerColorScheme(textHighlightScheme,
 				ColorSchemeAssociationKind.HIGHLIGHT_TEXT,
 				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);

@@ -6,9 +6,9 @@ Substance is released under BSD license. You are free to modify any part of the 
 
 **Can i create my own look-and-feel on top of Substance?**
 
-To create a custom look for branding your application, start by reading the skinning documentation and the code of the core skins in the `org.pushingpixels.substance.api.skin` package.
+To create a custom look for your application, start by reading the [skinning documentation](skins/overview.md) and the code of the core skins in the `org.pushingpixels.substance.api.skin` package.
 
-While you can extend the UI delegates in the `org.pushingpixels.substance.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line (let's say 2019/20) Substance will switch to require Java 9 and will use the Java module system to effectively hide the internal implementation details further.
+While you can extend the UI delegates in the `org.pushingpixels.substance.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line Substance will use the Java module system to effectively hide the internal implementation details further.
 
 **Can I control some aspects of Substance via _UIManager_ or _UIDefaults_ key/value entries like I can with other look-and-feels?**
 
@@ -30,7 +30,7 @@ There are no guarantees about visual compatibility between major or minor releas
 
 This is probably not worth it. A lot of UI related bugs were fixed at the JDK level since Substance started out in 2005. At one point tools such as [Retrotranslator](http://retrotranslator.sourceforge.net/) and [Retroweaver](http://retroweaver.sourceforge.net/) were around, but they did not support the newer classes and methods that Substance is using. Things might have changed since then. Go crazy.
 
-**I like some of the features, but the jar size is too big. How can i get a smaller runnable?**
+**I like some of the features, but the binary size overhead is too much. How can i get a smaller runnable?**
 
 In short - if you like the features, you pay the price. In long - you have a number of options:
 
@@ -44,7 +44,7 @@ Substance provides not only a highly configurable "look" part. It also adds sign
 
 **Why are you breaking my application by enforcing the creation and modification of components on the Event Dispatch Thread (EDT)?**
 
-This has been introduced in version 5.0, and is being extended in every subsequent release. The answer to this question can be found on the "Pushing Pixels" blog in [entry from July 2008](http://www.pushing-pixels.org/?p=368) and in [entry from February 2010](http://www.pushing-pixels.org/?p=1643).
+This has been long been part of Substance. The answer to this question can be found on the "Pushing Pixels" blog in [entry from July 2008](http://www.pushing-pixels.org/?p=368) and in [entry from February 2010](http://www.pushing-pixels.org/?p=1643).
 
 **Scrolling and moving windows leaves the watermark in inconsistent state. Is it a bug?**
 
