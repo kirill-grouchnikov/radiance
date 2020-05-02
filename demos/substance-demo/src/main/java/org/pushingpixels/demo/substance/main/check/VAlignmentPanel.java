@@ -35,6 +35,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 import javax.swing.*;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -123,8 +124,15 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
         String fontName = "Tahoma";
         Font font = new Font(fontName, Font.PLAIN, size);
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-            Font base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+            // Control font we're getting from Substance's font policy is marked as a
+            // UIResource. A font derived from such a font is not guaranteed to not be
+            // a UIResource. As we don't want Substance to reset larger fonts back to the
+            // default (which it can at any point in time if the application-provided font
+            // is a UIResource), create a non-UIResource base font explicitly.
+            Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                     .getControlFont();
+            Font base = StyleContext.getDefaultStyleContext().getFont(controlFont.getFamily(),
+                    controlFont.getStyle(), controlFont.getSize());
             fontName = base.getFamily();
             font = base.deriveFont((float) size);
         }
