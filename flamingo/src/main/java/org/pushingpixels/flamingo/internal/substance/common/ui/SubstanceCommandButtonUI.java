@@ -368,6 +368,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             NeonCortex.drawImage(g2d, fullAlphaBackground, 0, 0);
             g2d.dispose();
         }
