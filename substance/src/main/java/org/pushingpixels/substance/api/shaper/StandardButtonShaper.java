@@ -51,7 +51,7 @@ public class StandardButtonShaper implements SubstanceButtonShaper, RectangularB
     /**
      * Cache of already computed contours.
      */
-    private final static LazyResettableHashMap<GeneralPath> contours = new LazyResettableHashMap<>(
+    private final static LazyResettableHashMap<Shape> contours = new LazyResettableHashMap<>(
             "StandardButtonShaper");
 
     @Override
@@ -60,7 +60,7 @@ public class StandardButtonShaper implements SubstanceButtonShaper, RectangularB
     }
 
     @Override
-    public GeneralPath getButtonOutline(AbstractButton button, float extraInsets, float width,
+    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width,
             float height, boolean isInner) {
         Set<SubstanceSlices.Side> straightSides = SubstanceCoreUtilities.getSides(button,
                 SubstanceSynapse.BUTTON_STRAIGHT_SIDE);
@@ -75,7 +75,7 @@ public class StandardButtonShaper implements SubstanceButtonShaper, RectangularB
         HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, straightSides, radius,
                 extraInsets);
 
-        GeneralPath result = contours.get(key);
+        Shape result = contours.get(key);
         if (result != null) {
             return result;
         }

@@ -34,6 +34,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.Set;
 
 /**
@@ -56,7 +57,7 @@ public class SubstanceOutlineUtilities {
 	 *            Contains all sides which are straight.
 	 * @return The basic outline for the specified parameters.
 	 */
-	public static GeneralPath getBaseOutline(Component comp, float radius,
+	public static Shape getBaseOutline(Component comp, float radius,
 			Set<Side> straightSides) {
 		int width = comp.getWidth();
 		int height = comp.getHeight();
@@ -79,7 +80,7 @@ public class SubstanceOutlineUtilities {
 	 *            Contains all sides which are straight.
 	 * @return The basic outline for the specified parameters.
 	 */
-	public static GeneralPath getBaseOutline(float width, float height,
+	public static Shape getBaseOutline(float width, float height,
 			float radius, Set<Side> straightSides) {
 		return getBaseOutline(width, height, radius, straightSides, 0.0f);
 	}
@@ -101,7 +102,7 @@ public class SubstanceOutlineUtilities {
 	 *            Shape insets.
 	 * @return The basic outline for the specified parameters.
 	 */
-	public static GeneralPath getBaseOutline(float width, float height,
+	public static Shape getBaseOutline(float width, float height,
 			float radius, Set<Side> straightSides, float insets) {
 		boolean isTopLeftCorner = (straightSides != null)
 				&& (straightSides.contains(Side.LEFT) || straightSides

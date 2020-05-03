@@ -687,7 +687,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             width -= 1;
         }
 
-        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(width, height + dy,
+        Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height + dy,
                 cornerRadius, straightSides, borderInsets);
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
@@ -699,7 +699,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
 
         float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-        GeneralPath contourInner = borderPainter.isPaintingInnerContour()
+        Shape contourInner = borderPainter.isPaintingInnerContour()
                 ? SubstanceOutlineUtilities.getBaseOutline(width, height + dy,
                         cornerRadius - borderThickness, straightSides,
                         borderThickness + borderInsets)
@@ -795,7 +795,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             Graphics2D finalGraphics = (Graphics2D) result.getGraphics().create();
 
             if (toPaintBorder) {
-                GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(width, height, 1,
+                Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, 1,
                         null);
                 fillPainter.paintContourBackground(finalGraphics, tabPane, width, height, contour,
                         false, fillScheme, true);

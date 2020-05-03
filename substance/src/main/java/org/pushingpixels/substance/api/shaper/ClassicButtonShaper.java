@@ -39,6 +39,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.Set;
 
 /**
@@ -51,7 +52,7 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
     /**
      * Cache of already computed contours.
      */
-    private final static LazyResettableHashMap<GeneralPath> contours = new LazyResettableHashMap<>(
+    private final static LazyResettableHashMap<Shape> contours = new LazyResettableHashMap<>(
             "ClassicButtonShaper");
 
     /**
@@ -65,7 +66,7 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
     }
 
     @Override
-    public GeneralPath getButtonOutline(AbstractButton button, float extraInsets, float width,
+    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width,
             float height, boolean isInner) {
         Set<SubstanceSlices.Side> straightSides = SubstanceCoreUtilities.getSides(button,
                 SubstanceSynapse.BUTTON_STRAIGHT_SIDE);
@@ -80,7 +81,7 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
         HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, straightSides, radius,
                 extraInsets);
 
-        GeneralPath result = contours.get(key);
+        Shape result = contours.get(key);
         if (result != null) {
             return result;
         }

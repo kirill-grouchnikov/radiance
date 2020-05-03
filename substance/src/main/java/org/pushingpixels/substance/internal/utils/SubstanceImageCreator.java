@@ -121,7 +121,7 @@ public final class SubstanceImageCreator {
         boolean skipInnerBorder = (c instanceof JTextComponent)
                 || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
                         && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
-        GeneralPath contourInner = skipInnerBorder ? null
+        Shape contourInner = skipInnerBorder ? null
                 : SubstanceOutlineUtilities.getBaseOutline(width, height, radius - borderThickness,
                         null, borderThickness + borderDelta);
         borderPainter.paintBorder(graphics, c, width, height, contour, contourInner, borderScheme);
@@ -592,7 +592,7 @@ public final class SubstanceImageCreator {
 
         int contourDim = dimension - delta;
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(contourDim, contourDim,
+        Shape contour = SubstanceOutlineUtilities.getBaseOutline(contourDim, contourDim,
                 cornerRadius, null, borderDelta);
 
         if (!componentState.isActive()) {
@@ -608,7 +608,7 @@ public final class SubstanceImageCreator {
                 fillColorScheme, true);
 
         float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-        GeneralPath contourInner = SubstanceOutlineUtilities.getBaseOutline(contourDim, contourDim,
+        Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(contourDim, contourDim,
                 cornerRadius - borderThickness, null, borderThickness + borderDelta);
         borderPainter.paintBorder(graphics, button, contourDim, contourDim, contour, contourInner,
                 borderColorScheme);

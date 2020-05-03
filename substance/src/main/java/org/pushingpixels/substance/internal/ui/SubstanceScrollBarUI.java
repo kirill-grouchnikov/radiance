@@ -257,7 +257,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             float radius = width / 2;
 
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-            GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(height, width, radius,
+            Shape contour = SubstanceOutlineUtilities.getBaseOutline(height, width, radius,
                     null, borderDelta);
 
             result = SubstanceCoreUtilities.getBlankImage(height, width);
@@ -367,7 +367,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
         float radius = height / 2;
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
+        Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
                 borderDelta);
         BufferedImage opaque = SubstanceScrollBarUI.thumbHorizontalMap.get(key);
         if (opaque == null) {

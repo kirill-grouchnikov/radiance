@@ -210,7 +210,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         float radius = getTaskToggleButtonCornerRadius(button);
         float borderDelta = 2.0f * SubstanceSizeUtils.getBorderStrokeWidth();
         float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-        GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(width,
+        Shape contour = SubstanceOutlineUtilities.getBaseOutline(width,
                 height + 2 + borderDelta, radius, bottom, borderInsets);
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height + 2);
@@ -228,7 +228,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
 
         float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-        GeneralPath contourInner = SubstanceOutlineUtilities.getBaseOutline(width,
+        Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(width,
                 height + 2 + borderDelta, radius, bottom, borderThickness + borderInsets);
 
         borderPainter.paintBorder(graphics, button, width, height + 2, contour, contourInner,

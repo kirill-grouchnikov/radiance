@@ -232,7 +232,7 @@ public class PairwiseButtonBackgroundDelegate {
             int deltaTop = (openSides != null) && openSides.contains(Side.TOP) ? 3 : 0;
             int deltaBottom = (openSides != null) && openSides.contains(Side.BOTTOM) ? 3 : 0;
 
-            GeneralPath contour = null;
+            Shape contour = null;
 
             SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(button);
 

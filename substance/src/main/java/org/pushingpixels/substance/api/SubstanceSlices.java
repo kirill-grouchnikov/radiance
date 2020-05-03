@@ -136,7 +136,7 @@ public final class SubstanceSlices {
 
                 int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
                         : 1;
-                GeneralPath contour = SubstanceOutlineUtilities.getBaseOutline(
+                Shape contour = SubstanceOutlineUtilities.getBaseOutline(
                         textRect.width + 2 * delta, textRect.height,
                         SubstanceSizeUtils.getClassicButtonCornerRadius(fontSize), null);
 

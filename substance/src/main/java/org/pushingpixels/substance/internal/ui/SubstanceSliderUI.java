@@ -291,7 +291,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
             fillPainter.paintContourBackground(cacheGraphics, slider, width, height, contour, false,
                     fillColorScheme, false);
 
-            GeneralPath contourInner = SubstanceOutlineUtilities.getBaseOutline(width + 1,
+            Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(width + 1,
                     height + 1, radius - borderThickness, null, borderThickness + borderDelta);
             borderPainter.paintBorder(cacheGraphics, slider, width + 1, height + 1, contour,
                     contourInner, borderScheme);
