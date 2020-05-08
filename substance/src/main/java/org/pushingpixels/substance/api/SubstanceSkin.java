@@ -62,7 +62,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     public static final double DEFAULT_TAB_FADE_END = 0.3;
 
     /**
-     * Base class for skins that "accept" accent color schemes. Accented skins can
+     * Base class for skins that can be configured with accent color schemes. Accented skins can
      * be extended to apply those color schemes in a way that highlights certain parts of
      * the UI while still retaining the "core" feel of the specific skin family. Note that
      * it is up to the specific implementation of the base accented skin to decide which
@@ -71,8 +71,8 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * <p>
      * Use {@link #getWindowChromeAccent()}, {@link #getActiveControlsAccent()},
      * {@link #getEnabledControlsAccent()}, {@link #getHighlightsAccent()} and
-     * {@link #getBackgroundAccent()} to get the accent color schemes if you want to apply
-     * accents in custom-painted parts of your UI.
+     * {@link #getBackgroundAccent()} to get the accent color schemes for consistent accent usage
+     * in custom-painted parts of your UI.
      */
     public static abstract class Accented extends SubstanceSkin {
         public static class AccentBuilder {
@@ -158,11 +158,11 @@ public abstract class SubstanceSkin implements SubstanceTrait {
             }
         }
 
-        private SubstanceColorScheme windowChromeAccent;
-        private SubstanceColorScheme activeControlsAccent;
-        private SubstanceColorScheme enabledControlsAccent;
-        private SubstanceColorScheme highlightsAccent;
-        private SubstanceColorScheme backgroundAccent;
+        private final SubstanceColorScheme windowChromeAccent;
+        private final SubstanceColorScheme activeControlsAccent;
+        private final SubstanceColorScheme enabledControlsAccent;
+        private final SubstanceColorScheme highlightsAccent;
+        private final SubstanceColorScheme backgroundAccent;
 
         protected Accented(AccentBuilder accentBuilder) {
             this.windowChromeAccent = accentBuilder.windowChromeAccent;

@@ -66,15 +66,13 @@ public class SubstanceKatakanaWatermark implements SubstanceWatermark {
     private static Font getFont() {
         // the following is fix by Dag Joar and Christian Schlichtherle
         // for application running with -Xbootclasspath VM flag. In this case,
-        // the using MyClass.class.getClassLoader() would return null,
+        // using MyClass.class.getClassLoader() would return null,
         // but the context class loader will function properly
         // that classes will be properly loaded regardless of whether the lib is
         // added to the system class path, the extension class path and
         // regardless of the class loader architecture set up by some
         // frameworks.
         ClassLoader cl = SubstanceCoreUtilities.getClassLoaderForResources();
-        // InputStream is = cl.getResourceAsStream("resource/matrix code
-        // nfi.ttf");
         InputStream is = cl.getResourceAsStream(
                 "org/pushingpixels/substance/extras/api/watermarkpack/katakana.ttf");
         if (is != null) {

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -1139,5 +1140,8 @@ public class SkinUtilities {
                 inputMapSet.getTreeAncestorInputMap().getUiMap());
         uiDefaults.put("Tree.focusInputMap",
                 inputMapSet.getTreeFocusInputMap().getUiMap());
+
+        // add user scale factor to allow layout managers (e.g. MigLayout) to use it
+        uiDefaults.put("laf.scaleFactor", (UIDefaults.ActiveValue) t -> NeonCortex.getScaleFactor());
     }
 }

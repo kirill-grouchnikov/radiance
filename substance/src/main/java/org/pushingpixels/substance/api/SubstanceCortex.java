@@ -194,8 +194,7 @@ public class SubstanceCortex {
 
                 UIDefaults lafDefaults = UIManager.getLookAndFeelDefaults();
                 UIDefaults defaults = lafDefaults;
-                // The table will be null when the skin is set using a custom
-                // LAF
+                // The table will be null when the skin is set using a custom LAF
                 if (defaults != null) {
                     initFontDefaults(lafDefaults, getFontPolicy().getFontSet());
                     newSkin.addCustomEntriesToTable(lafDefaults);

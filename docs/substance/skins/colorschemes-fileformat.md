@@ -106,4 +106,4 @@ This way you can have a small collection of "core" colors define the entire appe
 
 <img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/sentinel1.png" width="340" height="258">
 
-This entire skin is defined by a dozen or so core colors, and around 30 color schemes created from these core colors.
+This entire skin is defined by a dozen or so [core colors](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/resources/org/pushingpixels/substance/api/skin/sentinel.colorschemes), and around 30 color schemes created from these core colors.

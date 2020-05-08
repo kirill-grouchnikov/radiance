@@ -23,15 +23,15 @@ Most of the Substance UI delegates use a combination of the above APIs. And even
 
 ### Decorating
 
-[Decoration painters](decoration.md) are used to provide distinct painting to some containers, this setting them "apart" from the rest of the application. As the pattern name implies, this works best on specialized containers and visual areas that are situated along the window edges. Here is an example of SwingX `JXHeader` component:
+[Decoration painters](decoration.md) are used to provide distinct painting to some containers, this setting them "apart" from the rest of the application. As the pattern name implies, this works best on specialized containers and visual areas that are situated along the window edges. Here is an example of Flamingo's breadcrumb bar marked as `header`:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/jxheader.png" width="442" height="322"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/header.png" width="596" height="431"/>
 
-In this scenario, the entire `JXHeader` component is marked to have decoration area type of `header`. SwingX's painter that is set on the component in its custom UI delegate calls the painting method that respects the decoration area type, resulting in consistent visual appearance across all Substance skins.
+In this scenario, the entire `JBreadcrumbBar` component is marked to have decoration area type of `header`. Flamingo's UI delegate for that component calls the painting method that respects the decoration area type, resulting in consistent visual appearance across all Substance skins.
 
 Here is another example of this pattern, this time on a status bar component. Assuming that this component will be placed along the bottom side of the frame, the matching code uses the current decoration painter to provide a distinct appearance of status bar which is consistent with the title pane and menu bar:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/nebulabrickwall-skeleton.png" width="534" height="384"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/footer.png" width="628" height="388"/>
 
 ### Border tracing
 

@@ -840,23 +840,17 @@ public final class SubstanceSlices {
 
         /**
          * Any area that can be placed in the top portion of its window. Menu bar is an example of a
-         * core Swing component. <code>JXHeader</code> and <code>JXTitledPanel</code> titled area
-         * (components from <a href="https://swingx.dev.java.net">SwingX</a> suite) are examples of
-         * third-party components.
+         * core Swing component.
          */
         public final static DecorationAreaType HEADER = new DecorationAreaType("Header");
 
         /**
-         * Any area that can be placed in the bottom portion of its window. <code>JXStatusBar</code>
-         * component from <a href="https://swingx.dev.java.net">SwingX</a> suite is an example of a
-         * third-party component.
+         * Any area that can be placed in the bottom portion of its window.
          */
         public final static DecorationAreaType FOOTER = new DecorationAreaType("Footer");
 
         /**
-         * Any general area that does not fit for the other types. <code>JXTaskPaneContainer</code>
-         * component from <a href="https://swingx.dev.java.net">SwingX</a> suite is an example of a
-         * third-party component.
+         * Any general area that does not fit for the other types.
          */
         public final static DecorationAreaType GENERAL = new DecorationAreaType("General");
 

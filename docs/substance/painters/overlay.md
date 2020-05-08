@@ -6,13 +6,9 @@
 
 The overlays are best illustrated with screenshots. The following screenshot is a skeleton window under the [Nebula Brick Wall](../skins/toneddown.md#nebula-brick-wall) skin:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/nebulabrickwall-skeleton.png" width="534" height="384"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/nebulabrickwall.png" width="646" height="446"/>
 
-This skin defines custom visual appearance for the title pane, the menu bar and the status bar - the background of these areas is painted by the matching decoration painter - in this case, the `org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter`. To add the final polishing touch and create a unique visual footprint for this skin, we use a number of overlay painters:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/nebulabrickwall-overlays.png" width="534" height="384"/>
-
-The Nebula Brick Wall skin defines two separate overlay painters, each one associated with the relevant decoration areas:
+This skin defines custom visual appearance for the title pane, the menu bar and the status bar - the background of these areas is painted by the matching decoration painter - in this case, the `org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter`. To add the final polishing touch and create a unique visual footprint for this skin, we use a number of overlay painters. The Nebula Brick Wall skin defines two separate overlay painters, each one associated with the relevant decoration areas:
 
 ```java
 // add an overlay painter to paint a drop shadow along the top
@@ -36,13 +32,9 @@ this.addOverlayPainter(this.bottomLineOverlayPainter,
 
 Here is the same skeleton window under the [Gemini](../skins/toneddown.md#gemini) skin:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/gemini-skeleton.png" width="534" height="384"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/gemini.png" width="646" height="446"/>
 
-This skin defines custom visual appearance for the title pane, the menu bar, the toolbars and the status bar - the background of these areas is painted by the matching [decoration painter](decoration.md) - in this case, the `org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter`. To add the final polishing touch and create a unique visual footprint for this skin, we use overlay painters:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/gemini-overlays.png" width="534" height="384"/>
-
-The Gemini skin defines a number of overlay painters, each one associated with the relevant decoration areas:
+This skin defines custom visual appearance for the title pane, the menu bar, the toolbars and the status bar - the background of these areas is painted by the matching [decoration painter](decoration.md) - in this case, the `org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter`. To add the final polishing touch and create a unique visual footprint for this skin, we use overlay painters. The Gemini skin defines a number of overlay painters, each one associated with the relevant decoration areas:
 
 ```java
 // add an overlay painter to paint a bezel line along the top
@@ -82,13 +74,9 @@ This skin shows two different ways to add double-line bezel separators - the fir
 
 The last example comes from the [Twilight](../skins/dark.md#twilight) skin:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/twilight-skeleton.png" width="534" height="384"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/twilight.png" width="646" height="446"/>
 
-This skin defines custom visual appearance for the title pane, the menu bar, the toolbars and the status bar - the background of these areas is painted by the matching decoration painter - in this case, the `org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter`. To add the final polishing touch and create a unique visual footprint for this skin, we use overlay painters:
-
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/painters/overlay/twilight-overlays.png" width="534" height="384"/>
-
-The Twilight skin defines a number of overlay painters, each one associated with the relevant decoration areas:
+This skin defines custom visual appearance for the title pane, the menu bar, the toolbars and the status bar - the background of these areas is painted by the matching decoration painter - in this case, the `org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter`. To add the final polishing touch and create a unique visual footprint for this skin, we use overlay painters. The Twilight skin defines a number of overlay painters, each one associated with the relevant decoration areas:
 
 ```java
 // Add overlay painters to paint drop shadows along the bottom

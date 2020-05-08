@@ -42,11 +42,11 @@ In order to define a valid skin, you need to specify all its mandatory parameter
 
 ### Decoration areas
 
-The documentation on decoration painters explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](toneddown.md#moderate) decorates only `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Business Blue Steel skin](toneddown.md#business-blue-steel) also decorates `DecorationAreaType.TOOLBAR`, `DecorationAreaType.FOOTER` and `DecorationAreaType.GENERAL`:
+The documentation on decoration painters explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](toneddown.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](toneddown.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
 
 <p>
 <img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/moderate1.png" width="340" height="258">
-<img alt="Business Blue Steel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/businessbluesteel1.png" width="340" height="258">
+<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebulaamethyst1.png" width="340" height="258">
 </p>
 
 In order to register a custom color scheme bundle and an optional background color scheme on the specific decoration area type(s), use the following APIs:

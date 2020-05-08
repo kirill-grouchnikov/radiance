@@ -2612,6 +2612,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         });
 
         statusBar = builder.build();
+        statusBar.setOpaque(true);
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
                 SubstanceSlices.DecorationAreaType.FOOTER);
 

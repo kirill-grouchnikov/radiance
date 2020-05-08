@@ -54,7 +54,7 @@ public class BrushedMetalDecorationPainter extends ImageWrapperDecorationPainter
 		try {
 			// the following is fix by Dag Joar and Christian Schlichtherle
 			// for application running with -Xbootclasspath VM flag. In this
-			// case, the using MyClass.class.getClassLoader() would return
+			// case, using MyClass.class.getClassLoader() would return
 			// null, but the context class loader will function properly
 			// that classes will be properly loaded regardless of whether
 			// the lib is added to the system class path, the extension class
