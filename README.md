@@ -1,6 +1,6 @@
 # Radiance libraries
 
-Radiance is a collection of libraries for writing modern, elegant and fast Swing applications. It is built with Java 9, and runs on Java 9 or later.
+Radiance is a collection of libraries for writing modern, elegant and fast Swing applications. It is built with Java 9, and runs on Java 9 and later.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="258" border=0>
@@ -16,7 +16,7 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ### Neon
 
-[Neon](docs/neon/neon.md) provides a core set of APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
+[Neon](docs/neon/neon.md) provides APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
 
 ### Photon
 
@@ -28,11 +28,11 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ### Substance
 
-[Substance](docs/substance/substance.md) provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
+[Substance](docs/substance/substance.md) provides a comprehensive set of APIs for skinning Swing applications, addressing the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a flexible API surface for rendering third-party / application components.
 
 ### Flamingo
 
-[Flamingo](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
+[Flamingo](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing the powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
 

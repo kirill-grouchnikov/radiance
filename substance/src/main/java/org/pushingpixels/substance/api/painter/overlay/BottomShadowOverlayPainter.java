@@ -47,7 +47,7 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 public final class BottomShadowOverlayPainter implements SubstanceOverlayPainter {
-	private static Map<Integer, BottomShadowOverlayPainter> MAP = new HashMap<>();
+	private static final Map<Integer, BottomShadowOverlayPainter> MAP = new HashMap<>();
 
 	private static final int DEFAULT_SHADOW_END_ALPHA = 128;
 	private static final int MIN_SHADOW_END_ALPHA = 32;
