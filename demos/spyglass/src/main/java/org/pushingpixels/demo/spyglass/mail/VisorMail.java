@@ -49,6 +49,7 @@ public class VisorMail extends JFrame {
 
         // In the real app the space allocation between the panels will probably be
         // more intelligent, allowing the user to reallocate the available space.
+        // http://www.docking-frames.org/ is one option.
         contentPane.add(new DestinationsPanel(this), BorderLayout.LINE_START);
         contentPane.add(new ThreadListPanel(), BorderLayout.CENTER);
         contentPane.add(new ThreadPanel(), BorderLayout.LINE_END);

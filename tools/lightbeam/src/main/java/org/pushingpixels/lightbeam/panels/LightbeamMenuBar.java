@@ -89,7 +89,7 @@ public class LightbeamMenuBar extends JMenuBar {
 
 			@Override
 			public void setup() {
-				this.menuPaths = new ArrayList<MenuElement[]>();
+				this.menuPaths = new ArrayList<>();
 				for (int i = 0; i < getComponentCount(); i++) {
 					Component comp = getComponent(i);
 					if (comp instanceof JMenu) {
@@ -127,8 +127,9 @@ public class LightbeamMenuBar extends JMenuBar {
 
 				if (menuLeaf instanceof JMenu) {
 					JMenu menu = (JMenu) menuLeaf;
-					if (currentPath == null)
-						currentPath = new LinkedList<JMenu>();
+					if (currentPath == null) {
+						currentPath = new LinkedList<>();
+					}
 					currentPath.addLast(menu);
 					for (int i = 0; i < menu.getMenuComponentCount(); i++) {
 						JMenuItem currItem = menu.getItem(i);
@@ -147,7 +148,13 @@ public class LightbeamMenuBar extends JMenuBar {
 			public void runSingleIteration(int iterationNumber) {
 				MenuSelectionManager.defaultManager().setSelectedPath(
 						this.menuPaths.get(this.perms[iterationNumber]));
-				JRootPane root = SwingUtilities.getRootPane(LightbeamMenuBar.this);
+				List<JPopupMenu> popupMenus = new ArrayList<>();
+				for (MenuElement element : MenuSelectionManager.defaultManager().getSelectedPath()) {
+					if (element instanceof JPopupMenu) {
+						popupMenus.add((JPopupMenu) element);
+					}
+				}
+				JRootPane root = LightbeamMenuBar.this.getRootPane();
 				root.paintImmediately(new Rectangle(0, 0, root.getWidth(), root.getHeight()));
 			}
 
@@ -157,95 +164,4 @@ public class LightbeamMenuBar extends JMenuBar {
 			}
 		};
 	}
-
-//	@PerformanceScenarioParticipant
-//	public PerformanceScenario getCorePopupFactoryMenuSelectionScenario() {
-//		return new PerformanceScenario() {
-//			private List<MenuElement[]> menuPaths;
-//
-//			private int[] perms;
-//
-//			private PopupFactory popupFactory;
-//
-//			@Override
-//			public String getName() {
-//				return "Menu selection with core popup factory";
-//			}
-//
-//			@Override
-//			public void setup() {
-//				this.popupFactory = PopupFactory.getSharedInstance();
-//				PopupFactory.setSharedInstance(new PopupFactory());
-//				this.menuPaths = new ArrayList<MenuElement[]>();
-//				for (int i = 0; i < getComponentCount(); i++) {
-//					Component comp = getComponent(i);
-//					if (comp instanceof JMenu) {
-//						this.scanMenu(null, (JMenu) comp);
-//					}
-//				}
-//				this.perms = LightbeamUtils.getPermutation(menuPaths.size(),
-//						this.getIterationCount());
-//			}
-//
-//			private void scanMenu(LinkedList<JMenu> currentPath,
-//					JMenuItem menuLeaf) {
-//				int count = 1;
-//				if (currentPath != null)
-//					count += 2 * currentPath.size();
-//				if (menuLeaf != null)
-//					count++;
-//				MenuElement[] path = new MenuElement[count];
-//				count = 0;
-//
-//				// the first element is the menu bar itself
-//				path[count++] = LightbeamMenuBar.this;
-//				if (currentPath != null) {
-//					for (JMenu menu : currentPath) {
-//						// JMenu menu = (JMenu) it.next();
-//						path[count++] = menu;
-//						// important - don't forget the popup menu of the menu
-//						path[count++] = menu.getPopupMenu();
-//					}
-//				}
-//				if (menuLeaf != null)
-//					path[count] = menuLeaf;
-//
-//				menuPaths.add(path);
-//
-//				if (menuLeaf instanceof JMenu) {
-//					JMenu menu = (JMenu) menuLeaf;
-//					if (currentPath == null)
-//						currentPath = new LinkedList<JMenu>();
-//					currentPath.addLast(menu);
-//					for (int i = 0; i < menu.getMenuComponentCount(); i++) {
-//						JMenuItem currItem = menu.getItem(i);
-//						scanMenu(currentPath, currItem);
-//					}
-//					currentPath.removeLast();
-//				}
-//			}
-//
-//			@Override
-//			public int getIterationCount() {
-//				return 15;
-//			}
-//
-//			@Override
-//			public void runSingleIteration(int iterationNumber) {
-//				MenuSelectionManager.defaultManager().setSelectedPath(
-//						this.menuPaths.get(this.perms[iterationNumber]));
-//				JRootPane root = SwingUtilities
-//						.getRootPane(LightbeamMenuBar.this);
-//				root.paintImmediately(new Rectangle(0, 0, root.getWidth(), root
-//						.getHeight()));
-//			}
-//
-//			@Override
-//			public void tearDown() {
-//				MenuSelectionManager.defaultManager().clearSelectedPath();
-//				PopupFactory.setSharedInstance(this.popupFactory);
-//			}
-//		};
-//	}
-
 }

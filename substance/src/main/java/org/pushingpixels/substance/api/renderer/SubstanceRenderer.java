@@ -29,14 +29,17 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Marks the default base Substance renderer classes.
  * 
  * @author Kirill Grouchnikov
  */
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SubstanceRenderer {
 }

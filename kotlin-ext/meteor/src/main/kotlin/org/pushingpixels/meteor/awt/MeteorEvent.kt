@@ -28,9 +28,18 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @file:Suppress("NOTHING_TO_INLINE")
+
 package org.pushingpixels.meteor.awt
 
 import java.awt.event.MouseEvent
+import javax.swing.SwingUtilities
 
 inline operator fun MouseEvent.component1() = this.x
 inline operator fun MouseEvent.component2() = this.y
+
+val MouseEvent.isLeftMouseButton: Boolean
+        get() = SwingUtilities.isLeftMouseButton(this)
+val MouseEvent.isMiddleMouseButton: Boolean
+        get() = SwingUtilities.isMiddleMouseButton(this)
+val MouseEvent.isRightMouseButton: Boolean
+        get() = SwingUtilities.isRightMouseButton(this)

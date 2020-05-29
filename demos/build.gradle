@@ -30,10 +30,3 @@
 
 ext.designation = "demo"
 
-buildscript {
-    ext {
-        jgoodies_common_version = '1.8.1'
-        jgoodies_forms_version = '1.9.0'
-    }
-}
-

@@ -226,7 +226,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                     dialog.add(controls, BorderLayout.SOUTH);
 
                                     dialog.setSize(500, 400);
-                                    dialog.setLocationRelativeTo(SwingUtilities.getRootPane(jcomp));
+                                    dialog.setLocationRelativeTo(jcomp.getRootPane());
                                     dialog.setVisible(true);
                                 }));
                         popup.add(showCacheStats);

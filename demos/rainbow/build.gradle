@@ -34,10 +34,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation "com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}"
-    implementation "com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}"
-    implementation "com.fifesoft:rsyntaxtextarea:3.1.1"
-    implementation "org.swinglabs:jxlayer:3.0.4"
+    implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
+    implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
+    implementation "com.fifesoft:rsyntaxtextarea:$rsyntaxtextarea_version"
+    implementation "org.swinglabs:jxlayer:$jxlayer_version"
     implementation project(':neon')
     implementation project(':photon')
     implementation project(':substance')

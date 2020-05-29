@@ -31,6 +31,8 @@ package org.pushingpixels.lightbeam;
 
 import java.lang.annotation.*;
 
+import static java.lang.annotation.ElementType.METHOD;
+
 /**
  * Annotation to mark a method as participating in the performance scenarios. A
  * method marked with this annotation must have zero parameters and return a
@@ -38,6 +40,7 @@ import java.lang.annotation.*;
  * 
  * @author Kirill Grouchnikov
  */
+@Target(value=METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PerformanceScenarioParticipant {
 }

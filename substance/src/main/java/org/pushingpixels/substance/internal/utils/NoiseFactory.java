@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
@@ -40,8 +39,7 @@ import java.awt.image.DataBufferInt;
 import java.awt.image.Kernel;
 
 /**
- * Factory for creating noise images. This class is part of officially supported
- * API.
+ * Factory for creating noise images.
  * 
  * @author Kirill Grouchnikov.
  */
@@ -49,8 +47,8 @@ public class NoiseFactory {
 	/**
 	 * Returns a noise image.
 	 * 
-	 * @param skin
-	 *            The skin to use for rendering the image.
+	 * @param scheme
+	 *            The color scheme to use for rendering the image.
 	 * @param width
 	 *            Image width.
 	 * @param height
@@ -63,14 +61,11 @@ public class NoiseFactory {
 	 *            Indication whether the Z is constant.
 	 * @param toBlur
 	 *            Indication whether the resulting image should be blurred.
-	 * @param isPreview
-	 *            Indication whether the image is in preview mode.
 	 * @return Noise image.
 	 */
-	public static BufferedImage getNoiseImage(SubstanceSkin skin, int width,
+	public static BufferedImage getNoiseImage(SubstanceColorScheme scheme, int width,
 			int height, double xFactor, double yFactor, boolean hasConstantZ,
-			boolean toBlur, boolean isPreview) {
-		SubstanceColorScheme scheme = skin.getWatermarkColorScheme();
+			boolean toBlur) {
 		Color c1 = scheme.getWatermarkDarkColor();
 		// c1 = new Color(255, 0, 0, 0);
 		// System.out.println(c1.getAlpha());

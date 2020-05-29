@@ -32,6 +32,6 @@ alias JAVA="java"
 
 RADIANCE_VERSION=3.0-SNAPSHOT
 CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lightbeam-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar
-WEBLAF_CLASSPATH=../../../thirdparty/weblaf-core-1.2.12.jar:../../../thirdparty/weblaf-plugin-1.2.12.jar:../../../thirdparty/weblaf-ui-1.2.12.jar:../../../thirdparty/weblaf-deps/*
+WEBLAF_CLASSPATH=../../../thirdparty/weblaf-core-1.3.0-SNAPSHOT.jar:../../../thirdparty/weblaf-plugin-1.3.0-SNAPSHOT.jar:../../../thirdparty/weblaf-ui-1.3.0-SNAPSHOT.jar:../../../thirdparty/weblaf-deps/*
 
 java -Dswing.defaultlaf=com.alee.laf.WebLookAndFeel -cp $CLASSPATH:$WEBLAF_CLASSPATH org.pushingpixels.lightbeam.DynamicPerformanceSuite 10

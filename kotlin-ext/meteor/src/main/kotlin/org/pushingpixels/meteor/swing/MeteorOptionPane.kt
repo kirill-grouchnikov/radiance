@@ -31,6 +31,7 @@
 
 package org.pushingpixels.meteor.swing
 
+import org.pushingpixels.meteor.awt.windowAncestor
 import java.awt.Component
 import javax.swing.JOptionPane
 import javax.swing.SwingUtilities
@@ -52,16 +53,16 @@ enum class OptionPaneConfirmType(val optionPaneConstant: Int) {
 
 inline fun Component.showMessageDialogInWindow(message: Any,
         title: String?, messageType: OptionPaneMessageType) {
-    JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(this),
+    JOptionPane.showMessageDialog(this.windowAncestor,
             message, title, messageType.optionPaneConstant)
 }
 
 inline fun Component.showConfirmDialogInWindow(message: Any,
         title: String?, confirmType: OptionPaneConfirmType): Int {
-    return JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(this),
+    return JOptionPane.showConfirmDialog(this.windowAncestor,
             message, title, confirmType.optionPaneConstant)
 }
 
 inline fun Component.showInputDialogInWindow(message: Any, title: String?): String? {
-    return JOptionPane.showInputDialog(SwingUtilities.getWindowAncestor(this), message, title)
+    return JOptionPane.showInputDialog(this.windowAncestor, message, title)
 }

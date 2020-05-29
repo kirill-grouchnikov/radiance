@@ -42,8 +42,8 @@ dependencies {
     implementation project(':kotlin-ext:ember')
     implementation project(':kotlin-ext:meteor')
     implementation project(':demos:flamingo-demo')
-    implementation "com.jgoodies:jgoodies-common:${parent.ext.jgoodies_common_version}"
-    implementation "com.jgoodies:jgoodies-forms:${parent.ext.jgoodies_forms_version}"
+    implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
+    implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
 }
 
 ext.designation = "demo"

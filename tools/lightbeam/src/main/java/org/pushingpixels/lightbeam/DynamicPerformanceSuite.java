@@ -87,7 +87,7 @@ public class DynamicPerformanceSuite {
     }
 
     public DynamicPerformanceSuite() {
-        this.scenarios = new TreeMap<String, ComponentInfo>();
+        this.scenarios = new TreeMap<>();
         this.tabs = new JTabbedPane();
 
         try {
@@ -110,11 +110,16 @@ public class DynamicPerformanceSuite {
             }
         }
 
-        this.scenarioTimes = new ArrayList<ScenarioTimesInfo>();
+        this.scenarioTimes = new ArrayList<>();
     }
 
     public void initialize() {
         this.frame = new JFrame("Dynamic performance suite");
+
+        // The empty panel is added to the tabbed pane and set as selected for the menubar scenario
+        // so that we measure how much time it takes to paint "just" the selected menu path
+        JPanel emptyPanel = new JPanel();
+        this.tabs.addTab("Empty", emptyPanel);
 
         ButtonsPanel buttonsPanel = new ButtonsPanel();
         this.scanAndAddTab("Buttons", buttonsPanel);
@@ -175,7 +180,7 @@ public class DynamicPerformanceSuite {
 
         this.frame.add(this.tabs, BorderLayout.CENTER);
         this.frame.add(controls, BorderLayout.SOUTH);
-        this.frame.setSize(800, 600);
+        this.frame.setSize(860, 600);
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.frame.setVisible(true);
@@ -203,9 +208,7 @@ public class DynamicPerformanceSuite {
 
                 final boolean isTabPanel = (tabs.indexOfComponent(tabComponent) >= 0);
                 try {
-                    // must run scenario setup on EDT
-                    // since most probably it involves
-                    // UI-related operations
+                    // must run scenario setup on EDT since most probably it involves UI-related operations
                     SwingUtilities.invokeAndWait(() -> {
                         tabs.setVisible(isTabPanel);
                         if (!isTabPanel) {
@@ -227,7 +230,7 @@ public class DynamicPerformanceSuite {
                 long startEdtUser = threadBean.getThreadUserTime(edtThreadId);
                 long startEdtCPU = threadBean.getThreadCpuTime(edtThreadId);
 
-                SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
+                SwingWorker<Void, Integer> worker = new SwingWorker<>() {
                     @Override
                     protected Void doInBackground() throws Exception {
                         // System.out
@@ -254,8 +257,6 @@ public class DynamicPerformanceSuite {
                         latch.countDown();
                     }
                 };
-                // System.out.println("Executing worker"
-                // );
                 worker.execute();
 
                 try {
@@ -296,27 +297,6 @@ public class DynamicPerformanceSuite {
                     getTimes(tabTitle, scenario.getName()).times.add(time / 1000000);
                 }
 
-                // System.out.println(tabTitle + " : " + scenario.getName());
-                // System.out.println("\tTime: " + time / 1000000
-                // + " ms, EDT CPU time: " + edtCPUTime / 1000000
-                // + " ms, EDT user time: " + edtUserTime / 1000000
-                // + " ms");
-                // long heapSize = Runtime.getRuntime().totalMemory();
-                // long heapFreeSize = Runtime.getRuntime().freeMemory();
-                // int heapSizeKB = (int) (heapSize / 1024);
-                // int takenHeapSizeKB = (int) ((heapSize - heapFreeSize) / 1024
-                // );
-                // System.out.println("\tHeap before GC: " + takenHeapSizeKB
-                // + " out of " + heapSizeKB);
-                //
-                // System.gc();
-                //
-                // heapSize = Runtime.getRuntime().totalMemory();
-                // heapFreeSize = Runtime.getRuntime().freeMemory();
-                // heapSizeKB = (int) (heapSize / 1024);
-                // takenHeapSizeKB = (int) ((heapSize - heapFreeSize) / 1024);
-                // System.out.println("\tHeap after GC: " + takenHeapSizeKB
-                // + " out of " + heapSizeKB);
             }
         }
         System.out.println("\n" + total / 1000000 + " total");
@@ -386,7 +366,7 @@ public class DynamicPerformanceSuite {
 
     private void scan(String title, Component comp) {
         Class<?> compClass = comp.getClass();
-        List<PerformanceScenario> scenarioList = new LinkedList<PerformanceScenario>();
+        List<PerformanceScenario> scenarioList = new LinkedList<>();
         ComponentInfo componentInfo = new ComponentInfo(comp, scenarioList);
         scenarios.put(title, componentInfo);
         for (Method m : compClass.getDeclaredMethods()) {
@@ -403,11 +383,7 @@ public class DynamicPerformanceSuite {
                 }
             }
         }
-        componentInfo.scenarios.sort(new Comparator<PerformanceScenario>() {
-            public int compare(PerformanceScenario o1, PerformanceScenario o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        componentInfo.scenarios.sort(Comparator.comparing(PerformanceScenario::getName));
     }
 
     private void scanAndAddTab(String tabTitle, Component tabComp) {

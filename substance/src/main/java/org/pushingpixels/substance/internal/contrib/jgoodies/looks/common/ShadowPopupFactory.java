@@ -73,7 +73,7 @@ public final class ShadowPopupFactory extends PopupFactory {
      * shadow effect. The two following constants define the names of
      * these client properties.
      *
-     * @see org.pushingpixels.substance.internal.contrib.jgoodies.looks.jgoodies.looks.common.ShadowPopupBorder
+     * @see ShadowPopupBorder
      */
     static final String PROP_HORIZONTAL_BACKGROUND = "jgoodies.hShadowBg";
     static final String PROP_VERTICAL_BACKGROUND   = "jgoodies.vShadowBg";

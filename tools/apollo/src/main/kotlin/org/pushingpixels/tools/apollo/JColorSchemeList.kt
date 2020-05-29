@@ -30,6 +30,7 @@
 package org.pushingpixels.tools.apollo
 
 import org.pushingpixels.meteor.addDelayedActionListener
+import org.pushingpixels.meteor.awt.windowAncestor
 import org.pushingpixels.meteor.swing.*
 import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
@@ -76,7 +77,7 @@ class JColorSchemeList : JComponent() {
             val jfc = JFileChooser()
             val filter = FileNameExtensionFilter("Color scheme files", "colorschemes")
             jfc.fileFilter = filter
-            val returnVal = jfc.showSaveDialog(SwingUtilities.getWindowAncestor(this))
+            val returnVal = jfc.showSaveDialog(this.windowAncestor)
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 var res = jfc.selectedFile.absolutePath
                 if (!res.endsWith(".colorschemes")) {

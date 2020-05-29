@@ -27,16 +27,39 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+@file:Suppress("NOTHING_TO_INLINE")
+package org.pushingpixels.meteor.awt
 
-apply plugin: 'java'
+import java.awt.Component
+import java.awt.Window
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+import javax.swing.JPopupMenu
+import javax.swing.JRootPane
+import javax.swing.SwingUtilities
 
-dependencies {
-    implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
-    implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
+/**
+ * Wires the [popup] to this component, with the optional [popupMenuAction] to be invoked right before the popup
+ * is shown.
+ */
+fun Component.wirePopup(popup: JPopupMenu, popupMenuAction: ((JPopupMenu) -> Unit)? = null) {
+    this.addMouseListener(object: MouseAdapter() {
+        override fun mousePressed(e: MouseEvent) {
+            maybeShowPopup(e)
+        }
+
+        override fun mouseReleased(e: MouseEvent) {
+            maybeShowPopup(e)
+        }
+
+        private fun maybeShowPopup(e: MouseEvent) {
+            if (e.isPopupTrigger) {
+                popupMenuAction?.invoke(popup)
+                popup.show(e.component, e.x, e.y)
+            }
+        }
+    })
 }
 
-ext.designation = "tools"
-
-jar {
-    archiveBaseName = "${rootProject.name}-${project.name}"
-}
+val Component.windowAncestor: Window?
+    get() = SwingUtilities.getWindowAncestor(this)
