@@ -23,7 +23,7 @@ Some of the Radiance libraries have third-party dependencies. To print the full 
 ```
 ------------------ photon -------------------
 org.apache.xmlgraphics:batik-all:1.12
-org.pushing-pixels:neon:3.0-SNAPSHOT
+org.pushing-pixels:neon:3.0.0
 ```
 
 To locally copy these dependencies (in case you do not want to pull them at build time with Gradle in your own environment), use the following:

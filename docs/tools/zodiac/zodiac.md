@@ -34,7 +34,7 @@ For example, to run Zodiac to create screenshots for the Autumn skin:
 
 `alias JAVA="java"`
 
-`RADIANCE_VERSION=3.0-SNAPSHOT`
+`RADIANCE_VERSION=3.0.0`
 
 `KOTLIN_VERSION=1.3.50`
 
