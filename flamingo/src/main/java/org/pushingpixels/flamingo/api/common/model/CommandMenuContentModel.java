@@ -85,8 +85,7 @@ public class CommandMenuContentModel implements ContentModel {
         }
         this.panelContentModel = panelContentModel;
         if (this.panelContentModel != null) {
-            this.panelContentModel.addChangeListener(
-                    (ChangeEvent changeEvent) -> fireStateChanged());
+            this.panelContentModel.addChangeListener((ChangeEvent changeEvent) -> fireStateChanged());
         }
     }
 

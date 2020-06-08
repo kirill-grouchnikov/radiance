@@ -53,7 +53,7 @@ In order to run the same frame under **Substance** look and feel, you first need
 * Start your VM with `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel");`
-* `SubstanceLookAndFeel.setSkin(new BusinessSkin());`
+* `SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());`
 
 The first option doesn't require any code changes in the application above. Run the following script:
 

@@ -41,7 +41,7 @@ enum class KeyboardActionScopeType(val scopeTypeConstant: Int) {
 }
 
 inline fun JToolBar.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JButton {
-    return this.add(object: AbstractAction(name) {
+    return this.add(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }
@@ -49,7 +49,7 @@ inline fun JToolBar.addAction(name: String, crossinline action: (ActionEvent?) -
 }
 
 inline fun JMenu.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JMenuItem {
-    return this.add(object: AbstractAction(name) {
+    return this.add(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }
@@ -58,7 +58,7 @@ inline fun JMenu.addAction(name: String, crossinline action: (ActionEvent?) -> U
 
 inline fun JMenu.insertAction(name: String, position: Int,
         crossinline action: (ActionEvent?) -> Unit): JMenuItem {
-    return this.insert(object: AbstractAction(name) {
+    return this.insert(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }
@@ -66,7 +66,7 @@ inline fun JMenu.insertAction(name: String, position: Int,
 }
 
 inline fun JPopupMenu.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JMenuItem {
-    return this.add(object: AbstractAction(name) {
+    return this.add(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }
@@ -75,7 +75,7 @@ inline fun JPopupMenu.addAction(name: String, crossinline action: (ActionEvent?)
 
 inline fun JPopupMenu.insertAction(name: String, position: Int,
         crossinline action: (ActionEvent?) -> Unit) {
-    this.insert(object: AbstractAction(name) {
+    this.insert(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }
@@ -83,7 +83,7 @@ inline fun JPopupMenu.insertAction(name: String, position: Int,
 }
 
 inline fun ActionMap.putAction(name: String, crossinline action: (ActionEvent?) -> Unit) {
-    this.put(name, object: AbstractAction(name) {
+    this.put(name, object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }
@@ -95,7 +95,26 @@ inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKeyStroke:
         crossinline action: (ActionEvent?) -> Unit) {
     val inputMap = this.getInputMap(scopeType.scopeTypeConstant)
     inputMap.put(actionKeyStroke, actionName)
-    this.actionMap.put(actionName, object: AbstractAction(actionName) {
+    this.actionMap.put(actionName, object : AbstractAction(actionName) {
+        override fun actionPerformed(e: ActionEvent?) {
+            action.invoke(e)
+        }
+    })
+}
+
+
+inline fun JComponent.wireActionToKeyStrokes(actionName: String,
+        actionKeyStrokes: Collection<KeyStroke>,
+        scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
+        crossinline action: (ActionEvent?) -> Unit) {
+    // Make sure that we have at least one KeyStroke =
+    require(actionKeyStrokes.isNotEmpty()) { "Cannot pass an empty collection of KeyStroke objects" }
+
+    val inputMap = this.getInputMap(scopeType.scopeTypeConstant)
+    for (actionKeyStroke in actionKeyStrokes) {
+        inputMap.put(actionKeyStroke, actionName)
+    }
+    this.actionMap.put(actionName, object : AbstractAction(actionName) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
         }

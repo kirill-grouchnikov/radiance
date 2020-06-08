@@ -59,7 +59,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commandToggleGroup = KCommandToggleGroupModel()
 
     operator fun KCommand.unaryPlus() {
-        this@KCommandStrip.commandConfigs.add(KCommandGroup.CommandConfig(this, null, null, null, null))
+        this@KCommandStrip.commandConfigs.add(KCommandGroup.CommandConfig(this, null, null, null, null, null))
     }
 
     fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
@@ -76,7 +76,7 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
             // And associate it with our implicit toggle group
             command.toggleGroup = commandToggleGroup
         }
-        commandConfigs.add(KCommandGroup.CommandConfig(command, actionKeyTip, null, null, null))
+        commandConfigs.add(KCommandGroup.CommandConfig(command, actionKeyTip, null, null, null, null))
         return command
     }
 

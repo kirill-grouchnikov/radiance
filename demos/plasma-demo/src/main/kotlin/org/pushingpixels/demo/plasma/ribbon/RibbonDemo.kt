@@ -39,6 +39,7 @@ import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
@@ -240,7 +241,7 @@ private class ExpandCommandListener : (CommandActionEvent?) -> Unit {
 }
 
 private class SimpleResizableIcon(private val priority: PresentationPriority,
-                                  private var currWidth: Int, private var currHeight: Int) : ResizableIcon {
+        private var currWidth: Int, private var currHeight: Int) : ResizableIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
@@ -1745,10 +1746,26 @@ fun main() {
             }
 
             anchored {
-                command(actionKeyTip = "GS") {
+                command(popupKeyTip = "GS", popupHorizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.END) {
                     title = builder.resourceBundle.getString("Share.title")
                     iconFactory = Internet_mail.factory()
-                    action = { JOptionPane.showMessageDialog(null, "Share button clicked") }
+
+                    menu = commandPopupMenu {
+                        command(actionKeyTip = "E") {
+                            title = builder.resourceBundle.getString("AppMenuSend.email.text")
+                            action = { println("Shared to email") }
+                        }
+
+                        command(actionKeyTip = "H") {
+                            title = builder.resourceBundle.getString("AppMenuSend.html.text")
+                            action = { println("Shared to browser") }
+                        }
+
+                        command(actionKeyTip = "W") {
+                            title = builder.resourceBundle.getString("AppMenuSend.word.text")
+                            action = { println("Shared to Word") }
+                        }
+                    }
                 }
 
                 command(actionKeyTip = "GC") {

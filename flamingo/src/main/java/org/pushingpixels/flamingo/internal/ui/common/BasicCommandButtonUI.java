@@ -1,37 +1,38 @@
 /*
  * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
 import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
@@ -60,7 +61,7 @@ import java.util.Set;
 
 /**
  * Basic UI for command button {@link JCommandButton}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicCommandButtonUI extends CommandButtonUI {
@@ -73,7 +74,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Property change listener.
      */
     private PropertyChangeListener propertyChangeListener;
-    
+
     private PropertyChangeListener projectionPropertyChangeListener;
 
     /**
@@ -94,7 +95,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Client property to mark the command button to not dispose the popups on activation.
-     * 
+     *
      * @see #disposePopupsActionListener
      */
     public static final String DONT_DISPOSE_POPUPS =
@@ -104,7 +105,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * This listener disposes all popup panels when button's action is activated. An example of
      * scenario would be a command button in the popup panel of an in-ribbon gallery. When this
      * command button is activated, the associated popup panel is dismissed.
-     * 
+     *
      * @see #DONT_DISPOSE_POPUPS
      */
     private CommandAction disposePopupsActionListener;
@@ -443,7 +444,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Creates the icon for the popup area.
-     * 
+     *
      * @return The icon for the popup area.
      */
     protected ResizableIcon createPopupActionIcon() {
@@ -452,9 +453,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Creates the button listener for the specified command button.
-     * 
-     * @param b
-     *            Command button.
+     *
+     * @param b Command button.
      * @return The button listener for the specified command button.
      */
     protected BasicCommandButtonListener createButtonListener(AbstractCommandButton b) {
@@ -538,7 +538,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Returns the current icon.
-     * 
+     *
      * @return Current icon.
      */
     protected Icon getIconToPaint() {
@@ -615,7 +615,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Returns the layout gap for the visuals of the associated command button.
-     * 
+     *
      * @return The layout gap for the visuals of the associated command button.
      */
     protected int getLayoutGap() {
@@ -628,7 +628,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Returns indication whether the action-popup areas separator is painted.
-     * 
+     *
      * @return <code>true</code> if the action-popup areas separator is painted.
      */
     protected boolean isPaintingSeparators() {
@@ -642,7 +642,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Returns indication whether the button background is painted.
-     * 
+     *
      * @return <code>true</code> if the button background is painted.
      */
     protected boolean isPaintingBackground() {
@@ -663,7 +663,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     /**
      * Creates the popup action listener for this command button.
-     * 
+     *
      * @return Popup action listener for this command button.
      */
     protected PopupActionListener createPopupActionListener() {
@@ -714,26 +714,31 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 JPopupPanel.PopupPanelCustomizer customizer = popupPanel.getCustomizer();
                 boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
                 if (customizer == null) {
-                    switch (((JCommandButton) commandButton).getPopupOrientationKind()) {
-                    case DOWNWARD:
-                        if (ltr) {
-                            x = commandButton.getLocationOnScreen().x;
-                        } else {
-                            x = commandButton.getLocationOnScreen().x + commandButton.getWidth()
-                                    - popupPanel.getPreferredSize().width;
-                        }
-                        y = commandButton.getLocationOnScreen().y + commandButton.getSize().height;
-                        break;
-                    case SIDEWARD:
-                        if (ltr) {
-                            x = commandButton.getLocationOnScreen().x + commandButton.getWidth();
-                        } else {
-                            x = commandButton.getLocationOnScreen().x
-                                    - popupPanel.getPreferredSize().width;
-                        }
-                        y = commandButton.getLocationOnScreen().y
-                                + getLayoutInfo().popupClickArea.y;
-                        break;
+                    switch (jcb.getPopupOrientationKind()) {
+                        case DOWNWARD:
+                            CommandButtonPresentationModel.PopupHorizontalGravity popupHorizontalGravity =
+                                    jcb.getPopupHorizontalGravity();
+                            boolean isLeftAligned =
+                                    (ltr && (popupHorizontalGravity == CommandButtonPresentationModel.PopupHorizontalGravity.START)) ||
+                                            (!ltr && (popupHorizontalGravity == CommandButtonPresentationModel.PopupHorizontalGravity.END));
+                            if (isLeftAligned) {
+                                x = commandButton.getLocationOnScreen().x;
+                            } else {
+                                x = commandButton.getLocationOnScreen().x + commandButton.getWidth()
+                                        - popupPanel.getPreferredSize().width;
+                            }
+                            y = commandButton.getLocationOnScreen().y + commandButton.getSize().height;
+                            break;
+                        case SIDEWARD:
+                            if (ltr) {
+                                x = commandButton.getLocationOnScreen().x + commandButton.getWidth();
+                            } else {
+                                x = commandButton.getLocationOnScreen().x
+                                        - popupPanel.getPreferredSize().width;
+                            }
+                            y = commandButton.getLocationOnScreen().y
+                                    + getLayoutInfo().popupClickArea.y;
+                            break;
                     }
                 } else {
                     Rectangle placementRect = customizer.getScreenBounds();

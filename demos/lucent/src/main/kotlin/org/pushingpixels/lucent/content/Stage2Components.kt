@@ -33,10 +33,11 @@ import org.pushingpixels.lucent.AlbumOverviewComponent
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.details.DetailsWindowManager
 import org.pushingpixels.meteor.addDelayedMouseListener
+import org.pushingpixels.meteor.swing.KeyboardActionScopeType
+import org.pushingpixels.meteor.swing.wireActionToKeyStrokes
 import java.awt.Graphics
-import java.awt.event.ActionEvent
 import java.util.*
-import javax.swing.*
+import javax.swing.KeyStroke
 
 /**
  * Adds the following functionality to the album scroller container:
@@ -54,7 +55,7 @@ open class Stage2Components : Stage1LoadingProgress() {
      * The list of album overview components. Each component added with
      * [.addAlbumItem] is added to this list.
      */
-    internal var comps: MutableList<AlbumOverviewComponent>
+    internal var comps: MutableList<AlbumOverviewComponent> = ArrayList()
 
     /**
      * Indicates which album overview component is displayed at the left edge of
@@ -83,8 +84,6 @@ open class Stage2Components : Stage1LoadingProgress() {
      * Creates the new container that can host album overview components.
      */
     init {
-        this.comps = ArrayList()
-
         // register the mouse wheel listener for scrolling content
         this.addMouseWheelListener { e ->
             if (e.wheelRotation > 0) {
@@ -96,34 +95,17 @@ open class Stage2Components : Stage1LoadingProgress() {
             }
         }
 
-        // create the key input maps to handle the scrolling
-        // with left / right arrows
-        val inputMap = ComponentInputMap(this)
-        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "right")
-        inputMap.put(KeyStroke.getKeyStroke("KP_RIGHT"), "right")
-        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "left")
-        inputMap.put(KeyStroke.getKeyStroke("KP_LEFT"), "left")
-
-        // create the relevant action map
-        val rightAction = object : AbstractAction("right") {
-            override fun actionPerformed(e: ActionEvent) {
-                // next
-                scrollToNext()
-            }
+        // handle the scrolling with left / right arrows
+        this.wireActionToKeyStrokes("right",
+                setOf(KeyStroke.getKeyStroke("RIGHT"), KeyStroke.getKeyStroke("KP_RIGHT")),
+                KeyboardActionScopeType.WHEN_IN_FOCUSED_WINDOW_TYPE) {
+            scrollToNext()
         }
-        val leftAction = object : AbstractAction("left") {
-            override fun actionPerformed(e: ActionEvent) {
-                // previous
-                scrollToPrevious()
-            }
+        this.wireActionToKeyStrokes("left",
+                setOf(KeyStroke.getKeyStroke("LEFT"), KeyStroke.getKeyStroke("KP_LEFT")),
+                KeyboardActionScopeType.WHEN_IN_FOCUSED_WINDOW_TYPE) {
+            scrollToPrevious()
         }
-        val actionMap = ActionMap()
-        actionMap.put("right", rightAction)
-        actionMap.put("left", leftAction)
-
-        // and register the maps
-        this.setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMap)
-        this.actionMap = actionMap
 
         // add a mouse listener to dispose the album details window
         // when the user clicks outside any album overview component.
@@ -171,7 +153,7 @@ open class Stage2Components : Stage1LoadingProgress() {
     /**
      * Scrolls the albums to show the next album.
      */
-    protected open fun scrollToNext() {
+    open fun scrollToNext() {
         if (this.leadingPosition < this.comps.size - 1) {
             this.leadingPosition++
             revalidate()

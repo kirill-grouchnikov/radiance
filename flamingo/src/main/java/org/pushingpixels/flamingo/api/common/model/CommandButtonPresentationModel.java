@@ -61,6 +61,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private double verticalGapScaleFactor;
     private boolean isMenu;
     private PopupOrientationKind popupOrientationKind;
+    private PopupHorizontalGravity popupHorizontalGravity;
     private String actionKeyTip;
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
@@ -95,6 +96,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.popupOrientationKind = (overlay.popupOrientationKind != null)
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
+        result.popupHorizontalGravity = (overlay.popupHorizontalGravity != null)
+                ? overlay.popupHorizontalGravity : this.popupHorizontalGravity;
         result.toDismissPopupsOnActivation = (overlay.toDismissPopupsOnActivation != null)
                 ? overlay.toDismissPopupsOnActivation : this.toDismissPopupsOnActivation;
         result.popupMenuPresentationModel = (overlay.popupMenuPresentationModel != null)
@@ -167,6 +170,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.popupOrientationKind;
     }
 
+    public PopupHorizontalGravity getPopupHorizontalGravity() {
+        return this.popupHorizontalGravity;
+    }
+
     public boolean isMenu() {
         return this.isMenu;
     }
@@ -231,10 +238,26 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         DOWNWARD,
 
         /**
-         * Indicates that the popup should be displayed to the side of the
-         * button.
+         * Indicates that the popup should be displayed to the side of the button.
          */
         SIDEWARD
+    }
+
+    /**
+     * Popup horizontal gravity.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public enum PopupHorizontalGravity {
+        /**
+         * Indicates that the popup should be horizontally aligned to the start edge of the button.
+         */
+        START,
+
+        /**
+         * Indicates that the popup should be horizontally aligned to the end edge of the button.
+         */
+        END
     }
 
     public static class Overlay {
@@ -247,6 +270,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Integer iconDimension;
         private Boolean isMenu;
         private PopupOrientationKind popupOrientationKind;
+        private PopupHorizontalGravity popupHorizontalGravity;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -295,9 +319,13 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setPopupOrientationKind(
-                PopupOrientationKind popupOrientationKind) {
+        public Overlay setPopupOrientationKind(PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
+            return this;
+        }
+
+        public Overlay setPopupHorizontalGravity(PopupHorizontalGravity popupHorizontalGravity) {
+            this.popupHorizontalGravity = popupHorizontalGravity;
             return this;
         }
 
@@ -370,8 +398,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
         private boolean isMenu = false;
-        private PopupOrientationKind popupOrientationKind =
-                PopupOrientationKind.DOWNWARD;
+        private PopupOrientationKind popupOrientationKind = PopupOrientationKind.DOWNWARD;
+        private PopupHorizontalGravity popupHorizontalGravity = PopupHorizontalGravity.START;
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
@@ -423,6 +451,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Builder setPopupOrientationKind(PopupOrientationKind popupOrientationKind) {
             this.popupOrientationKind = popupOrientationKind;
+            return this;
+        }
+
+        public Builder setPopupHorizontalGravity(PopupHorizontalGravity popupHorizontalGravity) {
+            this.popupHorizontalGravity = popupHorizontalGravity;
             return this;
         }
 
@@ -497,6 +530,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.iconDimension = this.iconDimension;
             commandPresentation.isMenu = this.isMenu;
             commandPresentation.popupOrientationKind = this.popupOrientationKind;
+            commandPresentation.popupHorizontalGravity = this.popupHorizontalGravity;
             commandPresentation.actionKeyTip = this.actionKeyTip;
             commandPresentation.popupKeyTip = this.popupKeyTip;
             commandPresentation.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;

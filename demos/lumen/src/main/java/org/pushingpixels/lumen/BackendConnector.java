@@ -29,6 +29,9 @@
  */
 package org.pushingpixels.lumen;
 
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.pushingpixels.lumen.data.*;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -50,6 +53,7 @@ public class BackendConnector {
             throws IOException {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MusicBrainzService.API_URL)
+                .client(getHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();
 
@@ -109,6 +113,7 @@ public class BackendConnector {
     public static List<Track> doTrackSearch(String releaseId) throws IOException {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MusicBrainzService.API_URL)
+                .client(getHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build();
 
@@ -120,13 +125,24 @@ public class BackendConnector {
         return release.media.get(0).tracks;
     }
 
+    private static OkHttpClient getHttpClient() {
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        okHttpBuilder.addInterceptor(chain -> {
+            Request requestWithUserAgent = chain.request().newBuilder()
+                    .header("User-Agent", "Lumen test app. See https://github.com/kirill-grouchnikov/radiance/blob/master/docs/lumen/lumen.md")
+                    .build();
+            return chain.proceed(requestWithUserAgent);
+        });
+        return okHttpBuilder.build();
+    }
+
     public static BufferedImage getLargeAlbumArt(String asin) throws Exception {
         return ImageIO.read(new URL(
                 "http://ec1.images-amazon.com/images/P/" + asin + ".01.LZZZZZZZ.jpg"));
     }
 
     private interface MusicBrainzService {
-        String API_URL = "http://musicbrainz.org/";
+        String API_URL = "https://musicbrainz.org/";
 
         @GET("/ws/2/release?type=album&fmt=json")
         Call<ReleaseList> getReleases(@Query("artist") String artistId);

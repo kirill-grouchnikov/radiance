@@ -107,7 +107,8 @@ class KRibbonGalleryContent {
 
         val command = KCommand()
         command.init()
-        extraPopupDefaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null))
+        extraPopupDefaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
+                null, null, null))
         return command
     }
 

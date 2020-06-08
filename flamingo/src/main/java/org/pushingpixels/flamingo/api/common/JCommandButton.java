@@ -92,6 +92,14 @@ public class JCommandButton extends AbstractCommandButton {
     private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
 
     /**
+     * The popup horizontal gravity of this button.
+     *
+     * @see #setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity)
+     * @see #getPopupHorizontalGravity()
+     */
+    private CommandButtonPresentationModel.PopupHorizontalGravity popupHorizontalGravity;
+
+    /**
      * Indicates the auto-repeat action mode. When the button is not in the
      * auto-repeat action mode, the registered action listeners are activated
      * when the mouse is released (just as with the base {@link AbstractButton}
@@ -390,8 +398,9 @@ public class JCommandButton extends AbstractCommandButton {
                             ribbonApplicationMenuProjection.getSecondaryLevelCommandPresentationState());
                     this.setPopupCallback((JCommandButton commandButton)
                             -> menuPanelProjection.buildComponent());
-                } else if (popupMenuContentModel instanceof CommandMenuContentModel) {
-                    CommandButtonProjection commandProjection = (CommandButtonProjection) this.projection;
+                } else if (popupMenuContentModel != null) {
+                    CommandButtonProjection<? extends Command> commandProjection =
+                            (CommandButtonProjection<? extends Command>) this.projection;
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel =
                                 CommandPopupMenuPresentationModel.builder().build();
@@ -442,6 +451,7 @@ public class JCommandButton extends AbstractCommandButton {
         this.getActionModel().setFireActionOnPress(commandPresentation.isFireActionOnPress());
 
         this.setPopupOrientationKind(commandPresentation.getPopupOrientationKind());
+        this.setPopupHorizontalGravity(commandPresentation.getPopupHorizontalGravity());
 
         if (command.getActionPreview() != null) {
             this.getActionModel().addChangeListener(new ChangeListener() {
@@ -511,8 +521,33 @@ public class JCommandButton extends AbstractCommandButton {
         CommandButtonPresentationModel.PopupOrientationKind old = this.popupOrientationKind;
         this.popupOrientationKind = popupOrientationKind;
         if (old != this.popupOrientationKind) {
-            firePropertyChange("popupOrientationKind", old,
-                    this.popupOrientationKind);
+            firePropertyChange("popupOrientationKind", old, this.popupOrientationKind);
+        }
+    }
+
+    /**
+     * Returns the popup horizontal gravity of this button.
+     *
+     * @return Popup horizontal gravity of this button.
+     * @see #setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity)
+     */
+    public CommandButtonPresentationModel.PopupHorizontalGravity getPopupHorizontalGravity() {
+        return this.popupHorizontalGravity;
+    }
+
+    /**
+     * Sets the popup horizontal gravity for this button. Fires a
+     * <code>popupHorizontalGravity</code> property change event.
+     *
+     * @param popupHorizontalGravity The new popup horizontal gravity.
+     * @see #getPopupHorizontalGravity()
+     */
+    public void setPopupHorizontalGravity(
+            CommandButtonPresentationModel.PopupHorizontalGravity popupHorizontalGravity) {
+        CommandButtonPresentationModel.PopupHorizontalGravity old = this.popupHorizontalGravity;
+        this.popupHorizontalGravity = popupHorizontalGravity;
+        if (old != this.popupHorizontalGravity) {
+            firePropertyChange("popupHorizontalGravity", old, this.popupHorizontalGravity);
         }
     }
 

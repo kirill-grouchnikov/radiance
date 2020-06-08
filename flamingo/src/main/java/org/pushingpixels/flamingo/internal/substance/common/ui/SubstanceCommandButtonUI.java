@@ -538,8 +538,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 this::getPopupTransitionTracker,
                 (SubstanceColorScheme scheme, int width, int height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =
-                            ((JCommandButton) commandButton)
-                                    .getPopupOrientationKind();
+                            ((JCommandButton) commandButton).getPopupOrientationKind();
                     int direction =
                             (orientation == CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD)
                                     ? SwingConstants.SOUTH

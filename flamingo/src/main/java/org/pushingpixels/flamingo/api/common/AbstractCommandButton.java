@@ -49,7 +49,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 /**
- * Base class for command buttons.
+ * Base class for command buttons. Note that while this class is a part of public API, it is highly
+ * recommended to use the {@link Command} instance used to project the command button
+ * on screen for any dynamic manipulation of the state.
+ *
+ * In the next major release this class will be folded into {@link JCommandButton}. Do not extend this
+ * class directly. Instead, extend {@link JCommandButton} or, better yet, work with {@link Command}s.
  *
  * @author Kirill Grouchnikov
  */
@@ -67,7 +72,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #setIcon(ResizableIcon)
      * @see #getIcon()
      */
-    protected ResizableIcon icon;
+    private ResizableIcon icon;
 
     /**
      * Associated disabled icon.
@@ -94,13 +99,13 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     private ActionButtonModel actionModel;
 
     /**
-     * Additional text. This is shown for {@link CommandButtonPresentationState#TILE}
-     * .
+     * Additional text. It is up to the presentation layer to decide whether to display this
+     * text (depending on the layout and available space).
      *
      * @see #setExtraText(String)
      * @see #getExtraText()
      */
-    protected String extraText;
+    private String extraText;
 
     /**
      * Current presentation state of <code>this</code> button.
@@ -108,7 +113,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #setPresentationState(CommandButtonPresentationState)
      * @see #getPresentationState()
      */
-    protected CommandButtonPresentationState presentationState;
+    private CommandButtonPresentationState presentationState;
 
     /**
      * The dimension of the icon of the associated command button in the
@@ -125,7 +130,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #setFlat(boolean)
      * @see #isFlat()
      */
-    protected boolean isFlat;
+    private boolean isFlat;
 
     /**
      * Horizontal alignment of the content.
@@ -171,7 +176,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
     /**
      * Action handler for the button.
      */
-    protected ActionHandler actionHandler;
+    private ActionHandler actionHandler;
 
     /**
      * Key tip for the action area.
@@ -179,7 +184,7 @@ public abstract class AbstractCommandButton extends RichTooltipManager.JTrackabl
      * @see #setActionKeyTip(String)
      * @see #getActionKeyTip()
      */
-    protected String actionKeyTip;
+    private String actionKeyTip;
 
     /**
      * Enumerates the available values for the location order kind. This is used

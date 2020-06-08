@@ -89,19 +89,21 @@ class KRibbonBandGroup {
 
     fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
-                isTextClickSecondary)))
+                isTextClickSecondary, popupHorizontalGravity)))
         return command
     }
 
     fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             command: KCommand) {
         content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
-                isTextClickSecondary)))
+                isTextClickSecondary, popupHorizontalGravity)))
     }
 
     fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
@@ -127,6 +129,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
 
     fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KCommand.() -> Unit): KCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
@@ -134,12 +137,13 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         val command = KCommand()
         command.init()
         defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
-                isTextClickAction, isTextClickSecondary)))
+                isTextClickAction, isTextClickSecondary, popupHorizontalGravity)))
         return command
     }
 
     fun colorSelectorCommand(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
@@ -147,17 +151,19 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         val command = KColorSelectorCommand()
         command.init()
         defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
-                isTextClickAction, isTextClickSecondary)))
+                isTextClickAction, isTextClickSecondary, popupHorizontalGravity)))
         return command
     }
 
     fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false, command: KCommand) {
+            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+            command: KCommand) {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
         defaultGroup.content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
-                isTextClickAction, isTextClickSecondary)))
+                isTextClickAction, isTextClickSecondary, popupHorizontalGravity)))
     }
 
     fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {

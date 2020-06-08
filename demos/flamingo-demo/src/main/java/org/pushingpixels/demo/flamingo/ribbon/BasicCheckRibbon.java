@@ -1680,13 +1680,32 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
 
+        // "Share" anchored menu
+        Command shareEntrySendMail = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.email.text"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Shared to email"))
+                .build();
+
+        Command shareEntrySendHtml = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.html.text"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Shared to browser"))
+                .build();
+
+        Command shareEntrySendDoc = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.word.text"))
+                .setAction((CommandActionEvent ae) -> System.out.println("Shared to Word"))
+                .build();
+
         this.getRibbon().addAnchoredCommand(Command.builder()
                 .setText(resourceBundle.getString("Share.title"))
                 .setIconFactory(Internet_mail.factory())
-                .setAction((CommandActionEvent e) -> JOptionPane
-                        .showMessageDialog(BasicCheckRibbon.this, "Share button clicked"))
+                .setSecondaryContentModel(new CommandMenuContentModel(new CommandGroup(
+                        shareEntrySendMail, shareEntrySendHtml, shareEntrySendDoc)))
                 .build()
-                .project(CommandButtonPresentationModel.builder().setActionKeyTip("GS").build()));
+                .project(CommandButtonPresentationModel.builder()
+                        .setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity.END)
+                        .setPopupKeyTip("GS")
+                        .build()));
 
         this.getRibbon().addAnchoredCommand(Command.builder()
                 .setIconFactory(Internet_group_chat.factory())

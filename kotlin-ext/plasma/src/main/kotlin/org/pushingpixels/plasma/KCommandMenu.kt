@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.plasma
 
+import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
@@ -76,6 +77,7 @@ class KCommandMenu {
 
     var maxVisibleMenuCommands: Int by NonNullDelegate { hasBeenConverted }
     var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
+    var horizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity by NonNullDelegate { hasBeenConverted }
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
@@ -97,7 +99,7 @@ class KCommandMenu {
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null))
+        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null, null))
         return command
     }
 

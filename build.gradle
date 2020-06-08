@@ -28,9 +28,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '3.0.0'
-ext.codename = 'Diamond'
-ext.isRelease = true
+version = '3.5-SNAPSHOT'
+ext.codename = 'Emerald'
+ext.isRelease = false
 
 buildscript {
     ext {

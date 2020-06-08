@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.lucent
 
+import okhttp3.OkHttpClient
 import org.pushingpixels.lucent.data.Release
 import org.pushingpixels.lucent.data.ReleaseList
 import org.pushingpixels.lucent.data.SearchResultRelease
@@ -50,6 +51,7 @@ object BackendConnector {
     fun doAlbumSearch(artistId: String, artistName: String): List<SearchResultRelease> {
         val retrofit = Retrofit.Builder()
                 .baseUrl(MusicBrainzService.API_URL)
+                .client(getHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
 
@@ -109,6 +111,7 @@ object BackendConnector {
     fun doTrackSearch(releaseId: String): List<Track> {
         val retrofit = Retrofit.Builder()
                 .baseUrl(MusicBrainzService.API_URL)
+                .client(getHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
 
@@ -118,6 +121,17 @@ object BackendConnector {
         val release = releaseResponse.body()
 
         return release!!.media[0].tracks
+    }
+
+    private fun getHttpClient(): OkHttpClient {
+        val okHttpBuilder = OkHttpClient.Builder()
+        okHttpBuilder.addInterceptor { chain ->
+            val requestWithUserAgent = chain.request().newBuilder()
+                    .header("User-Agent", "Lucent test app. See https://github.com/kirill-grouchnikov/radiance/blob/master/docs/lumen/lumen.md")
+                    .build()
+            chain.proceed(requestWithUserAgent)
+        }
+        return okHttpBuilder.build()
     }
 
     @Throws(Exception::class)
@@ -134,7 +148,7 @@ object BackendConnector {
         fun getRelease(@Path("release") releaseId: String): Call<Release>
 
         companion object {
-            const val API_URL = "http://musicbrainz.org/"
+            const val API_URL = "https://musicbrainz.org/"
         }
     }
 }

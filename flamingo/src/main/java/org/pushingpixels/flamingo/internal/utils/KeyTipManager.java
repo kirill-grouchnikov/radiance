@@ -301,10 +301,14 @@ public class KeyTipManager {
             }
 
             // anchored commands
-            for (AbstractCommandButton anchored : brui.getAnchoredCommandButtons()) {
+            for (JCommandButton anchored : brui.getAnchoredCommandButtons()) {
                 KeyTipLink actionLink = getCommandButtonActionLink(anchored);
                 if (actionLink != null) {
                     root.addLink(actionLink);
+                }
+                KeyTipLink popupLink = getCommandButtonPopupLink(anchored);
+                if (popupLink != null) {
+                    root.addLink(popupLink);
                 }
             }
         }

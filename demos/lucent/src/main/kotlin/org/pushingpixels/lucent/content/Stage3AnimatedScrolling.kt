@@ -59,7 +59,7 @@ open class Stage3AnimatedScrolling : Stage2Components() {
      * timeline is cancelled, and a new one is created - this allows quick
      * scrolling with multiple mouse wheel / arrow events.
      */
-    internal var scrollTimeline: Timeline? = null
+    internal lateinit var scrollTimeline: Timeline
 
     override fun scrollToNext() {
         if (this.targetLeadingPosition < this.comps.size - 1) {
@@ -80,9 +80,9 @@ open class Stage3AnimatedScrolling : Stage2Components() {
      */
     @Synchronized
     private fun scrollContents() {
-        if (this.scrollTimeline != null) {
+        if (this::scrollTimeline.isInitialized) {
             // abort the playing scroll timeline
-            this.scrollTimeline!!.abort()
+            this.scrollTimeline.abort()
         }
 
         // and dynamically create a new one to change the
@@ -92,6 +92,6 @@ open class Stage3AnimatedScrolling : Stage2Components() {
             duration = 250
         }
 
-        scrollTimeline!!.play()
+        this.scrollTimeline.play()
     }
 }

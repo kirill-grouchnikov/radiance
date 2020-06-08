@@ -356,6 +356,8 @@ open class KCommandButtonPresentation {
     var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
             CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
+    var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
+            CommandButtonPresentationModel.PopupHorizontalGravity.START
     var iconDimension: Int? = null
     var isMenu: Boolean = false
     var actionKeyTip: String? = null
@@ -376,6 +378,7 @@ open class KCommandButtonPresentation {
                 .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
                 .setVerticalGapScaleFactor(verticalGapScaleFactor)
                 .setPopupOrientationKind(popupOrientationKind)
+                .setPopupHorizontalGravity(command.menu?.horizontalGravity ?: popupHorizontalGravity)
                 .setIconDimension(iconDimension)
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(popupKeyTip)
@@ -426,7 +429,8 @@ class KCommandGroup {
     internal val commands = arrayListOf<CommandConfig>()
 
     internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
-            val isTextClickAction: Boolean?, val isTextClickSecondary: Boolean?) {
+            val isTextClickAction: Boolean?, val isTextClickSecondary: Boolean?,
+            val popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity?) {
         fun toJavaCommand(): Command {
             return command.asJavaCommand()
         }
@@ -440,6 +444,9 @@ class KCommandGroup {
             }
             if ((isTextClickSecondary != null) && isTextClickSecondary) {
                 presentationBuilder.setTextClickPopup()
+            }
+            if (popupHorizontalGravity != null) {
+                presentationBuilder.setPopupHorizontalGravity(popupHorizontalGravity)
             }
             return command.asJavaCommand().project(presentationBuilder.build())
         }
@@ -459,22 +466,26 @@ class KCommandGroup {
     }
 
     operator fun KCommand.unaryPlus() {
-        this@KCommandGroup.commands.add(CommandConfig(this, null, null, false, false))
+        this@KCommandGroup.commands.add(CommandConfig(this, null, null, false, false, null))
     }
 
     fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary))
+        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
+                popupHorizontalGravity))
         return command
     }
 
     fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             command: KCommand) {
-        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary))
+        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
+                popupHorizontalGravity))
     }
 
     fun toCommandGroupModel(): CommandGroup {
