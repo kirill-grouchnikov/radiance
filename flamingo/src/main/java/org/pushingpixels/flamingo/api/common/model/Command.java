@@ -33,13 +33,12 @@ import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
+import org.pushingpixels.flamingo.internal.utils.WeakPropertyChangeSupport;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.EventListener;
 
 /**
@@ -54,14 +53,14 @@ import java.util.EventListener;
  * {@link AbstractCommandButton} that can be added to the component hierarchy. Note that you
  * can - and should - use the same {@link Command} instance and one or more
  * {@link CommandButtonPresentationModel}s if you need to have multiple instances (or
- * projections) of the same command in your app UI. That way changes in the command are propagated
+ * projections) of the same command in your app UI. That way, changes in the command are propagated
  * and synced across all those projections.</p>
  *
  * @author Kirill Grouchnikov
  * @see CommandButtonPresentationModel
  * @see CommandButtonProjection
  */
-public class Command implements ContentModel {
+public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
     private String text;
     private ResizableIcon.Factory iconFactory;
     private ResizableIcon.Factory disabledIconFactory;
@@ -76,8 +75,6 @@ public class Command implements ContentModel {
     private boolean isToggle;
     private boolean isToggleSelected;
     private CommandToggleGroupModel toggleGroupModel;
-
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public interface CommandActionPreview extends EventListener {
         /**
@@ -98,9 +95,12 @@ public class Command implements ContentModel {
     /**
      * Stores the listeners on this model.
      */
-    private EventListenerList listenerList = new EventListenerList();
+    private final WeakChangeSupport weakChangeSupport;
+    private final WeakPropertyChangeSupport weakPropertyChangeSupport;
 
     protected Command() {
+        this.weakChangeSupport = new WeakChangeSupport(this);
+        this.weakPropertyChangeSupport = new WeakPropertyChangeSupport(this);
     }
 
     public static Builder builder() {
@@ -134,7 +134,7 @@ public class Command implements ContentModel {
         if (!this.text.equals(text)) {
             String old = this.text;
             this.text = text;
-            this.pcs.firePropertyChange("text", old, this.text);
+            this.weakPropertyChangeSupport.firePropertyChange("text", old, this.text);
         }
     }
 
@@ -146,7 +146,7 @@ public class Command implements ContentModel {
         if (this.iconFactory != iconFactory) {
             ResizableIcon.Factory old = this.iconFactory;
             this.iconFactory = iconFactory;
-            this.pcs.firePropertyChange("iconFactory", old, this.iconFactory);
+            this.weakPropertyChangeSupport.firePropertyChange("iconFactory", old, this.iconFactory);
         }
     }
 
@@ -158,7 +158,7 @@ public class Command implements ContentModel {
         if (this.disabledIconFactory != disabledIconFactory) {
             ResizableIcon.Factory old = this.disabledIconFactory;
             this.disabledIconFactory = disabledIconFactory;
-            this.pcs.firePropertyChange("disabledIconFactory", old, this.disabledIconFactory);
+            this.weakPropertyChangeSupport.firePropertyChange("disabledIconFactory", old, this.disabledIconFactory);
         }
     }
 
@@ -169,7 +169,7 @@ public class Command implements ContentModel {
     public void setExtraText(String extraText) {
         String old = this.extraText;
         this.extraText = extraText;
-        this.pcs.firePropertyChange("extraText", old, this.extraText);
+        this.weakPropertyChangeSupport.firePropertyChange("extraText", old, this.extraText);
     }
 
     public CommandAction getAction() {
@@ -179,7 +179,7 @@ public class Command implements ContentModel {
     public void setAction(CommandAction actionListener) {
         CommandAction old = this.action;
         this.action = actionListener;
-        this.pcs.firePropertyChange("action", old, this.action);
+        this.weakPropertyChangeSupport.firePropertyChange("action", old, this.action);
     }
 
     public RichTooltip getActionRichTooltip() {
@@ -190,7 +190,7 @@ public class Command implements ContentModel {
         if (this.actionRichTooltip != actionRichTooltip) {
             RichTooltip old = this.actionRichTooltip;
             this.actionRichTooltip = actionRichTooltip;
-            this.pcs.firePropertyChange("actionRichTooltip", old, this.actionRichTooltip);
+            this.weakPropertyChangeSupport.firePropertyChange("actionRichTooltip", old, this.actionRichTooltip);
         }
     }
 
@@ -206,7 +206,7 @@ public class Command implements ContentModel {
         if (this.secondaryRichTooltip != secondaryRichTooltip) {
             RichTooltip old = this.secondaryRichTooltip;
             this.secondaryRichTooltip = secondaryRichTooltip;
-            this.pcs.firePropertyChange("secondaryRichTooltip", old, this.secondaryRichTooltip);
+            this.weakPropertyChangeSupport.firePropertyChange("secondaryRichTooltip", old, this.secondaryRichTooltip);
         }
     }
 
@@ -217,7 +217,7 @@ public class Command implements ContentModel {
     public void setActionEnabled(boolean actionEnabled) {
         if (this.isActionEnabled != actionEnabled) {
             this.isActionEnabled = actionEnabled;
-            this.pcs.firePropertyChange("actionEnabled", !this.isActionEnabled,
+            this.weakPropertyChangeSupport.firePropertyChange("actionEnabled", !this.isActionEnabled,
                     this.isActionEnabled);
         }
     }
@@ -229,7 +229,7 @@ public class Command implements ContentModel {
     public void setSecondaryEnabled(boolean secondaryEnabled) {
         if (this.isSecondaryEnabled != secondaryEnabled) {
             this.isSecondaryEnabled = secondaryEnabled;
-            this.pcs.firePropertyChange("secondaryEnabled", !this.isSecondaryEnabled,
+            this.weakPropertyChangeSupport.firePropertyChange("secondaryEnabled", !this.isSecondaryEnabled,
                     this.isSecondaryEnabled);
         }
     }
@@ -248,7 +248,7 @@ public class Command implements ContentModel {
         }
         if (this.isToggleSelected != isToggleSelected) {
             this.isToggleSelected = isToggleSelected;
-            this.pcs.firePropertyChange("isToggleSelected", !this.isToggleSelected,
+            this.weakPropertyChangeSupport.firePropertyChange("isToggleSelected", !this.isToggleSelected,
                     this.isToggleSelected);
             this.fireStateChanged();
         }
@@ -265,51 +265,31 @@ public class Command implements ContentModel {
     public void setActionPreview(CommandActionPreview actionPreview) {
         CommandActionPreview old = this.actionPreview;
         this.actionPreview = actionPreview;
-        this.pcs.firePropertyChange("actionPreview", old, this.actionPreview);
+        this.weakPropertyChangeSupport.firePropertyChange("actionPreview", old, this.actionPreview);
     }
 
-    /**
-     * Adds the specified change listener to track changes to this model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
+    @Override
     public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
+        this.weakChangeSupport.addChangeListener(l);
     }
 
-    /**
-     * Removes the specified change listener from tracking changes to this model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
+    @Override
     public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
+        this.weakChangeSupport.removeChangeListener(l);
     }
 
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
     private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
+        this.weakChangeSupport.fireStateChanged();
     }
 
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
-        this.pcs.addPropertyChangeListener(l);
+        this.weakPropertyChangeSupport.addPropertyChangeListener(l);
     }
 
+    @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
-        this.pcs.removePropertyChangeListener(l);
+        this.weakPropertyChangeSupport.removePropertyChangeListener(l);
     }
 
     public CommandButtonProjection<Command> project() {

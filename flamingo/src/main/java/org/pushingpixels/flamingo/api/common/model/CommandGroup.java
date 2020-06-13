@@ -29,12 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
+import org.pushingpixels.flamingo.internal.utils.WeakPropertyChangeSupport;
+
 import javax.swing.event.EventListenerList;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.*;
 
-public class CommandGroup implements ContentModel {
+public class CommandGroup implements ContentModel, PropertyChangeAware {
     private String title;
     private List<Command> commands;
 
@@ -42,7 +43,7 @@ public class CommandGroup implements ContentModel {
      * Stores the listeners on this model.
      */
     private EventListenerList listenerList = new EventListenerList();
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private final WeakPropertyChangeSupport weakPropertyChangeSupport;
 
     public interface CommandGroupListener extends EventListener {
         void onCommandAdded(Command command);
@@ -65,6 +66,7 @@ public class CommandGroup implements ContentModel {
     }
 
     public CommandGroup(String title, List<Command> commands) {
+        this.weakPropertyChangeSupport = new WeakPropertyChangeSupport(this);
         this.title = title;
         this.commands = new ArrayList<>(commands);
     }
@@ -77,7 +79,7 @@ public class CommandGroup implements ContentModel {
         if (!this.title.equals(title)) {
             String old = this.title;
             this.title = title;
-            this.pcs.firePropertyChange("title", old, this.title);
+            this.weakPropertyChangeSupport.firePropertyChange("title", old, this.title);
         }
     }
 
@@ -158,10 +160,10 @@ public class CommandGroup implements ContentModel {
     }
 
     public void addPropertyChangeListener(PropertyChangeListener l) {
-        this.pcs.addPropertyChangeListener(l);
+        this.weakPropertyChangeSupport.addPropertyChangeListener(l);
     }
 
     public void removePropertyChangeListener(PropertyChangeListener l) {
-        this.pcs.removePropertyChangeListener(l);
+        this.weakPropertyChangeSupport.removePropertyChangeListener(l);
     }
 }

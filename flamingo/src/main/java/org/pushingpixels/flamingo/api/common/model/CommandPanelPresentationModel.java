@@ -31,16 +31,15 @@ package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
 
-public class CommandPanelPresentationModel implements MutablePresentationModel {
+public class CommandPanelPresentationModel implements MutablePresentationModel, ChangeAware {
     /**
      * Stores the listeners on this model.
      */
-    private EventListenerList listenerList = new EventListenerList();
+    private final WeakChangeSupport weakChangeSupport;
 
     /**
      * Maximum number of columns for the panel. Relevant only when the layout
@@ -90,6 +89,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
     }
 
     private CommandPanelPresentationModel() {
+        this.weakChangeSupport = new WeakChangeSupport(this);
     }
 
     public static Builder builder() {
@@ -193,40 +193,17 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         return this.popupOrientationKind;
     }
 
-    /**
-     * Adds the specified change listener to track changes to the model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
     public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
+        this.weakChangeSupport.addChangeListener(l);
     }
 
-    /**
-     * Removes the specified change listener from tracking changes to the model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
+    @Override
     public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
+        this.weakChangeSupport.removeChangeListener(l);
     }
 
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
     private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
+        this.weakChangeSupport.fireStateChanged();
     }
 
     public static class Builder {

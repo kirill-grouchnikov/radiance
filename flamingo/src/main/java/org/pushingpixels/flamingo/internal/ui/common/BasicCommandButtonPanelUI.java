@@ -146,8 +146,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         buttonPanel.doLayout();
                     }
                 });
-        this.buttonPanel.getProjection().getContentModel().addChangeListener(
-                this.contentModelChangeListener);
+        this.buttonPanel.getProjection().getContentModel().addChangeListener(this.contentModelChangeListener);
     }
 
     @Override

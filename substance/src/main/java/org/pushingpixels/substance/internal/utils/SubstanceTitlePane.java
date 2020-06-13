@@ -770,7 +770,7 @@ public class SubstanceTitlePane extends JComponent {
 
             SubstanceColorScheme fillScheme = skin
                     .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
-            Color echoColor = !fillScheme.isDark() ? fillScheme.getUltraDarkColor()
+            Color echoColor = !scheme.isDark() ? fillScheme.getUltraDarkColor()
                     : fillScheme.getUltraLightColor();
             SubstanceTextUtilities.paintTextWithDropShadow(this, graphics,
                     SubstanceColorUtilities.getForegroundColor(scheme), echoColor, displayTitle,

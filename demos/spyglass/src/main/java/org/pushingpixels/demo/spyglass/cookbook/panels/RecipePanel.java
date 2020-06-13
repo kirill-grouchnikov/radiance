@@ -75,8 +75,7 @@ public class RecipePanel extends SingleContentPanel {
                 "Send")).xy(7, 1);
 
         JLabel title = new JLabel("Cookbook");
-        title.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
-                .getWindowTitleFont());
+        SubstanceCortex.WindowScope.markLabelAsTitlePaneText(SwingUtilities.getWindowAncestor(this), title);
 
         titlePaneBuilder.add(title).xy(9, 1);
 

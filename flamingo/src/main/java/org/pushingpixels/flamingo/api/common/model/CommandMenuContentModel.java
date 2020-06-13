@@ -29,15 +29,16 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
+import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandMenuContentModel implements ContentModel {
+public class CommandMenuContentModel implements ContentModel, ChangeAware {
     private CommandPanelContentModel panelContentModel;
     private List<CommandGroup> commandGroups;
     private Command highlightedCommand;
@@ -45,7 +46,7 @@ public class CommandMenuContentModel implements ContentModel {
     /**
      * Stores the listeners on this model.
      */
-    private EventListenerList listenerList = new EventListenerList();
+    private final WeakChangeSupport weakChangeSupport;
 
     private CommandGroup.CommandGroupListener commandGroupListener;
 
@@ -63,6 +64,7 @@ public class CommandMenuContentModel implements ContentModel {
 
     public CommandMenuContentModel(CommandPanelContentModel panelContentModel,
             List<CommandGroup> commands) {
+        this.weakChangeSupport = new WeakChangeSupport(this);
         this.commandGroups = new ArrayList<>(commands);
         this.commandGroupListener = new CommandGroup.CommandGroupListener() {
             @Override
@@ -126,39 +128,17 @@ public class CommandMenuContentModel implements ContentModel {
         return Collections.unmodifiableList(this.commandGroups);
     }
 
-    /**
-     * Adds the specified change listener to track changes to this model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
+    @Override
     public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
+        this.weakChangeSupport.addChangeListener(l);
     }
 
-    /**
-     * Removes the specified change listener from tracking changes to this model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
+    @Override
     public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
+        this.weakChangeSupport.removeChangeListener(l);
     }
 
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
     private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
+        this.weakChangeSupport.fireStateChanged();
     }
 }

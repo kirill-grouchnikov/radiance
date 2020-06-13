@@ -29,6 +29,6 @@
 
 set RADIANCE_VERSION=3.5-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lightbeam-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set FLATLAF_CLASSPATH=../../../thirdparty/flatlaf-0.33.jar
+set FLATLAF_CLASSPATH=../../../thirdparty/flatlaf-0.36.jar
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=com.formdev.flatlaf.FlatLightLaf -cp %CLASSPATH%;%FLATLAF_CLASSPATH% org.pushingpixels.lightbeam.DynamicPerformanceSuite 10

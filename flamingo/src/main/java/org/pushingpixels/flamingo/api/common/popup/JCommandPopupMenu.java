@@ -81,8 +81,6 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         this.popupMenuPresentationModel = projection.getPresentationModel();
         this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
                 this.popupMenuContentModel.getPanelContentModel() : null;
-        CommandPanelPresentationModel popupMenuPanelPresentationModel = (this.popupMenuPresentationModel != null) ?
-                this.popupMenuPresentationModel.getPanelPresentationModel() : null;
 
         this.populateContent();
         this.popupMenuContentModel.addChangeListener((ChangeEvent event) -> populateContent());

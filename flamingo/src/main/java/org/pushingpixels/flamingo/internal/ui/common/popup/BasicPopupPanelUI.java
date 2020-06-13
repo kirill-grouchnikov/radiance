@@ -438,8 +438,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
          * Creates the new window tracker.
          */
         public WindowTracker() {
-            PopupPanelManager popupPanelManager = PopupPanelManager
-                    .defaultManager();
+            PopupPanelManager popupPanelManager = PopupPanelManager.defaultManager();
             popupPanelManager.addPopupListener(this);
             this.lastPathSelected = popupPanelManager.getShownPath();
             if (this.lastPathSelected.size() != 0) {

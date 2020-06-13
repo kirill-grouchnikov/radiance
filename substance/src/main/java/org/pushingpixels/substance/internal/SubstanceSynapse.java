@@ -233,6 +233,11 @@ public class SubstanceSynapse {
     public final static String ROOT_PANE_PREFERRED_TITLE_PANE_HEIGHT = "substancelaf.internal.rootPanePreferredTitlePaneHeight";
 
     /**
+     * Client property name for specifying that a label should be painted as title pane text.
+     */
+    public final static String IS_TITLE_PANE_LABEL = "substancelaf.internal.isTitlePaneLabel";
+
+    /**
      * Client property name for specifying the horizontal gravity of the title pane text.
      */
     public final static String TITLE_TEXT_HORIZONTAL_GRAVITY = "substancelaf.internal.titleTextHorizontalGravity";

@@ -85,7 +85,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     /**
      * Map of toggle buttons of all tasks.
      */
-    protected Map<RibbonTask, AbstractCommandButton> taskToggleButtons;
+    protected Map<RibbonTask, JRibbonTaskToggleButton> taskToggleButtons;
 
     /**
      * Group model for task toggle buttons.
@@ -476,14 +476,14 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // the application menu button width
             boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
-            
+
             int appMenuButtonWidth = 0;
             if (isShowingAppMenuButton) {
                 FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
                         applicationMenuButton.getFont());
-                
+
                 appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenuCommandProjection()
-                    .getContentModel().getText()) + 40;
+                        .getContentModel().getText()) + 40;
             }
 
             x = ltr ? x + 2 : x - 2;
@@ -1046,7 +1046,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     private void syncSelectedTask() {
         final RibbonTask currentSelection = this.ribbon.getSelectedTask();
-        for (Map.Entry<RibbonTask, AbstractCommandButton> taskToggleButtonEntry :
+        for (Map.Entry<RibbonTask, JRibbonTaskToggleButton> taskToggleButtonEntry :
                 this.taskToggleButtons.entrySet()) {
             if (currentSelection == taskToggleButtonEntry.getKey()) {
                 taskToggleButtonEntry.getValue().getActionModel().setSelected(true);
@@ -1095,6 +1095,16 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 .taskToggleButtonsScrollablePanel
                 .getView();
         taskToggleButtonsHostPanel.removeAll();
+
+        for (JRibbonTaskToggleButton ttb : this.taskToggleButtons.values()) {
+            ttb.setRibbonTask(null);
+            MouseAdapter[] mouseAdapters = ttb.getListeners(MouseAdapter.class);
+            for (MouseAdapter mouseAdapter : mouseAdapters) {
+                ttb.removeMouseListener(mouseAdapter);
+            }
+            ttb.getUI().uninstallUI(ttb);
+        }
+        this.taskToggleButtons.clear();
 
         // remove the anchored buttons
         if (this.anchoredButtons != null) {
@@ -1163,8 +1173,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     }
             );
 
-            final AbstractCommandButton taskToggleButton =
-                    taskToggleCommandProjection.buildComponent();
+            final JRibbonTaskToggleButton taskToggleButton =
+                    (JRibbonTaskToggleButton) taskToggleCommandProjection.buildComponent();
 
             taskToggleButtonsHostPanel.add(taskToggleButton);
             this.taskToggleButtons.put(task, taskToggleButton);

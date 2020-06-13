@@ -30,18 +30,18 @@
 package org.pushingpixels.flamingo.api.common.popup.model;
 
 import org.pushingpixels.flamingo.api.common.KeyValuePair;
+import org.pushingpixels.flamingo.api.common.model.ChangeAware;
 import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ColorSelectorPopupMenuGroupModel {
+public class ColorSelectorPopupMenuGroupModel implements ChangeAware {
     public enum GroupEntryKind {
         COMMAND, COLOR_SECTION, COLOR_SECTION_WITH_DERIVED, RECENTS_SECTION
     }
@@ -51,7 +51,7 @@ public class ColorSelectorPopupMenuGroupModel {
     /**
      * Stores the listeners on this model.
      */
-    private EventListenerList listenerList = new EventListenerList();
+    private final WeakChangeSupport weakChangeSupport;
 
     public static class ColorSectionModel {
         private String title;
@@ -79,44 +79,25 @@ public class ColorSelectorPopupMenuGroupModel {
         return new Builder();
     }
 
+    private ColorSelectorPopupMenuGroupModel() {
+        this.weakChangeSupport = new WeakChangeSupport(this);
+    }
+
     public List<KeyValuePair<GroupEntryKind, Object>> getGroupContent() {
         return Collections.unmodifiableList(this.groupContent);
     }
 
-    /**
-     * Adds the specified change listener to track changes to this model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
     public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
+        this.weakChangeSupport.addChangeListener(l);
     }
 
-    /**
-     * Removes the specified change listener from tracking changes to this model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
+    @Override
     public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
+        this.weakChangeSupport.removeChangeListener(l);
     }
 
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
     private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
+        this.weakChangeSupport.fireStateChanged();
     }
 
     public static class Builder {

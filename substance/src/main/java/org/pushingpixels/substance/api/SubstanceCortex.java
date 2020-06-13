@@ -2419,6 +2419,7 @@ public class SubstanceCortex {
          * @see #setPreferredTitlePaneHeight(Window, int)
          * @see #getTitleControlButtonGroupHorizontalGravity(Window)
          * @see #createTitlePaneControlButton(Window)
+         * @see #markLabelAsTitlePaneText(Window, JLabel) 
          */
         public static void extendContentIntoTitlePane(Window window,
                 SubstanceSlices.HorizontalGravity controlButtonGroupHorizontalGravity,
@@ -2468,6 +2469,7 @@ public class SubstanceCortex {
          * SubstanceSlices.VerticalGravity)
          * @see #getTitlePaneControlInsets(Window)
          * @see #setPreferredTitlePaneHeight(Window, int)
+         * @see #markLabelAsTitlePaneText(Window, JLabel)
          */
         public static JButton createTitlePaneControlButton(Window window) {
             if (window == null) {
@@ -2514,8 +2516,7 @@ public class SubstanceCortex {
          * Increase the preferred height of the title pane area in case the content you extend into
          * that area with
          * {@link #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)}
-         * API is taller than the main
-         * control buttons.
+         * API is taller than the main control buttons.
          *
          * @param window                   Window. May not be <code>null</code>.
          * @param preferredTitlePaneHeight Preferred height of the title pane area. Must be a
@@ -2525,8 +2526,7 @@ public class SubstanceCortex {
          * @see #createTitlePaneControlButton(Window)
          * @see #getTitlePaneControlInsets(Window)
          */
-        public static void setPreferredTitlePaneHeight(Window window,
-                int preferredTitlePaneHeight) {
+        public static void setPreferredTitlePaneHeight(Window window, int preferredTitlePaneHeight) {
             if (window == null) {
                 throw new IllegalArgumentException("Window scope APIs do not accept null windows");
             }
@@ -2564,6 +2564,23 @@ public class SubstanceCortex {
             }
             return SubstanceTitlePaneUtilities.getTitleControlButtonGroupHorizontalGravity(
                     SwingUtilities.getRootPane(window));
+        }
+
+        /**
+         * Marks the passed label to be drawn as title pane text (window title).
+         *
+         * @param window Window. May not be <code>null</code>.
+         * @param label  Label. May not be <code>null</code>.
+         * @see #extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity,
+         * SubstanceSlices.VerticalGravity)
+         * @see #createTitlePaneControlButton(Window)
+         */
+        public static void markLabelAsTitlePaneText(Window window, JLabel label) {
+            if (label == null) {
+                throw new IllegalArgumentException("Should pass non-null label");
+            }
+            label.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getWindowTitleFont());
+            label.putClientProperty(SubstanceSynapse.IS_TITLE_PANE_LABEL, true);
         }
     }
 }

@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
@@ -76,8 +75,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.CaretEvent;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;

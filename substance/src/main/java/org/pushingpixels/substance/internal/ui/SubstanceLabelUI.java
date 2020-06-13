@@ -31,6 +31,10 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -158,10 +162,27 @@ public class SubstanceLabelUI extends BasicLabelUI {
             if (v != null) {
                 v.paint(g2d, paintTextR);
             } else {
-                // fix for issue 406 - use the same FG computation
-                // color as for other controls
-                SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
-                        label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
+                if (label.getClientProperty(SubstanceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
+                    SubstanceSkin skin = SubstanceCoreUtilities.getSkin(label.getRootPane());
+                    SubstanceColorScheme scheme = skin
+                            .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                    SubstanceColorScheme fillScheme = skin
+                            .getBackgroundColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                    Color echoColor = !scheme.isDark() ? fillScheme.getUltraDarkColor()
+                            : fillScheme.getUltraLightColor();
+                    FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(label.getFont());
+                    int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
+                            + fm.getAscent();
+                    g2d.translate(paintTextR.x + 3, 0);
+                    SubstanceTextUtilities.paintTextWithDropShadow(label, g2d,
+                            SubstanceColorUtilities.getForegroundColor(scheme), echoColor, clippedText,
+                            paintTextR.width + 6, paintTextR.height, 0, yOffset);
+                } else {
+                    // fix for issue 406 - use the same FG computation
+                    // color as for other controls
+                    SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
+                            label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
+                }
             }
         }
         g2d.dispose();
@@ -169,7 +190,12 @@ public class SubstanceLabelUI extends BasicLabelUI {
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        return SubstanceMetricsUtilities.getPreferredLabelSize((JLabel) c);
+        Dimension result = SubstanceMetricsUtilities.getPreferredLabelSize((JLabel) c);
+        if (c.getClientProperty(SubstanceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
+            result.width += 6;
+            result.height += 6;
+        }
+        return result;
     }
 
     @Override

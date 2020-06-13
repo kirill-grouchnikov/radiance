@@ -1,46 +1,46 @@
 /*
  * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 
 import javax.swing.*;
-import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.*;
 
 /**
  * Manager for showing and hiding {@link JPopupPanel}s.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class PopupPanelManager {
@@ -53,18 +53,54 @@ public class PopupPanelManager {
         /**
          * Fired when a popup panel has been shown.
          *
-         * @param event
-         *            Popup event.
+         * @param event Popup event.
          */
         void popupShown(PopupEvent event);
 
         /**
          * Fired when a popup panel has been hidden.
          *
-         * @param event
-         *            Popup event.
+         * @param event Popup event.
          */
         void popupHidden(PopupEvent event);
+    }
+
+    // Implementation of PopupListener that holds a weak reference to the original
+    // listener and unregisters it if gets reclaimed even without being explicitly
+    // unregistered
+    private static class WeakPopupListener implements PopupListener {
+        private WeakReference<PopupListener> listenerRef;
+
+        public WeakPopupListener(PopupListener listener) {
+            if (listener == null) {
+                throw new IllegalArgumentException("Cannot wrap a null listener");
+            }
+            this.listenerRef = new WeakReference<>(listener);
+        }
+
+        @Override
+        public void popupShown(PopupEvent event) {
+            PopupListener originalListener = this.listenerRef.get();
+            if (originalListener != null) {
+                originalListener.popupShown(event);
+            } else {
+                // the original is reclaimed - unregister explicitly
+                PopupPanelManager.defaultManager().listenerList.remove(this);
+                this.listenerRef = null;
+            }
+        }
+
+        @Override
+        public void popupHidden(PopupEvent event) {
+            PopupListener originalListener = this.listenerRef.get();
+            if (originalListener != null) {
+                originalListener.popupHidden(event);
+            } else {
+                // the original is reclaimed - unregister explicitly
+                PopupPanelManager.defaultManager().listenerList.remove(this);
+                this.listenerRef = null;
+            }
+        }
     }
 
     /**
@@ -76,12 +112,12 @@ public class PopupPanelManager {
         /**
          * ID of "popup shown" event.
          */
-        public static final int POPUP_SHOWN = 100;
+        public static final int POPUP_SHOWN = ComponentEvent.COMPONENT_LAST + 1;
 
         /**
          * ID of "popup hidden" event.
          */
-        public static final int POPUP_HIDDEN = 101;
+        public static final int POPUP_HIDDEN = ComponentEvent.COMPONENT_LAST + 2;
 
         /**
          * The popup originator component.
@@ -91,12 +127,9 @@ public class PopupPanelManager {
         /**
          * Creates a new popup event.
          *
-         * @param source
-         *            Event source.
-         * @param id
-         *            Event ID.
-         * @param popupOriginator
-         *            Popup originator component.
+         * @param source          Event source.
+         * @param id              Event ID.
+         * @param popupOriginator Popup originator component.
          */
         public PopupEvent(JPopupPanel source, int id, JComponent popupOriginator) {
             super(source, id);
@@ -116,7 +149,7 @@ public class PopupPanelManager {
     /**
      * List of all registered listeners.
      */
-    protected EventListenerList listenerList = new EventListenerList();
+    private List<WeakPopupListener> listenerList = new ArrayList<>();
 
     /**
      * The singleton instance of popup panel manager.
@@ -142,10 +175,8 @@ public class PopupPanelManager {
         /**
          * Creates a new information object.
          *
-         * @param popupOriginator
-         *            The originating component.
-         * @param popupPanel
-         *            The popup panel.
+         * @param popupOriginator The originating component.
+         * @param popupPanel      The popup panel.
          */
         public PopupInfo(JComponent popupOriginator, JPopupPanel popupPanel) {
             this.popupOriginator = popupOriginator;
@@ -183,25 +214,21 @@ public class PopupPanelManager {
     /**
      * All currently shown popup panels.
      */
-    protected LinkedList<PopupInfo> shownPath = new LinkedList<PopupInfo>();
+    protected LinkedList<PopupInfo> shownPath = new LinkedList<>();
 
     /**
      * Map of all popup panels and associated {@link Popup} objects.
      */
-    protected Map<JPopupPanel, Popup> popupPanels = new HashMap<JPopupPanel, Popup>();
+    protected Map<JPopupPanel, Popup> popupPanels = new HashMap<>();
 
     /**
      * Adds new popup to the tracking structures.
      *
-     * @param popupOriginator
-     *            The originating component.
-     * @param popup
-     *            The new popup.
-     * @param popupInitiator
-     *            The initiator of the popup.
+     * @param popupOriginator The originating component.
+     * @param popup           The new popup.
+     * @param popupInitiator  The initiator of the popup.
      */
-    public void addPopup(JComponent popupOriginator, Popup popup,
-            JPopupPanel popupInitiator) {
+    public void addPopup(JComponent popupOriginator, Popup popup, JPopupPanel popupInitiator) {
         popupInitiator.setInvoker(popupOriginator);
         popupPanels.put(popupInitiator, popup);
         shownPath.addLast(new PopupInfo(popupOriginator, popupInitiator));
@@ -238,8 +265,7 @@ public class PopupPanelManager {
      * all popup panels that were open from that popup panel. If the specified
      * component is <code>null</code>, all popup panels are closed.
      *
-     * @param comp
-     *            Component.
+     * @param comp Component.
      */
     public void hidePopups(Component comp) {
         boolean foundAndDismissed = false;
@@ -304,64 +330,65 @@ public class PopupPanelManager {
     /**
      * Adds the specified popup listener.
      *
-     * @param l
-     *            Listener to add.
+     * @param l Listener to add.
      */
     public void addPopupListener(PopupListener l) {
-        this.listenerList.add(PopupListener.class, l);
+        if (l instanceof WeakPopupListener) {
+            throw new IllegalArgumentException("Don't pass an explicitly wrapped listener");
+        }
+        this.listenerList.add(new WeakPopupListener(l));
     }
 
     /**
      * Removes the specified popup listener.
      *
-     * @param l
-     *            Listener to remove.
+     * @param l Listener to remove.
      */
     public void removePopupListener(PopupListener l) {
-        this.listenerList.remove(PopupListener.class, l);
+        if (l instanceof WeakPopupListener) {
+            throw new IllegalArgumentException("Don't pass an explicitly wrapped listener");
+        }
+
+        // In addition to removing the specified popup listener, this will also remove all
+        // wrappers around listeners that have been reclaimed
+        for (int i = this.listenerList.size() - 1; i >= 0; i--) {
+            WeakPopupListener current = this.listenerList.get(i);
+            PopupListener original = current.listenerRef.get();
+            if ((original == null) || (original == l)) {
+                this.listenerList.remove(i);
+            }
+        }
     }
 
     /**
      * Fires an event on showing the specified popup panel.
      *
-     * @param panel
-     *            Popup panel that was shown.
-     * @param popupOriginator
-     *            The originating component.
+     * @param panel           Popup panel that was shown.
+     * @param popupOriginator The originating component.
      */
     protected void firePopupShown(JPopupPanel panel, JComponent popupOriginator) {
         // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        PopupEvent popupEvent = new PopupEvent(panel, PopupEvent.POPUP_SHOWN,
-                popupOriginator);
+        PopupEvent popupEvent = new PopupEvent(panel, PopupEvent.POPUP_SHOWN, popupOriginator);
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == PopupListener.class) {
-                ((PopupListener) listeners[i + 1]).popupShown(popupEvent);
-            }
+        for (int i = listenerList.size() - 1; i >= 0; i--) {
+            listenerList.get(i).popupShown(popupEvent);
         }
     }
 
     /**
      * Fires an event on hiding the specified popup panel.
      *
-     * @param panel
-     *            Popup panel that was hidden.
-     * @param popupOriginator
-     *            The originating component.
+     * @param panel           Popup panel that was hidden.
+     * @param popupOriginator The originating component.
      */
     protected void firePopupHidden(JPopupPanel panel, JComponent popupOriginator) {
         // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
-        PopupEvent popupEvent = new PopupEvent(panel, PopupEvent.POPUP_HIDDEN,
-                popupOriginator);
+        PopupEvent popupEvent = new PopupEvent(panel, PopupEvent.POPUP_HIDDEN, popupOriginator);
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == PopupListener.class) {
-                ((PopupListener) listeners[i + 1]).popupHidden(popupEvent);
-            }
+        for (int i = listenerList.size() - 1; i >= 0; i--) {
+            listenerList.get(i).popupHidden(popupEvent);
         }
     }
 }

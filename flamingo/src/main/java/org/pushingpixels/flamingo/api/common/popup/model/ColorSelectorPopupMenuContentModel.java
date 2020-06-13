@@ -29,27 +29,28 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
+import org.pushingpixels.flamingo.api.common.model.ChangeAware;
 import org.pushingpixels.flamingo.api.common.model.ContentModel;
+import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EventListener;
 import java.util.List;
 
-public class ColorSelectorPopupMenuContentModel implements ContentModel {
+public class ColorSelectorPopupMenuContentModel implements ContentModel, ChangeAware {
     private List<ColorSelectorPopupMenuGroupModel> menuGroups;
 
     private ColorPreviewListener colorPreviewListener;
     private ColorActivationListener colorActivationListener;
+    private final WeakChangeSupport weakChangeSupport;
 
     /**
      * Stores the listeners on this model.
      */
-    private EventListenerList listenerList = new EventListenerList();
 
     private ChangeListener menuGroupChangeListener;
 
@@ -84,6 +85,7 @@ public class ColorSelectorPopupMenuContentModel implements ContentModel {
     }
 
     public ColorSelectorPopupMenuContentModel(List<ColorSelectorPopupMenuGroupModel> menuGroups) {
+        this.weakChangeSupport = new WeakChangeSupport(this);
         this.menuGroups = new ArrayList<>(menuGroups);
         this.menuGroupChangeListener = (ChangeEvent event) -> fireStateChanged();
         for (ColorSelectorPopupMenuGroupModel menuGroup : this.menuGroups) {
@@ -131,39 +133,16 @@ public class ColorSelectorPopupMenuContentModel implements ContentModel {
         this.fireStateChanged();
     }
 
-    /**
-     * Adds the specified change listener to track changes to this model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
     public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
+        this.weakChangeSupport.addChangeListener(l);
     }
 
-    /**
-     * Removes the specified change listener from tracking changes to this model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
+    @Override
     public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
+        this.weakChangeSupport.removeChangeListener(l);
     }
 
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
     private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
-            }
-        }
+        this.weakChangeSupport.fireStateChanged();
     }
 }

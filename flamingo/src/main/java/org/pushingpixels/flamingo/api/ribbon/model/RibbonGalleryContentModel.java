@@ -29,12 +29,13 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.model;
 
+import org.pushingpixels.flamingo.api.common.model.ChangeAware;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.ContentModel;
+import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import java.util.Collections;
 import java.util.EventListener;
 import java.util.List;
 
-public class RibbonGalleryContentModel implements ContentModel {
+public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
     private List<CommandGroup> commandGroups;
     private List<CommandGroup> extraPopupCommandGroups;
     private Command selectedCommand;
@@ -51,6 +52,7 @@ public class RibbonGalleryContentModel implements ContentModel {
     /**
      * Stores the listeners on this model.
      */
+    private final WeakChangeSupport weakChangeSupport;
     private EventListenerList listenerList = new EventListenerList();
 
     /**
@@ -88,6 +90,7 @@ public class RibbonGalleryContentModel implements ContentModel {
 
     public RibbonGalleryContentModel(ResizableIcon.Factory iconFactory,
             List<CommandGroup> commands) {
+        this.weakChangeSupport = new WeakChangeSupport(this);
         this.iconFactory = iconFactory;
         this.commandGroups = new ArrayList<>(commands);
 
@@ -191,24 +194,18 @@ public class RibbonGalleryContentModel implements ContentModel {
         this.listenerList.remove(GalleryCommandAction.class, l);
     }
 
-    /**
-     * Adds the specified change listener to track changes to the model.
-     *
-     * @param l Change listener to add.
-     * @see #removeChangeListener(ChangeListener)
-     */
+    @Override
     public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
+        this.weakChangeSupport.addChangeListener(l);
     }
 
-    /**
-     * Removes the specified change listener from tracking changes to the model.
-     *
-     * @param l Change listener to remove.
-     * @see #addChangeListener(ChangeListener)
-     */
+    @Override
     public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
+        this.weakChangeSupport.removeChangeListener(l);
+    }
+
+    private void fireStateChanged() {
+        this.weakChangeSupport.fireStateChanged();
     }
 
     public void setSelectedCommand(Command command) {
@@ -270,22 +267,6 @@ public class RibbonGalleryContentModel implements ContentModel {
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == GalleryCommandAction.class) {
                 ((GalleryCommandAction) listeners[i + 1]).onCommandActivated(command);
-            }
-        }
-    }
-
-    /**
-     * Notifies all registered listeners that the state of this model has changed.
-     */
-    private void fireStateChanged() {
-        // Guaranteed to return a non-null array
-        Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        ChangeEvent event = new ChangeEvent(this);
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == ChangeListener.class) {
-                ((ChangeListener) listeners[i + 1]).stateChanged(event);
             }
         }
     }

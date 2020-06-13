@@ -88,35 +88,33 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      * Installs listeners on the associated button strip.
      */
     protected void installListeners() {
-        this.commandGroupListener =
-                new CommandGroup.CommandGroupListener() {
-                    @Override
-                    public void onCommandAdded(Command command) {
-                        addButton(command);
-                        updateButtonOrder();
-                    }
+        this.commandGroupListener = new CommandGroup.CommandGroupListener() {
+            @Override
+            public void onCommandAdded(Command command) {
+                addButton(command);
+                updateButtonOrder();
+            }
 
-                    @Override
-                    public void onCommandRemoved(Command command) {
-                        AbstractCommandButton commandButton = commandButtonMap.get(command);
-                        commandButton.removeCommandListener(command.getAction());
-                        buttonStrip.remove(commandButton);
-                        commandButtonMap.remove(command);
-                        updateButtonOrder();
-                    }
+            @Override
+            public void onCommandRemoved(Command command) {
+                AbstractCommandButton commandButton = commandButtonMap.get(command);
+                commandButton.removeCommandListener(command.getAction());
+                buttonStrip.remove(commandButton);
+                commandButtonMap.remove(command);
+                updateButtonOrder();
+            }
 
-                    @Override
-                    public void onAllCommandsRemoved() {
-                        for (Map.Entry<Command, AbstractCommandButton> entry :
-                                commandButtonMap.entrySet()) {
-                            entry.getValue().removeCommandListener(entry.getKey().getAction());
-                            buttonStrip.remove(entry.getValue());
-                        }
-                        commandButtonMap.clear();
-                    }
-                };
-        this.buttonStrip.getProjection().getContentModel().addCommandGroupListener(
-                this.commandGroupListener);
+            @Override
+            public void onAllCommandsRemoved() {
+                for (Map.Entry<Command, AbstractCommandButton> entry :
+                        commandButtonMap.entrySet()) {
+                    entry.getValue().removeCommandListener(entry.getKey().getAction());
+                    buttonStrip.remove(entry.getValue());
+                }
+                commandButtonMap.clear();
+            }
+        };
+        this.buttonStrip.getProjection().getContentModel().addCommandGroupListener(this.commandGroupListener);
     }
 
     /**

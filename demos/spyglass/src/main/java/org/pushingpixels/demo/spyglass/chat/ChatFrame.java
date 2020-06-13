@@ -63,8 +63,7 @@ public class ChatFrame extends JFrame {
 
         JLabel titleLabel = new JLabel("Chat", ic_chat_black_24px.of(16, 16), JLabel.CENTER);
         titleLabel.setIconTextGap(6);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
-                .getWindowTitleFont().deriveFont(16.0f));
+        SubstanceCortex.WindowScope.markLabelAsTitlePaneText(this, titleLabel);
         builder.add(titleLabel).xy(3, 1);
 
         builder.add(new JTextField(12)).xy(5, 1);
