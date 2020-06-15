@@ -108,7 +108,8 @@ public class WeakPropertyChangeSupport {
      */
     public void removePropertyChangeListener(PropertyChangeListener l) {
         if (l instanceof WeakPropertyChangeListener) {
-            throw new IllegalArgumentException("Don't pass an explicitly wrapped listener");
+            this.listenerList.remove(l);
+            return;
         }
 
         // In addition to removing the specified property change listener, this will also remove all

@@ -1954,6 +1954,10 @@ public class SubstanceCoreUtilities {
     private static List<AWTEventListener> awtEventListeners = new ArrayList<>();
 
     public synchronized static void registerAWTEventListener(AWTEventListener awtEventListener) {
+        if (awtEventListeners.contains(awtEventListener)) {
+            // Already registered
+            return;
+        }
         awtEventListeners.add(awtEventListener);
     }
 

@@ -109,7 +109,8 @@ public class WeakChangeSupport {
      */
     public void removeChangeListener(ChangeListener l) {
         if (l instanceof WeakChangeListener) {
-            throw new IllegalArgumentException("Don't pass an explicitly wrapped listener");
+            this.listenerList.remove(l);
+            return;
         }
 
         // In addition to removing the specified change listener, this will also remove all

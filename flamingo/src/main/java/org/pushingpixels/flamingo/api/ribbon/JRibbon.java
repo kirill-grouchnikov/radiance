@@ -35,8 +35,10 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
@@ -215,6 +217,8 @@ public class JRibbon extends JComponent {
 
     private RibbonTaskbarKeyTipPolicy taskbarKeyTipPolicy;
 
+    private CommandPopupMenuPresentationModel defaultTaskbarCommandPopupMenuPresentationModel;
+
     /**
      * The UI class ID string.
      */
@@ -282,12 +286,14 @@ public class JRibbon extends JComponent {
      *
      * @param command The taskbar command to add.
      * @see #clearTaskbar()
+     * @see #setDefaultTaskbarCommandPopupMenuPresentationModel(CommandPopupMenuPresentationModel) 
      */
     public synchronized void addTaskbarCommand(Command command) {
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
                 .setHorizontalGapScaleFactor(0.5)
                 .setVerticalGapScaleFactor(0.5)
+                .setPopupMenuPresentationModel(this.getDefaultTaskbarCommandPopupMenuPresentationModel())
                 .build();
 
         CommandButtonProjection<Command> projection = command.project(presentationModel);
@@ -863,5 +869,32 @@ public class JRibbon extends JComponent {
         for (int i = this.onTaskSelectionChangeListeners.size() - 1; i >= 0; i--) {
             this.onTaskSelectionChangeListeners.get(i).onTaskSelectionChanged(this.currentlySelectedTask);
         }
+    }
+
+    public void setDefaultTaskbarCommandPopupMenuPresentationModel(
+            CommandPopupMenuPresentationModel defaultTaskbarCommandPopupMenuPresentationModel) {
+        if (defaultTaskbarCommandPopupMenuPresentationModel == null) {
+            throw new IllegalArgumentException("Default presentation model cannot be null");
+        }
+        this.defaultTaskbarCommandPopupMenuPresentationModel = defaultTaskbarCommandPopupMenuPresentationModel;
+    }
+
+    public CommandPopupMenuPresentationModel getDefaultTaskbarCommandPopupMenuPresentationModel() {
+        if (this.defaultTaskbarCommandPopupMenuPresentationModel == null) {
+            // Instantiate one until https://github.com/kirill-grouchnikov/radiance/issues/287 is
+            // addressed
+            this.defaultTaskbarCommandPopupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
+                    .setPanelPresentationModel(
+                            CommandPanelPresentationModel.builder()
+                                    .setToShowGroupLabels(false)
+                                    .setCommandPresentationState(
+                                            CommandButtonPresentationState.FIT_TO_ICON)
+                                    .setCommandIconDimension(48)
+                                    .setMaxColumns(5)
+                                    .setMaxRows(3)
+                                    .build())
+                    .build();
+        }
+        return this.defaultTaskbarCommandPopupMenuPresentationModel;
     }
 }
