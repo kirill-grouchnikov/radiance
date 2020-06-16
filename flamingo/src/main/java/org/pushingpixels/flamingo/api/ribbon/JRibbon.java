@@ -286,7 +286,7 @@ public class JRibbon extends JComponent {
      *
      * @param command The taskbar command to add.
      * @see #clearTaskbar()
-     * @see #setDefaultTaskbarCommandPopupMenuPresentationModel(CommandPopupMenuPresentationModel) 
+     * @see #setDefaultTaskbarCommandPopupMenuPresentationModel(CommandPopupMenuPresentationModel)
      */
     public synchronized void addTaskbarCommand(Command command) {
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()

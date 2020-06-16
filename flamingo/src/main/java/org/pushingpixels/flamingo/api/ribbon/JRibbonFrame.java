@@ -94,6 +94,9 @@ public class JRibbonFrame extends JFrame {
 
     private boolean wasSetIconImagesCalled;
 
+    private AWTEventListener awtEventListener;
+    private KeyTipManager.KeyTipListener keyTipListener;
+
     /**
      * Custom layout manager that enforces the {@link JRibbon} location at
      * {@link BorderLayout#NORTH}.
@@ -369,7 +372,7 @@ public class JRibbonFrame extends JFrame {
         this.add(this.ribbon, BorderLayout.NORTH);
 
         final KeyTipManager keyTipManager = KeyTipManager.defaultManager();
-        SubstanceCoreUtilities.registerAWTEventListener(new AWTEventListener() {
+        this.awtEventListener = new AWTEventListener() {
             private boolean prevAltModif = false;
 
             @Override
@@ -467,7 +470,7 @@ public class JRibbonFrame extends JFrame {
                     }
                 }
             }
-        });
+        };
 
         final KeyTipLayer keyTipLayer = new KeyTipLayer();
         JRootPane rootPane = this.getRootPane();
@@ -513,7 +516,7 @@ public class JRibbonFrame extends JFrame {
             }
         });
 
-        KeyTipManager.defaultManager().addKeyTipListener(new KeyTipManager.KeyTipListener() {
+        this.keyTipListener = new KeyTipManager.KeyTipListener() {
             @Override
             public void keyTipsHidden(KeyTipEvent event) {
                 if (event.getSource() == JRibbonFrame.this) {
@@ -527,7 +530,7 @@ public class JRibbonFrame extends JFrame {
                     keyTipLayer.setVisible(true);
                 }
             }
-        });
+        };
 
         RichTooltipManager.sharedInstance();
 
@@ -536,6 +539,29 @@ public class JRibbonFrame extends JFrame {
 
         super.setIconImages(Collections.singletonList(
                 SubstanceCoreUtilities.getBlankImage(16, 16)));
+    }
+
+    @Override
+    public void dispose() {
+        SubstanceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
+        KeyTipManager.defaultManager().removeKeyTipListener(this.keyTipListener);
+        super.dispose();
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void show() {
+        super.show();
+        SubstanceCoreUtilities.registerAWTEventListener(this.awtEventListener);
+        KeyTipManager.defaultManager().addKeyTipListener(this.keyTipListener);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void hide() {
+        SubstanceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
+        KeyTipManager.defaultManager().removeKeyTipListener(this.keyTipListener);
+        super.hide();
     }
 
     private boolean isValidPopupTriggerSource(Component c) {

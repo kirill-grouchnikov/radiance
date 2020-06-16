@@ -48,7 +48,6 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationM
 
 import javax.swing.FocusManager;
 import javax.swing.*;
-import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,7 +64,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class KeyTipManager {
     private List<KeyTipChain> keyTipChains;
 
-    private EventListenerList listenerList;
+    private List<KeyTipListener> listenerList;
 
     private BlockingQueue<Character> processingQueue;
 
@@ -143,7 +142,7 @@ public class KeyTipManager {
 
     private KeyTipManager() {
         this.keyTipChains = new ArrayList<>();
-        this.listenerList = new EventListenerList();
+        this.listenerList = new ArrayList<>();
         this.processingQueue = new LinkedBlockingQueue<>();
         ProcessingThread processingThread = new ProcessingThread();
         processingThread.start();
@@ -626,36 +625,32 @@ public class KeyTipManager {
     }
 
     public void addKeyTipListener(KeyTipListener keyTipListener) {
-        this.listenerList.add(KeyTipListener.class, keyTipListener);
+        if (this.listenerList.contains(keyTipListener)) {
+            return;
+        }
+        this.listenerList.add(keyTipListener);
     }
 
     public void removeKeyTipListener(KeyTipListener keyTipListener) {
-        this.listenerList.remove(KeyTipListener.class, keyTipListener);
+        this.listenerList.remove(keyTipListener);
     }
 
     private void fireKeyTipsShown(JRibbonFrame ribbonFrame) {
-        // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
         KeyTipEvent e = new KeyTipEvent(ribbonFrame, 0);
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == KeyTipListener.class) {
-                ((KeyTipListener) listeners[i + 1]).keyTipsShown(e);
-            }
+        for (int i =  this.listenerList.size() - 1; i >= 0; i--) {
+            this.listenerList.get(i).keyTipsShown(e);
         }
     }
 
     private void fireKeyTipsHidden(JRibbonFrame ribbonFrame) {
         // Guaranteed to return a non-null array
-        Object[] listeners = listenerList.getListenerList();
         KeyTipEvent e = new KeyTipEvent(ribbonFrame, 0);
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == KeyTipListener.class) {
-                ((KeyTipListener) listeners[i + 1]).keyTipsHidden(e);
-            }
+        for (int i =  this.listenerList.size() - 1; i >= 0; i--) {
+            this.listenerList.get(i).keyTipsHidden(e);
         }
     }
 
