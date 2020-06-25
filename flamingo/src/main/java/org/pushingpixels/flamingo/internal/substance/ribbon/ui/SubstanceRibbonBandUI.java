@@ -41,13 +41,13 @@ import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
@@ -55,9 +55,7 @@ import org.pushingpixels.substance.internal.widget.animation.effects.GhostPainti
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.util.EnumSet;
 
@@ -80,14 +78,6 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         super.installDefaults();
         ComponentOrParentChainScope.setDecorationType(this.ribbonBand,
                 DecorationAreaType.GENERAL);
-
-        Color backgr = this.ribbonBand.getBackground();
-        if (backgr == null || backgr instanceof UIResource) {
-            Color toSet = SubstanceColorSchemeUtilities
-                    .getColorScheme(this.ribbonBand, ComponentState.ENABLED)
-                    .getBackgroundFillColor();
-            this.ribbonBand.setBackground(new ColorUIResource(toSet));
-        }
 
         Insets insets = SubstanceSizeUtils
                 .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.ribbonBand));
@@ -238,7 +228,8 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         Graphics2D g2d = (Graphics2D) g.create();
         NeonCortex.installDesktopHints(g2d, this.ribbonBand.getFont());
         GhostPaintingUtils.paintGhostImages(c, g2d);
-        super.update(g2d, c);
+        BackgroundPaintingUtils.update(g2d, c, false);
+        this.paint(g2d, c);
         g2d.dispose();
     }
 

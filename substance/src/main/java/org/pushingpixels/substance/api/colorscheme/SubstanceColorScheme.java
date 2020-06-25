@@ -38,8 +38,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors,
-        SchemeDerivedColors {
+public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors, SchemeDerivedColors {
     /**
      * Returns indication whether this color scheme uses dark colors. Note that
      * this method may be removed in the future.

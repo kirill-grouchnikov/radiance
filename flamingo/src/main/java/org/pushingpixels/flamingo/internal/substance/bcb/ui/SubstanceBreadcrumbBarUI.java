@@ -34,7 +34,6 @@ import org.pushingpixels.flamingo.internal.ui.bcb.BasicBreadcrumbBarUI;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
@@ -55,17 +54,6 @@ public class SubstanceBreadcrumbBarUI extends BasicBreadcrumbBarUI {
 	}
 
 	private SubstanceBreadcrumbBarUI() {
-	}
-
-	@Override
-	protected void installDefaults(JBreadcrumbBar bar) {
-		super.installDefaults(bar);
-		Color backgr = bar.getBackground();
-		if ((backgr == null) || (backgr instanceof UIResource)) {
-			backgr = SubstanceColorSchemeUtilities.getColorScheme(bar,
-					ComponentState.ENABLED).getBackgroundFillColor();
-			bar.setBackground(new ColorUIResource(backgr));
-		}
 	}
 
 	@Override

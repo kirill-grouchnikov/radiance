@@ -482,8 +482,7 @@ public class SubstanceTextUtilities {
     public static void paintTextCompBackground(Graphics g, JComponent comp) {
         Color backgroundFillColor = getTextBackgroundFillColor(comp);
 
-        boolean toPaintWatermark = (SubstanceCortex.ComponentScope.getCurrentSkin(comp)
-                .getWatermark() != null)
+        boolean toPaintWatermark = (SubstanceCortex.ComponentScope.getCurrentSkin(comp).getWatermark() != null)
                 && (SubstanceCoreUtilities.toDrawWatermark(comp) || !comp.isOpaque());
         paintTextCompBackground(g, comp, backgroundFillColor, toPaintWatermark);
     }

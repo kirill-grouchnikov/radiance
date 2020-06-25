@@ -44,6 +44,7 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.api.Timeline.TimelineState;
@@ -682,11 +683,16 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
 
         Color gridColor = this.table.getGridColor();
         if (gridColor instanceof UIResource) {
-            SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this.table,
-                    ColorSchemeAssociationKind.BORDER,
-                    this.table.isEnabled() ? ComponentState.ENABLED
-                            : ComponentState.DISABLED_UNSELECTED);
-            gridColor = scheme.getLineColor();
+            gridColor = SubstanceCoreUtilities.getSkin(this.table).getOverlayColor(
+                    SubstanceSlices.ColorOverlayType.LINE,
+                    DecorationPainterUtils.getDecorationType(this.table), currState);
+            if (gridColor == null) {
+                SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this.table,
+                        ColorSchemeAssociationKind.BORDER,
+                        this.table.isEnabled() ? ComponentState.ENABLED
+                                : ComponentState.DISABLED_UNSELECTED);
+                gridColor = scheme.getLineColor();
+            }
         }
         g2d.setColor(gridColor);
 

@@ -824,14 +824,12 @@ public final class SubstanceSlices {
         /**
          * Title pane of top-level windows (frames, dialogs).
          */
-        public final static DecorationAreaType PRIMARY_TITLE_PANE = new DecorationAreaType(
-                "Primary title pane");
+        public final static DecorationAreaType PRIMARY_TITLE_PANE = new DecorationAreaType("Primary title pane");
 
         /**
          * Title pane of non top-level windows (internal frames, desktop icons).
          */
-        public final static DecorationAreaType SECONDARY_TITLE_PANE = new DecorationAreaType(
-                "Secondary title pane");
+        public final static DecorationAreaType SECONDARY_TITLE_PANE = new DecorationAreaType("Secondary title pane");
 
         /**
          * Tool bar.
@@ -863,6 +861,21 @@ public final class SubstanceSlices {
         public String getDisplayName() {
             return this.displayName;
         }
+    }
+
+
+    /**
+     * Enumeration of available color overlay types. This class is part of officially supported API.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public enum ColorOverlayType {
+        LINE,
+        FOCUS_INDICATION,
+        BACKGROUND_FILL,
+        TEXT_BACKGROUND_FILL,
+        SELECTION_BACKGROUND_FILL,
+        SELECTION_FOREGROUND_FILL
     }
 
     /**
@@ -955,6 +968,11 @@ public final class SubstanceSlices {
          * Visual area of mark boxes. Used for painting the box of checkboxes and radio buttons.
          */
         public static final ColorSchemeAssociationKind MARK_BOX = new ColorSchemeAssociationKind("markBox", FILL);
+
+        /**
+         * Visual area of focus indication.
+         */
+        public static final ColorSchemeAssociationKind FOCUS = new ColorSchemeAssociationKind("focus", MARK);
 
         /**
          * Border visual area of the tabs.

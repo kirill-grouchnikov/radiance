@@ -30,10 +30,7 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
@@ -41,10 +38,12 @@ import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.GlassHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.substance.api.skin.GraphiteSkin;
 import org.pushingpixels.substance.api.skin.NebulaAccentedSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -243,9 +242,14 @@ public class SampleMenuFactory {
         JMenuItem jmiAccentedSkin = new JMenuItem(customAccentedSkin.getDisplayName());
         jmiAccentedSkin.addActionListener(
                 (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customAccentedSkin));
+        final CustomFocusSkin customFocusSkin = new CustomFocusSkin();
+        JMenuItem jmiFocusSkin = new JMenuItem(customFocusSkin.getDisplayName());
+        jmiFocusSkin.addActionListener(
+                (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customFocusSkin));
 
         jmSkin.add(jmiSkin);
         jmSkin.add(jmiAccentedSkin);
+        jmSkin.add(jmiFocusSkin);
 
         return jmSkin;
     }
@@ -258,6 +262,20 @@ public class SampleMenuFactory {
         @Override
         public String getDisplayName() {
             return "Nebula Olive";
+        }
+    }
+
+    protected static class CustomFocusSkin extends GraphiteSkin {
+        public CustomFocusSkin() {
+            super();
+
+            this.setOverlayColor(Color.red, SubstanceSlices.ColorOverlayType.FOCUS_INDICATION,
+                    DecorationAreaType.NONE, ComponentState.getAllStates().toArray(new ComponentState[0]));
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "Graphite Red Focus";
         }
     }
 

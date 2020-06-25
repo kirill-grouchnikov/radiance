@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
@@ -80,9 +81,12 @@ public class SubstanceDesktopIconUI extends BasicDesktopIconUI {
 		}
 		this.width = UIManager.getInt("DesktopIcon.width");
 		this.desktopIcon.setBackground(
-				SubstanceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame()).
-					getBackgroundColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE)
-						.getBackgroundFillColor());
+				SubstanceCoreUtilities.getBackgroundFill(
+						SubstanceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame()),
+						DecorationAreaType.SECONDARY_TITLE_PANE));
+//				SubstanceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame()).
+//					getBackgroundColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE)
+//						.getBackgroundFillColor());
 
 		for (SubstanceWidget lafWidget : this.lafWidgets) {
 			lafWidget.installDefaults();

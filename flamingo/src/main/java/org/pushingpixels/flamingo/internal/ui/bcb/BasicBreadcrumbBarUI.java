@@ -159,8 +159,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     protected void installDefaults(JBreadcrumbBar<?> bar) {
         Font currFont = bar.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            bar.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
-                    .getControlFont());
+            bar.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
         }
     }
 

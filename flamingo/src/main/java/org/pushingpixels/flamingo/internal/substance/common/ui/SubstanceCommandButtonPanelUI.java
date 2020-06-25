@@ -84,9 +84,7 @@ public class SubstanceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
     @Override
     protected void paintGroupBackground(Graphics g, int groupIndex, int x,
             int y, int width, int height) {
-        SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
-                .getColorScheme(buttonPanel, ComponentState.ENABLED);
-        Color background = scheme.getBackgroundFillColor();
+        Color background = SubstanceColorUtilities.getBackgroundFillColor(this.buttonPanel);
         if (groupIndex % 2 == 1) {
             background = SubstanceColorUtilities.getDarkerColor(background, 0.06);
         }

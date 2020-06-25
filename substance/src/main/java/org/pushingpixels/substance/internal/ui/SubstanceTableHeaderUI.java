@@ -31,6 +31,7 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -39,6 +40,7 @@ import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableHeaderCellR
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -560,9 +562,13 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         }
         ComponentState currState = isEnabled ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
-        Color gridColor = SubstanceColorSchemeUtilities
-                .getColorScheme(header, ColorSchemeAssociationKind.BORDER, currState)
-                .getLineColor();
+        Color gridColor = SubstanceCoreUtilities.getSkin(header).getOverlayColor(
+                SubstanceSlices.ColorOverlayType.LINE,
+                DecorationPainterUtils.getDecorationType(header), currState);
+        if (gridColor == null) {
+            gridColor = SubstanceColorSchemeUtilities.getColorScheme(
+                    header, ColorSchemeAssociationKind.BORDER, currState).getLineColor();
+        }
         return gridColor;
     }
 

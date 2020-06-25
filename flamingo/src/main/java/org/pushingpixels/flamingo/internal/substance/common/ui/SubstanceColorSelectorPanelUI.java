@@ -32,9 +32,11 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
@@ -47,66 +49,76 @@ import java.awt.geom.Line2D;
 /**
  * UI for {@link JColorSelectorPanel} components in <b>Substance</b> look and
  * feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceColorSelectorPanelUI();
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceColorSelectorPanelUI();
+    }
 
-	private SubstanceColorSelectorPanelUI() {
-	}
+    private SubstanceColorSelectorPanelUI() {
+    }
 
-	@Override
-	protected void paintCaptionBackground(Graphics g, int x, int y, int width, int height) {
-		SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-				this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT,
-				ComponentState.ENABLED);
-		SubstanceCoreUtilities.getFillPainter(this.colorSelectorPanel).paintContourBackground(g,
-				this.colorSelectorPanel, width, height, new Rectangle(x, y, width, height), false,
-				bgFillScheme, false);
+    @Override
+    protected void paintCaptionBackground(Graphics g, int x, int y, int width, int height) {
+        SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT,
+                ComponentState.ENABLED);
+        SubstanceCoreUtilities.getFillPainter(this.colorSelectorPanel).paintContourBackground(g,
+                this.colorSelectorPanel, width, height, new Rectangle(x, y, width, height), false,
+                bgFillScheme, false);
 
-		SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
-				this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-				ComponentState.ENABLED);
-		Color borderColor = bgBorderScheme.getLineColor();
-		float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        Color borderColor = SubstanceCoreUtilities.getSkin(this.colorSelectorPanel).getOverlayColor(
+                SubstanceSlices.ColorOverlayType.LINE,
+                DecorationPainterUtils.getDecorationType(this.colorSelectorPanel), ComponentState.ENABLED);
+        if (borderColor == null) {
+            SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                    ComponentState.ENABLED);
+            borderColor = bgBorderScheme.getLineColor();
+        }
+        float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth();
 
-		Graphics2D g2d = (Graphics2D) g.create();
-		g2d.setStroke(new BasicStroke(lineThickness));
-		g2d.setColor(borderColor);
-		g2d.draw(new Line2D.Float(x, y, x + width, y));
-		float bottomLineY = y + height - lineThickness;
-		g2d.draw(new Line2D.Float(x, bottomLineY, x + width, bottomLineY));
-		g2d.dispose();
-	}
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setStroke(new BasicStroke(lineThickness));
+        g2d.setColor(borderColor);
+        g2d.draw(new Line2D.Float(x, y, x + width, y));
+        float bottomLineY = y + height - lineThickness;
+        g2d.draw(new Line2D.Float(x, bottomLineY, x + width, bottomLineY));
+        g2d.dispose();
+    }
 
-	@Override
-	protected void paintBottomDivider(Graphics g, int x, int y, int width, int height) {
-		SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
-				this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-				ComponentState.ENABLED);
-		Color borderColor = bgBorderScheme.getLineColor();
-		float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-		Graphics2D g2d = (Graphics2D) g.create();
-		g2d.setStroke(new BasicStroke(lineThickness));
-		g2d.setColor(borderColor);
-		float lineY = y + height - lineThickness;
-		g2d.draw(new Line2D.Float(x, lineY, x + width, lineY));
-		g2d.dispose();
-	}
+    @Override
+    protected void paintBottomDivider(Graphics g, int x, int y, int width, int height) {
+        Color borderColor = SubstanceCoreUtilities.getSkin(this.colorSelectorPanel).getOverlayColor(
+                SubstanceSlices.ColorOverlayType.LINE,
+                DecorationPainterUtils.getDecorationType(this.colorSelectorPanel), ComponentState.ENABLED);
+        if (borderColor == null) {
+            SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                    ComponentState.ENABLED);
+            borderColor = bgBorderScheme.getLineColor();
+        }
+        float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setStroke(new BasicStroke(lineThickness));
+        g2d.setColor(borderColor);
+        float lineY = y + height - lineThickness;
+        g2d.draw(new Line2D.Float(x, lineY, x + width, lineY));
+        g2d.dispose();
+    }
 
-	@Override
-	public void update(Graphics g, JComponent c) {
-		BackgroundPaintingUtils.updateIfOpaque(g, c);
-		this.paint(g, c);
-	}
-	
-	@Override
-	protected int getLayoutGap() {
+    @Override
+    public void update(Graphics g, JComponent c) {
+        BackgroundPaintingUtils.updateIfOpaque(g, c);
+        this.paint(g, c);
+    }
+
+    @Override
+    protected int getLayoutGap() {
         return (int) SubstanceSizeUtils.getAdjustedSize(
                 SubstanceSizeUtils.getComponentFontSize(colorSelectorPanel), 4, 1, 0.25f);
-	}
+    }
 }

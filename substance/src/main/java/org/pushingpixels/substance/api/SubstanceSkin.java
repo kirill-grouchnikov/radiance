@@ -288,6 +288,8 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      */
     private Set<ComponentState> statesWithAlpha;
 
+    private Map<SubstanceSlices.ColorOverlayType, Map<DecorationAreaType, Map<ComponentState, Color>>> colorOverlayMap;
+
     /**
      * Constructs the basic data structures for a skin.
      */
@@ -295,6 +297,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         this.colorSchemeBundleMap = new HashMap<>();
         this.backgroundColorSchemeMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
+        this.colorOverlayMap = new HashMap<>();
 
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(DecorationAreaType.PRIMARY_TITLE_PANE);
@@ -950,15 +953,13 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * Returns the background color scheme for the specified decoration area
      * type. This method is mainly for the internal use of
      * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
-     * , but can be used in applications that wish to provide custom overlay
+     * but can be used in applications that wish to provide custom overlay
      * background painting (such as watermarks, for example).
      *
      * @param decorationAreaType Decoration area type.
-     * @return The background color scheme for the specified decoration area
-     * type.
+     * @return The background color scheme for the specified decoration area type.
      */
-    public final SubstanceColorScheme getBackgroundColorScheme(
-            DecorationAreaType decorationAreaType) {
+    public final SubstanceColorScheme getBackgroundColorScheme(DecorationAreaType decorationAreaType) {
         // 1 - check the registered background scheme for this specific area type.
         if (this.backgroundColorSchemeMap.containsKey(decorationAreaType)) {
             return this.backgroundColorSchemeMap.get(decorationAreaType);
@@ -973,6 +974,33 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         }
         // 3 - return the background scheme for the default area type
         return this.backgroundColorSchemeMap.get(DecorationAreaType.NONE);
+    }
+
+    public void setOverlayColor(Color color, SubstanceSlices.ColorOverlayType colorOverlayType,
+            DecorationAreaType decorationAreaType, ComponentState... componentStates) {
+        if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
+            this.colorOverlayMap.put(colorOverlayType, new HashMap<>());
+        }
+        Map<DecorationAreaType, Map<ComponentState, Color>> forOverlay = this.colorOverlayMap.get(colorOverlayType);
+        if (!forOverlay.containsKey(decorationAreaType)) {
+            forOverlay.put(decorationAreaType, new HashMap<>());
+        }
+        Map<ComponentState, Color> forDecorationArea = forOverlay.get(decorationAreaType);
+        for (ComponentState componentState : componentStates) {
+            forDecorationArea.put(componentState, color);
+        }
+    }
+
+    public Color getOverlayColor(SubstanceSlices.ColorOverlayType colorOverlayType,
+            DecorationAreaType decorationAreaType, ComponentState componentState) {
+        if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
+            return null;
+        }
+        Map<DecorationAreaType, Map<ComponentState, Color>> forOverlay = this.colorOverlayMap.get(colorOverlayType);
+        if (!forOverlay.containsKey(decorationAreaType)) {
+            return null;
+        }
+        return forOverlay.get(decorationAreaType).get(componentState);
     }
 
     /**

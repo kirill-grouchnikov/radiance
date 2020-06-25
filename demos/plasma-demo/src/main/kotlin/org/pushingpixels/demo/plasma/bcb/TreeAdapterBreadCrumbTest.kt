@@ -84,7 +84,7 @@ data class FileTreeNode(val file: File?, val children: Array<File>, val nodePare
     }
 
     override fun children(): Enumeration<FileTreeNode> {
-        return children.map { it -> FileTreeNode(it, this) }.toEnumeration()
+        return children.map { FileTreeNode(it, this) }.toEnumeration()
     }
 
     override fun getAllowsChildren(): Boolean {
@@ -101,7 +101,7 @@ data class FileTreeNode(val file: File?, val children: Array<File>, val nodePare
 
     override fun getIndex(node: TreeNode): Int {
         val ftn = node as FileTreeNode
-        return children.indexOfFirst { it -> (it == ftn.file) }
+        return children.indexOfFirst { it == ftn.file }
     }
 
     override fun getParent(): TreeNode? {

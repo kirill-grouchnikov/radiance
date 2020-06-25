@@ -135,12 +135,6 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
     protected void installDefaults() {
         super.installDefaults();
         ComponentOrParentChainScope.setDecorationType(this.ribbon, DecorationAreaType.HEADER);
-        Color backgr = this.ribbon.getBackground();
-        if ((backgr == null) || (backgr instanceof UIResource)) {
-            Color toSet = SubstanceColorSchemeUtilities
-                    .getColorScheme(this.ribbon, ComponentState.ENABLED).getBackgroundFillColor();
-            this.ribbon.setBackground(new ColorUIResource(toSet));
-        }
     }
 
     @Override

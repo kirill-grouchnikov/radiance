@@ -38,8 +38,6 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
 import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
@@ -89,13 +87,6 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
      * Installs default settings for the associated command popup menu.
      */
     protected void installDefaults() {
-        Color bg = this.popupPanel.getBackground();
-        if (bg == null || bg instanceof UIResource) {
-            this.popupPanel.setBackground(
-                    SubstanceColorUtilities.getDefaultBackgroundColor(
-                            false, SubstanceCortex.GlobalScope.getCurrentSkin(), false));
-        }
-
         Border b = this.popupPanel.getBorder();
         if (b == null || b instanceof UIResource) {
             this.popupPanel.setBorder(new SubstancePopupMenuBorder());

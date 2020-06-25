@@ -34,6 +34,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -68,37 +69,43 @@ public class SkinUtilities {
         UIDefaults.ActiveValue listCellRendererActiveValue =
                 (UIDefaults table) -> new SubstanceDefaultListCellRenderer.SubstanceUIResource();
 
-        SubstanceColorScheme mainActiveScheme = skin
-                .getActiveColorScheme(DecorationAreaType.NONE);
-        SubstanceColorScheme mainEnabledScheme = skin
-                .getEnabledColorScheme(DecorationAreaType.NONE);
-        SubstanceColorScheme mainDisabledScheme = skin
-                .getDisabledColorScheme(DecorationAreaType.NONE);
+        SubstanceColorScheme mainActiveScheme = skin.getActiveColorScheme(DecorationAreaType.NONE);
+        SubstanceColorScheme mainEnabledScheme = skin.getEnabledColorScheme(DecorationAreaType.NONE);
+        SubstanceColorScheme mainDisabledScheme = skin.getDisabledColorScheme(DecorationAreaType.NONE);
         Color controlText = new ColorUIResource(mainActiveScheme.getLightColor());
         Color foregroundColor = SubstanceColorUtilities.getForegroundColor(mainEnabledScheme);
-        Color backgroundActiveColor = new ColorUIResource(
-                mainActiveScheme.getBackgroundFillColor());
-        Color backgroundDefaultColor = new ColorUIResource(
-                mainEnabledScheme.getBackgroundFillColor());
-        Color textBackgroundColor = new ColorUIResource(
-                mainActiveScheme.getTextBackgroundFillColor());
+        Color backgroundActiveColor = new ColorUIResource(mainActiveScheme.getBackgroundFillColor());
+        Color backgroundDefaultColor = new ColorUIResource(mainEnabledScheme.getBackgroundFillColor());
+        Color textBackgroundColor = new ColorUIResource(mainActiveScheme.getTextBackgroundFillColor());
+
+        ColorUIResource defaultBackgroundColor = new ColorUIResource(
+                SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.NONE));
+        ColorUIResource defaultTextBackgroundColor =
+                new ColorUIResource(skin.getEnabledColorScheme(
+                        DecorationAreaType.NONE).getTextBackgroundFillColor());
 
         Color disabledForegroundColor = SubstanceColorUtilities
                 .getForegroundColor(mainDisabledScheme);
         Color disabledTextComponentForegroundColor = disabledForegroundColor;
         float alpha = skin.getAlpha(null, ComponentState.DISABLED_UNSELECTED);
         if (alpha < 1.0f) {
-            ColorUIResource defaultTextBackgroundColor = SubstanceColorUtilities
-                    .getDefaultBackgroundColor(true, skin, false);
             disabledTextComponentForegroundColor = new ColorUIResource(
                     SubstanceColorUtilities.getInterpolatedColor(
                             disabledTextComponentForegroundColor,
                             defaultTextBackgroundColor, alpha));
         }
 
-        Color lineColor = new ColorUIResource(mainActiveScheme.getLineColor());
+        Color lineColor = skin.getOverlayColor(SubstanceSlices.ColorOverlayType.LINE,
+                DecorationAreaType.NONE, ComponentState.SELECTED);
+        if (lineColor == null) {
+            lineColor = new ColorUIResource(mainActiveScheme.getLineColor());
+        }
 
-        Color lineColorDefault = new ColorUIResource(mainEnabledScheme.getLineColor());
+        Color lineColorDefault = skin.getOverlayColor(SubstanceSlices.ColorOverlayType.LINE,
+                DecorationAreaType.NONE, ComponentState.ENABLED);
+        if (lineColorDefault == null) {
+            lineColorDefault = new ColorUIResource(mainEnabledScheme.getLineColor());
+        }
 
         int lcb = SubstanceColorUtilities.getColorBrightness(lineColor.getRGB());
         Color lineBwColor = new ColorUIResource(new Color(lcb, lcb, lcb));
@@ -118,10 +125,6 @@ public class SkinUtilities {
         SubstanceColorScheme highlightColorScheme = skin.getColorScheme(
                 (Component) null, ColorSchemeAssociationKind.HIGHLIGHT,
                 ComponentState.SELECTED);
-        if (highlightColorScheme == null) {
-            highlightColorScheme = skin.getColorScheme(null,
-                    ComponentState.ROLLOVER_SELECTED);
-        }
         Color selectionCellForegroundColor = new ColorUIResource(
                 highlightColorScheme.getForegroundColor());
         Color selectionCellBackgroundColor = new ColorUIResource(
@@ -189,13 +192,6 @@ public class SkinUtilities {
                     }
                 });
 
-        ColorUIResource defaultEnabledBackgroundColor =
-                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin, false);
-        ColorUIResource defaultEnabledTextBackgroundColor =
-                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin, false);
-        ColorUIResource defaultDisabledTextBackgroundColor =
-                SubstanceColorUtilities.getDefaultBackgroundColor(true, skin, true);
-
         Object[] defaults = new Object[] {
                 "control",
                 controlText,
@@ -213,7 +209,7 @@ public class SkinUtilities {
                 new InsetsUIResource(0, 0, 0, 0),
 
                 "CheckBox.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "CheckBox.border",
                 new BorderUIResource.CompoundBorderUIResource(
@@ -236,7 +232,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "CheckBoxMenuItem.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "CheckBoxMenuItem.borderPainted",
                 Boolean.FALSE,
@@ -259,13 +255,13 @@ public class SkinUtilities {
                 selectionCellForegroundColor,
 
                 "ColorChooser.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ColorChooser.foreground",
                 foregroundColor,
 
                 "ComboBox.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ComboBox.border",
                 comboBorder,
@@ -298,10 +294,10 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "Dialog.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "EditorPane.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "EditorPane.border",
                 textMarginBorder,
@@ -313,10 +309,10 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "EditorPane.disabledBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "EditorPane.inactiveBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "EditorPane.inactiveForeground",
                 disabledTextComponentForegroundColor,
@@ -386,7 +382,7 @@ public class SkinUtilities {
                                 getFileChooserHardDriveIcon(16, defaultScheme)),
 
                 "FormattedTextField.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "FormattedTextField.border",
                 textBorder,
@@ -395,13 +391,13 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "FormattedTextField.disabledBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "FormattedTextField.foreground",
                 foregroundColor,
 
                 "FormattedTextField.inactiveBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "FormattedTextField.inactiveForeground",
                 disabledTextComponentForegroundColor,
@@ -442,7 +438,7 @@ public class SkinUtilities {
                         SubstanceImageCreator.getCloseIcon(titlePaneScheme, titlePaneScheme)),
 
                 "Label.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "Label.foreground",
                 foregroundColor,
@@ -454,7 +450,7 @@ public class SkinUtilities {
                 disabledForegroundColor,
 
                 "List.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "List.cellRenderer",
                 listCellRendererActiveValue,
@@ -478,7 +474,7 @@ public class SkinUtilities {
                 menuArrowIcon,
 
                 "Menu.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "Menu.borderPainted",
                 Boolean.FALSE,
@@ -498,15 +494,13 @@ public class SkinUtilities {
                 "Menu.selectionForeground",
                 selectionCellForegroundColor,
 
+                // This is a very rough "approximation" since the menu bar can be painted with the decoration
+                // painter which may or may not use any particular color from the color schemes
                 "MenuBar.background",
-                skin.isRegisteredAsDecorationArea(DecorationAreaType.HEADER) ? new ColorUIResource(
-                        skin.getActiveColorScheme(DecorationAreaType.HEADER)
-                                .getMidColor()) : SubstanceColorUtilities
-                        .getDefaultBackgroundColor(false, skin, false),
+                new ColorUIResource(skin.getActiveColorScheme(DecorationAreaType.HEADER).getMidColor()),
 
                 "MenuBar.foreground",
-                new ColorUIResource(skin.getActiveColorScheme(
-                        DecorationAreaType.HEADER).getForegroundColor()),
+                new ColorUIResource(skin.getActiveColorScheme(DecorationAreaType.HEADER).getForegroundColor()),
 
                 "MenuBar.border",
                 null,
@@ -518,7 +512,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "MenuItem.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "MenuItem.borderPainted",
                 Boolean.FALSE,
@@ -539,7 +533,7 @@ public class SkinUtilities {
                 selectionCellForegroundColor,
 
                 "OptionPane.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "OptionPane.errorIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
@@ -581,13 +575,13 @@ public class SkinUtilities {
                 true,
 
                 "Panel.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "Panel.foreground",
                 foregroundColor,
 
                 "PasswordField.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "PasswordField.border",
                 textBorder,
@@ -596,13 +590,13 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "PasswordField.disabledBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "PasswordField.foreground",
                 foregroundColor,
 
                 "PasswordField.inactiveBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "PasswordField.inactiveForeground",
                 disabledTextComponentForegroundColor,
@@ -614,8 +608,10 @@ public class SkinUtilities {
                 selectionTextForegroundColor,
 
                 "PopupMenu.background",
-                new ColorUIResource(skin.getBackgroundColorScheme(
-                        DecorationAreaType.NONE).getBackgroundFillColor()),
+                new ColorUIResource(SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.NONE)),
+//
+//                        skin.getBackgroundColorScheme(
+//                        DecorationAreaType.NONE).getBackgroundFillColor()),
 
                 "PopupMenu.border",
                 popupMenuBorder,
@@ -644,7 +640,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "RadioButton.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "RadioButton.border",
                 new BorderUIResource.CompoundBorderUIResource(
@@ -667,7 +663,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "RadioButtonMenuItem.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "RadioButtonMenuItem.borderPainted",
                 Boolean.FALSE,
@@ -675,7 +671,7 @@ public class SkinUtilities {
                 "RadioButtonMenuItem.checkIcon",
                 new RadioButtonMenuItemIcon(null,
                         SubstanceSizeUtils.getMenuCheckMarkSize(SubstanceSizeUtils
-                                        .getControlFontSize())),
+                                .getControlFontSize())),
 
                 "RadioButtonMenuItem.disabledForeground",
                 disabledForegroundColor,
@@ -690,17 +686,17 @@ public class SkinUtilities {
                 selectionCellForegroundColor,
 
                 "RootPane.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "RootPane.border",
                 new SubstancePaneBorder(),
 
                 "ScrollBar.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ScrollBar.width",
                 Integer.valueOf(SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils
-                                .getControlFontSize())),
+                        .getControlFontSize())),
 
                 "ScrollBar.minimumThumbSize",
                 new DimensionUIResource(
@@ -710,7 +706,7 @@ public class SkinUtilities {
                                 .getControlFontSize()) - 2),
 
                 "ScrollPane.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ScrollPane.foreground",
                 foregroundColor,
@@ -728,7 +724,7 @@ public class SkinUtilities {
                 lineColor,
 
                 "Slider.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "Slider.darkShadow",
                 lineColor,
@@ -756,7 +752,7 @@ public class SkinUtilities {
                         .getControlFontSize()),
 
                 "Spinner.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "Spinner.border",
                 spinnerBorder,
@@ -771,7 +767,7 @@ public class SkinUtilities {
                 Boolean.TRUE,
 
                 "SplitPane.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "SplitPane.foreground",
                 foregroundColor,
@@ -802,7 +798,7 @@ public class SkinUtilities {
                 backgroundDefaultColor,
 
                 "TabbedPane.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "TabbedPane.borderHightlightColor",
                 new ColorUIResource(mainActiveScheme.getMidColor()),
@@ -817,9 +813,7 @@ public class SkinUtilities {
                 Boolean.FALSE,
 
                 "TabbedPane.darkShadow",
-                new ColorUIResource(skin.getColorScheme((Component) null,
-                        ColorSchemeAssociationKind.BORDER,
-                        ComponentState.SELECTED).getLineColor()),
+                new ColorUIResource(lineColorDefault),
 
                 "TabbedPane.focus",
                 foregroundColor,
@@ -855,7 +849,7 @@ public class SkinUtilities {
                 Integer.valueOf(0),
 
                 "Table.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "Table.cellNoFocusBorder",
                 new BorderUIResource.EmptyBorderUIResource(
@@ -894,10 +888,10 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "TableHeader.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "TextArea.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextArea.border",
                 textMarginBorder,
@@ -906,13 +900,13 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "TextArea.disabledBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextArea.foreground",
                 foregroundColor,
 
                 "TextArea.inactiveBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextArea.inactiveForeground",
                 disabledTextComponentForegroundColor,
@@ -924,7 +918,7 @@ public class SkinUtilities {
                 selectionTextForegroundColor,
 
                 "TextField.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextField.border",
                 textBorder,
@@ -933,13 +927,13 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "TextField.disabledBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextField.foreground",
                 foregroundColor,
 
                 "TextField.inactiveBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextField.inactiveForeground",
                 disabledTextComponentForegroundColor,
@@ -951,13 +945,13 @@ public class SkinUtilities {
                 selectionTextForegroundColor,
 
                 "TextPane.background",
-                defaultEnabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextPane.border",
                 textMarginBorder,
 
                 "TextPane.disabledBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextPane.foreground",
                 foregroundColor,
@@ -966,7 +960,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "TextPane.inactiveBackground",
-                defaultDisabledTextBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "TextPane.inactiveForeground",
                 disabledTextComponentForegroundColor,
@@ -993,7 +987,7 @@ public class SkinUtilities {
                 new InsetsUIResource(0, 0, 0, 0),
 
                 "ToolBar.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ToolBar.border",
                 new BorderUIResource(new SubstanceToolBarBorder()),
@@ -1005,7 +999,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "ToolBarSeparator.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ToolBarSeparator.foreground",
                 lineBwColor,
@@ -1020,10 +1014,10 @@ public class SkinUtilities {
                 tooltipBorder,
 
                 "ToolTip.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "ToolTip.backgroundInactive",
-                SubstanceColorUtilities.getDefaultBackgroundColor(false, skin, true),
+                defaultTextBackgroundColor,
 
                 "ToolTip.foreground",
                 foregroundColor,
@@ -1043,10 +1037,10 @@ public class SkinUtilities {
                         new ResizableIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
 
                 "Tree.leftChildIndent", SubstanceSizeUtils.getTreeLeftIndent(
-                        SubstanceSizeUtils.getControlFontSize()),
+                SubstanceSizeUtils.getControlFontSize()),
 
                 "Tree.rightChildIndent", SubstanceSizeUtils.getTreeRightIndent(
-                    SubstanceSizeUtils.getControlFontSize()),
+                SubstanceSizeUtils.getControlFontSize()),
 
                 "Tree.leafIcon",
                 emptyIcon,
@@ -1055,7 +1049,7 @@ public class SkinUtilities {
                 emptyIcon,
 
                 "Tree.background",
-                defaultEnabledBackgroundColor,
+                defaultBackgroundColor,
 
                 "Tree.selectionBackground", selectionCellBackgroundColor,
 

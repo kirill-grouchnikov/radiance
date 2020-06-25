@@ -29,9 +29,11 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
 
@@ -56,14 +58,16 @@ public class FlatDecorationPainter implements SubstanceDecorationPainter {
 	public void paintDecorationArea(Graphics2D graphics, Component comp,
 			DecorationAreaType decorationAreaType, int width, int height,
 			SubstanceSkin skin) {
-		graphics.setColor(skin.getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)
-				.getBackgroundFillColor());
+		graphics.setColor(SubstanceCoreUtilities.getBackgroundFill(
+				skin, DecorationAreaType.PRIMARY_TITLE_PANE));
+//				skin.getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)
+//				.getBackgroundFillColor());
 		graphics.fillRect(0, 0, width, height);
 	}
 
 	@Override
-	public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
-			decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+	public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType decorationAreaType,
+			Shape contour, SubstanceColorScheme colorScheme) {
         graphics.setColor(colorScheme.getBackgroundFillColor());
         graphics.fill(contour);
 	}

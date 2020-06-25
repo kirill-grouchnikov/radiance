@@ -1968,4 +1968,8 @@ public class SubstanceCoreUtilities {
     public synchronized static List<AWTEventListener> getAwtEventListeners() {
         return awtEventListeners;
     }
+
+    public static Color getBackgroundFill(SubstanceSkin skin, DecorationAreaType decorationAreaType) {
+        return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
+    }
 }

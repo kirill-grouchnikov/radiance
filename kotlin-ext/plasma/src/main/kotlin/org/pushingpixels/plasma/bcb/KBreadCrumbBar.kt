@@ -45,7 +45,10 @@ fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) -> Unit
     }
 }
 
-inline fun <T> BreadcrumbBarModel<T>.addDelayedPathListener(crossinline listener: suspend (BreadcrumbPathEvent<T>) -> Unit) {
+// Ideally this should be inline with crossinline listener parameter, but it crashes
+// with "kotlin.coroutines.intrinsics.CoroutineSingletons cannot be cast to java.base/java.util.List"
+// exception
+fun <T> BreadcrumbBarModel<T>.addDelayedPathListener(listener: suspend (BreadcrumbPathEvent<T>) -> Unit) {
     this.addPathListener { event ->
         GlobalScope.launch(Dispatchers.Swing) {
             listener.invoke(event)
