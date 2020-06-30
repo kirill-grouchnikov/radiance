@@ -169,7 +169,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.mainPanel = new JPanel(mainPanelLayout);
         this.mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.mainPanel.setOpaque(false);
-        this.scrollerPanel = new JScrollablePanel<JPanel>(this.mainPanel,
+        this.scrollerPanel = new JScrollablePanel<>(this.mainPanel,
                 JScrollablePanel.ScrollType.HORIZONTALLY);
         this.circularProgress = new JCircularProgress();
         this.circularProgress.setPreferredSize(new Dimension(12, 12));

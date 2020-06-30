@@ -44,8 +44,7 @@ import java.util.ResourceBundle;
 
 
 /**
- * UI for color chooser in <b>Substance</b> look and feel. This UI delegate is
- * removed in Lite versions of <b>Substance</b>.
+ * UI for color chooser in <b>Substance</b> look and feel.
  * 
  * @author Kirill Grouchnikov
  */

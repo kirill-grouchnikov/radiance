@@ -31,7 +31,10 @@ package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.UiThreadingViolationException;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -1971,5 +1974,11 @@ public class SubstanceCoreUtilities {
 
     public static Color getBackgroundFill(SubstanceSkin skin, DecorationAreaType decorationAreaType) {
         return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
+    }
+
+    public static Color getTextBackgroundFill(Component component, ComponentState componentState) {
+//        SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(component);
+//        DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
+        return SubstanceColorSchemeUtilities.getColorScheme(component, componentState).getTextBackgroundFillColor();
     }
 }

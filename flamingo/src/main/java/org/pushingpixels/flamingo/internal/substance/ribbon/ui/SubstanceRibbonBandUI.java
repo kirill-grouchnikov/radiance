@@ -138,9 +138,8 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         // this.expandButton, ComponentState.ENABLED);
 
         // make the title color blend a little with the background
-        SubstanceColorScheme bgColorScheme = skin
-                .getBackgroundColorScheme(DecorationAreaType.GENERAL);
-        Color bgFillColor = bgColorScheme.getBackgroundFillColor();
+        Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.GENERAL);
+        SubstanceColorScheme bgColorScheme = skin.getBackgroundColorScheme(DecorationAreaType.GENERAL);
         Color fgColor = bgColorScheme.getForegroundColor();
         fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.95f);
 
@@ -202,9 +201,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (SubstanceColorScheme scheme, int width, int height) -> {
-                    SubstanceColorScheme bgColorScheme = skin
-                            .getBackgroundColorScheme(DecorationAreaType.GENERAL);
-                    Color bgFillColor = bgColorScheme.getBackgroundFillColor();
+                    Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.GENERAL);
                     return SubstanceImageCreator.getDoubleArrowIcon(
                             width, height,
                             SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),

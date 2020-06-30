@@ -153,7 +153,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
                     @Override
                     public void onSelectionChanged(Object oldSelection, Object newSelection) {
                         if (lastSelection == newSelection) {
-                            // de-dupe changes from multiple comboboxes created from this content model
+                            // de-dupe changes from multiple spinners created from this content model
                             return;
                         }
                         selectionChangeListener.onSelectionChanged(oldSelection, newSelection);

@@ -1,10 +1,10 @@
 ## Substance look and feel - FAQ
 
-**Can i use some / all of the code in Substance?**
+**Can I use some / all of the code in Substance?**
 
-Substance is released under BSD license. You are free to modify any part of the code as long as you mention the original license in the source code / the runnable distribution.
+Substance is released under BSD license. You are free to fork and modify any part of the code as long as you mention the original license in the source code / the runnable distribution.
 
-**Can i create my own look-and-feel on top of Substance?**
+**Can I create my own look-and-feel on top of Substance?**
 
 To create a custom look for your application, start by reading the [skinning documentation](skins/overview.md) and the code of the core skins in the `org.pushingpixels.substance.api.skin` package.
 
@@ -30,7 +30,7 @@ There are no guarantees about visual compatibility between major or minor releas
 
 This is probably not worth it. A lot of UI related bugs were fixed at the JDK level since Substance started out in 2005. At one point tools such as [Retrotranslator](http://retrotranslator.sourceforge.net/) and [Retroweaver](http://retroweaver.sourceforge.net/) were around, but they did not support the newer classes and methods that Substance is using. Things might have changed since then. Go crazy.
 
-**I like some of the features, but the binary size overhead is too much. How can i get a smaller runnable?**
+**I like some of the features, but the binary size overhead is too much. How can I get a smaller runnable?**
 
 In short - if you like the features, you pay the price. In long - you have a number of options:
 
@@ -71,7 +71,7 @@ That's not really a question. If you don't like it, you can either help improve 
 
 See the [known issues](docs/known-issues.md) documentation. If you find an issue not mentioned in the above document, [file a bug](https://github.com/kirill-grouchnikov/substance/issues) or [get in touch](http://www.pushing-pixels.org/about-kirill).
 
-**How can i use Substance on Mac and still have the standard Mac application menu bar?**
+**How can I use Substance on Mac and still have the standard Mac application menu bar?**
 
 The global Mac application menu bar is available only under menu UI delegates from the native Aqua look-and-feel. There are two options to have this functionality in your application.
 
@@ -84,7 +84,7 @@ The global Mac application menu bar is available only under menu UI delegates fr
 
 It is not recommended to rely on the current class names for the Aqua UI delegates, since the package that hosts these classes is different for different versions of Apple VM. This is mentioned in the [release notes](http://developer.apple.com/releasenotes/Java/JavaLeopardRN/ResolvedIssues/chapter_3_section_5.html#//apple_ref/doc/uid/TP40006634-CH3-DontLinkElementID_13) for Apple VM 1.6.0 on Mac OS X 10.5 Leopard (radar #4907470). Thanks to **Sergiy Michka** and **Mike Swingler** for this option.
 
-**I use animated GIFs as icons on internal frames and the CPU usage goes berserk (100% maxed out). Some parts of the application do not get repainted at all. What do i do?**
+**I use animated GIFs as icons on internal frames and the CPU usage goes berserk (100% maxed out). Some parts of the application do not get repainted at all. What do I do?**
 
 When an animated GIF is set as an internal frame icon, the **entire** desktop pane is repainted on the GIF frame sequencing - not only the icon, not only the frame title pane and even not only that internal frame. Since Substance is much more CPU-intensive than Metal / Windows (it is partially addressed with the image caching), this results in severe CPU bottlenecks and refresh glitches on some controls. The call to `repaint()` doesn't necessarily cause an immediate repaint (this is what the `paintImmediately()` API is for). When the CPU is heavily loaded, most of the repaints will be skipped (coalesced). In extreme cases, the CPU is so heavily loaded that the repaint manager never gets to repaint some controls (such as combobox popup in a floating toolbar).
 
@@ -106,11 +106,11 @@ If you want to change the default animation settings on your lists, tables and t
 
 Substance does not support custom tab components specified by the [JTabbedPane.setTabComponentAt](http://docs.oracle.com/javase/6/docs/api/javax/swing/JTabbedPane.html#setTabComponentAt(int,%20java.awt.Component)) API.
 
-**Can i use Substance only for some parts of my UI?**
+**Can I use Substance only for some parts of my UI?**
 
 No. Substance in particular, and Java look and feels in general are not designed to be installed in the "mix and match" fashion.
 
-**How do i make Substance to paint the title panes?**
+**How do I make Substance to paint the title panes?**
 
 In case you wish to use cross-platform frame and dialog decorations, use the following before you instantiate your first top-level window:
 * `JFrame.setDefaultLookAndFeelDecorated(true);`
@@ -118,7 +118,7 @@ In case you wish to use cross-platform frame and dialog decorations, use the fol
 
 This, however, causes flicker on resize due to a known Swing bug. For Windows, there is a workaround, using `System.setProperty("sun.awt.noerasebackground", "true");`. You can set this property along with the above two lines.
 
-**I'm using `setOpaque()` method and i see visual artifacts in my UI**
+**I'm using `setOpaque()` method and I see visual artifacts in my UI**
 
 Do not change the opacity of controls painted by Substance in the application code. Doing so will lead to unpredictable visual results at runtime.
 

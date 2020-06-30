@@ -73,8 +73,7 @@ public class ChatFrame extends JFrame {
         JPanel titlePane = builder.build();
         titlePane.setPreferredSize(new Dimension(100, 40));
         titlePane.setOpaque(true);
-        ComponentOrParentChainScope.setDecorationType(titlePane,
-                DecorationAreaType.PRIMARY_TITLE_PANE);
+        ComponentOrParentChainScope.setDecorationType(titlePane, DecorationAreaType.PRIMARY_TITLE_PANE);
 
         this.getContentPane().add(titlePane, BorderLayout.NORTH);
     }

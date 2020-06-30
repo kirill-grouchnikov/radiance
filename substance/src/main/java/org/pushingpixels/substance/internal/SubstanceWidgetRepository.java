@@ -227,7 +227,7 @@ public class SubstanceWidgetRepository {
 
                         // The code below will fail if no such class exists.
                         // This allows safely removing the relevant widget
-                        // classes making the jar size smaller (lite versions).
+                        // classes making the jar size smaller.
                         Object widgetObj = Class.forName(widgetClassName)
                                 .getDeclaredConstructor().newInstance();
                         if (widgetObj instanceof SubstanceWidget) {

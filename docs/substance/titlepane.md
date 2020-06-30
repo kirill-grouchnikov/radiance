@@ -26,12 +26,12 @@ Use `SubstanceCortex.GlobalScope.configureTitleContentGravity()` API to configur
 
 The following APIs are available on `SubstanceCortex.WindowScope`:
 
-
 * `extendContentIntoTitlePane(Window, SubstanceSlices.HorizontalGravity, SubstanceSlices.VerticalGravity)` to marks the specified window to have its content extend vertically into the title pane area.
 * `getTitlePaneControlInsets(Window)` to query the insets that should be reserved for the main control buttons – close / maximize / minimize.
 * `setPreferredTitlePaneHeight(Window, int)` to increase the preferred height of the title pane area in case the content you extend into that area is taller than the main control buttons.
 * `getTitleControlButtonGroupHorizontalGravity(Window window)` to get the horizontal gravity for the control button group.
 * `createTitlePaneControlButton(Window)` to get a button that has consistent visual appearance and preferred size with the main control buttons.
+* `markLabelAsTitlePaneText(Window, JLabel)` to mark a label to be drawn as title pane text (window title).
 
 Let's see a couple of examples.
 
@@ -95,8 +95,7 @@ builder.add(new JButton("New chat")).xy(1, 1);
 
 JLabel titleLabel = new JLabel("Chat", ic_chat_black_24px.of(16, 16), JLabel.CENTER);
 titleLabel.setIconTextGap(6);
-titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
-        .getWindowTitleFont().deriveFont(16.0f));
+SubstanceCortex.WindowScope.markLabelAsTitlePaneText(this, titleLabel);
 builder.add(titleLabel).xy(3, 1);
 
 builder.add(new JTextField(12)).xy(5, 1);

@@ -675,20 +675,17 @@ public class SubstanceColorUtilities {
         if (state.isDisabled()) {
             float alpha = SubstanceColorSchemeUtilities.getAlpha(scrollbar, state);
             if (alpha < 1.0f) {
-                Color defaultColor = SubstanceColorUtilities
-                        .getDefaultBackgroundColor(scrollbar,
-                                ComponentState.ENABLED);
+                Color defaultColor = SubstanceColorUtilities.getDefaultBackgroundColor(
+                        scrollbar, ComponentState.ENABLED);
                 backgr = SubstanceColorUtilities.getInterpolatedColor(
                         backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
             }
         }
 
-        SubstanceColorScheme colorScheme =
-                SubstanceColorSchemeUtilities.getColorScheme(scrollbar, state);
+        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(scrollbar, state);
         float factor = colorScheme.isDark() ? 0.98f : 0.9f;
         backgr = SubstanceColorUtilities.getInterpolatedColor(backgr,
-                SubstanceColorUtilities.getAlphaColor(colorScheme.getForegroundColor(),
-                        backgr.getAlpha()),
+                SubstanceColorUtilities.getAlphaColor(colorScheme.getForegroundColor(), backgr.getAlpha()),
                 factor);
         return backgr;
     }
@@ -701,21 +698,15 @@ public class SubstanceColorUtilities {
      * @return The default background color for the components of the specified
      * class.
      */
-    public static ColorUIResource getDefaultBackgroundColor(Component comp,
+    private static ColorUIResource getDefaultBackgroundColor(Component comp,
             ComponentState compState) {
         if (comp instanceof JTextComponent) {
             // special case for text-based components
-            return new ColorUIResource(SubstanceColorSchemeUtilities
-                    .getColorScheme(comp, compState)
-                    .getTextBackgroundFillColor());
+            return new ColorUIResource(SubstanceCoreUtilities.getTextBackgroundFill(comp, compState));
         }
         return new ColorUIResource(SubstanceCoreUtilities.getBackgroundFill(
                 SubstanceCortex.ComponentScope.getCurrentSkin(comp),
                 DecorationPainterUtils.getDecorationType(comp)));
-//        return new ColorUIResource(SubstanceCortex.ComponentScope.getCurrentSkin(comp)
-//                .getBackgroundColorScheme(
-//                        ComponentOrParentChainScope.getDecorationType(comp))
-//                .getBackgroundFillColor());
     }
 
     /**

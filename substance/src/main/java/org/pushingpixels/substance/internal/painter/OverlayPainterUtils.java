@@ -58,18 +58,16 @@ public class OverlayPainterUtils {
 	 * @param decorationAreaType
 	 *            Component decoration area type.
 	 */
-	public static void paintOverlays(Graphics g, Component c,
-			SubstanceSkin skin, DecorationAreaType decorationAreaType) {
-		List<SubstanceOverlayPainter> overlayPainters = skin
-				.getOverlayPainters(decorationAreaType);
+	public static void paintOverlays(Graphics g, Component c, SubstanceSkin skin,
+			DecorationAreaType decorationAreaType) {
+		List<SubstanceOverlayPainter> overlayPainters = skin.getOverlayPainters(decorationAreaType);
 		if (overlayPainters.size() == 0) {
 			return;
 		}
 
 		for (SubstanceOverlayPainter overlayPainter : overlayPainters) {
 			Graphics2D g2d = (Graphics2D) g.create();
-			overlayPainter.paintOverlay(g2d, c, decorationAreaType, c
-					.getWidth(), c.getHeight(), skin);
+			overlayPainter.paintOverlay(g2d, c, decorationAreaType, c.getWidth(), c.getHeight(), skin);
 			g2d.dispose();
 		}
 	}

@@ -29,17 +29,12 @@
  */
 package org.pushingpixels.flamingo.internal.substance.bcb.ui;
 
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.internal.ui.bcb.BasicBreadcrumbBarUI;
-import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
 import java.awt.*;
 
 /**
@@ -54,12 +49,6 @@ public class SubstanceBreadcrumbBarUI extends BasicBreadcrumbBarUI {
 	}
 
 	private SubstanceBreadcrumbBarUI() {
-	}
-
-	@Override
-	protected void uninstallDefaults(JBreadcrumbBar bar) {
-		DecorationPainterUtils.clearDecorationType(bar);
-		super.uninstallDefaults(bar);
 	}
 
 	@Override

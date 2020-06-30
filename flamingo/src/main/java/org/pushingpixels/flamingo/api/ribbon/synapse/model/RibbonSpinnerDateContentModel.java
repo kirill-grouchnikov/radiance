@@ -148,8 +148,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
         public RibbonSpinnerDateContentModel build() {
             RibbonSpinnerDateContentModel model = (this.value == null)
                     ? new RibbonSpinnerDateContentModel()
-                    : new RibbonSpinnerDateContentModel(this.value, this.start, this.end,
-                    this.calendarField);
+                    : new RibbonSpinnerDateContentModel(this.value, this.start, this.end, this.calendarField);
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;
@@ -160,7 +159,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
                     @Override
                     public void onSelectionChanged(Object oldSelection, Object newSelection) {
                         if (lastSelection == newSelection) {
-                            // de-dupe changes from multiple comboboxes created from this content model
+                            // de-dupe changes from multiple spinners created from this content model
                             return;
                         }
                         selectionChangeListener.onSelectionChanged(oldSelection, newSelection);

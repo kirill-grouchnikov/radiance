@@ -76,7 +76,6 @@ public class SkinUtilities {
         Color foregroundColor = SubstanceColorUtilities.getForegroundColor(mainEnabledScheme);
         Color backgroundActiveColor = new ColorUIResource(mainActiveScheme.getBackgroundFillColor());
         Color backgroundDefaultColor = new ColorUIResource(mainEnabledScheme.getBackgroundFillColor());
-        Color textBackgroundColor = new ColorUIResource(mainActiveScheme.getTextBackgroundFillColor());
 
         ColorUIResource defaultBackgroundColor = new ColorUIResource(
                 SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.NONE));
@@ -267,7 +266,7 @@ public class SkinUtilities {
                 comboBorder,
 
                 "ComboBox.disabledBackground",
-                textBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "ComboBox.disabledForeground",
                 disabledForegroundColor,
@@ -739,7 +738,7 @@ public class SkinUtilities {
                 lineColor,
 
                 "Slider.highlight",
-                textBackgroundColor,
+                defaultTextBackgroundColor,
 
                 "Slider.shadow",
                 lineColor,

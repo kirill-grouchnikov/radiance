@@ -42,11 +42,6 @@ import java.awt.*;
  * @author Kirill Grouchnikov
  */
 public class SimplisticFillPainter extends StandardFillPainter {
-	/**
-	 * Reusable instance of this painter.
-	 */
-	public static final SimplisticFillPainter INSTANCE = new SimplisticFillPainter();
-
 	@Override
 	public String getDisplayName() {
 		return "Simplistic";
