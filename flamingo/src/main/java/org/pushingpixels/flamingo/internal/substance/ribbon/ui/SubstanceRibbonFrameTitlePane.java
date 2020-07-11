@@ -157,7 +157,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     private static class CommandButtonLayoutManagerTaskbarOverflow
             extends CommandButtonLayoutManagerSmall {
         @Override
-        public int getPreferredIconSize(AbstractCommandButton commandButton) {
+        public int getPreferredIconSize(JCommandButton commandButton) {
             int fontSize = commandButton.getFont().getSize();
             int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
             int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -191,7 +191,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     }
 
     public static class TaskbarOverflowButton extends JCommandButton {
-        public TaskbarOverflowButton(Projection<AbstractCommandButton, ? extends Command,
+        public TaskbarOverflowButton(Projection<JCommandButton, ? extends Command,
                 CommandButtonPresentationModel> projection) {
             super(projection);
         }
@@ -232,12 +232,12 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                                     "overflow", defaultIconSize) {
                                 @Override
                                 public CommandButtonLayoutManager createLayoutManager(
-                                        AbstractCommandButton commandButton) {
+                                        JCommandButton commandButton) {
                                     return new CommandButtonLayoutManagerTaskbarOverflow();
                                 }
                             })
                             .build());
-            overflowProjection.setComponentCustomizer((AbstractCommandButton button) -> {
+            overflowProjection.setComponentCustomizer((JCommandButton button) -> {
                 final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
                 int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(
                         fontSize);
@@ -281,7 +281,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             return new Dimension(pw + ins.left + ins.right, this.getParent().getHeight());
         }
 
-        private void showOverflowTaskbarContent(AbstractCommandButton overflowButton) {
+        private void showOverflowTaskbarContent(JCommandButton overflowButton) {
             // How wide is the full overflow content?
             int gap = getTaskBarLayoutGap(this);
             int overflowFullWidth = gap;

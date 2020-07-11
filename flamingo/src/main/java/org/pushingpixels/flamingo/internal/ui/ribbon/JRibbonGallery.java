@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
@@ -71,7 +71,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * The buttons of <code>this</code> gallery.
      */
-    protected List<AbstractCommandButton> buttons;
+    protected List<JCommandButton> buttons;
 
     /**
      * The commands of <code>this</code> gallery.
@@ -183,7 +183,7 @@ public class JRibbonGallery extends JComponent {
             presentation = presentation.overlayWith(overlay);
         }
 
-        AbstractCommandButton button = command.project(presentation).buildComponent();
+        JCommandButton button = command.project(presentation).buildComponent();
         button.getActionModel().addChangeListener(new ChangeListener() {
             boolean wasRollover = false;
 
@@ -266,7 +266,7 @@ public class JRibbonGallery extends JComponent {
      * @param index Gallery button index.
      * @return Gallery button at specified index.
      */
-    public AbstractCommandButton getButtonAt(int index) {
+    public JCommandButton getButtonAt(int index) {
         return this.buttons.get(index);
     }
 
@@ -275,7 +275,7 @@ public class JRibbonGallery extends JComponent {
      *
      * @return The currently selected gallery button.
      */
-    public AbstractCommandButton getSelectedButton() {
+    public JCommandButton getSelectedButton() {
         Command selectedCommand = this.commandToggleGroupModel.getSelected();
         if (selectedCommand == null) {
             return null;

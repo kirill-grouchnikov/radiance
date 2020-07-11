@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.projection;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.internal.ui.common.JColorSelectorCommandButton;
@@ -37,9 +37,9 @@ import org.pushingpixels.flamingo.internal.ui.common.JColorSelectorCommandButton
 public class ColorSelectorCommandButtonProjection extends
         CommandButtonProjection<ColorSelectorCommand> {
     @SuppressWarnings("unchecked")
-    private static ComponentSupplier<AbstractCommandButton, ColorSelectorCommand,
+    private static ComponentSupplier<JCommandButton, ColorSelectorCommand,
             CommandButtonPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<AbstractCommandButton, ColorSelectorCommand,
+            (Projection<JCommandButton, ColorSelectorCommand,
                     CommandButtonPresentationModel> projection) ->
                     JColorSelectorCommandButton::new;
 

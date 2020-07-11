@@ -35,7 +35,7 @@ This interface uses the same generic class parameters as the `Projection` class 
 ```java
 @SubstanceInternalButton
 private class RibbonBandExpandButton extends JCommandButton implements FlamingoInternalButton {
-    private RibbonBandExpandButton(Projection<AbstractCommandButton, Command,
+    private RibbonBandExpandButton(Projection<JCommandButton, Command,
             CommandButtonPresentationModel> projection) {
         super(projection);
         ...
@@ -83,7 +83,7 @@ CommandButtonProjection<Command> expandCommandProjection =
                         .setFocusable(false)
                         .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                         .build());
-expandCommandProjection.setComponentCustomizer((AbstractCommandButton button) -> {
+expandCommandProjection.setComponentCustomizer((JCommandButton button) -> {
     // since paintBandTitleBackground uses GENERAL, mark this button with
     // GENERAL as well to sync the mark color
     ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);

@@ -33,10 +33,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
@@ -303,7 +303,7 @@ open class KCommand {
         return javaCommand
     }
 
-    internal fun toCommandButton(presentation: KCommandButtonPresentation): AbstractCommandButton {
+    internal fun toCommandButton(presentation: KCommandButtonPresentation): JCommandButton {
         return asJavaCommand().project(presentation.toCommandPresentation(this)).buildComponent()
     }
 
@@ -335,7 +335,7 @@ class KColorSelectorCommand : KCommand() {
         return javaCommand as ColorSelectorCommand
     }
 
-    internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): AbstractCommandButton {
+    internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): JCommandButton {
         return ColorSelectorCommandButtonProjection(asJavaColorSelectorCommand(),
                 presentation.toColorSelectorCommandPresentation(this)).buildComponent()
     }
@@ -351,9 +351,9 @@ fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorSelector
 open class KCommandButtonPresentation {
     var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     var isFlat: Boolean = true
-    var horizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
-    var horizontalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    var verticalGapScaleFactor: Double = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
     var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
             CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
     var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =

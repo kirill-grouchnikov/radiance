@@ -50,18 +50,17 @@ import java.util.List;
  *
  * <p>
  * Under the default {@link CommandPanelPresentationModel.LayoutKind#ROW_FILL}, the buttons are
- * laid out in
- * rows, never exceeding the available horizontal space. A vertical scroll bar
+ * laid out in rows, never exceeding the available horizontal space. A vertical scroll bar
  * will kick in once there is not enough vertical space to show all the buttons.
  * The schematic below shows a row-fill command button panel:
  * </p>
  *
  * <pre>
  * +-----------------------------+-+
- * |                             | |
- * | +----+ +----+ +----+ +----+ | |
- * | | 01 | | 02 | | 03 | | 04 | | |
- * | +----+ +----+ +----+ +----+ | |
+ * |                             |o|
+ * | +----+ +----+ +----+ +----+ |o|
+ * | | 01 | | 02 | | 03 | | 04 | |o|
+ * | +----+ +----+ +----+ +----+ |o|
  * |                             | |
  * | +----+ +----+ +----+ +----+ | |
  * | | 05 | | 06 | | 07 | | 07 | | |
@@ -83,8 +82,7 @@ import java.util.List;
  *
  * <p>
  * Under the {@link CommandPanelPresentationModel.LayoutKind#COLUMN_FILL}, the buttons are laid
- * out in
- * columns, never exceeding the available vertical space. A horizontal scroll
+ * out in columns, never exceeding the available vertical space. A horizontal scroll
  * bar will kick in once there is not enough horizontal space to show all the
  * buttons. The schematic below shows a column-fill command button panel:
  * </p>
@@ -105,12 +103,13 @@ import java.util.List;
  * | +----+ +----+ +----+ +----+ +---|
  * |                                 |
  * +---------------------------------+
+ * |oooo                             |
  * +---------------------------------+
  * </pre>
  *
  * <p>
  * Each column hosts three buttons, and the horizontal scroll bar allows
- * scrolling the content sideways.
+ * scrolling the content left and right.
  * </p>
  *
  * @author Kirill Grouchnikov
@@ -140,7 +139,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      * @see #getGroupCount()
      * @see #getGroupButtons(int)
      */
-    private List<List<AbstractCommandButton>> buttons;
+    private List<List<JCommandButton>> buttons;
 
     private ChangeListener contentChangeListener;
 
@@ -165,8 +164,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         this.updateUI();
     }
 
-    public Projection<JCommandButtonPanel, CommandPanelContentModel,
-            CommandPanelPresentationModel> getProjection() {
+    public Projection<JCommandButtonPanel, CommandPanelContentModel, CommandPanelPresentationModel> getProjection() {
         return this.projection;
     }
 
@@ -197,7 +195,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                 panelContentModel.getCommandPreviewListener();
         for (CommandGroup groupModel : panelContentModel.getCommandGroups()) {
             this.groupTitles.add(groupIndex, groupModel.getTitle());
-            List<AbstractCommandButton> list = new ArrayList<>();
+            List<JCommandButton> list = new ArrayList<>();
             this.buttons.add(groupIndex, list);
 
             for (Command command : groupModel.getCommands()) {
@@ -212,7 +210,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                 // Propagate command overlays so that key tips are properly displayed
                 // on secondary content of this command's projection
                 commandProjection.setCommandOverlays(this.projection.getCommandOverlays());
-                AbstractCommandButton button = commandProjection.buildComponent();
+                JCommandButton button = commandProjection.buildComponent();
 
                 // Wire preview listener is configured on the panel content model
                 if (commandPreviewListener != null) {
@@ -240,7 +238,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     }
 
     private int addButtonToLastGroup(Command command,
-            AbstractCommandButton commandButton) {
+            JCommandButton commandButton) {
         if (this.groupTitles.size() == 0) {
             return -1;
         }
@@ -250,13 +248,12 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     }
 
     protected int addCommandToLastGroup(Command command) {
-        AbstractCommandButton button = command.project(createBaseCommandPresentation())
-                .buildComponent();
+        JCommandButton button = command.project(createBaseCommandPresentation()).buildComponent();
         return this.addButtonToLastGroup(command, button);
     }
 
     private int addButtonToGroup(String buttonGroupName, int indexInGroup,
-            Command command, AbstractCommandButton commandButton) {
+            Command command, JCommandButton commandButton) {
         int groupIndex = this.groupTitles.indexOf(buttonGroupName);
         if (groupIndex < 0) {
             return -1;
@@ -319,14 +316,14 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      * button group.
      * @see #getGroupCount()
      */
-    public List<AbstractCommandButton> getGroupButtons(int groupIndex) {
+    public List<JCommandButton> getGroupButtons(int groupIndex) {
         return Collections.unmodifiableList(this.buttons.get(groupIndex));
     }
 
     public Command getSelectedCommand() {
         if (this.panelContentModel.isSingleSelectionMode()) {
-            for (List<AbstractCommandButton> ljrb : this.buttons) {
-                for (AbstractCommandButton jrb : ljrb) {
+            for (List<JCommandButton> ljrb : this.buttons) {
+                for (JCommandButton jrb : ljrb) {
                     Command curr = jrb.getProjection().getContentModel();
                     if (curr.isToggleSelected()) {
                         return curr;
@@ -339,8 +336,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
 
     public void scrollToSelectedCommand() {
         if (this.panelContentModel.isSingleSelectionMode()) {
-            for (List<AbstractCommandButton> ljrb : this.buttons) {
-                for (AbstractCommandButton jrb : ljrb) {
+            for (List<JCommandButton> ljrb : this.buttons) {
+                for (JCommandButton jrb : ljrb) {
                     Command curr = jrb.getProjection().getContentModel();
                     if (curr.isToggleSelected()) {
                         Rectangle selectionButtonBounds = jrb.getBounds();

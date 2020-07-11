@@ -109,7 +109,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             int maxButtonHeight = 0;
             int groupCount = iconPanel.getGroupCount();
             for (int i = 0; i < groupCount; i++) {
-                for (AbstractCommandButton button : iconPanel.getGroupButtons(i)) {
+                for (JCommandButton button : iconPanel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -507,7 +507,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             if (menuComponents != null) {
                 for (Component menuComponent : menuComponents) {
                     if (menuComponent instanceof JCommandButton) {
-                        AbstractCommandButton button = (AbstractCommandButton) menuComponent;
+                        JCommandButton button = (JCommandButton) menuComponent;
                         if (!Boolean.TRUE.equals(button.getClientProperty(FORCE_ICON))) {
                             continue;
                         }

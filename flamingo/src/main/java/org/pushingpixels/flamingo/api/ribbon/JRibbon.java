@@ -29,17 +29,15 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
@@ -156,9 +154,9 @@ public class JRibbon extends JComponent {
      */
     private ArrayList<Component> taskbarComponents;
 
-    private Map<RibbonGalleryContentModel, AbstractCommandButton> taskbarGalleryMap;
+    private Map<RibbonGalleryContentModel, JCommandButton> taskbarGalleryMap;
 
-    private Map<Command, AbstractCommandButton> taskbarCommandMap;
+    private Map<Command, JCommandButton> taskbarCommandMap;
 
     /**
      * Bands of the currently shown task.
@@ -301,7 +299,7 @@ public class JRibbon extends JComponent {
                 .build();
 
         CommandButtonProjection<Command> projection = command.project(presentationModel);
-        AbstractCommandButton commandButton = projection.buildComponent();
+        JCommandButton commandButton = projection.buildComponent();
 
         commandButton.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(commandButton);
@@ -316,7 +314,7 @@ public class JRibbon extends JComponent {
     }
 
     public synchronized void removeTaskbarCommand(Command command) {
-        AbstractCommandButton existing = this.taskbarCommandMap.get(command);
+        JCommandButton existing = this.taskbarCommandMap.get(command);
         if (existing != null) {
             this.taskbarComponents.remove(existing);
             this.taskbarCommandMap.remove(command);
@@ -369,7 +367,7 @@ public class JRibbon extends JComponent {
                 .build();
 
         CommandButtonProjection<Command> projection = clone.project(presentationModel);
-        AbstractCommandButton commandButton = projection.buildComponent();
+        JCommandButton commandButton = projection.buildComponent();
         commandButton.putClientProperty(FlamingoUtilities.TASKBAR_COMMAND, appMenuCommand);
 
         this.taskbarComponents.add(commandButton);
@@ -431,7 +429,7 @@ public class JRibbon extends JComponent {
                 popupMenuProjection.getComponentCustomizer());
         galleryDropdownProjection.setCommandOverlays(popupMenuProjection.getCommandOverlays());
 
-        AbstractCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();
+        JCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();
         galleryDropdown.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION,
                 galleryProjection);
         this.taskbarComponents.add(galleryDropdown);
@@ -446,7 +444,7 @@ public class JRibbon extends JComponent {
     }
 
     public synchronized void removeTaskbarGallery(RibbonGalleryContentModel galleryContentModel) {
-        AbstractCommandButton existing = this.taskbarGalleryMap.get(galleryContentModel);
+        JCommandButton existing = this.taskbarGalleryMap.get(galleryContentModel);
         if (existing != null) {
             this.taskbarComponents.remove(existing);
             this.taskbarGalleryMap.remove(galleryContentModel);
@@ -457,7 +455,7 @@ public class JRibbon extends JComponent {
     /**
      * Removes all taskbar content from this ribbon.
      *
-     * @see #addTaskbarCommand(Command)
+     * @see #addTaskbarCommand(Command, AbstractPopupMenuPresentationModel) 
      */
     public synchronized void clearTaskbar() {
         this.taskbarCommandMap.clear();

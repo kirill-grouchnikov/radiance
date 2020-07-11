@@ -43,7 +43,7 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 	/**
 	 * The original color scheme.
 	 */
-	SubstanceColorScheme scheme;
+	private SubstanceColorScheme scheme;
 
 	/**
 	 * Creates the resolver of derived colors for the specified dark color
@@ -54,10 +54,14 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 	 */
 	public DerivedColorsResolverDark(SubstanceColorScheme scheme) {
 		if (!scheme.isDark()) {
-			throw new IllegalArgumentException(
-					"The scheme must be dark: " + scheme.getDisplayName());
+			throw new IllegalArgumentException("The scheme must be dark: " + scheme.getDisplayName());
 		}
 		this.scheme = scheme;
+	}
+
+	@Override
+	public String toString() {
+		return "Resolver for " + this.scheme.getDisplayName();
 	}
 
 	@Override

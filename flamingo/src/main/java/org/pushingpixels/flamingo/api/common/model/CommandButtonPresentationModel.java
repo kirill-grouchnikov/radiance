@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 
@@ -393,9 +393,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 CommandButtonPresentationState.FIT_TO_ICON;
         private boolean isFlat = true;
         private boolean isFocusable = true;
-        private int horizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
-        private double horizontalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
-        private double verticalGapScaleFactor = AbstractCommandButton.DEFAULT_GAP_SCALE_FACTOR;
+        private int horizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
+        private double horizontalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
+        private double verticalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
         private boolean isMenu = false;
         private PopupOrientationKind popupOrientationKind = PopupOrientationKind.DOWNWARD;

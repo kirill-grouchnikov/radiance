@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 
@@ -52,7 +51,7 @@ public class CommandButtonVisualStateTracker {
      */
     private StateTransitionTracker popupStateTransitionTracker;
 
-    public void installListeners(final AbstractCommandButton b) {
+    public void installListeners(final JCommandButton b) {
         this.substancePropertyListener = (PropertyChangeEvent evt) -> {
             if ("actionModel".equals(evt.getPropertyName())) {
                 // action model has been changed
@@ -69,14 +68,11 @@ public class CommandButtonVisualStateTracker {
         this.actionStateTransitionTracker = new StateTransitionTracker(b, b.getActionModel());
         this.actionStateTransitionTracker.registerModelListeners();
 
-        if (b instanceof JCommandButton) {
-            JCommandButton jcb = (JCommandButton) b;
-            this.popupStateTransitionTracker = new StateTransitionTracker(jcb, jcb.getPopupModel());
-            this.popupStateTransitionTracker.registerModelListeners();
-        }
+        this.popupStateTransitionTracker = new StateTransitionTracker(b, b.getPopupModel());
+        this.popupStateTransitionTracker.registerModelListeners();
     }
 
-    public void uninstallListeners(AbstractCommandButton b) {
+    public void uninstallListeners(JCommandButton b) {
         b.removePropertyChangeListener(this.substancePropertyListener);
         this.substancePropertyListener = null;
 

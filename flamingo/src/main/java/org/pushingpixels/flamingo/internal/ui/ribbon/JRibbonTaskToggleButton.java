@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -63,7 +62,7 @@ public class JRibbonTaskToggleButton extends JCommandButton
 
     private RibbonTask ribbonTask;
 
-    public JRibbonTaskToggleButton(Projection<AbstractCommandButton, Command, CommandButtonPresentationModel> projection) {
+    public JRibbonTaskToggleButton(Projection<JCommandButton, Command, CommandButtonPresentationModel> projection) {
         super(projection);
     }
 

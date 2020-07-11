@@ -33,9 +33,9 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.EchoResizableIcon;
 import org.pushingpixels.demo.spyglass.cookbook.ScaledResizableIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -88,7 +88,7 @@ public class RecipePanel extends SingleContentPanel {
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
     }
 
-    private AbstractCommandButton getCommandButton(ResizableIcon.Factory iconFactory,
+    private JCommandButton getCommandButton(ResizableIcon.Factory iconFactory,
             String tooltip) {
         return Command.builder()
                 .setIconFactory(iconFactory)

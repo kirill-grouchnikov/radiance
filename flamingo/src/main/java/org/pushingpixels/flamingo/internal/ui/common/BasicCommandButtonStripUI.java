@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandAction;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -59,7 +59,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
     private CommandGroup.CommandGroupListener commandGroupListener;
 
-    private Map<Command, AbstractCommandButton> commandButtonMap = new HashMap<>();
+    private Map<Command, JCommandButton> commandButtonMap = new HashMap<>();
 
     public static ComponentUI createUI(JComponent c) {
         return new BasicCommandButtonStripUI();
@@ -97,7 +97,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
             @Override
             public void onCommandRemoved(Command command) {
-                AbstractCommandButton commandButton = commandButtonMap.get(command);
+                JCommandButton commandButton = commandButtonMap.get(command);
                 commandButton.removeCommandListener(command.getAction());
                 buttonStrip.remove(commandButton);
                 commandButtonMap.remove(command);
@@ -106,7 +106,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
             @Override
             public void onAllCommandsRemoved() {
-                for (Map.Entry<Command, AbstractCommandButton> entry :
+                for (Map.Entry<Command, JCommandButton> entry :
                         commandButtonMap.entrySet()) {
                     entry.getValue().removeCommandListener(entry.getKey().getAction());
                     buttonStrip.remove(entry.getValue());
@@ -158,7 +158,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     protected void uninstallComponents() {
         CommandGroup commandGroupModel = this.buttonStrip.getProjection().getContentModel();
         for (Command command : commandGroupModel.getCommands()) {
-            AbstractCommandButton commandButton = commandButtonMap.get(command);
+            JCommandButton commandButton = commandButtonMap.get(command);
             CommandAction commandListener = command.getAction();
             if (commandListener != null) {
                 commandButton.removeCommandListener(commandListener);
@@ -189,19 +189,19 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         }
 
         CommandButtonProjection<Command> commandProjection = command.project(presentation);
-        CommandButtonProjection.ComponentCustomizer<AbstractCommandButton> componentCustomizer =
+        CommandButtonProjection.ComponentCustomizer<JCommandButton> componentCustomizer =
                 this.buttonStrip.getProjection().getCommandComponentCustomizers().get(command);
         if (componentCustomizer != null) {
             commandProjection.setComponentCustomizer(componentCustomizer);
         }
-        Projection.ComponentSupplier<AbstractCommandButton, Command,
+        Projection.ComponentSupplier<JCommandButton, Command,
                 CommandButtonPresentationModel> componentSupplier =
                 this.buttonStrip.getProjection().getCommandComponentSuppliers().get(command);
         if (componentSupplier != null) {
             commandProjection.setComponentSupplier(componentSupplier);
         }
 
-        AbstractCommandButton button = commandProjection.buildComponent();
+        JCommandButton button = commandProjection.buildComponent();
 
         this.buttonStrip.add(button);
         this.commandButtonMap.put(command, button);
@@ -215,17 +215,17 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
         if (buttonCount == 1) {
             buttonStrip.getButton(0).setLocationOrderKind(
-                    AbstractCommandButton.CommandButtonLocationOrderKind.ONLY);
+                    JCommandButton.CommandButtonLocationOrderKind.ONLY);
         } else {
             buttonStrip.getButton(0).setLocationOrderKind(
-                    AbstractCommandButton.CommandButtonLocationOrderKind.FIRST);
+                    JCommandButton.CommandButtonLocationOrderKind.FIRST);
             for (int i = 1; i < buttonCount - 1; i++) {
                 buttonStrip.getButton(i).setLocationOrderKind(
-                        AbstractCommandButton.CommandButtonLocationOrderKind.MIDDLE);
+                        JCommandButton.CommandButtonLocationOrderKind.MIDDLE);
 
             }
             buttonStrip.getButton(buttonCount - 1).setLocationOrderKind(
-                    AbstractCommandButton.CommandButtonLocationOrderKind.LAST);
+                    JCommandButton.CommandButtonLocationOrderKind.LAST);
         }
     }
 
@@ -290,14 +290,14 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                     CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
                 int totalPreferredWidth = 0;
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    AbstractCommandButton currButton = buttonStrip.getButton(i);
+                    JCommandButton currButton = buttonStrip.getButton(i);
                     totalPreferredWidth += currButton.getPreferredSize().width;
                 }
                 int deltaX = (width - totalPreferredWidth) / buttonStrip.getButtonCount();
                 if (buttonStrip.getComponentOrientation().isLeftToRight()) {
                     int x = ins.left;
                     for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                        AbstractCommandButton currButton = buttonStrip.getButton(i);
+                        JCommandButton currButton = buttonStrip.getButton(i);
                         currButton.setBounds(x, ins.top,
                                 currButton.getPreferredSize().width + deltaX, height);
                         x += (currButton.getPreferredSize().width + deltaX);
@@ -305,7 +305,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                 } else {
                     int x = c.getWidth() - ins.right;
                     for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                        AbstractCommandButton currButton = buttonStrip.getButton(i);
+                        JCommandButton currButton = buttonStrip.getButton(i);
                         int buttonWidth = currButton.getPreferredSize().width + deltaX;
                         currButton.setBounds(x - buttonWidth, ins.top, buttonWidth, height);
                         x -= buttonWidth;
@@ -314,14 +314,14 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             } else {
                 int totalPreferredHeight = 0;
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    AbstractCommandButton currButton = buttonStrip.getButton(i);
+                    JCommandButton currButton = buttonStrip.getButton(i);
                     totalPreferredHeight += currButton.getPreferredSize().height;
                 }
                 float deltaY = (float) (height - totalPreferredHeight)
                         / (float) buttonStrip.getButtonCount();
                 float y = ins.top;
                 for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    AbstractCommandButton currButton = buttonStrip.getButton(i);
+                    JCommandButton currButton = buttonStrip.getButton(i);
                     float buttonHeight = (currButton.getPreferredSize().height + deltaY);
                     currButton.setBounds(ins.left, (int) y, width, (int) Math.ceil(buttonHeight));
                     y += buttonHeight;

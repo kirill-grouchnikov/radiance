@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -73,10 +73,10 @@ public class CookbookGradientPainter implements SubstanceFillPainter {
         this.delegate.paintContourBackground(g, comp, width, height, contour, isFocused, fillScheme,
                 hasShine);
 
-        if (comp instanceof AbstractCommandButton) {
+        if (comp instanceof JCommandButton) {
             // special case - overlay the buttons with the watermark image
             // that corresponds to the decoration area of that button
-            AbstractCommandButton commandButton = (AbstractCommandButton) comp;
+            JCommandButton commandButton = (JCommandButton) comp;
             if (!commandButton.getActionModel().isSelected()
                     && !commandButton.getActionModel().isPressed()) {
                 DecorationAreaType decorationAreaType = ComponentOrParentChainScope

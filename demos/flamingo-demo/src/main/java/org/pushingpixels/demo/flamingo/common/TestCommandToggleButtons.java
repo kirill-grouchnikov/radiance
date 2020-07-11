@@ -37,9 +37,9 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
@@ -195,7 +195,7 @@ public class TestCommandToggleButtons extends JFrame {
     private void addButtons(FormBuilder builder, CommandButtonPresentationState state, int row) {
         builder.add(state.getDisplayName() + " state").xy(1, row);
 
-        AbstractCommandButton buttonWithShortText =
+        JCommandButton buttonWithShortText =
                 this.toggleCommandShort.project(
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
@@ -204,7 +204,7 @@ public class TestCommandToggleButtons extends JFrame {
                         .buildComponent();
         builder.add(buttonWithShortText).xy(3, row);
 
-        AbstractCommandButton buttonWithLongText =
+        JCommandButton buttonWithLongText =
                 this.toggleCommandLong.project(
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
@@ -213,7 +213,7 @@ public class TestCommandToggleButtons extends JFrame {
                         .buildComponent();
         builder.add(buttonWithLongText).xy(5, row);
 
-        AbstractCommandButton buttonWithLongTextAndSecondary =
+        JCommandButton buttonWithLongTextAndSecondary =
                 this.toggleCommandLongWithSecondary.project(
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)

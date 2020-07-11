@@ -60,7 +60,7 @@ public class CeruleanSkin extends SubstanceSkin {
 	public CeruleanSkin() {
 		super();
 
-		SubstanceSkin.ColorSchemes ceruleanSchemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes ceruleanSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/cerulean.colorschemes"));
 

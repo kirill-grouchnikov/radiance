@@ -47,7 +47,7 @@ public abstract class CommandButtonPresentationState {
             new CommandButtonPresentationState("Fit to icon", -1) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(
-                        AbstractCommandButton commandButton) {
+                        JCommandButton commandButton) {
                     return new CommandButtonLayoutManagerCustom(commandButton);
                 }
             };
@@ -59,7 +59,7 @@ public abstract class CommandButtonPresentationState {
             "Big", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(
-                AbstractCommandButton commandButton) {
+                JCommandButton commandButton) {
             return new CommandButtonLayoutManagerBig(commandButton);
         }
     };
@@ -71,7 +71,7 @@ public abstract class CommandButtonPresentationState {
             "Tile", 32) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(
-                AbstractCommandButton arg0) {
+                JCommandButton arg0) {
             return new CommandButtonLayoutManagerTile();
         }
     };
@@ -83,7 +83,7 @@ public abstract class CommandButtonPresentationState {
             "Medium", 16) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(
-                AbstractCommandButton arg0) {
+                JCommandButton arg0) {
             return new CommandButtonLayoutManagerMedium();
         }
     };
@@ -95,7 +95,7 @@ public abstract class CommandButtonPresentationState {
             "Small", 16) {
         @Override
         public CommandButtonLayoutManager createLayoutManager(
-                AbstractCommandButton arg0) {
+                JCommandButton arg0) {
             return new CommandButtonLayoutManagerSmall();
         }
     };
@@ -154,7 +154,7 @@ public abstract class CommandButtonPresentationState {
      * @return A layout manager for the specified button.
      */
     public abstract CommandButtonLayoutManager createLayoutManager(
-            AbstractCommandButton commandButton);
+            JCommandButton commandButton);
 
     @Override
     public String toString() {

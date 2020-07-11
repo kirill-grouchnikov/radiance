@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -165,14 +164,14 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     @Override
     @SuppressWarnings("unchecked")
-    protected AbstractCommandButton createExpandButton() {
+    protected JCommandButton createExpandButton() {
         CommandButtonProjection<Command> expandCommandProjection =
                 new CommandButtonProjection<>(this.expandCommand,
                         CommandButtonPresentationModel.builder()
                                 .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                                 .build());
         expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
-        expandCommandProjection.setComponentCustomizer((AbstractCommandButton button) -> {
+        expandCommandProjection.setComponentCustomizer((JCommandButton button) -> {
             // since paintBandTitleBackground uses GENERAL, mark this button with
             // GENERAL as well to sync the mark color
             ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);
@@ -194,7 +193,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     }
 
     private ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
-            final AbstractCommandButton button) {
+            final JCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
@@ -232,7 +231,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     @SubstanceInternalButton
     private static class RibbonBandExpandButton extends JCommandButton implements FlamingoInternalButton {
-        private RibbonBandExpandButton(Projection<AbstractCommandButton, Command,
+        private RibbonBandExpandButton(Projection<JCommandButton, Command,
                 CommandButtonPresentationModel> projection) {
             super(projection);
 

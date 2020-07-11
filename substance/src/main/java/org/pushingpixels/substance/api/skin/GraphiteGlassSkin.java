@@ -57,7 +57,7 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 	public GraphiteGlassSkin() {
 		super();
 
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/graphite.colorschemes"));
 

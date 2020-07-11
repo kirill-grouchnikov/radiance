@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
@@ -51,29 +50,28 @@ public class BasicCommandButtonListener implements MouseListener,
         MouseMotionListener, FocusListener, ChangeListener {
     @Override
     public void focusLost(FocusEvent e) {
-        AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+        JCommandButton b = (JCommandButton) e.getSource();
         // System.err.println(e.getComponent() + "\n\tlost "
         // + (e.isTemporary() ? "temporary" : "permanent")
         // + " focus to \n\t" + e.getOppositeComponent());
         b.getActionModel().setArmed(false);
         b.getActionModel().setPressed(false);
-        if (b instanceof JCommandButton) {
-            PopupButtonModel popupModel = ((JCommandButton) b).getPopupModel();
-            popupModel.setPressed(false);
-            popupModel.setArmed(false);
-        }
+
+        PopupButtonModel popupModel = b.getPopupModel();
+        popupModel.setPressed(false);
+        popupModel.setArmed(false);
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-        AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+        JCommandButton b = (JCommandButton) e.getSource();
         b.repaint();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
-            AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+            JCommandButton b = (JCommandButton) e.getSource();
 
             JScrollablePanel scrollable = (JScrollablePanel) SwingUtilities
                     .getAncestorOfClass(JScrollablePanel.class, b);
@@ -124,15 +122,11 @@ public class BasicCommandButtonListener implements MouseListener,
     @Override
     public void mouseReleased(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
-            AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+            JCommandButton b = (JCommandButton) e.getSource();
             b.getActionModel().setPressed(false);
-            if (b instanceof JCommandButton) {
-                ((JCommandButton) b).getPopupModel().setPressed(false);
-            }
+            b.getPopupModel().setPressed(false);
             b.getActionModel().setArmed(false);
-            if (b instanceof JCommandButton) {
-                ((JCommandButton) b).getPopupModel().setArmed(false);
-            }
+            b.getPopupModel().setArmed(false);
         }
     }
 
@@ -161,11 +155,9 @@ public class BasicCommandButtonListener implements MouseListener,
      * @param e Mouse event for the model synchronization.
      */
     private void syncMouseMovement(MouseEvent e) {
-        AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+        JCommandButton b = (JCommandButton) e.getSource();
         ButtonModel actionModel = b.getActionModel();
-        PopupButtonModel popupModel = (b instanceof JCommandButton) ? ((JCommandButton) b)
-                .getPopupModel()
-                : null;
+        PopupButtonModel popupModel = b.getPopupModel();
         CommandButtonUI ui = b.getUI();
         Rectangle actionRect = ui.getLayoutInfo().actionClickArea;
         Rectangle popupRect = ui.getLayoutInfo().popupClickArea;
@@ -195,11 +187,9 @@ public class BasicCommandButtonListener implements MouseListener,
 
     @Override
     public void mouseExited(MouseEvent e) {
-        AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+        JCommandButton b = (JCommandButton) e.getSource();
         ButtonModel actionModel = b.getActionModel();
-        PopupButtonModel popupModel = (b instanceof JCommandButton) ? ((JCommandButton) b)
-                .getPopupModel()
-                : null;
+        PopupButtonModel popupModel = b.getPopupModel();
         actionModel.setRollover(false);
         actionModel.setArmed(false);
         if (popupModel != null) {
@@ -210,7 +200,7 @@ public class BasicCommandButtonListener implements MouseListener,
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        AbstractCommandButton b = (AbstractCommandButton) e.getSource();
+        JCommandButton b = (JCommandButton) e.getSource();
         b.repaint();
     }
 
@@ -220,7 +210,7 @@ public class BasicCommandButtonListener implements MouseListener,
      *
      * @param button Command button.
      */
-    public void installKeyboardActions(AbstractCommandButton button) {
+    public void installKeyboardActions(JCommandButton button) {
         ActionMap actionMap = new ActionMap();
         actionMap.put(PressAction.PRESS, new PressAction(button));
         actionMap.put(ReleaseAction.RELEASE, new ReleaseAction(button));
@@ -264,9 +254,9 @@ public class BasicCommandButtonListener implements MouseListener,
     }
 
     private static abstract class ButtonAction extends AbstractAction {
-        protected final AbstractCommandButton button;
+        protected final JCommandButton button;
 
-        ButtonAction(String actionName, AbstractCommandButton button) {
+        ButtonAction(String actionName, JCommandButton button) {
             super(actionName);
             this.button = button;
         }
@@ -275,7 +265,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class PressAction extends ButtonAction {
         private static final String PRESS = "press";
 
-        PressAction(AbstractCommandButton button) {
+        PressAction(JCommandButton button) {
             super(PRESS, button);
         }
 
@@ -299,7 +289,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class ReleaseAction extends ButtonAction {
         private static final String RELEASE = "release";
 
-        ReleaseAction(AbstractCommandButton button) {
+        ReleaseAction(JCommandButton button) {
             super(RELEASE, button);
         }
 
@@ -320,7 +310,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class PopupDismissAction extends ButtonAction {
         private static final String DISMISS = "popupDismiss";
 
-        PopupDismissAction(AbstractCommandButton button) {
+        PopupDismissAction(JCommandButton button) {
             super(DISMISS, button);
         }
 
@@ -338,15 +328,14 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class PopupToggleAction extends ButtonAction {
         private static final String TOGGLE = "popupToggle";
 
-        PopupToggleAction(AbstractCommandButton button) {
+        PopupToggleAction(JCommandButton button) {
             super(TOGGLE, button);
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (this.button instanceof JCommandButton &&
-                    !this.button.getUI().isInnerFocusOnAction()) {
-                ButtonModel model = ((JCommandButton) button).getPopupModel();
+            if (!this.button.getUI().isInnerFocusOnAction()) {
+                ButtonModel model = button.getPopupModel();
                 if (PopupPanelManager.defaultManager().getShownPath().isEmpty()) {
                     model.setArmed(true);
                     model.setPressed(true);
@@ -360,13 +349,12 @@ public class BasicCommandButtonListener implements MouseListener,
 
         @Override
         public boolean isEnabled() {
-            return ((this.button instanceof JCommandButton) &&
-                    ((JCommandButton) this.button).getPopupModel().isEnabled());
+            return this.button.getPopupModel().isEnabled();
         }
     }
 
     private static abstract class FocusTraversalAction extends ButtonAction {
-        FocusTraversalAction(String actionName, AbstractCommandButton button) {
+        FocusTraversalAction(String actionName, JCommandButton button) {
             super(actionName, button);
         }
 
@@ -395,7 +383,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class FocusHomeAction extends FocusTraversalAction {
         private static final String FOCUS_HOME = "focusHome";
 
-        FocusHomeAction(AbstractCommandButton button) {
+        FocusHomeAction(JCommandButton button) {
             super(FOCUS_HOME, button);
         }
 
@@ -411,7 +399,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class FocusEndAction extends FocusTraversalAction {
         private static final String FOCUS_END = "focusEnd";
 
-        FocusEndAction(AbstractCommandButton button) {
+        FocusEndAction(JCommandButton button) {
             super(FOCUS_END, button);
         }
 
@@ -427,7 +415,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class FocusUpAction extends FocusTraversalAction {
         private static final String FOCUS_UP = "focusUp";
 
-        FocusUpAction(AbstractCommandButton button) {
+        FocusUpAction(JCommandButton button) {
             super(FOCUS_UP, button);
         }
 
@@ -443,7 +431,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class FocusDownAction extends FocusTraversalAction {
         private static final String FOCUS_DOWN = "focusDown";
 
-        FocusDownAction(AbstractCommandButton button) {
+        FocusDownAction(JCommandButton button) {
             super(FOCUS_DOWN, button);
         }
 
@@ -459,7 +447,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class FocusRightAction extends FocusTraversalAction {
         private static final String FOCUS_RIGHT = "focusRight";
 
-        FocusRightAction(AbstractCommandButton button) {
+        FocusRightAction(JCommandButton button) {
             super(FOCUS_RIGHT, button);
         }
 
@@ -475,7 +463,7 @@ public class BasicCommandButtonListener implements MouseListener,
     private static class FocusLeftAction extends FocusTraversalAction {
         private static final String FOCUS_LEFT = "focusLeft";
 
-        FocusLeftAction(AbstractCommandButton button) {
+        FocusLeftAction(JCommandButton button) {
             super(FOCUS_LEFT, button);
         }
 
@@ -493,7 +481,7 @@ public class BasicCommandButtonListener implements MouseListener,
      *
      * @param button Command button.
      */
-    public void uninstallKeyboardActions(AbstractCommandButton button) {
+    public void uninstallKeyboardActions(JCommandButton button) {
         SwingUtilities.replaceUIInputMap(button,
                 JComponent.WHEN_IN_FOCUSED_WINDOW, null);
         SwingUtilities.replaceUIInputMap(button, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT,

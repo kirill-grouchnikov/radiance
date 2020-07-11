@@ -41,7 +41,7 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
- * Definition of a layout manager for {@link AbstractCommandButton}s.
+ * Definition of a layout manager for {@link JCommandButton}s.
  *
  * @author Kirill Grouchnikov
  */
@@ -89,7 +89,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
         /**
          * The action area. A mouse click in this area will trigger all
          * listeners associated with the command button action model
-         * {@link AbstractCommandButton#addCommandListener(CommandAction)}
+         * {@link JCommandButton#addCommandListener(CommandAction)}
          */
         public Rectangle actionClickArea;
 
@@ -152,7 +152,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @return The preferred size of the specified command button when it uses
      * this layout manager.
      */
-    Dimension getPreferredSize(AbstractCommandButton commandButton);
+    Dimension getPreferredSize(JCommandButton commandButton);
 
     /**
      * Returns the preferred icon size of the specified command button when it uses
@@ -162,7 +162,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @return The preferred icon size of the specified command button when it uses
      * this layout manager.
      */
-    int getPreferredIconSize(AbstractCommandButton commandButton);
+    int getPreferredIconSize(JCommandButton commandButton);
 
     /**
      * Returns the anchor center point of the action key tip of the specified command
@@ -172,7 +172,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @return The anchor center point of the action key tip of the specified command
      * button.
      */
-    Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
+    Point getActionKeyTipAnchorCenterPoint(JCommandButton commandButton);
 
     /**
      * Returns the anchor center point of the popup key tip of the specified command
@@ -182,7 +182,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @return The anchor center point of the popup key tip of the specified command
      * button.
      */
-    Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton);
+    Point getPopupKeyTipAnchorCenterPoint(JCommandButton commandButton);
 
     /**
      * Returns the layout information for the specified command button.
@@ -190,7 +190,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @param commandButton Command button.
      * @return The layout information for the specified command button.
      */
-    CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton);
+    CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton);
 
     @Override
     default void propertyChange(PropertyChangeEvent evt) {

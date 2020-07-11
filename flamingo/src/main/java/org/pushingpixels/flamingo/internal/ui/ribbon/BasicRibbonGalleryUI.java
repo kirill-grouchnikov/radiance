@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
@@ -197,19 +196,16 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
         // Configure customizers for all the scroller buttons (setting icons and additional
         // straight sides)
-        Map<Command, Projection.ComponentCustomizer<AbstractCommandButton>> galleryScrollerCustomizers = new HashMap<>();
-        galleryScrollerCustomizers.put(this.scrollUpCommand,
-                this::configureScrollUpButton);
-        galleryScrollerCustomizers.put(this.scrollDownCommand,
-                this::configureScrollDownButton);
-        galleryScrollerCustomizers.put(this.expandCommand,
-                this::configureExpandButton);
+        Map<Command, Projection.ComponentCustomizer<JCommandButton>> galleryScrollerCustomizers = new HashMap<>();
+        galleryScrollerCustomizers.put(this.scrollUpCommand, this::configureScrollUpButton);
+        galleryScrollerCustomizers.put(this.scrollDownCommand, this::configureScrollDownButton);
+        galleryScrollerCustomizers.put(this.expandCommand, this::configureExpandButton);
 
         // Configure the component supplier for the expand command to return our own subclass
-        Map<Command, Projection.ComponentSupplier<AbstractCommandButton, Command,
+        Map<Command, Projection.ComponentSupplier<JCommandButton, Command,
                 CommandButtonPresentationModel>> galleryScrollerSuppliers = new HashMap<>();
         galleryScrollerSuppliers.put(this.expandCommand,
-                (Projection<AbstractCommandButton, Command, CommandButtonPresentationModel> commandProjection)
+                (Projection<JCommandButton, Command, CommandButtonPresentationModel> commandProjection)
                         -> ExpandCommandButton::new);
 
         // Create a button strip that hosts all three scroller commands with all the additional
@@ -424,7 +420,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 }
             }
             for (int i = firstVisibleButtonIndex; i <= lastVisibleButtonIndex; i++) {
-                AbstractCommandButton currButton = ribbonGallery.getButtonAt(i);
+                JCommandButton currButton = ribbonGallery.getButtonAt(i);
 
                 // show button and set bounds
                 currButton.setVisible(true);
@@ -551,7 +547,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Scrolls the contents of this ribbon gallery to reveal the currently selected button.
      */
     private void scrollToSelected() {
-        AbstractCommandButton selected = this.ribbonGallery.getSelectedButton();
+        JCommandButton selected = this.ribbonGallery.getSelectedButton();
         if (selected == null) {
             return;
         }
@@ -594,15 +590,15 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
     @KeyTipManager.HasNextKeyTipChain
     private static class ExpandCommandButton extends JCommandButton {
-        public ExpandCommandButton(Projection<AbstractCommandButton, Command,
+        public ExpandCommandButton(Projection<JCommandButton, Command,
                 CommandButtonPresentationModel> projection) {
             super(projection);
         }
     }
 
-    protected abstract void configureScrollUpButton(AbstractCommandButton button);
+    protected abstract void configureScrollUpButton(JCommandButton button);
 
-    protected abstract void configureScrollDownButton(AbstractCommandButton button);
+    protected abstract void configureScrollDownButton(JCommandButton button);
 
-    protected abstract void configureExpandButton(AbstractCommandButton button);
+    protected abstract void configureExpandButton(JCommandButton button);
 }

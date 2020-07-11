@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -61,22 +60,18 @@ public class FlamingoUtilities {
     public static final String TASKBAR_COMMAND =
             "radiance.flamingo.internal.ribbon.taskbarCommand";
 
-    public static int getHLayoutGap(AbstractCommandButton commandButton) {
+    public static int getHLayoutGap(JCommandButton commandButton) {
         Font font = commandButton.getFont();
         return (int) Math.ceil(commandButton.getHGapScaleFactor() * (font.getSize() - 4) / 4);
     }
 
-    public static int getVLayoutGap(AbstractCommandButton commandButton) {
+    public static int getVLayoutGap(JCommandButton commandButton) {
         Font font = commandButton.getFont();
         return (int) Math.ceil(commandButton.getVGapScaleFactor() * (font.getSize() - 4) / 4);
     }
 
-    public static boolean hasPopupAction(AbstractCommandButton commandButton) {
-        if (commandButton instanceof JCommandButton) {
-            JCommandButton jcb = (JCommandButton) commandButton;
-            return jcb.getCommandButtonKind().hasPopup();
-        }
-        return false;
+    public static boolean hasPopupAction(JCommandButton commandButton) {
+        return commandButton.getCommandButtonKind().hasPopup();
     }
 
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {

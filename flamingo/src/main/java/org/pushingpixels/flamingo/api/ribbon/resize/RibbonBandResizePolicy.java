@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
@@ -90,7 +89,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies.Ico
  * {@link JFlowRibbonBand} only changes the bounds of the flow components, this
  * call on a {@link JRibbonBand} can also change the presentation state of the
  * command buttons (with
- * {@link AbstractCommandButton#setPresentationState(CommandButtonPresentationState)}
+ * {@link JCommandButton#setPresentationState(CommandButtonPresentationState)}
  * ) and the number of visible buttons in the ribbon galleries.</li>
  * <li>The collapsed policy that replaces the entire content of the ribbon band
  * with a single popup button. This is done when there is not enough horizontal
@@ -154,7 +153,7 @@ public interface RibbonBandResizePolicy {
 	 * {@link JFlowRibbonBand}s only changes the bounds of the flow components.
 	 * For {@link JRibbonBand}s can also change the presentation state of the command
 	 * buttons (with
-	 * {@link AbstractCommandButton#setPresentationState(CommandButtonPresentationState)}
+	 * {@link JCommandButton#setPresentationState(CommandButtonPresentationState)}
 	 * ) and the number of visible buttons in the ribbon galleries. Note that
 	 * this method is for internal use only and should not be called by the
 	 * application code.

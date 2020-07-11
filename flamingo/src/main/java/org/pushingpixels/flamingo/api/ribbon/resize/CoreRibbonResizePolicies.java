@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.resize;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
@@ -67,7 +67,7 @@ import java.util.Map;
  * {@link JFlowRibbonBand} only changes the bounds of the flow components, this
  * call on a {@link JRibbonBand} can also change the presentation state of the
  * command buttons (with
- * {@link AbstractCommandButton#setPresentationState(CommandButtonPresentationState)}
+ * {@link JCommandButton#setPresentationState(CommandButtonPresentationState)}
  * ) and the number of visible buttons in the ribbon galleries.</li>
  * <li>The collapsed policy that replaces the entire content of the ribbon band
  * with a single popup button. This is done when there is not enough horizontal
@@ -240,12 +240,12 @@ public class CoreRibbonResizePolicies {
          * @return Total width of the specified buttons.
          */
         protected int getWidth(int gap,
-                java.util.List<AbstractCommandButton> bigButtons,
-                java.util.List<AbstractCommandButton> mediumButtons,
-                java.util.List<AbstractCommandButton> smallButtons) {
+                java.util.List<JCommandButton> bigButtons,
+                java.util.List<JCommandButton> mediumButtons,
+                java.util.List<JCommandButton> smallButtons) {
             int result = 0;
             boolean hasLeadingContent = false;
-            for (AbstractCommandButton top : bigButtons) {
+            for (JCommandButton top : bigButtons) {
                 if (hasLeadingContent) {
                     result += gap;
                 }
@@ -259,7 +259,7 @@ public class CoreRibbonResizePolicies {
                 // three-somes.
                 while (((mediumButtons.size() % 3) != 0)
                         && (smallButtons.size() > 0)) {
-                    AbstractCommandButton low = smallButtons.remove(0);
+                    JCommandButton low = smallButtons.remove(0);
                     mediumButtons.add(low);
                 }
             }
@@ -268,7 +268,7 @@ public class CoreRibbonResizePolicies {
             // threesomes, or there are no buttons in lowButtons.
             int index3 = 0;
             int maxWidth3 = 0;
-            for (AbstractCommandButton medium : mediumButtons) {
+            for (JCommandButton medium : mediumButtons) {
                 int medWidth = getPreferredWidth(medium,
                         JRibbonBand.PresentationPriority.MEDIUM);
                 maxWidth3 = Math.max(maxWidth3, medWidth);
@@ -298,7 +298,7 @@ public class CoreRibbonResizePolicies {
 
             index3 = 0;
             maxWidth3 = 0;
-            for (AbstractCommandButton low : smallButtons) {
+            for (JCommandButton low : smallButtons) {
                 int lowWidth = getPreferredWidth(low, JRibbonBand.PresentationPriority.LOW);
                 maxWidth3 = Math.max(maxWidth3, lowWidth);
                 index3++;
@@ -336,7 +336,7 @@ public class CoreRibbonResizePolicies {
          * @return The preferred width of the specified command button under the
          * specified presentation priority.
          */
-        private int getPreferredWidth(AbstractCommandButton button,
+        private int getPreferredWidth(JCommandButton button,
                 JRibbonBand.PresentationPriority buttonPresentationPriority) {
             CommandButtonPresentationState presentationState = null;
             switch (buttonPresentationPriority) {
@@ -428,7 +428,7 @@ public class CoreRibbonResizePolicies {
          */
         protected int getPreferredButtonWidth(
                 JBandControlPanel.ControlPanelGroup controlPanelGroup, int gap) {
-            Map<JRibbonBand.PresentationPriority, List<AbstractCommandButton>> mapped = new HashMap<>();
+            Map<JRibbonBand.PresentationPriority, List<JCommandButton>> mapped = new HashMap<>();
             for (JRibbonBand.PresentationPriority rep : JRibbonBand.PresentationPriority.values()) {
                 mapped.put(rep, new ArrayList<>());
             }
@@ -437,7 +437,7 @@ public class CoreRibbonResizePolicies {
                     .values()) {
                 // map the priority
                 JRibbonBand.PresentationPriority mappedPriority = mapping.map(elementPriority);
-                for (AbstractCommandButton button : controlPanelGroup
+                for (JCommandButton button : controlPanelGroup
                         .getRibbonButtons(elementPriority)) {
                     // and add the button to a list based on the mapped priority
                     mapped.get(mappedPriority).add(button);
@@ -511,7 +511,7 @@ public class CoreRibbonResizePolicies {
                     }
 
                     // set the presentation priority for the buttons
-                    Map<JRibbonBand.PresentationPriority, List<AbstractCommandButton>> mapped =
+                    Map<JRibbonBand.PresentationPriority, List<JCommandButton>> mapped =
                             new HashMap<>();
                     for (JRibbonBand.PresentationPriority rep : JRibbonBand.PresentationPriority.values()) {
                         mapped.put(rep, new ArrayList<>());
@@ -521,7 +521,7 @@ public class CoreRibbonResizePolicies {
                         // map the priority
                         JRibbonBand.PresentationPriority mappedPriority = mapping
                                 .map(elementPriority);
-                        for (AbstractCommandButton button : controlPanelGroup
+                        for (JCommandButton button : controlPanelGroup
                                 .getRibbonButtons(elementPriority)) {
                             // and add the button to a list based on the mapped priority
                             mapped.get(mappedPriority).add(button);
@@ -529,7 +529,7 @@ public class CoreRibbonResizePolicies {
                     }
 
                     // start from the top priority
-                    for (AbstractCommandButton big : mapped.get(JRibbonBand.PresentationPriority.TOP)) {
+                    for (JCommandButton big : mapped.get(JRibbonBand.PresentationPriority.TOP)) {
                         big.setPresentationState(CommandButtonPresentationState.BIG);
                     }
 
@@ -539,19 +539,19 @@ public class CoreRibbonResizePolicies {
                         // three-somes.
                         while (((mapped.get(JRibbonBand.PresentationPriority.MEDIUM).size() % 3) != 0)
                                 && (mapped.get(JRibbonBand.PresentationPriority.LOW).size() > 0)) {
-                            AbstractCommandButton low = mapped.get(
+                            JCommandButton low = mapped.get(
                                     JRibbonBand.PresentationPriority.LOW).get(0);
                             mapped.get(JRibbonBand.PresentationPriority.LOW).remove(low);
                             mapped.get(JRibbonBand.PresentationPriority.MEDIUM).add(low);
                         }
                     }
-                    for (AbstractCommandButton medium : mapped
+                    for (JCommandButton medium : mapped
                             .get(JRibbonBand.PresentationPriority.MEDIUM)) {
                         medium.setPresentationState(CommandButtonPresentationState.MEDIUM);
                     }
 
                     // finally - low priority
-                    for (AbstractCommandButton low : mapped.get(JRibbonBand.PresentationPriority.LOW)) {
+                    for (JCommandButton low : mapped.get(JRibbonBand.PresentationPriority.LOW)) {
                         low.setPresentationState(CommandButtonPresentationState.SMALL);
                     }
                 }

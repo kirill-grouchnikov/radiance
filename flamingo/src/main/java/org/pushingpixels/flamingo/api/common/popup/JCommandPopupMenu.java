@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.api.common.model.*;
@@ -121,7 +120,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                     commandProjection = command.project(presentation);
                 }
                 // Create a button that can be used in this popup menu
-                AbstractCommandButton commandButton = commandProjection.buildComponent();
+                JCommandButton commandButton = commandProjection.buildComponent();
 
                 // Need to highlight it?
                 Command highlightedCommand =
@@ -131,12 +130,8 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
 
-                if (commandButton instanceof JCommandButton) {
-                    JCommandButton menuButton = (JCommandButton) commandButton;
-                    menuButton.setPopupOrientationKind(
-                            this.popupMenuPresentationModel.getPopupOrientationKind());
-                    this.addMenuButton(menuButton);
-                }
+                commandButton.setPopupOrientationKind(this.popupMenuPresentationModel.getPopupOrientationKind());
+                this.addMenuButton(commandButton);
             }
             if (i < (commandGroups.size() - 1)) {
                 this.addMenuSeparator();

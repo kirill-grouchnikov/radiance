@@ -31,8 +31,8 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -81,7 +81,7 @@ public class TestButtonStripMultiple extends JFrame {
                 .buildComponent();
         this.add(buttonStrip2);
 
-        AbstractCommandButton standalone = Command.builder()
+        JCommandButton standalone = Command.builder()
                 .setIconFactory(Format_justify_left.factory())
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)

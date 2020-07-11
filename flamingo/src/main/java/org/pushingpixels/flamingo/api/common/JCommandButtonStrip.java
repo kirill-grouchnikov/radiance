@@ -78,7 +78,7 @@ public class JCommandButtonStrip extends JComponent {
 
     @Override
     public Component add(Component comp, int index) {
-        if (!(comp instanceof AbstractCommandButton)) {
+        if (!(comp instanceof JCommandButton)) {
             throw new UnsupportedOperationException();
         }
         return super.add(comp, index);
@@ -86,7 +86,7 @@ public class JCommandButtonStrip extends JComponent {
 
     @Override
     public Component add(Component comp) {
-        if (!(comp instanceof AbstractCommandButton)) {
+        if (!(comp instanceof JCommandButton)) {
             throw new UnsupportedOperationException();
         }
         return super.add(comp);
@@ -159,7 +159,7 @@ public class JCommandButtonStrip extends JComponent {
      * @return The matching button.
      * @see #getButtonCount()
      */
-    public AbstractCommandButton getButton(int index) {
-        return (AbstractCommandButton) this.getComponent(index);
+    public JCommandButton getButton(int index) {
+        return (JCommandButton) this.getComponent(index);
     }
 }

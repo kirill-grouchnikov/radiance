@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.RichTooltipManager;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
@@ -699,11 +699,11 @@ public class JRibbonFrame extends JFrame {
                     menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
                             component.getProjection());
                 } else {
-                    if ((c instanceof AbstractCommandButton) &&
+                    if ((c instanceof JCommandButton) &&
                             (!(c instanceof FlamingoInternalButton))) {
                         menuContentModel =
                                 onShowContextualMenuListener.getContextualMenuContentModel(
-                                        ((AbstractCommandButton) c).getProjection());
+                                        ((JCommandButton) c).getProjection());
                     }
                 }
             }

@@ -130,10 +130,10 @@ If our content model class exposes one or more of its attributes to be dynamical
 - The constructor for Swing class that implements the projected content accepts a single `Projection` object (see sample signature below). It saves that projection object and exposes it via a getter method.
 - The UI delegate for that Swing class registers a property change listener on the projection's content model (available via `Projection.getContentModel()` API). In that property change listener it looks at the event's property name, and branches the logic based on those properties / attributes that are exposed as dynamic by the matching content model class.
 
-For example, here's a snippet of the constructor for the `AbstractCommandButton` class that is the base class for all command buttons - which are used for the projections of the `Command` content model and `CommandButtonPresentationModel` presentation model:
+For example, here's a snippet of the constructor for the `JCommandButton` class that is the base class for all command buttons - which are used for the projections of the `Command` content model and `CommandButtonPresentationModel` presentation model:
 
 ```java
-public AbstractCommandButton(Projection<AbstractCommandButton,
+public JCommandButton(Projection<JCommandButton,
         ? extends Command, CommandButtonPresentationModel> projection) {
     this.projection = projection;
     this.command = projection.getContentModel();
@@ -157,7 +157,7 @@ public AbstractCommandButton(Projection<AbstractCommandButton,
 }
 ```
 
-Here, the `AbstractCommandButton`'s constructor configures the Swing component based on the matching fields in both the `Command` (content model) and `CommandButtonPresentationModel` (presentation model) - both taken from the `Projection` object passed to the constructor.
+Here, the `JCommandButton`'s constructor configures the Swing component based on the matching fields in both the `Command` (content model) and `CommandButtonPresentationModel` (presentation model) - both taken from the `Projection` object passed to the constructor.
 
 And then the base class for the UI delegate (which is `BasicCommandButtonUI`) adds a property change listener to keep track of changes to the relevant content model attributes:
 

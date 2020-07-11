@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
@@ -79,7 +79,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
     }
 
     @Override
-    protected void configureLeadingScrollerButton(AbstractCommandButton button) {
+    protected void configureLeadingScrollerButton(JCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -108,7 +108,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
     }
 
     @Override
-    protected void configureTrailingScrollerButton(AbstractCommandButton button) {
+    protected void configureTrailingScrollerButton(JCommandButton button) {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);

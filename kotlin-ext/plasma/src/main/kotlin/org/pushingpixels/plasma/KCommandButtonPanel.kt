@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.flamingo.api.common.JCommandButton
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
@@ -46,7 +46,7 @@ class KCommandButtonPanelPresentation {
     var commandPresentationState: CommandButtonPresentationState? = null
     var commandIconDimension: Int = -1
     var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
-    var commandHorizontalAlignment: Int = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     var isMenu: Boolean = false
     var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
             CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD

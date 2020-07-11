@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
@@ -37,20 +37,19 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 import javax.swing.*;
 import java.awt.*;
 
-public class CommandButtonLayoutManagerCustom extends
-		CommandButtonLayoutManagerBig {
+public class CommandButtonLayoutManagerCustom extends CommandButtonLayoutManagerBig {
 
-	public CommandButtonLayoutManagerCustom(AbstractCommandButton commandButton) {
+	public CommandButtonLayoutManagerCustom(JCommandButton commandButton) {
 		super(commandButton);
 	}
 
 	@Override
-	public int getPreferredIconSize(AbstractCommandButton commandButton) {
+	public int getPreferredIconSize(JCommandButton commandButton) {
 		return -1;
 	}
 
 	@Override
-	public Dimension getPreferredSize(AbstractCommandButton commandButton) {
+	public Dimension getPreferredSize(JCommandButton commandButton) {
 		Insets borderInsets = commandButton.getInsets();
 		int bx = borderInsets.left + borderInsets.right;
 		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());

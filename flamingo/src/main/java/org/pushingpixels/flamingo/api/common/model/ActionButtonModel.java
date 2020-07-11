@@ -29,12 +29,10 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-
 import javax.swing.*;
 
 /**
- * Model for the action area of {@link AbstractCommandButton} component.
+ * Model for the action area of {@link JCommandButton} component.
  * 
  * @author Kirill Grouchnikov
  */

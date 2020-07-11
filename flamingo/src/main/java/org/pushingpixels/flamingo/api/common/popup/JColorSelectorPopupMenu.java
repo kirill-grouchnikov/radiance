@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.KeyValuePair;
 import org.pushingpixels.flamingo.api.common.model.Command;
@@ -104,11 +103,9 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
                 switch (groupEntry.getKey()) {
                     case COMMAND:
                         Command command = (Command) groupEntry.getValue();
-                        AbstractCommandButton commandButton =
+                        JCommandButton commandButton =
                                 command.project(presentation).buildComponent();
-                        if (commandButton instanceof JCommandButton) {
-                            this.addMenuButton((JCommandButton) commandButton);
-                        }
+                        this.addMenuButton(commandButton);
                         break;
                     case COLOR_SECTION:
                         ColorSelectorPopupMenuGroupModel.ColorSectionModel colorSectionModel =

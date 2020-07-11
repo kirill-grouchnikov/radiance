@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
@@ -42,12 +41,12 @@ import java.awt.*;
 
 public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManager {
     @Override
-    public int getPreferredIconSize(AbstractCommandButton commandButton) {
+    public int getPreferredIconSize(JCommandButton commandButton) {
         return FlamingoUtilities.getCommandButtonSmallIconSize(commandButton.getFont().getSize());
     }
 
     @Override
-    public Dimension getPreferredSize(AbstractCommandButton commandButton) {
+    public Dimension getPreferredSize(JCommandButton commandButton) {
         Insets borderInsets = commandButton.getInsets();
         // int bx = borderInsets.left + borderInsets.right;
         int by = borderInsets.top + borderInsets.bottom;
@@ -81,13 +80,10 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             width += 2 * layoutHGap;
         }
 
-        if (commandButton instanceof JCommandButton) {
-            JCommandButton jcb = (JCommandButton) commandButton;
-            CommandButtonKind buttonKind = jcb.getCommandButtonKind();
-            if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
-                // space for a vertical separator
-                width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
-            }
+        CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
+            // space for a vertical separator
+            width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
         }
 
         // right insets
@@ -101,7 +97,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
     }
 
     @Override
-    public Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+    public Point getActionKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
         int height = commandButton.getHeight();
 
@@ -115,7 +111,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
     }
 
     @Override
-    public Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+    public Point getPopupKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
         int height = commandButton.getHeight();
 
@@ -129,7 +125,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
     }
 
     @Override
-    public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton) {
+    public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -178,9 +174,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton)
-                ? ((JCommandButton) commandButton).getCommandButtonKind()
-                : JCommandButton.CommandButtonKind.ACTION_ONLY;
+        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
         int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
 
         if (ltr) {

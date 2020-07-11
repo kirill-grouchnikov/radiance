@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
@@ -73,12 +72,12 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         /**
          * Mapping from priority to ribbon buttons.
          */
-        private Map<JRibbonBand.PresentationPriority, List<AbstractCommandButton>> ribbonButtons;
+        private Map<JRibbonBand.PresentationPriority, List<JCommandButton>> ribbonButtons;
 
         /**
          * Mapping from ribbon button to priority.
          */
-        private Map<AbstractCommandButton, JRibbonBand.PresentationPriority> ribbonButtonsPriorities;
+        private Map<JCommandButton, JRibbonBand.PresentationPriority> ribbonButtonsPriorities;
 
         private List<JRibbonComponent> coreComps;
 
@@ -120,7 +119,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @param priority     Ribbon button priority.
          */
         public synchronized void addCommandButton(
-                AbstractCommandButton ribbonButton,
+                JCommandButton ribbonButton,
                 JRibbonBand.PresentationPriority priority) {
             if (this.groupTitle != null) {
                 throw new UnsupportedOperationException(
@@ -133,7 +132,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             if (!this.ribbonButtons.containsKey(priority)) {
                 this.ribbonButtons.put(priority, new LinkedList<>());
             }
-            List<AbstractCommandButton> al = this.ribbonButtons.get(priority);
+            List<JCommandButton> al = this.ribbonButtons.get(priority);
             al.add(ribbonButton);
 
             this.ribbonButtonsPriorities.put(ribbonButton, priority);
@@ -234,9 +233,9 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @return All ribbon buttons of specified priority from
          * <code>this</code> control panel.
          */
-        public List<AbstractCommandButton> getRibbonButtons(
+        public List<JCommandButton> getRibbonButtons(
                 JRibbonBand.PresentationPriority priority) {
-            List<AbstractCommandButton> result = this.ribbonButtons
+            List<JCommandButton> result = this.ribbonButtons
                     .get(priority);
             if (result == null) {
                 return EMPTY_GALLERY_BUTTONS_LIST;
@@ -292,7 +291,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
     /**
      * Empty list of buttons.
      */
-    private static final List<AbstractCommandButton> EMPTY_GALLERY_BUTTONS_LIST = new LinkedList<>();
+    private static final List<JCommandButton> EMPTY_GALLERY_BUTTONS_LIST = new LinkedList<>();
 
     /**
      * Empty list of galleries.
@@ -344,7 +343,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
      * @param priority     Ribbon button priority.
      */
     public synchronized void addCommandButton(
-            AbstractCommandButton ribbonButton, JRibbonBand.PresentationPriority priority) {
+            JCommandButton ribbonButton, JRibbonBand.PresentationPriority priority) {
         if (this.controlPanelGroups.size() == 0) {
             this.startGroup();
         }

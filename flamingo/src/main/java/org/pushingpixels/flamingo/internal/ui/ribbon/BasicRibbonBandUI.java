@@ -73,7 +73,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * The band expand button. Is visible when the {@link JRibbonBand#getExpandCommandListener()} of
      * the associated ribbon band is not <code>null</code>.
      */
-    protected AbstractCommandButton expandButton;
+    protected JCommandButton expandButton;
     protected Command expandCommand;
 
     /**
@@ -183,7 +183,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      *
      * @return Expand button for the associated ribbon band.
      */
-    protected abstract AbstractCommandButton createExpandButton();
+    protected abstract JCommandButton createExpandButton();
     protected abstract Command createExpandCommand();
 
     protected abstract void syncExpandButtonIcon();

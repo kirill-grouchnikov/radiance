@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
@@ -46,12 +45,12 @@ import java.util.ArrayList;
 public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLayoutManager {
 
     @Override
-    public int getPreferredIconSize(AbstractCommandButton commandButton) {
+    public int getPreferredIconSize(JCommandButton commandButton) {
         return FlamingoUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0, 4);
     }
 
     @Override
-    public Dimension getPreferredSize(AbstractCommandButton commandButton) {
+    public Dimension getPreferredSize(JCommandButton commandButton) {
         Insets borderInsets = commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
         int by = borderInsets.top + borderInsets.bottom;
@@ -82,7 +81,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
     }
 
     @Override
-    public Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+    public Point getActionKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
         if (commandButton.getComponentOrientation().isLeftToRight()) {
             // bottom-right corner of the icon area
@@ -96,7 +95,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
     }
 
     @Override
-    public Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+    public Point getPopupKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
         if (commandButton.getComponentOrientation().isLeftToRight()) {
             // bottom-left corner of the popup action area
@@ -110,7 +109,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
     }
 
     @Override
-    public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton) {
+    public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -127,9 +126,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton)
-                ? ((JCommandButton) commandButton).getCommandButtonKind()
-                : JCommandButton.CommandButtonKind.ACTION_ONLY;
+        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
 
         if (buttonKind == JCommandButton.CommandButtonKind.ACTION_ONLY) {
             result.actionClickArea.x = 0;

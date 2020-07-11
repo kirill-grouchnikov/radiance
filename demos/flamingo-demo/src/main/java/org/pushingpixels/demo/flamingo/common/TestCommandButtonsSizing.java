@@ -4,9 +4,9 @@ import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -113,7 +113,7 @@ public class TestCommandButtonsSizing extends JPanel {
                 }));
     }
 
-    private AbstractCommandButton createActionOnlyButton(String text,
+    private JCommandButton createActionOnlyButton(String text,
             CommandButtonPresentationState state,
             CommandButtonKind commandButtonKind, int fontSize) {
 
@@ -157,7 +157,7 @@ public class TestCommandButtonsSizing extends JPanel {
 
         CommandButtonProjection<Command> commandProjection = commandBuilder.build().project(
                 commandButtonPresentationBuilder.build());
-        commandProjection.setComponentCustomizer((AbstractCommandButton button) ->
+        commandProjection.setComponentCustomizer((JCommandButton button) ->
                 button.setFont(button.getFont().deriveFont((float) fontSize)));
 
         return commandProjection.buildComponent();

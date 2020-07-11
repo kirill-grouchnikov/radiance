@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
@@ -50,7 +49,7 @@ import java.util.EventListener;
  * {@link #project()} for default presentation settings or
  * {@link #project(CommandButtonPresentationModel)} to customize presentation settings. Then use
  * {@link CommandButtonProjection#buildComponent()} to get an instance of
- * {@link AbstractCommandButton} that can be added to the component hierarchy. Note that you
+ * {@link JCommandButton} that can be added to the component hierarchy. Note that you
  * can - and should - use the same {@link Command} instance and one or more
  * {@link CommandButtonPresentationModel}s if you need to have multiple instances (or
  * projections) of the same command in your app UI. That way, changes in the command are propagated

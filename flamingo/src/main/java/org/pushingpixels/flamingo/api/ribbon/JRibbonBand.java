@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
@@ -95,7 +95,7 @@ public class JRibbonBand extends AbstractRibbonBand {
     public static final CommandButtonPresentationState BIG_FIXED_LANDSCAPE =
             new CommandButtonPresentationState("Big Fixed Landscape", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton button) {
                     return new CommandButtonLayoutManagerBigFixedLandscape();
                 }
             };
@@ -106,7 +106,7 @@ public class JRibbonBand extends AbstractRibbonBand {
     public static final CommandButtonPresentationState BIG_FIXED =
             new CommandButtonPresentationState("Big Fixed", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton button) {
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton button) {
                     return new CommandButtonLayoutManagerBigFixed();
                 }
             };
@@ -165,9 +165,9 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param priority   Priority of the command.
      * @return The command button that represents the command.
      */
-    public AbstractCommandButton addRibbonCommand(CommandButtonProjection<? extends Command> projection,
+    public JCommandButton addRibbonCommand(CommandButtonProjection<? extends Command> projection,
             PresentationPriority priority) {
-        AbstractCommandButton commandButton = projection.buildComponent();
+        JCommandButton commandButton = projection.buildComponent();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);
         return commandButton;
     }

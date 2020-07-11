@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.common.popup.model;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
 
@@ -39,8 +39,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
     public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
             new CommandButtonPresentationState("Popup menu", 16) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(
-                        AbstractCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
                     return new CommandButtonLayoutManagerMedium() {
                         @Override
                         protected float getIconTextGapFactor() {

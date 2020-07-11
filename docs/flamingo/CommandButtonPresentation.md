@@ -11,7 +11,7 @@ this.pasteActionCommand = Command.builder()
     .setIconFactory(Edit_paste.factory())
     .build();
 
-AbstractCommandButton bigButton = this.pasteActionCommand.project(
+JCommandButton bigButton = this.pasteActionCommand.project(
     CommandButtonPresentationModel.builder()
       .setPresentationState(CommandButtonPresentationState.BIG)
       .setFlat(false)
@@ -61,7 +61,7 @@ Going back to the same screenshot that shows how four commands (paste, cut, copy
 Here's the relevant code snippet that creates a command button presentation model used to project the first "paste" button:
 
 ```java
-AbstractCommandButton bigButton = this.pasteActionCommand.project(
+JCommandButton bigButton = this.pasteActionCommand.project(
     CommandButtonPresentationModel.builder()
       .setPresentationState(CommandButtonPresentationState.BIG)
       .setFlat(false)
@@ -165,7 +165,7 @@ Command formatStrikethrough = Command.builder()
 CommandMenuContentModel formatMenuContentModel = new CommandMenuContentModel(
     new CommandGroup(formatBold, formatItalic, formatUnderline, formatStrikethrough));
 
-AbstractCommandButton multiChoice = Command.builder()
+JCommandButton multiChoice = Command.builder()
     .setText("multi")
     .setSecondaryContentModel(formatMenuContentModel)
     .build()

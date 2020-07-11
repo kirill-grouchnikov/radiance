@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton
+import org.pushingpixels.flamingo.api.common.JCommandButton
 
 @PlasmaElementMarker
 class KCommandButton {
@@ -45,7 +45,7 @@ class KCommandButton {
         presentation.init()
     }
 
-    fun toButton(): AbstractCommandButton {
+    fun toButton(): JCommandButton {
         return command.toCommandButton(presentation)
     }
 }
@@ -70,7 +70,7 @@ class KColorSelectorCommandButton {
         presentation.init()
     }
 
-    fun toButton(): AbstractCommandButton {
+    fun toButton(): JCommandButton {
         return command.toColorSelectorCommandButton(presentation)
     }
 }

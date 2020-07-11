@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 
 import javax.swing.event.ChangeListener;
@@ -213,7 +213,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         private LayoutKind layoutKind = LayoutKind.ROW_FILL;
         private CommandButtonPresentationState commandPresentationState;
         private Integer commandIconDimension = -1;
-        private int commandHorizontalAlignment = AbstractCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
+        private int commandHorizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
         private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
                 CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;

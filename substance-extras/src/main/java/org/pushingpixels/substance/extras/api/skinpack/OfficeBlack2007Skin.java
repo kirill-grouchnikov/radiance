@@ -61,7 +61,7 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 	 * Creates a new <code>Office Black 2007</code> skin.
 	 */
 	public OfficeBlack2007Skin() {
-		SubstanceSkin.ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes"));
 

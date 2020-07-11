@@ -43,7 +43,7 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 	/**
 	 * The original color scheme.
 	 */
-	SubstanceColorScheme scheme;
+	private SubstanceColorScheme scheme;
 
 	/**
 	 * Creates the resolver of derived colors for the specified light color
@@ -54,10 +54,14 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 	 */
 	public DerivedColorsResolverLight(SubstanceColorScheme scheme) {
 		if (scheme.isDark()) {
-			throw new IllegalArgumentException(
-					"The scheme must be light: " + scheme.getDisplayName());
+			throw new IllegalArgumentException("The scheme must be light: " + scheme.getDisplayName());
 		}
 		this.scheme = scheme;
+	}
+
+	@Override
+	public String toString() {
+		return "Resolver for " + this.scheme.getDisplayName();
 	}
 
 	@Override
@@ -74,11 +78,6 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 	@Override
 	public Color getSelectionBackgroundColor() {
 		return this.scheme.getExtraLightColor();
-	}
-
-	@Override
-	public String toString() {
-		return this.scheme.getDisplayName();
 	}
 
 	@Override

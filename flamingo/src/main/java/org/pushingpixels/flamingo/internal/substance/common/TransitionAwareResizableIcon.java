@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -111,7 +111,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      * @param delegate                       Delegate to compute the actual icons.
      * @param initialDim                     Initial icon dimension.
      */
-    public TransitionAwareResizableIcon(AbstractCommandButton button,
+    public TransitionAwareResizableIcon(JCommandButton button,
             StateTransitionTrackerDelegate stateTransitionTrackerDelegate,
             Delegate delegate, Dimension initialDim) {
         this.comp = button;

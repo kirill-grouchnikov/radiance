@@ -996,176 +996,21 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         return true;
     }
 
-    /**
-     * Contains information on color schemes loaded by the
-     * {@link SubstanceSkin#getColorSchemes(InputStream)} API. Note that the custom
-     * skins should only use the {@link #get(String)} API. The rest of the API
-     * is currently internal and is used in the <strong>Apollo</strong>
-     * visual editor.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public static class ColorSchemes {
+    public interface ColorSchemes {
         /**
-         * List of color schemes of this object.
-         */
-        private List<SubstanceColorScheme> schemes;
-
-        /**
-         * Creates an object with empty list of color schemes. This method is
-         * for internal use only and should not be used in custom application
-         * skins.
-         */
-        public ColorSchemes() {
-            this.schemes = new ArrayList<>();
-        }
-
-        /**
-         * Creates an object based on the specified list of color schemes. This
-         * method is for internal use only and should not be used in custom
-         * application skins.
+         * Returns all the color schemes handled by this object.
          *
-         * @param schemes List of color schemes.
+         * @return All the color schemes handled by this object.
          */
-        public ColorSchemes(List<SubstanceColorScheme> schemes) {
-            this();
-            this.schemes.addAll(schemes);
-        }
+        Collection<SubstanceColorScheme> getAll();
 
         /**
-         * Returns the number of color schemes in this object. This method is
-         * for internal use only and should not be used in custom application
-         * skins.
-         *
-         * @return The number of color schemes in this object.
-         */
-        public int size() {
-            return this.schemes.size();
-        }
-
-        /**
-         * Returns the color scheme at the specified index. This method is for
-         * internal use only and should not be used in custom application skins.
-         *
-         * @param index Index.
-         * @return Color scheme at the specified index.
-         */
-        public SubstanceColorScheme get(int index) {
-            return this.schemes.get(index);
-        }
-
-        /**
-         * Returns the color scheme based on its display name. This method is
-         * the only API that is published for use in custom application skins.
+         * Returns the color scheme based on its display name.
          *
          * @param displayName Display name of a color scheme.
          * @return The color scheme with the matching display name.
          */
-        public SubstanceColorScheme get(String displayName) {
-            for (SubstanceColorScheme scheme : this.schemes) {
-                if (scheme.getDisplayName().equals(displayName)) {
-                    return scheme;
-                }
-            }
-            return null;
-        }
-
-        /**
-         * Returns the index of the color scheme that has the specified display
-         * name. This method is for internal use only and should not be used in
-         * custom application skins.
-         *
-         * @param displayName Display name of a color scheme.
-         * @return The index of the color scheme that has the specified display
-         * name.
-         */
-        private int indexOf(String displayName) {
-            for (int i = 0; i < this.schemes.size(); i++) {
-                SubstanceColorScheme curr = this.schemes.get(i);
-                if (curr.getDisplayName().equals(displayName)) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        /**
-         * Finds the index of the color scheme that has the specified display
-         * name and replaces it with (possibly another) color scheme. This
-         * method is for internal use only and should not be used in custom
-         * application skins.
-         *
-         * @param displayName Display name of a color scheme.
-         * @param scheme      Color scheme that will replace the existing color scheme
-         *                    (based on the display name) at the same index in the list.
-         */
-        public void replace(String displayName, SubstanceColorScheme scheme) {
-            int index = this.indexOf(displayName);
-
-            if (index >= 0) {
-                this.schemes.remove(index);
-                this.schemes.add(index, scheme);
-            }
-        }
-
-        /**
-         * Deletes the color scheme that has the specified display name. This
-         * method is for internal use only and should not be used in custom
-         * application skins.
-         *
-         * @param displayName Display name of the color scheme to delete from the list.
-         */
-        public void delete(String displayName) {
-            int index = this.indexOf(displayName);
-            if (index >= 0) {
-                this.schemes.remove(index);
-            }
-        }
-
-        /**
-         * Adds the specified color scheme to the end of the list. This method
-         * is for internal use only and should not be used in custom application
-         * skins.
-         *
-         * @param scheme Color scheme to add to the end of the list.
-         */
-        public void add(SubstanceColorScheme scheme) {
-            this.schemes.add(scheme);
-        }
-
-        /**
-         * Moves the color scheme with the specified display name one position
-         * towards the beginning of the list. This method is for internal use
-         * only and should not be used in custom application skins.
-         *
-         * @param displayName Display name of the color scheme to move one position
-         *                    towards the beginning of the list.
-         */
-        public void switchWithPrevious(String displayName) {
-            int index = this.indexOf(displayName);
-
-            if (index >= 0) {
-                SubstanceColorScheme scheme = this.schemes.remove(index);
-                this.schemes.add(index - 1, scheme);
-            }
-        }
-
-        /**
-         * Moves the color scheme with the specified display name one position
-         * towards the end of the list. This method is for internal use only and
-         * should not be used in custom application skins.
-         *
-         * @param displayName Display name of the color scheme to move one position
-         *                    towards the end of the list.
-         */
-        public void switchWithNext(String displayName) {
-            int index = this.indexOf(displayName);
-
-            if (index >= 0) {
-                SubstanceColorScheme scheme = this.schemes.remove(index);
-                this.schemes.add(index + 1, scheme);
-            }
-        }
+        SubstanceColorScheme get(String displayName);
     }
 
     /**

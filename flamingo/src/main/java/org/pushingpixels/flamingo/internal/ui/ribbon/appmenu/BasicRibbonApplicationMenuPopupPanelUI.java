@@ -72,7 +72,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             new CommandButtonPresentationState(
                     "Ribbon application menu tile level 1", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(AbstractCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
                     return new CommandButtonLayoutManagerMenuTileLevel1();
                 }
             };
@@ -260,8 +260,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 // around the inter-play between the key tip layer and the Swing's popup layer
                 for (int i = 0; i < this.getComponentCount(); i++) {
                     Component child = this.getComponent(i);
-                    if (child instanceof AbstractCommandButton) {
-                        AbstractCommandButton button = (AbstractCommandButton) child;
+                    if (child instanceof JCommandButton) {
+                        JCommandButton button = (JCommandButton) child;
                         g.translate(button.getX(), button.getY() + 4);
                         KeyTipRenderingUtilities.renderButtonKeyTips(g,
                                 button, button.getUI().getLayoutManager());
@@ -283,7 +283,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     commandPresentation = commandPresentation.overlayWith(
                             commandOverlays.get(footerCommand));
                 }
-                AbstractCommandButton commandFooterButton =
+                JCommandButton commandFooterButton =
                         footerCommand.project(commandPresentation).buildComponent();
                 this.footerPanel.add(commandFooterButton);
             }
@@ -359,12 +359,12 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends AbstractCommandButton> T getPrimaryForCommand(Command command) {
+    private <T extends RichTooltipManager.JTrackableComponent> T getPrimaryForCommand(Command command) {
         for (int topLevelIndex = 0; topLevelIndex < this.panelLevel1.getComponentCount();
              topLevelIndex++) {
             Component topLevel = this.panelLevel1.getComponent(topLevelIndex);
-            if (topLevel instanceof AbstractCommandButton) {
-                AbstractCommandButton button = (AbstractCommandButton) topLevel;
+            if (topLevel instanceof JCommandButton) {
+                JCommandButton button = (JCommandButton) topLevel;
                 if (button.getProjection().getContentModel() == command) {
                     return (T) button;
                 }
@@ -374,7 +374,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends AbstractCommandButton> T getSecondaryForCommand(Command command) {
+    private <T extends RichTooltipManager.JTrackableComponent> T getSecondaryForCommand(Command command) {
         JRibbonApplicationMenuPopupPanelSecondary secondaryPanel =
                 (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
         for (int secondLevelIndex = 0;
@@ -382,9 +382,9 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
              secondLevelIndex++) {
             Component secondLevel = secondaryPanel.getComponent(
                     secondLevelIndex);
-            if (secondLevel instanceof AbstractCommandButton) {
-                AbstractCommandButton secondLevelButton =
-                        (AbstractCommandButton) secondLevel;
+            if (secondLevel instanceof JCommandButton) {
+                JCommandButton secondLevelButton =
+                        (JCommandButton) secondLevel;
                 if (secondLevelButton.getProjection().getContentModel() == command) {
                     return (T) secondLevelButton;
                 }
@@ -394,7 +394,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends AbstractCommandButton> T getMenuButtonForCommand(Command command) {
+    private <T extends RichTooltipManager.JTrackableComponent> T getMenuButtonForCommand(Command command) {
         List<PopupPanelManager.PopupInfo> popups =
                 PopupPanelManager.defaultManager().getShownPath();
         if (popups.size() > 0) {
@@ -407,8 +407,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
 
             JCommandPopupMenu popupMenu = (JCommandPopupMenu) popupPanel;
             for (Component child : popupMenu.getMenuComponents()) {
-                if (child instanceof AbstractCommandButton) {
-                    AbstractCommandButton button = (AbstractCommandButton) child;
+                if (child instanceof JCommandButton) {
+                    JCommandButton button = (JCommandButton) child;
                     if (button.getProjection().getContentModel() == command) {
                         return (T) button;
                     }
@@ -430,8 +430,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         // Is a footer command?
         int footerIndex = ribbonAppMenu.getFooterCommands().getCommands().indexOf(command);
         if (footerIndex >= 0) {
-            AbstractCommandButton footerButton =
-                    (AbstractCommandButton) this.footerPanel.getComponent(footerIndex);
+            JCommandButton footerButton =
+                    (JCommandButton) this.footerPanel.getComponent(footerIndex);
             return () -> {
                 footerButton.getActionModel().setRollover(true);
                 footerButton.getActionModel().setArmed(true);
@@ -449,7 +449,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         int pathLength = pathToCommand.size();
         if (pathLength == 0) {
             // It is a primary (top-level) command in the app menu
-            AbstractCommandButton primary = getPrimaryForCommand(command);
+            JCommandButton primary = getPrimaryForCommand(command);
             if (primary == null) {
                 throw new IllegalStateException("Should have found the command at top level");
             }
@@ -483,7 +483,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 SwingUtilities.invokeLater(() -> {
                     // Find our command at secondary level, scroll to it if necessary
                     // and highlight it
-                    AbstractCommandButton secondLevelButton = getSecondaryForCommand(command);
+                    JCommandButton secondLevelButton = getSecondaryForCommand(command);
                     Rectangle selectionButtonBounds = secondLevelButton.getBounds();
                     this.panelScrollerLevel2.scrollToIfNecessary(selectionButtonBounds.y,
                             selectionButtonBounds.height);
@@ -526,7 +526,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     final int currLevel = 2 + i;
                     SwingUtilities.invokeLater(() -> {
                         if (currLevel == pathLength) {
-                            AbstractCommandButton lastLevelButton =
+                            JCommandButton lastLevelButton =
                                     getMenuButtonForCommand(command);
                             // Last level!
                             lastLevelButton.getActionModel().setRollover(true);

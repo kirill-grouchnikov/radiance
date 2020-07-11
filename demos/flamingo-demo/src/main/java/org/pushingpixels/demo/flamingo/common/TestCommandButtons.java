@@ -35,9 +35,9 @@ import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -192,25 +192,25 @@ public class TestCommandButtons extends JFrame {
     private void addButtons(FormBuilder builder, CommandButtonPresentationState state, int row) {
         builder.add(state.getDisplayName() + " state").xy(1, row);
 
-        AbstractCommandButton actionButton = createActionButton(state);
+        JCommandButton actionButton = createActionButton(state);
         builder.add(actionButton).xy(3, row);
 
-        AbstractCommandButton actionAndPopupMainActionButton =
+        JCommandButton actionAndPopupMainActionButton =
                 createActionAndPopupMainActionButton(state);
         builder.add(actionAndPopupMainActionButton).xy(5, row);
 
-        AbstractCommandButton actionAndPopupMainPopupButton =
+        JCommandButton actionAndPopupMainPopupButton =
                 createActionAndPopupMainPopupButton(state);
         builder.add(actionAndPopupMainPopupButton).xy(7, row);
 
-        AbstractCommandButton popupButton = createPopupButton(state);
+        JCommandButton popupButton = createPopupButton(state);
         builder.add(popupButton).xy(9, row);
     }
 
     protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
     }
 
-    private AbstractCommandButton createPopupButton(CommandButtonPresentationState state) {
+    private JCommandButton createPopupButton(CommandButtonPresentationState state) {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
@@ -221,7 +221,7 @@ public class TestCommandButtons extends JFrame {
                 .buildComponent();
     }
 
-    private AbstractCommandButton createActionAndPopupMainPopupButton(CommandButtonPresentationState state) {
+    private JCommandButton createActionAndPopupMainPopupButton(CommandButtonPresentationState state) {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
@@ -233,7 +233,7 @@ public class TestCommandButtons extends JFrame {
                 .buildComponent();
     }
 
-    private AbstractCommandButton createActionAndPopupMainActionButton(CommandButtonPresentationState state) {
+    private JCommandButton createActionAndPopupMainActionButton(CommandButtonPresentationState state) {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
@@ -245,7 +245,7 @@ public class TestCommandButtons extends JFrame {
                 .buildComponent();
     }
 
-    private AbstractCommandButton createActionButton(CommandButtonPresentationState state) {
+    private JCommandButton createActionButton(CommandButtonPresentationState state) {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)

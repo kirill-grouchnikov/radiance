@@ -32,8 +32,8 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.substance.api.ComponentState;
@@ -78,7 +78,7 @@ public class TestToggleMenuButtons extends JFrame {
         CommandMenuContentModel justifyMenuContentModel = new CommandMenuContentModel(
                 new CommandGroup(justifyLeft, justifyCenter, justifyRight, justifyFill));
 
-        AbstractCommandButton singleChoice =
+        JCommandButton singleChoice =
                 Command.builder()
                         .setText("single")
                         .setSecondaryContentModel(justifyMenuContentModel)
@@ -114,7 +114,7 @@ public class TestToggleMenuButtons extends JFrame {
                 new CommandGroup(formatBold, formatItalic, formatUnderline,
                         formatStrikethrough));
 
-        AbstractCommandButton multiChoice =
+        JCommandButton multiChoice =
                 Command.builder()
                         .setText("multi")
                         .setSecondaryContentModel(formatMenuContentModel)

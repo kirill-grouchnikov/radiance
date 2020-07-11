@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
@@ -45,7 +44,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager {
-    private AbstractCommandButton commandButton;
+    private JCommandButton commandButton;
 
     /**
      * The first part of (possibly) two-lined split of {@link #commandButton}'s
@@ -59,18 +58,18 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
      */
     protected String titlePart2;
 
-    public CommandButtonLayoutManagerBig(AbstractCommandButton commandButton) {
+    public CommandButtonLayoutManagerBig(JCommandButton commandButton) {
         this.commandButton = commandButton;
         this.updateTitleStrings();
     }
 
     @Override
-    public int getPreferredIconSize(AbstractCommandButton commandButton) {
+    public int getPreferredIconSize(JCommandButton commandButton) {
         return FlamingoUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
     }
 
     @Override
-    public Dimension getPreferredSize(AbstractCommandButton commandButton) {
+    public Dimension getPreferredSize(JCommandButton commandButton) {
         Insets borderInsets = (commandButton == null) ? new Insets(0, 0, 0, 0)
                 : commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
@@ -123,13 +122,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         }
 
         // separator?
-        if (commandButton instanceof JCommandButton) {
-            JCommandButton jcb = (JCommandButton) commandButton;
-            CommandButtonKind buttonKind = jcb.getCommandButtonKind();
-            if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
-                // space for a horizontal separator
-                height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
-            }
+        CommandButtonKind buttonKind = this.commandButton.getCommandButtonKind();
+        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
+            // space for a horizontal separator
+            height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
         }
 
         // bottom insets
@@ -197,7 +193,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     @Override
-    public Point getActionKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+    public Point getActionKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
         // horizontally centered at the bottom edge of the action click area
         return new Point(layoutInfo.actionClickArea.x + layoutInfo.actionClickArea.width / 2,
@@ -205,7 +201,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     @Override
-    public Point getPopupKeyTipAnchorCenterPoint(AbstractCommandButton commandButton) {
+    public Point getPopupKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
         // horizontally centered at the bottom edge of the popup click area
         return new Point(layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width / 2,
@@ -213,7 +209,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     @Override
-    public CommandButtonLayoutInfo getLayoutInfo(AbstractCommandButton commandButton) {
+    public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -234,9 +230,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = (commandButton instanceof JCommandButton)
-                ? ((JCommandButton) commandButton).getCommandButtonKind()
-                : JCommandButton.CommandButtonKind.ACTION_ONLY;
+        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
 
         ResizableIcon buttonIcon = commandButton.getIcon();
 
@@ -271,21 +265,19 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         }
 
         // separator?
-        if (commandButton instanceof JCommandButton) {
-            // horizontal separator is always after the icon
-            if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
-                result.separatorOrientation =
-                        CommandButtonLayoutManager.CommandButtonSeparatorOrientation.HORIZONTAL;
+        // horizontal separator is always after the icon
+        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
+            result.separatorOrientation =
+                    CommandButtonLayoutManager.CommandButtonSeparatorOrientation.HORIZONTAL;
 
-                result.separatorArea = new Rectangle(0, 0, 0, 0);
-                result.separatorArea.x = 0;
-                result.separatorArea.y = y;
-                result.separatorArea.width = width;
-                result.separatorArea.height = new JSeparator(JSeparator.HORIZONTAL)
-                        .getPreferredSize().height;
+            result.separatorArea = new Rectangle(0, 0, 0, 0);
+            result.separatorArea.x = 0;
+            result.separatorArea.y = y;
+            result.separatorArea.width = width;
+            result.separatorArea.height = new JSeparator(JSeparator.HORIZONTAL)
+                    .getPreferredSize().height;
 
-                y += result.separatorArea.height;
-            }
+            y += result.separatorArea.height;
         }
 
         int lastTextLineWidth = 0;

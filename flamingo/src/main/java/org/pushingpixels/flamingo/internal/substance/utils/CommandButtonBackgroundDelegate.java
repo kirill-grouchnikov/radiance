@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.substance.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton.CommandButtonLocationOrderKind;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonLocationOrderKind;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
@@ -84,7 +84,7 @@ public class CommandButtonBackgroundDelegate {
      * @return Button background.
      */
     @SuppressWarnings("incomplete-switch")
-    public static BufferedImage getFullAlphaBackground(AbstractCommandButton commandButton,
+    public static BufferedImage getFullAlphaBackground(JCommandButton commandButton,
             ButtonModel buttonModel, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             StateTransitionTracker stateTransitionTracker, boolean ignoreSelections) {
@@ -113,7 +113,7 @@ public class CommandButtonBackgroundDelegate {
                 SubstanceSynapse.BUTTON_STRAIGHT_SIDE);
 
         // special handling for location order
-        AbstractCommandButton.CommandButtonLocationOrderKind locationOrderKind = commandButton
+        JCommandButton.CommandButtonLocationOrderKind locationOrderKind = commandButton
                 .getLocationOrderKind();
         int dx = 0;
         int dy = 0;
@@ -121,7 +121,7 @@ public class CommandButtonBackgroundDelegate {
         int dh = 0;
         boolean isVertical = false;
         if ((locationOrderKind != null)
-                && (locationOrderKind != AbstractCommandButton.CommandButtonLocationOrderKind.ONLY)) {
+                && (locationOrderKind != JCommandButton.CommandButtonLocationOrderKind.ONLY)) {
             Component parent = commandButton.getParent();
             if ((parent instanceof JCommandButtonStrip) &&
                     (((JCommandButtonStrip) parent).getProjection().getPresentationModel().getOrientation() ==
@@ -141,13 +141,13 @@ public class CommandButtonBackgroundDelegate {
                 }
             } else {
                 boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
-                if (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.MIDDLE) {
+                if (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.MIDDLE) {
                     dx = -commandButton.getWidth() / 2;
                     dw = commandButton.getWidth();
                 } else {
                     boolean curveOnLeft = (ltr
-                            && (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.FIRST))
-                            || (!ltr && (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.LAST));
+                            && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST))
+                            || (!ltr && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST));
                     if (curveOnLeft) {
                         dw = commandButton.getWidth() / 2;
                     } else {
@@ -224,11 +224,11 @@ public class CommandButtonBackgroundDelegate {
         return result;
     }
 
-    private static BufferedImage getSingleLayer(AbstractCommandButton commandButton,
+    private static BufferedImage getSingleLayer(JCommandButton commandButton,
             SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter, int width,
             int height, SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme,
             float radius, Set<SubstanceSlices.Side> straightSides,
-            AbstractCommandButton.CommandButtonLocationOrderKind locationOrderKind, int dx, int dy,
+            JCommandButton.CommandButtonLocationOrderKind locationOrderKind, int dx, int dy,
             int dw, int dh, boolean isVertical) {
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
 
@@ -247,7 +247,7 @@ public class CommandButtonBackgroundDelegate {
                 contourInner, borderScheme);
 
         if (isVertical) {
-            if ((locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.FIRST)
+            if ((locationOrderKind == CommandButtonLocationOrderKind.FIRST)
                     || (locationOrderKind == CommandButtonLocationOrderKind.MIDDLE)) {
                 // outer/inner line at the bottom
                 float y = -dy + commandButton.getHeight() - borderDelta - borderThickness;
@@ -262,7 +262,7 @@ public class CommandButtonBackgroundDelegate {
 
             // special case for MIDDLE and LAST location order kinds
             if ((locationOrderKind == CommandButtonLocationOrderKind.MIDDLE)
-                    || (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.LAST)) {
+                    || (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST)) {
                 // inner line at the top
                 float y = -dy + borderDelta;
                 float xs = borderDelta;
@@ -276,8 +276,8 @@ public class CommandButtonBackgroundDelegate {
             // order kinds
             boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
             boolean leftmost = (ltr
-                    && (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.FIRST))
-                    || (!ltr && (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.LAST));
+                    && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST))
+                    || (!ltr && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST));
             if (leftmost || (locationOrderKind == CommandButtonLocationOrderKind.MIDDLE)) {
                 // outer / inner line at the right
                 float x = -dx + commandButton.getWidth() - borderDelta - borderThickness;
@@ -292,8 +292,8 @@ public class CommandButtonBackgroundDelegate {
 
             // special case for MIDDLE and LAST location order kinds
             boolean rightmost = (ltr
-                    && (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.LAST))
-                    || (!ltr && (locationOrderKind == AbstractCommandButton.CommandButtonLocationOrderKind.FIRST));
+                    && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST))
+                    || (!ltr && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST));
             if ((locationOrderKind == CommandButtonLocationOrderKind.MIDDLE) || rightmost) {
                 // inner line at the left
                 float x = -dx + borderDelta;
@@ -308,7 +308,7 @@ public class CommandButtonBackgroundDelegate {
     }
 
     public static BufferedImage getCombinedCommandButtonBackground(
-            AbstractCommandButton commandButton, ButtonModel actionModel, Rectangle actionArea,
+            JCommandButton commandButton, ButtonModel actionModel, Rectangle actionArea,
             PopupButtonModel popupModel, Rectangle popupArea) {
         ButtonModel backgroundModel = new DefaultButtonModel();
         backgroundModel.setEnabled(actionModel.isEnabled() && popupModel.isEnabled());
@@ -415,7 +415,7 @@ public class CommandButtonBackgroundDelegate {
     }
 
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
-            AbstractCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
+            JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
             ButtonModel model, StateTransitionTracker stateTransitionTracker) {
         boolean useThemed = SubstanceCoreUtilities.useThemedDefaultIcon(commandButton);
         Icon themed = useThemed ? SubstanceCoreUtilities.getThemedIcon(commandButton, regular)

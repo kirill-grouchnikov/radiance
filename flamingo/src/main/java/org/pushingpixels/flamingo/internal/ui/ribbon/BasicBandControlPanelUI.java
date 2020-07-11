@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
@@ -383,9 +383,9 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         }
                     }
 
-                    Map<CommandButtonPresentationState, List<AbstractCommandButton>> buttonMap = new HashMap<>();
+                    Map<CommandButtonPresentationState, List<JCommandButton>> buttonMap = new HashMap<>();
                     for (JRibbonBand.PresentationPriority elementPriority : JRibbonBand.PresentationPriority.values()) {
-                        for (AbstractCommandButton commandButton : controlPanelGroup
+                        for (JCommandButton commandButton : controlPanelGroup
                                 .getRibbonButtons(elementPriority)) {
                             CommandButtonPresentationState state = commandButton.getPresentationState();
                             if (buttonMap.get(state) == null) {
@@ -395,9 +395,9 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         }
                     }
 
-                    List<AbstractCommandButton> bigs = buttonMap.get(CommandButtonPresentationState.BIG);
+                    List<JCommandButton> bigs = buttonMap.get(CommandButtonPresentationState.BIG);
                     if (bigs != null) {
-                        for (AbstractCommandButton bigButton : bigs) {
+                        for (JCommandButton bigButton : bigs) {
                             // Big buttons
                             int bigButtonWidth = bigButton.getPreferredSize().width;
                             if (hasLeadingComponent) {
@@ -432,10 +432,10 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
 
                     int index3 = 0;
                     int maxWidth3 = 0;
-                    List<AbstractCommandButton> mediums = buttonMap
+                    List<JCommandButton> mediums = buttonMap
                             .get(CommandButtonPresentationState.MEDIUM);
                     if (mediums != null) {
-                        for (AbstractCommandButton mediumButton : mediums) {
+                        for (JCommandButton mediumButton : mediums) {
                             int medWidth = mediumButton.getPreferredSize().width;
                             maxWidth3 = Math.max(maxWidth3, medWidth);
 
@@ -489,10 +489,10 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
 
                     index3 = 0;
                     maxWidth3 = 0;
-                    List<AbstractCommandButton> smalls = buttonMap
+                    List<JCommandButton> smalls = buttonMap
                             .get(CommandButtonPresentationState.SMALL);
                     if (smalls != null) {
-                        for (AbstractCommandButton smallButton : smalls) {
+                        for (JCommandButton smallButton : smalls) {
                             int lowWidth = smallButton.getPreferredSize().width;
                             maxWidth3 = Math.max(maxWidth3, lowWidth);
                             if (hasLeadingComponent && (index3 == 0)) {

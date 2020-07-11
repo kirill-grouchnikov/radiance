@@ -78,7 +78,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private ComponentListener componentListener;
 
-    private AbstractCommandButton dummy;
+    private JCommandButton dummy;
 
     /**
      * Contains the item path.

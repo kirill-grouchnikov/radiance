@@ -716,7 +716,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        AbstractCommandButton button = (AbstractCommandButton) c;
+        JCommandButton button = (JCommandButton) c;
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(button);
 
         Dimension superPref = super.getPreferredSize(button);
@@ -812,7 +812,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     }
 
 
-    private static Color getMenuButtonForegroundColor(AbstractCommandButton menuButton,
+    private static Color getMenuButtonForegroundColor(JCommandButton menuButton,
             StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo

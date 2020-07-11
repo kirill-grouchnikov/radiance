@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.utils;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
@@ -228,8 +227,8 @@ public class KeyTipManager {
                 ((SubstanceRibbonRootPaneUI) ribbonFrame.getRootPane().getUI()).getTitlePane();
         if (titlePane != null) {
             for (Component taskbarComp : titlePane.getTaskbarPanel().getComponents()) {
-                if (taskbarComp instanceof AbstractCommandButton) {
-                    AbstractCommandButton cb = (AbstractCommandButton) taskbarComp;
+                if (taskbarComp instanceof JCommandButton) {
+                    JCommandButton cb = (JCommandButton) taskbarComp;
                     KeyTipLink actionLink = getCommandButtonActionLink(cb);
                     if (actionLink != null) {
                         if (taskbarComp instanceof SubstanceRibbonFrameTitlePane.TaskbarOverflowButton) {
@@ -271,10 +270,10 @@ public class KeyTipManager {
         RibbonUI ui = ribbon.getUI();
         if (ui instanceof BasicRibbonUI) {
             BasicRibbonUI brui = (BasicRibbonUI) ui;
-            for (Map.Entry<RibbonTask, AbstractCommandButton> ttbEntry : brui
+            for (Map.Entry<RibbonTask, JCommandButton> ttbEntry : brui
                     .getTaskToggleButtons().entrySet()) {
                 final RibbonTask task = ttbEntry.getKey();
-                final AbstractCommandButton taskToggleButton = ttbEntry.getValue();
+                final JCommandButton taskToggleButton = ttbEntry.getValue();
                 String keyTip = task.getKeyTip();
                 if (keyTip != null) {
                     final KeyTipLink taskToggleButtonLink = new KeyTipLink();
@@ -346,32 +345,28 @@ public class KeyTipManager {
         repaintWindows();
     }
 
-    private void addCommandButtonLinks(Component c, KeyTipChain chain) {
-        AbstractCommandButton cb = (AbstractCommandButton) c;
-        KeyTipLink actionLink = getCommandButtonActionLink(cb);
+    private void addCommandButtonLinks(JCommandButton commandButton, KeyTipChain chain) {
+        KeyTipLink actionLink = getCommandButtonActionLink(commandButton);
         if (actionLink != null) {
             chain.addLink(actionLink);
         }
-        if (c instanceof JCommandButton) {
-            JCommandButton jcb = (JCommandButton) c;
-            KeyTipLink popupLink = getCommandButtonPopupLink(jcb);
-            if (popupLink != null) {
-                chain.addLink(popupLink);
-            }
+        KeyTipLink popupLink = getCommandButtonPopupLink(commandButton);
+        if (popupLink != null) {
+            chain.addLink(popupLink);
         }
     }
 
     private void populateChain(final Component c, final KeyTipChain chain) {
-        if (c instanceof AbstractCommandButton) {
+        if (c instanceof JCommandButton) {
             Rectangle compBounds = c.getBounds();
             if (c.isVisible() && c.isShowing()) {
                 if ((compBounds.height > 0) && (compBounds.width > 0)) {
-                    addCommandButtonLinks(c, chain);
+                    addCommandButtonLinks((JCommandButton) c, chain);
                 } else {
                     SwingUtilities.invokeLater(() -> {
                         Rectangle compBoundsNew = c.getBounds();
                         if ((compBoundsNew.height > 0) && (compBoundsNew.width > 0))
-                            addCommandButtonLinks(c, chain);
+                            addCommandButtonLinks((JCommandButton) c, chain);
                     });
                 }
             }
@@ -393,7 +388,7 @@ public class KeyTipManager {
         }
     }
 
-    private KeyTipLink getCommandButtonActionLink(final AbstractCommandButton cb) {
+    private KeyTipLink getCommandButtonActionLink(final JCommandButton cb) {
         if (cb.getActionKeyTip() != null) {
             final KeyTipLink link = new KeyTipLink();
             link.comp = cb;
@@ -468,9 +463,7 @@ public class KeyTipManager {
             link.keyTipString = cb.getPopupKeyTip();
             link.prefAnchorPoint = cb.getUI().getPopupKeyTipAnchorCenterPoint();
             link.onActivated = (ActionEvent e) -> {
-                if (cb instanceof JCommandButton) {
-                    ((JCommandButton) cb).doActionRollover();
-                }
+                cb.doActionRollover();
                 cb.doPopupClick();
             };
             link.enabled = cb.getPopupModel().isEnabled();
@@ -639,7 +632,7 @@ public class KeyTipManager {
         KeyTipEvent e = new KeyTipEvent(ribbonFrame, 0);
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i =  this.listenerList.size() - 1; i >= 0; i--) {
+        for (int i = this.listenerList.size() - 1; i >= 0; i--) {
             this.listenerList.get(i).keyTipsShown(e);
         }
     }
@@ -649,7 +642,7 @@ public class KeyTipManager {
         KeyTipEvent e = new KeyTipEvent(ribbonFrame, 0);
         // Process the listeners last to first, notifying
         // those that are interested in this event
-        for (int i =  this.listenerList.size() - 1; i >= 0; i--) {
+        for (int i = this.listenerList.size() - 1; i >= 0; i--) {
             this.listenerList.get(i).keyTipsHidden(e);
         }
     }

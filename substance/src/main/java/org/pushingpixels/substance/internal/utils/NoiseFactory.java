@@ -75,8 +75,7 @@ public class NoiseFactory {
 
 		// Borrow from Sebastien Petrucci fast blur code - direct access
 		// to the raster data
-		int[] dstBuffer = ((DataBufferInt) dst.getRaster().getDataBuffer())
-				.getData();
+		int[] dstBuffer = ((DataBufferInt) dst.getRaster().getDataBuffer()).getData();
 		// System.out.println((dstBuffer[0] >>> 24) & 0xFF);
 
 		double m2 = xFactor * width * xFactor * width + yFactor * height

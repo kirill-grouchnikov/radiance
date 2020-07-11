@@ -56,7 +56,7 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				.withActiveControlsAccent("Business Black Steel Active")
 				.withHighlightsAccent("Business Black Steel Active"));
 
-		SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes businessSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/business.colorschemes"));
 

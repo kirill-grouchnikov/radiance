@@ -147,6 +147,28 @@ Magellan Green Controls {
     colorForeground=#143000
 }
 
+Magellan Green Controls Rollover {
+    kind=Light
+    colorUltraLight=#3DBD4B
+    colorExtraLight=#3DBD4B
+    colorLight=#3AB748
+    colorMid=#37AD45
+    colorDark=#2E8F3A
+    colorUltraDark=#288335
+    colorForeground=#143000
+}
+
+Magellan Blue Active Controls Pressed {
+    kind=Light
+    colorUltraLight=#43B3BD
+    colorExtraLight=#43B3BD
+    colorLight=#40ACB7
+    colorMid=#3DA3AF
+    colorDark=#338895
+    colorUltraDark=#2E7D89
+    colorForeground=#143000
+}
+
 Magellan Green Controls Mark {
     kind=Light
     colorUltraLight=#5FB315

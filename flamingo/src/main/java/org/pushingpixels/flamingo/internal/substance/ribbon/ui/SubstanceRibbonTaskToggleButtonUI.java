@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.flamingo.internal.substance.utils.RibbonTaskToggleButtonBackgroundDelegate;
@@ -232,7 +232,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
                 contour, textRect, SubstanceColorUtilities.getAlphaColor(fgColor, 192), 1.0f, 0);
     }
 
-    private static Color getForegroundColor(AbstractCommandButton button,
+    private static Color getForegroundColor(JCommandButton button,
             StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currStateIgnoreSelection =
                 ComponentState.getState(button.getActionModel(), button, true);
@@ -290,7 +290,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        AbstractCommandButton button = (AbstractCommandButton) c;
+        JCommandButton button = (JCommandButton) c;
 
         JButton dummy = new JButton(button.getText(), button.getIcon());
         Dimension result = dummy.getUI().getPreferredSize(dummy);

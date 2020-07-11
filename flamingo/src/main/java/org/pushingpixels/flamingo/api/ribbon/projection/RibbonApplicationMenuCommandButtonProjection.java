@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.projection;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
@@ -44,7 +44,7 @@ public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonP
             new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(
-                        AbstractCommandButton commandButton) {
+                        JCommandButton commandButton) {
                     return new CommandButtonLayoutManagerMenuTileLevel2();
                 }
             };

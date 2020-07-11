@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
@@ -57,9 +56,9 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
     private JPanel viewport;
 
-    private AbstractCommandButton leadingScroller;
+    private JCommandButton leadingScroller;
 
-    private AbstractCommandButton trailingScroller;
+    private JCommandButton trailingScroller;
 
     private int viewOffset;
 
@@ -231,9 +230,9 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         }
     }
 
-    protected abstract void configureLeadingScrollerButton(AbstractCommandButton button);
+    protected abstract void configureLeadingScrollerButton(JCommandButton button);
 
-    protected abstract void configureTrailingScrollerButton(AbstractCommandButton button);
+    protected abstract void configureTrailingScrollerButton(JCommandButton button);
 
     private void syncScrolling() {
         this.scrollablePanel.doLayout();

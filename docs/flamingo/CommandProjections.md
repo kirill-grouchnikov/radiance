@@ -24,7 +24,7 @@ The only difference is the presentation model associated with each one of the pr
 Here is how the first (big) button is created:
 
 ```java
-AbstractCommandButton bigButton =
+JCommandButton bigButton =
       this.pasteActionCommand.project(
             CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.BIG)
@@ -73,7 +73,7 @@ this.pasteActionCommand = Command.builder()
     .setIconFactory(Edit_paste.factory())
     .build();
 
-AbstractCommandButton bigButton = this.pasteActionCommand.project(
+JCommandButton bigButton = this.pasteActionCommand.project(
     CommandButtonPresentationModel.builder()
           .setPresentationState(CommandButtonPresentationState.BIG)
           .setFlat(false)

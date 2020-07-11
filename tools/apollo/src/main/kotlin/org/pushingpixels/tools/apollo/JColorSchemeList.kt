@@ -33,6 +33,7 @@ import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.awt.windowAncestor
 import org.pushingpixels.meteor.swing.*
 import org.pushingpixels.substance.api.SubstanceSkin
+import org.pushingpixels.substance.api.SubstanceSkin.ColorSchemes
 import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
 import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
@@ -43,14 +44,179 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.PrintStream
+import java.util.*
 import java.util.regex.Pattern
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 import javax.swing.filechooser.FileNameExtensionFilter
+import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
+/**
+ * Contains information on color schemes loaded by the
+ * [SubstanceSkin.getColorSchemes] API. Note that the custom
+ * skins should only use the [.get] API. The rest of the API
+ * is currently internal and is used in the **Apollo**
+ * visual editor.
+ *
+ * @author Kirill Grouchnikov
+ */
+class ApolloColorSchemes() : ColorSchemes {
+    /**
+     * List of color schemes of this object.
+     */
+    private val schemes: MutableList<SubstanceColorScheme> = ArrayList()
+
+    /**
+     * Creates an object based on the specified list of color schemes. This
+     * method is for internal use only and should not be used in custom
+     * application skins.
+     *
+     * @param schemes List of color schemes.
+     */
+    constructor(schemes: Collection<SubstanceColorScheme>) : this() {
+        this.schemes.addAll(schemes)
+    }
+
+    /**
+     * Returns the number of color schemes in this object. This method is
+     * for internal use only and should not be used in custom application
+     * skins.
+     *
+     * @return The number of color schemes in this object.
+     */
+    fun size(): Int {
+        return schemes.size
+    }
+
+    /**
+     * Returns the color scheme at the specified index. This method is for
+     * internal use only and should not be used in custom application skins.
+     *
+     * @param index Index.
+     * @return Color scheme at the specified index.
+     */
+    operator fun get(index: Int): SubstanceColorScheme {
+        return schemes[index]
+    }
+
+    override fun getAll(): Collection<SubstanceColorScheme> {
+        return Collections.unmodifiableCollection(schemes)
+    }
+
+    /**
+     * Returns the color scheme based on its display name. This method is
+     * the only API that is published for use in custom application skins.
+     *
+     * @param displayName Display name of a color scheme.
+     * @return The color scheme with the matching display name.
+     */
+    override fun get(displayName: String): SubstanceColorScheme? {
+        for (scheme in schemes) {
+            if (scheme.displayName == displayName) {
+                return scheme
+            }
+        }
+        return null
+    }
+
+    /**
+     * Returns the index of the color scheme that has the specified display
+     * name. This method is for internal use only and should not be used in
+     * custom application skins.
+     *
+     * @param displayName Display name of a color scheme.
+     * @return The index of the color scheme that has the specified display
+     * name.
+     */
+    private fun indexOf(displayName: String): Int {
+        for (i in schemes.indices) {
+            val curr = schemes[i]
+            if (curr.displayName == displayName) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    /**
+     * Finds the index of the color scheme that has the specified display
+     * name and replaces it with (possibly another) color scheme. This
+     * method is for internal use only and should not be used in custom
+     * application skins.
+     *
+     * @param displayName Display name of a color scheme.
+     * @param scheme      Color scheme that will replace the existing color scheme
+     * (based on the display name) at the same index in the list.
+     */
+    fun replace(displayName: String, scheme: SubstanceColorScheme) {
+        val index = this.indexOf(displayName)
+        if (index >= 0) {
+            schemes.removeAt(index)
+            schemes.add(index, scheme)
+        }
+    }
+
+    /**
+     * Deletes the color scheme that has the specified display name. This
+     * method is for internal use only and should not be used in custom
+     * application skins.
+     *
+     * @param displayName Display name of the color scheme to delete from the list.
+     */
+    fun delete(displayName: String) {
+        val index = this.indexOf(displayName)
+        if (index >= 0) {
+            schemes.removeAt(index)
+        }
+    }
+
+    /**
+     * Adds the specified color scheme to the end of the list. This method
+     * is for internal use only and should not be used in custom application
+     * skins.
+     *
+     * @param scheme Color scheme to add to the end of the list.
+     */
+    fun add(scheme: SubstanceColorScheme) {
+        schemes.add(scheme)
+    }
+
+    /**
+     * Moves the color scheme with the specified display name one position
+     * towards the beginning of the list. This method is for internal use
+     * only and should not be used in custom application skins.
+     *
+     * @param displayName Display name of the color scheme to move one position
+     * towards the beginning of the list.
+     */
+    fun switchWithPrevious(displayName: String) {
+        val index = this.indexOf(displayName)
+        if (index >= 0) {
+            val scheme = schemes.removeAt(index)
+            schemes.add(index - 1, scheme)
+        }
+    }
+
+    /**
+     * Moves the color scheme with the specified display name one position
+     * towards the end of the list. This method is for internal use only and
+     * should not be used in custom application skins.
+     *
+     * @param displayName Display name of the color scheme to move one position
+     * towards the end of the list.
+     */
+    fun switchWithNext(displayName: String) {
+        val index = this.indexOf(displayName)
+        if (index >= 0) {
+            val scheme = schemes.removeAt(index)
+            schemes.add(index + 1, scheme)
+        }
+    }
+}
+
 class JColorSchemeList : JComponent() {
-    private var schemes: SubstanceSkin.ColorSchemes? = null
+    private var schemes: ApolloColorSchemes? = null
     private val schemeList: JList<SubstanceColorScheme>
     private val cardPanel: JPanel
     private val schemeListModel: ColorSchemeListModel
@@ -89,7 +255,7 @@ class JColorSchemeList : JComponent() {
         }
 
     init {
-        this.schemes = SubstanceSkin.ColorSchemes()
+        this.schemes = ApolloColorSchemes()
 
         this.schemeList = JList()
         this.schemeListModel = ColorSchemeListModel()
@@ -315,9 +481,9 @@ class JColorSchemeList : JComponent() {
         try {
             this.currentFile = file
             if (file != null) {
-                this.schemes = SubstanceSkin.getColorSchemes(FileInputStream(file))
+                this.schemes = ApolloColorSchemes(SubstanceSkin.getColorSchemes(FileInputStream(file)).all)
             } else {
-                this.schemes = SubstanceSkin.ColorSchemes()
+                this.schemes = ApolloColorSchemes()
             }
             // switch to the list view
             val cl = cardPanel.layout as CardLayout

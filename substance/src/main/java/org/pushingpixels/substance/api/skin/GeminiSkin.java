@@ -47,8 +47,6 @@ import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
-import java.awt.*;
-
 /**
  * <code>Gemini</code> skin. This class is part of officially supported API.
  * 
@@ -86,7 +84,7 @@ public class GeminiSkin extends SubstanceSkin {
 	 * Creates a new <code>Gemini</code> skin.
 	 */
 	public GeminiSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/gemini.colorschemes"));
 

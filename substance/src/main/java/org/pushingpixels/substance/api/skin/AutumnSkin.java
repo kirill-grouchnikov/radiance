@@ -61,7 +61,7 @@ public class AutumnSkin extends SubstanceSkin {
 	 * Creates a new <code>Autumn</code> skin.
 	 */
 	public AutumnSkin() {
-		SubstanceSkin.ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/autumn.colorschemes"));
 

@@ -62,7 +62,7 @@ public class ModerateSkin extends SubstanceSkin {
         SubstanceColorScheme activeScheme = new SteelBlueColorScheme();
         SubstanceColorScheme enabledScheme = new MetallicColorScheme();
 
-        SubstanceSkin.ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
+        ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
                 this.getClass().getClassLoader().getResourceAsStream(
                         "org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes"));
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(

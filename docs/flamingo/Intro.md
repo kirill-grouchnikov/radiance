@@ -35,7 +35,7 @@ CommandButtonProjection bigPasteProjection =
                     .setFlat(false)
                     .build());
 
-AbstractCommandButton bigButton = bigPasteProjection.buildComponent();
+JCommandButton bigButton = bigPasteProjection.buildComponent();
 ```
 
 First, we create a `Command` which is a content model. It sets text, extra text and icon factory as the basic elements that describe this piece of application model realm.
@@ -44,7 +44,7 @@ Then we construct a `CommandButtonPresentationModel` which is a presentation mod
 
 Then, we combine them together by calling `Command.project(CommandButtonPresentationModel)` that gives us a `CommandButtonProjection`.
 
-And finally, we call `CommandButtonProjection.buildComponent()` that gives us an `AbstractCommandButton` - a Swing component that can be added to the component hierarchy of our application.
+And finally, we call `CommandButtonProjection.buildComponent()` that gives us an `JCommandButton` - a Swing component that can be added to the component hierarchy of our application.
 
 ### Next
 

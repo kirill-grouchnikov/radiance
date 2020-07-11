@@ -1,6 +1,5 @@
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -12,32 +11,32 @@ import org.pushingpixels.flamingo.api.common.projection.Projection;
 
 public class JColorSelectorCommandButton extends JCommandButton {
     public JColorSelectorCommandButton(
-            Projection<AbstractCommandButton, ColorSelectorCommand, CommandButtonPresentationModel> projection) {
+            Projection<JCommandButton, ColorSelectorCommand, CommandButtonPresentationModel> projection) {
         super(projection);
 
         ColorSelectorCommand command = projection.getContentModel();
+        CommandButtonPresentationModel commandButtonPresentationModel = projection.getPresentationModel();
 
         ColorSelectorPopupMenuContentModel popupMenuContentModel =
                 command.getColorSelectorPopupMenuContentModel();
         AbstractPopupMenuPresentationModel popupMenuPresentationModel =
-                commandPresentation.getPopupMenuPresentationModel();
+                commandButtonPresentationModel.getPopupMenuPresentationModel();
         if (popupMenuPresentationModel == null) {
             popupMenuPresentationModel = ColorSelectorPopupMenuPresentationModel.builder().build();
         }
         ColorSelectorPopupMenuProjection colorSelectorPopupMenuProjection =
                 new ColorSelectorPopupMenuProjection(popupMenuContentModel,
                         (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
-        colorSelectorPopupMenuProjection.setCommandOverlays(
-                this.projection.getCommandOverlays());
+        colorSelectorPopupMenuProjection.setCommandOverlays(this.getProjection().getCommandOverlays());
         this.setPopupCallback((JCommandButton commandButton)
                 -> colorSelectorPopupMenuProjection.buildComponent());
 
         this.setPopupRichTooltip(command.getSecondaryRichTooltip());
-        this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
+        this.setPopupKeyTip(commandButtonPresentationModel.getPopupKeyTip());
 
         boolean hasAction = (command.getAction() != null);
         if (hasAction) {
-            this.setCommandButtonKind(commandPresentation.isTextClickAction()
+            this.setCommandButtonKind(commandButtonPresentationModel.isTextClickAction()
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else {

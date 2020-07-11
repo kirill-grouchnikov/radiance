@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.AbstractCommandButton;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -121,7 +121,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         CommandPanelPresentationModel presentationModel =
                                 buttonPanel.getProjection().getPresentationModel();
                         for (int i = 0; i < groupCount; i++) {
-                            for (AbstractCommandButton button :
+                            for (JCommandButton button :
                                     buttonPanel.getGroupButtons(i)) {
                                 button.setIconDimension(
                                         presentationModel.getCommandIconDimension());
@@ -281,7 +281,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     private abstract static class CommandButtonPanelLayout implements LayoutManager {
         protected int commandButtonGridRowCount = -1;
         protected int commandButtonGridColumnCount = -1;
-        protected AbstractCommandButton[][] commandButtonGrid;
+        protected JCommandButton[][] commandButtonGrid;
 
         protected void setCommandButtonGridSize(int rowCount, int columnCount) {
             if ((this.commandButtonGrid == null) ||
@@ -290,7 +290,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 this.commandButtonGridRowCount = rowCount;
                 this.commandButtonGridColumnCount = columnCount;
                 this.commandButtonGrid =
-                        new AbstractCommandButton[this.commandButtonGridRowCount][this.commandButtonGridColumnCount];
+                        new JCommandButton[this.commandButtonGridRowCount][this.commandButtonGridColumnCount];
             }
         }
     }
@@ -327,7 +327,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int groupCount = (groupLabels != null) ? groupLabels.length : 0;
 
             for (int i = 0; i < groupCount; i++) {
-                for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : panel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -397,7 +397,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 if (ltr) {
                     int currX = left + groupInsets.left;
                     int currColumnIndex = 0;
-                    for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : panel.getGroupButtons(i)) {
                         int endX = currX + actualButtonWidth;
                         if (endX > (parent.getWidth() - right - groupInsets.right)) {
                             currRowIndex++;
@@ -415,7 +415,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 } else {
                     int currX = parent.getWidth() - right - groupInsets.right;
                     int currColumnIndex = buttonsInRow - 1;
-                    for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : panel.getGroupButtons(i)) {
                         int startX = currX - actualButtonWidth;
                         if (startX < (left + groupInsets.left)) {
                             currRowIndex++;
@@ -462,7 +462,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int maxButtonHeight = 0;
             int groupCount = (groupLabels != null) ? groupLabels.length : 0;
             for (int i = 0; i < groupCount; i++) {
-                for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : panel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -528,7 +528,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int maxButtonHeight = 0;
             int groupCount = panel.getGroupCount();
             for (int i = 0; i < groupCount; i++) {
-                for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : panel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -575,7 +575,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             : maxButtonWidth;
 
                     int currRowIndex = 0;
-                    for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
                         if (endY > (parent.getHeight() - bottom - groupInsets.bottom)) {
                             currY = top + groupInsets.top;
@@ -614,7 +614,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             : maxButtonWidth;
 
                     int currRowIndex = 0;
-                    for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : panel.getGroupButtons(i)) {
                         int endY = currY + actualButtonHeight;
                         if (endY > (parent.getHeight() - bottom - groupInsets.bottom)) {
                             currY = top + groupInsets.top;
@@ -659,7 +659,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int maxButtonHeight = 0;
             int groupCount = panel.getGroupCount();
             for (int i = 0; i < groupCount; i++) {
-                for (AbstractCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : panel.getGroupButtons(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -737,7 +737,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         int maxButtonHeight = 0;
         int groupCount = this.buttonPanel.getGroupCount();
         for (int i = 0; i < groupCount; i++) {
-            for (AbstractCommandButton button : this.buttonPanel.getGroupButtons(i)) {
+            for (JCommandButton button : this.buttonPanel.getGroupButtons(i)) {
                 maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
             }
         }
@@ -759,10 +759,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         return totalHeight;
     }
 
-    private AbstractCommandButton findFirstFocusableRight(int row, int column) {
+    private JCommandButton findFirstFocusableRight(int row, int column) {
         int currColumn = column + 1;
         while (currColumn < this.layoutManager.commandButtonGridColumnCount) {
-            AbstractCommandButton currButton =
+            JCommandButton currButton =
                     this.layoutManager.commandButtonGrid[row][currColumn];
             if ((currButton != null) && currButton.isFocusable()) {
                 return currButton;
@@ -772,10 +772,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         return null;
     }
 
-    private AbstractCommandButton findLastFocusableLeft(int row, int column) {
+    private JCommandButton findLastFocusableLeft(int row, int column) {
         int currColumn = column - 1;
         while (currColumn >= 0) {
-            AbstractCommandButton currButton =
+            JCommandButton currButton =
                     this.layoutManager.commandButtonGrid[row][currColumn];
             if ((currButton != null) && currButton.isFocusable()) {
                 return currButton;
@@ -785,10 +785,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         return null;
     }
 
-    private AbstractCommandButton findLastFocusableUp(int row, int column) {
+    private JCommandButton findLastFocusableUp(int row, int column) {
         int currRow = row - 1;
         while (currRow >= 0) {
-            AbstractCommandButton currButton =
+            JCommandButton currButton =
                     this.layoutManager.commandButtonGrid[currRow][column];
             if ((currButton != null) && currButton.isFocusable()) {
                 return currButton;
@@ -798,10 +798,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         return null;
     }
 
-    private AbstractCommandButton findFirstFocusableDown(int row, int column) {
+    private JCommandButton findFirstFocusableDown(int row, int column) {
         int currRow = row + 1;
         while (currRow < this.layoutManager.commandButtonGridRowCount) {
-            AbstractCommandButton currButton =
+            JCommandButton currButton =
                     this.layoutManager.commandButtonGrid[currRow][column];
             if ((currButton != null) && currButton.isFocusable()) {
                 return currButton;
@@ -813,7 +813,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     @Override
     public boolean focusFirst() {
-        AbstractCommandButton first = this.findFirstFocusableRight(0, -1);
+        JCommandButton first = this.findFirstFocusableRight(0, -1);
         if (first != null) {
             first.requestFocus();
             this.buttonPanel.scrollRectToVisible(first.getBounds());
@@ -824,7 +824,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
     @Override
     public boolean focusLast() {
-        AbstractCommandButton last = this.findLastFocusableLeft(
+        JCommandButton last = this.findLastFocusableLeft(
                 this.layoutManager.commandButtonGridRowCount - 1,
                 this.layoutManager.commandButtonGridColumnCount);
         if (last != null) {
@@ -843,7 +843,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     public boolean hasFocus() {
         for (int row = 0; row < this.layoutManager.commandButtonGridRowCount; row++) {
             for (int column = 0; column < this.layoutManager.commandButtonGridColumnCount; column++) {
-                AbstractCommandButton button = this.layoutManager.commandButtonGrid[row][column];
+                JCommandButton button = this.layoutManager.commandButtonGrid[row][column];
                 if ((button != null) && button.hasFocus()) {
                     return true;
                 }
@@ -857,7 +857,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         int focusedColumn = -1;
         for (int row = 0; row < this.layoutManager.commandButtonGridRowCount; row++) {
             for (int column = 0; column < this.layoutManager.commandButtonGridColumnCount; column++) {
-                AbstractCommandButton button = this.layoutManager.commandButtonGrid[row][column];
+                JCommandButton button = this.layoutManager.commandButtonGrid[row][column];
                 if ((button != null) && button.hasFocus()) {
                     focusedRow = row;
                     focusedColumn = column;
@@ -879,7 +879,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         switch (focusMoveDirection) {
             case DOWN:
-                AbstractCommandButton nextDown = findFirstFocusableDown(focusedRow, focusedColumn);
+                JCommandButton nextDown = findFirstFocusableDown(focusedRow, focusedColumn);
                 if ((nextDown != null) && nextDown.isFocusable()) {
                     nextDown.requestFocus();
                     this.buttonPanel.scrollRectToVisible(nextDown.getBounds());
@@ -888,7 +888,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     return false;
                 }
             case UP:
-                AbstractCommandButton nextUp = findLastFocusableUp(focusedRow, focusedColumn);
+                JCommandButton nextUp = findLastFocusableUp(focusedRow, focusedColumn);
                 if ((nextUp != null) && nextUp.isFocusable()) {
                     nextUp.requestFocus();
                     this.buttonPanel.scrollRectToVisible(nextUp.getBounds());
@@ -897,7 +897,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     return false;
                 }
             case RIGHT:
-                AbstractCommandButton nextRight = findFirstFocusableRight(focusedRow, focusedColumn);
+                JCommandButton nextRight = findFirstFocusableRight(focusedRow, focusedColumn);
                 if ((nextRight != null) && nextRight.isFocusable()) {
                     nextRight.requestFocus();
                     this.buttonPanel.scrollRectToVisible(nextRight.getBounds());
@@ -906,7 +906,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     return false;
                 }
             case LEFT:
-                AbstractCommandButton nextLeft = findLastFocusableLeft(focusedRow, focusedColumn);
+                JCommandButton nextLeft = findLastFocusableLeft(focusedRow, focusedColumn);
                 if ((nextLeft != null) && nextLeft.isFocusable()) {
                     nextLeft.requestFocus();
                     this.buttonPanel.scrollRectToVisible(nextLeft.getBounds());
