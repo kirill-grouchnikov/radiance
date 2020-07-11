@@ -72,7 +72,7 @@ To add a command (projection) to a general ribbon band, use the `JRibbonBand.add
 clipboardBand.addRibbonCommand(
         Command.builder().setText(resourceBundle.getString("Cut.text"))
                 .setIconFactory(Edit_cut.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
+                .setAction(commandActionEvent -> System.out.println("Cut!"))
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Cut.text"))
                         .addDescriptionSection(resourceBundle

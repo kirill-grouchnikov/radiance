@@ -36,16 +36,9 @@ import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 public class CommandStripProjection extends Projection<JCommandButtonStrip,
         CommandGroup, CommandStripPresentationModel> {
 
-    @SuppressWarnings("unchecked")
-    private static ComponentSupplier<JCommandButtonStrip,
-            CommandGroup, CommandStripPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JCommandButtonStrip, CommandGroup,
-                    CommandStripPresentationModel> projection) ->
-                    JCommandButtonStrip::new;
-
     public CommandStripProjection(CommandGroup contentModel,
             CommandStripPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
+        super(contentModel, presentationModel, projection -> JCommandButtonStrip::new);
     }
 
     @Override

@@ -37,6 +37,7 @@ import javax.swing.*;
  * 
  * @author Kirill Grouchnikov
  */
+@FunctionalInterface
 public interface ComboPopupPrototypeCallback<T> {
 	/**
 	 * Returns the prototype entry for combo popup of the specified combobox.

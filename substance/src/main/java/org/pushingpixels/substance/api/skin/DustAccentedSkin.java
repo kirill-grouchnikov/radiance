@@ -136,11 +136,9 @@ public abstract class DustAccentedSkin extends SubstanceSkin.Accented {
 
 		// add two overlay painters to create a bezel line between menu bar and toolbars
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-						scheme.getUltraDarkColor(), -0.5f));
+				scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
 		TopLineOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getForegroundColor(), 32));
+				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
 		this.addOverlayPainter(menuOverlayPainter, DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 
@@ -150,8 +148,7 @@ public abstract class DustAccentedSkin extends SubstanceSkin.Accented {
 		this.highlightPainter = new ClassicHighlightPainter();
 		this.borderPainter = new CompositeBorderPainter("Dust", new ClassicBorderPainter(),
 				new DelegateBorderPainter("Dust Inner", new ClassicBorderPainter(),
-						0x60FFFFFF, 0x30FFFFFF, 0x18FFFFFF, 
-						(SubstanceColorScheme scheme) -> scheme.shiftBackground(
-								scheme.getUltraLightColor(), 0.8).tint(0.6).saturate(0.2)));
+						0x60FFFFFF, 0x30FFFFFF, 0x18FFFFFF,
+						scheme -> scheme.shiftBackground(scheme.getUltraLightColor(), 0.8).tint(0.6).saturate(0.2)));
 	}
 }

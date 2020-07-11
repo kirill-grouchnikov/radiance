@@ -50,7 +50,7 @@ for (int groupIndex = 0; groupIndex < 4; groupIndex++) {
         Command command = Command.builder()
                 .setIconFactory(iconFactory)
                 .setToggle()
-                .setAction((CommandActionEvent e) ->
+                .setAction(commandActionEvent ->
                         System.out.println("Invoked action on " + deco))
                 .build();
         commands.add(command);

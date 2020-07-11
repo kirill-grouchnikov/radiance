@@ -51,8 +51,7 @@ public class QuickStylesPanel {
                 Command command = Command.builder()
                         .setIconFactory(iconFactory)
                         .setToggle()
-                        .setAction((CommandActionEvent e) ->
-                                System.out.println("Invoked action on " + deco))
+                        .setAction(commandActionEvent -> System.out.println("Invoked action on " + deco))
                         .build();
                 commands.add(command);
             }

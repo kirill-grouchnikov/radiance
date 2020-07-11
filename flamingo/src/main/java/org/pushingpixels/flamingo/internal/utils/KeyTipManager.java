@@ -73,6 +73,7 @@ public class KeyTipManager {
 
     private static final KeyTipManager instance = new KeyTipManager();
 
+    @FunctionalInterface
     public interface KeyTipLinkTraversal {
         KeyTipChain getNextChain();
     }

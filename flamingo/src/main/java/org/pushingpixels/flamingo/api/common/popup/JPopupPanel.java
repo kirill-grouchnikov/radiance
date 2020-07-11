@@ -64,6 +64,7 @@ public abstract class JPopupPanel extends JPanel {
 	 * 
 	 * @author Kirill Grouchnikov
 	 */
+	@FunctionalInterface
 	public interface PopupPanelCustomizer {
 		/**
 		 * Returns the requested screen bounds of the associated popup panel.

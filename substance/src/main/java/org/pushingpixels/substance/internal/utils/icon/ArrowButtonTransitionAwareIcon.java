@@ -105,7 +105,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 		this.component = component;
 		this.transitionAwareUIDelegate = transitionAwareUIDelegate;
 		this.orientation = orientation;
-		this.delegate = (SubstanceColorScheme scheme) -> {
+		this.delegate = scheme -> {
 			int fontSize = SubstanceSizeUtils.getComponentFontSize(component);
 			return SubstanceImageCreator.getArrowIcon(fontSize, orientation, scheme);
 		};

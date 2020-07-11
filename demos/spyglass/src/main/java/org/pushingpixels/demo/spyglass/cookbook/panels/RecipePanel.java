@@ -33,7 +33,6 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.EchoResizableIcon;
 import org.pushingpixels.demo.spyglass.cookbook.ScaledResizableIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
@@ -92,7 +91,7 @@ public class RecipePanel extends SingleContentPanel {
             String tooltip) {
         return Command.builder()
                 .setIconFactory(iconFactory)
-                .setAction((CommandActionEvent e) -> System.out.println(tooltip + " activated"))
+                .setAction(commandActionEvent -> System.out.println(tooltip + " activated"))
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(tooltip)
                         .addDescriptionSection("Description for " + tooltip)

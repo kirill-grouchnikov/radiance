@@ -86,7 +86,7 @@ public class SvgViewer extends JFrame {
         this.bar = new BreadcrumbFileSelector();
 
         this.bar.getModel()
-                .addPathListener((BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                .addPathListener(event -> SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
                     svgFileViewPanel.cancelMainWorker();
                     System.out.println("New path is ");

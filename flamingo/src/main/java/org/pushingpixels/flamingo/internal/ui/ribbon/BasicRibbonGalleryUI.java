@@ -119,19 +119,19 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     protected void installComponents() {
         // Gallery scroller commands
         this.scrollUpCommand = Command.builder()
-                .setAction((CommandActionEvent e) -> {
+                .setAction(commandActionEvent -> {
                     scrollOneRowUp();
                     ribbonGallery.revalidate();
                 })
                 .build();
         this.scrollDownCommand = Command.builder()
-                .setAction((CommandActionEvent e) -> {
+                .setAction(commandActionEvent -> {
                     scrollOneRowDown();
                     ribbonGallery.revalidate();
                 })
                 .build();
         this.expandCommand = Command.builder()
-                .setAction((CommandActionEvent e) -> {
+                .setAction(commandActionEvent -> {
                     PopupPanelManager.defaultManager().hidePopups(ribbonGallery);
                     SwingUtilities.invokeLater(() -> {
                         PopupFactory popupFactory = PopupFactory.getSharedInstance();
@@ -204,9 +204,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         // Configure the component supplier for the expand command to return our own subclass
         Map<Command, Projection.ComponentSupplier<JCommandButton, Command,
                 CommandButtonPresentationModel>> galleryScrollerSuppliers = new HashMap<>();
-        galleryScrollerSuppliers.put(this.expandCommand,
-                (Projection<JCommandButton, Command, CommandButtonPresentationModel> commandProjection)
-                        -> ExpandCommandButton::new);
+        galleryScrollerSuppliers.put(this.expandCommand, projection -> ExpandCommandButton::new);
 
         // Create a button strip that hosts all three scroller commands with all the additional
         // command-specific configurations

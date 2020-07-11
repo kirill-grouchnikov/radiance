@@ -94,17 +94,17 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenu cbMenu = new JMenu("Color blindness");
                         JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
                         protanopiaCurrent.addActionListener(new SkinChanger(
-                                (SubstanceColorScheme scheme) -> new ProtanopiaColorScheme(scheme),
+                                ProtanopiaColorScheme::new,
                                 "Protanopia current"));
                         cbMenu.add(protanopiaCurrent);
                         JMenuItem deuteranopiaCurrent = new JMenuItem("Deuteranopia current");
-                        deuteranopiaCurrent.addActionListener(new SkinChanger((
-                                SubstanceColorScheme scheme) -> new DeuteranopiaColorScheme(scheme),
+                        deuteranopiaCurrent.addActionListener(new SkinChanger(
+                                DeuteranopiaColorScheme::new,
                                 "Deuteranopia current"));
                         cbMenu.add(deuteranopiaCurrent);
                         JMenuItem tritanopiaCurrent = new JMenuItem("Tritanopia current");
                         tritanopiaCurrent.addActionListener(new SkinChanger(
-                                (SubstanceColorScheme scheme) -> new TritanopiaColorScheme(scheme),
+                                TritanopiaColorScheme::new,
                                 "Tritanopia current"));
                         cbMenu.add(tritanopiaCurrent);
 
@@ -114,7 +114,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         if (SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
                                 ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
                             restoreOriginal.addActionListener(
-                                    new SkinChanger((SubstanceColorScheme scheme) -> {
+                                    new SkinChanger(scheme -> {
                                         if (scheme instanceof ColorBlindColorScheme) {
                                             return ((ColorBlindColorScheme) scheme).getOrigScheme();
                                         }

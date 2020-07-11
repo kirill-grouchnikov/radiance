@@ -33,7 +33,6 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.AbstractPopupMenuProjection;
-import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 
 import java.util.Map;
@@ -43,16 +42,9 @@ public class RibbonApplicationMenuPanelProjection extends AbstractPopupMenuProje
         CommandPopupMenuPresentationModel> {
     private Map<Command, CommandButtonPresentationState> secondaryLevelCommandPresentationState;
 
-    @SuppressWarnings("unchecked")
-    private static ComponentSupplier<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
-            CommandPopupMenuPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
-                    CommandPopupMenuPresentationModel> projection) ->
-                    JRibbonApplicationMenuPopupPanel::new;
-
     public RibbonApplicationMenuPanelProjection(RibbonApplicationMenu contentModel,
             CommandPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
+        super(contentModel, presentationModel, projection -> JRibbonApplicationMenuPopupPanel::new);
     }
 
     @Override

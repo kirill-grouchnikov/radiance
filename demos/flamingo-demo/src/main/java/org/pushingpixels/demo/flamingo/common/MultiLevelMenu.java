@@ -66,17 +66,17 @@ public class MultiLevelMenu extends JFrame {
         menuCommands1.add(Command.builder()
                 .setText("Copy")
                 .setIconFactory(Edit_copy.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Copy"))
+                .setAction(commandActionEvent -> System.out.println("Copy"))
                 .build());
         menuCommands1.add(Command.builder()
                 .setText("Cut")
                 .setIconFactory(Edit_cut.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Cut"))
+                .setAction(commandActionEvent -> System.out.println("Cut"))
                 .build());
         menuCommands1.add(Command.builder()
                 .setText("Paste")
                 .setIconFactory(Edit_paste.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Paste"))
+                .setAction(commandActionEvent -> System.out.println("Paste"))
                 .build());
 
         List<Command> menuCommandsSecondary = new ArrayList<>();
@@ -84,12 +84,12 @@ public class MultiLevelMenu extends JFrame {
         menuCommandsSecondary.add(Command.builder()
                 .setText("Find")
                 .setIconFactory(Edit_find.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Find"))
+                .setAction(commandActionEvent -> System.out.println("Find"))
                 .build());
         menuCommandsSecondary.add(Command.builder()
                 .setText("Find replace")
                 .setIconFactory(Edit_find_replace.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Find replace"))
+                .setAction(commandActionEvent -> System.out.println("Find replace"))
                 .build());
 
         menuCommands2.add(Command.builder()

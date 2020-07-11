@@ -113,8 +113,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
 
         HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
-                        .getTextCutActionIcon(ICON_SIZE, scheme),
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextCutActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.cut");
         result.setIcon(icon);
         result.setDisabledIcon(icon);
@@ -130,8 +129,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
 
         HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
-                        .getTextCopyActionIcon(ICON_SIZE, scheme),
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextCopyActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.copy");
         result.setIcon(icon);
         result.setDisabledIcon(icon);
@@ -153,8 +151,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
 
         HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
-                        .getTextPasteActionIcon(ICON_SIZE, scheme),
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextPasteActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.paste");
         result.setIcon(icon);
         result.setDisabledIcon(icon);
@@ -171,8 +168,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
 
         HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
-                        .getTextDeleteActionIcon(ICON_SIZE, scheme),
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextDeleteActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.delete");
         result.setIcon(icon);
         result.setDisabledIcon(icon);
@@ -188,8 +184,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
 
         HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
-                        .getTextSelectAllActionIcon(ICON_SIZE, scheme),
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextSelectAllActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.selectall");
         result.setIcon(icon);
         result.setDisabledIcon(icon);

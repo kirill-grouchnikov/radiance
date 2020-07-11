@@ -98,7 +98,7 @@ public class TestCommandButtons extends JFrame {
                 .setText(resourceBundle.getString("Copy.text"))
                 .setIconFactory(Edit_copy.factory())
                 .setExtraText(resourceBundle.getString("Copy.textExtra"))
-                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Copy"))
+                .setAction(commandActionEvent -> System.out.println(stamp() + ": Copy"))
                 .setSecondaryContentModel(getPopupMenuContentModel())
                 .build();
 
@@ -106,7 +106,7 @@ public class TestCommandButtons extends JFrame {
                 .setText(resourceBundle.getString("Cut.text"))
                 .setIconFactory(Edit_cut.factory())
                 .setExtraText(resourceBundle.getString("Cut.textExtra"))
-                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Cut"))
+                .setAction(commandActionEvent -> System.out.println(stamp() + ": Cut"))
                 .setSecondaryContentModel(getPopupMenuContentModel())
                 .build();
 
@@ -119,7 +119,7 @@ public class TestCommandButtons extends JFrame {
                                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
                                         ComponentState.DISABLED_UNSELECTED)))
                 .setExtraText(resourceBundle.getString("Paste.textExtra"))
-                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Main paste"))
+                .setAction(commandActionEvent -> System.out.println(stamp() + ": Main paste"))
                 .build();
 
         buttonPanel = getButtonPanel();
@@ -136,28 +136,28 @@ public class TestCommandButtons extends JFrame {
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "1" }))
                 .setIconFactory(Address_book_new.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 1"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 1"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "2" }))
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 2"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 2"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "3" }))
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 3"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 3"))
                 .build());
 
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "4" }))
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 4"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 4"))
                 .build());
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "5" }))
                 .setIconFactory(Text_x_generic.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 5"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 5"))
                 .build());
 
         return new CommandMenuContentModel(

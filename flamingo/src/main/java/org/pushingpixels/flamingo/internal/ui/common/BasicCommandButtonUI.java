@@ -379,7 +379,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         syncActionPreview(command, command.getActionPreview());
 
-        this.disposePopupsActionListener = (CommandActionEvent e) -> {
+        this.disposePopupsActionListener = commandActionEvent -> {
             boolean toDismiss = !Boolean.TRUE
                     .equals(commandButton.getClientProperty(DONT_DISPOSE_POPUPS));
             if (toDismiss) {
@@ -408,10 +408,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         };
         this.commandButton.addCommandListener(this.disposePopupsActionListener);
 
-        if (this.commandButton instanceof JCommandButton) {
-            this.popupActionListener = this.createPopupActionListener();
-            commandButton.getPopupModel().addPopupActionListener(this.popupActionListener);
-        }
+        this.popupActionListener = this.createPopupActionListener();
+        this.commandButton.getPopupModel().addPopupActionListener(this.popupActionListener);
 
         this.focusListener = new FocusListener() {
             @Override
@@ -644,7 +642,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * @return Popup action listener for this command button.
      */
     protected PopupActionListener createPopupActionListener() {
-        return (ActionEvent e) -> processPopupAction();
+        return event -> processPopupAction();
     }
 
     public void processPopupAction() {

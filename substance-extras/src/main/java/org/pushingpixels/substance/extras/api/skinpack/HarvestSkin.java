@@ -155,15 +155,15 @@ public class HarvestSkin extends SubstanceSkin {
         // edges of toolbars
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
         this.addOverlayPainter(new BottomLineOverlayPainter(
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-                        scheme.getUltraDarkColor(), -0.1f)), DecorationAreaType.TOOLBAR);
+                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.1f)),
+                DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadow and a dark line along the top
         // edges of footers
         this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15), DecorationAreaType.FOOTER);
         this.addOverlayPainter(new TopLineOverlayPainter(
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-                        scheme.getUltraDarkColor(), -0.1f)), DecorationAreaType.FOOTER);
+                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.1f)),
+                DecorationAreaType.FOOTER);
 
         this.setTabFadeStart(0.18);
         this.setTabFadeEnd(0.18);

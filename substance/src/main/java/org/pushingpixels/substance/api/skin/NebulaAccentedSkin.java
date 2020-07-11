@@ -144,8 +144,7 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
 		this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getDarkColor(), 160));
+				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getDarkColor(), 160));
 		this.addOverlayPainter(this.bottomLineOverlayPainter,
 				DecorationAreaType.PRIMARY_TITLE_PANE,
 				DecorationAreaType.SECONDARY_TITLE_PANE,

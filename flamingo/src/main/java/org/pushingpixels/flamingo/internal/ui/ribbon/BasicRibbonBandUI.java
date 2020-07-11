@@ -402,9 +402,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                                     + Math.max(c.getHeight(),
                                     ribbonBand.getControlPanel().getPreferredSize().height
                                             + getBandTitleHeight()));
-                    collapsedButton.setPopupCallback(
-                            (JCommandButton commandButton) -> new CollapsedButtonPopupPanel(
-                                    popupBand, size));
+                    collapsedButton.setPopupCallback(commandButton -> new CollapsedButtonPopupPanel(popupBand, size));
                     ribbonBand.setControlPanel(null);
                     ribbonBand.setPopupRibbonBand(popupBand);
                 }

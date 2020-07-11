@@ -1081,7 +1081,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected JButton createScrollButton(final int direction) {
         SubstanceScrollButton ssb = new SubstanceScrollButton();
-        Icon icon = new TransitionAwareIcon(ssb, (SubstanceColorScheme scheme) -> {
+        Icon icon = new TransitionAwareIcon(ssb, scheme -> {
             // fix for defect 279 - tab pane might not yet have the font installed.
             int fontSize = SubstanceSizeUtils.getComponentFontSize(tabPane);
             return SubstanceImageCreator.getArrowIcon(fontSize, direction, scheme);

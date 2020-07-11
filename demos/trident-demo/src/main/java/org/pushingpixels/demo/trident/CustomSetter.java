@@ -40,7 +40,7 @@ public class CustomSetter {
 
     public static void main(String[] args) {
         final CustomSetter helloWorld = new CustomSetter();
-        PropertySetter<Float> propertySetter = (Object obj, String fieldName, Float value) -> {
+        PropertySetter<Float> propertySetter = (obj, fieldName, value) -> {
             SimpleDateFormat sdf = new SimpleDateFormat("ss.SSS");
             float oldValue = helloWorld.value;
             System.out.println(sdf.format(new Date()) + " : " + oldValue + " -> " + value);

@@ -287,7 +287,7 @@ public class AnimationConfigurationManager {
     public SwingComponentTimeline.Builder modifiedTimelineBuilder(Component component) {
         return SwingComponentTimeline.componentBuilder(component)
                 .setDuration(this.timelineDuration)
-                .setEase((float durationFraction) -> {
+                .setEase(durationFraction -> {
                     if (durationFraction < 0.8f) {
                         return 0.0f;
                     }

@@ -215,7 +215,7 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                                         }
                                     }
                                 })
-                                .setEase((float durationFraction) -> {
+                                .setEase(durationFraction -> {
                                     if (durationFraction < 0.5) {
                                         return 0.5f * durationFraction;
                                     }

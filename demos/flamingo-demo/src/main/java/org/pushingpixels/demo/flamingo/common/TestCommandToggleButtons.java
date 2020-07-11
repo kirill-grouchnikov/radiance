@@ -37,7 +37,6 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
@@ -58,8 +57,8 @@ import java.awt.event.ActionEvent;
 import java.awt.image.ColorConvertOp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class TestCommandToggleButtons extends JFrame {
     ResourceBundle resourceBundle;
@@ -96,9 +95,9 @@ public class TestCommandToggleButtons extends JFrame {
                 .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
                         new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
-                .setAction((CommandActionEvent e) -> System.out
+                .setAction(commandActionEvent -> System.out
                         .println(stamp() + ": command activated, selection state is "
-                                + e.getCommand().isToggleSelected()))
+                                + commandActionEvent.getCommand().isToggleSelected()))
                 .build();
 
         this.toggleCommandLong = Command.builder()
@@ -108,9 +107,9 @@ public class TestCommandToggleButtons extends JFrame {
                 .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
                         new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
-                .setAction((CommandActionEvent e) -> System.out
+                .setAction(commandActionEvent -> System.out
                         .println(stamp() + ": command activated, selection state is "
-                                + e.getCommand().isToggleSelected()))
+                                + commandActionEvent.getCommand().isToggleSelected()))
                 .build();
 
         this.toggleCommandLongWithSecondary = Command.builder()
@@ -120,9 +119,9 @@ public class TestCommandToggleButtons extends JFrame {
                 .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
                         new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
-                .setAction((CommandActionEvent e) -> System.out
+                .setAction(commandActionEvent -> System.out
                         .println(stamp() + ": command activated, selection state is "
-                                + e.getCommand().isToggleSelected()))
+                                + commandActionEvent.getCommand().isToggleSelected()))
                 .setSecondaryContentModel(getPopupMenuContentModel())
                 .build();
 
@@ -142,28 +141,28 @@ public class TestCommandToggleButtons extends JFrame {
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "1" }))
                 .setIconFactory(Address_book_new.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 1"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 1"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "2" }))
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 2"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 2"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "3" }))
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 3"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 3"))
                 .build());
 
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "4" }))
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 4"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 4"))
                 .build());
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "5" }))
                 .setIconFactory(Text_x_generic.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Popup action 5"))
+                .setAction(commandActionEvent -> System.out.println("Popup action 5"))
                 .build());
 
         return new CommandMenuContentModel(

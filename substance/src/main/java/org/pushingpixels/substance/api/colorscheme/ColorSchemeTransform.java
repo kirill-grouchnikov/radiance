@@ -34,6 +34,7 @@ package org.pushingpixels.substance.api.colorscheme;
  * 
  * @author Kirill Grouchnikov
  */
+@FunctionalInterface
 public interface ColorSchemeTransform {
 	/**
 	 * Transforms the specified color scheme.

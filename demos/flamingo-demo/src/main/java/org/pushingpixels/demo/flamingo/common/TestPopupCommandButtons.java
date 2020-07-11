@@ -151,8 +151,8 @@ public class TestPopupCommandButtons extends JFrame {
                             Command.builder()
                                     .setText(mf.format(new Object[] { i }))
                                     .setIconFactory(Text_x_generic.factory())
-                                    .setAction((CommandActionEvent e) -> System.out
-                                            .println("Invoked action on '" + index + "'"))
+                                    .setAction(commandActionEvent ->
+                                            System.out.println("Invoked action on '" + index + "'"))
                                     .build());
                 }
 

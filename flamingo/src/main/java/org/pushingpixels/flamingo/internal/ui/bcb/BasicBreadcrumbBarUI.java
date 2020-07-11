@@ -136,7 +136,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.dummy = Command.builder()
                 .setText("Dummy")
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> {})
+                .setAction(commandActionEvent -> {})
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
                 .buildComponent();
@@ -516,7 +516,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     }
 
     private void configureMainAction(Command command, final BreadcrumbItem<Object> bi) {
-        command.setAction((CommandActionEvent e) ->
+        command.setAction(commandActionEvent ->
                 SwingUtilities.invokeLater(() -> {
                     BreadcrumbBarModel<Object> barModel = breadcrumbBar.getModel();
                     int itemIndex = barModel.indexOf(bi);
@@ -576,7 +576,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             final int biIndex = i;
 
-            commandBuilder.setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            commandBuilder.setAction(commandActionEvent -> SwingUtilities.invokeLater(() -> {
                 BreadcrumbBarModel<Object> barModel = breadcrumbBar.getModel();
                 barModel.setCumulative(true);
                 int itemIndex = barModel.indexOf(bic.getAncestor());

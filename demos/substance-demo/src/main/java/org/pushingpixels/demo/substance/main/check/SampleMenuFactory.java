@@ -324,32 +324,32 @@ public class SampleMenuFactory {
 
         JMenuItem itemShade = new JMenuItem("Shade 10%");
         itemShade.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.shade(0.1), "Shaded current"));
+                scheme -> scheme.shade(0.1), "Shaded current"));
         jmTransform.add(itemShade);
 
         JMenuItem itemTone = new JMenuItem("Tone 10%");
         itemTone.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.tone(0.1), "Toned current"));
+                scheme -> scheme.tone(0.1), "Toned current"));
         jmTransform.add(itemTone);
 
         JMenuItem itemTint = new JMenuItem("Tint 10%");
         itemTint.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.tint(0.1), "Tinted current"));
+                scheme -> scheme.tint(0.1), "Tinted current"));
         jmTransform.add(itemTint);
 
         JMenuItem itemHueShift = new JMenuItem("Hue shift 10%");
         itemHueShift.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.hueShift(0.1), "Hue shifted current"));
+                scheme -> scheme.hueShift(0.1), "Hue shifted current"));
         jmTransform.add(itemHueShift);
 
         JMenuItem itemSaturate = new JMenuItem("Saturate 10%");
         itemSaturate.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.saturate(0.1), "Saturated current"));
+                scheme -> scheme.saturate(0.1), "Saturated current"));
         jmTransform.add(itemSaturate);
 
         JMenuItem itemDesaturate = new JMenuItem("Desaturate 10%");
         itemDesaturate.addActionListener(new SkinChanger(
-                (SubstanceColorScheme scheme) -> scheme.saturate(-0.1), "Desaturated current"));
+                scheme -> scheme.saturate(-0.1), "Desaturated current"));
         jmTransform.add(itemDesaturate);
 
         JMenuItem itemNegate = new JMenuItem("Negate");

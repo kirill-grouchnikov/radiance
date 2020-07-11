@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.common.model;
 import java.beans.PropertyChangeListener;
 
 public interface PropertyChangeAware {
-    public void addPropertyChangeListener(PropertyChangeListener l);
+    void addPropertyChangeListener(PropertyChangeListener l);
 
-    public void removePropertyChangeListener(PropertyChangeListener l);
+    void removePropertyChangeListener(PropertyChangeListener l);
 }

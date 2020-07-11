@@ -7,7 +7,7 @@ In your Java app, this is how you would configure a toggle command, add it to a 
 ```java
 Command styleBold = Command.builder()
       .setIconFactory(Format_text_bold.factory())
-      .setAction((CommandActionEvent e) -> System.out.println("Bold toggled"))
+      .setAction(commandActionEvent -> System.out.println("Bold toggled"))
       .setToggleSelected(true)
       .setActionRichTooltip(RichTooltip.builder()
               .setTitle(resourceBundle.getString("FontBold.tooltip.textActionTitle"))

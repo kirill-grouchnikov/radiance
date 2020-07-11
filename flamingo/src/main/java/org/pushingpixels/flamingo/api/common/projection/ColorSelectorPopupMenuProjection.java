@@ -37,16 +37,9 @@ public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjectio
         JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
         ColorSelectorPopupMenuPresentationModel> {
 
-    @SuppressWarnings("unchecked")
-    private static ComponentSupplier<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
-                ColorSelectorPopupMenuPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
-                    ColorSelectorPopupMenuPresentationModel> projection) ->
-                    JColorSelectorPopupMenu::new;
-
     public ColorSelectorPopupMenuProjection(ColorSelectorPopupMenuContentModel contentModel,
             ColorSelectorPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
+        super(contentModel, presentationModel, projection -> JColorSelectorPopupMenu::new);
     }
 
     @Override

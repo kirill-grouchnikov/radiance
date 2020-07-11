@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon;
 
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
@@ -234,6 +233,7 @@ public class JRibbon extends JComponent {
         CommandMenuContentModel getContextualMenuContentModel();
     }
 
+    @FunctionalInterface
     public interface OnTaskSelectionChangeListener {
         void onTaskSelectionChanged(RibbonTask newSelection);
     }
@@ -339,7 +339,7 @@ public class JRibbon extends JComponent {
         Command clone = Command.builder()
                 .setText(appMenuCommand.getText())
                 .setIconFactory(appMenuCommand.getIconFactory())
-                .setAction((CommandActionEvent event) -> {
+                .setAction(commandActionEvent -> {
                     getUI().getApplicationMenuButton().doPopupClick();
                     SwingUtilities.invokeLater(() -> {
                         List<PopupPanelManager.PopupInfo> popups =

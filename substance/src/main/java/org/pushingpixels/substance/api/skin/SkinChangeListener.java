@@ -39,6 +39,7 @@ import org.pushingpixels.substance.api.SubstanceSkin;
  * 
  * @author Kirill Grouchnikov
  */
+@FunctionalInterface
 public interface SkinChangeListener {
 	/**
 	 * Invoked when the current <b>Substance</b> skin is changed.

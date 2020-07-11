@@ -123,17 +123,16 @@ public class TestCommandButtonsSizing extends JPanel {
                 .setIconFactory(Edit_paste.factory());
         switch (commandButtonKind) {
             case ACTION_ONLY:
-                commandBuilder.setAction((CommandActionEvent e)
-                        -> System.out.println("Action invoked"));
+                commandBuilder.setAction(commandActionEvent -> System.out.println("Action invoked"));
                 break;
             case ACTION_AND_POPUP_MAIN_ACTION:
                 commandBuilder
-                        .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
+                        .setAction(commandActionEvent -> System.out.println("Action (main action) invoked"))
                         .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel());
                 break;
             case ACTION_AND_POPUP_MAIN_POPUP:
                 commandBuilder
-                        .setAction((CommandActionEvent e) -> System.out.println("Action invoked"))
+                        .setAction(commandActionEvent -> System.out.println("Action (main popup) invoked"))
                         .setSecondaryContentModel(SamplePopupMenu.getSamplePopupMenuContentModel());
                 break;
             case POPUP_ONLY:
@@ -157,7 +156,7 @@ public class TestCommandButtonsSizing extends JPanel {
 
         CommandButtonProjection<Command> commandProjection = commandBuilder.build().project(
                 commandButtonPresentationBuilder.build());
-        commandProjection.setComponentCustomizer((JCommandButton button) ->
+        commandProjection.setComponentCustomizer(button ->
                 button.setFont(button.getFont().deriveFont((float) fontSize)));
 
         return commandProjection.buildComponent();

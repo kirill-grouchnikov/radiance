@@ -187,11 +187,9 @@ public class GeminiSkin extends SubstanceSkin {
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
 		this.menuOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-						scheme.getUltraDarkColor(), -0.5f));
+				scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
 		this.toolbarOverlayPainter = new TopLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getForegroundColor(), 32));
+				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
 		this.addOverlayPainter(this.menuOverlayPainter, DecorationAreaType.HEADER);
 		this.addOverlayPainter(this.toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 
@@ -221,8 +219,8 @@ public class GeminiSkin extends SubstanceSkin {
 						ColorSchemeSingleColorQuery.ULTRADARK });
 		SubstanceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
 				"Gemini Inner", outerBorderPainter,
-				new int[] { 0x60FFFFFF, 0x40FFFFFF, 0x20FFFFFF }, 
-				(SubstanceColorScheme scheme) -> scheme.tint(0.7f));
+				new int[] { 0x60FFFFFF, 0x40FFFFFF, 0x20FFFFFF },
+				scheme -> scheme.tint(0.7f));
 
 		this.borderPainter = new CompositeBorderPainter("Gemini", outerBorderPainter,
 				innerBorderPainter);

@@ -56,6 +56,7 @@ public final class SubstanceSlices {
      *
      * @author Kirill Grouchnikov
      */
+    @FunctionalInterface
     public interface LocaleChangeListener {
         /**
          * Called when the locale is changed.

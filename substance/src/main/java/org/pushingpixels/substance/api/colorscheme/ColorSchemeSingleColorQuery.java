@@ -36,6 +36,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
+@FunctionalInterface
 public interface ColorSchemeSingleColorQuery {
 	/**
 	 * Returns a single color based on the specified color scheme.

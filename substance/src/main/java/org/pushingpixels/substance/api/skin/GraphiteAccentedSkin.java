@@ -95,10 +95,10 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
         this.borderPainter = new CompositeBorderPainter("Graphite",
                 new DelegateBorderPainter("Graphite Outer", new ClassicBorderPainter(), 0xFFFFFFFF,
                         0xFFFFFFFF, 0xFFFFFFFF,
-                        (SubstanceColorScheme scheme) -> scheme.shade(0.4f)),
+                        scheme -> scheme.shade(0.4f)),
                 new DelegateBorderPainter("Graphite Inner", new ClassicBorderPainter(), 0xA0FFFFFF,
                         0x90FFFFFF, 0xA0FFFFFF,
-                        (SubstanceColorScheme scheme) -> scheme.tint(0.25f)));
+                        scheme -> scheme.tint(0.25f)));
         this.highlightBorderPainter = new ClassicBorderPainter();
 
         this.fillPainter = new FractionBasedFillPainter("Graphite", new float[] {0.0f, 0.5f, 1.0f},

@@ -225,8 +225,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             int defaultIconSize = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(
                     getFont().getSize());
             CommandButtonProjection<Command> overflowProjection = Command.builder()
-                    .setAction((CommandActionEvent cae) -> SwingUtilities.invokeLater(() ->
-                            showOverflowTaskbarContent(cae.getButtonSource())))
+                    .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
+                            showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
                     .build().project(CommandButtonPresentationModel.builder()
                             .setPresentationState(new CommandButtonPresentationState(
                                     "overflow", defaultIconSize) {
@@ -237,14 +237,13 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                                 }
                             })
                             .build());
-            overflowProjection.setComponentCustomizer((JCommandButton button) -> {
+            overflowProjection.setComponentCustomizer(button -> {
                 final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
-                int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(
-                        fontSize);
+                int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
                 int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
                 ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                         () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                        (SubstanceColorScheme scheme, int width, int height) -> SubstanceImageCreator
+                        (scheme, width, height) -> SubstanceImageCreator
                                 .getDoubleArrowIcon(
                                         arrowIconWidth, arrowIconHeight,
                                         SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),

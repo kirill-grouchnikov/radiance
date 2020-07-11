@@ -84,7 +84,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
                         return result;
                     }
                 }, true);
-        this.bar.getModel().addPathListener((BreadcrumbPathEvent<FileTreeNode> event) ->
+        this.bar.getModel().addPathListener(event ->
             SwingUtilities.invokeLater(() -> {
                 final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
                 System.out.println("New path is ");

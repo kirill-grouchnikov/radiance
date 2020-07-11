@@ -12,7 +12,7 @@ We first start by configuring our [command](Command.md):
 this.pasteCommand = Command.builder()
         .setText(resourceBundle.getString("Paste.text"))
         .setIconFactory(Edit_paste.factory())
-        .setAction((CommandActionEvent e) -> System.out.println("Pasted!"))
+        .setAction(commandActionEvent -> System.out.println("Pasted!"))
         .setActionRichTooltip(
                 RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Paste.text"))
@@ -37,31 +37,31 @@ mf.setLocale(currLocale);
 this.popupCommand1 = Command.builder()
         .setText(mf.format(new Object[] { "1" }))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFF80DEEA)))
-        .setAction((CommandActionEvent e) ->
+        .setAction(commandActionEvent ->
                 System.out.println("Test menu item 1 activated"))
         .build();
 this.popupCommand2 = Command.builder()
         .setText(mf.format(new Object[] { "2" }))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFF80CBC4)))
-        .setAction((CommandActionEvent e) ->
+        .setAction(commandActionEvent ->
                 System.out.println("Test menu item 2 activated"))
         .build();
 this.popupCommand3 = Command.builder()
         .setText(mf.format(new Object[] { "3" }))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFFA5D6A7)))
-        .setAction((CommandActionEvent e) ->
+        .setAction(commandActionEvent ->
                 System.out.println("Test menu item 3 activated"))
         .build();
 this.popupCommand4 = Command.builder()
         .setText(mf.format(new Object[] { "4" }))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFFC5E1A5)))
-        .setAction((CommandActionEvent e) ->
+        .setAction(commandActionEvent ->
                 System.out.println("Test menu item 4 activated"))
         .build();
 this.popupCommand5 = Command.builder()
         .setText(mf.format(new Object[] { "5" }))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFFE6EE9C)))
-        .setAction((CommandActionEvent e) ->
+        .setAction(commandActionEvent ->
                 System.out.println("Test menu item 5 activated"))
         .build();
 
@@ -135,7 +135,7 @@ clipboardBand.addRibbonCommand(
         Command.builder()
                 .setText(resourceBundle.getString("Cut.text"))
                 .setIconFactory(Edit_cut.factory())
-                .setAction((CommandActionEvent e) -> System.out.println("Cut!"))
+                .setAction(commandActionEvent -> System.out.println("Cut!"))
                 .setActionRichTooltip(RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Cut.text"))
                         .addDescriptionSection(resourceBundle
@@ -173,7 +173,7 @@ Let's take another look at our "Paste" command:
 ```java
 this.pasteCommand = Command.builder()
         ...
-        .setAction((CommandActionEvent e) -> System.out.println("Pasted!"))
+        .setAction(commandActionEvent -> System.out.println("Pasted!"))
         .setActionRichTooltip(
                 RichTooltip.builder()
                         .setTitle(resourceBundle.getString("Paste.text"))

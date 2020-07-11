@@ -52,7 +52,7 @@ import java.util.ResourceBundle;
 
 /**
  * Adds menu search panel to menu bars.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
@@ -73,7 +73,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
     /**
      * Panel for searching the menus.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class SearchPanel extends JPanel {
@@ -94,9 +94,8 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         /**
          * Simple constructor.
-         * 
-         * @param menuBar
-         *            The associated menu bar.
+         *
+         * @param menuBar The associated menu bar.
          */
         public SearchPanel(final JMenuBar menuBar) {
             // this.menuBar = menuBar;
@@ -177,12 +176,10 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     final int finalCount = count;
                     resultButton.setIcon(new TransitionAwareIcon(resultButton,
                             () -> (TransitionAwareUI) resultButton.getUI(),
-                            (SubstanceColorScheme scheme) -> SubstanceImageCreator
-                                    .getHexaMarker((finalCount + 1), scheme),
-                            (ComponentState state) -> state
-                                    .isFacetActive(ComponentStateFacet.ROLLOVER)
-                                            ? ColorSchemeAssociationKind.HIGHLIGHT
-                                            : ColorSchemeAssociationKind.MARK,
+                            scheme -> SubstanceImageCreator.getHexaMarker((finalCount + 1), scheme),
+                            state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
+                                    ? ColorSchemeAssociationKind.HIGHLIGHT
+                                    : ColorSchemeAssociationKind.MARK,
                             "substance.widget.menusearch." + (finalCount + 1)));
 
                     // set action listener (to show the menu).
@@ -194,7 +191,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     SearchPanel.this.resultButtons.put(Integer.valueOf(count + 1), resultButton);
                     resultButton.setToolTipText("<html><body><b>"
                             + searchResult.toString() + "</b><br>" + SubstanceCortex.GlobalScope
-                                    .getLabelBundle().getString("Tooltip.menuSearchTooltip")
+                            .getLabelBundle().getString("Tooltip.menuSearchTooltip")
                             + "</html>");
                     SubstanceCoreUtilities.markButtonAsFlat(resultButton);
                     count++;
@@ -207,11 +204,10 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         /**
          * Returns all occurences of the specified string in the menus and menu items of the
          * associated menu bar.
-         * 
-         * @param searchPattern
-         *            Pattern to search (no wildcards yet).
+         *
+         * @param searchPattern Pattern to search (no wildcards yet).
          * @return All occurences of the specified string in the menus and menu items of the
-         *         associated menu bar.
+         * associated menu bar.
          */
         private LinkedList<SearchResult> findOccurences(String searchPattern) {
             LinkedList<SearchResult> result = new LinkedList<>();
@@ -232,17 +228,13 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         /**
          * Recursively scans the specified menu (item) and updates the list that contains all
          * occurences of the specified string in the contained menus and menu items.
-         * 
-         * @param currentPath
-         *            The path to the current menu (item). Contains {@link JMenu}s.
-         * @param menuItem
-         *            The menu (item) itself that is being tested.
-         * @param searchPattern
-         *            Pattern to search (no wildcards yet).
-         * @param matchingResults
-         *            All occurences of the specified string up until now. After <code>this</code>
-         *            function returns, will also contain all occurences of the specified string in
-         *            the contained menu (item)s. Contains {@link SearchResult}s.
+         *
+         * @param currentPath     The path to the current menu (item). Contains {@link JMenu}s.
+         * @param menuItem        The menu (item) itself that is being tested.
+         * @param searchPattern   Pattern to search (no wildcards yet).
+         * @param matchingResults All occurences of the specified string up until now. After <code>this</code>
+         *                        function returns, will also contain all occurences of the specified string in
+         *                        the contained menu (item)s. Contains {@link SearchResult}s.
          */
         private void checkMenu(LinkedList<JMenu> currentPath, JMenuItem menuItem,
                 String searchPattern, LinkedList<SearchResult> matchingResults) {
@@ -273,9 +265,8 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         private void updateSearchIcon() {
             int dimension = SubstanceSizeUtils.getControlFontSize();
-            this.searchButton.setIcon(new TransitionAwareIcon(
-                    this.searchButton, (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope
-                            .getIconPack().getInspectIcon(dimension, scheme),
+            this.searchButton.setIcon(new TransitionAwareIcon(this.searchButton,
+                    scheme -> SubstanceCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
                     "substance.widget.menusearch"));
         }
     }
@@ -284,7 +275,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
      * Listener on the <code>search result</code> button. The action itself - show the associated
      * menu path to the menu item that contains the string that has been specified during the
      * search.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class SearchResultListener implements ActionListener {
@@ -295,9 +286,8 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         /**
          * Simple constructor.
-         * 
-         * @param searchResult
-         *            The associated search result.
+         *
+         * @param searchResult The associated search result.
          */
         public SearchResultListener(SearchResult searchResult) {
             super();
@@ -314,7 +304,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
     /**
      * Single result of menu search.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class SearchResult {
@@ -326,13 +316,10 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         /**
          * Simple constructor.
-         * 
-         * @param menuBar
-         *            The main menu bar.
-         * @param menuPath
-         *            The menus leading to the matching entry. Contains {@link JMenu}s.
-         * @param menuLeaf
-         *            The menu (item) that matches the search pattern string.
+         *
+         * @param menuBar  The main menu bar.
+         * @param menuPath The menus leading to the matching entry. Contains {@link JMenu}s.
+         * @param menuLeaf The menu (item) that matches the search pattern string.
          */
         public SearchResult(JMenuBar menuBar, LinkedList<JMenu> menuPath, JMenuItem menuLeaf) {
             int count = 1;
@@ -376,9 +363,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         /**
          * Checks that all entries leading to the associated menu (item) are enabled.
-         * 
+         *
          * @return <code>true</code> if all entries leading to the associated menu (item) are
-         *         enabled, <code>false</code> otherwise.
+         * enabled, <code>false</code> otherwise.
          */
         public boolean isEnabled() {
             // all parts must be enabled
@@ -408,9 +395,8 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
     /**
      * Returns the number of menu items under the specified menu item.
-     * 
-     * @param menuItem
-     *            The root menu item.
+     *
+     * @param menuItem The root menu item.
      * @return The number of menu items under the specified menu item.
      */
     private static int getMenuItemCount(JMenuItem menuItem) {
@@ -430,9 +416,8 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
     /**
      * Returns the number of menu items under the specified menu bar.
-     * 
-     * @param menuBar
-     *            The root menu bar.
+     *
+     * @param menuBar The root menu bar.
      * @return The number of menu items under the specified menu bar.
      */
     public static int getMenuItemCount(JMenuBar menuBar) {
@@ -538,10 +523,10 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             int index = entry.getKey();
             JButton button = entry.getValue();
 
-            button.setIcon(new TransitionAwareIcon(button, () -> (TransitionAwareUI) button.getUI(),
-                    (SubstanceColorScheme scheme) -> SubstanceImageCreator.getHexaMarker(index,
-                            scheme),
-                    (ComponentState state) -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
+            button.setIcon(new TransitionAwareIcon(button,
+                    () -> (TransitionAwareUI) button.getUI(),
+                    scheme -> SubstanceImageCreator.getHexaMarker(index, scheme),
+                    state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
                             ? ColorSchemeAssociationKind.HIGHLIGHT
                             : ColorSchemeAssociationKind.MARK,
                     "substance.widget.menusearch." + index));
@@ -560,7 +545,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
      * <li>When there isn't enough place for result buttons, they should continue (even if they are
      * unseen) and not flow to the next line.
      * </ul>
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class SearchResultsLayout implements LayoutManager {
@@ -571,9 +556,8 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         /**
          * Simple constructor.
-         * 
-         * @param searchPanel
-         *            The associated search panel.
+         *
+         * @param searchPanel The associated search panel.
          */
         public SearchResultsLayout(SearchPanel searchPanel) {
             this.searchPanel = searchPanel;

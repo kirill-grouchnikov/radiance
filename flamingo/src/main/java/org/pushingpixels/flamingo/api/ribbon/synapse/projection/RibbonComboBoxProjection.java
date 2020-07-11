@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 
-import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonComboBox;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
@@ -41,8 +40,7 @@ public class RibbonComboBoxProjection<E> extends ComponentProjection<JRibbonComb
     @SuppressWarnings("unchecked")
     private static <E> ComponentSupplier<JRibbonComboBox<E>,
             RibbonComboBoxContentModel<E>, ComponentPresentationModel> getDefaultSupplier() {
-        return (Projection<JRibbonComboBox<E>, RibbonComboBoxContentModel<E>,
-                ComponentPresentationModel> projection) -> JRibbonComboBox<E>::new;
+        return projection -> JRibbonComboBox::new;
     }
 
     public RibbonComboBoxProjection(RibbonComboBoxContentModel<E> contentModel,

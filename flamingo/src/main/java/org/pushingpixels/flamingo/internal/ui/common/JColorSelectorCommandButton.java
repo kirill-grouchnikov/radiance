@@ -28,8 +28,7 @@ public class JColorSelectorCommandButton extends JCommandButton {
                 new ColorSelectorPopupMenuProjection(popupMenuContentModel,
                         (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
         colorSelectorPopupMenuProjection.setCommandOverlays(this.getProjection().getCommandOverlays());
-        this.setPopupCallback((JCommandButton commandButton)
-                -> colorSelectorPopupMenuProjection.buildComponent());
+        this.setPopupCallback(commandButton -> colorSelectorPopupMenuProjection.buildComponent());
 
         this.setPopupRichTooltip(command.getSecondaryRichTooltip());
         this.setPopupKeyTip(commandButtonPresentationModel.getPopupKeyTip());

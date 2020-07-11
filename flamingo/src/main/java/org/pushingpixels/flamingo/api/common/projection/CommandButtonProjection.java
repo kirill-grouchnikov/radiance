@@ -45,8 +45,7 @@ public class CommandButtonProjection<M extends Command>
 
     @SuppressWarnings("unchecked")
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
-        this(command, commandPresentation,
-                (Projection<JCommandButton, M, CommandButtonPresentationModel> projection) -> JCommandButton::new);
+        this(command, commandPresentation, projection ->  JCommandButton::new);
     }
 
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation,

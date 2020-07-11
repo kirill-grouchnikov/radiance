@@ -93,11 +93,11 @@ Now we get to the interesting part. How do we configure the Flamingo commands to
 // Bold style command
 Command commandBold = Command.builder()
         .setIconFactory(Format_text_bold.factory())
-        .setAction((CommandActionEvent event) -> {
+        .setAction(commandActionEvent -> {
             // toggle bold in current selection
             toggleStyleInSelection(textPane, StyleConstants.CharacterConstants.Bold);
             // and update command selection state based on the presence of bold
-            event.getCommand().setToggleSelected(
+            commandActionEvent.getCommand().setToggleSelected(
                     hasStyleInSelection(textPane,
                             StyleConstants.CharacterConstants.Bold));
         })
@@ -108,11 +108,11 @@ Command commandBold = Command.builder()
 // Italic style command
 Command commandItalic = Command.builder()
         .setIconFactory(Format_text_italic.factory())
-        .setAction((CommandActionEvent event) -> {
+        .setAction(commandActionEvent -> {
             // toggle italic in current selection
             toggleStyleInSelection(textPane, StyleConstants.CharacterConstants.Italic);
             // and update command selection state based on the presence of italic
-            event.getCommand().setToggleSelected(
+            commandActionEvent.getCommand().setToggleSelected(
                     hasStyleInSelection(textPane,
                             StyleConstants.CharacterConstants.Italic));
         })
@@ -123,12 +123,12 @@ Command commandItalic = Command.builder()
 // Underline style command
 Command commandUnderline = Command.builder()
         .setIconFactory(Format_text_underline.factory())
-        .setAction((CommandActionEvent event) -> {
+        .setAction(commandActionEvent -> {
             // toggle underline in current selection
             toggleStyleInSelection(textPane,
                     StyleConstants.CharacterConstants.Underline);
             // and update command selection state based on the presence of underline
-            event.getCommand().setToggleSelected(
+            commandActionEvent.getCommand().setToggleSelected(
                     hasStyleInSelection(textPane,
                             StyleConstants.CharacterConstants.Underline));
         })
@@ -139,12 +139,12 @@ Command commandUnderline = Command.builder()
 // Strikethrough style command
 Command commandStrikethrough = Command.builder()
         .setIconFactory(Format_text_strikethrough.factory())
-        .setAction((CommandActionEvent event) -> {
+        .setAction(commandActionEvent -> {
             // toggle strikethrough in current selection
             toggleStyleInSelection(textPane,
                     StyleConstants.CharacterConstants.StrikeThrough);
             // and update command selection state based on the presence of strikethrough
-            event.getCommand().setToggleSelected(
+            commandActionEvent.getCommand().setToggleSelected(
                     hasStyleInSelection(textPane,
                             StyleConstants.CharacterConstants.StrikeThrough));
         })

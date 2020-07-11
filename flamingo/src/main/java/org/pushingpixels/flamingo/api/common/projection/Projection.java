@@ -40,8 +40,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public abstract class Projection<T extends JComponent, C extends ContentModel,
-        P extends PresentationModel> extends BlackboxProjection<C, P> {
+public abstract class Projection<T extends JComponent, C extends ContentModel, P extends PresentationModel>
+        extends BlackboxProjection<C, P> {
     private ComponentSupplier<T, C, P> componentSupplier;
     private ComponentCustomizer<T> componentCustomizer;
 
@@ -54,6 +54,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
      * to return your own supplier of {@link TC} to be used before the
      * {@link #configureComponent(JComponent)} call.
      */
+    @FunctionalInterface
     public interface ComponentSupplier<TC extends JComponent, CC extends ContentModel,
             PC extends PresentationModel> {
         /**
@@ -75,6 +76,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
      * {@link #buildComponent()} with additional functionality not exposed via
      * {@link #getContentModel()} or {@link #getPresentationModel()}.
      */
+    @FunctionalInterface
     public interface ComponentCustomizer<TC extends JComponent> {
         /**
          * Customizes the result of {@link #buildComponent()} just before it is returned
@@ -87,8 +89,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
         void customizeComponent(TC component);
     }
 
-    protected Projection(C contentModel, P presentationModel,
-            ComponentSupplier<T, C, P> componentSupplier) {
+    protected Projection(C contentModel, P presentationModel, ComponentSupplier<T, C, P> componentSupplier) {
         super(contentModel, presentationModel);
         this.componentSupplier = componentSupplier;
         this.commandComponentCustomizers = new HashMap<>();

@@ -201,7 +201,7 @@ In the screenshot above, the "Paste" button is projected as:
 this.pasteCommand = Command.builder()
     .setText(resourceBundle.getString("Paste.text"))
     .setIconFactory(Edit_paste.factory())
-    .setAction((CommandActionEvent e) -> System.out.println("Pasted!"))
+    .setAction(commandActionEvent -> System.out.println("Pasted!"))
     .setActionRichTooltip(
         RichTooltip.builder()
             .setTitle(resourceBundle.getString("Paste.text"))

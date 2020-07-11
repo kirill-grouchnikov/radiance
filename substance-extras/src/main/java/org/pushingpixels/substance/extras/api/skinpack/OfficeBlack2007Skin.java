@@ -274,8 +274,8 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 		setTabFadeEnd(0.9);
 
 		this.addOverlayPainter(new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getUltraDarkColor(), 192)), DecorationAreaType.PRIMARY_TITLE_PANE);
+				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getUltraDarkColor(), 192)),
+				DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
 

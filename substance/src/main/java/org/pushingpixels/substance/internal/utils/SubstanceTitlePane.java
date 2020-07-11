@@ -58,7 +58,7 @@ import java.util.Map;
 
 /**
  * Title pane for <b>Substance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceTitlePane extends JComponent {
@@ -155,11 +155,9 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Creates a new title pane.
-     * 
-     * @param root
-     *            Root pane.
-     * @param ui
-     *            Root pane UI.
+     *
+     * @param root Root pane.
+     * @param ui   Root pane UI.
      */
     public SubstanceTitlePane(JRootPane root, SubstanceRootPaneUI ui) {
         this.rootPane = root;
@@ -265,7 +263,7 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Returns the decoration style of the <code>JRootPane</code>.
-     * 
+     *
      * @return Decoration style of the <code>JRootPane</code>.
      */
     private int getWindowDecorationStyle() {
@@ -346,7 +344,7 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Returns the <code>JMenuBar</code> displaying the appropriate system menu items.
-     * 
+     *
      * @return <code>JMenuBar</code> displaying the appropriate system menu items.
      */
     private JMenuBar createMenuBar() {
@@ -383,7 +381,7 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Returns the <code>JMenu</code> displaying the appropriate menu items for manipulating the
      * Frame.
-     * 
+     *
      * @return <code>JMenu</code> displaying the appropriate menu items for manipulating the Frame.
      */
     private JMenu createMenu() {
@@ -398,9 +396,8 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Adds the necessary <code>JMenuItem</code>s to the specified menu.
-     * 
-     * @param menu
-     *            Menu.
+     *
+     * @param menu Menu.
      */
     private void addMenuItems(JMenu menu) {
         menu.add(this.restoreAction);
@@ -434,7 +431,7 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Returns a <code>JButton</code> appropriate for placement on the TitlePane.
-     * 
+     *
      * @return Title button.
      */
     private JButton createTitleButton() {
@@ -460,7 +457,7 @@ public class SubstanceTitlePane extends JComponent {
         this.closeButton.setBorder(null);
 
         Icon closeIcon = new TransitionAwareIcon(closeButton,
-                (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(
                         SubstanceIconFactory.IconKind.CLOSE, scheme,
                         SubstanceCoreUtilities.getSkin(rootPane)
                                 .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)),
@@ -479,7 +476,7 @@ public class SubstanceTitlePane extends JComponent {
             this.minimizeButton.setBorder(null);
 
             Icon minIcon = new TransitionAwareIcon(this.minimizeButton,
-                    (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                    scheme -> SubstanceIconFactory.getTitlePaneIcon(
                             SubstanceIconFactory.IconKind.MINIMIZE, scheme,
                             SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
                                     DecorationAreaType.PRIMARY_TITLE_PANE)),
@@ -497,7 +494,7 @@ public class SubstanceTitlePane extends JComponent {
             this.toggleButton.setBorder(null);
 
             Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                    (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                    scheme -> SubstanceIconFactory.getTitlePaneIcon(
                             SubstanceIconFactory.IconKind.MAXIMIZE, scheme,
                             SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
                                     DecorationAreaType.PRIMARY_TITLE_PANE)),
@@ -516,7 +513,7 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Returns the <code>LayoutManager</code> that should be installed on the
      * <code>SubstanceTitlePane</code>.
-     * 
+     *
      * @return Layout manager.
      */
     protected LayoutManager createLayout() {
@@ -525,9 +522,8 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Updates state dependant upon the Window's active state.
-     * 
-     * @param isActive
-     *            if <code>true</code>, the window is in active state.
+     *
+     * @param isActive if <code>true</code>, the window is in active state.
      */
     private void setActive(boolean isActive) {
         this.getRootPane().repaint();
@@ -535,9 +531,8 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Sets the state of the Window.
-     * 
-     * @param state
-     *            Window state.
+     *
+     * @param state Window state.
      */
     private void setState(int state) {
         this.setState(state, false);
@@ -546,11 +541,9 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Sets the state of the window. If <code>updateRegardless</code> is true and the state has not
      * changed, this will update anyway.
-     * 
-     * @param state
-     *            Window state.
-     * @param updateRegardless
-     *            if <code>true</code>, the update is done in any case.
+     *
+     * @param state            Window state.
+     * @param updateRegardless if <code>true</code>, the update is done in any case.
      */
     private void setState(int state, boolean updateRegardless) {
         if ((this.window != null) && (this.getWindowDecorationStyle() == JRootPane.FRAME)) {
@@ -564,7 +557,7 @@ public class SubstanceTitlePane extends JComponent {
 
                 if (((state & Frame.MAXIMIZED_BOTH) != 0)
                         && ((rootPane.getBorder() == null)
-                                || (rootPane.getBorder() instanceof UIResource))
+                        || (rootPane.getBorder() instanceof UIResource))
                         && frame.isShowing()) {
                     rootPane.setBorder(null);
                 } else {
@@ -577,7 +570,7 @@ public class SubstanceTitlePane extends JComponent {
                 if (frame.isResizable()) {
                     if ((state & Frame.MAXIMIZED_BOTH) != 0) {
                         Icon restoreIcon = new TransitionAwareIcon(this.toggleButton,
-                                (SubstanceColorScheme scheme) -> SubstanceIconFactory
+                                scheme -> SubstanceIconFactory
                                         .getTitlePaneIcon(SubstanceIconFactory.IconKind.RESTORE,
                                                 scheme,
                                                 SubstanceCoreUtilities.getSkin(rootPane)
@@ -591,7 +584,7 @@ public class SubstanceTitlePane extends JComponent {
                         this.restoreAction.setEnabled(true);
                     } else {
                         Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                                (SubstanceColorScheme scheme) -> SubstanceIconFactory
+                                scheme -> SubstanceIconFactory
                                         .getTitlePaneIcon(SubstanceIconFactory.IconKind.MAXIMIZE,
                                                 scheme,
                                                 SubstanceCoreUtilities.getSkin(rootPane)
@@ -639,11 +632,9 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Updates the toggle button to contain the Icon <code>icon</code>, and Action
      * <code>action</code>.
-     * 
-     * @param action
-     *            Action.
-     * @param icon
-     *            Icon.
+     *
+     * @param action Action.
+     * @param icon   Icon.
      */
     private void updateToggleButton(Action action, Icon icon) {
         this.toggleButton.setAction(action);
@@ -654,7 +645,7 @@ public class SubstanceTitlePane extends JComponent {
     /**
      * Returns the Frame rendering in. This will return null if the <code>JRootPane</code> is not
      * contained in a <code>Frame</code>.
-     * 
+     *
      * @return Frame.
      */
     private Frame getFrame() {
@@ -666,7 +657,7 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Returns the String to display as the title.
-     * 
+     *
      * @return Display title.
      */
     private String getTitle() {
@@ -925,7 +916,7 @@ public class SubstanceTitlePane extends JComponent {
 
     /**
      * Layout manager for the title pane.
-     * 
+     *
      * @author Kirill Graphics
      */
     protected class TitlePaneLayout implements LayoutManager {
@@ -1010,7 +1001,7 @@ public class SubstanceTitlePane extends JComponent {
                             case TRAILING:
                                 menuBarLeft = leftToRight
                                         ? titleRect.x + titleRect.width - displayTitleWidth
-                                                - buttonSize - spacing
+                                        - buttonSize - spacing
                                         : titleRect.x + titleRect.width + spacing;
                                 break;
                             default:
@@ -1128,7 +1119,7 @@ public class SubstanceTitlePane extends JComponent {
             this.closeButton.setToolTipText(
                     SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close")
                             + " [" + SubstanceCortex.GlobalScope.getLabelBundle()
-                                    .getString("Tooltip.contentsNotSaved")
+                            .getString("Tooltip.contentsNotSaved")
                             + "]");
         } else {
             this.closeButton.setToolTipText(

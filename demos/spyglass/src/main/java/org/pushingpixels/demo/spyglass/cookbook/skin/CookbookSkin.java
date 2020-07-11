@@ -34,10 +34,7 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.CremeColorScheme;
-import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.*;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
@@ -106,8 +103,7 @@ public class CookbookSkin extends SubstanceSkin {
                                 ColorSchemeSingleColorQuery.ULTRADARK });
         SubstanceBorderPainter innerBorderPainter = new DelegateBorderPainter("Cookbook Inner",
                 new ClassicBorderPainter(), 0x88FFFFFF, 0x44FFFFFF, 0x00FFFFFF,
-                (SubstanceColorScheme scheme) -> scheme
-                        .shiftBackground(scheme.getUltraLightColor(), 0.8).tint(0.7));
+                scheme -> scheme.shiftBackground(scheme.getUltraLightColor(), 0.8).tint(0.7));
         this.borderPainter = new CompositeBorderPainter("Cookbook", outerBorderPainter,
                 innerBorderPainter);
 
@@ -127,7 +123,7 @@ public class CookbookSkin extends SubstanceSkin {
         // Add an overlay painter to paint a dark line along the bottom
         // edge of the title pane
         BottomLineOverlayPainter titlePaneBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                (SubstanceColorScheme scheme) -> scheme.getUltraDarkColor());
+                SchemeBaseColors::getUltraDarkColor);
         this.addOverlayPainter(titlePaneBottomLineOverlayPainter,
                 DecorationAreaType.PRIMARY_TITLE_PANE);
     }

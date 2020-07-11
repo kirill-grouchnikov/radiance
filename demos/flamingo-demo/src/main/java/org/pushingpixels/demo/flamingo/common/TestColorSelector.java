@@ -117,7 +117,7 @@ public class TestColorSelector extends JFrame {
         selectorBuilder.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ColorSelector.textAutomatic"))
                 .setIconFactory(ColorIcon.factory(defaultPanelColor))
-                .setAction((CommandActionEvent e) -> {
+                .setAction(commandActionEvent -> {
                     colorActivationListener.onColorActivated(defaultPanelColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor);
                 })
@@ -162,7 +162,7 @@ public class TestColorSelector extends JFrame {
 
         selectorBuilder.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ColorSelector.textMoreColor"))
-                .setAction((CommandActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .setAction(commandActionEvent -> SwingUtilities.invokeLater(() -> {
                     Color color = JColorChooser.showDialog(TestColorSelector.this,
                             "Color chooser", backgroundColor);
                     if (color != null) {

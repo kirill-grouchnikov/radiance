@@ -178,7 +178,7 @@ this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    (SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
+    scheme -> SubstanceColorUtilities.getAlphaColor(
         scheme.getDarkColor(), 160));
 this.addOverlayPainter(this.bottomLineOverlayPainter,
     DecorationAreaType.PRIMARY_TITLE_PANE,
@@ -253,7 +253,7 @@ FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
 SubstanceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
     "Office Silver 2007 Inner", outerBorderPainter,
     new int[] { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF },
-    (SubstanceColorScheme scheme) -> scheme.tint(0.8f));
+    scheme -> scheme.tint(0.8f));
 this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
     outerBorderPainter, innerBorderPainter);
 

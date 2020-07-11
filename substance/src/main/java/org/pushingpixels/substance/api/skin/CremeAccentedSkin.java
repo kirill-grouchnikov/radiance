@@ -91,6 +91,6 @@ public abstract class CremeAccentedSkin extends SubstanceSkin.Accented {
         this.borderPainter = new CompositeBorderPainter("Creme",
                 new ClassicBorderPainter(), new DelegateBorderPainter(
                 "Creme Inner", new ClassicBorderPainter(),
-                (SubstanceColorScheme scheme) -> scheme.tint(0.9f)));
+                scheme -> scheme.tint(0.9f)));
     }
 }

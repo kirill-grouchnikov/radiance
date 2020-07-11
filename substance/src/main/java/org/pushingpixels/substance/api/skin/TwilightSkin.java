@@ -192,24 +192,20 @@ public class TwilightSkin extends SubstanceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-                        scheme.getUltraDarkColor(), -0.5f));
+                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
         this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities
-                        .getAlphaColor(scheme.getForegroundColor(), 32));
+                scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
         this.addOverlayPainter(this.toolbarTopLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-                        scheme.getUltraDarkColor(), -0.5f),
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities
-                        .getAlphaColor(scheme.getForegroundColor(), 32));
+                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f),
+                scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
         this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
 
         this.setTabFadeStart(0.18);
@@ -225,7 +221,7 @@ public class TwilightSkin extends SubstanceSkin {
         this.borderPainter = new CompositeBorderPainter("Twilight", new ClassicBorderPainter(),
                 new DelegateBorderPainter("Twilight Inner", new ClassicBorderPainter(), 0x40FFFFFF,
                         0x20FFFFFF, 0x00FFFFFF,
-                        (SubstanceColorScheme scheme) -> scheme.tint(0.2f)));
+                        scheme -> scheme.tint(0.2f)));
     }
 
     public String getDisplayName() {

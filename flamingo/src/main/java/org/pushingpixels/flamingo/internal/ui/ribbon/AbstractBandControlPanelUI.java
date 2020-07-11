@@ -68,7 +68,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
         this.dummy = Command.builder()
                 .setText("Dummy")
                 .setIconFactory(EmptyResizableIcon.factory())
-                .setAction((CommandActionEvent e) -> {})
+                .setAction(commandActionEvent -> {})
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.BIG).build())
                 .buildComponent();

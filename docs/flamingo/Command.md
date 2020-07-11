@@ -62,7 +62,7 @@ Action is a piece of code associated with a command that is executed when that c
 // Align fill command
 Command commandAlignFill = Command.builder()
         .setIconFactory(Format_justify_fill.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_JUSTIFIED))
         .build();
 ```
@@ -105,7 +105,7 @@ this.pasteActionCommand = Command.builder()
     .setText(resourceBundle.getString("Paste.text"))
     .setExtraText(resourceBundle.getString("Paste.textExtra"))
     .setIconFactory(Edit_paste.factory())
-    .setAction((CommandActionEvent e) -> System.out.println("Paste activated"))
+    .setAction(commandActionEvent -> System.out.println("Paste activated"))
     .setActionRichTooltip(RichTooltip.builder()
           .setTitle(resourceBundle.getString("Tooltip.textActionTitle"))
           .addDescriptionSection(resourceBundle.getString("Tooltip.textParagraph1"))
@@ -125,7 +125,7 @@ The command's action can be disabled and enabled dynamically based on applicatio
 // Bold style command
 Command commandBold = Command.builder()
         .setIconFactory(Format_text_bold.factory())
-        .setAction((CommandActionEvent event) -> ...)
+        .setAction(commandActionEvent -> ...)
         .setToggle(true)
         .setActionEnabled(false)
         .build();
@@ -198,7 +198,7 @@ CommandToggleGroupModel justifyToggleGroup = new CommandToggleGroupModel();
 // Align left command
 Command commandAlignLeft = Command.builder()
         .setIconFactory(Format_justify_left.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_LEFT))
         .inToggleGroupAsSelected(justifyToggleGroup)
         .build();
@@ -206,7 +206,7 @@ Command commandAlignLeft = Command.builder()
 // Align center command
 Command commandAlignCenter = Command.builder()
         .setIconFactory(Format_justify_center.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_CENTER))
         .inToggleGroup(justifyToggleGroup)
         .build();
@@ -214,7 +214,7 @@ Command commandAlignCenter = Command.builder()
 // Align right command
 Command commandAlignRight = Command.builder()
         .setIconFactory(Format_justify_right.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_RIGHT))
         .inToggleGroup(justifyToggleGroup)
         .build();
@@ -222,7 +222,7 @@ Command commandAlignRight = Command.builder()
 // Align fill command
 Command commandAlignFill = Command.builder()
         .setIconFactory(Format_justify_fill.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_JUSTIFIED))
         .inToggleGroup(justifyToggleGroup)
         .build();
@@ -236,28 +236,28 @@ In the following example we use `setToggle()` API to mark the four commands as t
 // Bold style command
 Command commandBold = Command.builder()
         .setIconFactory(Format_text_bold.factory())
-        .setAction((CommandActionEvent event) -> ...)
+        .setAction(commandActionEvent -> ...)
         .setToggle(true)
         .build();
 
 // Italic style command
 Command commandItalic = Command.builder()
         .setIconFactory(Format_text_italic.factory())
-        .setAction((CommandActionEvent event) -> ...)
+        .setAction(commandActionEvent -> ...)
         .setToggle(true)
         .build();
 
 // Underline style command
 Command commandUnderline = Command.builder()
         .setIconFactory(Format_text_underline.factory())
-        .setAction((CommandActionEvent event) -> ...)
+        .setAction(commandActionEvent -> ...)
         .setToggle(true)
         .build();
 
 // Strikethrough style command
 Command commandStrikethrough = Command.builder()
         .setIconFactory(Format_text_strikethrough.factory())
-        .setAction((CommandActionEvent event) -> ...)
+        .setAction(commandActionEvent -> ...)
         .setToggle(true)
         .build();
 ```
@@ -286,11 +286,11 @@ And in addition, update each command to flip its toggled state whenever it is ac
 // Bold style command
 Command commandBold = Command.builder()
         ...
-        .setAction((CommandActionEvent event) -> {
+        .setAction(commandActionEvent -> {
             // toggle bold in current selection
             toggleStyleInSelection(textPane, StyleConstants.CharacterConstants.Bold);
             // and update command selection state based on the presence of bold
-            event.getCommand().setToggleSelected(
+            commandActionEvent.getCommand().setToggleSelected(
                     hasStyleInSelection(textPane,
                             StyleConstants.CharacterConstants.Bold));
         })

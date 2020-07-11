@@ -57,18 +57,15 @@ public class TabOverviewButton extends JButton implements UIResource {
     /**
      * Creates a new tab overview button.
      *
-     * @param tabPane
-     *            The owner tabbed pane.
+     * @param tabPane The owner tabbed pane.
      */
     public TabOverviewButton(final JTabbedPane tabPane) {
         this.setFocusable(false);
 
         int dimension = SubstanceSizeUtils.getControlFontSize();
-        this.setIcon(
-                new TransitionAwareIcon(this,
-                        (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
-                                .getInspectIcon(dimension, scheme),
-                        "substance.widget.extras.taboverview"));
+        this.setIcon(new TransitionAwareIcon(this,
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
+                "substance.widget.extras.taboverview"));
         SubstanceCoreUtilities.markButtonAsFlat(this);
         this.setToolTipText(
                 TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewButtonTooltip"));
@@ -86,10 +83,8 @@ public class TabOverviewButton extends JButton implements UIResource {
     /**
      * Updates the location of <code>this</code> tab overview button.
      *
-     * @param tabbedPane
-     *            Tabbed pane.
-     * @param tabAreaInsets
-     *            Tab area insets.
+     * @param tabbedPane    Tabbed pane.
+     * @param tabAreaInsets Tab area insets.
      */
     public void updateLocation(JTabbedPane tabbedPane, Insets tabAreaInsets) {
         if (tabbedPane == null)
@@ -100,30 +95,30 @@ public class TabOverviewButton extends JButton implements UIResource {
         int buttonSize = SubstanceSizeUtils.getLookupButtonSize();
 
         switch (tabbedPane.getTabPlacement()) {
-        case SwingConstants.TOP:
-            if (tabbedPane.getComponentOrientation().isLeftToRight())
-                this.setBounds(2, tabAreaInsets.top, buttonSize, buttonSize);
-            else
+            case SwingConstants.TOP:
+                if (tabbedPane.getComponentOrientation().isLeftToRight())
+                    this.setBounds(2, tabAreaInsets.top, buttonSize, buttonSize);
+                else
+                    this.setBounds(tabbedPane.getBounds().width - tabAreaInsets.right - buttonSize - 2,
+                            tabAreaInsets.top, buttonSize, buttonSize);
+                break;
+            case SwingConstants.BOTTOM:
+                if (tabbedPane.getComponentOrientation().isLeftToRight())
+                    this.setBounds(2,
+                            tabbedPane.getBounds().height - tabAreaInsets.bottom - buttonSize - 4,
+                            buttonSize, buttonSize);
+                else
+                    this.setBounds(tabbedPane.getBounds().width - tabAreaInsets.right - buttonSize - 2,
+                            tabbedPane.getBounds().height - tabAreaInsets.bottom - buttonSize - 4,
+                            buttonSize, buttonSize);
+                break;
+            case SwingConstants.LEFT:
+                this.setBounds(2, tabAreaInsets.top - 1, buttonSize, buttonSize);
+                break;
+            case SwingConstants.RIGHT:
                 this.setBounds(tabbedPane.getBounds().width - tabAreaInsets.right - buttonSize - 2,
-                        tabAreaInsets.top, buttonSize, buttonSize);
-            break;
-        case SwingConstants.BOTTOM:
-            if (tabbedPane.getComponentOrientation().isLeftToRight())
-                this.setBounds(2,
-                        tabbedPane.getBounds().height - tabAreaInsets.bottom - buttonSize - 4,
-                        buttonSize, buttonSize);
-            else
-                this.setBounds(tabbedPane.getBounds().width - tabAreaInsets.right - buttonSize - 2,
-                        tabbedPane.getBounds().height - tabAreaInsets.bottom - buttonSize - 4,
-                        buttonSize, buttonSize);
-            break;
-        case SwingConstants.LEFT:
-            this.setBounds(2, tabAreaInsets.top - 1, buttonSize, buttonSize);
-            break;
-        case SwingConstants.RIGHT:
-            this.setBounds(tabbedPane.getBounds().width - tabAreaInsets.right - buttonSize - 2,
-                    tabAreaInsets.top - 1, buttonSize, buttonSize);
-            break;
+                        tabAreaInsets.top - 1, buttonSize, buttonSize);
+                break;
         }
         // Unlock the button for the bounds change
         this.putClientProperty(TabOverviewButton.OWN_BOUNDS, null);

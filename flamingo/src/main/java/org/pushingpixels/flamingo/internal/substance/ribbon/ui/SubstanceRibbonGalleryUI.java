@@ -89,7 +89,7 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (SubstanceColorScheme scheme, int width, int height) -> SubstanceImageCreator
+                (scheme, width, height) -> SubstanceImageCreator
                         .getDoubleArrowIcon(
                                 width, height, SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                 SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
@@ -109,7 +109,7 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (SubstanceColorScheme scheme, int width, int height) -> SubstanceImageCreator
+                (scheme, width, height) -> SubstanceImageCreator
                         .getArrowIcon(width, height,
                                 SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                 SwingConstants.SOUTH, scheme),
@@ -128,10 +128,9 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (SubstanceColorScheme scheme, int width, int height) -> SubstanceImageCreator
-                        .getArrowIcon(width, height,
-                                SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                SwingConstants.NORTH, scheme),
+                (scheme, width, height) -> SubstanceImageCreator.getArrowIcon(width, height,
+                        SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                        SwingConstants.NORTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         SubstanceCortex.ComponentScope.setButtonStraightSide(button,

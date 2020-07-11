@@ -403,7 +403,7 @@ public class JRibbonGallery extends JComponent {
             commandPopupMenuProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
         }
 
-        commandPopupMenuProjection.setComponentCustomizer((JCommandPopupMenu galleryPopupMenu) -> {
+        commandPopupMenuProjection.setComponentCustomizer(galleryPopupMenu -> {
             galleryPopupMenu.applyComponentOrientation(componentOrientation);
 
             // Configure a popup listener for the two-way sync between the gallery model and
@@ -418,8 +418,7 @@ public class JRibbonGallery extends JComponent {
                 @Override
                 public void popupHidden(PopupPanelManager.PopupEvent event) {
                     // update the gallery content model with the command selection
-                    Command selectedCommand =
-                            galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
+                    Command selectedCommand = galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
                     galleryProjection.getContentModel().setSelectedCommand(selectedCommand);
                     PopupPanelManager.defaultManager().removePopupListener(this);
                 }

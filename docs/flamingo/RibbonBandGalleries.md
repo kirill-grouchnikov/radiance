@@ -64,19 +64,19 @@ These are commands shown below the expanded scrollable panel of gallery commands
 this.menuSaveSelection = Command.builder()
         .setText(resourceBundle.getString("Format.menuSaveSelection.text"))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFFFBC02D)))
-        .setAction((CommandActionEvent e) -> System.out.println(
+        .setAction(commandActionEvent -> System.out.println(
                 "Save Selection activated"))
         .build();
 this.menuClearSelection = Command.builder()
         .setText(resourceBundle.getString("Format.menuClearSelection.text"))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFFFFA000)))
-        .setAction((CommandActionEvent e) -> System.out.println(
+        .setAction(commandActionEvent -> System.out.println(
                 "Clear Selection activated"))
         .build();
 this.applyStyles = Command.builder()
         .setText(resourceBundle.getString("Format.applyStyles.text"))
         .setIconFactory(ColorResizableIcon.factory(new Color(0xFFF57C00)))
-        .setAction((CommandActionEvent e) -> System.out.println(
+        .setAction(commandActionEvent -> System.out.println(
                 "Apply Styles activated"))
         .build();
 

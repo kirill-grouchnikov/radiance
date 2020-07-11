@@ -76,7 +76,7 @@ CommandToggleGroupModel justifyToggleGroup = new CommandToggleGroupModel();
 // Align left command
 Command commandAlignLeft = Command.builder()
         .setIconFactory(Format_justify_left.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_LEFT))
         .inToggleGroupAsSelected(justifyToggleGroup)
         .build();
@@ -84,7 +84,7 @@ Command commandAlignLeft = Command.builder()
 // Align center command
 Command commandAlignCenter = Command.builder()
         .setIconFactory(Format_justify_center.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_CENTER))
         .inToggleGroup(justifyToggleGroup)
         .build();
@@ -92,7 +92,7 @@ Command commandAlignCenter = Command.builder()
 // Align right command
 Command commandAlignRight = Command.builder()
         .setIconFactory(Format_justify_right.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_RIGHT))
         .inToggleGroup(justifyToggleGroup)
         .build();
@@ -100,7 +100,7 @@ Command commandAlignRight = Command.builder()
 // Align fill command
 Command commandAlignFill = Command.builder()
         .setIconFactory(Format_justify_fill.factory())
-        .setAction((CommandActionEvent event) ->
+        .setAction(commandActionEvent ->
                 setAlignment(textPane, StyleConstants.ALIGN_JUSTIFIED))
         .inToggleGroup(justifyToggleGroup)
         .build();

@@ -58,6 +58,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
      *
      * @author Kirill Grouchnikov
      */
+    @FunctionalInterface
     public interface IconDecorator {
         /**
          * Paints the icon decoration.

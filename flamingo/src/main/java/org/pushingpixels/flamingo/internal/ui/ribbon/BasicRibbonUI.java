@@ -1120,9 +1120,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
             Command taskToggleCommand = Command.builder()
                     .setText(task.getTitle())
                     .inToggleGroup(this.taskToggleGroupModel)
-                    .setAction((CommandActionEvent cae) -> SwingUtilities.invokeLater(() ->
+                    .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
                             processTaskSelection(task,
-                                    (JRibbonTaskToggleButton) cae.getButtonSource())))
+                                    (JRibbonTaskToggleButton) commandActionEvent.getButtonSource())))
                     .build();
 
             // And create a specific projection
@@ -1134,13 +1134,12 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // Configure the projection to use our own subclass of command button (so that it can
             // use its own UI delegate class
-            taskToggleCommandProjection.setComponentSupplier(
-                    projection -> JRibbonTaskToggleButton::new);
+            taskToggleCommandProjection.setComponentSupplier(projection -> JRibbonTaskToggleButton::new);
 
             // Configure the projection with additional customizations on the command button that
             // is created to represent the task toggle command
             taskToggleCommandProjection.setComponentCustomizer(
-                    (JCommandButton button) -> {
+                    button -> {
                         JRibbonTaskToggleButton taskToggleButton = (JRibbonTaskToggleButton) button;
 
                         // wire listener to toggle ribbon minimization on double mouse click

@@ -305,25 +305,25 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             return;
 
         Icon restoreIcon = new TransitionAwareIcon(this.maxButton,
-                (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(
                         SubstanceIconFactory.IconKind.RESTORE, scheme,
                         SubstanceCoreUtilities.getSkin(SubstanceInternalFrameTitlePane.this)
                                 .getBackgroundColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE)),
                 "substance.internalFrame.restoreIcon");
         Icon maximizeIcon = new TransitionAwareIcon(this.maxButton,
-                (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(
                         SubstanceIconFactory.IconKind.MAXIMIZE, scheme,
                         SubstanceCoreUtilities.getSkin(SubstanceInternalFrameTitlePane.this)
                                 .getBackgroundColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE)),
                 "substance.internalFrame.maxIcon");
         Icon minimizeIcon = new TransitionAwareIcon(this.iconButton,
-                (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(
                         SubstanceIconFactory.IconKind.MINIMIZE, scheme,
                         SubstanceCoreUtilities.getSkin(SubstanceInternalFrameTitlePane.this)
                                 .getBackgroundColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE)),
                 "substance.internalFrame.minIcon");
         Icon closeIcon = new TransitionAwareIcon(this.closeButton,
-                (SubstanceColorScheme scheme) -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(
                         SubstanceIconFactory.IconKind.CLOSE, scheme,
                         SubstanceCoreUtilities.getSkin(SubstanceInternalFrameTitlePane.this)
                                 .getBackgroundColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE)),

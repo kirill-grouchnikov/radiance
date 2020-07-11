@@ -64,7 +64,7 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
             // Create a transition-aware wrapper around our icon so that it is colorized
             // based on the color scheme that matches the current state of our toggle button
             tb.setIcon(new TransitionAwareIcon(tb,
-                    (SubstanceColorScheme scheme) -> ccp.getHiDpiAwareIcon(18, scheme),
+                    scheme -> ccp.getHiDpiAwareIcon(18, scheme),
                     ccp.getDisplayName()));
 
             tb.setToolTipText(displayName);

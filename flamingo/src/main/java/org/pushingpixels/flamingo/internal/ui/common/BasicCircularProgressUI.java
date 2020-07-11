@@ -106,8 +106,8 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         // dimension of the overall indeterminate progress.
         this.arcTimeline = SwingComponentTimeline.componentBuilder(this.circularProgress)
                 .addPropertyToInterpolate(Timeline.<Double>property("arcSpan")
-                        .getWith((Object obj, String fieldName) -> arcSpan)
-                        .setWith((Object obj, String fieldName, Double value) -> arcSpan = value)
+                        .getWith((obj, fieldName) -> arcSpan)
+                        .setWith((obj, fieldName, value) -> arcSpan = value)
                         .from(30.0)
                         .to(300.0))
                 .setEase(new Spline(0.5f))
@@ -159,9 +159,8 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                     // The fade-in timeline
                     alphaTimeline = SwingComponentTimeline.componentBuilder(this.circularProgress)
                             .addPropertyToInterpolate(Timeline.<Float>property("alpha")
-                                    .getWith((Object obj, String fieldName) -> alpha)
-                                    .setWith((Object obj, String fieldName, Float value)
-                                            -> alpha = value)
+                                    .getWith((obj, fieldName) -> alpha)
+                                    .setWith((obj, fieldName, value) -> alpha = value)
                                     .fromCurrent().to(1.0f))
                             .setEase(new Spline(0.5f))
                             .setDuration(100)

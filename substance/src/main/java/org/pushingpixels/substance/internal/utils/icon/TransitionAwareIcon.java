@@ -59,6 +59,7 @@ public class TransitionAwareIcon implements Icon {
      * 
      * @author Kirill Grouchnikov
      */
+    @FunctionalInterface
     public interface Delegate {
         /**
          * Returns the icon that matches the specified scheme.
@@ -70,10 +71,12 @@ public class TransitionAwareIcon implements Icon {
         ResizableIcon getColorSchemeIcon(SubstanceColorScheme scheme);
     }
 
+    @FunctionalInterface
     public interface ColorSchemeAssociationKindDelegate {
         ColorSchemeAssociationKind getColorSchemeAssociationKind(ComponentState state);
     }
 
+    @FunctionalInterface
     public interface TransitionAwareUIDelegate {
         TransitionAwareUI getTransitionAwareUI();
     }

@@ -71,14 +71,14 @@ this.amEntrySaveAsWord = Command.builder()
         .setText(resourceBundle.getString("AppMenuSaveAs.word.text"))
         .setIconFactory(X_office_document.factory())
         .setExtraText(resourceBundle.getString("AppMenuSaveAs.word.description"))
-        .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as Word"))
+        .setAction(commandActionEvent -> System.out.println("Invoked saved as Word"))
         .build();
 
 this.amEntrySaveAsHtml = Command.builder()
         .setText(resourceBundle.getString("AppMenuSaveAs.html.text"))
         .setIconFactory(Text_html.factory())
         .setExtraText(resourceBundle.getString("AppMenuSaveAs.html.description"))
-        .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as HTML"))
+        .setAction(commandActionEvent -> System.out.println("Invoked saved as HTML"))
         .setActionEnabled(false)
         .build();
 
@@ -86,7 +86,7 @@ this.amEntrySaveAsOtherFormats = Command.builder()
         .setText(resourceBundle.getString("AppMenuSaveAs.other.text"))
         .setIconFactory(Document_save_as.factory())
         .setExtraText(resourceBundle.getString("AppMenuSaveAs.other.description"))
-        .setAction((CommandActionEvent ae) -> System.out.println("Invoked saved as other"))
+        .setAction(commandActionEvent -> System.out.println("Invoked saved as other"))
         .build();
 ```
 
@@ -102,7 +102,7 @@ CommandMenuContentModel saveAsMenu = new CommandMenuContentModel(
 this.amEntrySaveAs = Command.builder()
         .setText(resourceBundle.getString("AppMenuSaveAs.text"))
         .setIconFactory(Document_save_as.factory())
-        .setAction((CommandActionEvent ae) ->
+        .setAction(commandActionEvent ->
                 System.out.println("Invoked saving document as"))
         .setSecondaryContentModel(saveAsMenu)
         .build();
@@ -125,7 +125,7 @@ You can also place one or more command projections in the footer area of the rib
 this.amFooterProps = Command.builder()
         .setText(resourceBundle.getString("AppMenuOptions.text"))
         .setIconFactory(Document_properties.factory())
-        .setAction((CommandActionEvent ae) -> System.out.println("Invoked Options"))
+        .setAction(commandActionEvent -> System.out.println("Invoked Options"))
         .build();
 
 applicationMenu.addFooterCommand(this.amFooterProps);

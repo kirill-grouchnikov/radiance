@@ -95,11 +95,11 @@ Let's take a look at how the "bold" styling is done. First, we create the comman
 // Bold style command
 Command commandBold = Command.builder()
         .setIconFactory(Format_text_bold.factory())
-        .setAction((CommandActionEvent event) -> {
+        .setAction(commandActionEvent -> {
              // toggle bold in current selection
              toggleStyleInSelection(textPane, StyleConstants.CharacterConstants.Bold);
              // and update command selection state based on the presence of bold
-             event.getCommand().setToggleSelected(
+             commandActionEvent.getCommand().setToggleSelected(
                  hasStyleInSelection(textPane,
                          StyleConstants.CharacterConstants.Bold));
         })

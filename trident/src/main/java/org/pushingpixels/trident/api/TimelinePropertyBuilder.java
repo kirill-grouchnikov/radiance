@@ -44,6 +44,7 @@ public class TimelinePropertyBuilder<T> {
     /**
      * Defines how to set a property.
      */
+    @FunctionalInterface
     public interface PropertySetter<T> {
         void set(Object obj, String fieldName, T value);
     }
@@ -51,6 +52,7 @@ public class TimelinePropertyBuilder<T> {
     /**
      * Defines how to get a property.
      */
+    @FunctionalInterface
     public interface PropertyGetter<T> {
         T get(Object obj, String fieldName);
     }

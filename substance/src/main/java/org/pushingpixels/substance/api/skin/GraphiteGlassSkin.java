@@ -70,8 +70,7 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
 				ColorSchemeSingleColorQuery.MID);
 		TopLineOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getForegroundColor(), 32));
+				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
 		this.addOverlayPainter(menuOverlayPainter, DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 

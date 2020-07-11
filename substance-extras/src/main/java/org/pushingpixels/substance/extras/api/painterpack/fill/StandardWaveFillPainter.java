@@ -45,7 +45,7 @@ public class StandardWaveFillPainter extends WaveDelegateFillPainter {
      * Creates a new gradient painter.
      */
     public StandardWaveFillPainter() {
-        super("Standard Wave", (SubstanceColorScheme scheme) -> new HueShiftColorScheme(
+        super("Standard Wave", scheme -> new HueShiftColorScheme(
                 new TintColorScheme(scheme, 0.15), 0.05), new StandardFillPainter());
     }
 }

@@ -50,215 +50,214 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 /**
  * <code>Office Silver 2007</code> skin. This class is part of officially
  * supported API.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class OfficeSilver2007Skin extends SubstanceSkin {
-	/**
-	 * Display name for <code>this</code> skin.
-	 */
-	public static final String NAME = "Office Silver 2007";
+    /**
+     * Display name for <code>this</code> skin.
+     */
+    public static final String NAME = "Office Silver 2007";
 
-	/**
-	 * Creates a new <code>Office Silver 2007</code> skin.
-	 */
-	public OfficeSilver2007Skin() {
-		ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
-				this.getClass().getClassLoader().getResourceAsStream(
-						"org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes"));
+    /**
+     * Creates a new <code>Office Silver 2007</code> skin.
+     */
+    public OfficeSilver2007Skin() {
+        ColorSchemes colorSchemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes"));
 
-		SubstanceColorScheme activeScheme = colorSchemes
-				.get("Office Silver Active");
-		SubstanceColorScheme enabledScheme = colorSchemes
-				.get("Office Silver Enabled");
+        SubstanceColorScheme activeScheme = colorSchemes
+                .get("Office Silver Active");
+        SubstanceColorScheme enabledScheme = colorSchemes
+                .get("Office Silver Enabled");
 
-		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-				activeScheme, enabledScheme, enabledScheme);
-		defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
+        SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+                activeScheme, enabledScheme, enabledScheme);
+        defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
-		SubstanceColorScheme rolloverScheme = colorSchemes
-				.get("Office Silver Rollover");
-		SubstanceColorScheme rolloverSelectedScheme = colorSchemes
-				.get("Office Silver Rollover Selected");
-		SubstanceColorScheme selectedScheme = colorSchemes
-				.get("Office Silver Selected");
-		SubstanceColorScheme pressedScheme = colorSchemes
-				.get("Office Silver Pressed");
-		SubstanceColorScheme pressedSelectedScheme = colorSchemes
-				.get("Office Silver Pressed Selected");
+        SubstanceColorScheme rolloverScheme = colorSchemes
+                .get("Office Silver Rollover");
+        SubstanceColorScheme rolloverSelectedScheme = colorSchemes
+                .get("Office Silver Rollover Selected");
+        SubstanceColorScheme selectedScheme = colorSchemes
+                .get("Office Silver Selected");
+        SubstanceColorScheme pressedScheme = colorSchemes
+                .get("Office Silver Pressed");
+        SubstanceColorScheme pressedSelectedScheme = colorSchemes
+                .get("Office Silver Pressed Selected");
 
-		// register state-specific color schemes on rollovers and selections
-		defaultSchemeBundle.registerColorScheme(rolloverScheme,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
-				ComponentState.ROLLOVER_SELECTED);
-		defaultSchemeBundle.registerColorScheme(selectedScheme,
-				ComponentState.SELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedScheme,
-				ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
-				ComponentState.PRESSED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(selectedScheme.tone(0.2f),
-				ComponentState.DISABLED_SELECTED);
+        // register state-specific color schemes on rollovers and selections
+        defaultSchemeBundle.registerColorScheme(rolloverScheme,
+                ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
+                ComponentState.ROLLOVER_SELECTED);
+        defaultSchemeBundle.registerColorScheme(selectedScheme,
+                ComponentState.SELECTED);
+        defaultSchemeBundle.registerColorScheme(pressedScheme,
+                ComponentState.PRESSED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
+                ComponentState.PRESSED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(selectedScheme.tone(0.2f),
+                ComponentState.DISABLED_SELECTED);
 
-		// register state-specific highlight color schemes on rollover and
-		// selections
-		defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED,
-				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
-				ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, ComponentState.SELECTED,
-				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
+        // register state-specific highlight color schemes on rollover and
+        // selections
+        defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
+                ComponentState.ROLLOVER_ARMED);
+        defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, ComponentState.SELECTED,
+                ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+        defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
 
-		// borders and marks
-		SubstanceColorScheme borderEnabledScheme = colorSchemes
-				.get("Office Silver Border Enabled");
-		SubstanceColorScheme borderActiveScheme = colorSchemes
-				.get("Office Silver Border Active");
-		SubstanceColorScheme borderRolloverScheme = colorSchemes
-				.get("Office Border Rollover");
-		SubstanceColorScheme borderRolloverSelectedScheme = colorSchemes
-				.get("Office Border Rollover Selected");
-		SubstanceColorScheme borderSelectedScheme = colorSchemes
-				.get("Office Border Selected");
-		SubstanceColorScheme borderPressedScheme = colorSchemes
-				.get("Office Border Pressed");
+        // borders and marks
+        SubstanceColorScheme borderEnabledScheme = colorSchemes
+                .get("Office Silver Border Enabled");
+        SubstanceColorScheme borderActiveScheme = colorSchemes
+                .get("Office Silver Border Active");
+        SubstanceColorScheme borderRolloverScheme = colorSchemes
+                .get("Office Border Rollover");
+        SubstanceColorScheme borderRolloverSelectedScheme = colorSchemes
+                .get("Office Border Rollover Selected");
+        SubstanceColorScheme borderSelectedScheme = colorSchemes
+                .get("Office Border Selected");
+        SubstanceColorScheme borderPressedScheme = colorSchemes
+                .get("Office Border Pressed");
 
-		defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-		defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
-				ColorSchemeAssociationKind.BORDER,
-				ComponentState.DISABLED_SELECTED,
-				ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(borderActiveScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.DEFAULT);
-		defaultSchemeBundle.registerColorScheme(borderRolloverScheme,
-				ColorSchemeAssociationKind.BORDER,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(borderRolloverSelectedScheme,
-				ColorSchemeAssociationKind.BORDER,
-				ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
-				ComponentState.ROLLOVER_ARMED);
-		defaultSchemeBundle.registerColorScheme(borderSelectedScheme,
-				ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
-		defaultSchemeBundle.registerColorScheme(borderPressedScheme,
-				ColorSchemeAssociationKind.BORDER,
-				ComponentState.PRESSED_SELECTED,
-				ComponentState.PRESSED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
+                ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
+        defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
+                ColorSchemeAssociationKind.BORDER,
+                ComponentState.DISABLED_SELECTED,
+                ComponentState.DISABLED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(borderActiveScheme,
+                ColorSchemeAssociationKind.BORDER, ComponentState.DEFAULT);
+        defaultSchemeBundle.registerColorScheme(borderRolloverScheme,
+                ColorSchemeAssociationKind.BORDER,
+                ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(borderRolloverSelectedScheme,
+                ColorSchemeAssociationKind.BORDER,
+                ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
+                ComponentState.ROLLOVER_ARMED);
+        defaultSchemeBundle.registerColorScheme(borderSelectedScheme,
+                ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
+        defaultSchemeBundle.registerColorScheme(borderPressedScheme,
+                ColorSchemeAssociationKind.BORDER,
+                ComponentState.PRESSED_SELECTED,
+                ComponentState.PRESSED_UNSELECTED);
 
-		SubstanceColorScheme markEnabledScheme = colorSchemes
-				.get("Office Silver Mark Enabled");
-		defaultSchemeBundle.registerColorScheme(markEnabledScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.ENABLED);
-		defaultSchemeBundle.registerColorScheme(markEnabledScheme,
-				ColorSchemeAssociationKind.MARK,
-				ComponentState.DISABLED_SELECTED,
-				ComponentState.DISABLED_UNSELECTED);
+        SubstanceColorScheme markEnabledScheme = colorSchemes
+                .get("Office Silver Mark Enabled");
+        defaultSchemeBundle.registerColorScheme(markEnabledScheme,
+                ColorSchemeAssociationKind.MARK, ComponentState.ENABLED);
+        defaultSchemeBundle.registerColorScheme(markEnabledScheme,
+                ColorSchemeAssociationKind.MARK,
+                ComponentState.DISABLED_SELECTED,
+                ComponentState.DISABLED_UNSELECTED);
 
-		registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-				DecorationAreaType.NONE);
+        registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+                DecorationAreaType.NONE);
 
-		// tabs and tab borders
-		SubstanceColorScheme tabSelectedScheme = colorSchemes
-				.get("Office Silver Tab Selected");
-		SubstanceColorScheme tabRolloverScheme = colorSchemes
-				.get("Office Silver Tab Rollover");
-		defaultSchemeBundle.registerColorScheme(tabSelectedScheme,
-				ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
-				ComponentState.ROLLOVER_SELECTED,
-				ComponentState.PRESSED_SELECTED,
-				ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(tabRolloverScheme,
-				ColorSchemeAssociationKind.TAB,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
-				ColorSchemeAssociationKind.TAB_BORDER, ComponentState.SELECTED,
-				ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
-				ColorSchemeAssociationKind.TAB_BORDER,
-				ComponentState.ROLLOVER_SELECTED);
+        // tabs and tab borders
+        SubstanceColorScheme tabSelectedScheme = colorSchemes
+                .get("Office Silver Tab Selected");
+        SubstanceColorScheme tabRolloverScheme = colorSchemes
+                .get("Office Silver Tab Rollover");
+        defaultSchemeBundle.registerColorScheme(tabSelectedScheme,
+                ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
+                ComponentState.ROLLOVER_SELECTED,
+                ComponentState.PRESSED_SELECTED,
+                ComponentState.PRESSED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(tabRolloverScheme,
+                ColorSchemeAssociationKind.TAB,
+                ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
+                ColorSchemeAssociationKind.TAB_BORDER, ComponentState.SELECTED,
+                ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(rolloverSelectedScheme,
+                ColorSchemeAssociationKind.TAB_BORDER,
+                ComponentState.ROLLOVER_SELECTED);
 
-		// separator
-		SubstanceColorScheme separatorScheme = colorSchemes
-				.get("Office Silver Separator");
-		defaultSchemeBundle.registerColorScheme(separatorScheme,
-				ColorSchemeAssociationKind.SEPARATOR);
+        // separator
+        SubstanceColorScheme separatorScheme = colorSchemes
+                .get("Office Silver Separator");
+        defaultSchemeBundle.registerColorScheme(separatorScheme,
+                ColorSchemeAssociationKind.SEPARATOR);
 
-		defaultSchemeBundle.registerColorScheme(selectedScheme,
-				ColorSchemeAssociationKind.MARK, 
-				ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
-				ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(selectedScheme,
+                ColorSchemeAssociationKind.MARK,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(pressedScheme,
+                ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
+                ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_SELECTED);
 
-		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
-				DecorationAreaType.NONE);
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+                DecorationAreaType.NONE);
 
-		SubstanceColorScheme generalWatermarkScheme = colorSchemes.get("Office Silver Header Watermark");
+        SubstanceColorScheme generalWatermarkScheme = colorSchemes.get("Office Silver Header Watermark");
 
-		this.registerAsDecorationArea(generalWatermarkScheme,
-				DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
-				DecorationAreaType.TOOLBAR);
+        this.registerAsDecorationArea(generalWatermarkScheme,
+                DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
+                DecorationAreaType.TOOLBAR);
 
-		SubstanceColorScheme titleWatermarkScheme = colorSchemes
-				.get("Office Silver Title Watermark");
+        SubstanceColorScheme titleWatermarkScheme = colorSchemes
+                .get("Office Silver Title Watermark");
 
-		this.registerAsDecorationArea(titleWatermarkScheme,
-				DecorationAreaType.GENERAL,
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.SECONDARY_TITLE_PANE);
+        this.registerAsDecorationArea(titleWatermarkScheme,
+                DecorationAreaType.GENERAL,
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE);
 
-		setTabFadeStart(0.6);
-		setTabFadeEnd(0.9);
+        setTabFadeStart(0.6);
+        setTabFadeEnd(0.9);
 
-		this.addOverlayPainter(new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-						scheme.getForegroundColor(), 72)), 
-				DecorationAreaType.PRIMARY_TITLE_PANE,
-				DecorationAreaType.SECONDARY_TITLE_PANE);
+        this.addOverlayPainter(new BottomLineOverlayPainter(
+                        scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 72)),
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE);
 
-		this.buttonShaper = new ClassicButtonShaper();
+        this.buttonShaper = new ClassicButtonShaper();
 
-		this.fillPainter = new FractionBasedFillPainter("Office Silver 2007",
-				new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },
-				new ColorSchemeSingleColorQuery[] {
-						ColorSchemeSingleColorQuery.ULTRALIGHT,
-						ColorSchemeSingleColorQuery.LIGHT,
-						ColorSchemeSingleColorQuery.ULTRADARK,
-						ColorSchemeSingleColorQuery.EXTRALIGHT });
+        this.fillPainter = new FractionBasedFillPainter("Office Silver 2007",
+                new float[] {0.0f, 0.49999f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {
+                        ColorSchemeSingleColorQuery.ULTRALIGHT,
+                        ColorSchemeSingleColorQuery.LIGHT,
+                        ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorSchemeSingleColorQuery.EXTRALIGHT});
 
-		FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
-				"Office Silver 2007 Outer", new float[] { 0.0f, 0.5f, 1.0f },
-				new ColorSchemeSingleColorQuery[] {
-						ColorSchemeSingleColorQuery.LIGHT,
-						ColorSchemeSingleColorQuery.ULTRADARK,
-						ColorSchemeSingleColorQuery.MID });
-		SubstanceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
-				"Office Silver 2007 Inner", outerBorderPainter, 
-				new int[] { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF },
-				(SubstanceColorScheme scheme) -> scheme.tint(0.8f));
-		this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
-				outerBorderPainter, innerBorderPainter);
+        FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
+                "Office Silver 2007 Outer", new float[] {0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {
+                        ColorSchemeSingleColorQuery.LIGHT,
+                        ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorSchemeSingleColorQuery.MID});
+        SubstanceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
+                "Office Silver 2007 Inner", outerBorderPainter,
+                new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+                scheme -> scheme.tint(0.8f));
+        this.borderPainter = new CompositeBorderPainter("Office Silver 2007",
+                outerBorderPainter, innerBorderPainter);
 
-		this.decorationPainter = new FractionBasedDecorationPainter(
-				"Office Silver 2007", new float[] { 0.0f, 0.2499999f, 0.25f,
-						0.3f, 0.7f, 1.0f }, new ColorSchemeSingleColorQuery[] {
-						ColorSchemeSingleColorQuery.ULTRALIGHT,
-						ColorSchemeSingleColorQuery.EXTRALIGHT,
-						ColorSchemeSingleColorQuery.DARK,
-						ColorSchemeSingleColorQuery.MID,
-						ColorSchemeSingleColorQuery.LIGHT,
-						ColorSchemeSingleColorQuery.ULTRALIGHT });
+        this.decorationPainter = new FractionBasedDecorationPainter(
+                "Office Silver 2007", new float[] {0.0f, 0.2499999f, 0.25f,
+                0.3f, 0.7f, 1.0f}, new ColorSchemeSingleColorQuery[] {
+                ColorSchemeSingleColorQuery.ULTRALIGHT,
+                ColorSchemeSingleColorQuery.EXTRALIGHT,
+                ColorSchemeSingleColorQuery.DARK,
+                ColorSchemeSingleColorQuery.MID,
+                ColorSchemeSingleColorQuery.LIGHT,
+                ColorSchemeSingleColorQuery.ULTRALIGHT});
 
-		this.highlightPainter = new ClassicHighlightPainter();
-	}
+        this.highlightPainter = new ClassicHighlightPainter();
+    }
 
-	@Override
-	public String getDisplayName() {
-		return NAME;
-	}
+    @Override
+    public String getDisplayName() {
+        return NAME;
+    }
 }

@@ -589,7 +589,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                             ribbonApplicationMenuProjection.getCommandOverlays());
                     menuPanelProjection.setSecondaryLevelCommandPresentationState(
                             ribbonApplicationMenuProjection.getSecondaryLevelCommandPresentationState());
-                    this.setPopupCallback((JCommandButton commandButton) -> menuPanelProjection.buildComponent());
+                    this.setPopupCallback(commandButton -> menuPanelProjection.buildComponent());
                 } else if (popupMenuContentModel != null) {
                     CommandButtonProjection<? extends Command> commandProjection =
                             (CommandButtonProjection<? extends Command>) this.projection;
@@ -611,7 +611,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                         commandPopupMenuProjection.setComponentCustomizer(
                                 (Projection.ComponentCustomizer<JCommandPopupMenu>) commandProjection.getPopupMenuCustomizer());
                     }
-                    this.setPopupCallback((JCommandButton commandButton) -> commandPopupMenuProjection.buildComponent());
+                    this.setPopupCallback(commandButton -> commandPopupMenuProjection.buildComponent());
                 }
             }
             this.setPopupRichTooltip(command.getSecondaryRichTooltip());

@@ -72,7 +72,7 @@ public class TestCommandButtonsAlignment extends JFrame {
                 .setText(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("Paste.textExtra"))
-                .setAction((CommandActionEvent e) -> System.out.println(stamp() + ": Main paste"))
+                .setAction(commandActionEvent -> System.out.println(stamp() + ": Main paste"))
                 .build();
 
         FormBuilder builder = FormBuilder.create().

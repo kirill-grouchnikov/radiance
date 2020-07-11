@@ -20,14 +20,14 @@ public CommandMenuContentModel getContextualMenuContentModel(
         componentCommand = Command.builder()
                 .setText(resourceBundle.getString(
                         "ContextMenu.removeFromTaskbar"))
-                .setAction((CommandActionEvent event) ->
+                .setAction(commandActionEvent ->
                         getRibbon().removeTaskbarComponent(
                                 componentProjection.getContentModel()))
                 .build();
     } else {
         componentCommand = Command.builder()
                 .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                .setAction((CommandActionEvent event) ->
+                .setAction(commandActionEvent ->
                         getRibbon().addTaskbarComponent(componentProjection))
                 .build();
     }
@@ -47,19 +47,19 @@ private CommandMenuContentModel build(Command... commands) {
     if (getRibbon().isMinimized()) {
         commandGroup.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ContextMenu.showRibbon"))
-                .setAction((CommandActionEvent event) ->
+                .setAction(commandActionEvent ->
                         getRibbon().setMinimized(false))
                 .build());
     } else {
         commandGroup.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ContextMenu.hideRibbon"))
-                .setAction((CommandActionEvent event) ->
+                .setAction(commandActionEvent ->
                         getRibbon().setMinimized(true))
                 .build());
     }
     commandGroup.addCommand(Command.builder()
             .setText(resourceBundle.getString("ContextMenu.configureRibbon"))
-            .setAction((CommandActionEvent event) ->
+            .setAction(commandActionEvent ->
                     JOptionPane.showMessageDialog(BasicCheckRibbon.this,
                             "Configure ribbon option selected"))
             .build());

@@ -171,7 +171,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                                 .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                                 .build());
         expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
-        expandCommandProjection.setComponentCustomizer((JCommandButton button) -> {
+        expandCommandProjection.setComponentCustomizer(button -> {
             // since paintBandTitleBackground uses GENERAL, mark this button with
             // GENERAL as well to sync the mark color
             ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);
@@ -199,7 +199,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (SubstanceColorScheme scheme, int width, int height) -> {
+                (scheme, width, height) -> {
                     Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.GENERAL);
                     return SubstanceImageCreator.getDoubleArrowIcon(
                             width, height,

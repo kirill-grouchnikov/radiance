@@ -266,8 +266,7 @@ public class MagellanSkin extends SubstanceSkin {
         // add an overlay painter to paint a light line along the top
         // edge of toolbars
         this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-                (SubstanceColorScheme scheme) -> SubstanceColorUtilities.getAlphaColor(
-                        scheme.getForegroundColor(), 40));
+                scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 40));
         this.addOverlayPainter(this.toolbarTopLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
@@ -287,7 +286,7 @@ public class MagellanSkin extends SubstanceSkin {
         SubstanceBorderPainter innerBorderPainter = new DelegateBorderPainter(
                 "Magellan Inner", new ClassicBorderPainter(),
                 0xA0FFFFFF, 0x60FFFFFF, 0x40FFFFFF,
-                (SubstanceColorScheme scheme) -> scheme.tint(0.5f));
+                scheme -> scheme.tint(0.5f));
         this.borderPainter = new CompositeBorderPainter("Magellan",
                 outerBorderPainter, innerBorderPainter);
         this.fillPainter = new FractionBasedFillPainter("Magellan",

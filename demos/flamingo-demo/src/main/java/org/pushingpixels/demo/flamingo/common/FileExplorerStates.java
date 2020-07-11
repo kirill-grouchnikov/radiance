@@ -64,7 +64,7 @@ public class FileExplorerStates extends JFrame {
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
 
         this.bar.getModel().addPathListener(
-                (BreadcrumbPathEvent<File> event) -> SwingUtilities.invokeLater(() -> {
+                event -> SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
                     if (newPath.size() > 0) {
                         SwingWorker<List<StringValuePair<File>>, Void> worker =

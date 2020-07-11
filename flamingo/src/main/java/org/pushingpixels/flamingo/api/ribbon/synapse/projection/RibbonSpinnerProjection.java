@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 
-import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonSpinner;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentModel;
@@ -37,15 +36,9 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentM
 public class RibbonSpinnerProjection extends ComponentProjection<JRibbonSpinner,
         RibbonSpinnerContentModel> {
 
-    @SuppressWarnings("unchecked")
-    private static ComponentSupplier<JRibbonSpinner,
-            RibbonSpinnerContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JRibbonSpinner, RibbonSpinnerContentModel,
-                    ComponentPresentationModel> projection) -> JRibbonSpinner::new;
-
     public RibbonSpinnerProjection(RibbonSpinnerContentModel contentModel,
             ComponentPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
+        super(contentModel, presentationModel, projection -> JRibbonSpinner::new);
     }
 
     @Override

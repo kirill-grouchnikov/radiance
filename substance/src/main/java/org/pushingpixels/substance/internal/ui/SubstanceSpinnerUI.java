@@ -101,7 +101,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		this.nextButton.setFont(this.spinner.getFont());
 		this.nextButton.setName("Spinner.nextButton");
 
-		Icon icon = new TransitionAwareIcon(this.nextButton, (SubstanceColorScheme scheme) -> {
+		Icon icon = new TransitionAwareIcon(this.nextButton, scheme -> {
 			int fontSize = SubstanceSizeUtils.getComponentFontSize(nextButton);
 			return SubstanceImageCreator.getArrowIcon(
 					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
@@ -131,7 +131,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 		this.prevButton.setFont(this.spinner.getFont());
 		this.prevButton.setName("Spinner.previousButton");
 
-		Icon icon = new TransitionAwareIcon(this.prevButton, (SubstanceColorScheme scheme) -> {
+		Icon icon = new TransitionAwareIcon(this.prevButton, scheme -> {
 			int fontSize = SubstanceSizeUtils.getComponentFontSize(prevButton);
 			float spinnerArrowIconHeight = SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize);
 			return SubstanceImageCreator.getArrowIcon(

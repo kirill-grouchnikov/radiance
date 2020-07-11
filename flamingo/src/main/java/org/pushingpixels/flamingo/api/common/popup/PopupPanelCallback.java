@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
  * @author Kirill Grouchnikov
  * @see JCommandButton#setPopupCallback(PopupPanelCallback)
  */
+@FunctionalInterface
 public interface PopupPanelCallback {
 	/**
 	 * Returns the popup panel to be shown when the popup area of the specified

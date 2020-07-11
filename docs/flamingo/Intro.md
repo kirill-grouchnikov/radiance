@@ -44,7 +44,7 @@ Then we construct a `CommandButtonPresentationModel` which is a presentation mod
 
 Then, we combine them together by calling `Command.project(CommandButtonPresentationModel)` that gives us a `CommandButtonProjection`.
 
-And finally, we call `CommandButtonProjection.buildComponent()` that gives us an `JCommandButton` - a Swing component that can be added to the component hierarchy of our application.
+And finally, we call `CommandButtonProjection.buildComponent()` that gives us a `JCommandButton` - a Swing component that can be added to the component hierarchy of our application.
 
 ### Next
 

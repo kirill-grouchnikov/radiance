@@ -115,7 +115,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                             .addPropertyToInterpolate(Timeline.<Integer>property("displayedValue")
                                     .from(displayedValue)
                                     .to(currValue)
-                                    .setWith((Object obj, String fieldName, Integer value) -> {
+                                    .setWith((obj, fieldName, value) -> {
                                         displayedValue = value;
                                         if (progressBar != null) {
                                             progressBar.repaint();
@@ -542,8 +542,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                                 Timeline.<Float>property("animationPosition")
                                         .from(0.0f)
                                         .to(1.0f)
-                                        .setWith((Object obj, String fieldName, Float value) ->
-                                                animationPosition = value))
+                                        .setWith((obj, fieldName, value) -> animationPosition = value))
                         .build();
 
         this.indeterminateLoopTimeline.playLoop(RepeatBehavior.LOOP);

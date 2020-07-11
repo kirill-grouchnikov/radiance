@@ -36,5 +36,4 @@ package org.pushingpixels.substance.api.tabbed;
  * @author Kirill Grouchnikov
  */
 public interface BaseTabCloseListener {
-
 }

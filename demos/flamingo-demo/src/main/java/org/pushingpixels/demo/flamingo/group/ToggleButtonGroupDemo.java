@@ -97,32 +97,28 @@ public class ToggleButtonGroupDemo {
             // Align left command
             Command commandAlignLeft = Command.builder()
                     .setIconFactory(Format_justify_left.factory())
-                    .setAction((CommandActionEvent event) ->
-                            setAlignment(textPane, StyleConstants.ALIGN_LEFT))
+                    .setAction(commandActionEvent -> setAlignment(textPane, StyleConstants.ALIGN_LEFT))
                     .inToggleGroupAsSelected(justifyToggleGroup)
                     .build();
 
             // Align center command
             Command commandAlignCenter = Command.builder()
                     .setIconFactory(Format_justify_center.factory())
-                    .setAction((CommandActionEvent event) ->
-                            setAlignment(textPane, StyleConstants.ALIGN_CENTER))
+                    .setAction(commandActionEvent -> setAlignment(textPane, StyleConstants.ALIGN_CENTER))
                     .inToggleGroup(justifyToggleGroup)
                     .build();
 
             // Align right command
             Command commandAlignRight = Command.builder()
                     .setIconFactory(Format_justify_right.factory())
-                    .setAction((CommandActionEvent event) ->
-                            setAlignment(textPane, StyleConstants.ALIGN_RIGHT))
+                    .setAction(commandActionEvent -> setAlignment(textPane, StyleConstants.ALIGN_RIGHT))
                     .inToggleGroup(justifyToggleGroup)
                     .build();
 
             // Align fill command
             Command commandAlignFill = Command.builder()
                     .setIconFactory(Format_justify_fill.factory())
-                    .setAction((CommandActionEvent event) ->
-                            setAlignment(textPane, StyleConstants.ALIGN_JUSTIFIED))
+                    .setAction(commandActionEvent -> setAlignment(textPane, StyleConstants.ALIGN_JUSTIFIED))
                     .inToggleGroup(justifyToggleGroup)
                     .build();
 

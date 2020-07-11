@@ -68,6 +68,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      *
      * @author Kirill Grouchnikov
      */
+    @FunctionalInterface
     public interface Delegate {
         /**
          * Returns the icon that matches the specified theme.

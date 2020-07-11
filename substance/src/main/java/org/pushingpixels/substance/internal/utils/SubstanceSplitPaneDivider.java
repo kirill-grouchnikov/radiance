@@ -51,7 +51,7 @@ import java.util.Map;
 
 /**
  * Split pane divider in <code>Substance</code> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements TransitionAwareUI {
@@ -106,9 +106,8 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     /**
      * Simple constructor.
-     * 
-     * @param ui
-     *            Associated UI.
+     *
+     * @param ui Associated UI.
      */
     public SubstanceSplitPaneDivider(SubstanceSplitPaneUI ui) {
         super(ui);
@@ -271,7 +270,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
     protected JButton createLeftOneTouchButton() {
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
-                (SubstanceColorScheme scheme) -> {
+                scheme -> {
                     int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -280,7 +279,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                             SwingConstants.NORTH, scheme);
                 }, "substance.splitPane.left.vertical");
         Icon horizontalSplit = new TransitionAwareIcon(oneTouchButton,
-                (SubstanceColorScheme scheme) -> {
+                scheme -> {
                     int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -305,7 +304,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
     protected JButton createRightOneTouchButton() {
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
-                (SubstanceColorScheme scheme) -> {
+                scheme -> {
                     int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -314,7 +313,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                             SwingConstants.SOUTH, scheme);
                 }, "substance.splitPane.right.vertical");
         Icon horizontalSplit = new TransitionAwareIcon(oneTouchButton,
-                (SubstanceColorScheme scheme) -> {
+                scheme -> {
                     int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -338,15 +337,14 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     /**
      * Updates the one-touch buttons.
-     * 
-     * @param orientation
-     *            Split pane orientation.
+     *
+     * @param orientation Split pane orientation.
      */
     public void updateOneTouchButtons(int orientation) {
         if (orientation == JSplitPane.VERTICAL_SPLIT) {
             if (this.leftButton != null) {
                 this.leftButton.setIcon(
-                        new TransitionAwareIcon(this.leftButton, (SubstanceColorScheme scheme) -> {
+                        new TransitionAwareIcon(this.leftButton, scheme -> {
                             int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -357,7 +355,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
             }
             if (this.rightButton != null) {
                 this.rightButton.setIcon(
-                        new TransitionAwareIcon(this.rightButton, (SubstanceColorScheme scheme) -> {
+                        new TransitionAwareIcon(this.rightButton, scheme -> {
                             int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -369,7 +367,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
         } else {
             if (this.leftButton != null) {
                 this.leftButton.setIcon(
-                        new TransitionAwareIcon(this.leftButton, (SubstanceColorScheme scheme) -> {
+                        new TransitionAwareIcon(this.leftButton, scheme -> {
                             int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -380,7 +378,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
             }
             if (this.rightButton != null) {
                 this.rightButton.setIcon(
-                        new TransitionAwareIcon(this.rightButton, (SubstanceColorScheme scheme) -> {
+                        new TransitionAwareIcon(this.rightButton, scheme -> {
                             int fontSize = SubstanceSizeUtils.getComponentFontSize(splitPane);
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
@@ -405,7 +403,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     /**
      * Layout manager for the split pane divider.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class SubstanceDividerLayout extends DividerLayout {

@@ -123,12 +123,7 @@ public class SeaGlassSkin extends SubstanceSkin {
 				DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.addOverlayPainter(new BottomLineOverlayPainter(
-				new ColorSchemeSingleColorQuery() {
-					@Override
-					public Color query(SubstanceColorScheme scheme) {
-						return scheme.getDarkColor().darker();
-					}
-				}), DecorationAreaType.PRIMARY_TITLE_PANE);
+				scheme -> scheme.getDarkColor().darker()), DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new FractionBasedFillPainter("Sea Glass",

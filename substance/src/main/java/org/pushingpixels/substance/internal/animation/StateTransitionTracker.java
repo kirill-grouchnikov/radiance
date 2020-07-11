@@ -355,9 +355,8 @@ public class StateTransitionTracker {
                     .get(newState).getContribution();
             transitionTimelineBuilder.addPropertyToInterpolate(
                     Timeline.<Float>property("transitionPosition")
-                            .getWith((Object obj, String fieldName) -> transitionPosition)
-                            .setWith((Object obj, String fieldName, Float value) ->
-                                    transitionPosition = value)
+                            .getWith((obj, fieldName) -> transitionPosition)
+                            .setWith((obj, fieldName, value) -> transitionPosition = value)
                             .from(this.transitionPosition)
                             .to(1.0f));
             transitionTimelineBuilder
@@ -382,9 +381,8 @@ public class StateTransitionTracker {
             this.transitionPosition = 0.0f;
             transitionTimelineBuilder.addPropertyToInterpolate(
                     Timeline.<Float>property("transitionPosition")
-                            .getWith((Object obj, String fieldName) -> transitionPosition)
-                            .setWith((Object obj, String fieldName, Float value) ->
-                                    transitionPosition = value)
+                            .getWith((obj, fieldName) -> transitionPosition)
+                            .setWith((obj, fieldName, value) -> transitionPosition = value)
                             .from(0.0f).to(1.0f));
             // if ((this.component instanceof JMenuItem)
             // && "Check enabled unselected"

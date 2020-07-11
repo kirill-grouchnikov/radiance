@@ -37,5 +37,6 @@ import java.awt.event.ActionListener;
  * 
  * @author Kirill Grouchnikov
  */
+@FunctionalInterface
 public interface PopupActionListener extends ActionListener {
 }

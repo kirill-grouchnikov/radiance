@@ -248,8 +248,7 @@ public class ScrollPaneSelector extends JComponent {
 
         int dimension = UIManager.getInt("ScrollBar.width") - 4;
         this.theButton.setIcon(new TransitionAwareIcon(this.theButton,
-                (SubstanceColorScheme scheme) ->
-                        SubstanceCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
+                scheme -> SubstanceCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
                 "substance.widget.scroll.selector"));
 
         theScrollPane.doLayout();

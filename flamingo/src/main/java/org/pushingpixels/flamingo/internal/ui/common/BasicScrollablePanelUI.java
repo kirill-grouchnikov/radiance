@@ -155,14 +155,14 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         this.scrollablePanel.add(this.viewport);
 
         Command leadingScrollCommand = Command.builder()
-                .setAction((CommandActionEvent e) -> {
+                .setAction(commandActionEvent -> {
                     viewOffset -= 12;
                     syncScrolling();
                 })
                 .build();
 
         Command trailingScrollCommand = Command.builder()
-                .setAction((CommandActionEvent e) -> {
+                .setAction(commandActionEvent -> {
                     viewOffset += 12;
                     syncScrolling();
                 })

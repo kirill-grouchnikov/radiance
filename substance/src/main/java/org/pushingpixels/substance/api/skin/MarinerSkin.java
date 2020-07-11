@@ -192,8 +192,7 @@ public class MarinerSkin extends SubstanceSkin {
 		// add two overlay painters to create a bezel line between
 		// menu bar and toolbars
 		this.menuOverlayPainter = new BottomLineOverlayPainter(
-				(SubstanceColorScheme scheme) -> SubstanceColorUtilities.deriveByBrightness(
-						scheme.getUltraDarkColor(), -0.5f));
+				scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
 		this.addOverlayPainter(this.menuOverlayPainter, DecorationAreaType.HEADER);
 
 		// add overlay painter to paint drop shadows along the bottom

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 
-import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonCheckBox;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
@@ -37,15 +36,9 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContent
 public class RibbonCheckBoxProjection extends ComponentProjection<JRibbonCheckBox,
         RibbonCheckBoxContentModel> {
 
-    @SuppressWarnings("unchecked")
-    private static ComponentSupplier<JRibbonCheckBox,
-            RibbonCheckBoxContentModel, ComponentPresentationModel> DEFAULT_SUPPLIER =
-            (Projection<JRibbonCheckBox, RibbonCheckBoxContentModel,
-                    ComponentPresentationModel> projection) -> JRibbonCheckBox::new;
-
     public RibbonCheckBoxProjection(RibbonCheckBoxContentModel contentModel,
             ComponentPresentationModel presentationModel) {
-        super(contentModel, presentationModel, DEFAULT_SUPPLIER);
+        super(contentModel, presentationModel, projection ->  JRibbonCheckBox::new);
     }
 
     @Override

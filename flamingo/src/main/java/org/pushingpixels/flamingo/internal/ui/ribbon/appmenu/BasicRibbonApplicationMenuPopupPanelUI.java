@@ -182,7 +182,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     if (menuEntry.getSecondaryContentModel() == null) {
                         // if there are no secondary menu items, remove all entries from the
                         // secondary panel
-                        commandButton.addRolloverActionListener((ActionEvent e) -> {
+                        commandButton.addRolloverActionListener(event -> {
                             panelLevel2.removeAll();
                             panelScrollerLevel2.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
@@ -190,7 +190,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             panelLevel2.repaint();
                         });
                     } else {
-                        commandButton.addRolloverActionListener((ActionEvent e) -> {
+                        commandButton.addRolloverActionListener(event -> {
                             // populate the second level panel with secondary level items
                             panelLevel2.removeAll();
                             panelLevel2.setLayout(new BorderLayout());
