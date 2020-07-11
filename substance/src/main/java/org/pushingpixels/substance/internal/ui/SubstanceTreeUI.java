@@ -158,8 +158,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
-		if (SubstanceCoreUtilities.toDrawWatermark(this.tree))
-			this.tree.setOpaque(false);
 
 		if (this.tree.getSelectionPaths() != null) {
 			for (TreePath selectionPath : this.tree.getSelectionPaths()) {
@@ -334,8 +332,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		// SubstanceDefaultTreeCellRenderer
 		JComponent jRenderer = (JComponent) renderer;
 		boolean newOpaque = !this.tree.isRowSelected(row);
-		if (SubstanceCoreUtilities.toDrawWatermark(this.tree))
-			newOpaque = false;
 
 		Map<Component, Boolean> opacity = new HashMap<>();
 		if (!newOpaque)
@@ -431,9 +427,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	protected void installListeners() {
 		super.installListeners();
 		this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-			if (SubstanceSynapse.WATERMARK_VISIBLE.equals(evt.getPropertyName())) {
-				tree.setOpaque(!SubstanceCoreUtilities.toDrawWatermark(tree));
-			}
 			if ("font".equals(evt.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
 					tree.updateUI();
@@ -929,7 +922,6 @@ public class SubstanceTreeUI extends BasicTreeUI {
 
 		// second part - fix for defect 214 (rollover effects on non-opaque
 		// trees resulted in inconsistent behaviour)
-		boolean isWatermarkBleed = SubstanceCoreUtilities.toDrawWatermark(tree) || !tree.isOpaque();
 
 		Graphics2D g2d = (Graphics2D) g.create();
 		NeonCortex.installDesktopHints(g2d, c.getFont());
@@ -957,11 +949,11 @@ public class SubstanceTreeUI extends BasicTreeUI {
 					bounds = treeState.getBounds(path, boundsBuffer);
 					bounds.x += insets.left;
 					bounds.y += insets.top;
-					if (!isWatermarkBleed) {
+					if (tree.isOpaque()) {
 						g2d.setColor(background);
 						g2d.fillRect(paintBounds.x, bounds.y, paintBounds.width, bounds.height);
 					} else {
-						BackgroundPaintingUtils.fillAndWatermark(g2d, this.tree, background,
+						BackgroundPaintingUtils.fillBackground(g2d, this.tree, background,
 								new Rectangle(paintBounds.x, bounds.y, paintBounds.width,
 										bounds.height));
 					}

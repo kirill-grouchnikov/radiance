@@ -231,7 +231,7 @@ and this is how it looks like:
 
 <img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/creme1.png" width="340" height="258">
 
-All the other settings (watermark, painters, watermark color scheme) are set in the skin constructor. Here is sample code from the [Office Silver 2007 skin](toneddown.md#office-silver-2007):
+All the other settings (painters, additional color schemes) are set in the skin constructor. Here is sample code from the [Office Silver 2007 skin](toneddown.md#office-silver-2007):
 
 ```java
 this.buttonShaper = new ClassicButtonShaper();

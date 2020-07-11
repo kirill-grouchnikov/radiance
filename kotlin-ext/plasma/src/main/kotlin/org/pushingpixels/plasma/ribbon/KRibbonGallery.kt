@@ -35,13 +35,13 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
-import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KCommand
 import org.pushingpixels.plasma.KCommandGroup
 import org.pushingpixels.plasma.NullableDelegate
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class GalleryCommandVisibilityContainer {
     internal val policies = arrayListOf<Pair<Int, PresentationPriority>>()
 
@@ -50,7 +50,7 @@ class GalleryCommandVisibilityContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonGalleryPresentation {
     var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
@@ -76,7 +76,7 @@ class KRibbonGalleryPresentation {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonGalleryContent {
     private var hasBeenConverted: Boolean = false
     private lateinit var javaRibbonGalleryContentModel: RibbonGalleryContentModel
@@ -170,7 +170,7 @@ class KRibbonGalleryContent {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonGallery {
     var content: KRibbonGalleryContent = KRibbonGalleryContent()
     internal val presentation: KRibbonGalleryPresentation = KRibbonGalleryPresentation()

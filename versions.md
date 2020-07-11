@@ -11,4 +11,4 @@
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
 </p>
 
-Information about pre-Radiance releases can be [found here](archive/older-releases.md).
+Information about pre-Radiance releases of individual libraries can be [found here](archive/older-releases.md).

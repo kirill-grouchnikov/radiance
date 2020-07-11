@@ -33,7 +33,9 @@ import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle
 import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
-import org.pushingpixels.substance.api.colorscheme.*
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery
+import org.pushingpixels.substance.api.colorscheme.DarkMetallicColorScheme
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter
@@ -41,7 +43,6 @@ import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
-import org.pushingpixels.substance.api.watermark.SubstanceNullWatermark
 
 /**
  * The default dark skin for the docrobot scripts.
@@ -63,9 +64,6 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER)
-
-        this.watermark = SubstanceNullWatermark()
-        this.watermarkScheme = this.activeControlsAccent.blendWith(DarkMetallicColorScheme(), 0.5)
 
         this.buttonShaper = ClassicButtonShaper()
         this.fillPainter = ClassicFillPainter()

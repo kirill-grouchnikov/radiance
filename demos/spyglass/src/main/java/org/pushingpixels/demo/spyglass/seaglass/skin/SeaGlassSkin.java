@@ -131,7 +131,6 @@ public class SeaGlassSkin extends SubstanceSkin {
 				}), DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
 		this.fillPainter = new FractionBasedFillPainter("Sea Glass",
 				new float[] { 0.0f, 0.49999f, 0.5f, 0.65f, 1.0f },
 				new ColorSchemeSingleColorQuery[] {

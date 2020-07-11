@@ -43,8 +43,6 @@ import java.util.Map;
 public class UpdateOptimizationInfo {
     private JComponent component;
 
-    public boolean toDrawWatermark;
-
     private Map<ComponentState, SubstanceColorScheme> highlightSchemeMap;
 
     private Map<ComponentState, SubstanceColorScheme> highlightBorderSchemeMap;
@@ -64,7 +62,6 @@ public class UpdateOptimizationInfo {
     public UpdateOptimizationInfo(JComponent component) {
         this.component = component;
 
-        this.toDrawWatermark = SubstanceCoreUtilities.toDrawWatermark(this.component);
         this.defaultScheme = SubstanceColorSchemeUtilities.getColorScheme(
                 this.component, ComponentState.ENABLED);
         this.decorationAreaType = ComponentOrParentChainScope.getDecorationType(this.component);

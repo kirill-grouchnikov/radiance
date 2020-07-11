@@ -28,6 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @file:Suppress("NOTHING_TO_INLINE")
+
 package org.pushingpixels.meteor.awt
 
 import java.awt.Color
@@ -93,14 +94,14 @@ inline fun Color.brightness() = Color.RGBtoHSB(this.red, this.green, this.blue, 
 /**
  * Returns a derived color based on the passed alpha.
  */
-inline fun Color.withAlpha(alpha: Int) : Color {
+inline fun Color.withAlpha(alpha: Int): Color {
     return Color(this.red, this.green, this.blue, alpha)
 }
 
 /**
  * Returns a derived color based on the passed brightness factor.
  */
-inline fun Color.deriveByBrightness(brightnessFactor: Double) : Color {
+inline fun Color.deriveByBrightness(brightnessFactor: Double): Color {
     val hsb = Color.RGBtoHSB(this.red, this.green, this.blue, null)
 
     // Brightness factor is in -1.0...1.0 range. Negative values are treated as darkening

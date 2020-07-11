@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerDateCont
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NonNullDelegate
 import org.pushingpixels.plasma.NullableDelegate
@@ -43,7 +43,7 @@ import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
 import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 import java.util.*
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonSpinnerNumberContentModel {
     private val builder = RibbonSpinnerNumberContentModel.builder()
     internal lateinit var javaContentModel: RibbonSpinnerNumberContentModel
@@ -106,7 +106,7 @@ class KRibbonSpinnerNumberContentModel {
 
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonSpinnerNumber {
     internal var content: KRibbonSpinnerNumberContentModel = KRibbonSpinnerNumberContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
@@ -160,7 +160,7 @@ fun KRibbonTaskbar.spinnerNumber(init: KRibbonSpinnerNumber.() -> Unit) {
     this.component(ribbonSpinner.toJavaProjection())
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonSpinnerDateContentModel {
     private val builder = RibbonSpinnerDateContentModel.builder()
     internal lateinit var javaContentModel: RibbonSpinnerDateContentModel
@@ -221,7 +221,7 @@ class KRibbonSpinnerDateContentModel {
 
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonSpinnerDate {
     internal var content: KRibbonSpinnerDateContentModel = KRibbonSpinnerDateContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()

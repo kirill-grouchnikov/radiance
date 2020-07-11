@@ -242,11 +242,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
 
         SubstanceCoreUtilities.stopThreads();
 
-        // fix for defect 109 - memory leak on watermarks
-        if (this.skin.getWatermark() != null) {
-            this.skin.getWatermark().dispose();
-        }
-
         // uninitialize component plugins
         SubstancePluginRepository.getInstance().uninitializeAllComponentPlugins();
 

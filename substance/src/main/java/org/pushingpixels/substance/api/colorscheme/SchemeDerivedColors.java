@@ -41,27 +41,6 @@ import java.awt.*;
  */
 public interface SchemeDerivedColors {
     /**
-     * Returns the watermark stamp color for <code>this</code> scheme.
-     *
-     * @return Watermark stamp color for <code>this</code> scheme.
-     */
-    Color getWatermarkStampColor();
-
-    /**
-     * Returns the watermark light color for <code>this</code> scheme.
-     *
-     * @return Watermark light color for <code>this</code> scheme.
-     */
-    Color getWatermarkLightColor();
-
-    /**
-     * Returns the watermark dark color for <code>this</code> scheme.
-     *
-     * @return Watermark dark color for <code>this</code> scheme.
-     */
-    Color getWatermarkDarkColor();
-
-    /**
      * Returns the line color for <code>this</code> scheme.
      *
      * @return The line color for <code>this</code> scheme.

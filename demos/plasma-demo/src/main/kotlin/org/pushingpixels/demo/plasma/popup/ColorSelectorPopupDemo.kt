@@ -32,6 +32,7 @@ package org.pushingpixels.demo.plasma.popup
 import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.ResizableIcon
@@ -61,7 +62,7 @@ class ColorIcon(private var color: Color) : ResizableIcon {
             it.color = color
             it.fillRect(x, y, w, h)
             val borderThickness = 1.0f / NeonCortex.getScaleFactor().toFloat()
-            it.color = color.darker()
+            it.color = color.deriveByBrightness(-0.4)
             it.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_ROUND)
             it.draw(Rectangle2D.Double(x.toDouble(), y.toDouble(),

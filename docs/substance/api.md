@@ -280,10 +280,6 @@ Specifies whether trees should have should have automatic drag and drop support.
 
 Specifies whether scroll panes should have have auto-scroll support invoked on mouse button click that triggers popups.
 
-`public static void setWatermarkVisible(Boolean watermarkVisible)`
-
-Specifies that watermark should be painted on all components.
-
 `public static void setButtonIgnoreMinimumSize(Boolean buttonIgnoreMinimumSize)`
 
 Specifies whether buttons should ignore the default (minimum) dimension.
@@ -543,10 +539,6 @@ Specifies whether the specific component or its immediate children should not pa
 `public static void setSelectTextOnFocus(JComponent comp, Boolean selectTextOnFocus)`
 
 Specifies whether the contents of the specified text component or its nested children should be selected on focus gain.
-
-`public static void setWatermarkVisible(JComponent comp, Boolean watermarkVisible)`
-
-Specifies that watermark should be painted on the component and its nested children.
 
 `public static void setToolbarButtonCornerRadius(JToolBar toolbar, float toolbarButtonCornerRadius)`
 

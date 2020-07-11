@@ -66,11 +66,8 @@ public class NoiseFactory {
 	public static BufferedImage getNoiseImage(SubstanceColorScheme scheme, int width,
 			int height, double xFactor, double yFactor, boolean hasConstantZ,
 			boolean toBlur) {
-		Color c1 = scheme.getWatermarkDarkColor();
-		// c1 = new Color(255, 0, 0, 0);
-		// System.out.println(c1.getAlpha());
-		// Color c2 = scheme.getWatermarkStampColor();
-		Color c3 = scheme.getWatermarkLightColor();
+		Color c1 = SubstanceColorUtilities.getAlphaColor(scheme.getDarkColor(), 15);
+		Color c3 = scheme.getLightColor();
 
 		// Note that we are starting with non-hi DPI aware image for creating the
 		// source for the noise

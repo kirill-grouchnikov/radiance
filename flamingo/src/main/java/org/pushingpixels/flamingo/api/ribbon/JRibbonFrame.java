@@ -680,16 +680,9 @@ public class JRibbonFrame extends JFrame {
                 CommandButtonProjection<? extends Command> commandButtonProjection =
                         (CommandButtonProjection<? extends Command>) projection;
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                        commandButtonProjection.getContentModel());
+                        commandButtonProjection);
             } else {
-                Command command = (Command) ((JComponent) c).getClientProperty(
-                        FlamingoUtilities.TASKBAR_COMMAND);
-                if (command != null) {
-                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                            command);
-                } else {
-                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
-                }
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
             }
         } else {
             // Special case - popup trigger in a ribbon gallery
@@ -710,8 +703,7 @@ public class JRibbonFrame extends JFrame {
                             (!(c instanceof FlamingoInternalButton))) {
                         menuContentModel =
                                 onShowContextualMenuListener.getContextualMenuContentModel(
-                                        ((AbstractCommandButton) c).getProjection()
-                                                .getContentModel());
+                                        ((AbstractCommandButton) c).getProjection());
                     }
                 }
             }

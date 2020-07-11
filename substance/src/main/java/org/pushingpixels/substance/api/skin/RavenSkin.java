@@ -137,8 +137,6 @@ public class RavenSkin extends SubstanceSkin {
 				DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
 				DecorationAreaType.GENERAL, DecorationAreaType.TOOLBAR);
 
-		this.watermarkScheme = activeScheme.shade(0.4);
-
 		this.setTabFadeStart(0.18);
 		this.setTabFadeEnd(0.18);
 

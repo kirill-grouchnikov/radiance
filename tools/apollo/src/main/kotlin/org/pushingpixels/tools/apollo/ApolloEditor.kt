@@ -114,7 +114,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
         // wire color scheme selection in the list to the
         // color scheme component
         this.colorSchemeList.addTypedDelayedPropertyChangeListener<SubstanceColorScheme?>(
-                JColorSchemeList::selectedColorScheme.name) { event ->
+                JColorSchemeList::selectedColorScheme) { event ->
             val newSelection = event.newValue
             if (newSelection != null) {
                 colorSchemeComp.setContent(newSelection)
@@ -217,8 +217,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
         }
 
         // track modification changes on the scheme list and any scheme in it
-        this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean?>(
-                this.colorSchemeList::isModified.name) { evt ->
+        this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean?>(this.colorSchemeList::isModified) { evt ->
             val isModified = evt.newValue ?: false
 
             // update the close / X button of the main frame
@@ -240,8 +239,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
                 "\t* Drag and drop an image file from local disk or another app",
                 "\t* Drag and drop a URL pointing to an image"))
 
-        imageComp.addTypedDelayedPropertyChangeListener<Color>(
-                JImageComponent::selectedColor.name) { evt ->
+        imageComp.addTypedDelayedPropertyChangeListener<Color>(JImageComponent::selectedColor) { evt ->
             val selectedImageColor = evt.newValue
             val selectedColorComp = colorSchemeComp.selectedColorComponent
             selectedColorComp?.setColor(selectedImageColor, true)
@@ -319,7 +317,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     JDialog.setDefaultLookAndFeelDecorated(true)
     JFrame.setDefaultLookAndFeelDecorated(true)
     SwingUtilities.invokeLater {

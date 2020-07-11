@@ -31,7 +31,7 @@ package org.pushingpixels.plasma
 
 import org.pushingpixels.flamingo.api.common.AbstractCommandButton
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandButton {
     internal val command: KCommand = KCommand()
     internal val presentation: KCommandButtonPresentation = KCommandButtonPresentation()
@@ -56,7 +56,7 @@ fun commandButton(init: KCommandButton.() -> Unit): KCommandButton {
     return commandButton
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KColorSelectorCommandButton {
     internal val command: KColorSelectorCommand = KColorSelectorCommand()
     internal val presentation: KColorSelectorCommandPresentation = KColorSelectorCommandPresentation()

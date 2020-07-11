@@ -18,7 +18,7 @@ Substance uses the following painter types:
 * [Decoration painters](decoration.md)
 * [Overlay painters](overlay.md)
 
-The vast majority of Substance visuals are painted by using these painters (applying the [current watermark](../watermarks.md) if necessary). The links above provide more technical information on how to specify custom painters and how to use them to paint custom components and window areas. Applications that wish to provide consistent appearance under different Substance skins are strongly encouraged to use the published painter APIs, even if it results in tying the application code to Substance.
+The vast majority of Substance visuals are painted by using these painters. The links above provide more technical information on how to specify custom painters and how to use them to paint custom components and window areas. Applications that wish to provide consistent appearance under different Substance skins are strongly encouraged to use the published painter APIs, even if it results in tying the application code to Substance.
 
 ### Painting custom components
 

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
@@ -37,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
     internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
@@ -68,7 +67,7 @@ class KCommandPopupMenuButtonPanel {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandMenu {
     private var hasBeenConverted: Boolean = false
 

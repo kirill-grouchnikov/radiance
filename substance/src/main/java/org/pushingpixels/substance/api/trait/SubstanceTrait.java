@@ -30,11 +30,9 @@
 package org.pushingpixels.substance.api.trait;
 
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 
 /**
- * Base interface for Substance traits, like {@link SubstanceColorScheme},
- * {@link SubstanceWatermark} etc.
+ * Base interface for Substance traits, like {@link SubstanceColorScheme}, etc.
  * 
  * @author Kirill Grouchnikov
  */

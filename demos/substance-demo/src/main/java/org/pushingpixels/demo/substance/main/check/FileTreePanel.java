@@ -354,16 +354,6 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                 tree.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
-        final JCheckBox watermarkBleed = new JCheckBox("is bleeding");
-        watermarkBleed.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(tree,
-                    watermarkBleed.isSelected());
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jsp,
-                    watermarkBleed.isSelected());
-            tree.repaint();
-        });
-        builder.append("Watermark", watermarkBleed);
-
         final JCheckBox cbTreeSmartScroll = new JCheckBox("smart tree scroll");
         cbTreeSmartScroll.addActionListener((ActionEvent e) -> {
             if (cbTreeSmartScroll.isSelected()) {

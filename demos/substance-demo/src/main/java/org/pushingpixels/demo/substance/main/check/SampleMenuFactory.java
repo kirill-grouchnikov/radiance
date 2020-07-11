@@ -270,7 +270,7 @@ public class SampleMenuFactory {
             super();
 
             this.setOverlayColor(Color.red, SubstanceSlices.ColorOverlayType.FOCUS_INDICATION,
-                    DecorationAreaType.NONE, ComponentState.getAllStates().toArray(new ComponentState[0]));
+                    DecorationAreaType.NONE, ComponentState.getAllStates());
         }
 
         @Override

@@ -92,7 +92,6 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
         this.setTabFadeEnd(0.18);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = null;
         this.borderPainter = new CompositeBorderPainter("Graphite",
                 new DelegateBorderPainter("Graphite Outer", new ClassicBorderPainter(), 0xFFFFFFFF,
                         0xFFFFFFFF, 0xFFFFFFFF,

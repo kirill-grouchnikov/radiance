@@ -70,12 +70,12 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
 
     init {
         this.originalImageComponent.addTypedDelayedPropertyChangeListener<BufferedImage?>(
-                JImageComponent::image.name) { event ->
+                JImageComponent::image) { event ->
             originalImage = event.newValue
             reset()
         }
         this.originalImageComponent.addTypedDelayedPropertyChangeListener<File>(
-                JImageComponent::originalFile.name) { event ->
+                JImageComponent::originalFile) { event ->
             if (event.newValue != null) {
                 val file = event.newValue!!
                 val layers = File(file.parent, file.name + ".layers")

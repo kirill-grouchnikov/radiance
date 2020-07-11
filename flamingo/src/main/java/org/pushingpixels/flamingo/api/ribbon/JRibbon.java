@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
+import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
@@ -73,7 +74,7 @@ import java.util.*;
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu content set by
  * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} </li>
- * <li>Taskbar panel populated by {@link #addTaskbarCommand(Command)},
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(Command, AbstractPopupMenuPresentationModel)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
  * and {@link #addTaskbarComponent(ComponentProjection)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandButtonProjection)}</li>
@@ -105,7 +106,7 @@ import java.util.*;
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add a taskbar component use the {@link #addTaskbarCommand(Command)},
+ * selected. To add a taskbar component use the {@link #addTaskbarCommand(Command, AbstractPopupMenuPresentationModel)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
  * {@link #addTaskbarComponent(ComponentProjection)} APIs. The taskbar panel lives in the top-left
  * corner of the application frame.
@@ -217,8 +218,6 @@ public class JRibbon extends JComponent {
 
     private RibbonTaskbarKeyTipPolicy taskbarKeyTipPolicy;
 
-    private CommandPopupMenuPresentationModel defaultTaskbarCommandPopupMenuPresentationModel;
-
     /**
      * The UI class ID string.
      */
@@ -231,7 +230,8 @@ public class JRibbon extends JComponent {
         CommandMenuContentModel getContextualMenuContentModel(
                 ComponentProjection<? extends JComponent, ? extends ComponentContentModel> componentProjection);
 
-        CommandMenuContentModel getContextualMenuContentModel(Command command);
+        CommandMenuContentModel getContextualMenuContentModel(
+                CommandButtonProjection<? extends Command> commandProjection);
 
         CommandMenuContentModel getContextualMenuContentModel();
     }
@@ -284,16 +284,20 @@ public class JRibbon extends JComponent {
     /**
      * Adds the specified command to the taskbar area of this ribbon.
      *
-     * @param command The taskbar command to add.
+     * @param command                    The taskbar command to add.
+     * @param popupMenuPresentationModel Optional presentation model for the popup menu of the command.
+     *                                   This must be set if {@link Command#getSecondaryContentModel()}
+     *                                   has non-null {@link CommandMenuContentModel#getPanelContentModel()}.
+     *                                   Otherwise it can be null.
      * @see #clearTaskbar()
-     * @see #setDefaultTaskbarCommandPopupMenuPresentationModel(CommandPopupMenuPresentationModel)
      */
-    public synchronized void addTaskbarCommand(Command command) {
+    public synchronized void addTaskbarCommand(Command command,
+            AbstractPopupMenuPresentationModel popupMenuPresentationModel) {
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
                 .setHorizontalGapScaleFactor(0.5)
                 .setVerticalGapScaleFactor(0.5)
-                .setPopupMenuPresentationModel(this.getDefaultTaskbarCommandPopupMenuPresentationModel())
+                .setPopupMenuPresentationModel(popupMenuPresentationModel)
                 .build();
 
         CommandButtonProjection<Command> projection = command.project(presentationModel);
@@ -869,32 +873,5 @@ public class JRibbon extends JComponent {
         for (int i = this.onTaskSelectionChangeListeners.size() - 1; i >= 0; i--) {
             this.onTaskSelectionChangeListeners.get(i).onTaskSelectionChanged(this.currentlySelectedTask);
         }
-    }
-
-    public void setDefaultTaskbarCommandPopupMenuPresentationModel(
-            CommandPopupMenuPresentationModel defaultTaskbarCommandPopupMenuPresentationModel) {
-        if (defaultTaskbarCommandPopupMenuPresentationModel == null) {
-            throw new IllegalArgumentException("Default presentation model cannot be null");
-        }
-        this.defaultTaskbarCommandPopupMenuPresentationModel = defaultTaskbarCommandPopupMenuPresentationModel;
-    }
-
-    public CommandPopupMenuPresentationModel getDefaultTaskbarCommandPopupMenuPresentationModel() {
-        if (this.defaultTaskbarCommandPopupMenuPresentationModel == null) {
-            // Instantiate one until https://github.com/kirill-grouchnikov/radiance/issues/287 is
-            // addressed
-            this.defaultTaskbarCommandPopupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
-                    .setPanelPresentationModel(
-                            CommandPanelPresentationModel.builder()
-                                    .setToShowGroupLabels(false)
-                                    .setCommandPresentationState(
-                                            CommandButtonPresentationState.FIT_TO_ICON)
-                                    .setCommandIconDimension(48)
-                                    .setMaxColumns(5)
-                                    .setMaxRows(3)
-                                    .build())
-                    .build();
-        }
-        return this.defaultTaskbarCommandPopupMenuPresentationModel;
     }
 }

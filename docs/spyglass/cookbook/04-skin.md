@@ -10,7 +10,7 @@ This phase of Cookbook UI implementation will focus on creating the other parts 
 
 A [color scheme](../../substance/skins/colorschemes.md) is a set of information that allows painting a control in a specific visual state. In general, a color scheme defines a collection of colors that are used by the various Substance painters to paint different control areas (such as background fill, border etc) under a specific visual state.
 
-The color schemes were implicitly used in the [previous phase](03-decorations.md) to drive the colorization of the decoration area textures. At the most basic level a color scheme can be thought of as a palette that provides colors to the different painters. Each color scheme defines seven basic colors, six for background and one for foreground. In addition, a color scheme exposes derived colors that are used for painting watermarks, text selections, focus rings and more. The derived colors are usually implemented as a combination of one or more basic colors and can be overriden by the custom skin.
+The color schemes were implicitly used in the [previous phase](03-decorations.md) to drive the colorization of the decoration area textures. At the most basic level a color scheme can be thought of as a palette that provides colors to the different painters. Each color scheme defines seven basic colors, six for background and one for foreground. In addition, a color scheme exposes derived colors that are used for painting text selections, focus rings and more. The derived colors are usually implemented as a combination of one or more basic colors and can be overriden by the custom skin.
 
 The main two color schemes for Cookbook UI are Golden Brown and Dark Brown. Here are their background palettes:
 

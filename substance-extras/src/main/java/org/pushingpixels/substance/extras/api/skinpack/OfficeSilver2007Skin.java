@@ -198,10 +198,7 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 
-		this.watermarkScheme = colorSchemes.get("Office Silver Watermark");
-
-		SubstanceColorScheme generalWatermarkScheme = colorSchemes
-				.get("Office Silver Header Watermark");
+		SubstanceColorScheme generalWatermarkScheme = colorSchemes.get("Office Silver Header Watermark");
 
 		this.registerAsDecorationArea(generalWatermarkScheme,
 				DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
@@ -225,7 +222,6 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
 				DecorationAreaType.SECONDARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
 
 		this.fillPainter = new FractionBasedFillPainter("Office Silver 2007",
 				new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },

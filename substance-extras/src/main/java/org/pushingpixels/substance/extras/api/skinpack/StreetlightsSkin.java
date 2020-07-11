@@ -29,17 +29,20 @@
  */
 package org.pushingpixels.substance.extras.api.skinpack;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.CharcoalColorScheme;
+import org.pushingpixels.substance.api.colorscheme.EbonyColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceMetalWallWatermark;
-
-import java.awt.*;
 
 /**
  * <code>Streelights</code> skin. This class is part of officially supported
@@ -87,15 +90,11 @@ public class StreetlightsSkin extends SubstanceSkin {
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 
-        // set dark green as watermark scheme
-        this.watermarkScheme = new BottleGreenColorScheme().shiftBackground(
-                new Color(0, 50, 0), 0.7);
         this.setTabFadeStart(1.0);
         this.setTabFadeEnd(1.0);
 
         // additional skin settings
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = new SubstanceMetalWallWatermark();
         this.borderPainter = new GlassBorderPainter();
         this.highlightPainter = new ClassicHighlightPainter();
         this.fillPainter = new GlassFillPainter();

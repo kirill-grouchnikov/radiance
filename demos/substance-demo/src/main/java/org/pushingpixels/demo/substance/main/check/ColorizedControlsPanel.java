@@ -433,7 +433,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
         TestFormLayoutBuilder builderText = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 31)
+                        + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 27)
                 .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
 
         builderText.append("");
@@ -445,11 +445,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             JTextField field = new JTextField("test", 15);
             return field;
         }, null);
-        addControlRow(builderText, "Watermark", () -> {
-            JTextField field = new JTextField("test", 15);
-            return field;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderText, "Disabled", () -> {
             JTextField field = new JTextField("test", 15);
             return field;
@@ -467,13 +462,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             field.setText("2,430.0000");
             return field;
         }, null);
-        addControlRow(builderText, "Watermark", () -> {
-            JFormattedTextField field = new JFormattedTextField(
-                    new DecimalFormat("#,##0.0000"));
-            field.setText("2,430.0000");
-            return field;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderText, "Disabled", () -> {
             JFormattedTextField field = new JFormattedTextField(
                     new DecimalFormat("#,##0.0000"));
@@ -493,11 +481,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             JPasswordField field = new JPasswordField("password", 15);
             return field;
         }, null);
-        addControlRow(builderText, "Watermark", () -> {
-            JPasswordField field = new JPasswordField("password", 15);
-            return field;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderText, "Disabled", () -> {
             JPasswordField field = new JPasswordField("password", 15);
             return field;
@@ -514,12 +497,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
                     "Sample <b>content</b><br> <u>text</u>");
             return pane;
         }, null);
-        addControlRow(builderText, "Watermark", () -> {
-            JEditorPane pane = new JEditorPane("text/html;",
-                    "Sample <b>content</b><br> <u>text</u>");
-            return pane;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderText, "Disabled", () -> {
             JEditorPane pane = new JEditorPane("text/html;",
                     "Sample <b>content</b><br> <u>text</u>");
@@ -537,11 +514,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             JTextArea area = new JTextArea("Sample content text", 3, 15);
             return area;
         }, null);
-        addControlRow(builderText, "Watermark", () -> {
-            JTextArea area = new JTextArea("Sample content text", 3, 15);
-            return area;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderText, "Disabled", () -> {
             JTextArea area = new JTextArea("Sample content text", 3, 15);
             return area;
@@ -559,13 +531,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             pane.setPreferredSize(new Dimension(120, 40));
             return pane;
         }, null);
-        addControlRow(builderText, "Watermark", () -> {
-            JTextPane pane = new JTextPane();
-            pane.replaceSelection("Sample content text");
-            pane.setPreferredSize(new Dimension(120, 40));
-            return pane;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderText, "Disabled", () -> {
             JTextPane pane = new JTextPane();
             pane.replaceSelection("Sample content text");
@@ -604,11 +569,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, null);
-        addControlRow(builderCells, "List watermark", () -> {
-            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
-            return list;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderCells, "List disabled", () -> {
             JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
@@ -644,9 +604,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         };
         builderCells.appendSeparator("Tables");
         addControlRow(builderCells, "Table", tableCreationCmd, null);
-        addControlRow(builderCells, "Table watermark", tableCreationCmd,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope
-                        .setWatermarkVisible(jc, true));
         addControlRow(builderCells, "Table disabled", tableCreationCmd,
                 new DisableViewportCommand());
 
@@ -712,9 +669,6 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         };
         builderCells.appendSeparator("Trees");
         addControlRow(builderCells, "Tree", treeCreationCmd, null);
-        addControlRow(builderCells, "Tree watermark", treeCreationCmd,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope
-                        .setWatermarkVisible(jc, true));
         addControlRow(builderCells, "Tree disabled", treeCreationCmd, new DisableCommand());
 
         JPanel panelCells = builderCells.build();

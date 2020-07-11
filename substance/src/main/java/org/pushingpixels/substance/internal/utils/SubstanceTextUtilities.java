@@ -31,12 +31,10 @@ package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
@@ -471,22 +469,6 @@ public class SubstanceTextUtilities {
         return fgColor;
     }
 
-    /**
-     * Paints background of the specified text component.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param comp
-     *            Component.
-     */
-    public static void paintTextCompBackground(Graphics g, JComponent comp) {
-        Color backgroundFillColor = getTextBackgroundFillColor(comp);
-
-        boolean toPaintWatermark = (SubstanceCortex.ComponentScope.getCurrentSkin(comp).getWatermark() != null)
-                && (SubstanceCoreUtilities.toDrawWatermark(comp) || !comp.isOpaque());
-        paintTextCompBackground(g, comp, backgroundFillColor, toPaintWatermark);
-    }
-
     public static Color getTextBackgroundFillColor(JComponent comp) {
         Color backgroundFillColor = SubstanceColorUtilities.getBackgroundFillColor(comp);
 
@@ -522,35 +504,20 @@ public class SubstanceTextUtilities {
      *            Graphics context.
      * @param comp
      *            Component.
-     * @param backgr
-     *            Background color.
-     * @param toOverlayWatermark
-     *            If <code>true</code>, this method will paint the watermark overlay on top of the
-     *            background fill.
      */
-    private static void paintTextCompBackground(Graphics g, JComponent comp, Color backgr,
-            boolean toOverlayWatermark) {
+    public static void paintTextCompBackground(Graphics g, JComponent comp) {
         Graphics2D g2d = (Graphics2D) g.create();
 
         BackgroundPaintingUtils.update(g2d, comp, false);
-        SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(comp).getWatermark();
-        if (watermark != null) {
-            watermark.drawWatermarkImage(g2d, comp, 0, 0, comp.getWidth(), comp.getHeight());
-        }
-        g2d.setColor(backgr);
+
+        Color backgroundFillColor = getTextBackgroundFillColor(comp);
+        g2d.setColor(backgroundFillColor);
 
         // Match the logic / shape in SubstanceImageCreator.paintSimpleBorder that draws the
         // border
         float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
         g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
                 comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
-
-        if (toOverlayWatermark) {
-            if (watermark != null) {
-                g2d.clipRect(0, 0, comp.getWidth(), comp.getHeight());
-                watermark.drawWatermarkImage(g2d, comp, 0, 0, comp.getWidth(), comp.getHeight());
-            }
-        }
 
         ComponentState state = comp.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;

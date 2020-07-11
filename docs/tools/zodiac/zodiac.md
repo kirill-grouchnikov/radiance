@@ -26,7 +26,7 @@ Zodiac scripts are in `scripts/zodiac` folder. The structure of each script is:
 
 * Set up the version of Java to use
 * Set up the classpath with all runtime dependencies
-* Run Zodiac command for each skin / color scheme / watermark
+* Run Zodiac command for each skin / color scheme
 
 For example, to run Zodiac to create screenshots for the Autumn skin:
 

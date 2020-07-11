@@ -42,7 +42,6 @@ import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPaint
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SkinUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 
@@ -75,7 +74,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * in custom-painted parts of your UI.
      */
     public static abstract class Accented extends SubstanceSkin {
-        public static class AccentBuilder {
+        public final static class AccentBuilder {
             private SubstanceColorScheme windowChromeAccent;
             private SubstanceColorScheme enabledControlsAccent;
             private SubstanceColorScheme activeControlsAccent;
@@ -211,12 +210,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     private Map<DecorationAreaType, List<SubstanceOverlayPainter>> overlayPaintersMap;
 
     /**
-     * The watermark of <code>this</code> skin. May be <code>null</code> if
-     * <code>this</code> skin doesn't define a custom watermark.
-     */
-    protected SubstanceWatermark watermark;
-
-    /**
      * The button shaper of <code>this</code> skin. Must be non-
      * <code>null</code>.
      */
@@ -279,11 +272,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     protected double tabFadeEnd;
 
     /**
-     * Color scheme for watermarks.
-     */
-    protected SubstanceColorScheme watermarkScheme;
-
-    /**
      * All component states that have associated non-trivial alpha values.
      */
     private Set<ComponentState> statesWithAlpha;
@@ -307,15 +295,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         this.tabFadeEnd = DEFAULT_TAB_FADE_END;
 
         this.statesWithAlpha = new HashSet<>();
-    }
-
-    /**
-     * Returns the watermark of this skin.
-     *
-     * @return The watermark of this skin. May be <code>null</code>.
-     */
-    public final SubstanceWatermark getWatermark() {
-        return this.watermark;
     }
 
     /**
@@ -615,22 +594,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     }
 
     /**
-     * Returns the color scheme to be used for painting the watermark. If no
-     * custom watermark color scheme is specified ({@link #watermarkScheme} is
-     * <code>null</code>), the main default color scheme of this skin is used.
-     *
-     * @return The color scheme to be used for painting the watermark.
-     */
-    public SubstanceColorScheme getWatermarkColorScheme() {
-        if (this.watermarkScheme != null) {
-            return this.watermarkScheme;
-        }
-
-        return this.colorSchemeBundleMap.get(DecorationAreaType.NONE)
-                .getEnabledColorScheme();
-    }
-
-    /**
      * Returns the main active color scheme for the specific decoration area
      * type. Custom painting code that needs to consult the colors of the
      * specific component should use
@@ -911,11 +874,6 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         result.fillPainter = this.fillPainter;
         result.highlightPainter = this.highlightPainter;
         result.highlightBorderPainter = this.highlightBorderPainter;
-        // same watermark and transformed scheme
-        result.watermark = this.watermark;
-        if (this.watermarkScheme != null) {
-            result.watermarkScheme = transform.transform(this.watermarkScheme);
-        }
 
         // same misc settings
         result.tabFadeEnd = this.tabFadeEnd;
@@ -954,7 +912,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * type. This method is mainly for the internal use of
      * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      * but can be used in applications that wish to provide custom overlay
-     * background painting (such as watermarks, for example).
+     * background painting.
      *
      * @param decorationAreaType Decoration area type.
      * @return The background color scheme for the specified decoration area type.

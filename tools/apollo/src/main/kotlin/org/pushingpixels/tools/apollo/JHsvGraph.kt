@@ -54,8 +54,7 @@ class JHsvGraph : JComponent() {
         val h = height
 
         g.render {
-            it.font = SubstanceCortex.GlobalScope.getFontPolicy().fontSet.controlFont
-                    .deriveFont(Font.BOLD)
+            it.font = SubstanceCortex.GlobalScope.getFontPolicy().fontSet.controlFont.deriveFont(Font.BOLD)
             NeonCortex.installDesktopHints(it, it.font)
 
             it.color = Color.black

@@ -89,7 +89,7 @@ public class SubstanceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
             background = SubstanceColorUtilities.getDarkerColor(background, 0.06);
         }
 
-        BackgroundPaintingUtils.fillAndWatermark(g, this.buttonPanel,
+        BackgroundPaintingUtils.fillBackground(g, this.buttonPanel,
                 background, new Rectangle(x, y, width, height));
     }
 

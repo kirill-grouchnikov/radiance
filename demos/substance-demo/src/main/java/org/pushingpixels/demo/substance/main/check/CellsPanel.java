@@ -61,7 +61,7 @@ public class CellsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderCells = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, fill:pref:grow(1), 4dlu,"
                         + "fill:pref:grow(1), 4dlu, fill:pref:grow(1), 4dlu, fill:pref:grow(1)",
-                5, 13).columnGroups(new int[][] { { 3, 5, 7, 9 } }).
+                5, 10).columnGroups(new int[][] { { 3, 5, 7, 9 } }).
                 padding(Paddings.DIALOG);
 
         builderCells.append("");
@@ -73,11 +73,6 @@ public class CellsPanel extends JPanel implements Deferrable {
             JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
         }, null);
-        addControlRow(builderCells, "List watermark", () -> {
-            JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
-            return list;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jc,
-                true));
         addControlRow(builderCells, "List disabled", () -> {
             JList<String> list = new JList<>(new String[] {"entry1", "entry2", "entry3"});
             return list;
@@ -113,9 +108,6 @@ public class CellsPanel extends JPanel implements Deferrable {
         };
         builderCells.appendSeparator("Tables");
         addControlRow(builderCells, "Table", tableCreationCmd, null);
-        addControlRow(builderCells, "Table watermark", tableCreationCmd,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope
-                        .setWatermarkVisible(jc, true));
         addControlRow(builderCells, "Table disabled", tableCreationCmd,
                 new DisableViewportCommand());
 
@@ -181,9 +173,6 @@ public class CellsPanel extends JPanel implements Deferrable {
         };
         builderCells.appendSeparator("Trees");
         addControlRow(builderCells, "Tree", treeCreationCmd, null);
-        addControlRow(builderCells, "Tree watermark", treeCreationCmd,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentChainScope
-                        .setWatermarkVisible(jc, true));
         addControlRow(builderCells, "Tree disabled", treeCreationCmd, new DisableCommand());
 
         JPanel panelCells = builderCells.build();

@@ -162,21 +162,6 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	}
 
 	@Override
-	public final Color getWatermarkDarkColor() {
-		return derivedColorsResolver.getWatermarkDarkColor();
-	}
-
-	@Override
-	public final Color getWatermarkLightColor() {
-		return derivedColorsResolver.getWatermarkLightColor();
-	}
-
-	@Override
-	public final Color getWatermarkStampColor() {
-		return derivedColorsResolver.getWatermarkStampColor();
-	}
-
-	@Override
 	public final Color getTextBackgroundFillColor() {
 		return derivedColorsResolver.getTextBackgroundFillColor();
 	}

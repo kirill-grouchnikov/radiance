@@ -34,7 +34,6 @@ package org.pushingpixels.meteor.swing
 import org.pushingpixels.meteor.awt.windowAncestor
 import java.awt.Component
 import javax.swing.JOptionPane
-import javax.swing.SwingUtilities
 
 enum class OptionPaneMessageType(val optionPaneConstant: Int) {
     ERROR_MESSAGE_TYPE(JOptionPane.ERROR_MESSAGE),

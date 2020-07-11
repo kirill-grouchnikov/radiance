@@ -60,7 +60,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
     private JPanel getContents() {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 4dlu, fill:default:grow(1), 4dlu,"
-                + "fill:default:grow(1), 4dlu, fill:default:grow(1)", 4, 30)
+                + "fill:default:grow(1), 4dlu, fill:default:grow(1)", 4, 28)
                 .padding(Paddings.DIALOG);
 
         JLabel textLabel = new JLabel("Text fields");
@@ -131,18 +131,6 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         JPasswordField jpfNonOpaque = new JPasswordField("password", 10);
         jpfNonOpaque.setOpaque(false);
         builder.append(jftfNonOpaque, jpfNonOpaque);
-
-        JTextField jtfWatermarkBleed = new JTextField("sample text");
-        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jtfWatermarkBleed, true);
-        builder.append("Watermark bleed", jtfWatermarkBleed);
-
-        JFormattedTextField jftfWatermarkBleed = new JFormattedTextField(
-                new DecimalFormat("#,##0.0000"));
-        jftfWatermarkBleed.setText("2,430.0000");
-        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jftfWatermarkBleed, true);
-        JPasswordField jpfWatermarkBleed = new JPasswordField("password", 10);
-        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jpfWatermarkBleed, true);
-        builder.append(jftfWatermarkBleed, jpfWatermarkBleed);
 
         JTextField jtf4 = new JTextField("sample text");
         SubstanceCortex.ComponentOrParentChainScope.setSelectTextOnFocus(jtf4, true);
@@ -311,19 +299,6 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         jtpNonOpaque.setPreferredSize(new Dimension(100, 40));
         jtpNonOpaque.setOpaque(false);
         builder.append(jtaNonOpaque, jtpNonOpaque);
-
-        JEditorPane jepWatermarkBleed = new JEditorPane("text/html;",
-                "Sample <b>content</b><br> <u>text</u>");
-        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jepWatermarkBleed, true);
-        builder.append("Watermark bleed", jepWatermarkBleed);
-
-        JTextArea jtaWatermarkBleed = new JTextArea("Sample content text", 3, 20);
-        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jtaWatermarkBleed, true);
-        JTextPane jtpWatermarkBleed = new JTextPane();
-        jtpWatermarkBleed.replaceSelection("Sample content text");
-        jtpWatermarkBleed.setPreferredSize(new Dimension(100, 40));
-        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jtpWatermarkBleed, true);
-        builder.append(jtaWatermarkBleed, jtpWatermarkBleed);
 
         JEditorPane jep4 = new JEditorPane("text/html;", "Sample <b>content</b><br> <u>text</u>");
         jep4.setMargin(new Insets(2, 2, 2, 2));

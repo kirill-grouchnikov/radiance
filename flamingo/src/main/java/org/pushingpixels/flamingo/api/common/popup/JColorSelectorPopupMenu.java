@@ -45,6 +45,7 @@ import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -63,6 +64,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
 
     private int colorColumns;
     private JColorSelectorPanel lastColorSelectorPanel;
+    private ChangeListener contentChangeListener;
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
@@ -74,7 +76,8 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
         this.colorColumns = this.presentationModel.getColorColumns();
 
         this.populateContent();
-        this.contentModel.addChangeListener((ChangeEvent event) -> populateContent());
+        this.contentChangeListener = (ChangeEvent event) -> populateContent();
+        this.contentModel.addChangeListener(this.contentChangeListener);
 
         this.updateUI();
     }

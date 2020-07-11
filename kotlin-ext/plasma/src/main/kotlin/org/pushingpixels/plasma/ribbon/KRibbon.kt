@@ -43,7 +43,7 @@ import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 import java.awt.Color
 import javax.swing.JComponent
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonTaskContainer {
     internal val tasks = arrayListOf<KRibbonTask>()
 
@@ -52,7 +52,7 @@ class KRibbonTaskContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonTaskbar {
     internal val components = arrayListOf<Any>()
 
@@ -84,7 +84,7 @@ class KRibbonTaskbar {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonContextualTaskContainer {
     var title: String by NonNullDelegate { false }
     var color: Color by NonNullDelegate { false }
@@ -95,7 +95,7 @@ class KRibbonContextualTaskContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonContextualTaskGroupContainer {
     internal val taskGroups = arrayListOf<KRibbonContextualTaskContainer>()
 
@@ -111,7 +111,7 @@ class KRibbonContextualTaskGroupContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonFrame {
     var title: String? by NullableDelegate { hasBeenConverted }
     var applicationIconFactory: Factory? by NullableDelegate { hasBeenConverted }
@@ -163,7 +163,7 @@ class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                        taskbarComponent.toJavaCommand())
+                        taskbarComponent.toJavaCommand(), null)
                 is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent)
                 is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),

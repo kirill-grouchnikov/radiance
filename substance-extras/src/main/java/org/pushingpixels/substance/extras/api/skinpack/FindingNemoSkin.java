@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.substance.extras.api.skinpack;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
@@ -39,7 +40,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
 import org.pushingpixels.substance.extras.api.painterpack.decoration.Glass3DDecorationPainter;
 import org.pushingpixels.substance.extras.api.painterpack.fill.MixDelegateFillPainter;
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceMazeWatermark;
 import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
 
 import java.awt.*;
@@ -82,7 +82,6 @@ public class FindingNemoSkin extends SubstanceSkin {
                 DecorationAreaType.NONE);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = new SubstanceMazeWatermark();
         this.fillPainter = new MixDelegateFillPainter("Mixed Glass",
                 new GlassFillPainter());
         this.decorationPainter = new Glass3DDecorationPainter();

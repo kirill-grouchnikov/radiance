@@ -31,9 +31,9 @@ package org.pushingpixels.plasma.synapse
 
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel
-import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.PlasmaElementMarker
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 open class KComponentPresentation {
     var isFlat: Boolean = true
     var horizontalAlignment: HorizontalAlignment = HorizontalAlignment.FILL

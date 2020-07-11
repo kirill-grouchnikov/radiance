@@ -41,6 +41,7 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandP
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
 
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
     private CommandPopupMenuPresentationModel popupMenuPresentationModel;
 
     private CommandPanelContentModel popupMenuPanelContentModel;
+    private ChangeListener popupMenuPanelContentChangeListener;
 
     /**
      * The main button panel.
@@ -83,7 +85,8 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                 this.popupMenuContentModel.getPanelContentModel() : null;
 
         this.populateContent();
-        this.popupMenuContentModel.addChangeListener((ChangeEvent event) -> populateContent());
+        this.popupMenuPanelContentChangeListener = (ChangeEvent event) -> populateContent();
+        this.popupMenuContentModel.addChangeListener(this.popupMenuPanelContentChangeListener);
 
         this.updateUI();
     }

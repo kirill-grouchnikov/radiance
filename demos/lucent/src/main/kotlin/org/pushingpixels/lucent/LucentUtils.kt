@@ -82,8 +82,7 @@ object LucentUtils {
         var currOffset = 0
         val attributedDescription = AttributedString(text)
         attributedDescription.addAttribute(TextAttribute.FONT, g2d.font)
-        val lineBreakMeasurer = LineBreakMeasurer(
-                attributedDescription.iterator, frc)
+        val lineBreakMeasurer = LineBreakMeasurer(attributedDescription.iterator, frc)
         var lineCount = 0
         while (true) {
             val tl = lineBreakMeasurer.nextLayout(textWidth.toFloat()) ?: break

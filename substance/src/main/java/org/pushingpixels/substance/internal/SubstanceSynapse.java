@@ -84,12 +84,6 @@ public class SubstanceSynapse {
     public final static String AUTO_SCROLL = "substancelaf.internal.widget.autoScroll";
 
     /**
-     * Client property name for requesting that watermark should be painted on the component and its
-     * descendants.
-     */
-    public static final String WATERMARK_VISIBLE = "substancelaf.internal.watermarkVisible";
-
-    /**
      * Client property name for ignoring the default (minimum) dimension for a single button.
      */
     public static final String BUTTON_NO_MIN_SIZE = "substancelaf.internal.buttonNoMinSize";

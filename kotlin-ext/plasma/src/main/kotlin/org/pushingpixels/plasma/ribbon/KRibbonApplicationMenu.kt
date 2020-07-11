@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu
 import org.pushingpixels.plasma.*
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false

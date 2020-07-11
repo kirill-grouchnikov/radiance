@@ -28,7 +28,8 @@
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 set RADIANCE_VERSION=3.5-SNAPSHOT
+set WEBLAF_VERSION=1.3.0-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lightbeam-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set WEBLAF_CLASSPATH=../../../thirdparty/weblaf-core-1.3.0.0.jar;../../../thirdparty/weblaf-plugin-1.3.0.0.jar;../../../thirdparty/weblaf-ui-1.3.0.0.jar;../../../thirdparty/weblaf-deps/*
+set WEBLAF_CLASSPATH=../../../thirdparty/weblaf-core-%WEBLAF_VERSION%.jar;../../../thirdparty/weblaf-plugin-%WEBLAF_VERSION%.jar;../../../thirdparty/weblaf-ui-%WEBLAF_VERSION%.jar;../../../thirdparty/weblaf-deps/*
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=com.alee.laf.WebLookAndFeel -cp %CLASSPATH%;%WEBLAF_CLASSPATH% org.pushingpixels.lightbeam.DynamicPerformanceSuite 10

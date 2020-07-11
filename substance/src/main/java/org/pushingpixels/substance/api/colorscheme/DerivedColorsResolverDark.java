@@ -61,21 +61,6 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 	}
 
 	@Override
-	public Color getWatermarkStampColor() {
-		return SubstanceColorUtilities.getAlphaColor(this.scheme.getUltraLightColor(), 30);
-	}
-
-	@Override
-	public Color getWatermarkDarkColor() {
-		return this.scheme.getLightColor();
-	}
-
-	@Override
-	public Color getWatermarkLightColor() {
-		return this.scheme.getUltraLightColor();
-	}
-
-	@Override
 	public Color getLineColor() {
 		return this.scheme.getMidColor();
 	}

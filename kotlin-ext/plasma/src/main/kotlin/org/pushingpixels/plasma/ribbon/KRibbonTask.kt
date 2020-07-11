@@ -31,10 +31,10 @@ package org.pushingpixels.plasma.ribbon
 
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy
-import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.NullableDelegate
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonTaskBandContainer {
     internal val bands = arrayListOf<KBaseRibbonBand<*>>()
 
@@ -43,7 +43,7 @@ class KRibbonTaskBandContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonTask {
     private lateinit var ribbonTask: RibbonTask
     private var hasBeenConverted: Boolean = false

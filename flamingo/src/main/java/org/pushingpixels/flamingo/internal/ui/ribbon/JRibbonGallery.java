@@ -66,6 +66,7 @@ public class JRibbonGallery extends JComponent {
     private RibbonGalleryContentModel galleryContentModel;
     private RibbonGalleryPresentationModel galleryPresentationModel;
     private Map<Command, CommandButtonPresentationModel.Overlay> galleryCommandOverlays;
+    private ChangeListener galleryContentChangeListener;
 
     /**
      * The buttons of <code>this</code> gallery.
@@ -111,7 +112,7 @@ public class JRibbonGallery extends JComponent {
         this.galleryContentModel.addCommandActivationListener(
                 (Command activated) -> this.commandToggleGroupModel.setSelected(activated, true));
 
-        this.galleryContentModel.addChangeListener((ChangeEvent changeEvent) -> {
+        this.galleryContentChangeListener = (ChangeEvent changeEvent) -> {
             this.buttons.clear();
             this.commandToggleGroupModel.removeAll();
             this.commands.clear();
@@ -119,7 +120,8 @@ public class JRibbonGallery extends JComponent {
 
             populateContent();
             this.updateUI();
-        });
+        };
+        this.galleryContentModel.addChangeListener(this.galleryContentChangeListener);
 
         this.updateUI();
     }

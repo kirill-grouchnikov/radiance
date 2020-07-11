@@ -41,7 +41,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -404,40 +403,6 @@ public final class SubstanceSlices {
         public boolean isAnimated() {
             return false;
         }
-    }
-
-    /**
-     * Enumerates of image-based watermarks kinds.
-     *
-     * @author Kirill Grouchnikov
-     * @see org.pushingpixels.substance.api.watermark.SubstanceImageWatermark#setKind(SubstanceSlices.ImageWatermarkKind)
-     */
-    public enum ImageWatermarkKind {
-        /**
-         * The default behaviour. The image is centered in the screen and scaled down if necessary.
-         */
-        SCREEN_CENTER_SCALE,
-
-        /**
-         * The image is tiled starting from the screen top-left corner and not scaled.
-         */
-        SCREEN_TILE,
-
-        /**
-         * The image is anchored to the top-left corner of the application frame and not scaled.
-         */
-        APP_ANCHOR,
-
-        /**
-         * The image is anchored to the center of the application frame and not scaled.
-         */
-        APP_CENTER,
-
-        /**
-         * The image is tiled starting from the top-left corner of the application frame and not
-         * scaled.
-         */
-        APP_TILE
     }
 
     /**

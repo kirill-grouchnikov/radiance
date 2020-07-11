@@ -31,7 +31,6 @@ package org.pushingpixels.torch
 
 import kotlin.reflect.*
 
-
 class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R> {
     override val annotations: List<Annotation>
         get() = ArrayList()

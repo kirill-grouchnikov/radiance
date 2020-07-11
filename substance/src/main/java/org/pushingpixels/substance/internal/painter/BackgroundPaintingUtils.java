@@ -32,7 +32,6 @@ package org.pushingpixels.substance.internal.painter;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
@@ -138,13 +137,6 @@ public class BackgroundPaintingUtils {
 					// add overlays
 					OverlayPainterUtils.paintOverlays(graphics, c, skin, decorationType);
 				}
-
-				// and paint watermark
-				SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
-				if ((watermark != null) && !isPreviewMode && !isInCellRenderer
-						&& SubstanceCoreUtilities.toDrawWatermark(c)) {
-					watermark.drawWatermarkImage(graphics, c, 0, 0, c.getWidth(), c.getHeight());
-				}
 			}
 		}
 
@@ -164,8 +156,7 @@ public class BackgroundPaintingUtils {
 	 * @param rect
 	 *            The rectangle to fill.
 	 */
-	public static void fillAndWatermark(Graphics g, JComponent c,
-			Color fillColor, Rectangle rect) {
+	public static void fillBackground(Graphics g, JComponent c, Color fillColor, Rectangle rect) {
 		// failsafe for LAF change
 		if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
 			return;
@@ -181,13 +172,6 @@ public class BackgroundPaintingUtils {
 		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
 		graphics.setColor(fillColor);
 		graphics.fillRect(rect.x, rect.y, rect.width, rect.height);
-		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, 1.0f, g));
-		// stamp watermark
-		SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
-		if ((watermark != null) && !isInCellRenderer && c.isShowing()
-				&& SubstanceCoreUtilities.toDrawWatermark(c)) {
-            watermark.drawWatermarkImage(graphics, c, rect.x, rect.y, rect.width, rect.height);
-        }
 		graphics.dispose();
 	}
 }

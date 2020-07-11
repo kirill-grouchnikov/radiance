@@ -29,15 +29,18 @@
  */
 package org.pushingpixels.substance.extras.api.skinpack;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
+import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;
+import org.pushingpixels.substance.api.colorscheme.LimeGreenColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.painterpack.decoration.Glass3DDecorationPainter;
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceCopperplateEngravingWatermark;
 import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
 
 import java.awt.*;
@@ -78,7 +81,6 @@ public class GreenMagicSkin extends SubstanceSkin {
                 DecorationAreaType.NONE);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = new SubstanceCopperplateEngravingWatermark();
         this.fillPainter = new GlassFillPainter();
         this.decorationPainter = new Glass3DDecorationPainter();
         this.borderPainter = new ClassicBorderPainter();

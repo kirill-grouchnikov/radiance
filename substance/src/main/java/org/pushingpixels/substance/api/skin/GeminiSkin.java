@@ -209,7 +209,6 @@ public class GeminiSkin extends SubstanceSkin {
 		this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
 		this.fillPainter = new FractionBasedFillPainter("Gemini", new float[] { 0.0f, 0.5f, 1.0f },
 				new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
 						ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID });

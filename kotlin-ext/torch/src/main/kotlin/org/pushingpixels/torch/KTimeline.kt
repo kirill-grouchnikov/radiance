@@ -43,11 +43,11 @@ import java.awt.Window
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
-// Annotation to control the receiver scoping in the DSL
+// Annotation to control the receiver scoping in the Torch DSL
 @DslMarker
-annotation class TridentElementMarker
+internal annotation class TorchElementMarker
 
-@TridentElementMarker
+@TorchElementMarker
 open class KTimeline {
     var secondaryId: Comparable<*>? = null
     var duration: Long = Timeline.DEFAULT_DURATION

@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
 import javax.swing.JComponent
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandButtonStripPresentation {
     var orientation: CommandStripPresentationModel.StripOrientation = CommandStripPresentationModel.StripOrientation.HORIZONTAL
     var commandIconDimension: CommandButtonPresentationState = CommandButtonPresentationState.SMALL
@@ -52,7 +52,7 @@ class KCommandButtonStripPresentation {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commandConfigs = arrayListOf<KCommandGroup.CommandConfig>()
     internal val presentation: KCommandButtonStripPresentation = KCommandButtonStripPresentation()

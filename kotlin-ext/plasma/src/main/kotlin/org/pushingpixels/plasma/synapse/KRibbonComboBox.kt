@@ -32,7 +32,7 @@ package org.pushingpixels.plasma.synapse
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NullableDelegate
 import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
@@ -40,7 +40,7 @@ import org.pushingpixels.plasma.ribbon.KRibbonBand
 import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
 import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonComboBoxContentModel<T> {
     private val builder = RibbonDefaultComboBoxContentModel.builder<T>()
     private lateinit var javaContentModel: RibbonDefaultComboBoxContentModel<T>
@@ -99,7 +99,7 @@ class KRibbonComboBoxContentModel<T> {
 
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonComboBox<T> {
     internal var content: KRibbonComboBoxContentModel<T> = KRibbonComboBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()

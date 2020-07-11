@@ -186,8 +186,6 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 
-		this.watermarkScheme = colorSchemes.get("Office Blue Watermark");
-
 		SubstanceColorScheme generalWatermarkScheme = colorSchemes
 				.get("Office Blue Header Watermark");
 
@@ -195,8 +193,7 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
 				DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
 				DecorationAreaType.TOOLBAR);
 
-		SubstanceColorScheme titleWatermarkScheme = colorSchemes
-				.get("Office Blue Title Watermark");
+		SubstanceColorScheme titleWatermarkScheme = colorSchemes.get("Office Blue Title Watermark");
 
 		this.registerAsDecorationArea(titleWatermarkScheme,
 				DecorationAreaType.GENERAL,
@@ -213,7 +210,6 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
 				DecorationAreaType.SECONDARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
 
 		this.fillPainter = new FractionBasedFillPainter("Office Blue 2007",
 				new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },

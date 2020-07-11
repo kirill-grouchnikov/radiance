@@ -29,15 +29,18 @@
  */
 package org.pushingpixels.substance.extras.api.skinpack;
 
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
+import org.pushingpixels.substance.api.colorscheme.BrownColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.painterpack.decoration.Glass3DDecorationPainter;
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstanceBinaryWatermark;
 import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
 
 import java.awt.*;
@@ -76,10 +79,7 @@ public class FieldOfWheatSkin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
-        this.watermarkScheme = new SunGlareColorScheme().tone(0.8);
-
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = new SubstanceBinaryWatermark();
         this.fillPainter = new GlassFillPainter();
         this.decorationPainter = new Glass3DDecorationPainter();
         this.borderPainter = new ClassicBorderPainter();

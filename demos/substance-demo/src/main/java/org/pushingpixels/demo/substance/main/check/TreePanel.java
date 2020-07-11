@@ -170,16 +170,6 @@ public class TreePanel extends ControllablePanel {
                 (ActionEvent e) -> tree.setDragEnabled(isDragEnabled.isSelected()));
         builder.append("Drag enabled", isDragEnabled);
 
-        final JCheckBox watermarkBleed = new JCheckBox("is visible");
-        watermarkBleed.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(tree,
-                    watermarkBleed.isSelected());
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jsp,
-                    watermarkBleed.isSelected());
-            tree.repaint();
-        });
-        builder.append("Watermark", watermarkBleed);
-
         final JCheckBox isWrappedInScrollPane = new JCheckBox("is in scroll pane");
         isWrappedInScrollPane.setSelected(true);
         isWrappedInScrollPane.addActionListener((ActionEvent e) -> {

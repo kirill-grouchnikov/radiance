@@ -37,7 +37,6 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
@@ -52,7 +51,6 @@ import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -419,12 +417,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
         graphics.setColor(SubstanceColorUtilities.getBackgroundFillColorScrollBar(this.scrollbar));
         graphics.fillRect(0, 0, this.scrollbar.getWidth(), this.scrollbar.getHeight());
-        SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
-        if ((watermark != null)
-                && !Boolean.TRUE.equals(c.getClientProperty(WidgetUtilities.PREVIEW_MODE))
-                && SubstanceCoreUtilities.toDrawWatermark(c)) {
-            watermark.drawWatermarkImage(graphics, c, 0, 0, c.getWidth(), c.getHeight());
-        }
 
         GhostPaintingUtils.paintGhostImages(this.scrollbar, g);
 

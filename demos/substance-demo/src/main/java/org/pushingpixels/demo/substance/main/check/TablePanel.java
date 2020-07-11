@@ -399,16 +399,6 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         });
         builder.append("Background", customBackgroundCb);
 
-        final JCheckBox watermarkBleed = new JCheckBox("Watermark bleed");
-        watermarkBleed.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(TablePanel.this.table,
-                    watermarkBleed.isSelected());
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(tableScrollpane,
-                    watermarkBleed.isSelected());
-            tableScrollpane.repaint();
-        });
-        builder.append("Watermark", watermarkBleed);
-
         final JCheckBox linesVertical = new JCheckBox("Vertical visible");
         linesVertical.setSelected(this.table.getShowVerticalLines());
         linesVertical.addActionListener((ActionEvent e) -> TablePanel.this.table

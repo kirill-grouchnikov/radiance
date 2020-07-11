@@ -193,9 +193,6 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
             Set<StateTransitionTracker> initiatedTrackers = new HashSet<>();
             boolean fadeCanceled = false;
 
-            // if (SubstanceCoreUtilities.toBleedWatermark(list))
-            // return;
-
             // FadeTracker fadeTrackerInstance = FadeTracker.getInstance();
             int size = columnModel.getColumnCount();
             ListSelectionModel lsm = columnModel.getSelectionModel();

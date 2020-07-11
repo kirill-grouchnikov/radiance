@@ -216,7 +216,6 @@ public class TwilightSkin extends SubstanceSkin {
         this.setTabFadeEnd(0.18);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = null;
         this.fillPainter = new FractionBasedFillPainter("Twilight",
                 new float[]{0.0f, 0.5f, 1.0f},
                 new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,

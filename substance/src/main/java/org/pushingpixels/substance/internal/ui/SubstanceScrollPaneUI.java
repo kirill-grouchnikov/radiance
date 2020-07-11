@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
@@ -63,8 +62,7 @@ import java.util.Set;
  */
 public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
     /**
-     * Property change listener on {@link SubstanceSynapse#WATERMARK_VISIBLE} and
-     * <code>layoutManager</code> properties.
+     * Property change listener on <code>layoutManager</code> properties.
      */
     private PropertyChangeListener substancePropertyChangeListener;
 
@@ -117,11 +115,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
     @Override
     protected void installDefaults(final JScrollPane scrollpane) {
         super.installDefaults(scrollpane);
-        if (SubstanceCoreUtilities.toDrawWatermark(scrollpane) && (SubstanceCortex.ComponentScope
-                .getCurrentSkin(scrollpane).getWatermark() != null)) {
-            scrollpane.setOpaque(false);
-            scrollpane.getViewport().setOpaque(false);
-        }
 
         SwingUtilities.invokeLater(() -> installTableHeaderCornerFiller(scrollpane));
 
@@ -151,14 +144,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
     protected void installListeners(final JScrollPane c) {
         super.installListeners(c);
         this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (SubstanceSynapse.WATERMARK_VISIBLE.equals(evt.getPropertyName())) {
-                boolean toBleed = SubstanceCoreUtilities.toDrawWatermark(c);
-                c.setOpaque(!toBleed);
-                c.getViewport().setOpaque(!toBleed);
-                Component view = c.getViewport().getView();
-                if (view instanceof JComponent)
-                    ((JComponent) view).setOpaque(!toBleed);
-            }
             if ("background".equals(evt.getPropertyName())) {
                 // propagate application-specific background color to the
                 // scroll bars.
@@ -300,8 +285,6 @@ public class SubstanceScrollPaneUI extends BasicScrollPaneUI {
                         .getBackgroundFillColorScrollBar(this.scrollpane.getVerticalScrollBar()));
                 for (Component corner : corners) {
                     g2d.fill(corner.getBounds());
-                    // BackgroundPaintingUtils.fillAndWatermark(g, c, c
-                    // .getBackground(), corner.getBounds());
                 }
 
                 JScrollBar horizontal = this.scrollpane.getHorizontalScrollBar();

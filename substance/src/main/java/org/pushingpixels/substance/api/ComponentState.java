@@ -441,8 +441,8 @@ public final class ComponentState {
 	 * 
 	 * @return All component states
 	 */
-	public static Set<ComponentState> getAllStates() {
-		return Collections.synchronizedSet(allStates);
+	public static ComponentState[] getAllStates() {
+		return Collections.synchronizedSet(allStates).toArray(new ComponentState[0]);
 	}
 
 	public boolean isActive() {

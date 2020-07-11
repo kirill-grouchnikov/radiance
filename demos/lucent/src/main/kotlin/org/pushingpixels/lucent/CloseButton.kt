@@ -33,6 +33,7 @@ import org.pushingpixels.lucent.details.DetailsWindowManager
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedHierarchyListener
 import org.pushingpixels.meteor.addDelayedMouseListener
+import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.TorchComponent
 import org.pushingpixels.torch.componentTimeline
@@ -110,7 +111,7 @@ class CloseButton : JButton() {
             it.color = Color.black
             it.stroke = BasicStroke(2.0f)
             it.fill(contour)
-            it.color = this.foreground.darker().darker()
+            it.color = this.foreground.deriveByBrightness(-0.5)
             it.draw(contour)
 
             // paint the outer cross (always white)

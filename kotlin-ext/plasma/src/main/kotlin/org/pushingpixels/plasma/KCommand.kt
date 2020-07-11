@@ -46,7 +46,7 @@ import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButt
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 open class KCommand {
     private val builder = Command.builder()
     internal lateinit var javaCommand: Command
@@ -318,7 +318,7 @@ fun command(init: KCommand.() -> Unit): KCommand {
     return command
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KColorSelectorCommand : KCommand() {
     var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
     private val colorSelectorBuilder = ColorSelectorCommand.colorSelectorBuilder()
@@ -347,7 +347,7 @@ fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorSelector
     return colorSelectorCommand
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 open class KCommandButtonPresentation {
     var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     var isFlat: Boolean = true
@@ -400,7 +400,7 @@ open class KCommandButtonPresentation {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     var colorColumns: Int = 10
     var menuPresentationState: CommandButtonPresentationState =
@@ -423,7 +423,7 @@ class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandGroup {
     var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()

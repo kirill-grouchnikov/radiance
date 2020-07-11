@@ -34,7 +34,6 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
-import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
@@ -213,17 +212,6 @@ public class DecorationPainterUtils {
         Graphics2D g2d = (Graphics2D) g.create();
         painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(), skin);
 
-        SubstanceWatermark watermark = SubstanceCoreUtilities.getSkin(c).getWatermark();
-        if ((watermark != null) && !isPreviewMode && !isInCellRenderer && c.isShowing()
-                && SubstanceCoreUtilities.toDrawWatermark(c)) {
-            // paint the watermark over the component
-            watermark.drawWatermarkImage(g2d, c, 0, 0, c.getWidth(), c.getHeight());
-
-            // paint the background second time with 50%
-            // translucency, making the watermark' bleed' through.
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(c, 0.5f, g));
-            painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(), skin);
-        }
         g2d.dispose();
     }
 

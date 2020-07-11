@@ -293,8 +293,6 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
             return;
 
-        // fix for issue 244 - paint the entire root pane so that it
-        // picks the correct watermark
         if (SubstanceCoreUtilities.isOpaque(c)) {
             BackgroundPaintingUtils.update(g, c, false);
         }

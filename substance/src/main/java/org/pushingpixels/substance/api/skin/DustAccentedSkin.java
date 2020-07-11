@@ -145,7 +145,6 @@ public abstract class DustAccentedSkin extends SubstanceSkin.Accented {
 		this.addOverlayPainter(toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
 		this.fillPainter = new MatteFillPainter();
 		this.decorationPainter = new MatteDecorationPainter();
 		this.highlightPainter = new ClassicHighlightPainter();

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.model;
 
+import javafx.scene.control.TextFormatter;
 import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 
 import javax.swing.event.ChangeEvent;
@@ -49,6 +50,7 @@ public class CommandMenuContentModel implements ContentModel, ChangeAware {
     private final WeakChangeSupport weakChangeSupport;
 
     private CommandGroup.CommandGroupListener commandGroupListener;
+    private ChangeListener panelContentChangeListener;
 
     public CommandMenuContentModel(CommandGroup commands) {
         this(null, Collections.singletonList(commands));
@@ -87,7 +89,8 @@ public class CommandMenuContentModel implements ContentModel, ChangeAware {
         }
         this.panelContentModel = panelContentModel;
         if (this.panelContentModel != null) {
-            this.panelContentModel.addChangeListener((ChangeEvent changeEvent) -> fireStateChanged());
+            this.panelContentChangeListener = (ChangeEvent changeEvent) -> fireStateChanged();
+            this.panelContentModel.addChangeListener(this.panelContentChangeListener);
         }
     }
 

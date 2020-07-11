@@ -188,7 +188,6 @@ public class NightShadeSkin extends SubstanceSkin {
         this.setTabFadeEnd(0.18);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = null;
         this.fillPainter = new FractionBasedFillPainter("Night Shade",
                 new float[]{0.0f, 0.5f, 1.0f},
                 new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,

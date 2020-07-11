@@ -1823,20 +1823,24 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
 
                     @Override
-                    public CommandMenuContentModel getContextualMenuContentModel(Command command) {
+                    public CommandMenuContentModel getContextualMenuContentModel(
+                            CommandButtonProjection<? extends Command> commandButtonProjection) {
+                        Command originalCommand = commandButtonProjection.getContentModel();
                         Command commandCommand;
-                        if (getRibbon().isShowingInTaskbar(command)) {
+                        if (getRibbon().isShowingInTaskbar(originalCommand)) {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString(
                                             "ContextMenu.removeFromTaskbar"))
                                     .setAction((CommandActionEvent event) ->
-                                            getRibbon().removeTaskbarCommand(command))
+                                            getRibbon().removeTaskbarCommand(originalCommand))
                                     .build();
                         } else {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
                                     .setAction((CommandActionEvent event) ->
-                                            getRibbon().addTaskbarCommand(command))
+                                            getRibbon().addTaskbarCommand(originalCommand,
+                                                    commandButtonProjection.getPresentationModel().
+                                                            getPopupMenuPresentationModel()))
                                     .build();
                         }
 
@@ -1897,13 +1901,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbon ribbon = this.getRibbon();
 
         // taskbar components
-        ribbon.addTaskbarCommand(this.pasteCommand);
+        ribbon.addTaskbarCommand(this.pasteCommand, null);
 
         ribbon.addTaskbarCommand(Command.builder()
                 .setIconFactory(Edit_clear.factory())
                 .setAction((CommandActionEvent e) -> System.out.println("Taskbar Clear activated"))
                 .setActionEnabled(false)
-                .build());
+                .build(), null);
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection<>(this.fontComboBoxModel,
                 ComponentPresentationModel.withDefaults()));
@@ -1929,7 +1933,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()));
 
         // Add the same "Save as" command that we have in the application menu to the taskbar
-        ribbon.addTaskbarCommand(this.amEntrySaveAs);
+        ribbon.addTaskbarCommand(this.amEntrySaveAs, null);
     }
 
     private void configureApplicationMenu() {

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.demo.torch.swing.tracker
 
+import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import java.awt.Color
 import java.awt.Graphics
@@ -53,7 +54,7 @@ class BallPanel : JComponent() {
             it.paint = RadialGradientPaint(this.width / 2 - RADIUS / 4,
                     this.ballY - RADIUS / 5, RADIUS + RADIUS / 4,
                     floatArrayOf(0.0f, 1.0f),
-                    arrayOf(Color.green, Color.green.darker().darker()))
+                    arrayOf(Color.green, Color.green.deriveByBrightness(-0.7)))
             it.fill(shape)
             it.color = Color(0, 64, 0)
             it.draw(shape)

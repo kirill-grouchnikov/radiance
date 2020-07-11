@@ -52,22 +52,6 @@ fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
 }
 
 /**
- * Specifies that watermark should be painted on this component and its nested children.
- * There is a special default setting for trees, tables, lists and text components. These
- * show watermark only when this method is called with `true` on the component
- * itself or one of its ancestors, or {@link SubstanceCortex.GlobalScope#setWatermarkVisible}
- * is called with `true`.
- *
- * @param watermarkVisible If `true`, watermark will be painted on the
- * component and its nested children. Pass `null` to reset to the
- * default behavior.
- */
-@EmberComponentOrParentChainScope
-fun JComponent.setWatermarkVisible(watermarkVisible: Boolean?) {
-    SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(this, watermarkVisible)
-}
-
-/**
  * Specifies corner radius for all buttons in this toolbar.
  *
  * @param toolbarButtonCornerRadius Corner radius for all buttons in the toolbar.

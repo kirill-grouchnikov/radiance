@@ -27,22 +27,23 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.extras.api.watermarkpack.flamefractal;
+@file:Suppress("NOTHING_TO_INLINE")
 
-/**
- * Flame fractal implementation of
- * {@link org.pushingpixels.substance.api.watermark.SubstanceWatermark}, that imitates
- * kaleidoscope.
- * 
- * @author Kirill Grouchnikov
- */
-public class SubstanceKaleidoscopeWatermark extends
-		SubstanceFlameFractalWatermark {
-	public SubstanceKaleidoscopeWatermark() {
-		super(SubstanceKaleidoscopeWatermark.getName(), new Kaleidoscope());
-	}
+package org.pushingpixels.meteor.swing
 
-	public static String getName() {
-		return "Kaleidoscope";
-	}
+import java.io.File
+import javax.swing.JFileChooser
+import javax.swing.filechooser.FileFilter
+
+inline fun JFileChooser.addChoosableFileFilter(description: String, crossinline filter: (File) -> Boolean) {
+    this.addChoosableFileFilter(object : FileFilter() {
+        override fun accept(pathname: File): Boolean {
+            return filter.invoke(pathname)
+        }
+
+        override fun getDescription(): String {
+            return description
+        }
+    })
 }
+

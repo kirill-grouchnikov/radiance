@@ -297,51 +297,6 @@ public class SubstanceCoreUtilities {
     }
 
     /**
-     * Returns indication whether the watermark should be drawn on the specified component.
-     *
-     * @param component Component.
-     * @return <code>true</code> if the watermark should be drawn on the specified component,
-     * <code>false</code> otherwise.
-     * @see SubstanceCortex.GlobalScope#setWatermarkVisible(Boolean)
-     */
-    public static boolean toDrawWatermark(Component component) {
-        Component c = component;
-        while (c != null) {
-            if (c instanceof JComponent) {
-                JComponent jcomp = (JComponent) component;
-                Object obj = jcomp.getClientProperty(SubstanceSynapse.WATERMARK_VISIBLE);
-                if (obj != null) {
-                    if (Boolean.TRUE.equals(obj)) {
-                        return true;
-                    }
-                    if (Boolean.FALSE.equals(obj)) {
-                        return false;
-                    }
-                }
-            }
-            c = c.getParent();
-        }
-        Object obj = UIManager.get(SubstanceSynapse.WATERMARK_VISIBLE);
-        if (Boolean.TRUE.equals(obj))
-            return true;
-        if (Boolean.FALSE.equals(obj))
-            return false;
-
-        // special cases - lists, tables and trees that show watermarks only
-        // when the WATERMARK_VISIBLE is set to Boolean.TRUE
-        if (component instanceof JList)
-            return false;
-        if (component instanceof JTree)
-            return false;
-        if (component instanceof JTable)
-            return false;
-        if (component instanceof JTextComponent)
-            return false;
-
-        return true;
-    }
-
-    /**
      * Returns the button shaper of the specified button.
      *
      * @param comp The button.

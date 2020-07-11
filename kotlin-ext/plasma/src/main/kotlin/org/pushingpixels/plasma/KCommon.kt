@@ -71,11 +71,11 @@ class NonNullDelegate<T : Any>(private val shouldBlockUpdates: () -> Boolean) {
     }
 }
 
-// Annotation to control the receiver scoping in the DSL
+// Annotation to control the receiver scoping in the Plasma DSL
 @DslMarker
-annotation class FlamingoElementMarker
+internal annotation class PlasmaElementMarker
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class TextContainer {
     internal val strings = arrayListOf<String>()
 
@@ -84,7 +84,7 @@ class TextContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class ColorContainer {
     internal val colors = arrayListOf<Color>()
 
@@ -93,7 +93,7 @@ class ColorContainer {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRichTooltip {
     lateinit var title: String
     var mainIconFactory: Factory? = null

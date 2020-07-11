@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.demo.torch.swing.tracker
 
+import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import java.awt.AlphaComposite
 import java.awt.Color
@@ -46,7 +47,7 @@ class TimelineVisualizerDot {
             it.composite = AlphaComposite.SrcOver.derive(this.opacity)
             val dotShape = Ellipse2D.Double((this.location!!.x - 3).toDouble(),
                     (this.location!!.y - 3).toDouble(), 6.0, 6.0)
-            it.color = Color.green.darker()
+            it.color = Color.green.deriveByBrightness(-0.3)
             it.fill(dotShape)
             it.color = Color.black
             it.draw(dotShape)

@@ -142,6 +142,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      */
     private List<List<AbstractCommandButton>> buttons;
 
+    private ChangeListener contentChangeListener;
+
     /**
      * The button group for the single selection mode.
      */
@@ -157,7 +159,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         this.groupTitles = new ArrayList<>();
 
         populateContent();
-        this.panelContentModel.addChangeListener((ChangeEvent changeEvent) -> populateContent());
+        this.contentChangeListener = (ChangeEvent changeEvent) -> populateContent();
+        this.panelContentModel.addChangeListener(this.contentChangeListener);
 
         this.updateUI();
     }

@@ -17,10 +17,6 @@ Additional [color schemes](skins/colorschemes.md) are available under the `org.p
 
 Additional [fill](painters/fill.md) and [decoration](painters/decoration.md) painters are available under the `org.pushingpixels.substance.extras.api.painterpack` package.
 
-### Watermarks
-
-The `org.pushingpixels.substance.extras.api.watermarkpack` package provides a collection of watermarks. It is highly recommended to read relevant entries in the [FAQ](faq.md) and consider performance implications of additional rendering required to use watermarks.
-
 ### Skins
 
 Additional [skins](skins/overview.md) are available under the `org.pushingpixels.substance.extras.api.skinpack` package.

@@ -47,6 +47,7 @@ import javax.swing.event.*
 import javax.swing.table.AbstractTableModel
 import javax.swing.tree.DefaultTreeModel
 import javax.swing.tree.DefaultTreeSelectionModel
+import kotlin.reflect.KProperty
 
 fun DelayedActionListener(listener: (ActionEvent) -> Unit): ActionListener {
     return ActionListener { event ->
@@ -1105,6 +1106,14 @@ inline fun <reified T> Component.addTypedDelayedPropertyChangeListener(propertyN
     this.addDelayedPropertyChangeListener(propertyName) { event ->
         listener.invoke(TypedPropertyChangeEvent(event.source,
                 propertyName, event.oldValue as? T, event.newValue as? T))
+    }
+}
+
+inline fun <reified T> Component.addTypedDelayedPropertyChangeListener(propertyClass: KProperty<*>,
+        noinline listener: suspend (TypedPropertyChangeEvent<T>) -> Unit) {
+    this.addDelayedPropertyChangeListener(propertyClass.name) { event ->
+        listener.invoke(TypedPropertyChangeEvent(event.source,
+                propertyClass.name, event.oldValue as? T, event.newValue as? T))
     }
 }
 

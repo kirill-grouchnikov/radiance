@@ -209,16 +209,6 @@ public class ListPanel extends ControllablePanel {
         });
         builder.append("Row count", rowCountSlider);
 
-        final JCheckBox watermarkBleed = new JCheckBox("watermark bleed");
-        watermarkBleed.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(list,
-                    watermarkBleed.isSelected());
-            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jsp,
-                    watermarkBleed.isSelected());
-            list.repaint();
-        });
-        builder.append("Watermark", watermarkBleed);
-
         bUp = new JButton("Move selected up");
         SubstanceCortex.ComponentOrParentScope.setFlatBackground(bUp, true);
 

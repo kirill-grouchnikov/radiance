@@ -30,6 +30,7 @@
 package org.pushingpixels.tools.apollo
 
 import org.pushingpixels.meteor.addDelayedMouseListener
+import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -43,7 +44,7 @@ import javax.swing.JRadioButton
 import kotlin.properties.Delegates
 
 class JColorComponent(name: String, color: Color?) : JComponent() {
-    val radio: JRadioButton
+    val radio: JRadioButton = JRadioButton(name)
 
     var color: Color? = null
         private set
@@ -63,7 +64,6 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
     }
 
     init {
-        this.radio = JRadioButton(name)
         this.radio.isFocusable = false
         this.color = color
         this.visualizer = ColorVisualizer()
@@ -132,7 +132,7 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
                     it.color = color
                     it.fillRect(2, 2, 100, height - 4)
                     it.stroke = BasicStroke(borderThickness)
-                    it.color = color!!.darker()
+                    it.color = color!!.deriveByBrightness(-0.4)
                     it.drawRect(2, 2, 99, height - 4)
 
                     it.color = Color.black

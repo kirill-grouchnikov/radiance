@@ -46,30 +46,13 @@ Substance provides not only a highly configurable "look" part. It also adds sign
 
 This has been long been part of Substance. The answer to this question can be found on the "Pushing Pixels" blog in [entry from July 2008](http://www.pushing-pixels.org/?p=368) and in [entry from February 2010](http://www.pushing-pixels.org/?p=1643).
 
-**Scrolling and moving windows leaves the watermark in inconsistent state. Is it a bug?**
-
-No, it's by design. Swing does not repaint the component on every event while scrolling or moving the windows / frames / dialogs. Try it and watch the CPU go berserk. As by default the Substance watermarks are screen-bound, you may (and will) experience the watermark inconsistency. Here are some things you can do:
-
-* Define your scrolled component to be non-opaque. It will be repainted on every scroll, including the watermark. Doesn't really help with CPU if you have a lot of child components.
-* Add scroll / move listener and repaint the component there. It is recommended to call repaint every 100+ milliseconds to keep the application responsive. You will still experience "jagged" behaviour on fast scrolls / drags.
-* Use WATERMARK_VISIBLE client property on the specific component, setting it to `Boolean.FALSE`
-* Use null watermark (see watermarks) for your application.
-* Use `SubstanceImageWatermark.setImageWatermarkKind(ImageWatermarkKind)` and specify one of `APP_ANCHOR`, `APP_CENTER` or `APP_TILE` values for the image watermark kind. This is relevant only for image-based watermarks.
-
-**I use an image-based watermark in my application / applet and don't see it. Is it a bug?**
-
-By default, **all** Substance watermarks are screen-bound (also true under multiple screens). This is in order to enable smooth and seamless operation of applications that use multiple frames / dialogs. In addition, this allows to blend Substance-based applications on desktops with matching backgrounds. Specifically for image-based watermarks this may present a visual problem if the specified (local or remote) image is smaller than the screen (one or both dimensions). In this case the image is not enlarged and is centered in the middle of the screen. Unless your application is situated properly, the visual result is "no watermark". In order to amend the situation you will need to provide a larger image. Two notes:
-
-* If one or both dimensions of the watermark image are larger than the corresponding dimension(s) of the screen(s), the image will be scaled down.
-* In order to ensure seamless operation of applications that use multiple frames / dialogs under window move / drag see the answer to question 6 above.
-
 **I don't like Substance.**
 
 That's not really a question. If you don't like it, you can either help improve it by suggesting additional features in the [issue tracker](https://github.com/kirill-grouchnikov/radiance/issues), or use any other core or third-party look-and-feel. The landscape of third-party look-and-feels was a bit more vibrant when Substance started. Some of those are still around, and some new have appeared recently.
 
 **Are there any known issues in Substance?**
 
-See the [known issues](docs/known-issues.md) documentation. If you find an issue not mentioned in the above document, [file a bug](https://github.com/kirill-grouchnikov/substance/issues) or [get in touch](http://www.pushing-pixels.org/about-kirill).
+See the [known issues](docs/known-issues.md) documentation. If you find an issue not mentioned in the above document, [file a bug](https://github.com/kirill-grouchnikov/radiance/issues) or [get in touch](http://www.pushing-pixels.org/about-kirill).
 
 **How can I use Substance on Mac and still have the standard Mac application menu bar?**
 
@@ -82,7 +65,7 @@ The global Mac application menu bar is available only under menu UI delegates fr
   3. Set Substance as the look-and-feel.
   4. Before creating your first window, restore the UIManager entries for the keys specified in the second step.
 
-It is not recommended to rely on the current class names for the Aqua UI delegates, since the package that hosts these classes is different for different versions of Apple VM. This is mentioned in the [release notes](http://developer.apple.com/releasenotes/Java/JavaLeopardRN/ResolvedIssues/chapter_3_section_5.html#//apple_ref/doc/uid/TP40006634-CH3-DontLinkElementID_13) for Apple VM 1.6.0 on Mac OS X 10.5 Leopard (radar #4907470). Thanks to **Sergiy Michka** and **Mike Swingler** for this option.
+It is not recommended to rely on the current class names for the Aqua UI delegates, since the package that hosts these classes is different for different versions of JVMs. This is mentioned in the [release notes](http://developer.apple.com/releasenotes/Java/JavaLeopardRN/ResolvedIssues/chapter_3_section_5.html#//apple_ref/doc/uid/TP40006634-CH3-DontLinkElementID_13) for Apple VM 1.6.0 on Mac OS X 10.5 Leopard (radar #4907470). Thanks to **Sergiy Michka** and **Mike Swingler** for this option.
 
 **I use animated GIFs as icons on internal frames and the CPU usage goes berserk (100% maxed out). Some parts of the application do not get repainted at all. What do I do?**
 

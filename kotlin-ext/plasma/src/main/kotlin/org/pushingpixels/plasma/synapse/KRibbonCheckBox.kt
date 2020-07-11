@@ -32,7 +32,7 @@ package org.pushingpixels.plasma.synapse
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.plasma.FlamingoElementMarker
+import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NullableDelegate
 import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
@@ -41,7 +41,7 @@ import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
 import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 import java.awt.event.ActionEvent
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonCheckBoxContentModel {
     private val builder = RibbonCheckBoxContentModel.builder()
     internal lateinit var javaContentModel: RibbonCheckBoxContentModel
@@ -110,7 +110,7 @@ class KRibbonCheckBoxContentModel {
 
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonCheckBox {
     internal var content: KRibbonCheckBoxContentModel = KRibbonCheckBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()

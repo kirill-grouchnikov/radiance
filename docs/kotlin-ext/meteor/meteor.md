@@ -117,7 +117,7 @@ This is all we need to wire property change to integrate with the existing Swing
 ```kotlin
 // track modification changes on the scheme list and any scheme in it
 this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
-        this.colorSchemeList::isModified.name) { evt ->
+        this.colorSchemeList::isModified) { evt ->
     val isModified = evt.newValue ?: false
 
     // update the close / X button of the main frame
@@ -133,7 +133,7 @@ this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
 
 Here we use Meteor's typed property change listener to introduce type safety into querying the property value. For type completeness and null safety we use Kotlin's elvis operator to fall back on `false`.
 
-In addition, note the use of `::isModified.name` to make sure that both sides of the property change processing use the same underlying string name that will play well with codebase renaming and refactoring.
+In addition, note the use of `::isModified` to make sure that both sides of the property change processing use the same underlying property name that will play well with codebase renaming and refactoring.
 
 ### Working with actions
 

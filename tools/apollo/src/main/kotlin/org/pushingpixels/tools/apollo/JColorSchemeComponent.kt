@@ -185,7 +185,7 @@ class JColorSchemeComponent : JPanel() {
 
     private fun createColorComponent(label: String): JColorComponent {
         val result = JColorComponent(label, null)
-        result.addTypedDelayedPropertyChangeListener<Color>(JColorComponent::selectedColor.name) {
+        result.addTypedDelayedPropertyChangeListener<Color>(JColorComponent::selectedColor) {
             fireStateChanged(StateChangeType.MODIFIED)
         }
         this.bg.add(result.radio)

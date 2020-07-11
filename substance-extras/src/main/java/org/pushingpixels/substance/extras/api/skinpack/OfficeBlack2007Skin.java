@@ -268,9 +268,7 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 		this.registerDecorationAreaSchemeBundle(footerSchemeBundle,
 				activeHeaderScheme, DecorationAreaType.FOOTER);
 
-		this.watermarkScheme = colorSchemes.get("Office Black Watermark");
-		this.registerAsDecorationArea(this.watermarkScheme,
-				DecorationAreaType.GENERAL);
+		this.registerAsDecorationArea(colorSchemes.get("Office Black Watermark"), DecorationAreaType.GENERAL);
 
 		setTabFadeStart(0.6);
 		setTabFadeEnd(0.9);
@@ -280,7 +278,6 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
 						scheme.getUltraDarkColor(), 192)), DecorationAreaType.PRIMARY_TITLE_PANE);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.watermark = null;
 
 		this.fillPainter = new FractionBasedFillPainter("Office Black 2007",
 				new float[] { 0.0f, 0.49999f, 0.5f, 1.0f },

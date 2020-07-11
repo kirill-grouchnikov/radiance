@@ -42,7 +42,6 @@ import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.extras.api.watermarkpack.SubstancePlanktonWatermark;
 import org.pushingpixels.substance.internal.colorscheme.ShadeColorScheme;
 import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
 
@@ -115,12 +114,9 @@ public class MagmaSkin extends SubstanceSkin {
         this.setTabFadeStart(1.0);
         this.setTabFadeEnd(1.0);
 
-        this.watermarkScheme = defaultScheme.shade(0.5);
-
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new GlassFillPainter();
         this.decorationPainter = new ArcDecorationPainter();
-        this.watermark = new SubstancePlanktonWatermark();
 
         this.borderPainter = new GlassBorderPainter();
         this.highlightPainter = new ClassicHighlightPainter();

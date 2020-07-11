@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuG
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
 import java.awt.Color
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
     var title: String by NonNullDelegate { false }
     internal var colorContainer = ColorContainer()
@@ -44,7 +44,7 @@ class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KColorSelectorPopupMenuRecentSection {
     var title: String by NonNullDelegate { false }
 }
@@ -117,7 +117,7 @@ class KColorSelectorPopupMenuGroup {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KColorSelectorPopupMenu {
     var onColorActivated: ((Color) -> Unit)? by NullableDelegate { false }
     var onColorPreviewActivated: ((Color) -> Unit)? by NullableDelegate { false }

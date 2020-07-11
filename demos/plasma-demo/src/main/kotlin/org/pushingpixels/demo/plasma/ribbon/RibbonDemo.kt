@@ -49,6 +49,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPo
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedItemListener
 import org.pushingpixels.meteor.awt.brightness
+import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.ResizableIcon
@@ -274,7 +275,7 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
 
         graphics.color = color
         graphics.fillOval(cx - rx, cy - ry, 2 * rx, 2 * ry)
-        graphics.color = color.darker()
+        graphics.color = color.deriveByBrightness(-0.4)
         graphics.drawOval(cx - rx, cy - ry, 2 * rx, 2 * ry)
         graphics.drawRect(x, y, this.currWidth - 2, this.currHeight - 2)
 

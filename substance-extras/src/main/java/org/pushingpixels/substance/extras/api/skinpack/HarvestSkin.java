@@ -169,7 +169,6 @@ public class HarvestSkin extends SubstanceSkin {
         this.setTabFadeEnd(0.18);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.watermark = null;
         this.fillPainter = new ClassicFillPainter();
 
         this.decorationPainter = new MatteDecorationPainter();

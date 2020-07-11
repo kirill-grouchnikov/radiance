@@ -45,7 +45,7 @@ import org.pushingpixels.plasma.*
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 import javax.swing.JComponent
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonBandExpandCommand {
     var action: ((event: CommandActionEvent) -> Unit)? by NullableDelegate { false }
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
@@ -81,7 +81,7 @@ sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
     abstract fun asJavaRibbonBand(): AbstractRibbonBand
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonBandGroup {
     var title: String? by NullableDelegate { false }
 
@@ -118,7 +118,7 @@ class KRibbonBandGroup {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     private val groups = arrayListOf<KRibbonBandGroup>()
     private val defaultGroup = KRibbonBandGroup()
@@ -266,7 +266,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
     private val components = arrayListOf<Any>()
 

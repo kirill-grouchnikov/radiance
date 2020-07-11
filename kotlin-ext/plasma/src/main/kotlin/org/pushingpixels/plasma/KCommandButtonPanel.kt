@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandButtonPanelPresentation {
     var maxColumns: Int = -1
     var maxRows: Int = -1
@@ -72,7 +72,7 @@ class KCommandButtonPanelPresentation {
     }
 }
 
-@FlamingoElementMarker
+@PlasmaElementMarker
 class KCommandButtonPanel {
     class KCommandButtonPanelGroup {
         var title: String by NonNullDelegate { false }

@@ -66,8 +66,7 @@ public class TablePanel extends JPanel {
 				int column) {
 			Color color = (Color) value;
 			this.setForeground(color);
-			this.setBackground(new Color(255 - color.getRed(), 255 - color
-					.getGreen(), 255 - color.getBlue()));
+			this.setBackground(new Color(255 - color.getRed(), 255 - color.getGreen(), 255 - color.getBlue()));
 			this.setText("row " + row);
 			return this;
 		}
