@@ -49,12 +49,11 @@ public class TestCommandButtonsSizing extends JPanel {
 
         for (final CommandButtonPresentationState state : new CommandButtonPresentationState[] {
                 CommandButtonPresentationState.BIG, CommandButtonPresentationState.MEDIUM,
-                CommandButtonPresentationState.TILE, CommandButtonPresentationState.SMALL }) {
+                CommandButtonPresentationState.TILE, CommandButtonPresentationState.SMALL}) {
             for (final CommandButtonKind commandButtonKind : CommandButtonKind.values()) {
                 this.model.add(new Mapping(
-                        state.getDisplayName() + " + " + commandButtonKind.name(), (int fontSize) ->
-                        createActionOnlyButton("Sample", state, commandButtonKind,
-                                fontSize)));
+                        state.getDisplayName() + " + " + commandButtonKind.name(),
+                        fontSize -> createActionOnlyButton("Sample", state, commandButtonKind, fontSize)));
             }
         }
 
@@ -81,14 +80,14 @@ public class TestCommandButtonsSizing extends JPanel {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         list.getSelectionModel().addListSelectionListener(
-                (ListSelectionEvent e) -> SwingUtilities.invokeLater(() -> {
+                listSelectionEvent -> SwingUtilities.invokeLater(() -> {
                     if (central != null)
                         remove(central);
                     central = null;
 
                     int selIndex = list.getSelectedIndex();
                     if (selIndex >= 0) {
-                        Mapping sel = (Mapping) list.getSelectedValue();
+                        Mapping sel = list.getSelectedValue();
 
                         String rowSpec = "p";
                         for (int fontSize = 12; fontSize < 25; fontSize++) {

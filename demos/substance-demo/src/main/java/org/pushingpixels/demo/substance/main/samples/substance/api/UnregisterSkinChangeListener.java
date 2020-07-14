@@ -29,25 +29,15 @@
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.util.Vector;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.skin.SkinChangeListener;
 import org.pushingpixels.substance.api.skin.SkinInfo;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.util.Vector;
 
 /**
  * Test application that shows the use of the
@@ -78,11 +68,11 @@ public class UnregisterSkinChangeListener extends JFrame {
                 new Vector<>(SubstanceCortex.GlobalScope.getAllSkins().keySet()));
         cb.setSelectedIndex(-1);
 
-        cb.addItemListener((ItemEvent evt) -> {
+        cb.addItemListener(itemEvent -> {
             // Get the affected item
-            final String item = (String) evt.getItem();
+            final String item = (String) itemEvent.getItem();
 
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
                 SwingUtilities.invokeLater(() -> {
                     try {
                         // Get the skin info object based on
@@ -103,7 +93,7 @@ public class UnregisterSkinChangeListener extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        unregisterListener.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             unregisterListener.setEnabled(false);
             // unregister listener
             SubstanceCortex.GlobalScope.unregisterSkinChangeListener(listener);

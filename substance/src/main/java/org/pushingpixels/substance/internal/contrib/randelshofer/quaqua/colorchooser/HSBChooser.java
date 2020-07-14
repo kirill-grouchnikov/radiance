@@ -83,7 +83,7 @@ implements UIResource {
         new ColorSliderTextFieldHandler(saturationField, ccModel, 1);
         new ColorSliderTextFieldHandler(brightnessField, ccModel, 2);
 
-        ccModel.addChangeListener((ChangeEvent e) -> setColorToModel(ccModel.getColor()));
+        ccModel.addChangeListener(changeEvent -> setColorToModel(ccModel.getColor()));
         hueField.setMinimumSize(hueField.getPreferredSize());
         saturationField.setMinimumSize(saturationField.getPreferredSize());
         brightnessField.setMinimumSize(brightnessField.getPreferredSize());

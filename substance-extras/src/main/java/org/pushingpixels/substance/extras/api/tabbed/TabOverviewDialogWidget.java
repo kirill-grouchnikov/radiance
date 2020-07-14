@@ -29,22 +29,19 @@
  */
 package org.pushingpixels.substance.extras.api.tabbed;
 
-import java.awt.Insets;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.extras.internal.SubstanceExtrasSynapse;
+import org.pushingpixels.substance.extras.internal.tabbed.TabOverviewButton;
+import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewUtilities;
+import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-
-import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.extras.internal.SubstanceExtrasSynapse;
-import org.pushingpixels.substance.extras.internal.tabbed.*;
-import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 /**
  * Adds tab overview dialog to tabbed panes.
@@ -101,13 +98,13 @@ public class TabOverviewDialogWidget extends SubstanceWidget<JTabbedPane> {
 
     @Override
     public void installListeners() {
-        this.propertyListener = (PropertyChangeEvent evt) -> {
+        this.propertyListener = propertyChangeEvent -> {
             Insets lafInsets = getTabAreaInsets();
             final Insets currTabAreaInsets = (lafInsets == null)
                     ? UIManager.getInsets("TabbedPane.tabAreaInsets")
                     : lafInsets;
 
-            if (SubstanceExtrasSynapse.TABBED_PANE_PREVIEW_PAINTER.equals(evt.getPropertyName())) {
+            if (SubstanceExtrasSynapse.TABBED_PANE_PREVIEW_PAINTER.equals(propertyChangeEvent.getPropertyName())) {
                 TabPreviewPainter previewPainter = TabPreviewUtilities
                         .getTabPreviewPainter(TabOverviewDialogWidget.this.jcomp);
 
@@ -128,9 +125,9 @@ public class TabOverviewDialogWidget extends SubstanceWidget<JTabbedPane> {
                             .remove(TabOverviewDialogWidget.this.overviewButton);
                 }
             }
-            if ("tabPlacement".equals(evt.getPropertyName())
-                    || "componentOrientation".equals(evt.getPropertyName())
-                    || "tabAreaInsets".equals(evt.getPropertyName())) {
+            if ("tabPlacement".equals(propertyChangeEvent.getPropertyName())
+                    || "componentOrientation".equals(propertyChangeEvent.getPropertyName())
+                    || "tabAreaInsets".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     if (TabOverviewDialogWidget.this.overviewButton
                             .getParent() == TabOverviewDialogWidget.this.jcomp)

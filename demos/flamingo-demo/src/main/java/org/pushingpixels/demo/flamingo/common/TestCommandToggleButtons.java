@@ -227,7 +227,7 @@ public class TestCommandToggleButtons extends JFrame {
 
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
-        actionEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        actionEnabled.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             toggleCommandShort.setActionEnabled(actionEnabled.isSelected());
             toggleCommandLong.setActionEnabled(actionEnabled.isSelected());
         }));

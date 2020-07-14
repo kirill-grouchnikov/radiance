@@ -61,12 +61,12 @@ public class GetCurrentSkin extends JFrame {
         this.setLayout(new FlowLayout());
 
         JButton autumnSkin = new JButton("Autumn skin");
-        autumnSkin.addActionListener((ActionEvent e) -> SwingUtilities
+        autumnSkin.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> openSampleFrame(new AutumnSkin())));
         this.add(autumnSkin);
 
         JButton graphiteSkin = new JButton("Graphite skin");
-        graphiteSkin.addActionListener((ActionEvent e) -> SwingUtilities
+        graphiteSkin.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> openSampleFrame(new GraphiteSkin())));
         this.add(graphiteSkin);
         this.setSize(400, 200);
@@ -84,7 +84,7 @@ public class GetCurrentSkin extends JFrame {
         final JFrame sampleFrame = new JFrame(skin.getDisplayName());
         sampleFrame.setLayout(new FlowLayout());
         final JButton button = new JButton("Get skin");
-        button.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+        button.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(sampleFrame, "Skin of this button is "
                         + SubstanceCortex.ComponentScope.getCurrentSkin(button).getDisplayName())));
 

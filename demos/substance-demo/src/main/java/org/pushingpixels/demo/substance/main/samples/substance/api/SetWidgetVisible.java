@@ -85,7 +85,7 @@ public class SetWidgetVisible extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox showMenuSearchPanels = new JCheckBox("Show menu search panels");
         showMenuSearchPanels.setSelected(false);
-        showMenuSearchPanels.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+        showMenuSearchPanels.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> SubstanceCortex.WindowScope.setWidgetVisible(SetWidgetVisible.this,
                         showMenuSearchPanels.isSelected(), SubstanceWidgetType.MENU_SEARCH)));
         controls.add(showMenuSearchPanels);

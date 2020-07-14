@@ -43,7 +43,6 @@ public class CommandButtonProjection<M extends Command>
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
     private ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer;
 
-    @SuppressWarnings("unchecked")
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
         this(command, commandPresentation, projection ->  JCommandButton::new);
     }

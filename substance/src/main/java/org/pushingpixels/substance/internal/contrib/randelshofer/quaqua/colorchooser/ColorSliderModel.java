@@ -64,7 +64,7 @@ public abstract class ColorSliderModel {
 
 		for (int i = 0; i < components.length; i++) {
 			final int componentIndex = i;
-            components[i].addChangeListener((ChangeEvent e) -> {
+            components[i].addChangeListener(changeEvent -> {
                 fireColorChanged(componentIndex);
                 fireStateChanged();
             });

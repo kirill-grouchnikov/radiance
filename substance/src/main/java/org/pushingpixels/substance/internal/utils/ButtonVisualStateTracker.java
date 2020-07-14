@@ -85,9 +85,9 @@ public class ButtonVisualStateTracker {
 			b.addChangeListener(this.substanceButtonListener);
 		}
 
-		this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
-				stateTransitionTracker.setModel((ButtonModel) evt.getNewValue());
+		this.substancePropertyListener = propertyChangeEvent -> {
+			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
+				stateTransitionTracker.setModel((ButtonModel) propertyChangeEvent.getNewValue());
 			}
 		};
 		b.addPropertyChangeListener(this.substancePropertyListener);

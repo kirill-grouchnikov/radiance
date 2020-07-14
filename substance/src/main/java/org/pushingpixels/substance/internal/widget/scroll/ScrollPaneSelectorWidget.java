@@ -37,9 +37,7 @@ import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.ComboPopup;
-import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -86,7 +84,7 @@ public class ScrollPaneSelectorWidget extends SubstanceWidget<JScrollPane> {
 
     @Override
     public void installListeners() {
-        this.hierarchyListener = (HierarchyEvent e) -> {
+        this.hierarchyListener = hierarchyEvent -> {
             if (jcomp.getParent() instanceof ComboPopup) {
                 if (scrollPaneSelector != null) {
                     scrollPaneSelector.uninstallFromScrollPane();
@@ -96,8 +94,8 @@ public class ScrollPaneSelectorWidget extends SubstanceWidget<JScrollPane> {
         };
         this.jcomp.addHierarchyListener(this.hierarchyListener);
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (SubstanceSynapse.COMPONENT_PREVIEW_PAINTER.equals(evt.getPropertyName())) {
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (SubstanceSynapse.COMPONENT_PREVIEW_PAINTER.equals(propertyChangeEvent.getPropertyName())) {
                 PreviewPainter pPainter = WidgetUtilities.getComponentPreviewPainter(jcomp);
                 // Uninstall old scroll pane selector
                 if (scrollPaneSelector != null) {

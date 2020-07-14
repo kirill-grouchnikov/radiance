@@ -201,7 +201,7 @@ public class KeyTipManager {
                     .getPresentationModel().getPopupKeyTip();
             appMenuButtonLink.prefAnchorPoint =
                     appMenuButton.getUI().getPopupKeyTipAnchorCenterPoint();
-            appMenuButtonLink.onActivated = (ActionEvent e) -> appMenuButton.doPopupClick();
+            appMenuButtonLink.onActivated = actionEvent -> appMenuButton.doPopupClick();
             appMenuButtonLink.enabled = true;
             appMenuButtonLink.traversal = () -> {
                 // System.out.println("Get next chain");
@@ -282,8 +282,7 @@ public class KeyTipManager {
                     taskToggleButtonLink.keyTipString = keyTip;
                     taskToggleButtonLink.prefAnchorPoint = new Point(
                             taskToggleButton.getWidth() / 2, taskToggleButton.getHeight());
-                    taskToggleButtonLink.onActivated = (ActionEvent e) -> taskToggleButton
-                            .doActionClick();
+                    taskToggleButtonLink.onActivated = actionEvent -> taskToggleButton.doActionClick();
                     taskToggleButtonLink.enabled = true;
                     taskToggleButtonLink.traversal = () -> {
                         KeyTipChain taskChain = new KeyTipChain(taskToggleButton);
@@ -395,7 +394,7 @@ public class KeyTipManager {
             link.comp = cb;
             link.keyTipString = cb.getActionKeyTip();
             link.prefAnchorPoint = cb.getUI().getActionKeyTipAnchorCenterPoint();
-            link.onActivated = (ActionEvent e) -> cb.doActionClick();
+            link.onActivated = actionEvent -> cb.doActionClick();
             link.enabled = cb.getActionModel().isEnabled();
             if (cb.getClass().isAnnotationPresent(KeyTipManager.HasNextKeyTipChain.class)) {
                 link.traversal = () -> {
@@ -425,7 +424,7 @@ public class KeyTipManager {
             link.comp = rc;
             link.keyTipString = rc.getKeyTip();
             link.prefAnchorPoint = rc.getUI().getKeyTipAnchorCenterPoint();
-            link.onActivated = (ActionEvent e) -> {
+            link.onActivated = actionEvent -> {
                 // Emulate a mouse click (press + release) in the center of the main
                 // component
                 JComponent mainComponent = rc.getMainComponent();
@@ -463,7 +462,7 @@ public class KeyTipManager {
             link.comp = cb;
             link.keyTipString = cb.getPopupKeyTip();
             link.prefAnchorPoint = cb.getUI().getPopupKeyTipAnchorCenterPoint();
-            link.onActivated = (ActionEvent e) -> {
+            link.onActivated = actionEvent -> {
                 cb.doActionRollover();
                 cb.doPopupClick();
             };

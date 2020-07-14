@@ -350,12 +350,12 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(tree.isEnabled());
-        isEnabled.addActionListener((ActionEvent e) ->
+        isEnabled.addActionListener(actionEvent ->
                 tree.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         final JCheckBox cbTreeSmartScroll = new JCheckBox("smart tree scroll");
-        cbTreeSmartScroll.addActionListener((ActionEvent e) -> {
+        cbTreeSmartScroll.addActionListener(actionEvent -> {
             if (cbTreeSmartScroll.isSelected()) {
                 SubstanceCortex.ComponentScope.allowAnimations(tree,
                         SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION);

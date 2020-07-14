@@ -165,16 +165,16 @@ And then the base class for the UI delegate (which is `BasicCommandButtonUI`) ad
 protected void installListeners() {
     ...
     Command command = this.commandButton.getProjection().getContentModel();
-    this.projectionPropertyChangeListener = (PropertyChangeEvent evt) -> {
-        if ("text".equals(evt.getPropertyName())) {
-            commandButton.setText((String) evt.getNewValue());
+    this.projectionPropertyChangeListener = propertyChangeEvent -> {
+        if ("text".equals(propertyChangeEvent.getPropertyName())) {
+            commandButton.setText((String) propertyChangeEvent.getNewValue());
         }
-        if ("iconFactory".equals(evt.getPropertyName())) {
-            ResizableIcon.Factory factory = (ResizableIcon.Factory) evt.getNewValue();
+        if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
+            ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
             commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
         }
-        if ("actionEnabled".equals(evt.getPropertyName())) {
-            commandButton.getActionModel().setEnabled((Boolean) evt.getNewValue());
+        if ("actionEnabled".equals(propertyChangeEvent.getPropertyName())) {
+            commandButton.getActionModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
             syncDisabledIcon();
             commandButton.repaint();
         }

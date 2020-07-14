@@ -85,7 +85,7 @@ public class SetFocusKind extends JFrame {
             }
         });
         focusKindCombo.setSelectedItem(FocusKind.ALL_INNER);
-        focusKindCombo.addActionListener((ActionEvent e) -> {
+        focusKindCombo.addActionListener(actionEvent -> {
             // based on the selected value, set focus kind on the
             // button and request focus
             SubstanceCortex.ComponentOrParentChainScope.setFocusKind(button1,

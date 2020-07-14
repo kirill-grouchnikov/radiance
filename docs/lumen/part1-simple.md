@@ -102,7 +102,7 @@ public CloseButton() {
 It first marks the button as non-opaque and initializes the foreground to light blue. Then it sets the current alpha to zero so that we will fade in the button when it first appears on the screen. Next we add an action listener to close the ancestor window when this button is activated:
 
 ```java
-this.addActionListener((ActionEvent e) -> {
+this.addActionListener(actionEvent -> {
     SwingUtilities.invokeLater(() -> {
         // dispose the host window
         Window windowAncestor = SwingUtilities.getWindowAncestor(CloseButton.this);
@@ -145,7 +145,7 @@ Finally, we are going to add an hierarchy listener to fade in the button when it
 ```java
 // fade in the component once it's part of the window
 // hierarchy
-this.addHierarchyListener((HierarchyEvent e) -> Timeline.builder(CloseButton.this)
+this.addHierarchyListener(hierarchyEvent -> Timeline.builder(CloseButton.this)
         .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
         .addCallback(new SwingRepaintCallback(CloseButton.this))
         .setDuration(500)
@@ -228,7 +228,7 @@ Here we are painting the inner cross using the current foreground color – once
 Now it is time to go back to the main window to show how it is disposed. Remember that this is the code in the close button:
 
 ```java
-this.addActionListener((ActionEvent e) -> {
+this.addActionListener(actionEvent -> {
     SwingUtilities.invokeLater(() -> {
         // dispose the host window
         Window windowAncestor = SwingUtilities.getWindowAncestor(CloseButton.this);

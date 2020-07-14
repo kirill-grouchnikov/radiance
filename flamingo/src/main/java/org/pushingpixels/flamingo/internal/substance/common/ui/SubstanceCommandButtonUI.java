@@ -184,15 +184,15 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
         this.substanceVisualStateTracker.installListeners(this.commandButton);
 
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if ("actionModel".equals(evt.getPropertyName())) {
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if ("actionModel".equals(propertyChangeEvent.getPropertyName())) {
                 if (substanceModelChangeListener != null)
                     substanceModelChangeListener.unregisterListeners();
                 substanceModelChangeListener = new GhostingListener(commandButton,
                         commandButton.getActionModel());
                 substanceModelChangeListener.registerListeners();
             }
-            if ("icon".equals(evt.getPropertyName())) {
+            if ("icon".equals(propertyChangeEvent.getPropertyName())) {
                 trackGlowingIcon();
             }
         };

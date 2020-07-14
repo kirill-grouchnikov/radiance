@@ -32,7 +32,6 @@ package org.pushingpixels.substance.internal.utils;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.ModelStateInfo;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
@@ -45,7 +44,6 @@ import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
@@ -141,14 +139,16 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
             this.addMouseListener(this.substanceRolloverListener);
             this.addMouseMotionListener(this.substanceRolloverListener);
 
-            this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-                if ("enabled".equals(evt.getPropertyName())) {
+            this.substancePropertyChangeListener = propertyChangeEvent -> {
+                if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
                     boolean isEnabled = splitPane.isEnabled();
                     gripModel.setEnabled(isEnabled);
-                    if (leftButton != null)
+                    if (leftButton != null) {
                         leftButton.setEnabled(isEnabled);
-                    if (rightButton != null)
+                    }
+                    if (rightButton != null) {
                         rightButton.setEnabled(isEnabled);
+                    }
                     setEnabled(isEnabled);
                 }
             };

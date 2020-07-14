@@ -22,7 +22,6 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 
 //import java.awt.event.*;
 
@@ -47,8 +46,8 @@ public class CrayonsChooser extends SubstanceColorChooserPanel implements UIReso
 
         crayons = new Crayons();
         add(crayons);
-        crayons.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if (evt.getPropertyName().equals("Color")) {
+        crayons.addPropertyChangeListener(propertyChangeEvent -> {
+            if (propertyChangeEvent.getPropertyName().equals("Color")) {
                 setColorToModel(crayons.getColor());
             }
         });

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
@@ -42,7 +41,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -185,8 +183,8 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 	@Override
 	protected void installListeners() {
 		super.installListeners();
-		this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-			if ("editor".equals(evt.getPropertyName())) {
+		this.substancePropertyChangeListener = propertyChangeEvent -> {
+			if ("editor".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
 					if (spinner == null)
 						return;
@@ -203,7 +201,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 				});
 			}
 
-			if ("font".equals(evt.getPropertyName())) {
+			if ("font".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
 					if (spinner != null) {
 						spinner.updateUI();
@@ -211,7 +209,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 				});
 			}
 
-			if ("background".equals(evt.getPropertyName())) {
+			if ("background".equals(propertyChangeEvent.getPropertyName())) {
 				JComponent editor = spinner.getEditor();
 				if ((editor instanceof JSpinner.DefaultEditor)) {
 					JTextField tf = ((JSpinner.DefaultEditor) editor).getTextField();

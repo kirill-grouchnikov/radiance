@@ -134,7 +134,7 @@ Command commandBold = Command.builder()
 and then be dynamically enabled or disabled based on the current selection:
 
 ```java
-textPane.addCaretListener((CaretEvent e) -> {
+textPane.addCaretListener(caretEvent -> {
     // Compute selection presence
     boolean hasSelection =
             (textPane.getSelectionEnd() - textPane.getSelectionStart()) > 0;
@@ -265,7 +265,7 @@ Command commandStrikethrough = Command.builder()
 We then wire the text pane selection listener to update the toggled / selected state of each command based on the application-specific logic (presence of the corresponding style in the selected content):
 
 ```java
-textPane.addCaretListener((CaretEvent e) -> {
+textPane.addCaretListener(caretEvent -> {
     ...
     // For each command, determine whether its toggle selection is "on" based on
     // the presence of the matching style in the text pane selection

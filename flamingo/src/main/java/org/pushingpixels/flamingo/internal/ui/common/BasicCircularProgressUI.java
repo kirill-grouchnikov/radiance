@@ -148,9 +148,9 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                     }
                 }).build();
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (evt.getPropertyName().equals("visible")) {
-                if (((Boolean) evt.getNewValue()).booleanValue()) {
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (propertyChangeEvent.getPropertyName().equals("visible")) {
+                if ((Boolean) propertyChangeEvent.getNewValue()) {
                     if ((alphaTimeline != null) && !alphaTimeline.isDone()) {
                         // is already fading in
                         return;

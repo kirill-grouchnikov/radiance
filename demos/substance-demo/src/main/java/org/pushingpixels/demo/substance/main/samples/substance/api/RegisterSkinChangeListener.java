@@ -71,11 +71,11 @@ public class RegisterSkinChangeListener extends JFrame {
                 new Vector<>(SubstanceCortex.GlobalScope.getAllSkins().keySet()));
         cb.setSelectedIndex(-1);
 
-        cb.addItemListener((ItemEvent evt) -> {
+        cb.addItemListener(itemEvent -> {
             // Get the affected item
-            final Object item = evt.getItem();
+            final Object item = itemEvent.getItem();
 
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
                 SwingUtilities.invokeLater(() -> {
                     try {
                         // Get the skin info object based on the selected skin display name

@@ -70,7 +70,7 @@ public class TextEditContextMenu extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JCheckBox hasEditContextMenu = new JCheckBox("Has edit context menu");
-        hasEditContextMenu.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentScope
+        hasEditContextMenu.addActionListener(actionEvent -> SubstanceCortex.ComponentScope
                 .setTextEditContextMenuPresence(jtf, hasEditContextMenu.isSelected()));
 
         controls.add(hasEditContextMenu);

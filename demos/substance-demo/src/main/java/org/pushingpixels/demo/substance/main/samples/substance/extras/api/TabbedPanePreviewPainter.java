@@ -94,7 +94,7 @@ public class TabbedPanePreviewPainter extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox hasPreview = new JCheckBox("Has preview");
-        hasPreview.addActionListener((ActionEvent e) -> {
+        hasPreview.addActionListener(actionEvent -> {
             SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp,
                     hasPreview.isSelected() ? new DefaultTabPreviewPainter() : null);
             jtp.revalidate();

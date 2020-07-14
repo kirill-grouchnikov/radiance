@@ -69,7 +69,7 @@ public class ScrollPanel extends ControllablePanel {
         builder.appendSeparator("General settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(true);
-        isEnabled.addActionListener((ActionEvent e) -> {
+        isEnabled.addActionListener(actionEvent -> {
             boolean toEnable = isEnabled.isSelected();
             sp.setEnabled(toEnable);
             updateEnabledState(sp, toEnable);
@@ -79,7 +79,7 @@ public class ScrollPanel extends ControllablePanel {
 
         final JCheckBox hasNullBorder = new JCheckBox("Has null border");
         hasNullBorder.setSelected(false);
-        hasNullBorder.addActionListener((ActionEvent e) -> {
+        hasNullBorder.addActionListener(actionEvent -> {
             if (hasNullBorder.isSelected())
                 sp.setBorder(null);
             else
@@ -89,13 +89,13 @@ public class ScrollPanel extends ControllablePanel {
         builder.append("Border", hasNullBorder);
 
         final JCheckBox hasPreview = new JCheckBox("Has preview");
-        hasPreview.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentOrParentScope
+        hasPreview.addActionListener(actionEvent -> SubstanceCortex.ComponentOrParentScope
                 .setComponentPreviewPainter(sp,
                         hasPreview.isSelected() ? new DefaultPreviewPainter() : null));
         builder.append("Preview", hasPreview);
 
         final JCheckBox hasAutoScroll = new JCheckBox("Has auto scroll");
-        hasAutoScroll.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentScope
+        hasAutoScroll.addActionListener(actionEvent -> SubstanceCortex.ComponentScope
                 .setAutomaticScrollPresence(sp, hasAutoScroll.isSelected()));
         builder.append("Auto scroll", hasAutoScroll);
 

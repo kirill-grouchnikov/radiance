@@ -74,7 +74,6 @@ import org.pushingpixels.substance.api.skin.GeminiSkin;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.CaretEvent;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -83,7 +82,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.MessageFormat;
 import java.util.List;
@@ -1486,7 +1484,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
                 .setText(resourceBundle.getString("Ruler.text"))
                 .setSelected(true)
-                .setActionListener((ActionEvent ae) ->
+                .setActionListener(actionEvent ->
                         System.out.println("Ruler selection --> " + rulerCheckBoxModel.isSelected()))
                 .build();
 
@@ -1832,7 +1830,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
         this.rulerTextPane.setFont(baseFont.deriveFont(baseFont.getSize() + 3.0f));
-        this.rulerTextPane.addCaretListener((CaretEvent e) -> {
+        this.rulerTextPane.addCaretListener(caretEvent -> {
             // For each command, determine whether its toggle selection is "on" based on
             // the presence of the matching style in the text pane selection
             styleBoldCommand.setToggleSelected(hasStyleInSelection(rulerTextPane,
@@ -2209,9 +2207,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         final JCheckBox group1Visible = new JCheckBox("visible");
         final JCheckBox group2Visible = new JCheckBox("visible");
-        group1Visible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+        group1Visible.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> getRibbon().setVisible(group1, group1Visible.isSelected())));
-        group2Visible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+        group2Visible.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> getRibbon().setVisible(group2, group2Visible.isSelected())));
         builder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1);
         builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
@@ -2244,7 +2242,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         JButton changeParagraph = new JButton("change");
         changeParagraph
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(new Runnable() {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         paragraphBand.setGroupTitle(0, getRandomString(5, 15));
@@ -2275,7 +2273,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.add("Locale").xy(1, 13).add(localeSwitcher).xy(3, 13);
 
         JButton galleryUpdate = new JButton("update");
-        galleryUpdate.addActionListener((ActionEvent ae) -> {
+        galleryUpdate.addActionListener(actionEvent -> {
             this.styleGalleryContentModel.setSelectedCommand(null);
 
             MessageFormat mfButtonText = new MessageFormat("New {0}");
@@ -2435,11 +2433,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         final JLabel focusInfo = new JLabel();
         final JLabel focusTracker = new JLabel();
-        final PropertyChangeListener globalFocusListener = (PropertyChangeEvent evt) -> {
-            if ("focusOwner".equals(evt.getPropertyName())) {
+        final PropertyChangeListener globalFocusListener = propertyChangeEvent -> {
+            if ("focusOwner".equals(propertyChangeEvent.getPropertyName())) {
                 String toShow = "";
                 ResizableIcon icon = null;
-                Object owner = evt.getNewValue();
+                Object owner = propertyChangeEvent.getNewValue();
                 if (owner == null) {
                     focusInfo.setText("No focus owner");
                     focusTracker.setIcon(null);
@@ -2468,8 +2466,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 focusTracker.setIcon(icon);
             }
         };
-        KeyboardFocusManager.getCurrentKeyboardFocusManager()
-                .addPropertyChangeListener(globalFocusListener);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addPropertyChangeListener(globalFocusListener);
         builder.add(focusInfo).xy(1, 1);
         builder.add(focusTracker).xy(3, 1);
 

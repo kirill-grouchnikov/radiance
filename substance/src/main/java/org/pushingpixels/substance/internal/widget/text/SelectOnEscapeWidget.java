@@ -37,7 +37,6 @@ import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -103,8 +102,8 @@ public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
 
     @Override
     public void installListeners() {
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (SubstanceSynapse.TEXT_FLIP_SELECT_ON_ESCAPE.equals(evt.getPropertyName())) {
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (SubstanceSynapse.TEXT_FLIP_SELECT_ON_ESCAPE.equals(propertyChangeEvent.getPropertyName())) {
                 boolean hasTextFlipSelection = WidgetUtilities
                         .hasTextFlipSelectOnEscapeProperty(jcomp);
                 if (hasTextFlipSelection) {

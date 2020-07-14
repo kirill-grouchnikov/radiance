@@ -74,7 +74,7 @@ public class SubstanceTitlePaneGravitySelector extends
                         SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS));
 
         // add an action listener to change title pane gravity based on user selection
-        this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             TitlePaneConfiguration selected = (TitlePaneConfiguration) getSelectedItem();
             SubstanceCortex.GlobalScope.configureTitleContentGravity(selected.textGravity,
                     selected.controlButtonsGravity, selected.iconGravity);

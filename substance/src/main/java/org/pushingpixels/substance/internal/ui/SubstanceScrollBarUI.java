@@ -48,11 +48,9 @@ import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 import java.util.Set;
@@ -507,14 +505,14 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         this.scrollbar.addMouseListener(this.substanceThumbRolloverListener);
         this.scrollbar.addMouseMotionListener(this.substanceThumbRolloverListener);
 
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if ("font".equals(evt.getPropertyName())) {
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> scrollbar.updateUI());
             }
         };
         this.scrollbar.addPropertyChangeListener(this.substancePropertyListener);
 
-        this.substanceAdjustmentListener = (AdjustmentEvent e) -> {
+        this.substanceAdjustmentListener = adjustmentEvent -> {
             SubstanceCoreUtilities.testComponentStateChangeThreadingViolation(scrollbar);
             Component parent = SubstanceScrollBarUI.this.scrollbar.getParent();
             if (parent instanceof JScrollPane) {

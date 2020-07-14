@@ -35,8 +35,6 @@ import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -63,7 +61,7 @@ public class CloseButton extends JButton {
         this.setForeground(new Color(158, 205, 255));
         this.alpha = 0.0f;
 
-        this.addActionListener((ActionEvent e) -> {
+        this.addActionListener(actionEvent -> {
             SwingUtilities.invokeLater(() -> {
                 // dispose the host window
                 Window windowAncestor = SwingUtilities.getWindowAncestor(CloseButton.this);
@@ -94,7 +92,7 @@ public class CloseButton extends JButton {
         });
 
         // fade in the component once it's part of the window hierarchy
-        this.addHierarchyListener((HierarchyEvent e) -> Timeline.builder(CloseButton.this)
+        this.addHierarchyListener(hierarchyEvent -> Timeline.builder(CloseButton.this)
                 .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
                 .addCallback(new SwingRepaintCallback(CloseButton.this))
                 .setDuration(500)

@@ -33,8 +33,11 @@
 package org.pushingpixels.flamingo.internal.ui.bcb;
 
 import org.pushingpixels.flamingo.api.bcb.*;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.JScrollablePanel;
+import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
@@ -48,7 +51,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -306,7 +308,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private synchronized void startLoadingTimer() {
         if (this.loadingTimer == null) {
-            this.loadingTimer = new Timer(100, (ActionEvent e) -> {
+            this.loadingTimer = new Timer(100, actionEvent -> {
                 this.loadingTimer.stop();
 
                 this.circularProgress.setVisible(false);
@@ -644,7 +646,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     }
 
     private void configureBreadcrumbButton(final JCommandButton button) {
-        button.getPopupModel().addChangeListener((ChangeEvent e) -> {
+        button.getPopupModel().addChangeListener(changeEvent -> {
             PopupButtonModel model = button.getPopupModel();
             boolean displayDownwards = model.isRollover() || model.isPopupShowing();
             CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =

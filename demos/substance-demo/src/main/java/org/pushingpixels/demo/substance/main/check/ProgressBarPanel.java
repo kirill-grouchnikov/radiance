@@ -165,7 +165,7 @@ public class ProgressBarPanel extends JPanel {
                 .build();
 
         this.startButton = new JButton("start");
-        this.startButton.addActionListener((ActionEvent e) -> {
+        this.startButton.addActionListener(actionEvent -> {
             progressTimeline.playLoop(RepeatBehavior.LOOP);
             startButton.setEnabled(false);
             stopButton.setEnabled(true);
@@ -173,30 +173,30 @@ public class ProgressBarPanel extends JPanel {
 
         this.stopButton = new JButton("stop");
         this.stopButton.setEnabled(false);
-        this.stopButton.addActionListener((ActionEvent e) -> {
+        this.stopButton.addActionListener(actionEvent -> {
             progressTimeline.cancel();
             stopButton.setEnabled(false);
             startButton.setEnabled(true);
         });
 
         JButton plus10Button = new JButton("plus 10");
-        plus10Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, 10));
+        plus10Button.addActionListener(actionEvent -> delta(ProgressBarPanel.this, 10));
         buttons.add(plus10Button);
 
         JButton minus10Button = new JButton("minus 10");
-        minus10Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, -10));
+        minus10Button.addActionListener(actionEvent -> delta(ProgressBarPanel.this, -10));
         buttons.add(minus10Button);
 
         JButton plus1Button = new JButton("plus 1");
-        plus1Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, 1));
+        plus1Button.addActionListener(actionEvent -> delta(ProgressBarPanel.this, 1));
         buttons.add(plus1Button);
 
         JButton minus1Button = new JButton("minus 1");
-        minus1Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, -1));
+        minus1Button.addActionListener(actionEvent -> delta(ProgressBarPanel.this, -1));
         buttons.add(minus1Button);
 
         JButton resetButton = new JButton("reset");
-        resetButton.addActionListener((ActionEvent e) -> {
+        resetButton.addActionListener(actionEvent -> {
             progressTimeline.cancel();
             reset(ProgressBarPanel.this);
             stopButton.setEnabled(false);

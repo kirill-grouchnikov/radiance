@@ -246,8 +246,9 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
      * <code>false</code> otherwise.
      */
     private boolean isActionTimerRunning() {
-        if (this.autoRepeatTimer == null)
+        if (this.autoRepeatTimer == null) {
             return false;
+        }
         return this.autoRepeatTimer.isRunning();
     }
 
@@ -259,9 +260,8 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
      */
     private void startActionTimer(final int modifiers) {
         this.autoRepeatTimer = new Timer(this.commandButton.getAutoRepeatSubsequentInterval(),
-                (ActionEvent e) -> {
-                    if (!isEnabled() || !commandButton.isVisible()
-                            || !commandButton.isDisplayable()) {
+                actionEvent -> {
+                    if (!isEnabled() || !commandButton.isVisible() || !commandButton.isDisplayable()) {
                         // stop the timer when the button becomes
                         // disabled, invisible or undisplayable
                         autoRepeatTimer.stop();
@@ -272,8 +272,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
                             this.commandButton.getProjection().getContentModel(),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });
-        this.autoRepeatTimer.setInitialDelay(this.commandButton
-                .getAutoRepeatInitialInterval());
+        this.autoRepeatTimer.setInitialDelay(this.commandButton.getAutoRepeatInitialInterval());
         this.autoRepeatTimer.start();
     }
 

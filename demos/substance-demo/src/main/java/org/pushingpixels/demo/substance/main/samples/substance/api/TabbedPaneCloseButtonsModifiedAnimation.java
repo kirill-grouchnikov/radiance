@@ -72,7 +72,7 @@ public class TabbedPaneCloseButtonsModifiedAnimation extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JButton firstTabModified = new JButton("First tab modified");
-        firstTabModified.addActionListener((ActionEvent e) -> {
+        firstTabModified.addActionListener(actionEvent -> {
             JComponent comp = (JComponent) jtp.getComponentAt(0);
             // mark the first tab component to have modified contents
             SubstanceCortex.ComponentScope.setTabContentsModified(comp, true);
@@ -80,7 +80,7 @@ public class TabbedPaneCloseButtonsModifiedAnimation extends JFrame {
         });
 
         final JButton firstTabSaved = new JButton("First tab saved");
-        firstTabSaved.addActionListener((ActionEvent e) -> {
+        firstTabSaved.addActionListener(actionEvent -> {
             JComponent comp = (JComponent) jtp.getComponentAt(0);
             // mark the first tab component to have saved contents
             SubstanceCortex.ComponentScope.setTabContentsModified(comp, false);
@@ -88,7 +88,7 @@ public class TabbedPaneCloseButtonsModifiedAnimation extends JFrame {
         });
 
         final JCheckBox animationOnCloseButton = new JCheckBox("Animation on close button");
-        animationOnCloseButton.addActionListener((ActionEvent e) -> {
+        animationOnCloseButton.addActionListener(actionEvent -> {
             // based on the checkbox selection, mark the tabbed pane to have
             // modified animations on the close button only
             SubstanceCortex.ComponentScope.setRunModifiedAnimationOnTabCloseButton(jtp,

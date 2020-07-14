@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
+import org.pushingpixels.neon.api.UiThreadingViolationException;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.neon.api.UiThreadingViolationException;
 import org.pushingpixels.substance.api.renderer.SubstanceRenderer;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -45,7 +45,6 @@ import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
 import javax.swing.table.TableCellRenderer;
@@ -243,7 +242,7 @@ public class StateTransitionTracker {
     }
 
     public void registerModelListeners() {
-        this.modelChangeListener = (ChangeEvent e) -> {
+        this.modelChangeListener = changeEvent -> {
             if (isAutoTrackingModelChanges) {
                 onModelStateChanged();
             }

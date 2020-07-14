@@ -261,7 +261,7 @@ public class TestCommandButtons extends JFrame {
 
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
-        actionEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        actionEnabled.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             copyCommand.setActionEnabled(actionEnabled.isSelected());
             cutCommand.setActionEnabled(actionEnabled.isSelected());
             pasteActionCommand.setActionEnabled(actionEnabled.isSelected());
@@ -271,7 +271,7 @@ public class TestCommandButtons extends JFrame {
 
         final JCheckBox popupEnabled = new JCheckBox("popup enabled");
         popupEnabled.setSelected(true);
-        popupEnabled.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        popupEnabled.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             copyCommand.setSecondaryEnabled(popupEnabled.isSelected());
             cutCommand.setSecondaryEnabled(popupEnabled.isSelected());
             pasteActionCommand.setSecondaryEnabled(popupEnabled.isSelected());

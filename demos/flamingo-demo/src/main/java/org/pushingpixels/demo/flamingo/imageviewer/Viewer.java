@@ -115,7 +115,7 @@ public class Viewer extends JFrame {
         this.iconSizeSlider.setMajorTickSpacing(50);
         this.iconSizeSlider.setMinorTickSpacing(10);
         this.iconSizeSlider.setValue(initialSize);
-        this.iconSizeSlider.addChangeListener((ChangeEvent e) -> {
+        this.iconSizeSlider.addChangeListener(changeEvent -> {
             if (!iconSizeSlider.getModel().getValueIsAdjusting()) {
                 if (iconSizeSlider.getValue() != fileViewPanel.getProjection()
                         .getPresentationModel().getCommandIconDimension()) {

@@ -34,18 +34,18 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentation
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 
+/**
+ * Projection that allows using a {@link javax.swing.JComboBox} as a ribbon component.
+ *
+ * @see org.pushingpixels.flamingo.api.ribbon.JRibbonBand#addRibbonComponent(ComponentProjection)
+ * @see org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand#addFlowComponent(ComponentProjection)
+ * @see org.pushingpixels.flamingo.api.ribbon.JRibbon#addTaskbarComponent(ComponentProjection)
+ */
 public class RibbonComboBoxProjection<E> extends ComponentProjection<JRibbonComboBox<E>,
         RibbonComboBoxContentModel<E>> {
-
-    @SuppressWarnings("unchecked")
-    private static <E> ComponentSupplier<JRibbonComboBox<E>,
-            RibbonComboBoxContentModel<E>, ComponentPresentationModel> getDefaultSupplier() {
-        return projection -> JRibbonComboBox::new;
-    }
-
     public RibbonComboBoxProjection(RibbonComboBoxContentModel<E> contentModel,
             ComponentPresentationModel presentationModel) {
-        super(contentModel, presentationModel, getDefaultSupplier());
+        super(contentModel, presentationModel, projection -> JRibbonComboBox::new);
     }
 
     @Override

@@ -36,7 +36,6 @@ import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
@@ -104,17 +103,17 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
      * Installs listeners on the associated ribbon component.
      */
     protected void installListeners() {
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("enabled".equals(evt.getPropertyName())) {
-                propagateEnabled((Boolean) evt.getNewValue());
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
+                propagateEnabled((Boolean) propertyChangeEvent.getNewValue());
             }
-            if ("caption".equals(evt.getPropertyName())) {
-                captionLabel.setText((String) evt.getNewValue());
+            if ("caption".equals(propertyChangeEvent.getPropertyName())) {
+                captionLabel.setText((String) propertyChangeEvent.getNewValue());
                 ribbonComponent.revalidate();
                 ribbonComponent.doLayout();
             }
-            if ("icon".equals(evt.getPropertyName())) {
-                ResizableIcon newIcon = (ResizableIcon) evt.getNewValue();
+            if ("icon".equals(propertyChangeEvent.getPropertyName())) {
+                ResizableIcon newIcon = (ResizableIcon) propertyChangeEvent.getNewValue();
                 if (newIcon != null) {
                     newIcon.setDimension(new Dimension(16, 16));
                     this.disabledIcon = createDisabledIcon();
@@ -123,16 +122,16 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 ribbonComponent.revalidate();
                 ribbonComponent.doLayout();
             }
-            if ("presentationPriority".equals(evt.getPropertyName())) {
+            if ("presentationPriority".equals(propertyChangeEvent.getPropertyName())) {
                 ribbonComponent.revalidate();
                 ribbonComponent.doLayout();
             }
         };
         this.ribbonComponent.addPropertyChangeListener(this.propertyChangeListener);
 
-        this.projectionPropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("enabled".equals(evt.getPropertyName())) {
-                propagateEnabled((Boolean) evt.getNewValue());
+        this.projectionPropertyChangeListener = propertyChangeEvent -> {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
+                propagateEnabled((Boolean) propertyChangeEvent.getNewValue());
             }
         };
         this.ribbonComponent.getProjection().getContentModel().addPropertyChangeListener(
@@ -392,8 +391,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         graphics.dispose();
     }
 
-    protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x,
-            int y);
+    protected abstract void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y);
 
     private int getLayoutGap() {
         return 4;

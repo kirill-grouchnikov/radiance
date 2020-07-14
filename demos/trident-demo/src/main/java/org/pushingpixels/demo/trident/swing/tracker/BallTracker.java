@@ -110,7 +110,7 @@ public class BallTracker extends JFrame {
         controls.add(msCycleDelay);
 
         JButton runTimeline = new JButton("run");
-        runTimeline.addActionListener((ActionEvent e) -> {
+        runTimeline.addActionListener(actionEvent -> {
             if (timelineBallFalling != null) {
                 timelineBallFalling.cancel();
             }
@@ -150,21 +150,21 @@ public class BallTracker extends JFrame {
         });
 
         JButton cancelTimeline = new JButton("cancel");
-        cancelTimeline.addActionListener((ActionEvent e) -> {
+        cancelTimeline.addActionListener(actionEvent -> {
             if (timelineBallFalling != null) {
                 timelineBallFalling.cancelAtCycleBreak();
             }
         });
 
         JButton suspendTimeline = new JButton("suspend");
-        suspendTimeline.addActionListener((ActionEvent e) -> {
+        suspendTimeline.addActionListener(actionEvent -> {
             if (timelineBallFalling != null) {
                 timelineBallFalling.suspend();
             }
         });
 
         JButton resumeTimeline = new JButton("resume");
-        resumeTimeline.addActionListener((ActionEvent e) -> {
+        resumeTimeline.addActionListener(actionEvent -> {
             if (timelineBallFalling != null) {
                 timelineBallFalling.resume();
             }

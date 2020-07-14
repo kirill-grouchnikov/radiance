@@ -125,7 +125,8 @@ public class SvgDeepBatchConverter extends SvgBatchBaseConverter {
                 outputPackageName, languageRenderer, templateFile);
 
         // Now scan the folder for sub-folders
-        for (File inputSubfolder : inputFolder.listFiles((File dir, String name) -> new File(dir, name).isDirectory())) {
+        for (File inputSubfolder : inputFolder.listFiles(
+                (directory, name) -> new File(directory, name).isDirectory())) {
             String subfolderName = inputSubfolder.getName();
             System.out.println("Going into sub-folder " + subfolderName);
 

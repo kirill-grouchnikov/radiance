@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandAction;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
@@ -48,7 +51,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
@@ -198,27 +200,27 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         };
         this.ribbonBand.addMouseListener(this.mouseListener);
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("title".equals(evt.getPropertyName()))
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if ("title".equals(propertyChangeEvent.getPropertyName()))
                 ribbonBand.repaint();
-            if ("expandButtonKeyTip".equals(evt.getPropertyName())) {
+            if ("expandButtonKeyTip".equals(propertyChangeEvent.getPropertyName())) {
                 if (expandButton != null) {
-                    expandButton.setActionKeyTip((String) evt.getNewValue());
+                    expandButton.setActionKeyTip((String) propertyChangeEvent.getNewValue());
                 }
             }
-            if ("expandButtonRichTooltip".equals(evt.getPropertyName())) {
+            if ("expandButtonRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
                 if (expandCommand != null) {
-                    expandCommand.setActionRichTooltip((RichTooltip) evt.getNewValue());
+                    expandCommand.setActionRichTooltip((RichTooltip) propertyChangeEvent.getNewValue());
                 }
             }
-            if ("collapsedStateKeyTip".equals(evt.getPropertyName())) {
+            if ("collapsedStateKeyTip".equals(propertyChangeEvent.getPropertyName())) {
                 if (collapsedButton != null) {
-                    collapsedButton.setPopupKeyTip((String) evt.getNewValue());
+                    collapsedButton.setPopupKeyTip((String) propertyChangeEvent.getNewValue());
                 }
             }
-            if ("expandCommandListener".equals(evt.getPropertyName())) {
-                CommandAction oldListener = (CommandAction) evt.getOldValue();
-                CommandAction newListener = (CommandAction) evt.getNewValue();
+            if ("expandCommandListener".equals(propertyChangeEvent.getPropertyName())) {
+                CommandAction oldListener = (CommandAction) propertyChangeEvent.getOldValue();
+                CommandAction newListener = (CommandAction) propertyChangeEvent.getNewValue();
 
                 if ((oldListener != null) && (newListener == null)) {
                     // need to remove
@@ -238,7 +240,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     expandCommand.setAction(newListener);
                 }
             }
-            if ("componentOrientation".equals(evt.getPropertyName())) {
+            if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
                 if (expandButton != null) {
                     syncExpandButtonIcon();
                 }

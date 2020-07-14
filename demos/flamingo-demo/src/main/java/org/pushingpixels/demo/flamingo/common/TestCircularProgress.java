@@ -51,7 +51,7 @@ public class TestCircularProgress extends JFrame {
         this.setLayout(new BorderLayout());
         JPanel flow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         JButton add = new JButton("add");
-        add.addActionListener((ActionEvent e) -> {
+        add.addActionListener(actionEvent -> {
             JCircularProgress jcp = new JCircularProgress();
             jcp.setPreferredSize(new Dimension(20, 20));
             flow.add(jcp);

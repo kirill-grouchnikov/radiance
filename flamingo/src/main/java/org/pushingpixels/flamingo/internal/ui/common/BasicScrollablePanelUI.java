@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
@@ -39,8 +38,10 @@ import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -78,22 +79,22 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     }
 
     protected void installListeners() {
-        this.mouseWheelListener = (MouseWheelEvent e) -> {
+        this.mouseWheelListener = mouseWheelEvent -> {
             if (scrollablePanel.getScrollType() != JScrollablePanel.ScrollType.VERTICALLY) {
                 return;
             }
 
-            int scrollAmount = 8 * e.getScrollAmount() * e.getWheelRotation();
+            int scrollAmount = 8 * mouseWheelEvent.getScrollAmount() * mouseWheelEvent.getWheelRotation();
             viewOffset += scrollAmount;
             syncScrolling();
         };
         this.scrollablePanel.addMouseWheelListener(this.mouseWheelListener);
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("scrollOnRollover".equals(evt.getPropertyName())) {
-                boolean isScrollOnRollover = (Boolean) evt.getNewValue();
-                ((JCommandButton) leadingScroller).setFireActionOnRollover(isScrollOnRollover);
-                ((JCommandButton) trailingScroller).setFireActionOnRollover(isScrollOnRollover);
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if ("scrollOnRollover".equals(propertyChangeEvent.getPropertyName())) {
+                boolean isScrollOnRollover = (Boolean) propertyChangeEvent.getNewValue();
+                leadingScroller.setFireActionOnRollover(isScrollOnRollover);
+                trailingScroller.setFireActionOnRollover(isScrollOnRollover);
             }
         };
         this.scrollablePanel.addPropertyChangeListener(this.propertyChangeListener);

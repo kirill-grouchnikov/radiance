@@ -51,7 +51,6 @@ import javax.swing.plaf.basic.BasicPasswordFieldUI;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Set;
 
@@ -338,8 +337,8 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
         this.stateTransitionTracker.registerModelListeners();
         this.stateTransitionTracker.registerFocusListeners();
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("font".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     // remember the caret location - issue 404
                     int caretPos = passwordField.getCaretPosition();
@@ -353,7 +352,7 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
                 });
             }
 
-            if ("enabled".equals(evt.getPropertyName())) {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
                 transitionModel.setEnabled(passwordField.isEnabled());
             }
         };

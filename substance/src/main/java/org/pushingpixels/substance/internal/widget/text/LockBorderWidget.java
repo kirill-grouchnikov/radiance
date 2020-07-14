@@ -43,7 +43,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -69,11 +68,11 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
 
     @Override
     public void installListeners() {
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
+        this.propertyChangeListener = propertyChangeEvent -> {
             // fix for defect 5 - infinite event chain.
-            if ("border".equals(evt.getPropertyName()))
+            if ("border".equals(propertyChangeEvent.getPropertyName()))
                 return;
-            if (LockBorderWidget.ORIGINAL_BORDER.equals(evt.getPropertyName()))
+            if (LockBorderWidget.ORIGINAL_BORDER.equals(propertyChangeEvent.getPropertyName()))
                 return;
             SwingUtilities.invokeLater(() -> {
                 // fix for defect 7 - not removing lock border

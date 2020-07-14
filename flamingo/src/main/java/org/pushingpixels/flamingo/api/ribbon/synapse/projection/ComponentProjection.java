@@ -35,6 +35,16 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentation
 
 import javax.swing.*;
 
+/**
+ * Base class for projections that create non-Flamingo components, such as {@link JCheckBox} from
+ * {@link RibbonCheckBoxProjection}.
+ *
+ * @param <C> Class of the Swing component that is the result of this projection.
+ * @param <M> Class of the content model.
+ * @see RibbonCheckBoxProjection
+ * @see RibbonComboBoxProjection
+ * @see RibbonSpinnerProjection
+ */
 public abstract class ComponentProjection<C extends JComponent,
         M extends ComponentContentModel> extends Projection<C, M, ComponentPresentationModel> {
     public ComponentProjection(M contentModel, ComponentPresentationModel presentationModel,

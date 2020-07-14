@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
@@ -61,7 +64,6 @@ import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -455,7 +457,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
         this.syncRibbonState();
 
-        this.ribbonFrameChangeListener = (ChangeEvent e) -> {
+        this.ribbonFrameChangeListener = changeEvent -> {
             syncRibbonState();
             invalidate();
             revalidate();

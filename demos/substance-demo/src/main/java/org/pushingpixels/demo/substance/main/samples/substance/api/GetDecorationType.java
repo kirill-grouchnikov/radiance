@@ -87,7 +87,7 @@ public class GetDecorationType extends JFrame {
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton getTypes = new JButton("Get types");
-        getTypes.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        getTypes.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             DecorationAreaType tabsType = ComponentOrParentChainScope.getDecorationType(tabs);
             DecorationAreaType comboType = ComponentOrParentChainScope.getDecorationType(combo);
             JOptionPane.showMessageDialog(GetDecorationType.this,

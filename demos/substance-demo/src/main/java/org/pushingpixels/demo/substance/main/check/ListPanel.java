@@ -37,12 +37,9 @@ import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,13 +193,13 @@ public class ListPanel extends ControllablePanel {
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(list.isEnabled());
-        isEnabled.addActionListener((ActionEvent e) -> list.setEnabled(isEnabled.isSelected()));
+        isEnabled.addActionListener(actionEvent -> list.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         final JSlider rowCountSlider = new JSlider(10, 1000, this.list.getModel().getSize());
         rowCountSlider.setPaintLabels(false);
         rowCountSlider.setPaintTicks(false);
-        rowCountSlider.addChangeListener((ChangeEvent e) -> {
+        rowCountSlider.addChangeListener(changeEvent -> {
             if (rowCountSlider.getValueIsAdjusting())
                 return;
             list.setModel(new MoveableListModel(rowCountSlider.getValue()));
@@ -222,21 +219,21 @@ public class ListPanel extends ControllablePanel {
         builder.append("", bDown);
         builder.append("", bDelete);
 
-        bUp.addActionListener((ActionEvent e) -> {
+        bUp.addActionListener(actionEvent -> {
             int si = list.getSelectedIndex();
             MoveableListModel mlm = (MoveableListModel) list.getModel();
             mlm.moveUp(si);
             list.setSelectedIndex(si - 1);
         });
 
-        bDown.addActionListener((ActionEvent e) -> {
+        bDown.addActionListener(actionEvent -> {
             int si = list.getSelectedIndex();
             MoveableListModel mlm = (MoveableListModel) list.getModel();
             mlm.moveDown(si);
             list.setSelectedIndex(si + 1);
         });
 
-        bDelete.addActionListener((ActionEvent e) -> {
+        bDelete.addActionListener(actionEvent -> {
             MoveableListModel mlm = (MoveableListModel) list.getModel();
             for (int i = list.getMaxSelectionIndex(); i >= list.getMinSelectionIndex(); i--) {
                 if (list.isSelectedIndex(i)) {
@@ -248,7 +245,7 @@ public class ListPanel extends ControllablePanel {
 
         synchronize();
 
-        list.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->
+        list.getSelectionModel().addListSelectionListener(listSelectionEvent ->
                 SwingUtilities.invokeLater(this::synchronize));
 
         final JComboBox<String> selectionModelCb = new JComboBox<>(
@@ -257,7 +254,7 @@ public class ListPanel extends ControllablePanel {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(selectionModelCb,
                 new WidestComboPopupPrototype<>());
-        selectionModelCb.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        selectionModelCb.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             String selected = (String) selectionModelCb.getSelectedItem();
             if ("single".equals(selected))
                 list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -270,7 +267,7 @@ public class ListPanel extends ControllablePanel {
         builder.append("Selection", selectionModelCb);
 
         final JCheckBox customBackgroundCb = new JCheckBox("Has pink background");
-        customBackgroundCb.addActionListener((ActionEvent e) -> {
+        customBackgroundCb.addActionListener(actionEvent -> {
             if (customBackgroundCb.isSelected()) {
                 oldBackColor = list.getBackground();
                 list.setBackground(new Color(255, 128, 128));
@@ -281,7 +278,7 @@ public class ListPanel extends ControllablePanel {
         builder.append("Background", customBackgroundCb);
 
         final JCheckBox showsIconsCb = new JCheckBox("Has icons");
-        showsIconsCb.addActionListener((ActionEvent e) -> {
+        showsIconsCb.addActionListener(actionEvent -> {
             showIcons = showsIconsCb.isSelected();
             list.revalidate();
             list.repaint();
@@ -294,25 +291,25 @@ public class ListPanel extends ControllablePanel {
         ButtonGroup listRendererGroup = new ButtonGroup();
         final JRadioButton defaultSubstanceRenderer = new JRadioButton("Default Substance");
         defaultSubstanceRenderer.setSelected(true);
-        defaultSubstanceRenderer.addActionListener((ActionEvent e) -> {
+        defaultSubstanceRenderer.addActionListener(actionEvent -> {
             if (defaultSubstanceRenderer.isSelected()) {
                 list.setCellRenderer(new DefaultSubstanceRenderer());
             }
         });
         final JRadioButton defaultCoreRenderer = new JRadioButton("Default core");
-        defaultCoreRenderer.addActionListener((ActionEvent e) -> {
+        defaultCoreRenderer.addActionListener(actionEvent -> {
             if (defaultCoreRenderer.isSelected()) {
                 list.setCellRenderer(new DefaultCoreRenderer());
             }
         });
         final JRadioButton customSubstanceRenderer = new JRadioButton("Custom Substance");
-        customSubstanceRenderer.addActionListener((ActionEvent e) -> {
+        customSubstanceRenderer.addActionListener(actionEvent -> {
             if (customSubstanceRenderer.isSelected()) {
                 list.setCellRenderer(new CustomSubstanceRenderer());
             }
         });
         final JRadioButton customCoreRenderer = new JRadioButton("Custom core");
-        customCoreRenderer.addActionListener((ActionEvent e) -> {
+        customCoreRenderer.addActionListener(actionEvent -> {
             if (customCoreRenderer.isSelected()) {
                 list.setCellRenderer(new CustomCoreRenderer());
             }

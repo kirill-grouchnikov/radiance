@@ -1212,59 +1212,6 @@ public final class SubstanceImageCreator {
     }
 
     /**
-     * Returns resize grip image.
-     * 
-     * @param c
-     *            Component.
-     * @param colorScheme
-     *            Color scheme.
-     * @param dimension
-     *            Resize grip width.
-     * @param isCrowded
-     *            Indicates whether the grips should be painted closely.
-     * @return Resize grip image.
-     */
-    public static BufferedImage getResizeGripImage(Component c, SubstanceColorScheme colorScheme,
-            int dimension, boolean isCrowded) {
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(dimension, dimension);
-        Graphics2D graphics = (Graphics2D) result.getGraphics();
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        boolean isDark = colorScheme.isDark();
-        Color back1 = isDark ? colorScheme.getLightColor()
-                : SubstanceColorUtilities.getInterpolatedColor(colorScheme.getLightColor(),
-                        colorScheme.getDarkColor(), 0.8);
-        Color back2 = isDark ? colorScheme.getExtraLightColor()
-                : SubstanceColorUtilities.getInterpolatedColor(colorScheme.getMidColor(),
-                        colorScheme.getDarkColor(), 0.4);
-        Color fore = isDark ? colorScheme.getDarkColor() : colorScheme.getUltraLightColor();
-
-        int bumpDotDiameter = SubstanceSizeUtils
-                .getDragBumpDiameter(SubstanceSizeUtils.getComponentFontSize(c));
-        int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
-        if (isCrowded)
-            bumpCellSize--;
-        int bumpLines = dimension / bumpCellSize;
-
-        int bumpOffset = (dimension - bumpCellSize * bumpLines) / 2;
-
-        for (int col = 0; col < bumpLines; col++) {
-            int cx = bumpOffset + col * bumpCellSize;
-            for (int row = (bumpLines - col - 1); row < bumpLines; row++) {
-                int cy = bumpOffset + row * bumpCellSize;
-                graphics.setColor(fore);
-                graphics.fillOval(cx + 1, cy + 1, bumpDotDiameter, bumpDotDiameter);
-                graphics.setPaint(new GradientPaint(cx, cy, back1, cx + bumpDotDiameter - 1,
-                        cy + bumpDotDiameter - 1, back2));
-                graphics.fillOval(cx, cy, bumpDotDiameter, bumpDotDiameter);
-            }
-        }
-        return result;
-    }
-
-    /**
      * Retrieves tree icon.
      * 
      * @param tree

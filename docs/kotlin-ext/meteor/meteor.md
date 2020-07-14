@@ -84,8 +84,8 @@ Now, elsewhere in the app there's code that gets notified whenever this property
 
 ```java
 // track modification changes on the scheme list and any scheme in it
-this.colorSchemeList.addPropertyChangeListener("modified", (PropertyChangeEvent evt) -> {
-    boolean isModified = (Boolean) evt.getNewValue();
+this.colorSchemeList.addPropertyChangeListener("modified", propertyChangeEvent -> {
+    boolean isModified = (Boolean) propertyChangeEvent.getNewValue();
     SubstanceCortex.RootPaneScope.setContentsModified(getRootPane(), isModified);
 
     // update the main frame title

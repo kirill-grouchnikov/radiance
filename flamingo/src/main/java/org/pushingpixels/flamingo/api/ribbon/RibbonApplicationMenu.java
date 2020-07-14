@@ -57,15 +57,14 @@ import java.util.List;
  * <p>
  * The entries in the primary area are always visible. The secondary area entries are shown based on
  * the currently active element in the primary area. The secondary entries are {@link Command}s
- * configured with the
- * {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
+ * configured with the {@link Command.Builder#setSecondaryContentModel(CommandMenuContentModel)}
  * API. When this entry is armed (with mouse rollover or via keyboard navigation), the secondary
  * area shows menu buttons for the registered secondary menu entries. The <code>Save As</code> menu
  * item is an example of such a primary menu item, showing a list of default save formats.
  * </p>
  *
  * <p>
- * At runtime, the application menu entries are implemented as {@link JCommandButton}, but the
+ * At runtime, the application menu entries are implemented as {@link JCommandButton}s, but the
  * application code does not operate on that level. Instead, the application code creates
  * metadata-driven description of the ribbon application menu with {@link Command.Builder}, and
  * those commands is used to create and populate the "real" controls of the application menu popup.

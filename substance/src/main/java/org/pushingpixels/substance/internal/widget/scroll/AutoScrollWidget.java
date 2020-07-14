@@ -34,7 +34,6 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -63,10 +62,9 @@ public class AutoScrollWidget extends SubstanceWidget<JScrollPane> {
 
     @Override
     public void installListeners() {
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (SubstanceSynapse.AUTO_SCROLL.equals(evt.getPropertyName())) {
-                AutoScrollActivator.setAutoScrollEnabled(jcomp,
-                        WidgetUtilities.hasAutoScroll(jcomp));
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (SubstanceSynapse.AUTO_SCROLL.equals(propertyChangeEvent.getPropertyName())) {
+                AutoScrollActivator.setAutoScrollEnabled(jcomp, WidgetUtilities.hasAutoScroll(jcomp));
             }
         };
         this.jcomp.addPropertyChangeListener(this.propertyChangeListener);

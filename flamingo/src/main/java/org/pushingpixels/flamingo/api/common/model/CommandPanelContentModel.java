@@ -78,7 +78,7 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         }
-        this.commandGroupPropertyChangeListener = (PropertyChangeEvent evt) -> fireStateChanged();
+        this.commandGroupPropertyChangeListener = propertyChangeEvent -> fireStateChanged();
         for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
         }

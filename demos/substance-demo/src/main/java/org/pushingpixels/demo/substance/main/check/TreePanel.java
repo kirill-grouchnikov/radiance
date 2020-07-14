@@ -35,13 +35,11 @@ import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JTree} component.
@@ -148,12 +146,12 @@ public class TreePanel extends ControllablePanel {
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(tree.isEnabled());
-        isEnabled.addActionListener((ActionEvent e) -> tree.setEnabled(isEnabled.isSelected()));
+        isEnabled.addActionListener(actionEvent -> tree.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         final JCheckBox isOpaque = new JCheckBox("is opaque");
         isOpaque.setSelected(tree.isOpaque());
-        isOpaque.addActionListener((ActionEvent e) -> {
+        isOpaque.addActionListener(actionEvent -> {
             tree.setOpaque(isOpaque.isSelected());
             tree.repaint();
         });
@@ -161,18 +159,17 @@ public class TreePanel extends ControllablePanel {
 
         final JCheckBox isEditable = new JCheckBox("is editable");
         isEditable.setSelected(tree.isEditable());
-        isEditable.addActionListener((ActionEvent e) -> tree.setEditable(isEditable.isSelected()));
+        isEditable.addActionListener(actionEvent -> tree.setEditable(isEditable.isSelected()));
         builder.append("Editable", isEditable);
 
         final JCheckBox isDragEnabled = new JCheckBox("is drag enabled");
         isDragEnabled.setSelected(tree.getDragEnabled());
-        isDragEnabled.addActionListener(
-                (ActionEvent e) -> tree.setDragEnabled(isDragEnabled.isSelected()));
+        isDragEnabled.addActionListener(actionEvent -> tree.setDragEnabled(isDragEnabled.isSelected()));
         builder.append("Drag enabled", isDragEnabled);
 
         final JCheckBox isWrappedInScrollPane = new JCheckBox("is in scroll pane");
         isWrappedInScrollPane.setSelected(true);
-        isWrappedInScrollPane.addActionListener((ActionEvent e) -> {
+        isWrappedInScrollPane.addActionListener(actionEvent -> {
             if (isWrappedInScrollPane.isSelected()) {
                 remove(tree);
                 jsp.setViewportView(tree);
@@ -187,7 +184,7 @@ public class TreePanel extends ControllablePanel {
         builder.append("Container", isWrappedInScrollPane);
 
         final JCheckBox rendererCB = new JCheckBox("has custom renderer");
-        rendererCB.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        rendererCB.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             if (rendererCB.isSelected()) {
                 tree.setCellRenderer(new TestTreeCellRenderer());
             } else {
@@ -207,7 +204,7 @@ public class TreePanel extends ControllablePanel {
         builder.append("Bottom", bottomInsets);
         builder.append("Right", rightInsets);
 
-        ChangeListener cl = (ChangeEvent e) -> tree.setBorder(
+        ChangeListener cl = changeEvent -> tree.setBorder(
                 new EmptyBorder((Integer) topInsets.getValue(), (Integer) leftInsets.getValue(),
                         (Integer) bottomInsets.getValue(), (Integer) rightInsets.getValue()));
         topInsets.addChangeListener(cl);

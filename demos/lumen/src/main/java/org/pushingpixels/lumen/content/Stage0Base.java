@@ -35,7 +35,6 @@ import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -117,7 +116,7 @@ public class Stage0Base extends JComponent {
         this.addMouseMotionListener(adapter);
 
         // fade in the container once it's part of the window hierarchy
-        this.addHierarchyListener((HierarchyEvent e) ->
+        this.addHierarchyListener(hierarchyEvent ->
                 Timeline.builder(Stage0Base.this)
                         .addPropertyToInterpolate("alpha", 0.0f, 0.9f)
                         .addCallback(new SwingRepaintCallback(Stage0Base.this))

@@ -132,7 +132,7 @@ public class SVGApplication {
         panel.add("Center", svgCanvas);
 
         // Set the button action.
-        button.addActionListener((ActionEvent e) -> {
+        button.addActionListener(actionEvent -> {
             JFileChooser fc = new JFileChooser(lastDir);
             int choice = fc.showOpenDialog(panel);
             if (choice == JFileChooser.APPROVE_OPTION) {

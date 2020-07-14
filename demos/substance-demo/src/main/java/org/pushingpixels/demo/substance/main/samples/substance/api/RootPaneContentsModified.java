@@ -83,7 +83,7 @@ public class RootPaneContentsModified extends JFrame {
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton saveButton = new JButton("Save");
         // on button click, mark root pane as not modified
-        saveButton.addActionListener((ActionEvent e) -> SubstanceCortex.RootPaneScope
+        saveButton.addActionListener(actionEvent -> SubstanceCortex.RootPaneScope
                 .setContentsModified(getRootPane(), false));
 
         buttons.add(saveButton);

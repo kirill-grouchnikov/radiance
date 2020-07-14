@@ -39,7 +39,6 @@ import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 import org.pushingpixels.photon.api.transcoder.kotlin.KotlinLanguageRenderer;
 
 import java.io.File;
-import java.io.IOException;
 
 public class IgniteDeepTask extends IgniteBaseTask {
     private String outputRootPackageName;
@@ -158,7 +157,8 @@ public class IgniteDeepTask extends IgniteBaseTask {
                 outputPackageName, languageRenderer, templateFile);
 
         // Now scan the folder for sub-folders
-        for (File inputSubfolder : inputFolder.listFiles((File dir, String name) -> new File(dir, name).isDirectory())) {
+        for (File inputSubfolder : inputFolder.listFiles(
+                (directory, name) -> new File(directory, name).isDirectory())) {
             String subfolderName = inputSubfolder.getName();
             logger.trace("Going into sub-folder " + subfolderName);
 

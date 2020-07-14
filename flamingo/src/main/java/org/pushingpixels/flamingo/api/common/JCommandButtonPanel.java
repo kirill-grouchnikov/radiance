@@ -120,8 +120,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
      */
     public static final String uiClassID = "CommandButtonPanelUI";
 
-    private Projection<JCommandButtonPanel,
-            CommandPanelContentModel, CommandPanelPresentationModel> projection;
+    private Projection<JCommandButtonPanel, CommandPanelContentModel, CommandPanelPresentationModel> projection;
     private CommandPanelContentModel panelContentModel;
     private CommandPanelPresentationModel panelPresentationModel;
 
@@ -237,8 +236,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         }
     }
 
-    private int addButtonToLastGroup(Command command,
-            JCommandButton commandButton) {
+    private int addButtonToLastGroup(Command command, JCommandButton commandButton) {
         if (this.groupTitles.size() == 0) {
             return -1;
         }

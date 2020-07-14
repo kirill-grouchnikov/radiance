@@ -50,13 +50,11 @@ import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
@@ -134,14 +132,14 @@ public abstract class BasicRibbonUI extends RibbonUI {
      * Installs listeners on the associated ribbon.
      */
     protected void installListeners() {
-        this.ribbonChangeListener = (ChangeEvent e) -> syncRibbonState();
+        this.ribbonChangeListener = changeEvent -> syncRibbonState();
         this.ribbon.addChangeListener(this.ribbonChangeListener);
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("selectedTask".equals(evt.getPropertyName())) {
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if ("selectedTask".equals(propertyChangeEvent.getPropertyName())) {
                 syncSelectedTask();
             }
-            if ("applicationMenu".equals(evt.getPropertyName())) {
+            if ("applicationMenu".equals(propertyChangeEvent.getPropertyName())) {
                 if (this.applicationMenuButton != null) {
                     this.ribbon.remove(this.applicationMenuButton);
                 }
@@ -168,7 +166,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
                 syncApplicationMenuTips();
             }
-            if ("minimized".equals(evt.getPropertyName())) {
+            if ("minimized".equals(propertyChangeEvent.getPropertyName())) {
                 PopupPanelManager.defaultManager().hidePopups(null);
                 RichTooltipManager.sharedInstance().hideCurrentlyShowingTipIfNecessary();
                 ribbon.revalidate();
@@ -240,8 +238,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         // need to repaint the entire ribbon on change since scrolling
         // the task toggle buttons affects the contour outline
         // of the ribbon
-        this.taskToggleButtonsScrollablePanel.addChangeListener(
-                (ChangeEvent e) -> ribbon.repaint());
+        this.taskToggleButtonsScrollablePanel.addChangeListener(changeEvent -> ribbon.repaint());
         this.ribbon.add(this.taskToggleButtonsScrollablePanel);
 
         this.ribbon.setLayout(createLayoutManager());

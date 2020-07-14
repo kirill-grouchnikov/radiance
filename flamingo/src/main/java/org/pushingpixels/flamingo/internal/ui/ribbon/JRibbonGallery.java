@@ -203,7 +203,7 @@ public class JRibbonGallery extends JComponent {
                 wasRollover = isRollover;
             }
         });
-        button.getActionModel().addActionListener((ActionEvent e) ->
+        button.getActionModel().addActionListener(actionEvent ->
                 galleryContentModel.setSelectedCommand(command));
 
         this.buttons.add(button);

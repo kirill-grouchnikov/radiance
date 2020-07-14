@@ -66,7 +66,7 @@ public final class MessageListDialog extends JDialog {
                 .getControlFont().deriveFont(Font.BOLD));
         JScrollPane mesScrollPane = new JScrollPane(messageList);
         JButton closeButton = new JButton("Close");
-        closeButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        closeButton.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             dispose();
             if (toExitOnDispose)
                 System.exit(0);

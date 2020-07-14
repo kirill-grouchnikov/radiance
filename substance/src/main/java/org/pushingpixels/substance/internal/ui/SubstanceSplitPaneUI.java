@@ -36,7 +36,6 @@ import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -63,10 +62,11 @@ public class SubstanceSplitPaneUI extends BasicSplitPaneUI {
     protected void installListeners() {
         super.installListeners();
 
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if (JSplitPane.ORIENTATION_PROPERTY.equals(evt.getPropertyName())) {
-                SubstanceSplitPaneDivider substanceDivider = (SubstanceSplitPaneDivider) SubstanceSplitPaneUI.this.divider;
-                substanceDivider.updateOneTouchButtons((Integer) evt.getNewValue());
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if (JSplitPane.ORIENTATION_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
+                SubstanceSplitPaneDivider substanceDivider =
+                        (SubstanceSplitPaneDivider) getDivider();
+                substanceDivider.updateOneTouchButtons((Integer) propertyChangeEvent.getNewValue());
             }
         };
         this.splitPane.addPropertyChangeListener(this.substancePropertyListener);

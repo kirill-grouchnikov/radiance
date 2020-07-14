@@ -222,7 +222,7 @@ public class SampleMenuFactory {
         Map<String, SkinInfo> skinMap = SubstanceCortex.GlobalScope.getAllSkins();
         for (final Map.Entry<String, SkinInfo> entry : skinMap.entrySet()) {
             JMenuItem jmiSkin = new JMenuItem(entry.getValue().getDisplayName());
-            jmiSkin.addActionListener((ActionEvent e) -> {
+            jmiSkin.addActionListener(actionEvent -> {
                 String skinClassName = entry.getValue().getClassName();
                 boolean status = SubstanceCortex.GlobalScope.setSkin(skinClassName);
                 if (!status) {
@@ -236,16 +236,13 @@ public class SampleMenuFactory {
         jmSkin.addSeparator();
         final CustomSkin customSkin = new CustomSkin();
         JMenuItem jmiSkin = new JMenuItem(customSkin.getDisplayName());
-        jmiSkin.addActionListener(
-                (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customSkin));
+        jmiSkin.addActionListener(actionEvent -> SubstanceCortex.GlobalScope.setSkin(customSkin));
         final CustomAccentedSkin customAccentedSkin = new CustomAccentedSkin();
         JMenuItem jmiAccentedSkin = new JMenuItem(customAccentedSkin.getDisplayName());
-        jmiAccentedSkin.addActionListener(
-                (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customAccentedSkin));
+        jmiAccentedSkin.addActionListener(actionEvent -> SubstanceCortex.GlobalScope.setSkin(customAccentedSkin));
         final CustomFocusSkin customFocusSkin = new CustomFocusSkin();
         JMenuItem jmiFocusSkin = new JMenuItem(customFocusSkin.getDisplayName());
-        jmiFocusSkin.addActionListener(
-                (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customFocusSkin));
+        jmiFocusSkin.addActionListener(actionEvent -> SubstanceCortex.GlobalScope.setSkin(customFocusSkin));
 
         jmSkin.add(jmiSkin);
         jmSkin.add(jmiAccentedSkin);

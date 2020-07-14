@@ -39,7 +39,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
-import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
@@ -62,7 +61,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 
@@ -426,8 +424,8 @@ public class SubstanceTreeUI extends BasicTreeUI {
 	@Override
 	protected void installListeners() {
 		super.installListeners();
-		this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-			if ("font".equals(evt.getPropertyName())) {
+		this.substancePropertyChangeListener = propertyChangeEvent -> {
+			if ("font".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
 					tree.updateUI();
 					// Update indents so that the expand / collapse icons are not cut off
@@ -436,8 +434,8 @@ public class SubstanceTreeUI extends BasicTreeUI {
 					setRightChildIndent(SubstanceSizeUtils.getTreeRightIndent(fontSize));
 				});
 			}
-			if ("dropLocation".equals(evt.getPropertyName())) {
-				JTree.DropLocation oldValue = (JTree.DropLocation) evt.getOldValue();
+			if ("dropLocation".equals(propertyChangeEvent.getPropertyName())) {
+				JTree.DropLocation oldValue = (JTree.DropLocation) propertyChangeEvent.getOldValue();
 				if (oldValue != null) {
 					TreePath oldDrop = oldValue.getPath();
 					Rectangle oldBounds = getPathBounds(tree, oldDrop);

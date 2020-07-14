@@ -46,7 +46,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicMenuUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -190,13 +189,13 @@ public class SubstanceMenuUI extends BasicMenuUI implements SubstanceMenu,
 		};
 		this.menuItem.addFocusListener(this.substanceFocusListener);
 
-		this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt
+		this.substancePropertyListener = propertyChangeEvent -> {
+			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(propertyChangeEvent
 					.getPropertyName())) {
-				stateTransitionTracker.setModel((ButtonModel) evt
+				stateTransitionTracker.setModel((ButtonModel) propertyChangeEvent
 						.getNewValue());
 			}
-			if ("font".equals(evt.getPropertyName())) {
+			if ("font".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
 					if (menuItem != null) {
 						menuItem.updateUI();

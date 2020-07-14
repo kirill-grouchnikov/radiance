@@ -62,7 +62,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -159,7 +158,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         }
 
         // Add listener for the selection animation
-        this.substanceFadeSelectionListener = (ListSelectionEvent e) -> {
+        this.substanceFadeSelectionListener = listSelectionEvent -> {
             if (header == null)
                 return;
 
@@ -196,7 +195,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
             // FadeTracker fadeTrackerInstance = FadeTracker.getInstance();
             int size = columnModel.getColumnCount();
             ListSelectionModel lsm = columnModel.getSelectionModel();
-            for (int i = e.getFirstIndex(); i <= e.getLastIndex(); i++) {
+            for (int i = listSelectionEvent.getFirstIndex(); i <= listSelectionEvent.getLastIndex(); i++) {
                 if (i >= size)
                     continue;
                 if (lsm.isSelectedIndex(i)) {
@@ -253,15 +252,15 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
             }
         }
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("table".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("table".equals(propertyChangeEvent.getPropertyName())) {
                 // track changes to the table and re-register the
                 // column model listener to the new table.
-                TableColumnModel oldModel = (evt.getOldValue() instanceof JTable)
-                        ? ((JTable) evt.getOldValue()).getColumnModel()
+                TableColumnModel oldModel = (propertyChangeEvent.getOldValue() instanceof JTable)
+                        ? ((JTable) propertyChangeEvent.getOldValue()).getColumnModel()
                         : null;
-                TableColumnModel newModel = (evt.getNewValue() instanceof JTable)
-                        ? ((JTable) evt.getNewValue()).getColumnModel()
+                TableColumnModel newModel = (propertyChangeEvent.getNewValue() instanceof JTable)
+                        ? ((JTable) propertyChangeEvent.getNewValue()).getColumnModel()
                         : null;
                 processColumnModelChangeEvent(oldModel, newModel);
             }
@@ -855,8 +854,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
     public void processColumnModelChangeEvent(TableColumnModel oldModel,
             TableColumnModel newModel) {
         if (oldModel != null) {
-            oldModel.getSelectionModel()
-                    .removeListSelectionListener(substanceFadeSelectionListener);
+            oldModel.getSelectionModel().removeListSelectionListener(substanceFadeSelectionListener);
         }
         if (newModel != null) {
             newModel.getSelectionModel().addListSelectionListener(substanceFadeSelectionListener);

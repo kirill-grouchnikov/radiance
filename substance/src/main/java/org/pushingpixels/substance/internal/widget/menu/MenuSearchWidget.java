@@ -115,7 +115,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             // Add action listener on the toggle button. Based on the
             // state of the toggle button, the search field and result buttons
             // will be set visible or invisible.
-            this.searchButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            this.searchButton.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                 boolean toShow = SearchPanel.this.searchButton.isSelected();
                 SearchPanel.this.searchStringField.setVisible(toShow);
                 SearchPanel.this.searchStringField.requestFocus();
@@ -150,7 +150,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             // Map to hold the result buttons (need for the icon reset
             // on theme change and layout manager).
             this.resultButtons = new HashMap<>();
-            this.searchStringField.addActionListener((ActionEvent e) -> {
+            this.searchStringField.addActionListener(actionEvent -> {
                 String searchString = SearchPanel.this.searchStringField.getText().toLowerCase();
                 // See if there is at least one non-white space character.
                 // This is fix for bug 54
@@ -490,20 +490,20 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
     public void installListeners() {
         super.installListeners();
 
-        this.propertyListener = (final PropertyChangeEvent evt) -> {
-            if ("componentOrientation".equals(evt.getPropertyName())) {
+        this.propertyListener = propertyChangeEvent -> {
+            if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
                 // final SearchPanel sp = (SearchPanel)
                 // NewMenuSearchWidget.panels
                 // .get(NewMenuSearchWidget.this.jcomp);
                 SwingUtilities.invokeLater(() -> {
                     if (searchPanel != null) {
                         searchPanel.applyComponentOrientation(
-                                (ComponentOrientation) evt.getNewValue());
+                                (ComponentOrientation) propertyChangeEvent.getNewValue());
                     }
                     MenuSearchWidget.this.reset();
                 });
             }
-            if ("locale".equals(evt.getPropertyName())) {
+            if ("locale".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(this::reset);
             }
         };

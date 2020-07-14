@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.flamingo;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.util.Locale;
 
 public class LocaleSwitcher {
@@ -60,7 +59,7 @@ public class LocaleSwitcher {
                 new LocaleInfo(new Locale("iw", "IL"), "Hebrew")};
         final JComboBox<LocaleInfo> result = new JComboBox<>(locales);
         result.setSelectedIndex(0);
-        result.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        result.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             LocaleInfo selected = (LocaleInfo) result.getSelectedItem();
             callback.onLocaleSelected(selected.locale);
         }));

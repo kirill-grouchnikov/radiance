@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
  * {@link Builder#build()} to build a presentation.
  *
  * @author Kirill Grouchnikov
+ * @see org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
  */
 public class ComponentPresentationModel implements ImmutablePresentationModel {
     private boolean isFlat;

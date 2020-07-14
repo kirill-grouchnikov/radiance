@@ -79,7 +79,7 @@ public class RGBChooser extends AbstractColorChooserPanel implements UIResource 
         new ColorSliderTextFieldHandler(greenField, ccModel, 1);
         new ColorSliderTextFieldHandler(blueField, ccModel, 2);
 
-        ccModel.addChangeListener((ChangeEvent e) -> setColorToModel(ccModel.getColor()));
+        ccModel.addChangeListener(changeEvent -> setColorToModel(ccModel.getColor()));
         redField.setMinimumSize(redField.getPreferredSize());
         greenField.setMinimumSize(greenField.getPreferredSize());
         blueField.setMinimumSize(blueField.getPreferredSize());

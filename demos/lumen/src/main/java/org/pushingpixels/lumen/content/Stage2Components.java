@@ -38,7 +38,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,8 +89,8 @@ public class Stage2Components extends Stage1LoadingProgress {
         this.comps = new ArrayList<>();
 
         // register the mouse wheel listener for scrolling content
-        this.addMouseWheelListener((MouseWheelEvent e) -> {
-            if (e.getWheelRotation() > 0) {
+        this.addMouseWheelListener(mouseWheelEvent -> {
+            if (mouseWheelEvent.getWheelRotation() > 0) {
                 // next
                 scrollToNext();
             } else {

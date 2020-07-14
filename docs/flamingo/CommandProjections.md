@@ -112,7 +112,7 @@ The important part here is what happens in the `setAction` block. The first thin
 And then, we have the caret listener registered on the text pane to update the enabled state of our command:
 
 ```java
-textPane.addCaretListener((CaretEvent e) -> {
+textPane.addCaretListener(caretEvent -> {
     // Compute selection presence
     boolean hasSelection =
           (textPane.getSelectionEnd() - textPane.getSelectionStart()) > 0;

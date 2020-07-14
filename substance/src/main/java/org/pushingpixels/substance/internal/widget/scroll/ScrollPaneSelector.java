@@ -32,7 +32,6 @@ package org.pushingpixels.substance.internal.widget.scroll;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -164,10 +163,10 @@ public class ScrollPaneSelector extends JComponent {
         thePopupMenu = new JPopupMenu();
         thePopupMenu.setLayout(new BorderLayout());
         thePopupMenu.add(this, BorderLayout.CENTER);
-        propertyChangeListener = (PropertyChangeEvent evt) -> {
+        propertyChangeListener = propertyChangeEvent -> {
             if (theScrollPane == null)
                 return;
-            if ("componentOrientation".equals(evt.getPropertyName())) {
+            if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
                 theScrollPane.setCorner(JScrollPane.LOWER_LEADING_CORNER, null);
                 theScrollPane.setCorner(JScrollPane.LOWER_TRAILING_CORNER, theButton);
             }
@@ -181,8 +180,8 @@ public class ScrollPaneSelector extends JComponent {
                 theComponent = (comp instanceof JComponent) ? (JComponent) comp : null;
             }
         };
-        thePopupMenu.addPropertyChangeListener((PropertyChangeEvent evt) -> {
-            if ("visible".equals(evt.getPropertyName())) {
+        thePopupMenu.addPropertyChangeListener(propertyChangeEvent -> {
+            if ("visible".equals(propertyChangeEvent.getPropertyName())) {
                 if (!thePopupMenu.isVisible()) {
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                     if (toRestoreOriginal) {

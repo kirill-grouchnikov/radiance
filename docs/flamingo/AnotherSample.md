@@ -162,7 +162,7 @@ There are some differences in how commands in this application are configured:
 The final piece is wiring enabled / disabled state of the commands to changes in the text pane selection:
 
 ```java
-textPane.addCaretListener((CaretEvent e) -> {
+textPane.addCaretListener(caretEvent -> {
     // Compute selection presence
     boolean hasSelection =
             (textPane.getSelectionEnd() - textPane.getSelectionStart()) > 0;

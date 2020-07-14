@@ -80,7 +80,7 @@ public class TestCommandButtonPanel extends JFrame {
 
         final JCheckBox toShowGroupLabels = new JCheckBox("show group labels");
         toShowGroupLabels.setSelected(panelPresentationModel.isToShowGroupLabels());
-        toShowGroupLabels.addActionListener((ActionEvent e) -> {
+        toShowGroupLabels.addActionListener(actionEvent -> {
             panelPresentationModel.setToShowGroupLabels(toShowGroupLabels.isSelected());
             scroller.revalidate();
         });
@@ -89,7 +89,7 @@ public class TestCommandButtonPanel extends JFrame {
         final JCheckBox isRowFillLayout = new JCheckBox("use row fill layout");
         isRowFillLayout.setSelected(panelPresentationModel.getLayoutKind()
                 == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
-        isRowFillLayout.addActionListener((ActionEvent e) ->
+        isRowFillLayout.addActionListener(actionEvent ->
                 panelPresentationModel.setLayoutKind(
                         isRowFillLayout.isSelected()
                                 ? CommandPanelPresentationModel.LayoutKind.ROW_FILL

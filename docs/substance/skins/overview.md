@@ -386,7 +386,7 @@ public class SubstanceSkinComboSelector extends JComboBox {
     });
     // add an action listener to change skin based on user selection
     this.addActionListener(
-            (ActionEvent e) -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope
+            actionEvent -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope
                     .setSkin(((SkinInfo) SubstanceSkinComboSelector.this.getSelectedItem())
                             .getClassName())));
   }

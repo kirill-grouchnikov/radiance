@@ -16,7 +16,6 @@ package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorch
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
@@ -84,8 +83,8 @@ public class ColorChooserMainPanel extends javax.swing.JPanel {
                 cl.show(chooserPanelHolder, displayName);
             }
 
-            tb.addItemListener((ItemEvent evt) -> {
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
+            tb.addItemListener(itemEvent -> {
+                if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
                     CardLayout cl = (CardLayout) chooserPanelHolder.getLayout();
                     cl.show(chooserPanelHolder, displayName);
                     lastSelectedChooserName = displayName;

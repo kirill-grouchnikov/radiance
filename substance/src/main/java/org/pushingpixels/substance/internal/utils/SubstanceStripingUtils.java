@@ -99,8 +99,7 @@ public class SubstanceStripingUtils {
      */
     public static void applyStripedBackground(JComponent component,
             int rowIndex, JComponent renderer) {
-        Color backgr = (Color) component.getClientProperty(
-                (rowIndex % 2) == 0 ? EVEN_COLOR : ODD_COLOR);
+        Color backgr = (Color) component.getClientProperty((rowIndex % 2) == 0 ? EVEN_COLOR : ODD_COLOR);
         if (backgr == null) {
             return;
         }

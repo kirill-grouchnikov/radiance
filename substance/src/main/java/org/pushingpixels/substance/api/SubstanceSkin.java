@@ -210,38 +210,32 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     private Map<DecorationAreaType, List<SubstanceOverlayPainter>> overlayPaintersMap;
 
     /**
-     * The button shaper of <code>this</code> skin. Must be non-
-     * <code>null</code>.
+     * The button shaper of <code>this</code> skin. Must be non-<code>null</code>.
      */
     protected SubstanceButtonShaper buttonShaper;
 
     /**
-     * The fill painter of <code>this</code> skin. Must be non-
-     * <code>null</code>.
+     * The fill painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
     protected SubstanceFillPainter fillPainter;
 
     /**
-     * The border painter of <code>this</code> skin. Must be non-
-     * <code>null</code>.
+     * The border painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
     protected SubstanceBorderPainter borderPainter;
 
     /**
-     * The highlight border painter of <code>this</code> skin. Can be
-     * <code>null</code>.
+     * The highlight border painter of <code>this</code> skin. Can be <code>null</code>.
      */
     protected SubstanceBorderPainter highlightBorderPainter;
 
     /**
-     * The highlight painter of <code>this</code> skin. Must be non-
-     * <code>null</code>.
+     * The highlight painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
     protected SubstanceHighlightPainter highlightPainter;
 
     /**
-     * The decoration painter of <code>this</code> skin. Must be non-
-     * <code>null</code>.
+     * The decoration painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
     protected SubstanceDecorationPainter decorationPainter;
 

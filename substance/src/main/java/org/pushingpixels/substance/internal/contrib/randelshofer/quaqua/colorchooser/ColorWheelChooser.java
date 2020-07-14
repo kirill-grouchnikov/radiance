@@ -55,7 +55,7 @@ public class ColorWheelChooser extends SubstanceColorChooserPanel implements UIR
 		ccModel.configureColorSlider(2, brightnessSlider);
 		colorWheel.setModel(ccModel);
 
-        ccModel.addChangeListener((ChangeEvent e) -> setColorToModel(ccModel.getColor()));
+        ccModel.addChangeListener(changeEvent -> setColorToModel(ccModel.getColor()));
 	}
 
 	/**

@@ -68,11 +68,11 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
                 1, 2);
 
         toPaintGuiderLines = new JCheckBox("guider lines");
-        toPaintGuiderLines.addActionListener((ActionEvent e) -> repaint());
+        toPaintGuiderLines.addActionListener(actionEvent -> repaint());
         controlPanelBuilder.append(toPaintGuiderLines);
 
         toPaintBounds = new JCheckBox("bounds");
-        toPaintBounds.addActionListener((ActionEvent e) -> repaint());
+        toPaintBounds.addActionListener(actionEvent -> repaint());
         controlPanelBuilder.append(toPaintBounds);
         this.controlPanel = controlPanelBuilder.build();
 

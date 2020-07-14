@@ -70,7 +70,7 @@ public class ComboBoxPopupFlyoutOrientation extends JFrame {
 
         final JComboBox<String> flyoutCombo = new JComboBox<>(
                 new String[] { "default", "center", "north", "east", "west", "south" });
-        flyoutCombo.addActionListener((ActionEvent e) -> {
+        flyoutCombo.addActionListener(actionEvent -> {
             Object selected = flyoutCombo.getSelectedItem();
             // set popup flyout orientation based on the selected
             // item

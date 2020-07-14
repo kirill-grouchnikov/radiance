@@ -55,7 +55,6 @@ import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicListUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -404,28 +403,28 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         list.addMouseMotionListener(substanceFadeRolloverListener);
         list.addMouseListener(substanceFadeRolloverListener);
 
-        substancePropertyChangeListener = (final PropertyChangeEvent evt) -> {
-            if ("model".equals(evt.getPropertyName())) {
+        substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("model".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
-                    ListModel oldModel = (ListModel) evt.getOldValue();
+                    ListModel oldModel = (ListModel) propertyChangeEvent.getOldValue();
                     if (oldModel != null) {
                         oldModel.removeListDataListener(substanceListDataListener);
                     }
-                    ListModel newModel = (ListModel) evt.getNewValue();
+                    ListModel newModel = (ListModel) propertyChangeEvent.getNewValue();
                     substanceListDataListener = new SubstanceListDataListener();
                     newModel.addListDataListener(substanceListDataListener);
                     syncModelContents();
                 });
             }
-            if ("selectionModel".equals(evt.getPropertyName())) {
+            if ("selectionModel".equals(propertyChangeEvent.getPropertyName())) {
                 // fix for issue 475 - wire the listener on the new
                 // selection model
                 SwingUtilities.invokeLater(() -> {
-                    ListSelectionModel oldModel = (ListSelectionModel) evt.getOldValue();
+                    ListSelectionModel oldModel = (ListSelectionModel) propertyChangeEvent.getOldValue();
                     if (oldModel != null) {
                         oldModel.removeListSelectionListener(substanceListSelectionListener);
                     }
-                    ListSelectionModel newModel = (ListSelectionModel) evt.getNewValue();
+                    ListSelectionModel newModel = (ListSelectionModel) propertyChangeEvent.getNewValue();
                     substanceListSelectionListener = new SubstanceListSelectionListener();
                     newModel.addListSelectionListener(substanceListSelectionListener);
                     syncModelContents();

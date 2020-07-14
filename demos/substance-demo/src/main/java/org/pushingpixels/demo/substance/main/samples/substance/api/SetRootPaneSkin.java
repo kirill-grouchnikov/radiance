@@ -60,12 +60,12 @@ public class SetRootPaneSkin extends JFrame {
         this.setLayout(new FlowLayout());
 
         JButton autumnSkin = new JButton("Autumn skin");
-        autumnSkin.addActionListener((ActionEvent e) -> SwingUtilities
+        autumnSkin.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> openSampleFrame(new AutumnSkin())));
         this.add(autumnSkin);
 
         JButton ravenGraphiteSkin = new JButton("Graphite skin");
-        ravenGraphiteSkin.addActionListener((ActionEvent e) -> SwingUtilities
+        ravenGraphiteSkin.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> openSampleFrame(new GraphiteSkin())));
         this.add(ravenGraphiteSkin);
 

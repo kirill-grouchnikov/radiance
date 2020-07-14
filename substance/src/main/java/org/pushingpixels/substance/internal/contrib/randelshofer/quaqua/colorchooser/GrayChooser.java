@@ -69,7 +69,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
 
         new ColorSliderTextFieldHandler(brightnessField, ccModel, 0);
 
-        ccModel.addChangeListener((ChangeEvent e) ->  {
+        ccModel.addChangeListener(changeEvent ->  {
             if (updateRecursion == 0) {
                 setColorToModel(ccModel.getColor());
             }

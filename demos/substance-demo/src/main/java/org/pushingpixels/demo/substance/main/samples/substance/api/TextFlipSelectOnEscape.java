@@ -70,7 +70,7 @@ public class TextFlipSelectOnEscape extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JCheckBox hasSelectOnFocus = new JCheckBox("Has \"flip select on ESC\" behaviour");
-        hasSelectOnFocus.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentScope
+        hasSelectOnFocus.addActionListener(actionEvent -> SubstanceCortex.ComponentScope
                 .setFlipTextSelectionOnEscape(jtf, hasSelectOnFocus.isSelected()));
 
         controls.add(hasSelectOnFocus);

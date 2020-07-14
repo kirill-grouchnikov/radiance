@@ -53,7 +53,7 @@ public class SubstanceSkinSelector extends FlexiComboBox<SkinInfo> {
         }
 
         // add an action listener to change skin based on user selection
-        this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SubstanceSkin currSkin = SubstanceCortex.ComponentScope.getCurrentSkin(SubstanceSkinSelector.this);
             SkinInfo newSkinInfo = (SkinInfo) SubstanceSkinSelector.this.getSelectedItem();
             if (!currSkin.getClass().getName().equals(newSkinInfo.getClassName())) {

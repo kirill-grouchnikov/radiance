@@ -130,9 +130,9 @@ public class SubstanceRibbonTaskToggleButtonUI extends
         this.substanceVisualStateTracker = new CommandButtonVisualStateTracker();
         this.substanceVisualStateTracker.installListeners(this.commandButton);
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("contextualGroupHueColor".equals(evt.getPropertyName())) {
-                Color newValue = (Color) evt.getNewValue();
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("contextualGroupHueColor".equals(propertyChangeEvent.getPropertyName())) {
+                Color newValue = (Color) propertyChangeEvent.getNewValue();
                 commandButton.setBackground(newValue);
             }
         };

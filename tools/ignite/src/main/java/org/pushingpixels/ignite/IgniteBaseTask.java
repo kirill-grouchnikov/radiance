@@ -50,7 +50,7 @@ public abstract class IgniteBaseTask extends DefaultTask {
             String templateFileName) {
         Logger logger = getLogger();
 
-        File[] svgFiles = inputFolder.listFiles((File dir, String name) -> name.endsWith(".svg"));
+        File[] svgFiles = inputFolder.listFiles((directory, name) -> name.endsWith(".svg"));
         if (svgFiles == null) {
             return;
         }

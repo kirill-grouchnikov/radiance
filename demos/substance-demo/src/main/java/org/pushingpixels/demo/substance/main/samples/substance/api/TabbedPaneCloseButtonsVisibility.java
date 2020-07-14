@@ -71,7 +71,7 @@ public class TabbedPaneCloseButtonsVisibility extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox allHaveCloseButton = new JCheckBox("All tabs");
-        allHaveCloseButton.addActionListener((ActionEvent e) -> {
+        allHaveCloseButton.addActionListener(actionEvent -> {
             // based on the checkbox selection, mark the tabbed pane to have
             // close buttons on all tabs
             SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp,
@@ -81,7 +81,7 @@ public class TabbedPaneCloseButtonsVisibility extends JFrame {
         });
 
         final JCheckBox firstHasCloseButton = new JCheckBox("First tab");
-        firstHasCloseButton.addActionListener((ActionEvent e) -> {
+        firstHasCloseButton.addActionListener(actionEvent -> {
             // based on the checkbox selection, mark the first tab component
             // to have close button
             SubstanceCortex.ComponentScope.setTabCloseButtonVisible(

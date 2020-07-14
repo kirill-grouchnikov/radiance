@@ -71,7 +71,7 @@ public class PasswordEchoPerChar extends JFrame {
         final JSpinner countSpinner = new JSpinner();
         SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 5, 1);
         countSpinner.setModel(model);
-        countSpinner.addChangeListener((ChangeEvent e) -> {
+        countSpinner.addChangeListener(changeEvent -> {
             // set the amount of echo per character based on the current
             // value in the spinner
             SubstanceCortex.ComponentScope.setNumberOfPasswordEchoesPerCharacter(jpf,

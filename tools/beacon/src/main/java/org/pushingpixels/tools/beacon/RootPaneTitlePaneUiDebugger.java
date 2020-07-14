@@ -31,8 +31,9 @@ package org.pushingpixels.tools.beacon;
 
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.colorscheme.*;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
@@ -212,9 +213,9 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                     dialog.setLayout(new BorderLayout());
                                     dialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
                                     JButton dismiss = new JButton("Dismiss");
-                                    dismiss.addActionListener((ActionEvent ae) -> dialog.dispose());
+                                    dismiss.addActionListener(actionEvent -> dialog.dispose());
                                     JButton copyToClipboard = new JButton("Copy to clipboard");
-                                    copyToClipboard.addActionListener((ActionEvent ae) -> {
+                                    copyToClipboard.addActionListener(actionEvent -> {
                                         textArea.selectAll();
                                         TransferHandler.getCopyAction()
                                                 .actionPerformed(new ActionEvent(textArea,

@@ -83,7 +83,7 @@ CommandButtonProjection<Command> expandCommandProjection =
                         .setFocusable(false)
                         .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                         .build());
-expandCommandProjection.setComponentCustomizer((JCommandButton button) -> {
+expandCommandProjection.setComponentCustomizer(button -> {
     // since paintBandTitleBackground uses GENERAL, mark this button with
     // GENERAL as well to sync the mark color
     ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);

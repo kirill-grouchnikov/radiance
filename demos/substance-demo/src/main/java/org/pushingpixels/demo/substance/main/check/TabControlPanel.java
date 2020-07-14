@@ -128,7 +128,7 @@ public class TabControlPanel extends JPanel {
         final JComboBox<String> addKindCombo = new JComboBox<>(
                 new String[] { "regular", "null", "modified" });
         JButton addNewTabButton = new JButton("Add");
-        addNewTabButton.addActionListener((ActionEvent e) -> {
+        addNewTabButton.addActionListener(actionEvent -> {
             String selectedKind = (String) addKindCombo.getSelectedItem();
             if ("null".equals(selectedKind)) {
                 SwingUtilities.invokeLater(() -> jtp.addTab("null tab", null));
@@ -150,7 +150,7 @@ public class TabControlPanel extends JPanel {
 
         final JComboBox<String> placementCombo = new JComboBox<>(
                 new String[] { "top", "bottom", "left", "right" });
-        placementCombo.addActionListener((ActionEvent e) -> {
+        placementCombo.addActionListener(actionEvent -> {
             String selected = (String) placementCombo.getSelectedItem();
             if ("top".equals(selected))
                 jtp.setTabPlacement(JTabbedPane.TOP);
@@ -174,7 +174,7 @@ public class TabControlPanel extends JPanel {
                     return item.getName();
                 }
             };
-            overviewKindCombo.addActionListener((ActionEvent e) -> mainTabPreviewPainter
+            overviewKindCombo.addActionListener(actionEvent -> mainTabPreviewPainter
                     .setTabOverviewKind((TabOverviewKind) overviewKindCombo.getSelectedItem()));
             row += 2;
             builder.addLabel("Overview kind").xy(1, row);
@@ -184,7 +184,7 @@ public class TabControlPanel extends JPanel {
 
         final JCheckBox useScrollLayout = new JCheckBox("Uses scroll layout");
         useScrollLayout.setSelected(false);
-        useScrollLayout.addActionListener((ActionEvent e) -> jtp
+        useScrollLayout.addActionListener(actionEvent -> jtp
                 .setTabLayoutPolicy(useScrollLayout.isSelected() ? JTabbedPane.SCROLL_TAB_LAYOUT
                         : JTabbedPane.WRAP_TAB_LAYOUT));
         row += 2;
@@ -196,7 +196,7 @@ public class TabControlPanel extends JPanel {
                         TabContentPaneBorderKind.DOUBLE_PLACEMENT,
                         TabContentPaneBorderKind.SINGLE_PLACEMENT });
         contentBorderCombo.setSelectedItem(TabContentPaneBorderKind.DOUBLE_FULL);
-        contentBorderCombo.addActionListener((ActionEvent e) -> {
+        contentBorderCombo.addActionListener(actionEvent -> {
             TabContentPaneBorderKind contentBorderKind = (TabContentPaneBorderKind) contentBorderCombo
                     .getSelectedItem();
             SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(jtp, contentBorderKind);
@@ -208,14 +208,14 @@ public class TabControlPanel extends JPanel {
         builder.add(contentBorderCombo).xyw(3, row, 3);
 
         JButton enableAll = new JButton("+ all");
-        enableAll.addActionListener((ActionEvent e) -> {
+        enableAll.addActionListener(actionEvent -> {
             for (int i = 0; i < jtp.getTabCount(); i++) {
                 jtp.setEnabledAt(i, true);
             }
         });
 
         JButton disableAll = new JButton("- all");
-        disableAll.addActionListener((ActionEvent e) -> {
+        disableAll.addActionListener(actionEvent -> {
             for (int i = 0; i < jtp.getTabCount(); i++) {
                 jtp.setEnabledAt(i, false);
             }
@@ -227,7 +227,7 @@ public class TabControlPanel extends JPanel {
         builder.add(disableAll).xy(5, row);
 
         JButton closeAllEnabled = new JButton("Close");
-        closeAllEnabled.addActionListener((ActionEvent e) -> {
+        closeAllEnabled.addActionListener(actionEvent -> {
             Set<Component> toRemove = new HashSet<>();
             for (int i = 0; i < jtp.getTabCount(); i++) {
                 if (jtp.isEnabledAt(i))
@@ -238,7 +238,7 @@ public class TabControlPanel extends JPanel {
         });
 
         JButton restoreClosed = new JButton("Restore");
-        restoreClosed.addActionListener((ActionEvent e) -> {
+        restoreClosed.addActionListener(actionEvent -> {
             for (Component tnp : closed) {
                 jtp.addTab("restored", tnp);
             }
@@ -271,7 +271,7 @@ public class TabControlPanel extends JPanel {
         builder.add(tabSelectorCombo).xyw(3, row, 3);
 
         final JButton markAsModified = new JButton("-> modified");
-        markAsModified.addActionListener((ActionEvent e) -> {
+        markAsModified.addActionListener(actionEvent -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -280,7 +280,7 @@ public class TabControlPanel extends JPanel {
             }
         });
         final JButton markAsUnmodified = new JButton("-> unmodified");
-        markAsUnmodified.addActionListener((ActionEvent e) -> {
+        markAsUnmodified.addActionListener(actionEvent -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -294,7 +294,7 @@ public class TabControlPanel extends JPanel {
         builder.add(markAsUnmodified).xy(5, row);
 
         final JButton runModifiedAnimOnClose = new JButton("Animate on X");
-        runModifiedAnimOnClose.addActionListener((ActionEvent e) -> {
+        runModifiedAnimOnClose.addActionListener(actionEvent -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -304,7 +304,7 @@ public class TabControlPanel extends JPanel {
             }
         });
         final JButton runModifiedAnimOnTab = new JButton("Animate on tab");
-        runModifiedAnimOnTab.addActionListener((ActionEvent e) -> {
+        runModifiedAnimOnTab.addActionListener(actionEvent -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -318,7 +318,7 @@ public class TabControlPanel extends JPanel {
         builder.add(runModifiedAnimOnTab).xy(5, row);
 
         final JButton showCloseButton = new JButton("+ close button");
-        showCloseButton.addActionListener((ActionEvent e) -> {
+        showCloseButton.addActionListener(actionEvent -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -329,7 +329,7 @@ public class TabControlPanel extends JPanel {
             }
         });
         final JButton hideCloseButton = new JButton("- close button");
-        hideCloseButton.addActionListener((ActionEvent e) -> {
+        hideCloseButton.addActionListener(actionEvent -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -341,7 +341,7 @@ public class TabControlPanel extends JPanel {
         });
 
         JButton closeButton = new JButton("Close");
-        closeButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        closeButton.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
@@ -351,7 +351,7 @@ public class TabControlPanel extends JPanel {
         }));
 
         JButton selectButton = new JButton("Select");
-        selectButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        selectButton.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             if (tabSelectorCombo.getSelectedItem() == null)
                 return;
             jtp.setSelectedIndex((Integer) tabSelectorCombo.getSelectedItem());

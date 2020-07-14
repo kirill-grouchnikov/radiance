@@ -103,7 +103,7 @@ public class GetAllTabCloseListeners_Specific extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton getTabCloseListeners = new JButton("Get tab close listeners");
-        getTabCloseListeners.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+        getTabCloseListeners.addActionListener(actionEvent -> JOptionPane.showMessageDialog(
                 GetAllTabCloseListeners_Specific.this,
                 SubstanceCortex.ComponentScope.getAllTabCloseListeners(jtp).size()
                         + " specific tab close listeners registered"));

@@ -115,7 +115,7 @@ We start again by defining the content model:
 this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
         .setText(resourceBundle.getString("Ruler.text"))
         .setSelected(true)
-        .setActionListener((ActionEvent ae) ->
+        .setActionListener(actionEvent ->
                 System.out.println("Ruler selection --> " + rulerCheckBoxModel.isSelected()))
         .build();
 ```

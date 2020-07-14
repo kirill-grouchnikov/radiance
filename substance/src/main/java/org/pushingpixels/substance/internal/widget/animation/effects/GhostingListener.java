@@ -41,7 +41,6 @@ import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.Collections;
@@ -253,7 +252,7 @@ public class GhostingListener {
      * Registers listeners on the relevant model changes.
      */
     public void registerListeners() {
-        this.modelListener = (ChangeEvent e) -> {
+        this.modelListener = changeEvent -> {
             if (AnimationConfigurationManager.getInstance()
                     .isAnimationAllowed(AnimationFacet.GHOSTING_ICON_ROLLOVER, comp)) {
                 trackModelChange(AnimationFacet.GHOSTING_ICON_ROLLOVER, buttonModel.isRollover());

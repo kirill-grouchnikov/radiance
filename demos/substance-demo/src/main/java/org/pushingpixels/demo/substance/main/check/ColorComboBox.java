@@ -15,7 +15,6 @@ package org.pushingpixels.demo.substance.main.check;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,14 +59,13 @@ public class ColorComboBox extends JComboBox<ColorComboBox.Value> {
 		setEditable(true);
 		setEditor(new Renderer());
 		setSelectedItem(new Value(null, null));
-		addActionListener((ActionEvent ev) -> {
+		addActionListener(actionEvent -> {
 			if (getSelectedItem() == CUSTOM_COLOR) {
-				Color c = JColorChooser.showDialog(SwingUtilities
-						.getAncestorOfClass(Dialog.class,
-								ColorComboBox.this), loc("SelectColor"),
-						lastColor);
-				if (c != null)
+				Color c = JColorChooser.showDialog(SwingUtilities.getAncestorOfClass(
+						Dialog.class, ColorComboBox.this), loc("SelectColor"), lastColor);
+				if (c != null) {
 					setColor(c);
+				}
 			} else {
 				lastColor = ((Value) getSelectedItem()).color;
 			}

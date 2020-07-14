@@ -51,7 +51,7 @@ public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
         super.configureControlPanel(controlPanel);
         final JCheckBox noText = new JCheckBox("no text");
         noText.setSelected(true);
-        noText.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        noText.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             boolean isSelected = noText.isSelected();
             toggleCommandShort.setText(isSelected ? null : "New caption");
             toggleCommandShort.setExtraText(isSelected ? null : "New extra text");

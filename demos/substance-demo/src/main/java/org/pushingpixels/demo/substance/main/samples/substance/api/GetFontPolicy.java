@@ -127,7 +127,7 @@ public class GetFontPolicy extends JFrame {
         fontSizeSlider.setPaintLabels(true);
         fontSizeSlider.setMajorTickSpacing(1);
         fontSizeSlider.setToolTipText("Controls the global font set size");
-        fontSizeSlider.addChangeListener((ChangeEvent e) -> {
+        fontSizeSlider.addChangeListener(changeEvent -> {
             // if the value is adjusting - ignore. This is done
             // to make CPU usage better.
             if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
@@ -158,7 +158,7 @@ public class GetFontPolicy extends JFrame {
         panel.add(fontSizeSlider);
 
         JButton jb = new JButton("Show font info");
-        jb.addActionListener((ActionEvent e) -> {
+        jb.addActionListener(actionEvent -> {
             FontPolicy fontPolicy = SubstanceCortex.GlobalScope.getFontPolicy();
             FontSet fontSet = fontPolicy.getFontSet();
             String[] infoArray = new String[] { "Control: " + fontSet.getControlFont(),

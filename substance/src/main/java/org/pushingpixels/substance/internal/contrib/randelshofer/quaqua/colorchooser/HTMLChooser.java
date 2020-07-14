@@ -18,7 +18,6 @@ import org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.VisualMa
 
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
@@ -123,7 +122,7 @@ public class HTMLChooser extends AbstractColorChooserPanel implements UIResource
         blueSlider.setSnapToTicks(lastWebSaveSelectionState);
         
 
-        htmlListener = (ChangeEvent e) -> {
+        htmlListener = changeEvent -> {
             Color c = ccModel.getColor();
             setColorToModel(c);
             if (!c.equals(nameToColorMap.get(htmlField.getText().toLowerCase()))) {

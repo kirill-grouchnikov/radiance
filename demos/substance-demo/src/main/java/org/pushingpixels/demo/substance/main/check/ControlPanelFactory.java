@@ -93,13 +93,13 @@ public class ControlPanelFactory {
 
         final JCheckBox markAsModified = new JCheckBox("Marked modified");
         markAsModified.setSelected(false);
-        markAsModified.addActionListener((ActionEvent e) -> SubstanceCortex.RootPaneScope
+        markAsModified.addActionListener(actionEvent -> SubstanceCortex.RootPaneScope
                 .setContentsModified(mainFrame.getRootPane(),
                         markAsModified.isSelected() ? Boolean.TRUE : false));
         builder.append("Modified", markAsModified);
 
         JButton changeTitleButton = new JButton("Change");
-        changeTitleButton.addActionListener((ActionEvent e) -> {
+        changeTitleButton.addActionListener(actionEvent -> {
             String random = "abcdefghijklmnopqrstuvwxyz ";
             int length = 60 + (int) (150 * Math.random());
             String title = "";
@@ -116,13 +116,13 @@ public class ControlPanelFactory {
         final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox("use constant themes");
         useConstantThemesOnOptionPanes.setSelected(true);
         useConstantThemesOnOptionPanes
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
                         useConstantThemesOnOptionPanes.isSelected())));
         builder.append("Option pane icons", useConstantThemesOnOptionPanes);
 
         final JComboBox<String> placementCombo = new JComboBox<>(
-                new String[] { "top", "bottom", "left", "right" });
-        placementCombo.addActionListener((ActionEvent e) -> {
+                new String[] {"top", "bottom", "left", "right"});
+        placementCombo.addActionListener(actionEvent -> {
             String selected = (String) placementCombo.getSelectedItem();
             if ("top".equals(selected))
                 mainTabbedPane.setTabPlacement(JTabbedPane.TOP);
@@ -144,7 +144,7 @@ public class ControlPanelFactory {
                     return item.getName();
                 }
             };
-            overviewKindCombo.addActionListener((ActionEvent e) -> mainTabPreviewPainter
+            overviewKindCombo.addActionListener(actionEvent -> mainTabPreviewPainter
                     .setTabOverviewKind((TabOverviewKind) overviewKindCombo.getSelectedItem()));
 
             builder.append("Overview kind", overviewKindCombo);
@@ -161,10 +161,9 @@ public class ControlPanelFactory {
             }
         };
         menuGutterFillCombo.setSelectedItem(MenuGutterFillKind.HARD);
-        menuGutterFillCombo.addActionListener((
-
-                ActionEvent e) -> SubstanceCortex.GlobalScope.setMenuGutterFillKind(
-                (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
+        menuGutterFillCombo.addActionListener(actionEvent ->
+                SubstanceCortex.GlobalScope.setMenuGutterFillKind(
+                        (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         builder.append("Menu fill", menuGutterFillCombo);
 
         final JComboBox<FocusKind> focusKindCombo = new FlexiComboBox<>(FocusKind.values()) {
@@ -174,12 +173,12 @@ public class ControlPanelFactory {
             }
         };
         focusKindCombo.setSelectedItem(FocusKind.ALL_INNER);
-        focusKindCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
-                .setFocusKind((FocusKind) focusKindCombo.getSelectedItem()));
+        focusKindCombo.addActionListener(actionEvent ->
+                SubstanceCortex.GlobalScope.setFocusKind((FocusKind) focusKindCombo.getSelectedItem()));
         builder.append("Focus kind", focusKindCombo);
 
         JButton buttonGlassPane = new JButton("Show");
-        buttonGlassPane.addActionListener((ActionEvent e) -> {
+        buttonGlassPane.addActionListener(actionEvent -> {
             final JPanel glassPane = new JPanel() {
                 @Override
                 public void paintComponent(Graphics g) {
@@ -221,7 +220,7 @@ public class ControlPanelFactory {
         final JCheckBox allowFocusLoopAnimations = new JCheckBox("Allow animation");
         allowFocusLoopAnimations.setSelected(SubstanceCortex.GlobalScope
                 .isAnimationAllowed(AnimationFacet.FOCUS_LOOP_ANIMATION));
-        allowFocusLoopAnimations.addActionListener((ActionEvent e) -> {
+        allowFocusLoopAnimations.addActionListener(actionEvent -> {
             if (allowFocusLoopAnimations.isSelected()) {
                 SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.FOCUS_LOOP_ANIMATION);
             } else {
@@ -231,7 +230,7 @@ public class ControlPanelFactory {
         builder.append("Focus loop", allowFocusLoopAnimations);
 
         final JCheckBox allowGlowIconAnimations = new JCheckBox("Allow animation");
-        allowGlowIconAnimations.addActionListener((ActionEvent e) -> {
+        allowGlowIconAnimations.addActionListener(actionEvent -> {
             if (allowGlowIconAnimations.isSelected()) {
                 SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.ICON_GLOW);
             } else {
@@ -241,7 +240,7 @@ public class ControlPanelFactory {
         builder.append("Icon glow", allowGlowIconAnimations);
 
         final JCheckBox allowGhostIconAnimations = new JCheckBox("Allow animation");
-        allowGhostIconAnimations.addActionListener((ActionEvent e) -> {
+        allowGhostIconAnimations.addActionListener(actionEvent -> {
             if (allowGhostIconAnimations.isSelected()) {
                 SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER);
             } else {
@@ -252,7 +251,7 @@ public class ControlPanelFactory {
         builder.append("Icon rollover", allowGhostIconAnimations);
 
         final JCheckBox allowGhostPressAnimations = new JCheckBox("Allow animation");
-        allowGhostPressAnimations.addActionListener((ActionEvent e) -> {
+        allowGhostPressAnimations.addActionListener(actionEvent -> {
             if (allowGhostPressAnimations.isSelected()) {
                 SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_BUTTON_PRESS);
             } else {
@@ -266,7 +265,7 @@ public class ControlPanelFactory {
         final JCheckBox isToolbarFlat = new JCheckBox("Is flat");
 
         isToolbarFlat.setSelected(true);
-        isToolbarFlat.addActionListener((ActionEvent e) -> {
+        isToolbarFlat.addActionListener(actionEvent -> {
             SubstanceCortex.ComponentOrParentScope.setFlatBackground(toolbar,
                     isToolbarFlat.isSelected());
             toolbar.repaint();
@@ -276,15 +275,14 @@ public class ControlPanelFactory {
         builder.appendSeparator("Menu bar");
         final JCheckBox menuSearch = new JCheckBox("Has menu search");
         menuSearch.setSelected(false);
-        menuSearch.addActionListener(
-                (ActionEvent e) -> SubstanceCortex.WindowScope.setWidgetVisible(mainFrame,
-                        menuSearch.isSelected(), SubstanceWidgetType.MENU_SEARCH));
+        menuSearch.addActionListener(actionEvent -> SubstanceCortex.WindowScope.setWidgetVisible(mainFrame,
+                menuSearch.isSelected(), SubstanceWidgetType.MENU_SEARCH));
         builder.append("Menu search", menuSearch);
 
         builder.appendSeparator("Icon pack");
         final JCheckBox iconPack = new JCheckBox("Use custom icon pack");
         iconPack.setSelected(false);
-        iconPack.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope.setIconPack(
+        iconPack.addActionListener(actionEvent -> SubstanceCortex.GlobalScope.setIconPack(
                 iconPack.isSelected() ? new TangoIconPack() : new SubstanceDefaultIconPack()));
         builder.append("Icon pack", iconPack);
 
@@ -305,21 +303,21 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", Check.getIcon("JFileChooserColor16"));
-        bfo.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bfo.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showOpenDialog(mainFrame);
         }));
         builder.append("File chooser", bfo);
 
         JButton bfs = new JButton("Save dialog", Check.getIcon("JFileChooserColor16"));
-        bfs.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bfs.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showSaveDialog(mainFrame);
         }));
         builder.append("", bfs);
 
         JButton bc = new JButton("Open", Check.getIcon("JColorChooserColor16"));
-        bc.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bc.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
                     new Color(23, 45, 200));
             if (color != null) {
@@ -329,14 +327,14 @@ public class ControlPanelFactory {
         builder.append("Color chooser", bc);
 
         JButton bcWindow = new JButton("open in window");
-        bcWindow.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bcWindow.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             final Window window = new Window(mainFrame);
             window.setLayout(new BorderLayout());
             window.add(new JColorChooser());
             window.pack();
             window.setLocationRelativeTo(null);
             window.setVisible(true);
-            Timer timerDispose = new Timer(5000, (ActionEvent ev) -> window.dispose());
+            Timer timerDispose = new Timer(5000, actionEventInner -> window.dispose());
             timerDispose.setRepeats(false);
             timerDispose.start();
         }));
@@ -351,7 +349,7 @@ public class ControlPanelFactory {
             }
         };
         buttonBarOrderCombo.setSelectedItem(SubstanceCortex.GlobalScope.getButtonBarOrder());
-        buttonBarOrderCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+        buttonBarOrderCombo.addActionListener(actionEvent -> SubstanceCortex.GlobalScope
                 .setButtonBarOrder((ButtonOrder) buttonBarOrderCombo.getSelectedItem()));
         builder.append("Button bar order", buttonBarOrderCombo);
 
@@ -363,12 +361,12 @@ public class ControlPanelFactory {
             }
         };
         buttonBarGravityCombo.setSelectedItem(SubstanceCortex.GlobalScope.getButtonBarGravity());
-        buttonBarGravityCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+        buttonBarGravityCombo.addActionListener(actionEvent -> SubstanceCortex.GlobalScope
                 .setButtonBarGravity((HorizontalGravity) buttonBarGravityCombo.getSelectedItem()));
         builder.append("Button bar gravity", buttonBarGravityCombo);
 
         JButton bop = new JButton("Show");
-        bop.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bop.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JOptionPane pane = new JOptionPane("Sample option pane");
             pane.applyComponentOrientation(
                     ComponentOrientation.getOrientation(Locale.getDefault()));
@@ -379,31 +377,31 @@ public class ControlPanelFactory {
         builder.append("Plain", bop);
 
         JButton bopi = new JButton("Show", ic_info_black_24px.of(16, 16));
-        bopi.addActionListener((ActionEvent e) -> SwingUtilities
+        bopi.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
                         "Sample title", JOptionPane.INFORMATION_MESSAGE)));
         builder.append("Info", bopi);
 
         JButton bope = new JButton("Show", ic_error_black_24px.of(16, 16));
-        bope.addActionListener((ActionEvent e) -> SwingUtilities
+        bope.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
                         "Sample title", JOptionPane.ERROR_MESSAGE)));
         builder.append("Error", bope);
 
         JButton bopw = new JButton("Show", ic_warning_black_24px.of(16, 16));
-        bopw.addActionListener((ActionEvent e) -> SwingUtilities
+        bopw.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE)));
         builder.append("Warning", bopw);
 
         JButton bopq = new JButton("Show", ic_help_black_24px.of(16, 16));
-        bopq.addActionListener((ActionEvent e) -> SwingUtilities
+        bopq.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE)));
         builder.append("Question", bopq);
 
         JButton bopc = new JButton("Show");
-        bopc.addActionListener((ActionEvent e) -> SwingUtilities
+        bopc.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> JOptionPane.showOptionDialog(mainFrame, new JPanel(), "Option",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null,
                         null)));
@@ -411,7 +409,7 @@ public class ControlPanelFactory {
 
         JButton buttonOptionPaneSimpleInput = new JButton("Show");
         buttonOptionPaneSimpleInput
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                     JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
                     dialog.setSize(400, 300);
                     dialog.setLocationRelativeTo(mainFrame);
@@ -427,7 +425,7 @@ public class ControlPanelFactory {
 
         JButton buttonOptionPaneComplexInput = new JButton("Show");
         buttonOptionPaneComplexInput
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                     JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
                     dialog.setSize(400, 300);
                     dialog.setLocationRelativeTo(mainFrame);
@@ -437,7 +435,7 @@ public class ControlPanelFactory {
                             ComponentOrientation.getOrientation(Locale.getDefault()));
                     dialog.add(panel, BorderLayout.CENTER);
                     // dialog.setVisible(true);
-                    String[] optionChoices = new String[] { "entry1", "entry2", "entry3", "entry4" };
+                    String[] optionChoices = new String[] {"entry1", "entry2", "entry3", "entry4"};
                     JOptionPane.showInputDialog(panel, "Sample Question Message", "Title Goes Here",
                             JOptionPane.QUESTION_MESSAGE, null, optionChoices, "entry1");
                     dialog.dispose();
@@ -446,7 +444,7 @@ public class ControlPanelFactory {
 
         JButton buttonOptionPaneInternalInput = new JButton("Show");
         buttonOptionPaneInternalInput
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                     JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
                     dialog.setSize(400, 300);
                     dialog.setLocationRelativeTo(mainFrame);
@@ -465,7 +463,7 @@ public class ControlPanelFactory {
         builder.appendSeparator("Default buttons");
 
         JButton openDisposable = new JButton("Open");
-        openDisposable.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        openDisposable.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             if (disposableDialog != null) {
                 disposableDialog.setVisible(true);
                 return;
@@ -490,7 +488,7 @@ public class ControlPanelFactory {
         builder.append("Disposable dialog", openDisposable);
 
         JButton launchFrameDialogWithIcon = new JButton("Open");
-        launchFrameDialogWithIcon.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        launchFrameDialogWithIcon.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SimpleDialog sd = new SimpleDialog();
             if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
                 sd.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
@@ -508,7 +506,7 @@ public class ControlPanelFactory {
         builder.append("Dialog with icon", launchFrameDialogWithIcon);
 
         JButton bd = new JButton("Open");
-        bd.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bd.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SimpleDialog sd = new SimpleDialog();
             sd.setModal(false);
             sd.pack();
@@ -519,7 +517,7 @@ public class ControlPanelFactory {
         builder.append("Open a dialog", bd);
 
         JButton bcd = new JButton("Close");
-        bcd.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bcd.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             if (simpleDialog != null) {
                 simpleDialog.removeAll();
                 simpleDialog.dispose();
@@ -546,7 +544,7 @@ public class ControlPanelFactory {
 
         JButton buttonDialogCloseOnEsc = new JButton("Show");
         buttonDialogCloseOnEsc
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                     final JDialog dialog = new JDialog((Frame) null, "Click ESC to dispose");
                     dialog.setSize(200, 200);
                     dialog.setLayout(new BorderLayout());
@@ -603,7 +601,7 @@ public class ControlPanelFactory {
 
         JButton buttonDialogUndecorated = new JButton("Show");
         buttonDialogUndecorated
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                     final JDialog dialog = new JDialog((Frame) null, "");
                     dialog.setSize(200, 200);
                     dialog.setUndecorated(true);
@@ -649,7 +647,7 @@ public class ControlPanelFactory {
         builder.appendSeparator("Miscellaneous");
 
         JButton customSkinFrame = new JButton("Show");
-        customSkinFrame.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        customSkinFrame.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFrame testFrame = new SampleFrame();
             SubstanceCortex.RootPaneScope.setSkin(testFrame.getRootPane(),
                     new NebulaBrickWallSkin());
@@ -662,7 +660,7 @@ public class ControlPanelFactory {
         builder.append("Nebula brick wall frame", customSkinFrame);
 
         JButton btf = new JButton("Show");
-        btf.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        btf.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFrame testFrame = new JFrame("test1");
             testFrame.setSize(262, 100);
             testFrame.setLocationRelativeTo(mainFrame);
@@ -672,7 +670,7 @@ public class ControlPanelFactory {
         builder.append("Regular frame", btf);
 
         JButton btfU = new JButton("Show");
-        btfU.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        btfU.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(false);
             JDialog.setDefaultLookAndFeelDecorated(false);
 
@@ -690,7 +688,7 @@ public class ControlPanelFactory {
         builder.append("Undecorated frame", btfU);
 
         JButton bcp = new JButton("Open");
-        bcp.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        bcp.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFrame colorFrame = new JFrame();
             final ColorPanel cp1 = new ColorPanel("default");
             final ColorPanel cp2 = new ColorPanel("green");
@@ -738,7 +736,7 @@ public class ControlPanelFactory {
         builder.append("Color panels", bcp);
 
         JButton paneDialog = new JButton("Open");
-        paneDialog.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        paneDialog.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JDialog dialog = new JDialog(mainFrame, true);
             dialog.setTitle("Test text pane in scroll pane");
             JTextPane textPane = new JTextPane();

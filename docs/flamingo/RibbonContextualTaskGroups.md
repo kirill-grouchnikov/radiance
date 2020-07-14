@@ -68,9 +68,9 @@ For example, this is the code from the main ribbon demo application that toggles
 ```java
 final JCheckBox group1Visible = new JCheckBox("visible");
 final JCheckBox group2Visible = new JCheckBox("visible");
-group1Visible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+group1Visible.addActionListener(actionEvent -> SwingUtilities.invokeLater(
         () -> getRibbon().setVisible(group1, group1Visible.isSelected())));
-group2Visible.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+group2Visible.addActionListener(actionEvent -> SwingUtilities.invokeLater(
         () -> getRibbon().setVisible(group2, group2Visible.isSelected())));
 ```
 

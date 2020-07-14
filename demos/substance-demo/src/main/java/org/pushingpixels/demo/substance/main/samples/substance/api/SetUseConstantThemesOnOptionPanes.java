@@ -66,25 +66,25 @@ public class SetUseConstantThemesOnOptionPanes extends JFrame {
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JButton bopi = new JButton("Info", dialog_information.of(16, 16));
-        bopi.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+        bopi.addActionListener(actionEvent -> JOptionPane.showMessageDialog(
                 SetUseConstantThemesOnOptionPanes.this, "Sample info message", "Sample title",
                 JOptionPane.INFORMATION_MESSAGE));
         buttonPanel.add(bopi);
 
         JButton bope = new JButton("Show", dialog_error.of(16, 16));
-        bope.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+        bope.addActionListener(actionEvent -> JOptionPane.showMessageDialog(
                 SetUseConstantThemesOnOptionPanes.this, "Sample error message", "Sample title",
                 JOptionPane.ERROR_MESSAGE));
         buttonPanel.add(bope);
 
         JButton bopw = new JButton("Show", dialog_warning.of(16, 16));
-        bopw.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+        bopw.addActionListener(actionEvent -> JOptionPane.showMessageDialog(
                 SetUseConstantThemesOnOptionPanes.this, "Sample warning message", "Sample title",
                 JOptionPane.WARNING_MESSAGE));
         buttonPanel.add(bopw);
 
         JButton bopq = new JButton("Show", help_browser.of(16, 16));
-        bopq.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+        bopq.addActionListener(actionEvent -> JOptionPane.showMessageDialog(
                 SetUseConstantThemesOnOptionPanes.this, "Sample question message", "Sample title",
                 JOptionPane.QUESTION_MESSAGE));
         buttonPanel.add(bopq);
@@ -94,7 +94,7 @@ public class SetUseConstantThemesOnOptionPanes extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox(
                 "Use constant themes on option panes");
-        useConstantThemesOnOptionPanes.addActionListener((ActionEvent e) -> SwingUtilities
+        useConstantThemesOnOptionPanes.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
                         useConstantThemesOnOptionPanes.isSelected())));
         controls.add(useConstantThemesOnOptionPanes);

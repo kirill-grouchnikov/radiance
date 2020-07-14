@@ -33,7 +33,6 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;
-import java.awt.event.ItemEvent;
 import java.util.Map;
 
 public class SkinSwitcher {
@@ -49,7 +48,7 @@ public class SkinSwitcher {
             }
         }
 
-        result.addItemListener((ItemEvent e) -> SwingUtilities.invokeLater(() -> {
+        result.addItemListener(itemEvent -> SwingUtilities.invokeLater(() -> {
             String selected = (String) result.getSelectedItem();
             SubstanceCortex.GlobalScope.setSkin(
                     SubstanceCortex.GlobalScope.getAllSkins().get(selected).getClassName());

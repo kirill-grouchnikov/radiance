@@ -60,7 +60,7 @@ public class SetSkin_ClassName extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton changeSkin = new JButton("Change skin");
-        changeSkin.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        changeSkin.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             changeSkin.setEnabled(false);
             // set new skin by class name
             SubstanceCortex.GlobalScope

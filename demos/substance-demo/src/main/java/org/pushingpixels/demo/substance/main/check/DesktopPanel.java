@@ -48,7 +48,7 @@ import java.util.Set;
 /**
  * Test application panel for testing {@link JDesktopPane}, {@link JInternalFrame} and
  * {@link JDesktopIcon} components.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class DesktopPanel extends ControllablePanel {
@@ -79,7 +79,7 @@ public class DesktopPanel extends ControllablePanel {
         builder.appendSeparator("New sample frame");
 
         JButton sample = new JButton("Add");
-        sample.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        sample.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JInternalFrame jif = new SampleInternalFrame();
             jif.setBounds(0, 0, 300, 200);
             jdp.add(jif);
@@ -109,7 +109,7 @@ public class DesktopPanel extends ControllablePanel {
         builder.append("", isResizable);
 
         JButton bt = new JButton("Add");
-        bt.addActionListener((ActionEvent e) -> {
+        bt.addActionListener(actionEvent -> {
             String title = "[" + count + "]Internal title ";
             int c = (int) (20 * Math.random());
             for (int i = 0; i < c; i++) {
@@ -145,7 +145,7 @@ public class DesktopPanel extends ControllablePanel {
                                     controls.add(new JToggleButton("toggle" + i));
                                 } else {
                                     if (r < 0.6) {
-                                        controls.add(new JComboBox<>(new String[] { "combo" + i }));
+                                        controls.add(new JComboBox<>(new String[] {"combo" + i}));
                                     } else {
                                         if (r < 0.7) {
                                             controls.add(new JTextField("text field" + i));
@@ -156,7 +156,7 @@ public class DesktopPanel extends ControllablePanel {
                                                 if (r < 0.9) {
                                                     controls.add(new JSpinner());
                                                 } else {
-                                                    controls.add(new JList<>(new String[] { "list" + i }));
+                                                    controls.add(new JList<>(new String[] {"list" + i}));
                                                 }
                                             }
                                         }
@@ -176,12 +176,12 @@ public class DesktopPanel extends ControllablePanel {
 
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             final JCheckBox isModified = new JCheckBox("modified");
-            isModified.addActionListener((ActionEvent ae) -> SubstanceCortex.RootPaneScope
+            isModified.addActionListener(actionEventInner -> SubstanceCortex.RootPaneScope
                     .setContentsModified(jif.getRootPane(), isModified.isSelected()));
             buttons.add(isModified);
 
             JButton changeTitleButton = new JButton("Change title");
-            changeTitleButton.addActionListener((ActionEvent ae) -> {
+            changeTitleButton.addActionListener(actionEventInner -> {
                 String random = "abcdefghijklmnopqrstuvwxyz     ";
                 int length = (int) (50 * Math.random());
                 String newTitle = "";
@@ -194,11 +194,10 @@ public class DesktopPanel extends ControllablePanel {
             buttons.add(changeTitleButton);
 
             JButton setNullTitlePane = new JButton("Remove title pane");
-            setNullTitlePane
-                    .addActionListener((ActionEvent ae) -> SwingUtilities.invokeLater(() -> {
-                        ((BasicInternalFrameUI) jif.getUI()).setNorthPane(null);
-                        jif.revalidate();
-                    }));
+            setNullTitlePane.addActionListener(actionEventInner -> SwingUtilities.invokeLater(() -> {
+                ((BasicInternalFrameUI) jif.getUI()).setNorthPane(null);
+                jif.revalidate();
+            }));
             buttons.add(setNullTitlePane);
 
             jif.add(buttons, BorderLayout.SOUTH);
@@ -247,7 +246,7 @@ public class DesktopPanel extends ControllablePanel {
         builder.appendSeparator("Operations");
 
         JButton minAll = new JButton("Execute");
-        minAll.addActionListener((ActionEvent e) -> {
+        minAll.addActionListener(actionEvent -> {
             for (JInternalFrame jif : jdp.getAllFrames()) {
                 try {
                     jif.setIcon(true);
@@ -258,7 +257,7 @@ public class DesktopPanel extends ControllablePanel {
         builder.append("Minimize all", minAll);
 
         JButton closeAll = new JButton("Execute");
-        closeAll.addActionListener((ActionEvent e) -> {
+        closeAll.addActionListener(actionEvent -> {
             for (JInternalFrame jif : jdp.getAllFrames()) {
                 try {
                     jif.setClosed(true);
@@ -269,7 +268,7 @@ public class DesktopPanel extends ControllablePanel {
         builder.append("Close all", closeAll);
 
         JButton disposeAll = new JButton("Execute");
-        disposeAll.addActionListener((ActionEvent e) -> {
+        disposeAll.addActionListener(actionEvent -> {
             for (JInternalFrame jif : jdp.getAllFrames()) {
                 disposed.add(jif);
                 jif.dispose();
@@ -278,7 +277,7 @@ public class DesktopPanel extends ControllablePanel {
         builder.append("Dispose all", disposeAll);
 
         JButton reshowAll = new JButton("Execute");
-        reshowAll.addActionListener((ActionEvent e) -> {
+        reshowAll.addActionListener(actionEvent -> {
             for (JInternalFrame jif : disposed) {
                 jif.setVisible(true);
             }

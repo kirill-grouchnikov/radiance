@@ -32,7 +32,6 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.ExplorerFileViewPanel;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
@@ -43,7 +42,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
 import java.io.File;
 import java.util.List;
 
@@ -91,9 +89,8 @@ public class FileExplorerStates extends JFrame {
                 new JComboBox<>(new DefaultComboBoxModel<>(new CommandButtonPresentationState[] {
                         CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
                         CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL}));
-        states.addItemListener((ItemEvent e) -> {
-            CommandButtonPresentationState selected = (CommandButtonPresentationState) states
-                    .getSelectedItem();
+        states.addItemListener(itemEvent -> {
+            CommandButtonPresentationState selected = (CommandButtonPresentationState) states.getSelectedItem();
             filePanel.cancelMainWorker();
             filePanel.getProjection().getPresentationModel().setCommandPresentationState(selected);
         });

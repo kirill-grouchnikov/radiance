@@ -128,7 +128,7 @@ public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.F
                         "fonts/RobotoCondensed-Bold.ttf"));
 
         // add an action listener to change font based on user selection
-        this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() ->
+        this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() ->
                 SubstanceCortex.GlobalScope.setFontPolicy(
                         () -> ((FontInfo) SubstanceFontSelector.this.getSelectedItem()).fontSet)));
     }

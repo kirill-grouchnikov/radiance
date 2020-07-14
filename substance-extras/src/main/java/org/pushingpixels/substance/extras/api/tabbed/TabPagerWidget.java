@@ -246,10 +246,10 @@ public class TabPagerWidget extends SubstanceWidget<JTabbedPane> {
         };
         this.jcomp.addMouseListener(this.mouseListener);
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (SubstanceExtrasSynapse.TABBED_PANE_PREVIEW_PAINTER.equals(evt.getPropertyName())) {
-                TabPreviewPainter oldValue = (TabPreviewPainter) evt.getOldValue();
-                TabPreviewPainter newValue = (TabPreviewPainter) evt.getNewValue();
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (SubstanceExtrasSynapse.TABBED_PANE_PREVIEW_PAINTER.equals(propertyChangeEvent.getPropertyName())) {
+                TabPreviewPainter oldValue = (TabPreviewPainter) propertyChangeEvent.getOldValue();
+                TabPreviewPainter newValue = (TabPreviewPainter) propertyChangeEvent.getNewValue();
                 if ((oldValue == null) && (newValue != null)) {
                     installMaps();
                 }

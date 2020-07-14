@@ -72,7 +72,7 @@ public class PasswordStrengthCheckerProperty extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox hasPasswordStrengthChecker = new JCheckBox("Has password strength checker");
-        hasPasswordStrengthChecker.addActionListener((ActionEvent e) -> {
+        hasPasswordStrengthChecker.addActionListener(actionEvent -> {
             if (hasPasswordStrengthChecker.isSelected()) {
                 SubstanceCortex.ComponentScope.setPasswordStrengthChecker(jpf,
                         new PasswordStrengthChecker() {

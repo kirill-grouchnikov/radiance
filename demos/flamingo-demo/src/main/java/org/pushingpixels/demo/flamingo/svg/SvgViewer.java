@@ -136,7 +136,7 @@ public class SvgViewer extends JFrame {
         this.iconSizeSlider.setMinorTickSpacing(8);
         this.iconSizeSlider.setValue(initialSize);
         this.currIconSize = initialSize;
-        this.iconSizeSlider.addChangeListener((ChangeEvent e) -> {
+        this.iconSizeSlider.addChangeListener(changeEvent -> {
             if (!iconSizeSlider.getModel().getValueIsAdjusting()) {
                 int newValue = iconSizeSlider.getValue();
                 if (newValue != currIconSize) {

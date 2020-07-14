@@ -213,16 +213,16 @@ public class SubstanceTitlePane extends JComponent {
         // Property change listener for pulsating close button
         // when window has been marked as changed.
         // Fix for defect 109 - memory leak on skin change.
-        this.propertyListener = (final PropertyChangeEvent evt) -> {
-            if (SubstanceSynapse.CONTENTS_MODIFIED.equals(evt.getPropertyName())) {
+        this.propertyListener = propertyChangeEvent -> {
+            if (SubstanceSynapse.CONTENTS_MODIFIED.equals(propertyChangeEvent.getPropertyName())) {
                 syncCloseButtonTooltip();
             }
 
-            if ("componentOrientation".equals(evt.getPropertyName())) {
+            if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     if (SubstanceTitlePane.this.menuBar != null) {
                         SubstanceTitlePane.this.menuBar.applyComponentOrientation(
-                                (ComponentOrientation) evt.getNewValue());
+                                (ComponentOrientation) propertyChangeEvent.getNewValue());
                     }
                 });
             }
@@ -416,7 +416,7 @@ public class SubstanceTitlePane extends JComponent {
             for (Map.Entry<String, SkinInfo> skinEntry : allSkins.entrySet()) {
                 final String skinClassName = skinEntry.getValue().getClassName();
                 JMenuItem jmiSkin = new JMenuItem(skinEntry.getKey());
-                jmiSkin.addActionListener((ActionEvent e) -> SwingUtilities
+                jmiSkin.addActionListener(actionEvent -> SwingUtilities
                         .invokeLater(() -> SubstanceCortex.GlobalScope.setSkin(skinClassName)));
 
                 skinMenu.add(jmiSkin);

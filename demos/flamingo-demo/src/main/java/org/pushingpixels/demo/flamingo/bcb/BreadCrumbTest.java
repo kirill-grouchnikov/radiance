@@ -95,7 +95,7 @@ public class BreadCrumbTest extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton setPath = new JButton("Select and set path...");
-        setPath.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        setPath.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser folderChooser = new JFileChooser();
             folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (folderChooser.showOpenDialog(BreadCrumbTest.this) == JFileChooser.APPROVE_OPTION) {

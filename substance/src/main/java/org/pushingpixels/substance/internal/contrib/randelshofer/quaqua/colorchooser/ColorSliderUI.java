@@ -114,11 +114,11 @@ public class ColorSliderUI extends SubstanceSliderUI implements TransitionAwareU
 		slider.addMouseListener(this.substanceRolloverListener);
 		slider.addMouseMotionListener(this.substanceRolloverListener);
 
-		this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-			if ("enabled".equals(evt.getPropertyName())) {
+		this.substancePropertyChangeListener = propertyChangeEvent -> {
+			if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
 				thumbModel.setEnabled(slider.isEnabled());
 			}
-			if ("font".equals(evt.getPropertyName())) {
+			if ("font".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(slider::updateUI);
 			}
 		};

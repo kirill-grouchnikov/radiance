@@ -87,7 +87,7 @@ public class ComponentPreviewPainter extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox hasPreview = new JCheckBox("scroll has preview");
-        hasPreview.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        hasPreview.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SubstanceCortex.ComponentOrParentScope.setComponentPreviewPainter(scrollPane,
                     hasPreview.isSelected() ? new DefaultPreviewPainter() : null);
             invalidate();

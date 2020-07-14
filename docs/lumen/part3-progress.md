@@ -27,7 +27,7 @@ As in the previous entry, we have a non-opaque component with an alpha attribute
 ```java
       // fade in the container once it's part of the window
       // hierarchy
-      this.addHierarchyListener((HierarchyEvent e) ->
+      this.addHierarchyListener(hierarchyEvent ->
             Timeline.builder(Stage0Base.this)
                   .addPropertyToInterpolate("alpha", 0.0f, 0.9f)
                   .addCallback(new SwingRepaintCallback(Stage0Base.this))

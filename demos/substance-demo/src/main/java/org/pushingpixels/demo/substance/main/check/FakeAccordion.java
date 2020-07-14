@@ -31,7 +31,6 @@ package org.pushingpixels.demo.substance.main.check;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +43,7 @@ public class FakeAccordion extends JPanel {
 
             JButton titleLabel = new JButton(title);
             titleLabel.setIcon(icon);
-            titleLabel.addActionListener(
-                    (ActionEvent ae) -> setCollapsed(this.content.isVisible()));
+            titleLabel.addActionListener(actionEvent -> setCollapsed(this.content.isVisible()));
 
             this.content = content;
             this.add(titleLabel, BorderLayout.NORTH);

@@ -765,7 +765,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JSlider colorizationSlider = new JSlider(0, 100, 50);
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(this, 0.5);
-        colorizationSlider.addChangeListener((ChangeEvent e) -> {
+        colorizationSlider.addChangeListener(changeEvent -> {
             double val = colorizationSlider.getValue() / 100.0;
             SubstanceCortex.ComponentOrParentChainScope
                     .setColorizationFactor(ColorizedControlsPanel.this, val);

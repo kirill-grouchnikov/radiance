@@ -723,25 +723,6 @@ public class SubstanceCoreUtilities {
     }
 
     /**
-     * Creates a compatible image (for efficient processing and drawing).
-     *
-     * @param image The original image.
-     * @return Compatible version of the original image.
-     * @author Romain Guy
-     */
-    public static BufferedImage createCompatibleImage(BufferedImage image) {
-        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice d = e.getDefaultScreenDevice();
-        GraphicsConfiguration c = d.getDefaultConfiguration();
-        BufferedImage compatibleImage = c.createCompatibleImage(image.getWidth(), image.getHeight(),
-                Transparency.TRANSLUCENT);
-        Graphics g = compatibleImage.getGraphics();
-        g.drawImage(image, 0, 0, null);
-        g.dispose();
-        return compatibleImage;
-    }
-
-    /**
      * Checks whether the specified component will show scheme-colorized icon in the default state.
      *
      * @param comp Component.
@@ -1560,23 +1541,6 @@ public class SubstanceCoreUtilities {
     }
 
     /**
-     * Retrieves a single parameter from the VM flags.
-     *
-     * @param parameterName Parameter name.
-     * @return Parameter value.
-     */
-    public static String getVmParameter(String parameterName) {
-        String paramValue = null;
-        try {
-            paramValue = System.getProperty(parameterName);
-            return paramValue;
-        } catch (Exception exc) {
-            // probably running in unsecure JNLP - ignore
-            return null;
-        }
-    }
-
-    /**
      * Tests UI threading violations on creating the specified component.
      *
      * @param comp Component.
@@ -1928,12 +1892,22 @@ public class SubstanceCoreUtilities {
     }
 
     public static Color getBackgroundFill(SubstanceSkin skin, DecorationAreaType decorationAreaType) {
+        Color overlay = skin.getOverlayColor(ColorOverlayType.BACKGROUND_FILL,
+                decorationAreaType, ComponentState.ENABLED);
+        if (overlay != null) {
+            return overlay;
+        }
         return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {
-//        SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(component);
-//        DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(component);
+        DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
+        Color overlay = skin.getOverlayColor(ColorOverlayType.TEXT_BACKGROUND_FILL,
+                decorationAreaType, ComponentState.ENABLED);
+        if (overlay != null) {
+            return overlay;
+        }
         return SubstanceColorSchemeUtilities.getColorScheme(component, componentState).getTextBackgroundFillColor();
     }
 }

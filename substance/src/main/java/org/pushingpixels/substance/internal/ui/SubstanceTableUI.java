@@ -60,7 +60,6 @@ import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
@@ -371,14 +370,14 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
     @Override
     protected void installListeners() {
         super.installListeners();
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("columnSelectionAllowed".equals(evt.getPropertyName())
-                    || "rowSelectionAllowed".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("columnSelectionAllowed".equals(propertyChangeEvent.getPropertyName())
+                    || "rowSelectionAllowed".equals(propertyChangeEvent.getPropertyName())) {
                 SubstanceTableUI.this.syncSelection(true);
             }
 
-            if ("model".equals(evt.getPropertyName())) {
-                TableModel old = (TableModel) evt.getOldValue();
+            if ("model".equals(propertyChangeEvent.getPropertyName())) {
+                TableModel old = (TableModel) propertyChangeEvent.getOldValue();
                 if (old != null) {
                     old.removeTableModelListener(substanceTableStateListener);
                 }
@@ -389,8 +388,8 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 SubstanceTableUI.this.syncSelection(true);
             }
 
-            if ("columnModel".equals(evt.getPropertyName())) {
-                TableColumnModel old = (TableColumnModel) evt.getOldValue();
+            if ("columnModel".equals(propertyChangeEvent.getPropertyName())) {
+                TableColumnModel old = (TableColumnModel) propertyChangeEvent.getOldValue();
                 if (old != null) {
                     old.getSelectionModel()
                             .removeListSelectionListener(substanceTableStateListener);
@@ -407,16 +406,16 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                     // fix for issue 309 - syncing animations on tables
                     // and table headers.
                     SubstanceTableHeaderUI headerUI = (SubstanceTableHeaderUI) tableHeader.getUI();
-                    headerUI.processColumnModelChangeEvent((TableColumnModel) evt.getOldValue(),
-                            (TableColumnModel) evt.getNewValue());
+                    headerUI.processColumnModelChangeEvent((TableColumnModel) propertyChangeEvent.getOldValue(),
+                            (TableColumnModel) propertyChangeEvent.getNewValue());
                 }
             }
 
             // fix for defect 243 - not tracking changes to selection
             // model results in incorrect selection painting on JXTreeTable
             // component from SwingX.
-            if ("selectionModel".equals(evt.getPropertyName())) {
-                ListSelectionModel old = (ListSelectionModel) evt.getOldValue();
+            if ("selectionModel".equals(propertyChangeEvent.getPropertyName())) {
+                ListSelectionModel old = (ListSelectionModel) propertyChangeEvent.getOldValue();
                 if (old != null) {
                     old.removeListSelectionListener(substanceTableStateListener);
                 }
@@ -428,12 +427,12 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
 
             // fix for issue 479 - tracking sort / filter changes and
             // canceling selection animations
-            if ("rowSorter".equals(evt.getPropertyName())) {
-                RowSorter old = (RowSorter) evt.getOldValue();
+            if ("rowSorter".equals(propertyChangeEvent.getPropertyName())) {
+                RowSorter old = (RowSorter) propertyChangeEvent.getOldValue();
                 if (old != null) {
                     old.removeRowSorterListener(substanceTableStateListener);
                 }
-                RowSorter newSorter = (RowSorter) evt.getNewValue();
+                RowSorter newSorter = (RowSorter) propertyChangeEvent.getNewValue();
                 if (newSorter != null) {
                     newSorter.addRowSorterListener(substanceTableStateListener);
                 }
@@ -442,7 +441,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 SubstanceTableUI.this.syncSelection(true);
             }
 
-            if ("font".equals(evt.getPropertyName())) {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     // fix for bug 341
                     if (table == null)
@@ -451,10 +450,10 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 });
             }
 
-            if ("background".equals(evt.getPropertyName())) {
+            if ("background".equals(propertyChangeEvent.getPropertyName())) {
                 // propagate application-specific background color to the
                 // header.
-                Color newBackgr = (Color) evt.getNewValue();
+                Color newBackgr = (Color) propertyChangeEvent.getNewValue();
                 JTableHeader header = table.getTableHeader();
                 if (header != null) {
                     Color headerBackground = header.getBackground();
@@ -477,7 +476,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
 
             // fix for issue 361 - track enabled status of the table
             // and propagate to the table header
-            if ("enabled".equals(evt.getPropertyName())) {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
                 JTableHeader header = table.getTableHeader();
                 if (header != null) {
                     header.setEnabled(table.isEnabled());
@@ -485,8 +484,8 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 }
             }
 
-            if ("dropLocation".equals(evt.getPropertyName())) {
-                JTable.DropLocation oldValue = (JTable.DropLocation) evt.getOldValue();
+            if ("dropLocation".equals(propertyChangeEvent.getPropertyName())) {
+                JTable.DropLocation oldValue = (JTable.DropLocation) propertyChangeEvent.getOldValue();
                 if (oldValue != null) {
                     Rectangle oldRect = getCellRectangleForRepaint(oldValue.getRow(),
                             oldValue.getColumn());
@@ -500,10 +499,10 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                 }
             }
 
-            if ("tableCellEditor".equals(evt.getPropertyName())) {
+            if ("tableCellEditor".equals(propertyChangeEvent.getPropertyName())) {
                 // fix for issue 481 - rollovers on cell editing
-                TableCellEditor newEditor = (TableCellEditor) evt.getNewValue();
-                TableCellEditor oldEditor = (TableCellEditor) evt.getOldValue();
+                TableCellEditor newEditor = (TableCellEditor) propertyChangeEvent.getNewValue();
+                TableCellEditor oldEditor = (TableCellEditor) propertyChangeEvent.getOldValue();
                 if (oldEditor != null) {
                     table.getEditorComponent().removeMouseListener(substanceFadeRolloverListener);
                 }

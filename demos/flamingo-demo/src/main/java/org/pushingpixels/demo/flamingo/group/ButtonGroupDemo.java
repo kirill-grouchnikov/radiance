@@ -33,7 +33,6 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_bold;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_italic;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_strikethrough;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Format_text_underline;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.Command;
@@ -45,7 +44,6 @@ import org.pushingpixels.substance.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.CaretEvent;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -198,7 +196,7 @@ public class ButtonGroupDemo {
                             .build())
                     .build();
 
-            textPane.addCaretListener((CaretEvent e) -> {
+            textPane.addCaretListener(caretEvent -> {
                 // Compute selection presence
                 boolean hasSelection =
                         (textPane.getSelectionEnd() - textPane.getSelectionStart()) > 0;

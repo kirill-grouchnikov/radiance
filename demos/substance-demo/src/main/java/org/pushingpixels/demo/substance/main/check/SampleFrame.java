@@ -124,14 +124,14 @@ public class SampleFrame extends JFrame {
 
         final JButton add1 = new JButton("add");
         final JButton add2 = new JButton("add");
-        add1.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        add1.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             mainPanel.add(b1);
             mainPanel.add(b2);
             mainPanel.add(b3);
             mainPanel.revalidate();
             add1.setVisible(false);
         }));
-        add2.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        add2.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             mainPanel2.add(b4);
             mainPanel2.add(b5);
             mainPanel2.add(b6);
@@ -142,7 +142,7 @@ public class SampleFrame extends JFrame {
         mainPanel2.add(add2);
 
         final JCheckBox cb = new JCheckBox("border layout");
-        cb.addActionListener((ActionEvent e) -> {
+        cb.addActionListener(actionEvent -> {
             if (cb.isSelected()) {
                 mainPanel.setLayout(new BorderLayout());
                 mainPanel2.setLayout(new BorderLayout());
@@ -178,7 +178,7 @@ public class SampleFrame extends JFrame {
         buttons.add(cb6);
 
         JButton showHide = new JButton("Toggle");
-        showHide.addActionListener((ActionEvent e) -> {
+        showHide.addActionListener(actionEvent -> {
             b1.setVisible(cb1.isSelected());
             b2.setVisible(cb2.isSelected());
             b3.setVisible(cb3.isSelected());

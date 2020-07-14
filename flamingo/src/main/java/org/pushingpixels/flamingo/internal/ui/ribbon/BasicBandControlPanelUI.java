@@ -39,7 +39,6 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI.CollapsedButtonPopupPanel;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
     protected void installListeners() {
         super.installListeners();
 
-        this.changeListener = (ChangeEvent e) -> {
+        this.changeListener = changeEvent -> {
             syncGroupHeaders();
             controlPanel.revalidate();
         };

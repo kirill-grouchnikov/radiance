@@ -39,7 +39,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -89,23 +88,23 @@ public class SubstanceInternalFrameUI extends BasicInternalFrameUI {
     @Override
     protected void installListeners() {
         super.installListeners();
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if (JInternalFrame.IS_CLOSED_PROPERTY.equals(evt.getPropertyName())) {
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if (JInternalFrame.IS_CLOSED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
                 titlePane.uninstall();
                 JDesktopIcon jdi = frame.getDesktopIcon();
                 SubstanceDesktopIconUI ui = (SubstanceDesktopIconUI) jdi.getUI();
                 ui.uninstallIfNecessary(jdi);
             }
 
-            if ("background".equals(evt.getPropertyName())) {
-                Color newBackgr = (Color) evt.getNewValue();
+            if ("background".equals(propertyChangeEvent.getPropertyName())) {
+                Color newBackgr = (Color) propertyChangeEvent.getNewValue();
                 if (!(newBackgr instanceof UIResource)) {
                     getTitlePane().setBackground(newBackgr);
                     frame.getDesktopIcon().setBackground(newBackgr);
                 }
             }
 
-            if ("ancestor".equals(evt.getPropertyName())) {
+            if ("ancestor".equals(propertyChangeEvent.getPropertyName())) {
                 // fix for issue 344 - reopening an internal frame
                 // that has been closed.
                 JDesktopIcon jdi = frame.getDesktopIcon();

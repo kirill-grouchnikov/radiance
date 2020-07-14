@@ -932,8 +932,8 @@ public class TabOverviewDialog extends JDialog {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setResizable(false);
 
-        this.lafSwitchListener = (PropertyChangeEvent evt) -> {
-            if ("lookAndFeel".equals(evt.getPropertyName())) {
+        this.lafSwitchListener = propertyChangeEvent -> {
+            if ("lookAndFeel".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(
                         () -> SwingUtilities.updateComponentTreeUI(TabOverviewDialog.this));
             }
@@ -992,11 +992,10 @@ public class TabOverviewDialog extends JDialog {
         overviewDialog.setLocation(dialogScreenBounds.x, dialogScreenBounds.y);
         overviewDialog.setSize(dialogScreenBounds.width, dialogScreenBounds.height);
 
-        // make sure that the tab overview dialog is disposed when
-        // it loses focus
-        final PropertyChangeListener activeWindowListener = (PropertyChangeEvent evt) -> {
-            if ("activeWindow".equals(evt.getPropertyName())) {
-                if (overviewDialog == evt.getOldValue()) {
+        // make sure that the tab overview dialog is disposed when it loses focus
+        final PropertyChangeListener activeWindowListener = propertyChangeEvent -> {
+            if ("activeWindow".equals(propertyChangeEvent.getPropertyName())) {
+                if (overviewDialog == propertyChangeEvent.getOldValue()) {
                     if (previewPainter.toDisposeOverviewOnFocusLoss()) {
                         overviewDialog.dispose();
                     }

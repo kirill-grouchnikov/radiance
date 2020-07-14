@@ -33,9 +33,14 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonSpinner;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerContentModel;
 
-public class RibbonSpinnerProjection extends ComponentProjection<JRibbonSpinner,
-        RibbonSpinnerContentModel> {
-
+/**
+ * Projection that allows using a {@link javax.swing.JSpinner} as a ribbon component.
+ *
+ * @see org.pushingpixels.flamingo.api.ribbon.JRibbonBand#addRibbonComponent(ComponentProjection)
+ * @see org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand#addFlowComponent(ComponentProjection)
+ * @see org.pushingpixels.flamingo.api.ribbon.JRibbon#addTaskbarComponent(ComponentProjection)
+ */
+public class RibbonSpinnerProjection extends ComponentProjection<JRibbonSpinner, RibbonSpinnerContentModel> {
     public RibbonSpinnerProjection(RibbonSpinnerContentModel contentModel,
             ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JRibbonSpinner::new);

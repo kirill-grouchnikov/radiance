@@ -118,7 +118,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
         result.setIcon(icon);
         result.setDisabledIcon(icon);
 
-        result.addActionListener((ActionEvent e) -> jcomp.cut());
+        result.addActionListener(actionEvent -> jcomp.cut());
         return result;
     }
 
@@ -134,7 +134,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
         result.setIcon(icon);
         result.setDisabledIcon(icon);
 
-        result.addActionListener((ActionEvent e) -> jcomp.copy());
+        result.addActionListener(actionEvent -> jcomp.copy());
         return result;
     }
 
@@ -156,7 +156,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
         result.setIcon(icon);
         result.setDisabledIcon(icon);
 
-        result.addActionListener((ActionEvent e) -> jcomp.paste());
+        result.addActionListener(actionEvent -> jcomp.paste());
         return result;
     }
 
@@ -173,7 +173,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
         result.setIcon(icon);
         result.setDisabledIcon(icon);
 
-        result.addActionListener((ActionEvent e) -> jcomp.replaceSelection(null));
+        result.addActionListener(actionEvent -> jcomp.replaceSelection(null));
         return result;
     }
 
@@ -189,7 +189,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
         result.setIcon(icon);
         result.setDisabledIcon(icon);
 
-        result.addActionListener((ActionEvent e) -> jcomp.selectAll());
+        result.addActionListener(actionEvent -> jcomp.selectAll());
         return result;
     }
 }

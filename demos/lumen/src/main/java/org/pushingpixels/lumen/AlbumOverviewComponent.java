@@ -42,7 +42,10 @@ import org.pushingpixels.trident.api.swing.TimelineSwingWorker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -118,7 +121,7 @@ public class AlbumOverviewComponent extends JComponent {
         this.alpha = 0.0f;
 
         // When the component is shown fade it in
-        this.addHierarchyListener((HierarchyEvent e) ->
+        this.addHierarchyListener(hierarchyEvent ->
                 SwingComponentTimeline.componentBuilder(AlbumOverviewComponent.this)
                         .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
                         .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))

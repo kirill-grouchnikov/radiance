@@ -48,7 +48,6 @@ import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.plaf.basic.BasicFormattedTextFieldUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Set;
 
@@ -141,8 +140,8 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
         this.stateTransitionTracker.registerModelListeners();
         this.stateTransitionTracker.registerFocusListeners();
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("font".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     // remember the caret location - issue 404
                     int caretPos = textField.getCaretPosition();
@@ -156,7 +155,7 @@ public class SubstanceFormattedTextFieldUI extends BasicFormattedTextFieldUI
                 });
             }
 
-            if ("enabled".equals(evt.getPropertyName())) {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
                 transitionModel.setEnabled(textField.isEnabled());
             }
         };

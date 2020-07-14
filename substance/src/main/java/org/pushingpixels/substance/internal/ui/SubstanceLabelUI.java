@@ -44,7 +44,6 @@ import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.plaf.basic.BasicLabelUI;
 import javax.swing.text.View;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -74,10 +73,10 @@ public class SubstanceLabelUI extends BasicLabelUI {
     protected void installListeners(final JLabel c) {
         super.installListeners(c);
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("opaque".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("opaque".equals(propertyChangeEvent.getPropertyName())) {
                 if (!Boolean.TRUE.equals(c.getClientProperty(SubstanceButtonUI.LOCK_OPACITY))) {
-                    c.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, evt.getNewValue());
+                    c.putClientProperty(SubstanceButtonUI.OPACITY_ORIGINAL, propertyChangeEvent.getNewValue());
                 }
             }
         };

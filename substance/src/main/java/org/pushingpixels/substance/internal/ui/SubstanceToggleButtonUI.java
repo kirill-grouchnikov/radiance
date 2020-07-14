@@ -51,7 +51,6 @@ import javax.swing.plaf.basic.BasicToggleButtonUI;
 import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -172,17 +171,16 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 
 		this.trackGlowingIcon();
 
-		this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-			if (AbstractButton.ICON_CHANGED_PROPERTY.equals(evt
-					.getPropertyName())) {
+		this.substancePropertyListener = propertyChangeEvent -> {
+			if (AbstractButton.ICON_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
 				trackGlowingIcon();
 			}
 
-			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
-				if (ghostModelChangeListener != null)
+			if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
+				if (ghostModelChangeListener != null) {
 					ghostModelChangeListener.unregisterListeners();
-				ghostModelChangeListener = new GhostingListener(b, b
-						.getModel());
+				}
+				ghostModelChangeListener = new GhostingListener(b, b.getModel());
 				ghostModelChangeListener.registerListeners();
 			}
 		};

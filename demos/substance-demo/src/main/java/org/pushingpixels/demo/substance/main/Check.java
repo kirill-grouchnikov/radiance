@@ -447,7 +447,7 @@ public class Check extends JFrame {
 
         final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("themed icons");
         useThemedDefaultIconsCheckBox
-                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
                     SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
                             useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
                     repaint();
@@ -611,7 +611,7 @@ public class Check extends JFrame {
         toolBar.add(Box.createGlue());
         JButton buttonExit = new JButton(process_stop.of(size, size));
         buttonExit.setToolTipText("Closes the test application");
-        buttonExit.addActionListener((ActionEvent e) -> System.exit(0));
+        buttonExit.addActionListener(actionEvent -> System.exit(0));
         toolBar.add(buttonExit);
 
         return toolBar;

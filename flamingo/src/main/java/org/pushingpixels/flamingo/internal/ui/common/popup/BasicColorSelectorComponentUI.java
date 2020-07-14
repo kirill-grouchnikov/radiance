@@ -36,7 +36,6 @@ import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
@@ -128,11 +127,10 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         };
         this.colorSelectorComponent.addMouseListener(this.mouseListener);
 
-        this.modelChangeListener = (ChangeEvent e) ->
-                colorSelectorComponent.repaint();
+        this.modelChangeListener = changeEvent -> colorSelectorComponent.repaint();
         this.buttonModel.addChangeListener(this.modelChangeListener);
 
-        this.actionListener = (ActionEvent e) -> {
+        this.actionListener = actionEvent -> {
             colorSelectorComponent.onColorActivated(colorSelectorComponent.getColor());
 
             PopupPanelManager.defaultManager().hidePopups(null);

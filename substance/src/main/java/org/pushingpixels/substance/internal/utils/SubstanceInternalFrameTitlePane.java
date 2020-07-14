@@ -49,7 +49,6 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -107,11 +106,11 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
     @Override
     protected void installListeners() {
         super.installListeners();
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if (JInternalFrame.TITLE_PROPERTY.equals(evt.getPropertyName())) {
-                SubstanceInternalFrameTitlePane.this.setToolTipText((String) evt.getNewValue());
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if (JInternalFrame.TITLE_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
+                SubstanceInternalFrameTitlePane.this.setToolTipText((String) propertyChangeEvent.getNewValue());
             }
-            if ("JInternalFrame.messageType".equals(evt.getPropertyName())) {
+            if ("JInternalFrame.messageType".equals(propertyChangeEvent.getPropertyName())) {
                 updateOptionPaneState();
                 frame.repaint();
             }
@@ -120,8 +119,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
         // Property change listener for pulsating close button
         // when contents has been marked as modified.
-        this.substanceWinModifiedListener = (PropertyChangeEvent evt) -> {
-            if (SubstanceSynapse.CONTENTS_MODIFIED.equals(evt.getPropertyName())) {
+        this.substanceWinModifiedListener = propertyChangeEvent -> {
+            if (SubstanceSynapse.CONTENTS_MODIFIED.equals(propertyChangeEvent.getPropertyName())) {
                 syncCloseButtonTooltip();
             }
         };

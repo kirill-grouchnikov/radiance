@@ -52,7 +52,7 @@ public class TestCommandButtonsNoText extends TestCommandButtons {
 
         final JCheckBox noText = new JCheckBox("no text");
         noText.setSelected(true);
-        noText.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        noText.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             boolean isSelected = noText.isSelected();
             copyCommand.setText(isSelected ? null : "New caption");
             cutCommand.setText(isSelected ? null : "New caption");

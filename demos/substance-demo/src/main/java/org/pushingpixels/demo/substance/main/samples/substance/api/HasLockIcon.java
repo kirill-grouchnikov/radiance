@@ -69,7 +69,7 @@ public class HasLockIcon extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         final JCheckBox hasLockIcon = new JCheckBox("Has lock icon");
-        hasLockIcon.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentScope
+        hasLockIcon.addActionListener(actionEvent -> SubstanceCortex.ComponentScope
                 .setLockIconVisible(jtf, hasLockIcon.isSelected()));
 
         controls.add(hasLockIcon);

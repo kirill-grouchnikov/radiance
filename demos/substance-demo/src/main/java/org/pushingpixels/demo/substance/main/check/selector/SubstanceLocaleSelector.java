@@ -88,7 +88,7 @@ public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelect
                 new LocaleInfo("Vietnamese", vn.of(16, 16), "vi", "VN"));
 
         // add an action listener to change locale based on user selection
-        this.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             LocaleInfo selected = (LocaleInfo) getSelectedItem();
             MyLocaleChangeListener.changeLocale(frame, selected.countryCode, selected.langCode);
         }));

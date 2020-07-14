@@ -67,7 +67,7 @@ public class ShowExtraWidgets extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox showExtraWidgets = new JCheckBox("show extra widgets");
-        showExtraWidgets.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        showExtraWidgets.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             // based on the checkbox selection status, update the visibility of the lock icon.
             SubstanceCortex.GlobalScope.setExtraWidgetsPresence(showExtraWidgets.isSelected());
             SubstanceCortex.ComponentScope.setLockIconVisible(readOnlyTextField,

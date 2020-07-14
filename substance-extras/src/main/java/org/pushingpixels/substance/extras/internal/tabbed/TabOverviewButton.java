@@ -29,19 +29,14 @@
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
-import javax.swing.plaf.UIResource;
-
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
+
+import javax.swing.*;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 
 /**
  * Button that activates the tab overview dialog.
@@ -70,8 +65,7 @@ public class TabOverviewButton extends JButton implements UIResource {
         this.setToolTipText(
                 TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewButtonTooltip"));
 
-        this.addActionListener(
-                (ActionEvent e) -> TabOverviewDialog.getOverviewDialog(tabPane).setVisible(true));
+        this.addActionListener(actionEvent -> TabOverviewDialog.getOverviewDialog(tabPane).setVisible(true));
     }
 
     @Override

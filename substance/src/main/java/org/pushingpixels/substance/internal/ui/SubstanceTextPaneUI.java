@@ -47,7 +47,6 @@ import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicTextPaneUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Set;
 
@@ -136,8 +135,8 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
         this.stateTransitionTracker.registerModelListeners();
         this.stateTransitionTracker.registerFocusListeners();
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("font".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     // remember the caret location - issue 404
                     int caretPos = textPane.getCaretPosition();
@@ -151,7 +150,7 @@ public class SubstanceTextPaneUI extends BasicTextPaneUI implements TransitionAw
                 });
             }
 
-            if ("enabled".equals(evt.getPropertyName())) {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
                 transitionModel.setEnabled(textPane.isEnabled());
             }
         };

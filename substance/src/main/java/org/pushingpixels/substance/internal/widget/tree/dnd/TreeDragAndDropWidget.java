@@ -42,7 +42,6 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
@@ -94,10 +93,10 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 	public void installListeners() {
 		this.listeners = new EventListenerList();
 
-		this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-			if (SubstanceSynapse.TREE_AUTO_DND_SUPPORT.equals(evt.getPropertyName())) {
-				Object oldValue = evt.getOldValue();
-				Object newValue = evt.getNewValue();
+		this.propertyChangeListener = propertyChangeEvent -> {
+			if (SubstanceSynapse.TREE_AUTO_DND_SUPPORT.equals(propertyChangeEvent.getPropertyName())) {
+				Object oldValue = propertyChangeEvent.getOldValue();
+				Object newValue = propertyChangeEvent.getNewValue();
 				boolean hadDnd = false;
 				if (oldValue instanceof Boolean)
 					hadDnd = ((Boolean) oldValue).booleanValue();
@@ -114,9 +113,9 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 				}
 			}
 
-			if ("enabled".equals(evt.getPropertyName())) {
-				boolean wasEnabled = ((Boolean) evt.getOldValue()).booleanValue();
-				boolean isEnabled = ((Boolean) evt.getNewValue()).booleanValue();
+			if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
+				boolean wasEnabled = ((Boolean) propertyChangeEvent.getOldValue()).booleanValue();
+				boolean isEnabled = ((Boolean) propertyChangeEvent.getNewValue()).booleanValue();
 				if (!wasEnabled && isEnabled) {
 					if (WidgetUtilities
 							.hasAutomaticDnDSupport(TreeDragAndDropWidget.this.jcomp))
@@ -139,8 +138,8 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 			return;
 		}
 
-		this.cellRendererChangeListener = (PropertyChangeEvent evt) -> {
-			String name = evt.getPropertyName();
+		this.cellRendererChangeListener = propertyChangeEvent -> {
+			String name = propertyChangeEvent.getPropertyName();
 
 			if (name.equals(JTree.CELL_RENDERER_PROPERTY)) {
 				TreeCellRenderer renderer = TreeDragAndDropWidget.this.jcomp

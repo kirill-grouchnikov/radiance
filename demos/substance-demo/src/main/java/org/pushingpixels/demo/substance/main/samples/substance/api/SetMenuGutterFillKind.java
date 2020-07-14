@@ -101,7 +101,7 @@ public class SetMenuGutterFillKind extends JFrame {
         });
         menuGutterFillCombo.setSelectedItem(MenuGutterFillKind.HARD);
         // based on the selected item, set the global menu gutter fill kind
-        menuGutterFillCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+        menuGutterFillCombo.addActionListener(actionEvent -> SubstanceCortex.GlobalScope
                 .setMenuGutterFillKind((MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         controls.add(new JLabel("Menu fill"));
         controls.add(menuGutterFillCombo);

@@ -23,9 +23,10 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+
 /**
- * The ColorSlidersChooser contains four individual color slider pages: gray
- * slider, RGB sliders, CMYK sliders, and HTML sliders.
+ * The ColorSlidersChooser contains five individual color slider pages: gray
+ * slider, RGB sliders, CMYK sliders, HSB sliders, and HTML sliders.
  *
  * @author  Werner Randelshofer
  * @version 1.4 2006-04-23 Retrieve labels from UIManager. 
@@ -86,10 +87,9 @@ public class ColorSlidersChooser extends SubstanceColorChooserPanel implements U
         cbm.addElement(UIManager.getString("ColorChooser.hsbSliders"));
         cbm.addElement(UIManager.getString("ColorChooser.htmlSliders"));
         slidersComboBox.setModel(cbm);
-        slidersComboBox.addItemListener((ItemEvent evt) -> {
-            if (evt.getStateChange() == ItemEvent.SELECTED) {
-                ((CardLayout) slidersHolder.getLayout()).show(slidersHolder,
-                        (String) evt.getItem());
+        slidersComboBox.addItemListener(itemEvent -> {
+            if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+                ((CardLayout) slidersHolder.getLayout()).show(slidersHolder, (String) itemEvent.getItem());
                 lastSelectedPanelIndex = slidersComboBox.getSelectedIndex();
             }
         });

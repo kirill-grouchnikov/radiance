@@ -138,7 +138,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.buttonPanel.getProjection().getPresentationModel().addChangeListener(
                 this.presentationModelChangeListener);
 
-        this.contentModelChangeListener = (ChangeEvent e) ->
+        this.contentModelChangeListener = changeEvent ->
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
                         recomputeGroupHeaders();

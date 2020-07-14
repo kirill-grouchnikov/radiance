@@ -164,10 +164,10 @@ public class DynamicPerformanceSuite {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         cancelButton = new JButton("cancel");
-        cancelButton.addActionListener((ActionEvent e) -> isCancelled = true);
+        cancelButton.addActionListener(actionEvent -> isCancelled = true);
 
         startButton = new JButton("start");
-        startButton.addActionListener((ActionEvent e) -> {
+        startButton.addActionListener(actionEvent -> {
             startButton.setEnabled(false);
             cancelButton.setEnabled(true);
             Runnable runnable = () -> runSingleRound(false, null);

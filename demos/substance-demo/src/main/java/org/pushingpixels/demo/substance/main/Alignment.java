@@ -37,7 +37,6 @@ import org.pushingpixels.substance.api.skin.SkinInfo;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Alignment extends JFrame {
     private JCheckBox toPaintOverlays;
@@ -117,7 +116,7 @@ public class Alignment extends JFrame {
                 break;
             }
         }
-        lafSwitchCombo.addItemListener((ItemEvent e) -> SwingUtilities.invokeLater(() -> {
+        lafSwitchCombo.addItemListener(itemEvent -> SwingUtilities.invokeLater(() -> {
             String selected = (String) lafSwitchCombo.getSelectedItem();
             LookAndFeelInfo matchingLafInfo = null;
             for (int i = 0; i < lafs.length; i++) {
@@ -143,7 +142,7 @@ public class Alignment extends JFrame {
         }));
 
         toPaintOverlays = new JCheckBox("paint overlays");
-        toPaintOverlays.addActionListener((ActionEvent e) -> Alignment.this.repaint());
+        toPaintOverlays.addActionListener(actionEvent -> Alignment.this.repaint());
 
         controls.add(toPaintOverlays);
         controls.add(lafSwitchCombo);

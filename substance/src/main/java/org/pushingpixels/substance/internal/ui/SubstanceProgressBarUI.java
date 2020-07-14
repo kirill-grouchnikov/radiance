@@ -54,7 +54,6 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.EnumSet;
 import java.util.Set;
@@ -212,8 +211,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         substanceValueChangeListener = new SubstanceChangeListener();
         this.progressBar.addChangeListener(this.substanceValueChangeListener);
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("font".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     if (progressBar != null) {
                         progressBar.updateUI();

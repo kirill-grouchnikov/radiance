@@ -20,7 +20,6 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import javax.swing.*;
 import javax.swing.colorchooser.ColorSelectionModel;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.text.MessageFormat;
@@ -63,7 +62,7 @@ public class ColorPalettesChooser extends SubstanceColorChooserPanel implements 
         paletteCombo.setModel(cbm);
         //updatePaletteList();
         
-        paletteList.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+        paletteList.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
             PaletteEntry entry = (PaletteEntry) paletteList.getSelectedValue();
             if (entry != null) {
                 PaletteListModel lm = (PaletteListModel) paletteList.getModel();

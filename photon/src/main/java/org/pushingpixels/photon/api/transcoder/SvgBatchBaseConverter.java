@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.photon.api.transcoder;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.File;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 public abstract class SvgBatchBaseConverter {
     protected static final String CHECK_DOCUMENTATION = "Check the documentation for the parameters to pass";
@@ -60,8 +60,7 @@ public abstract class SvgBatchBaseConverter {
             String outputPackageName, LanguageRenderer languageRenderer,
             String templateFile) {
 
-        File[] svgFiles = inputFolder.listFiles(
-                (File dir, String name) -> name.endsWith(".svg"));
+        File[] svgFiles = inputFolder.listFiles((directory, name) -> name.endsWith(".svg"));
         if (svgFiles == null) {
             return;
         }

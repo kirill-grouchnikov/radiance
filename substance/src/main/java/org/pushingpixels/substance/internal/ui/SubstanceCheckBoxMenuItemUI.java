@@ -46,7 +46,6 @@ import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicCheckBoxMenuItemUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -97,11 +96,11 @@ public class SubstanceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
 
         this.stateTransitionTracker.registerModelListeners();
 
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
-                stateTransitionTracker.setModel((ButtonModel) evt.getNewValue());
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
+                stateTransitionTracker.setModel((ButtonModel) propertyChangeEvent.getNewValue());
             }
-            if ("font".equals(evt.getPropertyName())) {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(() -> {
                     if (menuItem != null) {
                         menuItem.updateUI();

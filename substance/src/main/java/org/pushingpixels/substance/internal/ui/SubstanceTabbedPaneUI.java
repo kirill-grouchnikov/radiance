@@ -54,7 +54,6 @@ import org.pushingpixels.trident.api.Timeline.TimelineState;
 import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
@@ -66,7 +65,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
@@ -177,10 +175,10 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 return;
             }
 
-            PropertyChangeListener tabModifiedListener = (PropertyChangeEvent evt) -> {
-                if (SubstanceSynapse.CONTENTS_MODIFIED.equals(evt.getPropertyName())) {
-                    Object oldValue = evt.getOldValue();
-                    Object newValue = evt.getNewValue();
+            PropertyChangeListener tabModifiedListener = propertyChangeEvent -> {
+                if (SubstanceSynapse.CONTENTS_MODIFIED.equals(propertyChangeEvent.getPropertyName())) {
+                    Object oldValue = propertyChangeEvent.getOldValue();
+                    Object newValue = propertyChangeEvent.getNewValue();
                     boolean wasModified = Boolean.TRUE.equals(oldValue);
                     boolean isModified = Boolean.TRUE.equals(newValue);
 
@@ -560,9 +558,10 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         this.tabPane.addContainerListener(this.substanceContainerListener);
 
-        this.substanceSelectionListener = (ChangeEvent e) -> SwingUtilities.invokeLater(() -> {
-            if (SubstanceTabbedPaneUI.this.tabPane == null)
+        this.substanceSelectionListener = changeEvent -> SwingUtilities.invokeLater(() -> {
+            if (SubstanceTabbedPaneUI.this.tabPane == null) {
                 return;
+            }
             int selected = SubstanceTabbedPaneUI.this.tabPane.getSelectedIndex();
 
             // fix for issue 437 - track the selection change,

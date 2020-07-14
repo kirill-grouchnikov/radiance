@@ -126,7 +126,7 @@ public class SetFontPolicy extends JFrame {
         fontSizeSlider.setPaintLabels(true);
         fontSizeSlider.setMajorTickSpacing(1);
         fontSizeSlider.setToolTipText("Controls the global font set size");
-        fontSizeSlider.addChangeListener((ChangeEvent e) -> {
+        fontSizeSlider.addChangeListener(changeEvent -> {
             // if the value is adjusting - ignore. This is done
             // to make CPU usage better.
             if (!fontSizeSlider.getModel().getValueIsAdjusting()) {

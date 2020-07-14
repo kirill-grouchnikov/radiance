@@ -316,19 +316,19 @@ public class SliderPanel extends ControllablePanel implements Deferrable {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("fill:pref:grow", 1, 4);
 
         JButton setTitledBorderButton = new JButton("Set titled border");
-        setTitledBorderButton.addActionListener((ActionEvent e) -> SwingUtilities
+        setTitledBorderButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> SliderPanel.run(SliderPanel.this, new SetTitleBorderCommand())));
 
         JButton clearBorderButton = new JButton("Clear border");
-        clearBorderButton.addActionListener((ActionEvent e) -> SwingUtilities
+        clearBorderButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> SliderPanel.run(SliderPanel.this, new ClearBorderCommand())));
 
         JButton snapToTicksButton = new JButton("Snap to ticks");
-        snapToTicksButton.addActionListener((ActionEvent e) -> SwingUtilities
+        snapToTicksButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> SliderPanel.run(SliderPanel.this, new SnapToTicksCommand())));
 
         JButton unsnapToTicksButton = new JButton("Unsnap to ticks");
-        unsnapToTicksButton.addActionListener((ActionEvent e) -> SwingUtilities
+        unsnapToTicksButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> SliderPanel.run(SliderPanel.this, new UnsnapToTicksCommand())));
 
         builder.append(setTitledBorderButton);

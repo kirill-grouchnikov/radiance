@@ -102,7 +102,7 @@ public AlbumOverviewComponent(final SearchResultRelease albumItem) {
   this.setOpaque(false);
   this.alpha = 0.0f;
 
-  this.addHierarchyListener((HierarchyEvent e) ->
+  this.addHierarchyListener(hierarchyEvent ->
       SwingComponentTimeline.componentBuilder(AlbumOverviewComponent.this)
           .addPropertyToInterpolate("alpha", 0.0f, 1.0f)
           .addCallback(new SwingRepaintCallback(AlbumOverviewComponent.this))

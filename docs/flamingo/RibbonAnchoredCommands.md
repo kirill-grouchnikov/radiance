@@ -10,14 +10,14 @@ Use `JRibbon.addAnchoredCommand()` API to add anchored command content. For the 
 this.getRibbon().addAnchoredCommand(Command.builder()
         .setText(resourceBundle.getString("Share.title"))
         .setIconFactory(Internet_mail.factory())
-        .setAction((CommandActionEvent e) -> JOptionPane
+        .setAction(commandActionEvent -> JOptionPane
                 .showMessageDialog(BasicCheckRibbon.this, "Share button clicked"))
         .build()
         .project(CommandButtonPresentationModel.builder().setActionKeyTip("GS").build()));
 
 this.getRibbon().addAnchoredCommand(Command.builder()
         .setIconFactory(Internet_group_chat.factory())
-        .setAction((CommandActionEvent e) -> JOptionPane
+        .setAction(commandActionEvent -> JOptionPane
                 .showMessageDialog(BasicCheckRibbon.this, "Chat button clicked"))
         .build()
         .project(CommandButtonPresentationModel.builder().setActionKeyTip("GC").build()));
@@ -29,7 +29,7 @@ this.getRibbon().addAnchoredCommand(Command.builder()
                 .addDescriptionSection(
                         resourceBundle.getString("Help.tooltip.actionParagraph"))
                 .build())
-        .setAction((CommandActionEvent e) -> JOptionPane
+        .setAction(commandActionEvent -> JOptionPane
                 .showMessageDialog(BasicCheckRibbon.this, "Help button clicked"))
         .build()
         .project(CommandButtonPresentationModel.builder().setActionKeyTip("GH").build()));

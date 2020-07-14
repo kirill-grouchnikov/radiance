@@ -35,7 +35,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.StyleContext;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -261,7 +260,7 @@ public class SizesPanel extends JPanel {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         list.getSelectionModel().addListSelectionListener(
-                (ListSelectionEvent e) -> SwingUtilities.invokeLater(() -> {
+                listSelectionEvent -> SwingUtilities.invokeLater(() -> {
                     if (central != null)
                         remove(central);
                     central = null;

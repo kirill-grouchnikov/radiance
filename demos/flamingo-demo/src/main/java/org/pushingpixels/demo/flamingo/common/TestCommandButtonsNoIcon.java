@@ -55,7 +55,7 @@ public class TestCommandButtonsNoIcon extends TestCommandButtons {
 
         final JCheckBox noIcon = new JCheckBox("no icon");
         noIcon.setSelected(true);
-        noIcon.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        noIcon.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             boolean isSelected = noIcon.isSelected();
             copyCommand.setIconFactory(isSelected ? null : Edit_copy.factory());
             cutCommand.setIconFactory(isSelected ? null : Edit_cut.factory());

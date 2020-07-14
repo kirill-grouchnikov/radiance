@@ -92,7 +92,7 @@ public class UnregisterTabCloseChangeListener_General extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        unregisterListener.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             unregisterListener.setEnabled(false);
             // unregister listener
             SubstanceCortex.GlobalScope.unregisterTabCloseChangeListener(listener);

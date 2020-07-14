@@ -83,7 +83,7 @@ public class AutoScroll extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox hasAutoScroll = new JCheckBox("has auto scroll");
-        hasAutoScroll.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        hasAutoScroll.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SubstanceCortex.ComponentScope.setAutomaticScrollPresence(scrollPane,
                     hasAutoScroll.isSelected());
             repaint();

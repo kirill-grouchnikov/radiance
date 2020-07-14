@@ -114,7 +114,7 @@ implements UIResource {
         new ColorSliderTextFieldHandler(yellowField, ccModel, 2);
         new ColorSliderTextFieldHandler(blackField, ccModel, 3);
         
-        ccModel.addChangeListener((ChangeEvent e) -> setColorToModel(ccModel.getColor()));
+        ccModel.addChangeListener(changeEvent -> setColorToModel(ccModel.getColor()));
         cyanField.setMinimumSize(cyanField.getPreferredSize());
         magentaField.setMinimumSize(magentaField.getPreferredSize());
         yellowField.setMinimumSize(yellowField.getPreferredSize());

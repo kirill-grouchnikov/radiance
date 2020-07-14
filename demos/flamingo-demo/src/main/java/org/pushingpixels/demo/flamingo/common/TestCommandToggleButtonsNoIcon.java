@@ -50,7 +50,7 @@ public class TestCommandToggleButtonsNoIcon extends TestCommandToggleButtons {
         super.configureControlPanel(controlPanel);
         final JCheckBox noIcon = new JCheckBox("no icon");
         noIcon.setSelected(true);
-        noIcon.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        noIcon.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             boolean isSelected = noIcon.isSelected();
             toggleCommandShort.setIconFactory(isSelected ? null : Edit_paste.factory());
             toggleCommandLong.setIconFactory(isSelected ? null : Edit_paste.factory());

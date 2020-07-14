@@ -57,7 +57,6 @@ import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Set;
 
@@ -244,13 +243,13 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 
         this.trackGlowingIcon();
 
-        this.substancePropertyListener = (PropertyChangeEvent evt) -> {
-            if (AbstractButton.ICON_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
+        this.substancePropertyListener = propertyChangeEvent -> {
+            if (AbstractButton.ICON_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
                 trackGlowingIcon();
             }
 
-            if (SubstanceSynapse.CONTENTS_MODIFIED.equals(evt.getPropertyName())) {
-                boolean newValue = (Boolean) evt.getNewValue();
+            if (SubstanceSynapse.CONTENTS_MODIFIED.equals(propertyChangeEvent.getPropertyName())) {
+                boolean newValue = (Boolean) propertyChangeEvent.getNewValue();
                 if (newValue) {
                     trackModificationFlag();
                 } else {
@@ -260,7 +259,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                 }
             }
 
-            if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
+            if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
                 if (ghostModelChangeListener != null)
                     ghostModelChangeListener.unregisterListeners();
                 ghostModelChangeListener = new GhostingListener(b, b

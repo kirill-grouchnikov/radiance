@@ -434,7 +434,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("fill:pref:grow", 1, 5);
 
         JButton checkEscape = new JButton("Check ESC key");
-        checkEscape.addActionListener((ActionEvent e) -> {
+        checkEscape.addActionListener(actionEvent -> {
             final JDialog dialog = new JDialog();
             dialog.setTitle("Press ESC key when combo is focused");
             dialog.setLayout(new FlowLayout());
@@ -465,16 +465,16 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         });
 
         JButton disableCombosButton = new JButton("Disable all");
-        disableCombosButton.addActionListener((ActionEvent e) -> SwingUtilities
+        disableCombosButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> CombosPanel.run(CombosPanel.this, new DisableCommand())));
         JButton enableCombosButton = new JButton("Enable all");
-        enableCombosButton.addActionListener((ActionEvent e) -> SwingUtilities
+        enableCombosButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> CombosPanel.run(CombosPanel.this, new EnableCommand())));
         JButton makeAllEditableButton = new JButton("Make all editable");
-        makeAllEditableButton.addActionListener((ActionEvent e) -> SwingUtilities
+        makeAllEditableButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> CombosPanel.run(CombosPanel.this, new EditAllowCommand())));
         JButton makeAllNonEditableButton = new JButton("Make all non-editable");
-        makeAllNonEditableButton.addActionListener((ActionEvent e) -> SwingUtilities
+        makeAllNonEditableButton.addActionListener(actionEvent -> SwingUtilities
                 .invokeLater(() -> CombosPanel.run(CombosPanel.this, new EditDisallowCommand())));
 
         builder.append(disableCombosButton);

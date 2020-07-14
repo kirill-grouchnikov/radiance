@@ -33,7 +33,6 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JSplitPane} component.
@@ -61,12 +60,11 @@ public class SplitPanel extends ControllablePanel {
         final JCheckBox isOneTouch = new JCheckBox("is one-touch");
         isOneTouch.setSelected(true);
         splitPane.setOneTouchExpandable(true);
-        isOneTouch.addActionListener(
-                (ActionEvent e) -> splitPane.setOneTouchExpandable(isOneTouch.isSelected()));
+        isOneTouch.addActionListener(actionEvent -> splitPane.setOneTouchExpandable(isOneTouch.isSelected()));
 
         final JCheckBox isFlat = new JCheckBox("is flat");
         isFlat.setSelected(true);
-        isFlat.addActionListener((ActionEvent e) -> {
+        isFlat.addActionListener(actionEvent -> {
             SubstanceCortex.ComponentOrParentScope.setFlatBackground(splitPane,
                     isFlat.isSelected() ? Boolean.TRUE : Boolean.FALSE);
             splitPane.repaint();
@@ -75,13 +73,13 @@ public class SplitPanel extends ControllablePanel {
         final JCheckBox isVertical = new JCheckBox("is vertical");
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         isVertical.setSelected(true);
-        isVertical.addActionListener((ActionEvent e) -> splitPane.setOrientation(
+        isVertical.addActionListener(actionEvent -> splitPane.setOrientation(
                 isVertical.isSelected() ? JSplitPane.VERTICAL_SPLIT : JSplitPane.HORIZONTAL_SPLIT));
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(true);
         isEnabled
-                .addActionListener((ActionEvent e) -> splitPane.setEnabled(isEnabled.isSelected()));
+                .addActionListener(actionEvent -> splitPane.setEnabled(isEnabled.isSelected()));
 
         builder.append(isEnabled);
         builder.append(isOneTouch);

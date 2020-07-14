@@ -34,8 +34,6 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentation
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
 
 public class JRibbonCheckBox extends JCheckBox {
     public JRibbonCheckBox(Projection<JRibbonCheckBox,
@@ -46,15 +44,15 @@ public class JRibbonCheckBox extends JCheckBox {
         this.setSelected(contentModel.isSelected());
         this.setEnabled(contentModel.isEnabled());
 
-        this.addActionListener((ActionEvent ae) -> {
+        this.addActionListener(actionEvent -> {
             contentModel.setSelected(!contentModel.isSelected());
             if (contentModel.getActionListener() != null) {
-                contentModel.getActionListener().actionPerformed(ae);
+                contentModel.getActionListener().actionPerformed(actionEvent);
             }
         });
 
-        contentModel.addPropertyChangeListener((PropertyChangeEvent event) -> {
-            if ("selected".equals(event.getPropertyName())) {
+        contentModel.addPropertyChangeListener(propertyChangeEvent -> {
+            if ("selected".equals(propertyChangeEvent.getPropertyName())) {
                 setSelected(contentModel.isSelected());
             }
         });

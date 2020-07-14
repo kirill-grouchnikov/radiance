@@ -69,7 +69,7 @@ public class UseThemedDefaultIcons extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox useThemedIcons = new JCheckBox("use themed icons");
-        useThemedIcons.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+        useThemedIcons.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             // based on the checkbox selection status, call the API
             SubstanceCortex.GlobalScope
                     .setUseThemedDefaultIcons(useThemedIcons.isSelected() ? Boolean.TRUE : null);

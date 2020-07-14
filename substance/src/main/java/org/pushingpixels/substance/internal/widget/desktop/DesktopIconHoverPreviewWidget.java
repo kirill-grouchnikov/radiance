@@ -43,7 +43,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -146,8 +145,8 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
 
     @Override
     public void installListeners() {
-        this.internalFramePropertyListener = (PropertyChangeEvent evt) -> {
-            if ("ancestor".equals(evt.getPropertyName())) {
+        this.internalFramePropertyListener = propertyChangeEvent -> {
+            if ("ancestor".equals(propertyChangeEvent.getPropertyName())) {
                 updateSnapshot(jcomp.getInternalFrame());
             }
         };

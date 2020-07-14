@@ -79,7 +79,7 @@ public class TabbedPaneContentBorderKind extends JFrame {
                         TabContentPaneBorderKind.DOUBLE_PLACEMENT,
                         TabContentPaneBorderKind.SINGLE_PLACEMENT});
         contentBorderCombo.setSelectedItem(TabContentPaneBorderKind.DOUBLE_FULL);
-        contentBorderCombo.addActionListener((ActionEvent e) -> {
+        contentBorderCombo.addActionListener(actionEvent -> {
             TabContentPaneBorderKind contentBorderKind = (TabContentPaneBorderKind) contentBorderCombo
                     .getSelectedItem();
             SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(jtp, contentBorderKind);

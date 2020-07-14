@@ -52,9 +52,7 @@ import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Map;
@@ -522,11 +520,11 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
         slider.addMouseListener(this.substanceRolloverListener);
         slider.addMouseMotionListener(this.substanceRolloverListener);
 
-        this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("enabled".equals(evt.getPropertyName())) {
+        this.substancePropertyChangeListener = propertyChangeEvent -> {
+            if ("enabled".equals(propertyChangeEvent.getPropertyName())) {
                 SubstanceSliderUI.this.thumbModel.setEnabled(slider.isEnabled());
             }
-            if ("font".equals(evt.getPropertyName())) {
+            if ("font".equals(propertyChangeEvent.getPropertyName())) {
                 SwingUtilities.invokeLater(slider::updateUI);
             }
         };

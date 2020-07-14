@@ -83,7 +83,7 @@ public class ColorizationFactor extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JSlider colorizationSlider = new JSlider(0, 100, 50);
-        colorizationSlider.addChangeListener((ChangeEvent e) -> {
+        colorizationSlider.addChangeListener(changeEvent -> {
             double val = colorizationSlider.getValue() / 100.0;
             SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(panel, val);
             panel.repaint();

@@ -54,7 +54,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
@@ -242,9 +241,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             this.commandButton.addChangeListener(this.basicPopupButtonListener);
         }
 
-        this.propertyChangeListener = (PropertyChangeEvent evt) -> {
-            if (AbstractButton.ICON_CHANGED_PROPERTY.equals(evt.getPropertyName())) {
-                Icon newIcon = (Icon) evt.getNewValue();
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (AbstractButton.ICON_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
+                Icon newIcon = (Icon) propertyChangeEvent.getNewValue();
                 if (newIcon instanceof AsynchronousLoading) {
                     AsynchronousLoading async = (AsynchronousLoading) newIcon;
                     async.addAsynchronousLoadListener((boolean success) -> {
@@ -268,26 +267,26 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     commandButton.repaint();
                 }
             }
-            if ("commandButtonKind".equals(evt.getPropertyName())) {
+            if ("commandButtonKind".equals(propertyChangeEvent.getPropertyName())) {
                 updatePopupActionIcon();
             }
-            if ("popupOrientationKind".equals(evt.getPropertyName())) {
+            if ("popupOrientationKind".equals(propertyChangeEvent.getPropertyName())) {
                 updatePopupActionIcon();
             }
-            if ("iconDimension".equals(evt.getPropertyName())) {
+            if ("iconDimension".equals(propertyChangeEvent.getPropertyName())) {
                 updateIconDimension();
             }
-            if ("hgapScaleFactor".equals(evt.getPropertyName())) {
+            if ("hgapScaleFactor".equals(propertyChangeEvent.getPropertyName())) {
                 updateBorder();
             }
-            if ("vgapScaleFactor".equals(evt.getPropertyName())) {
+            if ("vgapScaleFactor".equals(propertyChangeEvent.getPropertyName())) {
                 updateBorder();
             }
 
-            if ("popupModel".equals(evt.getPropertyName())) {
+            if ("popupModel".equals(propertyChangeEvent.getPropertyName())) {
                 // rewire the popup action listener on the new popup model
-                PopupButtonModel oldModel = (PopupButtonModel) evt.getOldValue();
-                PopupButtonModel newModel = (PopupButtonModel) evt.getNewValue();
+                PopupButtonModel oldModel = (PopupButtonModel) propertyChangeEvent.getOldValue();
+                PopupButtonModel newModel = (PopupButtonModel) propertyChangeEvent.getNewValue();
 
                 if (oldModel != null) {
                     oldModel.removePopupActionListener(popupActionListener);
@@ -299,7 +298,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     newModel.addPopupActionListener(popupActionListener);
                 }
             }
-            if ("presentationState".equals(evt.getPropertyName())) {
+            if ("presentationState".equals(propertyChangeEvent.getPropertyName())) {
                 syncIconDimension();
                 syncDisabledIcon();
 
@@ -310,10 +309,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
             // pass the event to the layout manager
             if (layoutManager != null) {
-                layoutManager.propertyChange(evt);
+                layoutManager.propertyChange(propertyChangeEvent);
             }
 
-            if ("componentOrientation".equals(evt.getPropertyName())) {
+            if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
                 updatePopupActionIcon();
                 commandButton.repaint();
             }
@@ -321,56 +320,56 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.commandButton.addPropertyChangeListener(this.propertyChangeListener);
 
         Command command = this.commandButton.getProjection().getContentModel();
-        this.projectionPropertyChangeListener = (PropertyChangeEvent evt) -> {
-            if ("text".equals(evt.getPropertyName())) {
-                commandButton.setText((String) evt.getNewValue());
+        this.projectionPropertyChangeListener = propertyChangeEvent -> {
+            if ("text".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.setText((String) propertyChangeEvent.getNewValue());
             }
-            if ("extraText".equals(evt.getPropertyName())) {
-                commandButton.setExtraText((String) evt.getNewValue());
+            if ("extraText".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.setExtraText((String) propertyChangeEvent.getNewValue());
             }
-            if ("iconFactory".equals(evt.getPropertyName())) {
-                ResizableIcon.Factory factory = (ResizableIcon.Factory) evt.getNewValue();
+            if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
+                ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
                 commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
             }
-            if ("disabledIconFactory".equals(evt.getPropertyName())) {
-                ResizableIcon.Factory factory = (ResizableIcon.Factory) evt.getNewValue();
+            if ("disabledIconFactory".equals(propertyChangeEvent.getPropertyName())) {
+                ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
                 commandButton.setDisabledIcon((factory != null) ? factory.createNewIcon() : null);
             }
-            if ("isToggleSelected".equals(evt.getPropertyName())) {
-                commandButton.getActionModel().setSelected((Boolean) evt.getNewValue());
+            if ("isToggleSelected".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.getActionModel().setSelected((Boolean) propertyChangeEvent.getNewValue());
                 if (command.getToggleGroupModel() != null) {
-                    command.getToggleGroupModel().setSelected(command, (Boolean) evt.getNewValue());
+                    command.getToggleGroupModel().setSelected(command, (Boolean) propertyChangeEvent.getNewValue());
                 }
             }
-            if ("action".equals(evt.getPropertyName())) {
-                commandButton.removeCommandListener((CommandAction) evt.getOldValue());
-                commandButton.addCommandListener((CommandAction) evt.getNewValue());
+            if ("action".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.removeCommandListener((CommandAction) propertyChangeEvent.getOldValue());
+                commandButton.addCommandListener((CommandAction) propertyChangeEvent.getNewValue());
             }
-            if ("actionPreview".equals(evt.getPropertyName())) {
-                syncActionPreview(command, ((Command.CommandActionPreview) evt.getNewValue()));
+            if ("actionPreview".equals(propertyChangeEvent.getPropertyName())) {
+                syncActionPreview(command, ((Command.CommandActionPreview) propertyChangeEvent.getNewValue()));
             }
-            if ("actionRichTooltip".equals(evt.getPropertyName())) {
-                commandButton.setActionRichTooltip((RichTooltip) evt.getNewValue());
+            if ("actionRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.setActionRichTooltip((RichTooltip) propertyChangeEvent.getNewValue());
             }
-            if ("secondaryRichTooltip".equals(evt.getPropertyName())) {
-                commandButton.setPopupRichTooltip((RichTooltip) evt.getNewValue());
+            if ("secondaryRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.setPopupRichTooltip((RichTooltip) propertyChangeEvent.getNewValue());
             }
-            if ("isAutoRepeatAction".equals(evt.getPropertyName())) {
-                commandButton.setAutoRepeatAction((Boolean) evt.getNewValue());
+            if ("isAutoRepeatAction".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.setAutoRepeatAction((Boolean) propertyChangeEvent.getNewValue());
             }
-            if ("isFireActionOnRollover".equals(evt.getPropertyName())) {
-                commandButton.setFireActionOnRollover((Boolean) evt.getNewValue());
+            if ("isFireActionOnRollover".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.setFireActionOnRollover((Boolean) propertyChangeEvent.getNewValue());
             }
-            if ("isFireActionOnPress".equals(evt.getPropertyName())) {
-                commandButton.getActionModel().setFireActionOnPress((Boolean) evt.getNewValue());
+            if ("isFireActionOnPress".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.getActionModel().setFireActionOnPress((Boolean) propertyChangeEvent.getNewValue());
             }
-            if ("actionEnabled".equals(evt.getPropertyName())) {
-                commandButton.getActionModel().setEnabled((Boolean) evt.getNewValue());
+            if ("actionEnabled".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.getActionModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
                 syncDisabledIcon();
                 commandButton.repaint();
             }
-            if ("secondaryEnabled".equals(evt.getPropertyName())) {
-                commandButton.getPopupModel().setEnabled((Boolean) evt.getNewValue());
+            if ("secondaryEnabled".equals(propertyChangeEvent.getPropertyName())) {
+                commandButton.getPopupModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
                 syncDisabledIcon();
                 commandButton.repaint();
             }
