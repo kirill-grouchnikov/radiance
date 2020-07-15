@@ -195,6 +195,9 @@ public class MagellanSkin extends SubstanceSkin {
         // rollover selected state
         defaultColorSchemeBundle.registerColorScheme(blueControlsActive,
                 ColorSchemeAssociationKind.FILL, ComponentState.SELECTED);
+        // But continue using green for selected highlight text
+        defaultColorSchemeBundle.registerColorScheme(greenControls,
+                ColorSchemeAssociationKind.HIGHLIGHT_TEXT);
 
         // highlight alphas
         defaultColorSchemeBundle.registerHighlightAlpha(0.75f, ComponentState.ROLLOVER_UNSELECTED);
@@ -245,6 +248,10 @@ public class MagellanSkin extends SubstanceSkin {
                 .get("Magellan Light Blue Separator");
         footerColorSchemeBundle.registerColorScheme(lightBlueSeparator,
                 ColorSchemeAssociationKind.SEPARATOR);
+
+        // And use light-on-blue for text highlights in the footer area
+        footerColorSchemeBundle.registerColorScheme(blueControlsEnabled,
+                ColorSchemeAssociationKind.HIGHLIGHT_TEXT);
 
         SubstanceColorScheme ultraLightBlueBackground = colorSchemes
                 .get("Magellan Ultralight Blue Background");

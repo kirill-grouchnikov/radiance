@@ -35,6 +35,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.text.SubstancePasswordField;
 import org.pushingpixels.substance.internal.SubstanceWidgetRepository;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
@@ -132,17 +133,19 @@ public class SubstancePasswordFieldUI extends BasicPasswordFieldUI implements Tr
             int fontSize = SubstanceSizeUtils.getComponentFontSize(this.field);
             int dotDiameter = SubstanceSizeUtils.getPasswordDotDiameter(fontSize);
             int dotGap = SubstanceSizeUtils.getPasswordDotGap(fontSize);
-            ComponentState state = field.isEnabled() ? ComponentState.ENABLED
-                    : ComponentState.DISABLED_UNSELECTED;
-            SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(field,
-                    state);
-            Color color = isSelected ? scheme.getSelectionForegroundColor()
-                    : SubstanceColorUtilities.getForegroundColor(scheme);
-            graphics.setColor(color);
+            if (field instanceof SubstancePasswordField) {
+                graphics.setColor(field.getSelectedTextColor());
+            } else {
+                ComponentState state = field.isEnabled() ? ComponentState.ENABLED
+                        : ComponentState.DISABLED_UNSELECTED;
+                SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(field, state);
+                Color color = isSelected ? scheme.getSelectionForegroundColor()
+                        : SubstanceColorUtilities.getForegroundColor(scheme);
+                graphics.setColor(color);
+            }
             int echoPerChar = SubstanceCoreUtilities.getEchoPerChar(field);
             for (int i = 0; i < echoPerChar; i++) {
-                graphics.fillOval((int) (x + dotGap / 2), (int) (y - dotDiameter),
-                        dotDiameter, dotDiameter);
+                graphics.fillOval((int) (x + dotGap / 2), (int) (y - dotDiameter), dotDiameter, dotDiameter);
                 x += (dotDiameter + dotGap);
             }
             return x;

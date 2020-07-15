@@ -32,8 +32,12 @@ package org.pushingpixels.demo.substance.main;
 import org.pushingpixels.demo.substance.main.check.svg.radiance_menu;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -50,5 +54,16 @@ public class RadianceLogo {
 
     public static BufferedImage getLogoImage(SubstanceColorScheme scheme) {
         return getLogoIcon(scheme).toImage();
+    }
+
+    public static void configureOn(JFrame frame) {
+        frame.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                .getColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        SubstanceSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+        SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
+                () -> frame.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
+                        .getCurrentSkin(frame.getRootPane())
+                        .getColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                                SubstanceSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
     }
 }

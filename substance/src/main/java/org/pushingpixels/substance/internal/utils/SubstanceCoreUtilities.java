@@ -1904,10 +1904,34 @@ public class SubstanceCoreUtilities {
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(component);
         DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
         Color overlay = skin.getOverlayColor(ColorOverlayType.TEXT_BACKGROUND_FILL,
-                decorationAreaType, ComponentState.ENABLED);
+                decorationAreaType, componentState);
         if (overlay != null) {
             return overlay;
         }
         return SubstanceColorSchemeUtilities.getColorScheme(component, componentState).getTextBackgroundFillColor();
+    }
+
+    public static Color getTextSelectionBackground(Component component, ComponentState componentState) {
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(component);
+        DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
+        Color overlay = skin.getOverlayColor(ColorOverlayType.SELECTION_BACKGROUND_FILL,
+                decorationAreaType, componentState);
+        if (overlay != null) {
+            return overlay;
+        }
+        return SubstanceColorSchemeUtilities.getColorScheme(
+                component, ColorSchemeAssociationKind.HIGHLIGHT_TEXT, componentState).getSelectionBackgroundColor();
+    }
+
+    public static Color getTextSelectionForeground(Component component, ComponentState componentState) {
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(component);
+        DecorationAreaType decorationAreaType = DecorationPainterUtils.getDecorationType(component);
+        Color overlay = skin.getOverlayColor(ColorOverlayType.SELECTION_FOREGROUND,
+                decorationAreaType, componentState);
+        if (overlay != null) {
+            return overlay;
+        }
+        return SubstanceColorSchemeUtilities.getColorScheme(
+                component, ColorSchemeAssociationKind.HIGHLIGHT_TEXT, componentState).getSelectionForegroundColor();
     }
 }

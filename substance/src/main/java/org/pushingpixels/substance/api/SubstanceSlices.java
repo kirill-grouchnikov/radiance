@@ -841,7 +841,7 @@ public final class SubstanceSlices {
         BACKGROUND_FILL,
         TEXT_BACKGROUND_FILL,
         SELECTION_BACKGROUND_FILL,
-        SELECTION_FOREGROUND_FILL
+        SELECTION_FOREGROUND
     }
 
     /**

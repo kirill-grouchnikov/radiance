@@ -29,58 +29,28 @@
  */
 package org.pushingpixels.demo.substance.main;
 
-import org.pushingpixels.demo.substance.main.check.*;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceFontSelector;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceTitlePaneGravitySelector;
-import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel;
-import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
-import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
-import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
-import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
-import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
-import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.*;
-import java.net.URL;
-import java.util.EnumSet;
-import java.util.Set;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class TestFrame extends JFrame {
     private JToolBar toolbar;
 
     public TestFrame() {
         super("Substance skeleton");
-
-        if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-            setIconImage(RadianceLogo
-                    .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
-                            .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-        }
-        SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
-                () -> setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
-                        .getCurrentSkin(TestFrame.this.getRootPane())
-                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
 
         setLayout(new BorderLayout());
         toolbar = Check.getToolbar("", 22, false);
@@ -138,6 +108,8 @@ public class TestFrame extends JFrame {
             JDialog.setDefaultLookAndFeelDecorated(true);
 
             TestFrame c = new TestFrame();
+            RadianceLogo.configureOn(c);
+
             c.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
