@@ -641,18 +641,18 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         Rectangle renderRectangle = getStringRectangle(progressString, x, y, width, height);
 
         if (progressBar.getOrientation() == JProgressBar.HORIZONTAL) {
-            SubstanceTextUtilities.paintText(g, this.progressBar, renderRectangle, progressString,
+            SubstanceTextUtilities.paintText(g, renderRectangle, progressString,
                     -1, progressBar.getFont(), getSelectionBackground(),
                     new Rectangle(amountFull, y, progressBar.getWidth() - amountFull, height));
-            SubstanceTextUtilities.paintText(g, this.progressBar, renderRectangle, progressString,
+            SubstanceTextUtilities.paintText(g, renderRectangle, progressString,
                     -1, progressBar.getFont(), getSelectionForeground(),
                     new Rectangle(fillStart, y, amountFull, height));
         } else { // VERTICAL
-            SubstanceTextUtilities.paintVerticalText(g, this.progressBar, renderRectangle,
+            SubstanceTextUtilities.paintVerticalText(g, renderRectangle,
                     progressString, -1, progressBar.getFont(), getSelectionBackground(),
                     new Rectangle(x, y, width, progressBar.getHeight() - amountFull),
                     progressBar.getComponentOrientation().isLeftToRight());
-            SubstanceTextUtilities.paintVerticalText(g, this.progressBar, renderRectangle,
+            SubstanceTextUtilities.paintVerticalText(g, renderRectangle,
                     progressString, -1, progressBar.getFont(), getSelectionForeground(),
                     new Rectangle(x, fillStart, width, amountFull),
                     progressBar.getComponentOrientation().isLeftToRight());

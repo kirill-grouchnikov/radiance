@@ -130,14 +130,13 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
             int offset = SubstanceSizeUtils
                     .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(this), 5, 2, 1, false);
             if (getComponentOrientation().isLeftToRight()) {
-                SubstanceTextUtilities.paintText(g2d, this,
+                SubstanceTextUtilities.paintText(g2d,
                         new Rectangle(offset, yOffset, width, height - yOffset),
                         this.taskGroup.getTitle(), -1, ribbon.getFont(),
                         SubstanceColorUtilities.getForegroundColor(scheme), null);
             } else {
-                SubstanceTextUtilities.paintText(g2d, this,
-                        new Rectangle(width - offset
-                                - g2d.getFontMetrics().stringWidth(this.taskGroup.getTitle()),
+                SubstanceTextUtilities.paintText(g2d,
+                        new Rectangle(width - offset - g2d.getFontMetrics().stringWidth(this.taskGroup.getTitle()),
                                 yOffset, width, height - yOffset),
                         this.taskGroup.getTitle(), -1, ribbon.getFont(),
                         SubstanceColorUtilities.getForegroundColor(scheme), null);

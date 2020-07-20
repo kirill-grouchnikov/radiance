@@ -150,7 +150,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         Rectangle smallTitleRectangle = new Rectangle(titleRectangle.x + deltaX,
                 titleRectangle.y + deltaY, titleRectangle.width - 2 * deltaX,
                 titleRectangle.height - 2 * deltaY);
-        SubstanceTextUtilities.paintText(g2d, this.ribbonBand, smallTitleRectangle, titleToPaint,
+        SubstanceTextUtilities.paintText(g2d, smallTitleRectangle, titleToPaint,
                 -1, g2d.getFont(), g2d.getColor(), g2d.getClipBounds());
 
         g2d.dispose();

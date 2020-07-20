@@ -580,7 +580,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
                     layoutInfo.textLayoutInfoList) {
                 if (mainTextLayoutInfo.text != null) {
-                    SubstanceTextUtilities.paintText(g2d, c, mainTextLayoutInfo.textRect,
+                    SubstanceTextUtilities.paintText(g2d, mainTextLayoutInfo.textRect,
                             mainTextLayoutInfo.text, -1, g2d.getFont(), fgColor,
                             g2d.getClipBounds());
                 }
@@ -607,7 +607,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
                     layoutInfo.extraTextLayoutInfoList) {
                 if (extraTextLayoutInfo.text != null) {
-                    SubstanceTextUtilities.paintText(g2d, c, extraTextLayoutInfo.textRect,
+                    SubstanceTextUtilities.paintText(g2d, extraTextLayoutInfo.textRect,
                             extraTextLayoutInfo.text, -1, g2d.getFont(), disabledFgColor,
                             g2d.getClipBounds());
                 }

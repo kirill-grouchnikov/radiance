@@ -2202,7 +2202,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                                 this.tabPane.getComponentAt(tabIndex), currState));
             }
             graphics.clip(getTabRectangle(tabIndex));
-            SubstanceTextUtilities.paintText(graphics, this.tabPane, textRect, title, mnemIndex,
+            SubstanceTextUtilities.paintText(graphics, textRect, title, mnemIndex,
                     graphics.getFont(), fg, null);
             graphics.dispose();
         }

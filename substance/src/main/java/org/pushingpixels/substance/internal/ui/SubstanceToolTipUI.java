@@ -87,8 +87,7 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 		if (v != null) {
 			v.paint(g, paintTextR);
 		} else {
-			SubstanceTextUtilities.paintText(g, c, paintTextR, tipText, -1,
-					font, c.getForeground(), null);
+			SubstanceTextUtilities.paintText(g, paintTextR, tipText, -1, font, c.getForeground(), null);
 		}
 	}
 

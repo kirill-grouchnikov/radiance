@@ -380,7 +380,7 @@ public final class SubstanceSlices {
          * @param fontSize The font size of the component for focus painting.
          * @return DPI-aware dash length for dash-based focus painting.
          */
-        protected static float getDashLength(int fontSize) {
+        protected final float getDashLength(int fontSize) {
             return 2.0f + SubstanceSizeUtils.getExtraPadding(fontSize);
         }
 
@@ -390,7 +390,7 @@ public final class SubstanceSlices {
          * @param fontSize The font size of the component for focus painting.
          * @return DPI-aware dash gap for dash-based focus painting.
          */
-        protected static float getDashGap(int fontSize) {
+        protected final float getDashGap(int fontSize) {
             return getDashLength(fontSize) / 2.0f;
         }
 
@@ -692,14 +692,12 @@ public final class SubstanceSlices {
         /**
          * Pressing a component.
          */
-        public static final AnimationFacet PRESS = new AnimationFacet("substancelaf.core.press",
-                true);
+        public static final AnimationFacet PRESS = new AnimationFacet("substancelaf.core.press", true);
 
         /**
          * Focusing a component.
          */
-        public static final AnimationFacet FOCUS = new AnimationFacet("substancelaf.core.focus",
-                true);
+        public static final AnimationFacet FOCUS = new AnimationFacet("substancelaf.core.focus", true);
 
         /**
          * <p>
@@ -714,14 +712,12 @@ public final class SubstanceSlices {
         /**
          * Rollover a component.
          */
-        public static final AnimationFacet ROLLOVER = new AnimationFacet(
-                "substancelaf.core.rollover", true);
+        public static final AnimationFacet ROLLOVER = new AnimationFacet("substancelaf.core.rollover", true);
 
         /**
          * Selecting a component.
          */
-        public static final AnimationFacet SELECTION = new AnimationFacet(
-                "substancelaf.core.selection", true);
+        public static final AnimationFacet SELECTION = new AnimationFacet("substancelaf.core.selection", true);
 
         /**
          * <i>Ghosting image</i> effects on button icons when the button is rolled-over. Disabled by
@@ -828,7 +824,6 @@ public final class SubstanceSlices {
             return this.displayName;
         }
     }
-
 
     /**
      * Enumeration of available color overlay types. This class is part of officially supported API.

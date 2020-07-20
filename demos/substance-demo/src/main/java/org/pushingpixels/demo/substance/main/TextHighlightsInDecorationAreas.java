@@ -36,9 +36,23 @@ import org.pushingpixels.substance.api.skin.MagellanSkin;
 import org.pushingpixels.substance.api.text.SubstanceTextField;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 
 public class TextHighlightsInDecorationAreas {
+    private static JTextField makeTextField(String text) {
+        JTextField result = new SubstanceTextField(text, 20);
+        // force the display of text selection even when the focus has been lost
+        result.setCaret(new DefaultCaret() {
+            @Override
+            public void setSelectionVisible(boolean vis) {
+                super.setSelectionVisible(true);
+            }
+        });
+        result.selectAll();
+        return result;
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
@@ -66,11 +80,11 @@ public class TextHighlightsInDecorationAreas {
             SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
                     panelFooter, SubstanceSlices.DecorationAreaType.FOOTER);
 
-            panelTitlePane.add(new SubstanceTextField("sample title pane", 20));
-            panelToolbar.add(new SubstanceTextField("sample toolbar", 20));
-            panelGeneral.add(new SubstanceTextField("sample general", 20));
-            panelNone.add(new SubstanceTextField("sample none", 20));
-            panelFooter.add(new SubstanceTextField("sample footer", 20));
+            panelTitlePane.add(makeTextField("sample title pane"));
+            panelToolbar.add(makeTextField("sample toolbar"));
+            panelGeneral.add(makeTextField("sample general"));
+            panelNone.add(makeTextField("sample none"));
+            panelFooter.add(makeTextField("sample footer"));
 
             frame.getContentPane().add(panelTitlePane);
             frame.getContentPane().add(panelToolbar);

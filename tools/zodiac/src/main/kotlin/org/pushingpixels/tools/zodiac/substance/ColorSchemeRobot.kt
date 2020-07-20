@@ -32,7 +32,7 @@ package org.pushingpixels.tools.zodiac.substance
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 
 /**
- * The base class for taking a single screenshot for Substance documentation.
+ * The base class for taking screenshots of color schemes for Substance documentation.
  *
  * @author Kirill Grouchnikov
  */

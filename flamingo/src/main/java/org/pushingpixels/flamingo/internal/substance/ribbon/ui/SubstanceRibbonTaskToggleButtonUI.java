@@ -215,8 +215,7 @@ public class SubstanceRibbonTaskToggleButtonUI extends
                     bgFillColor, buttonAlpha);
         }
 
-        SubstanceTextUtilities.paintText(g, this.commandButton, textRect,
-                toPaint, -1, this.commandButton.getFont(), fgColor, null);
+        SubstanceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
         // Use foreground color for consistency - since non-active task toggle buttons use parent's
         // decoration background fill.

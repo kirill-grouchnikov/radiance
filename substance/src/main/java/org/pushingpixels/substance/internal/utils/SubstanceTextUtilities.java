@@ -38,12 +38,10 @@ import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.ui.SubstanceTextFieldUI;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
@@ -101,7 +99,7 @@ public class SubstanceTextUtilities {
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
 
         FontMetrics fm = graphics.getFontMetrics();
-        SubstanceTextUtilities.paintText(graphics, c,
+        SubstanceTextUtilities.paintText(graphics,
                 new Rectangle(xOffset, yOffset - fm.getAscent(), width - xOffset, fm.getHeight()),
                 text, -1, graphics.getFont(), foregroundColor, graphics.getClipBounds());
 
@@ -112,7 +110,6 @@ public class SubstanceTextUtilities {
      * Paints the specified text.
      *
      * @param g             Graphics context.
-     * @param comp          Component.
      * @param textRect      Text rectangle.
      * @param text          Text to paint.
      * @param mnemonicIndex Mnemonic index.
@@ -121,7 +118,7 @@ public class SubstanceTextUtilities {
      * @param clip          Optional clip. Can be <code>null</code>.
      * @param transform     Optional transform to apply. Can be <code>null</code>.
      */
-    private static void paintText(Graphics g, JComponent comp, Rectangle textRect, String text,
+    private static void paintText(Graphics g, Rectangle textRect, String text,
             int mnemonicIndex, java.awt.Font font, java.awt.Color color, java.awt.Rectangle clip,
             java.awt.geom.AffineTransform transform) {
         if ((text == null) || (text.length() == 0)) {
@@ -155,7 +152,6 @@ public class SubstanceTextUtilities {
      * Paints the specified text.
      *
      * @param g             Graphics context.
-     * @param comp          Component.
      * @param textRect      Text rectangle.
      * @param text          Text to paint.
      * @param mnemonicIndex Mnemonic index.
@@ -163,17 +159,15 @@ public class SubstanceTextUtilities {
      * @param color         Color to use.
      * @param clip          Optional clip. Can be <code>null</code>.
      */
-    public static void paintText(Graphics g, JComponent comp, Rectangle textRect, String text,
+    public static void paintText(Graphics g, Rectangle textRect, String text,
             int mnemonicIndex, java.awt.Font font, java.awt.Color color, java.awt.Rectangle clip) {
-        SubstanceTextUtilities.paintText(g, comp, textRect, text, mnemonicIndex, font, color, clip,
-                null);
+        SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, font, color, clip, null);
     }
 
     /**
      * Paints the specified vertical text.
      *
      * @param g                 Graphics context.
-     * @param comp              Component.
      * @param textRect          Text rectangle.
      * @param text              Text to paint.
      * @param mnemonicIndex     Mnemonic index.
@@ -183,13 +177,13 @@ public class SubstanceTextUtilities {
      * @param isFromBottomToTop If <code>true</code>, the text will be painted from bottom to top, otherwise the
      *                          text will be painted from top to bottom.
      */
-    public static void paintVerticalText(Graphics g, JComponent comp, Rectangle textRect,
-            String text, int mnemonicIndex, java.awt.Font font, java.awt.Color color,
-            java.awt.Rectangle clip, boolean isFromBottomToTop) {
-        if ((text == null) || (text.length() == 0))
+    public static void paintVerticalText(Graphics g, Rectangle textRect, String text, int mnemonicIndex,
+            Font font, Color color, Rectangle clip, boolean isFromBottomToTop) {
+        if ((text == null) || (text.length() == 0)) {
             return;
+        }
 
-        AffineTransform at = null;
+        AffineTransform at;
 
         if (!isFromBottomToTop) {
             at = AffineTransform.getTranslateInstance(textRect.x + textRect.width, textRect.y);
@@ -200,8 +194,7 @@ public class SubstanceTextUtilities {
         }
         Rectangle newRect = new Rectangle(0, 0, textRect.width, textRect.height);
 
-        SubstanceTextUtilities.paintText(g, comp, newRect, text, mnemonicIndex, font, color, clip,
-                at);
+        SubstanceTextUtilities.paintText(g, newRect, text, mnemonicIndex, font, color, clip, at);
     }
 
     /**
@@ -215,21 +208,6 @@ public class SubstanceTextUtilities {
      */
     public static void paintText(Graphics g, AbstractButton button, Rectangle textRect, String text,
             int mnemonicIndex) {
-        paintText(g, button, button.getModel(), textRect, text, mnemonicIndex);
-    }
-
-    /**
-     * Paints the text of the specified button.
-     *
-     * @param g             Graphic context.
-     * @param button        Button
-     * @param model         Button model.
-     * @param textRect      Text rectangle
-     * @param text          Text to paint
-     * @param mnemonicIndex Mnemonic index.
-     */
-    public static void paintText(Graphics g, AbstractButton button, ButtonModel model,
-            Rectangle textRect, String text, int mnemonicIndex) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
 
@@ -263,17 +241,14 @@ public class SubstanceTextUtilities {
             int mnemonicIndex, ComponentState state, float textAlpha) {
         Color fgColor = getForegroundColor(component, text, state, textAlpha);
 
-        SubstanceTextUtilities.paintText(g, component, textRect, text, mnemonicIndex,
-                component.getFont(), fgColor, null);
+        SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
     }
 
     public static void paintText(Graphics g, JComponent component, Rectangle textRect, String text,
-            int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
-            float textAlpha) {
+            int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
         Color fgColor = getForegroundColor(component, text, modelStateInfo, textAlpha);
 
-        SubstanceTextUtilities.paintText(g, component, textRect, text, mnemonicIndex,
-                component.getFont(), fgColor, null);
+        SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
     }
 
     public static void paintMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
@@ -281,8 +256,7 @@ public class SubstanceTextUtilities {
             float textAlpha) {
         Color fgColor = getMenuComponentForegroundColor(menuItem, text, modelStateInfo, textAlpha);
 
-        SubstanceTextUtilities.paintText(g, menuItem, textRect, text, mnemonicIndex,
-                menuItem.getFont(), fgColor, null);
+        SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, menuItem.getFont(), fgColor, null);
     }
 
     /**
@@ -294,20 +268,19 @@ public class SubstanceTextUtilities {
      * @param textAlpha Alpha channel for painting the text. If value is less than 1.0, the result is an
      *                  opaque color which is an interpolation between the "real" foreground color and the
      *                  background color of the component. This is done to ensure that native text
-     *                  rasterization will be performed on 6u10+ on Windows.
+     *                  rasterization will be performed on Windows.
      * @return The foreground color for the specified component.
      */
-    public static Color getForegroundColor(JComponent component, String text, ComponentState state,
-            float textAlpha) {
-        if ((text == null) || (text.length() == 0))
+    public static Color getForegroundColor(JComponent component, String text, ComponentState state, float textAlpha) {
+        if ((text == null) || (text.length() == 0)) {
             return null;
+        }
 
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
                 || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-                : SubstanceColorSchemeUtilities.getColorScheme(component, state)
-                .getForegroundColor();
+                : SubstanceColorSchemeUtilities.getColorScheme(component, state).getForegroundColor();
 
         if (textAlpha < 1.0f) {
             Color bgFillColor = SubstanceColorUtilities.getBackgroundFillColor(component);
@@ -324,13 +297,14 @@ public class SubstanceTextUtilities {
      * @param textAlpha Alpha channel for painting the text. If value is less than 1.0, the result is an
      *                  opaque color which is an interpolation between the "real" foreground color and the
      *                  background color of the component. This is done to ensure that native text
-     *                  rasterization will be performed on 6u10 on Windows.
+     *                  rasterization will be performed on Windows.
      * @return The foreground color for the specified component.
      */
     public static Color getForegroundColor(JComponent component, String text,
             StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
-        if ((text == null) || (text.length() == 0))
+        if ((text == null) || (text.length() == 0)) {
             return null;
+        }
 
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
                 || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
@@ -358,16 +332,16 @@ public class SubstanceTextUtilities {
      * @param textAlpha      Alpha channel for painting the text. If value is less than 1.0, the result is an
      *                       opaque color which is an interpolation between the "real" foreground color and the
      *                       background color of the component. This is done to ensure that native text
-     *                       rasterization will be performed on 6u10 on Windows.
-     * @return The foreground color for the specified component.
+     *                       rasterization will be performed on Windows.
+     * @return The foreground color for the specified menu component.
      */
     public static Color getMenuComponentForegroundColor(JMenuItem menuComponent, String text,
             StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
-        if ((text == null) || (text.length() == 0))
+        if ((text == null) || (text.length() == 0)) {
             return null;
+        }
 
-        Color fgColor = SubstanceColorUtilities.getMenuComponentForegroundColor(menuComponent,
-                modelStateInfo);
+        Color fgColor = SubstanceColorUtilities.getMenuComponentForegroundColor(menuComponent, modelStateInfo);
 
         if (textAlpha < 1.0f) {
             Color bgFillColor = SubstanceColorUtilities.getBackgroundFillColor(menuComponent);
@@ -379,8 +353,7 @@ public class SubstanceTextUtilities {
     public static Color getTextBackgroundFillColor(JComponent comp) {
         Color backgroundFillColor = SubstanceColorUtilities.getBackgroundFillColor(comp);
 
-        JTextComponent componentForTransitions = SubstanceCoreUtilities
-                .getTextComponentForTransitions(comp);
+        JTextComponent componentForTransitions = SubstanceCoreUtilities.getTextComponentForTransitions(comp);
 
         if (componentForTransitions != null) {
             ComponentUI ui = componentForTransitions.getUI();
@@ -393,10 +366,8 @@ public class SubstanceTextUtilities {
                 lighterFill = SubstanceColorUtilities.getInterpolatedColor(lighterFill,
                         backgroundFillColor, 0.6);
 
-                float selectionStrength = stateTransitionTracker
-                        .getFacetStrength(ComponentStateFacet.SELECTION);
-                float rolloverStrength = stateTransitionTracker
-                        .getFacetStrength(ComponentStateFacet.ROLLOVER);
+                float selectionStrength = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
+                float rolloverStrength = stateTransitionTracker.getFacetStrength(ComponentStateFacet.ROLLOVER);
                 backgroundFillColor = SubstanceColorUtilities.getInterpolatedColor(lighterFill,
                         backgroundFillColor, Math.max(selectionStrength, rolloverStrength) / 4.0f);
             }
@@ -413,6 +384,7 @@ public class SubstanceTextUtilities {
                 modelStateInfo.getStateContributionMap();
 
         if (state == ComponentState.ENABLED) {
+            // Treat ENABLED state as SELECTED (since we are talking about selections)
             state = ComponentState.SELECTED;
         }
         Color result = SubstanceCoreUtilities.getTextSelectionBackground(comp, state);
@@ -427,6 +399,7 @@ public class SubstanceTextUtilities {
                 }
 
                 if (activeState == ComponentState.ENABLED) {
+                    // Treat ENABLED state as SELECTED (since we are talking about selections)
                     activeState = ComponentState.SELECTED;
                 }
                 float contribution = activeEntry.getValue().getContribution();
@@ -455,6 +428,7 @@ public class SubstanceTextUtilities {
                 modelStateInfo.getStateContributionMap();
 
         if (state == ComponentState.ENABLED) {
+            // Treat ENABLED state as SELECTED (since we are talking about selections)
             state = ComponentState.SELECTED;
         }
         Color result = SubstanceCoreUtilities.getTextSelectionForeground(comp, state);
@@ -469,6 +443,7 @@ public class SubstanceTextUtilities {
                 }
 
                 if (activeState == ComponentState.ENABLED) {
+                    // Treat ENABLED state as SELECTED (since we are talking about selections)
                     activeState = ComponentState.SELECTED;
                 }
                 float contribution = activeEntry.getValue().getContribution();
@@ -508,8 +483,7 @@ public class SubstanceTextUtilities {
         g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
                 comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
 
-        ComponentState state = comp.isEnabled() ? ComponentState.ENABLED
-                : ComponentState.DISABLED_UNSELECTED;
+        ComponentState state = comp.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = null;
         JTextComponent componentForTransitions = SubstanceCoreUtilities
                 .getTextComponentForTransitions(comp);
@@ -539,8 +513,8 @@ public class SubstanceTextUtilities {
         if (!state.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
             // If we have more than one active state, compute the composite color from all
             // the contributions
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
                 if (activeState == state) {
                     continue;
