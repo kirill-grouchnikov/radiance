@@ -101,8 +101,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         // Command presentation for menu content
         CommandButtonPresentationModel presentation =
                 CommandButtonPresentationModel.builder()
-                        .setPresentationState(
-                                this.popupMenuPresentationModel.getMenuPresentationState())
+                        .setPresentationState(this.popupMenuPresentationModel.getMenuPresentationState())
                         .setMenu(true)
                         .build();
 
@@ -112,8 +111,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
             for (Command command : commandGroups.get(i).getCommands()) {
                 CommandButtonProjection<Command> commandProjection;
                 // Do we need to apply a command-specific overlay?
-                CommandButtonPresentationModel.Overlay overlay =
-                        this.projection.getCommandOverlays().get(command);
+                CommandButtonPresentationModel.Overlay overlay = this.projection.getCommandOverlays().get(command);
                 if (overlay != null) {
                     commandProjection = command.project(presentation.overlayWith(overlay));
                 } else {
@@ -123,8 +121,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
                 JCommandButton commandButton = commandProjection.buildComponent();
 
                 // Need to highlight it?
-                Command highlightedCommand =
-                        this.popupMenuContentModel.getHighlightedCommand();
+                Command highlightedCommand = this.popupMenuContentModel.getHighlightedCommand();
                 if (command == highlightedCommand) {
                     // Use bold font
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
@@ -139,8 +136,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         }
     }
 
-    public Projection<JCommandPopupMenu, CommandMenuContentModel,
-            CommandPopupMenuPresentationModel> getProjection() {
+    public Projection<JCommandPopupMenu, CommandMenuContentModel, CommandPopupMenuPresentationModel> getProjection() {
         return this.projection;
     }
 

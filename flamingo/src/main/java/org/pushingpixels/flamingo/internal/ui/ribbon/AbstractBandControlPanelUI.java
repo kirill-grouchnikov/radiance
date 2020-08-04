@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
@@ -53,7 +52,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
      */
     protected AbstractBandControlPanel controlPanel;
 
-    protected JCommandButton dummy;
+    protected JCommandButton forSizing;
 
     public static final String TOP_ROW = "flamingo.internal.ribbonBandControlPanel.topRow";
 
@@ -65,8 +64,8 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
     public void installUI(JComponent c) {
         this.controlPanel = (AbstractBandControlPanel) c;
 
-        this.dummy = Command.builder()
-                .setText("Dummy")
+        this.forSizing = Command.builder()
+                .setText("Text")
                 .setIconFactory(EmptyResizableIcon.factory())
                 .setAction(commandActionEvent -> {})
                 .build().project(CommandButtonPresentationModel.builder()

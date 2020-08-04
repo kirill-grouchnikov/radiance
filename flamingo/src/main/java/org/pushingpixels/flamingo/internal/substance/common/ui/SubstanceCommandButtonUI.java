@@ -736,8 +736,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 && (SwingUtilities.getAncestorOfClass(JRibbon.class, button) == null)
                 && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, button) == null)
                 && (SwingUtilities.getAncestorOfClass(JCommandPopupMenu.class, button) == null)) {
-            JButton dummy = new JButton(button.getText(), button.getIcon());
-            Dimension result = shaper.getPreferredSize(dummy, superPref);
+            JButton forSizing = new JButton(button.getText(), button.getIcon());
+            Dimension result = shaper.getPreferredSize(forSizing, superPref);
             if (FlamingoUtilities.hasPopupAction(button)) {
                 result.width = superPref.width;
             }

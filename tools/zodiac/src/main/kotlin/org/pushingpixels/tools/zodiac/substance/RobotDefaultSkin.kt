@@ -45,7 +45,7 @@ import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
 
 /**
- * The default light skin for the docrobot scripts.
+ * The default light skin for the Zodiac skin scripts.
  *
  * @author Kirill Grouchnikov
  */

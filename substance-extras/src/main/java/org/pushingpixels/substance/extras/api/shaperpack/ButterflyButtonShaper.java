@@ -31,8 +31,7 @@ package org.pushingpixels.substance.extras.api.shaperpack;
 
 public class ButterflyButtonShaper extends BasePolygonShaper {
 	public ButterflyButtonShaper() {
-		super("org/pushingpixels/substance/extras/api/shaperpack/butterfly.shape", 1.3, 0.4, 1.1,
-				0.4);
+		super("org/pushingpixels/substance/extras/api/shaperpack/butterfly.shape", 1.3, 0.4, 1.1, 0.4);
 	}
 
 	public String getDisplayName() {

@@ -120,17 +120,4 @@ public class SubstanceWidgetManager {
         }
 		return false;
 	}
-
-	public boolean isAllowedAnywhere(SubstanceWidgetType widget) {
-		if (specificAllowed.size() > 0) {
-            return true;
-        }
-		if (this.globalDisallowed.contains(widget)) {
-            return false;
-        }
-		if (this.globalAllowed.contains(widget)) {
-            return true;
-        }
-		return false;
-	}
 }

@@ -71,7 +71,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         return name.endsWith(".svg") || name.endsWith(".svgz")
     }
 
-    override fun getLeafContent(leaf: T): java.io.InputStream? {
+    override fun getLeafContent(leaf: T): InputStream? {
         return bar.callback.getLeafContent(leaf)
     }
 

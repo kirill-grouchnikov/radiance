@@ -53,6 +53,10 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
         void onAllCommandsRemoved();
     }
 
+    public interface CommandFilter {
+        boolean matches(Command command);
+    }
+
     public CommandGroup(Command... commands) {
         this(null, commands);
     }
@@ -85,6 +89,15 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
 
     public List<Command> getCommands() {
         return Collections.unmodifiableList(this.commands);
+    }
+
+    public Command findFirstMatch(CommandFilter filter) {
+        for (Command command: this.commands) {
+            if (filter.matches(command)) {
+                return command;
+            }
+        }
+        return null;
     }
 
     public void addCommand(Command command) {

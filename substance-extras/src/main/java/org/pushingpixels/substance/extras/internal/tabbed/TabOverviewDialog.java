@@ -508,8 +508,8 @@ public class TabOverviewDialog extends JDialog {
                     };
 
             this.caroselMenu = new JCarouselMenu(null);
-            JList<Object> dummyList = new JList<>();
-            ListCellRenderer<Object> lcr = dummyList.getCellRenderer();
+            JList<Object> someList = new JList<>();
+            ListCellRenderer<Object> lcr = someList.getCellRenderer();
             this.caroselMenu.setCellRenderer(new MenuCarouselListCellRenderer(lcr));
             this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
@@ -541,8 +541,8 @@ public class TabOverviewDialog extends JDialog {
         public void updateUI() {
             super.updateUI();
             if (this.caroselMenu != null) {
-                JList<Object> dummyList = new JList<>();
-                ListCellRenderer<Object> lcr = dummyList.getCellRenderer();
+                JList<Object> someList = new JList<>();
+                ListCellRenderer<Object> lcr = someList.getCellRenderer();
                 this.caroselMenu.setCellRenderer(new MenuCarouselListCellRenderer(lcr));
                 this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));

@@ -41,7 +41,7 @@ import java.awt.image.BufferedImage;
  * Base class for fill painters that overlay wave gradient on top of some other
  * fill painter.This class is part of officially supported API. The
  * implementation borrows heavily from <a href=
- * "http://weblogs.java.net/blog/campbell/archive/2006/07/java_2d_tricker.html"
+ * "https://community.oracle.com/blogs/campbell/2006/07/19/java-2d-trickery-soft-clipping"
  * >this</a>.
  * 
  * @author Kirill Grouchnikov.

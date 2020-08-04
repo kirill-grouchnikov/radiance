@@ -31,8 +31,7 @@ package org.pushingpixels.substance.extras.api.shaperpack;
 
 public class IceCreamButtonShaper extends BasePolygonShaper {
 	public IceCreamButtonShaper() {
-		super("org/pushingpixels/substance/extras/api/shaperpack/icecream.shape", 0.6, 0.4, 0.6,
-				0.4);
+		super("org/pushingpixels/substance/extras/api/shaperpack/icecream.shape", 0.6, 0.4, 0.6, 0.4);
 	}
 
 	public String getDisplayName() {

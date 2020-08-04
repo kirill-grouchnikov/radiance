@@ -91,11 +91,8 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
      *            Component height.
      * @param isEnabled
      *            Component enabled status.
-     * @param hasFocus
-     *            Component focus ownership status.
      */
-    private void paintBorder(JComponent c, Graphics g, int x, int y, int width, int height,
-            boolean isEnabled, boolean hasFocus) {
+    private void paintBorderImpl(JComponent c, Graphics g, int x, int y, int width, int height, boolean isEnabled) {
         // failsafe for LAF change
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
             return;
@@ -227,7 +224,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        paintBorder((JComponent) c, g, x, y, width, height, c.isEnabled(), c.hasFocus());
+        paintBorderImpl((JComponent) c, g, x, y, width, height, c.isEnabled());
     }
 
     @Override

@@ -70,7 +70,7 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 			// The height of ribbon band control panel is
 			// computed based on the preferred height of a command
 			// button in BIG state.
-			int buttonHeight = dummy.getPreferredSize().height;
+			int buttonHeight = forSizing.getPreferredSize().height;
 			int vGap = getLayoutGap() * 3 / 4;
 			int minusGaps = buttonHeight - 2 * vGap;
 			switch (minusGaps % 3) {

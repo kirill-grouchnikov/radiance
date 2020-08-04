@@ -31,8 +31,7 @@ package org.pushingpixels.substance.extras.api.shaperpack;
 
 public class RaceCarButtonShaper extends BasePolygonShaper {
 	public RaceCarButtonShaper() {
-		super("org/pushingpixels/substance/extras/api/shaperpack/racecar.shape", 0.6, 0.4, 0.6,
-				0.4);
+		super("org/pushingpixels/substance/extras/api/shaperpack/racecar.shape", 0.6, 0.4, 0.6, 0.4);
 	}
 
 	public String getDisplayName() {

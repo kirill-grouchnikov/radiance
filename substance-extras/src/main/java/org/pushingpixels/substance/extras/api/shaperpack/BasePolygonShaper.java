@@ -72,22 +72,16 @@ public abstract class BasePolygonShaper implements SubstanceButtonShaper {
 
     public Dimension getPreferredSize(AbstractButton button, Dimension uiPreferredSize) {
         if (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTED) == null) {
-            boolean isBorderComputing = (button
-                    .getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null);
+            boolean isBorderComputing = (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null);
             Border border = button.getBorder();
             int uiw = uiPreferredSize.width;
             int uih = uiPreferredSize.height;
             if (border instanceof SubstanceButtonBorder) {
-                // SubstanceButtonBorder sborder = (SubstanceButtonBorder)
-                // button
-                // .getBorder();
-                // if (sborder.getButtonShaperClass() != this.getClass()) {
                 Insets bi = border.getBorderInsets(button);
                 if (!isBorderComputing) {
                     button.setBorder(null);
                 }
                 uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top - bi.bottom);
-                // }
             } else {
                 Insets bi = border.getBorderInsets(button);
                 if (!isBorderComputing) {

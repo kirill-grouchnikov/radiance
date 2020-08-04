@@ -468,14 +468,14 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(progressBar,
                 progressState);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-            SubstanceImageCreator.paintRectangularStripedBackground(progressBar, g2d, margin,
+            SubstanceImageCreator.paintRectangularStripedBackground(g2d, margin,
                     margin, barRectWidth, barRectHeight, scheme,
                     SubstanceProgressBarUI.getStripe(barRectHeight, false, scheme), valComplete,
                     0.6f, false);
         } else {
             // fix for issue 95. Vertical progress bar grows from the
             // bottom.
-            SubstanceImageCreator.paintRectangularStripedBackground(progressBar, g2d, margin,
+            SubstanceImageCreator.paintRectangularStripedBackground(g2d, margin,
                     margin, barRectWidth, barRectHeight, scheme,
                     SubstanceProgressBarUI.getStripe(barRectWidth, true, scheme),
                     2 * barRectWidth - valComplete, 0.6f, true);
@@ -604,19 +604,19 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             if (progressBar.getComponentOrientation().isLeftToRight()) {
                 if (progressBar.isIndeterminate()) {
                     boxRect = getBox(boxRect);
-                    paintString(g, x, y, width, height, boxRect.x, boxRect.width, b);
+                    paintString(g, x, y, width, height, boxRect.x, boxRect.width);
                 } else {
-                    paintString(g, x, y, width, height, x, amountFull, b);
+                    paintString(g, x, y, width, height, x, amountFull);
                 }
             } else {
-                paintString(g, x, y, width, height, x + width - amountFull, amountFull, b);
+                paintString(g, x, y, width, height, x + width - amountFull, amountFull);
             }
         } else {
             if (progressBar.isIndeterminate()) {
                 boxRect = getBox(boxRect);
-                paintString(g, x, y, width, height, boxRect.y, boxRect.height, b);
+                paintString(g, x, y, width, height, boxRect.y, boxRect.height);
             } else {
-                paintString(g, x, y, width, height, y + height - amountFull, amountFull, b);
+                paintString(g, x, y, width, height, y + height - amountFull, amountFull);
             }
         }
     }
@@ -633,10 +633,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
      *                   portion of the
      *                   progress bar.
      * @param amountFull size of the fill region, either width or height depending upon orientation.
-     * @param b          Insets of the progress bar.
      */
-    private void paintString(Graphics g, int x, int y, int width, int height, int fillStart,
-            int amountFull, Insets b) {
+    private void paintString(Graphics g, int x, int y, int width, int height, int fillStart, int amountFull) {
         String progressString = progressBar.getString();
         Rectangle renderRectangle = getStringRectangle(progressString, x, y, width, height);
 

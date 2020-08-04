@@ -30,11 +30,8 @@
 package org.pushingpixels.demo.substance.main;
 
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
-import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.skin.SkinInfo;
@@ -53,7 +50,7 @@ public class TestFrame extends JFrame {
         super("Substance skeleton");
 
         setLayout(new BorderLayout());
-        toolbar = Check.getToolbar("", 22, false);
+        toolbar = Check.getToolbar(22, false);
         this.add(toolbar, BorderLayout.NORTH);
 
         JPanel statusBar = getStatusBar();

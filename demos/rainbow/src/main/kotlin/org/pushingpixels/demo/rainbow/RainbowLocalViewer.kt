@@ -54,8 +54,7 @@ fun main() {
         SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER)
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
-        val frame =
-                RainbowViewer<File>("Local SVG File Viewer", BreadcrumbFileSelector())
+        val frame = RainbowViewer<File>("Local SVG File Viewer", BreadcrumbFileSelector())
         frame.setSize(700, 400)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE

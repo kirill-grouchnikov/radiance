@@ -303,8 +303,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			size.width += insets.left + insets.right;
 			size.height += insets.top + insets.bottom;
 
-			Insets buttonInsets = SubstanceSizeUtils
-					.getSpinnerArrowButtonInsets(SubstanceSizeUtils.getComponentFontSize(spinner));
+			Insets buttonInsets = SubstanceSizeUtils.getSpinnerArrowButtonInsets();
 			size.width += (buttonInsets.left + buttonInsets.right);
 
 			return size;
@@ -320,8 +319,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			int buttonsWidth = Math.max(nextD.width, previousD.width);
 			int editorHeight = height - (insets.top + insets.bottom);
 
-			Insets buttonInsets = SubstanceSizeUtils
-					.getSpinnerArrowButtonInsets(SubstanceSizeUtils.getComponentFontSize(spinner));
+			Insets buttonInsets = SubstanceSizeUtils.getSpinnerArrowButtonInsets();
 
 			/*
 			 * Deal with the spinner's componentOrientation property.

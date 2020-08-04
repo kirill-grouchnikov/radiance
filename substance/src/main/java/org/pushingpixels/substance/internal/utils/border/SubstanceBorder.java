@@ -137,13 +137,11 @@ public class SubstanceBorder implements Border, UIResource {
 	 *            Component height.
 	 * @param isEnabled
 	 *            Component enabled status.
-	 * @param hasFocus
-	 *            Component focus ownership status.
 	 * @param alpha
 	 *            Alpha value.
 	 */
 	private void paintBorder(Component c, Graphics g, int x, int y, int width,
-			int height, boolean isEnabled, boolean hasFocus, float alpha) {
+			int height, boolean isEnabled, float alpha) {
 		// failsafe for LAF change
 		if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
 			return;
@@ -202,15 +200,13 @@ public class SubstanceBorder implements Border, UIResource {
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width,
 			int height) {
-		paintBorder(c, g, x, y, width, height, c.isEnabled(), c.hasFocus(),
-				this.alpha);
+		paintBorder(c, g, x, y, width, height, c.isEnabled(), this.alpha);
 	}
 
 	@Override
 	public Insets getBorderInsets(Component c) {
 		if (this.myInsets == null) {
-			return SubstanceSizeUtils.getDefaultBorderInsets(SubstanceSizeUtils
-					.getComponentFontSize(c));
+			return SubstanceSizeUtils.getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(c));
 		}
 		return this.myInsets;
 	}

@@ -118,13 +118,24 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         }
         return result;
     }
+
+    public Command findFirstMatch(CommandGroup.CommandFilter commandFilter) {
+        for (CommandGroup commandGroup : this.commandGroups) {
+            Command result = commandGroup.findFirstMatch(commandFilter);
+            if (result != null) {
+                return result;
+            }
+        }
+        return null;
+    }
+
     /**
-     * Sets the selection mode for the panel. If <code>true</code> is passed as
-     * the parameter, all toggle commands in the panel are set to
+     * Sets the selection mode for this model. If <code>true</code> is passed as
+     * the parameter, all toggle commands in this model are set to
      * belong to the same toggle group.
      *
      * @param isSingleSelectionMode If <code>true</code>, all toggle commands in this
-     *                              panel are set to belong to the same toggle group.
+     *                              model are set to belong to the same toggle group.
      */
     public void setSingleSelectionMode(boolean isSingleSelectionMode) {
         if (this.isSingleSelectionMode == isSingleSelectionMode) {
@@ -139,8 +150,7 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         return this.isSingleSelectionMode;
     }
 
-    public void setCommandPreviewListener(
-            Command.CommandActionPreview commandPreviewListener) {
+    public void setCommandPreviewListener(Command.CommandActionPreview commandPreviewListener) {
         this.commandPreviewListener = commandPreviewListener;
     }
 

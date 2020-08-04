@@ -31,8 +31,7 @@ package org.pushingpixels.substance.extras.api.shaperpack;
 
 public class DolphinButtonShaper extends BasePolygonShaper {
 	public DolphinButtonShaper() {
-		super("org/pushingpixels/substance/extras/api/shaperpack/dolphin.shape", 1.0, 1.1, 1.3,
-				0.3);
+		super("org/pushingpixels/substance/extras/api/shaperpack/dolphin.shape", 1.0, 1.1, 1.3, 0.3);
 	}
 
 	public String getDisplayName() {

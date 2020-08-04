@@ -34,7 +34,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
 import java.util.Set;
 
 /**

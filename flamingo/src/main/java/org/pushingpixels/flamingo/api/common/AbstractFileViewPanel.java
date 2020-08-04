@@ -48,22 +48,17 @@ import java.util.*;
  * Panel that hosts file-related command buttons with progress indication and cancellation
  * capabilities.
  *
- * @param <T> Type tag.
+ * @param <T> Type tag of the underlying data.
  * @author Kirill Grouchnikov
  */
 public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
-    /**
-     * Maps from file name to the buttons.
-     */
-    private Map<String, JCommandButton> buttonMap;
-
     /**
      * Progress listener to report back on loaded images.
      */
     private ProgressListener progressListener;
 
     /**
-     * Contains the buttons with completely loaded images.
+     * Contains the commands with completely loaded images.
      */
     private Set<Command> loadedSet;
 
@@ -165,7 +160,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                         .setCommandIconDimension(startingDimension)
                         .setToShowGroupLabels(false).build()));
-        this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
     }
 
@@ -180,7 +174,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setCommandPresentationState(startingState)
                         .setToShowGroupLabels(false).build()));
-        this.buttonMap = new HashMap<>();
         this.loadedSet = new HashSet<>();
     }
 
@@ -195,33 +188,36 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Sets the current entries to show. The current contents of the panel are discarded. For each
      * matching entry determined by the {@link #toShowFile(StringValuePair)} call, a new
-     * {@link JCommandButton} hosting an the matching implementation of {@link ResizableIcon} is
+     * {@link JCommandButton} with matching implementation of {@link ResizableIcon} from
+     * {@link #getResizableIcon(Leaf, InputStream, CommandButtonPresentationState, Dimension)} is
      * added to the panel.
      *
      * @param leafs Information on the entries to show in the panel.
      */
-    public void setFolder(final java.util.List<StringValuePair<T>> leafs) {
-        this.getProjection().getContentModel().removeAllCommandGroups();
-        this.getProjection().getContentModel().addCommandGroup(new CommandGroup(new ArrayList<>()));
-        this.buttonMap.clear();
-        int fileCount = 0;
+    public void setFolder(final List<StringValuePair<T>> leafs) {
+        final CommandPanelContentModel contentModel = this.getProjection().getContentModel();
+        contentModel.removeAllCommandGroups();
 
-        final Map<String, Command> newCommands = new HashMap<>();
+        CommandGroup commandGroup = new CommandGroup();
+        contentModel.addCommandGroup(commandGroup);
+
+        int fileCount = 0;
         for (StringValuePair<T> leaf : leafs) {
             String name = leaf.getKey();
             if (!toShowFile(leaf)) {
                 continue;
             }
 
+            // Create a command with empty icon factory. The icons will be loaded off the EDT / UI thread
+            // a bit later in this method
             Command command = Command.builder()
-                    .setText(name).setIconFactory(EmptyResizableIcon.factory()).build();
+                    .setText(name)
+                    .setIconFactory(EmptyResizableIcon.factory())
+                    .build();
 
-            int buttonIndex = this.addCommandToLastGroup(command);
-            JCommandButton button = (JCommandButton) this.getGroupButtons(this.getGroupCount() - 1).
-                    get(buttonIndex);
+            // We only have one command group in this projection's content model
+            commandGroup.addCommand(command);
 
-            newCommands.put(name, command);
-            buttonMap.put(name, button);
             fileCount++;
         }
         this.doLayout();
@@ -268,17 +264,21 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     if (icon == null) {
                         continue;
                     }
-                    final Command command = newCommands.get(name);
-                    command.setIconFactory(() -> icon);
+                    // Find the matching command so that we can set the icon factory based on the newly
+                    // loaded SVG content. The assumption here is that the underlying file system (local
+                    // or remote) enforces unique file names in the same folder.
+                    final Command matchingCommand = contentModel.findFirstMatch(
+                            command -> name.equals(command.getText()));
+                    matchingCommand.setIconFactory(() -> icon);
 
                     if (icon instanceof AsynchronousLoading) {
                         ((AsynchronousLoading) icon)
                                 .addAsynchronousLoadListener((boolean success) -> {
                                     synchronized (AbstractFileViewPanel.this) {
-                                        if (loadedSet.contains(command)) {
+                                        if (loadedSet.contains(matchingCommand)) {
                                             return;
                                         }
-                                        loadedSet.add(command);
+                                        loadedSet.add(matchingCommand);
                                         if (progressListener != null) {
                                             progressListener.onProgress(
                                                     new ProgressEvent(AbstractFileViewPanel.this, 0,
@@ -288,7 +288,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                                 });
                     }
 
-                    configureCommand(leaf, command, icon);
+                    configureCommand(leaf, matchingCommand, icon);
                 }
             }
         };
@@ -315,15 +315,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
             return;
         }
         this.mainWorker.cancel(false);
-    }
-
-    /**
-     * Returns the button map.
-     *
-     * @return Unmodifiable view on the button map.
-     */
-    public Map<String, JCommandButton> getButtonMap() {
-        return Collections.unmodifiableMap(buttonMap);
     }
 
     /**

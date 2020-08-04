@@ -99,11 +99,8 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 	 *            Component width.
 	 * @param height
 	 *            Component height.
-	 * @param isEnabled
-	 *            Component enabled status.
 	 */
-	private void paintBorder(JComponent c, Graphics g, int x, int y, int width,
-			int height, boolean isEnabled, boolean hasFocus) {
+	private void paintBorderImpl(JComponent c, Graphics g, int x, int y, int width, int height) {
 		// failsafe for LAF change
 		if (!SubstanceCoreUtilities.isCurrentLookAndFeel()) {
 			return;
@@ -190,10 +187,8 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 	}
 
 	@Override
-	public void paintBorder(Component c, Graphics g, int x, int y, int width,
-			int height) {
-		paintBorder((JComponent) c, g, x, y, width, height, c.isEnabled(), c
-				.hasFocus());
+	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+		paintBorderImpl((JComponent) c, g, x, y, width, height);
 	}
 
 	@Override

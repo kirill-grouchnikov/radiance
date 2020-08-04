@@ -46,7 +46,7 @@ import javax.swing.*
 import javax.swing.border.Border
 import javax.swing.border.EmptyBorder
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)

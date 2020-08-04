@@ -238,7 +238,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         //
         // The current solution first checks whether all the renderers
         // come from Substance. If not, it does nothing. If they do, it
-        // creates a dummy label, computes its preferred height and apply
+        // creates a placeholder label, computes its preferred height and apply
         // insets. There's no need to go over each cell and compute its
         // preferred height - since at this moment the cell renderers
         // *are* Substance labels.
@@ -259,10 +259,9 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         if (areAllRenderersFromSubstance) {
             Insets rendererInsets = SubstanceSizeUtils
                     .getTableCellRendererInsets(SubstanceSizeUtils.getComponentFontSize(table));
-            JLabel dummy = new JLabel("dummy");
-            dummy.setFont(table.getFont());
-            int rowHeight = dummy.getPreferredSize().height + rendererInsets.bottom
-                    + rendererInsets.top;
+            JLabel forSizing = new JLabel("Text");
+            forSizing.setFont(table.getFont());
+            int rowHeight = forSizing.getPreferredSize().height + rendererInsets.bottom + rendererInsets.top;
             table.setRowHeight(rowHeight);
         }
 

@@ -185,8 +185,7 @@ class ShapeEditor : JFrame() {
         }
 
         fun translate(relative: Point2D): Point2D {
-            return Point2D.Double(relative.x * this.width,
-                    relative.y * this.height)
+            return Point2D.Double(relative.x * this.width, relative.y * this.height)
         }
 
         fun getMajorPointIndex(point: Point): Int {
@@ -211,8 +210,7 @@ class ShapeEditor : JFrame() {
 
         override fun paint(g: Graphics) {
             g.render {
-                it.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON)
+                it.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
                 val controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.font = controlFont.deriveFont(10f)
                 NeonCortex.installDesktopHints(it, it.font)
@@ -377,8 +375,7 @@ class ShapeEditor : JFrame() {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 val selected = chooser.selectedFile
                 try {
-                    val path = CanonicalPath(majorPoints!!, minorPoints!!,
-                            shapePanel.ratio)
+                    val path = CanonicalPath(majorPoints!!, minorPoints!!, shapePanel.ratio)
                     ShaperRepository.write(FileOutputStream(selected), path)
                 } catch (exc: Exception) {
                 }
@@ -453,7 +450,7 @@ class ShapeEditor : JFrame() {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     SwingUtilities.invokeLater {
         SubstanceCortex.GlobalScope.setSkin(BusinessBlackSteelSkin())
 

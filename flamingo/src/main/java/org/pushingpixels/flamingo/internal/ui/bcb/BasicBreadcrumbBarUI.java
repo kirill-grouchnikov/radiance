@@ -80,7 +80,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private ComponentListener componentListener;
 
-    private JCommandButton dummy;
+    private JCommandButton forSizing;
 
     /**
      * Contains the item path.
@@ -135,14 +135,14 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             worker.execute();
         }
 
-        this.dummy = Command.builder()
-                .setText("Dummy")
+        this.forSizing = Command.builder()
+                .setText("Text")
                 .setIconFactory(EmptyResizableIcon.factory())
                 .setAction(commandActionEvent -> {})
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
                 .buildComponent();
-        int preferredHeight = dummy.getPreferredSize().height;
+        int preferredHeight = forSizing.getPreferredSize().height;
         this.circularProgress.setBorder(
                 new EmptyBorder((preferredHeight - 12) / 2, 10, (preferredHeight - 12) / 2, 10));
         this.circularProgress.setPreferredSize(new Dimension(32, preferredHeight));
@@ -373,7 +373,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             // The height of breadcrumb bar is
             // computed based on the preferred height of a command
             // button in MEDIUM state.
-            int buttonHeight = dummy.getPreferredSize().height;
+            int buttonHeight = forSizing.getPreferredSize().height;
 
             Insets ins = c.getInsets();
             return new Dimension(c.getWidth(), buttonHeight + ins.top + ins.bottom);
@@ -381,7 +381,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         @Override
         public Dimension minimumLayoutSize(Container c) {
-            int buttonHeight = dummy.getPreferredSize().height;
+            int buttonHeight = forSizing.getPreferredSize().height;
 
             return new Dimension(10, buttonHeight);
         }

@@ -132,8 +132,7 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
                 colorScheme = SubstanceColorSchemeUtilities.GREEN;
 
             if (colorScheme != null) {
-                SubstanceImageCreator.paintRectangularBackground(null, g, x, y, width, height,
-                        colorScheme, 0.5f, false);
+                SubstanceImageCreator.paintRectangularBackground(g, x, y, width, height, colorScheme, 0.5f, false);
             }
 
             g2.dispose();

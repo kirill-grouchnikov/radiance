@@ -32,7 +32,7 @@ public class QuaquaColorPreviewPanel extends JPanel implements UIResource {
 	/** Creates new form. */
 	public QuaquaColorPreviewPanel() {
 		initComponents();
-		setToolTipText("on"); // set dummy text, to switch tooltip on
+		setToolTipText("on"); // set some text, to switch tooltip on
 	}
 
 	public void paintComponent(Graphics g) {

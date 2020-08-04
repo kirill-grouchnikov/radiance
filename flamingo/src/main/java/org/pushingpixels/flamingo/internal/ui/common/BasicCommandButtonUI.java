@@ -697,11 +697,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                             if (ltr) {
                                 x = commandButton.getLocationOnScreen().x + commandButton.getWidth();
                             } else {
-                                x = commandButton.getLocationOnScreen().x
-                                        - popupPanel.getPreferredSize().width;
+                                x = commandButton.getLocationOnScreen().x - popupPanel.getPreferredSize().width;
                             }
-                            y = commandButton.getLocationOnScreen().y
-                                    + getLayoutInfo().popupClickArea.y;
+                            y = commandButton.getLocationOnScreen().y + getLayoutInfo().popupClickArea.y;
                             break;
                     }
                 } else {

@@ -39,9 +39,12 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Button strip component. Provides visual appearance of a strip. The buttons in
- * the strip are either drawn horizontally with no horizontal space between them
- * or drawn vertically with no vertical space between them.
+ * Button strip container. Provides visual appearance of a strip. The buttons in
+ * the strip are either laid out horizontally or vertically, with matching "continuous"
+ * strip appearance of the entire container. Note that while this
+ * class is a part of public API, it is highly recommended to use the
+ * {@link CommandGroup} and {@link CommandStripPresentationModel} instances used to
+ * project the command button strip on screen for any dynamic manipulation of the state.
  *
  * @author Kirill Grouchnikov
  */

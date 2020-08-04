@@ -747,8 +747,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "Spinner.arrowButtonInsets",
-                SubstanceSizeUtils.getSpinnerArrowButtonInsets(SubstanceSizeUtils
-                        .getControlFontSize()),
+                SubstanceSizeUtils.getSpinnerArrowButtonInsets(),
 
                 "Spinner.background",
                 defaultTextBackgroundColor,

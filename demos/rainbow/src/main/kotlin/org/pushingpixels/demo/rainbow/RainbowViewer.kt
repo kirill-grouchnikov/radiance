@@ -39,19 +39,20 @@ import kotlinx.coroutines.withContext
 import org.jdesktop.jxlayer.JXLayer
 import org.jdesktop.jxlayer.plaf.ext.MouseScrollableUI
 import org.jdesktop.jxlayer.plaf.ext.SpotLightUI
+import org.pushingpixels.demo.rainbow.svg.ic_search_black_24px
+import org.pushingpixels.demo.rainbow.svg.ic_zoom_in_black_24px
+import org.pushingpixels.demo.rainbow.svg.ic_zoom_out_black_24px
 import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.ProgressEvent
 import org.pushingpixels.flamingo.api.layout.TransitionLayout
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutEvent
 import org.pushingpixels.meteor.addDelayedChangeListener
-import org.pushingpixels.demo.rainbow.svg.ic_search_black_24px
-import org.pushingpixels.demo.rainbow.svg.ic_zoom_in_black_24px
-import org.pushingpixels.demo.rainbow.svg.ic_zoom_out_black_24px
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import java.awt.BorderLayout
 import java.awt.geom.RoundRectangle2D
 import javax.swing.*
+import javax.swing.border.EmptyBorder
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
 
@@ -207,6 +208,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         val statusBarBuilder = FormBuilder.create().columns(
                 "fill:pref:grow(1), 1dlu, fill:min(pref;100px):grow(1), " + "1dlu, fill:min(pref;200px):grow(1)")
                 .rows("p")
+                .border(EmptyBorder(2, 4, 2, 4))
 
         statusBarBuilder.add(this.statusLabel).xy(1, 1)
 
@@ -234,11 +236,13 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
             spotLightLayerUI.reset()
             this.matchingFileCount = this.svgFileViewPanel.projection.contentModel.commandCount
         } else {
-            val buttonMapping = svgFileViewPanel.buttonMap
+            // No grouping, so we're always looking at the first group (index 0)
+            val buttonGroups = svgFileViewPanel.getGroupButtons(0)
             // System.out.println("Matching:");
             spotLightLayerUI.reset()
-            for ((key, value) in buttonMapping) {
-                if (key.contains(text)) {
+            for (value in buttonGroups) {
+                val buttonText = value.text
+                if (buttonText.contains(text)) {
                     this.matchingFileCount++
                     val bounds = value.bounds
                     // System.out.println("\t" + buttonEntry.getKey() + ":"

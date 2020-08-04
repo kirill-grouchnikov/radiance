@@ -31,7 +31,6 @@ package org.pushingpixels.flamingo.api.ribbon;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.RichTooltipManager;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
@@ -292,8 +291,7 @@ public class JRibbonFrame extends JFrame {
         public boolean contains(int x, int y) {
             // pass the mouse events to the underlying layers for
             // showing the correct cursor. See
-            // http://weblogs.java.net/blog/alexfromsun/archive/2006/09/
-            // a_wellbehaved_g.html
+            // https://community.oracle.com/blogs/alexfromsun/2006/09/20/well-behaved-glasspane
             return false;
         }
     }
@@ -389,8 +387,7 @@ public class JRibbonFrame extends JFrame {
                             switch (keyEvent.getID()) {
                                 case KeyEvent.KEY_RELEASED:
                                     boolean wasAltModif = prevAltModif;
-                                    prevAltModif =
-                                            keyEvent.getModifiersEx() == InputEvent.ALT_DOWN_MASK;
+                                    prevAltModif = (keyEvent.getModifiersEx() == InputEvent.ALT_DOWN_MASK);
                                     if (wasAltModif && keyEvent.getKeyCode() == KeyEvent.VK_ALT) {
                                         break;
                                     }
@@ -532,13 +529,10 @@ public class JRibbonFrame extends JFrame {
             }
         };
 
-        RichTooltipManager.sharedInstance();
-
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
-        super.setIconImages(Collections.singletonList(
-                SubstanceCoreUtilities.getBlankImage(16, 16)));
+        super.setIconImages(Collections.singletonList(SubstanceCoreUtilities.getBlankImage(16, 16)));
     }
 
     @Override

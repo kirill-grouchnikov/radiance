@@ -707,14 +707,11 @@ public class SubstanceSizeUtils {
 	/**
 	 * Returns the spinner arrow button insets under the specified font size.
 	 * 
-	 * @param fontSize
-	 *            Font size.
 	 * @return Spinner arrow button insets under the specified font size.
 	 */
-	public static Insets getSpinnerArrowButtonInsets(int fontSize) {
+	public static Insets getSpinnerArrowButtonInsets() {
 		int borderStrokeWidth = (int) Math.floor(getBorderStrokeWidth());
-		return new Insets(borderStrokeWidth, borderStrokeWidth,
-				borderStrokeWidth, borderStrokeWidth);
+		return new Insets(borderStrokeWidth, borderStrokeWidth, borderStrokeWidth, borderStrokeWidth);
 	}
 
 	/**

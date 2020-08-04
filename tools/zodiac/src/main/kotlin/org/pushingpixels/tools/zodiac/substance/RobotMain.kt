@@ -42,10 +42,9 @@ object RobotMain {
     /**
      * Runs the specified screenshot robot.
      *
-     * @param args Should contain two string - fully qualified class name of a
-     * single screenshot robot which has a
-     * `public void run(String)` method, and the location of screenshots.
-     * @throws Exception
+     * @param args Should contain two strings:
+     * 1. Fully qualified class name of a single screenshot robot which has a `public void run(String)` method
+     * 2. Location of output screenshots
      */
     @JvmStatic
     fun main(args: Array<String>) {

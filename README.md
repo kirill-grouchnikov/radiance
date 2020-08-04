@@ -12,6 +12,10 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade2.png" width="340" height="258" border=0>
 </p>
 
+## General questions
+
+[This document](docs/faq.md) is where you may find answers to some of the general questions on Radiance. If there's anything missing there, [let me know](https://github.com/kirill-grouchnikov/radiance/issues).
+
 ## Core Java libraries
 
 ### Neon

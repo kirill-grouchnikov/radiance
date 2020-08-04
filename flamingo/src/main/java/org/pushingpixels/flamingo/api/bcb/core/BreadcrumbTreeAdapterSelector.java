@@ -242,9 +242,8 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
     public BreadcrumbTreeAdapterSelector(final JTree tree) {
         this(tree, new TreeAdapter<>() {
             private JLabel getRenderer(Object node) {
-                Component renderer = tree.getCellRenderer()
-                        .getTreeCellRendererComponent(tree, node, false, false,
-                                tree.getModel().isLeaf(node), 0, false);
+                Component renderer = tree.getCellRenderer().getTreeCellRendererComponent(
+                        tree, node, false, false, tree.getModel().isLeaf(node), 0, false);
                 if (renderer instanceof JLabel) {
                     return (JLabel) renderer;
                 }

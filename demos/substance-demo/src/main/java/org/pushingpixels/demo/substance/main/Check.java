@@ -100,7 +100,7 @@ public class Check extends JFrame {
         jtp.getModel().addChangeListener(new TabSwitchListener());
 
         final JPanel contentPanel = new JPanel(new BorderLayout());
-        toolbar = getToolbar("", 22, true);
+        toolbar = getToolbar(22, true);
         contentPanel.add(toolbar, BorderLayout.NORTH);
 
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
@@ -303,7 +303,7 @@ public class Check extends JFrame {
         jmb.add(testMenu);
 
         JMenu jm4 = new JMenu("Disabled");
-        jm4.add(new JMenuItem("dummy4"));
+        jm4.add(new JMenuItem("text4"));
         jm4.setMnemonic('4');
         jmb.add(jm4);
         jm4.setEnabled(false);
@@ -524,7 +524,7 @@ public class Check extends JFrame {
         return null;
     }
 
-    public static JToolBar getToolbar(String label, int size, boolean hasStrings) {
+    public static JToolBar getToolbar(int size, boolean hasStrings) {
         JToolBar toolBar = new JToolBar();
 
         JButton buttonCut = new JButton(hasStrings ? "cut" : null, edit_cut.of(size, size));
@@ -669,9 +669,5 @@ public class Check extends JFrame {
             }
             return tabOverviewKind;
         }
-    }
-
-    public JTabbedPane getMainTabbedPane() {
-        return this.jtp;
     }
 }

@@ -60,8 +60,9 @@ import java.util.List;
 
 /**
  * Command button. Note that while this class is a part of public API, it is highly
- * recommended to use the {@link Command} instance used to project the command button
- * on screen for any dynamic manipulation of the state.
+ * recommended to use the {@link Command} and {@link CommandButtonPresentationModel}
+ * instances used to project the command button on screen for any dynamic manipulation
+ * of the state.
  *
  * @author Kirill Grouchnikov
  */

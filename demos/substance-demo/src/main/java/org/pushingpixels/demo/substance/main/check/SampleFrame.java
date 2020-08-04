@@ -93,7 +93,7 @@ public class SampleFrame extends JFrame {
         this.setLayout(new BorderLayout());
         this.tabbed = new JTabbedPane();
 
-        this.add(Check.getToolbar("", 22, false), BorderLayout.NORTH);
+        this.add(Check.getToolbar(22, false), BorderLayout.NORTH);
         this.add(this.tabbed, BorderLayout.CENTER);
 
         JPanel transPanel = new JPanel();

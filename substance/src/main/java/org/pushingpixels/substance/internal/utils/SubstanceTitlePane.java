@@ -138,11 +138,6 @@ public class SubstanceTitlePane extends JComponent {
     private SubstanceRootPaneUI rootPaneUI;
 
     /**
-     * The heap status toggle menu item of <code>this</code> title pane.
-     */
-    protected JCheckBoxMenuItem heapStatusMenuItem;
-
-    /**
      * Listens on changes to <code>componentOrientation</code> and
      * {@link SubstanceSynapse#CONTENTS_MODIFIED} properties.
      */

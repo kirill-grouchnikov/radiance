@@ -74,15 +74,6 @@ public class TabCloseListenerManager {
     }
 
     /**
-     * Unregisters the specified tabbed pane.
-     *
-     * @param tabbedPane Tabbed pane to unregister.
-     */
-    public synchronized void unregisterTabbedPane(JTabbedPane tabbedPane) {
-        this.specificListeners.remove(tabbedPane);
-    }
-
-    /**
      * Registers the specified listener on tab-close events on <b>all</b> tabbed
      * panes.
      *

@@ -291,8 +291,8 @@ public class SubstanceRibbonTaskToggleButtonUI extends
     public Dimension getPreferredSize(JComponent c) {
         JCommandButton button = (JCommandButton) c;
 
-        JButton dummy = new JButton(button.getText(), button.getIcon());
-        Dimension result = dummy.getUI().getPreferredSize(dummy);
+        JButton forSizing = new JButton(button.getText(), button.getIcon());
+        Dimension result = forSizing.getUI().getPreferredSize(forSizing);
         Insets borderInsets = button.getBorder().getBorderInsets(button);
         result.width += (borderInsets.left + borderInsets.right);
         result.height += (borderInsets.top + borderInsets.bottom);

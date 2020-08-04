@@ -893,7 +893,7 @@ public final class SubstanceImageCreator {
      *            if <code>true</code>, the gradient will be vertical, if <code>false</code>, the
      *            gradient will be horizontal.
      */
-    public static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
+    public static void paintRectangularBackground(Graphics g, int startX, int startY,
             int width, int height, SubstanceColorScheme colorScheme, float borderAlpha,
             boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -921,7 +921,7 @@ public final class SubstanceImageCreator {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            paintSimpleBorderAliased(c, g2d, width, height, colorScheme);
+            paintSimpleBorderAliased(g2d, width, height, colorScheme);
 
             g2d.dispose();
         }
@@ -955,7 +955,7 @@ public final class SubstanceImageCreator {
                 width - borderThickness, height - borderThickness));
     }
 
-    public static void paintSimpleBorderAliased(Component c, Graphics2D g2d, int width, int height,
+    public static void paintSimpleBorderAliased(Graphics2D g2d, int width, int height,
             SubstanceColorScheme colorScheme) {
         float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
 
@@ -993,7 +993,7 @@ public final class SubstanceImageCreator {
      * @param isVertical
      *            Indication of horizontal / vertical orientation.
      */
-    public static void paintRectangularStripedBackground(Component c, Graphics g, int startX,
+    public static void paintRectangularStripedBackground(Graphics g, int startX,
             int startY, int width, int height, SubstanceColorScheme colorScheme,
             BufferedImage stripeImage, int stripeOffset, float borderAlpha, boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
@@ -1044,7 +1044,7 @@ public final class SubstanceImageCreator {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            paintSimpleBorderAliased(c, g2d, width, height, colorScheme);
+            paintSimpleBorderAliased(g2d, width, height, colorScheme);
             g2d.dispose();
         }
         graphics.dispose();

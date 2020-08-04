@@ -40,8 +40,7 @@ public class CanonicalPath {
 
     private double ratio;
 
-    public CanonicalPath(ArrayList<Point2D> majorPoints, ArrayList<Point2D> minorPoints,
-            double ratio) {
+    public CanonicalPath(ArrayList<Point2D> majorPoints, ArrayList<Point2D> minorPoints, double ratio) {
         if (majorPoints.size() != minorPoints.size()) {
             throw new IllegalArgumentException("Sizes of major and minor must be equal");
         }
@@ -87,5 +86,4 @@ public class CanonicalPath {
     public double getRatio() {
         return ratio;
     }
-
 }

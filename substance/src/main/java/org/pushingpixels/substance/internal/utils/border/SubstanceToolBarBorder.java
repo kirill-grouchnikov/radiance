@@ -49,8 +49,7 @@ import java.awt.image.BufferedImage;
  * 
  * @author Kirill Grouchnikov
  */
-public class SubstanceToolBarBorder extends AbstractBorder implements
-		UIResource {
+public class SubstanceToolBarBorder extends AbstractBorder implements UIResource {
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
 		// failsafe for LAF change
@@ -82,8 +81,8 @@ public class SubstanceToolBarBorder extends AbstractBorder implements
 								c.getBounds().width - dragBumpsWidth - 2, 1, null);
 					}
 				}
-			} else // vertical
-			{
+			} else {
+				// vertical
 				// fix for defect 3 on NB module
 				int width = c.getWidth() - 4;
 				if (width > 0) {

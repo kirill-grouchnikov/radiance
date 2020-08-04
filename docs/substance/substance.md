@@ -8,7 +8,6 @@ Substance provides a powerful and flexible set of APIs that can be used to skin 
 
 * [Getting started](getting-started.md)
 * [How to add Substance to your project](add-to-your-project.md)
-* [Frequently asked questions](faq.md)
 * [Known issues](known-issues.md)
 
 ### Working with Substance
