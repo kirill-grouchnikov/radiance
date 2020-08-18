@@ -32,7 +32,6 @@ package org.pushingpixels.substance.internal.widget.text;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.icon.HighlightableTransitionAwareIcon;
@@ -42,7 +41,6 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -91,9 +89,14 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
                 editMenu.addSeparator();
                 editMenu.add(getDeleteItem());
                 editMenu.add(getSelectAllItem());
+                editMenu.applyComponentOrientation(jcomp.getComponentOrientation());
 
                 Point pt = SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), jcomp);
-                editMenu.show(jcomp, pt.x, pt.y);
+                if (jcomp.getComponentOrientation().isLeftToRight()) {
+                    editMenu.show(jcomp, pt.x, pt.y);
+                } else {
+                    editMenu.show(jcomp, pt.x - editMenu.getPreferredSize().width, pt.y);
+                }
             }
         };
         jcomp.addMouseListener(this.menuMouseListener);
