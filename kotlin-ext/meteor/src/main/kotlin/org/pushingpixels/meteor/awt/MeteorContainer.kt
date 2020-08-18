@@ -28,6 +28,7 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @file:Suppress("NOTHING_TO_INLINE")
+
 package org.pushingpixels.meteor.awt
 
 import java.awt.Component
@@ -38,11 +39,11 @@ import java.awt.Container
  *
  * @throws IndexOutOfBoundsException if index is less than 0 or greater than or equal to the component count.
  */
-operator fun Container.get(index: Int) =
+public operator fun Container.get(index: Int): Component =
         getComponent(index) ?: throw IndexOutOfBoundsException("Index: $index, Components: $componentCount")
 
 /** Returns `true` if [component] is found in this container. */
-inline operator fun Container.contains(component: Component) : Boolean {
+public inline operator fun Container.contains(component: Component): Boolean {
     for (child in this) {
         if (child == component) {
             return true
@@ -52,7 +53,7 @@ inline operator fun Container.contains(component: Component) : Boolean {
 }
 
 /** Returns a [MutableIterator] over the child components in this container. */
-operator fun Container.iterator() = object : MutableIterator<Component> {
+public operator fun Container.iterator(): MutableIterator<Component> = object : MutableIterator<Component> {
     private var index = 0
     override fun hasNext() = (index < componentCount)
     override fun next() = getComponent(index++) ?: throw IndexOutOfBoundsException()
@@ -60,20 +61,20 @@ operator fun Container.iterator() = object : MutableIterator<Component> {
 }
 
 /** Returns a [Sequence] over the child components in this container. */
-val Container.children: Sequence<Component>
+public val Container.children: Sequence<Component>
     get() = object : Sequence<Component> {
         override fun iterator() = this@children.iterator()
     }
 
 /** Performs the given action on each child component in this container. */
-inline fun Container.forEach(childAction: (Component) -> Unit) {
+public inline fun Container.forEach(childAction: (Component) -> Unit) {
     for (index in 0 until componentCount) {
         childAction(getComponent(index))
     }
 }
 
 /** Performs the given action on each descendant component in this container. */
-fun Container.deepForEach(descendantAction: (Component) -> Unit) {
+public fun Container.deepForEach(descendantAction: (Component) -> Unit) {
     for (index in 0 until componentCount) {
         val child = getComponent(index)
         if (child is Component) {

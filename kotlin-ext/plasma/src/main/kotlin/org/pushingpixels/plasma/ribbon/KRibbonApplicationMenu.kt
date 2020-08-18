@@ -36,25 +36,25 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu
 import org.pushingpixels.plasma.*
 
 @PlasmaElementMarker
-class KRibbonApplicationMenu {
+public class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false
 
-    var title: String by NonNullDelegate { hasBeenConverted }
+    public var title: String by NonNullDelegate { hasBeenConverted }
     private var richTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
-    var keyTip: String? by NullableDelegate { hasBeenConverted }
+    public var keyTip: String? by NullableDelegate { hasBeenConverted }
     private val footerCommands = KCommandGroup()
     private val groups = arrayListOf<KCommandGroup>()
     private val defaultGroup = KCommandGroup()
 
-    fun richTooltip(init: KRichTooltip.() -> Unit) {
+    public fun richTooltip(init: KRichTooltip.() -> Unit) {
         if (richTooltip == null) {
             richTooltip = KRichTooltip()
         }
-        (richTooltip as KRichTooltip).init()
+        richTooltip!!.init()
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
@@ -62,18 +62,18 @@ class KRibbonApplicationMenu {
         return command
     }
 
-    fun group(init: KCommandGroup.() -> Unit): KCommandGroup {
+    public fun group(init: KCommandGroup.() -> Unit): KCommandGroup {
         val group = KCommandGroup()
         group.init()
         groups.add(group)
         return group
     }
 
-    fun footer(init: KCommandGroup.() -> Unit) {
+    public fun footer(init: KCommandGroup.() -> Unit) {
         footerCommands.init()
     }
 
-    fun asJavaRibbonApplicationMenu(): RibbonApplicationMenu {
+    internal fun asJavaRibbonApplicationMenu(): RibbonApplicationMenu {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -116,7 +116,7 @@ class KRibbonApplicationMenu {
         }
     }
 
-    fun getRichTooltip(): RichTooltip? {
+    internal fun getRichTooltip(): RichTooltip? {
         return richTooltip?.toJavaRichTooltip()
     }
 }

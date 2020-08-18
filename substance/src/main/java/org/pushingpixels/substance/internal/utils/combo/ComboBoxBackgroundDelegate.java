@@ -35,8 +35,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -59,7 +57,7 @@ public class ComboBoxBackgroundDelegate {
     private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<>(
             "ComboBoxBackgroundDelegate");
 
-    public static BufferedImage getFullAlphaBackground(JComboBox combo, ButtonModel model,
+    public static BufferedImage getFullAlphaBackground(JComboBox combo,
             SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter, int width,
             int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
@@ -70,7 +68,6 @@ public class ComboBoxBackgroundDelegate {
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
                 .getStateContributionMap();
 
-        ClassicButtonShaper shaper = ClassicButtonShaper.INSTANCE;
         int comboFontSize = SubstanceSizeUtils.getComponentFontSize(combo);
         float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
 
@@ -85,7 +82,7 @@ public class ComboBoxBackgroundDelegate {
                 combo.getClass().getName(), radius, comboFontSize);
         BufferedImage layerBase = regularBackgrounds.get(keyBase);
         if (layerBase == null) {
-            layerBase = createBackgroundImage(combo, shaper, fillPainter, borderPainter, width,
+            layerBase = createBackgroundImage(combo, fillPainter, borderPainter, width,
                     height, baseFillScheme, baseBorderScheme, radius);
             regularBackgrounds.put(keyBase, layerBase);
         }
@@ -122,7 +119,7 @@ public class ComboBoxBackgroundDelegate {
                         combo.getClass().getName(), radius, comboFontSize);
                 BufferedImage layer = regularBackgrounds.get(key);
                 if (layer == null) {
-                    layer = createBackgroundImage(combo, shaper, fillPainter, borderPainter, width,
+                    layer = createBackgroundImage(combo, fillPainter, borderPainter, width,
                             height, fillScheme, borderScheme, radius);
                     regularBackgrounds.put(key, layer);
                 }
@@ -134,7 +131,7 @@ public class ComboBoxBackgroundDelegate {
     }
 
     private static BufferedImage createBackgroundImage(JComboBox combo,
-            SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
+            SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme, float radius) {
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
@@ -162,7 +159,7 @@ public class ComboBoxBackgroundDelegate {
         super();
     }
 
-    public void updateBackground(Graphics g, JComboBox combo, ButtonModel comboModel) {
+    public void updateBackground(Graphics g, JComboBox combo) {
         // failsafe for LAF change
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
             return;
@@ -174,8 +171,7 @@ public class ComboBoxBackgroundDelegate {
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(combo);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(combo);
 
-        BufferedImage bgImage = getFullAlphaBackground(combo, comboModel, fillPainter,
-                borderPainter, width, height);
+        BufferedImage bgImage = getFullAlphaBackground(combo, fillPainter, borderPainter, width, height);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();

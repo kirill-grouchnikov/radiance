@@ -44,7 +44,7 @@ import javax.swing.SwingUtilities
  * @param skin     Skin to use on all the controls in the root pane.
  */
 @EmberRootPaneScope
-fun JRootPane.setSkin(skin: SubstanceSkin) {
+public fun JRootPane.setSkin(skin: SubstanceSkin) {
     SubstanceCortex.RootPaneScope.setSkin(this, skin)
 }
 
@@ -66,6 +66,6 @@ fun JRootPane.setSkin(skin: SubstanceSkin) {
  * @see JComponent.setTabContentsModified
  */
 @EmberRootPaneScope
-fun JRootPane.setContentsModified(contentsModified: Boolean?) {
+public fun JRootPane.setContentsModified(contentsModified: Boolean?) {
     SubstanceCortex.RootPaneScope.setContentsModified(this, contentsModified)
 }

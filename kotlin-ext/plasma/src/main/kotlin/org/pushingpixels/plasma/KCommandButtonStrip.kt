@@ -36,13 +36,13 @@ import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
 import javax.swing.JComponent
 
 @PlasmaElementMarker
-class KCommandButtonStripPresentation {
-    var orientation: CommandStripPresentationModel.StripOrientation = CommandStripPresentationModel.StripOrientation.HORIZONTAL
-    var commandIconDimension: CommandButtonPresentationState = CommandButtonPresentationState.SMALL
-    var horizontalGapScaleFactor: Double = -1.0
-    var verticalGapScaleFactor: Double = -1.0
+public class KCommandButtonStripPresentation {
+    public var orientation: CommandStripPresentationModel.StripOrientation = CommandStripPresentationModel.StripOrientation.HORIZONTAL
+    public var commandIconDimension: CommandButtonPresentationState = CommandButtonPresentationState.SMALL
+    public var horizontalGapScaleFactor: Double = -1.0
+    public var verticalGapScaleFactor: Double = -1.0
 
-    fun toCommandStripPresentationModel() : CommandStripPresentationModel {
+    internal fun toCommandStripPresentationModel() : CommandStripPresentationModel {
         return CommandStripPresentationModel.builder()
                 .setCommandPresentationState(commandIconDimension)
                 .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
@@ -53,16 +53,16 @@ class KCommandButtonStripPresentation {
 }
 
 @PlasmaElementMarker
-class KCommandStrip(private val isToggleGroup: Boolean) {
+public class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commandConfigs = arrayListOf<KCommandGroup.CommandConfig>()
     internal val presentation: KCommandButtonStripPresentation = KCommandButtonStripPresentation()
     private val commandToggleGroup = KCommandToggleGroupModel()
 
-    operator fun KCommand.unaryPlus() {
+    public operator fun KCommand.unaryPlus() {
         this@KCommandStrip.commandConfigs.add(KCommandGroup.CommandConfig(this, null, null, null, null, null))
     }
 
-    fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
+    public fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         if (isToggleGroup) {
@@ -80,15 +80,15 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
         return command
     }
 
-    fun presentation(init: KCommandButtonStripPresentation.() -> Unit) {
+    public fun presentation(init: KCommandButtonStripPresentation.() -> Unit) {
         presentation.init()
     }
 
-    fun toJavaButtonStrip(): JComponent {
+    public fun toJavaButtonStrip(): JComponent {
         return toJavaProjection().buildComponent()
     }
 
-    fun toJavaProjection(): CommandStripProjection {
+    public fun toJavaProjection(): CommandStripProjection {
         val commandGroupModel = CommandGroup(commandConfigs.map { it.command.asJavaCommand() })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
         val commandOverlays = commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
@@ -100,13 +100,13 @@ class KCommandStrip(private val isToggleGroup: Boolean) {
     }
 }
 
-fun commandButtonStrip(init: KCommandStrip.() -> Unit): KCommandStrip {
+public fun commandButtonStrip(init: KCommandStrip.() -> Unit): KCommandStrip {
     val commandButtonStrip = KCommandStrip(false)
     commandButtonStrip.init()
     return commandButtonStrip
 }
 
-fun commandToggleButtonStrip(init: KCommandStrip.() -> Unit): KCommandStrip {
+public fun commandToggleButtonStrip(init: KCommandStrip.() -> Unit): KCommandStrip {
     val commandButtonStrip = KCommandStrip(true)
     commandButtonStrip.init()
     return commandButtonStrip

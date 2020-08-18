@@ -264,9 +264,9 @@ public class RichTooltipManager {
     }
 
     /**
-     * Returns a shared <code>ToolTipManager</code> instance.
+     * Returns a shared <code>RichTooltipManager</code> instance.
      *
-     * @return a shared <code>ToolTipManager</code> object
+     * @return a shared <code>RichTooltipManager</code> object
      */
     public static RichTooltipManager sharedInstance() {
         return sharedInstance;

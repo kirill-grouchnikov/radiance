@@ -6,7 +6,7 @@ If you're interested in knowing more about Substance internals, this document is
 
 * [Swing painting pipeline](http://www.pushing-pixels.org/2007/08/07/swing-painting-pipeline-the-conclusion.html)
 * [How to write a custom look-and-feel](https://community.oracle.com/docs/DOC-983579)
-* [Enhancing Swing applications](http://today.java.net/pub/a/today/2006/10/03/enhancing-swing-applications.html) (especially the first section).
+* [Enhancing Swing applications](https://community.oracle.com/docs/DOC-983583) (especially the first section).
 
 The rest of the document assumes that you're familiar with the basic building blocks of Swing painting pipeline and common terms of UI delegates.
 

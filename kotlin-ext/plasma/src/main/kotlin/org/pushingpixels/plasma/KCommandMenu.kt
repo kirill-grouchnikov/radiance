@@ -37,16 +37,16 @@ import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 
 @PlasmaElementMarker
-class KCommandPopupMenuButtonPanel {
+public class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
     internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
-    var isSingleSelectionMode: Boolean by NonNullDelegate { false }
+    public var isSingleSelectionMode: Boolean by NonNullDelegate { false }
 
     init {
         isSingleSelectionMode = false
     }
 
-    fun commandGroup(init: KCommandButtonPanel.KCommandButtonPanelGroup.() -> Unit):
+    public fun commandGroup(init: KCommandButtonPanel.KCommandButtonPanelGroup.() -> Unit):
             KCommandButtonPanel.KCommandButtonPanelGroup {
         val commandGroup = KCommandButtonPanel.KCommandButtonPanelGroup()
         commandGroup.init()
@@ -54,7 +54,7 @@ class KCommandPopupMenuButtonPanel {
         return commandGroup
     }
 
-    fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
+    public fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
         presentation.init()
     }
 
@@ -68,15 +68,15 @@ class KCommandPopupMenuButtonPanel {
 }
 
 @PlasmaElementMarker
-class KCommandMenu {
+public class KCommandMenu {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
     private val defaultGroup = KCommandGroup()
 
-    var maxVisibleMenuCommands: Int by NonNullDelegate { hasBeenConverted }
-    var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
-    var horizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity by NonNullDelegate { hasBeenConverted }
+    public var maxVisibleMenuCommands: Int by NonNullDelegate { hasBeenConverted }
+    public var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
+    public var horizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity by NonNullDelegate { hasBeenConverted }
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
@@ -86,7 +86,7 @@ class KCommandMenu {
         groups.add(defaultGroup)
     }
 
-    fun commandPanel(init: KCommandPopupMenuButtonPanel.() -> Unit) {
+    public fun commandPanel(init: KCommandPopupMenuButtonPanel.() -> Unit) {
         if (commandPanel != null) {
             throw IllegalStateException("Command panel already configured")
         }
@@ -94,7 +94,7 @@ class KCommandMenu {
         commandPanel!!.init()
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
@@ -102,7 +102,7 @@ class KCommandMenu {
         return command
     }
 
-    fun group(init: KCommandGroup.() -> Unit): KCommandGroup {
+    public fun group(init: KCommandGroup.() -> Unit): KCommandGroup {
         val group = KCommandGroup()
         group.init()
         groups.add(group)
@@ -123,7 +123,7 @@ class KCommandMenu {
         }
     }
 
-    fun toJavaMenuContentModel(): CommandMenuContentModel {
+    internal fun toJavaMenuContentModel(): CommandMenuContentModel {
         if (defaultGroup.commands.isEmpty()) {
             groups.remove(defaultGroup)
         }
@@ -134,7 +134,7 @@ class KCommandMenu {
                 commandPanel?.getContentModel(), commandGroupModels)
     }
 
-    fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {
+    internal fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
@@ -148,7 +148,7 @@ class KCommandMenu {
     }
 }
 
-fun commandPopupMenu(init: KCommandMenu.() -> Unit): KCommandMenu {
+public fun commandPopupMenu(init: KCommandMenu.() -> Unit): KCommandMenu {
     val commandPopupMenu = KCommandMenu()
     commandPopupMenu.init()
     return commandPopupMenu

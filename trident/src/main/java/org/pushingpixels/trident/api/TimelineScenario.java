@@ -59,8 +59,7 @@ public class TimelineScenario {
 
         public Chain(TimelineScenarioCallback... callbacks) {
             this.callbacks = new ArrayList<>();
-            for (TimelineScenarioCallback callback : callbacks)
-                this.callbacks.add(callback);
+            Collections.addAll(this.callbacks, callbacks);
         }
 
         public void addCallback(TimelineScenarioCallback callback) {
@@ -239,7 +238,7 @@ public class TimelineScenario {
         this.isLooping = false;
         this.state = TimelineScenarioState.PLAYING;
 
-        TimelineEngine.getInstance().runTimelineScenario(this,
+        TimelineEngine.getInstance().runTimelineScenario(
                 () -> TimelineEngine.getInstance().playScenario(TimelineScenario.this));
     }
 
@@ -251,7 +250,7 @@ public class TimelineScenario {
         }
         this.isLooping = true;
         this.state = TimelineScenarioState.PLAYING;
-        TimelineEngine.getInstance().runTimelineScenario(this,
+        TimelineEngine.getInstance().runTimelineScenario(
                 () -> TimelineEngine.getInstance().playScenario(TimelineScenario.this));
     }
 

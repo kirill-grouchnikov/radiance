@@ -34,13 +34,13 @@ package org.pushingpixels.meteor.swing
 import java.awt.event.ActionEvent
 import javax.swing.*
 
-enum class KeyboardActionScopeType(val scopeTypeConstant: Int) {
+public enum class KeyboardActionScopeType(public val scopeTypeConstant: Int) {
     WHEN_FOCUSED_TYPE(JComponent.WHEN_FOCUSED),
     WHEN_ANCESTOR_OF_FOCUSED_COMPONENT_TYPE(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT),
     WHEN_IN_FOCUSED_WINDOW_TYPE(JComponent.WHEN_IN_FOCUSED_WINDOW)
 }
 
-inline fun JToolBar.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JButton {
+public inline fun JToolBar.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JButton {
     return this.add(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
@@ -48,7 +48,7 @@ inline fun JToolBar.addAction(name: String, crossinline action: (ActionEvent?) -
     })
 }
 
-inline fun JMenu.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JMenuItem {
+public inline fun JMenu.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JMenuItem {
     return this.add(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
@@ -56,7 +56,7 @@ inline fun JMenu.addAction(name: String, crossinline action: (ActionEvent?) -> U
     })
 }
 
-inline fun JMenu.insertAction(name: String, position: Int,
+public inline fun JMenu.insertAction(name: String, position: Int,
         crossinline action: (ActionEvent?) -> Unit): JMenuItem {
     return this.insert(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
@@ -65,7 +65,7 @@ inline fun JMenu.insertAction(name: String, position: Int,
     }, position)
 }
 
-inline fun JPopupMenu.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JMenuItem {
+public inline fun JPopupMenu.addAction(name: String, crossinline action: (ActionEvent?) -> Unit): JMenuItem {
     return this.add(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
@@ -73,7 +73,7 @@ inline fun JPopupMenu.addAction(name: String, crossinline action: (ActionEvent?)
     })
 }
 
-inline fun JPopupMenu.insertAction(name: String, position: Int,
+public inline fun JPopupMenu.insertAction(name: String, position: Int,
         crossinline action: (ActionEvent?) -> Unit) {
     this.insert(object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
@@ -82,7 +82,7 @@ inline fun JPopupMenu.insertAction(name: String, position: Int,
     }, position)
 }
 
-inline fun ActionMap.putAction(name: String, crossinline action: (ActionEvent?) -> Unit) {
+public inline fun ActionMap.putAction(name: String, crossinline action: (ActionEvent?) -> Unit) {
     this.put(name, object : AbstractAction(name) {
         override fun actionPerformed(e: ActionEvent?) {
             action.invoke(e)
@@ -90,7 +90,7 @@ inline fun ActionMap.putAction(name: String, crossinline action: (ActionEvent?) 
     })
 }
 
-inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKeyStroke: KeyStroke,
+public inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKeyStroke: KeyStroke,
         scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
         crossinline action: (ActionEvent?) -> Unit) {
     val inputMap = this.getInputMap(scopeType.scopeTypeConstant)
@@ -103,7 +103,7 @@ inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKeyStroke:
 }
 
 
-inline fun JComponent.wireActionToKeyStrokes(actionName: String,
+public inline fun JComponent.wireActionToKeyStrokes(actionName: String,
         actionKeyStrokes: Collection<KeyStroke>,
         scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
         crossinline action: (ActionEvent?) -> Unit) {

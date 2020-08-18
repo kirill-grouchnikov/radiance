@@ -47,7 +47,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 
 @PlasmaElementMarker
-open class KCommand {
+public open class KCommand {
     private val builder = Command.builder()
     internal lateinit var javaCommand: Command
     internal var hasBeenConverted: Boolean = false
@@ -57,7 +57,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _title: String? = null
-    var title: String?
+    public var title: String?
         get() = _title
         set(value) {
             _title = value
@@ -72,7 +72,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _extraText: String? = null
-    var extraText: String?
+    public var extraText: String?
         get() = _extraText
         set(value) {
             _extraText = value
@@ -87,7 +87,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _iconFactory: Factory? = null
-    var iconFactory: Factory?
+    public var iconFactory: Factory?
         get() = _iconFactory
         set(value) {
             _iconFactory = value
@@ -102,7 +102,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _disabledIconFactory: Factory? = null
-    var disabledIconFactory: Factory?
+    public var disabledIconFactory: Factory?
         get() = _disabledIconFactory
         set(value) {
             _disabledIconFactory = value
@@ -112,15 +112,15 @@ open class KCommand {
             }
         }
 
-    var onActionPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
-    var onActionPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onActionPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onActionPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
 
     // The "action" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _action: ((event: CommandActionEvent) -> Unit)? = null
-    var action: ((event: CommandActionEvent) -> Unit)?
+    public var action: ((event: CommandActionEvent) -> Unit)?
         get() = _action
         set(value) {
             _action = value
@@ -139,7 +139,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _actionRichTooltip: KRichTooltip? = null
-    var actionRichTooltip: KRichTooltip?
+    public var actionRichTooltip: KRichTooltip?
         get() = _actionRichTooltip
         set(value) {
             _actionRichTooltip = value
@@ -149,14 +149,14 @@ open class KCommand {
             }
         }
 
-    var menu: KCommandMenu? by NullableDelegate { hasBeenConverted }
+    public var menu: KCommandMenu? by NullableDelegate { hasBeenConverted }
 
     // The "secondaryRichTooltip" property can be modified even after [KCommandButton.toButton] has been called
     // multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _secondaryRichTooltip: KRichTooltip? = null
-    var secondaryRichTooltip: KRichTooltip?
+    public var secondaryRichTooltip: KRichTooltip?
         get() = _secondaryRichTooltip
         set(value) {
             _secondaryRichTooltip = value
@@ -171,7 +171,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _isActionEnabled: Boolean = true
-    var isActionEnabled: Boolean
+    public var isActionEnabled: Boolean
         get() = _isActionEnabled
         set(value) {
             _isActionEnabled = value
@@ -186,7 +186,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _isSecondaryEnabled: Boolean = true
-    var isSecondaryEnabled: Boolean
+    public var isSecondaryEnabled: Boolean
         get() = _isSecondaryEnabled
         set(value) {
             _isSecondaryEnabled = value
@@ -197,7 +197,7 @@ open class KCommand {
         }
 
     private var _isToggle: Boolean = false
-    var isToggle: Boolean
+    public var isToggle: Boolean
         get() = _isToggle
         set(value) {
             if (hasBeenConverted) {
@@ -214,7 +214,7 @@ open class KCommand {
     // builder and the cached [Command] instance, which then gets propagated to be reflected in all
     // command buttons created from this command.
     private var _isToggleSelected: Boolean = false
-    var isToggleSelected: Boolean
+    public var isToggleSelected: Boolean
         get() = _isToggleSelected
         set(value) {
             _isToggleSelected = value
@@ -224,33 +224,27 @@ open class KCommand {
             }
         }
 
-    var toggleGroup: KCommandToggleGroupModel? by NullableDelegate { hasBeenConverted }
+    public var toggleGroup: KCommandToggleGroupModel? by NullableDelegate { hasBeenConverted }
 
     init {
         isToggle = false
     }
 
-    fun actionRichTooltip(init: KRichTooltip.() -> Unit) {
+    public fun actionRichTooltip(init: KRichTooltip.() -> Unit) {
         if (actionRichTooltip == null) {
-            val temp = KRichTooltip()
-            temp.init()
-            actionRichTooltip = temp
-        } else {
-            actionRichTooltip!!.init()
+            actionRichTooltip = KRichTooltip()
         }
+        actionRichTooltip!!.init()
     }
 
-    fun secondaryRichTooltip(init: KRichTooltip.() -> Unit) {
+    public fun secondaryRichTooltip(init: KRichTooltip.() -> Unit) {
         if (secondaryRichTooltip == null) {
-            val temp = KRichTooltip()
-            temp.init()
-            secondaryRichTooltip = temp
-        } else {
-            secondaryRichTooltip!!.init()
+            secondaryRichTooltip = KRichTooltip()
         }
+        secondaryRichTooltip!!.init()
     }
 
-    companion object {
+    internal companion object {
         fun populateBuilder(builder: Command.BaseBuilder<*, *>, command: KCommand) {
             builder.setText(command.title)
             builder.setIconFactory(command.iconFactory)
@@ -293,7 +287,7 @@ open class KCommand {
         }
     }
 
-    fun asJavaCommand(): Command {
+    internal fun asJavaCommand(): Command {
         if (hasBeenConverted) {
             return javaCommand
         }
@@ -312,18 +306,18 @@ open class KCommand {
     }
 }
 
-fun command(init: KCommand.() -> Unit): KCommand {
+public fun command(init: KCommand.() -> Unit): KCommand {
     val command = KCommand()
     command.init()
     return command
 }
 
 @PlasmaElementMarker
-class KColorSelectorCommand : KCommand() {
-    var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
+public class KColorSelectorCommand : KCommand() {
+    public var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
     private val colorSelectorBuilder = ColorSelectorCommand.colorSelectorBuilder()
 
-    fun asJavaColorSelectorCommand(): ColorSelectorCommand {
+    internal fun asJavaColorSelectorCommand(): ColorSelectorCommand {
         if (hasBeenConverted) {
             return javaCommand as ColorSelectorCommand
         }
@@ -341,36 +335,36 @@ class KColorSelectorCommand : KCommand() {
     }
 }
 
-fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
+public fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
     val colorSelectorCommand = KColorSelectorCommand()
     colorSelectorCommand.init()
     return colorSelectorCommand
 }
 
 @PlasmaElementMarker
-open class KCommandButtonPresentation {
-    var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
-    var isFlat: Boolean = true
-    var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
-    var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
+public open class KCommandButtonPresentation {
+    public var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
+    public var isFlat: Boolean = true
+    public var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    public var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    public var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
             CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
-    var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
+    public var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
             CommandButtonPresentationModel.PopupHorizontalGravity.START
-    var iconDimension: Int? = null
-    var isMenu: Boolean = false
-    var actionKeyTip: String? = null
-    var popupKeyTip: String? = null
-    var isTextClickAction: Boolean = true
-    var isTextClickPopup: Boolean = false
-    var isFireActionOnRollover: Boolean = false
-    var isFireActionOnPress: Boolean = false
-    var isAutoRepeatAction: Boolean = false
-    var autoRepeatInitialInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
-    var autoRepeatSubsequentInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
+    public var iconDimension: Int? = null
+    public var isMenu: Boolean = false
+    public var actionKeyTip: String? = null
+    public var popupKeyTip: String? = null
+    public var isTextClickAction: Boolean = true
+    public var isTextClickPopup: Boolean = false
+    public var isFireActionOnRollover: Boolean = false
+    public var isFireActionOnPress: Boolean = false
+    public var isAutoRepeatAction: Boolean = false
+    public var autoRepeatInitialInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
+    public var autoRepeatSubsequentInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
 
-    fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
+    internal fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
         val result = CommandButtonPresentationModel.builder()
                 .setPresentationState(presentationState)
                 .setFlat(isFlat)
@@ -401,12 +395,12 @@ open class KCommandButtonPresentation {
 }
 
 @PlasmaElementMarker
-class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
-    var colorColumns: Int = 10
-    var menuPresentationState: CommandButtonPresentationState =
+public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
+    public var colorColumns: Int = 10
+    public var menuPresentationState: CommandButtonPresentationState =
             CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE
 
-    fun toColorSelectorCommandPresentation(command: KColorSelectorCommand): CommandButtonPresentationModel {
+    internal fun toColorSelectorCommandPresentation(command: KColorSelectorCommand): CommandButtonPresentationModel {
         return CommandButtonPresentationModel.builder()
                 .setPresentationState(presentationState)
                 .setFlat(isFlat)
@@ -424,8 +418,8 @@ class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
 }
 
 @PlasmaElementMarker
-class KCommandGroup {
-    var title: String? by NullableDelegate { false }
+public class KCommandGroup {
+    public var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()
 
     internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
@@ -465,11 +459,11 @@ class KCommandGroup {
         }
     }
 
-    operator fun KCommand.unaryPlus() {
+    public operator fun KCommand.unaryPlus() {
         this@KCommandGroup.commands.add(CommandConfig(this, null, null, false, false, null))
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KCommand.() -> Unit): KCommand {
@@ -480,7 +474,7 @@ class KCommandGroup {
         return command
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             command: KCommand) {
@@ -488,16 +482,16 @@ class KCommandGroup {
                 popupHorizontalGravity))
     }
 
-    fun toCommandGroupModel(): CommandGroup {
+    internal fun toCommandGroupModel(): CommandGroup {
         return CommandGroup(title, commands.map { it.toJavaCommand() })
     }
 
-    fun toPresentationOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
+    internal fun toPresentationOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
         return commands.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
     }
 }
 
-fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): (CommandActionEvent) -> Unit {
+public fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): (CommandActionEvent) -> Unit {
     return { event ->
         GlobalScope.launch(Dispatchers.Swing) {
             listener.invoke(event)

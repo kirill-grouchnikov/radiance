@@ -103,12 +103,9 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                     pressed.zoomBubble.isSelected = true
 
                     mouseDragHandler = when (pressed.dragType) {
-                        JElectrifiedImageComponent.DragType.BUBBLE_DRAG ->
-                            ZoomBubbleDragHandler(pressed.zoomBubble)
-                        JElectrifiedImageComponent.DragType.BUBBLE_RESIZE ->
-                            ZoomBubbleResizeHandler(pressed.zoomBubble)
-                        JElectrifiedImageComponent.DragType.CAPTION_DRAG ->
-                            ZoomBubbleCaptionDragHandler(pressed.zoomBubble)
+                        DragType.BUBBLE_DRAG -> ZoomBubbleDragHandler(pressed.zoomBubble)
+                        DragType.BUBBLE_RESIZE -> ZoomBubbleResizeHandler(pressed.zoomBubble)
+                        DragType.CAPTION_DRAG -> ZoomBubbleCaptionDragHandler(pressed.zoomBubble)
                     }
 
                     mouseDragHandler!!.onStart(e.point)
@@ -179,23 +176,18 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
                 }
 
                 cursor = when (underMouse.dragType) {
-                    JElectrifiedImageComponent.DragType.BUBBLE_DRAG,
-                    JElectrifiedImageComponent.DragType.CAPTION_DRAG ->
-                        Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
-                    JElectrifiedImageComponent.DragType.BUBBLE_RESIZE ->
-                        Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR)
+                    DragType.BUBBLE_DRAG, DragType.CAPTION_DRAG -> Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)
+                    DragType.BUBBLE_RESIZE -> Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR)
                 }
             }
         })
 
         this.captionEditor = JTextField(25)
 
-        this.captionEditor.wireActionToKeyStroke("enter",
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)) {
+        this.captionEditor.wireActionToKeyStroke("enter", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)) {
             stopCaptionEdit(true)
         }
-        this.captionEditor.wireActionToKeyStroke("escape",
-                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0)) {
+        this.captionEditor.wireActionToKeyStroke("escape", KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0)) {
             stopCaptionEdit(false)
         }
 
@@ -816,7 +808,7 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
 
         /**
          * Convenience method that returns a scaled instance of the provided `BufferedImage`. Adopted from
-         * [article by Chris Campbell](http://today.java.net/pub/a/today/2007/04/03/perils-of-image-getscaledinstance.html).
+         * [article by Chris Campbell](https://community.oracle.com/docs/DOC-983611).
          *
          * @param img           the original image to be scaled
          * @param targetWidth   the desired width of the scaled instance, in pixels

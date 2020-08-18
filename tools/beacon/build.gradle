@@ -36,13 +36,8 @@ dependencies {
 
 ext.designation = "tools"
 
-jar {
-    archiveBaseName = "${rootProject.name}-${project.name}"
-}
-
 apply plugin: 'com.bmuschko.nexus'
 
-archivesBaseName = 'radiance'
 group = 'org.pushing-pixels'
 
 modifyPom {

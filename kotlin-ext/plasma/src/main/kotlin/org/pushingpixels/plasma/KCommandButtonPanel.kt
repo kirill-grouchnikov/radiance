@@ -39,16 +39,16 @@ import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
 @PlasmaElementMarker
-class KCommandButtonPanelPresentation {
-    var maxColumns: Int = -1
-    var maxRows: Int = -1
-    var toShowGroupLabels: Boolean = true
-    var commandPresentationState: CommandButtonPresentationState? = null
-    var commandIconDimension: Int = -1
-    var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
-    var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
-    var isMenu: Boolean = false
-    var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
+public class KCommandButtonPanelPresentation {
+    public var maxColumns: Int = -1
+    public var maxRows: Int = -1
+    public var toShowGroupLabels: Boolean = true
+    public var commandPresentationState: CommandButtonPresentationState? = null
+    public var commandIconDimension: Int = -1
+    public var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
+    public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var isMenu: Boolean = false
+    public var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
             CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
 
     internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
@@ -73,19 +73,19 @@ class KCommandButtonPanelPresentation {
 }
 
 @PlasmaElementMarker
-class KCommandButtonPanel {
-    class KCommandButtonPanelGroup {
-        var title: String by NonNullDelegate { false }
+public class KCommandButtonPanel {
+    public class KCommandButtonPanelGroup {
+        public var title: String by NonNullDelegate { false }
         internal val commands = arrayListOf<KCommand>()
 
-        fun command(init: KCommand.() -> Unit): KCommand {
+        public fun command(init: KCommand.() -> Unit): KCommand {
             val command = KCommand()
             command.init()
             commands.add(command)
             return command
         }
 
-        fun toJavaCommandGroupModel() : CommandGroup {
+        internal fun toJavaCommandGroupModel() : CommandGroup {
             return CommandGroup(this.title,
                     this.commands.map { it.asJavaCommand() })
         }
@@ -95,24 +95,24 @@ class KCommandButtonPanel {
 
     private val commandGroups = arrayListOf<KCommandButtonPanelGroup>()
     internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
-    var isSingleSelectionMode: Boolean by NonNullDelegate { hasBeenConverted }
+    public var isSingleSelectionMode: Boolean by NonNullDelegate { hasBeenConverted }
 
     init {
         isSingleSelectionMode = false
     }
 
-    fun commandGroup(init: KCommandButtonPanelGroup.() -> Unit): KCommandButtonPanelGroup {
+    public fun commandGroup(init: KCommandButtonPanelGroup.() -> Unit): KCommandButtonPanelGroup {
         val commandGroup = KCommandButtonPanelGroup()
         commandGroup.init()
         commandGroups.add(commandGroup)
         return commandGroup
     }
 
-    fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
+    public fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
         presentation.init()
     }
 
-    fun toJavaButtonPanel(): JComponent {
+    internal fun toJavaButtonPanel(): JComponent {
         val hasInitialState = (presentation.commandPresentationState != null)
         val hasInitialDimension = (presentation.commandIconDimension > 0)
 
@@ -127,7 +127,7 @@ class KCommandButtonPanel {
     }
 }
 
-fun commandButtonPanel(init: KCommandButtonPanel.() -> Unit): KCommandButtonPanel {
+public fun commandButtonPanel(init: KCommandButtonPanel.() -> Unit): KCommandButtonPanel {
     val commandButtonPanel = KCommandButtonPanel()
     commandButtonPanel.init()
     return commandButtonPanel

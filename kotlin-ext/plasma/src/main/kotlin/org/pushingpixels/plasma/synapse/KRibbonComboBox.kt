@@ -41,16 +41,16 @@ import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
 import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 
 @PlasmaElementMarker
-class KRibbonComboBoxContentModel<T> {
+public class KRibbonComboBoxContentModel<T> {
     private val builder = RibbonDefaultComboBoxContentModel.builder<T>()
     private lateinit var javaContentModel: RibbonDefaultComboBoxContentModel<T>
     internal var hasBeenConverted: Boolean = false
 
     private var richTooltip: KRichTooltip? by NullableDelegate { false }
     private var items: Array<out T>? = null
-    var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
-    var caption: String? by NullableDelegate { false }
-    var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)?
+    public var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
+    public var caption: String? by NullableDelegate { false }
+    public var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)?
             by NullableDelegate { hasBeenConverted }
 
     // The "isEnabled" property can be modified even after [KRibbonComboBox.toJavaProjection] has
@@ -58,7 +58,7 @@ class KRibbonComboBoxContentModel<T> {
     // builder and the cached [RibbonDefaultComboBoxContentModel] instance, which then gets
     // propagated to be reflected in all comboboxes created from this content model.
     private var _isEnabled: Boolean = true
-    var isEnabled: Boolean
+    public var isEnabled: Boolean
         get() = _isEnabled
         set(value) {
             _isEnabled = value
@@ -68,18 +68,18 @@ class KRibbonComboBoxContentModel<T> {
             }
         }
 
-    fun richTooltip(init: KRichTooltip.() -> Unit) {
+    public fun richTooltip(init: KRichTooltip.() -> Unit) {
         if (richTooltip == null) {
             richTooltip = KRichTooltip()
         }
-        (richTooltip as KRichTooltip).init()
+        richTooltip!!.init()
     }
 
-    fun items(vararg items: T) {
+    public fun items(vararg items: T) {
         this.items = items
     }
 
-    fun asJavaComboBoxContentModel(): RibbonDefaultComboBoxContentModel<T> {
+    internal fun asJavaComboBoxContentModel(): RibbonDefaultComboBoxContentModel<T> {
         if (hasBeenConverted) {
             return javaContentModel
         }
@@ -100,54 +100,54 @@ class KRibbonComboBoxContentModel<T> {
 }
 
 @PlasmaElementMarker
-class KRibbonComboBox<T> {
+public class KRibbonComboBox<T> {
     internal var content: KRibbonComboBoxContentModel<T> = KRibbonComboBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
 
-    operator fun KRibbonComboBoxContentModel<T>.unaryPlus() {
+    public operator fun KRibbonComboBoxContentModel<T>.unaryPlus() {
         this@KRibbonComboBox.content = this
     }
 
-    fun content(init: KRibbonComboBoxContentModel<T>.() -> Unit) {
+    public fun content(init: KRibbonComboBoxContentModel<T>.() -> Unit) {
         content.init()
     }
 
-    fun presentation(init: KComponentPresentation.() -> Unit) {
+    public fun presentation(init: KComponentPresentation.() -> Unit) {
         presentation.init()
     }
 
-    fun toJavaProjection(): RibbonComboBoxProjection<T> {
+    internal fun toJavaProjection(): RibbonComboBoxProjection<T> {
         val javaContent = content.asJavaComboBoxContentModel()
         val javaPresentation = presentation.toComponentPresentation()
         return RibbonComboBoxProjection(javaContent, javaPresentation)
     }
 }
 
-fun <T> comboBoxContentModel(init: KRibbonComboBoxContentModel<T>.() -> Unit): KRibbonComboBoxContentModel<T> {
+public fun <T> comboBoxContentModel(init: KRibbonComboBoxContentModel<T>.() -> Unit): KRibbonComboBoxContentModel<T> {
     val result = KRibbonComboBoxContentModel<T>()
     result.init()
     return result
 }
 
-fun <T> KRibbonBand.comboBox(init: KRibbonComboBox<T>.() -> Unit) {
+public fun <T> KRibbonBand.comboBox(init: KRibbonComboBox<T>.() -> Unit) {
     val ribbonComboBox = KRibbonComboBox<T>()
     ribbonComboBox.init()
     this.component(ribbonComboBox.toJavaProjection())
 }
 
-fun <T> KFlowRibbonBand.flowComboBox(init: KRibbonComboBox<T>.() -> Unit) {
+public fun <T> KFlowRibbonBand.flowComboBox(init: KRibbonComboBox<T>.() -> Unit) {
     val ribbonComboBox = KRibbonComboBox<T>()
     ribbonComboBox.init()
     this.flowComponent(ribbonComboBox.toJavaProjection())
 }
 
-fun <T> KRibbonBandGroup.comboBox(init: KRibbonComboBox<T>.() -> Unit) {
+public fun <T> KRibbonBandGroup.comboBox(init: KRibbonComboBox<T>.() -> Unit) {
     val ribbonComboBox = KRibbonComboBox<T>()
     ribbonComboBox.init()
     this.component(ribbonComboBox.toJavaProjection())
 }
 
-fun <T> KRibbonTaskbar.comboBox(init: KRibbonComboBox<T>.() -> Unit) {
+public fun <T> KRibbonTaskbar.comboBox(init: KRibbonComboBox<T>.() -> Unit) {
     val ribbonComboBox = KRibbonComboBox<T>()
     ribbonComboBox.init()
     this.component(ribbonComboBox.toJavaProjection())

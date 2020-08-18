@@ -35,14 +35,14 @@ import javax.swing.JTextPane
 import javax.swing.text.SimpleAttributeSet
 import javax.swing.text.StyleConstants
 
-enum class AlignType(val alignConstant: Int) {
+public enum class AlignType(public val alignConstant: Int) {
     ALIGN_LEFT(StyleConstants.ALIGN_LEFT),
     ALIGN_CENTER(StyleConstants.ALIGN_CENTER),
     ALIGN_RIGHT(StyleConstants.ALIGN_RIGHT),
     ALIGN_JUSTIFIED(StyleConstants.ALIGN_JUSTIFIED)
 }
 
-enum class CharacterStyleType(val characterStyle: Any) {
+public enum class CharacterStyleType(public val characterStyle: Any) {
     STYLE_BOLD(StyleConstants.CharacterConstants.Bold),
     STYLE_ITALIC(StyleConstants.CharacterConstants.Italic),
     STYLE_UNDERLINE(StyleConstants.CharacterConstants.Underline),
@@ -52,7 +52,7 @@ enum class CharacterStyleType(val characterStyle: Any) {
 /**
  * Change content alignment on the text pane.
  */
-inline fun JTextPane.setAlignment(alignment: AlignType) {
+public inline fun JTextPane.setAlignment(alignment: AlignType) {
     val attrSet = SimpleAttributeSet()
     StyleConstants.setAlignment(attrSet, alignment.alignConstant)
     this.styledDocument.setParagraphAttributes(0, this.styledDocument.length, attrSet, false)
@@ -61,7 +61,7 @@ inline fun JTextPane.setAlignment(alignment: AlignType) {
 /**
  * Checks presence of content style in current selection
  */
-fun JTextPane.hasStyleInSelection(style: CharacterStyleType): Boolean {
+public fun JTextPane.hasStyleInSelection(style: CharacterStyleType): Boolean {
     for (index in this.selectionStart until this.selectionEnd) {
         val attr = this.styledDocument.getCharacterElement(index)
                 .attributes?.getAttribute(style.characterStyle)
@@ -75,7 +75,7 @@ fun JTextPane.hasStyleInSelection(style: CharacterStyleType): Boolean {
 /**
  * Toggles presence of content style in current selection
  */
-fun JTextPane.toggleStyleInSelection(style: CharacterStyleType) {
+public fun JTextPane.toggleStyleInSelection(style: CharacterStyleType) {
     val attrSet = SimpleAttributeSet()
     // Add or remove the style on the entire selection
     attrSet.addAttribute(style.characterStyle, !hasStyleInSelection(style))

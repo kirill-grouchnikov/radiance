@@ -67,17 +67,6 @@ class TimelineEngine {
         PLAY, CANCEL, RESUME, SUSPEND, ABORT, END
     }
 
-    static class TimelineOperation {
-        public TimelineOperationKind operationKind;
-
-        Runnable operationRunnable;
-
-        public TimelineOperation(TimelineOperationKind operationKind, Runnable operationRunnable) {
-            this.operationKind = operationKind;
-            this.operationRunnable = operationRunnable;
-        }
-    }
-
     private Set<TimelineScenario> runningScenarios;
 
     long lastIterationTimeStamp;
@@ -884,7 +873,7 @@ class TimelineEngine {
         }
     }
 
-    void runTimelineScenario(TimelineScenario timelineScenario, Runnable timelineScenarioRunnable) {
+    void runTimelineScenario(Runnable timelineScenarioRunnable) {
         synchronized (LOCK) {
             this.getAnimatorThread();
             timelineScenarioRunnable.run();

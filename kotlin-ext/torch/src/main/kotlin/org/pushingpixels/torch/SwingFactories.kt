@@ -33,8 +33,8 @@ import java.awt.Color
 import java.awt.Component
 import java.awt.Window
 
-object TorchComponent {
-    val background = object : PropertyFactory<Color, Component>() {
+public object TorchComponent {
+    public val background: PropertyFactory<Color, Component> = object : PropertyFactory<Color, Component>() {
         override fun property(mainObject: Component): SettableProperty<Color> {
             return object : BaseSettableProperty<Color>("background", Color::javaClass.returnType) {
                 override fun set(value: Color) {
@@ -48,7 +48,7 @@ object TorchComponent {
         }
     }
 
-    val foreground = object : PropertyFactory<Color, Component>() {
+    public val foreground: PropertyFactory<Color, Component> = object : PropertyFactory<Color, Component>() {
         override fun property(mainObject: Component): SettableProperty<Color> {
             return object : BaseSettableProperty<Color>("foreground", Color::javaClass.returnType) {
                 override fun set(value: Color) {
@@ -63,8 +63,8 @@ object TorchComponent {
     }
 }
 
-object TorchWindow {
-    val background = object : PropertyFactory<Color, Window>() {
+public object TorchWindow {
+    public val background: PropertyFactory<Color, Window> = object : PropertyFactory<Color, Window>() {
         override fun property(mainObject: Window): SettableProperty<Color> {
             return object : BaseSettableProperty<Color>("background", Color::javaClass.returnType) {
                 override fun set(value: Color) {
@@ -78,7 +78,7 @@ object TorchWindow {
         }
     }
 
-    val opacity = object : PropertyFactory<Float, Window>() {
+    public val opacity: PropertyFactory<Float, Window> = object : PropertyFactory<Float, Window>() {
         override fun property(mainObject: Window): SettableProperty<Float> {
             return object : BaseSettableProperty<Float>("opacity", Float::class.java::javaClass.returnType) {
                 override fun set(value: Float) {

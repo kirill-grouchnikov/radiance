@@ -34,12 +34,12 @@ package org.pushingpixels.meteor.awt
 import java.awt.event.MouseEvent
 import javax.swing.SwingUtilities
 
-inline operator fun MouseEvent.component1() = this.x
-inline operator fun MouseEvent.component2() = this.y
+public inline operator fun MouseEvent.component1(): Int = this.x
+public inline operator fun MouseEvent.component2(): Int = this.y
 
-val MouseEvent.isLeftMouseButton: Boolean
-        get() = SwingUtilities.isLeftMouseButton(this)
-val MouseEvent.isMiddleMouseButton: Boolean
-        get() = SwingUtilities.isMiddleMouseButton(this)
-val MouseEvent.isRightMouseButton: Boolean
-        get() = SwingUtilities.isRightMouseButton(this)
+public val MouseEvent.isLeftMouseButton: Boolean
+    get() = SwingUtilities.isLeftMouseButton(this)
+public val MouseEvent.isMiddleMouseButton: Boolean
+    get() = SwingUtilities.isMiddleMouseButton(this)
+public val MouseEvent.isRightMouseButton: Boolean
+    get() = SwingUtilities.isRightMouseButton(this)

@@ -39,10 +39,6 @@ dependencies {
 
 ext.designation = "tools"
 
-jar {
-    archiveBaseName = "${rootProject.name}-${project.name}"
-}
-
 gradlePlugin {
     plugins {
         customPlugin {
@@ -54,7 +50,6 @@ gradlePlugin {
 
 apply plugin: 'com.bmuschko.nexus'
 
-archivesBaseName = 'radiance'
 group = 'org.pushing-pixels'
 
 modifyPom {

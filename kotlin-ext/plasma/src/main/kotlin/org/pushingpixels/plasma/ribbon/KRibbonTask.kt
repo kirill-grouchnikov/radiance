@@ -35,30 +35,30 @@ import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.NullableDelegate
 
 @PlasmaElementMarker
-class KRibbonTaskBandContainer {
+public class KRibbonTaskBandContainer {
     internal val bands = arrayListOf<KBaseRibbonBand<*>>()
 
-    operator fun KBaseRibbonBand<*>.unaryPlus() {
+    public operator fun KBaseRibbonBand<*>.unaryPlus() {
         this@KRibbonTaskBandContainer.bands.add(this)
     }
 }
 
 @PlasmaElementMarker
-class KRibbonTask {
+public class KRibbonTask {
     private lateinit var ribbonTask: RibbonTask
     private var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate { hasBeenConverted }
-    var keyTip: String? by NullableDelegate { hasBeenConverted }
+    public var title: String? by NullableDelegate { hasBeenConverted }
+    public var keyTip: String? by NullableDelegate { hasBeenConverted }
     private val bands = KRibbonTaskBandContainer()
-    var bandResizeSequencingPolicySource: ((task: RibbonTask) -> RibbonBandResizeSequencingPolicy)?
+    public var bandResizeSequencingPolicySource: ((task: RibbonTask) -> RibbonBandResizeSequencingPolicy)?
             by NullableDelegate { hasBeenConverted }
 
-    fun bands(init: KRibbonTaskBandContainer.() -> Unit) {
+    public fun bands(init: KRibbonTaskBandContainer.() -> Unit) {
         bands.init()
     }
 
-    fun asJavaRibbonTask(): RibbonTask {
+    internal fun asJavaRibbonTask(): RibbonTask {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -74,7 +74,7 @@ class KRibbonTask {
     }
 }
 
-fun ribbonTask(init: KRibbonTask.() -> Unit): KRibbonTask {
+public fun ribbonTask(init: KRibbonTask.() -> Unit): KRibbonTask {
     val ribbonTask = KRibbonTask()
     ribbonTask.init()
     return ribbonTask

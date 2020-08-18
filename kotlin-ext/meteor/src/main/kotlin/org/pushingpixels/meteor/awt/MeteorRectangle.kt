@@ -42,7 +42,7 @@ import java.awt.geom.Rectangle2D
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle.component1() = this.x
+public inline operator fun Rectangle.component1(): Int = this.x
 
 /**
  * Returns the Y component of the rectangle. This method enables the usage of destructuring
@@ -52,7 +52,7 @@ inline operator fun Rectangle.component1() = this.x
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle.component2() = this.y
+public inline operator fun Rectangle.component2(): Int = this.y
 
 /**
  * Returns the width component of the rectangle. This method enables the usage of destructuring
@@ -62,7 +62,7 @@ inline operator fun Rectangle.component2() = this.y
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle.component3() = this.width
+public inline operator fun Rectangle.component3(): Int = this.width
 
 /**
  * Returns the height component of the rectangle. This method enables the usage of destructuring
@@ -72,7 +72,7 @@ inline operator fun Rectangle.component3() = this.width
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle.component4() = this.height
+public inline operator fun Rectangle.component4(): Int = this.height
 
 /**
  * Returns the X component of the rectangle. This method enables the usage of destructuring
@@ -82,7 +82,7 @@ inline operator fun Rectangle.component4() = this.height
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle2D.component1() = this.x
+public inline operator fun Rectangle2D.component1(): Double = this.x
 
 /**
  * Returns the Y component of the rectangle. This method enables the usage of destructuring
@@ -92,7 +92,7 @@ inline operator fun Rectangle2D.component1() = this.x
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle2D.component2() = this.y
+public inline operator fun Rectangle2D.component2(): Double = this.y
 
 /**
  * Returns the width component of the rectangle. This method enables the usage of destructuring
@@ -102,7 +102,7 @@ inline operator fun Rectangle2D.component2() = this.y
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle2D.component3() = this.width
+public inline operator fun Rectangle2D.component3(): Double = this.width
 
 /**
  * Returns the height component of the rectangle. This method enables the usage of destructuring
@@ -112,4 +112,4 @@ inline operator fun Rectangle2D.component3() = this.width
  * val (x, y, width, height) = rectangle
  * ```
  */
-inline operator fun Rectangle2D.component4() = this.height
+public inline operator fun Rectangle2D.component4(): Double = this.height

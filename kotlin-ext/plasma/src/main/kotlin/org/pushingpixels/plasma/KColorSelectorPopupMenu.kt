@@ -35,29 +35,29 @@ import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuP
 import java.awt.Color
 
 @PlasmaElementMarker
-class KColorSelectorPopupMenuColorSection(val isDerived: Boolean) {
-    var title: String by NonNullDelegate { false }
+public class KColorSelectorPopupMenuColorSection(public val isDerived: Boolean) {
+    public var title: String by NonNullDelegate { false }
     internal var colorContainer = ColorContainer()
 
-    fun colors(init: ColorContainer.() -> Unit) {
+    public fun colors(init: ColorContainer.() -> Unit) {
         colorContainer.init()
     }
 }
 
 @PlasmaElementMarker
-class KColorSelectorPopupMenuRecentSection {
-    var title: String by NonNullDelegate { false }
+public class KColorSelectorPopupMenuRecentSection {
+    public var title: String by NonNullDelegate { false }
 }
 
-class KColorSelectorPopupMenuGroup {
+public class KColorSelectorPopupMenuGroup {
     internal val content = arrayListOf<Any>()
 
-    operator fun KCommand.unaryPlus() {
+    public operator fun KCommand.unaryPlus() {
         this@KColorSelectorPopupMenuGroup.content.add(KCommandGroup.CommandConfig(this, null, null,
                 false, false, null))
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
@@ -65,14 +65,14 @@ class KColorSelectorPopupMenuGroup {
         return command
     }
 
-    fun colorSection(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
+    public fun colorSection(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
         val colorSection = KColorSelectorPopupMenuColorSection(false)
         colorSection.init()
         content.add(colorSection)
         return colorSection
     }
 
-    fun colorSectionWithDerived(
+    public fun colorSectionWithDerived(
             init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
         val colorSection = KColorSelectorPopupMenuColorSection(true)
         colorSection.init()
@@ -80,14 +80,14 @@ class KColorSelectorPopupMenuGroup {
         return colorSection
     }
 
-    fun recentSection(init: KColorSelectorPopupMenuRecentSection.() -> Unit): KColorSelectorPopupMenuRecentSection {
+    public fun recentSection(init: KColorSelectorPopupMenuRecentSection.() -> Unit): KColorSelectorPopupMenuRecentSection {
         val recentSection = KColorSelectorPopupMenuRecentSection()
         recentSection.init()
         content.add(recentSection)
         return recentSection
     }
 
-    fun toJavaColorSelectorPopupMenuGroupModel(): ColorSelectorPopupMenuGroupModel {
+    internal fun toJavaColorSelectorPopupMenuGroupModel(): ColorSelectorPopupMenuGroupModel {
         val menuGroupBuilder = ColorSelectorPopupMenuGroupModel.builder()
 
         for (component in content) {
@@ -118,10 +118,10 @@ class KColorSelectorPopupMenuGroup {
 }
 
 @PlasmaElementMarker
-class KColorSelectorPopupMenu {
-    var onColorActivated: ((Color) -> Unit)? by NullableDelegate { false }
-    var onColorPreviewActivated: ((Color) -> Unit)? by NullableDelegate { false }
-    var onColorPreviewCanceled: (() -> Unit)? by NullableDelegate { false }
+public class KColorSelectorPopupMenu {
+    public var onColorActivated: ((Color) -> Unit)? by NullableDelegate { false }
+    public var onColorPreviewActivated: ((Color) -> Unit)? by NullableDelegate { false }
+    public var onColorPreviewCanceled: (() -> Unit)? by NullableDelegate { false }
 
     private val groups = arrayListOf<KColorSelectorPopupMenuGroup>()
     private val defaultGroup = KColorSelectorPopupMenuGroup()
@@ -130,12 +130,12 @@ class KColorSelectorPopupMenu {
         groups.add(defaultGroup)
     }
 
-    operator fun KCommand.unaryPlus() {
+    public operator fun KCommand.unaryPlus() {
         this@KColorSelectorPopupMenu.defaultGroup.content.add(
                 KCommandGroup.CommandConfig(this, null, null, null, null, null))
     }
 
-    fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
@@ -143,14 +143,14 @@ class KColorSelectorPopupMenu {
         return command
     }
 
-    fun colorSection(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
+    public fun colorSection(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
         val colorSection = KColorSelectorPopupMenuColorSection(false)
         colorSection.init()
         defaultGroup.content.add(colorSection)
         return colorSection
     }
 
-    fun colorSectionWithDerived(
+    public fun colorSectionWithDerived(
             init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
         val colorSection = KColorSelectorPopupMenuColorSection(true)
         colorSection.init()
@@ -158,21 +158,21 @@ class KColorSelectorPopupMenu {
         return colorSection
     }
 
-    fun recentSection(init: KColorSelectorPopupMenuRecentSection.() -> Unit): KColorSelectorPopupMenuRecentSection {
+    public fun recentSection(init: KColorSelectorPopupMenuRecentSection.() -> Unit): KColorSelectorPopupMenuRecentSection {
         val recentSection = KColorSelectorPopupMenuRecentSection()
         recentSection.init()
         defaultGroup.content.add(recentSection)
         return recentSection
     }
 
-    fun group(init: KColorSelectorPopupMenuGroup.() -> Unit): KColorSelectorPopupMenuGroup {
+    public fun group(init: KColorSelectorPopupMenuGroup.() -> Unit): KColorSelectorPopupMenuGroup {
         val group = KColorSelectorPopupMenuGroup()
         group.init()
         groups.add(group)
         return group
     }
 
-    fun toJavaPopupMenuContentModel(): ColorSelectorPopupMenuContentModel {
+    internal fun toJavaPopupMenuContentModel(): ColorSelectorPopupMenuContentModel {
         if (defaultGroup.content.isEmpty()) {
             groups.remove(defaultGroup)
         }
@@ -198,12 +198,12 @@ class KColorSelectorPopupMenu {
         return menuContentModel
     }
 
-    fun toJavaPopupMenuPresentationModel(): ColorSelectorPopupMenuPresentationModel {
+    internal fun toJavaPopupMenuPresentationModel(): ColorSelectorPopupMenuPresentationModel {
         return ColorSelectorPopupMenuPresentationModel.builder().build()
     }
 }
 
-fun colorSelectorPopupMenu(init: KColorSelectorPopupMenu.() -> Unit): KColorSelectorPopupMenu {
+public fun colorSelectorPopupMenu(init: KColorSelectorPopupMenu.() -> Unit): KColorSelectorPopupMenu {
     val colorSelectorPopupMenu = KColorSelectorPopupMenu()
     colorSelectorPopupMenu.init()
     return colorSelectorPopupMenu

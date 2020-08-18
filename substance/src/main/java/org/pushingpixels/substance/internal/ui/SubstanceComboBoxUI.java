@@ -56,7 +56,7 @@ import java.beans.PropertyChangeEvent;
 
 /**
  * UI for combo boxes in <b>Substance </b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  * @author Thomas Bierhance http://www.orbital-computer.de/JComboBox/
  * @author inostock
@@ -152,14 +152,12 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     /**
      * Returns the icon for the specified arrow button.
-     * 
-     * @param button
-     *            Arrow button.
+     *
+     * @param button Arrow button.
      * @return Icon for the specified button.
      */
     private Icon getCurrentIcon(JButton button) {
-        int popupFlyoutOrientation = SubstanceCoreUtilities.getPopupFlyoutOrientation(
-                this.comboBox);
+        int popupFlyoutOrientation = SubstanceCoreUtilities.getPopupFlyoutOrientation(this.comboBox);
         return SubstanceCoreUtilities.getArrowIcon(button, popupFlyoutOrientation);
     }
 
@@ -215,7 +213,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     /**
      * Layout manager for combo box.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class SubstanceComboBoxLayoutManager extends BasicComboBoxUI.ComboBoxLayoutManager {
@@ -227,9 +225,8 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
             int height = cb.getHeight();
 
             Insets insets = layoutInsets;
-            int buttonWidth = (comboBox.isEditable())
-                    ? SubstanceSizeUtils
-                            .getScrollBarWidth(SubstanceSizeUtils.getComponentFontSize(comboBox))
+            int buttonWidth = comboBox.isEditable()
+                    ? SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils.getComponentFontSize(comboBox))
                     : uneditableArrowIcon.getIconWidth();
 
             if (arrowButton != null) {
@@ -256,8 +253,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         int width = this.comboBox.getWidth();
         int height = this.comboBox.getHeight();
         Insets insets = this.layoutInsets;
-        int buttonWidth = SubstanceSizeUtils
-                .getScrollBarWidth(SubstanceSizeUtils.getComponentFontSize(comboBox));
+        int buttonWidth = SubstanceSizeUtils.getScrollBarWidth(SubstanceSizeUtils.getComponentFontSize(comboBox));
         if (this.comboBox.getComponentOrientation().isLeftToRight()) {
             return new Rectangle(insets.left, insets.top,
                     width - insets.left - insets.right - buttonWidth,
@@ -315,7 +311,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
     /**
      * This property change handler changes combo box arrow icon based on the
      * enabled status of the combo box.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public class ComboBoxPropertyChangeHandler extends PropertyChangeHandler {
@@ -420,7 +416,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         if (this.comboBox.isEditable()) {
             SubstanceTextUtilities.paintTextCompBackground(g, c);
         } else {
-            this.delegate.updateBackground(graphics, this.comboBox, this.transitionModel);
+            this.delegate.updateBackground(graphics, this.comboBox);
 
             Icon icon = this.uneditableArrowIcon;
             int iw = icon.getIconWidth();
@@ -484,11 +480,9 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     /**
      * Paints the focus indication.
-     * 
-     * @param g
-     *            Graphics.
-     * @param bounds
-     *            Bounds for text.
+     *
+     * @param g      Graphics.
+     * @param bounds Bounds for text.
      */
     private void paintFocus(Graphics g, Rectangle bounds) {
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.comboBox);
@@ -507,7 +501,7 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
 
     /**
      * Returns the popup of the associated combobox.
-     * 
+     *
      * @return The popup of the associated combobox.
      */
     public ComboPopup getPopup() {
@@ -528,12 +522,10 @@ public class SubstanceComboBoxUI extends BasicComboBoxUI implements TransitionAw
         // This for Mustang - setting Substance once again adds a border on
         // the text field in the combo editor.
         if (this.editor instanceof JComponent) {
-            Insets ins = SubstanceSizeUtils
-                    .getComboTextBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.editor));
-            ((JComponent) this.editor)
-                    .setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
+            Insets ins = SubstanceSizeUtils.getComboTextBorderInsets(
+                    SubstanceSizeUtils.getComponentFontSize(this.editor));
+            ((JComponent) this.editor).setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
             this.editor.setBackground(this.comboBox.getBackground());
-            // ((JComponent) this.editor).setBorder(new LineBorder(Color.red));
         }
     }
 

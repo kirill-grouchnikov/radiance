@@ -42,23 +42,23 @@ import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
 import java.awt.event.ActionEvent
 
 @PlasmaElementMarker
-class KRibbonCheckBoxContentModel {
+public class KRibbonCheckBoxContentModel {
     private val builder = RibbonCheckBoxContentModel.builder()
     internal lateinit var javaContentModel: RibbonCheckBoxContentModel
     internal var hasBeenConverted: Boolean = false
 
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
-    var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
-    var caption: String? by NullableDelegate { false }
-    var text: String? by NullableDelegate { false }
-    var actionListener: ((event: ActionEvent) -> Unit)? by NullableDelegate { false }
+    public var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
+    public var caption: String? by NullableDelegate { false }
+    public var text: String? by NullableDelegate { false }
+    public var actionListener: ((event: ActionEvent) -> Unit)? by NullableDelegate { false }
 
     // The "isEnabled" property can be modified even after [KRibbonCheckBox.toJavaProjection] has
     // been called multiple times. Internally, the setter propagates the new value to the underlying
     // builder and the cached [RibbonDefaultCheckBoxContentModel] instance, which then gets
     // propagated to be reflected in all checkboxes created from this content model.
     private var _isEnabled: Boolean = true
-    var isEnabled: Boolean
+    public var isEnabled: Boolean
         get() = _isEnabled
         set(value) {
             _isEnabled = value
@@ -73,7 +73,7 @@ class KRibbonCheckBoxContentModel {
     // builder and the cached [RibbonDefaultCheckBoxContentModel] instance, which then gets
     // propagated to be reflected in all checkboxes created from this content model.
     private var _isSelected: Boolean = false
-    var isSelected: Boolean
+    public var isSelected: Boolean
         get() = _isSelected
         set(value) {
             _isSelected = value
@@ -83,14 +83,14 @@ class KRibbonCheckBoxContentModel {
             }
         }
 
-    fun richTooltip(init: KRichTooltip.() -> Unit) {
+    public fun richTooltip(init: KRichTooltip.() -> Unit) {
         if (richTooltip == null) {
             richTooltip = KRichTooltip()
         }
-        (richTooltip as KRichTooltip).init()
+        richTooltip!!.init()
     }
 
-    fun asJavaCheckBoxContentModel(): RibbonCheckBoxContentModel {
+    internal fun asJavaCheckBoxContentModel(): RibbonCheckBoxContentModel {
         if (hasBeenConverted) {
             return javaContentModel
         }
@@ -111,54 +111,54 @@ class KRibbonCheckBoxContentModel {
 }
 
 @PlasmaElementMarker
-class KRibbonCheckBox {
+public class KRibbonCheckBox {
     internal var content: KRibbonCheckBoxContentModel = KRibbonCheckBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
 
-    fun content(init: KRibbonCheckBoxContentModel.() -> Unit) {
+    public fun content(init: KRibbonCheckBoxContentModel.() -> Unit) {
         content.init()
     }
 
-    operator fun KRibbonCheckBoxContentModel.unaryPlus() {
+    public operator fun KRibbonCheckBoxContentModel.unaryPlus() {
         this@KRibbonCheckBox.content = this
     }
 
-    fun presentation(init: KComponentPresentation.() -> Unit) {
+    public fun presentation(init: KComponentPresentation.() -> Unit) {
         presentation.init()
     }
 
-    fun toJavaProjection(): RibbonCheckBoxProjection {
+    internal fun toJavaProjection(): RibbonCheckBoxProjection {
         val javaContent = content.asJavaCheckBoxContentModel()
         val javaPresentation = presentation.toComponentPresentation()
         return RibbonCheckBoxProjection(javaContent, javaPresentation)
     }
 }
 
-fun checkBoxContentModel(init: KRibbonCheckBoxContentModel.() -> Unit): KRibbonCheckBoxContentModel {
+public fun checkBoxContentModel(init: KRibbonCheckBoxContentModel.() -> Unit): KRibbonCheckBoxContentModel {
     val result = KRibbonCheckBoxContentModel()
     result.init()
     return result
 }
 
-fun KRibbonBand.checkBox(init: KRibbonCheckBox.() -> Unit) {
+public fun KRibbonBand.checkBox(init: KRibbonCheckBox.() -> Unit) {
     val ribbonCheckBox = KRibbonCheckBox()
     ribbonCheckBox.init()
     this.component(ribbonCheckBox.toJavaProjection())
 }
 
-fun KFlowRibbonBand.flowCheckBox(init: KRibbonCheckBox.() -> Unit) {
+public fun KFlowRibbonBand.flowCheckBox(init: KRibbonCheckBox.() -> Unit) {
     val ribbonCheckBox = KRibbonCheckBox()
     ribbonCheckBox.init()
     this.flowComponent(ribbonCheckBox.toJavaProjection())
 }
 
-fun KRibbonBandGroup.checkBox(init: KRibbonCheckBox.() -> Unit) {
+public fun KRibbonBandGroup.checkBox(init: KRibbonCheckBox.() -> Unit) {
     val ribbonCheckBox = KRibbonCheckBox()
     ribbonCheckBox.init()
     this.component(ribbonCheckBox.toJavaProjection())
 }
 
-fun KRibbonTaskbar.checkBox(init: KRibbonCheckBox.() -> Unit) {
+public fun KRibbonTaskbar.checkBox(init: KRibbonCheckBox.() -> Unit) {
     val ribbonCheckBox = KRibbonCheckBox()
     ribbonCheckBox.init()
     this.component(ribbonCheckBox.toJavaProjection())

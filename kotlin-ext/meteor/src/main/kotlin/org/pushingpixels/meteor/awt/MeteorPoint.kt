@@ -42,7 +42,7 @@ import java.awt.geom.Point2D
  * val (x, y) = point
  * ```
  */
-inline operator fun Point.component1() = this.x
+public inline operator fun Point.component1(): Int = this.x
 
 /**
  * Returns the Y component of the point. This method enables the usage of destructuring
@@ -52,7 +52,7 @@ inline operator fun Point.component1() = this.x
  * val (x, y) = point
  * ```
  */
-inline operator fun Point.component2() = this.y
+public inline operator fun Point.component2(): Int = this.y
 
 /**
  * Returns the X component of the point. This method enables the usage of destructuring
@@ -62,7 +62,7 @@ inline operator fun Point.component2() = this.y
  * val (x, y) = point
  * ```
  */
-inline operator fun Point2D.component1() = this.x
+public inline operator fun Point2D.component1(): Double = this.x
 
 /**
  * Returns the Y component of the point. This method enables the usage of destructuring
@@ -72,7 +72,7 @@ inline operator fun Point2D.component1() = this.x
  * val (x, y) = point
  * ```
  */
-inline operator fun Point2D.component2() = this.y
+public inline operator fun Point2D.component2(): Double = this.y
 
 /**
  * Returns the X component of the point. This method enables the usage of destructuring
@@ -82,7 +82,7 @@ inline operator fun Point2D.component2() = this.y
  * val (x, y) = point
  * ```
  */
-inline operator fun Point2D.Float.component1() = this.x
+public inline operator fun Point2D.Float.component1(): Float = this.x
 
 /**
  * Returns the Y component of the point. This method enables the usage of destructuring
@@ -92,5 +92,5 @@ inline operator fun Point2D.Float.component1() = this.x
  * val (x, y) = point
  * ```
  */
-inline operator fun Point2D.Float.component2() = this.y
+public inline operator fun Point2D.Float.component2(): Float = this.y
 

@@ -48,41 +48,41 @@ import kotlin.reflect.KProperty
 internal annotation class TorchElementMarker
 
 @TorchElementMarker
-open class KTimeline {
-    var secondaryId: Comparable<*>? = null
-    var duration: Long = Timeline.DEFAULT_DURATION
-    var initialDelay: Long = 0
-    var cycleDelay: Long = 0
-    var repeatCount: Int = 0
-    var repeatBehavior: Timeline.RepeatBehavior? = null
+public open class KTimeline {
+    public var secondaryId: Comparable<*>? = null
+    public var duration: Long = Timeline.DEFAULT_DURATION
+    public var initialDelay: Long = 0
+    public var cycleDelay: Long = 0
+    public var repeatCount: Int = 0
+    public var repeatBehavior: Timeline.RepeatBehavior? = null
     private val callbacks: MutableList<TimelineCallback> = ArrayList()
-    var name: String? = null
+    public var name: String? = null
     internal val properties: MutableList<PropertyFromTo<*>> = ArrayList()
     private val propertiesGoingThrough: MutableList<PropertyGoingThrough<*>> = ArrayList()
-    var ease: TimelineEase = Timeline.DEFAULT_EASE
+    public var ease: TimelineEase = Timeline.DEFAULT_EASE
 
-    var onTimelineStateChangedList: MutableList<(Timeline.TimelineState, Timeline.TimelineState,
+    private var onTimelineStateChangedList: MutableList<(Timeline.TimelineState, Timeline.TimelineState,
                                                  Float, Float) -> Unit> = ArrayList()
-    var onTimelinePulseList: MutableList<(Float, Float) -> Unit> = ArrayList()
+    private var onTimelinePulseList: MutableList<(Float, Float) -> Unit> = ArrayList()
 
-    fun property(fromTo: PropertyFromTo<*>) {
+    public fun property(fromTo: PropertyFromTo<*>) {
         properties.add(fromTo)
     }
 
-    fun property(goingThrough: PropertyGoingThrough<*>) {
+    public fun property(goingThrough: PropertyGoingThrough<*>) {
         propertiesGoingThrough.add(goingThrough)
     }
 
-    fun callback(callback: TimelineCallback) {
+    public fun callback(callback: TimelineCallback) {
         callbacks.add(callback)
     }
 
-    fun onTimelineStateChanged(callback: (Timeline.TimelineState, Timeline.TimelineState,
+    public fun onTimelineStateChanged(callback: (Timeline.TimelineState, Timeline.TimelineState,
                                           Float, Float) -> Unit) {
         onTimelineStateChangedList.add(callback)
     }
 
-    fun onTimelineDone(callback: () -> Unit) {
+    public fun onTimelineDone(callback: () -> Unit) {
         onTimelineStateChangedList.add { _, newState, _, _ ->
             if (newState == Timeline.TimelineState.DONE) {
                 callback.invoke()
@@ -90,7 +90,7 @@ open class KTimeline {
         }
     }
 
-    fun onTimelinePulse(callback: (Float, Float) -> Unit) {
+    public fun onTimelinePulse(callback: (Float, Float) -> Unit) {
         onTimelinePulseList.add(callback)
     }
 
@@ -151,8 +151,8 @@ open class KTimeline {
     }
 }
 
-class KSwingComponentTimeline(val component: Component) : KTimeline() {
-    fun property(fromTo: PropertyFactoryFromTo<*, in Component>) {
+public class KSwingComponentTimeline(public val component: Component) : KTimeline() {
+    public fun property(fromTo: PropertyFactoryFromTo<*, in Component>) {
         if (fromTo.from == null) {
             properties.add(fromTo.property.property(component) fromCurrentTo fromTo.to)
         } else {
@@ -160,13 +160,13 @@ class KSwingComponentTimeline(val component: Component) : KTimeline() {
         }
     }
 
-    fun repaintCallback() {
+    public fun repaintCallback() {
         callback(SwingRepaintCallback(component))
     }
 }
 
-class KSwingWindowTimeline(val window: Window) : KTimeline() {
-    fun property(fromTo: PropertyFactoryFromTo<*, in Window>) {
+public class KSwingWindowTimeline(public val window: Window) : KTimeline() {
+    public fun property(fromTo: PropertyFactoryFromTo<*, in Window>) {
         if (fromTo.from == null) {
             properties.add(fromTo.property.property(window) fromCurrentTo fromTo.to)
         } else {
@@ -175,12 +175,12 @@ class KSwingWindowTimeline(val window: Window) : KTimeline() {
     }
 }
 
-class KSwingRepaintTimeline(val component: Component) : KTimeline() {
-    var toRepaint: Rectangle? = null
-    var autoRepaintMode: Boolean = true
+public class KSwingRepaintTimeline(public val component: Component) : KTimeline() {
+    public var toRepaint: Rectangle? = null
+    public var autoRepaintMode: Boolean = true
 }
 
-fun timeline(property: KProperty<Any>, from: Any, to: Any): Timeline {
+public fun timeline(property: KProperty<Any>, from: Any, to: Any): Timeline {
     val builder = Timeline.Builder()
     builder.addPropertyToInterpolate(Timeline.property<Any>(property.name)
             .from(from)
@@ -191,7 +191,7 @@ fun timeline(property: KProperty<Any>, from: Any, to: Any): Timeline {
     return builder.build()
 }
 
-fun timeline(property: KProperty<Any>, to: Any): Timeline {
+public fun timeline(property: KProperty<Any>, to: Any): Timeline {
     val builder = Timeline.Builder()
     builder.addPropertyToInterpolate(Timeline.property<Any>(property.name)
             .fromCurrent()
@@ -202,7 +202,7 @@ fun timeline(property: KProperty<Any>, to: Any): Timeline {
     return builder.build()
 }
 
-fun timeline(init: KTimeline.() -> Unit): Timeline {
+public fun timeline(init: KTimeline.() -> Unit): Timeline {
     val timeline = KTimeline()
     timeline.init()
 
@@ -211,7 +211,7 @@ fun timeline(init: KTimeline.() -> Unit): Timeline {
     return builder.build()
 }
 
-fun Any.timeline(init: KTimeline.() -> Unit): Timeline {
+public fun Any.timeline(init: KTimeline.() -> Unit): Timeline {
     val timeline = KTimeline()
     timeline.init()
 
@@ -220,7 +220,7 @@ fun Any.timeline(init: KTimeline.() -> Unit): Timeline {
     return builder.build()
 }
 
-fun Component.componentTimeline(init: KSwingComponentTimeline.() -> Unit): SwingComponentTimeline {
+public fun Component.componentTimeline(init: KSwingComponentTimeline.() -> Unit): SwingComponentTimeline {
     val timeline = KSwingComponentTimeline(this)
     timeline.init()
 
@@ -229,7 +229,7 @@ fun Component.componentTimeline(init: KSwingComponentTimeline.() -> Unit): Swing
     return builder.build()
 }
 
-fun Window.windowTimeline(init: KSwingWindowTimeline.() -> Unit): SwingComponentTimeline {
+public fun Window.windowTimeline(init: KSwingWindowTimeline.() -> Unit): SwingComponentTimeline {
     val timeline = KSwingWindowTimeline(this)
     timeline.init()
 
@@ -238,7 +238,7 @@ fun Window.windowTimeline(init: KSwingWindowTimeline.() -> Unit): SwingComponent
     return builder.build()
 }
 
-fun Component.repaintTimeline(init: (KSwingRepaintTimeline.() -> Unit)? = null): SwingRepaintTimeline {
+public fun Component.repaintTimeline(init: (KSwingRepaintTimeline.() -> Unit)? = null): SwingRepaintTimeline {
     val timeline = KSwingRepaintTimeline(this)
     if (init != null) {
         timeline.init()
@@ -253,44 +253,44 @@ fun Component.repaintTimeline(init: (KSwingRepaintTimeline.() -> Unit)? = null):
     return builder.build()
 }
 
-data class PropertyFrom<R>(val property: KProperty<R>, val from: R) {
-    infix fun to(to: R): PropertyFromTo<R> {
+public data class PropertyFrom<R>(val property: KProperty<R>, val from: R) {
+    public infix fun to(to: R): PropertyFromTo<R> {
         return PropertyFromTo(this.property, this.from, to)
     }
 }
 
-data class PropertyFromTo<R>(val property: KProperty<R>, val from: R?, val to: R)
+public data class PropertyFromTo<R>(val property: KProperty<R>, val from: R?, val to: R)
 
-data class PropertyGoingThrough<R>(val property: KProperty<R>, val keyFrames: KeyFrames<R>)
+public data class PropertyGoingThrough<R>(val property: KProperty<R>, val keyFrames: KeyFrames<R>)
 
-infix fun <R> KProperty<R>.from(from: R): PropertyFrom<R> {
+public infix fun <R> KProperty<R>.from(from: R): PropertyFrom<R> {
     return PropertyFrom(this, from)
 }
 
-infix fun <R> KProperty<R>.fromCurrentTo(to: R): PropertyFromTo<R> {
+public infix fun <R> KProperty<R>.fromCurrentTo(to: R): PropertyFromTo<R> {
     return PropertyFromTo(this, null, to)
 }
 
-infix fun <R> KProperty<R>.goingThrough(keyFrames: KeyFrames<R>): PropertyGoingThrough<R> {
+public infix fun <R> KProperty<R>.goingThrough(keyFrames: KeyFrames<R>): PropertyGoingThrough<R> {
     return PropertyGoingThrough(this, keyFrames)
 }
 
-abstract class PropertyFactory<T, R> {
-    abstract fun property(mainObject: R): SettableProperty<T>
+public abstract class PropertyFactory<T, R> {
+    public abstract fun property(mainObject: R): SettableProperty<T>
 
-    infix fun from(from: T): PropertyFactoryFrom<T, R> {
+    public infix fun from(from: T): PropertyFactoryFrom<T, R> {
         return PropertyFactoryFrom(this, from)
     }
 
-    infix fun fromCurrentTo(to: T): PropertyFactoryFromTo<T, R> {
+    public infix fun fromCurrentTo(to: T): PropertyFactoryFromTo<T, R> {
         return PropertyFactoryFromTo(this, null, to)
     }
 }
 
-data class PropertyFactoryFrom<T, R>(val property: PropertyFactory<T, R>, val from: T) {
-    infix fun to(to: T): PropertyFactoryFromTo<T, R> {
+public data class PropertyFactoryFrom<T, R>(val property: PropertyFactory<T, R>, val from: T) {
+    public infix fun to(to: T): PropertyFactoryFromTo<T, R> {
         return PropertyFactoryFromTo(this.property, this.from, to)
     }
 }
 
-data class PropertyFactoryFromTo<T, R>(val property: PropertyFactory<T, R>, val from: T?, val to: T)
+public data class PropertyFactoryFromTo<T, R>(val property: PropertyFactory<T, R>, val from: T?, val to: T)

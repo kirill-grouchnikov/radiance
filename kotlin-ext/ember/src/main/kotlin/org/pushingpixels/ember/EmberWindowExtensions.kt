@@ -46,7 +46,7 @@ import javax.swing.SwingUtilities
  * @param substanceWidgets Widget types.
  */
 @EmberWindowScope
-fun Window.setWidgetVisible(visible: Boolean,
+public fun Window.setWidgetVisible(visible: Boolean,
         vararg substanceWidgets: SubstanceSlices.SubstanceWidgetType) {
     SubstanceCortex.WindowScope.setWidgetVisible(this, visible, *substanceWidgets)
 }
@@ -75,7 +75,7 @@ fun Window.setWidgetVisible(visible: Boolean,
  * @see Window.createTitlePaneControlButton
  */
 @EmberWindowScope
-fun Window.extendContentIntoTitlePane(
+public fun Window.extendContentIntoTitlePane(
         controlButtonGroupHorizontalGravity: SubstanceSlices.HorizontalGravity,
         controlButtonGroupVerticalGravity: SubstanceSlices.VerticalGravity?) {
     SubstanceCortex.WindowScope.extendContentIntoTitlePane(this,
@@ -96,7 +96,7 @@ fun Window.extendContentIntoTitlePane(
  * @see Window.setPreferredTitlePaneHeight
  */
 @EmberWindowScope
-fun Window.createTitlePaneControlButton(): JButton? {
+public fun Window.createTitlePaneControlButton(): JButton? {
     return SubstanceCortex.WindowScope.createTitlePaneControlButton(this)
 }
 
@@ -116,7 +116,7 @@ fun Window.createTitlePaneControlButton(): JButton? {
  * @see Window.setPreferredTitlePaneHeight
  */
 @EmberWindowScope
-fun Window.getTitlePaneControlInsets(): Insets? {
+public fun Window.getTitlePaneControlInsets(): Insets? {
     return SubstanceCortex.WindowScope.getTitlePaneControlInsets(this)
 }
 
@@ -132,7 +132,7 @@ fun Window.getTitlePaneControlInsets(): Insets? {
  * @see Window.getTitlePaneControlInsets
  */
 @EmberWindowScope
-fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
+public fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
     SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(this, preferredTitlePaneHeight)
 }
 
@@ -145,6 +145,6 @@ fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
  * @see Window.extendContentIntoTitlePane
  */
 @EmberWindowScope
-fun Window.getTitleControlButtonGroupHorizontalGravity(): SubstanceSlices.HorizontalGravity {
+public fun Window.getTitleControlButtonGroupHorizontalGravity(): SubstanceSlices.HorizontalGravity {
     return SubstanceCortex.WindowScope.getTitleControlButtonGroupHorizontalGravity(this)
 }

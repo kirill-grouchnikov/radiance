@@ -1,6 +1,6 @@
 ## Radiance, frequently asked questions
 
-**Can I use some / all of the code in Radiance?**
+**Can I use some / all the code in Radiance?**
 
 Radiance libraries are released under BSD license. You are free to fork and modify any part of the code as long as you mention the original license in the source code / the runnable distribution.
 
@@ -18,7 +18,7 @@ I plan for Radiance to be here in the next 10-15 years. That's a long time to ca
 
 This is probably not worth it. A lot of UI related bugs were fixed at the JDK level since these libraries started out in 2005. At one point tools such as [Retrotranslator](http://retrotranslator.sourceforge.net/) and [Retroweaver](http://retroweaver.sourceforge.net/) were around, but they did not support the newer classes and methods that Substance is using. Things might have changed since then. Go crazy.
 
-**I like some of the features, but the binary size overhead is too much. How can I get a smaller runnable?**
+**I like some features, but the binary size overhead is too much. How can I get a smaller runnable?**
 
 In short - if you like the features, you pay the price. In long - you have a number of options:
 
@@ -36,7 +36,7 @@ This has been long been part of Radiance. The answer to this question can be fou
 
 **I don't like Radiance.**
 
-That's not really a question. If you don't like it, you can either help improve it by suggesting additional features in the [issue tracker](https://github.com/kirill-grouchnikov/radiance/issues), or use  other core or third-party alternatives.
+That's not really a question. If you don't like it, you can either help improve it by suggesting additional features in the [issue tracker](https://github.com/kirill-grouchnikov/radiance/issues), or use the other core or third-party alternatives.
 
 ## Substance, frequently asked questions
 

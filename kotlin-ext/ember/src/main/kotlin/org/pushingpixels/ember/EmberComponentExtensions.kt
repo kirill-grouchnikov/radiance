@@ -50,7 +50,7 @@ import javax.swing.text.JTextComponent
  * @return Current skin for the specified component.
  */
 @EmberComponentScope
-fun Component.getCurrentSkin(): SubstanceSkin? {
+public fun Component.getCurrentSkin(): SubstanceSkin? {
     return SubstanceCortex.ComponentScope.getCurrentSkin(this)
 }
 
@@ -62,7 +62,7 @@ fun Component.getCurrentSkin(): SubstanceSkin? {
  * @see JTabbedPane.getAllTabCloseListeners
  */
 @EmberComponentScope
-fun JTabbedPane.registerTabCloseChangeListener(tabCloseListener: BaseTabCloseListener) {
+public fun JTabbedPane.registerTabCloseChangeListener(tabCloseListener: BaseTabCloseListener) {
     SubstanceCortex.ComponentScope.registerTabCloseChangeListener(this, tabCloseListener)
 }
 
@@ -74,7 +74,7 @@ fun JTabbedPane.registerTabCloseChangeListener(tabCloseListener: BaseTabCloseLis
  * @see JTabbedPane.getAllTabCloseListeners
  */
 @EmberComponentScope
-fun JTabbedPane.unregisterTabCloseChangeListener(tabCloseListener: BaseTabCloseListener) {
+public fun JTabbedPane.unregisterTabCloseChangeListener(tabCloseListener: BaseTabCloseListener) {
     SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(this, tabCloseListener)
 }
 
@@ -86,7 +86,7 @@ fun JTabbedPane.unregisterTabCloseChangeListener(tabCloseListener: BaseTabCloseL
  * @see JTabbedPane.unregisterTabCloseChangeListener
  */
 @EmberComponentScope
-fun JTabbedPane.getAllTabCloseListeners(): Set<BaseTabCloseListener> {
+public fun JTabbedPane.getAllTabCloseListeners(): Set<BaseTabCloseListener> {
     return SubstanceCortex.ComponentScope.getAllTabCloseListeners(this)
 }
 
@@ -98,7 +98,7 @@ fun JTabbedPane.getAllTabCloseListeners(): Set<BaseTabCloseListener> {
  * @see Component.isAnimationAllowed
  */
 @EmberComponentScope
-fun Component.allowAnimations(animationFacet: SubstanceSlices.AnimationFacet) {
+public fun Component.allowAnimations(animationFacet: SubstanceSlices.AnimationFacet) {
     SubstanceCortex.ComponentScope.allowAnimations(this, animationFacet)
 }
 
@@ -110,7 +110,7 @@ fun Component.allowAnimations(animationFacet: SubstanceSlices.AnimationFacet) {
  * @see Component.isAnimationAllowed
  */
 @EmberComponentScope
-fun Component.disallowAnimations(animationFacet: SubstanceSlices.AnimationFacet) {
+public fun Component.disallowAnimations(animationFacet: SubstanceSlices.AnimationFacet) {
     SubstanceCortex.ComponentScope.disallowAnimations(this, animationFacet)
 }
 
@@ -124,7 +124,7 @@ fun Component.disallowAnimations(animationFacet: SubstanceSlices.AnimationFacet)
  * @see Component.disallowAnimations
  */
 @EmberComponentScope
-fun Component.isAnimationAllowed(animationFacet: SubstanceSlices.AnimationFacet): Boolean {
+public fun Component.isAnimationAllowed(animationFacet: SubstanceSlices.AnimationFacet): Boolean {
     return SubstanceCortex.ComponentScope.isAnimationAllowed(this, animationFacet)
 }
 
@@ -138,7 +138,7 @@ fun Component.isAnimationAllowed(animationFacet: SubstanceSlices.AnimationFacet)
  * @see JComponent.getDecorationType
  */
 @EmberComponentScope
-fun Component.getImmediateDecorationType(): SubstanceSlices.DecorationAreaType? {
+public fun Component.getImmediateDecorationType(): SubstanceSlices.DecorationAreaType? {
     return SubstanceCortex.ComponentScope.getImmediateDecorationType(this)
 }
 
@@ -150,7 +150,7 @@ fun Component.getImmediateDecorationType(): SubstanceSlices.DecorationAreaType? 
  * behavior.
  */
 @EmberComponentScope
-fun JComponent.setLockIconVisible(visible: Boolean?) {
+public fun JComponent.setLockIconVisible(visible: Boolean?) {
     SubstanceCortex.ComponentScope.setLockIconVisible(this, visible)
 }
 
@@ -162,7 +162,7 @@ fun JComponent.setLockIconVisible(visible: Boolean?) {
  * behavior.
  */
 @EmberComponentScope
-fun JPasswordField.setCapsLockIconVisible(visible: Boolean?) {
+public fun JPasswordField.setCapsLockIconVisible(visible: Boolean?) {
     SubstanceCortex.ComponentScope.setCapsLockIconVisible(this, visible)
 }
 
@@ -172,7 +172,7 @@ fun JPasswordField.setCapsLockIconVisible(visible: Boolean?) {
  * @param passwordStrengthChecker Password strength checker
  */
 @EmberComponentScope
-fun JPasswordField.setPasswordStrengthChecker(passwordStrengthChecker: PasswordStrengthChecker) {
+public fun JPasswordField.setPasswordStrengthChecker(passwordStrengthChecker: PasswordStrengthChecker) {
     SubstanceCortex.ComponentScope.setPasswordStrengthChecker(this, passwordStrengthChecker)
 }
 
@@ -184,7 +184,7 @@ fun JPasswordField.setPasswordStrengthChecker(passwordStrengthChecker: PasswordS
  * to reset to the default behavior.
  */
 @EmberComponentScope
-fun JTextComponent.setFlipTextSelectionOnEscape(flipTextSelectionOnEscape: Boolean?) {
+public fun JTextComponent.setFlipTextSelectionOnEscape(flipTextSelectionOnEscape: Boolean?) {
     SubstanceCortex.ComponentScope.setFlipTextSelectionOnEscape(this, flipTextSelectionOnEscape)
 }
 
@@ -197,7 +197,7 @@ fun JTextComponent.setFlipTextSelectionOnEscape(flipTextSelectionOnEscape: Boole
  * to reset to the default behavior.
  */
 @EmberComponentScope
-fun JTextComponent.setTextEditContextMenuPresence(hasEditContextMenu: Boolean?) {
+public fun JTextComponent.setTextEditContextMenuPresence(hasEditContextMenu: Boolean?) {
     SubstanceCortex.ComponentScope.setTextEditContextMenuPresence(this, hasEditContextMenu)
 }
 
@@ -208,7 +208,7 @@ fun JTextComponent.setTextEditContextMenuPresence(hasEditContextMenu: Boolean?) 
  * automatic drag and drop support. Pass `null` to reset to the default behavior.
  */
 @EmberComponentScope
-fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropSupport: Boolean?) {
+public fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropSupport: Boolean?) {
     SubstanceCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(
             this, hasAutomaticDragAndDropSupport)
 }
@@ -222,7 +222,7 @@ fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropSupport:
  * `null` to reset to the default behavior.
  */
 @EmberComponentScope
-fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) {
+public fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) {
     SubstanceCortex.ComponentScope.setAutomaticScrollPresence(this, hasAutomaticScroll)
 }
 
@@ -236,7 +236,7 @@ fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) {
  * @see JComponent.setButtonStraightSide
  */
 @EmberComponentScope
-fun JComponent.setButtonOpenSide(openSide: SubstanceSlices.Side) {
+public fun JComponent.setButtonOpenSide(openSide: SubstanceSlices.Side) {
     SubstanceCortex.ComponentScope.setButtonOpenSide(this, openSide)
 }
 
@@ -250,7 +250,7 @@ fun JComponent.setButtonOpenSide(openSide: SubstanceSlices.Side) {
  * @see JComponent.setButtonStraightSides
  */
 @EmberComponentScope
-fun JComponent.setButtonOpenSides(openSides: Set<SubstanceSlices.Side>) {
+public fun JComponent.setButtonOpenSides(openSides: Set<SubstanceSlices.Side>) {
     SubstanceCortex.ComponentScope.setButtonOpenSides(this, openSides)
 }
 
@@ -264,7 +264,7 @@ fun JComponent.setButtonOpenSides(openSides: Set<SubstanceSlices.Side>) {
  * @see JComponent.setButtonStraightSides
  */
 @EmberComponentScope
-fun JComponent.setButtonStraightSide(straightSide: SubstanceSlices.Side) {
+public fun JComponent.setButtonStraightSide(straightSide: SubstanceSlices.Side) {
     SubstanceCortex.ComponentScope.setButtonStraightSide(this, straightSide)
 }
 
@@ -278,7 +278,7 @@ fun JComponent.setButtonStraightSide(straightSide: SubstanceSlices.Side) {
  * @see JComponent.setButtonOpenSides
  */
 @EmberComponentScope
-fun JComponent.setButtonStraightSides(straightSides: Set<SubstanceSlices.Side>) {
+public fun JComponent.setButtonStraightSides(straightSides: Set<SubstanceSlices.Side>) {
     SubstanceCortex.ComponentScope.setButtonStraightSides(this, straightSides)
 }
 
@@ -291,7 +291,7 @@ fun JComponent.setButtonStraightSides(straightSides: Set<SubstanceSlices.Side>) 
  * @see JToolBar.setToolbarButtonCornerRadius
  */
 @EmberComponentScope
-fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
+public fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
     SubstanceCortex.ComponentScope.setToolbarButtonCornerRadius(this, toolbarButtonCornerRadius)
 }
 
@@ -314,7 +314,7 @@ fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float
  * @see JRootPane.setContentsModified
  */
 @EmberComponentScope
-fun JComponent.setTabContentsModified(contentsModified: Boolean?) {
+public fun JComponent.setTabContentsModified(contentsModified: Boolean?) {
     SubstanceCortex.ComponentScope.setTabContentsModified(this, contentsModified)
 }
 
@@ -326,7 +326,7 @@ fun JComponent.setTabContentsModified(contentsModified: Boolean?) {
  * @see JComponent.setTabComponentCloseButtonVisible
  */
 @EmberComponentScope
-fun JTabbedPane.setTabCloseButtonsVisible(tabCloseButtonsVisible: Boolean?) {
+public fun JTabbedPane.setTabCloseButtonsVisible(tabCloseButtonsVisible: Boolean?) {
     SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(this, tabCloseButtonsVisible)
 }
 
@@ -337,7 +337,7 @@ fun JTabbedPane.setTabCloseButtonsVisible(tabCloseButtonsVisible: Boolean?) {
  * @see JTabbedPane.setTabCloseButtonsVisible
  */
 @EmberComponentScope
-fun JComponent.setTabComponentCloseButtonVisible(tabCloseButtonVisible: Boolean?) {
+public fun JComponent.setTabComponentCloseButtonVisible(tabCloseButtonVisible: Boolean?) {
     SubstanceCortex.ComponentScope.setTabCloseButtonVisible(this, tabCloseButtonVisible)
 }
 
@@ -352,7 +352,7 @@ fun JComponent.setTabComponentCloseButtonVisible(tabCloseButtonVisible: Boolean?
  * @see JComponent.setTabComponentCloseCallback
  */
 @EmberComponentScope
-fun JTabbedPane.setTabCloseCallback(tabCloseCallback: TabCloseCallback) {
+public fun JTabbedPane.setTabCloseCallback(tabCloseCallback: TabCloseCallback) {
     SubstanceCortex.ComponentScope.setTabCloseCallback(this, tabCloseCallback)
 }
 
@@ -366,7 +366,7 @@ fun JTabbedPane.setTabCloseCallback(tabCloseCallback: TabCloseCallback) {
  * @see JTabbedPane.setTabCloseCallback
  */
 @EmberComponentScope
-fun JComponent.setTabComponentCloseCallback(tabCloseCallback: TabCloseCallback) {
+public fun JComponent.setTabComponentCloseCallback(tabCloseCallback: TabCloseCallback) {
     SubstanceCortex.ComponentScope.setTabCloseCallback(this, tabCloseCallback)
 }
 
@@ -382,7 +382,7 @@ fun JComponent.setTabComponentCloseCallback(tabCloseCallback: TabCloseCallback) 
  * @see JComponent.setRunModifiedAnimationOnTabComponentCloseButton
  */
 @EmberComponentScope
-fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
+public fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
         runModifiedAnimationOnTabCloseButton: Boolean?) {
     SubstanceCortex.ComponentScope.setRunModifiedAnimationOnTabCloseButton(
             this, runModifiedAnimationOnTabCloseButton)
@@ -400,7 +400,7 @@ fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
  * @see JTabbedPane.setRunModifiedAnimationOnTabCloseButton
  */
 @EmberComponentScope
-fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
+public fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
         runModifiedAnimationOnTabCloseButton: Boolean?) {
     SubstanceCortex.ComponentScope.setRunModifiedAnimationOnTabCloseButton(
             this, runModifiedAnimationOnTabCloseButton)
@@ -412,7 +412,7 @@ fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
  * @param tabContentPaneBorderKind Content pane border kind for this tabbed pane.
  */
 @EmberComponentScope
-fun JTabbedPane.setTabContentPaneBorderKind(
+public fun JTabbedPane.setTabContentPaneBorderKind(
         tabContentPaneBorderKind: SubstanceSlices.TabContentPaneBorderKind) {
     SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(this,
             tabContentPaneBorderKind)
@@ -424,7 +424,7 @@ fun JTabbedPane.setTabContentPaneBorderKind(
  * @param buttonShaper Button shaper to be used for this component.
  */
 @EmberComponentScope
-fun JComponent.setButtonShaper(buttonShaper: SubstanceButtonShaper) {
+public fun JComponent.setButtonShaper(buttonShaper: SubstanceButtonShaper) {
     SubstanceCortex.ComponentScope.setButtonShaper(this, buttonShaper)
 }
 
@@ -436,7 +436,7 @@ fun JComponent.setButtonShaper(buttonShaper: SubstanceButtonShaper) {
  * password field.
  */
 @EmberComponentScope
-fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) {
+public fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) {
     SubstanceCortex.ComponentScope.setNumberOfPasswordEchoesPerCharacter(this, echoCount)
 }
 
@@ -449,7 +449,7 @@ fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) {
  * @see JComboBox.setComboBoxPrototypeDisplayValue
  */
 @EmberComponentScope
-fun JComboBox<*>.setComboBoxPrototypeCallback(
+public fun JComboBox<*>.setComboBoxPrototypeCallback(
         comboPopupPrototypeCallback: ComboPopupPrototypeCallback<*>) {
     SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(this, comboPopupPrototypeCallback)
 }
@@ -463,7 +463,7 @@ fun JComboBox<*>.setComboBoxPrototypeCallback(
  * @see JComboBox.setComboBoxPrototypeCallback
  */
 @EmberComponentScope
-fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisplayValue: Any) {
+public fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisplayValue: Any) {
     SubstanceCortex.ComponentScope.setComboBoxPrototypeDisplayValue(
             this, comboPopupPrototypeDisplayValue)
 }
@@ -489,7 +489,7 @@ fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisplayValu
  * @param comboPopupFlyoutOrientation Flyout orientation for combobox popup.
  */
 @EmberComponentScope
-fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrientation: Int?) {
+public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrientation: Int?) {
     SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(
             this, comboPopupFlyoutOrientation)
 }

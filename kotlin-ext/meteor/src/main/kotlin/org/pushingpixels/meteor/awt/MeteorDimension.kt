@@ -42,7 +42,7 @@ import java.awt.geom.Dimension2D
  * val (width, height) = dimension
  * ```
  */
-inline operator fun Dimension.component1() = this.width
+public inline operator fun Dimension.component1(): Int = this.width
 
 /**
  * Returns the height component of the dimension. This method enables the usage of destructuring
@@ -52,7 +52,7 @@ inline operator fun Dimension.component1() = this.width
  * val (width, height) = dimension
  * ```
  */
-inline operator fun Dimension.component2() = this.height
+public inline operator fun Dimension.component2(): Int = this.height
 
 /**
  * Returns the width component of the dimension. This method enables the usage of destructuring
@@ -62,7 +62,7 @@ inline operator fun Dimension.component2() = this.height
  * val (width, height) = dimension
  * ```
  */
-inline operator fun Dimension2D.component1() = this.width
+public inline operator fun Dimension2D.component1(): Double = this.width
 
 /**
  * Returns the height component of the dimension. This method enables the usage of destructuring
@@ -72,4 +72,4 @@ inline operator fun Dimension2D.component1() = this.width
  * val (width, height) = dimension
  * ```
  */
-inline operator fun Dimension2D.component2() = this.height
+public inline operator fun Dimension2D.component2(): Double = this.height

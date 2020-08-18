@@ -32,17 +32,12 @@ apply plugin: 'java'
 
 ext.designation = "core"
 
-jar {
-    archiveBaseName = "${rootProject.name}-${project.name}"
-}
-
 javadoc {
     exclude 'org/pushingpixels/neon/internal/**'
 }
 
 apply plugin: 'com.bmuschko.nexus'
 
-archivesBaseName = 'radiance'
 group = 'org.pushing-pixels'
 
 modifyPom {

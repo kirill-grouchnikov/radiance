@@ -35,7 +35,7 @@ import org.pushingpixels.meteor.awt.windowAncestor
 import java.awt.Component
 import javax.swing.JOptionPane
 
-enum class OptionPaneMessageType(val optionPaneConstant: Int) {
+public enum class OptionPaneMessageType(public val optionPaneConstant: Int) {
     ERROR_MESSAGE_TYPE(JOptionPane.ERROR_MESSAGE),
     INFORMATION_MESSAGE_TYPE(JOptionPane.INFORMATION_MESSAGE),
     WARNING_MESSAGE_TYPE(JOptionPane.WARNING_MESSAGE),
@@ -43,25 +43,25 @@ enum class OptionPaneMessageType(val optionPaneConstant: Int) {
     PLAIN_MESSAGE_TYPE(JOptionPane.PLAIN_MESSAGE)
 }
 
-enum class OptionPaneConfirmType(val optionPaneConstant: Int) {
+public enum class OptionPaneConfirmType(public val optionPaneConstant: Int) {
     DEFAULT_OPTION_TYPE(JOptionPane.DEFAULT_OPTION),
     YES_NO_OPTION_TYPE(JOptionPane.YES_NO_OPTION),
     YES_NO_CANCEL_OPTION_TYPE(JOptionPane.YES_NO_CANCEL_OPTION),
     OK_CANCEL_OPTION_TYPE(JOptionPane.OK_CANCEL_OPTION)
 }
 
-inline fun Component.showMessageDialogInWindow(message: Any,
+public inline fun Component.showMessageDialogInWindow(message: Any,
         title: String?, messageType: OptionPaneMessageType) {
     JOptionPane.showMessageDialog(this.windowAncestor,
             message, title, messageType.optionPaneConstant)
 }
 
-inline fun Component.showConfirmDialogInWindow(message: Any,
+public inline fun Component.showConfirmDialogInWindow(message: Any,
         title: String?, confirmType: OptionPaneConfirmType): Int {
     return JOptionPane.showConfirmDialog(this.windowAncestor,
             message, title, confirmType.optionPaneConstant)
 }
 
-inline fun Component.showInputDialogInWindow(message: Any, title: String?): String? {
+public inline fun Component.showInputDialogInWindow(message: Any, title: String?): String? {
     return JOptionPane.showInputDialog(this.windowAncestor, message, title)
 }

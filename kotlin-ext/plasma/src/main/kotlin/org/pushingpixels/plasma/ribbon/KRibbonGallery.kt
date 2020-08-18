@@ -42,23 +42,23 @@ import org.pushingpixels.plasma.NullableDelegate
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 
 @PlasmaElementMarker
-class GalleryCommandVisibilityContainer {
+public class GalleryCommandVisibilityContainer {
     internal val policies = arrayListOf<Pair<Int, PresentationPriority>>()
 
-    infix fun Int.at(priority: PresentationPriority) {
+    public infix fun Int.at(priority: PresentationPriority) {
         policies.add(Pair(this, priority))
     }
 }
 
 @PlasmaElementMarker
-class KRibbonGalleryPresentation {
-    var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
-    var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
-    var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
+public class KRibbonGalleryPresentation {
+    public var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
+    public var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
+    public var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
     private val commandVisibilityContainer = GalleryCommandVisibilityContainer()
-    var expandKeyTip: String? by NullableDelegate { false }
+    public var expandKeyTip: String? by NullableDelegate { false }
 
-    fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
+    public fun commandVisibilities(init: GalleryCommandVisibilityContainer.() -> Unit) {
         commandVisibilityContainer.init()
     }
 
@@ -77,19 +77,19 @@ class KRibbonGalleryPresentation {
 }
 
 @PlasmaElementMarker
-class KRibbonGalleryContent {
+public class KRibbonGalleryContent {
     private var hasBeenConverted: Boolean = false
     private lateinit var javaRibbonGalleryContentModel: RibbonGalleryContentModel
 
-    var iconFactory: Factory? by NullableDelegate { hasBeenConverted }
+    public var iconFactory: Factory? by NullableDelegate { hasBeenConverted }
     private val commandGroups = arrayListOf<KCommandGroup>()
     private val extraPopupGroups = arrayListOf<KCommandGroup>()
     private val extraPopupDefaultGroup = KCommandGroup()
-    var onCommandActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
-    var onCommandPreviewActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
-    var onCommandPreviewCanceled: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onCommandActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onCommandPreviewActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onCommandPreviewCanceled: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
 
-    fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
+    public fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
         if (hasBeenConverted) {
             throw IllegalArgumentException("This gallery content model has already been converted")
         }
@@ -99,7 +99,7 @@ class KRibbonGalleryContent {
         return commandGroup
     }
 
-    fun extraPopupCommand(actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun extraPopupCommand(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         if (hasBeenConverted) {
             throw IllegalArgumentException("This gallery content model has already been converted")
@@ -112,7 +112,7 @@ class KRibbonGalleryContent {
         return command
     }
 
-    fun extraPopupGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
+    public fun extraPopupGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
         if (hasBeenConverted) {
             throw IllegalArgumentException("This gallery content model has already been converted")
         }
@@ -171,24 +171,24 @@ class KRibbonGalleryContent {
 }
 
 @PlasmaElementMarker
-class KRibbonGallery {
-    var content: KRibbonGalleryContent = KRibbonGalleryContent()
+public class KRibbonGallery {
+    public var content: KRibbonGalleryContent = KRibbonGalleryContent()
     internal val presentation: KRibbonGalleryPresentation = KRibbonGalleryPresentation()
 
-    fun content(init: KRibbonGalleryContent.() -> Unit) {
+    public fun content(init: KRibbonGalleryContent.() -> Unit) {
         content.init()
     }
 
-    fun content(content: KRibbonGalleryContent) {
+    public fun content(content: KRibbonGalleryContent) {
         this.content = content
     }
 
-    fun presentation(init: KRibbonGalleryPresentation.() -> Unit) {
+    public fun presentation(init: KRibbonGalleryPresentation.() -> Unit) {
         presentation.init()
     }
 }
 
-fun galleryContent(init: KRibbonGalleryContent.() -> Unit): KRibbonGalleryContent {
+public fun galleryContent(init: KRibbonGalleryContent.() -> Unit): KRibbonGalleryContent {
     val galleryContent = KRibbonGalleryContent()
     galleryContent.init()
     return galleryContent

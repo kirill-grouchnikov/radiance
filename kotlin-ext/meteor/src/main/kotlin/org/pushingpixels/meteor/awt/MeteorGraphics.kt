@@ -34,7 +34,7 @@ import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 
-inline fun Graphics.render(block: (Graphics2D) -> Unit) {
+public inline fun Graphics.render(block: (Graphics2D) -> Unit) {
     val g2d = this.create() as Graphics2D
     try {
         block(g2d)
@@ -43,7 +43,7 @@ inline fun Graphics.render(block: (Graphics2D) -> Unit) {
     }
 }
 
-inline fun BufferedImage.render(block: (Graphics2D) -> Unit) {
+public inline fun BufferedImage.render(block: (Graphics2D) -> Unit) {
     val g2d = this.createGraphics()
     try {
         block(g2d)

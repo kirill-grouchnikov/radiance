@@ -45,7 +45,7 @@ import javax.swing.JComponent
  * @param previewPainter Preview painter. Can be `null`.
  */
 @EmberComponentOrParentScope
-fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter) {
+public fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter) {
     SubstanceCortex.ComponentOrParentScope.setComponentPreviewPainter(this, previewPainter)
 }
 
@@ -61,7 +61,7 @@ fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter) {
  * shapers that respect this setting. Pass `null` to reset to the default
  * behavior.
  */
-fun JComponent.setButtonIgnoreMinimumSize(buttonIgnoreMinimumSize: Boolean?) {
+public fun JComponent.setButtonIgnoreMinimumSize(buttonIgnoreMinimumSize: Boolean?) {
     SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(this, buttonIgnoreMinimumSize)
 }
 
@@ -74,7 +74,7 @@ fun JComponent.setButtonIgnoreMinimumSize(buttonIgnoreMinimumSize: Boolean?) {
  * to the default behavior.
  * @see JComponent.setFlatBackground
  */
-fun JComponent.setButtonNeverPaintBackground(neverPaintButtonBackground: Boolean?) {
+public fun JComponent.setButtonNeverPaintBackground(neverPaintButtonBackground: Boolean?) {
     SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(this,
             neverPaintButtonBackground)
 }
@@ -88,6 +88,6 @@ fun JComponent.setButtonNeverPaintBackground(neverPaintButtonBackground: Boolean
  * hovered over. Pass `null` to reset to the default behavior.
  * @see JComponent.setButtonNeverPaintBackground
  */
-fun JComponent.setFlatBackground(flatBackground: Boolean?) {
+public fun JComponent.setFlatBackground(flatBackground: Boolean?) {
     SubstanceCortex.ComponentOrParentScope.setFlatBackground(this, flatBackground)
 }

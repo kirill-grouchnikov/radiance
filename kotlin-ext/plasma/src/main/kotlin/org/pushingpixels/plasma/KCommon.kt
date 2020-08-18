@@ -36,7 +36,7 @@ import java.awt.Color
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class NullableDelegate<T>(private val shouldBlockUpdates: () -> Boolean) : ReadWriteProperty<Any, T?> {
+internal class NullableDelegate<T>(private val shouldBlockUpdates: () -> Boolean) : ReadWriteProperty<Any, T?> {
     private var value: T? = null
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T? {
@@ -51,7 +51,7 @@ class NullableDelegate<T>(private val shouldBlockUpdates: () -> Boolean) : ReadW
     }
 }
 
-class NonNullDelegate<T : Any>(private val shouldBlockUpdates: () -> Boolean) {
+internal class NonNullDelegate<T : Any>(private val shouldBlockUpdates: () -> Boolean) {
     private lateinit var value: T
     private var isInitialized = false
 
@@ -76,50 +76,50 @@ class NonNullDelegate<T : Any>(private val shouldBlockUpdates: () -> Boolean) {
 internal annotation class PlasmaElementMarker
 
 @PlasmaElementMarker
-class TextContainer {
+public class TextContainer {
     internal val strings = arrayListOf<String>()
 
-    operator fun String.unaryPlus() {
+    public operator fun String.unaryPlus() {
         strings.add(this)
     }
 }
 
 @PlasmaElementMarker
-class ColorContainer {
+public class ColorContainer {
     internal val colors = arrayListOf<Color>()
 
-    operator fun Color.unaryPlus() {
+    public operator fun Color.unaryPlus() {
         colors.add(this)
     }
 }
 
 @PlasmaElementMarker
-class KRichTooltip {
-    lateinit var title: String
-    var mainIconFactory: Factory? = null
+public class KRichTooltip {
+    public var title: String? = null
+    public var mainIconFactory: Factory? = null
     private val descriptionSections = TextContainer()
-    var footerIconFactory: Factory? = null
+    public var footerIconFactory: Factory? = null
     private val footerSections = TextContainer()
 
-    var description: String? = null
+    public var description: String? = null
     set(value) {
         if (value != null) {
             descriptionSections.strings.add(value)
         }
     }
 
-    fun description(init: TextContainer.() -> Unit) {
+    public fun description(init: TextContainer.() -> Unit) {
         descriptionSections.init()
     }
 
-    var footer: String? = null
+    public var footer: String? = null
         set(value) {
             if (value != null) {
                 footerSections.strings.add(value)
             }
         }
 
-    fun footer(init: TextContainer.() -> Unit) {
+    public fun footer(init: TextContainer.() -> Unit) {
         footerSections.init()
     }
 
@@ -139,11 +139,11 @@ class KRichTooltip {
     }
 }
 
-class KCommandToggleGroupModel {
+public class KCommandToggleGroupModel {
     internal val javaCommandToggleModel = CommandToggleGroupModel()
 }
 
-fun commandToggleGroup(): KCommandToggleGroupModel {
+public fun commandToggleGroup(): KCommandToggleGroupModel {
     return KCommandToggleGroupModel()
 }
 

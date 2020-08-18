@@ -39,9 +39,8 @@ import java.util.*;
  * The original implementation is taken from <a
  * href="http://www.javaspecialists.co.za/archive/Issue098.html">The Java
  * Specialists' Newsletter [Issue 098]</a> with permission of the original
- * author. Tweaked code by Endre Stolsvik was <a href=
- * "https://substance.dev.java.net/servlets/ReadMsg?list=users&msgNo=1396"
- * >contributed</a> in December 2009.
+ * author. Tweaked code by Endre Stolsvik was
+ * <a href="https://markmail.org/message/lxr2rfnid4vbyj5r">contributed</a> in December 2009.
  * 
  * @author Dr. Heinz M. Kabutz
  * @author Endre Stolsvik

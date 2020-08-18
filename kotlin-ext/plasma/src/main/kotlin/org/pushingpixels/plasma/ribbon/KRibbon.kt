@@ -44,39 +44,39 @@ import java.awt.Color
 import javax.swing.JComponent
 
 @PlasmaElementMarker
-class KRibbonTaskContainer {
+public class KRibbonTaskContainer {
     internal val tasks = arrayListOf<KRibbonTask>()
 
-    operator fun KRibbonTask.unaryPlus() {
+    public operator fun KRibbonTask.unaryPlus() {
         this@KRibbonTaskContainer.tasks.add(this)
     }
 }
 
 @PlasmaElementMarker
-class KRibbonTaskbar {
+public class KRibbonTaskbar {
     internal val components = arrayListOf<Any>()
 
-    operator fun KCommand.unaryPlus() {
+    public operator fun KCommand.unaryPlus() {
         this@KRibbonTaskbar.components.add(this)
     }
 
-    fun command(init: KCommand.() -> Unit): KCommand {
+    public fun command(init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         components.add(KCommandGroup.CommandConfig(command, null, null, null, null, null))
         return command
     }
 
-    fun command(command: KCommand): KCommand {
+    public fun command(command: KCommand): KCommand {
         components.add(KCommandGroup.CommandConfig(command, null, null, null, null, null))
         return command
     }
 
-    fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+    public fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
         components.add(projection)
     }
 
-    fun gallery(init: KRibbonGallery.() -> Unit): KRibbonGallery {
+    public fun gallery(init: KRibbonGallery.() -> Unit): KRibbonGallery {
         val gallery = KRibbonGallery()
         gallery.init()
         components.add(gallery)
@@ -85,25 +85,25 @@ class KRibbonTaskbar {
 }
 
 @PlasmaElementMarker
-class KRibbonContextualTaskContainer {
-    var title: String by NonNullDelegate { false }
-    var color: Color by NonNullDelegate { false }
+public class KRibbonContextualTaskContainer {
+    public var title: String by NonNullDelegate { false }
+    public var color: Color by NonNullDelegate { false }
     internal val tasks = KRibbonTaskContainer()
 
-    fun tasks(init: KRibbonTaskContainer.() -> Unit) {
+    public fun tasks(init: KRibbonTaskContainer.() -> Unit) {
         tasks.init()
     }
 }
 
 @PlasmaElementMarker
-class KRibbonContextualTaskGroupContainer {
+public class KRibbonContextualTaskGroupContainer {
     internal val taskGroups = arrayListOf<KRibbonContextualTaskContainer>()
 
-    operator fun KRibbonContextualTaskContainer.unaryPlus() {
+    public operator fun KRibbonContextualTaskContainer.unaryPlus() {
         this@KRibbonContextualTaskGroupContainer.taskGroups.add(this)
     }
 
-    fun taskGroup(init: KRibbonContextualTaskContainer.() -> Unit): KRibbonContextualTaskContainer {
+    public fun taskGroup(init: KRibbonContextualTaskContainer.() -> Unit): KRibbonContextualTaskContainer {
         val taskGroup = KRibbonContextualTaskContainer()
         taskGroup.init()
         taskGroups.add(taskGroup)
@@ -112,40 +112,40 @@ class KRibbonContextualTaskGroupContainer {
 }
 
 @PlasmaElementMarker
-class KRibbonFrame {
-    var title: String? by NullableDelegate { hasBeenConverted }
-    var applicationIconFactory: Factory? by NullableDelegate { hasBeenConverted }
+public class KRibbonFrame {
+    public var title: String? by NullableDelegate { hasBeenConverted }
+    public var applicationIconFactory: Factory? by NullableDelegate { hasBeenConverted }
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
     private val anchoredCommands = KCommandGroup()
     private val taskbar = KRibbonTaskbar()
     private val applicationMenu = KRibbonApplicationMenu()
-    var onTaskSelectionChange: ((ribbonTask: RibbonTask) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onTaskSelectionChange: ((ribbonTask: RibbonTask) -> Unit)? by NullableDelegate { hasBeenConverted }
 
     private lateinit var ribbonFrame: JRibbonFrame
     private var hasBeenConverted: Boolean = false
 
-    fun tasks(init: KRibbonTaskContainer.() -> Unit) {
+    public fun tasks(init: KRibbonTaskContainer.() -> Unit) {
         tasks.init()
     }
 
-    fun contextualTaskGroups(init: KRibbonContextualTaskGroupContainer.() -> Unit) {
+    public fun contextualTaskGroups(init: KRibbonContextualTaskGroupContainer.() -> Unit) {
         contextualTaskGroups.init()
     }
 
-    fun anchored(init: KCommandGroup.() -> Unit) {
+    public fun anchored(init: KCommandGroup.() -> Unit) {
         anchoredCommands.init()
     }
 
-    fun taskbar(init: KRibbonTaskbar.() -> Unit) {
+    public fun taskbar(init: KRibbonTaskbar.() -> Unit) {
         taskbar.init()
     }
 
-    fun applicationMenu(init: KRibbonApplicationMenu.() -> Unit) {
+    public fun applicationMenu(init: KRibbonApplicationMenu.() -> Unit) {
         applicationMenu.init()
     }
 
-    fun asJavaRibbonFrame(): JRibbonFrame {
+    public fun asJavaRibbonFrame(): JRibbonFrame {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
@@ -206,7 +206,7 @@ class KRibbonFrame {
     }
 }
 
-fun ribbonFrame(init: KRibbonFrame.() -> Unit): KRibbonFrame {
+public fun ribbonFrame(init: KRibbonFrame.() -> Unit): KRibbonFrame {
     val ribbonFrame = KRibbonFrame()
     ribbonFrame.init()
     return ribbonFrame

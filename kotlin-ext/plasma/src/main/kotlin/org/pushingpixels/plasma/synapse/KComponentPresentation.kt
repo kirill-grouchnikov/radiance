@@ -34,13 +34,13 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentation
 import org.pushingpixels.plasma.PlasmaElementMarker
 
 @PlasmaElementMarker
-open class KComponentPresentation {
-    var isFlat: Boolean = true
-    var horizontalAlignment: HorizontalAlignment = HorizontalAlignment.FILL
-    var isResizingAware: Boolean = false
-    var keyTip: String? = null
+public open class KComponentPresentation {
+    public var isFlat: Boolean = true
+    public var horizontalAlignment: HorizontalAlignment = HorizontalAlignment.FILL
+    public var isResizingAware: Boolean = false
+    public var keyTip: String? = null
 
-    fun toComponentPresentation(): ComponentPresentationModel {
+    internal fun toComponentPresentation(): ComponentPresentationModel {
         val result = ComponentPresentationModel.builder()
                 .setFlat(isFlat)
                 .setHorizontalAlignment(horizontalAlignment)

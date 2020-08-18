@@ -91,7 +91,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
     private String name;
 
-    private List<AbstractFieldInfo> propertiesToInterpolate;
+    private List<AbstractFieldInfo<?>> propertiesToInterpolate;
 
     /**
      * Is used to create unique value for the {@link #id} field.
@@ -152,7 +152,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                 float durationFraction, float timelinePosition) {
             if (newState == TimelineState.READY) {
-                for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+                for (AbstractFieldInfo<?> fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
                     if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                         continue;
@@ -162,7 +162,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             }
 
             if (newState == TimelineState.PLAYING_FORWARD) {
-                for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+                for (AbstractFieldInfo<?> fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
                     if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                         continue;
@@ -172,7 +172,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             }
 
             if (newState == TimelineState.PLAYING_REVERSE) {
-                for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+                for (AbstractFieldInfo<?> fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
                     if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                         continue;
@@ -186,7 +186,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             // it's a transition between inactive states (such as from
             // DONE to IDLE) that shouldn't trigger the property changes
             if (oldState.isActive || newState.isActive) {
-                for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+                for (AbstractFieldInfo<?> fInfo : propertiesToInterpolate) {
                     // check whether the object is in the ready state
                     if (mainObjectIsUiComponent
                             && !SwingUtils.isComponentInReadyState(fInfo.object)) {
@@ -199,7 +199,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
 
         @Override
         public void onTimelinePulse(float durationFraction, float timelinePosition) {
-            for (AbstractFieldInfo fInfo : propertiesToInterpolate) {
+            for (AbstractFieldInfo<?> fInfo : propertiesToInterpolate) {
                 // check whether the object is in the ready state
                 if (mainObjectIsUiComponent && !SwingUtils.isComponentInReadyState(fInfo.object)) {
                     continue;
@@ -428,7 +428,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
             throw new IllegalArgumentException(
                     "Required skip longer than initial delay + duration");
         }
-        for (AbstractFieldInfo fieldInfo : this.propertiesToInterpolate) {
+        for (AbstractFieldInfo<?> fieldInfo : this.propertiesToInterpolate) {
             if (fieldInfo.isFromCurrent()) {
                 throw new IllegalArgumentException(
                         "Can't loop a timeline that has at least one property with .fromCurrent()");
@@ -555,7 +555,7 @@ public class Timeline implements TimelineScenario.TimelineScenarioActor {
         res.append(":" + this.timelinePosition);
 
         res.append(" [ ");
-        for (AbstractFieldInfo afi : this.propertiesToInterpolate) {
+        for (AbstractFieldInfo<?> afi : this.propertiesToInterpolate) {
             res.append(afi.fieldName + " ");
         }
         res.append("]");

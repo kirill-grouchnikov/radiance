@@ -47,7 +47,7 @@ import javax.swing.plaf.UIResource
  * `null` to reset to the default behavior.
  */
 @EmberComponentOrParentChainScope
-fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
+public fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
     SubstanceCortex.ComponentOrParentChainScope.setSelectTextOnFocus(this, selectTextOnFocus)
 }
 
@@ -58,7 +58,7 @@ fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
  * @see AbstractButton.setToolbarButtonCornerRadius
  */
 @EmberComponentOrParentChainScope
-fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
+public fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
     SubstanceCortex.ComponentOrParentChainScope.setToolbarButtonCornerRadius(
             this, toolbarButtonCornerRadius)
 }
@@ -72,7 +72,7 @@ fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
  * `null` to reset to the default behavior.
  */
 @EmberComponentOrParentChainScope
-fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
+public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
     SubstanceCortex.ComponentOrParentChainScope.setExtraWidgetsPresence(this, extraWidgetsPresence)
 }
 
@@ -109,7 +109,7 @@ fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  * children.
  */
 @EmberComponentOrParentChainScope
-fun JComponent.setColorizationFactor(colorizationFactor: Double) {
+public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
     SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(this, colorizationFactor)
 }
 
@@ -121,7 +121,7 @@ fun JComponent.setColorizationFactor(colorizationFactor: Double) {
  * children.
  */
 @EmberComponentOrParentChainScope
-fun JComponent.setFocusKind(focusKind: SubstanceSlices.FocusKind) {
+public fun JComponent.setFocusKind(focusKind: SubstanceSlices.FocusKind) {
     SubstanceCortex.ComponentOrParentChainScope.setFocusKind(this, focusKind)
 }
 
@@ -133,7 +133,7 @@ fun JComponent.setFocusKind(focusKind: SubstanceSlices.FocusKind) {
  * @see JComponent.getImmediateDecorationType
  */
 @EmberComponentOrParentChainScope
-fun JComponent.setDecorationType(type: DecorationAreaType) {
+public fun JComponent.setDecorationType(type: DecorationAreaType) {
     SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this, type)
 }
 
@@ -152,7 +152,7 @@ fun JComponent.setDecorationType(type: DecorationAreaType) {
  * @see JComponent.getImmediateDecorationType
  */
 @EmberComponentOrParentChainScope
-fun Component.getDecorationType(): DecorationAreaType {
+public fun Component.getDecorationType(): DecorationAreaType {
     return SubstanceCortex.ComponentOrParentChainScope.getDecorationType(this)
 }
 

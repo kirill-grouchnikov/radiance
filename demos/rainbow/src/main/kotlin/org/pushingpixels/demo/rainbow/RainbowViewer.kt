@@ -99,7 +99,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
      */
     private var currIconSize: Int = 0
 
-    var iconSize: Int
+    private var iconSize: Int
         get() = this.currIconSize
         set(iconSize) {
             this.currIconSize = iconSize
@@ -107,7 +107,6 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         }
 
     init {
-
         val initialSize = 64
         this.currIconSize = initialSize
         this.statusLabel = JLabel()
@@ -116,21 +115,22 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         this.svgFileViewPanel = RainbowFileViewPanel(bar, initialSize)
         this.svgFileViewPanel.setProgressListener { evt: ProgressEvent ->
             GlobalScope.launch(Dispatchers.Swing) {
-                val min = evt.minimum
-                val max = evt.maximum
-                val progress = evt.progress
-                if (progress == 0) {
-                    // started
-                    statusProgressBar.minimum = min
-                    statusProgressBar.maximum = max
-                    statusProgressBar.value = 0
-                    statusProgressBar.isVisible = true
-                } else if (progress == max) {
-                    // ended
-                    statusProgressBar.isVisible = false
-                    statusProgressBar.value = 0
-                } else {
-                    statusProgressBar.value = progress
+                when (evt.progress) {
+                    0 -> {
+                        // started
+                        statusProgressBar.minimum = evt.minimum
+                        statusProgressBar.maximum = evt.maximum
+                        statusProgressBar.value = 0
+                        statusProgressBar.isVisible = true
+                    }
+                    evt.maximum -> {
+                        // ended
+                        statusProgressBar.isVisible = false
+                        statusProgressBar.value = 0
+                    }
+                    else -> {
+                        statusProgressBar.value = evt.progress
+                    }
                 }
             }
         }
@@ -193,11 +193,9 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
 
         val panelLm = this.svgFileViewPanel.layout as TransitionLayout
         panelLm.addTransitionLayoutListener { event: TransitionLayoutEvent ->
-            if (event.id == TransitionLayoutEvent.TRANSITION_STARTED) {
-                spotLightLayerUI.reset()
-            }
-            if (event.id == TransitionLayoutEvent.TRANSITION_ENDED) {
-                updateSpotLightPainter()
+            when (event.id) {
+                TransitionLayoutEvent.TRANSITION_STARTED -> spotLightLayerUI.reset()
+                TransitionLayoutEvent.TRANSITION_ENDED -> updateSpotLightPainter()
             }
         }
 
@@ -276,7 +274,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
 
     }
 
-    fun getPanel(initialSize: Int): JPanel {
+    private fun getPanel(initialSize: Int): JPanel {
         val builder = FormBuilder.create()
                 .columns("left:pref, 8dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref, 4dlu")
                 .rows("p")

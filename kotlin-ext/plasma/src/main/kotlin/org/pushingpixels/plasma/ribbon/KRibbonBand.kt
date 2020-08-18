@@ -46,48 +46,48 @@ import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
 import javax.swing.JComponent
 
 @PlasmaElementMarker
-class KRibbonBandExpandCommand {
-    var action: ((event: CommandActionEvent) -> Unit)? by NullableDelegate { false }
+public class KRibbonBandExpandCommand {
+    public var action: ((event: CommandActionEvent) -> Unit)? by NullableDelegate { false }
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
-    var keyTip: String? by NullableDelegate { false }
+    public var keyTip: String? by NullableDelegate { false }
 
-    fun richTooltip(init: KRichTooltip.() -> Unit) {
+    public fun richTooltip(init: KRichTooltip.() -> Unit) {
         if (richTooltip == null) {
             richTooltip = KRichTooltip()
         }
-        (richTooltip as KRichTooltip).init()
+        richTooltip!!.init()
     }
 }
 
-sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
+public sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
     protected lateinit var ribbonBand: T
     protected var hasBeenConverted: Boolean = false
 
-    var title: String? by NullableDelegate { hasBeenConverted }
-    var iconFactory: Factory? by NullableDelegate { hasBeenConverted }
+    public var title: String? by NullableDelegate { hasBeenConverted }
+    public var iconFactory: Factory? by NullableDelegate { hasBeenConverted }
     protected var expandCommand: KRibbonBandExpandCommand? by NullableDelegate { hasBeenConverted }
-    var collapsedStateKeyTip: String? by NullableDelegate { hasBeenConverted }
+    public var collapsedStateKeyTip: String? by NullableDelegate { hasBeenConverted }
 
-    var resizePolicies: ((ribbonBand: JRibbonBand) -> List<RibbonBandResizePolicy>)?
+    public var resizePolicies: ((ribbonBand: JRibbonBand) -> List<RibbonBandResizePolicy>)?
             by NullableDelegate { hasBeenConverted }
 
-    fun expandCommand(init: KRibbonBandExpandCommand.() -> Unit) {
+    public fun expandCommand(init: KRibbonBandExpandCommand.() -> Unit) {
         if (expandCommand == null) {
             expandCommand = KRibbonBandExpandCommand()
         }
         (expandCommand as KRibbonBandExpandCommand).init()
     }
 
-    abstract fun asJavaRibbonBand(): AbstractRibbonBand
+    internal abstract fun asJavaRibbonBand(): AbstractRibbonBand
 }
 
 @PlasmaElementMarker
-class KRibbonBandGroup {
-    var title: String? by NullableDelegate { false }
+public class KRibbonBandGroup {
+    public var title: String? by NullableDelegate { false }
 
     internal val content = arrayListOf<Pair<PresentationPriority?, Any>>()
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null,
+    public fun command(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KCommand.() -> Unit): KCommand {
@@ -98,7 +98,7 @@ class KRibbonBandGroup {
         return command
     }
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             command: KCommand) {
@@ -106,20 +106,20 @@ class KRibbonBandGroup {
                 isTextClickSecondary, popupHorizontalGravity)))
     }
 
-    fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
+    public fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
         val gallery = KRibbonGallery()
         gallery.init()
         content.add(Pair(priority, gallery))
         return gallery
     }
 
-    fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+    public fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
         content.add(Pair(null, projection))
     }
 }
 
 @PlasmaElementMarker
-class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
+public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     private val groups = arrayListOf<KRibbonBandGroup>()
     private val defaultGroup = KRibbonBandGroup()
 
@@ -127,7 +127,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         groups.add(defaultGroup)
     }
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KCommand.() -> Unit): KCommand {
@@ -141,7 +141,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return command
     }
 
-    fun colorSelectorCommand(priority: PresentationPriority, actionKeyTip: String? = null,
+    public fun colorSelectorCommand(priority: PresentationPriority, actionKeyTip: String? = null,
             popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
@@ -155,7 +155,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return command
     }
 
-    fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
+    public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
             isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
             popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
             command: KCommand) {
@@ -166,7 +166,7 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                 isTextClickAction, isTextClickSecondary, popupHorizontalGravity)))
     }
 
-    fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
+    public fun gallery(priority: PresentationPriority, init: KRibbonGallery.() -> Unit): KRibbonGallery {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a gallery to default group after starting another group")
         }
@@ -176,14 +176,14 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         return gallery
     }
 
-    fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+    public fun component(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a projection to default group after starting another group")
         }
         defaultGroup.content.add(Pair(null, projection))
     }
 
-    fun group(init: KRibbonBandGroup.() -> Unit): KRibbonBandGroup {
+    public fun group(init: KRibbonBandGroup.() -> Unit): KRibbonBandGroup {
         val group = KRibbonBandGroup()
         group.init()
         groups.add(group)
@@ -267,22 +267,22 @@ class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
 }
 
 @PlasmaElementMarker
-class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
+public class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
     private val components = arrayListOf<Any>()
 
-    fun flowCommandButtonStrip(init: KCommandStrip.() -> Unit) {
+    public fun flowCommandButtonStrip(init: KCommandStrip.() -> Unit) {
         val commandButtonStrip = KCommandStrip(false)
         commandButtonStrip.init()
         components.add(commandButtonStrip)
     }
 
-    fun flowCommandToggleButtonStrip(init: KCommandStrip.() -> Unit) {
+    public fun flowCommandToggleButtonStrip(init: KCommandStrip.() -> Unit) {
         val commandButtonStrip = KCommandStrip(true)
         commandButtonStrip.init()
         components.add(commandButtonStrip)
     }
 
-    fun flowComponent(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
+    public fun flowComponent(projection: ComponentProjection<out JComponent, out ComponentContentModel>) {
         components.add(projection)
     }
 
@@ -314,13 +314,13 @@ class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
     }
 }
 
-fun ribbonBand(init: KRibbonBand.() -> Unit): KRibbonBand {
+public fun ribbonBand(init: KRibbonBand.() -> Unit): KRibbonBand {
     val ribbonBand = KRibbonBand()
     ribbonBand.init()
     return ribbonBand
 }
 
-fun flowRibbonBand(init: KFlowRibbonBand.() -> Unit): KFlowRibbonBand {
+public fun flowRibbonBand(init: KFlowRibbonBand.() -> Unit): KFlowRibbonBand {
     val flowRibbonBand = KFlowRibbonBand()
     flowRibbonBand.init()
     return flowRibbonBand

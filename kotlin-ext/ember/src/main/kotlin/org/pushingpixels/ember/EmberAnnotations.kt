@@ -32,26 +32,26 @@ package org.pushingpixels.ember
 /**
  * APIs in this scope apply to individual application {@link Component}s.
  */
-annotation class EmberComponentScope
+public annotation class EmberComponentScope
 
 /**
  * APIs in this scope apply to individual application {@link Component}s or all immediate child
  * components of a container.
  */
-annotation class EmberComponentOrParentScope
+public annotation class EmberComponentOrParentScope
 
 /**
  * APIs in this scope apply to individual application {@link Component}s or all nested child
  * components of a container.
  */
-annotation class EmberComponentOrParentChainScope
+public annotation class EmberComponentOrParentChainScope
 
 /**
  * APIs in this scope apply to individual application {@link JRootPane}s.
  */
-annotation class EmberRootPaneScope
+public annotation class EmberRootPaneScope
 
 /**
  * APIs in this scope apply to individual application {@link Window}s.
  */
-annotation class EmberWindowScope
+public annotation class EmberWindowScope

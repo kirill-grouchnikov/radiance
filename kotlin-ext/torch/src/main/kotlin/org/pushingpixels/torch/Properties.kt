@@ -31,7 +31,7 @@ package org.pushingpixels.torch
 
 import kotlin.reflect.*
 
-class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R> {
+public class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R> {
     override val annotations: List<Annotation>
         get() = ArrayList()
     override val isAbstract: Boolean
@@ -70,7 +70,7 @@ class Getter<R>(override val property: SettableProperty<R>) : KProperty.Getter<R
     }
 }
 
-class Setter<R>(override val property: SettableProperty<R>) : KMutableProperty.Setter<R> {
+public class Setter<R>(override val property: SettableProperty<R>) : KMutableProperty.Setter<R> {
     override val annotations: List<Annotation>
         get() = ArrayList()
     override val isAbstract: Boolean
@@ -110,12 +110,12 @@ class Setter<R>(override val property: SettableProperty<R>) : KMutableProperty.S
     }
 }
 
-interface SettableProperty<R> : KMutableProperty<R> {
-    fun set(value: R)
-    fun get(): R
+public interface SettableProperty<R> : KMutableProperty<R> {
+    public fun set(value: R)
+    public fun get(): R
 }
 
-infix fun <R> SettableProperty<R>.from(from: R): PropertyFrom<R> {
+public infix fun <R> SettableProperty<R>.from(from: R): PropertyFrom<R> {
     return PropertyFrom(this, from)
 }
 

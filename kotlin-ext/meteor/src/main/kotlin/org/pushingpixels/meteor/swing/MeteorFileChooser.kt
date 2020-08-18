@@ -35,7 +35,7 @@ import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.filechooser.FileFilter
 
-inline fun JFileChooser.addChoosableFileFilter(description: String, crossinline filter: (File) -> Boolean) {
+public inline fun JFileChooser.addChoosableFileFilter(description: String, crossinline filter: (File) -> Boolean) {
     this.addChoosableFileFilter(object : FileFilter() {
         override fun accept(pathname: File): Boolean {
             return filter.invoke(pathname)

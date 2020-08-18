@@ -1171,6 +1171,9 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * @see #getRichTooltip(MouseEvent)
      */
     public void setActionRichTooltip(RichTooltip richTooltip) {
+        // Don't remove the next line - we need to instantiate the RichTooltipManager
+        // so that it starts tracking mouse events for displaying rich tooltips
+        RichTooltipManager.sharedInstance();
         this.actionRichTooltip = richTooltip;
     }
 
@@ -1583,6 +1586,9 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * @see #setActionRichTooltip(RichTooltip)
      */
     public void setPopupRichTooltip(RichTooltip richTooltip) {
+        // Don't remove the next line - we need to instantiate the RichTooltipManager
+        // so that it starts tracking mouse events for displaying rich tooltips
+        RichTooltipManager.sharedInstance();
         this.popupRichTooltip = richTooltip;
     }
 

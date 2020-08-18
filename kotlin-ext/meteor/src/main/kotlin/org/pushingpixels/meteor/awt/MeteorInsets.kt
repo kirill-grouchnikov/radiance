@@ -41,7 +41,7 @@ import java.awt.Insets
  * val (top, left, bottom, right) = insets
  * ```
  */
-inline operator fun Insets.component1() = this.top
+public inline operator fun Insets.component1(): Int = this.top
 
 /**
  * Returns the left component of the insets. This method enables the usage of destructuring
@@ -51,7 +51,7 @@ inline operator fun Insets.component1() = this.top
  * val (top, left, bottom, right) = insets
  * ```
  */
-inline operator fun Insets.component2() = this.left
+public inline operator fun Insets.component2(): Int = this.left
 
 /**
  * Returns the bottom component of the insets. This method enables the usage of destructuring
@@ -61,7 +61,7 @@ inline operator fun Insets.component2() = this.left
  * val (top, left, bottom, right) = insets
  * ```
  */
-inline operator fun Insets.component3() = this.bottom
+public inline operator fun Insets.component3(): Int = this.bottom
 
 /**
  * Returns the right component of the insets. This method enables the usage of destructuring
@@ -71,4 +71,4 @@ inline operator fun Insets.component3() = this.bottom
  * val (top, left, bottom, right) = insets
  * ```
  */
-inline operator fun Insets.component4() = this.right
+public inline operator fun Insets.component4(): Int = this.right

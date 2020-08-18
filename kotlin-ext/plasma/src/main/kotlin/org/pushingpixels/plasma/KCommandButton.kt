@@ -32,50 +32,50 @@ package org.pushingpixels.plasma
 import org.pushingpixels.flamingo.api.common.JCommandButton
 
 @PlasmaElementMarker
-class KCommandButton {
+public class KCommandButton {
     internal val command: KCommand = KCommand()
     internal val presentation: KCommandButtonPresentation = KCommandButtonPresentation()
 
-    fun command(init: KCommand.() -> Unit) : KCommand {
+    public fun command(init: KCommand.() -> Unit) : KCommand {
         command.init()
         return command
     }
 
-    fun presentation(init: KCommandButtonPresentation.() -> Unit) {
+    public fun presentation(init: KCommandButtonPresentation.() -> Unit) {
         presentation.init()
     }
 
-    fun toButton(): JCommandButton {
+    public fun toButton(): JCommandButton {
         return command.toCommandButton(presentation)
     }
 }
 
-fun commandButton(init: KCommandButton.() -> Unit): KCommandButton {
+public fun commandButton(init: KCommandButton.() -> Unit): KCommandButton {
     val commandButton = KCommandButton()
     commandButton.init()
     return commandButton
 }
 
 @PlasmaElementMarker
-class KColorSelectorCommandButton {
+public class KColorSelectorCommandButton {
     internal val command: KColorSelectorCommand = KColorSelectorCommand()
     internal val presentation: KColorSelectorCommandPresentation = KColorSelectorCommandPresentation()
 
-    fun command(init: KColorSelectorCommand.() -> Unit) : KColorSelectorCommand {
+    public fun command(init: KColorSelectorCommand.() -> Unit) : KColorSelectorCommand {
         command.init()
         return command
     }
 
-    fun presentation(init: KColorSelectorCommandPresentation.() -> Unit) {
+    public fun presentation(init: KColorSelectorCommandPresentation.() -> Unit) {
         presentation.init()
     }
 
-    fun toButton(): JCommandButton {
+    public fun toButton(): JCommandButton {
         return command.toColorSelectorCommandButton(presentation)
     }
 }
 
-fun colorSelectorCommandButton(init: KColorSelectorCommandButton.() -> Unit): KColorSelectorCommandButton {
+public fun colorSelectorCommandButton(init: KColorSelectorCommandButton.() -> Unit): KColorSelectorCommandButton {
     val commandButton = KColorSelectorCommandButton()
     commandButton.init()
     return commandButton

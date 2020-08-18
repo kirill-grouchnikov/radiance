@@ -53,7 +53,7 @@ import java.beans.PropertyChangeListener;
 
 /**
  * UI for internal frame title pane in <b>Substance </b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane {
@@ -82,9 +82,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
     /**
      * Simple constructor.
-     * 
-     * @param f
-     *            Associated internal frame.
+     *
+     * @param f Associated internal frame.
      */
     public SubstanceInternalFrameTitlePane(JInternalFrame f) {
         super(f);
@@ -348,16 +347,14 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                         .getString("SystemMenu.maximize"));
             }
         }
-        if (closeIcon != null) {
-            this.closeButton.setIcon(closeIcon);
-            syncCloseButtonTooltip();
-        }
+        this.closeButton.setIcon(closeIcon);
+        syncCloseButtonTooltip();
     }
 
     /**
      * Click correction listener that resets models of minimize and restore buttons on click (so
      * that the rollover behaviour will be preserved correctly).
-     * 
+     *
      * @author Kirill Grouchnikov.
      */
     public static class ClickListener implements ActionListener {
@@ -431,7 +428,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             this.closeButton.setToolTipText(
                     SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close")
                             + " [" + SubstanceCortex.GlobalScope.getLabelBundle()
-                                    .getString("Tooltip.contentsNotSaved")
+                            .getString("Tooltip.contentsNotSaved")
                             + "]");
         } else {
             this.closeButton.setToolTipText(
@@ -465,7 +462,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
     /**
      * Layout manager for this title pane.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class SubstanceTitlePaneLayout extends TitlePaneLayout {
@@ -545,10 +542,10 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
             x = leftToRight ? w : 0;
 
-            SubstanceSlices.TitleIconHorizontalGravity iconGravity = SubstanceTitlePaneUtilities
-                    .getTitlePaneIconGravity();
-            SubstanceSlices.HorizontalGravity titleTextGravity = SubstanceTitlePaneUtilities
-                    .getTitlePaneTextGravity();
+            SubstanceSlices.TitleIconHorizontalGravity iconGravity =
+                    SubstanceTitlePaneUtilities.getTitlePaneIconGravity();
+            SubstanceSlices.HorizontalGravity titleTextGravity =
+                    SubstanceTitlePaneUtilities.getTitlePaneTextGravity();
             if (SubstanceInternalFrameTitlePane.this.menuBar != null) {
                 spacing = 5;
                 int menuBarLeft;
@@ -561,10 +558,9 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                                 SubstanceInternalFrameTitlePane.this, frame);
                         String displayTitle = getDisplayTitle();
 
-                        Font font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                .getFontSet().getWindowTitleFont();
-                        int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(font)
-                                .stringWidth(displayTitle);
+                        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getWindowTitleFont();
+                        int displayTitleWidth =
+                                SubstanceMetricsUtilities.getFontMetrics(font).stringWidth(displayTitle);
                         switch (titleTextGravity) {
                             case LEADING:
                                 menuBarLeft = leftToRight ? titleRect.x - buttonWidth - spacing
@@ -573,7 +569,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                             case TRAILING:
                                 menuBarLeft = leftToRight
                                         ? titleRect.x + titleRect.width - displayTitleWidth
-                                                - buttonWidth - spacing
+                                        - buttonWidth - spacing
                                         : titleRect.x + titleRect.width + spacing;
                                 break;
                             default:
@@ -632,7 +628,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
     /**
      * Custom iconifying action.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public class SubstanceIconifyAction extends IconifyAction {
