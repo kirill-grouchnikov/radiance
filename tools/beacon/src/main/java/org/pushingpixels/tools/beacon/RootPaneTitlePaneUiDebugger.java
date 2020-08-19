@@ -92,6 +92,12 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         }
 
                         JPopupMenu popup = new JPopupMenu();
+                        // Mark the popup menu to be HEADER decoration area type for visual
+                        // consistency with the popup menu displayed on clicking the application
+                        // icon (from SubstanceTitlePane.SubstanceMenuBar)
+                        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(popup,
+                                SubstanceSlices.DecorationAreaType.HEADER);
+
                         JMenu cbMenu = new JMenu("Color blindness");
                         JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
                         protanopiaCurrent.addActionListener(new SkinChanger(
