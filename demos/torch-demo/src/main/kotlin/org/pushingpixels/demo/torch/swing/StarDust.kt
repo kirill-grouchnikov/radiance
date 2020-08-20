@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.timeline
@@ -93,7 +97,7 @@ class MainPanel(private val stars: Deque<Star>) : JPanel() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val stars: Deque<Star> = LinkedList()
 
         val frame = JFrame("Star dust")
@@ -154,6 +158,7 @@ fun main() {
         frame.setSize(400, 300)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+
         frame.isVisible = true
     }
 }

@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.lucent
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.meteor.addDelayedComponentListener
 import org.pushingpixels.meteor.addDelayedMouseListener
@@ -44,7 +48,6 @@ import org.pushingpixels.trident.api.swing.TimelineSwingWorker
 import java.awt.*
 import java.awt.image.BufferedImage
 import javax.swing.JComponent
-import javax.swing.SwingUtilities
 import kotlin.math.min
 
 /**
@@ -128,7 +131,7 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
 
         this.labelFont = NeonCortex.getDefaultFontPolicy().fontSet.controlFont
 
-        SwingUtilities.invokeLater { getLoadImageScenario(albumItem).play() }
+        GlobalScope.launch(Dispatchers.Swing) { getLoadImageScenario(albumItem).play() }
     }
 
     /**

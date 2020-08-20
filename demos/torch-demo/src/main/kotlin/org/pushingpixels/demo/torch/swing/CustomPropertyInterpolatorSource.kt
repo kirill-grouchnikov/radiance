@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
@@ -43,7 +47,6 @@ import java.awt.RenderingHints
 import java.awt.geom.Ellipse2D
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.SwingUtilities
 
 private class Ellipse2DPropertyInterpolator : PropertyInterpolator<Ellipse2D> {
     override fun getBasePropertyClass(): Class<Ellipse2D> {
@@ -60,7 +63,7 @@ private class Ellipse2DPropertyInterpolator : PropertyInterpolator<Ellipse2D> {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         TridentConfig.getInstance().addPropertyInterpolator(Ellipse2DPropertyInterpolator())
 
         val from = Ellipse2D.Double(10.0, 10.0, 100.0, 50.0)
@@ -94,6 +97,7 @@ fun main() {
         frame.setSize(400, 300)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

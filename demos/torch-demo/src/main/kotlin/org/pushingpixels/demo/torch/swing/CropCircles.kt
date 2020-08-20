@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
@@ -42,7 +46,6 @@ import java.awt.geom.Ellipse2D
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.SwingUtilities
 
 class CropCircle(private val xc: Float, private val yc: Float, val initialRadius: Float) {
     var radius = 0.0f
@@ -272,7 +275,7 @@ class CropPanel : JPanel() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val fr = JFrame()
         fr.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
@@ -281,6 +284,7 @@ fun main() {
         fr.add(panel)
         fr.pack()
         fr.setLocationRelativeTo(null)
+
         fr.isVisible = true
     }
 }

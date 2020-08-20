@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
@@ -45,7 +49,6 @@ import java.util.*
 import java.util.concurrent.CountDownLatch
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.SwingUtilities
 import kotlin.collections.HashMap
 
 class SingleExplosion(var color: Color, var x: Float, var y: Float, var radius: Float) {
@@ -119,7 +122,7 @@ class VolleyExplosion(private val x: Int, private val y: Int, private val color:
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame("Fireworks")
         val volleys: MutableSet<VolleyExplosion> = HashSet()
 
@@ -206,6 +209,7 @@ fun main() {
         frame.pack()
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

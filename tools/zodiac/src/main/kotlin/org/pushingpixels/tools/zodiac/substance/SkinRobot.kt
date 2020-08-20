@@ -81,6 +81,7 @@ abstract class SkinRobot(protected var skin: SubstanceSkin, private val screensh
             sf!!.setSize(340, 258)
             sf!!.setLocationRelativeTo(null)
             sf!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
             sf!!.isVisible = true
         }
 

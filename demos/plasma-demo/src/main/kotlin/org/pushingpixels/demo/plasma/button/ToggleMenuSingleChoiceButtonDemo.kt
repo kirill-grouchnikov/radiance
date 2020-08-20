@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.plasma.button
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.Format_justify_center
 import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
@@ -43,12 +47,11 @@ import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
 import javax.swing.JFrame
-import javax.swing.SwingUtilities
 import javax.swing.WindowConstants
 import javax.swing.text.StyleConstants
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val frame = JFrame("Test")

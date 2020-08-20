@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.plasma.group
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.Format_justify_center
 import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
@@ -43,11 +47,14 @@ import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
-import javax.swing.*
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.JTextPane
+import javax.swing.WindowConstants
 import javax.swing.border.EmptyBorder
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
 
         val frame = JFrame("Text alignment demo")
@@ -98,6 +105,7 @@ fun main() {
         frame.size = Dimension(600, 300)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

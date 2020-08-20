@@ -107,7 +107,8 @@ fun main() {
                         ComponentState.ENABLED))
         frame.setSize(600, 400)
         frame.setLocationRelativeTo(null)
-        frame.isVisible = true
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
+        frame.isVisible = true
     }
 }

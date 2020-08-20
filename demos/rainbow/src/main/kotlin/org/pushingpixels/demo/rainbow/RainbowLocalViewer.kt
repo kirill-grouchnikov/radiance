@@ -58,6 +58,7 @@ fun main() {
         frame.setSize(700, 400)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

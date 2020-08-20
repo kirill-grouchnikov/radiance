@@ -30,16 +30,18 @@
  */
 package org.pushingpixels.demo.rainbow
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.CommandAction
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
 import org.pushingpixels.neon.api.icon.ResizableIcon
 import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon
 import java.awt.Dimension
 import java.io.InputStream
-import javax.swing.SwingUtilities
 
 /**
  * Panel that hosts SVG-based gallery buttons.
@@ -58,7 +60,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
                 .addDescriptionSection("Click to generate Java2D class")
                 .build()
         command.action = CommandAction {
-            SwingUtilities.invokeLater {
+            GlobalScope.launch(Dispatchers.Swing) {
                 // can't pass the stream contents since the input can be .svgz
                 val svgIcon = icon as SvgBatikResizableIcon
                 RainbowUtils.processSvgButtonClick(svgIcon.svgBytes, leaf.leafName)

@@ -35,12 +35,12 @@ import java.awt.Dimension
 import java.awt.FlowLayout
 import javax.swing.*
 
-public suspend fun <T> offSwingThread(block: suspend CoroutineScope.() -> T): T {
+suspend fun <T> offSwingThread(block: suspend CoroutineScope.() -> T): T {
     return withContext(Dispatchers.Default, block)
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame()
 
         frame.layout = FlowLayout()
@@ -62,7 +62,8 @@ fun main() {
 
         frame.size = Dimension(600, 400)
         frame.setLocationRelativeTo(null)
-        frame.isVisible = true
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
+        frame.isVisible = true
     }
 }

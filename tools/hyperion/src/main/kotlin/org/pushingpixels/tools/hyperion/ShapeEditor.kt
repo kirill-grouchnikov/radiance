@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.tools.hyperion
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
@@ -451,13 +455,14 @@ class ShapeEditor : JFrame() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(BusinessBlackSteelSkin())
 
         val editor = ShapeEditor()
         editor.preferredSize = Dimension(600, 400)
         editor.size = editor.preferredSize
         editor.setLocationRelativeTo(null)
+
         editor.isVisible = true
     }
 }

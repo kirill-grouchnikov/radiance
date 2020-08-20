@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.plasma.group
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.Format_text_bold
 import org.pushingpixels.demo.plasma.svg.Format_text_italic
 import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
@@ -46,12 +50,15 @@ import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
 import java.util.*
-import javax.swing.*
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.JTextPane
+import javax.swing.WindowConstants
 import javax.swing.border.EmptyBorder
 import javax.swing.text.DefaultCaret
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
 
         val frame = JFrame("Text styling demo")
@@ -176,6 +183,7 @@ fun main() {
         frame.size = Dimension(600, 300)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

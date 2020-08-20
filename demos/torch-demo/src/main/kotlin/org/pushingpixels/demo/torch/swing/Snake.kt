@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
@@ -42,7 +46,6 @@ import java.awt.event.MouseEvent
 import java.awt.event.MouseMotionAdapter
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.SwingUtilities
 
 class SnakePanelRectangle(private val repaintTimeline: SwingRepaintTimeline) {
     var backgroundColor: Color = Color.black
@@ -126,12 +129,13 @@ private class SnakePanel : JPanel() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame("Snake")
         frame.add(SnakePanel())
         frame.pack()
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
+
         frame.isVisible = true
     }
 }

@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.plasma.popup
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
@@ -44,11 +48,10 @@ import java.awt.image.BufferedImage
 import java.text.MessageFormat
 import java.util.*
 import javax.swing.JFrame
-import javax.swing.SwingUtilities
 import javax.swing.WindowConstants
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val resourceBundle = ResourceBundle

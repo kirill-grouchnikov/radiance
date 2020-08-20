@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedComponentListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
@@ -45,7 +49,6 @@ import java.awt.*
 import java.awt.geom.RoundRectangle2D
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.SwingUtilities
 
 class ProgressPanel : JPanel() {
     var xPosition = 0
@@ -164,13 +167,14 @@ class ProgressPanel : JPanel() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame("Swing progress")
         frame.add(ProgressPanel())
 
         frame.setSize(400, 300)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

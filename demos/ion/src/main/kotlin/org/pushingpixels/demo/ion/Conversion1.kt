@@ -37,7 +37,7 @@ import java.awt.FlowLayout
 import javax.swing.*
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame()
 
         frame.layout = FlowLayout()
@@ -74,7 +74,8 @@ fun main() {
 
         frame.size = Dimension(600, 400)
         frame.setLocationRelativeTo(null)
-        frame.isVisible = true
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
+        frame.isVisible = true
     }
 }

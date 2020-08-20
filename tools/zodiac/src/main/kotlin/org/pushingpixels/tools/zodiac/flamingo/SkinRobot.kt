@@ -83,6 +83,7 @@ abstract class SkinRobot(protected var skin: SubstanceSkin, private val screensh
             ribbonFrame!!.pack()
             ribbonFrame!!.setLocation(r.x, r.y)
             ribbonFrame!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
             ribbonFrame!!.isVisible = true
         }
 

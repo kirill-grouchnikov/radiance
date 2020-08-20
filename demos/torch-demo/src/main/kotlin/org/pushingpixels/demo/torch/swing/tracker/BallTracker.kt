@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing.tracker
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
@@ -46,7 +50,7 @@ import javax.swing.*
 data class Options(val description: String, val ease: TimelineEase)
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         var timelineBallFalling: Timeline? = null
 
         val frame = JFrame("Ball tracker")
@@ -156,6 +160,7 @@ fun main() {
         frame.setSize(500, 600)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

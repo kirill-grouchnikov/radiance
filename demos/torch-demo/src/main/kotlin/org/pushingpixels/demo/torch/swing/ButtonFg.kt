@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.torch.TorchComponent
 import org.pushingpixels.torch.componentTimeline
@@ -36,12 +40,11 @@ import java.awt.Color
 import java.awt.FlowLayout
 import javax.swing.JButton
 import javax.swing.JFrame
-import javax.swing.SwingUtilities
 import javax.swing.WindowConstants
 
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val button = JButton("sample")
         button.foreground = Color.blue
 
@@ -61,6 +64,7 @@ fun main() {
         frame.setSize(400, 200)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

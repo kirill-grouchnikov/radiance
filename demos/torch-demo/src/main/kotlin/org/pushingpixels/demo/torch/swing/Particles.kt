@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
@@ -260,7 +264,7 @@ class ParticlesPanel : JPanel() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame("Particles")
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
@@ -269,6 +273,7 @@ fun main() {
         frame.add(panel)
         frame.pack()
         frame.setLocationRelativeTo(null)
+
         frame.isVisible = true
     }
 }

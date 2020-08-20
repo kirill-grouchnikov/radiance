@@ -40,7 +40,7 @@ import javax.swing.SwingUtilities
  * Sets the visibility of the specified widget type(s). This method should not be called
  * from inside the initialization sequence of this window. If the specific widget needs to
  * be visible when the window is shown, wrap the call with
- * [SwingUtilities.invokeLater].
+ * [SwingUtilities.invokeLater] or [GlobalScope.launch(Dispatchers.Swing)]
  *
  * @param visible          Visibility indication.
  * @param substanceWidgets Widget types.

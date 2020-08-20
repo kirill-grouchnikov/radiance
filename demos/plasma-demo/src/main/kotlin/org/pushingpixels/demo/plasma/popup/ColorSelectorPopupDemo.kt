@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.plasma.popup
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.ember.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
@@ -47,7 +51,10 @@ import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.util.*
-import javax.swing.*
+import javax.swing.JColorChooser
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.WindowConstants
 
 class ColorIcon(private var color: Color) : ResizableIcon {
     private var w: Int = 0
@@ -91,7 +98,7 @@ class ColorIcon(private var color: Color) : ResizableIcon {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val defaultPanelColor = Color.lightGray

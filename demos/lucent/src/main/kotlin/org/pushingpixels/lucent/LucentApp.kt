@@ -29,10 +29,13 @@
  */
 package org.pushingpixels.lucent
 
-import javax.swing.SwingUtilities
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val mainWindow = MainWindow()
         mainWindow.isVisible = true
 

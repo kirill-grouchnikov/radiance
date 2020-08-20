@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
@@ -41,7 +45,6 @@ import java.awt.geom.Rectangle2D
 import java.util.*
 import javax.swing.JComponent
 import javax.swing.JFrame
-import javax.swing.SwingUtilities
 
 class ShapesPanel : JComponent() {
     private val shapes: MutableList<MyShape>
@@ -165,7 +168,7 @@ val COLOR_BLUE = Color(128, 128, 255)
 val COLOR_GREEN = Color(128, 255, 128)
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame()
         val sPanel = ShapesPanel()
         frame.add(sPanel, BorderLayout.CENTER)
@@ -173,6 +176,7 @@ fun main() {
         frame.setSize(600, 500)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
         frame.isVisible = true
     }
 }

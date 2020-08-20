@@ -131,6 +131,7 @@ abstract class TextHighlightsRobot(private val skin: SubstanceSkin, private val 
             frame.setSize(300, 300)
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+
             frame.isVisible = true
         }
 

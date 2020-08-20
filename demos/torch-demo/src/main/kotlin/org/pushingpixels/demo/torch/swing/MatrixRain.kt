@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.demo.torch.swing
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedComponentListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
@@ -40,7 +44,6 @@ import java.awt.*
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.SwingUtilities
 import kotlin.collections.ArrayList
 
 class Letter(private val x: Int, private val y: Int, private val c: Char, private var font: Font) {
@@ -142,7 +145,7 @@ private class MatrixPanel : JPanel() {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         val fr = JFrame("Matrix rain")
         fr.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
@@ -151,6 +154,7 @@ fun main() {
         fr.add(panel)
         fr.pack()
         fr.setLocationRelativeTo(null)
+
         fr.isVisible = true
     }
 }

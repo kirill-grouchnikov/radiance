@@ -30,6 +30,10 @@
 package org.pushingpixels.tools.apollo
 
 import com.jgoodies.forms.builder.FormBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.ember.setContentsModified
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedWindowListener
@@ -40,9 +44,9 @@ import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
 import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.tools.apollo.svg.outline_save_24px
 import org.pushingpixels.tools.common.JImageComponent
 import org.pushingpixels.tools.common.RadianceLogo
-import org.pushingpixels.tools.apollo.svg.outline_save_24px
 import java.awt.*
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.ClipboardOwner
@@ -320,7 +324,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
 fun main() {
     JDialog.setDefaultLookAndFeelDecorated(true)
     JFrame.setDefaultLookAndFeelDecorated(true)
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
 
         val editor = ApolloEditor()
@@ -328,6 +332,7 @@ fun main() {
         editor.extendedState = JFrame.MAXIMIZED_BOTH
         editor.setLocationRelativeTo(null)
         editor.defaultCloseOperation = WindowConstants.DO_NOTHING_ON_CLOSE
+
         editor.isVisible = true
     }
 }

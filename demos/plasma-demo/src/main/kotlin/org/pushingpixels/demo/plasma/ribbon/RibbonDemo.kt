@@ -30,6 +30,10 @@
 package org.pushingpixels.demo.plasma.ribbon
 
 import com.jgoodies.forms.builder.FormBuilder
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.LocaleSwitcher
 import org.pushingpixels.demo.plasma.popup.ColorIcon
 import org.pushingpixels.demo.plasma.svg.*
@@ -1703,7 +1707,7 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
 }
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
 
@@ -2082,6 +2086,6 @@ fun main() {
         javaRibbonFrame.setLocation(r.x, r.y)
         javaRibbonFrame.defaultCloseOperation = WindowConstants.DISPOSE_ON_CLOSE
 
-        javaRibbonFrame.setVisible(true)
+        javaRibbonFrame.isVisible = true
     }
 }

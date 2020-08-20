@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.tools.electra
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.deriveByBrightness
@@ -47,7 +51,7 @@ import javax.swing.border.Border
 import javax.swing.border.EmptyBorder
 
 fun main() {
-    SwingUtilities.invokeLater {
+    GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
         SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
