@@ -361,8 +361,11 @@ public class SubstanceTextUtilities {
                 TransitionAwareUI trackable = (TransitionAwareUI) ui;
                 StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
 
+                float lightnessFactor = SubstanceColorSchemeUtilities.getColorScheme(componentForTransitions,
+                        componentForTransitions.isEnabled() ? ComponentState.ENABLED
+                                : ComponentState.DISABLED_UNSELECTED).isDark() ? 0.1f : 0.4f;
                 Color lighterFill = SubstanceColorUtilities.getLighterColor(backgroundFillColor,
-                        0.4f);
+                        lightnessFactor);
                 lighterFill = SubstanceColorUtilities.getInterpolatedColor(lighterFill,
                         backgroundFillColor, 0.6);
 

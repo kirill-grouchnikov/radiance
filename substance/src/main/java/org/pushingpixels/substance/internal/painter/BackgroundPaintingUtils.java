@@ -86,11 +86,6 @@ public class BackgroundPaintingUtils {
 			return;
 		}
 
-		boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(
-				CellRendererPane.class, c) != null);
-		boolean isPreviewMode = Boolean.TRUE.equals(
-				c.getClientProperty(WidgetUtilities.PREVIEW_MODE));
-
 		Graphics2D graphics = (Graphics2D) g.create();
 		// optimization - do not call fillRect on graphics with anti-alias turned on
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

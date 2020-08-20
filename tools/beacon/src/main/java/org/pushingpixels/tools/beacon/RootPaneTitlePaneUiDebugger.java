@@ -32,6 +32,7 @@ package org.pushingpixels.tools.beacon;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.text.SubstanceTextArea;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
@@ -205,7 +206,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenuItem showCacheStats = new JMenuItem("Show cache stats");
                         showCacheStats.addActionListener(
                                 (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-                                    final JTextArea textArea = new JTextArea();
+                                    final JTextArea textArea = new SubstanceTextArea();
                                     java.util.List<String> stats = LazyResettableHashMap.getStats();
                                     if (stats != null) {
                                         for (String stat : stats) {
