@@ -2215,6 +2215,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
 
         builder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher(this)).xy(3, 5);
+        SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> {
+            rulerPanel.selectBackgroundFill(
+                    SubstanceCortex.GlobalScope.getCurrentSkin().getEnabledColorScheme(
+                            SubstanceSlices.DecorationAreaType.NONE).getBackgroundFillColor());
+        });
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");
         appMenuVisible.setSelected(true);
