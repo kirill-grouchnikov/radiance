@@ -29,23 +29,16 @@
  */
 package org.pushingpixels.ignite;
 
-import org.gradle.api.DefaultTask;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputDirectory;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.api.tasks.options.Option;
-import org.pushingpixels.photon.api.transcoder.*;
+import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
 import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 import org.pushingpixels.photon.api.transcoder.kotlin.KotlinLanguageRenderer;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 public class IgniteTask extends IgniteBaseTask {
     private String outputPackageName;

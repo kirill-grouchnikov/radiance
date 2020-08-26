@@ -29,8 +29,10 @@
  */
 package org.pushingpixels.ignite;
 
-import org.gradle.api.*;
+import org.gradle.api.Plugin;
+import org.gradle.api.Project;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class IgnitePlugin implements Plugin<Project> {
 
     public void apply(Project project) {
