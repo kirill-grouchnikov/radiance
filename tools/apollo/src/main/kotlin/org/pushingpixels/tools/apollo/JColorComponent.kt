@@ -59,7 +59,7 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
     val isDefined: Boolean
         get() = this.color != null
 
-    var selectedColor: Color? by Delegates.observable<Color?>(null) {
+    var selectedColor: Color? by Delegates.observable(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 

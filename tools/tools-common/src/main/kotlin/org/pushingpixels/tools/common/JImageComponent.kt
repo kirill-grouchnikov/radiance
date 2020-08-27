@@ -46,7 +46,7 @@ import java.net.URL
 import kotlin.properties.Delegates
 
 class JImageComponent(hasKeyboardZoom: Boolean) : JPanel() {
-    var image: BufferedImage? by Delegates.observable<BufferedImage?>(null) {
+    var image: BufferedImage? by Delegates.observable(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 
@@ -60,13 +60,13 @@ class JImageComponent(hasKeyboardZoom: Boolean) : JPanel() {
 
     private var lastDragPoint: Point? = null
 
-    var selectedColor: Color? by Delegates.observable<Color?>(null) {
+    var selectedColor: Color? by Delegates.observable(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 
     private var rolloverColor: Color? = null
 
-    var originalFile: File? by Delegates.observable<File?>(null) {
+    var originalFile: File? by Delegates.observable(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 

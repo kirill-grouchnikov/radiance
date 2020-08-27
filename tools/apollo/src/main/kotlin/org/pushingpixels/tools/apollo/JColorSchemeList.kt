@@ -226,7 +226,7 @@ class JColorSchemeList : JComponent() {
     var isModified: Boolean by Delegates.observable(false) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
-    var selectedColorScheme: SubstanceColorScheme? by Delegates.observable<SubstanceColorScheme?>(null) {
+    var selectedColorScheme: SubstanceColorScheme? by Delegates.observable(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 
