@@ -210,6 +210,69 @@ this.captionEditor.wireActionToKeyStroke("escape",
 }
 ```
 
+### Simple layout managers
+
+The core Swing [LayoutManager](https://docs.oracle.com/javase/9/docs/api/java/awt/LayoutManager.html) and its extension [LayoutManager2](https://docs.oracle.com/javase/9/docs/api/java/awt/LayoutManager2.html) provide a lot of flexibility to write complex layout logic in your app. But what if you don't need that flexibility, and only looking to express something simple?
+
+If we start with something as simple as wanting to put a custom close button in the top-right corner of our container, the resulting code in traditional Java might look like this:
+
+```java
+contentPane.setLayout(new LayoutManager() {
+    @Override
+    public void addLayoutComponent(String name, Component comp) {
+    }
+
+    @Override
+    public void removeLayoutComponent(Component comp) {
+    }
+
+    @Override
+    public Dimension minimumLayoutSize(Container parent) {
+        return null;
+    }
+
+    @Override
+    public Dimension preferredLayoutSize(Container parent) {
+        return null;
+    }
+
+    @Override
+    public void layoutContainer(Container parent) {
+        int closeButtonDim = 35;
+        closeButton.setBounds(getWidth() - closeButtonDim, 0,
+                closeButtonDim, closeButtonDim);
+        contentPanel.setBounds(0, 10, getWidth() - 10, getHeight() - 10);
+    }
+});
+```
+
+There's a lot of boilerplate that is added to just implement the `LayoutManager` interface, even if you only have custom logic for the `layoutContainer` method.
+
+Here is how it looks like in Meteor:
+
+```kotlin
+contentPane.layout = MeteorLayoutManager(
+        onLayout = {
+            val closeButtonDim = 35
+            closeButton.setBounds(width - closeButtonDim, 0,
+                    closeButtonDim, closeButtonDim)
+            contentPanel.setBounds(0, 10, width - 10, height - 10)
+        })
+```
+
+For a slightly more complex logic that needs to compute the preferred size:
+
+```kotlin
+this.layout = MeteorLayoutManager(
+        getPreferredSize = { parent ->
+            ...  // compute preferred width and height
+            Dimension(myPreferredWidth, myPreferredHeight)
+        },
+        onLayout = { parent ->
+            ...  // compute child(ren) bounds
+        })
+```
+
 ### Rendering with `Graphics2D`
 
 Here is how a custom `Icon` might implement a simple rectangular color fill in its `paintIcon`:
