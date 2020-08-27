@@ -47,22 +47,23 @@ import java.beans.PropertyChangeListener;
 public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
     protected PropertyChangeListener propertyChangeListener;
 
+    private static final String FLIP_SELECTION_KEY = "substancelaf.flipTextSelection";
+
     private void installTracking() {
         InputMap currMap = SwingUtilities.getUIInputMap(this.jcomp, JComponent.WHEN_FOCUSED);
 
         InputMap newMap = new InputMap();
         if (currMap != null) {
             KeyStroke[] kss = currMap.allKeys();
-            for (int i = 0; i < kss.length; i++) {
-                KeyStroke stroke = kss[i];
+            for (KeyStroke stroke : kss) {
                 Object val = currMap.get(stroke);
                 newMap.put(stroke, val);
             }
         }
 
-        newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "flipTextSelection");
+        newMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), FLIP_SELECTION_KEY);
 
-        this.jcomp.getActionMap().put("flipTextSelection", new AbstractAction() {
+        this.jcomp.getActionMap().put(FLIP_SELECTION_KEY, new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 SwingUtilities.invokeLater(() -> {
                     int selectionLength = jcomp.getSelectionEnd() - jcomp.getSelectionStart();
@@ -86,26 +87,26 @@ public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
         if (currMap != null) {
             InputMap newMap = new InputMap();
             KeyStroke[] kss = currMap.allKeys();
-            for (int i = 0; i < kss.length; i++) {
-                KeyStroke stroke = kss[i];
+            for (KeyStroke stroke : kss) {
                 Object val = currMap.get(stroke);
                 if (stroke.equals(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0))
-                        && "flipTextSelection".equals(val)) {
+                        && FLIP_SELECTION_KEY.equals(val)) {
                     continue;
                 }
                 newMap.put(stroke, val);
             }
             SwingUtilities.replaceUIInputMap(this.jcomp, JComponent.WHEN_FOCUSED, newMap);
         }
-        this.jcomp.getActionMap().remove("flipTextSelection");
+        this.jcomp.getActionMap().remove(FLIP_SELECTION_KEY);
     }
 
     @Override
     public void installListeners() {
         this.propertyChangeListener = propertyChangeEvent -> {
-            if (SubstanceSynapse.TEXT_FLIP_SELECT_ON_ESCAPE.equals(propertyChangeEvent.getPropertyName())) {
-                boolean hasTextFlipSelection = WidgetUtilities
-                        .hasTextFlipSelectOnEscapeProperty(jcomp);
+            if (SubstanceSynapse.TEXT_FLIP_SELECT_ON_ESCAPE.equals(
+                    propertyChangeEvent.getPropertyName())) {
+                boolean hasTextFlipSelection =
+                        WidgetUtilities.hasTextFlipSelectOnEscapeProperty(jcomp);
                 if (hasTextFlipSelection) {
                     // change the input map
                     installTracking();

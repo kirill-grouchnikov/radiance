@@ -30,6 +30,7 @@
 package org.pushingpixels.tools.apollo
 
 import org.pushingpixels.meteor.addDelayedMouseListener
+import org.pushingpixels.meteor.awt.MeteorLayoutManager
 import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.neon.api.NeonCortex
@@ -67,7 +68,23 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         this.radio.isFocusable = false
         this.color = color
         this.visualizer = ColorVisualizer()
-        this.layout = ColorComponentLayout()
+        this.layout = MeteorLayoutManager(
+                getPreferredSize = { parent ->
+                    val colorComponent = parent as JColorComponent
+                    val colorVisualizer = colorComponent.visualizer
+                    val cvPref = colorVisualizer.preferredSize
+                    Dimension(100 + cvPref.width, cvPref.height)
+                },
+                onLayout = { parent ->
+                    val jColorComponent = parent as JColorComponent
+                    val width = jColorComponent.width
+                    val height = jColorComponent.height
+
+                    val colorVisualizer = jColorComponent.visualizer
+                    val cvPref = colorVisualizer.preferredSize
+                    colorVisualizer.setBounds(width - cvPref.width, 0, cvPref.width, height)
+                    jColorComponent.radio.setBounds(0, 0, width - cvPref.width, height)
+                })
 
         this.add(this.radio)
         this.add(this.visualizer)
@@ -149,33 +166,5 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         override fun getPreferredSize(): Dimension {
             return Dimension(200, 25)
         }
-    }
-
-    private inner class ColorComponentLayout : LayoutManager {
-        override fun addLayoutComponent(name: String, comp: Component) {}
-
-        override fun layoutContainer(parent: Container) {
-            val jColorComponent = parent as JColorComponent
-            val width = jColorComponent.width
-            val height = jColorComponent.height
-
-            val colorVisualizer = jColorComponent.visualizer
-            val cvPref = colorVisualizer.preferredSize
-            colorVisualizer.setBounds(width - cvPref.width, 0, cvPref.width, height)
-            jColorComponent.radio.setBounds(0, 0, width - cvPref.width, height)
-        }
-
-        override fun minimumLayoutSize(parent: Container): Dimension {
-            return preferredLayoutSize(parent)
-        }
-
-        override fun preferredLayoutSize(parent: Container): Dimension {
-            val colorComponent = parent as JColorComponent
-            val colorVisualizer = colorComponent.visualizer
-            val cvPref = colorVisualizer.preferredSize
-            return Dimension(100 + cvPref.width, cvPref.height)
-        }
-
-        override fun removeLayoutComponent(comp: Component) {}
     }
 }

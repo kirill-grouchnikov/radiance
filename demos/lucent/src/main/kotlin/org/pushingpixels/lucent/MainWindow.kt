@@ -36,12 +36,17 @@ import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.details.DetailsWindowManager
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.addDelayedWindowFocusListener
+import org.pushingpixels.meteor.awt.MeteorLayoutManager
 import java.awt.*
 import javax.swing.JFrame
 
 class MainWindow : JFrame("Lumen demo") {
     private val contentPanel: AlbumOverviewPanel
     private val closeButton: CloseButton
+
+    companion object {
+        internal const val CLOSE_BUTTON_SIZE = 35
+    }
 
     init {
         this.isUndecorated = true
@@ -58,26 +63,12 @@ class MainWindow : JFrame("Lumen demo") {
         contentPane.setComponentZOrder(this.contentPanel, 1)
         contentPane.setComponentZOrder(this.closeButton, 0)
 
-        contentPane.layout = object : LayoutManager {
-            override fun addLayoutComponent(name: String, comp: Component) {}
-
-            override fun removeLayoutComponent(comp: Component) {}
-
-            override fun minimumLayoutSize(parent: Container): Dimension? {
-                return null
-            }
-
-            override fun preferredLayoutSize(parent: Container): Dimension? {
-                return null
-            }
-
-            override fun layoutContainer(parent: Container) {
-                val closeButtonDim = 35
-                closeButton.setBounds(width - closeButtonDim, 0,
-                        closeButtonDim, closeButtonDim)
-                contentPanel.setBounds(0, 10, width - 10, height - 10)
-            }
-        }
+        contentPane.layout = MeteorLayoutManager(
+                onLayout = {
+                    closeButton.setBounds(width - CLOSE_BUTTON_SIZE, 0,
+                            CLOSE_BUTTON_SIZE, CLOSE_BUTTON_SIZE)
+                    contentPanel.setBounds(0, 10, width - 10, height - 10)
+                })
 
         this.addDelayedWindowFocusListener(
                 onWindowLostFocus = { DetailsWindowManager.disposeCurrentlyShowing() })

@@ -68,7 +68,7 @@ public class CapsLockPasswordBorderWidget extends SubstanceWidget<JPasswordField
     /**
      * Name for client property that stores the original border.
      */
-    private static String ORIGINAL_BORDER = "substance.internal.capsLockBorder.original";
+    private static final String ORIGINAL_BORDER = "substance.internal.capsLockBorder.original";
 
     @Override
     public void installListeners() {

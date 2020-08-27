@@ -55,9 +55,9 @@ public class SelectAllOnFocusGainWidget extends SubstanceWidget<JTextComponent> 
             @Override
             public void focusGained(FocusEvent e) {
                 SwingUtilities.invokeLater(() -> {
-                    if (WidgetUtilities.hasTextFocusSelectAllProperty(jcomp)
-                            && jcomp.isEditable())
+                    if (WidgetUtilities.hasTextFocusSelectAllProperty(jcomp) && jcomp.isEditable()) {
                         jcomp.selectAll();
+                    }
                 });
             }
         };

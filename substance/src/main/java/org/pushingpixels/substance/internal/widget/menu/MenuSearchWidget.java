@@ -202,11 +202,11 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         }
 
         /**
-         * Returns all occurences of the specified string in the menus and menu items of the
+         * Returns all occurrences of the specified string in the menus and menu items of the
          * associated menu bar.
          *
          * @param searchPattern Pattern to search (no wildcards yet).
-         * @return All occurences of the specified string in the menus and menu items of the
+         * @return All occurrences of the specified string in the menus and menu items of the
          * associated menu bar.
          */
         private LinkedList<SearchResult> findOccurences(String searchPattern) {
@@ -227,13 +227,13 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         /**
          * Recursively scans the specified menu (item) and updates the list that contains all
-         * occurences of the specified string in the contained menus and menu items.
+         * occurrences of the specified string in the contained menus and menu items.
          *
          * @param currentPath     The path to the current menu (item). Contains {@link JMenu}s.
          * @param menuItem        The menu (item) itself that is being tested.
          * @param searchPattern   Pattern to search (no wildcards yet).
-         * @param matchingResults All occurences of the specified string up until now. After <code>this</code>
-         *                        function returns, will also contain all occurences of the specified string in
+         * @param matchingResults All occurrences of the specified string up until now. After <code>this</code>
+         *                        function returns, will also contain all occurrences of the specified string in
          *                        the contained menu (item)s. Contains {@link SearchResult}s.
          */
         private void checkMenu(LinkedList<JMenu> currentPath, JMenuItem menuItem,
@@ -346,11 +346,10 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         @Override
         public String toString() {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             if (this.menuElements != null) {
                 String sep = "";
-                for (int i = 0; i < this.menuElements.length; i++) {
-                    MenuElement menuElem = this.menuElements[i];
+                for (MenuElement menuElem : this.menuElements) {
                     if (menuElem instanceof JMenuItem) {
                         sb.append(sep);
                         sep = " -> ";
@@ -369,12 +368,12 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
          */
         public boolean isEnabled() {
             // all parts must be enabled
-            for (int i = 0; i < this.menuElements.length; i++) {
-                MenuElement menuElem = this.menuElements[i];
+            for (MenuElement menuElem : this.menuElements) {
                 if (menuElem instanceof JMenuItem) {
                     JMenuItem menuItem = (JMenuItem) menuElem;
-                    if (!menuItem.isEnabled())
+                    if (!menuItem.isEnabled()) {
                         return false;
+                    }
                 }
             }
             return true;
@@ -385,11 +384,13 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         // if the menu search widget has not been allowed,
         // return false
         if (!SubstanceWidgetManager.getInstance().isAllowed(SwingUtilities.getRootPane(menuBar),
-                SubstanceWidgetType.MENU_SEARCH))
+                SubstanceWidgetType.MENU_SEARCH)) {
             return false;
+        }
         // don't install on menu bar of title panes
-        if (menuBar instanceof SubstanceTitlePane.SubstanceMenuBar)
+        if (menuBar instanceof SubstanceTitlePane.SubstanceMenuBar) {
             return false;
+        }
         return MenuSearchWidget.getMenuItemCount(menuBar) > 40;
     }
 
@@ -406,8 +407,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             JMenu menu = (JMenu) menuItem;
             for (int i = 0; i < menu.getMenuComponentCount(); i++) {
                 Component child = menu.getMenuComponent(i);
-                if (child instanceof JMenuItem)
+                if (child instanceof JMenuItem) {
                     result += MenuSearchWidget.getMenuItemCount((JMenuItem) child);
+                }
             }
         }
 
@@ -438,19 +440,16 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         this.searchPanel = new SearchPanel(this.jcomp);
         this.jcomp.add(searchPanel, this.jcomp.getComponentCount());
         this.searchPanel.setVisible(toInstallMenuSearch(this.jcomp));
-        // NewMenuSearchWidget.panels.put(this.jcomp, searchPanel);
-        // toAddListener = true;
-        // }
 
-        // if (toAddListener) {
         // need to add a container listener that will move a newly added
         // JMenu one entry before the last (so that our search panel
         // will always be the last).
         this.jcomp.addContainerListener(new ContainerAdapter() {
             @Override
             public void componentAdded(ContainerEvent e) {
-                if (!(e.getChild() instanceof JMenu))
+                if (!(e.getChild() instanceof JMenu)) {
                     return;
+                }
                 if (!inEvent) {
                     inEvent = true;
                     Component removed = null;
@@ -471,13 +470,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                 }
             }
         });
-        // }
-
-        // SearchPanel sp = (SearchPanel)
-        // NewMenuSearchWidget.panels.get(this.jcomp);
-        // if (sp != null) {
         searchPanel.applyComponentOrientation(this.jcomp.getComponentOrientation());
-        // }
     }
 
     @Override
@@ -492,9 +485,6 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         this.propertyListener = propertyChangeEvent -> {
             if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
-                // final SearchPanel sp = (SearchPanel)
-                // NewMenuSearchWidget.panels
-                // .get(NewMenuSearchWidget.this.jcomp);
                 SwingUtilities.invokeLater(() -> {
                     if (searchPanel != null) {
                         searchPanel.applyComponentOrientation(
@@ -517,8 +507,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
     }
 
     private void reset() {
-        if (searchPanel == null)
+        if (searchPanel == null) {
             return;
+        }
         for (Map.Entry<Integer, JButton> entry : searchPanel.resultButtons.entrySet()) {
             int index = entry.getKey();
             JButton button = entry.getValue();
@@ -573,8 +564,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
         @Override
         public Dimension preferredLayoutSize(Container c) {
-            if (this.searchPanel.searchButton.isSelected())
+            if (this.searchPanel.searchButton.isSelected()) {
                 return c.getSize();
+            }
             int buttonSize = SubstanceSizeUtils.getLookupButtonSize();
             return new Dimension(buttonSize, buttonSize);
         }
@@ -591,8 +583,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             int height = c.getHeight();
             int width = c.getWidth();
 
-            if (!this.searchPanel.searchButton.isVisible())
+            if (!this.searchPanel.searchButton.isVisible()) {
                 return;
+            }
 
             boolean leftToRight = jcomp.getComponentOrientation().isLeftToRight();
 
