@@ -35,14 +35,14 @@ KOTLIN_VERSION=1.4.0
 KOTLIN_COROUTINES_VERSION=1.3.9
 CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-zodiac-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/tools/radiance-tools-common-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-substance-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-substance-extras-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-neon-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-trident-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/demo/radiance-substance-demo-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-substance-extras-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar:../../build/libs-tools/kotlin-stdlib-$KOTLIN_VERSION.jar:../../build/libs-tools/kotlin-stdlib-common-$KOTLIN_VERSION.jar:../../build/libs-tools/kotlinx-coroutines-core-jvm-$KOTLIN_COROUTINES_VERSION.jar:../../build/libs-tools/kotlinx-coroutines-swing-$KOTLIN_COROUTINES_VERSION.jar
 
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.FieldOfWheat ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.FindingNemo ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.GreenMagic ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Harvest ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Magma ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Mango ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Streetlights ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.OfficeBlack2007 ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.OfficeBlue2007 ../../docs/images/
-JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.substance.RobotMain org.pushingpixels.tools.zodiac.substance.skins.OfficeSilver2007 ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.FieldOfWheat ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.FindingNemo ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.GreenMagic ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Harvest ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Magma ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Mango ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.Streetlights ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.OfficeBlack2007 ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.OfficeBlue2007 ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.substance.skins.OfficeSilver2007 ../../docs/images/
 

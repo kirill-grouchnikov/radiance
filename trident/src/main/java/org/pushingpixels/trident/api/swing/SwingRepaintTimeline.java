@@ -34,6 +34,9 @@ import org.pushingpixels.trident.api.Timeline;
 import java.awt.*;
 
 public class SwingRepaintTimeline extends Timeline {
+    private static final String ERROR_PLAY_MESSAGE =
+            "Only infinite looping is supported on SwingRepaintTimeline";
+
     private SwingRepaintCallback repaintCallback;
 
     public static SwingRepaintTimeline.Builder repaintBuilder(Component component) {
@@ -52,28 +55,28 @@ public class SwingRepaintTimeline extends Timeline {
 
     @Override
     public void play() {
-        throw new UnsupportedOperationException("Only infinite looping is supported");
+        throw new UnsupportedOperationException(ERROR_PLAY_MESSAGE);
     }
 
     @Override
     public void playReverse() {
-        throw new UnsupportedOperationException("Only infinite looping is supported");
+        throw new UnsupportedOperationException(ERROR_PLAY_MESSAGE);
     }
 
     @Override
     public void replay() {
-        throw new UnsupportedOperationException("Only infinite looping is supported");
+        throw new UnsupportedOperationException(ERROR_PLAY_MESSAGE);
     }
 
     @Override
     public void replayReverse() {
-        throw new UnsupportedOperationException("Only infinite looping is supported");
+        throw new UnsupportedOperationException(ERROR_PLAY_MESSAGE);
     }
 
     @Override
     public void playLoop(int loopCount, RepeatBehavior repeatBehavior) {
         if (loopCount >= 0) {
-            throw new UnsupportedOperationException("Only infinite looping is supported");
+            throw new UnsupportedOperationException(ERROR_PLAY_MESSAGE);
         }
         super.playLoop(loopCount, repeatBehavior);
     }

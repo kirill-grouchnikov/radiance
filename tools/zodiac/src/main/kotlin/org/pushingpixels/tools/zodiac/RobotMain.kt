@@ -27,14 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.flamingo
+package org.pushingpixels.tools.zodiac
 
 import javax.swing.JFrame
 
 /**
- * The main method for taking screenshots for Substance documentation. Expects one parameter - fully
- * qualified class name of a single screenshot robot which has a `public void run()`
- * method.
+ * The main method for taking screenshots for Radiance documentation. Expects
+ * two parameters - fully qualified class name of a single screenshot robot which
+ * has a `public void run(String)` method, and the location of screenshots.
  *
  * @author Kirill Grouchnikov
  */
@@ -42,17 +42,20 @@ object RobotMain {
     /**
      * Runs the specified screenshot robot.
      *
-     * @param args Should contain one string: fully qualified class name of a single screenshot
-     * robot which has a `public void run()` method.
+     * @param args Should contain two strings:
+     * 1. Fully qualified class name of a single screenshot robot which
+     *    has a `public void run(String)` method
+     * 2. Location of output screenshots
      */
     @JvmStatic
     fun main(args: Array<String>) {
         JFrame.setDefaultLookAndFeelDecorated(true)
 
         val mainClassName = args[0]
+        val screenshotDirectory = args[1]
         val robotClass = Class.forName(mainClassName)
         val robotInstance = robotClass.getDeclaredConstructor().newInstance()
-        val runMethod = robotClass.getMethod("run")
-        runMethod.invoke(robotInstance)
+        val runMethod = robotClass.getMethod("run", String::class.java)
+        runMethod.invoke(robotInstance, screenshotDirectory)
     }
 }

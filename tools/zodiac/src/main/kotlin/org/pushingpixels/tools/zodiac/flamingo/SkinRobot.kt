@@ -53,7 +53,7 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class SkinRobot(protected var skin: SubstanceSkin, private val screenshotFilename: String) {
+abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String) {
 
     /**
      * The frame instance.
