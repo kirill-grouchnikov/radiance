@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.flamingo
+package org.pushingpixels.tools.zodiac.flamingo.skins
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -49,7 +49,7 @@ import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 /**
- * The base class for taking screenshots of skins for Substance documentation.
+ * The base class for taking screenshots of skins for Flamingo documentation.
  *
  * @author Kirill Grouchnikov
  */
