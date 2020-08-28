@@ -30,14 +30,12 @@
 package org.pushingpixels.tools.zodiac
 
 import javax.swing.JFrame
+import kotlin.system.exitProcess
 
-/**
- * The main method for taking screenshots for Radiance documentation. Expects
- * two parameters - fully qualified class name of a single screenshot robot which
- * has a `public void run(String)` method, and the location of screenshots.
- *
- * @author Kirill Grouchnikov
- */
+fun interface ZodiacRobot {
+    fun run(screenshotDirectory: String)
+}
+
 object RobotMain {
     /**
      * Runs the specified screenshot robot.
@@ -55,7 +53,10 @@ object RobotMain {
         val screenshotDirectory = args[1]
         val robotClass = Class.forName(mainClassName)
         val robotInstance = robotClass.getDeclaredConstructor().newInstance()
-        val runMethod = robotClass.getMethod("run", String::class.java)
-        runMethod.invoke(robotInstance, screenshotDirectory)
+        if (robotInstance !is ZodiacRobot) {
+            println("$robotClass is not a Zodiac robot")
+            exitProcess(0)
+        }
+        robotInstance.run(screenshotDirectory)
     }
 }

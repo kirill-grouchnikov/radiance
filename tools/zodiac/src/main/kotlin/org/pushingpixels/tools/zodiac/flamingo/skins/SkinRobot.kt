@@ -38,6 +38,7 @@ import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSkin
+import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.awt.ComponentOrientation
 import java.awt.Dimension
 import java.awt.GraphicsEnvironment
@@ -53,14 +54,9 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String) {
-
-    /**
-     * The frame instance.
-     */
-    private var ribbonFrame: BasicCheckRibbon? = null
-
-    suspend fun runInner(screenshotDirectory: String) {
+abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String)
+    : ZodiacRobot {
+    private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
         // set skin
@@ -70,21 +66,22 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
         }
 
         // create the frame and set the icon image
+        val ribbonFrame : BasicCheckRibbon
         withContext(Dispatchers.Swing) {
             ribbonFrame = BasicCheckRibbon()
-            ribbonFrame!!.configureRibbon()
-            ribbonFrame!!.applyComponentOrientation(ComponentOrientation
+            ribbonFrame.configureRibbon()
+            ribbonFrame.applyComponentOrientation(ComponentOrientation
                     .getOrientation(Locale.getDefault()))
             val r = GraphicsEnvironment.getLocalGraphicsEnvironment()
                     .maximumWindowBounds
-            ribbonFrame!!.preferredSize = Dimension(r.width,
+            ribbonFrame.preferredSize = Dimension(r.width,
                     r.height / 2)
-            ribbonFrame!!.minimumSize = Dimension(100, r.height / 3)
-            ribbonFrame!!.pack()
-            ribbonFrame!!.setLocation(r.x, r.y)
-            ribbonFrame!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            ribbonFrame.minimumSize = Dimension(100, r.height / 3)
+            ribbonFrame.pack()
+            ribbonFrame.setLocation(r.x, r.y)
+            ribbonFrame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-            ribbonFrame!!.isVisible = true
+            ribbonFrame.isVisible = true
         }
 
         withContext(Dispatchers.Swing) { Robot().mouseMove(0, 0) }
@@ -93,31 +90,29 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
         withContext(Dispatchers.Main) { delay(1000) }
 
         // make the first screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(screenshotDirectory) }
+        withContext(Dispatchers.Swing) { makeScreenshot(ribbonFrame, screenshotDirectory) }
 
         // dispose the frame
-        withContext(Dispatchers.Swing) { ribbonFrame!!.dispose() }
+        withContext(Dispatchers.Swing) { ribbonFrame.dispose() }
 
         val end = System.currentTimeMillis()
-        println(this.javaClass.simpleName + " : "
-                + (end - start) + "ms")
+        println(this.javaClass.simpleName + " : " + (end - start) + "ms")
     }
 
     /**
      * Runs the screenshot process.
      */
-    fun run(screenshotDirectory: String) {
+    override fun run(screenshotDirectory: String) {
         runBlocking { runInner(screenshotDirectory) }
     }
 
     /**
      * Creates the screenshot and saves it on the disk.
      */
-    private fun makeScreenshot(screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(ribbonFrame!!.width,
-                ribbonFrame!!.height)
+    private fun makeScreenshot(ribbonFrame: JFrame, screenshotDirectory: String) {
+        val bi = NeonCortex.getBlankImage(ribbonFrame.width, ribbonFrame.height)
         val g = bi.graphics
-        ribbonFrame!!.paint(g)
+        ribbonFrame.paint(g)
 
         val finalIm = NeonCortex.getBlankImage(500, 200)
         finalIm.graphics.drawImage(bi, 0, 0, null)

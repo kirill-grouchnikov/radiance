@@ -42,6 +42,7 @@ import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import org.pushingpixels.substance.api.text.SubstanceTextField
 import org.pushingpixels.tools.common.RadianceLogo
+import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.awt.FlowLayout
 import java.awt.KeyboardFocusManager
 import java.awt.Robot
@@ -61,7 +62,7 @@ import javax.swing.text.DefaultCaret
  * @author Kirill Grouchnikov
  */
 abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
-        private val screenshotFilename: String) {
+        private val screenshotFilename: String) : ZodiacRobot {
     private fun makeTextField(text: String): JTextField {
         val result = SubstanceTextField(text, 20)
         // force the display of text selection even when the focus has been lost
@@ -116,7 +117,7 @@ abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
         return frame
     }
 
-    suspend fun runInner(screenshotDirectory: String) {
+    private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
         // set skin
@@ -168,7 +169,7 @@ abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
     /**
      * Runs the screenshot process.
      */
-    fun run(screenshotDirectory: String) {
+    override fun run(screenshotDirectory: String) {
         runBlocking { runInner(screenshotDirectory) }
     }
 

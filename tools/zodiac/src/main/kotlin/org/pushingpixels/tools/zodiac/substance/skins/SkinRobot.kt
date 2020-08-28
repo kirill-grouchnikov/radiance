@@ -42,6 +42,7 @@ import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import org.pushingpixels.tools.common.RadianceLogo
+import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.awt.Robot
 import java.io.File
 import java.io.IOException
@@ -53,14 +54,9 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String) {
-
-    /**
-     * The frame instance.
-     */
-    private var sf: SampleFrame? = null
-
-    suspend fun runInner(screenshotDirectory: String) {
+abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String)
+    : ZodiacRobot {
+    private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
         // set skin
@@ -70,23 +66,24 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
         }
 
         // create the frame and set the icon image
+        val frame: SampleFrame
         withContext(Dispatchers.Swing) {
-            sf = SampleFrame()
-            sf!!.iconImage = RadianceLogo.getLogoImage(
+            frame = SampleFrame()
+            frame.iconImage = RadianceLogo.getLogoImage(
                     SubstanceCortex.ComponentScope.getCurrentSkin(
-                            sf!!.rootPane).getColorScheme(
+                            frame.rootPane).getColorScheme(
                             DecorationAreaType.PRIMARY_TITLE_PANE,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED))
-            sf!!.setSize(340, 258)
-            sf!!.setLocationRelativeTo(null)
-            sf!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            frame.setSize(340, 258)
+            frame.setLocationRelativeTo(null)
+            frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-            sf!!.isVisible = true
+            frame.isVisible = true
         }
 
         // get the default button
-        val defaultButton = withContext(Dispatchers.Swing) { sf!!.rootPane.defaultButton }
+        val defaultButton = withContext(Dispatchers.Swing) { frame.rootPane.defaultButton }
 
         val robot = Robot()
         // and move the mouse to it
@@ -100,10 +97,10 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
         withContext(Dispatchers.Main) { delay(1000) }
 
         // make the first screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(screenshotDirectory, 1) }
+        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory, 1) }
 
         // switch to the last tab
-        withContext(Dispatchers.Swing) { sf!!.switchToLastTab() }
+        withContext(Dispatchers.Swing) { frame.switchToLastTab() }
 
         // move the mouse away from the frame
         withContext(Dispatchers.Swing) { robot.mouseMove(0, 0) }
@@ -112,10 +109,10 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
         withContext(Dispatchers.Main) { delay(1000) }
 
         // make the second screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(screenshotDirectory, 2) }
+        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory, 2) }
 
         // dispose the frame
-        withContext(Dispatchers.Swing) { sf!!.dispose() }
+        withContext(Dispatchers.Swing) { frame.dispose() }
 
         val end = System.currentTimeMillis()
         println(this.javaClass.simpleName + " : " + (end - start) + "ms")
@@ -124,7 +121,7 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
     /**
      * Runs the screenshot process.
      */
-    fun run(screenshotDirectory: String) {
+    override fun run(screenshotDirectory: String) {
         runBlocking { runInner(screenshotDirectory) }
     }
 
@@ -133,10 +130,10 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
      *
      * @param count Sequence number for the screenshot.
      */
-    private fun makeScreenshot(screenshotDirectory: String, count: Int) {
-        val bi = NeonCortex.getBlankImage(sf!!.width, sf!!.height)
+    private fun makeScreenshot(frame: SampleFrame, screenshotDirectory: String, count: Int) {
+        val bi = NeonCortex.getBlankImage(frame.width, frame.height)
         val g = bi.graphics
-        sf!!.paint(g)
+        frame.paint(g)
         try {
             val output = File(screenshotDirectory + this.screenshotFilename + count + ".png")
             output.parentFile.mkdirs()

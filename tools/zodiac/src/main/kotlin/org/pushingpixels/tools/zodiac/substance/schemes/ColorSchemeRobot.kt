@@ -43,20 +43,16 @@ import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import org.pushingpixels.tools.common.RadianceLogo
+import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
-        private val screenshotFilename: String) {
+        private val screenshotFilename: String) : ZodiacRobot {
 
-    /**
-     * The frame instance.
-     */
-    private var sf: SampleFrame? = null
-
-    suspend fun runInner(screenshotDirectory: String) {
+    private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
         // set skin
@@ -66,28 +62,29 @@ abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
         }
 
         // create the frame and set the icon image
+        val frame : JFrame
         withContext(Dispatchers.Swing) {
-            sf = SampleFrame()
-            sf!!.iconImage = RadianceLogo.getLogoImage(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(sf!!.rootPane).getColorScheme(
+            frame = SampleFrame()
+            frame.iconImage = RadianceLogo.getLogoImage(
+                    SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                             DecorationAreaType.PRIMARY_TITLE_PANE,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED))
-            sf!!.setSize(340, 258)
-            sf!!.setLocationRelativeTo(null)
-            sf!!.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            frame.setSize(340, 258)
+            frame.setLocationRelativeTo(null)
+            frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-            sf!!.isVisible = true
+            frame.isVisible = true
         }
 
         // wait for one second
         withContext(Dispatchers.Main) { delay(1000) }
 
         // make the screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(screenshotDirectory) }
+        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory) }
 
         // dispose the frame
-        withContext(Dispatchers.Swing) { sf!!.dispose() }
+        withContext(Dispatchers.Swing) { frame.dispose() }
 
         val end = System.currentTimeMillis()
         println(this.javaClass.simpleName + " : " + (end - start) + "ms")
@@ -96,17 +93,17 @@ abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
     /**
      * Runs the screenshot process.
      */
-    fun run(screenshotDirectory: String) {
+    override fun run(screenshotDirectory: String) {
         runBlocking { runInner(screenshotDirectory) }
     }
 
     /**
      * Creates the screenshot and saves it on the disk.
      */
-    private fun makeScreenshot(screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(sf!!.width, sf!!.height)
+    private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
+        val bi = NeonCortex.getBlankImage(frame.width, frame.height)
         val g = bi.graphics
-        sf!!.paint(g)
+        frame.paint(g)
         try {
             val target = File(screenshotDirectory + this.screenshotFilename)
             target.parentFile.mkdirs()
