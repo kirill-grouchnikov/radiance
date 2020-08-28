@@ -27,14 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.substance
+package org.pushingpixels.tools.zodiac.substance.schemes
 
-import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle
 import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
+import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery
-import org.pushingpixels.substance.api.colorscheme.DarkMetallicColorScheme
+import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme
+import org.pushingpixels.substance.api.colorscheme.MetallicColorScheme
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter
@@ -45,25 +45,22 @@ import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
 
 /**
- * The default dark skin for the Zodiac skin scripts.
+ * The default light skin for the Zodiac skin scripts.
  *
  * @author Kirill Grouchnikov
  */
-class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
+class RobotDefaultSkin(accentColorScheme: SubstanceColorScheme) :
         SubstanceSkin.Accented(AccentBuilder()
                 .withActiveControlsAccent(accentColorScheme)
                 .withWindowChromeAccent(accentColorScheme)) {
 
     init {
-        this.tabFadeStart = 1.0
-        this.tabFadeEnd = 1.0
-
         val bottomLineOverlayPainter = BottomLineOverlayPainter(
                 ColorSchemeSingleColorQuery.MID)
         this.addOverlayPainter(bottomLineOverlayPainter,
-                DecorationAreaType.PRIMARY_TITLE_PANE,
-                DecorationAreaType.SECONDARY_TITLE_PANE,
-                DecorationAreaType.HEADER)
+                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                SubstanceSlices.DecorationAreaType.HEADER)
 
         this.buttonShaper = ClassicButtonShaper()
         this.fillPainter = ClassicFillPainter()
@@ -77,20 +74,15 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
         this.highlightPainter = ClassicHighlightPainter()
         this.borderPainter = ClassicBorderPainter()
 
-        val inactiveScheme = this.activeControlsAccent.blendWith(DarkMetallicColorScheme(), 0.6)
         val defaultSchemeBundle = SubstanceColorSchemeBundle(
-                this.activeControlsAccent, inactiveScheme, inactiveScheme)
-        defaultSchemeBundle.registerAlpha(0.5f,
-                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
-        defaultSchemeBundle.registerColorScheme(inactiveScheme,
-                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
+                this.activeControlsAccent, MetallicColorScheme(), LightGrayColorScheme())
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
+                SubstanceSlices.DecorationAreaType.NONE)
 
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE)
-
-        this.registerAsDecorationArea(this.windowChromeAccent,
-                DecorationAreaType.PRIMARY_TITLE_PANE,
-                DecorationAreaType.SECONDARY_TITLE_PANE,
-                DecorationAreaType.HEADER)
+        this.registerAsDecorationArea(this.activeControlsAccent,
+                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                SubstanceSlices.DecorationAreaType.HEADER)
     }
 
     override fun getDisplayName(): String {
@@ -101,6 +93,6 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
         /**
          * Display name for `this` skin.
          */
-        var NAME = "Robot Default Dark"
+        var NAME = "Robot Default"
     }
 }

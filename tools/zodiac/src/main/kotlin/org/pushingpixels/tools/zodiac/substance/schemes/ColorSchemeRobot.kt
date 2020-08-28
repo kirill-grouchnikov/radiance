@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.substance
+package org.pushingpixels.tools.zodiac.substance.schemes
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -41,18 +41,15 @@ import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import org.pushingpixels.tools.common.RadianceLogo
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 
-/**
- * The base class for taking a single screenshot for Substance documentation.
- *
- * @author Kirill Grouchnikov
- */
-abstract class BaseRobot(protected var skin: SubstanceSkin, private val screenshotFilename: String) {
+abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
+        private val screenshotFilename: String) {
 
     /**
      * The frame instance.
@@ -120,3 +117,12 @@ abstract class BaseRobot(protected var skin: SubstanceSkin, private val screensh
 
     }
 }
+
+/**
+ * The base class for taking screenshots of color schemes for Substance documentation.
+ *
+ * @author Kirill Grouchnikov
+ */
+abstract class ColorSchemeRobot(colorScheme: SubstanceColorScheme, screenshotFilename: String) :
+        BaseColorSchemeRobot(if (colorScheme.isDark) RobotDefaultDarkSkin(colorScheme) else
+            RobotDefaultSkin(colorScheme), screenshotFilename)

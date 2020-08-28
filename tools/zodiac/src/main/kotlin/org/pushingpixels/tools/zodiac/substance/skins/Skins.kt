@@ -30,7 +30,6 @@
 package org.pushingpixels.tools.zodiac.substance.skins
 
 import org.pushingpixels.substance.api.skin.*
-import org.pushingpixels.tools.zodiac.substance.SkinRobot
 
 /**
  * Screenshot robots for Substance skins.

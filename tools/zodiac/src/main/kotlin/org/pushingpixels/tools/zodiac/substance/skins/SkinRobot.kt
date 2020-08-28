@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.substance
+package org.pushingpixels.tools.zodiac.substance.skins
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -53,7 +53,7 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class SkinRobot(protected var skin: SubstanceSkin, private val screenshotFilename: String) {
+abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String) {
 
     /**
      * The frame instance.

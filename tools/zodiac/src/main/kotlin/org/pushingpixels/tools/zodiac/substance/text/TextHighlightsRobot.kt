@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.substance
+package org.pushingpixels.tools.zodiac.substance.text
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -60,7 +60,8 @@ import javax.swing.text.DefaultCaret
  *
  * @author Kirill Grouchnikov
  */
-abstract class TextHighlightsRobot(private val skin: SubstanceSkin, private val screenshotFilename: String) {
+abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
+        private val screenshotFilename: String) {
     private fun makeTextField(text: String): JTextField {
         val result = SubstanceTextField(text, 20)
         // force the display of text selection even when the focus has been lost

@@ -30,7 +30,6 @@
 package org.pushingpixels.tools.zodiac.substance.schemes
 
 import org.pushingpixels.substance.extras.api.colorschemepack.*
-import org.pushingpixels.tools.zodiac.substance.ColorSchemeRobot
 
 /**
  * Screenshot robots for Substance extras color schemes.

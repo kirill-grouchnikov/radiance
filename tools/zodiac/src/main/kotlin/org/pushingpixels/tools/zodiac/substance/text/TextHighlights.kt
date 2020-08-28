@@ -30,7 +30,6 @@
 package org.pushingpixels.tools.zodiac.substance.text
 
 import org.pushingpixels.substance.api.skin.*
-import org.pushingpixels.tools.zodiac.substance.TextHighlightsRobot
 
 /**
  * Screenshot robots for Substance text highlights.

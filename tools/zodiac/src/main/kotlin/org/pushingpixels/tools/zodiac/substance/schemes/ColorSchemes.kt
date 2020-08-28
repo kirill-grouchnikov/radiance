@@ -30,7 +30,6 @@
 package org.pushingpixels.tools.zodiac.substance.schemes
 
 import org.pushingpixels.substance.api.colorscheme.*
-import org.pushingpixels.tools.zodiac.substance.ColorSchemeRobot
 import java.awt.Color
 
 /**
