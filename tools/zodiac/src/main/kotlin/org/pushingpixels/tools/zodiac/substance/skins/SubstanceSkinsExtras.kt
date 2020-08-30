@@ -36,13 +36,13 @@ import org.pushingpixels.substance.extras.api.skinpack.*
  *
  * @author Kirill Grouchnikov
  */
-class FieldOfWheat : SkinRobot(FieldOfWheatSkin(), "substance-extras/skins/fieldofwheat")
-class FindingNemo : SkinRobot(FindingNemoSkin(), "substance-extras/skins/findingnemo")
-class GreenMagic : SkinRobot(GreenMagicSkin(), "substance-extras/skins/greenmagic")
-class Harvest : SkinRobot(HarvestSkin(), "substance-extras/skins/harvest")
-class Magma : SkinRobot(MagmaSkin(), "substance-extras/skins/magma")
-class Mango : SkinRobot(MangoSkin(), "substance-extras/skins/mango")
-class OfficeBlack2007 : SkinRobot(OfficeBlack2007Skin(), "substance-extras/skins/officeblack2007")
-class OfficeBlue2007 : SkinRobot(OfficeBlue2007Skin(), "substance-extras/skins/officeblue2007")
-class OfficeSilver2007 : SkinRobot(OfficeSilver2007Skin(), "substance-extras/skins/officesilver2007")
-class Streetlights : SkinRobot(StreetlightsSkin(), "substance-extras/skins/streetlights")
+class FieldOfWheat : SubstanceSkinRobot(FieldOfWheatSkin(), "substance-extras/skins/fieldofwheat")
+class FindingNemo : SubstanceSkinRobot(FindingNemoSkin(), "substance-extras/skins/findingnemo")
+class GreenMagic : SubstanceSkinRobot(GreenMagicSkin(), "substance-extras/skins/greenmagic")
+class Harvest : SubstanceSkinRobot(HarvestSkin(), "substance-extras/skins/harvest")
+class Magma : SubstanceSkinRobot(MagmaSkin(), "substance-extras/skins/magma")
+class Mango : SubstanceSkinRobot(MangoSkin(), "substance-extras/skins/mango")
+class OfficeBlack2007 : SubstanceSkinRobot(OfficeBlack2007Skin(), "substance-extras/skins/officeblack2007")
+class OfficeBlue2007 : SubstanceSkinRobot(OfficeBlue2007Skin(), "substance-extras/skins/officeblue2007")
+class OfficeSilver2007 : SubstanceSkinRobot(OfficeSilver2007Skin(), "substance-extras/skins/officesilver2007")
+class Streetlights : SubstanceSkinRobot(StreetlightsSkin(), "substance-extras/skins/streetlights")

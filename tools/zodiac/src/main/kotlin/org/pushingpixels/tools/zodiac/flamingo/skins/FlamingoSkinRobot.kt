@@ -27,35 +27,35 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.tools.zodiac.substance.skins
+package org.pushingpixels.tools.zodiac.flamingo.skins
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.demo.substance.main.check.SampleFrame
+import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon
 import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
-import org.pushingpixels.tools.common.RadianceLogo
 import org.pushingpixels.tools.zodiac.ZodiacRobot
+import java.awt.ComponentOrientation
+import java.awt.Dimension
+import java.awt.GraphicsEnvironment
 import java.awt.Robot
 import java.io.File
 import java.io.IOException
+import java.util.*
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 /**
- * The base class for taking screenshots of skins for Substance documentation.
+ * The base class for taking screenshots of skins for Flamingo documentation.
  *
  * @author Kirill Grouchnikov
  */
-abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshotFilename: String)
-    : ZodiacRobot {
+abstract class FlamingoSkinRobot(private var skin: SubstanceSkin,
+        private val screenshotFilename: String) : ZodiacRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
@@ -66,53 +66,32 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
         }
 
         // create the frame and set the icon image
-        val frame: SampleFrame
+        val ribbonFrame : BasicCheckRibbon
         withContext(Dispatchers.Swing) {
-            frame = SampleFrame()
-            frame.iconImage = RadianceLogo.getLogoImage(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(
-                            frame.rootPane).getColorScheme(
-                            DecorationAreaType.PRIMARY_TITLE_PANE,
-                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED))
-            frame.setSize(340, 258)
-            frame.setLocationRelativeTo(null)
-            frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            ribbonFrame = BasicCheckRibbon()
+            ribbonFrame.configureRibbon()
+            ribbonFrame.applyComponentOrientation(
+                    ComponentOrientation.getOrientation(Locale.getDefault()))
+            val r = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
+            ribbonFrame.preferredSize = Dimension(r.width, r.height / 2)
+            ribbonFrame.minimumSize = Dimension(100, r.height / 3)
+            ribbonFrame.pack()
+            ribbonFrame.setLocation(r.x, r.y)
+            ribbonFrame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
-            frame.isVisible = true
+            ribbonFrame.isVisible = true
         }
 
-        // get the default button
-        val defaultButton = withContext(Dispatchers.Swing) { frame.rootPane.defaultButton }
-
-        val robot = Robot()
-        // and move the mouse to it
-        withContext(Dispatchers.Swing) {
-            val locOnScreen = defaultButton.locationOnScreen
-            robot.mouseMove(locOnScreen.x + defaultButton.width / 2,
-                    locOnScreen.y + defaultButton.height / 2)
-        }
+        withContext(Dispatchers.Swing) { Robot().mouseMove(0, 0) }
 
         // wait for a second
         withContext(Dispatchers.Main) { delay(1000) }
 
         // make the first screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory, 1) }
-
-        // switch to the last tab
-        withContext(Dispatchers.Swing) { frame.switchToLastTab() }
-
-        // move the mouse away from the frame
-        withContext(Dispatchers.Swing) { robot.mouseMove(0, 0) }
-
-        // wait for a second
-        withContext(Dispatchers.Main) { delay(1000) }
-
-        // make the second screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory, 2) }
+        withContext(Dispatchers.Swing) { makeScreenshot(ribbonFrame, screenshotDirectory) }
 
         // dispose the frame
-        withContext(Dispatchers.Swing) { frame.dispose() }
+        withContext(Dispatchers.Swing) { ribbonFrame.dispose() }
 
         val end = System.currentTimeMillis()
         println(this.javaClass.simpleName + " : " + (end - start) + "ms")
@@ -127,17 +106,19 @@ abstract class SkinRobot(private var skin: SubstanceSkin, private val screenshot
 
     /**
      * Creates the screenshot and saves it on the disk.
-     *
-     * @param count Sequence number for the screenshot.
      */
-    private fun makeScreenshot(frame: SampleFrame, screenshotDirectory: String, count: Int) {
-        val bi = NeonCortex.getBlankImage(frame.width, frame.height)
+    private fun makeScreenshot(ribbonFrame: JFrame, screenshotDirectory: String) {
+        val bi = NeonCortex.getBlankImage(ribbonFrame.width, ribbonFrame.height)
         val g = bi.graphics
-        frame.paint(g)
+        ribbonFrame.paint(g)
+
+        val finalIm = NeonCortex.getBlankImage(500, 200)
+        finalIm.graphics.drawImage(bi, 0, 0, null)
+
         try {
-            val output = File(screenshotDirectory + this.screenshotFilename + count + ".png")
+            val output = File(screenshotDirectory + this.screenshotFilename + ".png")
             output.parentFile.mkdirs()
-            ImageIO.write(bi, "png", output)
+            ImageIO.write(finalIm, "png", output)
         } catch (ioe: IOException) {
             ioe.printStackTrace()
         }

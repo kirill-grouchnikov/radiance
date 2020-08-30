@@ -42,7 +42,7 @@ object RobotMain {
      *
      * @param args Should contain two strings:
      * 1. Fully qualified class name of a single screenshot robot which
-     *    has a `public void run(String)` method
+     *    implements the [ZodiacRobot] interface
      * 2. Location of output screenshots
      */
     @JvmStatic
