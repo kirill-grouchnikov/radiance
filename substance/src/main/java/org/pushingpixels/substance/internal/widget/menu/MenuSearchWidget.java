@@ -29,13 +29,11 @@
  */
 package org.pushingpixels.substance.internal.widget.menu;
 
-import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
 import org.pushingpixels.substance.api.SubstanceWidget;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
@@ -43,7 +41,6 @@ import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -87,18 +84,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
          */
         private JTextField searchStringField;
 
-        /**
-         * The result buttons. Key is {@link Integer}, value is {@link JButton}.
-         */
         private Map<Integer, JButton> resultButtons;
 
-        /**
-         * Simple constructor.
-         *
-         * @param menuBar The associated menu bar.
-         */
-        public SearchPanel(final JMenuBar menuBar) {
-            // this.menuBar = menuBar;
+        public SearchPanel() {
             this.setLayout(new SearchResultsLayout(this));
 
             // Search button (toggle) with tooltip.
@@ -151,18 +139,20 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
             // on theme change and layout manager).
             this.resultButtons = new HashMap<>();
             this.searchStringField.addActionListener(actionEvent -> {
-                String searchString = SearchPanel.this.searchStringField.getText().toLowerCase();
-                // See if there is at least one non-white space character.
-                // This is fix for bug 54
-                if (searchString.trim().length() == 0) {
-                    return;
-                }
-
                 // remove all old buttons
                 for (JButton toRemove : SearchPanel.this.resultButtons.values()) {
                     SearchPanel.this.remove(toRemove);
                 }
                 SearchPanel.this.resultButtons.clear();
+
+                String searchString = SearchPanel.this.searchStringField.getText().toLowerCase();
+                // See if there is at least one non-white space character.
+                // This is fix for bug 54
+                if (searchString.trim().length() == 0) {
+                    SearchPanel.this.repaint();
+                    jcomp.revalidate();
+                    return;
+                }
                 // find all matching menu items / menus
                 LinkedList<SearchResult> searchResults = SearchPanel.this
                         .findOccurences(searchString);
@@ -176,7 +166,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     final int finalCount = count;
                     resultButton.setIcon(new TransitionAwareIcon(resultButton,
                             () -> (TransitionAwareUI) resultButton.getUI(),
-                            scheme -> SubstanceImageCreator.getHexaMarker((finalCount + 1), scheme),
+                            scheme -> SubstanceImageCreator.getHexaMarker(finalCount, scheme),
                             state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
                                     ? ColorSchemeAssociationKind.HIGHLIGHT
                                     : ColorSchemeAssociationKind.MARK,
@@ -190,8 +180,9 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     SearchPanel.this.add(resultButton);
                     SearchPanel.this.resultButtons.put(Integer.valueOf(count + 1), resultButton);
                     resultButton.setToolTipText("<html><body><b>"
-                            + searchResult.toString() + "</b><br>" + SubstanceCortex.GlobalScope
-                            .getLabelBundle().getString("Tooltip.menuSearchTooltip")
+                            + searchResult.toString() + "</b><br>"
+                            + SubstanceCortex.GlobalScope.getLabelBundle().getString(
+                                    "Tooltip.menuSearchTooltip")
                             + "</html>");
                     SubstanceCoreUtilities.markButtonAsFlat(resultButton);
                     count++;
@@ -437,7 +428,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
 
     @Override
     public void installUI() {
-        this.searchPanel = new SearchPanel(this.jcomp);
+        this.searchPanel = new SearchPanel();
         this.jcomp.add(searchPanel, this.jcomp.getComponentCount());
         this.searchPanel.setVisible(toInstallMenuSearch(this.jcomp));
 
