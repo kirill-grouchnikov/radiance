@@ -198,8 +198,7 @@ public class SubstanceRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
     protected void paintMenuItem(Graphics g, JComponent c, Icon checkIcon,
             Icon arrowIcon, Color background, Color foreground,
             int defaultTextIconGap) {
-        MenuUtilities.paintMenuItem(g, menuItem, checkIcon, arrowIcon,
-                defaultTextIconGap);
+        MenuUtilities.paintMenuItem(g, menuItem, checkIcon, arrowIcon);
     }
 
     @Override

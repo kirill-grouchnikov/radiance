@@ -407,11 +407,8 @@ public class MenuUtilities {
      *            Check icon.
      * @param arrowIcon
      *            Arrow icon.
-     * @param defaultTextIconGap
-     *            Gap between the icon and the text.
      */
-    public static void paintMenuItem(Graphics g, JMenuItem menuItem, Icon checkIcon, Icon arrowIcon,
-            int defaultTextIconGap) {
+    public static void paintMenuItem(Graphics g, JMenuItem menuItem, Icon checkIcon, Icon arrowIcon) {
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
             return;
 
