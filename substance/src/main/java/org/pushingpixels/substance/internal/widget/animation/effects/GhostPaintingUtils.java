@@ -106,7 +106,7 @@ public class GhostPaintingUtils {
      *            Scale factor.
      * @return A scaled ghost image of the specified component.
      */
-    protected static synchronized BufferedImage getComponentGhostImage(JComponent comp,
+    private static synchronized BufferedImage getComponentGhostImage(JComponent comp,
             Timeline ghostPressTimeline, double scaleFactor) {
         String key = ghostPressTimeline.getTimelinePosition() + ":" + comp.hashCode() + ":"
                 + scaleFactor;
@@ -139,7 +139,7 @@ public class GhostPaintingUtils {
      *            Scale factor.
      * @return A scaled ghost image of the specified icon.
      */
-    protected static synchronized BufferedImage getIconGhostImage(JComponent comp,
+    private static synchronized BufferedImage getIconGhostImage(JComponent comp,
             Timeline ghostRolloverTimeline, Icon icon, double scaleFactor) {
         String key = ghostRolloverTimeline.getTimelinePosition() + ":" + comp.hashCode() + ":"
                 + icon.hashCode() + ":" + scaleFactor;

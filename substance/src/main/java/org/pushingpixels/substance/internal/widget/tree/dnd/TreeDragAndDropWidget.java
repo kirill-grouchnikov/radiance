@@ -69,25 +69,25 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 	 */
 	private static Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
-	protected DnDCellRendererProxy rendererProxy;
+	private DnDCellRendererProxy rendererProxy;
 
-	protected DragSource dragSource;
+	private DragSource dragSource;
 
-	protected DropTarget dropTarget;
+	private DropTarget dropTarget;
 
-	protected MutableTreeNode dropNode;
+	private MutableTreeNode dropNode;
 
-	protected EventListenerList listeners;
+	private EventListenerList listeners;
 
-	protected PropertyChangeListener propertyChangeListener;
+	private PropertyChangeListener propertyChangeListener;
 
-	protected PropertyChangeListener cellRendererChangeListener;
+	private PropertyChangeListener cellRendererChangeListener;
 
-	protected TreeDropTargetListener dropListener;
+	private TreeDropTargetListener dropListener;
 
-	protected TreeDragGestureListener gestureListener;
+	private TreeDragGestureListener gestureListener;
 
-	protected DragGestureRecognizer dragGestureRecognizer;
+	private DragGestureRecognizer dragGestureRecognizer;
 
 	@Override
 	public void installListeners() {
@@ -615,7 +615,7 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 	/**
 	 * Invoked to decide if a given String can be dropped in the last path
 	 * component of the given path.
-	 * 
+	 *
 	 * @param aSourceString
 	 *            the String being dragged.
 	 * @param aPath
@@ -631,7 +631,7 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 	/**
 	 * Invoked to decide if a given String can be dropped in the last path
 	 * component of the given path.
-	 * 
+	 *
 	 * @param aSourceString
 	 *            the String being dragged.
 	 * @param aTargetTree
@@ -661,7 +661,7 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 	/**
 	 * Invoked to decide if draggedNode can be dropped in the last path
 	 * component of the given path.
-	 * 
+	 *
 	 * @param aSourceTree
 	 *            the source tree.
 	 * @param aSourceNode
@@ -680,7 +680,7 @@ public class TreeDragAndDropWidget extends SubstanceWidget<JTree> {
 
 	/**
 	 * Invoked to decide if draggedNode can be dropped into aNode.
-	 * 
+	 *
 	 * @param aSourceTree
 	 *            the source tree.
 	 * @param aSourceNode

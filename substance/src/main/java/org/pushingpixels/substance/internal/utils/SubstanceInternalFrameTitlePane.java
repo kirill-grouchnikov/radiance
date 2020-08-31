@@ -71,12 +71,12 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
     /**
      * Client property to mark an internal frame as being iconified.
      */
-    private static final String ICONIFYING = "substance.internal.internalTitleFramePane.iconifying";
+    private static final String ICONIFYING = "substancelaf.internal.internalTitleFramePane.iconifying";
 
     /**
      * Client property to mark a title pane as uninstalled.
      */
-    private static final String UNINSTALLED = "substance.internal.internalTitleFramePane.uninstalled";
+    private static final String UNINSTALLED = "substancelaf.internal.internalTitleFramePane.uninstalled";
 
     // protected boolean wasClosable;
 

@@ -47,7 +47,7 @@ public class SelectAllOnFocusGainWidget extends SubstanceWidget<JTextComponent> 
     /**
      * The focus listener.
      */
-    protected FocusListener focusListener;
+    private FocusListener focusListener;
 
     @Override
     public void installListeners() {

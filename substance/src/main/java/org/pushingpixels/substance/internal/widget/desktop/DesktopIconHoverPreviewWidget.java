@@ -88,7 +88,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
      * 
      * @author Kirill Grouchnikov.
      */
-    protected class TitleMouseHandler extends MouseInputAdapter {
+    private class TitleMouseHandler extends MouseInputAdapter {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (DesktopIconHoverPreviewWidget.this.isInDrag) {

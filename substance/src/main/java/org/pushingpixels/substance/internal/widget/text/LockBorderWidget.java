@@ -64,7 +64,7 @@ public class LockBorderWidget extends SubstanceWidget<JTextComponent> {
     /**
      * Name for client property that stores the original border.
      */
-    private static final String ORIGINAL_BORDER = "substance.internal.lockBorder.original";
+    private static final String ORIGINAL_BORDER = "substancelaf.internal.lockBorder.original";
 
     @Override
     public void installListeners() {

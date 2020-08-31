@@ -55,7 +55,7 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
     /**
      * Listens on changes to {@link SubstanceSynapse#PASSWORD_STRENGTH_CHECKER} property.
      */
-    protected PropertyChangeListener strengthCheckerListener;
+    private PropertyChangeListener strengthCheckerListener;
 
     private static class WrappedBorder extends CompoundBorderUIResource implements BorderWrapper {
         public WrappedBorder(Border outsideBorder, Border insideBorder) {

@@ -69,7 +69,7 @@ public class GhostingListener {
      */
     private ButtonModel buttonModel;
 
-    static final String GHOST_LISTENER_KEY = "substance.internal.ghostListenerKey";
+    static final String GHOST_LISTENER_KEY = "substancelaf.internal.ghostListenerKey";
 
     private Map<AnimationFacet, Boolean> prevStateMap;
 
@@ -108,7 +108,7 @@ public class GhostingListener {
         TimelineCallback ghostCallback = new EventDispatchThreadTimelineCallbackAdapter() {
             private boolean wasShowing = true;
 
-            protected void repaintTopLevelWindows() {
+            private void repaintTopLevelWindows() {
                 if (comp == null) {
                     return;
                 }
@@ -199,7 +199,7 @@ public class GhostingListener {
      * @param newState
      *            New value of the relevant attribute of the model.
      */
-    protected void trackModelChange(AnimationFacet animationFacet, boolean newState) {
+    private void trackModelChange(AnimationFacet animationFacet, boolean newState) {
         if (WidgetUtilities.toIgnoreAnimations(this.comp))
             return;
         try {

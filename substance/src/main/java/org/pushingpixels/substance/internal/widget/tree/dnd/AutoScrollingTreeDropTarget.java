@@ -50,6 +50,7 @@ class AutoScrollingTreeDropTarget extends DropTarget {
 
 	private Point lastDragCursorLocn = new Point(0, 0);
 
+	@Override
 	protected void updateAutoscroll(Point dragCursorLocn) {
 		if (this.lastDragCursorLocn.equals(dragCursorLocn))
 			return;
@@ -58,16 +59,18 @@ class AutoScrollingTreeDropTarget extends DropTarget {
 		this.doAutoscroll(dragCursorLocn);
 	}
 
+	@Override
 	protected void initializeAutoscrolling(Point p) {
 		this.doAutoscroll(p);
 	}
 
+	@Override
 	protected void clearAutoscroll() {
 	}
 
 	private static final int AUTOSCROLL_MARGIN = 16;
 
-	protected void doAutoscroll(Point aPoint) {
+	private void doAutoscroll(Point aPoint) {
 		if (this.viewport == null)
 			return;
 

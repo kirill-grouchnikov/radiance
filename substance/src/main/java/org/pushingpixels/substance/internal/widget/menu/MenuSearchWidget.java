@@ -64,7 +64,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
     /**
      * Listens on changes to the component orientation.
      */
-    protected PropertyChangeListener propertyListener;
+    private PropertyChangeListener propertyListener;
 
     /**
      * The associated search panel.

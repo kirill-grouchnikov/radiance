@@ -54,7 +54,7 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
     /**
      * Mouse listener for showing the edit context menu.
      */
-    protected MouseListener menuMouseListener;
+    private MouseListener menuMouseListener;
 
     private static final int ICON_SIZE = 14;
 

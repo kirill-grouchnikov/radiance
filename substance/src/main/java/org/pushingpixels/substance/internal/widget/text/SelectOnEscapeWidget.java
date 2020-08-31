@@ -45,7 +45,7 @@ import java.beans.PropertyChangeListener;
  * @author Kirill Grouchnikov
  */
 public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
-    protected PropertyChangeListener propertyChangeListener;
+    private PropertyChangeListener propertyChangeListener;
 
     private static final String FLIP_SELECTION_KEY = "substancelaf.flipTextSelection";
 
