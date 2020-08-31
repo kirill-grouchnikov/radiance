@@ -47,7 +47,7 @@ import java.util.Map;
  * Icon with transition-aware capabilities. Has a delegate that does the actual painting based on
  * the transition color schemes. This class is used heavily on Substance-provided icons, such as
  * title pane button icons, arrow icons on scroll bars and combos etc.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 @TransitionAware
@@ -56,16 +56,15 @@ public class TransitionAwareIcon implements Icon {
      * The delegate needs to implement the method in this interface based on the provided color
      * scheme. The color scheme is computed based on the transitions that are happening on the
      * associated button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     @FunctionalInterface
     public interface Delegate {
         /**
          * Returns the icon that matches the specified scheme.
-         * 
-         * @param scheme
-         *            Color scheme.
+         *
+         * @param scheme Color scheme.
          * @return Icon that matches the specified scheme.
          */
         ResizableIcon getColorSchemeIcon(SubstanceColorScheme scheme);
@@ -96,11 +95,11 @@ public class TransitionAwareIcon implements Icon {
     /**
      * Delegate to compute the actual icons.
      */
-    protected Delegate delegate;
+    private Delegate delegate;
 
-    protected ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
+    private ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
 
-    protected String uniqueIconTypeId;
+    private String uniqueIconTypeId;
 
     /**
      * Icon cache to speed up the subsequent icon painting. The basic assumption is that the
@@ -132,8 +131,8 @@ public class TransitionAwareIcon implements Icon {
         this.colorSchemeAssociationKindDelegate = colorSchemeAssociationKindDelegate;
         this.uniqueIconTypeId = uniqueIconTypeId;
 
-        ResizableIcon markEnabledIcon = this.delegate
-                .getColorSchemeIcon(SubstanceColorSchemeUtilities.getColorScheme(comp,
+        ResizableIcon markEnabledIcon = this.delegate.getColorSchemeIcon(
+                SubstanceColorSchemeUtilities.getColorScheme(comp,
                         ColorSchemeAssociationKind.MARK, ComponentState.ENABLED));
         this.iconWidth = markEnabledIcon.getIconWidth();
         this.iconHeight = markEnabledIcon.getIconHeight();
@@ -141,16 +140,16 @@ public class TransitionAwareIcon implements Icon {
 
     /**
      * Returns the current icon to paint.
-     * 
+     *
      * @return Icon to paint.
      */
     private synchronized ResizableIcon getIconToPaint() {
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
-        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
+        StateTransitionTracker.ModelStateInfo modelStateInfo =
+                stateTransitionTracker.getModelStateInfo();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                modelStateInfo.getStateContributionMap();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
         boolean buttonNeverPainted = SubstanceCoreUtilities.isButtonNeverPainted(this.comp);
@@ -202,8 +201,9 @@ public class TransitionAwareIcon implements Icon {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
@@ -212,7 +212,7 @@ public class TransitionAwareIcon implements Icon {
                 ColorSchemeAssociationKind associationKind = (this.colorSchemeAssociationKindDelegate == null)
                         ? ColorSchemeAssociationKind.MARK
                         : this.colorSchemeAssociationKindDelegate
-                                .getColorSchemeAssociationKind(activeState);
+                        .getColorSchemeAssociationKind(activeState);
                 SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(
                         this.comp, associationKind, activeState);
                 float alpha = SubstanceColorSchemeUtilities.getAlpha(this.comp, activeState);

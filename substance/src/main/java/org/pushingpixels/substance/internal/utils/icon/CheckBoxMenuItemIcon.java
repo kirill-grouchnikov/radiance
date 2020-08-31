@@ -64,8 +64,8 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
     /**
      * Icon cache to speed up the painting.
      */
-    private static LazyResettableHashMap<ImageWrapperIcon> iconMap = new LazyResettableHashMap<>(
-            "CheckBoxMenuItemIcon");
+    private static LazyResettableHashMap<ImageWrapperIcon> iconMap =
+            new LazyResettableHashMap<>("CheckBoxMenuItemIcon");
 
     /**
      * Creates a new icon.
@@ -86,20 +86,21 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
      * @return Icon to paint.
      */
     private ImageWrapperIcon getIconToPaint() {
-        if (this.menuItem == null)
+        if (this.menuItem == null) {
             return null;
+        }
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
 
-        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
+        StateTransitionTracker.ModelStateInfo modelStateInfo =
+                stateTransitionTracker.getModelStateInfo();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                modelStateInfo.getStateContributionMap();
 
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(this.menuItem);
-        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
-                .getBorderPainter(this.menuItem);
+        SubstanceBorderPainter borderPainter =
+                SubstanceCoreUtilities.getBorderPainter(this.menuItem);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         SubstanceColorScheme baseFillColorScheme = SubstanceColorSchemeUtilities
@@ -139,13 +140,14 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         iconBase.paintIcon(this.menuItem, g2d, 0, 0);
 
         // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {

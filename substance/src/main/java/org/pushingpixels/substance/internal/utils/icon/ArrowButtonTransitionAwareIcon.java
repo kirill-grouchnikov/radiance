@@ -69,19 +69,19 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 	/**
 	 * Icon width.
 	 */
-	protected int iconWidth;
+	private int iconWidth;
 
 	/**
 	 * Icon height.
 	 */
-	protected int iconHeight;
+	private int iconHeight;
 
 	/**
 	 * Delegate to compute the actual icons.
 	 */
-	protected TransitionAwareIcon.Delegate delegate;
+	private TransitionAwareIcon.Delegate delegate;
 
-	protected JComponent component;
+	private JComponent component;
 
 	private TransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
 
@@ -160,8 +160,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 				iconMap.put(keyBase, layerBase);
 			} else {
 				BufferedImage baseImage = SubstanceCoreUtilities.getBlankImage(
-						baseFullOpacity.getIconWidth(), baseFullOpacity
-								.getIconHeight());
+						baseFullOpacity.getIconWidth(), baseFullOpacity.getIconHeight());
 				Graphics2D g2base = baseImage.createGraphics();
 				g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
 				baseFullOpacity.paintIcon(this.component, g2base, 0, 0);
@@ -187,13 +186,14 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
 		layerBase.paintIcon(this.component, g2d, 0, 0);
 
 		// draw the other active layers
-		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-				.entrySet()) {
+		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+				activeStates.entrySet()) {
 			ComponentState activeState = activeEntry.getKey();
 			// System.out.println("Painting state " + activeState + "[curr is "
 			// + currState + "] with " + activeEntry.getValue());
-			if (activeState == currState)
+			if (activeState == currState) {
 				continue;
+			}
 
 			float stateContribution = activeEntry.getValue().getContribution();
 			// System.out.println("Painting activeState "

@@ -59,26 +59,26 @@ public class SubstanceIconFactory {
     /**
      * Icons for horizontal slider in {@link SubstanceSliderUI}.
      */
-    private static LazyResettableHashMap<Icon> sliderHorizontalIcons = new LazyResettableHashMap<>(
-            "SubstanceIconFactory.sliderHorizontalIcon");
+    private static LazyResettableHashMap<Icon> sliderHorizontalIcons =
+            new LazyResettableHashMap<>("SubstanceIconFactory.sliderHorizontalIcon");
 
     /**
      * Icons for horizontal slider in {@link SubstanceSliderUI}.
      */
-    private static LazyResettableHashMap<Icon> sliderRoundIcons = new LazyResettableHashMap<>(
-            "SubstanceIconFactory.sliderRoundIcon");
+    private static LazyResettableHashMap<Icon> sliderRoundIcons =
+            new LazyResettableHashMap<>("SubstanceIconFactory.sliderRoundIcon");
 
     /**
      * Icons for vertical slider in {@link SubstanceSliderUI}.
      */
-    private static LazyResettableHashMap<Icon> sliderVerticalIcons = new LazyResettableHashMap<>(
-            "SubstanceIconFactory.sliderVerticalIcon");
+    private static LazyResettableHashMap<Icon> sliderVerticalIcons =
+            new LazyResettableHashMap<>("SubstanceIconFactory.sliderVerticalIcon");
 
     /**
      * Icons for tree collapse / expand in {@link SubstanceTreeUI}.
      */
-    private static LazyResettableHashMap<ResizableIcon> treeIcons = new LazyResettableHashMap<>(
-            "SubstanceIconFactory.treeIcon");
+    private static LazyResettableHashMap<ResizableIcon> treeIcons =
+            new LazyResettableHashMap<>("SubstanceIconFactory.treeIcon");
 
     /**
      * Retrieves icon for horizontal slider in {@link SubstanceSliderUI}.
@@ -153,8 +153,8 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
-                "SubstanceIconFactory.SliderHorizontalIcon");
+        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+                new LazyResettableHashMap<>("SubstanceIconFactory.SliderHorizontalIcon");
 
         /**
          * The size of <code>this</code> icon.
@@ -181,12 +181,12 @@ public class SubstanceIconFactory {
 
         private ImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
-            StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                    .getModelStateInfo();
-            Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                    .getStateContributionMap();
-            ComponentState currState = stateTransitionTracker.getModelStateInfo()
-                    .getCurrModelState();
+            StateTransitionTracker.ModelStateInfo modelStateInfo =
+                    stateTransitionTracker.getModelStateInfo();
+            Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                    modelStateInfo.getStateContributionMap();
+            ComponentState currState =
+                    stateTransitionTracker.getModelStateInfo().getCurrModelState();
 
             float activeStrength = stateTransitionTracker.getActiveStrength();
             float width = this.size * (2.0f + activeStrength) / 3.0f;
@@ -217,15 +217,17 @@ public class SubstanceIconFactory {
                     baseLayer.getIconHeight());
             Graphics2D g2d = result.createGraphics();
             baseLayer.paintIcon(slider, g2d, 0, 0);
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
-                if (activeState == currState)
+                if (activeState == currState) {
                     continue;
+                }
 
                 float contribution = activeEntry.getValue().getContribution();
-                if (contribution == 0.0f)
+                if (contribution == 0.0f) {
                     continue;
+                }
 
                 SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(slider, activeState);
@@ -274,8 +276,9 @@ public class SubstanceIconFactory {
                     borderScheme);
             g2d.dispose();
 
-            if (this.isMirrorred)
+            if (this.isMirrorred) {
                 stateImage = SubstanceImageCreator.getRotated(stateImage, 2);
+            }
 
             return new ImageWrapperIcon(stateImage);
         }
@@ -288,8 +291,8 @@ public class SubstanceIconFactory {
 
             JSlider slider = (JSlider) c;
             TransitionAwareUI transitionAwareUI = (TransitionAwareUI) slider.getUI();
-            StateTransitionTracker stateTransitionTracker = transitionAwareUI
-                    .getTransitionTracker();
+            StateTransitionTracker stateTransitionTracker =
+                    transitionAwareUI.getTransitionTracker();
             Icon iconToDraw = getIcon(slider, stateTransitionTracker);
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, y);
@@ -317,8 +320,8 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
-                "SubstanceIconFactory.SliderRoundIcon");
+        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+                new LazyResettableHashMap<>("SubstanceIconFactory.SliderRoundIcon");
 
         /**
          * The size of <code>this</code> icon.
@@ -344,12 +347,12 @@ public class SubstanceIconFactory {
          */
         private ImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
-            StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                    .getModelStateInfo();
-            Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                    .getStateContributionMap();
-            ComponentState currState = stateTransitionTracker.getModelStateInfo()
-                    .getCurrModelState();
+            StateTransitionTracker.ModelStateInfo modelStateInfo =
+                    stateTransitionTracker.getModelStateInfo();
+            Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                    modelStateInfo.getStateContributionMap();
+            ComponentState currState =
+                    stateTransitionTracker.getModelStateInfo().getCurrModelState();
 
             float activeStrength = stateTransitionTracker.getActiveStrength();
             float width = this.size * (2.0f + activeStrength) / 3.0f;
@@ -373,23 +376,26 @@ public class SubstanceIconFactory {
                 SliderRoundIcon.icons.put(baseKey, baseLayer);
             }
 
-            if (currState.isDisabled() || (activeStates.size() == 1))
+            if (currState.isDisabled() || (activeStates.size() == 1)) {
                 return baseLayer;
+            }
 
             BufferedImage result = SubstanceCoreUtilities.getBlankImage(baseLayer.getIconWidth(),
                     baseLayer.getIconHeight());
             Graphics2D g2d = result.createGraphics();
             baseLayer.paintIcon(slider, g2d, 0, 0);
 
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
-                if (activeState == currState)
+                if (activeState == currState) {
                     continue;
+                }
 
                 float contribution = activeEntry.getValue().getContribution();
-                if (contribution == 0.0f)
+                if (contribution == 0.0f) {
                     continue;
+                }
 
                 SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(slider, activeState);
@@ -480,8 +486,8 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
-                "SubstanceIconFactory.SliderVerticalIcon");
+        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+                new LazyResettableHashMap<>("SubstanceIconFactory.SliderVerticalIcon");
 
         /**
          * The size of <code>this</code> icon.
@@ -515,12 +521,12 @@ public class SubstanceIconFactory {
          */
         private ImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
-            StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                    .getModelStateInfo();
-            Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                    .getStateContributionMap();
-            ComponentState currState = stateTransitionTracker.getModelStateInfo()
-                    .getCurrModelState();
+            StateTransitionTracker.ModelStateInfo modelStateInfo =
+                    stateTransitionTracker.getModelStateInfo();
+            Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                    modelStateInfo.getStateContributionMap();
+            ComponentState currState =
+                    stateTransitionTracker.getModelStateInfo().getCurrModelState();
 
             float activeStrength = stateTransitionTracker.getActiveStrength();
             int height = (int) (this.size * (2.0 + activeStrength) / 3.0);
@@ -547,23 +553,26 @@ public class SubstanceIconFactory {
                 SliderVerticalIcon.icons.put(baseKey, baseLayer);
             }
 
-            if (currState.isDisabled() || (activeStates.size() == 1))
+            if (currState.isDisabled() || (activeStates.size() == 1)) {
                 return baseLayer;
+            }
 
             BufferedImage result = SubstanceCoreUtilities.getBlankImage(baseLayer.getIconWidth(),
                     baseLayer.getIconHeight());
             Graphics2D g2d = result.createGraphics();
             baseLayer.paintIcon(slider, g2d, 0, 0);
 
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
-                if (activeState == currState)
+                if (activeState == currState) {
                     continue;
+                }
 
                 float contribution = activeEntry.getValue().getContribution();
-                if (contribution == 0.0f)
+                if (contribution == 0.0f) {
                     continue;
+                }
 
                 SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(slider, activeState);
@@ -661,8 +670,8 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
-                "SubstanceIconFactory.TreeIcon");
+        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+                new LazyResettableHashMap<>("SubstanceIconFactory.TreeIcon");
 
         /**
          * The collapsed indication of this icon
@@ -707,8 +716,9 @@ public class SubstanceIconFactory {
                     markScheme.getDisplayName(), isCollapsed);
 
             ImageWrapperIcon result = TreeIcon.icons.get(key);
-            if (result != null)
+            if (result != null) {
                 return result;
+            }
 
             result = new ImageWrapperIcon(SubstanceImageCreator.getTreeIcon(tree, fillScheme,
                     borderScheme, markScheme, isCollapsed));
@@ -787,14 +797,10 @@ public class SubstanceIconFactory {
     private static Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> createTitlePaneIcons() {
         Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> result = new HashMap<>();
 
-        result.put(IconKind.CLOSE,
-                new LazyResettableHashMap<>("Close title pane icons"));
-        result.put(IconKind.MINIMIZE,
-                new LazyResettableHashMap<>("Minimize title pane icons"));
-        result.put(IconKind.MAXIMIZE,
-                new LazyResettableHashMap<>("Maximize title pane icons"));
-        result.put(IconKind.RESTORE,
-                new LazyResettableHashMap<>("Restore title pane icons"));
+        result.put(IconKind.CLOSE, new LazyResettableHashMap<>("Close title pane icons"));
+        result.put(IconKind.MINIMIZE, new LazyResettableHashMap<>("Minimize title pane icons"));
+        result.put(IconKind.MAXIMIZE, new LazyResettableHashMap<>("Maximize title pane icons"));
+        result.put(IconKind.RESTORE, new LazyResettableHashMap<>("Restore title pane icons"));
         return result;
     }
 
@@ -810,8 +816,8 @@ public class SubstanceIconFactory {
     public static ImageWrapperIcon getTitlePaneIcon(IconKind iconKind,
             SubstanceColorScheme scheme, SubstanceColorScheme backgroundScheme) {
 
-        LazyResettableHashMap<ImageWrapperIcon> kindMap = SubstanceIconFactory.titlePaneIcons
-                .get(iconKind);
+        LazyResettableHashMap<ImageWrapperIcon> kindMap =
+                SubstanceIconFactory.titlePaneIcons.get(iconKind);
         HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(),
                 backgroundScheme.getDisplayName());
         ImageWrapperIcon result = kindMap.get(key);

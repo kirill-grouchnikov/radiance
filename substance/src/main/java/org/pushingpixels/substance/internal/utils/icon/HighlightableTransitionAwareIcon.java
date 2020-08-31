@@ -53,8 +53,8 @@ public class HighlightableTransitionAwareIcon implements Icon {
      * Icon cache to speed up the subsequent icon painting. The basic assumption is that the
      * {@link #delegate} returns an icon that paints the same for the same parameters.
      */
-    private static LazyResettableHashMap<ResizableIcon> iconMap = new LazyResettableHashMap<>(
-            "HighlightableTransitionAwareIcon");
+    private static LazyResettableHashMap<ResizableIcon> iconMap =
+            new LazyResettableHashMap<>("HighlightableTransitionAwareIcon");
 
     /**
      * Icon width.
@@ -149,11 +149,12 @@ public class HighlightableTransitionAwareIcon implements Icon {
         layerBase.paintIcon(this.component, g2d, 0, 0);
 
         // draw the other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {

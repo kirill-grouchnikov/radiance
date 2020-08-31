@@ -84,17 +84,18 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
      * @return Icon to paint.
      */
     private ImageWrapperIcon getIconToPaint() {
-        if (this.menuItem == null)
+        if (this.menuItem == null) {
             return null;
-        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem
-                .getUI();
-        StateTransitionTracker stateTransitionTracker = transitionAwareUI
-                .getTransitionTracker();
+        }
 
-        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
+        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem.getUI();
+        StateTransitionTracker stateTransitionTracker =
+                transitionAwareUI.getTransitionTracker();
+
+        StateTransitionTracker.ModelStateInfo modelStateInfo =
+                stateTransitionTracker.getModelStateInfo();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                modelStateInfo.getStateContributionMap();
 
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
         int checkMarkSize = this.size;
@@ -128,20 +129,21 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
             return iconBase;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(iconBase
-                .getIconWidth(), iconBase.getIconHeight());
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(
+                iconBase.getIconWidth(), iconBase.getIconHeight());
         Graphics2D g2d = result.createGraphics();
         // draw the base layer
         iconBase.paintIcon(this.menuItem, g2d, 0, 0);
 
         // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
@@ -154,16 +156,17 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
                         .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, activeState);
 
                 HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(
-                        fontSize, checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                        fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
-                        borderColorScheme.getDisplayName(), visibility, alpha);
+                        fontSize, checkMarkSize, fillPainter.getDisplayName(),
+                        borderPainter.getDisplayName(), fillColorScheme.getDisplayName(),
+                        markColorScheme.getDisplayName(), borderColorScheme.getDisplayName(),
+                        visibility, alpha);
                 ImageWrapperIcon iconLayer = iconMap.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new ImageWrapperIcon(SubstanceImageCreator
-                            .getRadioButton(this.menuItem, fillPainter,
-                                    borderPainter, checkMarkSize, currState, 0,
-                                    fillColorScheme, markColorScheme,
-                                    borderColorScheme, visibility, alpha));
+                    iconLayer = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(
+                            this.menuItem, fillPainter,
+                            borderPainter, checkMarkSize, currState, 0,
+                            fillColorScheme, markColorScheme,
+                            borderColorScheme, visibility, alpha));
                     iconMap.put(keyLayer, iconLayer);
                 }
 

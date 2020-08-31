@@ -41,11 +41,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GlowingIcon implements Icon {
-	protected Icon delegate;
+	private Icon delegate;
 
-	protected IconGlowTracker iconGlowTracker;
+	private IconGlowTracker iconGlowTracker;
 
-	protected Map<Float, Icon> iconMap;
+	private Map<Float, Icon> iconMap;
 
 	private float glowDampeningFactor = 3.0f;
 	

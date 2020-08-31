@@ -56,10 +56,8 @@ public class MenuArrowIcon implements Icon, UIResource {
 	 *            Menu.
 	 */
 	public MenuArrowIcon(JMenu menu) {
-		this.ltrIcon = new ArrowButtonTransitionAwareIcon(menu,
-				SwingConstants.EAST);
-		this.rtlIcon = new ArrowButtonTransitionAwareIcon(menu,
-				SwingConstants.WEST);
+		this.ltrIcon = new ArrowButtonTransitionAwareIcon(menu, SwingConstants.EAST);
+		this.rtlIcon = new ArrowButtonTransitionAwareIcon(menu, SwingConstants.WEST);
 	}
 
 	@Override
