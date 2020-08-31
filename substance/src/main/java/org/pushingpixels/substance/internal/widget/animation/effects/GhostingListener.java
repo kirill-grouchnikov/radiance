@@ -35,7 +35,6 @@ import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.Timeline.TimelineState;
 import org.pushingpixels.trident.api.callback.TimelineCallback;
-import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter;
 import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
@@ -58,24 +57,21 @@ public class GhostingListener {
     /**
      * Listener on the model changes.
      */
-    protected ChangeListener modelListener;
+    private ChangeListener modelListener;
 
     /**
      * The associated component.
      */
-    protected JComponent comp;
+    private JComponent comp;
 
     /**
      * The associated model.
      */
-    protected ButtonModel buttonModel;
+    private ButtonModel buttonModel;
 
     static final String GHOST_LISTENER_KEY = "substance.internal.ghostListenerKey";
 
-    /**
-     * Key - {@link AnimationFacet}, value - {@link Boolean}
-     */
-    protected Map<AnimationFacet, Boolean> prevStateMap;
+    private Map<AnimationFacet, Boolean> prevStateMap;
 
     private Timeline ghostIconRolloverTimeline;
 
@@ -112,9 +108,10 @@ public class GhostingListener {
         TimelineCallback ghostCallback = new EventDispatchThreadTimelineCallbackAdapter() {
             private boolean wasShowing = true;
 
-            protected void repaintTopLevelWindows(float timelinePosition) {
-                if (comp == null)
+            protected void repaintTopLevelWindows() {
+                if (comp == null) {
                     return;
+                }
 
                 boolean isShowing = comp.isShowing();
                 if (isShowing) {
@@ -127,11 +124,8 @@ public class GhostingListener {
 
                 if (!isShowing) {
                     if (wasShowing) {
-                        // need to repaint all other windows
-                        // once - otherwise we will see
-                        // painting artifacts from
-                        // a pressed button that was made
-                        // invisible
+                        // need to repaint all other windows once - otherwise we will see
+                        // painting artifacts from a pressed button that was made invisible
                         for (Window w : Window.getWindows()) {
                             if (w.isDisplayable() && w.isVisible() && w.isShowing()) {
                                 w.repaint();
@@ -144,10 +138,12 @@ public class GhostingListener {
                 Component root = SwingUtilities.getRoot(comp);
                 Rectangle compRect = comp.getBounds();
                 compRect.setLocation(comp.getLocationOnScreen());
-                compRect.x -= compRect.width / 2;
-                compRect.y -= compRect.height / 2;
-                compRect.width *= 2;
-                compRect.height *= 2;
+                // Compute the "damage" area around the component to repaint the ghost
+                // icon visuals
+                compRect.x -= 3 * compRect.width / 4;
+                compRect.y -= 3 * compRect.height / 4;
+                compRect.width *= 2.5;
+                compRect.height *= 2.5;
                 int rootRepaintX = compRect.x - root.getLocationOnScreen().x;
                 int rootRepaintY = compRect.y - root.getLocationOnScreen().y;
 
@@ -157,8 +153,9 @@ public class GhostingListener {
                 // all top-level windows that intersect
                 // with this rectangle
                 for (Window w : Window.getWindows()) {
-                    if (w == root)
+                    if (w == root) {
                         continue;
+                    }
                     if (w.isDisplayable() && w.isVisible() && w.isShowing()) {
                         if (w.getBounds().intersects(compRect)) {
                             int winRepaintX = compRect.x - w.getLocationOnScreen().x;
@@ -173,42 +170,22 @@ public class GhostingListener {
             public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
                     float durationFraction, float timelinePosition) {
                 if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
-                    this.repaintTopLevelWindows(1.0f);
+                    synchronized (GhostingListener.class) {
+                        this.repaintTopLevelWindows();
+                        runningGhostRolloverTimelines.values().remove(ghostIconRolloverTimeline);
+                        runningGhostPressTimelines.values().remove(ghostComponentPressedTimeline);
+                    }
                 }
             }
 
             @Override
             public void onTimelinePulse(float durationFraction, float timelinePosition) {
-                this.repaintTopLevelWindows(timelinePosition);
+                this.repaintTopLevelWindows();
             }
         };
 
         ghostIconRolloverTimelineBuilder.addCallback(ghostCallback);
         ghostComponentPressedTimelineBuilder.addCallback(ghostCallback);
-
-        ghostIconRolloverTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                    float durationFraction, float timelinePosition) {
-                if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
-                    synchronized (GhostingListener.class) {
-                        runningGhostRolloverTimelines.values().remove(ghostIconRolloverTimeline);
-                    }
-                }
-            }
-        });
-
-        ghostComponentPressedTimelineBuilder.addCallback(new TimelineCallbackAdapter() {
-            @Override
-            public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                    float durationFraction, float timelinePosition) {
-                if ((oldState == TimelineState.DONE) && (newState == TimelineState.IDLE)) {
-                    synchronized (GhostingListener.class) {
-                        runningGhostPressTimelines.values().remove(ghostComponentPressedTimeline);
-                    }
-                }
-            }
-        });
 
         this.ghostIconRolloverTimeline = ghostIconRolloverTimelineBuilder.build();
         this.ghostComponentPressedTimeline = ghostComponentPressedTimelineBuilder.build();
@@ -253,12 +230,12 @@ public class GhostingListener {
      */
     public void registerListeners() {
         this.modelListener = changeEvent -> {
-            if (AnimationConfigurationManager.getInstance()
-                    .isAnimationAllowed(AnimationFacet.GHOSTING_ICON_ROLLOVER, comp)) {
+            if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
+                    AnimationFacet.GHOSTING_ICON_ROLLOVER, comp)) {
                 trackModelChange(AnimationFacet.GHOSTING_ICON_ROLLOVER, buttonModel.isRollover());
             }
-            if (AnimationConfigurationManager.getInstance()
-                    .isAnimationAllowed(AnimationFacet.GHOSTING_BUTTON_PRESS, comp)) {
+            if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
+                    AnimationFacet.GHOSTING_BUTTON_PRESS, comp)) {
                 trackModelChange(AnimationFacet.GHOSTING_BUTTON_PRESS, buttonModel.isPressed());
             }
         };

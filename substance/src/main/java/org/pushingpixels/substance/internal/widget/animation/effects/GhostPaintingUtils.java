@@ -170,41 +170,48 @@ public class GhostPaintingUtils {
      *            Graphics context.
      */
     public static void paintGhostImages(Component mainComponent, Graphics g) {
-        if (!mainComponent.isShowing())
+        if (!mainComponent.isShowing()) {
             return;
-        if (!mainComponent.isVisible())
+        }
+        if (!mainComponent.isVisible()) {
             return;
+        }
         // The following check is for offscreen rendering. The component
         // may be showing and visible, but have no peer (non displayable).
-        if (!mainComponent.isDisplayable())
+        if (!mainComponent.isDisplayable()) {
             return;
-        if (SwingUtilities.getWindowAncestor(mainComponent) == null)
+        }
+        if (SwingUtilities.getWindowAncestor(mainComponent) == null) {
             return;
+        }
 
         Graphics2D graphics = (Graphics2D) g.create();
 
         Rectangle mainRect = mainComponent.getBounds();
         mainRect.setLocation(mainComponent.getLocationOnScreen());
-        if (AnimationConfigurationManager.getInstance()
-                .isAnimationAllowed(AnimationFacet.GHOSTING_BUTTON_PRESS, mainComponent)) {
-            Map<JComponent, Timeline> runningGhostPressTimelines = GhostingListener
-                    .getRunningGhostPressTimelines();
+        if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
+                AnimationFacet.GHOSTING_BUTTON_PRESS, mainComponent)) {
+            Map<JComponent, Timeline> runningGhostPressTimelines =
+                    GhostingListener.getRunningGhostPressTimelines();
             for (Map.Entry<JComponent, Timeline> entry : runningGhostPressTimelines.entrySet()) {
                 JComponent comp = entry.getKey();
                 Timeline timeline = entry.getValue();
 
-                if (comp == mainComponent)
+                if (comp == mainComponent) {
                     continue;
+                }
 
-                if (!comp.isShowing())
+                if (!comp.isShowing()) {
                     continue;
-                if (!comp.isVisible())
+                }
+                if (!comp.isVisible()) {
                     continue;
+                }
                 // The following check is for offscreen rendering. The component
-                // may be showing and visible, but have no peer (non
-                // displayable).
-                if (!comp.isDisplayable())
+                // may be showing and visible, but have no peer (non displayable).
+                if (!comp.isDisplayable()) {
                     return;
+                }
 
                 Rectangle compRect = comp.getBounds();
                 compRect.setLocation(comp.getLocationOnScreen());
@@ -241,95 +248,70 @@ public class GhostPaintingUtils {
 
         if (AnimationConfigurationManager.getInstance()
                 .isAnimationAllowed(AnimationFacet.GHOSTING_ICON_ROLLOVER, mainComponent)) {
-            Map<JComponent, Timeline> runningGhostRolloverTimelines = GhostingListener
-                    .getRunningGhostRolloverTimelines();
-            for (Map.Entry<JComponent, Timeline> entry : runningGhostRolloverTimelines.entrySet()) {
-                JComponent comp = entry.getKey();
-                Timeline timeline = entry.getValue();
-                if (comp == mainComponent)
-                    continue;
-
-                if (!comp.isShowing())
-                    continue;
-                if (!comp.isVisible())
-                    continue;
-
-                Rectangle compRect = comp.getBounds();
-                compRect.setLocation(comp.getLocationOnScreen());
-
-                int dx = compRect.x - mainRect.x;
-                int dy = compRect.y - mainRect.y;
-
-                compRect.x -= compRect.width / 2;
-                compRect.y -= compRect.height / 2;
-                compRect.width *= 2;
-                compRect.height *= 2;
-
-                if (mainRect.intersects(compRect)) {
-                    float fade = timeline.getTimelinePosition();
-                    // Rectangle bounds = comp.getBounds();
-                    Icon icon = null;
-                    Rectangle iconRect = (Rectangle) comp.getClientProperty("icon.bounds");
-                    if (iconRect != null) {
-                        if (comp instanceof AbstractButton) {
-                            icon = WidgetUtilities.getIcon((AbstractButton) comp);
-                        } else {
-                            icon = (Icon) comp.getClientProperty("icon");
-                        }
+            synchronized (GhostingListener.class) {
+                Map<JComponent, Timeline> runningGhostRolloverTimelines = GhostingListener
+                        .getRunningGhostRolloverTimelines();
+                for (Map.Entry<JComponent, Timeline> entry : runningGhostRolloverTimelines.entrySet()) {
+                    JComponent comp = entry.getKey();
+                    Timeline timeline = entry.getValue();
+                    if (comp == mainComponent) {
+                        continue;
                     }
 
-                    if ((icon != null) && (iconRect != null)) {
-                        double iFactor = 1.0 + fade;
-                        // double iWidth = icon.getIconWidth() * iFactor;
-                        // double iHeight = icon.getIconHeight() * iFactor;
-                        // BufferedImage iImage = WidgetUtilities
-                        // .getBlankImage((int) iWidth, (int) iHeight);
-                        // Graphics2D iGraphics = (Graphics2D) iImage
-                        // .createGraphics();
-                        // iGraphics.scale(iFactor, iFactor);
-                        // icon.paintIcon(comp, iGraphics, 0, 0);
-                        // iGraphics.dispose();
+                    if (!comp.isShowing()) {
+                        continue;
+                    }
+                    if (!comp.isVisible()) {
+                        continue;
+                    }
 
-                        BufferedImage iImage = getIconGhostImage(comp, timeline, icon, iFactor);
+                    Rectangle compRect = comp.getBounds();
+                    compRect.setLocation(comp.getLocationOnScreen());
 
-                        // System.out.println(iconRect);
+                    int dx = compRect.x - mainRect.x;
+                    int dy = compRect.y - mainRect.y;
 
-                        // BufferedImage bImage = SubstanceCoreUtilities.blur(
-                        // iImage, 2);
+                    compRect.x -= compRect.width / 2;
+                    compRect.y -= compRect.height / 2;
+                    compRect.width *= 2;
+                    compRect.height *= 2;
 
-                        int iWidth = iImage.getWidth();
-                        int iHeight = iImage.getHeight();
-                        dx -= ((iWidth - icon.getIconWidth()) / 2);
-                        dy -= ((iHeight - icon.getIconHeight()) / 2);
+                    if (mainRect.intersects(compRect)) {
+                        float fade = timeline.getTimelinePosition();
+                        Icon icon = null;
+                        Rectangle iconRect = (Rectangle) comp.getClientProperty("icon.bounds");
+                        if (iconRect != null) {
+                            if (comp instanceof AbstractButton) {
+                                icon = WidgetUtilities.getIcon((AbstractButton) comp);
+                            } else {
+                                icon = (Icon) comp.getClientProperty("icon");
+                            }
+                        }
 
-                        double start = MAX_ICON_GHOSTING_ALPHA
-                                - (MAX_ICON_GHOSTING_ALPHA - MIN_ICON_GHOSTING_ALPHA)
-                                        * (iWidth - 16) / 48;
-                        float coef = Math.max((float) start, MIN_ICON_GHOSTING_ALPHA);
-                        float opFactor = coef * (1.0f - DECAY_FACTOR * fade);
-                        graphics.setComposite(
-                                WidgetUtilities.getAlphaComposite(mainComponent, opFactor));
+                        if ((icon != null) && (iconRect != null)) {
+                            double iFactor = 1.0 + fade;
+                            BufferedImage iImage = getIconGhostImage(comp, timeline, icon, iFactor);
 
-                        graphics.drawImage(iImage, dx + iconRect.x, dy + iconRect.y, null);
+                            int iWidth = iImage.getWidth();
+                            int iHeight = iImage.getHeight();
+                            dx -= ((iWidth - icon.getIconWidth()) / 2);
+                            dy -= ((iHeight - icon.getIconHeight()) / 2);
+
+                            double start = MAX_ICON_GHOSTING_ALPHA
+                                    - (MAX_ICON_GHOSTING_ALPHA - MIN_ICON_GHOSTING_ALPHA)
+                                    * (iWidth - 16) / 48;
+                            float coef = Math.max((float) start, MIN_ICON_GHOSTING_ALPHA);
+                            float opFactor = coef * (1.0f - DECAY_FACTOR * fade);
+                            graphics.setComposite(
+                                    WidgetUtilities.getAlphaComposite(mainComponent, opFactor));
+
+                            graphics.drawImage(iImage, dx + iconRect.x, dy + iconRect.y, null);
+                        }
                     }
                 }
             }
         }
         graphics.dispose();
-    }
-
-    /**
-     * Paints the ghost icon inside the bounds of the specified button.
-     * 
-     * @param graphics
-     *            Graphics context.
-     * @param b
-     *            Button.
-     * @param icon
-     *            Icon to paint.
-     */
-    public static void paintGhostIcon(Graphics2D graphics, AbstractButton b, Icon icon) {
-        paintGhostIcon(graphics, b, icon, (Rectangle) b.getClientProperty("icon.bounds"));
     }
 
     /**
@@ -367,13 +349,15 @@ public class GhostPaintingUtils {
             return;
         }
 
-        if (!(b instanceof JComponent))
+        if (!(b instanceof JComponent)) {
             return;
+        }
 
         GhostingListener gl = (GhostingListener) ((JComponent) b)
                 .getClientProperty(GhostingListener.GHOST_LISTENER_KEY);
-        if (gl == null)
+        if (gl == null) {
             return;
+        }
 
         Timeline ghostRolloverTimeline = gl.getGhostIconRolloverTimeline();
 

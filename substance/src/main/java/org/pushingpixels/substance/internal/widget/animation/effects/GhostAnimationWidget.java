@@ -49,7 +49,7 @@ public class GhostAnimationWidget extends SubstanceWidget<AbstractButton> {
      * Property change listener. Listens on changes to the
      * {@link AbstractButton#MODEL_CHANGED_PROPERTY} property.
      */
-    protected PropertyChangeListener ghostPropertyListener;
+    private PropertyChangeListener ghostPropertyListener;
 
     @Override
     public void installDefaults() {
@@ -60,8 +60,9 @@ public class GhostAnimationWidget extends SubstanceWidget<AbstractButton> {
     public void installListeners() {
         this.ghostPropertyListener = propertyChangeEvent -> {
             if (AbstractButton.MODEL_CHANGED_PROPERTY.equals(propertyChangeEvent.getPropertyName())) {
-                if (ghostModelChangeListener != null)
+                if (ghostModelChangeListener != null) {
                     ghostModelChangeListener.unregisterListeners();
+                }
                 ghostModelChangeListener = new GhostingListener(jcomp, jcomp.getModel());
                 ghostModelChangeListener.registerListeners();
             }
