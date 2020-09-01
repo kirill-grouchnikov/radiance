@@ -236,14 +236,14 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
         if (!tree.isEnabled()) {
             this.setEnabled(false);
             if (leaf) {
-                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(SubstanceImageCreator
-                        .makeTransparent(tree, this.getDefaultLeafIcon(), 0.5)));
+                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(
+                        SubstanceImageCreator.withAlpha(tree, this.getDefaultLeafIcon(), 0.5)));
             } else if (expanded) {
-                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(SubstanceImageCreator
-                        .makeTransparent(tree, this.getDefaultOpenIcon(), 0.5)));
+                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(
+                        SubstanceImageCreator.withAlpha(tree, this.getDefaultOpenIcon(), 0.5)));
             } else {
-                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(SubstanceImageCreator
-                        .makeTransparent(tree, this.getDefaultClosedIcon(), 0.5)));
+                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(
+                        SubstanceImageCreator.withAlpha(tree, this.getDefaultClosedIcon(), 0.5)));
             }
         } else {
             this.setEnabled(true);

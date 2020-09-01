@@ -1,6 +1,6 @@
 ## Lightbeam - measuring performance of Swing look-and-feels
 
-Project Lightbeam is targeted at Swing look-and-feel developers that wish to test the performance of their libraries.
+This Radiance module is targeted at Swing look-and-feel developers that wish to test the performance of their libraries.
 
 LightBeam has a collection of static and dynamic scenarios that are targeting different core Swing components and different interaction scenarios. The static scenarios create a number of components and then render the main frame onto an offscreen buffer. The dynamic scenarios run a number of typical interaction scenarios that involve changing the components or models.
 
@@ -45,7 +45,7 @@ The numbers are milliseconds it takes to render a frame with a number of matchin
 
 With this, you can compare the performance of your look-and-feel with that of core / third-party libraries. You can also track performance improvements and regressions during the development cycle.
 
-Here is the script used for tracking performance numbers for [Substance](../substance/substance.md):
+[Here is the script](../../scripts/lightbeam/auto-dynamic-substance.sh) used for tracking performance numbers for Substance:
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 

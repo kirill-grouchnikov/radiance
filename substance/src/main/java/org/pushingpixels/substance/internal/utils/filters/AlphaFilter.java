@@ -36,10 +36,13 @@ import java.awt.image.BufferedImage;
 /**
  * @author Kirill Grouchnikov
  */
-public class TranslucentFilter extends NeonAbstractFilter {
+public class AlphaFilter extends NeonAbstractFilter {
 	private double alpha;
 
-	public TranslucentFilter(double alpha) {
+	public AlphaFilter(double alpha) {
+		if ((alpha < 0.0f) || (alpha > 1.0f)) {
+			throw new IllegalArgumentException("Alpha must be in 0.0-1.0 range");
+		}
 		this.alpha = alpha;
 	}
 

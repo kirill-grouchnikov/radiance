@@ -40,7 +40,7 @@ import org.pushingpixels.substance.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.substance.internal.utils.filters.ColorFilter;
 import org.pushingpixels.substance.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.substance.internal.utils.filters.GrayscaleFilter;
-import org.pushingpixels.substance.internal.utils.filters.TranslucentFilter;
+import org.pushingpixels.substance.internal.utils.filters.AlphaFilter;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -447,7 +447,7 @@ public final class SubstanceImageCreator {
      *            transparent resulting image will be.
      * @return Transparent version of the specified icon.
      */
-    public static Icon makeTransparent(Component c, Icon icon, double alpha) {
+    public static Icon withAlpha(Component c, Icon icon, double alpha) {
         if (icon == null) {
             return null;
         }
@@ -457,7 +457,7 @@ public final class SubstanceImageCreator {
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         icon.paintIcon(c, result.getGraphics(), 0, 0);
-        return new ImageWrapperIcon(new TranslucentFilter(alpha).filter(result, null));
+        return new ImageWrapperIcon(new AlphaFilter(alpha).filter(result, null));
     }
 
     /**

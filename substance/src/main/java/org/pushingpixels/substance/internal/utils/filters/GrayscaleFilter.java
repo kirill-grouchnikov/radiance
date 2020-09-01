@@ -49,13 +49,13 @@ public class GrayscaleFilter extends NeonAbstractFilter {
 
 		int[] pixels = new int[width * height];
 		getPixels(src, 0, 0, width, height, pixels);
-		grayScaleColor(pixels);
+		grayscaleColor(pixels);
 		setPixels(dst, 0, 0, width, height, pixels);
 		
 		return dst;
 	}
 
-	private void grayScaleColor(int[] pixels) {
+	private void grayscaleColor(int[] pixels) {
 		for (int i = 0; i < pixels.length; i++) {
 			int argb = pixels[i];
 			int brightness = SubstanceColorUtilities.getColorBrightness(argb);
