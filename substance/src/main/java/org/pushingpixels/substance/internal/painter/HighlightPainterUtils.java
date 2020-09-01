@@ -178,16 +178,4 @@ public class HighlightPainterUtils {
                 height + deltaTop + deltaBottom, contour, contourInner, borderColorScheme);
         g2d.dispose();
     }
-
-    /**
-     * Returns the memory usage string.
-     * 
-     * @return Memory usage string.
-     */
-    public static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceHighlightUtils: \n");
-        sb.append("\t" + smallCache.size() + " smalls");
-        return sb.toString();
-    }
 }

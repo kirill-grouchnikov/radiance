@@ -800,19 +800,6 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         }
     }
 
-    /**
-     * Returns the memory usage string.
-     * 
-     * @return The memory usage string.
-     */
-    public static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceScrollBarUI: \n");
-        sb.append("\t" + thumbHorizontalMap.size() + " thumb horizontal, " + thumbVerticalMap.size()
-                + " thumb vertical");
-        return sb.toString();
-    }
-
     @Override
     protected TrackListener createTrackListener() {
         return new SubstanceTrackListener();

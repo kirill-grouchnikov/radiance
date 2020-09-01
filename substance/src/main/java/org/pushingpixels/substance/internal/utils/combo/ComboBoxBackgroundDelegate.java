@@ -216,18 +216,4 @@ public class ComboBoxBackgroundDelegate {
             graphics.dispose();
         }
     }
-
-    /**
-     * Returns the memory usage string.
-     * 
-     * @return Memory usage string.
-     */
-    static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceBackgroundDelegate: \n");
-        sb.append("\t" + regularBackgrounds.size() + " regular");
-        // + pairwiseBackgrounds.size() + " pairwise");
-        return sb.toString();
-    }
-
 }

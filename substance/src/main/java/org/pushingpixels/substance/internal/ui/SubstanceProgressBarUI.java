@@ -552,18 +552,6 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         this.indeterminateLoopTimeline.abort();
     }
 
-    /**
-     * Returns the memory usage string.
-     *
-     * @return The memory usage string.
-     */
-    public static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceProgressBarUI: \n");
-        sb.append("\t" + SubstanceProgressBarUI.stripeMap.size() + " stripes");
-        return sb.toString();
-    }
-
     @Override
     protected int getAmountFull(Insets b, int width, int height) {
         int amountFull = 0;

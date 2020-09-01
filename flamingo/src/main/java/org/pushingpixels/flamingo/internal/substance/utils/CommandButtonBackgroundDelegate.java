@@ -401,19 +401,6 @@ public class CommandButtonBackgroundDelegate {
         return layers;
     }
 
-    /**
-     * Returns the memory usage string.
-     *
-     * @return Memory usage string.
-     */
-    static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceBackgroundDelegate: \n");
-        sb.append("\t" + imageCache.size() + " regular");
-        // + pairwiseBackgrounds.size() + " pairwise");
-        return sb.toString();
-    }
-
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
             JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
             ButtonModel model, StateTransitionTracker stateTransitionTracker) {

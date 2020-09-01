@@ -329,18 +329,6 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
     }
 
     /**
-     * Returns memory usage string.
-     * 
-     * @return Memory usage string.
-     */
-    public static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceRadioButtonUI: \n");
-        sb.append("\t" + SubstanceRadioButtonUI.icons.size() + " icons");
-        return sb.toString();
-    }
-
-    /**
      * Paints the text.
      * 
      * @param g

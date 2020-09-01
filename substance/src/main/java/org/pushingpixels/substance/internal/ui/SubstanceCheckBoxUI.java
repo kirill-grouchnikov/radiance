@@ -221,16 +221,4 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         super.update(g2d, c);
         g2d.dispose();
     }
-
-    /**
-     * Returns memory usage string.
-     *
-     * @return Memory usage string.
-     */
-    public static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceCheckBox: \n");
-        sb.append("\t" + SubstanceCheckBoxUI.icons.size() + " icons");
-        return sb.toString();
-    }
 }

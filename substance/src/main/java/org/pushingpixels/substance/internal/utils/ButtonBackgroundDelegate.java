@@ -386,17 +386,4 @@ public class ButtonBackgroundDelegate {
                 false);
         return contour.contains(x, y);
     }
-
-    /**
-     * Returns the memory usage string.
-     *
-     * @return Memory usage string.
-     */
-    static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceBackgroundDelegate: \n");
-        sb.append("\t" + regularBackgrounds.size() + " regular");
-        return sb.toString();
-    }
-
 }

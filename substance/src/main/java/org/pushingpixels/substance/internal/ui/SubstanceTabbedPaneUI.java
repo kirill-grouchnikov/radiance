@@ -1618,18 +1618,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         return this.rects[tabIndex];
     }
 
-    /**
-     * Returns the memory usage string.
-     * 
-     * @return The memory usage string.
-     */
-    public static String getMemoryUsage() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("SubstanceTabbedPaneUI: \n");
-        sb.append("\t" + SubstanceTabbedPaneUI.backgroundMap.size() + " backgrounds");
-        return sb.toString();
-    }
-
     @Override
     protected boolean shouldPadTabRun(int tabPlacement, int run) {
         // Don't pad last run
