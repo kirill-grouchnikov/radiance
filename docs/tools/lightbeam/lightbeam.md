@@ -45,7 +45,7 @@ The numbers are milliseconds it takes to render a frame with a number of matchin
 
 With this, you can compare the performance of your look-and-feel with that of core / third-party libraries. You can also track performance improvements and regressions during the development cycle.
 
-[Here is the script](../../scripts/lightbeam/auto-dynamic-substance.sh) used for tracking performance numbers for Substance:
+[Here is the script](../../../scripts/lightbeam/auto-dynamic-substance.sh) used for tracking performance numbers for Substance:
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
