@@ -32,16 +32,16 @@ package org.pushingpixels.substance.extras.api.skinpack;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
-import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;
-import org.pushingpixels.substance.api.colorscheme.LimeGreenColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.extras.api.painterpack.decoration.Glass3DDecorationPainter;
 import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import java.awt.*;
 
@@ -80,9 +80,22 @@ public class GreenMagicSkin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
+        // mark title panes and headers as decoration areas
+        this.registerAsDecorationArea(defaultScheme,
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                DecorationAreaType.SECONDARY_TITLE_PANE,
+                DecorationAreaType.HEADER);
+
+        // Add overlay painters to paint drop shadow and a dark line along the bottom
+        // edges of headers
+        this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.HEADER);
+        this.addOverlayPainter(new BottomLineOverlayPainter(scheme ->
+                        SubstanceColorUtilities.getAlphaColor(scheme.getDarkColor(), 128)),
+                DecorationAreaType.HEADER);
+
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new GlassFillPainter();
-        this.decorationPainter = new Glass3DDecorationPainter();
+        this.decorationPainter = new ArcDecorationPainter();
         this.borderPainter = new ClassicBorderPainter();
         this.highlightPainter = new ClassicHighlightPainter();
     }
