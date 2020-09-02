@@ -36,16 +36,11 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.CharcoalColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.colorscheme.ShadeColorScheme;
-import org.pushingpixels.substance.internal.colorscheme.ShiftColorScheme;
-
-import java.awt.*;
 
 /**
  * <code>Magma</code> skin. This class is part of officially supported API.
@@ -62,24 +57,15 @@ public class MagmaSkin extends SubstanceSkin {
      * Creates a new <code>Magma</code> skin.
      */
     public MagmaSkin() {
-        SubstanceColorScheme shiftRed = new ShiftColorScheme(
-                new SunsetColorScheme(), Color.red, 0.3);
-        SubstanceColorScheme defaultScheme = new CharcoalColorScheme();
-        SubstanceColorScheme activeScheme = shiftRed.saturate(0.4).named(
-                "Magma Active");
-
-        SubstanceColorScheme disabledScheme = new ShadeColorScheme(
-                new CharcoalColorScheme(), 0.5) {
-            Color foreColor = new Color(104, 93, 90);
-
-            @Override
-            public Color getForegroundColor() {
-                return this.foreColor;
-            }
-        }.named("Magma Disabled");
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/extras/api/skinpack/magma.colorschemes"));
+        SubstanceColorScheme activeScheme = schemes.get("Magma Active");
+        SubstanceColorScheme enabledScheme = new CharcoalColorScheme();
+        SubstanceColorScheme disabledScheme = schemes.get("Magma Disabled");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-                activeScheme, defaultScheme, disabledScheme);
+                activeScheme, enabledScheme, disabledScheme);
         defaultSchemeBundle.registerColorScheme(new CharcoalColorScheme(),
                 ColorSchemeAssociationKind.BORDER, ComponentState
                         .getActiveStates());
@@ -105,7 +91,7 @@ public class MagmaSkin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
-        this.registerAsDecorationArea(defaultScheme,
+        this.registerAsDecorationArea(enabledScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER, DecorationAreaType.FOOTER,

@@ -37,7 +37,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.substance.api.colorscheme.ColorTransform;
-import org.pushingpixels.substance.api.colorscheme.SchemeBaseColors;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.*;
 import org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter;
@@ -266,7 +265,7 @@ public class MagellanSkin extends SubstanceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                SchemeBaseColors::getUltraDarkColor);
+                ColorSchemeSingleColorQuery.ULTRADARK);
         this.addOverlayPainter(this.toolbarBottomLineOverlayPainter,
                 DecorationAreaType.TOOLBAR);
 

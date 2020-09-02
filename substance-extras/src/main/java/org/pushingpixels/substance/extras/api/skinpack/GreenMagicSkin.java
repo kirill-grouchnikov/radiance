@@ -32,7 +32,9 @@ package org.pushingpixels.substance.extras.api.skinpack;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
@@ -40,9 +42,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
-
-import java.awt.*;
 
 /**
  * <code>Green Magic</code> skin. This class is part of officially supported
@@ -60,27 +59,20 @@ public class GreenMagicSkin extends SubstanceSkin {
      * Creates a new <code>Green Magic</code> skin.
      */
     public GreenMagicSkin() {
-        SubstanceColorScheme activeScheme = new AquaColorScheme().blendWith(
-                new BottleGreenColorScheme(), 0.5).saturate(0.7);
-        SubstanceColorScheme defaultScheme = new AquaColorScheme().blendWith(
-                new LimeGreenColorScheme(), 0.5).tone(0.1).saturate(-0.2);
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/extras/api/skinpack/greenmagic.colorschemes"));
+        SubstanceColorScheme activeScheme = schemes.get("Green Magic Active");
+        SubstanceColorScheme enabledScheme = schemes.get("Green Magic Enabled");
+        SubstanceColorScheme disabledScheme = schemes.get("Green Magic Disabled");
 
-        SubstanceColorScheme disabledScheme = new SaturatedColorScheme(
-                defaultScheme, -0.3) {
-            Color foreColor = new Color(91, 165, 129);
-
-            @Override
-            public Color getForegroundColor() {
-                return foreColor;
-            }
-        };
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-                activeScheme, defaultScheme, disabledScheme);
+                activeScheme, enabledScheme, disabledScheme);
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
         // mark title panes and headers as decoration areas
-        this.registerAsDecorationArea(defaultScheme,
+        this.registerAsDecorationArea(enabledScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);

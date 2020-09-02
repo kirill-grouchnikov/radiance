@@ -1,0 +1,21 @@
+Field Of Wheat Active {
+    kind=Light
+    colorUltraLight=#AFDAED
+    colorExtraLight=#94E0F3
+    colorLight=#65CBEF
+    colorMid=#1DB3E2
+    colorDark=#282B8C
+    colorUltraDark=#1B2564
+    colorForeground=#000000
+}
+
+Field Of Wheat Disabled {
+    kind=Light
+    colorUltraLight=#FBF9D1
+    colorExtraLight=#F3F1AD
+    colorLight=#F4EE73
+    colorMid=#ECD356
+    colorDark=#7E4621
+    colorUltraDark=#4C3126
+    colorForeground=#B57A1A
+}

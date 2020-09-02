@@ -32,7 +32,10 @@ package org.pushingpixels.substance.extras.api.skinpack;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.BrownColorScheme;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
@@ -40,9 +43,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
-
-import java.awt.*;
 
 /**
  * <code>Field of Wheat</code> skin. This class is part of officially supported
@@ -60,26 +60,20 @@ public class FieldOfWheatSkin extends SubstanceSkin {
      * Creates a new <code>Field of Wheat</code> skin.
      */
     public FieldOfWheatSkin() {
-        SubstanceColorScheme activeScheme = new AquaColorScheme().saturate(0.1);
-        SubstanceColorScheme defaultScheme = new BrownColorScheme();
-
-        SubstanceColorScheme disabledScheme = new SaturatedColorScheme(
-                new BrownColorScheme().blendWith(new SunGlareColorScheme(), 0.3), -0.2) {
-            Color foreColor = new Color(181, 122, 26);
-
-            @Override
-            public Color getForegroundColor() {
-                return foreColor;
-            }
-        };
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/extras/api/skinpack/fieldofwheat.colorschemes"));
+        SubstanceColorScheme activeScheme = schemes.get("Field Of Wheat Active");
+        SubstanceColorScheme enabledScheme = new BrownColorScheme();
+        SubstanceColorScheme disabledScheme = schemes.get("Field Of Wheat Disabled");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
-                activeScheme, defaultScheme, disabledScheme);
+                activeScheme, enabledScheme, disabledScheme);
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
         // mark title panes and headers as decoration areas
-        this.registerAsDecorationArea(defaultScheme,
+        this.registerAsDecorationArea(enabledScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);

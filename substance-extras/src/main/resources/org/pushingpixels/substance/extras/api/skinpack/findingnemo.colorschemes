@@ -1,0 +1,54 @@
+Finding Nemo Active 1 {
+    kind=Light
+    colorUltraLight=#DA6EF5
+    colorExtraLight=#9968E9
+    colorLight=#9B58ED
+    colorMid=#B643E2
+    colorDark=#8124AA
+    colorUltraDark=#591472
+    colorForeground=#000000
+}
+
+Finding Nemo Active 2 {
+    kind=Light
+    colorUltraLight=#EE50F2
+    colorExtraLight=#EF4DE7
+    colorLight=#EE46E0
+    colorMid=#E72FB4
+    colorDark=#960F5F
+    colorUltraDark=#6F0E48
+    colorForeground=#000000
+}
+
+Finding Nemo Enabled 1 {
+    kind=Light
+    colorUltraLight=#A9D9F1
+    colorExtraLight=#9DE1F5
+    colorLight=#8CD2F2
+    colorMid=#7DC5E8
+    colorDark=#7F7FAB
+    colorUltraDark=#7D7F95
+    colorForeground=#595959
+}
+
+Finding Nemo Enabled 2 {
+    kind=Light
+    colorUltraLight=#9CDB92
+    colorExtraLight=#91D288
+    colorLight=#82C781
+    colorMid=#7CAB85
+    colorDark=#7C8B80
+    colorUltraDark=#7C7D7D
+    colorForeground=#595959
+}
+
+Finding Nemo Disabled {
+    kind=Light
+    colorUltraLight=#BFE0F1
+    colorExtraLight=#B7E7F5
+    colorLight=#ABDCF2
+    colorMid=#9DD0E8
+    colorDark=#7F7FAB
+    colorUltraDark=#848695
+    colorForeground=#469ED2
+}

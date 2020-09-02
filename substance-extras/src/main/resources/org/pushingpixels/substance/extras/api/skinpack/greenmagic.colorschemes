@@ -1,0 +1,32 @@
+Green Magic Active {
+    kind=Light
+    colorUltraLight=#34D984
+    colorExtraLight=#2BD59B
+    colorLight=#1CC2AA
+    colorMid=#07A0AA
+    colorDark=#0A3269
+    colorUltraDark=#061349
+    colorForeground=#000000
+}
+
+Green Magic Enabled {
+    kind=Light
+    colorUltraLight=#CAE8BD
+    colorExtraLight=#B3EABD
+    colorLight=#9FDDB8
+    colorMid=#72CAAC
+    colorDark=#3F5368
+    colorUltraDark=#35444F
+    colorForeground=#1B1B1B
+}
+
+Green Magic Disabled {
+    kind=Light
+    colorUltraLight=#D3E8CA
+    colorExtraLight=#C4EACB
+    colorLight=#B2DDC3
+    colorMid=#8CCAB5
+    colorDark=#4B5968
+    colorUltraDark=#3D474F
+    colorForeground=#5BA581
+}

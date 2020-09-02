@@ -1,0 +1,32 @@
+Streetlights Active {
+    kind=Light
+    colorUltraLight=#FF841D
+    colorExtraLight=#FF7C1A
+    colorLight=#FF6E19
+    colorMid=#FE5912
+    colorDark=#C50B31
+    colorUltraDark=#731749
+    colorForeground=#000000
+}
+
+Streetlights Enabled {
+    kind=Dark
+    colorUltraLight=#4F594F
+    colorExtraLight=#464E46
+    colorLight=#383C38
+    colorMid=#262A26
+    colorDark=#131714
+    colorUltraDark=#090A0A
+    colorForeground=#FFFFFF
+}
+
+Streetlights Disabled {
+    kind=Dark
+    colorUltraLight=#0E5611
+    colorExtraLight=#154913
+    colorLight=#122F0D
+    colorMid=#0D260E
+    colorDark=#061A0B
+    colorUltraDark=#020805
+    colorForeground=#E7E7E7
+}

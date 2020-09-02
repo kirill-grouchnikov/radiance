@@ -32,7 +32,9 @@ package org.pushingpixels.substance.extras.api.skinpack;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
@@ -42,9 +44,6 @@ import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainte
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
 import org.pushingpixels.substance.extras.api.painterpack.fill.MixDelegateFillPainter;
-import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
-
-import java.awt.*;
 
 /**
  * <code>Finding Nemo</code> skin. This class is part of officially supported
@@ -62,22 +61,20 @@ public class FindingNemoSkin extends SubstanceSkin {
      * Creates a new <code>Finding Nemo</code> skin.
      */
     public FindingNemoSkin() {
+        ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+                this.getClass().getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/substance/extras/api/skinpack/findingnemo.colorschemes"));
+        SubstanceColorScheme activeScheme1 = schemes.get("Finding Nemo Active 1");
+        SubstanceColorScheme activeScheme2 = schemes.get("Finding Nemo Active 2");
+        SubstanceColorScheme enabledScheme1 = schemes.get("Finding Nemo Enabled 1");
+        SubstanceColorScheme enabledScheme2 = schemes.get("Finding Nemo Enabled 2");
+        SubstanceColorScheme disabledScheme = schemes.get("Finding Nemo Disabled");
+
         SubstanceColorScheme activeScheme = new MixColorScheme(
-                "Finding Nemo Active", new PurpleColorScheme(),
-                new BarbyPinkColorScheme()).saturate(0.5);
+                "Finding Nemo Active", activeScheme1, activeScheme2);
         SubstanceColorScheme defaultScheme = new MixColorScheme(
-                "Finding Nemo Default", new AquaColorScheme(),
-                new BottleGreenColorScheme()).saturate(0.3).tint(0.2);
+                "Finding Nemo Default", enabledScheme1, enabledScheme2);
 
-        SubstanceColorScheme disabledScheme = new SaturatedColorScheme(
-                defaultScheme, -0.3) {
-            Color foreColor = new Color(70, 158, 210);
-
-            @Override
-            public Color getForegroundColor() {
-                return foreColor;
-            }
-        };
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, defaultScheme, disabledScheme);
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,

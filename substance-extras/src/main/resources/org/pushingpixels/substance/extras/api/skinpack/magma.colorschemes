@@ -1,0 +1,21 @@
+Magma Active {
+    kind=Light
+    colorUltraLight=#FF6E17
+    colorExtraLight=#FF6916
+    colorLight=#FF5C14
+    colorMid=#FE4B0E
+    colorDark=#D90828
+    colorUltraDark=#AD133A
+    colorForeground=#6C0000
+}
+
+Magma Disabled {
+    kind=Dark
+    colorUltraLight=#4F0C11
+    colorExtraLight=#431117
+    colorLight=#2A0B12
+    colorMid=#220B0D
+    colorDark=#170805
+    colorUltraDark=#070402
+    colorForeground=#685D5A
+}
