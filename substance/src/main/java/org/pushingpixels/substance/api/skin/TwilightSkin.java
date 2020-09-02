@@ -35,6 +35,7 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
@@ -47,7 +48,6 @@ import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainte
 import org.pushingpixels.substance.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * <code>Twilight</code> skin. This class is part of officially supported API.
@@ -192,20 +192,24 @@ public class TwilightSkin extends SubstanceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         this.toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorTransform.brightness(-0.5f)));
         this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-                scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                        ColorTransform.alpha(32)));
         this.addOverlayPainter(this.toolbarTopLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f),
-                scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorTransform.brightness(-0.5f)),
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                        ColorTransform.alpha(32)));
         this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
 
         this.setTabFadeStart(0.18);
@@ -213,8 +217,8 @@ public class TwilightSkin extends SubstanceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new FractionBasedFillPainter("Twilight",
-                new float[]{0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {ColorSchemeSingleColorQuery.ULTRALIGHT,
                         ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT});
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightPainter = new ClassicHighlightPainter();

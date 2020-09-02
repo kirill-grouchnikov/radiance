@@ -34,6 +34,8 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
@@ -44,7 +46,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * Base class for accented <code>Dust</code> skins. This class is part of officially supported API.
@@ -136,9 +137,11 @@ public abstract class DustAccentedSkin extends SubstanceSkin.Accented {
 
 		// add two overlay painters to create a bezel line between menu bar and toolbars
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
-				scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
+				ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+						ColorTransform.brightness(-0.5f)));
 		TopLineOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
-				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
+				ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+						ColorTransform.alpha(32)));
 		this.addOverlayPainter(menuOverlayPainter, DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 

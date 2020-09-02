@@ -34,6 +34,8 @@ import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter;
@@ -44,7 +46,6 @@ import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainte
 import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * <code>Harvest</code> skin. This class is part of officially supported API.
@@ -155,14 +156,16 @@ public class HarvestSkin extends SubstanceSkin {
         // edges of toolbars
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
         this.addOverlayPainter(new BottomLineOverlayPainter(
-                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.1f)),
+                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                                ColorTransform.brightness(-0.1f))),
                 DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadow and a dark line along the top
         // edges of footers
         this.addOverlayPainter(TopShadowOverlayPainter.getInstance(15), DecorationAreaType.FOOTER);
         this.addOverlayPainter(new TopLineOverlayPainter(
-                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.1f)),
+                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                                ColorTransform.brightness(-0.1f))),
                 DecorationAreaType.FOOTER);
 
         this.setTabFadeStart(0.18);

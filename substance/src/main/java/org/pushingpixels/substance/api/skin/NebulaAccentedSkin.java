@@ -35,6 +35,8 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
@@ -44,7 +46,6 @@ import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * Base class for accented <code>Nebula</code> skins. This class is part of officially supported API.
@@ -144,7 +145,8 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 		// add an overlay painter to paint separator lines along the bottom
 		// edges of title panes and menu bars
 		this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getDarkColor(), 160));
+				ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
+						ColorTransform.alpha(160)));
 		this.addOverlayPainter(this.bottomLineOverlayPainter,
 				DecorationAreaType.PRIMARY_TITLE_PANE,
 				DecorationAreaType.SECONDARY_TITLE_PANE,

@@ -43,7 +43,6 @@ import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
 import org.pushingpixels.substance.extras.api.painterpack.fill.MixDelegateFillPainter;
 import org.pushingpixels.substance.internal.colorscheme.SaturatedColorScheme;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import java.awt.*;
 
@@ -93,8 +92,9 @@ public class FindingNemoSkin extends SubstanceSkin {
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of headers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.HEADER);
-        this.addOverlayPainter(new BottomLineOverlayPainter(scheme ->
-                        SubstanceColorUtilities.getAlphaColor(scheme.getDarkColor(), 128)),
+        this.addOverlayPainter(new BottomLineOverlayPainter(
+                        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
+                                ColorTransform.alpha(128))),
                 DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();

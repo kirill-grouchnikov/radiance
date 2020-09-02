@@ -35,6 +35,7 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.border.CompositeBorderPainter;
@@ -47,7 +48,6 @@ import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainte
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopBezelOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * <code>Night Shade</code> skin. This class is part of officially supported API.
@@ -171,14 +171,17 @@ public class NightShadeSkin extends SubstanceSkin {
         // add an overlay painter to paint a dark line along the bottom
         // edge of toolbars
         SubstanceOverlayPainter toolbarBottomLineOverlayPainter = new BottomLineOverlayPainter(
-                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f));
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorTransform.brightness(-0.5f)));
         this.addOverlayPainter(toolbarBottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         SubstanceOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-                scheme -> SubstanceColorUtilities.deriveByBrightness(scheme.getUltraDarkColor(), -0.5f),
-                scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorTransform.brightness(-0.5f)),
+                ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                        ColorTransform.alpha(32)));
         this.addOverlayPainter(footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
 
         this.setTabFadeStart(0.18);

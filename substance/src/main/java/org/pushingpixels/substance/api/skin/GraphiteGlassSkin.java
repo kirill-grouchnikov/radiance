@@ -32,13 +32,13 @@ package org.pushingpixels.substance.api.skin;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.GlassHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 /**
  * <code>Graphite Glass</code> skin. This class is part of officially supported API.
@@ -70,7 +70,8 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
 				ColorSchemeSingleColorQuery.MID);
 		TopLineOverlayPainter toolbarOverlayPainter = new TopLineOverlayPainter(
-				scheme -> SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
+				ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+						ColorTransform.alpha(32)));
 		this.addOverlayPainter(menuOverlayPainter, DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 

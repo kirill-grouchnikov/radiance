@@ -88,4 +88,15 @@ public interface ColorSchemeSingleColorQuery {
 	 * that returns the foreground color of the specified color scheme.
 	 */
 	ColorSchemeSingleColorQuery FOREGROUND = SchemeBaseColors::getForegroundColor;
+
+	static ColorSchemeSingleColorQuery composite(ColorSchemeSingleColorQuery base,
+			ColorTransform... transforms) {
+		return scheme -> {
+			Color result = base.query(scheme);
+			for (ColorTransform transform: transforms) {
+				result = transform.transform(result);
+			}
+			return result;
+		};
+	}
 }
