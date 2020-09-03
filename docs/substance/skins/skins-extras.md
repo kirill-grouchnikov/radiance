@@ -9,7 +9,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.FieldOfWheatSk
 * `SubstanceCortex.GlobalScope.setSkin(new FieldOfWheatSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.FieldOfWheatSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceFieldOfWheatLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceFieldOfWheatLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceFieldOfWheatLookAndFeel");`
 
 <p align="left">
@@ -24,7 +24,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.FindingNemoSki
 * `SubstanceCortex.GlobalScope.setSkin(new FindingNemoSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.FindingNemoSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceFindingNemoLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceFindingNemoLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceFindingNemoLookAndFeel");`
 
 <p align="left">
@@ -40,7 +40,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.GreenMagicSkin
 * `SubstanceCortex.GlobalScope.setSkin(new GreenMagicSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GreenMagicSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceGreenMagicLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceGreenMagicLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceGreenMagicLookAndFeel");`
 
 <p align="left">
@@ -55,7 +55,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.HarvestSkin`. 
 * `SubstanceCortex.GlobalScope.setSkin(new HarvestSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.HarvestSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceHarvestLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceHarvestLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceHarvestLookAndFeel");`
 
 <p align="left">
@@ -70,7 +70,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.MagmaSkin`. In
 * `SubstanceCortex.GlobalScope.setSkin(new MagmaSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.MagmaSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceMagmaLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceMagmaLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceMagmaLookAndFeel");`
 
 <p align="left">
@@ -85,7 +85,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.MangoSkin`. In
 * `SubstanceCortex.GlobalScope.setSkin(new MangoSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.MangoSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceMangoLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceMangoLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceMangoLookAndFeel");`
 
 <p align="left">
@@ -100,7 +100,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlack200
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeBlack2007Skin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeBlack2007Skin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel");`
 
 <p align="left">
@@ -115,7 +115,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlue2007
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeBlue2007Skin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel");`
 
 <p align="left">
@@ -130,7 +130,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeSilver20
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeSilver2007Skin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceOfficeSilver2007LookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel");`
 
 <p align="left">
@@ -145,7 +145,7 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.StreetlightsSk
 * `SubstanceCortex.GlobalScope.setSkin(new StreetlightsSkin())`
 * `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.StreetlightsSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceStreetlightsLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
+* `UIManager.setLookAndFeel(new SubstanceStreetlightsLookAndFeel())`
 * `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceStreetlightsLookAndFeel");`
 
 <p align="left">
