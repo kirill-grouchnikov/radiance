@@ -29,28 +29,16 @@
  */
 package org.pushingpixels.substance.extras.api.tabbed;
 
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.AbstractAction;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.JTabbedPane;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.extras.internal.SubstanceExtrasSynapse;
-import org.pushingpixels.substance.extras.internal.tabbed.*;
+import org.pushingpixels.substance.extras.internal.tabbed.TabPagerManager;
+import org.pushingpixels.substance.extras.internal.tabbed.TabPagerMouseWheelListener;
+import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.PropertyChangeListener;
 
 /**
  * Adds tab pager to tabbed panes.

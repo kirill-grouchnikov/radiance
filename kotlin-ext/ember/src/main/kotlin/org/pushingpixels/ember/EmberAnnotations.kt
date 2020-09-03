@@ -29,29 +29,32 @@
  */
 package org.pushingpixels.ember
 
+import java.awt.*
+import javax.swing.*
+
 /**
- * APIs in this scope apply to individual application {@link Component}s.
+ * APIs in this scope apply to individual application [Component]s.
  */
 public annotation class EmberComponentScope
 
 /**
- * APIs in this scope apply to individual application {@link Component}s or all immediate child
+ * APIs in this scope apply to individual application [Component]s or all immediate child
  * components of a container.
  */
 public annotation class EmberComponentOrParentScope
 
 /**
- * APIs in this scope apply to individual application {@link Component}s or all nested child
+ * APIs in this scope apply to individual application [Component]s or all nested child
  * components of a container.
  */
 public annotation class EmberComponentOrParentChainScope
 
 /**
- * APIs in this scope apply to individual application {@link JRootPane}s.
+ * APIs in this scope apply to individual application [JRootPane]s.
  */
 public annotation class EmberRootPaneScope
 
 /**
- * APIs in this scope apply to individual application {@link Window}s.
+ * APIs in this scope apply to individual application [Window]s.
  */
 public annotation class EmberWindowScope

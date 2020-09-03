@@ -36,7 +36,7 @@ buildscript {
     ext {
         // Build dependencies
         gradle_version                  =    '6.6.1'
-        dokka_plugin_version            =   '0.10.1'
+        dokka_plugin_version            =    '1.4.0'
 
         // Core dependencies
         kotlin_version                  =    '1.4.0'
