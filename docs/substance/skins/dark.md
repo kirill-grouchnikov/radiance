@@ -179,3 +179,8 @@ Available in the `org.pushingpixels.substance.api.skin.RavenSkin`. In addition, 
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/raven1.png" width="340" height="258">
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/raven2.png" width="340" height="258">
 </p>
+
+
+### Additional skins
+
+Additional skins can be found in the [extras pack](skins-extras.md).
