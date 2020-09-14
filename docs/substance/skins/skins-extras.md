@@ -33,21 +33,6 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.FindingNemoSki
 </p>
 
 
-### Green Magic
-
-Available in the `org.pushingpixels.substance.extras.api.skinpack.GreenMagicSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceGreenMagicLookAndFeel` can be used with one of the following options:
-
-* `SubstanceCortex.GlobalScope.setSkin(new GreenMagicSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GreenMagicSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceGreenMagicLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGreenMagicLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceGreenMagicLookAndFeel");`
-
-<p align="left">
-<img alt="Green Magic" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/greenmagic1.png" width="340" height="258">
-<img alt="Green Magic" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/greenmagic2.png" width="340" height="258">
-</p>
-
 ### Harvest
 
 Available in the `org.pushingpixels.substance.extras.api.skinpack.HarvestSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceHarvestLookAndFeel` can be used with one of the following options:

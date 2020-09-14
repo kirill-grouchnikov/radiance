@@ -54,6 +54,7 @@ class GraphiteGlass : FlamingoSkinRobot(GraphiteGlassSkin(), "flamingo/ribbon/gr
 class GraphiteGold : FlamingoSkinRobot(GraphiteGoldSkin(), "flamingo/ribbon/graphitegold")
 class GraphiteSienna : FlamingoSkinRobot(GraphiteSiennaSkin(), "flamingo/ribbon/graphitesienna")
 class GraphiteSunset : FlamingoSkinRobot(GraphiteSunsetSkin(), "flamingo/ribbon/graphitesunset")
+class GreenMagic : FlamingoSkinRobot(GreenMagicSkin(), "flamingo/ribbon/greenmagic")
 class Magellan : FlamingoSkinRobot(MagellanSkin(), "flamingo/ribbon/magellan")
 class Mariner : FlamingoSkinRobot(MarinerSkin(), "flamingo/ribbon/mariner")
 class MistAqua : FlamingoSkinRobot(MistAquaSkin(), "flamingo/ribbon/mistaqua")

@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.substance.extras.api.skinpack;
+package org.pushingpixels.substance.api.skin;
 
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -37,7 +37,7 @@ import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
@@ -61,7 +61,7 @@ public class GreenMagicSkin extends SubstanceSkin {
     public GreenMagicSkin() {
         ColorSchemes schemes = SubstanceSkin.getColorSchemes(
                 this.getClass().getClassLoader().getResourceAsStream(
-                        "org/pushingpixels/substance/extras/api/skinpack/greenmagic.colorschemes"));
+                        "org/pushingpixels/substance/api/skin/greenmagic.colorschemes"));
         SubstanceColorScheme activeScheme = schemes.get("Green Magic Active");
         SubstanceColorScheme enabledScheme = schemes.get("Green Magic Enabled");
         SubstanceColorScheme disabledScheme = schemes.get("Green Magic Disabled");
@@ -77,6 +77,10 @@ public class GreenMagicSkin extends SubstanceSkin {
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 
+        SubstanceColorScheme footerFillScheme = schemes.get("Green Magic Footer Fill");
+        this.registerAsDecorationArea(footerFillScheme, DecorationAreaType.FOOTER);
+
+
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of headers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.HEADER);
@@ -86,7 +90,9 @@ public class GreenMagicSkin extends SubstanceSkin {
                 DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new GlassFillPainter();
+        this.fillPainter = new FractionBasedFillPainter("Green Magic", new float[] {0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {ColorSchemeSingleColorQuery.ULTRALIGHT,
+                        ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT});
         this.decorationPainter = new ArcDecorationPainter();
         this.borderPainter = new ClassicBorderPainter();
         this.highlightPainter = new ClassicHighlightPainter();

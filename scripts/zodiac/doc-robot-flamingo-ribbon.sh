@@ -53,6 +53,7 @@ JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.t
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteGold ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteSienna ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GraphiteSunset ../../docs/images/
+JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.GreenMagic ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.Magellan ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.Mariner ../../docs/images/
 JAVA -cp $CLASSPATH org.pushingpixels.tools.zodiac.RobotMain org.pushingpixels.tools.zodiac.flamingo.skins.MistAqua ../../docs/images/

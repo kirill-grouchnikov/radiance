@@ -54,6 +54,7 @@ class GraphiteGlass : SubstanceSkinRobot(GraphiteGlassSkin(), "substance/skins/g
 class GraphiteGold : SubstanceSkinRobot(GraphiteGoldSkin(), "substance/skins/graphitegold")
 class GraphiteSienna : SubstanceSkinRobot(GraphiteSiennaSkin(), "substance/skins/graphitesienna")
 class GraphiteSunset : SubstanceSkinRobot(GraphiteSunsetSkin(), "substance/skins/graphitesunset")
+class GreenMagic : SubstanceSkinRobot(GreenMagicSkin(), "substance/skins/greenmagic")
 class Magellan : SubstanceSkinRobot(MagellanSkin(), "substance/skins/magellan")
 class Mariner : SubstanceSkinRobot(MarinerSkin(), "substance/skins/mariner")
 class MistAqua : SubstanceSkinRobot(MistAquaSkin(), "substance/skins/mistaqua")

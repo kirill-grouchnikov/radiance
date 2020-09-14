@@ -46,7 +46,6 @@ public class SubstanceExtrasSkinPlugin implements SubstanceSkinPlugin {
         Set<SkinInfo> result = new HashSet<>();
         result.add(new SkinInfo(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class::getName));
         result.add(new SkinInfo(FindingNemoSkin.NAME, FindingNemoSkin.class::getName));
-        result.add(new SkinInfo(GreenMagicSkin.NAME, GreenMagicSkin.class::getName));
         result.add(new SkinInfo(HarvestSkin.NAME, HarvestSkin.class::getName));
         result.add(new SkinInfo(MangoSkin.NAME, MangoSkin.class::getName));
         result.add(new SkinInfo(MagmaSkin.NAME, MagmaSkin.class::getName));

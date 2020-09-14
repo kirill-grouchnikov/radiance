@@ -38,7 +38,6 @@ import org.pushingpixels.substance.extras.api.skinpack.*
  */
 class FieldOfWheat : SubstanceSkinRobot(FieldOfWheatSkin(), "substance-extras/skins/fieldofwheat")
 class FindingNemo : SubstanceSkinRobot(FindingNemoSkin(), "substance-extras/skins/findingnemo")
-class GreenMagic : SubstanceSkinRobot(GreenMagicSkin(), "substance-extras/skins/greenmagic")
 class Harvest : SubstanceSkinRobot(HarvestSkin(), "substance-extras/skins/harvest")
 class Magma : SubstanceSkinRobot(MagmaSkin(), "substance-extras/skins/magma")
 class Mango : SubstanceSkinRobot(MangoSkin(), "substance-extras/skins/mango")

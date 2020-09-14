@@ -54,6 +54,7 @@ class GraphiteGlass : TextHighlightsRobot(GraphiteGlassSkin(), "substance/text/g
 class GraphiteGold : TextHighlightsRobot(GraphiteGoldSkin(), "substance/text/graphitegold.png")
 class GraphiteSienna : TextHighlightsRobot(GraphiteSiennaSkin(), "substance/text/graphitesienna.png")
 class GraphiteSunset : TextHighlightsRobot(GraphiteSunsetSkin(), "substance/text/graphitesunset.png")
+class GreenMagic : TextHighlightsRobot(GreenMagicSkin(), "substance/text/greenmagic.png")
 class Magellan : TextHighlightsRobot(MagellanSkin(), "substance/text/magellan.png")
 class Mariner : TextHighlightsRobot(MarinerSkin(), "substance/text/mariner.png")
 class MistAqua : TextHighlightsRobot(MistAquaSkin(), "substance/text/mistaqua.png")

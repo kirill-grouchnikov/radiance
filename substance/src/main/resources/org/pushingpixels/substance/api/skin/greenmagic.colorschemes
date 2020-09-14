@@ -30,3 +30,9 @@ Green Magic Disabled {
     colorUltraDark=#3D474F
     colorForeground=#5BA581
 }
+
+Green Magic Footer Fill {
+    kind=Light
+    colorBackground=#9EDDB8
+    colorForeground=#5BA581
+}

@@ -62,6 +62,7 @@ public class BaseSkinPlugin implements SubstanceSkinPlugin {
         result.add(new SkinInfo(GraphiteGoldSkin.NAME, GraphiteGoldSkin.class::getName));
         result.add(new SkinInfo(GraphiteSiennaSkin.NAME, GraphiteSiennaSkin.class::getName));
         result.add(new SkinInfo(GraphiteSunsetSkin.NAME, GraphiteSunsetSkin.class::getName));
+        result.add(new SkinInfo(GreenMagicSkin.NAME, GreenMagicSkin.class::getName));
         result.add(new SkinInfo(NebulaSkin.NAME, NebulaSkin.class::getName));
         result.add(new SkinInfo(NebulaBrickWallSkin.NAME, NebulaBrickWallSkin.class::getName));
         result.add(new SkinInfo(MistSilverSkin.NAME, MistSilverSkin.class::getName));
