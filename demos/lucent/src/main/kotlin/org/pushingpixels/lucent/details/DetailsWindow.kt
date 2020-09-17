@@ -187,7 +187,6 @@ class DetailsWindow : JWindow() {
 
         // step 6 (wait for steps 4 and 5) - cross fade album art from old to new
         val albumArtCrossfadeTimeline = this.albumArt.componentTimeline {
-            property(albumArt::oldImageAlpha from 1.0f to 0.0f)
             property(albumArt::imageAlpha from 0.0f to 1.0f)
             repaintCallback()
             duration = 400

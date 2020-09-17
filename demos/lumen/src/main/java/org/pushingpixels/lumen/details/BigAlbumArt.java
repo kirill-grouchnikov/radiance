@@ -57,14 +57,9 @@ public class BigAlbumArt extends JComponent {
     /**
      * The previously displayed album art. Is shown during the fade out stage,
      * controlled by the timeline launched after the call to
-     * {@link #setAlbumArtImage(BufferedImage)}. The alpha value is controlled
-     * by {@link #oldImageAlpha}.
+     * {@link #setAlbumArtImage(BufferedImage)}.
      */
     private BufferedImage oldImage;
-    /**
-     * The alpha value for {@link #oldImage}.
-     */
-    private float oldImageAlpha;
     /**
      * The album art image for the currently displayed Amazon album item.
      */
@@ -80,7 +75,6 @@ public class BigAlbumArt extends JComponent {
     public BigAlbumArt() {
         this.setOpaque(false);
         this.imageAlpha = 0.0f;
-        this.oldImageAlpha = 0.0f;
     }
 
     /**
@@ -90,7 +84,6 @@ public class BigAlbumArt extends JComponent {
      */
     public void setAlbumArtImage(BufferedImage image) {
         this.oldImage = this.image;
-        this.oldImageAlpha = this.imageAlpha;
 
         this.image = image;
         this.imageAlpha = 0.0f;
@@ -110,15 +103,6 @@ public class BigAlbumArt extends JComponent {
      */
     public void setImageAlpha(float imageAlpha) {
         this.imageAlpha = imageAlpha;
-    }
-
-    /**
-     * Sets the new alpha value for the previously displayed album art.
-     *
-     * @param oldImageAlpha The new alpha value for the previously displayed album art.
-     */
-    public void setOldImageAlpha(float oldImageAlpha) {
-        this.oldImageAlpha = oldImageAlpha;
     }
 
     @Override

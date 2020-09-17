@@ -218,7 +218,6 @@ public class DetailsWindow extends JWindow {
 
         // step 6 (wait for steps 4 and 5) - cross fade album art from old to new
         Timeline albumArtCrossfadeTimeline = Timeline.builder(this.albumArt)
-                .addPropertyToInterpolate("oldImageAlpha", 1.0f, 0.0f)
                 .addPropertyToInterpolate("imageAlpha", 0.0f, 1.0f)
                 .addCallback(new SwingRepaintCallback(this.albumArt))
                 .setDuration(400)
