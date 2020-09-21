@@ -38,7 +38,7 @@ import java.awt.Color
  * declarations such as:
  *
  * ```
- * val (red, green, blue) = color
+ * val (red, green, blue, alpha) = color
  * ```
  */
 public inline operator fun Color.component1(): Int = this.red
@@ -48,7 +48,7 @@ public inline operator fun Color.component1(): Int = this.red
  * declarations such as:
  *
  * ```
- * val (red, green, blue) = color
+ * val (red, green, blue, alpha) = color
  * ```
  */
 public inline operator fun Color.component2(): Int = this.green
@@ -58,7 +58,7 @@ public inline operator fun Color.component2(): Int = this.green
  * declarations such as:
  *
  * ```
- * val (red, green, blue) = color
+ * val (red, green, blue, alpha) = color
  * ```
  */
 public inline operator fun Color.component3(): Int = this.blue
@@ -100,12 +100,12 @@ public inline fun Color.withAlpha(alpha: Int): Color {
 
 /**
  * Returns a derived color based on the passed brightness factor.
+ * [brightnessFactor] should be in -1.0...1.0 range. Negative values are treated as darkening
+ * and positive values are treated as brightening - leaving the hue and saturation intact.
  */
 public inline fun Color.deriveByBrightness(brightnessFactor: Double): Color {
     val hsb = Color.RGBtoHSB(this.red, this.green, this.blue, null)
 
-    // Brightness factor is in -1.0...1.0 range. Negative values are treated as darkening
-    // and positive values are treated as brightening - leaving the hue and saturation intact
     val newBrightness = if (brightnessFactor > 0.0f) {
         hsb[2] + (1.0f - hsb[2]) * brightnessFactor
     } else {

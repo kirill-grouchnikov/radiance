@@ -35,7 +35,9 @@ import java.awt.Component
 import java.awt.Window
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import javax.swing.ActionMap
 import javax.swing.JPopupMenu
+import javax.swing.JRootPane
 import javax.swing.SwingUtilities
 
 /**
@@ -63,3 +65,6 @@ public fun Component.wirePopup(popup: JPopupMenu, popupMenuAction: ((JPopupMenu)
 
 public val Component.windowAncestor: Window?
     get() = SwingUtilities.getWindowAncestor(this)
+
+public val Component.rootPane: JRootPane?
+    get() = SwingUtilities.getRootPane(this)
