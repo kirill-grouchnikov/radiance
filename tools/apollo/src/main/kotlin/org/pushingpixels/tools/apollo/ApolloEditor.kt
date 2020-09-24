@@ -221,7 +221,8 @@ class ApolloEditor : JFrame(), ClipboardOwner {
         }
 
         // track modification changes on the scheme list and any scheme in it
-        this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean?>(this.colorSchemeList::isModified) { evt ->
+        this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean?>(
+                this.colorSchemeList::isModified) { evt ->
             val isModified = evt.newValue ?: false
 
             // update the close / X button of the main frame
@@ -243,7 +244,8 @@ class ApolloEditor : JFrame(), ClipboardOwner {
                 "\t* Drag and drop an image file from local disk or another app",
                 "\t* Drag and drop a URL pointing to an image"))
 
-        imageComp.addTypedDelayedPropertyChangeListener<Color>(JImageComponent::selectedColor) { evt ->
+        imageComp.addTypedDelayedPropertyChangeListener<Color>(
+                JImageComponent::selectedColor) { evt ->
             val selectedImageColor = evt.newValue
             val selectedColorComp = colorSchemeComp.selectedColorComponent
             selectedColorComp?.setColor(selectedImageColor, true)
