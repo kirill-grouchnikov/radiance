@@ -300,7 +300,7 @@ class TimelineEngine {
                     }
                     if (timeline.durationFraction > 1.0f) {
                         timeline.durationFraction = 1.0f;
-                        timeline.timelinePosition = 1.0f;
+                        timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                         if (timeline.isLooping) {
                             boolean stopLoopingAnimation = timeline.toCancelAtCycleBreak;
                             int loopsToLive = timeline.repeatCount;
@@ -325,7 +325,7 @@ class TimelineEngine {
                                             TimelineState.PLAYING_FORWARD);
                                 } else {
                                     timeline.durationFraction = 0.0f;
-                                    timeline.timelinePosition = 0.0f;
+                                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                                     if (timeline.getCycleDelay() > 0) {
                                         timeline.pushState(TimelineState.READY);
                                         timeline.timeUntilPlay = timeline.getCycleDelay();
@@ -364,7 +364,7 @@ class TimelineEngine {
                     }
                     if (timeline.durationFraction < 0) {
                         timeline.durationFraction = 0.0f;
-                        timeline.timelinePosition = 0.0f;
+                        timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                         if (timeline.isLooping) {
                             boolean stopLoopingAnimation = timeline.toCancelAtCycleBreak;
                             int loopsToLive = timeline.repeatCount;
@@ -570,7 +570,7 @@ class TimelineEngine {
                     timeline.timeUntilPlay = 0;
                 } else {
                     timeline.durationFraction = 0.0f;
-                    timeline.timelinePosition = 0.0f;
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                 }
                 timeline.pushState(TimelineState.PLAYING_FORWARD);
                 timeline.pushState(TimelineState.READY);
@@ -594,7 +594,7 @@ class TimelineEngine {
                 }
                 if (reset) {
                     existing.durationFraction = 0.0f;
-                    existing.timelinePosition = 0.0f;
+                    existing.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                     this.callbackCallTimelinePulse(existing);
                 }
             }
@@ -634,7 +634,7 @@ class TimelineEngine {
                     timeline.timeUntilPlay = 0;
                 } else {
                     timeline.durationFraction = 1.0f;
-                    timeline.timelinePosition = 1.0f;
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                 }
                 timeline.pushState(TimelineState.PLAYING_REVERSE);
                 timeline.pushState(TimelineState.READY);
@@ -658,7 +658,7 @@ class TimelineEngine {
                 }
                 if (reset) {
                     existing.durationFraction = 1.0f;
-                    existing.timelinePosition = 1.0f;
+                    existing.timelinePosition = existing.getEase().map(timeline.durationFraction);
                     this.callbackCallTimelinePulse(existing);
                 }
             }
@@ -684,7 +684,7 @@ class TimelineEngine {
                     timeline.timeUntilPlay = 0;
                 } else {
                     timeline.durationFraction = 0.0f;
-                    timeline.timelinePosition = 0.0f;
+                    timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);
                 }
                 timeline.pushState(TimelineState.PLAYING_FORWARD);
                 timeline.pushState(TimelineState.READY);
@@ -787,7 +787,7 @@ class TimelineEngine {
                     endPosition = 0.0f;
             }
             timeline.durationFraction = endPosition;
-            timeline.timelinePosition = endPosition;
+            timeline.timelinePosition = timeline.getEase().map(timeline.durationFraction);;
             timeline.pushState(TimelineState.DONE);
             this.callbackCallTimelineStateChanged(timeline, oldState);
             timeline.popState();
