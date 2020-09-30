@@ -1,21 +1,21 @@
 /**
  * Copyright (c) 2006, Sun Microsystems, Inc
  * All rights reserved.
- * 
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above
- *     copyright notice, this list of conditions and the following 
- *     disclaimer in the documentation and/or other materials provided 
- *     with the distribution.
- *   * Neither the name of the TimingFramework project nor the names of its
- *     contributors may be used to endorse or promote products derived 
- *     from this software without specific prior written permission.
- * 
+ * <p>
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above
+ * copyright notice, this list of conditions and the following
+ * disclaimer in the documentation and/or other materials provided
+ * with the distribution.
+ * * Neither the name of the TimingFramework project nor the names of its
+ * contributors may be used to endorse or promote products derived
+ * from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -34,7 +34,10 @@ package org.pushingpixels.trident.api.interpolator;
 import org.pushingpixels.trident.api.TimelinePropertyBuilder.PropertySetter;
 import org.pushingpixels.trident.api.TridentConfig;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Stores a list of values that correspond to the times in a {@link KeyTimes}
@@ -67,7 +70,7 @@ public class KeyValues<T> {
     /**
      * Constructs a KeyValues object from one or more values. The internal
      * Evaluator is automatically determined by the type of the parameters.
-     * 
+     *
      * @param params
      *            the values to interpolate between. If there is only one
      *            parameter, this is assumed to be a "to" animation where the
@@ -129,7 +132,7 @@ public class KeyValues<T> {
 
     /**
      * Returns the number of values stored in this object.
-     * 
+     *
      * @return the number of values stored in this object
      */
     int getSize() {
@@ -138,7 +141,7 @@ public class KeyValues<T> {
 
     /**
      * Returns the data type of the values stored in this object.
-     * 
+     *
      * @return a Class value representing the type of values stored in this
      *         object
      */

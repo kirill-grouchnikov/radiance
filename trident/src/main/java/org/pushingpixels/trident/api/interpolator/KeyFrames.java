@@ -1,21 +1,21 @@
 /**
  * Copyright (c) 2006, Sun Microsystems, Inc
  * All rights reserved.
- * 
+ * <p>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
- * 
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   * Redistributions in binary form must reproduce the above
- *     copyright notice, this list of conditions and the following 
- *     disclaimer in the documentation and/or other materials provided 
- *     with the distribution.
- *   * Neither the name of the TimingFramework project nor the names of its
- *     contributors may be used to endorse or promote products derived 
- *     from this software without specific prior written permission.
- * 
+ * <p>
+ * * Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above
+ * copyright notice, this list of conditions and the following
+ * disclaimer in the documentation and/or other materials provided
+ * with the distribution.
+ * * Neither the name of the TimingFramework project nor the names of its
+ * contributors may be used to endorse or promote products derived
+ * from this software without specific prior written permission.
+ * <p>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,12 +35,12 @@ import org.pushingpixels.trident.api.ease.Linear;
 import org.pushingpixels.trident.api.ease.TimelineEase;
 
 /**
- * 
+ *
  * KeyFrames holds information about the times at which values are sampled
  * (KeyTimes) and the values at those times (KeyValues). It also holds
  * information about how to interpolate between these values for times that lie
  * between the sampling points.
- * 
+ *
  * @author Chet
  * @param <T> Value type
  */
@@ -54,7 +54,7 @@ public class KeyFrames<T> {
      * Simplest variation; determine keyTimes based on even division of 0-1
      * range based on number of keyValues. This constructor assumes LINEAR
      * interpolation.
-     * 
+     *
      * @param keyValues
      *            values that will be assumed at each time in keyTimes
      */
@@ -65,7 +65,7 @@ public class KeyFrames<T> {
     /**
      * This variant takes both keyValues (values at each point in time) and
      * keyTimes (times at which values are sampled).
-     * 
+     *
      * @param keyValues
      *            values that the animation will assume at each of the
      *            corresponding times in keyTimes
@@ -86,7 +86,7 @@ public class KeyFrames<T> {
      * which will be used to calculate between all times in the keyTimes list. A
      * null interpolator parameter is equivalent to calling
      * {@link KeyFrames#KeyFrames(KeyValues, KeyTimes)}.
-     * 
+     *
      * @param keyValues
      *            values that the animation will assume at each of the
      *            corresponding times in keyTimes
@@ -117,7 +117,7 @@ public class KeyFrames<T> {
     /**
      * Utility constructor that assumes even division of times according to size
      * of keyValues and interpolation according to interpolators parameter.
-     * 
+     *
      * @param keyValues
      *            values that the animation will assume at each of the
      *            corresponding times in keyTimes

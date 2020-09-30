@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * Spline easer. Is based on the code from
  * <a href="https://timingframework.dev.java.net">TimingFramework</a> by Chet
  * Haase and Romain Guy.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class Spline implements TimelineEase {
@@ -66,9 +66,8 @@ public class Spline implements TimelineEase {
      * @param y1 Y coordinate of the first control point
      * @param x2 X coordinate of the second control point
      * @param y2 Y coordinate of the second control point
-     * @throws IllegalArgumentException
-     *             This exception is thrown when values beyond the allowed [0,1]
-     *             range are passed in
+     * @throws IllegalArgumentException This exception is thrown when values beyond the allowed [0,1]
+     *                                  range are passed in
      */
     public Spline(float x1, float y1, float x2, float y2) {
         if (x1 < 0 || x1 > 1.0f || y1 < 0 || y1 > 1.0f || x2 < 0 || x2 > 1.0f || y2 < 0
@@ -105,15 +104,14 @@ public class Spline implements TimelineEase {
 
     /**
      * Calculates the XY point for a given t value.
-     * 
+     * <p>
      * The general spline equation is: x = b0*x0 + b1*x1 + b2*x2 + b3*x3 y =
      * b0*y0 + b1*y1 + b2*y2 + b3*y3 where: b0 = (1-t)^3 b1 = 3 * t * (1-t)^2 b2
      * = 3 * t^2 * (1-t) b3 = t^3 We know that (x0,y0) == (0,0) and (x1,y1) ==
      * (1,1) for our splines, so this simplifies to: x = b1*x1 + b2*x2 + b3 y =
      * b1*x1 + b2*x2 + b3
-     * 
-     * @param t
-     *            parametric value for spline calculation
+     *
+     * @param t parametric value for spline calculation
      */
     private FloatPoint getXY(float t) {
         FloatPoint xy;
@@ -143,9 +141,8 @@ public class Spline implements TimelineEase {
      * first calculate the t value for the length (by doing a lookup in our
      * array of previousloy calculated values and then linearly interpolating
      * between the nearest values) and then calculate the Y value for this t.
-     * 
-     * @param lengthFraction
-     *            Fraction of time in a given time interval.
+     *
+     * @param lengthFraction Fraction of time in a given time interval.
      * @return interpolated fraction between 0 and 1
      */
     public float map(float lengthFraction) {

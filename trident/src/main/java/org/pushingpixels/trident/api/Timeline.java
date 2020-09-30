@@ -53,7 +53,7 @@ import java.util.function.Supplier;
  * matching public setters. In that case, use the
  * {@link Timeline.BaseBuilder#addPropertyToInterpolate(String, Object, Object)} API to configure
  * which properties should be interpolated.
- *
+ * <p>
  * In a more complex case, use
  * {@link Timeline.BaseBuilder#addPropertyToInterpolate(TimelinePropertyBuilder)} together with
  * {@link Timeline#property(String)} and {@link TimelinePropertyBuilder#on(Object)} to interpolate

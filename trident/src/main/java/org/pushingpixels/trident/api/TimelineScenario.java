@@ -129,7 +129,7 @@ public class TimelineScenario {
     private void checkDoneActors() {
         synchronized (TimelineEngine.LOCK) {
             for (Iterator<TimelineScenarioActor> itRunning = this.runningActors
-                    .iterator(); itRunning.hasNext();) {
+                    .iterator(); itRunning.hasNext(); ) {
                 TimelineScenarioActor stillRunning = itRunning.next();
                 if (stillRunning.isDone()) {
                     itRunning.remove();
@@ -148,7 +148,7 @@ public class TimelineScenario {
 
             Set<TimelineScenarioActor> result = new HashSet<>();
             for (Iterator<TimelineScenarioActor> itWaiting = this.waitingActors
-                    .iterator(); itWaiting.hasNext();) {
+                    .iterator(); itWaiting.hasNext(); ) {
                 TimelineScenarioActor waitingActor = itWaiting.next();
                 boolean canRun = true;
                 Set<TimelineScenarioActor> toWaitFor = this.dependencies.get(waitingActor);
