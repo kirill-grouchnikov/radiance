@@ -137,33 +137,48 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	}
 
 	@Override
-	public final Color getBackgroundFillColor() {
+	public Color getBackgroundFillColor() {
 		return derivedColorsResolver.getBackgroundFillColor();
 	}
 
 	@Override
-	public final Color getFocusRingColor() {
+	public Color getFocusRingColor() {
 		return derivedColorsResolver.getFocusRingColor();
 	}
 
 	@Override
-	public final Color getLineColor() {
+	public Color getLineColor() {
 		return derivedColorsResolver.getLineColor();
 	}
 
 	@Override
-	public final Color getSelectionForegroundColor() {
+	public Color getSelectionForegroundColor() {
 		return derivedColorsResolver.getSelectionForegroundColor();
 	}
 
 	@Override
-	public final Color getSelectionBackgroundColor() {
+	public Color getSelectionBackgroundColor() {
 		return derivedColorsResolver.getSelectionBackgroundColor();
 	}
 
 	@Override
-	public final Color getTextBackgroundFillColor() {
+	public Color getTextBackgroundFillColor() {
 		return derivedColorsResolver.getTextBackgroundFillColor();
+	}
+
+	@Override
+	public Color getSeparatorLightColor() {
+		return derivedColorsResolver.getSeparatorLightColor();
+	}
+
+	@Override
+	public Color getSeparatorDarkColor() {
+		return derivedColorsResolver.getSeparatorDarkColor();
+	}
+
+	@Override
+	public Color getSeparatorShadowColor() {
+		return derivedColorsResolver.getSeparatorShadowColor();
 	}
 
 	@Override

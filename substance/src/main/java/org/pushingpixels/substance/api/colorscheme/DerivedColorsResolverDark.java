@@ -94,4 +94,19 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 		return SubstanceColorUtilities.getInterpolatedColor(this.scheme.getMidColor(),
 				this.scheme.getLightColor(), 0.4f);
 	}
+
+	@Override
+	public Color getSeparatorLightColor() {
+		return this.scheme.getLightColor();
+	}
+
+	@Override
+	public Color getSeparatorDarkColor() {
+		return this.scheme.getExtraLightColor();
+	}
+
+	@Override
+	public Color getSeparatorShadowColor() {
+		return this.scheme.getDarkColor();
+	}
 }

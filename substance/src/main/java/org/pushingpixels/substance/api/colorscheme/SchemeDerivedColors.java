@@ -44,7 +44,7 @@ public interface SchemeDerivedColors {
      * Returns the line color for <code>this</code> scheme.
      *
      * @return The line color for <code>this</code> scheme.
-     * @see org.pushingpixels.substance.api.SubstanceSkin#getOverlayColor(SubstanceSlices.ColorOverlayType, SubstanceSlices.DecorationAreaType, ComponentState) 
+     * @see org.pushingpixels.substance.api.SubstanceSkin#getOverlayColor(SubstanceSlices.ColorOverlayType, SubstanceSlices.DecorationAreaType, ComponentState)
      */
     Color getLineColor();
 
@@ -83,4 +83,25 @@ public interface SchemeDerivedColors {
      * @see org.pushingpixels.substance.api.SubstanceSkin#getOverlayColor(SubstanceSlices.ColorOverlayType, SubstanceSlices.DecorationAreaType, ComponentState)
      */
     Color getFocusRingColor();
+
+    /**
+     * Returns the light separator color for <code>this</code> scheme.
+     *
+     * @return The light separator color for <code>this</code> scheme.
+     */
+    Color getSeparatorLightColor();
+
+    /**
+     * Returns the dark separator color for <code>this</code> scheme.
+     *
+     * @return The dark separator color for <code>this</code> scheme.
+     */
+    Color getSeparatorDarkColor();
+
+    /**
+     * Returns the shadow separator color for <code>this</code> scheme.
+     *
+     * @return The shadow separator color for <code>this</code> scheme.
+     */
+    Color getSeparatorShadowColor();
 }

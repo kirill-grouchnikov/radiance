@@ -231,9 +231,9 @@ public class SeparatorPainterUtils {
 			singleLine = SubstanceCoreUtilities.getBlankImage(width, height);
 			Graphics2D graphics = singleLine.createGraphics();
 
-			Color foreLight = getSeparatorLightColor(scheme);
-			Color foreDark = getSeparatorDarkColor(scheme);
-			Color back = getSeparatorShadowColor(scheme);
+			Color foreLight = scheme.getSeparatorLightColor();
+			Color foreDark = scheme.getSeparatorDarkColor();
+			Color back = scheme.getSeparatorShadowColor();
 
 			Color foreLight12 = toUseAlphaColors
 					? SubstanceColorUtilities.getAlphaColor(foreLight, 32)
@@ -303,22 +303,6 @@ public class SeparatorPainterUtils {
 		g2d.dispose();
 	}
 
-	public static Color getSeparatorShadowColor(SubstanceColorScheme scheme) {
-		return scheme.isDark() ? scheme.getDarkColor() : scheme.getUltraLightColor();
-	}
-
-	public static Color getSeparatorDarkColor(SubstanceColorScheme scheme) {
-		return scheme.isDark() ? scheme.getExtraLightColor()
-				: SubstanceColorUtilities.getInterpolatedColor(scheme.getMidColor(),
-						scheme.getDarkColor(), 0.4f);
-	}
-
-	public static Color getSeparatorLightColor(SubstanceColorScheme scheme) {
-		return scheme.isDark() ? scheme.getLightColor()
-				: SubstanceColorUtilities.getInterpolatedColor(scheme.getLightColor(),
-						scheme.getDarkColor(), 0.8f);
-	}
-
 	/**
 	 * Paints vertical separator lines.
 	 * 
@@ -353,9 +337,9 @@ public class SeparatorPainterUtils {
 					.getBlankImage(Math.max(2, (int) Math.ceil(2.0 * borderStrokeWidth)), height);
 			Graphics2D graphics = singleLine.createGraphics();
 
-			Color foreLight = getSeparatorLightColor(scheme);
-			Color foreDark = getSeparatorDarkColor(scheme);
-			Color back = getSeparatorShadowColor(scheme);
+			Color foreLight = scheme.getSeparatorLightColor();
+			Color foreDark = scheme.getSeparatorDarkColor();
+			Color back = scheme.getSeparatorShadowColor();
 
 			graphics.setStroke(new BasicStroke(borderStrokeWidth, BasicStroke.CAP_BUTT,
 					BasicStroke.JOIN_ROUND));
@@ -430,9 +414,9 @@ public class SeparatorPainterUtils {
 					Math.max(2, (int) Math.ceil(2.0 * borderStrokeWidth)));
 			Graphics2D graphics = singleLine.createGraphics();
 
-			Color foreLight = getSeparatorLightColor(scheme);
-			Color foreDark = getSeparatorDarkColor(scheme);
-			Color back = getSeparatorShadowColor(scheme);
+			Color foreLight = scheme.getSeparatorLightColor();
+			Color foreDark = scheme.getSeparatorDarkColor();
+			Color back = scheme.getSeparatorShadowColor();
 
 			graphics.setStroke(new BasicStroke(borderStrokeWidth, BasicStroke.CAP_BUTT,
 					BasicStroke.JOIN_ROUND));
