@@ -51,11 +51,9 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
@@ -66,7 +64,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.List;
 import java.util.*;
 
@@ -210,7 +207,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         /**
          * Creates the new taskbar panel.
          */
-        @SuppressWarnings("unchecked")
         private TaskbarPanel() {
             super(new TaskbarLayout());
 
@@ -596,7 +592,6 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     }
                     taskbarPanel.doLayout();
                 }
-                menuBar.setVisible(true);
             } else {
                 // headers of contextual task groups
                 for (Map.Entry<RibbonContextualTaskGroup, SubstanceContextualGroupComponent>
@@ -671,8 +666,8 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                     }
                     taskbarPanel.doLayout();
                 }
-                menuBar.setVisible(true);
             }
+            menuBar.setVisible(true);
         }
     }
 
@@ -754,27 +749,5 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
     private int getTaskBarLayoutGap(Container c) {
         return SubstanceSizeUtils.getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(c), 1, 6,
                 1, false);
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        if (SubstanceCortex.ComponentScope.getCurrentSkin(this)
-                .getOverlayPainters(DecorationAreaType.PRIMARY_TITLE_PANE).isEmpty()) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            SubstanceColorScheme compScheme = SubstanceColorSchemeUtilities.getColorScheme(this,
-                    ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            Color sepColor = compScheme.isDark()
-                    ? SeparatorPainterUtils.getSeparatorShadowColor(compScheme)
-                    : SeparatorPainterUtils.getSeparatorDarkColor(compScheme);
-            g2d.setColor(sepColor);
-            float separatorThickness = SubstanceSizeUtils.getBorderStrokeWidth();
-            float separatorY = getHeight() - separatorThickness;
-            g2d.setStroke(new BasicStroke(separatorThickness, BasicStroke.CAP_BUTT,
-                    BasicStroke.JOIN_ROUND));
-            g2d.draw(new Line2D.Double(0, separatorY, getWidth(), separatorY));
-            g2d.dispose();
-        }
     }
 }

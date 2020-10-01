@@ -1574,10 +1574,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         }
     }
 
-    boolean hasRichTooltips() {
-        return (this.actionRichTooltip != null) || (this.popupRichTooltip != null);
-    }
-
     /**
      * Sets the rich tooltip for the popup area of this button.
      *

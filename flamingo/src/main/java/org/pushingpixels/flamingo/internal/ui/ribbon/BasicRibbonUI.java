@@ -74,7 +74,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     protected JScrollablePanel<JPanel> bandScrollablePanel;
 
-    private JScrollablePanel<TaskToggleButtonsHostPanel> taskToggleButtonsScrollablePanel;
+    protected JScrollablePanel<TaskToggleButtonsHostPanel> taskToggleButtonsScrollablePanel;
 
     protected JRibbonApplicationMenuButton applicationMenuButton;
 
@@ -734,11 +734,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
                         int ribbonBandHeight = availableBandHeight - ribbonBandInsets.top
                                 - ribbonBandInsets.bottom;
                         int availableHeight = ribbonBandHeight
-                                - ribbonBand.getUI().getBandTitleHeight();
-                        if (controlPanel != null) {
-                            availableHeight = availableHeight - controlPanelInsets.top
-                                    - controlPanelInsets.bottom;
-                        }
+                                - ribbonBand.getUI().getBandTitleHeight() - controlPanelInsets.top
+                                - controlPanelInsets.bottom;
                         int preferredWidth = currentResizePolicy.getPreferredWidth(availableHeight,
                                 controlPanelGap) + ribbonBandInsets.left + ribbonBandInsets.right;
                         totalWidth += preferredWidth + bandGap;
