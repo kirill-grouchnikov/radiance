@@ -41,6 +41,7 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenuBackgroundDelegate;
 
@@ -91,6 +92,7 @@ public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
         return result;
     }
 
+    @SubstancePopupContainer
     protected class SubstanceMenuPanel extends MenuPanel {
         @Override
         protected void paintIconGutterBackground(Graphics g) {

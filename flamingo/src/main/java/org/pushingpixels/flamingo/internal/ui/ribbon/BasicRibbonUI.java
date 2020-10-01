@@ -47,6 +47,7 @@ import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -1355,6 +1356,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
         return Collections.unmodifiableList(result);
     }
 
+    @SubstancePopupContainer
     private static class BandHostPopupPanel extends JPopupPanel {
         private BandHostPopupPanel(Component component, Dimension originalSize) {
             this.setLayout(new BorderLayout());

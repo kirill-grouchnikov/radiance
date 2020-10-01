@@ -41,6 +41,7 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSel
 import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
 import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -50,6 +51,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+@SubstancePopupContainer
 public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     /**
      * @see #getUIClassID

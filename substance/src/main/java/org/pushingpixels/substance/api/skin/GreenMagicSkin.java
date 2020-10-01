@@ -80,7 +80,6 @@ public class GreenMagicSkin extends SubstanceSkin {
         SubstanceColorScheme footerFillScheme = schemes.get("Green Magic Footer Fill");
         this.registerAsDecorationArea(footerFillScheme, DecorationAreaType.FOOTER);
 
-
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of headers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.HEADER);

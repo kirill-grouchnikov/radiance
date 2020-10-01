@@ -36,9 +36,11 @@ import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
 import javax.swing.*;
 
+@SubstancePopupContainer
 public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implements ScrollableHost {
     /**
      * The UI class ID string.

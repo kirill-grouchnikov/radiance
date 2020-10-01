@@ -55,6 +55,7 @@ import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -630,6 +631,7 @@ public class JRibbonFrame extends JFrame {
         }
     }
 
+    @SubstancePopupContainer
     public static class GlobalPopupMenu extends JCommandPopupMenu {
         public GlobalPopupMenu(Projection<JCommandPopupMenu, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> projection) {

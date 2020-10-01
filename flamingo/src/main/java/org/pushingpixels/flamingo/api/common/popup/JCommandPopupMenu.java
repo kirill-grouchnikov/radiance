@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -51,6 +52,7 @@ import java.util.List;
  *
  * @author Kirill Grouchnikov
  */
+@SubstancePopupContainer
 public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHost {
     /**
      * @see #getUIClassID

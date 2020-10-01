@@ -163,13 +163,21 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
         }
     }
 
+    @SubstancePopupContainer
+    private class TaskbarOverflowPopupPanelContent extends JPanel {
+        public TaskbarOverflowPopupPanelContent(LayoutManager layout) {
+            super(layout);
+        }
+    }
+
+    @SubstancePopupContainer
     public class TaskbarOverflowPopupPanel extends JPopupPanel {
         private TaskbarOverflowPopupPanel(List<Component> overflowComponents,
                 Dimension size, boolean hasScrolling) {
             this.setLayout(new BorderLayout());
 
-            JPanel overflowPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,
-                    getTaskBarLayoutGap(this), 0));
+            JPanel overflowPanel = new TaskbarOverflowPopupPanelContent(
+                    new FlowLayout(FlowLayout.CENTER, getTaskBarLayoutGap(this), 0));
             for (Component overflow : overflowComponents) {
                 overflowPanel.add(overflow);
             }

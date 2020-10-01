@@ -46,6 +46,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
@@ -93,6 +94,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      *
      * @author Kirill Grouchnikov
      */
+    @SubstancePopupContainer
     protected static class CollapsedButtonPopupPanel extends JPopupPanel {
         /**
          * The main component of <code>this</code> popup panel. Can be <code>null</code>.
