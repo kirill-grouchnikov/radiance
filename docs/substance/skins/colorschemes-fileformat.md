@@ -44,9 +44,9 @@ Business Black Steel Active {
 }
 ```
 
-Note that you have to provide values for `kind`, as well as for each one of the seven `color` entries. Otherwise calling `SubstanceSkin.getColorSchemes` will throw an exception at runtime.
+Note that you have to provide values for `kind`, as well as for each one of the seven base `color` entries defined by the [BaseColorScheme](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/BaseColorScheme.java) interface. Otherwise calling `SubstanceSkin.getColorSchemes` will throw an exception at runtime.
 
-For simpler color schemes that are used with painters that only look at a single color - such as a flat background fill of a specific [decoration area](../painters/decoration.md), you can use the `colorBackground` shortcut to provide the same color for all non-foreground colors:
+For simpler color schemes that are used with painters that only look at a single color - such as a flat background fill of a specific [decoration area](../painters/decoration.md), you can use the `colorBackground` shortcut to provide the same color for all non-foreground base colors:
 
 ```plaintext
 Twilight Header Border {
@@ -56,7 +56,24 @@ Twilight Header Border {
 }
 ```
 
-Even though some complex skins might use a lot of different color schemes, a visually pleasant skin might not need more than a dozen or so different colors (with, perhaps, a slight variation between two colors for subtle gradients on certain elements). In this particular case, you might benefit from using the following syntax.
+Optionally, you can specify one or more colors defined by the [SchemeDerivedColors](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/SchemeDerivedColors.java) interface:
+
+```plaintext
+Green Magic Footer Fill {
+    kind=Light
+    colorBackground=#9EDDB8
+    colorForeground=#5BA581
+    colorSeparatorLight=#92CBAC
+    colorSeparatorDark=#589288
+    colorSeparatorShadow=#CAE8BD
+}
+```
+
+Here, the last three lines specify the colors for painting separators (light, dark, shadow).
+
+### Color references
+
+Even though some complex skins might use a lot of different color schemes, a visually pleasant skin might not need more than a dozen or so different colors (with, perhaps, a slight variation between two colors for subtle gradients on certain elements). In this particular case, your color schemes can be defined in a more compact way that does not have duplicate color value definitions by using the following syntax.
 
 First, start with a section that lists all your colors:
 
