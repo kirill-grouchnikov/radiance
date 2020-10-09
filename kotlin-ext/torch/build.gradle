@@ -95,7 +95,7 @@ modifyPom {
             }
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-trident'
+                artifactId = 'radiance-trident'
                 version = project.version
             }
         }

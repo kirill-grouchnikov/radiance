@@ -74,17 +74,17 @@ modifyPom {
         dependencies {
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-neon'
+                artifactId = 'radiance-neon'
                 version = project.version
             }
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-trident'
+                artifactId = 'radiance-trident'
                 version = project.version
             }
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-substance'
+                artifactId = 'radiance-substance'
                 version = project.version
             }
         }

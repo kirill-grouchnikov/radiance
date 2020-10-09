@@ -80,7 +80,7 @@ modifyPom {
         dependencies {
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-photon'
+                artifactId = 'radiance-photon'
                 version = project.version
             }
         }

@@ -68,7 +68,7 @@ modifyPom {
         dependencies {
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-substance'
+                artifactId = 'radiance-substance'
                 version = project.version
             }
         }

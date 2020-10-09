@@ -74,7 +74,7 @@ modifyPom {
             }
             dependency {
                 groupId = project.group
-                artifactId = project.archivesBaseName + '-flamingo'
+                artifactId = 'radiance-flamingo'
                 version = project.version
             }
         }
