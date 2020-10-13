@@ -6,6 +6,7 @@
 * 3.0 - **Diamond** (May 30, 2020), Java 9+. Details in the [announcement post](https://www.pushing-pixels.org/2020/05/31/radiance-3-0-0.html).
 * 3.5 - **Emerald** (October 4th, 2020), Java 9+. Details in the [announcement post](https://www.pushing-pixels.org/2020/10/05/radiance-3-5-0.html)
 * 4.0 - **Feldspar** (2021 H1, planned)
+* 4.5 - **Garnet** (2021 H2, planned)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
