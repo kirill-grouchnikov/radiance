@@ -27,7 +27,7 @@
 ::  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set RADIANCE_VERSION=3.5.1
+set RADIANCE_VERSION=4.0-SNAPSHOT
 set WEBLAF_VERSION=1.3.0-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lightbeam-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
 set WEBLAF_CLASSPATH=../../../thirdparty/weblaf-core-%WEBLAF_VERSION%.jar;../../../thirdparty/weblaf-plugin-%WEBLAF_VERSION%.jar;../../../thirdparty/weblaf-ui-%WEBLAF_VERSION%.jar;../../../thirdparty/weblaf-deps/*
