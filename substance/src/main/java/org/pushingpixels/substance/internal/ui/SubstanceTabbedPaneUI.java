@@ -134,6 +134,8 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private boolean substanceContentOpaque;
 
+    private Map<Integer, Color> tabTextColorMap;
+
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
      * {@link SubstanceSynapse#CONTENTS_MODIFIED} property.
@@ -514,6 +516,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         super();
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         this.currSelectedIndex = -1;
+        this.tabTextColorMap = new HashMap<>();
     }
 
     @Override
@@ -2193,39 +2196,68 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             SubstanceTextUtilities.paintText(graphics, textRect, title, mnemIndex,
                     graphics.getFont(), fg, null);
             graphics.dispose();
+
+            this.tabTextColorMap.put(tabIndex, fg);
         }
     }
 
     @Override
     protected void paintIcon(Graphics g, int tabPlacement, int tabIndex, Icon icon,
             Rectangle iconRect, boolean isSelected) {
-        if (icon == null)
+        if (icon == null) {
             return;
+        }
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(iconRect.x, iconRect.y);
-        if (SubstanceCoreUtilities.useThemedDefaultIcon(this.tabPane)) {
+        SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceCoreUtilities.getIconThemingType(this.tabPane);
+        if (iconThemingType != null) {
             ComponentState currState = this.getTabState(tabIndex, true);
             StateTransitionTracker tabTracker = stateTransitionMultiTracker.getTracker(tabIndex);
+            Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.tabPane, tabIndex, icon,
+                    this.tabTextColorMap.get(tabIndex));
 
             if (tabTracker == null) {
                 if (currState.isFacetActive(ComponentStateFacet.ROLLOVER)
                         || currState.isFacetActive(ComponentStateFacet.SELECTION)
                         || currState.isDisabled()) {
-                    // use the original (full color or disabled) icon
-                    icon.paintIcon(this.tabPane, g2d, 0, 0);
+                    if (iconThemingType.isForInactiveState()) {
+                        // use the original (full color or disabled) icon
+                        icon.paintIcon(this.tabPane, g2d, 0, 0);
+                    } else {
+                        themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
+                    }
                     return;
                 }
             }
 
-            Icon themed = SubstanceCoreUtilities.getThemedIcon(this.tabPane, tabIndex, icon);
-            if (tabTracker == null) {
-                themed.paintIcon(this.tabPane, g2d, 0, 0);
+            if (tabTracker != null) {
+                // The tab is currently being animated. First paint the themed icon at full alpha.
+                themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
+                float activeAmount = tabTracker.getActiveStrength();
+                if ((activeAmount > 0.0f) && (iconThemingType != null)
+                        && iconThemingType.isForInactiveState()
+                        && (icon != themedIcon)) {
+                    // Non-zero active amount (the tab is participating in a rollover
+                    // animation e.g.), and the icon theming type is only for inactive
+                    // state. This means that we also need to paint the original tab icon
+                    // based on the active amount.
+                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane,
+                            activeAmount, g));
+                    icon.paintIcon(this.tabPane, g2d, 0, 0);
+                }
             } else {
-                icon.paintIcon(this.tabPane, g2d, 0, 0);
-                g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane,
-                        1.0f - tabTracker.getFacetStrength(ComponentStateFacet.ROLLOVER), g2d));
-                themed.paintIcon(this.tabPane, g2d, 0, 0);
+                // The tab is not being animated
+                if (iconThemingType.isForInactiveState() &&
+                        (this.tabPane.getSelectedIndex() == tabIndex)) {
+                    // Selected tab and the icon theming type is only for inactive state
+                    // (which selected is not) - paint the original icon at full alpha
+                    icon.paintIcon(this.tabPane, g2d, 0, 0);
+                } else {
+                    // Otherwise - paint the themed icon at full alpha
+                    themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
+                }
             }
         } else {
             icon.paintIcon(this.tabPane, g2d, 0, 0);

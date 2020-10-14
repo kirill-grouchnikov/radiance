@@ -34,7 +34,9 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
@@ -272,6 +274,8 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 
     private Map<SubstanceSlices.ColorOverlayType, Map<DecorationAreaType, Map<ComponentState, Color>>> colorOverlayMap;
 
+    private Map<Integer, SubstanceColorScheme> optionPaneIconColorSchemeMap;
+
     /**
      * Constructs the basic data structures for a skin.
      */
@@ -287,6 +291,14 @@ public abstract class SubstanceSkin implements SubstanceTrait {
 
         this.tabFadeStart = DEFAULT_TAB_FADE_START;
         this.tabFadeEnd = DEFAULT_TAB_FADE_END;
+
+        this.optionPaneIconColorSchemeMap = new HashMap<>();
+        SubstanceColorScheme sunset = new SunsetColorScheme();
+        SubstanceColorScheme steelBlue = new SteelBlueColorScheme();
+        this.optionPaneIconColorSchemeMap.put(JOptionPane.ERROR_MESSAGE, sunset);
+        this.optionPaneIconColorSchemeMap.put(JOptionPane.WARNING_MESSAGE, sunset);
+        this.optionPaneIconColorSchemeMap.put(JOptionPane.INFORMATION_MESSAGE, steelBlue);
+        this.optionPaneIconColorSchemeMap.put(JOptionPane.QUESTION_MESSAGE, steelBlue);
 
         this.statesWithAlpha = new HashSet<>();
     }
@@ -953,6 +965,29 @@ public abstract class SubstanceSkin implements SubstanceTrait {
             return null;
         }
         return forOverlay.get(decorationAreaType).get(componentState);
+    }
+
+    public void setOptionPaneIconColorScheme(SubstanceColorScheme colorScheme,
+            int... optionPaneMessageTypes) {
+        if (colorScheme == null) {
+            throw new IllegalArgumentException("Cannot pass null color scheme");
+        }
+        for (int optionPaneMessageType: optionPaneMessageTypes) {
+            if ((optionPaneMessageType != JOptionPane.ERROR_MESSAGE) &&
+                    (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
+                    (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
+                    (optionPaneMessageType != JOptionPane.QUESTION_MESSAGE)) {
+                throw new IllegalArgumentException("Unsupported message type " +
+                        optionPaneMessageType);
+            }
+        }
+        for (int optionPaneMessageType: optionPaneMessageTypes) {
+            this.optionPaneIconColorSchemeMap.put(optionPaneMessageType, colorScheme);
+        }
+    }
+
+    public SubstanceColorScheme getOptionPaneIconColorScheme(int optionPaneMessageType) {
+        return this.optionPaneIconColorSchemeMap.get(optionPaneMessageType);
     }
 
     /**

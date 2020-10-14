@@ -493,3 +493,17 @@ public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrient
     SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(
             this, comboPopupFlyoutOrientation)
 }
+
+/**
+ * Specifies how the icon(s) on the specified component should match the color of the
+ * current color scheme when it is in default state. The control is in default state when
+ * it's not pressed, not selected, not armed and not rolled over. By default, all controls
+ * show regular (full-color original) icons.
+ *
+ * @param iconThemingType Icon theming type for the component icon(s).
+ */
+@EmberComponentScope
+public fun JComponent.setIconThemingType(iconThemingType: SubstanceSlices.IconThemingType) {
+    SubstanceCortex.ComponentScope.setIconThemingType(this, iconThemingType)
+}
+

@@ -32,6 +32,7 @@ package org.pushingpixels.substance.internal.ui;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
@@ -124,15 +125,17 @@ public class SubstanceOptionPaneUI extends BasicOptionPaneUI {
         SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
         int size = (int) SubstanceSizeUtils.getAdjustedSize(
                 SubstanceSizeUtils.getControlFontSize(), ICON_SIZE, 3, 2);
+        SubstanceColorScheme colorScheme = SubstanceCortex.GlobalScope.getCurrentSkin().
+                getOptionPaneIconColorScheme(messageType);
         switch (messageType) {
             case JOptionPane.ERROR_MESSAGE:
-                return iconPack.getOptionPaneErrorIcon(size, new SunsetColorScheme());
+                return iconPack.getOptionPaneErrorIcon(size, colorScheme);
             case JOptionPane.INFORMATION_MESSAGE:
-                return iconPack.getOptionPaneInformationIcon(size, new SteelBlueColorScheme());
+                return iconPack.getOptionPaneInformationIcon(size, colorScheme);
             case JOptionPane.WARNING_MESSAGE:
-                return iconPack.getOptionPaneWarningIcon(size, new SunsetColorScheme());
+                return iconPack.getOptionPaneWarningIcon(size, colorScheme);
             case JOptionPane.QUESTION_MESSAGE:
-                return iconPack.getOptionPaneQuestionIcon(size, new SteelBlueColorScheme());
+                return iconPack.getOptionPaneQuestionIcon(size, colorScheme);
         }
         return null;
     }

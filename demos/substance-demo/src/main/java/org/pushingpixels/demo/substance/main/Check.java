@@ -39,6 +39,7 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
@@ -59,7 +60,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.EnumSet;
 import java.util.Set;
@@ -446,10 +450,12 @@ public class Check extends JFrame {
         statusBar.add(titlePaneGravitySelector);
 
         final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("themed icons");
-        useThemedDefaultIconsCheckBox
-                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
-                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
-                            useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
+        useThemedDefaultIconsCheckBox.addActionListener(
+                actionEvent -> SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setIconThemingType(
+                            useThemedDefaultIconsCheckBox.isSelected()
+                                    ? SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE
+                                    : null);
                     repaint();
                 }));
         statusBar.add(useThemedDefaultIconsCheckBox);
@@ -541,7 +547,7 @@ public class Check extends JFrame {
                 pastePopup.add(new JMenuItem("sub 1", computer.of(16, 16)));
                 pastePopup.add(new JMenuItem("sub 2", system_search.of(16, 16)));
                 pastePopup.add(new JMenuItem("sub 3", help_browser.of(16, 16)));
-                pastePopup.show( buttonPaste, 0, buttonPaste.getHeight() );
+                pastePopup.show(buttonPaste, 0, buttonPaste.getHeight());
             }
         });
         toolBar.add(buttonPaste);

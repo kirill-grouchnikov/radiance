@@ -60,7 +60,7 @@ public class SubstanceRibbonComponentUI extends BasicRibbonComponentUI {
 	@Override
 	protected void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y) {
 		if (ribbonComp.isEnabled() && (icon != null)
-				&& SubstanceCoreUtilities.useThemedDefaultIcon(ribbonComp)) {
+				&& (SubstanceCoreUtilities.getIconThemingType(ribbonComp) != null)) {
 			icon = SubstanceCoreUtilities.getThemedIcon(ribbonComp, icon);
 		}
 		Graphics2D g2d = (Graphics2D) g.create();

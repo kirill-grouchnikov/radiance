@@ -1577,7 +1577,7 @@ public final class SubstanceImageCreator {
         g2d.dispose();
 
         BufferedImage result = getColorSchemeImage(origImage, colorScheme,
-                originalBrightnessFactor);
+                originalBrightnessFactor, 1.0f);
         return result;
     }
 
@@ -1594,8 +1594,26 @@ public final class SubstanceImageCreator {
      * @return Scheme-based version of the original icon.
      */
     public static BufferedImage getColorSchemeImage(BufferedImage original,
-            SubstanceColorScheme colorScheme, float originalBrightnessFactor) {
-        return ColorSchemeFilter.getColorSchemeFilter(colorScheme, originalBrightnessFactor)
+            SubstanceColorScheme colorScheme, float originalBrightnessFactor,
+            float alpha) {
+        return ColorSchemeFilter.getColorSchemeFilter(colorScheme, originalBrightnessFactor, alpha)
                 .filter(original, null);
+    }
+
+    public static BufferedImage getColorImage(Component comp, Icon original,
+            Color color, float alpha) {
+        int w = original.getIconWidth();
+        int h = original.getIconHeight();
+        if ((w == 0) || (h == 0)) {
+            return null;
+        }
+        BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(w, h);
+        Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        original.paintIcon(comp, origImage.getGraphics(), 0, 0);
+        g2d.dispose();
+
+        return new ColorFilter(color, alpha).filter(origImage, null);
     }
 }

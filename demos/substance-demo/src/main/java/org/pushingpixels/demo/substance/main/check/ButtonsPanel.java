@@ -36,7 +36,9 @@ import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
+import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 
@@ -251,7 +253,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * Adds a row of buttons configured with the specified text, icon and configuration command.
-     * 
+     *
      * @param builder
      *            Form builder.
      * @param label
@@ -263,6 +265,23 @@ public class ButtonsPanel extends JPanel {
      */
     private void addRow(TestFormLayoutBuilder builder, String label, Icon icon,
             ConfigurationCommand<? super AbstractButton> cmd) {
+        this.addRow(builder, label, icon, cmd, null);
+    }
+
+    /**
+     * Adds a row of buttons configured with the specified text, icon and configuration command.
+     *
+     * @param builder
+     *            Form builder.
+     * @param label
+     *            Text to set.
+     * @param icon
+     *            Icon to set.
+     * @param cmd
+     *            Configuration command to apply.
+     */
+    private void addRow(TestFormLayoutBuilder builder, String label, Icon icon,
+            ConfigurationCommand<? super AbstractButton> cmd, ConfigurationCommand<JLabel> labelCmd) {
         AbstractButton[] row = this.getRow();
         if (cmd != null) {
             for (AbstractButton ab : row) {
@@ -271,6 +290,9 @@ public class ButtonsPanel extends JPanel {
         }
 
         JLabel jl = new JLabel(label);
+        if (labelCmd != null) {
+            labelCmd.configure(jl);
+        }
         if (icon != null) {
             jl.setIcon(icon);
         }
@@ -289,7 +311,7 @@ public class ButtonsPanel extends JPanel {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 50).padding(Paddings.DIALOG);
+                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 54).padding(Paddings.DIALOG);
 
         builder.append("");
         JLabel bLabel = new JLabel("Buttons");
@@ -323,6 +345,18 @@ public class ButtonsPanel extends JPanel {
                 new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
         this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
         this.addRow(builder, "With icon", se.of(16, 16), new IconCommand(se.of(16, 16)));
+        this.addRow(builder, "Themed for inactive", ic_help_black_24px.of(16, 16),
+                new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingType(ab,
+                                SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingType(label,
+                        SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE));
+        this.addRow(builder, "Themed for foreground", ic_help_black_24px.of(16, 16),
+                new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingType(ab,
+                                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingType(label,
+                        SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());

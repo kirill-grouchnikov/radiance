@@ -377,27 +377,31 @@ public class ControlPanelFactory {
         builder.append("Plain", bop);
 
         JButton bopi = new JButton("Show", ic_info_black_24px.of(16, 16));
-        bopi.addActionListener(actionEvent -> SwingUtilities
-                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
+        bopi.addActionListener(actionEvent -> SwingUtilities.invokeLater(
+                () -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
                         "Sample title", JOptionPane.INFORMATION_MESSAGE)));
+        SubstanceCortex.ComponentScope.setIconThemingType(bopi, IconThemingType.FOLLOW_FOREGROUND);
         builder.append("Info", bopi);
 
         JButton bope = new JButton("Show", ic_error_black_24px.of(16, 16));
-        bope.addActionListener(actionEvent -> SwingUtilities
-                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
+        bope.addActionListener(actionEvent -> SwingUtilities.invokeLater(
+                () -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
                         "Sample title", JOptionPane.ERROR_MESSAGE)));
+        SubstanceCortex.ComponentScope.setIconThemingType(bope, IconThemingType.FOLLOW_FOREGROUND);
         builder.append("Error", bope);
 
         JButton bopw = new JButton("Show", ic_warning_black_24px.of(16, 16));
-        bopw.addActionListener(actionEvent -> SwingUtilities
-                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame,
+        bopw.addActionListener(actionEvent -> SwingUtilities.invokeLater(
+                () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE)));
+        SubstanceCortex.ComponentScope.setIconThemingType(bopw, IconThemingType.FOLLOW_FOREGROUND);
         builder.append("Warning", bopw);
 
         JButton bopq = new JButton("Show", ic_help_black_24px.of(16, 16));
-        bopq.addActionListener(actionEvent -> SwingUtilities
-                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame,
+        bopq.addActionListener(actionEvent -> SwingUtilities.invokeLater(
+                () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE)));
+        SubstanceCortex.ComponentScope.setIconThemingType(bopq, IconThemingType.FOLLOW_FOREGROUND);
         builder.append("Question", bopq);
 
         JButton bopc = new JButton("Show");

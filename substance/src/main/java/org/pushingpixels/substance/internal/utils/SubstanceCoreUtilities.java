@@ -44,6 +44,7 @@ import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
+import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -729,11 +730,21 @@ public class SubstanceCoreUtilities {
      * @return <code>true</code> if the specified component will show scheme-colorized icon in the
      * default state, <code>false</code> otherwise.
      */
-    public static boolean useThemedDefaultIcon(JComponent comp) {
+    public static SubstanceSlices.IconThemingType getIconThemingType(JComponent comp) {
         if ((comp == null) || comp.getClass().isAnnotationPresent(SubstanceInternalButton.class)) {
-            return false;
+            return null;
         }
-        return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.USE_THEMED_DEFAULT_ICONS));
+        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_THEMING_TYPE);
+        if (compProperty instanceof SubstanceSlices.IconThemingType) {
+            return (SubstanceSlices.IconThemingType) compProperty;
+        }
+
+        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_THEMING_TYPE);
+        if (globalProperty instanceof SubstanceSlices.IconThemingType) {
+            return (SubstanceSlices.IconThemingType) globalProperty;
+        }
+
+        return null;
     }
 
     /**
@@ -1070,23 +1081,62 @@ public class SubstanceCoreUtilities {
         return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.SHOW_EXTRA_WIDGETS));
     }
 
-    public static ImageWrapperIcon getThemedIcon(Component comp, Icon orig) {
+    public static ImageWrapperIcon getThemedIcon(JComponent comp, Icon orig) {
+        SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceCoreUtilities.getIconThemingType(comp);
+
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(comp,
                 ComponentState.ENABLED);
-        return getThemedIcon(comp, orig, colorScheme);
+        switch (iconThemingType) {
+            case USE_BACKGROUND_WHEN_INACTIVE:
+                float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
+                        colorScheme, brightnessFactor));
+            case FOLLOW_FOREGROUND: {
+                Color foreground = colorScheme.getForegroundColor();
+                if (comp instanceof JMenuItem) {
+                    JMenuItem menuItem = (JMenuItem) comp;
+                    TransitionAwareUI transitionAwareUI = (TransitionAwareUI) comp.getUI();
+                    StateTransitionTracker stateTransitionTracker =
+                            transitionAwareUI.getTransitionTracker();
+                    float menuItemAlpha = SubstanceColorSchemeUtilities.getAlpha(menuItem,
+                            ComponentState.getState(menuItem.getModel(), menuItem, true));
+                    foreground = SubstanceTextUtilities.getForegroundColor(comp, " ",
+                            stateTransitionTracker.getModelStateInfo(), menuItemAlpha);
+                } else if (comp instanceof AbstractButton) {
+                    AbstractButton button = (AbstractButton) comp;
+                    TransitionAwareUI transitionAwareUI = (TransitionAwareUI) comp.getUI();
+                    StateTransitionTracker stateTransitionTracker =
+                            transitionAwareUI.getTransitionTracker();
+                    float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(button,
+                            ComponentState.getState(button));
+                    foreground = SubstanceTextUtilities.getForegroundColor(comp, " ",
+                            stateTransitionTracker.getModelStateInfo(), buttonAlpha);
+                }
+                return new ImageWrapperIcon(SubstanceImageCreator.getColorImage(comp, orig,
+                        foreground, 1.0f));
+            }
+        }
+        return null;
     }
 
-    public static ImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig) {
+    public static ImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig,
+            Color textColor) {
+        SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceCoreUtilities.getIconThemingType(tab);
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(tab,
                 tabIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
-        return getThemedIcon(tab, orig, colorScheme);
-    }
 
-    public static ImageWrapperIcon getThemedIcon(Component comp, Icon orig,
-            SubstanceColorScheme colorScheme) {
-        float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-        return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
-                colorScheme, brightnessFactor));
+        switch (iconThemingType) {
+            case USE_BACKGROUND_WHEN_INACTIVE:
+                float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(tab, orig,
+                        colorScheme, brightnessFactor));
+            case FOLLOW_FOREGROUND:
+                return new ImageWrapperIcon(SubstanceImageCreator.getColorImage(tab, orig,
+                        (textColor != null) ? textColor : colorScheme.getForegroundColor(), 1.0f));
+        }
+        return null;
     }
 
     public static Icon getOriginalIcon(AbstractButton b, Icon defaultIcon) {

@@ -30,6 +30,7 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
@@ -398,10 +399,6 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         // 3. The glowing version of 1.
         AbstractButton b = (AbstractButton) c;
         Icon originalIcon = SubstanceCoreUtilities.getOriginalIcon(b, b.getIcon());
-        Icon themedIcon = (!(b instanceof JRadioButton)
-                && !(b instanceof JCheckBox)
-                && SubstanceCoreUtilities.useThemedDefaultIcon(b))
-                ? SubstanceCoreUtilities.getThemedIcon(b, originalIcon) : originalIcon;
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(b, g));
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -416,9 +413,19 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                     .getStateTransitionTracker().getIconGlowTracker().isPlaying()) {
                 this.glowingIcon.paintIcon(b, graphics, 0, 0);
             } else {
+                SubstanceSlices.IconThemingType iconThemingType =
+                        SubstanceCoreUtilities.getIconThemingType(b);
+                Icon themedIcon = (!(b instanceof JRadioButton)
+                        && !(b instanceof JCheckBox)
+                        && (iconThemingType != null))
+                        ? SubstanceCoreUtilities.getThemedIcon(b, originalIcon) : originalIcon;
                 themedIcon.paintIcon(b, graphics, 0, 0);
-                graphics.setComposite(WidgetUtilities.getAlphaComposite(b, activeAmount, g));
-                originalIcon.paintIcon(b, graphics, 0, 0);
+                if ((activeAmount > 0.0f) && (iconThemingType != null)
+                        && iconThemingType.isForInactiveState()
+                        && (originalIcon != themedIcon)) {
+                    graphics.setComposite(WidgetUtilities.getAlphaComposite(b, activeAmount, g));
+                    originalIcon.paintIcon(b, graphics, 0, 0);
+                }
             }
         } else {
             originalIcon.paintIcon(b, graphics, 0, 0);
@@ -436,8 +443,8 @@ public class SubstanceButtonUI extends BasicButtonUI implements
      */
     private void paintButtonText(Graphics g, AbstractButton button,
             Rectangle textRect, String text) {
-        SubstanceTextUtilities.paintText(g, button, textRect, text, button
-                .getDisplayedMnemonicIndex());
+        SubstanceTextUtilities.paintText(g, button, textRect, text,
+                button.getDisplayedMnemonicIndex());
     }
 
     /**

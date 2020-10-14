@@ -129,7 +129,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
                         : iconPack.getFileChooserFileIcon(ICON_SIZE, colorScheme);
             }
 
-            if (SubstanceCoreUtilities.useThemedDefaultIcon(null)) {
+            if (SubstanceCoreUtilities.getIconThemingType(null) != null) {
                 icon = SubstanceCoreUtilities.getThemedIcon(fileChooser, icon);
             }
             return icon;

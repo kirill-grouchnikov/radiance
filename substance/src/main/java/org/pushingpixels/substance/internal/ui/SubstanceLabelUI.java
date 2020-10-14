@@ -99,17 +99,19 @@ public class SubstanceLabelUI extends BasicLabelUI {
         Icon icon;
         Icon themedIcon = null;
         float rolloverAmount = 0.0f;
+        SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceCoreUtilities.getIconThemingType(label);
 
         if (label.isEnabled()) {
             icon = label.getIcon();
-            if ((icon != null) && SubstanceCoreUtilities.useThemedDefaultIcon(label)) {
+            if ((icon != null) && (iconThemingType != null)) {
                 if (label instanceof ThemedIconAwareRenderer) {
                     ThemedIconAwareRenderer themedIconAwareRenderer =
                             (ThemedIconAwareRenderer) label;
                     rolloverAmount = themedIconAwareRenderer.getRolloverArmAmount();
                     themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon);
                 } else {
-                    icon = SubstanceCoreUtilities.getThemedIcon(c, icon);
+                    themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon);
                 }
             }
         } else {
@@ -140,13 +142,13 @@ public class SubstanceLabelUI extends BasicLabelUI {
             g2d.translate(paintIconR.x, paintIconR.y);
 
             if (themedIcon != null) {
-                if (rolloverAmount > 0) {
-                    themedIcon.paintIcon(c, g2d, 0, 0);
+                themedIcon.paintIcon(c, g2d, 0, 0);
+                if ((rolloverAmount > 0.0f) && (iconThemingType != null)
+                        && iconThemingType.isForInactiveState()
+                        && (icon != themedIcon)) {
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
                     icon.paintIcon(c, g2d, 0, 0);
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(c, g));
-                } else {
-                    themedIcon.paintIcon(c, g2d, 0, 0);
                 }
             } else {
                 icon.paintIcon(c, g2d, 0, 0);

@@ -44,6 +44,8 @@ import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 
+import javax.swing.*;
+
 /**
  * Base class for accented <code>Graphite</code> skins. This class is part of officially supported API.
  *
@@ -152,5 +154,13 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
 
         defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ComponentState.ROLLOVER_UNSELECTED);
+
+        // option pane icons
+        SubstanceColorScheme optionPaneRed = schemes.get("Graphite Option Red");
+        SubstanceColorScheme optionPaneBlue = schemes.get("Graphite Option Blue");
+        this.setOptionPaneIconColorScheme(optionPaneRed,
+                JOptionPane.ERROR_MESSAGE, JOptionPane.WARNING_MESSAGE);
+        this.setOptionPaneIconColorScheme(optionPaneBlue,
+                JOptionPane.INFORMATION_MESSAGE, JOptionPane.QUESTION_MESSAGE);
     }
 }

@@ -60,14 +60,15 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
             new LazyResettableHashMap<>("ColorSchemeFilter");
 
     private float originalBrightnessFactor;
+    private float alpha;
 
     public static ColorSchemeFilter getColorSchemeFilter(SubstanceColorScheme scheme,
-            float originalBrightnessFactor) {
+            float originalBrightnessFactor, float alpha) {
         HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(),
-                originalBrightnessFactor);
+                originalBrightnessFactor, alpha);
         ColorSchemeFilter filter = filters.get(key);
         if (filter == null) {
-            filter = new ColorSchemeFilter(scheme, originalBrightnessFactor);
+            filter = new ColorSchemeFilter(scheme, originalBrightnessFactor, alpha);
             filters.put(key, filter);
         }
         return filter;
@@ -76,12 +77,14 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
     /**
      * @throws IllegalArgumentException if <code>scheme</code> is null
      */
-    private ColorSchemeFilter(SubstanceColorScheme scheme, float originalBrightnessFactor) {
+    private ColorSchemeFilter(SubstanceColorScheme scheme, float originalBrightnessFactor,
+            float alpha) {
         if (scheme == null) {
             throw new IllegalArgumentException("mixColor cannot be null");
         }
 
         this.originalBrightnessFactor = originalBrightnessFactor;
+        this.alpha = alpha;
 
         // collect the brightness factors of the color scheme
         Map<Integer, Color> schemeColorMapping = new TreeMap<>();
@@ -198,6 +201,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
 
             int brightness = SubstanceColorUtilities.getColorBrightness(argb);
 
+            int a = (argb >>> 24) & 0xFF;
             int r = (argb >>> 16) & 0xFF;
             int g = (argb >>> 8) & 0xFF;
             int b = (argb >>> 0) & 0xFF;
@@ -220,8 +224,9 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
             }
 
             int result = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+            int finalAlpha = (int) (a * this.alpha);
 
-            pixels[i] = (argb & 0xFF000000) | ((result >> 16) & 0xFF) << 16
+            pixels[i] = (finalAlpha << 24) | ((result >> 16) & 0xFF) << 16
                     | ((result >> 8) & 0xFF) << 8 | (result & 0xFF);
         }
     }

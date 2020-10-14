@@ -39,9 +39,15 @@ import java.awt.image.BufferedImage;
  */
 public class ColorFilter extends NeonAbstractFilter {
 	private int color;
-	
+	private float alpha;
+
 	public ColorFilter(Color color) {
+		this(color, 1.0f);
+	}
+
+	public ColorFilter(Color color, float alpha) {
 		this.color = color.getRGB();
+		this.alpha = alpha;
 	}
 
 	@Override
@@ -62,7 +68,7 @@ public class ColorFilter extends NeonAbstractFilter {
 		int colorBlue = this.color & 0xFF;
 		for (int i = 0; i < pixels.length; i++) {
 			// Multiply source alpha by the alpha in our target color
-			int alpha = ((pixels[i] >>> 24) & 0xFF) * colorAlpha / 256;
+			int alpha = (int) (this.alpha * ((pixels[i] >>> 24) & 0xFF) * colorAlpha / 256);
 			// and use R/G/B from our target color
 			pixels[i] = alpha << 24 | colorRed << 16 | colorGreen << 8 | colorBlue;
 		}

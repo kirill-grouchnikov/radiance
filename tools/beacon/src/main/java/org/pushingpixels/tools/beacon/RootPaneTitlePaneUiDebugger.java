@@ -180,12 +180,15 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
 
                         final JCheckBoxMenuItem useThemedIcons = new JCheckBoxMenuItem(
                                 "Use themed icons");
-                        useThemedIcons
-                                .setSelected(SubstanceCoreUtilities.useThemedDefaultIcon(null));
-                        useThemedIcons.addActionListener(
-                                (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-                                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
-                                            useThemedIcons.isSelected() ? Boolean.TRUE : null);
+                        useThemedIcons.setSelected(
+                                SubstanceCoreUtilities.getIconThemingType(null) ==
+                                        SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE);
+                        useThemedIcons.addActionListener((ActionEvent event) ->
+                                SwingUtilities.invokeLater(() -> {
+                                    SubstanceCortex.GlobalScope.setIconThemingType(
+                                            useThemedIcons.isSelected()
+                                                    ? SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE
+                                                    : null);
                                     jcomp.repaint();
                                 }));
                         popup.add(useThemedIcons);

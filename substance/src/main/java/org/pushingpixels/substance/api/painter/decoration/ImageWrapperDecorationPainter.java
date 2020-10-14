@@ -268,7 +268,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
             tile2D.drawImage(this.originalTile, 0, 0, (int) (tileWidth / scaleFactor),
                     (int) ( tileHeight / scaleFactor), null);
             tile2D.dispose();
-            result = SubstanceImageCreator.getColorSchemeImage(tileBi, scheme, 0.0f);
+            result = SubstanceImageCreator.getColorSchemeImage(tileBi, scheme, 0.0f, 1.0f);
             this.colorizedTileMap.put(scheme.getDisplayName(), result);
         }
         return result;

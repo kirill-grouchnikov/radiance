@@ -765,19 +765,16 @@ public class SubstanceCortex {
         }
 
         /**
-         * Specifies that icons on controls such as buttons, toggle buttons, labels, tabs and menu
+         * Specifies how icons on controls such as buttons, toggle buttons, labels, tabs and menu
          * items should match the color of the current color scheme when they are in default state.
          * The control is in default state when it's not pressed, not selected, not armed and not
          * rolled over. By default, all controls show regular (full-color original) icons.
          *
-         * @param useThemedDefaultIcons if <code>true</code>, icons on controls such as buttons,
-         *                              toggle buttons,
-         *                              labels, tabs and menu items will match the color of the
-         *                              current color scheme
-         *                              when they are in default state.
+         * @param iconThemingType Icon theming type.
+         * @see ComponentScope#setIconThemingType(JComponent, IconThemingType) 
          */
-        public static void setUseThemedDefaultIcons(Boolean useThemedDefaultIcons) {
-            UIManager.put(SubstanceSynapse.USE_THEMED_DEFAULT_ICONS, useThemedDefaultIcons);
+        public static void setIconThemingType(SubstanceSlices.IconThemingType iconThemingType) {
+            UIManager.put(SubstanceSynapse.ICON_THEMING_TYPE, iconThemingType);
         }
 
         /**
@@ -2028,6 +2025,21 @@ public class SubstanceCortex {
             comboBox.putClientProperty(SubstanceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION,
                     comboPopupFlyoutOrientation);
         }
+
+        /**
+         * Specifies how the icon(s) on the specified component should match the color of the
+         * current color scheme when it is in default state. The control is in default state when
+         * it's not pressed, not selected, not armed and not rolled over. By default, all controls
+         * show regular (full-color original) icons.
+         *
+         * @param component       Component.
+         * @param iconThemingType Icon theming type for the component icon(s).
+         * @see GlobalScope#setIconThemingType(IconThemingType)
+         */
+        public static void setIconThemingType(JComponent component,
+                SubstanceSlices.IconThemingType iconThemingType) {
+            component.putClientProperty(SubstanceSynapse.ICON_THEMING_TYPE, iconThemingType);
+        }
     }
 
     /**
@@ -2364,7 +2376,7 @@ public class SubstanceCortex {
          * @see #setPreferredTitlePaneHeight(Window, int)
          * @see #getTitleControlButtonGroupHorizontalGravity(Window)
          * @see #createTitlePaneControlButton(Window)
-         * @see #markLabelAsTitlePaneText(Window, JLabel) 
+         * @see #markLabelAsTitlePaneText(Window, JLabel)
          */
         public static void extendContentIntoTitlePane(Window window,
                 SubstanceSlices.HorizontalGravity controlButtonGroupHorizontalGravity,

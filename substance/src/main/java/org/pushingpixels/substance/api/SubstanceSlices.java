@@ -839,6 +839,23 @@ public final class SubstanceSlices {
         SELECTION_FOREGROUND
     }
 
+    public enum IconThemingType {
+        FOLLOW_FOREGROUND {
+            @Override
+            public boolean isForInactiveState() {
+                return false;
+            }
+        },
+        USE_BACKGROUND_WHEN_INACTIVE {
+            @Override
+            public boolean isForInactiveState() {
+                return true;
+            }
+        };
+
+        public abstract boolean isForInactiveState();
+    }
+
     /**
      * Allows associating different color schemes to different visual parts of UI components. For
      * example, the {@link JCheckBox} has three different visual areas:

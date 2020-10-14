@@ -136,6 +136,18 @@ Graphite Separator {
     colorForeground=#C4C4C4
 }
 
+Graphite Option Red {
+    kind=Dark
+    colorBackground=#EF5350
+    colorForeground=#FFFFFF
+}
+
+Graphite Option Blue {
+    kind=Dark
+    colorBackground=#84C4D2
+    colorForeground=#FFFFFF
+}
+
 Graphite Aqua {
     kind=Light
     colorUltraLight=#6383FF

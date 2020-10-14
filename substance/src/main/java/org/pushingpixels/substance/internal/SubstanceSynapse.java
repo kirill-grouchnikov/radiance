@@ -139,11 +139,10 @@ public class SubstanceSynapse {
     public final static String USE_THEMED_ICONS_ON_OPTION_PANES = "substancelaf.internal.useThemedIconsOnOptionPanes";
 
     /**
-     * Client property name for specifying that icons on controls such as buttons, toggle buttons,
-     * labels, tabs and menu items should match the color of the current color scheme when they are
-     * in default state.
+     * Client property name for specifying how icons on controls such as buttons, toggle buttons,
+     * labels, tabs and menu items should be themed.
      */
-    public final static String USE_THEMED_DEFAULT_ICONS = "substancelaf.internal.useThemedDefaultIcons";
+    public final static String ICON_THEMING_TYPE = "substancelaf.internal.iconThemingType";
 
     /**
      * Client property name for specifying that contents of a frame, dialog, internal frame, desktop

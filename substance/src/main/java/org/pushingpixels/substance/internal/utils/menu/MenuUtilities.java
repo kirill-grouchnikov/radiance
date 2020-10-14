@@ -668,7 +668,7 @@ public class MenuUtilities {
             }
 
             if (icon != null) {
-                boolean useThemed = SubstanceCoreUtilities.useThemedDefaultIcon(menuItem);
+                boolean useThemed = (SubstanceCoreUtilities.getIconThemingType(menuItem) != null);
 
                 graphics.translate(mli.iconRect.x, mli.iconRect.y);
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
