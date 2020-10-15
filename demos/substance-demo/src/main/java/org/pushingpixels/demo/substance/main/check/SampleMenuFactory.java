@@ -30,6 +30,8 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
+import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
+import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.*;
@@ -153,6 +155,32 @@ public class SampleMenuFactory {
         result.add(list3);
 
         LinkedList<JMenuItem> list4 = new LinkedList<>();
+        JMenuItem themed1 = new JMenuItem("Themed enabled", ic_info_black_24px.of(16, 16));
+        SubstanceCortex.ComponentScope.setIconThemingType(themed1,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        JMenuItem themed2 = new JMenuItem("Themed disabled", ic_info_black_24px.of(16, 16));
+        SubstanceCortex.ComponentScope.setIconThemingType(themed2,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        themed2.setEnabled(false);
+        JCheckBoxMenuItem themed3 = new JCheckBoxMenuItem("Themed selected enabled",
+                ic_info_black_24px.of(16, 16));
+        SubstanceCortex.ComponentScope.setIconThemingType(themed3,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        themed3.setSelected(true);
+        JCheckBoxMenuItem themed4 = new JCheckBoxMenuItem("Themed selected disabled",
+                ic_info_black_24px.of(16, 16));
+        SubstanceCortex.ComponentScope.setIconThemingType(themed4,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        themed4.setSelected(true);
+        themed4.setEnabled(false);
+
+        list4.add(themed1);
+        list4.add(themed2);
+        list4.add(themed3);
+        list4.add(themed4);
+        result.add(list4);
+
+        LinkedList<JMenuItem> list5 = new LinkedList<>();
         JMenu submenu1 = new JMenu("submenu1");
         submenu1.setIcon(de.of(16, 16));
         submenu1.add(new JMenuItem("submenu item1", fi.of(16, 16)));
@@ -177,7 +205,7 @@ public class SampleMenuFactory {
         submenu13.add(new JMenuItem("submenu item134"));
         submenu13.add(new JMenuItem("submenu item135"));
         submenu1.add(submenu13);
-        list4.add(submenu1);
+        list5.add(submenu1);
 
         JMenu submenu2 = new JMenu("submenu2");
         submenu2.add(new JMenuItem("submenu item1"));
@@ -201,13 +229,13 @@ public class SampleMenuFactory {
         submenu23.add(new JMenuItem("submenu item233"));
         submenu23.add(new JMenuItem("submenu item234"));
         submenu2.add(submenu23);
-        list4.add(submenu2);
+        list5.add(submenu2);
 
         JMenu submenu3 = new JMenu("submenu3 (disabled)");
         submenu3.setEnabled(false);
-        list4.add(submenu3);
+        list5.add(submenu3);
 
-        result.add(list4);
+        result.add(list5);
 
         return result;
     }

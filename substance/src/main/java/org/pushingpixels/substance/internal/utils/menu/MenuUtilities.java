@@ -1,35 +1,36 @@
 /*
  * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.substance.internal.utils.menu;
 
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
@@ -49,7 +50,7 @@ import java.beans.PropertyChangeListener;
 
 /**
  * Menu-related utilities.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class MenuUtilities {
@@ -67,7 +68,7 @@ public class MenuUtilities {
     /**
      * Listener to track changes in the menu items. Once any property has been changed, the popup
      * layout metrics on the menu item and its parent popup menu are cleared.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public static class MenuPropertyListener implements PropertyChangeListener {
@@ -80,12 +81,11 @@ public class MenuUtilities {
          * Runnable instance to clean the layout metrics.
          */
         private Runnable cleanLayoutMetricsRunnable;
-        
+
         /**
          * Creates a new listener.
-         * 
-         * @param menuItem
-         *            Menu item.
+         *
+         * @param menuItem Menu item.
          */
         public MenuPropertyListener(final JMenuItem menuItem) {
             this.menuItem = menuItem;
@@ -110,7 +110,7 @@ public class MenuUtilities {
         public void propertyChange(PropertyChangeEvent evt) {
             if (!evt.getPropertyName().equals(MenuUtilities.LAYOUT_METRICS)) {
                 SwingUtilities.invokeLater(cleanLayoutMetricsRunnable);
-                
+
                 // Workaround for https://github.com/kirill-grouchnikov/substance/issues/86
                 // introduced in http://hg.openjdk.java.net/jdk8u/jdk8u/jdk/rev/908d5fa49906
                 // where the basic UI delegate overrides the check icon after the custom UI
@@ -123,7 +123,7 @@ public class MenuUtilities {
 
     /**
      * Layout information for a single menu item.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public static class MenuLayoutInfo {
@@ -167,7 +167,7 @@ public class MenuUtilities {
      * Layout metrics for a single popup menu. All menu items in a popup menu share the same metrics
      * so that different parts (icons, check icons, texts, accelerator texts and arrow icons) are
      * vertically aligned.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public static class MenuLayoutMetrics {
@@ -204,17 +204,12 @@ public class MenuUtilities {
 
     /**
      * Returns the layout info for the specified menu item.
-     * 
-     * @param menuItem
-     *            Menu item.
-     * @param acceleratorFont
-     *            Font for the accelerator text.
-     * @param checkIcon
-     *            Check icon.
-     * @param arrowIcon
-     *            Arrow icon.
-     * @param defaultTextIconGap
-     *            Gap between the icon and the text.
+     *
+     * @param menuItem           Menu item.
+     * @param acceleratorFont    Font for the accelerator text.
+     * @param checkIcon          Check icon.
+     * @param arrowIcon          Arrow icon.
+     * @param defaultTextIconGap Gap between the icon and the text.
      * @return Layout info for the specified menu item.
      */
     public static MenuLayoutInfo getMenuLayoutInfo(boolean forPainting, JMenuItem menuItem,
@@ -398,15 +393,11 @@ public class MenuUtilities {
 
     /**
      * Paints the specified menu item.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param menuItem
-     *            Menu item.
-     * @param checkIcon
-     *            Check icon.
-     * @param arrowIcon
-     *            Arrow icon.
+     *
+     * @param g         Graphics context.
+     * @param menuItem  Menu item.
+     * @param checkIcon Check icon.
+     * @param arrowIcon Arrow icon.
      */
     public static void paintMenuItem(Graphics g, JMenuItem menuItem, Icon checkIcon, Icon arrowIcon) {
         if (!SubstanceCoreUtilities.isCurrentLookAndFeel())
@@ -623,13 +614,14 @@ public class MenuUtilities {
         if (menuItem.getParent() instanceof JMenuBar) {
             graphics.translate(popupMetrics.maxIconTextGap / 2, 0);
         }
+        Color textColor = null;
         if (mli.text != null) {
             View v = (View) menuItem.getClientProperty(BasicHTML.propertyKey);
             if (v != null) {
                 v.paint(graphics, mli.textRect);
             } else {
-                SubstanceTextUtilities.paintText(graphics, menuItem, mli.textRect, mli.text,
-                        menuItem.getDisplayedMnemonicIndex());
+                textColor = SubstanceTextUtilities.paintText(graphics, menuItem, mli.textRect,
+                        mli.text, menuItem.getDisplayedMnemonicIndex());
             }
         }
         // draw the accelerator text
@@ -668,7 +660,9 @@ public class MenuUtilities {
             }
 
             if (icon != null) {
-                boolean useThemed = (SubstanceCoreUtilities.getIconThemingType(menuItem) != null);
+                SubstanceSlices.IconThemingType iconThemingType =
+                        SubstanceCoreUtilities.getIconThemingType(menuItem);
+                boolean useThemed = (iconThemingType != null);
 
                 graphics.translate(mli.iconRect.x, mli.iconRect.y);
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -676,8 +670,9 @@ public class MenuUtilities {
                 if (!useThemed) {
                     icon.paintIcon(menuItem, graphics, 0, 0);
                 } else {
-                    Icon themed = SubstanceCoreUtilities.getThemedIcon(menuItem, icon);
-                    boolean useRegularVersion = model.isPressed() || model.isSelected();
+                    Icon themed = SubstanceCoreUtilities.getThemedIcon(menuItem, icon, textColor);
+                    boolean useRegularVersion = iconThemingType.isForInactiveState()
+                            && (model.isPressed() || model.isSelected());
                     if (useRegularVersion) {
                         icon.paintIcon(menuItem, graphics, 0, 0);
                     } else {
@@ -688,14 +683,14 @@ public class MenuUtilities {
                                 stateTransitionTracker
                                         .getFacetStrength(ComponentStateFacet.ROLLOVER),
                                 stateTransitionTracker.getFacetStrength(ComponentStateFacet.ARM));
-                        if (rolloverAmount > 0) {
-                            themed.paintIcon(menuItem, graphics, 0, 0);
+                        themed.paintIcon(menuItem, graphics, 0, 0);
+                        if ((rolloverAmount > 0) && (iconThemingType != null)
+                                && iconThemingType.isForInactiveState()
+                                && (icon != themed)) {
                             graphics.setComposite(
                                     WidgetUtilities.getAlphaComposite(menuItem, rolloverAmount, g));
                             icon.paintIcon(menuItem, graphics, 0, 0);
                             graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, g));
-                        } else {
-                            themed.paintIcon(menuItem, graphics, 0, 0);
                         }
                     }
                 }
@@ -737,11 +732,9 @@ public class MenuUtilities {
 
     /**
      * Paints the background of the specified menu item.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param menuItem
-     *            Menu item.
+     *
+     * @param g        Graphics context.
+     * @param menuItem Menu item.
      */
     private static void paintBackground(Graphics g, JMenuItem menuItem) {
         int textOffset = MenuUtilities.getTextOffset(menuItem, menuItem.getParent());
@@ -750,9 +743,8 @@ public class MenuUtilities {
 
     /**
      * Returns the layout metrics of the specified popup menu.
-     * 
-     * @param popupMenu
-     *            Popup menu.
+     *
+     * @param popupMenu Popup menu.
      * @return Layout metrics of the specified popup menu.
      */
     public static MenuLayoutMetrics getMetrics(JPopupMenu popupMenu, boolean forPainting) {
@@ -785,9 +777,8 @@ public class MenuUtilities {
 
     /**
      * Returns the layout metrics of the popup menu of the specified menu item.
-     * 
-     * @param menuItem
-     *            Menu item.
+     *
+     * @param menuItem Menu item.
      * @return Layout metrics of the popup menu of the specified menu item.
      */
     public static MenuLayoutMetrics getPopupLayoutMetrics(JMenuItem menuItem, boolean forPainting) {
@@ -835,9 +826,8 @@ public class MenuUtilities {
 
     /**
      * Cleans the layout metrics of the popup menu of the specified menu item.
-     * 
-     * @param menuItem
-     *            Menu item.
+     *
+     * @param menuItem Menu item.
      */
     private static void cleanPopupLayoutMetrics(JMenuItem menuItem) {
         Component comp = menuItem.getParent();
@@ -849,9 +839,8 @@ public class MenuUtilities {
 
     /**
      * Cleans the layout metrics of the specified popup menu.
-     * 
-     * @param popupMenu
-     *            Popup menu.
+     *
+     * @param popupMenu Popup menu.
      */
     public static void cleanPopupLayoutMetrics(JPopupMenu popupMenu) {
         if (popupMenu != null) {
@@ -862,9 +851,8 @@ public class MenuUtilities {
     /**
      * Returns the preferred width of the specified menu item. The preferred width depends on the
      * layout metrics of the entire popup menu of this menu item.
-     * 
-     * @param menuItem
-     *            Menu item.
+     *
+     * @param menuItem Menu item.
      * @return Preferred width of the specified menu item
      */
     public static int getPreferredWidth(JMenuItem menuItem) {
@@ -911,11 +899,9 @@ public class MenuUtilities {
 
     /**
      * Returns the text offset of the specified menu item.
-     * 
-     * @param menuItem
-     *            Menu item.
-     * @param menuItemParent
-     *            Menu item parent.
+     *
+     * @param menuItem       Menu item.
+     * @param menuItemParent Menu item parent.
      * @return Text offset of the specified menu item.
      */
     public static int getTextOffset(JComponent menuItem, Component menuItemParent) {

@@ -33,7 +33,6 @@ import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -67,13 +66,6 @@ public class TestCommandButtonsGapScale extends JFrame {
         currLocale = Locale.getDefault();
         resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
-
-        Command pasteActionCommand = Command.builder()
-                .setText(resourceBundle.getString("Paste.text"))
-                .setIconFactory(Edit_paste.factory())
-                .setExtraText(resourceBundle.getString("Paste.textExtra"))
-                .setAction(commandActionEvent -> System.out.println(stamp() + ": Main paste"))
-                .build();
 
         FormBuilder builder = FormBuilder.create().
                 columns("center:pref, 10dlu, center:pref, 10dlu, center:pref").

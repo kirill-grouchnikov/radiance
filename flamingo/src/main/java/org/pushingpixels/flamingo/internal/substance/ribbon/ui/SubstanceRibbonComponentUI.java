@@ -61,7 +61,9 @@ public class SubstanceRibbonComponentUI extends BasicRibbonComponentUI {
 	protected void paintIcon(Graphics g, JRibbonComponent ribbonComp, Icon icon, int x, int y) {
 		if (ribbonComp.isEnabled() && (icon != null)
 				&& (SubstanceCoreUtilities.getIconThemingType(ribbonComp) != null)) {
-			icon = SubstanceCoreUtilities.getThemedIcon(ribbonComp, icon);
+			// No need to pass the color since the ribbon component icon doesn't "participate"
+			// in rollover effects (like for JLabel)
+			icon = SubstanceCoreUtilities.getThemedIcon(ribbonComp, icon, null);
 		}
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.translate(x, y);

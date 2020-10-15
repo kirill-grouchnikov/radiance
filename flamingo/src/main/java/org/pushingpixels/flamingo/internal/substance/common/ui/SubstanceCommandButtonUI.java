@@ -30,9 +30,12 @@
 package org.pushingpixels.flamingo.internal.substance.common.ui;
 
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.flamingo.api.common.*;
+import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
+import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.flamingo.api.common.RolloverActionListener;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
@@ -80,7 +83,6 @@ import java.awt.event.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
@@ -295,8 +297,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             return;
         if (currIcon == null)
             return;
-        boolean isPopupOnly = ((JCommandButton) this.commandButton)
-                .getCommandButtonKind() == JCommandButton.CommandButtonKind.POPUP_ONLY;
+        boolean isPopupOnly = (this.commandButton.getCommandButtonKind() ==
+                JCommandButton.CommandButtonKind.POPUP_ONLY);
         StateTransitionTracker tracker = isPopupOnly
                 ? this.substanceVisualStateTracker.getPopupStateTransitionTracker()
                 : this.substanceVisualStateTracker.getActionStateTransitionTracker();
@@ -309,7 +311,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
 
         ButtonModel actionModel = this.commandButton.getActionModel();
-        PopupButtonModel popupModel = ((JCommandButton) this.commandButton).getPopupModel();
+        PopupButtonModel popupModel = this.commandButton.getPopupModel();
         Rectangle actionArea = this.getLayoutInfo().actionClickArea;
         Rectangle popupArea = this.getLayoutInfo().popupClickArea;
 
@@ -323,7 +325,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         // For both cases, we need to set custom translucency.
         boolean isFlat = this.commandButton.isFlat()
                 && !this.commandButton.hasFocus()
-                && !((JCommandButton) this.commandButton).getPopupModel().isPopupShowing();
+                && !this.commandButton.getPopupModel().isPopupShowing();
         boolean isSpecial = isFlat || !this.commandButton.isEnabled();
         float extraAlpha = 1.0f;
         if (isSpecial) {
@@ -375,12 +377,12 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
     }
 
-    private void paintButtonIconRegular(Graphics g, Rectangle iconRect) {
-        JCommandButton jcb = (JCommandButton) this.commandButton;
-        Icon regular = jcb.getIcon();
-        if (toUseDisabledIcon() && (jcb.getDisabledIcon() != null) && ((regular != null)
+    private void paintButtonIconRegular(Graphics g, Rectangle iconRect, Color textColor) {
+        Icon regular = this.commandButton.getIcon();
+        if (toUseDisabledIcon() && (this.commandButton.getDisabledIcon() != null)
+                && ((regular != null)
                 && !regular.getClass().isAnnotationPresent(TransitionAware.class))) {
-            regular = jcb.getDisabledIcon();
+            regular = this.commandButton.getDisabledIcon();
         }
 
         if ((iconRect == null) || (regular == null) || (iconRect.width == 0)
@@ -390,22 +392,22 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
         Graphics2D g2d = (Graphics2D) g.create();
 
-        GhostPaintingUtils.paintGhostIcon(g2d, jcb, regular, iconRect);
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(jcb, g));
+        GhostPaintingUtils.paintGhostIcon(g2d, this.commandButton, regular, iconRect);
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(this.commandButton, g));
 
         StateTransitionTracker tracker = this.substanceVisualStateTracker
                 .getActionStateTransitionTracker();
         ButtonModel model = commandButton.getActionModel();
-        if (jcb.getCommandButtonKind() == CommandButtonKind.POPUP_ONLY) {
+        if (this.commandButton.getCommandButtonKind() == CommandButtonKind.POPUP_ONLY) {
             tracker = this.substanceVisualStateTracker.getPopupStateTransitionTracker();
-            model = jcb.getPopupModel();
+            model = this.commandButton.getPopupModel();
         }
-        CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, jcb, regular,
-                this.glowingIcon, model, tracker);
+        CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, this.commandButton,
+                regular, this.glowingIcon, model, tracker, textColor);
         g2d.dispose();
     }
 
-    protected void paintButtonIcon(Graphics g, Rectangle iconRect) {
+    protected void paintButtonIcon(Graphics g, Rectangle iconRect, Color textColor) {
         boolean isSelectedMenu = this.commandButton.getActionModel().isSelected() &&
                 this.commandButton.getProjection().getPresentationModel().isMenu();
         if (isSelectedMenu) {
@@ -437,7 +439,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
             g2d.dispose();
         }
-        this.paintButtonIconRegular(g, iconRect);
+        this.paintButtonIconRegular(g, iconRect, textColor);
         // does it actually have an icon?
         Icon iconToPaint = this.getIconToPaint();
         if (isSelectedMenu && (iconToPaint == null)) {
@@ -588,8 +590,9 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
 
         if (layoutInfo.extraTextLayoutInfoList != null) {
-            Color disabledFgColor = SubstanceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, ComponentState.DISABLED_UNSELECTED).getForegroundColor();
+            SubstanceColorScheme disabledColorScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                    this.commandButton, ComponentState.DISABLED_UNSELECTED);
+            Color disabledFgColor = disabledColorScheme.getForegroundColor();
             float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(this.commandButton,
                     ComponentState.DISABLED_UNSELECTED);
             if (buttonAlpha < 1.0f) {
@@ -600,7 +603,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             }
             if (currStateForFg.isDisabled()) {
                 disabledFgColor = SubstanceColorUtilities.getInterpolatedColor(disabledFgColor,
-                        SubstanceColorUtilities.getBackgroundFillColor(c), 0.5);
+                        SubstanceColorUtilities.getBackgroundFillColor(c), 0.5f);
             }
             disabledFgColor = SubstanceColorUtilities.getInterpolatedColor(disabledFgColor,
                     fgColor, 0.5);
@@ -615,7 +618,10 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
 
         if (layoutInfo.iconRect != null) {
-            this.paintButtonIcon(g2d, layoutInfo.iconRect);
+            // Important - have the icon follow the foreground color of the action area
+            // if it is configured with SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND
+            this.paintButtonIcon(g2d, layoutInfo.iconRect,
+                    getForegroundColor(this.getActionTransitionTracker().getModelStateInfo()));
         }
         if (layoutInfo.popupActionRect.getWidth() > 0) {
             paintPopupActionIcon(g2d, layoutInfo.popupActionRect);
@@ -832,8 +838,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         float aggrRed = 0;
         float aggrGreen = 0;
         float aggrBlue = 0;
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
             SubstanceSlices.ColorSchemeAssociationKind assocKind = SubstanceSlices.ColorSchemeAssociationKind.FILL;

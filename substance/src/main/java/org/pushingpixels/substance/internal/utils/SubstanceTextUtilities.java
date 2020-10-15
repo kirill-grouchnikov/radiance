@@ -206,7 +206,7 @@ public class SubstanceTextUtilities {
      * @param text          Text to paint
      * @param mnemonicIndex Mnemonic index.
      */
-    public static void paintText(Graphics g, AbstractButton button, Rectangle textRect, String text,
+    public static Color paintText(Graphics g, AbstractButton button, Rectangle textRect, String text,
             int mnemonicIndex) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -216,12 +216,12 @@ public class SubstanceTextUtilities {
             // state for visual consistency in menu content
             float menuItemAlpha = SubstanceColorSchemeUtilities.getAlpha(button,
                     ComponentState.getState(button.getModel(), button, true));
-            paintMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
+            return paintMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
                     stateTransitionTracker.getModelStateInfo(), menuItemAlpha);
         } else {
             float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(button,
                     ComponentState.getState(button));
-            paintText(g, button, textRect, text, mnemonicIndex,
+            return paintText(g, button, textRect, text, mnemonicIndex,
                     stateTransitionTracker.getModelStateInfo(), buttonAlpha);
         }
     }
@@ -237,26 +237,32 @@ public class SubstanceTextUtilities {
      * @param state         Component state.
      * @param textAlpha     Alpha channel for painting the text.
      */
-    public static void paintText(Graphics g, JComponent component, Rectangle textRect, String text,
+    public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
             int mnemonicIndex, ComponentState state, float textAlpha) {
         Color fgColor = getForegroundColor(component, text, state, textAlpha);
 
         SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
+
+        return fgColor;
     }
 
-    public static void paintText(Graphics g, JComponent component, Rectangle textRect, String text,
+    public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
             int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
         Color fgColor = getForegroundColor(component, text, modelStateInfo, textAlpha);
 
         SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
+
+        return fgColor;
     }
 
-    public static void paintMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
+    public static Color paintMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
             String text, int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
             float textAlpha) {
         Color fgColor = getMenuComponentForegroundColor(menuItem, text, modelStateInfo, textAlpha);
 
         SubstanceTextUtilities.paintText(g, textRect, text, mnemonicIndex, menuItem.getFont(), fgColor, null);
+
+        return fgColor;
     }
 
     /**

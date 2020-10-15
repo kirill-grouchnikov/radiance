@@ -403,9 +403,10 @@ public class CommandButtonBackgroundDelegate {
 
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
             JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
-            ButtonModel model, StateTransitionTracker stateTransitionTracker) {
+            ButtonModel model, StateTransitionTracker stateTransitionTracker, Color textColor) {
         boolean useThemed = (SubstanceCoreUtilities.getIconThemingType(commandButton) != null);
-        Icon themed = useThemed ? SubstanceCoreUtilities.getThemedIcon(commandButton, regular)
+        Icon themed = useThemed
+                ? SubstanceCoreUtilities.getThemedIcon(commandButton, regular, textColor)
                 : regular;
 
         boolean useRegularVersion = (model.isArmed() || model.isPressed() || model.isSelected()

@@ -95,32 +95,15 @@ public class SubstanceLabelUI extends BasicLabelUI {
     public void paint(Graphics g, JComponent c) {
         JLabel label = (JLabel) c;
         String text = label.getText();
-
-        Icon icon;
-        Icon themedIcon = null;
-        float rolloverAmount = 0.0f;
-        SubstanceSlices.IconThemingType iconThemingType =
-                SubstanceCoreUtilities.getIconThemingType(label);
-
-        if (label.isEnabled()) {
-            icon = label.getIcon();
-            if ((icon != null) && (iconThemingType != null)) {
-                if (label instanceof ThemedIconAwareRenderer) {
-                    ThemedIconAwareRenderer themedIconAwareRenderer =
-                            (ThemedIconAwareRenderer) label;
-                    rolloverAmount = themedIconAwareRenderer.getRolloverArmAmount();
-                    themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon);
-                } else {
-                    themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon);
-                }
-            }
-        } else {
-            icon = label.getDisabledIcon();
-        }
+        Icon icon = label.isEnabled() ? label.getIcon() : label.getDisabledIcon();
 
         if ((icon == null) && (text == null)) {
             return;
         }
+
+        float rolloverAmount = 0.0f;
+        SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceCoreUtilities.getIconThemingType(label);
 
         Insets insets = label.getInsets(paintViewInsets);
         paintViewR.x = insets.left;
@@ -138,26 +121,12 @@ public class SubstanceLabelUI extends BasicLabelUI {
 
         Graphics2D g2d = (Graphics2D) g.create();
         BackgroundPaintingUtils.updateIfOpaque(g2d, c);
-        if (icon != null) {
-            g2d.translate(paintIconR.x, paintIconR.y);
 
-            if (themedIcon != null) {
-                themedIcon.paintIcon(c, g2d, 0, 0);
-                if ((rolloverAmount > 0.0f) && (iconThemingType != null)
-                        && iconThemingType.isForInactiveState()
-                        && (icon != themedIcon)) {
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
-                    icon.paintIcon(c, g2d, 0, 0);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, g));
-                }
-            } else {
-                icon.paintIcon(c, g2d, 0, 0);
-            }
-            g2d.translate(-paintIconR.x, -paintIconR.y);
-        }
+        // Paint the text
         ComponentState labelState = label.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
         float labelAlpha = SubstanceColorSchemeUtilities.getAlpha(label, labelState);
+        Color textColor = null;
         if (text != null) {
             final View v = (View) c.getClientProperty(BasicHTML.propertyKey);
             if (v != null) {
@@ -175,16 +144,49 @@ public class SubstanceLabelUI extends BasicLabelUI {
                     int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                             + fm.getAscent();
                     g2d.translate(paintTextR.x + 3, 0);
+                    textColor = SubstanceColorUtilities.getForegroundColor(scheme);
                     SubstanceTextUtilities.paintTextWithDropShadow(label, g2d,
-                            SubstanceColorUtilities.getForegroundColor(scheme), echoColor, clippedText,
+                            textColor, echoColor, clippedText,
                             paintTextR.width + 6, paintTextR.height, 0, yOffset);
                 } else {
                     // fix for issue 406 - use the same FG computation
                     // color as for other controls
-                    SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
+                    textColor = SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
                             label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
                 }
             }
+        }
+
+        // Get themed icon if relevant
+        Icon themedIcon = null;
+        if (label.isEnabled()) {
+            if ((icon != null) && (iconThemingType != null)) {
+                if (label instanceof ThemedIconAwareRenderer) {
+                    ThemedIconAwareRenderer themedIconAwareRenderer =
+                            (ThemedIconAwareRenderer) label;
+                    rolloverAmount = themedIconAwareRenderer.getRolloverArmAmount();
+                }
+                themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon, textColor);
+            }
+        }
+
+        // Paint the icon
+        if (icon != null) {
+            g2d.translate(paintIconR.x, paintIconR.y);
+
+            if (themedIcon != null) {
+                themedIcon.paintIcon(c, g2d, 0, 0);
+                if ((rolloverAmount > 0.0f) && (iconThemingType != null)
+                        && iconThemingType.isForInactiveState()
+                        && (icon != themedIcon)) {
+                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
+                    icon.paintIcon(c, g2d, 0, 0);
+                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, g));
+                }
+            } else {
+                icon.paintIcon(c, g2d, 0, 0);
+            }
+            g2d.translate(-paintIconR.x, -paintIconR.y);
         }
         g2d.dispose();
     }

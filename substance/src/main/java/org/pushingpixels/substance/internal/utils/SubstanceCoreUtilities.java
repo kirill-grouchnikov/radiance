@@ -1081,7 +1081,7 @@ public class SubstanceCoreUtilities {
         return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.SHOW_EXTRA_WIDGETS));
     }
 
-    public static ImageWrapperIcon getThemedIcon(JComponent comp, Icon orig) {
+    public static ImageWrapperIcon getThemedIcon(JComponent comp, Icon orig, Color textColor) {
         SubstanceSlices.IconThemingType iconThemingType =
                 SubstanceCoreUtilities.getIconThemingType(comp);
 
@@ -1093,26 +1093,8 @@ public class SubstanceCoreUtilities {
                 return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
                         colorScheme, brightnessFactor));
             case FOLLOW_FOREGROUND: {
-                Color foreground = colorScheme.getForegroundColor();
-                if (comp instanceof JMenuItem) {
-                    JMenuItem menuItem = (JMenuItem) comp;
-                    TransitionAwareUI transitionAwareUI = (TransitionAwareUI) comp.getUI();
-                    StateTransitionTracker stateTransitionTracker =
-                            transitionAwareUI.getTransitionTracker();
-                    float menuItemAlpha = SubstanceColorSchemeUtilities.getAlpha(menuItem,
-                            ComponentState.getState(menuItem.getModel(), menuItem, true));
-                    foreground = SubstanceTextUtilities.getForegroundColor(comp, " ",
-                            stateTransitionTracker.getModelStateInfo(), menuItemAlpha);
-                } else if (comp instanceof AbstractButton) {
-                    AbstractButton button = (AbstractButton) comp;
-                    TransitionAwareUI transitionAwareUI = (TransitionAwareUI) comp.getUI();
-                    StateTransitionTracker stateTransitionTracker =
-                            transitionAwareUI.getTransitionTracker();
-                    float buttonAlpha = SubstanceColorSchemeUtilities.getAlpha(button,
-                            ComponentState.getState(button));
-                    foreground = SubstanceTextUtilities.getForegroundColor(comp, " ",
-                            stateTransitionTracker.getModelStateInfo(), buttonAlpha);
-                }
+                Color foreground = (textColor != null) ? textColor
+                        : colorScheme.getForegroundColor();
                 return new ImageWrapperIcon(SubstanceImageCreator.getColorImage(comp, orig,
                         foreground, 1.0f));
             }

@@ -134,6 +134,8 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 
     protected AbstractButton button;
 
+    private Color textColor;
+
     private Timeline modifiedTimeline;
 
     private Rectangle viewRect = new Rectangle();
@@ -333,7 +335,7 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         if (v != null) {
             v.paint(g2d, textRect);
         } else {
-            this.paintButtonText(g2d, b, textRect, text);
+            this.textColor = this.paintButtonText(g2d, b, textRect, text);
         }
 
         // Paint the Icon
@@ -418,7 +420,8 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                 Icon themedIcon = (!(b instanceof JRadioButton)
                         && !(b instanceof JCheckBox)
                         && (iconThemingType != null))
-                        ? SubstanceCoreUtilities.getThemedIcon(b, originalIcon) : originalIcon;
+                        ? SubstanceCoreUtilities.getThemedIcon(b, originalIcon, this.textColor)
+                        : originalIcon;
                 themedIcon.paintIcon(b, graphics, 0, 0);
                 if ((activeAmount > 0.0f) && (iconThemingType != null)
                         && iconThemingType.isForInactiveState()
@@ -441,9 +444,9 @@ public class SubstanceButtonUI extends BasicButtonUI implements
      * @param textRect Text rectangle
      * @param text     Text to paint
      */
-    private void paintButtonText(Graphics g, AbstractButton button,
+    private Color paintButtonText(Graphics g, AbstractButton button,
             Rectangle textRect, String text) {
-        SubstanceTextUtilities.paintText(g, button, textRect, text,
+        return SubstanceTextUtilities.paintText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());
     }
 
