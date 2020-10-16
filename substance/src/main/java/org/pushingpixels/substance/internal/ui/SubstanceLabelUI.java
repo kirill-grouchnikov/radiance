@@ -148,6 +148,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
                     SubstanceTextUtilities.paintTextWithDropShadow(label, g2d,
                             textColor, echoColor, clippedText,
                             paintTextR.width + 6, paintTextR.height, 0, yOffset);
+                    g2d.translate(-paintTextR.x - 3, 0);
                 } else {
                     // fix for issue 406 - use the same FG computation
                     // color as for other controls
