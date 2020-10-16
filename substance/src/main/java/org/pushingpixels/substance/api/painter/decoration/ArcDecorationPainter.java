@@ -38,7 +38,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
 
 /**
  * Implementation of {@link SubstanceDecorationPainter} that uses "arc" painting on title panes and
@@ -73,7 +72,7 @@ public class ArcDecorationPainter implements SubstanceDecorationPainter {
     /**
      * Paints the title background.
      * 
-     * @param graphics
+     * @param original
      *            Graphics context.
      * @param comp
      *            Component.
@@ -84,13 +83,11 @@ public class ArcDecorationPainter implements SubstanceDecorationPainter {
      * @param scheme
      *            Color scheme for painting the title background.
      */
-    private void paintTitleBackground(Graphics2D graphics, Component comp, int width, int height,
+    private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
             SubstanceColorScheme scheme) {
-        // System.out.println(scheme.getDisplayName());
-        // create rectangular background and later draw it on
-        // result image with contour clip.
-        BufferedImage rectangular = SubstanceCoreUtilities.getBlankImage(width, height);
-        Graphics2D rgraphics = (Graphics2D) rectangular.getGraphics();
+        // Create a new Graphics2D object so that we can apply clipping to it without having
+        // to reset the state after we're done
+        Graphics2D g2d = (Graphics2D) original.create();
 
         // Fill background
         GeneralPath clipTop = new GeneralPath();
@@ -100,13 +97,13 @@ public class ArcDecorationPainter implements SubstanceDecorationPainter {
         clipTop.quadTo(width / 2, height / 4, 0, height / 2);
         clipTop.lineTo(0, 0);
 
-        rgraphics.setClip(clipTop);
+        g2d.setClip(clipTop);
         LinearGradientPaint gradientTop = new LinearGradientPaint(0, 0, width, 0,
                 new float[] { 0.0f, 0.5f, 1.0f }, new Color[] { scheme.getLightColor(),
                                 scheme.getUltraLightColor(), scheme.getLightColor() },
                 CycleMethod.REPEAT);
-        rgraphics.setPaint(gradientTop);
-        rgraphics.fillRect(0, 0, width, height);
+        g2d.setPaint(gradientTop);
+        g2d.fillRect(0, 0, width, height);
 
         GeneralPath clipBottom = new GeneralPath();
         clipBottom.moveTo(0, height);
@@ -115,26 +112,23 @@ public class ArcDecorationPainter implements SubstanceDecorationPainter {
         clipBottom.quadTo(width / 2, height / 4, 0, height / 2);
         clipBottom.lineTo(0, height);
 
-        rgraphics.setClip(clipBottom);
+        g2d.setClip(clipBottom);
         LinearGradientPaint gradientBottom = new LinearGradientPaint(0, 0, width, 0,
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new Color[] { scheme.getMidColor(), scheme.getLightColor(), scheme.getMidColor() },
                 CycleMethod.REPEAT);
-        rgraphics.setPaint(gradientBottom);
-        rgraphics.fillRect(0, 0, width, height);
+        g2d.setPaint(gradientBottom);
+        g2d.fillRect(0, 0, width, height);
 
         GeneralPath mid = new GeneralPath();
         mid.moveTo(width, height / 2);
         mid.quadTo(width / 2, height / 4, 0, height / 2);
-        // rgraphics.setClip(new Rectangle(0, 0, width / 2, height));
-        // rgraphics
-        // .setClip(new Rectangle(width / 2, 0, width - width / 2, height));
-        rgraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        rgraphics.setClip(new Rectangle(0, 0, width, height));
-        rgraphics.draw(mid);
+        g2d.setClip(new Rectangle(0, 0, width, height));
+        g2d.draw(mid);
 
-        graphics.drawImage(rectangular, 0, 0, width, height, null);
+        g2d.dispose();
     }
 
     /**
