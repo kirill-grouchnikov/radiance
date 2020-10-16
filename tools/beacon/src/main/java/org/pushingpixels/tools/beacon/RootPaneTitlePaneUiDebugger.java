@@ -182,12 +182,12 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                 "Use themed icons");
                         useThemedIcons.setSelected(
                                 SubstanceCoreUtilities.getIconThemingType(null) ==
-                                        SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE);
+                                        SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE);
                         useThemedIcons.addActionListener((ActionEvent event) ->
                                 SwingUtilities.invokeLater(() -> {
                                     SubstanceCortex.GlobalScope.setIconThemingType(
                                             useThemedIcons.isSelected()
-                                                    ? SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE
+                                                    ? SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE
                                                     : null);
                                     jcomp.repaint();
                                 }));

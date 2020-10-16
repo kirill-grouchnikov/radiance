@@ -19,6 +19,7 @@ Substance provides a powerful and flexible set of APIs that can be used to skin 
 * [Title pane](titlepane.md)
 * [Fonts](fonts.md)
 * [Text highlights](texthighlight.md)
+* [Themed states](themed-states.md)
 * [Extras](extras.md)
 * [Internals](internals.md)
 

@@ -846,7 +846,7 @@ public final class SubstanceSlices {
                 return false;
             }
         },
-        USE_BACKGROUND_WHEN_INACTIVE {
+        USE_ENABLED_WHEN_INACTIVE {
             @Override
             public boolean isForInactiveState() {
                 return true;

@@ -454,7 +454,7 @@ public class Check extends JFrame {
                 actionEvent -> SwingUtilities.invokeLater(() -> {
                     SubstanceCortex.GlobalScope.setIconThemingType(
                             useThemedDefaultIconsCheckBox.isSelected()
-                                    ? SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE
+                                    ? SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE
                                     : null);
                     repaint();
                 }));

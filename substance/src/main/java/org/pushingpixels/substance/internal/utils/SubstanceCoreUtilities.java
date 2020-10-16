@@ -44,7 +44,6 @@ import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -1088,7 +1087,7 @@ public class SubstanceCoreUtilities {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(comp,
                 ComponentState.ENABLED);
         switch (iconThemingType) {
-            case USE_BACKGROUND_WHEN_INACTIVE:
+            case USE_ENABLED_WHEN_INACTIVE:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
                 return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
                         colorScheme, brightnessFactor));
@@ -1110,7 +1109,7 @@ public class SubstanceCoreUtilities {
                 tabIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
 
         switch (iconThemingType) {
-            case USE_BACKGROUND_WHEN_INACTIVE:
+            case USE_ENABLED_WHEN_INACTIVE:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
                 return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(tab, orig,
                         colorScheme, brightnessFactor));

@@ -348,9 +348,9 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Themed for inactive", ic_help_black_24px.of(16, 16),
                 new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingType(ab,
-                                SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE)),
+                                SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE)),
                 (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingType(label,
-                        SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE));
+                        SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE));
         this.addRow(builder, "Themed for foreground", ic_help_black_24px.of(16, 16),
                 new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
                         (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingType(ab,

@@ -66,7 +66,7 @@ public class SetIconThemingType extends JFrame {
         useThemedIcons.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             // based on the checkbox selection status, call the API
             SubstanceCortex.GlobalScope.setIconThemingType(useThemedIcons.isSelected()
-                    ? SubstanceSlices.IconThemingType.USE_BACKGROUND_WHEN_INACTIVE
+                    ? SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE
                     : null);
             SetIconThemingType.this.repaint();
         }));
