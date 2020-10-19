@@ -63,7 +63,6 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.*;
@@ -749,14 +748,13 @@ public class SubstanceCoreUtilities {
     /**
      * Returns the callback to be called upon tab closing (using the tab close button).
      *
-     * @param me         Mouse event.
      * @param tabbedPane Tabbed pane.
      * @param tabIndex   Tab index.
      * @return Callback to be called upon tab closing (using the tab close button).
      * @see SubstanceCortex.ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
      * @see SubstanceCortex.GlobalScope#setTabCloseCallback(TabCloseCallback)
      */
-    public static TabCloseCallback getTabCloseCallback(MouseEvent me, JTabbedPane tabbedPane,
+    public static TabCloseCallback getTabCloseCallback(JTabbedPane tabbedPane,
             int tabIndex) {
         int tabCount = tabbedPane.getTabCount();
         if ((tabIndex < 0) || (tabIndex >= tabCount))

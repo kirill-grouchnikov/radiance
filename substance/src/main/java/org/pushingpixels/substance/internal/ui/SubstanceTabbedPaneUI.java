@@ -226,37 +226,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             }
         }
 
-        /**
-         * Stops tracking changes to a single tab component.
-         * 
-         * @param tabComponent
-         *            Tab component.
-         */
-        private void stopTrackTab(final Component tabComponent) {
-            if (tabComponent == null) {
-                return;
-            }
-
-            List<PropertyChangeListener> pclList = this.listeners.get(tabComponent);
-            if (pclList != null) {
-                for (PropertyChangeListener pcl : pclList) {
-                    tabComponent.removePropertyChangeListener(pcl);
-                }
-            }
-
-            this.listeners.put(tabComponent, null);
-        }
-
-        /**
-         * Stops tracking all tab components.
-         */
-        private void stopTrackExistingTabs() {
-            // register listeners on all existing tabs
-            for (int i = 0; i < SubstanceTabbedPaneUI.this.tabPane.getTabCount(); i++) {
-                this.stopTrackTab(SubstanceTabbedPaneUI.this.tabPane.getComponentAt(i));
-            }
-        }
-
         @Override
         public void componentAdded(final ContainerEvent e) {
             final Component tabComponent = e.getChild();
@@ -319,7 +288,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         public void mouseClicked(final MouseEvent e) {
             final int tabIndex = SubstanceTabbedPaneUI.this
                     .tabForCoordinate(SubstanceTabbedPaneUI.this.tabPane, e.getX(), e.getY());
-            TabCloseCallback closeCallback = SubstanceCoreUtilities.getTabCloseCallback(e,
+            TabCloseCallback closeCallback = SubstanceCoreUtilities.getTabCloseCallback(
                     SubstanceTabbedPaneUI.this.tabPane, tabIndex);
             if (closeCallback == null)
                 return;
@@ -398,7 +367,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
             SubstanceTabbedPaneUI.this.substanceMouseLocation = e.getPoint();
             int currRolledOver = SubstanceTabbedPaneUI.this.getRolloverTab();
-            TabCloseCallback tabCloseCallback = SubstanceCoreUtilities.getTabCloseCallback(e,
+            TabCloseCallback tabCloseCallback = SubstanceCoreUtilities.getTabCloseCallback(
                     tabPane, currRolledOver);
             // System.err.println("Mouse moved " + currRolledOver + ":" +
             // prevRolledOver);
@@ -462,7 +431,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 getTracker(prevRolledOver, true, prevRolledOver == currSelectedIndex).getModel()
                         .setRollover(false);
 
-                if (SubstanceCoreUtilities.getTabCloseCallback(e, tabPane,
+                if (SubstanceCoreUtilities.getTabCloseCallback(tabPane,
                         this.prevRolledOver) != null) {
                     tabPane.setToolTipTextAt(this.prevRolledOver, null);
                 }
@@ -493,7 +462,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                         // + e.getPoint());
                         if (close.contains(e.getPoint())) {
                             TabCloseCallback closeCallback = SubstanceCoreUtilities
-                                    .getTabCloseCallback(e, SubstanceTabbedPaneUI.this.tabPane,
+                                    .getTabCloseCallback(SubstanceTabbedPaneUI.this.tabPane,
                                             tabIndex);
 
                             TabCloseKind tabCloseKind = (closeCallback == null) ? TabCloseKind.THIS
@@ -721,7 +690,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      * {@link SwingConstants#RIGHT} placement) and blended for selected tabs.
      */
     private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
-            int x, int y, int width, int height, int tabPlacement, SubstanceSlices.Side side,
+            int width, int height, int tabPlacement, SubstanceSlices.Side side,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme) {
 
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
@@ -749,10 +718,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
             switch (tabPlacement) {
                 case BOTTOM:
-                    BufferedImage unrotated = getFinalTabBackgroundImage(tabPane, tabIndex, x, y,
+                    BufferedImage unrotated = getFinalTabBackgroundImage(tabPane, tabIndex,
                             width, height, SwingConstants.TOP, side, colorScheme, borderScheme);
-                    BufferedImage rotated = SubstanceImageCreator.getRotated(unrotated, 2);
-                    return rotated;
+                    return SubstanceImageCreator.getRotated(unrotated, 2);
                 case TOP:
                 case LEFT:
                 case RIGHT:
@@ -847,7 +815,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 this.tabPane, tabIndex, ColorSchemeAssociationKind.TAB_BORDER, currState);
         SubstanceColorScheme baseColorScheme = SubstanceColorSchemeUtilities
                 .getColorScheme(this.tabPane, tabIndex, ColorSchemeAssociationKind.TAB, currState);
-        BufferedImage fullOpacity = null;
+        BufferedImage fullOpacity;
         // double scaleFactor = UIUtil.getScaleFactor();
         // Slightly reduce the tab width to create "gaps" between tab visuals
         w -= 1;
@@ -864,10 +832,10 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             float cyclePos = this.modifiedTimelines.get(comp).getTimelinePosition();
 
             BufferedImage layer1 = SubstanceTabbedPaneUI.getFinalTabBackgroundImage(this.tabPane,
-                    tabIndex, x, y, w, h, tabPlacement, SubstanceSlices.Side.BOTTOM, colorScheme,
+                    tabIndex, w, h, tabPlacement, SubstanceSlices.Side.BOTTOM, colorScheme,
                     baseBorderScheme);
             BufferedImage layer2 = SubstanceTabbedPaneUI.getFinalTabBackgroundImage(this.tabPane,
-                    tabIndex, x, y, w, h, tabPlacement, SubstanceSlices.Side.BOTTOM, colorScheme2,
+                    tabIndex, w, h, tabPlacement, SubstanceSlices.Side.BOTTOM, colorScheme2,
                     baseBorderScheme);
 
             fullOpacity = SubstanceCoreUtilities.getBlankUnscaledImage(layer1);
@@ -881,7 +849,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             g2d.dispose();
         } else {
             BufferedImage layerBase = SubstanceTabbedPaneUI.getFinalTabBackgroundImage(this.tabPane,
-                    tabIndex, x, y, w, h, tabPlacement, SubstanceSlices.Side.BOTTOM,
+                    tabIndex, w, h, tabPlacement, SubstanceSlices.Side.BOTTOM,
                     baseColorScheme, baseBorderScheme);
 
             if ((modelStateInfo == null) || currState.isDisabled()
@@ -910,7 +878,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                                 .getColorScheme(this.tabPane, tabIndex,
                                         ColorSchemeAssociationKind.TAB_BORDER, activeState);
                         BufferedImage layer = SubstanceTabbedPaneUI.getFinalTabBackgroundImage(
-                                this.tabPane, tabIndex, x, y, w, h, tabPlacement,
+                                this.tabPane, tabIndex, w, h, tabPlacement,
                                 SubstanceSlices.Side.BOTTOM, fillScheme, borderScheme);
                         g2d.drawImage(layer, 0, 0, layer.getWidth(), layer.getHeight(), null);
                     }
@@ -1104,11 +1072,11 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics) {
         boolean toSwap = toRotateTabsOnPlacement(tabPlacement);
-        if (toSwap)
+        if (toSwap) {
             return super.calculateTabHeight(tabPlacement, tabIndex, metrics.getHeight());
-        int result = this.getTabExtraWidth(tabPlacement, tabIndex)
+        }
+        return this.getTabExtraWidth(tabPlacement, tabIndex)
                 + super.calculateTabWidth(tabPlacement, tabIndex, metrics);
-        return result;
     }
 
     @Override
@@ -1286,10 +1254,10 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         }
         int dimension = SubstanceCoreUtilities.getCloseButtonSize(this.tabPane, tabIndex);
 
-        Point2D transCorner = null;
+        Point2D transCorner;
         Rectangle rectForDraw = this.getCloseButtonRectangleForDraw(tabIndex, x, y, h, w);
+        AffineTransform trans = new AffineTransform();
         if (tabPlacement == SwingConstants.LEFT) {
-            AffineTransform trans = new AffineTransform();
             trans.rotate(-Math.PI / 2, x, y);
             trans.translate(-h, 0);
             Point2D.Double origCorner = new Point2D.Double(rectForDraw.getMaxX(),
@@ -1297,7 +1265,6 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             transCorner = trans.transform(origCorner, null);
         } else {
             // rotate 90 degrees clockwise for RIGHT orientation
-            AffineTransform trans = new AffineTransform();
             trans.rotate(Math.PI / 2, x, y);
             trans.translate(0, -w);
             Point2D.Double origCorner = new Point2D.Double(rectForDraw.getMinX(),
@@ -1542,12 +1509,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected int getTabLabelShiftY(int tabPlacement, int tabIndex, boolean isSelected) {
-        int result = 0;
-        if (tabPlacement == SwingConstants.BOTTOM)
-            result = -1;
-        else
-            result = 1;
-        return result;
+        return (tabPlacement == SwingConstants.BOTTOM) ? -1 : 1;
     }
 
     /**
@@ -1560,7 +1522,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
      * @return Extra width for the specified tab.
      */
     protected int getTabExtraWidth(int tabPlacement, int tabIndex) {
-        int extraWidth = 0;
+        int extraWidth;
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(this.tabPane);
         if (shaper instanceof ClassicButtonShaper)
             extraWidth = (int) (2.0 * SubstanceSizeUtils.getClassicButtonCornerRadius(
