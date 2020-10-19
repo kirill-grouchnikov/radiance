@@ -37,7 +37,7 @@ import java.awt.*;
 /**
  * <p>
  * This class is used to speed up the striping of lists, tables, trees and
- * comboboxes that use Substance default renderers. This class if for internal
+ * comboboxes that use Substance default renderers. This class is for internal
  * use only.
  * </p>
  *
@@ -51,7 +51,7 @@ import java.awt.*;
  * call this method prior to the call to its <code>paintCells</code>.</li>
  * <li>The specific renderer should call
  * {@link #applyStripedBackground(JComponent, int, JComponent)}.</li>
- * <li>After all cells have been renderered, call {@link #tearDown(JComponent)}.
+ * <li>After all cells have been rendered, call {@link #tearDown(JComponent)}.
  * </ul>
  *
  * @author Kirill Grouchnikov

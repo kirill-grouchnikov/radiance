@@ -71,32 +71,32 @@ public class SubstanceButtonUI extends BasicButtonUI implements
     /**
      * Property used during the button shaper switch.
      */
-    public static final String BORDER_COMPUTED = "substancelaf.buttonbordercomputed";
+    public static final String BORDER_COMPUTED = "substancelaf.internal.buttonbordercomputed";
 
     /**
      * Property used during the button shaper switch.
      */
-    public static final String BORDER_COMPUTING = "substancelaf.buttonbordercomputing";
+    public static final String BORDER_COMPUTING = "substancelaf.internal.buttonbordercomputing";
 
     /**
      * Property used to store the original (pre-<b>Substance</b>) button border.
      */
-    static final String BORDER_ORIGINAL = "substancelaf.buttonborderoriginal";
+    static final String BORDER_ORIGINAL = "substancelaf.internal.buttonborderoriginal";
 
     /**
      * Property used to store the original button icon.
      */
-    private static final String ICON_ORIGINAL = "substancelaf.buttoniconoriginal";
+    private static final String ICON_ORIGINAL = "substancelaf.internal.buttoniconoriginal";
 
     /**
      * Property used to store the original (pre-<b>Substance</b>) control opacity.
      */
-    static final String OPACITY_ORIGINAL = "substancelaf.controlopacityoriginal";
+    static final String OPACITY_ORIGINAL = "substancelaf.internal.controlopacityoriginal";
 
     /**
      * Property used to lock the original (pre-<b>Substance</b>) button opacity.
      */
-    static final String LOCK_OPACITY = "substancelaf.lockopacity";
+    static final String LOCK_OPACITY = "substancelaf.internal.lockopacity";
 
     /**
      * Internal property used to mark close buttons on title panes.

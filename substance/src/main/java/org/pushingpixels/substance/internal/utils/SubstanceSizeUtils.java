@@ -42,7 +42,7 @@ import java.awt.*;
 
 /**
  * This class is responsible for computing DPI-aware insets, stroke widths,
- * paddings, icon sizes etc. This class if for internal use only.
+ * paddings, icon sizes etc. This class is for internal use only.
  * 
  * @author Kirill Grouchnikov
  */

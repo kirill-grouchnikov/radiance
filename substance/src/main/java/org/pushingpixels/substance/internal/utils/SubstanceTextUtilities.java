@@ -53,7 +53,7 @@ import java.awt.image.Kernel;
 import java.util.Map;
 
 /**
- * Text-related utilities. This class if for internal use only.
+ * Text-related utilities. This class is for internal use only.
  *
  * @author Kirill Grouchnikov
  */

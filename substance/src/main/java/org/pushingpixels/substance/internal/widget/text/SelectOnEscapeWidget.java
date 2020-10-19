@@ -47,7 +47,7 @@ import java.beans.PropertyChangeListener;
 public class SelectOnEscapeWidget extends SubstanceWidget<JTextComponent> {
     private PropertyChangeListener propertyChangeListener;
 
-    private static final String FLIP_SELECTION_KEY = "substancelaf.flipTextSelection";
+    private static final String FLIP_SELECTION_KEY = "substancelaf.internal.flipTextSelection";
 
     private void installTracking() {
         InputMap currMap = SwingUtilities.getUIInputMap(this.jcomp, JComponent.WHEN_FOCUSED);

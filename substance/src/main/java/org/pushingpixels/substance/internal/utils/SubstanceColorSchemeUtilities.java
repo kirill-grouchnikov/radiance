@@ -134,10 +134,9 @@ public class SubstanceColorSchemeUtilities {
                 componentState);
         if (tabIndex >= 0) {
             Component component = jtp.getComponentAt(tabIndex);
-            SubstanceColorScheme colorized = getColorizedScheme(component, nonColorized,
+            return getColorizedScheme(component, nonColorized,
                     jtp.getForegroundAt(tabIndex), jtp.getBackgroundAt(tabIndex),
                     !componentState.isDisabled());
-            return colorized;
         } else {
             return getColorizedScheme(jtp, nonColorized, !componentState.isDisabled());
         }
