@@ -102,12 +102,11 @@ public inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKey
     })
 }
 
-
 public inline fun JComponent.wireActionToKeyStrokes(actionName: String,
         actionKeyStrokes: Collection<KeyStroke>,
         scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
         crossinline action: (ActionEvent?) -> Unit) {
-    // Make sure that we have at least one KeyStroke =
+    // Make sure that we have at least one KeyStroke
     require(actionKeyStrokes.isNotEmpty()) { "Cannot pass an empty collection of KeyStroke objects" }
 
     val inputMap = this.getInputMap(scopeType.scopeTypeConstant)
@@ -119,4 +118,18 @@ public inline fun JComponent.wireActionToKeyStrokes(actionName: String,
             action.invoke(e)
         }
     })
+}
+
+public inline fun JComponent.removeActionWiring(actionName: String, actionKeyStroke: KeyStroke,
+        scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE) {
+    val currMap = SwingUtilities.getUIInputMap(this, scopeType.scopeTypeConstant)
+    if (currMap != null) {
+        // Filter out the UI input map entry that matches our action
+        SwingUtilities.replaceUIInputMap(this, scopeType.scopeTypeConstant,
+                currMap.filterNot { keyStroke, action ->
+                    (keyStroke == actionKeyStroke) && (actionName == action)
+                })
+    }
+    // And remove it from the action map as well
+    this.actionMap.remove(actionName)
 }
