@@ -51,11 +51,6 @@ public class TestFormLayoutBuilder {
         this.formLayoutBuilder.rows(rows);
     }
 
-    public TestFormLayoutBuilder border(EmptyBorder border) {
-        this.formLayoutBuilder.padding(border);
-        return this;
-    }
-
     public TestFormLayoutBuilder padding(EmptyBorder border) {
         this.formLayoutBuilder.padding(border);
         return this;

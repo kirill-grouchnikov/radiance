@@ -88,7 +88,7 @@ public class ControlPanelFactory {
             final JTabbedPane mainTabbedPane, final MyMainTabPreviewPainter mainTabPreviewPainter,
             final JToolBar toolbar) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 22).border(new EmptyBorder(8, 0, 4, 0));
+                "right:pref, 4dlu, fill:pref:grow", 2, 22).padding(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Title pane settings");
 
@@ -300,7 +300,7 @@ public class ControlPanelFactory {
      */
     public static JPanel getDialogControlPanel(final JFrame mainFrame) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 30).border(new EmptyBorder(8, 0, 4, 0));
+                "right:pref, 4dlu, fill:pref:grow", 2, 30).padding(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", folder_open.of(12, 12));

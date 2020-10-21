@@ -61,7 +61,7 @@ public class SampleInternalFrame extends JInternalFrame {
         JPanel samplePanel = new JPanel(new BorderLayout());
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "fill:default:grow(1), 4dlu, fill:default:grow(1)", 2, 4)
-                .border(new EmptyBorder(2, 2, 2, 2));
+                .padding(new EmptyBorder(2, 2, 2, 2));
 
         JCheckBox cb1 = new JCheckBox("Enabled selected");
         cb1.setSelected(true);

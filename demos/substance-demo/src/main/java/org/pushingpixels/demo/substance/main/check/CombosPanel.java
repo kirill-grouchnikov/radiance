@@ -194,7 +194,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      */
     private JPanel getLeftComboPanel() {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 14)
-                .border(Paddings.DIALOG);
+                .padding(Paddings.DIALOG);
 
         builder.appendSeparator("Simple combos");
 
@@ -324,7 +324,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      */
     private JPanel getRightComboPanel() {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, left:pref:grow", 2, 18)
-                .border(Paddings.DIALOG);
+                .padding(Paddings.DIALOG);
 
         builder.appendSeparator("Popup flyout");
 

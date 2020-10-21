@@ -67,7 +67,7 @@ public class ProgressBarPanel extends JPanel {
         bars.setLayout(gLayout);
 
         TestFormLayoutBuilder horizontalBuilder = new TestFormLayoutBuilder("left:pref:grow", 1, 12)
-                .border(Paddings.DIALOG);
+                .padding(Paddings.DIALOG);
 
         JProgressBar determinateEnHor = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
         determinateEnHor.setIndeterminate(false);
@@ -111,7 +111,7 @@ public class ProgressBarPanel extends JPanel {
         TestFormLayoutBuilder verticalBuilder = new TestFormLayoutBuilder(
                 "center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
                         + "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow", 5, 2
-        ).border(Paddings.DIALOG);
+        ).padding(Paddings.DIALOG);
         verticalBuilder.append("Enabled");
         verticalBuilder.append("RTL");
         verticalBuilder.append("Indeterm");

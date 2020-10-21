@@ -37,7 +37,6 @@ import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import javax.swing.*;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class VAlignmentPanel extends ControllablePanel implements Deferrable {
     private boolean isInitialized;
@@ -56,7 +55,7 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
     @Override
     public synchronized void initialize() {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("left:pref:grow", 1, 15)
-                .border(Paddings.DIALOG);
+                .padding(Paddings.DIALOG);
 
         for (int fontSize = 11; fontSize < 25; fontSize++) {
             builder.append(getSubPanel(fontSize));
@@ -119,7 +118,8 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
         };
         result.setLayout(new BorderLayout());
 
-        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("left:pref", 1, 9).border(Paddings.DIALOG);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("left:pref", 1, 9)
+                .padding(Paddings.DIALOG);
 
         String fontName = "Tahoma";
         Font font = new Font(fontName, Font.PLAIN, size);

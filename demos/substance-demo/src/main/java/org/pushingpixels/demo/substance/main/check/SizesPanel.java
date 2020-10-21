@@ -269,7 +269,7 @@ public class SizesPanel extends JPanel {
                     if (selIndex >= 0) {
                         Mapping sel = list.getSelectedValue();
                         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                                "right:pref, 4dlu, left:pref:grow", 2, 16).border(Paddings.DIALOG);
+                                "right:pref, 4dlu, left:pref:grow", 2, 16).padding(Paddings.DIALOG);
                         for (int fontSize = 11; fontSize < 25; fontSize++) {
                             builder.append(fontSize + " pixels", sel.creator.create(fontSize));
                         }

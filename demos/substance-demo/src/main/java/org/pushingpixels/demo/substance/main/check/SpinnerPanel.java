@@ -50,7 +50,7 @@ public class SpinnerPanel extends JPanel {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 4dlu, left:pref:grow", 2, 16)
-                .border(Paddings.DIALOG);
+                .padding(Paddings.DIALOG);
 
         CreationCommand<JSpinner> basicCr = () -> new JSpinner(new SpinnerNumberModel());
         CreationCommand<JSpinner> dateCr = () -> new JSpinner(new SpinnerDateModel());

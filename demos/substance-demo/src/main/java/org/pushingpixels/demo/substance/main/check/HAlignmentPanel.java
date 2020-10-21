@@ -56,7 +56,7 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
     @Override
     public synchronized void initialize() {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder("left:pref:grow", 1, 15)
-                .border(Paddings.DIALOG);
+                .padding(Paddings.DIALOG);
 
         for (int fontSize = 11; fontSize < 25; fontSize++) {
             builder.append(getSubPanel(fontSize));

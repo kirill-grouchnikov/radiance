@@ -168,7 +168,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderButtons = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 59)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
 
         builderButtons.append("");
 
@@ -342,7 +342,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderOther = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 25)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
 
         builderOther.append("");
         builderOther.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -449,7 +449,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderText = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 27)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
 
         builderText.append("");
         builderText.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -573,7 +573,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderCells = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 13)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).border(Paddings.DIALOG);
+                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
 
         builderCells.append("");
         builderCells.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));

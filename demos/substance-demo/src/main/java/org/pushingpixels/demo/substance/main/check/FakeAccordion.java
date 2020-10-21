@@ -29,10 +29,15 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.colorscheme.ColorTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -41,10 +46,12 @@ import java.util.List;
 public class FakeAccordion extends JPanel {
     public static class FakeAccordionPanel extends JPanel {
         private JPanel content;
+        private JPanel contentWrapper;
 
         private FakeAccordionPanel(String title, Icon icon, JPanel content) {
             super(new BorderLayout());
 
+            // Make an expand / collapse button with straight edges
             JButton titleButton = new JButton(title);
             titleButton.setIcon(icon);
             SubstanceCortex.ComponentScope.setIconThemingType(titleButton,
@@ -52,15 +59,55 @@ public class FakeAccordion extends JPanel {
             titleButton.setIconTextGap(8);
             SubstanceCortex.ComponentScope.setButtonStraightSides(titleButton,
                     EnumSet.allOf(SubstanceSlices.Side.class));
-            titleButton.addActionListener(actionEvent -> setCollapsed(this.content.isVisible()));
-
-            this.content = content;
+            titleButton.addActionListener(
+                    actionEvent -> setCollapsed(this.contentWrapper.isVisible()));
             this.add(titleButton, BorderLayout.NORTH);
-            this.add(content, BorderLayout.CENTER);
+
+            // Wrap the passed content panel to have a bit of padding and
+            // slightly differentiated background
+            this.content = content;
+            this.content.setOpaque(false);
+            deepNonOpaque(this.content);
+
+            this.contentWrapper = new JPanel(new BorderLayout()) {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+
+                    SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(this);
+                    SubstanceColorScheme colorScheme = skin.getColorScheme(this,
+                            ComponentState.ENABLED);
+                    Color originalFill = colorScheme.getBackgroundFillColor();
+                    Color tweakedBrightness =
+                            ColorTransform.brightness(colorScheme.isDark() ? 0.15f : -0.15f)
+                                    .transform(originalFill);
+                    Color tweakedAlpha = ColorTransform.alpha(80).transform(tweakedBrightness);
+
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.setColor(tweakedAlpha);
+                    g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+                    g2d.dispose();
+                }
+            };
+            this.contentWrapper.setBorder(new EmptyBorder(8, 4, 0, 4));
+            this.contentWrapper.add(this.content, BorderLayout.CENTER);
+            this.add(this.contentWrapper, BorderLayout.CENTER);
+        }
+
+        private static void deepNonOpaque(Component comp) {
+            if ((comp instanceof JCheckBox) || (comp instanceof JRadioButton)) {
+                ((JToggleButton) comp).setOpaque(false);
+            }
+            if (comp instanceof Container) {
+                Container container = (Container) comp;
+                for (int i = 0; i < container.getComponentCount(); i++) {
+                    deepNonOpaque(container.getComponent(i));
+                }
+            }
         }
 
         public void setCollapsed(boolean isCollapsed) {
-            this.content.setVisible(!isCollapsed);
+            this.contentWrapper.setVisible(!isCollapsed);
         }
     }
 
