@@ -61,6 +61,8 @@ java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter so
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/tango outputPackageName=org.pushingpixels.demo.substance.main.check.svg.tango templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
+java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg/vaadin outputPackageName=org.pushingpixels.demo.substance.main.check.svg.vaadin templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+
 # Use deep traversal for all Spyglass demo SVG files
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgDeepBatchConverter sourceRootFolder=../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/ outputRootPackageName=org.pushingpixels.demo.spyglass templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 

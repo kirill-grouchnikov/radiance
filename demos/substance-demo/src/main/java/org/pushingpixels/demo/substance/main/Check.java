@@ -35,6 +35,7 @@ import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelec
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceTitlePaneGravitySelector;
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -99,6 +100,9 @@ public class Check extends JFrame {
         setLayout(new BorderLayout());
 
         jtp = new JTabbedPane();
+        SubstanceCortex.ComponentScope.setIconThemingType(jtp,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+
         mainTabPreviewPainter = new MyMainTabPreviewPainter();
         SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp, mainTabPreviewPainter);
         jtp.getModel().addChangeListener(new TabSwitchListener());
@@ -117,12 +121,12 @@ public class Check extends JFrame {
         JPanel mainControlPanel = ControlPanelFactory.getMainControlPanel(this, jtp,
                 mainTabPreviewPainter, toolbar);
         mainTaskPane = this.accordion.addPanel("General settings",
-                getIcon("JFrameColor16"), mainControlPanel);
+                cog.of(12, 12), mainControlPanel);
         mainTaskPane.setCollapsed(true);
 
         JPanel dialogControlPanel = ControlPanelFactory.getDialogControlPanel(this);
         FakeAccordion.FakeAccordionPanel dialogTaskPane =
-                this.accordion.addPanel("Frames & Dialogs", getIcon("JDialogColor16"),
+                this.accordion.addPanel("Frames & Dialogs", modal_list.of(12, 12),
                         dialogControlPanel);
         dialogTaskPane.setCollapsed(true);
 
@@ -131,8 +135,6 @@ public class Check extends JFrame {
         final JScrollPane scrollPane = new JScrollPane(accordion,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         ComponentOrParentChainScope.setDecorationType(scrollPane, DecorationAreaType.GENERAL);
-        // scrollPane.setOpaque(false);
-        // scrollPane.getViewport().setOpaque(false);
 
         JPanel mainPanel = new JPanel();
         mainPanel.add(scrollPane);
@@ -174,12 +176,12 @@ public class Check extends JFrame {
         setMinimumSize(getPreferredSize());
 
         ButtonsPanel buttonsPanel = new ButtonsPanel();
-        jtp.addTab("Buttons", getIcon("JButtonColor16"), buttonsPanel);
+        jtp.addTab("Buttons", button.of(12, 12), buttonsPanel);
         getRootPane().setDefaultButton(buttonsPanel.defaultButton);
 
-        jtp.addTab("Combo box", getIcon("JComboBoxColor16"), new CombosPanel());
+        jtp.addTab("Combo box", combobox.of(12, 12), new CombosPanel());
 
-        jtp.addTab("Scroll pane", getIcon("JScrollPaneColor16"), new ScrollPanel());
+        jtp.addTab("Scroll pane", browser.of(12, 12), new ScrollPanel());
 
         TabCloseCallback closeCallback = new TabCloseCallback() {
             public TabCloseKind onAreaClick(JTabbedPane tabbedPane, int tabIndex,
@@ -222,32 +224,32 @@ public class Check extends JFrame {
 
         TabPanel tp = new TabPanel();
         SubstanceCortex.ComponentScope.setTabCloseCallback(tp.jtp, closeCallback);
-        jtp.addTab("Tabs", getIcon("JTabbedPaneColor16"), tp);
+        jtp.addTab("Tabs", tabs.of(12, 12), tp);
 
-        jtp.addTab("Split", new SplitPanel());
+        jtp.addTab("Split", split_h.of(12, 12), new SplitPanel());
 
-        jtp.addTab("Desktop", getIcon("JDesktopPaneColor16"), new DesktopPanel());
+        jtp.addTab("Desktop", user_card.of(12, 12), new DesktopPanel());
 
-        jtp.addTab("Text fields", getIcon("JTextPaneColor16"), new TextFieldsPanel());
+        jtp.addTab("Text fields", text_input.of(12, 12), new TextFieldsPanel());
 
-        jtp.addTab("Table", getIcon("JTableColor16"), new TablePanel());
+        jtp.addTab("Table", table.of(12, 12), new TablePanel());
 
         try {
-            jtp.addTab("List", getIcon("JListColor16"), new ListPanel());
+            jtp.addTab("List", lines.of(12, 12), new ListPanel());
         } catch (NoClassDefFoundError ncdfe) {
         }
 
-        jtp.addTab("Slider", getIcon("JSliderColor16"), new SliderPanel());
+        jtp.addTab("Slider", slider.of(12, 12), new SliderPanel());
 
-        jtp.addTab("Progress bar", getIcon("JProgressBarColor16"), new ProgressBarPanel());
+        jtp.addTab("Progress bar", progressbar.of(12, 12), new ProgressBarPanel());
 
-        jtp.addTab("Spinner", getIcon("JSpinnerColor16"), new SpinnerPanel());
+        jtp.addTab("Spinner", spinner.of(12, 12), new SpinnerPanel());
 
-        jtp.addTab("Tree", getIcon("JTreeColor16"), new TreePanel());
+        jtp.addTab("Tree", file_tree.of(12, 12), new TreePanel());
 
-        jtp.addTab("File tree", getIcon("JTreeColor16"), new FileTreePanel());
+        jtp.addTab("File tree", file_tree.of(12, 12), new FileTreePanel());
 
-        jtp.addTab("Cards", new CardPanel());
+        jtp.addTab("Cards", grid_big_o.of(12, 12), new CardPanel());
 
         JPanel verticalButtonPanel = new JPanel();
         verticalButtonPanel.setLayout(new GridLayout(1, 3));
@@ -263,19 +265,19 @@ public class Check extends JFrame {
             }
         }
         verticalButtonPanel.add(smallVerticalButtonPanel);
-        jtp.addTab("V-Buttons", verticalButtonPanel);
+        jtp.addTab("V-Buttons", grid_h.of(12, 12), verticalButtonPanel);
 
-        jtp.addTab("Colored", new ColoredControlsPanel());
+        jtp.addTab("Colored", globe_wire.of(12, 12), new ColoredControlsPanel());
 
-        jtp.addTab("Colorized", new ColorizedControlsPanel());
+        jtp.addTab("Colorized", globe.of(12, 12), new ColorizedControlsPanel());
 
-        jtp.addTab("Cells", new CellsPanel());
+        jtp.addTab("Cells", grid_small.of(12, 12), new CellsPanel());
 
-        jtp.addTab("Sizes", new SizesPanel());
+        jtp.addTab("Sizes", plus.of(12, 12), new SizesPanel());
 
-        jtp.addTab("H-Align", new HAlignmentPanel());
+        jtp.addTab("H-Align", align_left.of(12, 12), new HAlignmentPanel());
 
-        jtp.addTab("V-Align", new VAlignmentPanel());
+        jtp.addTab("V-Align", bar_chart.of(12, 12), new VAlignmentPanel());
 
         // sample menu bar
         JMenuBar jmb = new JMenuBar();
@@ -517,17 +519,6 @@ public class Check extends JFrame {
             long time3 = System.currentTimeMillis();
             System.out.println("App " + (time3 - time2));
         });
-    }
-
-    public static Icon getIcon(String iconName) {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        URL url = cl.getResource("test/check/icons/" + iconName + ".gif");
-        if (url != null)
-            return new ImageIcon(url);
-        url = cl.getResource("test/check/icons/" + iconName + ".png");
-        if (url != null)
-            return new ImageIcon(url);
-        return null;
     }
 
     public static JToolBar getToolbar(int size, boolean hasStrings) {

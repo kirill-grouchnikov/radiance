@@ -1332,6 +1332,8 @@ public class SubstanceCortex {
          * @param colorScheme      Color scheme for colorization.
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
+         * @see NeonCortex#colorizeIcon(ResizableIcon.Factory, Color)
+         * @see NeonCortex#colorizeIcon(ResizableIcon.Factory, Color, float)
          */
         public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
@@ -1378,6 +1380,8 @@ public class SubstanceCortex {
          * @param colorScheme      Color scheme for colorization.
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
+         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color)
+         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color, float)
          */
         public static ResizableIconUIResource colorizeIconAsUiResource(
                 ResizableIcon.Factory sourceFactory,
@@ -1393,6 +1397,8 @@ public class SubstanceCortex {
          * @param sourceFactory Source factory to be used to create the icon.
          * @param colorScheme   Color scheme for colorization.
          * @return The colorized version of the icon.
+         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color)
+         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color, float)
          */
         public static ResizableIconUIResource colorizeIconAsUiResource(
                 ResizableIcon.Factory sourceFactory,

@@ -29,9 +29,13 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 public class FakeAccordion extends JPanel {
@@ -41,12 +45,17 @@ public class FakeAccordion extends JPanel {
         private FakeAccordionPanel(String title, Icon icon, JPanel content) {
             super(new BorderLayout());
 
-            JButton titleLabel = new JButton(title);
-            titleLabel.setIcon(icon);
-            titleLabel.addActionListener(actionEvent -> setCollapsed(this.content.isVisible()));
+            JButton titleButton = new JButton(title);
+            titleButton.setIcon(icon);
+            SubstanceCortex.ComponentScope.setIconThemingType(titleButton,
+                    SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+            titleButton.setIconTextGap(8);
+            SubstanceCortex.ComponentScope.setButtonStraightSides(titleButton,
+                    EnumSet.allOf(SubstanceSlices.Side.class));
+            titleButton.addActionListener(actionEvent -> setCollapsed(this.content.isVisible()));
 
             this.content = content;
-            this.add(titleLabel, BorderLayout.NORTH);
+            this.add(titleButton, BorderLayout.NORTH);
             this.add(content, BorderLayout.CENTER);
         }
 

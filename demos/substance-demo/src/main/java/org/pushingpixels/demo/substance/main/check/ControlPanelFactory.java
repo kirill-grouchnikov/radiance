@@ -36,6 +36,7 @@ import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_warning_black_24px;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.folder_open;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
@@ -302,21 +303,24 @@ public class ControlPanelFactory {
                 "right:pref, 4dlu, fill:pref:grow", 2, 30).border(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Core choosers");
-        JButton bfo = new JButton("Open dialog", Check.getIcon("JFileChooserColor16"));
+        JButton bfo = new JButton("Open dialog", folder_open.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(bfo, IconThemingType.FOLLOW_FOREGROUND);
         bfo.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showOpenDialog(mainFrame);
         }));
         builder.append("File chooser", bfo);
 
-        JButton bfs = new JButton("Save dialog", Check.getIcon("JFileChooserColor16"));
+        JButton bfs = new JButton("Save dialog", folder_open.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(bfs, IconThemingType.FOLLOW_FOREGROUND);
         bfs.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showSaveDialog(mainFrame);
         }));
         builder.append("", bfs);
 
-        JButton bc = new JButton("Open", Check.getIcon("JColorChooserColor16"));
+        JButton bc = new JButton("Open", folder_open.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(bc, IconThemingType.FOLLOW_FOREGROUND);
         bc.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
                     new Color(23, 45, 200));

@@ -30,13 +30,16 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.bullseye;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.button;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.check_square;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.dot_circle;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
@@ -314,14 +317,26 @@ public class ButtonsPanel extends JPanel {
                         "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 54).padding(Paddings.DIALOG);
 
         builder.append("");
+
         JLabel bLabel = new JLabel("Buttons");
-        bLabel.setIcon(Check.getIcon("JButtonColor16"));
+        bLabel.setIcon(button.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(bLabel,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+
         JLabel tbLabel = new JLabel("Toggle buttons");
-        tbLabel.setIcon(Check.getIcon("JToggleButtonColor16"));
+        tbLabel.setIcon(bullseye.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(tbLabel,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+
         JLabel cbLabel = new JLabel("Check boxes");
-        cbLabel.setIcon(Check.getIcon("JCheckBoxColor16"));
+        cbLabel.setIcon(check_square.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(cbLabel,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+
         JLabel rbLabel = new JLabel("Radio buttons");
-        rbLabel.setIcon(Check.getIcon("JRadioButtonColor16"));
+        rbLabel.setIcon(dot_circle.of(12, 12));
+        SubstanceCortex.ComponentScope.setIconThemingType(rbLabel,
+                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
 
         // bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
         // tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
