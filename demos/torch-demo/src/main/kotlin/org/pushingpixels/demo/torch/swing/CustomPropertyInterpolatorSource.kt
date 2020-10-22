@@ -38,7 +38,7 @@ import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
 import org.pushingpixels.torch.timeline
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.TridentConfig
+import org.pushingpixels.trident.api.TridentCortex
 import org.pushingpixels.trident.api.ease.Sine
 import org.pushingpixels.trident.api.interpolator.PropertyInterpolator
 import java.awt.Color
@@ -64,7 +64,7 @@ private class Ellipse2DPropertyInterpolator : PropertyInterpolator<Ellipse2D> {
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        TridentConfig.getInstance().addPropertyInterpolator(Ellipse2DPropertyInterpolator())
+        TridentCortex.addPropertyInterpolator(Ellipse2DPropertyInterpolator())
 
         val from = Ellipse2D.Double(10.0, 10.0, 100.0, 50.0)
         val to = Ellipse2D.Double(40.0, 40.0, 200.0, 120.0)

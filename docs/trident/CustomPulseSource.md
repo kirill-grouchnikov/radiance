@@ -1,7 +1,7 @@
 ## Timeline pulse source
 By default, Trident timelines are driven by a dedicated thread that wakes up every 40ms and updates all the timelines. When the CPU is not heavily used this results in 25 frames-per-second refresh rate for Trident-driven UI animations - consistent with the frame rate of theatrical films and non-interlaced PAL television standard.
 
-Applications that require custom pulse behavior - higher frame rate, lower frame rate or dynamic frame rate - should use the `TridentConfig.setPulseSource(PulseSource)` API. The `PulseSource` interface is:
+Applications that require custom pulse behavior - higher frame rate, lower frame rate or dynamic frame rate - should use the `TridentCortex.setPulseSource(PulseSource)` API. The `PulseSource` interface is:
 
 ```java
 public interface PulseSource {
@@ -27,17 +27,13 @@ public class CustomPulseSource {
    }
 
    public static void main(String[] args) {
-      TridentConfig.getInstance().setPulseSource(
-            new TridentConfig.PulseSource() {
-               @Override
-               public void waitUntilNextPulse() {
-                  try {
-                     Thread.sleep(100);
-                  } catch (InterruptedException ie) {
-                     ie.printStackTrace();
-                  }
-               }
-            });
+      TridentCortex.setPulseSource(() -> {
+          try {
+              Thread.sleep(100);
+          } catch (InterruptedException ie) {
+              ie.printStackTrace();
+          }
+      });
       CustomPulseSource helloWorld = new CustomPulseSource();
 
       Timeline.builder(helloWorld)

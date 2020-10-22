@@ -40,18 +40,26 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TridentConfig {
-    private static TridentConfig config;
+/**
+ * Provides the public API surface for working with Trident animations.
+ *
+ * @author Kirill Grouchnikov.
+ */
+public class TridentCortex {
+    private static Set<PropertyInterpolator<?>> propertyInterpolators = new HashSet<>();
 
-    private Set<PropertyInterpolator<?>> propertyInterpolators;
+    private static TridentCortex.PulseSource currPulseSource = new DefaultPulseSource();
 
-    private TridentConfig.PulseSource pulseSource;
+    static {
+        propertyInterpolators.addAll(new CorePropertyInterpolators().getPropertyInterpolators());
+        propertyInterpolators.addAll(new AWTPropertyInterpolators().getPropertyInterpolators());
+    }
 
     public interface PulseSource {
         void waitUntilNextPulse();
     }
 
-    public static class FixedRatePulseSource implements TridentConfig.PulseSource {
+    public static class FixedRatePulseSource implements TridentCortex.PulseSource {
         private int msDelay;
 
         public FixedRatePulseSource(int msDelay) {
@@ -74,29 +82,16 @@ public class TridentConfig {
         }
     }
 
-    private TridentConfig() {
-        this.pulseSource = new DefaultPulseSource();
+    // No-op private constructor to prevent application code from directly creating instances
+    private TridentCortex() {}
 
-        this.propertyInterpolators = new HashSet<>();
-
-        this.addPropertyInterpolatorSource(new CorePropertyInterpolators());
-        this.addPropertyInterpolatorSource(new AWTPropertyInterpolators());
-    }
-
-    public static synchronized TridentConfig getInstance() {
-        if (config == null) {
-            config = new TridentConfig();
-        }
-        return config;
-    }
-
-    public synchronized Collection<PropertyInterpolator<?>> getPropertyInterpolators() {
-        return Collections.unmodifiableSet(this.propertyInterpolators);
+    public static Collection<PropertyInterpolator<?>> getPropertyInterpolators() {
+        return Collections.unmodifiableSet(propertyInterpolators);
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized <T> PropertyInterpolator<T> getPropertyInterpolator(Collection<T> values) {
-        for (PropertyInterpolator<?> interpolator : this.propertyInterpolators) {
+    public static <T> PropertyInterpolator<T> getPropertyInterpolator(Collection<T> values) {
+        for (PropertyInterpolator<?> interpolator : propertyInterpolators) {
             try {
                 Class<?> basePropertyClass = interpolator.getBasePropertyClass();
                 boolean hasMatch = true;
@@ -114,26 +109,28 @@ public class TridentConfig {
         return null;
     }
 
-    public synchronized void addPropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
-        this.propertyInterpolators.add(pInterpolator);
+    public static void addPropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
+        propertyInterpolators.add(pInterpolator);
     }
 
-    public synchronized void addPropertyInterpolatorSource(PropertyInterpolatorSource pInterpolatorSource) {
-        this.propertyInterpolators.addAll(pInterpolatorSource.getPropertyInterpolators());
+    public static void addPropertyInterpolatorSource(PropertyInterpolatorSource pInterpolatorSource) {
+        propertyInterpolators.addAll(pInterpolatorSource.getPropertyInterpolators());
     }
 
-    public synchronized void removePropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
-        this.propertyInterpolators.remove(pInterpolator);
+    public static void removePropertyInterpolator(PropertyInterpolator<?> pInterpolator) {
+        propertyInterpolators.remove(pInterpolator);
     }
 
-    public synchronized void setPulseSource(PulseSource pulseSource) {
+    public static void setPulseSource(PulseSource pulseSource) {
         TridentAnimationThread current = TimelineEngine.getInstance().animatorThread;
-        if ((current != null) && current.isAlive())
-            throw new IllegalStateException("Cannot replace the pulse source thread once it's running");
-        this.pulseSource = pulseSource;
+        if ((current != null) && current.isAlive()) {
+            throw new IllegalStateException(
+                    "Cannot replace the pulse source thread once it's running");
+        }
+        currPulseSource = pulseSource;
     }
 
-    public synchronized TridentConfig.PulseSource getPulseSource() {
-        return pulseSource;
+    public static TridentCortex.PulseSource getPulseSource() {
+        return currPulseSource;
     }
 }

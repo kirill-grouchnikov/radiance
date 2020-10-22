@@ -37,7 +37,7 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.timeline
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.TridentConfig
+import org.pushingpixels.trident.api.TridentCortex
 import org.pushingpixels.trident.api.swing.SwingRepaintTimeline
 import java.awt.*
 import java.awt.geom.GeneralPath
@@ -106,7 +106,7 @@ fun main() {
         frame.add(mainPanel)
 
         // higher pulse rate to create 50 stars a second
-        TridentConfig.getInstance().pulseSource = TridentConfig.FixedRatePulseSource(20)
+        TridentCortex.setPulseSource(TridentCortex.FixedRatePulseSource(20))
 
         // Timeline to spawn the stars
         var currHue = 0.0f

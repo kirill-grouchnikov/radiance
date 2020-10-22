@@ -29,7 +29,7 @@ The `public T interpolate(T from, T to, float timelinePosition)` is used to comp
 
 `TimelinePropertyBuilder.interpolatedWith(PropertyInterpolator)` API can be used to explicitly state the property interpolator to be used for the specific property. However, using this API may lead to a lot of boilerplate code in applications that have multiple animations of fields of the same custom type. In such cases it is recommended to register custom property interpolators and have Trident automatically pick up the matching interpolator at runtime. Trident provides two ways to register custom interpolators - customization APIs and plugins.
 
-The `TridentConfig` class has the following APIs to work with property interpolators:
+The `TridentCortex` class has the following APIs to work with property interpolators:
 
 * `addPropertyInterpolatorSource(PropertyInterpolatorSource)` - registers all the property interpolators provided by this source
 * `addPropertyInterpolator(PropertyInterpolator)` - registers the property interpolator
@@ -102,7 +102,7 @@ public class MovingRectangle extends JFrame {
 
 What happens in lines 35-36? Internally, the Trident core looks at all available property interpolators and finds that the `AWTPropertyInterpolators.PointInterpolator` is the best match for the passed values (which are both `java.awt.Point`s). Then, at every pulse of the `move` timeline, the `MyRectangle.setCorner(Point)` is called.
 
-Note that the application code **did not** explicitly specify which property interpolator should be used. The following class illustrates the usage of `TridentConfig.addPropertyInterpolator` API:
+Note that the application code **did not** explicitly specify which property interpolator should be used. The following class illustrates the usage of `TridentCortex.addPropertyInterpolator` API:
 
 ```java
 public class CustomPropertyInterpolatorSource extends JFrame {
@@ -130,7 +130,7 @@ public class CustomPropertyInterpolatorSource extends JFrame {
    }
 
    public CustomPropertyInterpolatorSource() {
-      TridentConfig.getInstance().addPropertyInterpolator(
+      TridentCortex.addPropertyInterpolator(
             new Ellipse2DPropertyInterpolator());
 
       Ellipse2D from = new Ellipse2D.Double(10, 10, 100, 50);

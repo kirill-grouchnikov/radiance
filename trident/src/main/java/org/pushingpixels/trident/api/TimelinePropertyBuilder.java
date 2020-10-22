@@ -274,7 +274,7 @@ public class TimelinePropertyBuilder<T> {
 
         if (this.isFromCurrent) {
             if (this.interpolator == null) {
-                this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(
+                this.interpolator = TridentCortex.getPropertyInterpolator(
                         Collections.singleton((this.to != null) ? this.to : this.toSupplier.get()));
 
                 if (this.interpolator == null) {
@@ -287,7 +287,7 @@ public class TimelinePropertyBuilder<T> {
         }
 
         if (this.interpolator == null) {
-            this.interpolator = TridentConfig.getInstance().getPropertyInterpolator(
+            this.interpolator = TridentCortex.getPropertyInterpolator(
                     Arrays.asList((this.from != null) ? this.from : this.fromSupplier.get(),
                             (this.to != null) ? this.to : this.toSupplier.get()));
 

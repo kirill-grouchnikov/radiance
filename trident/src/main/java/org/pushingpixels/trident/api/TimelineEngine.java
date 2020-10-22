@@ -152,7 +152,7 @@ class TimelineEngine {
 
         @Override
         public final void run() {
-            TridentConfig.PulseSource pulseSource = TridentConfig.getInstance().getPulseSource();
+            TridentCortex.PulseSource pulseSource = TridentCortex.getPulseSource();
             lastIterationTimeStamp = System.currentTimeMillis();
             while (true) {
                 pulseSource.waitUntilNextPulse();

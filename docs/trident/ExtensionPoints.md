@@ -13,7 +13,7 @@ Interested applications can use Trident configuration APIs to:
 
 ### Configuration APIs
 
-The `org.pushingpixels.trident.api.TridentConfig` class contains the published configuration APIs. The `TridentConfig.getInstance()` API retrieves an instance of this class which can then be used for:
+The `org.pushingpixels.trident.api.TridentCortex` class contains the published configuration APIs for:
 
 * Setting a custom [pulse source](CustomPulseSource.md)
 * Adding, removing and querying [property interpolators](CustomPropertyInterpolators.md)

@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.trident.swing;
 
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.api.TridentConfig;
+import org.pushingpixels.trident.api.TridentCortex;
 import org.pushingpixels.trident.api.ease.Sine;
 import org.pushingpixels.trident.api.interpolator.PropertyInterpolator;
 import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
@@ -59,7 +59,7 @@ public class CustomPropertyInterpolatorSource extends JFrame {
     }
 
     public CustomPropertyInterpolatorSource() {
-        TridentConfig.getInstance().addPropertyInterpolator(new Ellipse2DPropertyInterpolator());
+        TridentCortex.addPropertyInterpolator(new Ellipse2DPropertyInterpolator());
 
         Ellipse2D from = new Ellipse2D.Double(10, 10, 100, 50);
         Ellipse2D to = new Ellipse2D.Double(40, 40, 200, 120);

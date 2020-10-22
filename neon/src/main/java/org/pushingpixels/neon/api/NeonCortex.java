@@ -61,6 +61,9 @@ public class NeonCortex {
 
     private static Map<String, Map> desktopHintsCache = new HashMap<>();
 
+    // No-op private constructor to prevent application code from directly creating instances
+    private NeonCortex() {}
+
     public static synchronized Platform getPlatform() {
         if (platform != null) {
             return platform;

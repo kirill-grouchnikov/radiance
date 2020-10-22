@@ -32,7 +32,7 @@
 package org.pushingpixels.trident.api.interpolator;
 
 import org.pushingpixels.trident.api.TimelinePropertyBuilder.PropertySetter;
-import org.pushingpixels.trident.api.TridentConfig;
+import org.pushingpixels.trident.api.TridentCortex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,7 +109,7 @@ public class KeyValues<T> {
      * Private constructor, called by factory method
      */
     private KeyValues(T[] params) {
-        this(TridentConfig.getInstance().getPropertyInterpolator(Arrays.asList(params)), params);
+        this(TridentCortex.getPropertyInterpolator(Arrays.asList(params)), params);
     }
 
     /**

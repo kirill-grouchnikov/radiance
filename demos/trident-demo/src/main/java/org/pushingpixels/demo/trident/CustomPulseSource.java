@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.trident;
 
 import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.TridentConfig;
+import org.pushingpixels.trident.api.TridentCortex;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +45,7 @@ public class CustomPulseSource {
     }
 
     public static void main(String[] args) {
-        TridentConfig.getInstance().setPulseSource(() -> {
+        TridentCortex.setPulseSource(() -> {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ie) {

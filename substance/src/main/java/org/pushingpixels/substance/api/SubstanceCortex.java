@@ -88,6 +88,9 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public class SubstanceCortex {
+    // No-op private constructor to prevent application code from directly creating instances
+    private SubstanceCortex() {}
+
     /**
      * APIs in this scope apply to the global state of the application.
      */
