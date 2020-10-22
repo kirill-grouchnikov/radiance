@@ -31,7 +31,6 @@ package org.pushingpixels.substance.internal.utils.menu;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -98,12 +97,10 @@ public class SubstanceMenuBackgroundDelegate {
 			JPopupMenu parent = (JPopupMenu) menuItem.getParent();
 			MenuLayoutMetrics popupMetrics = MenuUtilities.getPopupLayoutMetrics(
 					parent, true);
-			MenuGutterFillKind fillKind = SubstanceCoreUtilities
-					.getMenuGutterFillKind();
+			float fillAlpha = SubstanceCoreUtilities.getMenuGutterFillAlpha();
 			boolean hasGutterContent = (popupMetrics.maxIconWidth > 0) ||
 					(popupMetrics.maxCheckIconWidth > 0);
-			boolean shouldPaintGutter = hasGutterContent && (fillKind != null)
-					&& (fillKind != MenuGutterFillKind.NONE);
+			boolean shouldPaintGutter = hasGutterContent;
 
 			if (shouldPaintGutter) {
 				SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
@@ -111,36 +108,28 @@ public class SubstanceMenuBackgroundDelegate {
 				Color extraLight = getGutterHardFillColor(scheme);
 				Color ultraLight = getGutterSoftFillColor(scheme);
 				if (menuItem.getComponentOrientation().isLeftToRight()) {
-					Color leftColor = ((fillKind == MenuGutterFillKind.SOFT_FILL) || 
-							(fillKind == MenuGutterFillKind.HARD)) ? ultraLight
-							: extraLight;
-					Color rightColor = ((fillKind == MenuGutterFillKind.SOFT_FILL) || 
-							(fillKind == MenuGutterFillKind.SOFT)) ? ultraLight
-							: extraLight;
+					Color leftColor = ultraLight;
+					Color rightColor = extraLight;
 					LinearGradientPaint gp = new LinearGradientPaint(0, 0,
 							textOffset, 0, new float[] { 0.0f, 1.0f },
 							new Color[] { leftColor, rightColor },
 							CycleMethod.REPEAT);
 					graphics.setComposite(WidgetUtilities.getAlphaComposite(
-							menuItem, 0.7f, g));
+							menuItem, fillAlpha, g));
 
 					graphics.setPaint(gp);
 					graphics.fillRect(0, 0, textOffset - 2, menuHeight);
 				} else {
 					// fix for defect 125 - support of RTL menus
-					Color leftColor = ((fillKind == MenuGutterFillKind.HARD_FILL) 
-							|| (fillKind == MenuGutterFillKind.HARD)) ? extraLight
-							: ultraLight;
-					Color rightColor = ((fillKind == MenuGutterFillKind.HARD_FILL) || 
-							(fillKind == MenuGutterFillKind.SOFT)) ? extraLight
-							: ultraLight;
+					Color leftColor = extraLight;
+					Color rightColor = ultraLight;
 
 					LinearGradientPaint gp = new LinearGradientPaint(
 							textOffset, 0, menuWidth, 0, new float[] { 0.0f, 1.0f },
 							new Color[] { leftColor, rightColor },
 							CycleMethod.REPEAT);
 					graphics.setComposite(WidgetUtilities.getAlphaComposite(
-							menuItem, 0.7f, g));
+							menuItem, fillAlpha, g));
 					graphics.setPaint(gp);
 					graphics.fillRect(textOffset - 2, 0, menuWidth, menuHeight);
 				}

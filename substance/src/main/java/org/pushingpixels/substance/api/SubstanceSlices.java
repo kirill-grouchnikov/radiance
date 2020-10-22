@@ -435,41 +435,6 @@ public final class SubstanceSlices {
     }
 
     /**
-     * Enumerates possible values for menu gutter fill kind.
-     *
-     * @author Kirill Grouchnikov
-     * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(SubstanceSlices.MenuGutterFillKind)
-     */
-    public enum MenuGutterFillKind {
-        /**
-         * The <code>none</code> fill kind - draws no background in the menu gutter.
-         */
-        NONE,
-
-        /**
-         * The <code>soft fill</code> fill kind - draws light fill background in the menu gutter.
-         */
-        SOFT_FILL,
-
-        /**
-         * The <code>hard fill</code> fill kind - draws darker fill background in the menu gutter.
-         */
-        HARD_FILL,
-
-        /**
-         * The <code>soft</code> fill kind - draws gradient ranging from darker to light in the menu
-         * gutter.
-         */
-        SOFT,
-
-        /**
-         * The <code>hard</code> (default) fill kind - draws gradient ranging from darker to light
-         * in the menu gutter.
-         */
-        HARD
-    }
-
-    /**
      * Tab content pane border kind.
      *
      * @author Kirill Grouchnikov

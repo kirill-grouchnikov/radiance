@@ -1237,14 +1237,30 @@ public class SubstanceCortex {
         }
 
         /**
-         * Specifies the menu gutter fill kind. Menu gutter is the part of the menu where checkmarks
-         * and icons are painted. The default menu gutter fill kind is
-         * {@link MenuGutterFillKind#HARD_FILL}.
+         * Specifies the menu gutter fill alpha. Menu gutter is the part of the menu where
+         * checkmarks and icons are painted. The current / default menu gutter fill alpha 
+         * can be obtained by calling {@link #getMenuGutterFillAlpha()}.
          *
-         * @param menuGutterFillKind Menu gutter fill kind.
+         * @param menuGutterFillAlpha Menu gutter fill alpha.
+         * @see #getMenuGutterFillAlpha() 
          */
-        public static void setMenuGutterFillKind(MenuGutterFillKind menuGutterFillKind) {
-            UIManager.put(SubstanceSynapse.MENU_GUTTER_FILL_KIND, menuGutterFillKind);
+        public static void setMenuGutterFillAlpha(float menuGutterFillAlpha) {
+            if ((menuGutterFillAlpha < 0.0f) || (menuGutterFillAlpha > 1.0f)) {
+                throw new IllegalArgumentException(
+                        "Menu gutter fill alpha should be in 0.0-1.0 range");
+            }
+            UIManager.put(SubstanceSynapse.MENU_GUTTER_FILL_ALPHA, menuGutterFillAlpha);
+        }
+
+        /**
+         * Returns the menu gutter fill alpha. Menu gutter is the part of the menu where
+         * checkmarks and icons are painted. 
+         *
+         * @return Menu gutter fill alpha.
+         * @see #setMenuGutterFillAlpha(float)
+         */
+        public static float getMenuGutterFillAlpha() {
+            return SubstanceCoreUtilities.getMenuGutterFillAlpha();
         }
 
         /**

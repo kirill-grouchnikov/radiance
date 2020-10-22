@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
 import org.pushingpixels.demo.substance.main.RadianceLogo;
 import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
@@ -152,20 +151,13 @@ public class ControlPanelFactory {
         } catch (NoClassDefFoundError ncdfe) {
         }
 
-        final JComboBox<MenuGutterFillKind> menuGutterFillCombo = new FlexiComboBox<>(
-                MenuGutterFillKind.NONE, MenuGutterFillKind.SOFT, MenuGutterFillKind.HARD,
-                MenuGutterFillKind.SOFT_FILL, MenuGutterFillKind.HARD_FILL) {
-
-            @Override
-            public String getCaption(MenuGutterFillKind item) {
-                return item.name();
-            }
-        };
-        menuGutterFillCombo.setSelectedItem(MenuGutterFillKind.HARD);
-        menuGutterFillCombo.addActionListener(actionEvent ->
-                SubstanceCortex.GlobalScope.setMenuGutterFillKind(
-                        (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
-        builder.append("Menu fill", menuGutterFillCombo);
+        final JSlider menuGutterFillAlphaSlider = new JSlider(0, 100,
+                (int) (100 * SubstanceCortex.GlobalScope.getMenuGutterFillAlpha()));
+        menuGutterFillAlphaSlider.addChangeListener(changeEvent -> {
+            float val = menuGutterFillAlphaSlider.getValue() / 100.0f;
+            SubstanceCortex.GlobalScope.setMenuGutterFillAlpha(val);
+        });
+        builder.append("Menu fill alpha", menuGutterFillAlphaSlider);
 
         final JComboBox<FocusKind> focusKindCombo = new FlexiComboBox<>(FocusKind.values()) {
             @Override

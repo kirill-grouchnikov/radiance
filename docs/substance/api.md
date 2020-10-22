@@ -308,9 +308,13 @@ Specifies the content pane border kind for tabbed panes.
 
 Specifies the number of echo characters for each password character in password fields.
 
-`public static void setMenuGutterFillKind(MenuGutterFillKind menuGutterFillKind)`
+`public static void setMenuGutterFillAlpha(float menuGutterFillAlpha)`
 
-Specifies the menu gutter fill kind.
+Specifies the menu gutter fill alpha.
+
+`public static float getMenuGutterFillAlpha()`
+
+Returns the menu gutter fill alpha.
 
 `public static void setTraceFilename(String traceFilename)`
 

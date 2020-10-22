@@ -29,40 +29,26 @@
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#setMenuGutterFillKind(MenuGutterFillKind)} API.
+ * {@link SubstanceCortex.GlobalScope#setMenuGutterFillAlpha(float)} API.
  *
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.GlobalScope#setMenuGutterFillKind(MenuGutterFillKind)
+ * @see SubstanceCortex.GlobalScope#setMenuGutterFillAlpha(float)
  */
-public class SetMenuGutterFillKind extends JFrame {
+public class SetMenuGutterFillAlpha extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public SetMenuGutterFillKind() {
+    public SetMenuGutterFillAlpha() {
         super("Menu gutter fill kind");
 
         setLayout(new BorderLayout());
@@ -83,28 +69,16 @@ public class SetMenuGutterFillKind extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        final JComboBox<MenuGutterFillKind> menuGutterFillCombo = new JComboBox<>(
-                new MenuGutterFillKind[] {
-                        MenuGutterFillKind.NONE,
-                        MenuGutterFillKind.SOFT,
-                        MenuGutterFillKind.HARD,
-                        MenuGutterFillKind.SOFT_FILL,
-                        MenuGutterFillKind.HARD_FILL});
-        menuGutterFillCombo.setRenderer(new SubstanceDefaultComboBoxRenderer(menuGutterFillCombo) {
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-                MenuGutterFillKind mgfk = (MenuGutterFillKind) value;
-                return super.getListCellRendererComponent(list, mgfk.name().toLowerCase(), index,
-                        isSelected, cellHasFocus);
-            }
+        final JSlider alphaSlider = new JSlider(0, 100,
+                (int) (100 * SubstanceCortex.GlobalScope.getMenuGutterFillAlpha()));
+        alphaSlider.addChangeListener(changeEvent -> {
+            float val = alphaSlider.getValue() / 100.0f;
+            SubstanceCortex.GlobalScope.setMenuGutterFillAlpha(val);
         });
-        menuGutterFillCombo.setSelectedItem(MenuGutterFillKind.HARD);
-        // based on the selected item, set the global menu gutter fill kind
-        menuGutterFillCombo.addActionListener(actionEvent -> SubstanceCortex.GlobalScope
-                .setMenuGutterFillKind((MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
-        controls.add(new JLabel("Menu fill"));
-        controls.add(menuGutterFillCombo);
+        controls.add(alphaSlider);
+
+        controls.add(new JLabel("Menu gutter alpha fill"));
+        controls.add(alphaSlider);
 
         this.add(controls, BorderLayout.SOUTH);
 
@@ -122,7 +96,7 @@ public class SetMenuGutterFillKind extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new SetMenuGutterFillKind().setVisible(true);
+            new SetMenuGutterFillAlpha().setVisible(true);
         });
     }
 }

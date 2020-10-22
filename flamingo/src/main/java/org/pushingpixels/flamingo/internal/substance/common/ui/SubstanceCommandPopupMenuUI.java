@@ -35,7 +35,6 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerMedium;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicCommandPopupMenuUI;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -113,17 +112,15 @@ public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
             }
 
             Graphics2D g2d = (Graphics2D) g.create();
-            MenuGutterFillKind fillKind = SubstanceCoreUtilities.getMenuGutterFillKind();
-            if (fillKind != MenuGutterFillKind.NONE) {
+            float fillAlpha = SubstanceCoreUtilities.getMenuGutterFillAlpha();
+            if (fillAlpha > 0.0f) {
                 SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this,
                         ComponentState.ENABLED);
                 Color extraLight = SubstanceMenuBackgroundDelegate.getGutterHardFillColor(scheme);
                 Color ultraLight = SubstanceMenuBackgroundDelegate.getGutterSoftFillColor(scheme);
-                Color leftColor = ((fillKind == MenuGutterFillKind.SOFT_FILL)
-                        || (fillKind == MenuGutterFillKind.HARD)) ? ultraLight : extraLight;
-                Color rightColor = ((fillKind == MenuGutterFillKind.SOFT_FILL)
-                        || (fillKind == MenuGutterFillKind.SOFT)) ? ultraLight : extraLight;
-                g2d.setComposite(WidgetUtilities.getAlphaComposite(this, 0.7f, g));
+                Color leftColor = ultraLight;
+                Color rightColor = extraLight;
+                g2d.setComposite(WidgetUtilities.getAlphaComposite(this, fillAlpha, g));
 
                 int sepX = this.getSeparatorX();
                 if (this.getComponentOrientation().isLeftToRight()) {

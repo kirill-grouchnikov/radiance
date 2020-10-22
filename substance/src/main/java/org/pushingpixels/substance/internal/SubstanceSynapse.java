@@ -183,9 +183,9 @@ public class SubstanceSynapse {
     public static final String BUTTON_SHAPER = "substancelaf.internal.buttonShaper";
 
     /**
-     * Client property name for specifying menu gutter fill kind.
+     * Client property name for specifying menu gutter fill alpha.
      */
-    public final static String MENU_GUTTER_FILL_KIND = "substancelaf.internal.menuGutterFillKind";
+    public final static String MENU_GUTTER_FILL_ALPHA = "substancelaf.internal.menuGutterFillAlpha";
 
     /**
      * Client property name for specifying the trace file.

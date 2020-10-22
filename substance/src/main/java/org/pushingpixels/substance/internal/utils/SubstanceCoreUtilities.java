@@ -1159,15 +1159,16 @@ public class SubstanceCoreUtilities {
     }
 
     /**
-     * Returns the global menu gutter fill kind.
+     * Returns the global menu gutter fill alpha.
      *
-     * @return The global menu gutter fill kind.
+     * @return The global menu gutter fill alpha.
      */
-    public static MenuGutterFillKind getMenuGutterFillKind() {
-        Object globalSetting = UIManager.get(SubstanceSynapse.MENU_GUTTER_FILL_KIND);
-        if (globalSetting instanceof MenuGutterFillKind)
-            return (MenuGutterFillKind) globalSetting;
-        return MenuGutterFillKind.HARD_FILL;
+    public static float getMenuGutterFillAlpha() {
+        Object globalSetting = UIManager.get(SubstanceSynapse.MENU_GUTTER_FILL_ALPHA);
+        if (globalSetting instanceof Float) {
+            return ((Float) globalSetting).floatValue();
+        }
+        return 0.75f;
     }
 
     /**

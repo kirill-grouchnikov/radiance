@@ -32,7 +32,6 @@ package org.pushingpixels.substance.internal.utils.menu;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
-import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -470,9 +469,7 @@ public class MenuUtilities {
         if (popupMetrics != null) {
             boolean hasGutterContent = (popupMetrics.maxCheckIconWidth > 0)
                     || (popupMetrics.maxIconWidth > 0);
-            MenuGutterFillKind gutterFillKind = SubstanceCoreUtilities.getMenuGutterFillKind();
-            boolean needExtraIconTextGap = hasGutterContent && (gutterFillKind != null)
-                    && (gutterFillKind != MenuGutterFillKind.NONE);
+            boolean needExtraIconTextGap = hasGutterContent;
             int gap = popupMetrics.maxIconTextGap;
             if (menuItem.getComponentOrientation().isLeftToRight()) {
                 int currX = i.left + gap / 2;
@@ -883,9 +880,7 @@ public class MenuUtilities {
 
         boolean hasGutterContent = (popupMetrics.maxCheckIconWidth > 0)
                 || (popupMetrics.maxIconWidth > 0);
-        MenuGutterFillKind gutterFillKind = SubstanceCoreUtilities.getMenuGutterFillKind();
-        boolean needExtraIconTextGap = hasGutterContent && (gutterFillKind != null)
-                && (gutterFillKind != MenuGutterFillKind.NONE);
+        boolean needExtraIconTextGap = hasGutterContent;
         if (needExtraIconTextGap)
             width += gap;
 
