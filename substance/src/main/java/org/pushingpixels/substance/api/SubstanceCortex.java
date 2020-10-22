@@ -95,7 +95,8 @@ public class SubstanceCortex {
      * APIs in this scope apply to the global state of the application.
      */
     public static final class GlobalScope {
-        private final static String SUBSTANCE_FONT_POLICY_KEY = "substancelaf.fontPolicyKey";
+        private final static String SUBSTANCE_FONT_POLICY_KEY =
+                "substancelaf.internal.fontPolicyKey";
 
         /**
          * Resource bundle for <b>Substance</b> labels.
