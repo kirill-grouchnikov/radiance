@@ -75,7 +75,6 @@ public class SetMenuGutterFillAlpha extends JFrame {
             float val = alphaSlider.getValue() / 100.0f;
             SubstanceCortex.GlobalScope.setMenuGutterFillAlpha(val);
         });
-        controls.add(alphaSlider);
 
         controls.add(new JLabel("Menu gutter alpha fill"));
         controls.add(alphaSlider);
