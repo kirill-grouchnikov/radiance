@@ -111,4 +111,12 @@ public interface SchemeDerivedColors {
      * @return The shadow separator color for <code>this</code> scheme.
      */
     Color getSeparatorShadowColor();
+
+    /**
+     * Returns the mark color for <code>this</code> scheme. Mark color is used on
+     * checkboxes, radio buttons, scrollbar arrows, combo arrows, menu arrows, etc.
+     *
+     * @return The mark color for <code>this</code> scheme.
+     */
+    Color getMarkColor();
 }

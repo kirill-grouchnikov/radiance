@@ -407,6 +407,14 @@ public class SubstanceColorSchemeUtilities {
                 }
                 return super.getSeparatorShadowColor();
             }
+
+            @Override
+            public Color getMarkColor() {
+                if (additionalColors.containsKey("colorMark")) {
+                    return additionalColors.get("colorMark");
+                }
+                return super.getMarkColor();
+            }
         };
     }
 
@@ -525,6 +533,14 @@ public class SubstanceColorSchemeUtilities {
                     return additionalColors.get("colorSeparatorShadow");
                 }
                 return super.getSeparatorShadowColor();
+            }
+
+            @Override
+            public Color getMarkColor() {
+                if (additionalColors.containsKey("colorMark")) {
+                    return additionalColors.get("colorMark");
+                }
+                return super.getMarkColor();
             }
         };
     }

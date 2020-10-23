@@ -133,15 +133,13 @@ public final class SubstanceImageCreator {
      * 
      * @param dimension
      *            Check mark dimension.
-     * @param isEnabled
-     *            Enabled status.
      * @param scheme
      *            Color scheme for the check mark.
      * @param checkMarkVisibility
      *            Checkmark visibility in 0.0-1.0 range.
      * @return Check mark image.
      */
-    private static BufferedImage getCheckMark(int dimension, boolean isEnabled,
+    private static BufferedImage getCheckMark(int dimension,
             SubstanceColorScheme scheme, float checkMarkVisibility) {
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(dimension, dimension);
 
@@ -163,7 +161,7 @@ public final class SubstanceImageCreator {
 
         graphics.setClip(0, 0, (int) Math.ceil(xClipRealEnd), dimension);
 
-        graphics.setColor(SubstanceColorUtilities.getMarkColor(scheme, isEnabled));
+        graphics.setColor(scheme.getMarkColor());
         Stroke stroke = new BasicStroke((float) 0.15 * dimension, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND);
         graphics.setStroke(stroke);
@@ -267,7 +265,7 @@ public final class SubstanceImageCreator {
         // graphics.setColor(Color.green);
         // graphics.drawRect(0, 0, (int) width -1 , (int) height - 1);
 
-        Color arrowColor = SubstanceColorUtilities.getMarkColor(scheme, true);
+        Color arrowColor = scheme.getMarkColor();
 
         graphics.setColor(arrowColor);
         Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
@@ -525,8 +523,7 @@ public final class SubstanceImageCreator {
         if (checkMarkVisibility > 0.0) {
             // mark
             graphics.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
-            graphics.setColor(SubstanceColorUtilities.getMarkColor(markColorScheme,
-                    !componentState.isDisabled()));
+            graphics.setColor(markColorScheme.getMarkColor());
             graphics.fill(markOval);
         } else {
             // draw ghost mark holder
@@ -620,7 +617,7 @@ public final class SubstanceImageCreator {
             }
 
             BufferedImage checkMark = SubstanceImageCreator.getCheckMark(dimension - yOffset / 2,
-                    !componentState.isDisabled(), markColorScheme, checkMarkVisibility);
+                    markColorScheme, checkMarkVisibility);
 
             NeonCortex.drawImage(graphics, checkMark, 1 + 2 * xOffset / 3,
                     (dimension < 14) ? 0 : -1);
@@ -696,7 +693,7 @@ public final class SubstanceImageCreator {
         int start = iSize / 4 - 2;
         int end = 3 * iSize / 4;
         int size = end - start - 3;
-        Color color = SubstanceColorUtilities.getMarkColor(scheme, true);
+        Color color = scheme.getMarkColor();
         graphics.setColor(color);
         graphics.fillRect(start + 2, end - 1, size, 3);
         graphics.dispose();
@@ -726,7 +723,7 @@ public final class SubstanceImageCreator {
         int start = iSize / 4 - 1;
         int end = iSize - start;
         int smallSquareSize = end - start - 3;
-        Color color = SubstanceColorUtilities.getMarkColor(scheme, true);
+        Color color = scheme.getMarkColor();
         graphics.setColor(color);
 
         // "Main" rectangle
@@ -793,7 +790,7 @@ public final class SubstanceImageCreator {
         Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 1;
         int end = iSize - start;
-        Color color = SubstanceColorUtilities.getMarkColor(scheme, true);
+        Color color = scheme.getMarkColor();
         graphics.setColor(color);
         // top (thicker)
         graphics.fillRect(start, start, end - start, 2);
@@ -855,7 +852,7 @@ public final class SubstanceImageCreator {
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
         graphics.setStroke(stroke);
-        Color color = SubstanceColorUtilities.getMarkColor(colorScheme, true);
+        Color color = colorScheme.getMarkColor();
         graphics.setColor(color);
         graphics.drawLine(start, start, end, end);
         graphics.drawLine(start, end, end, start);
@@ -1191,7 +1188,7 @@ public final class SubstanceImageCreator {
         dotGraphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        Color markColor = SubstanceColorUtilities.getMarkColor(colorScheme, divider.isEnabled());
+        Color markColor = colorScheme.getMarkColor();
         dotGraphics.setColor(markColor);
         dotGraphics.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
 

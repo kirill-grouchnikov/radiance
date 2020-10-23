@@ -466,29 +466,6 @@ public class SubstanceColorUtilities {
     }
 
     /**
-     * Returns the color of mark icons (checkbox, radio button, scrollbar
-     * arrows, combo arrows, menu arrows etc) for the specified color scheme.
-     *
-     * @param colorScheme Color scheme.
-     * @param isEnabled   If <code>true</code>, the mark should be painted in enabled
-     *                    state.
-     * @return Color of mark icons.
-     */
-    public static Color getMarkColor(SubstanceColorScheme colorScheme,
-            boolean isEnabled) {
-        if (colorScheme.isDark()) {
-            return getInterpolatedColor(colorScheme.getForegroundColor(),
-                    colorScheme.getUltraLightColor(), 0.9);
-        } else {
-            Color color1 = isEnabled ? colorScheme.getForegroundColor()
-                    : colorScheme.getUltraDarkColor();
-            Color color2 = isEnabled ? colorScheme.getUltraDarkColor()
-                    : colorScheme.getLightColor();
-            return getInterpolatedColor(color1, color2, 0.7);
-        }
-    }
-
-    /**
      * Returns the foreground text color of the specified component.
      *
      * @param component      Component.

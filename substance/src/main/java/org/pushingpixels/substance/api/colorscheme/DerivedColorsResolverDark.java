@@ -114,4 +114,10 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 	public Color getSeparatorShadowColor() {
 		return this.scheme.getDarkColor();
 	}
+
+	@Override
+	public Color getMarkColor() {
+		return SubstanceColorUtilities.getInterpolatedColor(this.scheme.getForegroundColor(),
+				this.scheme.getUltraLightColor(), 0.9);
+	}
 }
