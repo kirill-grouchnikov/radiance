@@ -149,7 +149,7 @@ public class HighlightPainterUtils {
      * @param borderColorScheme
      *            The border color scheme.
      */
-    private static void paintHighlightBorder(Graphics2D graphics, Component comp, int width,
+    public static void paintHighlightBorder(Graphics2D graphics, Component comp, int width,
             int height, float borderAlpha, Set<Side> openSides,
             SubstanceBorderPainter highlightBorderPainter, SubstanceColorScheme borderColorScheme) {
         if (borderAlpha <= 0.0f) {

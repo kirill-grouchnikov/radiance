@@ -116,21 +116,13 @@ public class SubstanceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
             if (fillAlpha > 0.0f) {
                 SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this,
                         ComponentState.ENABLED);
-                Color extraLight = SubstanceMenuBackgroundDelegate.getGutterHardFillColor(scheme);
-                Color ultraLight = SubstanceMenuBackgroundDelegate.getGutterSoftFillColor(scheme);
-                Color leftColor = ultraLight;
-                Color rightColor = extraLight;
                 g2d.setComposite(WidgetUtilities.getAlphaComposite(this, fillAlpha, g));
+                g2d.setColor(scheme.getAccentedBackgroundFillColor());
 
                 int sepX = this.getSeparatorX();
                 if (this.getComponentOrientation().isLeftToRight()) {
-                    GradientPaint gp = new GradientPaint(0, 0, leftColor, sepX + 2, 0, rightColor);
-                    g2d.setPaint(gp);
                     g2d.fillRect(0, 0, sepX, this.getHeight());
                 } else {
-                    GradientPaint gp = new GradientPaint(sepX, 0, leftColor, this.getWidth(), 0,
-                            rightColor);
-                    g2d.setPaint(gp);
                     g2d.fillRect(sepX + 2, 0, this.getWidth() - sepX, this.getHeight());
                 }
             }

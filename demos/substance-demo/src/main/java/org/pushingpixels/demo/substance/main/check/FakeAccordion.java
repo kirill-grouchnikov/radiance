@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.colorscheme.ColorTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import javax.swing.*;
@@ -74,17 +72,15 @@ public class FakeAccordion extends JPanel {
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
+                    // Get the accented background fill to delineate the content
                     SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(this);
-                    SubstanceColorScheme colorScheme = skin.getColorScheme(this,
-                            ComponentState.ENABLED);
-                    Color originalFill = colorScheme.getBackgroundFillColor();
-                    Color tweakedBrightness =
-                            ColorTransform.brightness(colorScheme.isDark() ? 0.15f : -0.15f)
-                                    .transform(originalFill);
-                    Color tweakedAlpha = ColorTransform.alpha(80).transform(tweakedBrightness);
+                    SubstanceSlices.DecorationAreaType decorationAreaType =
+                            SubstanceCortex.ComponentOrParentChainScope.getDecorationType(this);
+                    SubstanceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+                    Color accentedFill = scheme.getAccentedBackgroundFillColor();
 
                     Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setColor(tweakedAlpha);
+                    g2d.setColor(accentedFill);
                     g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
                     g2d.dispose();
                 }
@@ -95,8 +91,9 @@ public class FakeAccordion extends JPanel {
         }
 
         private static void deepNonOpaque(Component comp) {
-            if ((comp instanceof JCheckBox) || (comp instanceof JRadioButton)) {
-                ((JToggleButton) comp).setOpaque(false);
+            if ((comp instanceof JCheckBox) || (comp instanceof JRadioButton)
+                    || (comp instanceof JSlider)) {
+                ((JComponent) comp).setOpaque(false);
             }
             if (comp instanceof Container) {
                 Container container = (Container) comp;

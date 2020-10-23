@@ -44,7 +44,6 @@ import org.pushingpixels.substance.internal.utils.menu.MenuUtilities.MenuLayoutM
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.MultipleGradientPaint.CycleMethod;
 import java.util.Map;
 
 /**
@@ -53,15 +52,6 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 public class SubstanceMenuBackgroundDelegate {
-	public static Color getGutterSoftFillColor(SubstanceColorScheme colorScheme) {
-		return colorScheme.isDark() ? colorScheme.getUltraLightColor() 
-				: colorScheme.getExtraLightColor();
-	}
-	
-	public static Color getGutterHardFillColor(SubstanceColorScheme colorScheme) {
-		return colorScheme.getUltraLightColor();
-	}
-	
 	/**
 	 * Updates the specified menu item with the background that matches the
 	 * provided parameters.
@@ -103,39 +93,19 @@ public class SubstanceMenuBackgroundDelegate {
 			boolean shouldPaintGutter = hasGutterContent;
 
 			if (shouldPaintGutter) {
+				graphics.setComposite(WidgetUtilities.getAlphaComposite(
+						menuItem, fillAlpha, g));
 				SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
 						.getColorScheme(menuItem, ComponentState.ENABLED);
-				Color extraLight = getGutterHardFillColor(scheme);
-				Color ultraLight = getGutterSoftFillColor(scheme);
+				graphics.setColor(scheme.getAccentedBackgroundFillColor());
 				if (menuItem.getComponentOrientation().isLeftToRight()) {
-					Color leftColor = ultraLight;
-					Color rightColor = extraLight;
-					LinearGradientPaint gp = new LinearGradientPaint(0, 0,
-							textOffset, 0, new float[] { 0.0f, 1.0f },
-							new Color[] { leftColor, rightColor },
-							CycleMethod.REPEAT);
-					graphics.setComposite(WidgetUtilities.getAlphaComposite(
-							menuItem, fillAlpha, g));
-
-					graphics.setPaint(gp);
 					graphics.fillRect(0, 0, textOffset - 2, menuHeight);
 				} else {
 					// fix for defect 125 - support of RTL menus
-					Color leftColor = extraLight;
-					Color rightColor = ultraLight;
-
-					LinearGradientPaint gp = new LinearGradientPaint(
-							textOffset, 0, menuWidth, 0, new float[] { 0.0f, 1.0f },
-							new Color[] { leftColor, rightColor },
-							CycleMethod.REPEAT);
-					graphics.setComposite(WidgetUtilities.getAlphaComposite(
-							menuItem, fillAlpha, g));
-					graphics.setPaint(gp);
 					graphics.fillRect(textOffset - 2, 0, menuWidth, menuHeight);
 				}
 			}
 		}
-		// }
 
 		graphics.dispose();
 	}

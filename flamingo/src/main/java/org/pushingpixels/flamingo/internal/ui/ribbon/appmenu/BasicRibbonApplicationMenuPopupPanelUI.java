@@ -41,10 +41,9 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
@@ -243,13 +242,15 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         this.footerPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING)) {
             @Override
             protected void paintComponent(Graphics g) {
-                SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(null);
-                SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                        null, ComponentState.ENABLED);
-                fillPainter.paintContourBackground(g, null,
-                        footerPanel.getWidth(), footerPanel.getHeight(),
-                        new Rectangle(0, 0, footerPanel.getWidth(), footerPanel.getHeight()), false,
-                        baseFillScheme, true);
+                SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this);
+                SubstanceColorScheme scheme = skin.getBackgroundColorScheme(
+                        DecorationPainterUtils.getDecorationType(this));
+                Color backgroundFill = scheme.getAccentedBackgroundFillColor();
+
+                Graphics2D g2d = (Graphics2D) g.create();
+                g2d.setColor(backgroundFill);
+                g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g2d.dispose();
             }
 
             @Override
@@ -310,10 +311,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     @Override
     protected void uninstallListeners() {
         super.uninstallListeners();
-    }
-
-    @Override
-    public void paint(Graphics g, JComponent c) {
     }
 
     public JPanel getPanelLevel1() {

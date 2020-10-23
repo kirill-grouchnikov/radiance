@@ -18,6 +18,7 @@ Autumn Enabled {
     colorDark=#FCC896
     colorUltraDark=#AC623B
     colorForeground=#AC623B
+    colorAccentedBackgroundFill=#FFDDB9
 }
 
 Autumn Background {

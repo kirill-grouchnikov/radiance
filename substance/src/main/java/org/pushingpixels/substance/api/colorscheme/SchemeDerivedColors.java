@@ -70,6 +70,13 @@ public interface SchemeDerivedColors {
     Color getBackgroundFillColor();
 
     /**
+     * Returns the accented background fill color for <code>this</code> scheme.
+     *
+     * @return The accented background fill color for <code>this</code> scheme.
+     */
+    Color getAccentedBackgroundFillColor();
+
+    /**
      * Returns the text background fill color for <code>this</code> scheme.
      *
      * @return The text background fill color for <code>this</code> scheme.

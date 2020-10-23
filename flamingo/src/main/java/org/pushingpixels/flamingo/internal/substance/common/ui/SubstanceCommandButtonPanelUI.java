@@ -32,11 +32,13 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
@@ -100,15 +102,21 @@ public class SubstanceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
         if (groupIndex == 0) {
             openSides.add(Side.TOP);
         }
-        SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                this.buttonPanel, ColorSchemeAssociationKind.HIGHLIGHT,
-                ComponentState.ENABLED);
-        SubstanceColorScheme bgBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                this.buttonPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                ComponentState.ENABLED);
-        HighlightPainterUtils.paintHighlight(g, null, this.buttonPanel,
-                new Rectangle(x, y, width, height), 1.0f, openSides,
-                bgFillScheme, bgBorderScheme);
+
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.buttonPanel);
+        SubstanceColorScheme scheme = skin.getBackgroundColorScheme(
+                DecorationPainterUtils.getDecorationType(this.buttonPanel));
+        Color backgroundFill = scheme.getAccentedBackgroundFillColor();
+
+        Graphics2D g2d = (Graphics2D) g.create(x, y, width, height);
+        g2d.setColor(backgroundFill);
+        g2d.fillRect(0, 0, width, height);
+        HighlightPainterUtils.paintHighlightBorder(g2d, this.buttonPanel, width, height,
+                1.0f, openSides, SubstanceCoreUtilities.getBorderPainter(this.buttonPanel),
+                SubstanceColorSchemeUtilities.getColorScheme(
+                        this.buttonPanel, ColorSchemeAssociationKind.BORDER,
+                        ComponentState.ENABLED));
+        g2d.dispose();
     }
 
     @Override

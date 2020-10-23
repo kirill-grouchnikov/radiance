@@ -142,6 +142,11 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	}
 
 	@Override
+	public Color getAccentedBackgroundFillColor() {
+		return derivedColorsResolver.getAccentedBackgroundFillColor();
+	}
+
+	@Override
 	public Color getFocusRingColor() {
 		return derivedColorsResolver.getFocusRingColor();
 	}

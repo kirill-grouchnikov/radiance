@@ -666,27 +666,10 @@ public class SubstanceColorUtilities {
     }
 
     public static Color getBackgroundFillColorScrollBar(JScrollBar scrollbar) {
-        ComponentState state = scrollbar.isEnabled() ? ComponentState.ENABLED
-                : ComponentState.DISABLED_UNSELECTED;
-        Color backgr = SubstanceColorUtilities.getDefaultBackgroundColor(
-                scrollbar, state);
-
-        if (state.isDisabled()) {
-            float alpha = SubstanceColorSchemeUtilities.getAlpha(scrollbar, state);
-            if (alpha < 1.0f) {
-                Color defaultColor = SubstanceColorUtilities.getDefaultBackgroundColor(
-                        scrollbar, ComponentState.ENABLED);
-                backgr = SubstanceColorUtilities.getInterpolatedColor(
-                        backgr, defaultColor, 1.0f - (1.0f - alpha) / 2.0f);
-            }
-        }
-
-        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(scrollbar, state);
-        float factor = colorScheme.isDark() ? 0.98f : 0.9f;
-        backgr = SubstanceColorUtilities.getInterpolatedColor(backgr,
-                SubstanceColorUtilities.getAlphaColor(colorScheme.getForegroundColor(), backgr.getAlpha()),
-                factor);
-        return backgr;
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(scrollbar);
+        SubstanceColorScheme scheme =
+                skin.getBackgroundColorScheme(DecorationPainterUtils.getDecorationType(scrollbar));
+        return scheme.getAccentedBackgroundFillColor();
     }
 
     /**
@@ -718,19 +701,18 @@ public class SubstanceColorUtilities {
      * @return The striped background for the specified component.
      */
     public static Color getStripedBackground(JComponent component, int rowIndex) {
-        Color backgr = getBackgroundFillColor(component);
-        if (backgr == null) {
-            return null;
-        }
-
-        if (rowIndex % 2 == 0) {
+        Color backgr = component.getBackground();
+        boolean isBackgroundUiResource = backgr instanceof UIResource;
+        if (!isBackgroundUiResource) {
             return backgr;
         }
-        double coef = 0.92;
-        if (!component.isEnabled()) {
-            coef = 1.0 - (1.0 - coef) / 2.0;
-        }
-        return SubstanceColorUtilities.getDarkerColor(backgr, 1.0f - coef);
+
+        SubstanceSkin skin = SubstanceCoreUtilities.getSkin(component);
+        SubstanceColorScheme scheme =
+                skin.getBackgroundColorScheme(DecorationPainterUtils.getDecorationType(component));
+        return (rowIndex % 2 == 0)
+                ? scheme.getBackgroundFillColor()
+                : scheme.getAccentedBackgroundFillColor();
     }
 
     public static String encode(int number) {

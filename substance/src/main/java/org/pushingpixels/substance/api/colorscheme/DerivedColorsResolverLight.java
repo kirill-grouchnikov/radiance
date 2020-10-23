@@ -86,6 +86,11 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 	}
 
 	@Override
+	public Color getAccentedBackgroundFillColor() {
+		return SubstanceColorUtilities.getDarkerColor(this.scheme.getExtraLightColor(), 0.08f);
+	}
+
+	@Override
 	public Color getFocusRingColor() {
 		return SubstanceColorUtilities.getAlphaColor(this.scheme.getForegroundColor(), 192);
 	}

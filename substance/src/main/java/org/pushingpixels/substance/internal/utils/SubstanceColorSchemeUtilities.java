@@ -345,6 +345,14 @@ public class SubstanceColorSchemeUtilities {
             }
 
             @Override
+            public Color getAccentedBackgroundFillColor() {
+                if (additionalColors.containsKey("colorAccentedBackgroundFill")) {
+                    return additionalColors.get("colorAccentedBackgroundFill");
+                }
+                return super.getAccentedBackgroundFillColor();
+            }
+
+            @Override
             public Color getTextBackgroundFillColor() {
                 if (additionalColors.containsKey("colorTextBackgroundFill")) {
                     return additionalColors.get("colorTextBackgroundFill");
@@ -453,6 +461,14 @@ public class SubstanceColorSchemeUtilities {
                     return additionalColors.get("colorBackgroundFill");
                 }
                 return super.getBackgroundFillColor();
+            }
+
+            @Override
+            public Color getAccentedBackgroundFillColor() {
+                if (additionalColors.containsKey("colorAccentedBackgroundFill")) {
+                    return additionalColors.get("colorAccentedBackgroundFill");
+                }
+                return super.getAccentedBackgroundFillColor();
             }
 
             @Override
