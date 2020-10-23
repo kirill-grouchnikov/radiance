@@ -415,6 +415,14 @@ public class SubstanceColorSchemeUtilities {
                 }
                 return super.getMarkColor();
             }
+
+            @Override
+            public Color getEchoColor() {
+                if (additionalColors.containsKey("colorEcho")) {
+                    return additionalColors.get("colorEcho");
+                }
+                return super.getEchoColor();
+            }
         };
     }
 
@@ -541,6 +549,14 @@ public class SubstanceColorSchemeUtilities {
                     return additionalColors.get("colorMark");
                 }
                 return super.getMarkColor();
+            }
+
+            @Override
+            public Color getEchoColor() {
+                if (additionalColors.containsKey("colorEcho")) {
+                    return additionalColors.get("colorEcho");
+                }
+                return super.getEchoColor();
             }
         };
     }

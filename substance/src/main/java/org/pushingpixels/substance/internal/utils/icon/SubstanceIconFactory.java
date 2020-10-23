@@ -813,29 +813,27 @@ public class SubstanceIconFactory {
      *            Color scheme.
      * @return Title pane icon of the specified kind.
      */
-    public static ImageWrapperIcon getTitlePaneIcon(IconKind iconKind,
-            SubstanceColorScheme scheme, SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getTitlePaneIcon(IconKind iconKind, SubstanceColorScheme scheme) {
 
         LazyResettableHashMap<ImageWrapperIcon> kindMap =
                 SubstanceIconFactory.titlePaneIcons.get(iconKind);
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName(),
-                backgroundScheme.getDisplayName());
+        HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName());
         ImageWrapperIcon result = kindMap.get(key);
         if (result != null)
             return result;
 
         switch (iconKind) {
             case CLOSE:
-                result = SubstanceImageCreator.getCloseIcon(scheme, backgroundScheme);
+                result = SubstanceImageCreator.getCloseIcon(scheme);
                 break;
             case MINIMIZE:
-                result = SubstanceImageCreator.getMinimizeIcon(scheme, backgroundScheme);
+                result = SubstanceImageCreator.getMinimizeIcon(scheme);
                 break;
             case MAXIMIZE:
-                result = SubstanceImageCreator.getMaximizeIcon(scheme, backgroundScheme);
+                result = SubstanceImageCreator.getMaximizeIcon(scheme);
                 break;
             case RESTORE:
-                result = SubstanceImageCreator.getRestoreIcon(scheme, backgroundScheme);
+                result = SubstanceImageCreator.getRestoreIcon(scheme);
                 break;
         }
         kindMap.put(key, result);

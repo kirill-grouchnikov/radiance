@@ -136,17 +136,13 @@ public class SubstanceLabelUI extends BasicLabelUI {
                     SubstanceSkin skin = SubstanceCoreUtilities.getSkin(label.getRootPane());
                     SubstanceColorScheme scheme = skin
                             .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-                    SubstanceColorScheme fillScheme = skin
-                            .getBackgroundColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-                    Color echoColor = !scheme.isDark() ? fillScheme.getUltraDarkColor()
-                            : fillScheme.getUltraLightColor();
                     FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(label.getFont());
                     int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                             + fm.getAscent();
                     g2d.translate(paintTextR.x + 3, 0);
-                    textColor = SubstanceColorUtilities.getForegroundColor(scheme);
+                    textColor = scheme.getForegroundColor();
                     SubstanceTextUtilities.paintTextWithDropShadow(label, g2d,
-                            textColor, echoColor, clippedText,
+                            textColor, scheme.getEchoColor(), clippedText,
                             paintTextR.width + 6, paintTextR.height, 0, yOffset);
                     g2d.translate(-paintTextR.x - 3, 0);
                 } else {

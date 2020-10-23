@@ -671,10 +671,9 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Minimize</code> icon.
      */
-    public static ImageWrapperIcon getMinimizeIcon(SubstanceColorScheme scheme,
-            SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getMinimizeIcon(SubstanceColorScheme scheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
-        return getMinimizeIcon(iSize, scheme, backgroundScheme);
+        return getMinimizeIcon(iSize, scheme);
     }
 
     /**
@@ -686,8 +685,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Minimize</code> icon.
      */
-    public static ImageWrapperIcon getMinimizeIcon(int iSize, SubstanceColorScheme scheme,
-            SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getMinimizeIcon(int iSize, SubstanceColorScheme scheme) {
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 2;
@@ -698,8 +696,7 @@ public final class SubstanceImageCreator {
         graphics.fillRect(start + 2, end - 1, size, 3);
         graphics.dispose();
 
-        Color echoColor = scheme.isDark() ? backgroundScheme.getUltraDarkColor()
-                : backgroundScheme.getUltraLightColor();
+        Color echoColor = scheme.getEchoColor();
 
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
@@ -715,8 +712,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Restore</code> icon.
      */
-    public static ImageWrapperIcon getRestoreIcon(SubstanceColorScheme scheme,
-            SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getRestoreIcon(SubstanceColorScheme scheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -752,8 +748,7 @@ public final class SubstanceImageCreator {
 
         graphics.dispose();
 
-        Color echoColor = scheme.isDark() ? backgroundScheme.getUltraDarkColor()
-                : backgroundScheme.getUltraLightColor();
+        Color echoColor = scheme.getEchoColor();
 
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
@@ -769,10 +764,9 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Maximize</code> icon.
      */
-    public static ImageWrapperIcon getMaximizeIcon(SubstanceColorScheme scheme,
-            SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getMaximizeIcon(SubstanceColorScheme scheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
-        return getMaximizeIcon(iSize, scheme, backgroundScheme);
+        return getMaximizeIcon(iSize, scheme);
     }
 
     /**
@@ -784,8 +778,7 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Maximize</code> icon.
      */
-    public static ImageWrapperIcon getMaximizeIcon(int iSize, SubstanceColorScheme scheme,
-            SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getMaximizeIcon(int iSize, SubstanceColorScheme scheme) {
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 1;
@@ -802,8 +795,7 @@ public final class SubstanceImageCreator {
         graphics.fillRect(start, end - 1, end - start, 1);
         graphics.dispose();
 
-        Color echoColor = scheme.isDark() ? backgroundScheme.getUltraDarkColor()
-                : backgroundScheme.getUltraLightColor();
+        Color echoColor = scheme.getEchoColor();
 
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
@@ -815,28 +807,25 @@ public final class SubstanceImageCreator {
 
     /**
      * Returns <code>close</code> icon.
-     * 
+     *
      * @param scheme
      *            Color scheme for the icon.
      * @return <code>Close</code> icon.
      */
-    public static ImageWrapperIcon getCloseIcon(SubstanceColorScheme scheme,
-            SubstanceColorScheme backgroundScheme) {
-        return SubstanceImageCreator.getCloseIcon(SubstanceSizeUtils.getTitlePaneIconSize(), scheme,
-                backgroundScheme);
+    public static ImageWrapperIcon getCloseIcon(SubstanceColorScheme scheme) {
+        return SubstanceImageCreator.getCloseIcon(SubstanceSizeUtils.getTitlePaneIconSize(), scheme);
     }
 
     /**
      * Returns <code>close</code> icon.
-     * 
+     *
      * @param iSize
      *            Icon dimension.
-     * @param colorScheme
+     * @param scheme
      *            Color scheme for the icon.
      * @return <code>Close</code> icon.
      */
-    public static ImageWrapperIcon getCloseIcon(int iSize, SubstanceColorScheme colorScheme,
-            SubstanceColorScheme backgroundScheme) {
+    public static ImageWrapperIcon getCloseIcon(int iSize, SubstanceColorScheme scheme) {
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -852,14 +841,13 @@ public final class SubstanceImageCreator {
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
         graphics.setStroke(stroke);
-        Color color = colorScheme.getMarkColor();
+        Color color = scheme.getMarkColor();
         graphics.setColor(color);
         graphics.drawLine(start, start, end, end);
         graphics.drawLine(start, end, end, start);
         graphics.dispose();
 
-        Color echoColor = colorScheme.isDark() ? backgroundScheme.getUltraDarkColor()
-                : backgroundScheme.getUltraLightColor();
+        Color echoColor = scheme.getEchoColor();
 
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());

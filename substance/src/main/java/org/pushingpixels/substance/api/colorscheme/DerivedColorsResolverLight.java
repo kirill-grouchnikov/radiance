@@ -123,4 +123,9 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 		return SubstanceColorUtilities.getInterpolatedColor(this.scheme.getForegroundColor(),
 				this.scheme.getUltraDarkColor(), 0.7);
 	}
+
+	@Override
+	public Color getEchoColor() {
+		return this.scheme.getUltraLightColor();
+	}
 }

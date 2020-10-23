@@ -453,9 +453,7 @@ public class SubstanceTitlePane extends JComponent {
 
         Icon closeIcon = new TransitionAwareIcon(closeButton,
                 scheme -> SubstanceIconFactory.getTitlePaneIcon(
-                        SubstanceIconFactory.IconKind.CLOSE, scheme,
-                        SubstanceCoreUtilities.getSkin(rootPane)
-                                .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)),
+                        SubstanceIconFactory.IconKind.CLOSE, scheme),
                 "substance.titlePane.closeIcon");
         this.closeButton.setIcon(closeIcon);
 
@@ -472,9 +470,7 @@ public class SubstanceTitlePane extends JComponent {
 
             Icon minIcon = new TransitionAwareIcon(this.minimizeButton,
                     scheme -> SubstanceIconFactory.getTitlePaneIcon(
-                            SubstanceIconFactory.IconKind.MINIMIZE, scheme,
-                            SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
-                                    DecorationAreaType.PRIMARY_TITLE_PANE)),
+                            SubstanceIconFactory.IconKind.MINIMIZE, scheme),
                     "substance.titlePane.minIcon");
             this.minimizeButton.setIcon(minIcon);
 
@@ -490,9 +486,7 @@ public class SubstanceTitlePane extends JComponent {
 
             Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
                     scheme -> SubstanceIconFactory.getTitlePaneIcon(
-                            SubstanceIconFactory.IconKind.MAXIMIZE, scheme,
-                            SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
-                                    DecorationAreaType.PRIMARY_TITLE_PANE)),
+                            SubstanceIconFactory.IconKind.MAXIMIZE, scheme),
                     "substance.titlePane.maxIcon");
             this.toggleButton.setIcon(maxIcon);
 
@@ -565,12 +559,8 @@ public class SubstanceTitlePane extends JComponent {
                 if (frame.isResizable()) {
                     if ((state & Frame.MAXIMIZED_BOTH) != 0) {
                         Icon restoreIcon = new TransitionAwareIcon(this.toggleButton,
-                                scheme -> SubstanceIconFactory
-                                        .getTitlePaneIcon(SubstanceIconFactory.IconKind.RESTORE,
-                                                scheme,
-                                                SubstanceCoreUtilities.getSkin(rootPane)
-                                                        .getBackgroundColorScheme(
-                                                                DecorationAreaType.PRIMARY_TITLE_PANE)),
+                                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                                        SubstanceIconFactory.IconKind.RESTORE, scheme),
                                 "substance.titlePane.restoreIcon");
                         this.updateToggleButton(this.restoreAction, restoreIcon);
                         this.toggleButton.setToolTipText(SubstanceCortex.GlobalScope
@@ -579,12 +569,8 @@ public class SubstanceTitlePane extends JComponent {
                         this.restoreAction.setEnabled(true);
                     } else {
                         Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                                scheme -> SubstanceIconFactory
-                                        .getTitlePaneIcon(SubstanceIconFactory.IconKind.MAXIMIZE,
-                                                scheme,
-                                                SubstanceCoreUtilities.getSkin(rootPane)
-                                                        .getBackgroundColorScheme(
-                                                                DecorationAreaType.PRIMARY_TITLE_PANE)),
+                                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                                        SubstanceIconFactory.IconKind.MAXIMIZE, scheme),
                                 "substance.titlePane.maxIcon");
                         this.updateToggleButton(this.maximizeAction, maxIcon);
                         this.toggleButton.setToolTipText(SubstanceCortex.GlobalScope
@@ -754,12 +740,8 @@ public class SubstanceTitlePane extends JComponent {
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            SubstanceColorScheme fillScheme = skin
-                    .getBackgroundColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE);
-            Color echoColor = !scheme.isDark() ? fillScheme.getUltraDarkColor()
-                    : fillScheme.getUltraLightColor();
             SubstanceTextUtilities.paintTextWithDropShadow(this, graphics,
-                    SubstanceColorUtilities.getForegroundColor(scheme), echoColor, displayTitle,
+                    scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle,
                     width, height, xOffset, yOffset);
         }
 
@@ -781,9 +763,7 @@ public class SubstanceTitlePane extends JComponent {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close"),
                     SubstanceImageCreator.getCloseIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
-                            SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
-                                    DecorationAreaType.PRIMARY_TITLE_PANE)));
+                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
         @Override
@@ -805,9 +785,7 @@ public class SubstanceTitlePane extends JComponent {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify"),
                     SubstanceImageCreator.getMinimizeIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
-                            SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
-                                    DecorationAreaType.PRIMARY_TITLE_PANE)));
+                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
         @Override
@@ -830,9 +808,7 @@ public class SubstanceTitlePane extends JComponent {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore"),
                     SubstanceImageCreator.getRestoreIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
-                            SubstanceCoreUtilities.getSkin(rootPane).getBackgroundColorScheme(
-                                    DecorationAreaType.PRIMARY_TITLE_PANE)));
+                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
         @Override
@@ -862,9 +838,7 @@ public class SubstanceTitlePane extends JComponent {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize"),
                     SubstanceImageCreator.getMaximizeIcon(
                             SubstanceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE),
-                            SubstanceCoreUtilities.getSkin(rootPane)
-                                    .getEnabledColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
+                                    .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
 
         @Override

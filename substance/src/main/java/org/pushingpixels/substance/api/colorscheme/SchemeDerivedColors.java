@@ -119,4 +119,13 @@ public interface SchemeDerivedColors {
      * @return The mark color for <code>this</code> scheme.
      */
     Color getMarkColor();
+
+    /**
+     * Returns the echo color for <code>this</code> scheme. Echo color is used for
+     * drawing slight echo / drop shadow around title pane texts and similar "primary"
+     * elements.
+     *
+     * @return The echo color for <code>this</code> scheme.
+     */
+    Color getEchoColor();
 }

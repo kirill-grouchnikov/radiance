@@ -192,6 +192,11 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	}
 
 	@Override
+	public Color getEchoColor() {
+		return derivedColorsResolver.getEchoColor();
+	}
+
+	@Override
 	public final SubstanceColorScheme named(String colorSchemeDisplayName) {
 		this.displayName = colorSchemeDisplayName;
 		return this;

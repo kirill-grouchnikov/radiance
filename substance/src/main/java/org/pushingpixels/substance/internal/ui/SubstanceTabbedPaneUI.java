@@ -786,7 +786,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 delta--;
             int iconSize = width - delta;
 
-            Icon closeIcon = SubstanceImageCreator.getCloseIcon(iconSize, markScheme, fillScheme);
+            Icon closeIcon = SubstanceImageCreator.getCloseIcon(iconSize, markScheme);
             finalGraphics.translate(delta / 2, delta / 2);
             closeIcon.paintIcon(tabPane, finalGraphics, 0, 0);
 
