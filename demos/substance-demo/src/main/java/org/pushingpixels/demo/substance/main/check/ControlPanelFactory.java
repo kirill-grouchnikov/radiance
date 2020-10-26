@@ -576,9 +576,9 @@ public class ControlPanelFactory {
                             .addPropertyToInterpolate("foreground",
                                     () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
                                             .getColorScheme(myContentPane, ComponentState.ENABLED).getForegroundColor(),
-                                    () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
-                                            .getColorScheme(myContentPane, ComponentState.ENABLED).isDark()
-                                            ? new Color(255, 180, 180) : new Color(224, 20, 10))
+                                    () -> SubstanceCortex.GlobalScope.getCurrentSkin()
+                                            .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
+                                            .getMidColor())
                             .setDuration(1000)
                             .playLoop(RepeatBehavior.REVERSE);
 
@@ -621,9 +621,9 @@ public class ControlPanelFactory {
                             .addPropertyToInterpolate("foreground",
                                     () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
                                             .getColorScheme(myContentPane, ComponentState.ENABLED).getForegroundColor(),
-                                    () -> SubstanceCortex.ComponentScope.getCurrentSkin(myContentPane)
-                                            .getColorScheme(myContentPane, ComponentState.ENABLED).isDark()
-                                            ? new Color(255, 180, 180) : new Color(224, 20, 10))
+                                    () -> SubstanceCortex.GlobalScope.getCurrentSkin()
+                                            .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
+                                            .getMidColor())
                             .setDuration(1000)
                             .playLoop(RepeatBehavior.REVERSE);
 

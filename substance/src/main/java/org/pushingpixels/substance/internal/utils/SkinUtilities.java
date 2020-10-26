@@ -823,10 +823,7 @@ public class SkinUtilities {
                 new ColorUIResource(mainActiveScheme.getLightColor()),
 
                 "TabbedPane.light",
-                mainEnabledScheme.isDark() ? new ColorUIResource(
-                        SubstanceColorUtilities.getAlphaColor(
-                                mainEnabledScheme.getUltraDarkColor(), 100))
-                        : new ColorUIResource(mainEnabledScheme.getLightColor()),
+                new ColorUIResource(mainEnabledScheme.getSeparatorSecondaryColor()),
 
                 "TabbedPane.selected",
                 new ColorUIResource(mainActiveScheme.getExtraLightColor()),

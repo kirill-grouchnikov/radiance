@@ -1675,9 +1675,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(this.tabPane,
                 selectedIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
-        this.highlight = scheme.isDark()
-                ? SubstanceColorUtilities.getAlphaColor(scheme.getUltraDarkColor(), 100)
-                : scheme.getLightColor();
+        this.highlight = scheme.getSeparatorSecondaryColor();
         super.paintContentBorder(g, tabPlacement, selectedIndex);
     }
 

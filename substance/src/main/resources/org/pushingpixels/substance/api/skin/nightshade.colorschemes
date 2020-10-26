@@ -67,19 +67,19 @@ Night Shade Highlight {
 }
 
 Night Shade Background {
-    kind=Light
+    kind=Dark
     colorBackground=#292A32
     colorForeground=#D8DAE0
 }
 
 Night Shade Decorations Background {
-    kind=Light
+    kind=Dark
     colorBackground=#22252A
     colorForeground=#D8DAE0
 }
 
 Night Shade General Background {
-    kind=Light
+    kind=Dark
     colorBackground=#22252A
     colorForeground=#D8DAE0
 }
@@ -97,8 +97,10 @@ Night Shade Separator {
 
 Night Shade Decorations Separator {
     kind=Dark
-    colorBackground=#4F5764->#030711
+    colorBackground=#4F5764
     colorForeground=#D8DAE0
+    colorSeparatorPrimary=#3E434C
+    colorSeparatorSecondary=#0D1313
 }
 
 Night Shade Header Background {

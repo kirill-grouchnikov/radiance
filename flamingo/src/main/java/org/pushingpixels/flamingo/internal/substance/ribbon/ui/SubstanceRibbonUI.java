@@ -127,9 +127,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
             Graphics2D g2d = (Graphics2D) g.create();
             SubstanceColorScheme compScheme = SubstanceColorSchemeUtilities.getColorScheme(
                     this, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            Color sepColor = compScheme.isDark()
-                    ? compScheme.getSeparatorSecondaryColor() : compScheme.getSeparatorPrimaryColor();
-            g2d.setColor(sepColor);
+            g2d.setColor(compScheme.getSeparatorPrimaryColor());
             float separatorThickness = SubstanceSizeUtils.getBorderStrokeWidth();
             float separatorY = this.getHeight() - separatorThickness;
             g2d.setStroke(new BasicStroke(separatorThickness, BasicStroke.CAP_BUTT,
@@ -178,9 +176,7 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
         Graphics2D g2d = (Graphics2D) g.create();
         SubstanceColorScheme compScheme = SubstanceColorSchemeUtilities.getColorScheme(
                 this.ribbon, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-        Color sepColor = compScheme.isDark()
-                ? compScheme.getSeparatorSecondaryColor() : compScheme.getSeparatorPrimaryColor();
-        g2d.setColor(sepColor);
+        g2d.setColor(compScheme.getSeparatorPrimaryColor());
         float separatorThickness = SubstanceSizeUtils.getBorderStrokeWidth();
         float separatorY = this.taskToggleButtonsScrollablePanel.getY() +
                 this.taskToggleButtonsScrollablePanel.getHeight() - separatorThickness;

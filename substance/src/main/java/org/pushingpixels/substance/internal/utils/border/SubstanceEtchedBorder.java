@@ -34,7 +34,6 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.border.Border;
@@ -56,15 +55,9 @@ public class SubstanceEtchedBorder implements Border {
 	 * @return Matching highlight color.
 	 */
 	public Color getHighlightColor(Component c) {
-		SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(c, ColorSchemeAssociationKind.SEPARATOR,
-						ComponentState.ENABLED);
-		boolean isDark = colorScheme.isDark();
-		Color foreDark = isDark ? colorScheme.getExtraLightColor()
-				: SubstanceColorUtilities.getInterpolatedColor(colorScheme
-						.getMidColor(), colorScheme.getDarkColor(), 0.4);
-
-		return SubstanceColorUtilities.getAlphaColor(foreDark, 196);
+		SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(
+				c, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+		return colorScheme.getSeparatorPrimaryColor();
 	}
 
 	/**
@@ -75,12 +68,9 @@ public class SubstanceEtchedBorder implements Border {
 	 * @return Matching shadow color.
 	 */
 	public Color getShadowColor(Component c) {
-		SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
-				.getColorScheme(c, ColorSchemeAssociationKind.SEPARATOR,
-						ComponentState.ENABLED);
-		Color back = colorScheme.isDark() ? colorScheme.getDarkColor()
-				: colorScheme.getUltraLightColor();
-		return SubstanceColorUtilities.getAlphaColor(back, 196);
+		SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(
+				c, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+		return colorScheme.getSeparatorSecondaryColor();
 	}
 
 	public boolean isBorderOpaque() {

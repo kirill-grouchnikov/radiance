@@ -41,7 +41,9 @@ import java.awt.*;
 public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors, SchemeDerivedColors {
     /**
      * Returns indication whether this color scheme uses dark colors. Note that
-     * this method may be removed in the future.
+     * this method may be removed in the future. It is highly recommended to use
+     * one of the colors from the parent {@link SchemeBaseColors} and {@link SchemeDerivedColors}
+     * interfaces instead.
      *
      * @return <code>true</code> if this color scheme uses dark colors,
      * <code>false</code> otherwise.

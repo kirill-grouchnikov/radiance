@@ -292,9 +292,9 @@ public class TablePanel extends ControllablePanel implements Deferrable {
                 .addPropertyToInterpolate("foreground",
                         () -> SubstanceCortex.ComponentScope.getCurrentSkin(table)
                                 .getColorScheme(table, ComponentState.ENABLED).getForegroundColor(),
-                        () -> SubstanceCortex.ComponentScope.getCurrentSkin(table)
-                                .getColorScheme(table, ComponentState.ENABLED).isDark()
-                                ? new Color(255, 180, 180) : new Color(224, 20, 10))
+                        () -> SubstanceCortex.GlobalScope.getCurrentSkin()
+                                .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
+                                .getMidColor())
                 .setDuration(1000)
                 .playLoop(RepeatBehavior.REVERSE);
 
