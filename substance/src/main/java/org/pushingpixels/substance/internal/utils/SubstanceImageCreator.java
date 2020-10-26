@@ -1089,14 +1089,8 @@ public final class SubstanceImageCreator {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        boolean isDark = colorScheme.isDark();
-        Color back1 = isDark ? colorScheme.getLightColor()
-                : SubstanceColorUtilities.getInterpolatedColor(colorScheme.getLightColor(),
-                        colorScheme.getDarkColor(), 0.8);
-        Color back2 = isDark ? colorScheme.getExtraLightColor()
-                : SubstanceColorUtilities.getInterpolatedColor(colorScheme.getMidColor(),
-                        colorScheme.getDarkColor(), 0.4);
-        Color fore = isDark ? colorScheme.getDarkColor() : colorScheme.getUltraLightColor();
+        Color primary = colorScheme.getSeparatorPrimaryColor();
+        Color secondary = colorScheme.getSeparatorSecondaryColor();
 
         int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
         int bumpDotDiameter = SubstanceSizeUtils.getDragBumpDiameter(componentFontSize);
@@ -1119,11 +1113,11 @@ public final class SubstanceImageCreator {
             int offsetY = isEvenCol ? 0 : bumpDotDiameter;
             for (int row = 0; row < bumpRows; row++) {
                 int cy = offsetY + bumpRowOffset + row * bumpCellSize;
-                graphics.setColor(fore);
+                graphics.setColor(secondary);
                 graphics.fillOval(cx + 1, cy + 1, bumpDotDiameter, bumpDotDiameter);
                 // graphics.setColor(back1);
-                graphics.setPaint(new GradientPaint(cx, cy, back1, cx + bumpDotDiameter - 1,
-                        cy + bumpDotDiameter - 1, back2));
+                graphics.setPaint(new GradientPaint(cx, cy, primary, cx + bumpDotDiameter - 1,
+                        cy + bumpDotDiameter - 1, primary));
                 graphics.fillOval(cx, cy, bumpDotDiameter, bumpDotDiameter);
             }
         }
@@ -1466,19 +1460,17 @@ public final class SubstanceImageCreator {
     public static ImageWrapperIcon getHexaMarker(int value,
             SubstanceColorScheme colorScheme) {
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(9, 9);
-
-        value %= 16;
-        Color offColor = null;
-        Color onColor = null;
         if (colorScheme == null) {
             return new ImageWrapperIcon(result);
         }
+
+        value %= 16;
         boolean isDark = colorScheme.isDark();
-        offColor = isDark
+        Color offColor = isDark
                 ? SubstanceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
                         Color.white, 0.7)
                 : SubstanceColorUtilities.deriveByBrightness(colorScheme.getMidColor(), -0.6f);
-        onColor = isDark
+        Color onColor = isDark
                 ? SubstanceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
                         Color.white, 0.2)
                 : colorScheme.getForegroundColor();

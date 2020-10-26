@@ -172,18 +172,13 @@ public abstract class BaseColorScheme implements SubstanceColorScheme {
 	}
 
 	@Override
-	public Color getSeparatorLightColor() {
-		return derivedColorsResolver.getSeparatorLightColor();
+	public Color getSeparatorPrimaryColor() {
+		return derivedColorsResolver.getSeparatorPrimaryColor();
 	}
 
 	@Override
-	public Color getSeparatorDarkColor() {
-		return derivedColorsResolver.getSeparatorDarkColor();
-	}
-
-	@Override
-	public Color getSeparatorShadowColor() {
-		return derivedColorsResolver.getSeparatorShadowColor();
+	public Color getSeparatorSecondaryColor() {
+		return derivedColorsResolver.getSeparatorSecondaryColor();
 	}
 
 	@Override

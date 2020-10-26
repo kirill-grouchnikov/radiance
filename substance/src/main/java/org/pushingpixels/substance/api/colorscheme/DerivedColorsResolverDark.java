@@ -101,17 +101,12 @@ class DerivedColorsResolverDark implements SchemeDerivedColors {
 	}
 
 	@Override
-	public Color getSeparatorLightColor() {
-		return this.scheme.getLightColor();
-	}
-
-	@Override
-	public Color getSeparatorDarkColor() {
+	public Color getSeparatorPrimaryColor() {
 		return this.scheme.getExtraLightColor();
 	}
 
 	@Override
-	public Color getSeparatorShadowColor() {
+	public Color getSeparatorSecondaryColor() {
 		return this.scheme.getDarkColor();
 	}
 

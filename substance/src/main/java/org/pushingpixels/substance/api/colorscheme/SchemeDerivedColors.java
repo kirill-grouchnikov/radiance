@@ -92,25 +92,18 @@ public interface SchemeDerivedColors {
     Color getFocusRingColor();
 
     /**
-     * Returns the light separator color for <code>this</code> scheme.
+     * Returns the primary separator color for <code>this</code> scheme.
      *
-     * @return The light separator color for <code>this</code> scheme.
+     * @return The primary separator color for <code>this</code> scheme.
      */
-    Color getSeparatorLightColor();
+    Color getSeparatorPrimaryColor();
 
     /**
-     * Returns the dark separator color for <code>this</code> scheme.
+     * Returns the secondary separator color for <code>this</code> scheme.
      *
-     * @return The dark separator color for <code>this</code> scheme.
+     * @return The secondary separator color for <code>this</code> scheme.
      */
-    Color getSeparatorDarkColor();
-
-    /**
-     * Returns the shadow separator color for <code>this</code> scheme.
-     *
-     * @return The shadow separator color for <code>this</code> scheme.
-     */
-    Color getSeparatorShadowColor();
+    Color getSeparatorSecondaryColor();
 
     /**
      * Returns the mark color for <code>this</code> scheme. Mark color is used on

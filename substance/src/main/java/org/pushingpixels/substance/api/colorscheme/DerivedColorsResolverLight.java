@@ -102,19 +102,13 @@ public class DerivedColorsResolverLight implements SchemeDerivedColors {
 	}
 
 	@Override
-	public Color getSeparatorLightColor() {
-		return SubstanceColorUtilities.getInterpolatedColor(this.scheme.getLightColor(),
-				this.scheme.getDarkColor(), 0.8f);
-	}
-
-	@Override
-	public Color getSeparatorDarkColor() {
+	public Color getSeparatorPrimaryColor() {
 		return SubstanceColorUtilities.getInterpolatedColor(this.scheme.getMidColor(),
 				this.scheme.getDarkColor(), 0.4f);
 	}
 
 	@Override
-	public Color getSeparatorShadowColor() {
+	public Color getSeparatorSecondaryColor() {
 		return this.scheme.getUltraLightColor();
 	}
 

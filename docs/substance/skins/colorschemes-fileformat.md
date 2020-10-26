@@ -63,9 +63,8 @@ Green Magic Footer Fill {
     kind=Light
     colorBackground=#9EDDB8
     colorForeground=#5BA581
-    colorSeparatorLight=#92CBAC
-    colorSeparatorDark=#589288
-    colorSeparatorShadow=#CAE8BD
+    colorSeparatorPrimary=#589288
+    colorSeparatorSecondary=#CAE8BD
 }
 ```
 

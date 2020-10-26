@@ -385,27 +385,19 @@ public class SubstanceColorSchemeUtilities {
             }
 
             @Override
-            public Color getSeparatorLightColor() {
-                if (additionalColors.containsKey("colorSeparatorLight")) {
-                    return additionalColors.get("colorSeparatorLight");
+            public Color getSeparatorPrimaryColor() {
+                if (additionalColors.containsKey("colorSeparatorPrimary")) {
+                    return additionalColors.get("colorSeparatorPrimary");
                 }
-                return super.getSeparatorLightColor();
+                return super.getSeparatorPrimaryColor();
             }
 
             @Override
-            public Color getSeparatorDarkColor() {
-                if (additionalColors.containsKey("colorSeparatorDark")) {
-                    return additionalColors.get("colorSeparatorDark");
+            public Color getSeparatorSecondaryColor() {
+                if (additionalColors.containsKey("colorSeparatorSecondary")) {
+                    return additionalColors.get("colorSeparatorSecondary");
                 }
-                return super.getSeparatorDarkColor();
-            }
-
-            @Override
-            public Color getSeparatorShadowColor() {
-                if (additionalColors.containsKey("colorSeparatorShadow")) {
-                    return additionalColors.get("colorSeparatorShadow");
-                }
-                return super.getSeparatorShadowColor();
+                return super.getSeparatorSecondaryColor();
             }
 
             @Override
@@ -520,27 +512,19 @@ public class SubstanceColorSchemeUtilities {
             }
 
             @Override
-            public Color getSeparatorLightColor() {
-                if (additionalColors.containsKey("colorSeparatorLight")) {
-                    return additionalColors.get("colorSeparatorLight");
+            public Color getSeparatorPrimaryColor() {
+                if (additionalColors.containsKey("colorSeparatorPrimary")) {
+                    return additionalColors.get("colorSeparatorPrimary");
                 }
-                return super.getSeparatorLightColor();
+                return super.getSeparatorPrimaryColor();
             }
 
             @Override
-            public Color getSeparatorDarkColor() {
-                if (additionalColors.containsKey("colorSeparatorDark")) {
-                    return additionalColors.get("colorSeparatorDark");
+            public Color getSeparatorSecondaryColor() {
+                if (additionalColors.containsKey("colorSeparatorSecondary")) {
+                    return additionalColors.get("colorSeparatorSecondary");
                 }
-                return super.getSeparatorDarkColor();
-            }
-
-            @Override
-            public Color getSeparatorShadowColor() {
-                if (additionalColors.containsKey("colorSeparatorShadow")) {
-                    return additionalColors.get("colorSeparatorShadow");
-                }
-                return super.getSeparatorShadowColor();
+                return super.getSeparatorSecondaryColor();
             }
 
             @Override
