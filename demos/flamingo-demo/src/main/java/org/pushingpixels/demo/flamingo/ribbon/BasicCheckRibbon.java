@@ -1845,6 +1845,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.rulerPanel.add(this.rulerTextPane, BorderLayout.CENTER);
         this.rulerPanel.content = this.rulerTextPane;
+        this.rulerPanel.selectBackgroundFill(SubstanceCortex.GlobalScope.getCurrentSkin()
+                .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.NONE)
+                .getBackgroundFillColor());
 
         this.add(this.rulerPanel, BorderLayout.CENTER);
 
@@ -2604,7 +2607,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             this.backgroundFill = backgroundFill;
             float brightness = Color.RGBtoHSB(this.backgroundFill.getRed(),
                     this.backgroundFill.getGreen(), this.backgroundFill.getBlue(), null)[2];
-            this.line = (brightness > 0.7f) ? Color.darkGray : Color.white;
+            this.line = (brightness > 0.7f) ? Color.darkGray : Color.lightGray;
             this.content.setForeground(this.line);
             this.invalidate();
             this.repaint();
