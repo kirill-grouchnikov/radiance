@@ -245,48 +245,49 @@ public class SeparatorPainterUtils {
 			if (orientation == JSeparator.VERTICAL) {
 				int gradStart = Math.min(maxGradLengthStart, height / 2);
 				int gradEnd = Math.min(maxGradLengthEnd, height / 2);
+				float gradStartFraction = (float) gradStart / height;
+				float gradEndFraction = (float) (height - gradEnd) / height;
 				float regularX = Math.max(0, width / 2.0f - borderStrokeWidth);
-				graphics.setPaint(new GradientPaint(0, 0, primaryZero, 0, gradStart, primary));
-				graphics.draw(new Line2D.Float(regularX, 0, regularX, gradStart));
-				graphics.setColor(primary);
-				graphics.draw(new Line2D.Float(regularX, gradStart, regularX, height - gradEnd));
-				graphics.setPaint(
-						new GradientPaint(0, height - gradEnd, primary, 0, height, primaryZero));
-				graphics.draw(new Line2D.Float(regularX, height - gradEnd, regularX, height));
+
+				LinearGradientPaint primaryPaint = new LinearGradientPaint(0, 0, 0, height,
+						new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
+						new Color[] { primaryZero, primary, primary, primaryZero });
+				graphics.setPaint(primaryPaint);
+				graphics.draw(new Line2D.Float(regularX, 0, regularX, height));
 
 				if (hasShadow) {
 					float shadowX = regularX + borderStrokeWidth;
-					graphics.setPaint(new GradientPaint(0, 0, secondaryZero, 0, gradStart, secondary));
-					graphics.draw(new Line2D.Float(shadowX, 0, shadowX, gradStart));
-					graphics.setColor(secondary);
-					graphics.draw(new Line2D.Float(shadowX, gradStart, shadowX, height - gradEnd));
-					graphics.setPaint(
-							new GradientPaint(0, height - gradEnd, secondary, 0, height, secondaryZero));
-					graphics.draw(new Line2D.Float(shadowX, height - gradEnd, shadowX, height));
+
+					LinearGradientPaint secondaryPaint = new LinearGradientPaint(0, 0, 0, height,
+							new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
+							new Color[] { secondaryZero, secondary, secondary, secondaryZero });
+					graphics.setPaint(secondaryPaint);
+					graphics.draw(new Line2D.Float(shadowX, 0, shadowX, height));
 				}
 			} else {
 				// HORIZONTAL
 				int gradStart = Math.min(maxGradLengthStart, width / 2);
 				int gradEnd = Math.min(maxGradLengthEnd, width / 2);
 				graphics.translate(0, Math.max(0, height / 2 - 1));
+
+				float gradStartFraction = (float) gradStart / width;
+				float gradEndFraction = (float) (width - gradEnd) / width;
 				float regularY = Math.max(0, height / 2.0f - borderStrokeWidth);
-				graphics.setPaint(new GradientPaint(0, 0, primaryZero, gradStart, 0, primary));
-				graphics.draw(new Line2D.Float(0, regularY, gradStart, regularY));
-				graphics.setColor(primary);
-				graphics.draw(new Line2D.Float(gradStart, regularY, width - gradEnd, regularY));
-				graphics.setPaint(
-						new GradientPaint(width - gradEnd, 0, primary, width, 0, primaryZero));
-				graphics.draw(new Line2D.Float(width - gradEnd, regularY, width, regularY));
+
+				LinearGradientPaint primaryPaint = new LinearGradientPaint(0, 0, width, 0,
+						new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
+						new Color[] { primaryZero, primary, primary, primaryZero });
+				graphics.setPaint(primaryPaint);
+				graphics.draw(new Line2D.Float(0, regularY, width, regularY));
 
 				if (hasShadow) {
 					float shadowY = regularY + borderStrokeWidth;
-					graphics.setPaint(new GradientPaint(0, 0, secondaryZero, gradStart, 0, secondary));
-					graphics.draw(new Line2D.Float(0, shadowY, gradStart, shadowY));
-					graphics.setColor(secondary);
-					graphics.draw(new Line2D.Float(gradStart, shadowY, width - gradEnd, shadowY));
-					graphics.setPaint(
-							new GradientPaint(width - gradEnd, 0, secondary, width, 0, secondaryZero));
-					graphics.draw(new Line2D.Float(width - gradEnd, shadowY, width, shadowY));
+
+					LinearGradientPaint secondaryPaint = new LinearGradientPaint(0, 0, width, 0,
+							new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
+							new Color[] { secondaryZero, secondary, secondary, secondaryZero });
+					graphics.setPaint(secondaryPaint);
+					graphics.draw(new Line2D.Float(0, shadowY, width, shadowY));
 				}
 			}
 			graphics.dispose();
