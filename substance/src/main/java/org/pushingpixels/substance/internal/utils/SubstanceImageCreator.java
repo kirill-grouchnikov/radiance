@@ -1115,9 +1115,7 @@ public final class SubstanceImageCreator {
                 int cy = offsetY + bumpRowOffset + row * bumpCellSize;
                 graphics.setColor(secondary);
                 graphics.fillOval(cx + 1, cy + 1, bumpDotDiameter, bumpDotDiameter);
-                // graphics.setColor(back1);
-                graphics.setPaint(new GradientPaint(cx, cy, primary, cx + bumpDotDiameter - 1,
-                        cy + bumpDotDiameter - 1, primary));
+                graphics.setColor(primary);
                 graphics.fillOval(cx, cy, bumpDotDiameter, bumpDotDiameter);
             }
         }
@@ -1170,8 +1168,7 @@ public final class SubstanceImageCreator {
         dotGraphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
 
-        Color markColor = colorScheme.getMarkColor();
-        dotGraphics.setColor(markColor);
+        dotGraphics.setColor(colorScheme.getMarkColor());
         dotGraphics.fillOval(0, 0, bumpDotDiameter, bumpDotDiameter);
 
         dotGraphics.setComposite(getAlphaComposite(0.4f));

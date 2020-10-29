@@ -8,7 +8,53 @@ The `org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme` contains 
 * Derived colors. These are defined in the `org.pushingpixels.substance.api.colorscheme.SchemeDerivedColors`
 * Creating derived color schemes.
 
-### Base light color schemes
+### Base colors
+
+The `SchemeBaseColors` defines the following base colors:
+* Ultra light
+* Extra light
+* Light
+* Mid (medium)
+* Dark
+* Ultra dark
+* Foreground
+
+The first six colors are used to paint the background "layer" of a control, such as, for example, the background fill of a button. The foreground color is primarily used to paint the foreground "layer" of a control, such as, for example, the button text and optionally the themed button icon.
+
+It is up to the [fill painter](../painters/fill.md) to decide which specific colors to use for the background layer, and how to use them. For example, a completely flat (non-gradient) look can be achieved by the fill painter using a single color, or by a color scheme specifying identical color values for the entire ultra light / ultra dark spectrum.
+
+### Derived colors
+
+The `SchemeDerivedColors` defines the following derived colors:
+* Line
+* Focus ring
+* Mark
+* Echo
+* Background fill
+* Text background fill
+* Accented background fill
+* Selection background
+* Selection foreground
+* Separator primary
+* Separator secondary
+
+The idea behind derived colors is to find the balance between consistent visuals across all surfaces painted by Substance and allowing the app to customize specific colors to fit the particulars of its design language.
+
+Let's take a look at the following UI under the core Business skin:
+
+<img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dustcoffee1.png" width="340" height="258" />
+
+To point out just a few places where Substance is using derived colors:
+
+* Mark color is used for the selected mark / dot of checkboxes and radio buttons, as well as the arrow of the combobox.
+* Separator secondary color is used for the double content border of the tabbed pane
+* Separator primary and secondary colors are used to paint the drag bump dots of the toolbar, as well as the separators in the toolbar
+* Accented background fill is used to fill the scroll bar track
+* Text background fill is used to fill the text field for better visual indication of editable content
+
+Providing one or more of the derived colors in your [color schemes file](colorschemes-fileformat.md) is the recommended approach to tweaking the overall visual language of your application while maintaining continuity across different UI surfaces.
+
+### Core light color schemes
 The Substance core library provides the following sixteen light color schemes:
 
 `Aqua`, `Barby Pink`
@@ -52,7 +98,7 @@ The Substance core library provides the following sixteen light color schemes:
 <img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/terracotta.png" width="340" height="258" />
 </p>
 
-### Base dark color schemes
+### Core dark color schemes
 The Substance core library provides the following five dark color schemes:
 
 `Ebony`, `Dark Violet`
@@ -70,7 +116,7 @@ The Substance core library provides the following five dark color schemes:
 <img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ultramarine.png" width="340" height="258" />
 </p>
 
-### Derived color schemes
+### Deriving color schemes
 
 The `org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
 
