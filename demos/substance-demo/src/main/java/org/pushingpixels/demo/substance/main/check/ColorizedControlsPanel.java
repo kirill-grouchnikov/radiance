@@ -31,10 +31,7 @@ package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.check.command.*;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.bullseye;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.button;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.check_square;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.dot_circle;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 
@@ -183,7 +180,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
                 SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
 
         JLabel cbLabel = new JLabel("Check boxes");
-        cbLabel.setIcon(check_square.of(12, 12));
+        cbLabel.setIcon(check_square_o.of(12, 12));
         SubstanceCortex.ComponentScope.setIconThemingType(cbLabel,
                 SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
 

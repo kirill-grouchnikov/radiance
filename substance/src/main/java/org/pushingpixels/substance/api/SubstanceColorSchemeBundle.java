@@ -132,6 +132,10 @@ public class SubstanceColorSchemeBundle {
 
     private Map<ColorSchemeAssociationKind, Map<ComponentState, ComponentState>> bestFillMap;
 
+    public interface Overlay {
+        void overlay(SubstanceColorSchemeBundle bundle);
+    }
+
     /**
      * Creates a new color scheme bundle.
      *

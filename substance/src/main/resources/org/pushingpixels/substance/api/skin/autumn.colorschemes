@@ -30,5 +30,6 @@ Autumn Background {
     colorDark=#FDD4AA
     colorUltraDark=#FDD1A5
     colorForeground=#AC623B
+    colorAccentedBackgroundFill=#FFDDB9
 }
 

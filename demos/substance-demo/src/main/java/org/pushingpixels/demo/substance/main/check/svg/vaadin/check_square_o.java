@@ -18,7 +18,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class check_square implements ResizableIcon {
+public class check_square_o implements ResizableIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -44,22 +44,37 @@ if (generalPath == null) {
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(13.0f, 0.9f);
-generalPath.lineTo(12.0f, 2.0f);
-generalPath.lineTo(0.0f, 2.0f);
-generalPath.lineTo(0.0f, 16.0f);
-generalPath.lineTo(14.0f, 16.0f);
-generalPath.lineTo(14.0f, 5.5f);
-generalPath.lineTo(15.7f, 3.5f);
-generalPath.lineTo(13.0f, 0.9000001f);
+generalPath.moveTo(14.0f, 6.2f);
+generalPath.lineTo(14.0f, 14.0f);
+generalPath.lineTo(2.0f, 14.0f);
+generalPath.lineTo(2.0f, 2.0f);
+generalPath.lineTo(12.5f, 2.0f);
+generalPath.lineTo(13.5f, 1.0f);
+generalPath.lineTo(1.0f, 1.0f);
+generalPath.lineTo(1.0f, 15.0f);
+generalPath.lineTo(15.0f, 15.0f);
+generalPath.lineTo(15.0f, 5.2f);
 generalPath.closePath();
-generalPath.moveTo(6.5f, 11.7f);
-generalPath.lineTo(2.3000002f, 7.5f);
-generalPath.lineTo(3.7000003f, 6.1f);
-generalPath.lineTo(6.4000006f, 8.8f);
-generalPath.lineTo(13.0f, 2.2000003f);
-generalPath.lineTo(14.4f, 3.6000004f);
-generalPath.lineTo(6.4999995f, 11.700001f);
+shape = generalPath;
+paint = new Color(68, 68, 68, 255);
+g.setPaint(paint);
+g.fill(shape);
+g.setTransform(transformsStack.pop());
+g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
+transformsStack.push(g.getTransform());
+g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
+// _0_1
+if (generalPath == null) {
+   generalPath = new GeneralPath();
+} else {
+   generalPath.reset();
+}
+generalPath.moveTo(7.9f, 10.9f);
+generalPath.lineTo(3.7000003f, 6.7f);
+generalPath.lineTo(5.2000003f, 5.2999997f);
+generalPath.lineTo(7.9000006f, 8.099999f);
+generalPath.lineTo(14.6f, 1.3999996f);
+generalPath.lineTo(16.0f, 2.7999997f);
 generalPath.closePath();
 shape = generalPath;
 paint = new Color(68, 68, 68, 255);
@@ -102,7 +117,7 @@ g.setTransform(transformsStack.pop());
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 0.0;
+        return 1.0;
     }
 
     /**
@@ -111,7 +126,7 @@ g.setTransform(transformsStack.pop());
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 0.8999999761581421;
+        return 1.0;
     }
 
 	/**
@@ -120,7 +135,7 @@ g.setTransform(transformsStack.pop());
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 15.699999809265137;
+		return 15.0;
 	}
 
 	/**
@@ -129,7 +144,7 @@ g.setTransform(transformsStack.pop());
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 15.100000381469727;
+		return 14.0;
 	}
 
 	/** The current width of this resizable icon. */
@@ -142,7 +157,7 @@ g.setTransform(transformsStack.pop());
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private check_square() {
+	private check_square_o() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -201,7 +216,7 @@ g.setTransform(transformsStack.pop());
      * @return A new instance of this icon with specified dimensions.
      */
     public static ResizableIcon of(int width, int height) {
-       check_square base = new check_square();
+       check_square_o base = new check_square_o();
        base.width = width;
        base.height = height;
        return base;
@@ -215,7 +230,7 @@ g.setTransform(transformsStack.pop());
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static ResizableIconUIResource uiResourceOf(int width, int height) {
-       check_square base = new check_square();
+       check_square_o base = new check_square_o();
        base.width = width;
        base.height = height;
        return new ResizableIconUIResource(base);
@@ -227,7 +242,7 @@ g.setTransform(transformsStack.pop());
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return check_square::new;
+        return check_square_o::new;
     }
 }
 

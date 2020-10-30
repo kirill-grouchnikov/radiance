@@ -38,8 +38,6 @@ import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
 import java.util.Set;
 
 /**

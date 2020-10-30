@@ -75,24 +75,18 @@ Twilight General Background {
 
 Twilight Separator {
     kind=Dark
-    colorUltraLight=#5B5952
-    colorExtraLight=#58564F
-    colorLight=#545249
-    colorMid=#3B3A33
-    colorDark=#36352E
-    colorUltraDark=#35342D
-    colorForeground=#F1F1F2
+    colorBackground=#58564F
+    colorForeground=#36352E
+    colorSeparatorPrimary=#65625E
+    colorSeparatorSecondary=#36352E
 }
 
 Twilight Decorations Separator {
     kind=Dark
-    colorUltraLight=#4F4E4A
-    colorExtraLight=#4B4A47
-    colorLight=#494842
-    colorMid=#35342D
-    colorDark=#302F29
-    colorUltraDark=#2F2D28
-    colorForeground=#F1F1F2
+    colorBackground=#4B4A47
+    colorForeground=#2C2A24
+    colorSeparatorPrimary=#747064
+    colorSeparatorSecondary=#2C2A24
 }
 
 Twilight Header Background {

@@ -584,6 +584,35 @@ public abstract class SubstanceSkin implements SubstanceTrait {
     }
 
     /**
+     * Registers the specified background color scheme and a color scheme bundle overlay to be used
+     * on controls in decoration areas.
+     *
+     * @param backgroundColorScheme The color scheme to use for background of controls in
+     *                              decoration areas.
+     * @param overlay               Overlay to be applied to the {@link SubstanceColorSchemeBundle}
+     *                              registered on the {@link DecorationAreaType#NONE}, with the
+     *                              resulting color scheme bundle to be used on #areaTypes.
+     * @param areaTypes             Enumerates the area types that are affected by the parameters.
+     *                              Each decoration area type will be painted by
+     *                              {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
+     */
+    public void registerAsDecorationArea(SubstanceColorScheme backgroundColorScheme,
+            SubstanceColorSchemeBundle.Overlay overlay,
+            DecorationAreaType... areaTypes) {
+        SubstanceColorSchemeBundle defaultBundle =
+                this.colorSchemeBundleMap.get(DecorationAreaType.NONE);
+        if (defaultBundle == null) {
+            throw new IllegalStateException("Cannot apply overlay before bundle for NONE");
+        }
+
+        // Apply a dummy "transformation" - effectively makes a deep copy of the default bundle
+        SubstanceColorSchemeBundle noneCopy = defaultBundle.transform(scheme -> scheme);
+        // Apply the overlay
+        overlay.overlay(noneCopy);
+        this.registerDecorationAreaSchemeBundle(noneCopy, backgroundColorScheme, areaTypes);
+    }
+
+    /**
      * Returns indication whether the specified decoration area type should have
      * their background painted by
      * {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
@@ -972,7 +1001,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
         if (colorScheme == null) {
             throw new IllegalArgumentException("Cannot pass null color scheme");
         }
-        for (int optionPaneMessageType: optionPaneMessageTypes) {
+        for (int optionPaneMessageType : optionPaneMessageTypes) {
             if ((optionPaneMessageType != JOptionPane.ERROR_MESSAGE) &&
                     (optionPaneMessageType != JOptionPane.WARNING_MESSAGE) &&
                     (optionPaneMessageType != JOptionPane.INFORMATION_MESSAGE) &&
@@ -981,7 +1010,7 @@ public abstract class SubstanceSkin implements SubstanceTrait {
                         optionPaneMessageType);
             }
         }
-        for (int optionPaneMessageType: optionPaneMessageTypes) {
+        for (int optionPaneMessageType : optionPaneMessageTypes) {
             this.optionPaneIconColorSchemeMap.put(optionPaneMessageType, colorScheme);
         }
     }

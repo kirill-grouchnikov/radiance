@@ -62,6 +62,8 @@ Dust Enabled {
     colorDark=#CFC9BC
     colorUltraDark=#CDC7B9
     colorForeground=#3B3639
+    colorSeparatorPrimary=#8B878A
+    colorSeparatorSecondary=#F6F2EE
 }
 
 Dust Highlight {
@@ -110,8 +112,10 @@ Dust Header Disabled {
 
 Dust Header Separator {
     kind=Dark
-    colorBackground=#676562->#1C1916
+    colorBackground=#62605E
     colorForeground=#1C1916
+    colorSeparatorPrimary=#62605E
+    colorSeparatorSecondary=#141210
 }
 
 Dust Header Background {
@@ -145,6 +149,8 @@ Dust Coffee Enabled {
     colorDark=#C9BF9B
     colorUltraDark=#C5BB97
     colorForeground=#433C32
+    colorSeparatorPrimary=#A49376
+    colorSeparatorSecondary=#F5E9C9
 }
 
 Dust Coffee Background {

@@ -56,8 +56,10 @@ Sentinel Mark {
 
 Sentinel Separator {
     kind=Light
-    colorBackground=@Light->@BorderLight
+    colorBackground=@Light
     colorForeground=@Light
+    colorSeparatorPrimary=@BorderLight
+    colorSeparatorSecondary=@Light
 }
 
 Sentinel Highlight { 
@@ -98,8 +100,10 @@ Sentinel Decorations Border {
 
 Sentinel Decorations Separator {
     kind=Dark
-    colorBackground=@MediumDarkBrown->@XDarkBrown
-    colorForeground=@DarkBrown
+    colorBackground=@DarkSaturatedBrown
+    colorForeground=@XDarkBrown
+    colorSeparatorPrimary=@DarkSaturatedBrown
+    colorSeparatorSecondary=@XDarkBrown
 }
 
 Sentinel Decorations Background {
@@ -134,8 +138,10 @@ Sentinel General Border {
 
 Sentinel General Separator {
     kind=Dark
-    colorBackground=@MediumSaturatedBrown->@MediumDarkBrown
-    colorForeground=@MediumDarkBrown
+    colorBackground=@MediumBrown
+    colorForeground=@DarkBrown
+    colorSeparatorPrimary=@MediumBrown
+    colorSeparatorSecondary=@DarkBrown
 }
 
 Sentinel General Background {

@@ -29,21 +29,30 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.geom.Arc2D;
+import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+/**
+ * A container that displays a vertical stack of collapsible panels. It uses
+ * a number of Substance APIs for delineating content in a way that is visually
+ * consistent with the current Substance skin.
+ */
 public class FakeAccordion extends JPanel {
     public static class FakeAccordionPanel extends JPanel {
-        private JPanel content;
         private JPanel contentWrapper;
 
         private FakeAccordionPanel(String title, Icon icon, JPanel content) {
@@ -61,12 +70,12 @@ public class FakeAccordion extends JPanel {
                     actionEvent -> setCollapsed(this.contentWrapper.isVisible()));
             this.add(titleButton, BorderLayout.NORTH);
 
-            // Wrap the passed content panel to have a bit of padding and
-            // slightly differentiated background
-            this.content = content;
-            this.content.setOpaque(false);
-            deepNonOpaque(this.content);
+            // Mark controls in the content panel as non-opaque so that we show our
+            // accented background fill
+            deepNonOpaque(content);
 
+            // Wrap the passed content panel to have a bit of padding and accented background fill
+            // (using the SubstanceColorScheme.getAccentedBackgroundFillColor API)
             this.contentWrapper = new JPanel(new BorderLayout()) {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -81,12 +90,86 @@ public class FakeAccordion extends JPanel {
 
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.setColor(accentedFill);
-                    g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+                    int radiusOuter = 7;
+                    g2d.fillRoundRect(0, -radiusOuter, this.getWidth(),
+                            this.getHeight() + radiusOuter - 1,
+                            2 * radiusOuter, 2 * radiusOuter);
                     g2d.dispose();
                 }
             };
-            this.contentWrapper.setBorder(new EmptyBorder(8, 4, 0, 4));
-            this.contentWrapper.add(this.content, BorderLayout.CENTER);
+
+            // And a custom border to delineate the panels
+            this.contentWrapper.setBorder(new Border() {
+                // Creates a "U-shaped" outline for delineating the panel content
+                private GeneralPath getOutline(int x, int y, int width, int height,
+                        float thickness, float offset, float radius) {
+                    float xStart = x + thickness / 2.0f + offset;
+                    float yStart = y + thickness / 2.0f + offset;
+                    GeneralPath result = new GeneralPath();
+                    // Start in top left
+                    result.moveTo(xStart, y);
+                    // Line down
+                    float yStartCurve = yStart + height - 2 * radius - 2 * offset - 1;
+                    result.lineTo(xStart, yStartCurve);
+                    // Curve for the bottom left corner
+                    result.append(new Arc2D.Double(xStart, yStartCurve,
+                            2 * radius, 2 * radius, 180, 90, Arc2D.OPEN), true);
+                    // Line right
+                    float xStartRightCurve = xStart + width - 2 * radius - 2 * offset - thickness;
+                    result.lineTo(xStartRightCurve, yStart + height - 2 * offset - 1);
+                    // Curve for the bottom right corner
+                    result.append(new Arc2D.Double(xStartRightCurve, yStartCurve,
+                            2 * radius, 2 * radius, 270, 90, Arc2D.OPEN), true);
+                    // Line up
+                    result.lineTo(xStart + width - thickness - 2 * offset, y);
+                    return result;
+                }
+
+                @Override
+                public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                    // Use the border visuals from the current skin.
+                    // Note the usage of ColorSchemeAssociationKind.BORDER to retrieve
+                    // the matching color scheme, and subsequent usage of
+                    // SubstanceBorderPainter.paintBorder with our custom curving paths
+
+                    SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(contentWrapper);
+                    SubstanceBorderPainter borderPainter = skin.getBorderPainter();
+                    SubstanceColorScheme borderScheme = skin.getColorScheme(contentWrapper,
+                            SubstanceSlices.ColorSchemeAssociationKind.BORDER,
+                            ComponentState.ENABLED);
+
+                    float borderThicknessOuter = 1.0f / (float) NeonCortex.getScaleFactor();
+                    float radiusOuter = 5.0f;
+
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                            RenderingHints.VALUE_STROKE_PURE);
+
+                    GeneralPath inner = getOutline(x, y, width, height, borderThicknessOuter,
+                            borderThicknessOuter, radiusOuter - borderThicknessOuter);
+                    GeneralPath outer = getOutline(x, y, width, height, borderThicknessOuter,
+                            0, radiusOuter);
+
+                    g2d.translate(x, y);
+                    borderPainter.paintBorder(g2d, contentWrapper, width, height,
+                            outer, inner, borderScheme);
+
+                    g2d.dispose();
+                }
+
+                @Override
+                public Insets getBorderInsets(Component c) {
+                    return new Insets(8, 10, 6, 10);
+                }
+
+                @Override
+                public boolean isBorderOpaque() {
+                    return false;
+                }
+            });
+            this.contentWrapper.add(content, BorderLayout.CENTER);
             this.add(this.contentWrapper, BorderLayout.CENTER);
         }
 

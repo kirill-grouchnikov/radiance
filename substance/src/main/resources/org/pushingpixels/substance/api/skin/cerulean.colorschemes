@@ -163,6 +163,14 @@ Cerulean Header Disabled {
     colorForeground=#F6F6F6
 }
 
+Cerulean Footer Separator {
+    kind=Light
+    colorBackground=#9F9F9D
+    colorForeground=#EFEFEC
+    colorSeparatorPrimary=#9F9F9D
+    colorSeparatorSecondary=#EFEFEC
+}
+
 Cerulean Footer {
     kind=Light
     colorUltraLight=#F9FAFA

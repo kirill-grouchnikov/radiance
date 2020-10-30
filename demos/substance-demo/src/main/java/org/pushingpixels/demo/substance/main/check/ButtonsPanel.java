@@ -36,10 +36,7 @@ import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.bullseye;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.button;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.check_square;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.dot_circle;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
@@ -329,7 +326,7 @@ public class ButtonsPanel extends JPanel {
                 SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
 
         JLabel cbLabel = new JLabel("Check boxes");
-        cbLabel.setIcon(check_square.of(12, 12));
+        cbLabel.setIcon(check_square_o.of(12, 12));
         SubstanceCortex.ComponentScope.setIconThemingType(cbLabel,
                 SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
 
