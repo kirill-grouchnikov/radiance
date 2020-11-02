@@ -154,12 +154,7 @@ Office Blue Tab Selected {
 
 Office Silver Header Background {
     kind=Light
-    colorUltraLight=#D0D4DD
-    colorExtraLight=#D0D4DD
-    colorLight=#D0D4DD
-    colorMid=#D0D4DD
-    colorDark=#D0D4DD
-    colorUltraDark=#D0D4DD
+    colorBackground=#D0D4DD
     colorForeground=#4C535C
 }
 
@@ -220,12 +215,7 @@ Office Silver Border Enabled {
 
 Office Silver Mark Enabled {
     kind=Light
-    colorUltraLight=#7C7C7C
-    colorExtraLight=#7C7C7C
-    colorLight=#7C7C7C
-    colorMid=#7C7C7C
-    colorDark=#7C7C7C
-    colorUltraDark=#7C7C7C
+    colorBackground=#7C7C7C
     colorForeground=#4C535C
 }
 
@@ -396,12 +386,7 @@ Office Black Disabled {
 
 Office Black Mark Enabled {
     kind=Light
-    colorUltraLight=#595959
-    colorExtraLight=#595959
-    colorLight=#595959
-    colorMid=#595959
-    colorDark=#595959
-    colorUltraDark=#595959
+    colorBackground=#595959
     colorForeground=#282828
 }
 
@@ -440,12 +425,7 @@ Office Black Header Disabled {
 
 Office Black Header Mark Enabled {
     kind=Light
-    colorUltraLight=#B4BBC5
-    colorExtraLight=#B4BBC5
-    colorLight=#B4BBC5
-    colorMid=#B4BBC5
-    colorDark=#B4BBC5
-    colorUltraDark=#B4BBC5
+    colorBackground=#B4BBC5
     colorForeground=#B4BBC5
 }
 
