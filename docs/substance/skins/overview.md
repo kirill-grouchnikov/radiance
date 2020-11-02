@@ -146,7 +146,7 @@ And here is an example of specifying a number of decoration area types to have t
         DecorationAreaType.PRIMARY_TITLE_PANE,
         DecorationAreaType.SECONDARY_TITLE_PANE,
         DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
-        DecorationAreaType.GENERAL);
+        DecorationAreaType.CONTROL_PANE);
 ```
 
 ### Overlays        

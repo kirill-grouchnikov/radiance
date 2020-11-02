@@ -75,8 +75,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        ComponentOrParentChainScope.setDecorationType(this.ribbonBand,
-                DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(this.ribbonBand, DecorationAreaType.CONTROL_PANE);
 
         Insets insets = SubstanceSizeUtils
                 .getDefaultBorderInsets(SubstanceSizeUtils.getComponentFontSize(this.ribbonBand));
@@ -87,14 +86,6 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
     protected void uninstallDefaults() {
         DecorationPainterUtils.clearDecorationType(this.ribbonBand);
         super.uninstallDefaults();
-    }
-
-    @Override
-    protected void installComponents() {
-        super.installComponents();
-
-        ComponentOrParentChainScope.setDecorationType(this.ribbonBand,
-                DecorationAreaType.GENERAL);
     }
 
     @Override
@@ -137,8 +128,8 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         // this.expandButton, ComponentState.ENABLED);
 
         // make the title color blend a little with the background
-        Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.GENERAL);
-        SubstanceColorScheme bgColorScheme = skin.getBackgroundColorScheme(DecorationAreaType.GENERAL);
+        Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);
+        SubstanceColorScheme bgColorScheme = skin.getBackgroundColorScheme(DecorationAreaType.CONTROL_PANE);
         Color fgColor = bgColorScheme.getForegroundColor();
         fgColor = SubstanceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, 0.95f);
 
@@ -172,9 +163,9 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                                 .build());
         expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
         expandCommandProjection.setComponentCustomizer(button -> {
-            // since paintBandTitleBackground uses GENERAL, mark this button with
-            // GENERAL as well to sync the mark color
-            ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);
+            // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
+            // CONTROL_PANE as well to sync the mark color
+            ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.CONTROL_PANE);
             SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
             button.setIcon(getExpandButtonIcon(skin, button));
             // Mark the button as rectangular
@@ -200,7 +191,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
-                    Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.GENERAL);
+                    Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);
                     return SubstanceImageCreator.getDoubleArrowIcon(
                             width, height,
                             SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),

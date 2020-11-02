@@ -1,15 +1,4 @@
-Office Blue Watermark {
-    kind=Light
-    colorUltraLight=#DEE8F5
-    colorExtraLight=#D2DFF0
-    colorLight=#D0E0F0
-    colorMid=#CAD9ED
-    colorDark=#BACAD9
-    colorUltraDark=#AEC2D5
-    colorForeground=#15428B
-}
-
-Office Blue Header Watermark {
+Office Blue Header Background {
     kind=Light
     colorUltraLight=#BFDBFF
     colorExtraLight=#BFDBFF
@@ -31,7 +20,7 @@ Office Blue Active {
     colorForeground=#15428B
 }
 
-Office Blue Title Watermark {
+Office Blue Title Background {
     kind=Light
     colorUltraLight=#E3EEFD
     colorExtraLight=#DBE9FB
@@ -163,18 +152,7 @@ Office Blue Tab Selected {
     colorForeground=#15428B
 }
 
-Office Silver Watermark {
-    kind=Light
-    colorUltraLight=#EEF4F4
-    colorExtraLight=#EBF1F1
-    colorLight=#E9EEEE
-    colorMid=#E5E8EA
-    colorDark=#E1E5E9
-    colorUltraDark=#DFE3E9
-    colorForeground=#4C535C
-}
-
-Office Silver Header Watermark {
+Office Silver Header Background {
     kind=Light
     colorUltraLight=#D0D4DD
     colorExtraLight=#D0D4DD
@@ -185,7 +163,7 @@ Office Silver Header Watermark {
     colorForeground=#4C535C
 }
 
-Office Silver Title Watermark {
+Office Silver Title Background {
     kind=Light
     colorUltraLight=#E3E7ED
     colorExtraLight=#E5E6E9
@@ -383,7 +361,7 @@ Office Border Rollover Selected {
     colorForeground=#F7C05B
 }
 
-Office Black Watermark {
+Office Black Background {
     kind=Light
     colorUltraLight=#C1C8D6
     colorExtraLight=#BDC5D1
@@ -392,17 +370,6 @@ Office Black Watermark {
     colorDark=#B0B2C3
     colorUltraDark=#A6A9B0
     colorForeground=#4C535C
-}
-
-Office Black Header Watermark {
-    kind=Dark
-    colorUltraLight=#404040
-    colorExtraLight=#404040
-    colorLight=#404040
-    colorMid=#404040
-    colorDark=#404040
-    colorUltraDark=#404040
-    colorForeground=#FFFFFF
 }
 
 Office Black Enabled {
@@ -414,6 +381,17 @@ Office Black Enabled {
     colorDark=#B5BEC7
     colorUltraDark=#B4BBC5
     colorForeground=#282828
+}
+
+Office Black Disabled {
+    kind=Light
+    colorUltraLight=#FAFBFC
+    colorExtraLight=#F1F3F5
+    colorLight=#E3E5E8
+    colorMid=#D5D8DC
+    colorDark=#B9BDC2
+    colorUltraDark=#73787D
+    colorForeground=#7E8287
 }
 
 Office Black Mark Enabled {

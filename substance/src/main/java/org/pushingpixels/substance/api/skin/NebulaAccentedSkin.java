@@ -136,7 +136,7 @@ public abstract class NebulaAccentedSkin extends SubstanceSkin.Accented {
 		registerAsDecorationArea(schemes.get("Nebula Decorations"),
 				bundle -> bundle.registerColorScheme(schemes.get("Nebula Decorations Separator"),
 						ColorSchemeAssociationKind.SEPARATOR),
-				DecorationAreaType.FOOTER, DecorationAreaType.GENERAL);
+				DecorationAreaType.FOOTER, DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(60),

@@ -84,9 +84,9 @@ CommandButtonProjection<Command> expandCommandProjection =
                         .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                         .build());
 expandCommandProjection.setComponentCustomizer(button -> {
-    // since paintBandTitleBackground uses GENERAL, mark this button with
-    // GENERAL as well to sync the mark color
-    ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.GENERAL);
+    // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
+    // CONTROL_PANE as well to sync the mark color
+    ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.CONTROL_PANE);
     SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
     button.setIcon(getExpandButtonIcon(skin, button));
     // Mark the button as rectangular

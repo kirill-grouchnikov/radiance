@@ -135,7 +135,7 @@ public class RavenSkin extends SubstanceSkin {
 				DecorationAreaType.PRIMARY_TITLE_PANE,
 				DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
-				DecorationAreaType.GENERAL, DecorationAreaType.TOOLBAR);
+				DecorationAreaType.CONTROL_PANE, DecorationAreaType.TOOLBAR);
 
 		this.setTabFadeStart(0.18);
 		this.setTabFadeEnd(0.18);

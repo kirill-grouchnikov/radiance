@@ -78,8 +78,8 @@ public class ModerateSkin extends SubstanceSkin {
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 
-        this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Background"),
-                DecorationAreaType.GENERAL);
+        this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray Control Pane Background"),
+                DecorationAreaType.CONTROL_PANE);
 
         // add an overlay painter to paint a drop shadow along the top
         // edge of toolbars

@@ -124,8 +124,8 @@ public class DecorationTrees extends JFrame {
         treePanel.add(new TreePanel("Disabled in HEADER", DecorationAreaType.HEADER, false));
         treePanel.add(new TreePanel("Enabled in NONE", DecorationAreaType.NONE, true));
         treePanel.add(new TreePanel("Disabled in NONE", DecorationAreaType.NONE, false));
-        treePanel.add(new TreePanel("Enabled in GENERAL", DecorationAreaType.GENERAL, true));
-        treePanel.add(new TreePanel("Disabled in GENERAL", DecorationAreaType.GENERAL, false));
+        treePanel.add(new TreePanel("Enabled in CONTROL_PANE", DecorationAreaType.CONTROL_PANE, true));
+        treePanel.add(new TreePanel("Disabled in CONTROL_PANE", DecorationAreaType.CONTROL_PANE, false));
         treePanel.add(new TreePanel("Enabled in FOOTER", DecorationAreaType.FOOTER, true));
         treePanel.add(new TreePanel("Disabled in FOOTER", DecorationAreaType.FOOTER, false));
 

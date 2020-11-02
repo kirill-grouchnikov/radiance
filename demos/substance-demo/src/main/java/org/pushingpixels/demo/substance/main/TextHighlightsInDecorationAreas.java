@@ -72,7 +72,7 @@ public class TextHighlightsInDecorationAreas {
                     panelToolbar, SubstanceSlices.DecorationAreaType.TOOLBAR);
             JPanel panelGeneral = new JPanel(new FlowLayout());
             SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                    panelGeneral, SubstanceSlices.DecorationAreaType.GENERAL);
+                    panelGeneral, SubstanceSlices.DecorationAreaType.CONTROL_PANE);
             JPanel panelNone = new JPanel(new FlowLayout());
             SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
                     panelNone, SubstanceSlices.DecorationAreaType.NONE);

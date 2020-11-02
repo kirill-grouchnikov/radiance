@@ -80,21 +80,22 @@ public class CookbookSkin extends SubstanceSkin {
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        // scheme bundle for the GENERAL area type
-        SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(
+        // scheme bundle for the CONTROL_PANE area type
+        SubstanceColorSchemeBundle controlPaneSchemeBundle = new SubstanceColorSchemeBundle(
                 goldenBrownScheme.shiftBackground(new Color(127, 58, 11), 0.7f),
                 darkBrownColorScheme, darkBrownColorScheme);
         // use translucency on disabled controls
-        generalSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-        generalSchemeBundle.registerColorScheme(darkBrownColorScheme,
+        controlPaneSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED,
+                ComponentState.DISABLED_UNSELECTED);
+        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
                 ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
         // use dark color scheme for borders of active controls
-        generalSchemeBundle.registerColorScheme(darkBrownColorScheme,
+        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
         // and default controls
-        generalSchemeBundle.registerColorScheme(darkBrownColorScheme,
+        controlPaneSchemeBundle.registerColorScheme(darkBrownColorScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-        this.registerDecorationAreaSchemeBundle(generalSchemeBundle, DecorationAreaType.GENERAL);
+        this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, DecorationAreaType.CONTROL_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new CookbookGradientPainter();

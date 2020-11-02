@@ -219,7 +219,7 @@ public class MagellanSkin extends SubstanceSkin {
         SubstanceColorScheme mediumBlueBackground = colorSchemes.get("Magellan Medium Blue Background");
         SubstanceColorScheme darkBlueBackground = colorSchemes.get("Magellan Dark Blue Background");
         this.registerAsDecorationArea(mediumBlueBackground,
-                DecorationAreaType.GENERAL, DecorationAreaType.TOOLBAR);
+                DecorationAreaType.CONTROL_PANE, DecorationAreaType.TOOLBAR);
         this.registerAsDecorationArea(darkBlueBackground,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,

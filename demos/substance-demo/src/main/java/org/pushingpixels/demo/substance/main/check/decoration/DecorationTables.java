@@ -70,8 +70,8 @@ public class DecorationTables extends JFrame {
         tablePanel.add(new TablePanel("Disabled in HEADER", DecorationAreaType.HEADER, false));
         tablePanel.add(new TablePanel("Enabled in NONE", DecorationAreaType.NONE, true));
         tablePanel.add(new TablePanel("Disabled in NONE", DecorationAreaType.NONE, false));
-        tablePanel.add(new TablePanel("Enabled in GENERAL", DecorationAreaType.GENERAL, true));
-        tablePanel.add(new TablePanel("Disabled in GENERAL", DecorationAreaType.GENERAL, false));
+        tablePanel.add(new TablePanel("Enabled in CONTROL_PANE", DecorationAreaType.CONTROL_PANE, true));
+        tablePanel.add(new TablePanel("Disabled in CONTROL_PANE", DecorationAreaType.CONTROL_PANE, false));
         tablePanel.add(new TablePanel("Enabled in FOOTER", DecorationAreaType.FOOTER, true));
         tablePanel.add(new TablePanel("Disabled in FOOTER", DecorationAreaType.FOOTER, false));
 

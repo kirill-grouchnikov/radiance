@@ -148,9 +148,9 @@ public class TwilightSkin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsBackgroundScheme,
                 DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        SubstanceColorScheme generalBackgroundScheme = schemes.get("Twilight General Background");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, generalBackgroundScheme,
-                DecorationAreaType.GENERAL);
+        SubstanceColorScheme backgroundControlPaneScheme = schemes.get("Twilight Control Pane Background");
+        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, backgroundControlPaneScheme,
+                DecorationAreaType.CONTROL_PANE);
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
                 enabledScheme, enabledScheme);

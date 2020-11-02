@@ -78,16 +78,16 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
         defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
         defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
-        SubstanceColorScheme rolloverScheme = colorSchemes
-                .get("Office Blue Rollover");
-        SubstanceColorScheme rolloverSelectedScheme = colorSchemes
-                .get("Office Blue Rollover Selected");
-        SubstanceColorScheme selectedScheme = colorSchemes
-                .get("Office Blue Selected");
-        SubstanceColorScheme pressedScheme = colorSchemes
-                .get("Office Blue Pressed");
-        SubstanceColorScheme pressedSelectedScheme = colorSchemes
-                .get("Office Blue Pressed Selected");
+        SubstanceColorScheme rolloverScheme =
+                colorSchemes.get("Office Blue Rollover");
+        SubstanceColorScheme rolloverSelectedScheme =
+                colorSchemes.get("Office Blue Rollover Selected");
+        SubstanceColorScheme selectedScheme =
+                colorSchemes.get("Office Blue Selected");
+        SubstanceColorScheme pressedScheme =
+                colorSchemes.get("Office Blue Pressed");
+        SubstanceColorScheme pressedSelectedScheme =
+                colorSchemes.get("Office Blue Pressed Selected");
 
         // register state-specific color schemes on rollovers and selections
         defaultSchemeBundle.registerColorScheme(rolloverScheme,
@@ -114,18 +114,18 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
         defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
 
         // borders and marks
-        SubstanceColorScheme borderEnabledScheme = colorSchemes
-                .get("Office Blue Border Enabled");
-        SubstanceColorScheme borderActiveScheme = colorSchemes
-                .get("Office Blue Border Active");
-        SubstanceColorScheme borderRolloverScheme = colorSchemes
-                .get("Office Border Rollover");
-        SubstanceColorScheme borderRolloverSelectedScheme = colorSchemes
-                .get("Office Border Rollover Selected");
-        SubstanceColorScheme borderSelectedScheme = colorSchemes
-                .get("Office Border Selected");
-        SubstanceColorScheme borderPressedScheme = colorSchemes
-                .get("Office Border Pressed");
+        SubstanceColorScheme borderEnabledScheme =
+                colorSchemes.get("Office Blue Border Enabled");
+        SubstanceColorScheme borderActiveScheme =
+                colorSchemes.get("Office Blue Border Active");
+        SubstanceColorScheme borderRolloverScheme =
+                colorSchemes.get("Office Border Rollover");
+        SubstanceColorScheme borderRolloverSelectedScheme =
+                colorSchemes.get("Office Border Rollover Selected");
+        SubstanceColorScheme borderSelectedScheme =
+                colorSchemes.get("Office Border Selected");
+        SubstanceColorScheme borderPressedScheme =
+                colorSchemes.get("Office Border Pressed");
 
         defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
@@ -150,10 +150,10 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
                 ComponentState.PRESSED_UNSELECTED);
 
         // tabs and tab borders
-        SubstanceColorScheme tabSelectedScheme = colorSchemes
-                .get("Office Blue Tab Selected");
-        SubstanceColorScheme tabRolloverScheme = colorSchemes
-                .get("Office Blue Tab Rollover");
+        SubstanceColorScheme tabSelectedScheme =
+                colorSchemes.get("Office Blue Tab Selected");
+        SubstanceColorScheme tabRolloverScheme =
+                colorSchemes.get("Office Blue Tab Rollover");
         defaultSchemeBundle.registerColorScheme(tabSelectedScheme,
                 ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
                 ComponentState.ROLLOVER_SELECTED,
@@ -170,8 +170,8 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
                 ComponentState.ROLLOVER_SELECTED);
 
         // separator
-        SubstanceColorScheme separatorScheme = colorSchemes
-                .get("Office Blue Separator");
+        SubstanceColorScheme separatorScheme =
+                colorSchemes.get("Office Blue Separator");
         defaultSchemeBundle.registerColorScheme(separatorScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 
@@ -186,17 +186,18 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
-        SubstanceColorScheme generalWatermarkScheme = colorSchemes
-                .get("Office Blue Header Watermark");
+        SubstanceColorScheme headerBackgroundScheme =
+                colorSchemes.get("Office Blue Header Background");
 
-        this.registerAsDecorationArea(generalWatermarkScheme,
+        this.registerAsDecorationArea(headerBackgroundScheme,
                 DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
                 DecorationAreaType.TOOLBAR);
 
-        SubstanceColorScheme titleWatermarkScheme = colorSchemes.get("Office Blue Title Watermark");
+        SubstanceColorScheme titleBackgroundScheme =
+                colorSchemes.get("Office Blue Title Background");
 
-        this.registerAsDecorationArea(titleWatermarkScheme,
-                DecorationAreaType.GENERAL,
+        this.registerAsDecorationArea(titleBackgroundScheme,
+                DecorationAreaType.CONTROL_PANE,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE);
 
@@ -233,17 +234,17 @@ public class OfficeBlue2007Skin extends SubstanceSkin {
                 outerBorderPainter, innerBorderPainter);
 
         this.decorationPainter = new FractionBasedDecorationPainter(
-                "Office Blue 2007", new float[] {0.0f, 0.1199999f, 0.12f,
-                0.5f, 0.9f, 1.0f}, new ColorSchemeSingleColorQuery[] {
-                ColorSchemeSingleColorQuery.LIGHT,
-                ColorSchemeSingleColorQuery.LIGHT,
-                ColorSchemeSingleColorQuery.ULTRADARK,
-                ColorSchemeSingleColorQuery.MID,
-                ColorSchemeSingleColorQuery.ULTRALIGHT,
-                ColorSchemeSingleColorQuery.LIGHT});
+                "Office Blue 2007",
+                new float[] {0.0f, 0.1199999f, 0.12f, 0.5f, 0.9f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {
+                        ColorSchemeSingleColorQuery.LIGHT,
+                        ColorSchemeSingleColorQuery.LIGHT,
+                        ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorSchemeSingleColorQuery.MID,
+                        ColorSchemeSingleColorQuery.ULTRALIGHT,
+                        ColorSchemeSingleColorQuery.LIGHT});
 
         this.highlightPainter = new ClassicHighlightPainter();
-
     }
 
     @Override

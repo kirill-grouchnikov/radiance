@@ -74,7 +74,7 @@ public abstract class CremeAccentedSkin extends SubstanceSkin.Accented {
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
-                DecorationAreaType.GENERAL, DecorationAreaType.TOOLBAR);
+                DecorationAreaType.CONTROL_PANE, DecorationAreaType.TOOLBAR);
 
         // Add overlay painters to paint drop shadows along the bottom edges of toolbars
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(40), DecorationAreaType.TOOLBAR);

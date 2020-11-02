@@ -75,16 +75,17 @@ public class BusinessBlueSteelSkin extends BusinessAccentedSkin {
 				DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER);
 
-		SubstanceColorScheme activeGeneralScheme = businessSchemes
-				.get("Business Blue Steel Active General");
-		SubstanceColorScheme enabledGeneralScheme = businessSchemes
-				.get("Business Blue Steel Enabled General");
-		SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(
-				activeGeneralScheme, enabledGeneralScheme, disabledScheme);
-		generalSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED);
-		generalSchemeBundle.registerColorScheme(enabledGeneralScheme, ComponentState.DISABLED_UNSELECTED);
-		this.registerDecorationAreaSchemeBundle(generalSchemeBundle, DecorationAreaType.FOOTER,
-				DecorationAreaType.GENERAL);
+		SubstanceColorScheme activeControlPaneScheme = businessSchemes
+				.get("Business Blue Steel Active Control Pane");
+		SubstanceColorScheme enabledControlPaneScheme = businessSchemes
+				.get("Business Blue Steel Enabled Control Pane");
+		SubstanceColorSchemeBundle controlPaneSchemeBundle = new SubstanceColorSchemeBundle(
+				activeControlPaneScheme, enabledControlPaneScheme, disabledScheme);
+		controlPaneSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED);
+		controlPaneSchemeBundle.registerColorScheme(enabledControlPaneScheme,
+				ComponentState.DISABLED_UNSELECTED);
+		this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, DecorationAreaType.FOOTER,
+				DecorationAreaType.CONTROL_PANE);
 	}
 
 	@Override

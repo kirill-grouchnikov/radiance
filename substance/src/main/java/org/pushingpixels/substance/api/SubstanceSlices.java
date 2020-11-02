@@ -749,14 +749,16 @@ public final class SubstanceSlices {
         }
 
         /**
-         * Title pane of top-level windows (frames, dialogs).
+         * Title pane of primary, top-level windows (frames, dialogs).
          */
-        public final static DecorationAreaType PRIMARY_TITLE_PANE = new DecorationAreaType("Primary title pane");
+        public final static DecorationAreaType PRIMARY_TITLE_PANE =
+                new DecorationAreaType("Primary title pane");
 
         /**
-         * Title pane of non top-level windows (internal frames, desktop icons).
+         * Title pane of secondary, non top-level windows (internal frames, desktop icons).
          */
-        public final static DecorationAreaType SECONDARY_TITLE_PANE = new DecorationAreaType("Secondary title pane");
+        public final static DecorationAreaType SECONDARY_TITLE_PANE =
+                new DecorationAreaType("Secondary title pane");
 
         /**
          * Tool bar.
@@ -775,9 +777,9 @@ public final class SubstanceSlices {
         public final static DecorationAreaType FOOTER = new DecorationAreaType("Footer");
 
         /**
-         * Any general area that does not fit for the other types.
+         * Control pane area, such as sidebars / task panes or ribbon bands in Flamingo.
          */
-        public final static DecorationAreaType GENERAL = new DecorationAreaType("General");
+        public final static DecorationAreaType CONTROL_PANE = new DecorationAreaType("Control pane");
 
         /**
          * The default decoration area type. Components placed in areas with this type do not get

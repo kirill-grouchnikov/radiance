@@ -67,27 +67,28 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
                 this.getClass().getClassLoader().getResourceAsStream(
                         "org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes"));
 
-        SubstanceColorScheme activeScheme = colorSchemes
-                .get("Office Silver Active");
-        SubstanceColorScheme enabledScheme = colorSchemes
-                .get("Office Silver Enabled");
+        SubstanceColorScheme activeScheme =
+                colorSchemes.get("Office Silver Active");
+        SubstanceColorScheme enabledScheme =
+                colorSchemes.get("Office Silver Enabled");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, enabledScheme, enabledScheme);
-        defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+        defaultSchemeBundle.registerAlpha(0.5f,
+                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
         defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
         defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
 
-        SubstanceColorScheme rolloverScheme = colorSchemes
-                .get("Office Silver Rollover");
-        SubstanceColorScheme rolloverSelectedScheme = colorSchemes
-                .get("Office Silver Rollover Selected");
-        SubstanceColorScheme selectedScheme = colorSchemes
-                .get("Office Silver Selected");
-        SubstanceColorScheme pressedScheme = colorSchemes
-                .get("Office Silver Pressed");
-        SubstanceColorScheme pressedSelectedScheme = colorSchemes
-                .get("Office Silver Pressed Selected");
+        SubstanceColorScheme rolloverScheme =
+                colorSchemes.get("Office Silver Rollover");
+        SubstanceColorScheme rolloverSelectedScheme =
+                colorSchemes.get("Office Silver Rollover Selected");
+        SubstanceColorScheme selectedScheme =
+                colorSchemes.get("Office Silver Selected");
+        SubstanceColorScheme pressedScheme =
+                colorSchemes.get("Office Silver Pressed");
+        SubstanceColorScheme pressedSelectedScheme =
+                colorSchemes.get("Office Silver Pressed Selected");
 
         // register state-specific color schemes on rollovers and selections
         defaultSchemeBundle.registerColorScheme(rolloverScheme,
@@ -108,24 +109,26 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
         defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ROLLOVER_UNSELECTED,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED, ComponentState.ARMED,
                 ComponentState.ROLLOVER_ARMED);
-        defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme, ComponentState.ROLLOVER_UNSELECTED);
+        defaultSchemeBundle.registerHighlightColorScheme(rolloverScheme,
+                ComponentState.ROLLOVER_UNSELECTED);
         defaultSchemeBundle.registerHighlightColorScheme(selectedScheme, ComponentState.SELECTED,
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-        defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
+        defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme,
+                ComponentState.ROLLOVER_SELECTED);
 
         // borders and marks
-        SubstanceColorScheme borderEnabledScheme = colorSchemes
-                .get("Office Silver Border Enabled");
-        SubstanceColorScheme borderActiveScheme = colorSchemes
-                .get("Office Silver Border Active");
-        SubstanceColorScheme borderRolloverScheme = colorSchemes
-                .get("Office Border Rollover");
-        SubstanceColorScheme borderRolloverSelectedScheme = colorSchemes
-                .get("Office Border Rollover Selected");
-        SubstanceColorScheme borderSelectedScheme = colorSchemes
-                .get("Office Border Selected");
-        SubstanceColorScheme borderPressedScheme = colorSchemes
-                .get("Office Border Pressed");
+        SubstanceColorScheme borderEnabledScheme =
+                colorSchemes.get("Office Silver Border Enabled");
+        SubstanceColorScheme borderActiveScheme =
+                colorSchemes.get("Office Silver Border Active");
+        SubstanceColorScheme borderRolloverScheme =
+                colorSchemes.get("Office Border Rollover");
+        SubstanceColorScheme borderRolloverSelectedScheme =
+                colorSchemes.get("Office Border Rollover Selected");
+        SubstanceColorScheme borderSelectedScheme =
+                colorSchemes.get("Office Border Selected");
+        SubstanceColorScheme borderPressedScheme =
+                colorSchemes.get("Office Border Pressed");
 
         defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
@@ -149,8 +152,8 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
                 ComponentState.PRESSED_SELECTED,
                 ComponentState.PRESSED_UNSELECTED);
 
-        SubstanceColorScheme markEnabledScheme = colorSchemes
-                .get("Office Silver Mark Enabled");
+        SubstanceColorScheme markEnabledScheme =
+                colorSchemes.get("Office Silver Mark Enabled");
         defaultSchemeBundle.registerColorScheme(markEnabledScheme,
                 ColorSchemeAssociationKind.MARK, ComponentState.ENABLED);
         defaultSchemeBundle.registerColorScheme(markEnabledScheme,
@@ -162,10 +165,10 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
                 DecorationAreaType.NONE);
 
         // tabs and tab borders
-        SubstanceColorScheme tabSelectedScheme = colorSchemes
-                .get("Office Silver Tab Selected");
-        SubstanceColorScheme tabRolloverScheme = colorSchemes
-                .get("Office Silver Tab Rollover");
+        SubstanceColorScheme tabSelectedScheme =
+                colorSchemes.get("Office Silver Tab Selected");
+        SubstanceColorScheme tabRolloverScheme =
+                colorSchemes.get("Office Silver Tab Rollover");
         defaultSchemeBundle.registerColorScheme(tabSelectedScheme,
                 ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
                 ComponentState.ROLLOVER_SELECTED,
@@ -182,8 +185,8 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
                 ComponentState.ROLLOVER_SELECTED);
 
         // separator
-        SubstanceColorScheme separatorScheme = colorSchemes
-                .get("Office Silver Separator");
+        SubstanceColorScheme separatorScheme =
+                colorSchemes.get("Office Silver Separator");
         defaultSchemeBundle.registerColorScheme(separatorScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 
@@ -198,17 +201,18 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
-        SubstanceColorScheme generalWatermarkScheme = colorSchemes.get("Office Silver Header Watermark");
+        SubstanceColorScheme headerBackgroundScheme =
+                colorSchemes.get("Office Silver Header Background");
 
-        this.registerAsDecorationArea(generalWatermarkScheme,
+        this.registerAsDecorationArea(headerBackgroundScheme,
                 DecorationAreaType.FOOTER, DecorationAreaType.HEADER,
                 DecorationAreaType.TOOLBAR);
 
-        SubstanceColorScheme titleWatermarkScheme = colorSchemes
-                .get("Office Silver Title Watermark");
+        SubstanceColorScheme titleBackgroundScheme =
+                colorSchemes.get("Office Silver Title Background");
 
-        this.registerAsDecorationArea(titleWatermarkScheme,
-                DecorationAreaType.GENERAL,
+        this.registerAsDecorationArea(titleBackgroundScheme,
+                DecorationAreaType.CONTROL_PANE,
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE);
 
@@ -245,14 +249,15 @@ public class OfficeSilver2007Skin extends SubstanceSkin {
                 outerBorderPainter, innerBorderPainter);
 
         this.decorationPainter = new FractionBasedDecorationPainter(
-                "Office Silver 2007", new float[] {0.0f, 0.2499999f, 0.25f,
-                0.3f, 0.7f, 1.0f}, new ColorSchemeSingleColorQuery[] {
-                ColorSchemeSingleColorQuery.ULTRALIGHT,
-                ColorSchemeSingleColorQuery.EXTRALIGHT,
-                ColorSchemeSingleColorQuery.DARK,
-                ColorSchemeSingleColorQuery.MID,
-                ColorSchemeSingleColorQuery.LIGHT,
-                ColorSchemeSingleColorQuery.ULTRALIGHT});
+                "Office Silver 2007",
+                new float[] {0.0f, 0.2499999f, 0.25f, 0.3f, 0.7f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {
+                        ColorSchemeSingleColorQuery.ULTRALIGHT,
+                        ColorSchemeSingleColorQuery.EXTRALIGHT,
+                        ColorSchemeSingleColorQuery.DARK,
+                        ColorSchemeSingleColorQuery.MID,
+                        ColorSchemeSingleColorQuery.LIGHT,
+                        ColorSchemeSingleColorQuery.ULTRALIGHT});
 
         this.highlightPainter = new ClassicHighlightPainter();
     }

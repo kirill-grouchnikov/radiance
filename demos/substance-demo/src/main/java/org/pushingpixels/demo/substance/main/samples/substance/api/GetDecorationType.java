@@ -31,7 +31,6 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -73,12 +72,12 @@ public class GetDecorationType extends JFrame {
         tab1.add(new JTextField("sample"));
         final JComboBox<String> combo = new JComboBox<>(new String[] { "sample" });
         tab1.add(combo);
-        ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.CONTROL_PANE);
 
         JPanel tab2 = new JPanel(new FlowLayout());
         tab2.add(new JTextField("sample2"));
         tab2.add(new JComboBox<>(new String[] { "sample2" }));
-        ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.CONTROL_PANE);
 
         tabs.addTab("tab1", tab1);
         tabs.addTab("tab2", tab2);

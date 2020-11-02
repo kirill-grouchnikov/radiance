@@ -78,7 +78,7 @@ Night Shade Decorations Background {
     colorForeground=#D8DAE0
 }
 
-Night Shade General Background {
+Night Shade Control Pane Background {
     kind=Dark
     colorBackground=#22252A
     colorForeground=#D8DAE0

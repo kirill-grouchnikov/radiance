@@ -151,7 +151,7 @@ public class CeruleanSkin extends SubstanceSkin {
 		registerAsDecorationArea(ceruleanSchemes.get("Cerulean Footer"),
 				bundle -> bundle.registerColorScheme(ceruleanSchemes.get("Cerulean Footer Separator"),
 						ColorSchemeAssociationKind.SEPARATOR),
-				DecorationAreaType.FOOTER, DecorationAreaType.GENERAL);
+				DecorationAreaType.FOOTER, DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top
 		// edge of toolbars

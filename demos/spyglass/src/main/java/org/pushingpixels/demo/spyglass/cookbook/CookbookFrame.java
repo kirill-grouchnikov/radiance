@@ -61,12 +61,12 @@ public class CookbookFrame extends JFrame {
         secondPanel = new RecipeListPanel(mainPanelTopOffset);
         thirdPanel = new RecipePanel(0);
 
-        // mark the main panels of first/second panels as GENERAL so that we have
+        // mark the main panels of first/second panels as CONTROL_PANE so that we have
         // continuous lights right below the lights holder panel
         ComponentOrParentChainScope.setDecorationType(firstPanel.getMainPanel(),
-                DecorationAreaType.GENERAL);
+                DecorationAreaType.CONTROL_PANE);
         ComponentOrParentChainScope.setDecorationType(secondPanel.getMainPanel(),
-                DecorationAreaType.GENERAL);
+                DecorationAreaType.CONTROL_PANE);
 
         // configure borders
         firstPanel.getTitlePanel().setBorder(new CookbookBorderRight(0.0f, 1.0f));

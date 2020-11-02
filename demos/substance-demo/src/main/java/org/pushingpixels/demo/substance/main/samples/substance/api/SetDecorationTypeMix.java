@@ -70,12 +70,12 @@ public class SetDecorationTypeMix extends JFrame {
         JPanel tab1 = new JPanel(new FlowLayout());
         tab1.add(new JTextField("sample"));
         tab1.add(new JComboBox<>(new String[] { "sample" }));
-        ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.CONTROL_PANE);
 
         JPanel tab2 = new JPanel(new FlowLayout());
         tab2.add(new JTextField("sample2"));
         tab2.add(new JComboBox<>(new String[] { "sample2" }));
-        ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.CONTROL_PANE);
 
         tabs.addTab("tab1", tab1);
         tabs.addTab("tab2", tab2);

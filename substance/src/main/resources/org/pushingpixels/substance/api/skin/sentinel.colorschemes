@@ -112,31 +112,31 @@ Sentinel Decorations Background {
     colorForeground=@Light
 }
 
-Sentinel General Enabled {
+Sentinel Control Pane Enabled {
     kind=Dark
     colorBackground=@MediumSaturatedBrown
     colorForeground=@Light
 }
 
-Sentinel General Active {
+Sentinel Control Pane Active {
     kind=Light
     colorBackground=@LightPink
     colorForeground=@DarkBrown
 }
 
-Sentinel General Mark {
+Sentinel Control Pane Mark {
     kind=Dark
     colorBackground=@DarkSaturatedBrown
     colorForeground=@DarkSaturatedBrown
 }
 
-Sentinel General Border {
+Sentinel Control Pane Border {
     kind=Dark
     colorBackground=@DarkBrown
     colorForeground=@ControlLight
 }
 
-Sentinel General Separator {
+Sentinel Control Pane Separator {
     kind=Dark
     colorBackground=@MediumBrown
     colorForeground=@DarkBrown
@@ -144,7 +144,7 @@ Sentinel General Separator {
     colorSeparatorSecondary=@DarkBrown
 }
 
-Sentinel General Background {
+Sentinel Control Pane Background {
     kind=Dark
     colorBackground=@MediumDarkBrown
     colorForeground=@Light

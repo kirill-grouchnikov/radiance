@@ -63,12 +63,12 @@ public class SetDecorationType extends JFrame {
         this.setLayout(new BorderLayout());
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        ComponentOrParentChainScope.setDecorationType(controls, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(controls, DecorationAreaType.CONTROL_PANE);
         JToggleButton controlButton = new JToggleButton("control");
         controlButton.setSelected(true);
         JCheckBox controlCheckBox = new JCheckBox("control");
         controlCheckBox.setSelected(true);
-        controls.add(new JLabel("GENERAL decoration:"));
+        controls.add(new JLabel("CONTROL_PANE decoration:"));
         controls.add(controlButton);
         controls.add(controlCheckBox);
         this.add(controls, BorderLayout.SOUTH);

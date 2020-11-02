@@ -137,7 +137,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
                     new Color[] { fillScheme.getLightColor(), fillScheme.getMidColor(),
                             fillScheme.getDarkColor(), fillScheme.getUltraDarkColor() }));
             graphics.fillRect(0, 0, width, height);
-        } else if (decorationAreaType == DecorationAreaType.GENERAL) {
+        } else if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             // general background gradient
             graphics.setPaint(new GradientPaint(0, 0, fillScheme.getLightColor(), 0, height,
                     fillScheme.getMidColor()));
@@ -157,7 +157,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         graphics.drawImage(toOverlay, 0, 0, width, height, dx, dy, dx + width, dy + height, null);
         graphics.setComposite(AlphaComposite.SrcOver);
 
-        if (decorationAreaType == DecorationAreaType.GENERAL) {
+        if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             // special case - draw lights
             int offsetX = comp.getLocationOnScreen().x
                     - farthestOfTheSameAreaType.getLocationOnScreen().x;
@@ -253,7 +253,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             return this.brushedMetalImage;
         }
 
-        if (decorationAreaType == DecorationAreaType.GENERAL) {
+        if (decorationAreaType == DecorationAreaType.CONTROL_PANE) {
             return this.woodImage;
         }
 

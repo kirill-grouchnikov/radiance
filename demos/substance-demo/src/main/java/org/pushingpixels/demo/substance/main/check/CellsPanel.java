@@ -34,7 +34,6 @@ import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableViewportCommand;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
@@ -65,7 +64,7 @@ public class CellsPanel extends JPanel implements Deferrable {
                 padding(Paddings.DIALOG);
 
         builderCells.append("");
-        builderCells.append(new JLabel("NONE"), new JLabel("GENERAL"));
+        builderCells.append(new JLabel("NONE"), new JLabel("CONTROL_PANE"));
         builderCells.append(new JLabel("HEADER"), new JLabel("FOOTER"));
 
         builderCells.appendSeparator("Lists");
@@ -211,8 +210,8 @@ public class CellsPanel extends JPanel implements Deferrable {
 
         row[1] = creationCmd.create();
         ComponentOrParentChainScope.setDecorationType((row[1]),
-                DecorationAreaType.GENERAL);
-        row[1].setName(row[1].getName() + ": GENERAL");
+                DecorationAreaType.CONTROL_PANE);
+        row[1].setName(row[1].getName() + ": CONTROL_PANE");
 
         row[2] = creationCmd.create();
         ComponentOrParentChainScope.setDecorationType((row[2]),

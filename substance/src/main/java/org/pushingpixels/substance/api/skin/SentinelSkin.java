@@ -124,29 +124,31 @@ public class SentinelSkin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsBackgroundScheme,
                 DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        SubstanceColorScheme activeGeneralScheme = schemes.get("Sentinel General Active");
-        SubstanceColorScheme enabledGeneralScheme = schemes.get("Sentinel General Enabled");
-        SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(
-                activeGeneralScheme, enabledGeneralScheme, enabledGeneralScheme);
-        generalSchemeBundle.registerAlpha(0.4f, ComponentState.DISABLED_UNSELECTED);
-        generalSchemeBundle.registerColorScheme(enabledGeneralScheme, ComponentState.DISABLED_UNSELECTED);
+        SubstanceColorScheme activeControlPaneScheme = schemes.get("Sentinel Control Pane Active");
+        SubstanceColorScheme enabledControlPaneScheme = schemes.get("Sentinel Control Pane Enabled");
+        SubstanceColorSchemeBundle controlPaneSchemeBundle = new SubstanceColorSchemeBundle(
+                activeControlPaneScheme, enabledControlPaneScheme, enabledControlPaneScheme);
+        controlPaneSchemeBundle.registerAlpha(0.4f, ComponentState.DISABLED_UNSELECTED);
+        controlPaneSchemeBundle.registerColorScheme(enabledControlPaneScheme,
+                ComponentState.DISABLED_UNSELECTED);
 
         // borders
-        SubstanceColorScheme borderGeneralScheme = schemes.get("Sentinel General Border");
-        generalSchemeBundle.registerColorScheme(borderGeneralScheme, ColorSchemeAssociationKind.BORDER);
+        SubstanceColorScheme borderControlPaneScheme = schemes.get("Sentinel Control Pane Border");
+        controlPaneSchemeBundle.registerColorScheme(borderControlPaneScheme,
+                ColorSchemeAssociationKind.BORDER);
 
         // marks
-        SubstanceColorScheme markGeneralScheme = schemes.get("Sentinel General Mark");
-        generalSchemeBundle.registerColorScheme(markGeneralScheme, ColorSchemeAssociationKind.MARK,
-                ComponentState.getActiveStates());
+        SubstanceColorScheme markControlPaneScheme = schemes.get("Sentinel Control Pane Mark");
+        controlPaneSchemeBundle.registerColorScheme(markControlPaneScheme,
+                ColorSchemeAssociationKind.MARK, ComponentState.getActiveStates());
 
         // separators
-        SubstanceColorScheme separatorGeneralScheme = schemes.get("Sentinel General Separator");
-        generalSchemeBundle.registerColorScheme(separatorGeneralScheme,
+        SubstanceColorScheme separatorControlPaneScheme = schemes.get("Sentinel Control Pane Separator");
+        controlPaneSchemeBundle.registerColorScheme(separatorControlPaneScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
-        SubstanceColorScheme generalBackgroundScheme = schemes.get("Sentinel General Background");
-        this.registerDecorationAreaSchemeBundle(generalSchemeBundle, generalBackgroundScheme,
-                DecorationAreaType.GENERAL);
+        SubstanceColorScheme backgroundControlPaneScheme = schemes.get("Sentinel Control Pane Background");
+        this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, backgroundControlPaneScheme,
+                DecorationAreaType.CONTROL_PANE);
 
         SubstanceColorScheme activeHeaderScheme = schemes.get("Sentinel Header Active");
         SubstanceColorScheme enabledHeaderScheme = schemes.get("Sentinel Header Enabled");

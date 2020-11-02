@@ -77,11 +77,12 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);
 
-        SubstanceColorScheme generalBackgroundScheme = colorSchemes.get("Mist General Background");
+        SubstanceColorScheme controlPaneBackgroundScheme =
+                colorSchemes.get("Mist Control Pane Background");
         this.registerDecorationAreaSchemeBundle(
                 new SubstanceColorSchemeBundle(this.getActiveControlsAccent(), enabledScheme, disabledScheme),
-                generalBackgroundScheme,
-                DecorationAreaType.GENERAL);
+                controlPaneBackgroundScheme,
+                DecorationAreaType.CONTROL_PANE);
 
         this.registerAsDecorationArea(enabledScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE,

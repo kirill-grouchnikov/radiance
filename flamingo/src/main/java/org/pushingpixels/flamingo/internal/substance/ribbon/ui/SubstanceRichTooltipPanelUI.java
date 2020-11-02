@@ -58,7 +58,7 @@ public class SubstanceRichTooltipPanelUI extends BasicRichTooltipPanelUI {
 	@Override
 	protected void installDefaults() {
 		super.installDefaults();
-		ComponentOrParentChainScope.setDecorationType(this.richTooltipPanel, DecorationAreaType.GENERAL);
+		ComponentOrParentChainScope.setDecorationType(this.richTooltipPanel, DecorationAreaType.CONTROL_PANE);
 	}
 
 	@Override

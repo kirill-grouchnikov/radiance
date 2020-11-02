@@ -100,7 +100,7 @@ public class AutumnSkin extends SubstanceSkin {
 				DecorationAreaType.HEADER);
 
 		this.registerAsDecorationArea(backgroundScheme,
-				DecorationAreaType.GENERAL, DecorationAreaType.FOOTER,
+				DecorationAreaType.CONTROL_PANE, DecorationAreaType.FOOTER,
 				DecorationAreaType.TOOLBAR);
 
 		// add an overlay painter to paint a drop shadow along the top

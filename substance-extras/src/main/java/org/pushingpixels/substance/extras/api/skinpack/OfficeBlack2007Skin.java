@@ -65,12 +65,9 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 this.getClass().getClassLoader().getResourceAsStream(
                         "org/pushingpixels/substance/extras/api/skinpack/office2007.colorschemes"));
 
-        SubstanceColorScheme activeScheme = colorSchemes
-                .get("Office Silver Active");
-        SubstanceColorScheme enabledScheme = colorSchemes
-                .get("Office Black Enabled");
-        SubstanceColorScheme disabledScheme = new LightGrayColorScheme().tint(
-                0.05).named("Office Black Disabled");
+        SubstanceColorScheme activeScheme = colorSchemes.get("Office Silver Active");
+        SubstanceColorScheme enabledScheme = colorSchemes.get("Office Black Enabled");
+        SubstanceColorScheme disabledScheme = colorSchemes.get("Office Black Disabled");
 
         SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
                 activeScheme, enabledScheme, enabledScheme);
@@ -78,16 +75,16 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 ComponentState.DISABLED_SELECTED);
         defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
 
-        SubstanceColorScheme rolloverScheme = colorSchemes
-                .get("Office Silver Rollover");
-        SubstanceColorScheme rolloverSelectedScheme = colorSchemes
-                .get("Office Silver Rollover Selected");
-        SubstanceColorScheme selectedScheme = colorSchemes
-                .get("Office Silver Selected");
-        SubstanceColorScheme pressedScheme = colorSchemes
-                .get("Office Silver Pressed");
-        SubstanceColorScheme pressedSelectedScheme = colorSchemes
-                .get("Office Silver Pressed Selected");
+        SubstanceColorScheme rolloverScheme =
+                colorSchemes.get("Office Silver Rollover");
+        SubstanceColorScheme rolloverSelectedScheme =
+                colorSchemes.get("Office Silver Rollover Selected");
+        SubstanceColorScheme selectedScheme =
+                colorSchemes.get("Office Silver Selected");
+        SubstanceColorScheme pressedScheme =
+                colorSchemes.get("Office Silver Pressed");
+        SubstanceColorScheme pressedSelectedScheme =
+                colorSchemes.get("Office Silver Pressed Selected");
 
         // register state-specific color schemes on rollovers and selections
         defaultSchemeBundle.registerColorScheme(rolloverScheme,
@@ -114,18 +111,18 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
         defaultSchemeBundle.registerHighlightColorScheme(rolloverSelectedScheme, ComponentState.ROLLOVER_SELECTED);
 
         // borders and marks
-        SubstanceColorScheme borderEnabledScheme = colorSchemes
-                .get("Office Silver Border Enabled");
-        SubstanceColorScheme borderActiveScheme = colorSchemes
-                .get("Office Silver Border Active");
-        SubstanceColorScheme borderRolloverScheme = colorSchemes
-                .get("Office Border Rollover");
-        SubstanceColorScheme borderRolloverSelectedScheme = colorSchemes
-                .get("Office Border Rollover Selected");
-        SubstanceColorScheme borderSelectedScheme = colorSchemes
-                .get("Office Border Selected");
-        SubstanceColorScheme borderPressedScheme = colorSchemes
-                .get("Office Border Pressed");
+        SubstanceColorScheme borderEnabledScheme =
+                colorSchemes.get("Office Silver Border Enabled");
+        SubstanceColorScheme borderActiveScheme =
+                colorSchemes.get("Office Silver Border Active");
+        SubstanceColorScheme borderRolloverScheme =
+                colorSchemes.get("Office Border Rollover");
+        SubstanceColorScheme borderRolloverSelectedScheme =
+                colorSchemes.get("Office Border Rollover Selected");
+        SubstanceColorScheme borderSelectedScheme =
+                colorSchemes.get("Office Border Selected");
+        SubstanceColorScheme borderPressedScheme =
+                colorSchemes.get("Office Border Pressed");
 
         defaultSchemeBundle.registerColorScheme(borderEnabledScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
@@ -169,10 +166,10 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 DecorationAreaType.NONE);
 
         // tabs and tab borders
-        SubstanceColorScheme tabSelectedScheme = colorSchemes
-                .get("Office Silver Tab Selected");
-        SubstanceColorScheme tabRolloverScheme = colorSchemes
-                .get("Office Silver Tab Rollover");
+        SubstanceColorScheme tabSelectedScheme =
+                colorSchemes.get("Office Silver Tab Selected");
+        SubstanceColorScheme tabRolloverScheme =
+                colorSchemes.get("Office Silver Tab Rollover");
         defaultSchemeBundle.registerColorScheme(tabSelectedScheme,
                 ColorSchemeAssociationKind.TAB, ComponentState.SELECTED,
                 ComponentState.ROLLOVER_SELECTED,
@@ -189,8 +186,8 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 ComponentState.ROLLOVER_SELECTED);
 
         // separator
-        SubstanceColorScheme separatorScheme = colorSchemes
-                .get("Office Silver Separator");
+        SubstanceColorScheme separatorScheme =
+                colorSchemes.get("Office Silver Separator");
         defaultSchemeBundle.registerColorScheme(separatorScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 
@@ -198,17 +195,17 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 DecorationAreaType.NONE);
 
         // color scheme bundle for title panes
-        SubstanceColorScheme activeHeaderScheme = colorSchemes
-                .get("Office Black Header Active");
-        SubstanceColorScheme enabledHeaderScheme = colorSchemes
-                .get("Office Black Header Enabled");
-        SubstanceColorScheme disabledHeaderScheme = colorSchemes
-                .get("Office Black Header Disabled");
+        SubstanceColorScheme activeHeaderScheme =
+                colorSchemes.get("Office Black Header Active");
+        SubstanceColorScheme enabledHeaderScheme =
+                colorSchemes.get("Office Black Header Enabled");
+        SubstanceColorScheme disabledHeaderScheme =
+                colorSchemes.get("Office Black Header Disabled");
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
                 activeHeaderScheme, enabledHeaderScheme, disabledHeaderScheme);
 
-        SubstanceColorScheme headerMarkEnabledScheme = colorSchemes
-                .get("Office Black Header Mark Enabled");
+        SubstanceColorScheme headerMarkEnabledScheme =
+                colorSchemes.get("Office Black Header Mark Enabled");
         headerSchemeBundle.registerColorScheme(headerMarkEnabledScheme,
                 ColorSchemeAssociationKind.MARK, ComponentState.ENABLED);
         headerSchemeBundle.registerColorScheme(markEnabledScheme,
@@ -216,7 +213,8 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 ComponentState.DISABLED_SELECTED,
                 ComponentState.DISABLED_UNSELECTED);
 
-        headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+        headerSchemeBundle.registerAlpha(0.5f,
+                ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
         headerSchemeBundle.registerHighlightAlpha(0.6f,
                 ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
         headerSchemeBundle.registerColorScheme(disabledHeaderScheme,
@@ -224,8 +222,10 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
         headerSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
         headerSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
         headerSchemeBundle.registerHighlightAlpha(0.95f, ComponentState.ROLLOVER_SELECTED);
-        headerSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
-        headerSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_UNSELECTED,
+        headerSchemeBundle.registerHighlightAlpha(0.8f,
+                ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+        headerSchemeBundle.registerHighlightColorScheme(activeScheme,
+                ComponentState.ROLLOVER_UNSELECTED,
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
@@ -234,12 +234,12 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
                 DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR);
 
         // color scheme bundle for footer
-        SubstanceColorScheme enabledFooterScheme = colorSchemes
-                .get("Office Black Footer Enabled");
+        SubstanceColorScheme enabledFooterScheme =
+                colorSchemes.get("Office Black Footer Enabled");
         SubstanceColorSchemeBundle footerSchemeBundle = new SubstanceColorSchemeBundle(
                 activeHeaderScheme, enabledFooterScheme, disabledScheme);
-        SubstanceColorScheme borderFooterEnabledScheme = colorSchemes
-                .get("Office Black Footer Border Enabled");
+        SubstanceColorScheme borderFooterEnabledScheme =
+                colorSchemes.get("Office Black Footer Border Enabled");
         footerSchemeBundle.registerColorScheme(borderFooterEnabledScheme,
                 ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED,
                 ComponentState.DISABLED_SELECTED,
@@ -268,7 +268,8 @@ public class OfficeBlack2007Skin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(footerSchemeBundle,
                 activeHeaderScheme, DecorationAreaType.FOOTER);
 
-        this.registerAsDecorationArea(colorSchemes.get("Office Black Watermark"), DecorationAreaType.GENERAL);
+        this.registerAsDecorationArea(colorSchemes.get("Office Black Background"),
+                DecorationAreaType.CONTROL_PANE);
 
         setTabFadeStart(0.6);
         setTabFadeEnd(0.9);

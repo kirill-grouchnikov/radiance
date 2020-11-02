@@ -54,7 +54,6 @@ import javax.swing.border.Border;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.EnumSet;
 import java.util.Map;
@@ -112,9 +111,15 @@ public class SubstanceRibbonTaskToggleButtonUI extends
             }
         });
         ComponentOrParentChainScope.setDecorationType(this.commandButton,
-                DecorationAreaType.GENERAL);
+                DecorationAreaType.CONTROL_PANE);
         SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(this.commandButton,
                 RibbonContextualTaskGroup.HUE_ALPHA);
+    }
+
+    @Override
+    protected void uninstallDefaults() {
+        DecorationPainterUtils.clearDecorationType(this.commandButton);
+        super.uninstallDefaults();
     }
 
     @Override

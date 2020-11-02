@@ -1364,7 +1364,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
             SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,
-                    SubstanceSlices.DecorationAreaType.GENERAL);
+                    SubstanceSlices.DecorationAreaType.CONTROL_PANE);
         }
     }
 

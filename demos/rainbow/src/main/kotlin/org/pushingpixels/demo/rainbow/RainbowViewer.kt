@@ -216,7 +216,7 @@ class RainbowViewer<T>(title: String, private val bar: JBreadcrumbBar<T>) : JFra
         statusBarBuilder.add(getPanel(initialSize)).xy(5, 1)
 
         val statusBarPanel = statusBarBuilder.build()
-        statusBarPanel.setDecorationType(DecorationAreaType.GENERAL)
+        statusBarPanel.setDecorationType(DecorationAreaType.CONTROL_PANE)
         this.add(statusBarPanel, BorderLayout.SOUTH)
 
         this.iconImage = RadianceLogo.getTitlePaneLogoImage()

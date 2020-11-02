@@ -58,13 +58,13 @@ The next screenshot shows the children of the sidebar panel:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/02-map/hierarchy2.png" width="600" border=0/>
 
-The top part is the only custom component which is not painted by Substance. This is done for purely implementation complexity considerations – it is much easier to override the `paintComponent()` method to emulate the light holder than to do it with Substance decoration painters. The `CENTER` part is another panel which is decorated with `GENERAL` area type. As the next phase will show, this makes it easier to implement the evenly-spaced diffused lights (the continuous look of the texture is not a factor in this particular decision).
+The top part is the only custom component which is not painted by Substance. This is done for purely implementation complexity considerations – it is much easier to override the `paintComponent()` method to emulate the light holder than to do it with Substance decoration painters. The `CENTER` part is another panel which is decorated with `CONTROL_PANE` area type. As the next phase will show, this makes it easier to implement the evenly-spaced diffused lights (the continuous look of the texture is not a factor in this particular decision).
 
-Inside this `GENERAL`-decorated panels we have the `BorderLayout` with two panels:
+Inside this `CONTROL_PANE`-decorated panels we have the `BorderLayout` with two panels:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/02-map/hierarchy3.png" width="600" border=0/>
 
-Note that these two panels do not have any decoration area type installed on them – they get the `GENERAL` from the parent panel.
+Note that these two panels do not have any decoration area type installed on them – they get the `CONTROL_PANE` from the parent panel.
 
 The last diagram shows the last level of Swing hierarchy as far as mapping the decoration areas goes:
 

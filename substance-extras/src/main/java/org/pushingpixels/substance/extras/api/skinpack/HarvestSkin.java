@@ -111,9 +111,9 @@ public class HarvestSkin extends SubstanceSkin {
 
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, backgroundScheme, DecorationAreaType.NONE);
 
-        // GENERAL area
-        SubstanceColorScheme generalBackgroundScheme = schemes.get("Harvest General Background");
-        this.registerAsDecorationArea(generalBackgroundScheme, DecorationAreaType.GENERAL);
+        // CONTROL_PANE area
+        SubstanceColorScheme controlPaneBackgroundScheme = schemes.get("Harvest Control Pane Background");
+        this.registerAsDecorationArea(controlPaneBackgroundScheme, DecorationAreaType.CONTROL_PANE);
 
         // HEADER area
         SubstanceColorScheme activeHeaderScheme = schemes.get("Harvest Header Active");

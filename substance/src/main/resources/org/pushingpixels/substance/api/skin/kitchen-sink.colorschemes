@@ -20,7 +20,7 @@ Coffee Highlights {
     colorForeground=#32220F
 }
 
-LightGray General Background {
+LightGray Control Pane Background {
     kind=Light
     colorUltraLight=#E9EEF7
     colorExtraLight=#E5E8ED

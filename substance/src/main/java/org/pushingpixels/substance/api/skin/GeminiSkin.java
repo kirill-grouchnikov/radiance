@@ -124,18 +124,18 @@ public class GeminiSkin extends SubstanceSkin {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, whiteBackgroundScheme,
                 DecorationAreaType.NONE);
 
-        // general color scheme bundle
-        SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(grayScheme,
+        // control pane color scheme bundle
+        SubstanceColorSchemeBundle controlPaneSchemeBundle = new SubstanceColorSchemeBundle(grayScheme,
                 grayScheme, disabledScheme);
-        generalSchemeBundle.registerColorScheme(grayScheme, ComponentState.ROLLOVER_UNSELECTED);
-        generalSchemeBundle.registerColorScheme(grayScheme, ColorSchemeAssociationKind.MARK);
-        generalSchemeBundle.registerColorScheme(grayBorderScheme, ColorSchemeAssociationKind.BORDER);
-        generalSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
+        controlPaneSchemeBundle.registerColorScheme(grayScheme, ComponentState.ROLLOVER_UNSELECTED);
+        controlPaneSchemeBundle.registerColorScheme(grayScheme, ColorSchemeAssociationKind.MARK);
+        controlPaneSchemeBundle.registerColorScheme(grayBorderScheme, ColorSchemeAssociationKind.BORDER);
+        controlPaneSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED,
                 ComponentState.DISABLED_SELECTED);
-        applyHighlightColorScheme(generalSchemeBundle, highlightScheme);
-        applyHighlightAsFill(generalSchemeBundle, highlightScheme, highlightBorderScheme);
-        this.registerDecorationAreaSchemeBundle(generalSchemeBundle, grayScheme,
-                DecorationAreaType.GENERAL, DecorationAreaType.FOOTER);
+        applyHighlightColorScheme(controlPaneSchemeBundle, highlightScheme);
+        applyHighlightAsFill(controlPaneSchemeBundle, highlightScheme, highlightBorderScheme);
+        this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, grayScheme,
+                DecorationAreaType.CONTROL_PANE, DecorationAreaType.FOOTER);
 
         // header color scheme bundle
         SubstanceColorScheme blackColorScheme = schemes.get("Gemini Black");

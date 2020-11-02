@@ -63,8 +63,8 @@ public class DecorationLists extends JFrame {
         listsPanel.add(new ListPanel("Disabled in HEADER", DecorationAreaType.HEADER, false));
         listsPanel.add(new ListPanel("Enabled in NONE", DecorationAreaType.NONE, true));
         listsPanel.add(new ListPanel("Disabled in NONE", DecorationAreaType.NONE, false));
-        listsPanel.add(new ListPanel("Enabled in GENERAL", DecorationAreaType.GENERAL, true));
-        listsPanel.add(new ListPanel("Disabled in GENERAL", DecorationAreaType.GENERAL, false));
+        listsPanel.add(new ListPanel("Enabled in CONTROL_PANE", DecorationAreaType.CONTROL_PANE, true));
+        listsPanel.add(new ListPanel("Disabled in CONTROL_PANE", DecorationAreaType.CONTROL_PANE, false));
         listsPanel.add(new ListPanel("Enabled in FOOTER", DecorationAreaType.FOOTER, true));
         listsPanel.add(new ListPanel("Disabled in FOOTER", DecorationAreaType.FOOTER, false));
 

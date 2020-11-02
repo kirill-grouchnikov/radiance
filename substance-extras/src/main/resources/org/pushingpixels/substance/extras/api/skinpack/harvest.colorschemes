@@ -97,7 +97,7 @@ Harvest Background {
     colorForeground=@DarkGrey
 }
 
-Harvest General Background {
+Harvest Control Pane Background {
     kind=Light
     colorBackground=@YellowGeneral
     colorForeground=@DarkGrey

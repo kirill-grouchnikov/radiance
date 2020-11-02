@@ -94,7 +94,7 @@ abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
                 panelToolbar, DecorationAreaType.TOOLBAR)
         val panelGeneral = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                panelGeneral, DecorationAreaType.GENERAL)
+                panelGeneral, DecorationAreaType.CONTROL_PANE)
         val panelNone = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
                 panelNone, DecorationAreaType.NONE)

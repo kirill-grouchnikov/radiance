@@ -115,17 +115,20 @@ public class NightShadeSkin extends SubstanceSkin {
                 ColorSchemeAssociationKind.MARK, ComponentState.getActiveStates());
 
         // separators
-        SubstanceColorScheme separatorDecorationsScheme = schemes.get("Night Shade Decorations Separator");
+        SubstanceColorScheme separatorDecorationsScheme =
+                schemes.get("Night Shade Decorations Separator");
         decorationsSchemeBundle.registerColorScheme(separatorDecorationsScheme,
                 ColorSchemeAssociationKind.SEPARATOR);
 
-        SubstanceColorScheme decorationsBackgroundScheme = schemes.get("Night Shade Decorations Background");
+        SubstanceColorScheme decorationsBackgroundScheme =
+                schemes.get("Night Shade Decorations Background");
         this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsBackgroundScheme,
                 DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        SubstanceColorScheme generalBackgroundScheme = schemes.get("Night Shade General Background");
-        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, generalBackgroundScheme,
-                DecorationAreaType.GENERAL);
+        SubstanceColorScheme controlPaneBackgroundScheme =
+                schemes.get("Night Shade Control Pane Background");
+        this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, controlPaneBackgroundScheme,
+                DecorationAreaType.CONTROL_PANE);
 
         SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
                 enabledScheme, disabledScheme);

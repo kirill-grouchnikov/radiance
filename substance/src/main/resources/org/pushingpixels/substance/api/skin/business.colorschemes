@@ -86,7 +86,7 @@ Business Black Steel Enabled Header {
     colorForeground=#FFFFFF
 }
 
-Business Black Steel Active General {
+Business Black Steel Active Control Pane {
     kind=Light
     colorUltraLight=#BDCDD7
     colorExtraLight=#B4C6D1
@@ -97,7 +97,7 @@ Business Black Steel Active General {
     colorForeground=#4B4B4B
 }
 
-Business Black Steel Enabled General {
+Business Black Steel Enabled Control Pane {
     kind=Light
     colorUltraLight=#E1E7EB
     colorExtraLight=#DCE2E7
@@ -174,7 +174,7 @@ Business Blue Steel Enabled Header {
     colorForeground=#4D4D4D
 }
 
-Business Blue Steel Active General {
+Business Blue Steel Active Control Pane {
     kind=Light
     colorUltraLight=#C6D7E1
     colorExtraLight=#BDCFDB
@@ -185,7 +185,7 @@ Business Blue Steel Active General {
     colorForeground=#4D4D4D
 }
 
-Business Blue Steel Enabled General {
+Business Blue Steel Enabled Control Pane {
     kind=Light
     colorUltraLight=#D0E0EB
     colorExtraLight=#C9DAE7

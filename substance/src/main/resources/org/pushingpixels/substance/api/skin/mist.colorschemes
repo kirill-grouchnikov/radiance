@@ -20,7 +20,7 @@ Mist Disabled {
     colorForeground=#797D82
 }
 
-Mist General Background {
+Mist Control Pane Background {
     kind=Light
     colorUltraLight=#DAE6EE
     colorExtraLight=#D5E2EB

@@ -133,7 +133,7 @@ public class Check extends JFrame {
 
         final JScrollPane scrollPane = new JScrollPane(accordion,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        ComponentOrParentChainScope.setDecorationType(scrollPane, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(scrollPane, DecorationAreaType.CONTROL_PANE);
 
         JPanel mainPanel = new JPanel();
         mainPanel.add(scrollPane);

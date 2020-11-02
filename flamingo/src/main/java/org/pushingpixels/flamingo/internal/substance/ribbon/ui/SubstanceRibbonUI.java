@@ -149,20 +149,15 @@ public class SubstanceRibbonUI extends BasicRibbonUI {
     protected void installDefaults() {
         super.installDefaults();
         ComponentOrParentChainScope.setDecorationType(this.ribbon, DecorationAreaType.HEADER);
+        ComponentOrParentChainScope.setDecorationType(this.bandScrollablePanel,
+                DecorationAreaType.CONTROL_PANE);
     }
 
     @Override
     protected void uninstallDefaults() {
         DecorationPainterUtils.clearDecorationType(this.ribbon);
+        DecorationPainterUtils.clearDecorationType(this.bandScrollablePanel);
         super.uninstallDefaults();
-    }
-
-    @Override
-    protected void installComponents() {
-        super.installComponents();
-        ComponentOrParentChainScope.setDecorationType(this.ribbon, DecorationAreaType.HEADER);
-        ComponentOrParentChainScope.setDecorationType(this.bandScrollablePanel,
-                DecorationAreaType.GENERAL);
     }
 
     @Override

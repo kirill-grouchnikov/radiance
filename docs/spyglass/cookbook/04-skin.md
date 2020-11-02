@@ -35,12 +35,12 @@ The `Dark Brown` color scheme is used for:
 
 The definition of color scheme bundles in the custom Substance skin will use these two color schemes as the main building blocks. `Dark Brown` will be used for:
 
-* `GENERAL` area, controls in default and disabled state. Disabled controls will be painted with 70% opacity.
+* `CONTROL_PANE` area, controls in default and disabled state. Disabled controls will be painted with 70% opacity.
 * `PRIMARY_TITLE_PANE`, `TOOLBAR` and `FOOTER` areas, controls in active states. This will make the selected button in the toolbar painted with dark background.
 
 `Golden Brown` will be used for:
 
-* `GENERAL` area, controls in active state. This will paint the sidebar scroll bar since the enabled scroll bars are painted in active state (this is true for all Substance skins).
+* `CONTROL_PANE` area, controls in active state. This will paint the sidebar scroll bar since the enabled scroll bars are painted in active state (this is true for all Substance skins).
 * `PRIMARY_TITLE_PANE`, `TOOLBAR` and `FOOTER` areas, controls in default and disabled state. Disabled controls will be painted with 70% opacity.
 
 Here are the sidebars of the original mock-up and Substance-powered implementation of it:

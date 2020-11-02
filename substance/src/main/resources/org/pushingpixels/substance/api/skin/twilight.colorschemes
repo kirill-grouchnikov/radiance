@@ -67,7 +67,7 @@ Twilight Decorations Background {
     colorForeground=#F1F1F2
 }
 
-Twilight General Background {
+Twilight Control Pane Background {
     kind=Light
     colorBackground=#504E46
     colorForeground=#F4F4F6

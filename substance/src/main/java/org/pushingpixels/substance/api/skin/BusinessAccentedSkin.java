@@ -86,8 +86,8 @@ public abstract class BusinessAccentedSkin extends SubstanceSkin.Accented {
 		ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/substance/api/skin/kitchen-sink.colorschemes"));
-		this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray General Background"),
-				DecorationAreaType.GENERAL);
+		this.registerAsDecorationArea(kitchenSinkSchemes.get("LightGray Control Pane Background"),
+				DecorationAreaType.CONTROL_PANE);
 
 		// add an overlay painter to paint a drop shadow along the top edge of toolbars
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(80), DecorationAreaType.TOOLBAR);

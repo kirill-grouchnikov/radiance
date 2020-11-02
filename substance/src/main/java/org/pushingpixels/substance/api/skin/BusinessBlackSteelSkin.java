@@ -85,17 +85,17 @@ public class BusinessBlackSteelSkin extends BusinessAccentedSkin {
 				DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
 				DecorationAreaType.HEADER);
 
-		// color scheme bundle for general areas
-		SubstanceColorScheme activeGeneralScheme = businessSchemes
-				.get("Business Black Steel Active General");
-		SubstanceColorScheme enabledGeneralScheme = businessSchemes
-				.get("Business Black Steel Enabled General");
-		SubstanceColorSchemeBundle generalSchemeBundle = new SubstanceColorSchemeBundle(
-				activeGeneralScheme, enabledGeneralScheme, disabledScheme);
-		generalSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
-		generalSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
-		this.registerDecorationAreaSchemeBundle(generalSchemeBundle, DecorationAreaType.FOOTER,
-				DecorationAreaType.GENERAL);
+		// color scheme bundle for control pane areas
+		SubstanceColorScheme activeControlPaneScheme = businessSchemes
+				.get("Business Black Steel Active Control Pane");
+		SubstanceColorScheme enabledControlPaneScheme = businessSchemes
+				.get("Business Black Steel Enabled Control Pane");
+		SubstanceColorSchemeBundle controlPaneSchemeBundle = new SubstanceColorSchemeBundle(
+				activeControlPaneScheme, enabledControlPaneScheme, disabledScheme);
+		controlPaneSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
+		controlPaneSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
+		this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, DecorationAreaType.FOOTER,
+				DecorationAreaType.CONTROL_PANE);
 	}
 
 	@Override
