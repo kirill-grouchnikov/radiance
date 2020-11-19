@@ -35,7 +35,7 @@ import java.awt.*;
 
 /**
  * Tinted color scheme. A tinted color scheme is a color scheme that is shifted
- * to <b>white</b> color.
+ * towards <b>white</b> color.
  * 
  * @author Kirill Grouchnikov
  * @see ShiftColorScheme

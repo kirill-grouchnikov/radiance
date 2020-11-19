@@ -69,7 +69,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
         ColorSchemeFilter filter = filters.get(key);
         if (filter == null) {
             filter = new ColorSchemeFilter(scheme, originalBrightnessFactor, alpha);
-            filters.put(key, filter);
+            //filters.put(key, filter);
         }
         return filter;
     }
@@ -94,7 +94,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
         int mid = scheme.getMidColor().getRGB();
         int dark = scheme.getDarkColor().getRGB();
         int ultraDark = scheme.getUltraDarkColor().getRGB();
-        // Are the color identical?
+        // Are the colors identical?
         if ((ultraLight == extraLight) && (ultraLight == light) && (ultraLight == mid) &&
                 (ultraLight == dark) && (ultraLight == ultraDark)) {
             Color lighter = SubstanceColorUtilities.deriveByBrightness(scheme.getLightColor(), 0.2f);

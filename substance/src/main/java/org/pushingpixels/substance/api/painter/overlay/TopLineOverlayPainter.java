@@ -41,7 +41,7 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 
 /**
- * Overlay painter that paints a single line at the bottom edge of the relevant
+ * Overlay painter that paints a single line at the top edge of the relevant
  * decoration area. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov

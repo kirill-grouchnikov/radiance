@@ -44,7 +44,7 @@ import java.awt.*;
  */
 public class SaturatedColorScheme extends BaseColorScheme {
 	/**
-	 * Shift factor.
+	 * Saturation factor.
 	 */
 	private double saturationFactor;
 

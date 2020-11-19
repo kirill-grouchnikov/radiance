@@ -587,28 +587,29 @@ public abstract class SubstanceSkin implements SubstanceTrait {
      * Registers the specified background color scheme and a color scheme bundle overlay to be used
      * on controls in decoration areas.
      *
-     * @param backgroundColorScheme The color scheme to use for background of controls in
-     *                              decoration areas.
-     * @param overlay               Overlay to be applied to the {@link SubstanceColorSchemeBundle}
-     *                              registered on the {@link DecorationAreaType#NONE}, with the
-     *                              resulting color scheme bundle to be used on #areaTypes.
-     * @param areaTypes             Enumerates the area types that are affected by the parameters.
-     *                              Each decoration area type will be painted by
-     *                              {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
+     * @param backgroundColorScheme     The color scheme to use for background of controls in
+     *                                  decoration areas.
+     * @param noneTransformationOverlay Overlay to be applied to the {@link SubstanceColorSchemeBundle}
+     *                                  registered on the {@link DecorationAreaType#NONE}, with the
+     *                                  resulting color scheme bundle to be used on #areaTypes.
+     * @param areaTypes                 Enumerates the area types that are affected by the
+     *                                  parameters. Each decoration area type will be painted by
+     *                                  {@link SubstanceDecorationPainter#paintDecorationArea(Graphics2D, Component, SubstanceSlices.DecorationAreaType, int, int, SubstanceSkin)}
      */
     public void registerAsDecorationArea(SubstanceColorScheme backgroundColorScheme,
-            SubstanceColorSchemeBundle.Overlay overlay,
+            SubstanceColorSchemeBundle.Overlay noneTransformationOverlay,
             DecorationAreaType... areaTypes) {
         SubstanceColorSchemeBundle defaultBundle =
                 this.colorSchemeBundleMap.get(DecorationAreaType.NONE);
         if (defaultBundle == null) {
-            throw new IllegalStateException("Cannot apply overlay before bundle for NONE");
+            throw new IllegalStateException("Cannot apply overlay without a registered NONE bundle");
         }
 
         // Apply a dummy "transformation" - effectively makes a deep copy of the default bundle
         SubstanceColorSchemeBundle noneCopy = defaultBundle.transform(scheme -> scheme);
         // Apply the overlay
-        overlay.overlay(noneCopy);
+        noneTransformationOverlay.overlay(noneCopy);
+        // And register the overlay transform on the requested decoration areas
         this.registerDecorationAreaSchemeBundle(noneCopy, backgroundColorScheme, areaTypes);
     }
 

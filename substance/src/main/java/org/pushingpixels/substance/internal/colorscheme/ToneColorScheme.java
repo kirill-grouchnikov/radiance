@@ -34,7 +34,7 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import java.awt.*;
 
 /**
- * Toned color scheme. A toned color scheme is a color scheme that is shifted to
+ * Toned color scheme. A toned color scheme is a color scheme that is shifted towards
  * <b>gray</b> color.
  * 
  * @author Kirill Grouchnikov

@@ -35,7 +35,7 @@ import java.awt.*;
 
 /**
  * Shaded color scheme. A shaded color scheme is a color scheme that is shifted
- * to <b>black</b> color.
+ * towards <b>black</b> color.
  * 
  * @author Kirill Grouchnikov
  * @see ShiftColorScheme
