@@ -89,18 +89,6 @@ public class SubstanceSynapse {
     public static final String BUTTON_NO_MIN_SIZE = "substancelaf.internal.buttonNoMinSize";
 
     /**
-     * Client property name for specifying that a single button / all application buttons should not
-     * paint the background.
-     */
-    public static final String BUTTON_NEVER_PAINT_BACKGROUND = "substancelaf.internal.buttonNeverPaintBackground";
-
-    /**
-     * Client property name for specifying that the component should be painted flat (no background
-     * / border) when it's inactive.
-     */
-    public static final String FLAT_LOOK = "substancelaf.internal.FlatLook";
-
-    /**
      * Client property name for specifying a straight side for a single button.
      */
     public static final String BUTTON_STRAIGHT_SIDE = "substancelaf.internal.buttonStraightSide";
@@ -142,7 +130,12 @@ public class SubstanceSynapse {
      * Client property name for specifying how icons on controls such as buttons, toggle buttons,
      * labels, tabs and menu items should be themed.
      */
-    public final static String ICON_THEMING_TYPE = "substancelaf.internal.iconThemingType";
+    public final static String ICON_THEMING_STRATEGY = "substancelaf.internal.iconThemingStrategy";
+
+    /**
+     * Client property name for specifying when control background should be painted.
+     */
+    public final static String BACKGROUND_APPEARANCE_STRATEGY = "substancelaf.internal.buttonBackgroundStrategy";
 
     /**
      * Client property name for specifying that contents of a frame, dialog, internal frame, desktop

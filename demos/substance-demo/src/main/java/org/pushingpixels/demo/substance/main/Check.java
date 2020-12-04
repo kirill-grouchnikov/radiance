@@ -99,8 +99,8 @@ public class Check extends JFrame {
         setLayout(new BorderLayout());
 
         jtp = new JTabbedPane();
-        SubstanceCortex.ComponentScope.setIconThemingType(jtp,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(jtp,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         mainTabPreviewPainter = new MyMainTabPreviewPainter();
         SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp, mainTabPreviewPainter);
@@ -453,9 +453,9 @@ public class Check extends JFrame {
         final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("themed icons");
         useThemedDefaultIconsCheckBox.addActionListener(
                 actionEvent -> SwingUtilities.invokeLater(() -> {
-                    SubstanceCortex.GlobalScope.setIconThemingType(
+                    SubstanceCortex.GlobalScope.setIconThemingStrategy(
                             useThemedDefaultIconsCheckBox.isSelected()
-                                    ? SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE
+                                    ? SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE
                                     : null);
                     repaint();
                 }));

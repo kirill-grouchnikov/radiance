@@ -31,6 +31,7 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -99,7 +100,8 @@ public class SubstanceMenuUI extends BasicMenuUI implements SubstanceMenu,
 				.getTextIconGap(SubstanceSizeUtils
 						.getComponentFontSize(this.menuItem));
 
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(this.menuItem, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this.menuItem,
+				SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
 		LookAndFeel.installProperty(menuItem, "opaque", Boolean.FALSE);
 	}

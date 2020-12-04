@@ -30,6 +30,7 @@
 package org.pushingpixels.ember
 
 import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
@@ -66,28 +67,14 @@ public fun JComponent.setButtonIgnoreMinimumSize(buttonIgnoreMinimumSize: Boolea
 }
 
 /**
- * Specifies whether this component or its immediate children should never paint
- * button backgrounds.
+ * Specifies when this component or its immediate children should paint
+ * the background.
  *
- * @param neverPaintButtonBackground If `true`, the component or its immediate
- * children will never paint button backgrounds. Pass `null` to reset
+ * @param backgroundAppearanceStrategy Background appearance strategy. Pass `null` to reset
  * to the default behavior.
- * @see JComponent.setFlatBackground
  */
-public fun JComponent.setButtonNeverPaintBackground(neverPaintButtonBackground: Boolean?) {
-    SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(this,
-            neverPaintButtonBackground)
-}
-
-/**
- * Specifies whether this component or its immediate children should not paint
- * backgrounds unless selected, armed, pressed or (possibly) hovered over.
- *
- * @param flatBackground If `true`, the component or its immediate children
- * will not paint backgrounds unless selected, armed, pressed or (possibly)
- * hovered over. Pass `null` to reset to the default behavior.
- * @see JComponent.setButtonNeverPaintBackground
- */
-public fun JComponent.setFlatBackground(flatBackground: Boolean?) {
-    SubstanceCortex.ComponentOrParentScope.setFlatBackground(this, flatBackground)
+public fun JComponent.setBackgroundAppearanceStrategy(
+        backgroundAppearanceStrategy: SubstanceSlices.BackgroundAppearanceStrategy?) {
+    SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this,
+            backgroundAppearanceStrategy)
 }

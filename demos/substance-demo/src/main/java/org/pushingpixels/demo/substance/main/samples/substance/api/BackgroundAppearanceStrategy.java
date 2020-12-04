@@ -32,35 +32,40 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentOrParentScope#setButtonNeverPaintBackground(javax.swing.JComponent, Boolean)}
- * client property.
+ * {@link SubstanceCortex.ComponentOrParentScope#setBackgroundAppearanceStrategy(JComponent, SubstanceSlices.BackgroundAppearanceStrategy)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentOrParentScope#setButtonNeverPaintBackground(javax.swing.JComponent,
- *      Boolean)
+ * @see SubstanceCortex.ComponentOrParentScope#setBackgroundAppearanceStrategy(JComponent, SubstanceSlices.BackgroundAppearanceStrategy)
  */
-public class ButtonNeverPaintBackground extends JFrame {
+public class BackgroundAppearanceStrategy extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public ButtonNeverPaintBackground() {
-        super("Middle button never paints background");
+    public BackgroundAppearanceStrategy() {
+        super("Middle is flat, right never paints background");
 
         this.setLayout(new FlowLayout());
 
         JButton buttonA = new JButton("a");
         JButton buttonB = new JButton("b");
-        // Mark button to never paint its background
-        SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(buttonB, true);
+        // mark button to have flat background
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(buttonB,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
         JButton buttonC = new JButton("c");
+        // mark button to never paint background
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(buttonC,
+                SubstanceSlices.BackgroundAppearanceStrategy.NEVER);
 
         this.add(buttonA);
         this.add(buttonB);
@@ -81,7 +86,7 @@ public class ButtonNeverPaintBackground extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new ButtonNeverPaintBackground().setVisible(true);
+            new BackgroundAppearanceStrategy().setVisible(true);
         });
     }
 }

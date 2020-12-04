@@ -806,7 +806,7 @@ public final class SubstanceSlices {
         SELECTION_FOREGROUND
     }
 
-    public enum IconThemingType {
+    public enum IconThemingStrategy {
         FOLLOW_FOREGROUND {
             @Override
             public boolean isForInactiveState() {
@@ -821,6 +821,17 @@ public final class SubstanceSlices {
         };
 
         public abstract boolean isForInactiveState();
+    }
+
+    public enum BackgroundAppearanceStrategy {
+        /** Never paint background. */
+        NEVER,
+
+        /** Paint background only when selected, armed, pressed or (possibly) hovered over. */
+        FLAT,
+
+        /** Always paint background. */
+        ALWAYS
     }
 
     /**

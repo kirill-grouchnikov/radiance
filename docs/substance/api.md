@@ -284,13 +284,9 @@ Specifies whether scroll panes should have have auto-scroll support invoked on m
 
 Specifies whether buttons should ignore the default (minimum) dimension.
 
-`public static void setButtonNeverPaintBackground(Boolean neverPaintButtonBackground)`
+`public static void setBackgroundAppearanceStrategy(SubstanceSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy)`
 
-Specifies whether buttons should never paint backgrounds.
-
-`public static void setFlatBackground(Boolean flatBackground)`
-
-Specifies whether components should not paint backgrounds unless selected, armed, pressed or (possibly) hovered over.
+Specifies when components should paint their background.
 
 `public static void setToolbarButtonCornerRadius(float toolbarButtonCornerRadius)`
 
@@ -530,13 +526,9 @@ Specifies preview painter to be used for showing preview of the specific compone
 
 Specifies whether the specific component or its immediate children should ignore the default (minimum) dimension for buttons.
 
-`public static void setButtonNeverPaintBackground(JComponent comp, Boolean neverPaintButtonBackground)`
+`public static void setBackgroundAppearanceStrategy(JComponent comp, SubstanceSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy)`
 
-Specifies whether the specific component or its immediate children should never paint button backgrounds.
-
-`public static void setFlatBackground(JComponent comp, Boolean flatBackground)`
-
-Specifies whether the specific component or its immediate children should not paint backgrounds unless selected, armed, pressed or (possibly) hovered over.
+Specifies when the specific component or its immediate children should paint their background.
 
 ### ComponentOrParentChainScope
 

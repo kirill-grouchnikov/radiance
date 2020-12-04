@@ -41,16 +41,16 @@ import java.awt.*;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#setIconThemingType(SubstanceSlices.IconThemingType)} API.
+ * {@link SubstanceCortex.GlobalScope#setIconThemingStrategy(SubstanceSlices.IconThemingStrategy)} API.
  *
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.GlobalScope#setIconThemingType(SubstanceSlices.IconThemingType)
+ * @see SubstanceCortex.GlobalScope#setIconThemingStrategy(SubstanceSlices.IconThemingStrategy)
  */
-public class SetIconThemingType extends JFrame {
+public class SetIconThemingStrategy extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public SetIconThemingType() {
+    public SetIconThemingStrategy() {
         super("Use themed default icons");
 
         this.setLayout(new BorderLayout());
@@ -65,10 +65,10 @@ public class SetIconThemingType extends JFrame {
         final JCheckBox useThemedIcons = new JCheckBox("use themed icons");
         useThemedIcons.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             // based on the checkbox selection status, call the API
-            SubstanceCortex.GlobalScope.setIconThemingType(useThemedIcons.isSelected()
-                    ? SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE
+            SubstanceCortex.GlobalScope.setIconThemingStrategy(useThemedIcons.isSelected()
+                    ? SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE
                     : null);
-            SetIconThemingType.this.repaint();
+            SetIconThemingStrategy.this.repaint();
         }));
         controls.add(useThemedIcons);
         this.add(controls, BorderLayout.SOUTH);
@@ -87,7 +87,7 @@ public class SetIconThemingType extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin());
-            new SetIconThemingType().setVisible(true);
+            new SetIconThemingStrategy().setVisible(true);
         });
     }
 }

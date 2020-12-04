@@ -199,7 +199,8 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 
 		resetBtn.setToolTipText(getLabel("Xoetrope.reset",
 				"Reset the color wheel saturation and brightness"));
-        SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(resetBtn, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(resetBtn,
+				SubstanceSlices.BackgroundAppearanceStrategy.NEVER);
         SubstanceCortex.ComponentOrParentChainScope.setFocusKind(resetBtn,
                 SubstanceSlices.FocusKind.NONE);
 		fixedPanel.add(resetBtn);

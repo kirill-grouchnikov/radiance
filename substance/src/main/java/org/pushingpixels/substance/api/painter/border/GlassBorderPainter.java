@@ -30,7 +30,6 @@
 package org.pushingpixels.substance.api.painter.border;
 
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import java.awt.*;
 
@@ -48,8 +47,7 @@ public class GlassBorderPainter extends StandardBorderPainter {
 
 	@Override
 	public Color getTopBorderColor(SubstanceColorScheme borderScheme) {
-		return SubstanceColorUtilities.getInterpolatedColor(super.getTopBorderColor(borderScheme),
-				super.getMidBorderColor(borderScheme), 0.0f);
+		return super.getMidBorderColor(borderScheme);
 	}
 
 	@Override

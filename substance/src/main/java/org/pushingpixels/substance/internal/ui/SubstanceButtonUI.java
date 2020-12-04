@@ -415,16 +415,16 @@ public class SubstanceButtonUI extends BasicButtonUI implements
                     .getStateTransitionTracker().getIconGlowTracker().isPlaying()) {
                 this.glowingIcon.paintIcon(b, graphics, 0, 0);
             } else {
-                SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceSlices.IconThemingStrategy iconThemingStrategy =
                         SubstanceCoreUtilities.getIconThemingType(b);
                 Icon themedIcon = (!(b instanceof JRadioButton)
                         && !(b instanceof JCheckBox)
-                        && (iconThemingType != null))
+                        && (iconThemingStrategy != null))
                         ? SubstanceCoreUtilities.getThemedIcon(b, originalIcon, this.textColor)
                         : originalIcon;
                 themedIcon.paintIcon(b, graphics, 0, 0);
-                if ((activeAmount > 0.0f) && (iconThemingType != null)
-                        && iconThemingType.isForInactiveState()
+                if ((activeAmount > 0.0f) && (iconThemingStrategy != null)
+                        && iconThemingStrategy.isForInactiveState()
                         && (originalIcon != themedIcon)) {
                     graphics.setComposite(WidgetUtilities.getAlphaComposite(b, activeAmount, g));
                     originalIcon.paintIcon(b, graphics, 0, 0);

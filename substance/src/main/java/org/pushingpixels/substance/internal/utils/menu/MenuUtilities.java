@@ -657,9 +657,9 @@ public class MenuUtilities {
             }
 
             if (icon != null) {
-                SubstanceSlices.IconThemingType iconThemingType =
+                SubstanceSlices.IconThemingStrategy iconThemingStrategy =
                         SubstanceCoreUtilities.getIconThemingType(menuItem);
-                boolean useThemed = (iconThemingType != null);
+                boolean useThemed = (iconThemingStrategy != null);
 
                 graphics.translate(mli.iconRect.x, mli.iconRect.y);
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -668,7 +668,7 @@ public class MenuUtilities {
                     icon.paintIcon(menuItem, graphics, 0, 0);
                 } else {
                     Icon themed = SubstanceCoreUtilities.getThemedIcon(menuItem, icon, textColor);
-                    boolean useRegularVersion = iconThemingType.isForInactiveState()
+                    boolean useRegularVersion = iconThemingStrategy.isForInactiveState()
                             && (model.isPressed() || model.isSelected());
                     if (useRegularVersion) {
                         icon.paintIcon(menuItem, graphics, 0, 0);
@@ -681,8 +681,8 @@ public class MenuUtilities {
                                         .getFacetStrength(ComponentStateFacet.ROLLOVER),
                                 stateTransitionTracker.getFacetStrength(ComponentStateFacet.ARM));
                         themed.paintIcon(menuItem, graphics, 0, 0);
-                        if ((rolloverAmount > 0) && (iconThemingType != null)
-                                && iconThemingType.isForInactiveState()
+                        if ((rolloverAmount > 0) && (iconThemingStrategy != null)
+                                && iconThemingStrategy.isForInactiveState()
                                 && (icon != themed)) {
                             graphics.setComposite(
                                     WidgetUtilities.getAlphaComposite(menuItem, rolloverAmount, g));

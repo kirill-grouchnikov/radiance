@@ -317,23 +317,23 @@ public class ButtonsPanel extends JPanel {
 
         JLabel bLabel = new JLabel("Buttons");
         bLabel.setIcon(button.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(bLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         JLabel tbLabel = new JLabel("Toggle buttons");
         tbLabel.setIcon(bullseye.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(tbLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(tbLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         JLabel cbLabel = new JLabel("Check boxes");
         cbLabel.setIcon(check_square_o.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(cbLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(cbLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         JLabel rbLabel = new JLabel("Radio buttons");
         rbLabel.setIcon(dot_circle.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(rbLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(rbLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         // bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
         // tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
@@ -359,16 +359,16 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "With icon", se.of(16, 16), new IconCommand(se.of(16, 16)));
         this.addRow(builder, "Themed for inactive", ic_help_black_24px.of(16, 16),
                 new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
-                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingType(ab,
-                                SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE)),
-                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingType(label,
-                        SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE));
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(ab,
+                                SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(label,
+                        SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE));
         this.addRow(builder, "Themed for foreground", ic_help_black_24px.of(16, 16),
                 new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
-                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingType(ab,
-                                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND)),
-                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingType(label,
-                        SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND));
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(ab,
+                                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(label,
+                        SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());
@@ -461,10 +461,10 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "No background", null, new ChainCommand<>(
                 new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()));
         this.addRow(builder, "Flat", null, (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
-                .setFlatBackground(jc, true));
+                .setBackgroundAppearanceStrategy(jc, SubstanceSlices.BackgroundAppearanceStrategy.FLAT));
         this.addRow(builder, "Never", null,
                 (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
-                        .setButtonNeverPaintBackground(jc, true));
+                        .setBackgroundAppearanceStrategy(jc, SubstanceSlices.BackgroundAppearanceStrategy.NEVER));
 
         this.addRow(builder, "Fixed font", null,
                 new FontCommand(new Font("Arial", Font.PLAIN, 12)));

@@ -259,8 +259,8 @@ public class ControlPanelFactory {
 
         isToolbarFlat.setSelected(true);
         isToolbarFlat.addActionListener(actionEvent -> {
-            SubstanceCortex.ComponentOrParentScope.setFlatBackground(toolbar,
-                    isToolbarFlat.isSelected());
+            SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(toolbar,
+                    isToolbarFlat.isSelected() ? BackgroundAppearanceStrategy.FLAT : null);
             toolbar.repaint();
         });
         builder.append("Flat", isToolbarFlat);
@@ -296,7 +296,7 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", folder_open.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(bfo, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bfo, IconThemingStrategy.FOLLOW_FOREGROUND);
         bfo.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showOpenDialog(mainFrame);
@@ -304,7 +304,7 @@ public class ControlPanelFactory {
         builder.append("File chooser", bfo);
 
         JButton bfs = new JButton("Save dialog", folder_open.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(bfs, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bfs, IconThemingStrategy.FOLLOW_FOREGROUND);
         bfs.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showSaveDialog(mainFrame);
@@ -312,7 +312,7 @@ public class ControlPanelFactory {
         builder.append("", bfs);
 
         JButton bc = new JButton("Open", folder_open.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(bc, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bc, IconThemingStrategy.FOLLOW_FOREGROUND);
         bc.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
                     new Color(23, 45, 200));
@@ -376,28 +376,28 @@ public class ControlPanelFactory {
         bopi.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
                         "Sample title", JOptionPane.INFORMATION_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingType(bopi, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bopi, IconThemingStrategy.FOLLOW_FOREGROUND);
         builder.append("Info", bopi);
 
         JButton bope = new JButton("Show", ic_error_black_24px.of(16, 16));
         bope.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
                         "Sample title", JOptionPane.ERROR_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingType(bope, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bope, IconThemingStrategy.FOLLOW_FOREGROUND);
         builder.append("Error", bope);
 
         JButton bopw = new JButton("Show", ic_warning_black_24px.of(16, 16));
         bopw.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingType(bopw, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bopw, IconThemingStrategy.FOLLOW_FOREGROUND);
         builder.append("Warning", bopw);
 
         JButton bopq = new JButton("Show", ic_help_black_24px.of(16, 16));
         bopq.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingType(bopq, IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bopq, IconThemingStrategy.FOLLOW_FOREGROUND);
         builder.append("Question", bopq);
 
         JButton bopc = new JButton("Show");

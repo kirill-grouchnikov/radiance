@@ -37,7 +37,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.IconThemingType;
+import org.pushingpixels.substance.api.SubstanceSlices.IconThemingStrategy;
 import org.pushingpixels.substance.api.skin.MagellanSkin;
 
 import javax.swing.*;
@@ -96,7 +96,7 @@ public class ControlStatesExtendedThemed extends JFrame {
 
             SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             SubstanceCortex.GlobalScope.setSkin(new MagellanSkin());
-            SubstanceCortex.GlobalScope.setIconThemingType(IconThemingType.FOLLOW_FOREGROUND);
+            SubstanceCortex.GlobalScope.setIconThemingStrategy(IconThemingStrategy.FOLLOW_FOREGROUND);
 
             new ControlStatesExtendedThemed().setVisible(true);
         });

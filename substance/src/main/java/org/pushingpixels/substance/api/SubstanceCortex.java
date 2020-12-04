@@ -89,7 +89,8 @@ import java.util.*;
  */
 public class SubstanceCortex {
     // No-op private constructor to prevent application code from directly creating instances
-    private SubstanceCortex() {}
+    private SubstanceCortex() {
+    }
 
     /**
      * APIs in this scope apply to the global state of the application.
@@ -774,11 +775,11 @@ public class SubstanceCortex {
          * The control is in default state when it's not pressed, not selected, not armed and not
          * rolled over. By default, all controls show regular (full-color original) icons.
          *
-         * @param iconThemingType Icon theming type.
-         * @see ComponentScope#setIconThemingType(JComponent, IconThemingType) 
+         * @param iconThemingStrategy Icon theming strategy.
+         * @see ComponentScope#setIconThemingStrategy(JComponent, IconThemingStrategy)
          */
-        public static void setIconThemingType(SubstanceSlices.IconThemingType iconThemingType) {
-            UIManager.put(SubstanceSynapse.ICON_THEMING_TYPE, iconThemingType);
+        public static void setIconThemingStrategy(IconThemingStrategy iconThemingStrategy) {
+            UIManager.put(SubstanceSynapse.ICON_THEMING_STRATEGY, iconThemingStrategy);
         }
 
         /**
@@ -1069,31 +1070,16 @@ public class SubstanceCortex {
         }
 
         /**
-         * Specifies whether buttons should never paint backgrounds.
+         * Specifies when components should draw their background.
          *
-         * @param neverPaintButtonBackground If <code>true</code>, buttons will never paint
-         *                                   backgrounds. Pass <code>null</code> to reset to the
-         *                                   default behavior.
-         * @see ComponentOrParentScope#setButtonNeverPaintBackground(JComponent, Boolean)
-         * @see #setFlatBackground(Boolean)
+         * @param backgroundAppearanceStrategy Background appearance strategy. Pass
+         *                                     <code>null</code> to reset to the default behavior (to <code>ALWAYS</code>)
+         * @see ComponentOrParentScope#setBackgroundAppearanceStrategy(JComponent, BackgroundAppearanceStrategy)
          */
-        public static void setButtonNeverPaintBackground(Boolean neverPaintButtonBackground) {
-            UIManager.put(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND,
-                    neverPaintButtonBackground);
-        }
-
-        /**
-         * Specifies whether components should not paint backgrounds unless selected, armed, pressed
-         * or (possibly) hovered over.
-         *
-         * @param flatBackground If <code>true</code>, components will not paint backgrounds
-         *                       unless selected, armed, pressed or (possibly) hovered over. Pass
-         *                       <code>null</code> to reset to the default behavior.
-         * @see ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
-         * @see #setButtonNeverPaintBackground(Boolean)
-         */
-        public static void setFlatBackground(Boolean flatBackground) {
-            UIManager.put(SubstanceSynapse.FLAT_LOOK, flatBackground);
+        public static void setBackgroundAppearanceStrategy(
+                SubstanceSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            UIManager.put(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY,
+                    backgroundAppearanceStrategy);
         }
 
         /**
@@ -1238,11 +1224,11 @@ public class SubstanceCortex {
 
         /**
          * Specifies the menu gutter fill alpha. Menu gutter is the part of the menu where
-         * checkmarks and icons are painted. The current / default menu gutter fill alpha 
+         * checkmarks and icons are painted. The current / default menu gutter fill alpha
          * can be obtained by calling {@link #getMenuGutterFillAlpha()}.
          *
          * @param menuGutterFillAlpha Menu gutter fill alpha.
-         * @see #getMenuGutterFillAlpha() 
+         * @see #getMenuGutterFillAlpha()
          */
         public static void setMenuGutterFillAlpha(float menuGutterFillAlpha) {
             if ((menuGutterFillAlpha < 0.0f) || (menuGutterFillAlpha > 1.0f)) {
@@ -1254,7 +1240,7 @@ public class SubstanceCortex {
 
         /**
          * Returns the menu gutter fill alpha. Menu gutter is the part of the menu where
-         * checkmarks and icons are painted. 
+         * checkmarks and icons are painted.
          *
          * @return Menu gutter fill alpha.
          * @see #setMenuGutterFillAlpha(float)
@@ -2058,13 +2044,13 @@ public class SubstanceCortex {
          * it's not pressed, not selected, not armed and not rolled over. By default, all controls
          * show regular (full-color original) icons.
          *
-         * @param component       Component.
-         * @param iconThemingType Icon theming type for the component icon(s).
-         * @see GlobalScope#setIconThemingType(IconThemingType)
+         * @param component           Component.
+         * @param iconThemingStrategy Icon theming strategy for the component icon(s).
+         * @see GlobalScope#setIconThemingStrategy(IconThemingStrategy)
          */
-        public static void setIconThemingType(JComponent component,
-                SubstanceSlices.IconThemingType iconThemingType) {
-            component.putClientProperty(SubstanceSynapse.ICON_THEMING_TYPE, iconThemingType);
+        public static void setIconThemingStrategy(JComponent component,
+                IconThemingStrategy iconThemingStrategy) {
+            component.putClientProperty(SubstanceSynapse.ICON_THEMING_STRATEGY, iconThemingStrategy);
         }
     }
 
@@ -2109,38 +2095,18 @@ public class SubstanceCortex {
         }
 
         /**
-         * Specifies whether the specific component or its immediate children should never paint
-         * button backgrounds.
+         * Specifies when the specific component or its immediate children should draw their
+         * background.
          *
-         * @param comp                       Component.
-         * @param neverPaintButtonBackground If <code>true</code>, the component or its immediate
-         *                                   children will never paint
-         *                                   button backgrounds. Pass <code>null</code> to reset
-         *                                   to the default behavior.
-         * @see GlobalScope#setButtonNeverPaintBackground(Boolean)
-         * @see #setFlatBackground(JComponent, Boolean)
+         * @param comp                         Component.
+         * @param backgroundAppearanceStrategy Background appearance strategy. Pass
+         *                                     <code>null</code> to reset to the default behavior (to <code>ALWAYS</code>)
+         * @see GlobalScope#setBackgroundAppearanceStrategy(BackgroundAppearanceStrategy)
          */
-        public static void setButtonNeverPaintBackground(JComponent comp,
-                Boolean neverPaintButtonBackground) {
-            comp.putClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND,
-                    neverPaintButtonBackground);
-        }
-
-        /**
-         * Specifies whether the specific component or its immediate children should not paint
-         * backgrounds unless selected, armed, pressed or (possibly) hovered over.
-         *
-         * @param comp           Component.
-         * @param flatBackground If <code>true</code>, the component or its immediate children
-         *                       will not paint
-         *                       backgrounds unless selected, armed, pressed or (possibly)
-         *                       hovered over.. Pass
-         *                       <code>null</code> to reset to the default behavior.
-         * @see GlobalScope#setFlatBackground(Boolean)
-         * @see #setButtonNeverPaintBackground(JComponent, Boolean)
-         */
-        public static void setFlatBackground(JComponent comp, Boolean flatBackground) {
-            comp.putClientProperty(SubstanceSynapse.FLAT_LOOK, flatBackground);
+        public static void setBackgroundAppearanceStrategy(JComponent comp,
+                SubstanceSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            comp.putClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY,
+                    backgroundAppearanceStrategy);
         }
     }
 

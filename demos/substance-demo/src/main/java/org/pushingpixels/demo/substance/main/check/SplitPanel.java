@@ -30,6 +30,7 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,8 +66,8 @@ public class SplitPanel extends ControllablePanel {
         final JCheckBox isFlat = new JCheckBox("is flat");
         isFlat.setSelected(true);
         isFlat.addActionListener(actionEvent -> {
-            SubstanceCortex.ComponentOrParentScope.setFlatBackground(splitPane,
-                    isFlat.isSelected() ? Boolean.TRUE : Boolean.FALSE);
+            SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(splitPane,
+                    isFlat.isSelected() ? SubstanceSlices.BackgroundAppearanceStrategy.FLAT : null);
             splitPane.repaint();
         });
 

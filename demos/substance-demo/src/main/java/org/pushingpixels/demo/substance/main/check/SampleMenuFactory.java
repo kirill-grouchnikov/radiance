@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
-import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -156,21 +155,21 @@ public class SampleMenuFactory {
 
         LinkedList<JMenuItem> list4 = new LinkedList<>();
         JMenuItem themed1 = new JMenuItem("Themed enabled", ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingType(themed1,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed1,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
         JMenuItem themed2 = new JMenuItem("Themed disabled", ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingType(themed2,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed2,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
         themed2.setEnabled(false);
         JCheckBoxMenuItem themed3 = new JCheckBoxMenuItem("Themed selected enabled",
                 ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingType(themed3,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed3,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
         themed3.setSelected(true);
         JCheckBoxMenuItem themed4 = new JCheckBoxMenuItem("Themed selected disabled",
                 ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingType(themed4,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed4,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
         themed4.setSelected(true);
         themed4.setEnabled(false);
 

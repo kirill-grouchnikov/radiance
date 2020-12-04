@@ -35,6 +35,7 @@ import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.EnableCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.il;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 
 import javax.swing.*;
@@ -238,7 +239,8 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
 
         JComboBox<String> comboFlat = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(comboFlat, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(comboFlat,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
         builder.append("Flat", comboFlat);
 
         JComboBox<String> comboDefaultCoreRenderer = new JComboBox<>(

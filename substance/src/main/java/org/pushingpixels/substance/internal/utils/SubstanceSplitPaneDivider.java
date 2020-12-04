@@ -31,6 +31,7 @@ package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.ModelStateInfo;
@@ -291,7 +292,8 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                 this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT ? verticalSplit
                         : horizontalSplit);
 
-        SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(oneTouchButton, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(oneTouchButton,
+                SubstanceSlices.BackgroundAppearanceStrategy.NEVER);
 
         oneTouchButton.setRequestFocusEnabled(false);
         oneTouchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -325,7 +327,8 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                 this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT ? verticalSplit
                         : horizontalSplit);
 
-        SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(oneTouchButton, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(oneTouchButton,
+                SubstanceSlices.BackgroundAppearanceStrategy.NEVER);
 
         oneTouchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         oneTouchButton.setFocusPainted(false);

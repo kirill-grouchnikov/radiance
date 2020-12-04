@@ -36,6 +36,7 @@ import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -238,7 +239,8 @@ public class ThreadPanel extends JPanel {
         JButton forward = new JButton("Forward", forwardIcon);
 
         // Mark the button panel to be flat - effectively marking both action buttons as flat
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(result, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(result,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
         result.add(reply);
         result.add(forward);

@@ -32,6 +32,7 @@ package org.pushingpixels.demo.substance.main.check;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.check.command.*;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,11 +72,11 @@ public class SpinnerPanel extends JPanel {
                         .setSelectTextOnFocus(control, true));
         addSpinner(builder, "Number", numberCr, null);
         addSpinner(builder, "Number flat", numberCr,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setFlatBackground(jc,
-                        true));
+                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(jc,
+                        SubstanceSlices.BackgroundAppearanceStrategy.FLAT));
         addSpinner(builder, "Number never", numberCr,
                 (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
-                        .setButtonNeverPaintBackground(jc, true));
+                        .setBackgroundAppearanceStrategy(jc, SubstanceSlices.BackgroundAppearanceStrategy.NEVER));
         addSpinner(builder, "Number pink", numberCr,
                 new BackgroundColorCommand(new Color(255, 128, 128)));
 
@@ -92,7 +93,8 @@ public class SpinnerPanel extends JPanel {
         addSpinner(builder, "Number flat", numberCr,
                 new ChainCommand<>(
                         (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
-                                .setFlatBackground(jc, true),
+                                .setBackgroundAppearanceStrategy(jc,
+                                        SubstanceSlices.BackgroundAppearanceStrategy.FLAT),
                         new DisableCommand()));
 
         this.add(new JScrollPane(builder.build()), BorderLayout.CENTER);

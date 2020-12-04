@@ -38,6 +38,7 @@ import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
@@ -278,7 +279,8 @@ public class ThreadListPanel extends PanelWithRightLine {
         JButton actionButton = new JButton(icon);
         SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
                 Boolean.TRUE);
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(actionButton, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(actionButton,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
         builder.add(actionButton).xy(3, 1);
         JPanel result = builder.build();
         return result;

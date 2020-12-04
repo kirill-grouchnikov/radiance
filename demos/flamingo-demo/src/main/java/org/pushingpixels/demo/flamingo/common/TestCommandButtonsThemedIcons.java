@@ -59,8 +59,8 @@ public class TestCommandButtonsThemedIcons extends TestCommandButtons {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             SubstanceCortex.GlobalScope.setSkin(new GraphiteGlassSkin());
-            SubstanceCortex.GlobalScope.setIconThemingType(
-                    SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+            SubstanceCortex.GlobalScope.setIconThemingStrategy(
+                    SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
             TestCommandButtonsThemedIcons frame = new TestCommandButtonsThemedIcons();
             frame.setSize(800, 400);

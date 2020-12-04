@@ -102,7 +102,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
         }
 
         float rolloverAmount = 0.0f;
-        SubstanceSlices.IconThemingType iconThemingType =
+        SubstanceSlices.IconThemingStrategy iconThemingStrategy =
                 SubstanceCoreUtilities.getIconThemingType(label);
 
         Insets insets = label.getInsets(paintViewInsets);
@@ -157,7 +157,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
         // Get themed icon if relevant
         Icon themedIcon = null;
         if (label.isEnabled()) {
-            if ((icon != null) && (iconThemingType != null)) {
+            if ((icon != null) && (iconThemingStrategy != null)) {
                 if (label instanceof ThemedIconAwareRenderer) {
                     ThemedIconAwareRenderer themedIconAwareRenderer =
                             (ThemedIconAwareRenderer) label;
@@ -173,8 +173,8 @@ public class SubstanceLabelUI extends BasicLabelUI {
 
             if (themedIcon != null) {
                 themedIcon.paintIcon(c, g2d, 0, 0);
-                if ((rolloverAmount > 0.0f) && (iconThemingType != null)
-                        && iconThemingType.isForInactiveState()
+                if ((rolloverAmount > 0.0f) && (iconThemingStrategy != null)
+                        && iconThemingStrategy.isForInactiveState()
                         && (icon != themedIcon)) {
                     g2d.setComposite(WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
                     icon.paintIcon(c, g2d, 0, 0);

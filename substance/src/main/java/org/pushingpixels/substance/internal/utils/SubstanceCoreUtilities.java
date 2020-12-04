@@ -232,7 +232,7 @@ public class SubstanceCoreUtilities {
      * @param button Button.
      * @return <code>true</code> if the specified button never paints its background,
      * <code>false</code> otherwise.
-     * @see SubstanceCortex.GlobalScope#setButtonNeverPaintBackground(Boolean)
+     * @see SubstanceCortex.GlobalScope#setBackgroundAppearanceStrategy(BackgroundAppearanceStrategy)
      */
     public static boolean isButtonNeverPainted(JComponent button) {
         // small optimizations for checkboxes and radio buttons
@@ -243,32 +243,27 @@ public class SubstanceCoreUtilities {
             return false;
         }
 
-        Object prop = button.getClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND);
-        if (prop != null) {
-            if (Boolean.TRUE.equals(prop)) {
+        Object backgroundAppearanceStrategy = button.getClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+        if (backgroundAppearanceStrategy != null) {
+            if (BackgroundAppearanceStrategy.NEVER.equals(backgroundAppearanceStrategy)) {
                 return true;
-            }
-            if (Boolean.FALSE.equals(prop)) {
-                return false;
             }
         }
 
         Container parent = button.getParent();
         if (parent instanceof JComponent) {
             JComponent jparent = (JComponent) parent;
-            Object flatProperty = jparent
-                    .getClientProperty(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND);
-            if (flatProperty != null) {
-                if (Boolean.TRUE.equals(flatProperty)) {
+            backgroundAppearanceStrategy = jparent
+                    .getClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+            if (backgroundAppearanceStrategy != null) {
+                if (BackgroundAppearanceStrategy.NEVER.equals(backgroundAppearanceStrategy)) {
                     return true;
-                }
-                if (Boolean.FALSE.equals(flatProperty)) {
-                    return false;
                 }
             }
         }
 
-        return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.BUTTON_NEVER_PAINT_BACKGROUND));
+        return BackgroundAppearanceStrategy.NEVER.equals(
+                UIManager.get(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY));
     }
 
     /**
@@ -585,7 +580,8 @@ public class SubstanceCoreUtilities {
      * @param button Button to mark as flat.
      */
     public static void markButtonAsFlat(AbstractButton button) {
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(button, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(button,
+                BackgroundAppearanceStrategy.FLAT);
         button.setOpaque(false);
     }
 
@@ -595,47 +591,49 @@ public class SubstanceCoreUtilities {
      * @param comp         Component.
      * @param defaultValue The value to return.
      * @return <code>false</code> if the specified button is flat, <code>true</code> otherwise.
-     * @see SubstanceCortex.ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
-     * @see SubstanceCortex.GlobalScope#setFlatBackground(Boolean)
+     * @see SubstanceCortex.ComponentOrParentScope#setBackgroundAppearanceStrategy(JComponent, BackgroundAppearanceStrategy)
+     * @see SubstanceCortex.GlobalScope#setBackgroundAppearanceStrategy(BackgroundAppearanceStrategy)
      */
     public static boolean hasFlatAppearance(Component comp, boolean defaultValue) {
         // small optimizations for checkboxes and radio buttons
-        if (comp instanceof JCheckBox)
+        if (comp instanceof JCheckBox) {
             return defaultValue;
-        if (comp instanceof JRadioButton)
+        }
+        if (comp instanceof JRadioButton) {
             return defaultValue;
+        }
+
         Component c = comp;
-        // while (c != null) {
         if (c instanceof JComponent) {
             JComponent jcomp = (JComponent) c;
-            Object flatProperty = jcomp.getClientProperty(SubstanceSynapse.FLAT_LOOK);
-            if (flatProperty != null) {
-                if (Boolean.TRUE.equals(flatProperty))
+            Object backgroundAppearanceStrategyProperty =
+                    jcomp.getClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+            if (backgroundAppearanceStrategyProperty != null) {
+                if (BackgroundAppearanceStrategy.FLAT.equals(backgroundAppearanceStrategyProperty)) {
                     return true;
-                if (Boolean.FALSE.equals(flatProperty))
-                    return false;
+                }
             }
         }
         if (c != null) {
             Container parent = c.getParent();
             if (parent instanceof JComponent) {
                 JComponent jparent = (JComponent) parent;
-                Object flatProperty = jparent.getClientProperty(SubstanceSynapse.FLAT_LOOK);
-                if (flatProperty != null) {
-                    if (Boolean.TRUE.equals(flatProperty))
+                Object backgroundAppearanceStrategyProperty =
+                        jparent.getClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+                if (backgroundAppearanceStrategyProperty != null) {
+                    if (BackgroundAppearanceStrategy.FLAT.equals(backgroundAppearanceStrategyProperty)) {
                         return true;
-                    if (Boolean.FALSE.equals(flatProperty))
-                        return false;
+                    }
                 }
             }
         }
 
-        Object flatProperty = UIManager.get(SubstanceSynapse.FLAT_LOOK);
-        if (flatProperty != null) {
-            if (Boolean.TRUE.equals(flatProperty))
+        Object backgroundAppearanceStrategyProperty =
+                UIManager.get(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+        if (backgroundAppearanceStrategyProperty != null) {
+            if (BackgroundAppearanceStrategy.FLAT.equals(backgroundAppearanceStrategyProperty)) {
                 return true;
-            if (Boolean.FALSE.equals(flatProperty))
-                return false;
+            }
         }
         return defaultValue;
     }
@@ -728,18 +726,18 @@ public class SubstanceCoreUtilities {
      * @return <code>true</code> if the specified component will show scheme-colorized icon in the
      * default state, <code>false</code> otherwise.
      */
-    public static SubstanceSlices.IconThemingType getIconThemingType(JComponent comp) {
+    public static IconThemingStrategy getIconThemingType(JComponent comp) {
         if ((comp == null) || comp.getClass().isAnnotationPresent(SubstanceInternalButton.class)) {
             return null;
         }
-        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_THEMING_TYPE);
-        if (compProperty instanceof SubstanceSlices.IconThemingType) {
-            return (SubstanceSlices.IconThemingType) compProperty;
+        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_THEMING_STRATEGY);
+        if (compProperty instanceof IconThemingStrategy) {
+            return (IconThemingStrategy) compProperty;
         }
 
-        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_THEMING_TYPE);
-        if (globalProperty instanceof SubstanceSlices.IconThemingType) {
-            return (SubstanceSlices.IconThemingType) globalProperty;
+        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_THEMING_STRATEGY);
+        if (globalProperty instanceof IconThemingStrategy) {
+            return (IconThemingStrategy) globalProperty;
         }
 
         return null;
@@ -1079,12 +1077,12 @@ public class SubstanceCoreUtilities {
     }
 
     public static ImageWrapperIcon getThemedIcon(JComponent comp, Icon orig, Color textColor) {
-        SubstanceSlices.IconThemingType iconThemingType =
+        IconThemingStrategy iconThemingStrategy =
                 SubstanceCoreUtilities.getIconThemingType(comp);
 
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(comp,
                 ComponentState.ENABLED);
-        switch (iconThemingType) {
+        switch (iconThemingStrategy) {
             case USE_ENABLED_WHEN_INACTIVE:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
                 return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
@@ -1101,12 +1099,12 @@ public class SubstanceCoreUtilities {
 
     public static ImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig,
             Color textColor) {
-        SubstanceSlices.IconThemingType iconThemingType =
+        IconThemingStrategy iconThemingStrategy =
                 SubstanceCoreUtilities.getIconThemingType(tab);
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(tab,
                 tabIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
 
-        switch (iconThemingType) {
+        switch (iconThemingStrategy) {
             case USE_ENABLED_WHEN_INACTIVE:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
                 return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(tab, orig,

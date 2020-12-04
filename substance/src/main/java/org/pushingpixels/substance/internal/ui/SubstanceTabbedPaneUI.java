@@ -2170,9 +2170,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(iconRect.x, iconRect.y);
-        SubstanceSlices.IconThemingType iconThemingType =
+        IconThemingStrategy iconThemingStrategy =
                 SubstanceCoreUtilities.getIconThemingType(this.tabPane);
-        if (iconThemingType != null) {
+        if (iconThemingStrategy != null) {
             ComponentState currState = this.getTabState(tabIndex, true);
             StateTransitionTracker tabTracker = stateTransitionMultiTracker.getTracker(tabIndex);
             Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.tabPane, tabIndex, icon,
@@ -2182,7 +2182,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 if (currState.isFacetActive(ComponentStateFacet.ROLLOVER)
                         || currState.isFacetActive(ComponentStateFacet.SELECTION)
                         || currState.isDisabled()) {
-                    if (iconThemingType.isForInactiveState()) {
+                    if (iconThemingStrategy.isForInactiveState()) {
                         // use the original (full color or disabled) icon
                         icon.paintIcon(this.tabPane, g2d, 0, 0);
                     } else {
@@ -2196,8 +2196,8 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 // The tab is currently being animated. First paint the themed icon at full alpha.
                 themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
                 float activeAmount = tabTracker.getActiveStrength();
-                if ((activeAmount > 0.0f) && (iconThemingType != null)
-                        && iconThemingType.isForInactiveState()
+                if ((activeAmount > 0.0f) && (iconThemingStrategy != null)
+                        && iconThemingStrategy.isForInactiveState()
                         && (icon != themedIcon)) {
                     // Non-zero active amount (the tab is participating in a rollover
                     // animation e.g.), and the icon theming type is only for inactive
@@ -2209,7 +2209,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 }
             } else {
                 // The tab is not being animated
-                if (iconThemingType.isForInactiveState() &&
+                if (iconThemingStrategy.isForInactiveState() &&
                         (this.tabPane.getSelectedIndex() == tabIndex)) {
                     // Selected tab and the icon theming type is only for inactive state
                     // (which selected is not) - paint the original icon at full alpha

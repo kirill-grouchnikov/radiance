@@ -1,37 +1,40 @@
 /*
  * Copyright (c) 2005-2020 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.check.command.*;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.bullseye;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.button;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.check_square_o;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.dot_circle;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 
@@ -45,7 +48,7 @@ import java.util.Enumeration;
 
 /**
  * Test application panel for testing colorized components.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class ColorizedControlsPanel extends JPanel implements Deferrable {
@@ -59,9 +62,9 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
     /**
      * Returns a row of buttons, consisting of {@link JButton}, {@link JToggleButton},
      * {@link JCheckBox} and {@link JRadioButton} in default states.
-     * 
+     *
      * @return A row of buttons, consisting of {@link JButton}, {@link JToggleButton},
-     *         {@link JCheckBox} and {@link JRadioButton} in default states.
+     * {@link JCheckBox} and {@link JRadioButton} in default states.
      */
     private AbstractButton[] getRow() {
         AbstractButton[] result = new AbstractButton[4];
@@ -74,15 +77,11 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
     /**
      * Adds a row of buttons configured with the specified text, icon and configuration command.
-     * 
-     * @param builder
-     *            Form builder.
-     * @param label
-     *            Text to set.
-     * @param icon
-     *            Icon to set.
-     * @param configurationCmd
-     *            Configuration command to apply.
+     *
+     * @param builder          Form builder.
+     * @param label            Text to set.
+     * @param icon             Icon to set.
+     * @param configurationCmd Configuration command to apply.
      */
     private void addButtonRow(TestFormLayoutBuilder builder, String label, Icon icon,
             ConfigurationCommand<JComponent> configurationCmd) {
@@ -104,15 +103,11 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
     /**
      * Adds a row of components configured with the specified configuration command.
-     * 
-     * @param builder
-     *            Form builder.
-     * @param label
-     *            Text to set.
-     * @param creationCmd
-     *            Creation command.
-     * @param configurationCmd
-     *            Configuration command to apply.
+     *
+     * @param builder          Form builder.
+     * @param label            Text to set.
+     * @param creationCmd      Creation command.
+     * @param configurationCmd Configuration command to apply.
      */
     private void addControlRow(TestFormLayoutBuilder builder, String label,
             CreationCommand<JComponent> creationCmd,
@@ -165,29 +160,29 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderButtons = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 59)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
+                .columnGroups(new int[][] {{3, 5, 7, 9}}).padding(Paddings.DIALOG);
 
         builderButtons.append("");
 
         JLabel bLabel = new JLabel("Buttons");
         bLabel.setIcon(button.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(bLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(bLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         JLabel tbLabel = new JLabel("Toggle buttons");
         tbLabel.setIcon(bullseye.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(tbLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(tbLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         JLabel cbLabel = new JLabel("Check boxes");
         cbLabel.setIcon(check_square_o.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(cbLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(cbLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         JLabel rbLabel = new JLabel("Radio buttons");
         rbLabel.setIcon(dot_circle.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingType(rbLabel,
-                SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(rbLabel,
+                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
         builderButtons.append(bLabel, tbLabel);
         builderButtons.append(cbLabel, rbLabel);
@@ -196,8 +191,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
         this.addButtonRow(builderButtons, "Enabled", null, null);
         this.addButtonRow(builderButtons, "Flat", null,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setFlatBackground(jc,
-                        true));
+                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(jc,
+                        SubstanceSlices.BackgroundAppearanceStrategy.FLAT));
         this.addButtonRow(builderButtons, "Disabled", null, new DisableCommand());
         this.addButtonRow(builderButtons, "Selected", null, new SelectCommand());
         this.addButtonRow(builderButtons, "Disabled selected", null,
@@ -208,7 +203,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         this.addButtonRow(builderButtons, "Yellow flat", null,
                 new ChainCommand<>(new BackgroundColorCommand(Color.yellow),
                         (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
-                                .setFlatBackground(jc, true)));
+                                .setBackgroundAppearanceStrategy(jc, SubstanceSlices.BackgroundAppearanceStrategy.FLAT)));
         this.addButtonRow(builderButtons, "Yellow disabled", null, new ChainCommand<>(
                 new BackgroundColorCommand(Color.yellow), new DisableCommand()));
         this.addButtonRow(builderButtons, "Yellow selected", null, new ChainCommand<>(
@@ -339,7 +334,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderOther = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 25)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
+                .columnGroups(new int[][] {{3, 5, 7, 9}}).padding(Paddings.DIALOG);
 
         builderOther.append("");
         builderOther.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -405,7 +400,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
             JComboBox<String> jcb = new JComboBox<>(
                     new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
             return jcb;
-        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setFlatBackground(jc, true));
+        }, (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(jc,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT));
         addControlRow(builderOther, "Disabled", () -> {
             JComboBox<String> jcb = new JComboBox<>(
                     new String[] {"Ester", "Jordi", "Jordina", "Jorge", "Sergi"});
@@ -433,8 +429,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         builderOther.appendSeparator("Spinners");
         addControlRow(builderOther, "Regular", spinnerCreationCmd, null);
         addControlRow(builderOther, "Flat", spinnerCreationCmd,
-                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setFlatBackground(jc,
-                        true));
+                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(jc,
+                        SubstanceSlices.BackgroundAppearanceStrategy.FLAT));
         addControlRow(builderOther, "Disabled", spinnerCreationCmd, new DisableCommand());
 
         JPanel panelOther = builderOther.build();
@@ -446,7 +442,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderText = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 27)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
+                .columnGroups(new int[][] {{3, 5, 7, 9}}).padding(Paddings.DIALOG);
 
         builderText.append("");
         builderText.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -570,7 +566,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         TestFormLayoutBuilder builderCells = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                         + "left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 13)
-                .columnGroups(new int[][] { { 3, 5, 7, 9 } }).padding(Paddings.DIALOG);
+                .columnGroups(new int[][] {{3, 5, 7, 9}}).padding(Paddings.DIALOG);
 
         builderCells.append("");
         builderCells.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));

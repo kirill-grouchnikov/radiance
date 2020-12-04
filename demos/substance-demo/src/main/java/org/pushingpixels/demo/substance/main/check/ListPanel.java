@@ -33,6 +33,7 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
@@ -207,13 +208,16 @@ public class ListPanel extends ControllablePanel {
         builder.append("Row count", rowCountSlider);
 
         bUp = new JButton("Move selected up");
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(bUp, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(bUp,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
         bDown = new JButton("Move selected down");
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(bDown, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(bDown,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
         bDelete = new JButton("Delete selected");
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(bDelete, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(bDelete,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
         builder.append("Actions", bUp);
         builder.append("", bDown);

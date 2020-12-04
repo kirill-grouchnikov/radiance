@@ -500,10 +500,10 @@ public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrient
  * it's not pressed, not selected, not armed and not rolled over. By default, all controls
  * show regular (full-color original) icons.
  *
- * @param iconThemingType Icon theming type for the component icon(s).
+ * @param iconThemingStrategy Icon theming type for the component icon(s).
  */
 @EmberComponentScope
-public fun JComponent.setIconThemingType(iconThemingType: SubstanceSlices.IconThemingType) {
-    SubstanceCortex.ComponentScope.setIconThemingType(this, iconThemingType)
+public fun JComponent.setIconThemingType(iconThemingStrategy: SubstanceSlices.IconThemingStrategy) {
+    SubstanceCortex.ComponentScope.setIconThemingStrategy(this, iconThemingStrategy)
 }
 

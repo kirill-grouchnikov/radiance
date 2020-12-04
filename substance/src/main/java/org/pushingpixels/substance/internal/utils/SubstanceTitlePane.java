@@ -458,7 +458,8 @@ public class SubstanceTitlePane extends JComponent {
         this.closeButton.setIcon(closeIcon);
 
         this.closeButton.setFocusable(false);
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(this.closeButton, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this.closeButton,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
         this.closeButton.putClientProperty(SubstanceButtonUI.IS_TITLE_CLOSE_BUTTON, Boolean.TRUE);
 
@@ -475,7 +476,8 @@ public class SubstanceTitlePane extends JComponent {
             this.minimizeButton.setIcon(minIcon);
 
             this.minimizeButton.setFocusable(false);
-            SubstanceCortex.ComponentOrParentScope.setFlatBackground(this.minimizeButton, true);
+            SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(
+                    this.minimizeButton, SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
             this.minimizeButton.setToolTipText(
                     SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify"));
 
@@ -493,7 +495,8 @@ public class SubstanceTitlePane extends JComponent {
             this.toggleButton.setToolTipText(
                     SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize"));
             this.toggleButton.setFocusable(false);
-            SubstanceCortex.ComponentOrParentScope.setFlatBackground(this.toggleButton, true);
+            SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(
+                    this.toggleButton, SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 
         }
         syncCloseButtonTooltip();
@@ -1154,7 +1157,8 @@ public class SubstanceTitlePane extends JComponent {
         JButton result = createTitleButton();
         int prefSize = getControlButtonSize();
         result.setPreferredSize(new Dimension(prefSize, prefSize));
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(result, true);
+        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(result,
+                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
         ComponentOrParentChainScope.setDecorationType(result,
                 DecorationAreaType.PRIMARY_TITLE_PANE);
         return result;

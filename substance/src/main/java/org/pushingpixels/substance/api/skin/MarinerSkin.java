@@ -189,7 +189,7 @@ public class MarinerSkin extends SubstanceSkin {
                 ColorSchemeSingleColorQuery.ULTRADARK, ColorSchemeSingleColorQuery.LIGHT);
         this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
 
-        // add two overlay painters to create a bezel line between
+        // add an overlay painters to create a line between
         // menu bar and toolbars
         this.menuOverlayPainter = new BottomLineOverlayPainter(
                 ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,

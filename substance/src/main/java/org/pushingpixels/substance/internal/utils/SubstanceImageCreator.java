@@ -1519,7 +1519,7 @@ public final class SubstanceImageCreator {
     public static Icon getCapsLockIcon(SubstanceColorScheme scheme, Component c) {
         int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
         int extraPadding = SubstanceSizeUtils.getExtraPadding(componentFontSize);
-        int size = 11 + 2 * extraPadding;
+        int size = 32;//11 + 2 * extraPadding;
 
         return SubstanceCortex.GlobalScope.getIconPack().getCapsLockIcon(size, scheme);
     }

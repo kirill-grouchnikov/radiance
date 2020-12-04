@@ -39,7 +39,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.image.BufferedImage;
 
 /**
- * Gradient painter that returns images with subtle 3D gradient appearance. This class is part of
+ * Fill painter that returns images with subtle 3D gradient appearance. This class is part of
  * officially supported API.
  * 
  * @author Kirill Grouchnikov
