@@ -36,7 +36,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
+import org.pushingpixels.substance.api.shaper.PillButtonShaper;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
@@ -60,7 +60,7 @@ public class ButtonShaper extends JFrame {
         JButton buttonA = new JButton("a");
         JButton buttonB = new JButton("b");
         // Mark button to use standard button shaper
-        SubstanceCortex.ComponentScope.setButtonShaper(buttonB, new StandardButtonShaper());
+        SubstanceCortex.ComponentScope.setButtonShaper(buttonB, new PillButtonShaper());
         JButton buttonC = new JButton("c");
 
         this.add(buttonA);

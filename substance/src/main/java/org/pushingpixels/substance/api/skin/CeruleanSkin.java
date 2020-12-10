@@ -55,7 +55,7 @@ public class CeruleanSkin extends SubstanceSkin {
 	public static final String NAME = "Cerulean";
 
 	/**
-	 * Creates a new <code>Nebulous</code> skin.
+	 * Creates a new <code>Cerulean</code> skin.
 	 */
 	public CeruleanSkin() {
 		super();

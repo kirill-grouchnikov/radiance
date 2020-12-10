@@ -38,7 +38,7 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.api.shaper.RectangularButtonShaper;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
+import org.pushingpixels.substance.api.shaper.PillButtonShaper;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.ModificationAwareUI;
@@ -97,7 +97,7 @@ public class ButtonBackgroundDelegate {
         Set<SubstanceSlices.Side> straightSides = SubstanceCoreUtilities.getSides(button,
                 SubstanceSynapse.BUTTON_STRAIGHT_SIDE);
 
-        boolean isRoundButton = StandardButtonShaper.isRoundButton(button);
+        boolean isRoundButton = PillButtonShaper.isRoundButton(button);
         float radius = 0.0f;
         if (shaper instanceof RectangularButtonShaper) {
             radius = ((RectangularButtonShaper) shaper).getCornerRadius(button, 0.0f);

@@ -39,7 +39,7 @@ import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.MatteFillPainter;
 import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
+import org.pushingpixels.substance.api.shaper.PillButtonShaper;
 
 /**
  * Base class for accented <code>Mist</code> skins. This class is part of officially supported API.
@@ -90,7 +90,7 @@ public abstract class MistAccentedSkin extends SubstanceSkin.Accented {
                 DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
                 DecorationAreaType.TOOLBAR);
 
-        this.buttonShaper = new StandardButtonShaper();
+        this.buttonShaper = new PillButtonShaper();
         this.fillPainter = new MatteFillPainter();
         this.borderPainter = new ClassicBorderPainter();
 

@@ -43,7 +43,7 @@ import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
+import org.pushingpixels.substance.api.shaper.PillButtonShaper;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.skin.SkinChangeListener;
 import org.pushingpixels.substance.api.skin.SkinInfo;
@@ -1057,7 +1057,7 @@ public class SubstanceCortex {
         /**
          * Specifies whether buttons should ignore the default (minimum) dimension. Note that
          * {@link SubstanceButtonShaper} implementations are not required to respect this call. The
-         * current implementations of the default {@link StandardButtonShaper} and
+         * current implementations of the default {@link PillButtonShaper} and
          * {@link ClassicButtonShaper} respect this setting.
          *
          * @param buttonIgnoreMinimumSize If <code>true</code>, buttons will ignore the default
@@ -1679,7 +1679,7 @@ public class SubstanceCortex {
         /**
          * Specifies the open side for the specific button component. Note that the
          * {@link SubstanceButtonShaper} implementations are not required to respect this call. The
-         * default {@link StandardButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
          *
          * @param comp     Component.
          * @param openSide Open side.
@@ -1697,7 +1697,7 @@ public class SubstanceCortex {
         /**
          * Specifies the open sides for the specific button component. Note that the
          * {@link SubstanceButtonShaper} implementations are not required to respect this call. The
-         * default {@link StandardButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
          *
          * @param comp      Component.
          * @param openSides Open sides.
@@ -1714,7 +1714,7 @@ public class SubstanceCortex {
         /**
          * Specifies the straight side for the specific button component. Note that the
          * {@link SubstanceButtonShaper} implementations are not required to respect this call. The
-         * default {@link StandardButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
          *
          * @param comp         Component.
          * @param straightSide Straight side.
@@ -1731,7 +1731,7 @@ public class SubstanceCortex {
         /**
          * Specifies the straight sides for the specific button component. Note that the
          * {@link SubstanceButtonShaper} implementations are not required to respect this call. The
-         * default {@link StandardButtonShaper} and {@link ClassicButtonShaper} respect this call.
+         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this call.
          *
          * @param comp          Component.
          * @param straightSides Straight sides.
@@ -2077,7 +2077,7 @@ public class SubstanceCortex {
          * Specifies whether the specific component or its immediate children should ignore the
          * default (minimum) dimension for buttons. Note that {@link SubstanceButtonShaper}
          * implementations are not required to respect this call. The current implementations of the
-         * default {@link StandardButtonShaper} and {@link ClassicButtonShaper} respect this
+         * default {@link PillButtonShaper} and {@link ClassicButtonShaper} respect this
          * setting.
          *
          * @param comp                    Component.

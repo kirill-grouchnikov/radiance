@@ -46,16 +46,16 @@ import java.util.Set;
  * 
  * @author Kirill Grouchnikov
  */
-public class StandardButtonShaper implements SubstanceButtonShaper, RectangularButtonShaper {
+public class PillButtonShaper implements SubstanceButtonShaper, RectangularButtonShaper {
     /**
      * Cache of already computed contours.
      */
     private final static LazyResettableHashMap<Shape> contours = new LazyResettableHashMap<>(
-            "StandardButtonShaper");
+            "PillButtonShaper");
 
     @Override
     public String getDisplayName() {
-        return "Standard";
+        return "Pill";
     }
 
     @Override
@@ -87,7 +87,7 @@ public class StandardButtonShaper implements SubstanceButtonShaper, RectangularB
 
     @Override
     public Border getButtonBorder(final AbstractButton button) {
-        return new SubstanceButtonBorder(StandardButtonShaper.class) {
+        return new SubstanceButtonBorder(PillButtonShaper.class) {
             public Insets getBorderInsets(Component c) {
                 int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
                 Insets buttonInsets = SubstanceSizeUtils.getButtonInsets(fontSize);
@@ -214,8 +214,7 @@ public class StandardButtonShaper implements SubstanceButtonShaper, RectangularB
         boolean isRoundCorners = isRoundButton(button);
         float radius = SubstanceSizeUtils
                 .getClassicButtonCornerRadius(SubstanceSizeUtils.getComponentFontSize(button));
-        if ((button != null)
-                && button.getClass().isAnnotationPresent(SubstanceInternalArrowButton.class)) {
+        if (button.getClass().isAnnotationPresent(SubstanceInternalArrowButton.class)) {
             Border parentBorder = ((JComponent) button.getParent()).getBorder();
             if (parentBorder instanceof SubstanceBorder) {
                 radius *= ((SubstanceBorder) parentBorder).getRadiusScaleFactor();

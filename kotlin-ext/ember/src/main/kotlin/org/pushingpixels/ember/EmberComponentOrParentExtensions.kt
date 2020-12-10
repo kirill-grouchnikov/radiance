@@ -34,7 +34,7 @@ import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper
+import org.pushingpixels.substance.api.shaper.PillButtonShaper
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper
 import javax.swing.JComponent
 
@@ -54,7 +54,7 @@ public fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter)
  * Specifies whether this component or its immediate children should ignore the
  * default (minimum) dimension for buttons. Note that [SubstanceButtonShaper]
  * implementations are not required to respect this call. The current implementations of the
- * default [StandardButtonShaper] and [ClassicButtonShaper] respect this
+ * default [PillButtonShaper] and [ClassicButtonShaper] respect this
  * setting.
  *
  * @param buttonIgnoreMinimumSize If `true`, the component or its immediate

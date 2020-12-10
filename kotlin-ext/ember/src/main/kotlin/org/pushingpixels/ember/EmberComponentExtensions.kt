@@ -35,7 +35,7 @@ import org.pushingpixels.substance.api.SubstanceSlices
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
-import org.pushingpixels.substance.api.shaper.StandardButtonShaper
+import org.pushingpixels.substance.api.shaper.PillButtonShaper
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper
 import org.pushingpixels.substance.api.tabbed.BaseTabCloseListener
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback
@@ -229,7 +229,7 @@ public fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) 
 /**
  * Specifies the open side for this component. Note that the
  * [SubstanceButtonShaper] implementations are not required to respect this call. The
- * default [StandardButtonShaper] and [ClassicButtonShaper] respect this call.
+ * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
  *
  * @param openSide Open side.
  * @see JComponent.setButtonOpenSides
@@ -243,7 +243,7 @@ public fun JComponent.setButtonOpenSide(openSide: SubstanceSlices.Side) {
 /**
  * Specifies the open sides for this component. Note that the
  * [SubstanceButtonShaper] implementations are not required to respect this call. The
- * default [StandardButtonShaper] and [ClassicButtonShaper] respect this call.
+ * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
  *
  * @param openSides Open sides.
  * @see JComponent.setButtonOpenSide
@@ -257,7 +257,7 @@ public fun JComponent.setButtonOpenSides(openSides: Set<SubstanceSlices.Side>) {
 /**
  * Specifies the straight side for this component. Note that the
  * [SubstanceButtonShaper] implementations are not required to respect this call. The
- * default [StandardButtonShaper] and [ClassicButtonShaper] respect this call.
+ * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
  *
  * @param straightSide Straight side.
  * @see JComponent.setButtonOpenSide
@@ -271,7 +271,7 @@ public fun JComponent.setButtonStraightSide(straightSide: SubstanceSlices.Side) 
 /**
  * Specifies the straight sides for this component. Note that the
  * [SubstanceButtonShaper] implementations are not required to respect this call. The
- * default [StandardButtonShaper] and [ClassicButtonShaper] respect this call.
+ * default [PillButtonShaper] and [ClassicButtonShaper] respect this call.
  *
  * @param straightSides Straight sides.
  * @see JComponent.setButtonStraightSide
