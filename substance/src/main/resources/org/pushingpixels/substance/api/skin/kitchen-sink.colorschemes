@@ -85,3 +85,14 @@ Creme Disabled {
     colorUltraDark=#B0B2B4
     colorForeground=#9B9EA2
 }
+
+Sahara Highlight {
+    kind=Light
+    colorUltraLight=#D3D9C2
+    colorExtraLight=#C5C7B3
+    colorLight=#B9BFA1
+    colorMid=#B1B797
+    colorDark=#979C81
+    colorUltraDark=#7D8268
+    colorForeground=#000000
+}

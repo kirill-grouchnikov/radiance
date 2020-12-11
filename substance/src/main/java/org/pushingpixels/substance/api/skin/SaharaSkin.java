@@ -67,7 +67,7 @@ public class SaharaSkin extends SubstanceSkin {
 		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 				activeScheme, enabledScheme, kitchenSinkSchemes.get("Gray Disabled"));
 		defaultSchemeBundle.registerHighlightColorScheme(
-				new OliveColorScheme().shift(Color.white, 0.2f, Color.black, 0.0f).named("Sahara Highlight"));
+				kitchenSinkSchemes.get("Sahara Highlight"));
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				DecorationAreaType.NONE);
 
