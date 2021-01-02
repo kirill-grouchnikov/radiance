@@ -74,7 +74,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
      */
     protected static class ScrollableCommandButtonPanel extends JComponent {
         /**
-         * Maximum dimension of <code>this</code> popup gallery.
+         * Maximum dimension of <code>this</code> button panel.
          */
         private Dimension maxDimension;
 

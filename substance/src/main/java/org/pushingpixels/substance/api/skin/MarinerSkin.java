@@ -135,9 +135,20 @@ public class MarinerSkin extends SubstanceSkin {
                 ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
         headerSchemeBundle.registerColorScheme(headerColorScheme,
                 ComponentState.ROLLOVER_UNSELECTED);
+        headerSchemeBundle.registerColorScheme(
+                activeScheme, ColorSchemeAssociationKind.FILL,
+                ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_SELECTED);
         headerSchemeBundle.registerColorScheme(headerColorScheme, ColorSchemeAssociationKind.MARK);
         headerSchemeBundle.registerColorScheme(headerBorderColorScheme,
                 ColorSchemeAssociationKind.BORDER);
+        headerSchemeBundle.registerColorScheme(
+                enabledMarkScheme.shade(0.8f), ColorSchemeAssociationKind.MARK,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED,
+                ComponentState.PRESSED_SELECTED);
+        headerSchemeBundle.registerColorScheme(
+                enabledMarkScheme.shade(0.7f), ColorSchemeAssociationKind.MARK,
+                ComponentState.ROLLOVER_UNSELECTED);
+
         this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerColorScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);

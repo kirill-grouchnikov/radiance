@@ -150,9 +150,13 @@ public class GeminiSkin extends SubstanceSkin {
         headerSchemeBundle.registerColorScheme(blackColorScheme,
                 ComponentState.ROLLOVER_UNSELECTED);
         headerSchemeBundle.registerColorScheme(blackColorScheme, ColorSchemeAssociationKind.MARK);
+        headerSchemeBundle.registerColorScheme(
+                grayScheme, ColorSchemeAssociationKind.MARK,
+                ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
         headerSchemeBundle.registerColorScheme(blackColorScheme.shade(0.9f),
                 ColorSchemeAssociationKind.BORDER);
         applyHighlightColorScheme(headerSchemeBundle, highlightScheme);
+        applyHighlightAsFill(headerSchemeBundle, highlightScheme, highlightBorderScheme);
         this.registerDecorationAreaSchemeBundle(headerSchemeBundle, blackColorScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);

@@ -32,14 +32,13 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.api.ease.Spline;
+import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**

@@ -124,15 +124,11 @@ public class SubstanceMenuBackgroundDelegate {
 			float borderAlpha) {
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem
-				.getUI();
-		StateTransitionTracker stateTransitionTracker = transitionAwareUI
-				.getTransitionTracker();
-		ModelStateInfo modelStateInfo = stateTransitionTracker
-				.getModelStateInfo();
+		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem.getUI();
+		StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
+		ModelStateInfo modelStateInfo = stateTransitionTracker.getModelStateInfo();
 
-		ComponentState currState = modelStateInfo
-				.getCurrModelStateNoSelection();
+		ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
 		if (currState.isDisabled()) {
 			// no highlights on disabled menus
@@ -157,29 +153,24 @@ public class SubstanceMenuBackgroundDelegate {
 			return;
 		}
 
-		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry : activeStates
-				.entrySet()) {
+		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
+				activeStates.entrySet()) {
 			ComponentState activeState = stateEntry.getKey();
-			float alpha = SubstanceColorSchemeUtilities.getHighlightAlpha(
-					menuItem, activeState)
+			float alpha = SubstanceColorSchemeUtilities.getHighlightAlpha(menuItem, activeState)
 					* stateEntry.getValue().getContribution();
-			if (alpha == 0.0f)
+			if (alpha == 0.0f) {
 				continue;
+			}
 
-			SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
-					.getColorScheme(menuItem,
-							ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-			SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
-					.getColorScheme(menuItem,
-							ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-							activeState);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(
-					menuItem, alpha, g));
+			SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(
+					menuItem, ColorSchemeAssociationKind.HIGHLIGHT, activeState);
+			SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+					menuItem, ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
+			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, alpha, g));
             HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
                     new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
                     null, fillScheme, borderScheme);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(
-					menuItem, g));
+			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, g));
 		}
 
 		graphics.dispose();
