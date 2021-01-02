@@ -47,7 +47,7 @@ buildscript {
 
         // Demo dependencies
         retrofit_version                =    '2.9.0'
-        rsyntaxtextarea_version         =    '3.1.1'
+        rsyntaxtextarea_version         =    '3.1.2'
         jgoodies_common_version         =    '1.8.1'
         jgoodies_forms_version          =    '1.9.0'
         jxlayer_version                 =    '3.0.4'
