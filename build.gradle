@@ -35,7 +35,7 @@ ext.isRelease = false
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                  =    '6.7.1'
+        gradle_version                  =      '6.8'
         dokka_plugin_version            =   '1.4.20'
 
         // Core dependencies
