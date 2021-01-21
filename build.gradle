@@ -43,7 +43,7 @@ buildscript {
         kotlinx_coroutines_version      =    '1.4.2'
         gradle_nexus_plugin_version     =    '2.3.1'
         gradle_versions_plugin_version  =   '0.36.0'
-        batik_version                   =     '1.13'
+        batik_version                   =     '1.14'
 
         // Demo dependencies
         retrofit_version                =    '2.9.0'
