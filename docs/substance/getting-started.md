@@ -46,7 +46,7 @@ If you have problems, consult the online help for **javac** compiler. The compil
 
 You will see the following frame under the default Ocean look and feel:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/walkthrough/default-ocean.png" width="284" height="114">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/walkthrough/default-ocean.png" width="284" height="114">
 
 In order to run the same frame under **Substance** look and feel, you first need to choose the Substance skin that you would like to use (see the links at the end of this document). Suppose that you choose the Business skin. Now you have the following options:
 
@@ -108,7 +108,7 @@ Assuming that you have saved *radiance-substance.jar*, *radiance-trident.jar* an
 
 The result is the same frame under Substance Business look and feel:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/walkthrough/business-substance.png" width="284" height="114">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/walkthrough/business-substance.png" width="284" height="114">
 
 The other two options for setting Substance require changing the code. Go back to your Java editor and replace the `main()` method by:
 
@@ -152,12 +152,12 @@ If you don't want to create an explicit dependency on the Substance classes in y
 ```  
 You can run the application the same way as before. Here is how it looks like:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/walkthrough/graphite-substance.png" width="284" height="114">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/walkthrough/graphite-substance.png" width="284" height="114">
 
 Where to go from here?
 
 * Read the [FAQ](faq.md)
 * Read about the [API](api.md)
 * Read about [using skins](skins/overview.md)
-* Download the sources and study the [main test application](https://github.com/kirill-grouchnikov/radiance/blob/master/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/Check.java)
-* Read the Javadocs of the [SubstanceCortex class](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/java/org/pushingpixels/substance/api/SubstanceCortex.java)
+* Download the sources and study the [main test application](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/Check.java)
+* Read the Javadocs of the [SubstanceCortex class](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/java/org/pushingpixels/substance/api/SubstanceCortex.java)

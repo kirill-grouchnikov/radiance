@@ -1,6 +1,6 @@
 ## Flamingo - ribbon anchored commands
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
 
 The top-right (under left-to-right orientation) corner of the ribbon is reserved for anchored commands. This area can be used to place a small number of commands that can be identified quickly by either their icon only, or by a very short text.
 
@@ -37,11 +37,11 @@ this.getRibbon().addAnchoredCommand(Command.builder()
 
 The associated keytips are shown at the root level:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/ribbon-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/ribbon-keytips.png" width="1400" border=0/>
 
 Rich tooltips associated with the commands are shown right below the anchored command area:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-anchored-richtooltip.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-anchored-richtooltip.png" width="1119" border=0/>
 
 
 ### Next

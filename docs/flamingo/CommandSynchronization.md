@@ -13,7 +13,7 @@ Commands are [projected](CommandProjections.md) to create a visual representatio
 
 Let's take a look at a somewhat contrived example of the seamless sync of a user interaction with one projection that is propagated to all other projections.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-sync1.png" width="437" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-sync1.png" width="437" border=0/>
 
 We start by defining the four [commands](Command.md) that are marked to belong to the same command toggle group model:
 
@@ -69,7 +69,7 @@ The first command is marked as `inToggleGroupAsSelected()` and that is what mark
 
 Let's see what happens when one of the "justify right" command projections is clicked:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-sync2.png" width="437" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-sync2.png" width="437" border=0/>
 
 Here is what happens under the hood - with no additional code required from the application side:
 
@@ -84,7 +84,7 @@ It is highly recommended to encapsulate all the business logic in relevant `Comm
 
 The ribbon container is an example of a more complex scenario where the same command can be projected in multiple places in the UI.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
 In the screenshot above, take a look at the ribbon taskbar - a strip of content integrated into the window title pane.
 

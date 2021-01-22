@@ -1,6 +1,6 @@
 ## Flamingo - command button presentation model
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-basics.png" width="780" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-basics.png" width="780" border=0/>
 
 As [discussed earlier](CommandProjections.md#command-button-presentation-model), the code for the app in the screenshot above uses four commands, one for each button column. Here is the code snippet that creates the first "paste" button (the one with big icon and the text below the icon):
 
@@ -56,7 +56,7 @@ Command button presentation models are created with the builder pattern which is
 
 Going back to the same screenshot that shows how four commands (paste, cut, copy, and select all) are projected on the screen:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-basics.png" width="780" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-basics.png" width="780" border=0/>
 
 Here's the relevant code snippet that creates a command button presentation model used to project the first "paste" button:
 
@@ -77,13 +77,13 @@ The boolean `flat` attribute controls the appearance of the projected button in 
 
 The `horizontalAlignment` attribute controls what happens when the projected button gets more horizontal space than it needs to fully display the content under the specific presentation state:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-button-halignment.png" width="515" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-button-halignment.png" width="515" border=0/>
 
 The supported attribute values are `SwingConstants.LEADING`, `SwingConstants.CENTER` and `SwingConstants.TRAILING`. As can be seen from the screenshot above, some combinations of the attribute values and presentation states may result in a layout that would look distracting for certain application scenarios.
 
 The `horizontalGapScaleFactor` and `verticalGapScaleFactor` attributes can be used to decrease or increase the amount of space (gap) between the icon and the text(s) of the specific projected button:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-button-gap-scaling.png" width="518" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-button-gap-scaling.png" width="518" border=0/>
 
 In the first row the `horizontalGapScaleFactor` is combined with `CommandButtonPresentationState.MEDIUM` presentation state to tweak the horizontal space between the icon and the text. In the second row the `verticalGapScaleFactor` is combined with `CommandButtonPresentationState.BIG` presentation state to tweak the vertical space between the icon and the text.
 
@@ -93,11 +93,11 @@ In the first row the `horizontalGapScaleFactor` is combined with `CommandButtonP
 
 Let's take a look at two screenshots. In the first one, the mouse cursor is over the text area of the "Cut" button in tile state. Note that different strength of yellow rollover highlight indication. The area of the button that contains the icon and the two texts has a stronger yellow highlight, while the area with the down arrow has a weaker highlight. This projection is configured with `CommandButtonPresentationState.Builder.setTextClickAction()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the main command action:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-action.png" width="764" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-title-action.png" width="764" border=0/>
 
 In the second one, the mouse cursor is over the same text area, this time of the "Copy" button in tile state. Here, the area of the button with the icon has a weaker highlight, while the area with the two texts and the down arrow has a stronger highlight.  This projection is configured with `CommandButtonPresentationState.Builder.setTextClickPopup()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the secondary command content - in this case, showing a popup menu:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-title-popup.png" width="764" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-title-popup.png" width="764" border=0/>
 
 #### Repeated action
 
@@ -114,7 +114,7 @@ Command button presentation models come with five attributes that aim to address
 
 A `CommandButtonProjection` uses `CommandButtonPresentationModel` to project a command as a Swing command button component. The [secondary content](Command.md#secondary-content-model) configured on the command is displayed in a popup window anchored to the projected button:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-secondary-simple.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-secondary-simple.png" width="734" border=0/>
 
 The `popupMenuPresentationModel` attribute can be used to tune the presentation of that popup content. For example, if you want to limit the number of visible elements in the popup and kick in vertical scrolling when necessary, configure your presentation model like this:
 
@@ -130,13 +130,13 @@ CommandButtonProjection commandProjection = command.project(
 
 and if the secondary content has more than 8 elements (commands), the popup will limit the number of visible elements to 8 with vertical scrolling:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
 
 Use the `popupOrientationKind` attribute to control the anchoring of the popup content. The default `PopupOrientationKind.DOWNWARD` displays the popup content below the projected button (same as the default popup anchoring for the core `JComboBox` component). Use `PopupOrientationKind.SIDEWARD` to display the popup to the side (right under left-to-right and left under right-to-left) of the projected button.
 
 In some cases, you would want to allow the user to interact with multiple entries in the popup menu. Let's take a look at this screenshot:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-popup-dismiss.png" width="337" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-popup-dismiss.png" width="337" border=0/>
 
 Here is the skeleton code behind the "multi" button and its popup content:
 
@@ -185,7 +185,7 @@ The default behavior for Flamingo popup content is to dismiss all popups immedia
 
 The same API is available on `CommandButtonPresentationModel` to configure the same behavior at the level of an individual projected button. Going back to an earlier screenshot:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
 
 Activating any menu entry in this vertically scrollable popup will dismiss the popup. However, the scroll-up and scroll-down buttons will kick in scrolling when activated, without dismissing the popup. Internally, these two buttons are projected from commands configured with presentation model with `toDismissOnCommandActivation` set to false.
 
@@ -193,7 +193,7 @@ Activating any menu entry in this vertically scrollable popup will dismiss the p
 
 Keytips are evolution of mnemonics - a way to quickly navigate to and activate a specific command without using the mouse. While keytips can be configured on any command button presentation model, they are only shown on command projections added to the ribbon container.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon-keytips.png" width="492" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon-keytips.png" width="492" border=0/>
 
 In the screenshot above, the "Paste" button is projected as:
 

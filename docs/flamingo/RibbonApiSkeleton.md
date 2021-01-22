@@ -4,7 +4,7 @@ As the following sections will take a deep dive into how the ribbon is built bot
 
 ### Ribbon frame and ribbon
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
 
 The `org.pushingpixels.flamingo.api.ribbon.JRibbonFrame` is the only officially supported way to use the Flamingo ribbon component. Its implementation enforces that the ribbon is always at the `BorderLayout.NORTH` location, throwing `IllegalArgumentException` on attempts to set a custom layout manager, add another component at `BorderLayout.NORTH`, remove the ribbon component, set a custom menu bar, content pane or any other operation that interferes with the intended hierarchy of this frame.
 
@@ -28,7 +28,7 @@ Contextual menu listener is set with `JRibbon.setOnShowContextualMenuListener(On
 
 ### Ribbon tasks and bands
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
 
 Each ribbon task is represented by the `org.pushingpixels.flamingo.api.ribbon.RibbonTask` class. It provides constructors to initialize the task content with the task title and the list of the task's bands:
 
@@ -99,7 +99,7 @@ showHideBand.addRibbonComponent(new RibbonCheckBoxProjection(
 
 The "Quick Styles" band shows an in-ribbon gallery. In-ribbon galleries are configured to display a certain (usually small) number of selections, with a vertical strip right next to them to scroll the selections inline up and down, and display the available selections in a larger popup:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
 
 To add an in-ribbon gallery to a general ribbon band, use the `JRibbonBand.addRibbonGallery()` API:
 

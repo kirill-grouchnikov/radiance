@@ -14,9 +14,9 @@ The color schemes were implicitly used in the [previous phase](03-decorations.md
 
 The main two color schemes for Cookbook UI are Golden Brown and Dark Brown. Here are their background palettes:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/04-skin/goldenbrown.png" width="240" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/goldenbrown.png" width="240" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/04-skin/darkbrown.png" width="240" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/darkbrown.png" width="240" border=0/>
 
 Radiance includes [Apollo](../../tools/apollo/apollo.md) - a visual editor for creating and editing files that serve as color scheme lists.
 
@@ -45,7 +45,7 @@ The definition of color scheme bundles in the custom Substance skin will use the
 
 Here are the sidebars of the original mock-up and Substance-powered implementation of it:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/sidebars.png" width="500" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/sidebars.png" width="500" border=0/>
 
 Note the correct color schemes for the relevant decoration areas, including the background, textures, buttons, scroll bar and slider. The only two discrepancies comes from:
 
@@ -54,17 +54,17 @@ Note the correct color schemes for the relevant decoration areas, including the 
 
 In addition to the two color schemes above, we define three color schemes to be used on `NONE` area type. In case of Cookbook UI these schemes are only relevant for the search text field in the second footer panel (marked as `NONE` to create the custom visuals). Since every Substance skin must define a color scheme bundle for the `NONE` area type, this is a step that you can not omit. Here are the palettes for the active, default and disabled color schemes of `NONE`:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/04-skin/active.png" width="240" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/active.png" width="240" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/04-skin/enabled.png" width="240" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/enabled.png" width="240" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/04-skin/disabled.png" width="240" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/disabled.png" width="240" border=0/>
 
 ### Fill and border painters
 
 Here is a zoomed version of footer buttons in Cookbook UI:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/04-skin/zoom-buttons-cookbook.png" width="360" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/zoom-buttons-cookbook.png" width="360" border=0/>
 
 Analyzing the visuals, we can see:
 
@@ -77,6 +77,6 @@ The implementation has a custom [fill painter](../../substance/painters/fill.md)
 
 Here are the original design and the custom Substance implementation side-by-side:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/03-decorations/footers.png" width="132" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/footers.png" width="132" border=0/>
 
 [Continue on](05-polish.md) to read about visual polish.

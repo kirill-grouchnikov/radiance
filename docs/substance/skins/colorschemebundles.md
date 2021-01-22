@@ -24,7 +24,7 @@ The `org.pushingpixels.substance.api.ComponentState` is the base class for core 
 
 Here is a screenshot of three buttons (active, default and disabled) under the core [Business Black Steel skin](toneddown.md#business-black-steel):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/states/control-states.png" width="293" height="101" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states.png" width="293" height="101" />
 
 Here is the relevant code snippet from the definition of this skin:
 
@@ -60,7 +60,7 @@ The following API allows specifying a custom color scheme for a specific compone
 
 For example, you can use this API if you want to visualy distinguish between buttons in rollover state and rollover selected state. Here is a screenshot of buttons in different states under the core [Office Silver 2007 skin](toneddown.md#office-silver-2007):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/states/control-states-extended.png" width="275" height="279" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states-extended.png" width="275" height="279" />
 
 Here is the relevant code snippet:
 
@@ -151,7 +151,7 @@ defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.RO
 
 As described in the [color scheme association kind documentation](colorschemeassociationkinds.md), Swing controls have different visual areas. Even such a simple example as `JCheckBox` icon has three different visual areas: inner fill, border and the "V" mark:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
 
 Use the following API to specify custom color schemes to be used for specific visual areas under specific component states:
 

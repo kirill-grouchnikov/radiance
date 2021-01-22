@@ -1,6 +1,6 @@
 ## Lumen - animation blueprints for Swing
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
 
 Lumen aims to provide blueprints for adding animation to Swing applications using the [Trident](../trident/trident.md) animation engine. Lumen is a Swing application that connects to [MusicBrainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) and Amazon, and shows a list of albums for a specific performer. It is a pure Swing / Java2D application with the following dependencies:
 
@@ -8,7 +8,7 @@ Lumen aims to provide blueprints for adding animation to Swing applications usin
 * [Neon](../neon/neon.md) for consistent text appearance and correct high-DPI rendering
 * [Retrofit](https://github.com/square/retrofit) for fetching information from MusicBrainz without manual handling of endpoints and JSON parsing
 
-[Lucent](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/lucent) is a port of Lumen to Kotlin.
+[Lucent](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/lucent) is a port of Lumen to Kotlin.
 
 ### Deeper dives
 

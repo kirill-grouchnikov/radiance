@@ -1,6 +1,6 @@
 ## Flamingo - ribbon resizing
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize0.png" width="1406" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize0.png" width="1406" border=0/>
 
 The ribbon is a highly dynamic container that adapts the layout of its content (selected ribbon task, taskbar, etc) to the available space. As the developer of your application, you are providing two things:
 
@@ -120,11 +120,11 @@ In addition, the `getCoreFlowPoliciesRestrictive(JFlowRibbonBand, int)` returns 
 
 Starting with the original content displayed with enough available width:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize0.png" width="1406" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize0.png" width="1406" border=0/>
 
 Now we shrink the ribbon a bit:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize1.png" width="1318" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize1.png" width="1318" border=0/>
 
 Take a look at the rightmost band ("Find (toggle)"). It is now in iconified state, being displayed as a single popup button. This is due to the matching list of resize policies installed on it:
 
@@ -137,13 +137,13 @@ findBand.setResizePolicies(resizePolicies);
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize2.png" width="1121" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize2.png" width="1121" border=0/>
 
 Under the default `RoundRobin` resize sequencing policy, the "Document" band is the next one to shrink. It is using `CoreRibbonResizePolicies.getCorePoliciesRestrictive()` list of resize policies that, at this first shrink step, leaves buttons with `TOP` priority hint as `BIG`, but changes the buttons with `MEDIUM` priority hint from `MEDIUM` (icon + text) to `SMALL` (icon only).
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize3.png" width="1067" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize3.png" width="1067" border=0/>
 
 The "Font" band is the next one to shrink. It is using the default `CoreRibbonResizePolicies.getCoreFlowPoliciesRestrictive()` list of resize policies that is configured to "allow" its content to stay at two rows at this iteration. Since that is the case, the `RoundRobin` resize sequencing policy goes to the next band - "Quick Styles".
 
@@ -161,49 +161,49 @@ We see that the gallery has requested to still display two commands in this redu
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize4.png" width="1020" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize4.png" width="1020" border=0/>
 
 Now the `MEDIUM` buttons in the "Clipboard" band went to `SMALL` presentation state, losing their texts.
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize5.png" width="939" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize5.png" width="939" border=0/>
 
 The pass skips the last "Find (toggle)" ribbon band (since it's already in iconified state), and switches the three `BIG` buttons in the "Document" band to a vertical stack of three `MEDIUM` ones.
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize6.png" width="888" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize6.png" width="888" border=0/>
 
 This pass skips all the way back to the "Document" band again - based on the resize policies associated with the first three ribbon bands that, in this particular case, the application design considers more important. Now the vertical stack of three `MEDIUM` buttons has switched to three `SMALL` ones.
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize7.png" width="822" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize7.png" width="822" border=0/>
 
 Now it's time for the "Font" flow band to switch from 2-row to 3-row layout. All the content is still there. It's just a bit more compact.
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize8.png" width="1067" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize8.png" width="1067" border=0/>
 
 This pass has switched the in-ribbon gallery in "Quick Styles" to display only one button. Yet again, all the gallery content is still there. You can still scroll up and down, and open the larger grid in the popup.
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize9.png" width="716" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize9.png" width="716" border=0/>
 
 This pass skips over the higher priority "Clipboard" band and goes to iconify the "Document" band content.
 
 Let's shrink the ribbon a bit more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize10.png" width="619" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize10.png" width="619" border=0/>
 
 The ribbon resize policies set on the "Font" band keep it at the 3-row layout still, and the "Quick Styles" band is iconified.
 
 Let's shrink the ribbon even more:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize11.png" width="468" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/bands-resize11.png" width="468" border=0/>
 
 Now all the ribbon bands except for the "Clipboard" are iconified. What is going to happen when we shrink the ribbon again? Let's take a look at the resize policies set on the "Clipboard" band:
 

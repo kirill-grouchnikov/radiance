@@ -9,8 +9,8 @@ The **extras** module contains additional functionality that builds on top of th
 Additional [color schemes](skins/colorschemes.md) are available under the `org.pushingpixels.substance.extras.api.colorschemepack` package. See the [full list here](skins/colorschemes-extras.md).
 
 <p>
-<img alt="Belize"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/colorschemes/belize.png" width="340" height="258" />
-<img alt="Bloody Moon"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/colorschemes/bloody-moon.png" width="340" height="258" />
+<img alt="Belize"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/colorschemes/belize.png" width="340" height="258" />
+<img alt="Bloody Moon"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/colorschemes/bloody-moon.png" width="340" height="258" />
 </p>
 
 ### Painters
@@ -22,8 +22,8 @@ Additional [fill](painters/fill.md) and [decoration](painters/decoration.md) pai
 Additional [skins](skins/overview.md) are available under the `org.pushingpixels.substance.extras.api.skinpack` package.
 
 <p>
-<img alt="Office Blue 2007"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/officeblue20071.png" width="340" height="258" />
-<img alt="Magma"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance-extras/skins/magma1.png" width="340" height="258" />
+<img alt="Office Blue 2007"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblue20071.png" width="340" height="258" />
+<img alt="Magma"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/magma1.png" width="340" height="258" />
 </p>
 
 ### Tab widgets

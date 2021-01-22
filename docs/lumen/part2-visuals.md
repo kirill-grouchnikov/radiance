@@ -1,7 +1,7 @@
 
 ## Lumen - main window visuals
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
 
 Here is the code for painting the main content window (in `Stage0Base`). First, we store the current clip and enable anti-aliasing:
 

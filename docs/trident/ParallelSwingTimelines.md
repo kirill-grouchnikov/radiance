@@ -128,7 +128,7 @@ The next class implements a cell grid, tracing the mouse events and dispatching 
 ```
 
 A few major points in this class:
-* A special type of timeline is created and played in a loop - lines 12-14/25. In this example, each cell rollover timeline changes the background color of that cell and asks the "master" repaint timeline to repaint the entire grid panel. While this repaint timeline loops forever, it only repaints the window when its `forceRepaintOnNextPulse` has been called. This way we decouple the updates of the model from the repaint, while still not repainting the entire window when the mouse is not moving and all rollover timelines are idle.
+* A special type of timeline is created and played in a loop - lines 12-14/25. In this example, each cell rollover timeline changes the background color of that cell and asks the main repaint timeline to repaint the entire grid panel. While this repaint timeline loops forever, it only repaints the window when its `forceRepaintOnNextPulse` has been called. This way we decouple the updates of the model from the repaint, while still not repainting the entire window when the mouse is not moving and all rollover timelines are idle.
 * The mouse motion listener (lines 27-47) tracks the mouse location, calling the `setRollover` method on relevant cells. Since each cell rollover timeline runs for 2.5 seconds, quick mouse moves will result in multiple timelines running in parallel.
 * The painting of each cell respects the current background color of that cell - lines 57-62.
 

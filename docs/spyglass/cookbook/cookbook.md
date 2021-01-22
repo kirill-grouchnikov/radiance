@@ -1,6 +1,6 @@
 ## Cookbook - exploring rich visuals with Substance
 
-The [Cookbook demo app](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/cookbook) takes the design of [Cookbook UI](http://flickr.com/photos/mydreamapp/sets/72157600046909364/) from the [My Dream App context](https://web.archive.org/web/20080117124702/http://mydreamapp.com:80/news/post/389/) and turns it into a Swing application powered by a custom Substance skin.
+The [Cookbook demo app](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/cookbook) takes the design of [Cookbook UI](http://flickr.com/photos/mydreamapp/sets/72157600046909364/) from the [My Dream App context](https://web.archive.org/web/20080117124702/http://mydreamapp.com:80/news/post/389/) and turns it into a Swing application powered by a custom Substance skin.
 
 * [Step 1](01-analyze.md) is to analyze the original design
 * [Step 2](02-map.md) is to map the design to Swing and Substance

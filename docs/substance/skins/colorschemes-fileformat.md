@@ -44,7 +44,7 @@ Business Black Steel Active {
 }
 ```
 
-Note that you have to provide values for `kind`, as well as for each one of the seven base `color` entries defined by the [BaseColorScheme](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/BaseColorScheme.java) interface. Otherwise calling `SubstanceSkin.getColorSchemes` will throw an exception at runtime.
+Note that you have to provide values for `kind`, as well as for each one of the seven base `color` entries defined by the [BaseColorScheme](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/BaseColorScheme.java) interface. Otherwise calling `SubstanceSkin.getColorSchemes` will throw an exception at runtime.
 
 For simpler color schemes that are used with painters that only look at a single color - such as a flat background fill of a specific [decoration area](../painters/decoration.md), you can use the `colorBackground` shortcut to provide the same color for all non-foreground base colors:
 
@@ -56,7 +56,7 @@ Twilight Header Border {
 }
 ```
 
-Optionally, you can specify one or more colors defined by the [SchemeDerivedColors](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/SchemeDerivedColors.java) interface:
+Optionally, you can specify one or more colors defined by the [SchemeDerivedColors](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/SchemeDerivedColors.java) interface:
 
 ```plaintext
 Green Magic Footer Fill {
@@ -120,6 +120,6 @@ Sentinel Decorations Separator {
 
 This way you can have a small collection of "core" colors define the entire appearance of the skin. Here is a screenshot of the [Sentinel skin](toneddown.md#sentinel):
 
-<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/sentinel1.png" width="340" height="258">
+<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/sentinel1.png" width="340" height="258">
 
-This entire skin is defined by a dozen or so [core colors](https://github.com/kirill-grouchnikov/radiance/blob/master/substance/src/main/resources/org/pushingpixels/substance/api/skin/sentinel.colorschemes), and around 30 color schemes created from these core colors.
+This entire skin is defined by a dozen or so [core colors](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/resources/org/pushingpixels/substance/api/skin/sentinel.colorschemes), and around 30 color schemes created from these core colors.

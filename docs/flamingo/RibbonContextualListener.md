@@ -1,6 +1,6 @@
 ## Flamingo - ribbon global contextual listener
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-add.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-add.png" width="1181" border=0/>
 
 The `JRibbon.setOnShowContextualMenuListener()` API allows configuring the global contextual menu listener that will be used to populate content of a menu displayed on any mouse event that is a popup trigger (aka right-click).
 
@@ -71,14 +71,14 @@ The first is the command to minimize / restore the ribbon, using `JRibbon.isMini
 
 Here is our global contextual menu shown when the user right-clicks on the font combobox in the taskbar:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-remove.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-remove.png" width="1181" border=0/>
 
 and the taskbar updated after "Remove from taskbar" menu command has been activated:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-removed.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-removed.png" width="1181" border=0/>
 
 Here you can see how the available taskbar space is now enough to host additional command buttons and the checkbox that were previously displayed in the overflow.
 
 And here is another screenshot of the same taskbar after a few more removal operations - where there is no need for overflow since the entire taskbar content fits into the available space:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-removed2.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-contextualmenu-removed2.png" width="1181" border=0/>

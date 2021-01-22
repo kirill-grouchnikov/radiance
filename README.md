@@ -3,13 +3,13 @@
 Radiance is a collection of libraries for writing modern, elegant and fast Swing applications. It is built with Java 9, and runs on Java 9 and later.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nebula1.png" width="340" height="258" border=0>
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/gemini2.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebula1.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/gemini2.png" width="340" height="258" border=0>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/graphitechalk1.png" width="340" height="258" border=0>
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/nightshade2.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitechalk1.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nightshade2.png" width="340" height="258" border=0>
 </p>
 
 ## General questions
@@ -38,7 +38,7 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Flamingo](docs/flamingo/flamingo.md) provides a robust set of additional Swing components that can be used as building blocks for creating modern, rich Swing applications. In addition to providing the powerful command button and breadcrumb bar components, Flamingo packs an Office Command Bar (ribbon) container that can host a complex hierarchy of flexible, scalable application control surface.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
 
 ## Core Kotlin libraries
 
@@ -112,5 +112,5 @@ Radiance snapshot artifacts are available in the [Sonatype repository](https://o
 [This document](docs/building.md) is an overview of how to build Radiance artifacts locally.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_512.png" width="256" height="256" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_512.png" width="256" height="256" border=0>
 </p>

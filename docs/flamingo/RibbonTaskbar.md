@@ -1,6 +1,6 @@
 ## Flamingo - ribbon taskbar
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
 
 Similar to the [anchored command area](RibbonAnchoredCommands.md), the taskbar panel can be used to host content that does not get "switched away", so to speak, whenever a different ribbon task is selected. For example, some of your users might use the formatting functionality a lot, and always want to have the corresponding command projection on the screen no matter which ribbon task they are in right now. Some others might be working a lot with text formatting, such as changing font sizes, font styles or alignments.
 
@@ -12,7 +12,7 @@ Taskbar content is arranged as a single-line horizontal flow of components. If t
 
 In the screenshot below you can see that overflow taskbar content that has a number of buttons and one checkbox. One of the buttons corresponds to the [in-ribbon gallery](RibbonBandGalleries.md) from the "Quick Styles" ribbon band. In the taskbar that gallery is projected as a small popup button with the full ribbon content and extra popup commands shown when that button is activated:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
 
 ### Taskbar content - commands
 
@@ -26,15 +26,15 @@ This is the true power of commands - as a content model for a piece of the appli
 
 The same goes for all the other parts of that content model. You don't need to configure the secondary / popup content twice for the same "Paste" command. It just works:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-popup-button.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-popup-button.png" width="1181" border=0/>
 
 You don't need to configure the rich tooltip twice for the same "Paste" command. It just works:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-richtooltip.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-richtooltip.png" width="1181" border=0/>
 
 ### Taskbar content - galleries
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-overflow-popup.png" width="1181" border=0/>
 
 Here is the code behind this popup button that, when activated, shows the ribbon gallery content in its popup menu:
 
@@ -49,7 +49,7 @@ ribbon.addTaskbarGalleryDropdown(new RibbonGalleryProjection(this.styleGalleryCo
 
 Once again, as in the case of commands, we use the same exact content model to keep both gallery projections in sync (commands themselves, selection, preview listener, etc). The only difference here is the presentation model configured on the taskbar projection - using 4 columns and 2 visible rows. Here is, for reference, the gallery projection configured for the "Quick Styles" ribbon band - with 3 columns and 3 visible rows, but otherwise the same exact content (as they are based on the same exact content model):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
 
 ### Taskbar content - components
 
@@ -90,7 +90,7 @@ What is the difference between the two? If you use `JRibbon.addTaskbarCommand()`
 
 However, if you use `JRibbon.addTaskbarAppMenuLink()`, activating the corresponding projected button in the taskbar will open up the application menu, navigate to that command and highlight it. Here is how it can look like:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-appmenulink.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-appmenulink.png" width="1181" border=0/>
 
 This is the app menu link added above with this line:
 
@@ -108,7 +108,7 @@ Taskbar keytips are not set on individual projections (commands, components, gal
 
 How does it work instead? First, let's take a look at the following screenshot:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-keytips-initial.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-keytips-initial.png" width="1181" border=0/>
 
 When the [root keytip level] is shown, the ribbon displays keytips for all visible taskbar components, and for the overflow button if it is shown. Where do these keytips come from? They come from the taskbar key policy.
 
@@ -141,7 +141,7 @@ This default implementation aims to address the following expected scenario: onc
 
 This policy also applies to the overflow taskbar content:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-keytips-overflow.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/taskbar/taskbar-keytips-overflow.png" width="1181" border=0/>
 
 To provide your own custom taskbar keytip policy, use the `JRibbon.setTaskbarKeyTipPolicy()` API.
 

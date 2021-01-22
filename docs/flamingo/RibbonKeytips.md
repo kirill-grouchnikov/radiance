@@ -4,11 +4,11 @@ Keytips are evolution of mnemonics - a way to quickly navigate to and activate a
 
 If we start from this content in our ribbon:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 
 and then activate keytips by pressing the "Alt" key on the keyboard, the ribbon will show the first level of keytips:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/ribbon-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/ribbon-keytips.png" width="1400" border=0/>
 
 This first level shows keytips for:
 - Application menu button
@@ -26,11 +26,11 @@ Pressing a key that corresponds to one of the single-letter keytips will hide th
 
 Here is how the ribbon will look like if you press the "P" key on the keyboard - that corresponds to the "Page Layout" task:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/band-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/band-keytips.png" width="1400" border=0/>
 
 Pressing a key that corresponds to one of the keytips here will either activate the action of the relevant projection or display the secondary content of that projection depending on which keytip it is. For example, if you press "V" key on the keyboard - that corresponds to secondary content of the "Paste" button in the first band, it will display that popup content:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon/bands/command-popup-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon/bands/command-popup-keytips.png" width="1400" border=0/>
 
 What happens when the ribbon shows keytips for a certain level (root, task, application menu, etc) and some keytips are configured to have two characters? You can see this in the second screenshot above where some of the components in the middle "Font" band have two-character keytips - AO, AI, AL, AC, AR, AF.
 

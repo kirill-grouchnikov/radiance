@@ -47,8 +47,8 @@ Substance provides a powerful and flexible set of APIs that can be used to skin 
 
 ### Code samples
 
-* [Main Substance demo](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main)
-* [Additional sample apps](https://github.com/kirill-grouchnikov/radiance/tree/master/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass)
+* [Main Substance demo](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main)
+* [Additional sample apps](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass)
 * [Cookbook walkthrough](../spyglass/cookbook/cookbook.md)
 
 ### Have a question?

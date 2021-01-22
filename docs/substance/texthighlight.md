@@ -18,12 +18,12 @@ panelFooter.add(new SubstanceTextField("sample footer", 20));
 
 Here is how text selection highlights look like when you use the Substance-provided text components. This is under the Dust skin:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/text/dust.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/text/dust.png" width="300" height="300"/>
 
 This is under the Magellan skin:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/text/magellan.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/text/magellan.png" width="300" height="300"/>
 
 This is under the Sentinel skin:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/text/sentinel.png" width="300" height="300"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/text/sentinel.png" width="300" height="300"/>

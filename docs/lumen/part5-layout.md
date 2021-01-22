@@ -1,7 +1,7 @@
 
 ## Lumen - album art layout and scrolling
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
 
 This entry will talk about loading the album art matching the specific search string and asynchronous display of the associated images.
 

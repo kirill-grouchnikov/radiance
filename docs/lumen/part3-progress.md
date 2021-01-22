@@ -1,7 +1,7 @@
 
 ## Lumen - load progress
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/lumen/lumen-loading.png" width="594" height="284" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/lumen/lumen-loading.png" width="594" height="284" border=0>
 
 While the previous part showed the code for the main window and the close button, it's now time to look at the main album overview panel. For the demo purposes, the code is built in a layered fashion, with each layer adding more functional and animation behavior.
 

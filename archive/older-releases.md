@@ -2,7 +2,7 @@
 
 In pre-Radiance world, libraries in the `org.pushingpixels` namespace were released under different versioning schemes.
 
-The [`archive`](https://github.com/kirill-grouchnikov/radiance/tree/master/archive) folder contains pre-Radiance binaries for those libraries. These are historical artifacts that can be used to pin your dependencies to a particular older release.
+The [`archive`](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/archive) folder contains pre-Radiance binaries for those libraries. These are historical artifacts that can be used to pin your dependencies to a particular older release.
 
 ### 2017.H1 releases
 
@@ -120,7 +120,7 @@ The library development was on hiatus from [August 2010](https://markmail.org/me
 The original commit history from java.net and kenai.com was lost when those repositories were deleted (see below). Historical snapshots of all the libraries were uploaded to Github in December 2010. The commit history from October 2016 until May 2018 can be accessed in the now-archived individual [library projects](https://github.com/kirill-grouchnikov?tab=repositories) on Github. In [May 2018](https://www.pushing-pixels.org/2018/05/23/hello-radiance.html) all the libraries have been brought under the Radiance umbrella, where all new development is taking place.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
+  <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
 </p>
 
 If you're determined enough, the full commit history of some of the libraries can be reconstructed.
@@ -129,12 +129,12 @@ For Substance:
 
 * [The original](https://markmail.org/browse/net.java.dev.substance.cvs) CVS mailing list
 * [The now-archived](https://github.com/kirill-grouchnikov/substance/commits/master) Github project
-* [The combined](https://github.com/kirill-grouchnikov/radiance/commits/master) Radiance Github project
+* [The combined](https://github.com/kirill-grouchnikov/radiance/commits/sunshine) Radiance Github project
 
 For Flamingo:
 
 * [The original](https://markmail.org/browse/net.java.dev.flamingo.cvs) CVS mailing list
 * [The now-archived](https://github.com/kirill-grouchnikov/flamingo/commits/master) Github project
-* [The combined](https://github.com/kirill-grouchnikov/radiance/commits/master) Radiance Github project
+* [The combined](https://github.com/kirill-grouchnikov/radiance/commits/sunshine) Radiance Github project
 
 Trident's original source repository history from kenai.com looks to be lost.

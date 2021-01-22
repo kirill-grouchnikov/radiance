@@ -4,7 +4,7 @@ What is a component state? Let's take a look at buttons - the most basic buildin
 
 If a button does not respond to UI events (such as mouse click, for instance), it is said to be disabled - and usually has a lighter or partially translucent appearance to match its disabled state. A toggle button can be in a selected state, conveying that certain application parameter is toggled on. A selected button is usually painted with different hue to facilitate quick scanning of the application state. There are more button states - rollover when the mouse is moved over it, pressed when the user pressed but has not yet released the mouse and default button which is invoked when the user presses the Enter key. The following screenshot shows how the same button can look like in different states:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/states/control-states-extended.png"
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states-extended.png"
 width="275" height="279"/>
 
 Different controls have different states. For example, a progress bar can be determinate or indeterminate - depending on whether the application code can reliably assess the overall length of the work to be performed. A text component can be editable or uneditable. Input controls can be marked as required - to prevent the user from leaving the screen until he makes a selection on that control.
@@ -73,7 +73,7 @@ As mentioned above, the [Nebula](../skins/toneddown.md#nebula) skin defines cust
 
 And the resulting visuals - note that the progress bars use brown color scheme, while all the other controls use gray colors:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/component-states-custom.png"
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/component-states-custom.png"
 width="520" height="469"/>
 
 The second example is from the [Magellan](../skins/dark.md#magellan) skin that registers a specific color scheme to be used for painting uneditable text components:

@@ -1,6 +1,6 @@
 ## Flamingo - command popup menus
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
 Command menu (seen in the screenshot above anchored just below the "Format" button) is a multi-tiered collection of commands. Any command in any tier can have associated secondary content that is, in turn, its own command menu - essentially creating traditional cascading menus. At *any tier*, a command menu can have a vertically scrollable [command panel](CommandPanel.md) - seen in the screenshot above as a 5-column grid of large buttons.
 
@@ -20,7 +20,7 @@ The `panelPresentationMode` attribute can be used to provide the presentation mo
 
 The `maxVisibleMenuCommands` controls the maximum number of regular commands visible on the screen before vertical scrolling kicks in. In the screenshot below the command popup menu is configured to display at most 8 items:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
 
 The `menuPresentationState` attribute determines the visual presentation of the commands in the projected menu content.
 
@@ -34,7 +34,7 @@ The `menuPresentationState` attribute determines the visual presentation of the 
 
 Let's see the code behind this popup menu:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
 First we create the same command panel content model as in the [previous example](CommandPanel.md#sample-code):
 
@@ -129,7 +129,7 @@ CommandButtonProjection formatCommandProjection = Command.builder()
 
 A Swing button component projected from this projection will display the popup content specified by the `commandMenuContentModel`, with its presentation configured by the `commandPopupMenuPresentationModel`:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
 ### Next
 

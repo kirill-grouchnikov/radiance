@@ -2,7 +2,7 @@
 
 The Swing application discussed below implements a simple infinite progress indication illustrated in this screenshot:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/trident/progressindication.png" width="347" height="121" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/trident/progressindication.png" width="347" height="121" />
 
 The bluish highlighter moves from left to right, fading in as it appears on the left edge, and fading out as it disappears on the right edge. There are two properties that control the appearance of the highlighter:
 

@@ -17,7 +17,7 @@ In a nutshell:
 
 Let's take a look at these three concepts in action:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/command-basics.png" width="780" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/command-basics.png" width="780" border=0/>
 
 Here is how the first button (big icon with "Paste" text underneath) is created:
 

@@ -1,6 +1,6 @@
 ## Flamingo - command popup menus
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/color-selector-command1.png" width="665" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/color-selector-command1.png" width="665" border=0/>
 
 A projection of a color selector command is a popup button ("Styles3" button in the screenshot above) that displays a popup menu with regular commands and additional, optional three color selector panels:
 - color section with derived colors
@@ -58,7 +58,7 @@ public interface ColorActivationListener extends EventListener {
 
 ### Sample code
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/color-selector-command2.png" width="546" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/color-selector-command2.png" width="546" border=0/>
 
 First let's take a look at the functionality that we see in this screenshot, and then get to the code behind it.
 
@@ -206,7 +206,7 @@ selectorBuilder.addColorSectionWithDerived(
 
 We're using `Builder.addColorSectionWithDerived()`, passing a `ColorSectionModel` initialized with ten colors. Internally, each color will be used to generate additional five colors of varying brightness but the same hue and saturation:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/color-selector-command2.png" width="546" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/color-selector-command2.png" width="546" border=0/>
 
 #### Adding a color section with a row of colors
 
@@ -253,7 +253,7 @@ Here we have a `Command` configured to bring up a `JColorChooser` configured to 
 
 #### Bringing it all together to project a Swing button
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/flamingo/walkthrough/color-selector-command2.png" width="546" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/flamingo/walkthrough/color-selector-command2.png" width="546" border=0/>
 
 ```java
 this.colorSelectorCommand = ColorSelectorCommand.colorSelectorBuilder()

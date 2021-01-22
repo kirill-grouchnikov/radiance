@@ -42,7 +42,7 @@ The idea behind derived colors is to find the balance between consistent visuals
 
 Let's take a look at the following UI under the core Business skin:
 
-<img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/skins/dustcoffee1.png" width="340" height="258" />
+<img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/dustcoffee1.png" width="340" height="258" />
 
 To point out just a few places where Substance is using derived colors:
 
@@ -59,43 +59,43 @@ The Substance core library provides the following sixteen light color schemes:
 
 `Aqua`, `Barby Pink`
 <p>
-<img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/aqua.png" width="340" height="258" />
-<img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/barby-pink.png" width="340" height="258" />
+<img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/aqua.png" width="340" height="258" />
+<img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/barby-pink.png" width="340" height="258" />
 </p>
 `Bottle Green`, `Brown`
 <p>
-<img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/bottle-green.png" width="340" height="258" />
-<img alt="Brown"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/brown.png" width="340" height="258" />
+<img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/bottle-green.png" width="340" height="258" />
+<img alt="Brown"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/brown.png" width="340" height="258" />
 </p>
 `Creme`, `Light Aqua`
 <p>
-<img alt="Creme"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/creme.png" width="340" height="258" />
-<img alt="Light Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/light-aqua.png" width="340" height="258" />
+<img alt="Creme"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/creme.png" width="340" height="258" />
+<img alt="Light Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/light-aqua.png" width="340" height="258" />
 </p>
 `Lime Green`, `Olive`
 <p>
-<img alt="Lime Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/lime-green.png" width="340" height="258" />
-<img alt="Olive"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/olive.png" width="340" height="258" />
+<img alt="Lime Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/lime-green.png" width="340" height="258" />
+<img alt="Olive"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/olive.png" width="340" height="258" />
 </p>
 `Orange`, `Purple`
 <p>
-<img alt="Orange"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/orange.png" width="340" height="258" />
-<img alt="Purple"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/purple.png" width="340" height="258" />
+<img alt="Orange"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/orange.png" width="340" height="258" />
+<img alt="Purple"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/purple.png" width="340" height="258" />
 </p>
 `Raspberry`, `Sepia`
 <p>
-<img alt="Raspberry"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/raspberry.png" width="340" height="258" />
-<img alt="Sepia"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sepia.png" width="340" height="258" />
+<img alt="Raspberry"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/raspberry.png" width="340" height="258" />
+<img alt="Sepia"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/sepia.png" width="340" height="258" />
 </p>
 `Steel Blue`, `Sunset`
 <p>
-<img alt="Steel Blue"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/steel-blue.png" width="340" height="258" />
-<img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sunset.png" width="340" height="258" />
+<img alt="Steel Blue"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/steel-blue.png" width="340" height="258" />
+<img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/sunset.png" width="340" height="258" />
 </p>
 `Sun Glare`, `Terracotta`
 <p>
-<img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/sun-glare.png" width="340" height="258" />
-<img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/terracotta.png" width="340" height="258" />
+<img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/sun-glare.png" width="340" height="258" />
+<img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/terracotta.png" width="340" height="258" />
 </p>
 
 ### Core dark color schemes
@@ -103,17 +103,17 @@ The Substance core library provides the following five dark color schemes:
 
 `Ebony`, `Dark Violet`
 <p>
-<img alt="Ebony"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ebony.png" width="340" height="258" />
-<img alt="Dark Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/dark-violet.png" width="340" height="258" />
+<img alt="Ebony"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/ebony.png" width="340" height="258" />
+<img alt="Dark Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/dark-violet.png" width="340" height="258" />
 </p>
 `Charcoal`, `Jade Forest`
 <p>
-<img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/charcoal.png" width="340" height="258" />
-<img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/jade-forest.png" width="340" height="258" />
+<img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/charcoal.png" width="340" height="258" />
+<img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/jade-forest.png" width="340" height="258" />
 </p>
 `Ultramarine`
 <p>
-<img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/ultramarine.png" width="340" height="258" />
+<img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/ultramarine.png" width="340" height="258" />
 </p>
 
 ### Deriving color schemes
@@ -144,7 +144,7 @@ The following API allows shifting both the background and the foreground colors:
 ```      
 Here is the `Purple` color scheme shifted 80% towards light green in background colors and 70% towards dark red in foreground color (see the foreground color of the default button):
 
-<img alt="Derived Shifted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-shifted.png" width="340" height="258" />
+<img alt="Derived Shifted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-shifted.png" width="340" height="258" />
 
 The following API allows shifting only the background colors:
 
@@ -165,7 +165,7 @@ The following API allows shifting only the background colors:
 ```      
 Here is the same `Purple` color scheme shifted 80% towards light red in background colors:
 
-<img alt="Derived Shifted Background"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-shiftedbackground.png" width="340" height="258" />
+<img alt="Derived Shifted Background"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-shiftedbackground.png" width="340" height="258" />
 
 The following API allows tinting the colors (shifting towards white):
 
@@ -213,9 +213,9 @@ The following API allows shading the colors (shifting towards black):
 
 Here is the same `Purple` color scheme tinted 40%, toned 40% and shaded 40%:
 
-<img alt="Derived Tinted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-tinted.png" width="340" height="258" />
-<img alt="Derived Toned"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-toned.png" width="340" height="258" />
-<img alt="Derived Shaded"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-shaded.png" width="340" height="258" />
+<img alt="Derived Tinted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-tinted.png" width="340" height="258" />
+<img alt="Derived Toned"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-toned.png" width="340" height="258" />
+<img alt="Derived Shaded"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-shaded.png" width="340" height="258" />
 
 The following API allows saturating or desaturating the colors:
 
@@ -234,8 +234,8 @@ The following API allows saturating or desaturating the colors:
 
 Here is the same `Purple` color scheme saturated 40% and desaturated 40%:
 
-<img alt="Derived Saturated"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-saturate.png" width="340" height="258" />
-<img alt="Derived Desaturated"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-desaturate.png" width="340" height="258" />
+<img alt="Derived Saturated"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-saturate.png" width="340" height="258" />
+<img alt="Derived Desaturated"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-desaturate.png" width="340" height="258" />
 
 The following API allows inverting the colors:
 
@@ -261,8 +261,8 @@ The following API allows negating the colors:
 
 Here is the same `Purple` color scheme inverted and negated:
 
-<img alt="Derived Inverted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-invert.png" width="340" height="258" />
-<img alt="Derived Negated"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-negate.png" width="340" height="258" />
+<img alt="Derived Inverted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-invert.png" width="340" height="258" />
+<img alt="Derived Negated"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-negate.png" width="340" height="258" />
 
 The following API allows shifting the hue of the colors:
 
@@ -280,7 +280,7 @@ The following API allows shifting the hue of the colors:
 
 Here is the same `Purple` color scheme hue-shifted 40%:
 
-<img alt="Derived Hue Shifted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/colorschemes/derived-hueshift.png" width="340" height="258" />
+<img alt="Derived Hue Shifted"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/colorschemes/derived-hueshift.png" width="340" height="258" />
 
 ### Additional color schemes
 

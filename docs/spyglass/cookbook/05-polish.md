@@ -17,13 +17,13 @@ The following is an incomplete list of Cookbook UI minute visuals that have been
 
 Here are two more examples of fine details that are easily missed at a cursory glance. The following is a zoomed screenshot of the seam between the sidebar and the footer area. The vertical separator has two lines, darker on the left and lighter on the right. The same appies to the horizontal separator. In addition, the horizontal separator is painted on top of the vertical one to further enforce the boundary between the application functional areas:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/05-polish/zoom-footer-cookbook.png" width="207" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/05-polish/zoom-footer-cookbook.png" width="207" border=0/>
 
 In the implementation, the vertical separators are painted as a custom border installed on the relevant panels. While this can be achieved with the decoration painter, in this specific case it is easier to use borders and supported Substance APIs (to fetch the color schemes). These borders are the only usage of Substance APIs outside the self-contained definition of the custom skin. This is an example of the tradeoff between containing the painting routines inside the skin definition and the limitations of the Substance skinning layer that impose greater complexity on implementing this specific feature.
 
 The next screenshot shows a zoomed version of the buttons in one of the footers:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/spyglass/cookbook/05-polish/zoom-buttons-cookbook.png" width="198" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/05-polish/zoom-buttons-cookbook.png" width="198" border=0/>
 
 In addition to the details on the gradient fill and the double border, there is one more important thing – the seamless appearance of the buttons as one joined group. In order to implement this, the Cookbook code is using the `JCommandButtonStrip` component from [Flamingo component suite](../../flamingo/flamingo.md). Buttons placed in the `JCommandButtonStrip` will have continuous background, a single separator line between them and correct rounded corners on the left / right buttons.
 

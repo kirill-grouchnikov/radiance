@@ -1,7 +1,7 @@
 
 ## Lumen - complex scenarios
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/lumen/lumen-album.png" width="452" height="226" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/lumen/lumen-album.png" width="452" height="226" border=0>
 
 This entry will talk about displaying larger album art and scrollable track listing when the specific album is selected, along with a complex transition between selected albums.
 

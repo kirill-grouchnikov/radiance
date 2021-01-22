@@ -1,6 +1,6 @@
 ## Substance look and feel - title pane
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/visor-mail.png" width="720" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/visor-mail.png" width="720" border=0/>
 
 ### Introduction
 
@@ -37,7 +37,7 @@ Let's see a couple of examples.
 
 ### Example A
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/visor-mail.png" width="720" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/visor-mail.png" width="720" border=0/>
 
 In this example, we configure the frame as:
 
@@ -70,7 +70,7 @@ builder.add(refreshButton).xy(1, 1);
 
 ### Example B
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/substance/visor-chat.png" width="720" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/visor-chat.png" width="720" border=0/>
 
 We first configure the gravity of the control buttons to leading, along with increased title pane height to accommodate custom content:
 

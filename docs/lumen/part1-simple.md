@@ -1,7 +1,7 @@
 
 ## Lumen - window structure and simple animations
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/master/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/lumen/lumen-main.png" width="594" height="284" border=0>
 
 Lumen main window is a non-rectangular surface with translucent painting and overlapping components. Here is a short walkthrough of the matching class:
 
