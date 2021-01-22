@@ -129,7 +129,7 @@ public class BackendConnector {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
         okHttpBuilder.addInterceptor(chain -> {
             Request requestWithUserAgent = chain.request().newBuilder()
-                    .header("User-Agent", "Lumen test app. See https://github.com/kirill-grouchnikov/radiance/blob/master/docs/lumen/lumen.md")
+                    .header("User-Agent", "Lumen test app. See https://github.com/kirill-grouchnikov/radiance/blob/sunshine/docs/lumen/lumen.md")
                     .build();
             return chain.proceed(requestWithUserAgent);
         });
