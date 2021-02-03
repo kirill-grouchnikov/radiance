@@ -36,7 +36,6 @@ buildscript {
     ext {
         // Build dependencies
         gradle_version                  =    '6.8.1'
-        dokka_plugin_version            =   '1.4.20'
 
         // Core dependencies
         kotlin_version                  =   '1.4.30'
@@ -55,7 +54,9 @@ buildscript {
     }
     repositories {
         mavenCentral()
-        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
@@ -73,7 +74,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-        jcenter()
     }
 
     defaultTasks 'build', 'jar'
