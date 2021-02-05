@@ -102,6 +102,12 @@ allprojects {
         disableAutoTargetJvm()
     }
 
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            useIR = true
+        }
+    }
+
     // Configure the jar task for all the projects
     tasks.withType(Jar) {
         // create reproducible builds by removing timestamps and doing cross-platform file order
