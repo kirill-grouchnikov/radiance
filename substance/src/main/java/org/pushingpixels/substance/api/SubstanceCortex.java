@@ -578,7 +578,9 @@ public class SubstanceCortex {
         }
 
         /**
-         * Allows animations of the specified facet on all controls.
+         * Allows animations of the specified facet on all controls. Due to performance
+         * considerations, this API can only be used to control renderer-based components
+         * (tables, lists, trees) and custom Substance animations (focus loop, icon glow, etc).
          *
          * @param animationFacet Animation facet to allow.
          */
@@ -587,7 +589,10 @@ public class SubstanceCortex {
         }
 
         /**
-         * Allows animations of the specified facet on all controls of specified class.
+         * Allows animations of the specified facet on all controls of specified class. Due to
+         * performance considerations, this API can only be used to control renderer-based
+         * components (tables, lists, trees) and custom Substance animations (focus loop, icon
+         * glow, etc).
          *
          * @param animationFacet Animation facet to allow.
          * @param clazz          Control class for allowing the animation facet.
@@ -597,7 +602,10 @@ public class SubstanceCortex {
         }
 
         /**
-         * Allows animations of the specified facet on all controls of specified classes.
+         * Allows animations of the specified facet on all controls of specified classes. Due to
+         * performance considerations, this API can only be used to control renderer-based
+         * components (tables, lists, trees) and custom Substance animations (focus loop, icon
+         * glow, etc).
          *
          * @param animationFacet Animation facet to allow.
          * @param clazz          Control classes for allowing the animation facet.
@@ -607,7 +615,9 @@ public class SubstanceCortex {
         }
 
         /**
-         * Disallows animations of the specified facet on all controls.
+         * Disallows animations of the specified facet on all controls. Due to performance
+         * considerations, this API can only be used to control renderer-based components
+         * (tables, lists, trees) and custom Substance animations (focus loop, icon glow, etc).
          *
          * @param animationFacet Animation facet to disallow.
          */
@@ -616,7 +626,10 @@ public class SubstanceCortex {
         }
 
         /**
-         * Disallows animations of the specified facet on all controls of specified class.
+         * Disallows animations of the specified facet on all controls of specified class. Due to
+         * performance considerations, this API can only be used to control renderer-based
+         * components (tables, lists, trees) and custom Substance animations (focus loop, icon
+         * glow, etc).
          *
          * @param animationFacet Animation facet to disallow.
          * @param clazz          Control class for disallowing the animation facet.
@@ -626,7 +639,10 @@ public class SubstanceCortex {
         }
 
         /**
-         * Disallows animations of the specified facet on all controls of specified classes.
+         * Disallows animations of the specified facet on all controls of specified classes. Due to
+         * performance considerations, this API can only be used to control renderer-based
+         * components (tables, lists, trees) and custom Substance animations (focus loop, icon
+         * glow, etc).
          *
          * @param animationFacet Animation facet to disallow.
          * @param clazz          Control classes for disallowing the animation facet.
@@ -1486,7 +1502,9 @@ public class SubstanceCortex {
         }
 
         /**
-         * Allows animations of the specified facet on the specified control.
+         * Allows animations of the specified facet on the specified control. Due to performance
+         * considerations, this API can only be used to control renderer-based components
+         * (tables, lists, trees) and custom Substance animations (focus loop, icon glow, etc).
          *
          * @param animationFacet Animation facet to allow.
          * @param comp           Control for allowing the animation facet.
@@ -1499,7 +1517,9 @@ public class SubstanceCortex {
         }
 
         /**
-         * Disallows animations of the specified facet on the specified control.
+         * Disallows animations of the specified facet on the specified control. Due to performance
+         * considerations, this API can only be used to control renderer-based components
+         * (tables, lists, trees) and custom Substance animations (focus loop, icon glow, etc).
          *
          * @param animationFacet Animation facet to disallow.
          * @param comp           Control for disallowing the animation facet.
