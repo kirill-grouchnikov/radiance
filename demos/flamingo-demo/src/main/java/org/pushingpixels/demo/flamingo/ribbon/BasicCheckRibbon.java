@@ -1869,10 +1869,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection<>(this.fontComboBoxModel,
                 ComponentPresentationModel.withDefaults()));
 
-        ribbon.addTaskbarAppMenuLink(this.amFooterProps);
-        ribbon.addTaskbarAppMenuLink(this.amEntryPrintCustom);
-        ribbon.addTaskbarAppMenuLink(this.amWirelessBluetooth);
-        ribbon.addTaskbarAppMenuLink(this.amEntryExit);
+        if (ribbon.getApplicationMenuCommandProjection() != null) {
+            ribbon.addTaskbarAppMenuLink(this.amFooterProps);
+            ribbon.addTaskbarAppMenuLink(this.amEntryPrintCustom);
+            ribbon.addTaskbarAppMenuLink(this.amWirelessBluetooth);
+            ribbon.addTaskbarAppMenuLink(this.amEntryExit);
+        }
 
         ribbon.addTaskbarComponent(new RibbonCheckBoxProjection(this.rulerCheckBoxModel,
                 ComponentPresentationModel.withDefaults()));

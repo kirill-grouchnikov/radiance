@@ -566,7 +566,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         // changes
         this.popupHandler = new PopupHandler();
         PopupButtonModel popupButtonModel = new DefaultPopupButtonModel(this);
-        popupButtonModel.setEnabled(projection.getContentModel().isSecondaryEnabled());
+        popupButtonModel.setEnabled(command.isSecondaryEnabled());
         this.setPopupModel(popupButtonModel);
 
         boolean hasPopup = (command.getSecondaryContentModel() != null);

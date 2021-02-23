@@ -292,7 +292,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
         taskToggleButtonsHostPanel.setLayout(null);
         this.ribbon.remove(this.taskToggleButtonsScrollablePanel);
 
-        this.ribbon.remove(this.applicationMenuButton);
+        if (this.applicationMenuButton != null) {
+            this.ribbon.remove(this.applicationMenuButton);
+        }
         if (this.anchoredButtons != null) {
             this.ribbon.remove(this.anchoredButtons);
         }
