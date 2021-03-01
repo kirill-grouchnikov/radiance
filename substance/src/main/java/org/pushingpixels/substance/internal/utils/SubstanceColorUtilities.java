@@ -573,6 +573,9 @@ public class SubstanceColorUtilities {
      * @return The background fill color of the specified component.
      */
     public static Color getBackgroundFillColor(Component component) {
+        Color backgr = component.getBackground();
+        boolean isBackgroundUiResource = backgr instanceof UIResource;
+
         // special case - sliders, check boxes and radio buttons. For this,
         // switch to component parent
         if ((component instanceof JCheckBox)
@@ -582,19 +585,16 @@ public class SubstanceColorUtilities {
         } else {
             // Fix for 325 - respect the opacity setting of the text
             // component
-            if (component instanceof JTextComponent &&
+            if (component instanceof JTextComponent && isBackgroundUiResource &&
                     (!component.isOpaque() || !((JTextComponent) component).isEditable())) {
                 component = component.getParent();
             }
         }
 
-        Color backgr = component.getBackground();
         // do not change the background color on cell renderers
         if (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null) {
             return backgr;
         }
-
-        boolean isBackgroundUiResource = backgr instanceof UIResource;
 
         if (!isBackgroundUiResource) {
             // special case for issue 386 - if the colorization
