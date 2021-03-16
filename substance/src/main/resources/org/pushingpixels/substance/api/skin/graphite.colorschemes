@@ -83,7 +83,7 @@ Graphite Pressed Selected {
     colorMid=#2B2B2B
     colorDark=#212121
     colorUltraDark=#1C1C1C
-    colorForeground=#B2B2B2
+    colorForeground=#EDEDED
 }
 
 Graphite Pressed Unselected {
@@ -94,7 +94,7 @@ Graphite Pressed Unselected {
     colorMid=#272727
     colorDark=#1E1E1E
     colorUltraDark=#191919
-    colorForeground=#AFAFAF
+    colorForeground=#EDEDED
 }
 
 Graphite Disabled {
