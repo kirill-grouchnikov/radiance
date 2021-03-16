@@ -75,6 +75,28 @@ Graphite Selected Disabled {
     colorForeground=#A0A0A0
 }
 
+Graphite Pressed Selected {
+    kind=Dark
+    colorUltraLight=#3F3F3F
+    colorExtraLight=#3A3A3A
+    colorLight=#353535
+    colorMid=#2B2B2B
+    colorDark=#212121
+    colorUltraDark=#1C1C1C
+    colorForeground=#B2B2B2
+}
+
+Graphite Pressed Unselected {
+    kind=Dark
+    colorUltraLight=#3A3A3A
+    colorExtraLight=#353535
+    colorLight=#303030
+    colorMid=#272727
+    colorDark=#1E1E1E
+    colorUltraDark=#191919
+    colorForeground=#AFAFAF
+}
+
 Graphite Disabled {
     kind=Dark
     colorUltraLight=#646464
