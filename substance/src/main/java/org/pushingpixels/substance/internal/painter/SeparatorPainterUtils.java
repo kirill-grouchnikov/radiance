@@ -249,18 +249,58 @@ public class SeparatorPainterUtils {
 				float gradEndFraction = (float) (height - gradEnd) / height;
 				float regularX = Math.max(0, width / 2.0f - borderStrokeWidth);
 
+				// Dynamically create the array of stop fractions and corresponding
+				// colors. If the start fraction is 0, we need to skip the 0-opacity
+				// first stop, as identical fractions in LinearGradientPaint lead to
+				// a crash. The same applies to end fraction 0.
+				int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 2 +
+						((gradEndFraction < 1.0f) ? 1 : 0);
+				float[] stops = new float[stopsCount];
+				Color[] colors = new Color[stopsCount];
+				int stopIndex = 0;
+				if (gradStartFraction > 0.0f) {
+					stops[stopIndex] = 0.0f;
+					colors[stopIndex] = primaryZero;
+					stopIndex++;
+				}
+				stops[stopIndex] = gradStartFraction;
+				colors[stopIndex] = primary;
+				stopIndex++;
+				stops[stopIndex] = gradEndFraction;
+				colors[stopIndex] = primary;
+				stopIndex++;
+				if (gradEndFraction < 1.0f) {
+					stops[stopIndex] = 1.0f;
+					colors[stopIndex] = primaryZero;
+				}
+
 				LinearGradientPaint primaryPaint = new LinearGradientPaint(0, 0, 0, height,
-						new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
-						new Color[] { primaryZero, primary, primary, primaryZero });
+						stops, colors);
 				graphics.setPaint(primaryPaint);
 				graphics.draw(new Line2D.Float(regularX, 0, regularX, height));
 
 				if (hasShadow) {
 					float shadowX = regularX + borderStrokeWidth;
 
+					stopIndex = 0;
+					if (gradStartFraction > 0.0f) {
+						stops[stopIndex] = 0.0f;
+						colors[stopIndex] = secondaryZero;
+						stopIndex++;
+					}
+					stops[stopIndex] = gradStartFraction;
+					colors[stopIndex] = secondary;
+					stopIndex++;
+					stops[stopIndex] = gradEndFraction;
+					colors[stopIndex] = secondary;
+					stopIndex++;
+					if (gradEndFraction < 1.0f) {
+						stops[stopIndex] = 1.0f;
+						colors[stopIndex] = secondaryZero;
+					}
+
 					LinearGradientPaint secondaryPaint = new LinearGradientPaint(0, 0, 0, height,
-							new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
-							new Color[] { secondaryZero, secondary, secondary, secondaryZero });
+							stops, colors);
 					graphics.setPaint(secondaryPaint);
 					graphics.draw(new Line2D.Float(shadowX, 0, shadowX, height));
 				}
@@ -274,18 +314,58 @@ public class SeparatorPainterUtils {
 				float gradEndFraction = (float) (width - gradEnd) / width;
 				float regularY = Math.max(0, height / 2.0f - borderStrokeWidth);
 
+				// Dynamically create the array of stop fractions and corresponding
+				// colors. If the start fraction is 0, we need to skip the 0-opacity
+				// first stop, as identical fractions in LinearGradientPaint lead to
+				// a crash. The same applies to end fraction 0.
+				int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 2 +
+						((gradEndFraction < 1.0f) ? 1 : 0);
+				float[] stops = new float[stopsCount];
+				Color[] colors = new Color[stopsCount];
+				int stopIndex = 0;
+				if (gradStartFraction > 0.0f) {
+					stops[stopIndex] = 0.0f;
+					colors[stopIndex] = primaryZero;
+					stopIndex++;
+				}
+				stops[stopIndex] = gradStartFraction;
+				colors[stopIndex] = primary;
+				stopIndex++;
+				stops[stopIndex] = gradEndFraction;
+				colors[stopIndex] = primary;
+				stopIndex++;
+				if (gradEndFraction < 1.0f) {
+					stops[stopIndex] = 1.0f;
+					colors[stopIndex] = primaryZero;
+				}
+
 				LinearGradientPaint primaryPaint = new LinearGradientPaint(0, 0, width, 0,
-						new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
-						new Color[] { primaryZero, primary, primary, primaryZero });
+						stops, colors);
 				graphics.setPaint(primaryPaint);
 				graphics.draw(new Line2D.Float(0, regularY, width, regularY));
 
 				if (hasShadow) {
 					float shadowY = regularY + borderStrokeWidth;
 
+					stopIndex = 0;
+					if (gradStartFraction > 0.0f) {
+						stops[stopIndex] = 0.0f;
+						colors[stopIndex] = secondaryZero;
+						stopIndex++;
+					}
+					stops[stopIndex] = gradStartFraction;
+					colors[stopIndex] = secondary;
+					stopIndex++;
+					stops[stopIndex] = gradEndFraction;
+					colors[stopIndex] = secondary;
+					stopIndex++;
+					if (gradEndFraction < 1.0f) {
+						stops[stopIndex] = 1.0f;
+						colors[stopIndex] = secondaryZero;
+					}
+
 					LinearGradientPaint secondaryPaint = new LinearGradientPaint(0, 0, width, 0,
-							new float[] { 0.0f, gradStartFraction, gradEndFraction, 1.0f },
-							new Color[] { secondaryZero, secondary, secondary, secondaryZero });
+							stops, colors);
 					graphics.setPaint(secondaryPaint);
 					graphics.draw(new Line2D.Float(0, shadowY, width, shadowY));
 				}
