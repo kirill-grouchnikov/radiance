@@ -76,25 +76,27 @@ Graphite Selected Disabled {
 }
 
 Graphite Pressed Selected {
-    kind=Dark
-    colorUltraLight=#3F3F3F
-    colorExtraLight=#3A3A3A
-    colorLight=#353535
-    colorMid=#2B2B2B
-    colorDark=#212121
-    colorUltraDark=#1C1C1C
-    colorForeground=#EDEDED
+    kind=Light
+    colorUltraLight=#D5D6D8
+    colorExtraLight=#CED1D5
+    colorLight=#B4BBC1
+    colorMid=#A7AAAE
+    colorDark=#6F7174
+    colorUltraDark=#5D5E60
+    colorForeground=#1B2025
+    colorMark=#1B2025
 }
 
 Graphite Pressed Unselected {
-    kind=Dark
-    colorUltraLight=#3A3A3A
-    colorExtraLight=#353535
-    colorLight=#303030
-    colorMid=#272727
-    colorDark=#1E1E1E
-    colorUltraDark=#191919
-    colorForeground=#EDEDED
+    kind=Light
+    colorUltraLight=#CACBCD
+    colorExtraLight=#C4C7CA
+    colorLight=#ADB2B8
+    colorMid=#A2A4A7
+    colorDark=#727476
+    colorUltraDark=#646566
+    colorForeground=#1B2025
+    colorMark=#1B2025
 }
 
 Graphite Disabled {

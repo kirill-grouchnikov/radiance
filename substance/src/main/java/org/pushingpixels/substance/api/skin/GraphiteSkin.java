@@ -87,6 +87,10 @@ public class GraphiteSkin extends GraphiteAccentedSkin {
         SubstanceColorScheme pressedUnselectedScheme = schemes.get("Graphite Pressed Unselected");
         defaultSchemeBundle.registerColorScheme(pressedSelectedScheme, ComponentState.PRESSED_SELECTED);
         defaultSchemeBundle.registerColorScheme(pressedUnselectedScheme, ComponentState.PRESSED_UNSELECTED);
+        defaultSchemeBundle.registerColorScheme(pressedSelectedScheme,
+                SubstanceSlices.ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_SELECTED);
+        defaultSchemeBundle.registerColorScheme(pressedUnselectedScheme,
+                SubstanceSlices.ColorSchemeAssociationKind.MARK, ComponentState.PRESSED_UNSELECTED);
     }
 
     @Override
