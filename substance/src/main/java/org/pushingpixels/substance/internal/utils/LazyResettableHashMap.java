@@ -41,6 +41,8 @@ import java.util.TreeMap;
  * @author Kirill Grouchnikov
  */
 public class LazyResettableHashMap<T> {
+    public abstract static class Key {}
+
     /**
      * List of all existing maps.
      */
@@ -49,7 +51,7 @@ public class LazyResettableHashMap<T> {
     /**
      * The delegate cache.
      */
-    private Map<HashMapKey, T> cache;
+    private Map<Key, T> cache;
 
     /**
      * Display name of this hash map. Is used for tracking the statistics.
@@ -83,7 +85,7 @@ public class LazyResettableHashMap<T> {
      * @param key   Pair key.
      * @param entry Pair value.
      */
-    public synchronized void put(HashMapKey key, T entry) {
+    public synchronized void put(Key key, T entry) {
         this.createIfNecessary();
         this.cache.put(key, entry);
     }
@@ -94,7 +96,7 @@ public class LazyResettableHashMap<T> {
      * @param key Key.
      * @return Registered value or <code>null</code> if none.
      */
-    public synchronized T get(HashMapKey key) {
+    public synchronized T get(Key key) {
         if (this.cache == null)
             return null;
         return this.cache.get(key);
@@ -107,7 +109,7 @@ public class LazyResettableHashMap<T> {
      * @return <code>true</code> if there is an associated value,
      * <code>false</code> otherwise.
      */
-    public boolean containsKey(HashMapKey key) {
+    public boolean containsKey(Key key) {
         if (this.cache == null) {
             return false;
         }

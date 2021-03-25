@@ -33,9 +33,13 @@ public class JBHiDPIScaledImage extends BufferedImage {
     }
 
     public static JBHiDPIScaledImage create(int width, int height, int type) {
+        return create(UIUtil.getScaleFactor(), width, height, type);
+    }
+
+    public static JBHiDPIScaledImage create(double scale, int width, int height, int type) {
         return new JBHiDPIScaledImage(
-                (int) Math.ceil((UIUtil.getScaleFactor() * width)),
-                (int) Math.ceil((UIUtil.getScaleFactor() * height)),
+                (int) Math.ceil((scale * width)),
+                (int) Math.ceil((scale * height)),
                 type);
     }
 

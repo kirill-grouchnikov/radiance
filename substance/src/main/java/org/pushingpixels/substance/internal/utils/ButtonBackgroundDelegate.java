@@ -49,6 +49,7 @@ import org.pushingpixels.trident.api.Timeline.TimelineState;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.Set;
@@ -80,6 +81,10 @@ public class ButtonBackgroundDelegate {
     private static BufferedImage getFullAlphaBackground(AbstractButton button,
             SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height) {
+        AffineTransform transform = button.getGraphicsConfiguration().getDevice().
+                getDefaultConfiguration().getDefaultTransform();
+        double scale = Math.max(transform.getScaleX(), transform.getScaleY());
+
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
                 .getTransitionTracker().getModelStateInfo();
@@ -132,7 +137,8 @@ public class ButtonBackgroundDelegate {
                     SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.ORANGE;
                     float cyclePos = modificationTimeline.getTimelinePosition();
 
-                    HashMapKey key1 = SubstanceCoreUtilities.getHashKey(width, height,
+                    ImageHashMapKey key1 = SubstanceCoreUtilities.getScaleAwareHashKey(
+                            scale, width, height,
                             colorScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                             shaper.getDisplayName(), fillPainter.getDisplayName(),
                             borderPainter.getDisplayName(), straightSides, openSides,
@@ -140,13 +146,14 @@ public class ButtonBackgroundDelegate {
                             isBorderPainted, SubstanceSizeUtils.getComponentFontSize(button));
                     BufferedImage layer1 = regularBackgrounds.get(key1);
                     if (layer1 == null) {
-                        layer1 = createBackgroundImage(button, shaper, fillPainter, borderPainter,
+                        layer1 = createBackgroundImage(button, scale, shaper, fillPainter, borderPainter,
                                 width, height, colorScheme, baseBorderScheme, openSides,
                                 isContentAreaFilled, isBorderPainted);
 
                         regularBackgrounds.put(key1, layer1);
                     }
-                    HashMapKey key2 = SubstanceCoreUtilities.getHashKey(width, height,
+                    ImageHashMapKey key2 = SubstanceCoreUtilities.getScaleAwareHashKey(
+                            scale, width, height,
                             colorScheme2.getDisplayName(), baseBorderScheme.getDisplayName(),
                             shaper.getDisplayName(), fillPainter.getDisplayName(),
                             borderPainter.getDisplayName(), straightSides, openSides,
@@ -154,7 +161,7 @@ public class ButtonBackgroundDelegate {
                             isBorderPainted, SubstanceSizeUtils.getComponentFontSize(button));
                     BufferedImage layer2 = regularBackgrounds.get(key2);
                     if (layer2 == null) {
-                        layer2 = createBackgroundImage(button, shaper, fillPainter, borderPainter,
+                        layer2 = createBackgroundImage(button, scale, shaper, fillPainter, borderPainter,
                                 width, height, colorScheme2, baseBorderScheme, openSides,
                                 isContentAreaFilled, isBorderPainted);
 
@@ -184,7 +191,8 @@ public class ButtonBackgroundDelegate {
 
         SubstanceColorScheme baseFillScheme = SubstanceColorSchemeUtilities.getColorScheme(button,
                 currState);
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(width, height,
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height,
                 baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                 shaper.getDisplayName(), fillPainter.getDisplayName(),
                 borderPainter.getDisplayName(), straightSides, openSides,
@@ -193,7 +201,7 @@ public class ButtonBackgroundDelegate {
                 SubstanceSizeUtils.getComponentFontSize(button));
         BufferedImage layerBase = regularBackgrounds.get(keyBase);
         if (layerBase == null) {
-            layerBase = createBackgroundImage(button, shaper, fillPainter, borderPainter, width,
+            layerBase = createBackgroundImage(button, scale, shaper, fillPainter, borderPainter, width,
                     height, baseFillScheme, baseBorderScheme, openSides, isContentAreaFilled,
                     isBorderPainted);
             regularBackgrounds.put(keyBase, layerBase);
@@ -226,7 +234,8 @@ public class ButtonBackgroundDelegate {
                         .getColorScheme(button, activeState);
                 SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(button, ColorSchemeAssociationKind.BORDER, activeState);
-                HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height,
+                ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, width, height,
                         fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                         shaper.getDisplayName(), fillPainter.getDisplayName(),
                         borderPainter.getDisplayName(), straightSides, openSides,
@@ -235,7 +244,7 @@ public class ButtonBackgroundDelegate {
                         SubstanceSizeUtils.getComponentFontSize(button));
                 BufferedImage layer = regularBackgrounds.get(key);
                 if (layer == null) {
-                    layer = createBackgroundImage(button, shaper, fillPainter, borderPainter, width,
+                    layer = createBackgroundImage(button, scale, shaper, fillPainter, borderPainter, width,
                             height, fillScheme, borderScheme, openSides, isContentAreaFilled,
                             isBorderPainted);
                     regularBackgrounds.put(key, layer);
@@ -248,7 +257,7 @@ public class ButtonBackgroundDelegate {
     }
 
     private static BufferedImage createBackgroundImage(AbstractButton button,
-            SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
+            double scale, SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme,
             Set<Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
@@ -264,7 +273,7 @@ public class ButtonBackgroundDelegate {
         Shape contour = shaper.getButtonOutline(button, borderDelta, width + deltaLeft + deltaRight,
                 height + deltaTop + deltaBottom, false);
 
-        BufferedImage newBackground = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage newBackground = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D finalGraphics = (Graphics2D) newBackground.getGraphics();
         finalGraphics.translate(-deltaLeft, -deltaTop);
         if (isContentAreaFilled) {

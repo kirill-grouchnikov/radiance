@@ -63,6 +63,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.*;
@@ -485,6 +486,35 @@ public class SubstanceCoreUtilities {
         }
 
         return NeonCortex.getBlankImage(width, height);
+    }
+
+    /**
+     * Retrieves transparent image of specified dimension.
+     *
+     * @param width  Image width.
+     * @param height Image height.
+     * @return Transparent image of specified dimension.
+     */
+    public static BufferedImage getBlankImage(double scale, int width, int height) {
+        if (MemoryAnalyzer.isRunning()) {
+            // see if the request is unusual
+            if ((width >= 100) || (height >= 100)) {
+                StackTraceElement[] stack = Thread.currentThread().getStackTrace();
+                StringBuffer sb = new StringBuffer();
+                int count = 0;
+                for (StackTraceElement stackEntry : stack) {
+                    if (count++ > 8)
+                        break;
+                    sb.append(stackEntry.getClassName() + ".");
+                    sb.append(stackEntry.getMethodName() + " [");
+                    sb.append(stackEntry.getLineNumber() + "]");
+                    sb.append("\n");
+                }
+                MemoryAnalyzer.enqueueUsage("Blank " + width + "*" + height + "\n" + sb.toString());
+            }
+        }
+
+        return NeonCortex.getBlankImage(scale, width, height);
     }
 
     /**
@@ -1559,6 +1589,10 @@ public class SubstanceCoreUtilities {
      */
     public static HashMapKey getHashKey(Object... objects) {
         return new HashMapKey(objects);
+    }
+
+    public static ImageHashMapKey getScaleAwareHashKey(double scale, Object... objects) {
+        return new ImageHashMapKey(scale, objects);
     }
 
     /**

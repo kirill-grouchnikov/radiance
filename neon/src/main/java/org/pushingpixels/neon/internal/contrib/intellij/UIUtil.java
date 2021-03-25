@@ -84,9 +84,9 @@ public class UIUtil {
     private static Double cachedScaleFactorReply = null;
 
     public static double getScaleFactor() {
-        if (cachedScaleFactorReply != null) {
-            return cachedScaleFactorReply;
-        }
+//        if (cachedScaleFactorReply != null) {
+//            return cachedScaleFactorReply;
+//        }
 
         double result = GraphicsEnvironment.isHeadless() ? 1.0 : DetectRetinaKit.getScaleFactor();
         cachedScaleFactorReply = Double.valueOf(result);

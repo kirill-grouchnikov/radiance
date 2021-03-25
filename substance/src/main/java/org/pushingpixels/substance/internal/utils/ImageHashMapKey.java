@@ -36,7 +36,9 @@ import java.util.Arrays;
  * 
  * @author Kirill Grouchnikov
  */
-public class HashMapKey extends LazyResettableHashMap.Key {
+public class ImageHashMapKey extends LazyResettableHashMap.Key {
+	private double scale;
+
 	/**
 	 * Fields that represent this key object.
 	 */
@@ -44,25 +46,28 @@ public class HashMapKey extends LazyResettableHashMap.Key {
 
 	/**
 	 * Creates a new key object.
-	 * 
+	 *
 	 * @param fields
 	 *            Fields of the key object.
 	 */
-	public HashMapKey(Object... fields) {
+	public ImageHashMapKey(double scale, Object... fields) {
+		this.scale = scale;
 		this.keyFields = fields;
 	}
 
 	@Override
 	public int hashCode() {
-		return Arrays.deepHashCode(this.keyFields);
+		long scaleBits = Double.doubleToLongBits(this.scale);
+		int scaleHash = (int) (scaleBits ^ (scaleBits >>> 32));
+		return 31 * Arrays.deepHashCode(this.keyFields) + scaleHash;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof HashMapKey)) {
+		if (!(obj instanceof ImageHashMapKey)) {
 			return false;
 		}
-		HashMapKey key2 = (HashMapKey) obj;
-		return Arrays.equals(this.keyFields, key2.keyFields);
+		ImageHashMapKey key2 = (ImageHashMapKey) obj;
+		return (this.scale == key2.scale) && Arrays.equals(this.keyFields, key2.keyFields);
 	}
 }

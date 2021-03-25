@@ -254,15 +254,37 @@ public class NeonCortex {
      * @param height Width of the target image
      * @return A scaled, high-DPI aware image of specified dimensions.
      */
-    public static BufferedImage getBlankImage(int width, int height) {
-        if (UIUtil.getScaleFactor() > 1.0) {
-            return JBHiDPIScaledImage.create(width, height, BufferedImage.TYPE_INT_ARGB);
+    public static BufferedImage getBlankImage(double scale, int width, int height) {
+        if (scale > 1.0) {
+            return JBHiDPIScaledImage.create(scale, width, height, BufferedImage.TYPE_INT_ARGB);
         } else {
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice d = e.getDefaultScreenDevice();
             GraphicsConfiguration c = d.getDefaultConfiguration();
             return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
         }
+    }
+
+    /**
+     * Gets a scaled, high-DPI aware image of specified dimensions.
+     * <p>
+     * Use {@link #drawImage(Graphics, Image, int, int)} or
+     * {@link #drawImage(Graphics, Image, int, int, int, int, int, int)} to draw the image
+     * obtained with this method. Note that applying an extension of
+     * {@link NeonAbstractFilter} is a "safe" operation
+     * as far as preserving the scale-aware configuration. If you are using a custom
+     * {@link java.awt.image.BufferedImageOp} that is not a
+     * {@link NeonAbstractFilter}, the resulting image will be
+     * a regular {@link BufferedImage} that will not be drawn correctly using one of the
+     * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor()}
+     * to divide the image width and height for the purposes of drawing.
+     *
+     * @param width  Width of the target image
+     * @param height Width of the target image
+     * @return A scaled, high-DPI aware image of specified dimensions.
+     */
+    public static BufferedImage getBlankImage(int width, int height) {
+        return getBlankImage(UIUtil.getScaleFactor(), width, height);
     }
 
     /**
@@ -285,7 +307,9 @@ public class NeonCortex {
 
     public static void drawImage(Graphics g, Image img, int x, int y) {
         if (img instanceof JBHiDPIScaledImage) {
-            double scaleFactor = UIUtil.getScaleFactor();
+            double scaleFactor = (g instanceof Graphics2D) ?
+                    UIUtil.getScaleFactor(((Graphics2D) g)) :
+                    UIUtil.getScaleFactor();
             g.drawImage(img, x, y, (int) (img.getWidth(null) / scaleFactor),
                     (int) (img.getHeight(null) / scaleFactor), null);
         } else {
