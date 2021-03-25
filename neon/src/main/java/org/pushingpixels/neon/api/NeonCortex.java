@@ -34,16 +34,20 @@ import org.pushingpixels.neon.api.font.FontPolicy;
 import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
-import org.pushingpixels.neon.internal.font.*;
 import org.pushingpixels.neon.internal.ColorFilter;
-import org.pushingpixels.neon.internal.contrib.intellij.*;
+import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
+import org.pushingpixels.neon.internal.font.*;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterGraphics;
-import java.security.*;
-import java.util.*;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides the public API surface for working with platform-consistent fonts,
@@ -62,7 +66,8 @@ public class NeonCortex {
     private static Map<String, Map> desktopHintsCache = new HashMap<>();
 
     // No-op private constructor to prevent application code from directly creating instances
-    private NeonCortex() {}
+    private NeonCortex() {
+    }
 
     public static synchronized Platform getPlatform() {
         if (platform != null) {
@@ -317,6 +322,15 @@ public class NeonCortex {
         }
     }
 
+    public static void drawImageWithScale(Graphics g, double scaleFactor, Image img, int x, int y) {
+        if (img instanceof JBHiDPIScaledImage) {
+            g.drawImage(img, x, y, (int) (img.getWidth(null) / scaleFactor),
+                    (int) (img.getHeight(null) / scaleFactor), null);
+        } else {
+            g.drawImage(img, x, y, img.getWidth(null), img.getHeight(null), null);
+        }
+    }
+
     public static void drawImage(Graphics g, Image img, int x, int y,
             int width, int height, int offsetX, int offsetY) {
         if (img instanceof JBHiDPIScaledImage) {
@@ -362,7 +376,17 @@ public class NeonCortex {
             public void paintIcon(Component c, Graphics g, int x, int y) {
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.translate(x, y);
-                NeonCortex.drawImage(g2d, this.colorized, 0, 0);
+                double scaleFactor;
+                if ((c == null) || (c.getGraphicsConfiguration() == null)) {
+                    // TODO - revisit this
+                    scaleFactor = UIUtil.getScaleFactor();
+                } else {
+                    AffineTransform transform = c.getGraphicsConfiguration().getDevice().
+                            getDefaultConfiguration().getDefaultTransform();
+                    scaleFactor = Math.max(transform.getScaleX(), transform.getScaleY());
+                }
+
+                NeonCortex.drawImageWithScale(g2d, scaleFactor, this.colorized, 0, 0);
                 g2d.dispose();
             }
 

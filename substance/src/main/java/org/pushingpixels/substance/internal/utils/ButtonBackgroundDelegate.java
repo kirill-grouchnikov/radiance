@@ -81,9 +81,7 @@ public class ButtonBackgroundDelegate {
     private static BufferedImage getFullAlphaBackground(AbstractButton button,
             SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height) {
-        AffineTransform transform = button.getGraphicsConfiguration().getDevice().
-                getDefaultConfiguration().getDefaultTransform();
-        double scale = Math.max(transform.getScaleX(), transform.getScaleY());
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI

@@ -31,6 +31,7 @@ package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.UiThreadingViolationException;
+import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -1595,6 +1596,16 @@ public class SubstanceCoreUtilities {
         return new ImageHashMapKey(scale, objects);
     }
 
+    public static double getScaleFactor(JComponent component) {
+        GraphicsConfiguration gc = component.getGraphicsConfiguration();
+        if (gc == null) {
+            // TODO - revisit this
+            return UIUtil.getScaleFactor();
+        }
+        AffineTransform transform = gc.getDevice().getDefaultConfiguration().getDefaultTransform();
+        return Math.max(transform.getScaleX(), transform.getScaleY());
+    }
+
     /**
      * Stops all Substance threads. Improper use may result in UI artifacts and runtime exceptions.
      */
@@ -1666,8 +1677,8 @@ public class SubstanceCoreUtilities {
      * Scans {@code imageList} for best-looking image of specified dimensions. Image can be scaled
      * and/or padded with transparency.
      */
-    public static BufferedImage getScaledIconImage(java.util.List<Image> imageList, int width,
-            int height) {
+    public static BufferedImage getScaledIconImage(double scale,
+            java.util.List<Image> imageList, int width, int height) {
         if (width == 0 || height == 0) {
             return null;
         }
@@ -1759,7 +1770,7 @@ public class SubstanceCoreUtilities {
             // No images were found, possibly all are broken
             return null;
         }
-        BufferedImage bimage = getBlankImage(width, height);
+        BufferedImage bimage = getBlankImage(scale, width, height);
         Graphics2D g = bimage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR);

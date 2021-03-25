@@ -139,9 +139,9 @@ public final class SubstanceImageCreator {
      *            Checkmark visibility in 0.0-1.0 range.
      * @return Check mark image.
      */
-    private static BufferedImage getCheckMark(int dimension,
+    private static BufferedImage getCheckMark(double scale, int dimension,
             SubstanceColorScheme scheme, float checkMarkVisibility) {
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(dimension, dimension);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, dimension, dimension);
 
         // get graphics and set hints
         Graphics2D graphics = (Graphics2D) result.getGraphics();
@@ -575,6 +575,8 @@ public final class SubstanceImageCreator {
             SubstanceColorScheme fillColorScheme, SubstanceColorScheme markColorScheme,
             SubstanceColorScheme borderColorScheme, float checkMarkVisibility,
             boolean isCheckMarkFadingOut, float alpha) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+
         int xOffset = SubstanceSizeUtils
                 .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(button), 2, 9, 1, false);
         int yOffset = xOffset + 1;
@@ -596,7 +598,7 @@ public final class SubstanceImageCreator {
             fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
         }
 
-        BufferedImage offBackground = SubstanceCoreUtilities.getBlankImage(dimension, dimension);
+        BufferedImage offBackground = SubstanceCoreUtilities.getBlankImage(scale, dimension, dimension);
         Graphics2D graphics = (Graphics2D) offBackground.getGraphics();
         graphics.setComposite(getAlphaComposite(alpha));
 
@@ -616,10 +618,10 @@ public final class SubstanceImageCreator {
                 checkMarkVisibility = 1.0f;
             }
 
-            BufferedImage checkMark = SubstanceImageCreator.getCheckMark(dimension - yOffset / 2,
-                    markColorScheme, checkMarkVisibility);
+            BufferedImage checkMark = SubstanceImageCreator.getCheckMark(scale,
+                    dimension - yOffset / 2, markColorScheme, checkMarkVisibility);
 
-            NeonCortex.drawImage(graphics, checkMark, 1 + 2 * xOffset / 3,
+            NeonCortex.drawImageWithScale(graphics, scale, checkMark, 1 + 2 * xOffset / 3,
                     (dimension < 14) ? 0 : -1);
         }
 

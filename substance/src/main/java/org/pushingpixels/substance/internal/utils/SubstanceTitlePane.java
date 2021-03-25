@@ -861,7 +861,7 @@ public class SubstanceTitlePane extends JComponent {
         @Override
         public void paint(Graphics g) {
             if (appIcon != null) {
-                float scaleFactor = (float) NeonCortex.getScaleFactor();
+                double scaleFactor = SubstanceCoreUtilities.getScaleFactor(this);
                 g.drawImage(appIcon, 0, 0, (int) (appIcon.getWidth(null) / scaleFactor),
                         (int) (appIcon.getHeight(null) / scaleFactor), null);
             } else {
@@ -1114,8 +1114,9 @@ public class SubstanceTitlePane extends JComponent {
             this.appIcon = null;
         } else {
             int prefSize = getControlButtonSize();
-            this.appIcon = SubstanceCoreUtilities.getScaledIconImage(iconImages, prefSize,
-                    prefSize);
+            this.appIcon = SubstanceCoreUtilities.getScaledIconImage(
+                    SubstanceCoreUtilities.getScaleFactor(this),
+                    iconImages, prefSize, prefSize);
         }
     }
 

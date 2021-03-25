@@ -45,6 +45,7 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
@@ -67,8 +68,8 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
     /**
      * Hash map for storing icons.
      */
-    private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
-            "SubstanceCheckBoxUI");
+    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons =
+            new LazyResettableHashMap<>("SubstanceCheckBoxUI");
 
     /**
      * Simple constructor.
@@ -107,6 +108,8 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
      */
     private static Icon getIcon(JToggleButton button,
             StateTransitionTracker stateTransitionTracker) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -129,18 +132,19 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int checkMarkSize = SubstanceSizeUtils.getCheckBoxMarkSize(fontSize);
 
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, fontSize, checkMarkSize,
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
                 baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut,
                 alpha);
-        ImageWrapperIcon iconBase = icons.get(keyBase);
+        ScaleAwareImageWrapperIcon iconBase = icons.get(keyBase);
         if (iconBase == null) {
-            iconBase = new ImageWrapperIcon(
+            iconBase = new ScaleAwareImageWrapperIcon(
                     SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                             checkMarkSize, currState, baseFillColorScheme, baseMarkColorScheme,
                             baseBorderColorScheme, visibility, isCheckMarkFadingOut,
-                            alpha));
+                            alpha), scale);
             icons.put(keyBase, iconBase);
         }
         if (currState.isDisabled() || (activeStates.size() == 1)) {
@@ -173,16 +177,18 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
                 SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(button, ColorSchemeAssociationKind.BORDER, activeState);
 
-                HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
+                ImageHashMapKey keyLayer = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, fontSize, checkMarkSize,
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
                         borderColorScheme.getDisplayName(), visibility);
-                ImageWrapperIcon iconLayer = icons.get(keyLayer);
+                ScaleAwareImageWrapperIcon iconLayer = icons.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new ImageWrapperIcon(
+                    iconLayer = new ScaleAwareImageWrapperIcon(
                             SubstanceImageCreator.getCheckBox(button, fillPainter, borderPainter,
                                     checkMarkSize, currState, fillColorScheme, markColorScheme,
-                                    borderColorScheme, visibility, isCheckMarkFadingOut, alpha));
+                                    borderColorScheme, visibility, isCheckMarkFadingOut, alpha),
+                            scale);
                     icons.put(keyLayer, iconLayer);
                 }
 

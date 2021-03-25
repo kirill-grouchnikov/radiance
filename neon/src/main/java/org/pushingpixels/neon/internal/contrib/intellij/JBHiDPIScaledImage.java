@@ -23,43 +23,46 @@ import java.awt.image.*;
  */
 public class JBHiDPIScaledImage extends BufferedImage {
     private boolean ignoreScaling;
+    private double scaleFactor;
 
-    private JBHiDPIScaledImage(int width, int height, int type) {
+    private JBHiDPIScaledImage(double scaleFactor, int width, int height, int type) {
         super(width, height, type);
+        this.scaleFactor = scaleFactor;
     }
 
-    private JBHiDPIScaledImage(ColorModel cm, WritableRaster raster, boolean isRasterPremultiplied) {
+    private JBHiDPIScaledImage(double scaleFactor, ColorModel cm, WritableRaster raster, boolean isRasterPremultiplied) {
         super(cm, raster, isRasterPremultiplied, null);
+        this.scaleFactor = scaleFactor;
     }
 
     public static JBHiDPIScaledImage create(int width, int height, int type) {
         return create(UIUtil.getScaleFactor(), width, height, type);
     }
 
-    public static JBHiDPIScaledImage create(double scale, int width, int height, int type) {
+    public static JBHiDPIScaledImage create(double scaleFactor, int width, int height, int type) {
         return new JBHiDPIScaledImage(
-                (int) Math.ceil((scale * width)),
-                (int) Math.ceil((scale * height)),
+                scaleFactor,
+                (int) Math.ceil((scaleFactor * width)),
+                (int) Math.ceil((scaleFactor * height)),
                 type);
     }
 
     public static JBHiDPIScaledImage createUnscaled(int width, int height, int type) {
-        JBHiDPIScaledImage result = new JBHiDPIScaledImage(width, height, type);
+        JBHiDPIScaledImage result = new JBHiDPIScaledImage(1.0f, width, height, type);
         result.ignoreScaling = true;
         return result;
     }
 
     public static JBHiDPIScaledImage create(ColorModel cm, WritableRaster raster,
             boolean isRasterPremultiplied) {
-        return new JBHiDPIScaledImage(cm, raster, isRasterPremultiplied);
+        return new JBHiDPIScaledImage(1.0f, cm, raster, isRasterPremultiplied);
     }
 
     @Override
     public Graphics2D createGraphics() {
         Graphics2D g = super.createGraphics();
         if (!this.ignoreScaling) {
-            double scaleFactor = UIUtil.getScaleFactor();
-            g.scale(scaleFactor, scaleFactor);
+            g.scale(this.scaleFactor, this.scaleFactor);
         }
         return new HiDPIScaledGraphics(g);
     }
