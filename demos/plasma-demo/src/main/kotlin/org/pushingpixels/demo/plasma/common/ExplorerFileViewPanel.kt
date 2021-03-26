@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
 import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.ResizableIcon
 import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon
 import java.awt.Dimension
@@ -94,16 +95,17 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
             return ImageWrapperResizableIcon.getIcon(stream, dimensionToUse)
         }
 
+        val scale = NeonCortex.getScaleFactor(this)
         if (ext.compareTo("svg") == 0) {
-            return SvgBatikResizableIcon.getSvgIcon(stream, dimensionToUse)
+            return SvgBatikResizableIcon.getSvgIcon(stream, scale, dimensionToUse)
         }
 
         if (ext.compareTo("svgz") == 0) {
-            return SvgBatikResizableIcon.getSvgzIcon(stream, dimensionToUse)
+            return SvgBatikResizableIcon.getSvgzIcon(stream, scale, dimensionToUse)
         }
 
         if (ext.compareTo("ico") == 0) {
-            return IcoWrapperResizableIcon.getIcon(stream, dimensionToUse)
+            return IcoWrapperResizableIcon.getIcon(stream, scale, dimensionToUse)
         }
 
         var icon: ResizableIcon? = iconMapping[ext]

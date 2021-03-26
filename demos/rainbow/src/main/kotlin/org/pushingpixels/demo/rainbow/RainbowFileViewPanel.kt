@@ -38,6 +38,7 @@ import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
+import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.ResizableIcon
 import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon
 import java.awt.Dimension
@@ -80,9 +81,10 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
     override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
             state: CommandButtonPresentationState, dimension: Dimension): ResizableIcon? {
         val name = leaf.leafName
+        val scale = NeonCortex.getScaleFactor(this)
         return if (name.endsWith(".svg"))
-            SvgBatikResizableIcon.getSvgIcon(leaf.leafStream, dimension)
+            SvgBatikResizableIcon.getSvgIcon(leaf.leafStream, scale, dimension)
         else
-            SvgBatikResizableIcon.getSvgzIcon(leaf.leafStream, dimension)
+            SvgBatikResizableIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
     }
 }

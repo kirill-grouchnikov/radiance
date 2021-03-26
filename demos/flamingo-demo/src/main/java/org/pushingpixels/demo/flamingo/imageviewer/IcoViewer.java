@@ -7,6 +7,7 @@ import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -91,7 +92,8 @@ public class IcoViewer extends JFrame {
                 if (prefSize > 0) {
                     dimension = new Dimension(prefSize, prefSize);
                 }
-                return IcoWrapperResizableIcon.getIcon(stream, dimension);
+                return IcoWrapperResizableIcon.getIcon(stream,
+                        NeonCortex.getScaleFactor(fileViewPanel), dimension);
             }
 
             @Override

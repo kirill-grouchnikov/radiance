@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon;
 
@@ -115,16 +116,17 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
             return ImageWrapperResizableIcon.getIcon(stream, dimension);
         }
 
+        double scale = NeonCortex.getScaleFactor(this);
         if (ext.compareTo("svg") == 0) {
-            return SvgBatikResizableIcon.getSvgIcon(stream, dimension);
+            return SvgBatikResizableIcon.getSvgIcon(stream, scale, dimension);
         }
 
         if (ext.compareTo("svgz") == 0) {
-            return SvgBatikResizableIcon.getSvgzIcon(stream, dimension);
+            return SvgBatikResizableIcon.getSvgzIcon(stream, scale, dimension);
         }
 
         if (ext.compareTo("ico") == 0) {
-            return IcoWrapperResizableIcon.getIcon(stream, dimension);
+            return IcoWrapperResizableIcon.getIcon(stream, scale, dimension);
         }
 
         ResizableIcon icon = iconMapping.get(ext);

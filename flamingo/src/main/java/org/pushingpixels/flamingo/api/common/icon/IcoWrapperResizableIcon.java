@@ -52,11 +52,10 @@ public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
 	 *            Initial dimension of the icon.
 	 * @return Icon instance.
 	 */
-	public static IcoWrapperResizableIcon getIcon(URL location,
+	public static IcoWrapperResizableIcon getIcon(URL location, double scale,
 			final Dimension initialDim) {
 		try {
-			return new IcoWrapperResizableIcon(location.openStream(),
-					initialDim);
+			return new IcoWrapperResizableIcon(location.openStream(), scale, initialDim);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			return null;
@@ -72,9 +71,9 @@ public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
 	 *            Initial dimension of the icon.
 	 * @return Icon instance.
 	 */
-	public static IcoWrapperResizableIcon getIcon(InputStream inputStream,
+	public static IcoWrapperResizableIcon getIcon(InputStream inputStream, double scale,
 			final Dimension initialDim) {
-		return new IcoWrapperResizableIcon(inputStream, initialDim);
+		return new IcoWrapperResizableIcon(inputStream, scale, initialDim);
 	}
 
 	/**
@@ -85,9 +84,9 @@ public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
 	 * @param initialDim
 	 *            Initial dimension of the icon.
 	 */
-	private IcoWrapperResizableIcon(InputStream inputStream,
+	private IcoWrapperResizableIcon(InputStream inputStream, double scale,
 			Dimension initialDim) {
-		super(inputStream, initialDim.width, initialDim.height);
+		super(inputStream, scale, initialDim.width, initialDim.height);
 	}
 
 	@Override

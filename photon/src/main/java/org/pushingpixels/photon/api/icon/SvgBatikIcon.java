@@ -76,6 +76,8 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
      */
     protected int height;
 
+    protected double scale;
+
     /**
      * SVG byte array.
      */
@@ -96,7 +98,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
      * @param h           The height of the icon.
      * @throws IOException in case any I/O operation failed.
      */
-    public SvgBatikIcon(InputStream inputStream, int w, int h)
+    public SvgBatikIcon(InputStream inputStream, double scale, int w, int h)
             throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] b = new byte[1024];
@@ -109,6 +111,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
         this.svgBytes = baos.toByteArray();
         this.width = w;
         this.height = h;
+        this.scale = scale;
         this.listeners = Collections.synchronizedList(new LinkedList<>());
 
         this.renderGVTTree(this.width, this.height);
@@ -265,8 +268,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
                     ev = new GVTTreeRendererEvent(this, null);
                     fireEvent(startedDispatcher, ev);
 
-                    BufferedImageTranscoder t =
-                            new BufferedImageTranscoder((float) NeonCortex.getScaleFactor());
+                    BufferedImageTranscoder t = new BufferedImageTranscoder(scale);
                     if (renderWidth != 0 && renderHeight != 0) {
                         t.setDimensions(renderWidth, renderHeight);
                     }

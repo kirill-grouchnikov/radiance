@@ -73,6 +73,8 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 	 */
 	protected int height;
 
+	protected double scale;
+
 	/**
 	 * The listeners.
 	 */
@@ -88,10 +90,11 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 	 * @param h
 	 *            The height of the icon.
 	 */
-	public IcoWrapperIcon(InputStream inputStream, int w, int h) {
+	public IcoWrapperIcon(InputStream inputStream, double scale, int w, int h) {
 		this.icoInputStream = inputStream;
 		this.width = w;
 		this.height = h;
+		this.scale = scale;
 		this.listenerList = new EventListenerList();
 		this.cachedImages = new LinkedHashMap<String, BufferedImage>() {
 			@Override
@@ -249,11 +252,10 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 				float scaleY = (float) bestMatchPlane.getHeight()
 						/ (float) renderHeight;
 
-				float scale = Math.max(scaleX, scaleY);
-				if (scale > 1.0f) {
-					int finalWidth = (int) (bestMatchPlane.getWidth() / scale);
-					result = NeonCortex.createThumbnail(NeonCortex.getScaleFactor(null),
-							bestMatchPlane, finalWidth);
+				float scaleFactor = Math.max(scaleX, scaleY);
+				if (scaleFactor > 1.0f) {
+					int finalWidth = (int) (bestMatchPlane.getWidth() / scaleFactor);
+					result = NeonCortex.createThumbnail(scale, bestMatchPlane, finalWidth);
 				}
 
 				return result;

@@ -237,10 +237,6 @@ public class NeonCortex {
         return (g instanceof PrintGraphics) || (g instanceof PrinterGraphics);
     }
 
-    public static double getScaleFactor() {
-        return UIUtil.getScaleFactor();
-    }
-
     public static double getScaleFactor(Component component) {
         if ((component == null) || (component.getGraphicsConfiguration() == null)) {
             // TODO - revisit this
@@ -262,8 +258,9 @@ public class NeonCortex {
      * {@link java.awt.image.BufferedImageOp} that is not a
      * {@link NeonAbstractFilter}, the resulting image will be
      * a regular {@link BufferedImage} that will not be drawn correctly using one of the
-     * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor(Component)}
-     * to divide the image width and height for the purposes of drawing.
+     * <code>drawImageWithScale</code> methods above. In such a case, use
+     * {@link #getScaleFactor(Component)} to divide the image width and height for the
+     * purposes of drawing.
      *
      * @param width  Width of the target image
      * @param height Width of the target image

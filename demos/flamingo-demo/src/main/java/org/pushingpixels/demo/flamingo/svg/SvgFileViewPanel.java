@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon;
 import org.pushingpixels.photon.api.transcoder.SvgStreamTranscoder;
@@ -182,9 +183,10 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                             .getCommandIconDimension();
                     Dimension svgDim = new Dimension(iconDimension, iconDimension);
 
+                    double scale = NeonCortex.getScaleFactor(SvgFileViewPanel.this);
                     final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
-                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, svgDim)
-                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, svgDim);
+                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, scale, svgDim)
+                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, scale, svgDim);
 
                     newCommands.get(name).setIconFactory(() -> svgIcon);
                 }
