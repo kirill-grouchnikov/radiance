@@ -104,6 +104,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = SubstanceCoreUtilities
                 .getTextComponentForTransitions(c);
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
         boolean useCache = (width * height < 100000);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(c);
         if (componentForTransitions != null) {
@@ -128,8 +129,9 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                 float baseAlpha = SubstanceColorSchemeUtilities.getAlpha(c, currState);
                 graphics.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 if (useCache) {
-                    HashMapKey baseHashKey = SubstanceCoreUtilities.getHashKey(
-                            borderPainter.getDisplayName(), width, height,
+                    ImageHashMapKey baseHashKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                            scale, width, height,
+                            borderPainter.getDisplayName(),
                             baseBorderScheme.getDisplayName());
                     BufferedImage baseLayer = smallImageCache.get(baseHashKey);
                     if (baseLayer == null) {
@@ -170,12 +172,13 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                         graphics.setComposite(AlphaComposite.SrcOver.derive(alpha * contribution));
 
                         if (useCache) {
-                            HashMapKey extraHashKey = SubstanceCoreUtilities.getHashKey(
-                                    borderPainter.getDisplayName(), width, height,
+                            ImageHashMapKey extraHashKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                                    scale, width, height,
+                                    borderPainter.getDisplayName(),
                                     borderScheme.getDisplayName());
                             BufferedImage extraLayer = smallImageCache.get(extraHashKey);
                             if (extraLayer == null) {
-                                extraLayer = SubstanceCoreUtilities.getBlankImage(width, height);
+                                extraLayer = SubstanceCoreUtilities.getBlankImage(scale, width, height);
                                 Graphics2D g2extra = extraLayer.createGraphics();
                                 SubstanceImageCreator.paintSimpleBorder(c, g2extra, width, height,
                                         baseBorderScheme);
@@ -201,12 +204,13 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
         graphics.translate(x, y);
 
         if (useCache) {
-            HashMapKey baseHashKey = SubstanceCoreUtilities.getHashKey(
-                    borderPainter.getDisplayName(), width, height,
+            ImageHashMapKey baseHashKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, width, height,
+                    borderPainter.getDisplayName(),
                     borderColorScheme.getDisplayName());
             BufferedImage baseLayer = smallImageCache.get(baseHashKey);
             if (baseLayer == null) {
-                baseLayer = SubstanceCoreUtilities.getBlankImage(width, height);
+                baseLayer = SubstanceCoreUtilities.getBlankImage(scale, width, height);
                 Graphics2D g2base = baseLayer.createGraphics();
                 SubstanceImageCreator.paintSimpleBorder(c, g2base, width, height,
                         borderColorScheme);

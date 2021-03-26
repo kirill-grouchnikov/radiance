@@ -64,7 +64,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
     /**
      * Icon cache to speed up the painting.
      */
-    private static LazyResettableHashMap<ImageWrapperIcon> iconMap =
+    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> iconMap =
             new LazyResettableHashMap<>("RadioButtonMenuItemIcon");
 
     /**
@@ -83,7 +83,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
      *
      * @return Icon to paint.
      */
-    private ImageWrapperIcon getIconToPaint() {
+    private ScaleAwareImageWrapperIcon getIconToPaint() {
         if (this.menuItem == null) {
             return null;
         }
@@ -97,6 +97,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 modelStateInfo.getStateContributionMap();
 
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.menuItem);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
         int checkMarkSize = this.size;
 
@@ -113,16 +114,17 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
         float alpha = SubstanceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize,
-                checkMarkSize, fillPainter.getDisplayName(), borderPainter.getDisplayName(),
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, fontSize, checkMarkSize,
+                fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
                 baseBorderColorScheme.getDisplayName(), visibility, alpha);
-        ImageWrapperIcon iconBase = iconMap.get(keyBase);
+        ScaleAwareImageWrapperIcon iconBase = iconMap.get(keyBase);
         if (iconBase == null) {
-            iconBase = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(
+            iconBase = new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getRadioButton(
                     this.menuItem, fillPainter, borderPainter, checkMarkSize,
                     currState, 0, baseFillColorScheme, baseMarkColorScheme,
-                    baseBorderColorScheme, visibility, alpha));
+                    baseBorderColorScheme, visibility, alpha), scale);
             iconMap.put(keyBase, iconBase);
         }
         if (currState.isDisabled() || (activeStates.size() == 1)) {
@@ -130,7 +132,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         }
 
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(
-                iconBase.getIconWidth(), iconBase.getIconHeight());
+                scale, iconBase.getIconWidth(), iconBase.getIconHeight());
         Graphics2D g2d = result.createGraphics();
         // draw the base layer
         iconBase.paintIcon(this.menuItem, g2d, 0, 0);
@@ -155,18 +157,18 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
                 SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, activeState);
 
-                HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(
-                        fontSize, checkMarkSize, fillPainter.getDisplayName(),
+                ImageHashMapKey keyLayer = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, fontSize, checkMarkSize, fillPainter.getDisplayName(),
                         borderPainter.getDisplayName(), fillColorScheme.getDisplayName(),
                         markColorScheme.getDisplayName(), borderColorScheme.getDisplayName(),
                         visibility, alpha);
-                ImageWrapperIcon iconLayer = iconMap.get(keyLayer);
+                ScaleAwareImageWrapperIcon iconLayer = iconMap.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(
+                    iconLayer = new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getRadioButton(
                             this.menuItem, fillPainter,
                             borderPainter, checkMarkSize, currState, 0,
                             fillColorScheme, markColorScheme,
-                            borderColorScheme, visibility, alpha));
+                            borderColorScheme, visibility, alpha), scale);
                     iconMap.put(keyLayer, iconLayer);
                 }
 
@@ -175,7 +177,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         }
 
         g2d.dispose();
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     @Override

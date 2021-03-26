@@ -418,23 +418,23 @@ public class SkinUtilities {
 
                 "InternalFrame.closeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        SubstanceImageCreator.getCloseIcon(titlePaneScheme)),
+                        SubstanceImageCreator.getCloseIcon(null, titlePaneScheme)),
 
                 "InternalFrame.iconifyIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        SubstanceImageCreator.getMinimizeIcon(titlePaneScheme)),
+                        SubstanceImageCreator.getMinimizeIcon(null, titlePaneScheme)),
 
                 "InternalFrame.maximizeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        SubstanceImageCreator.getMaximizeIcon(titlePaneScheme)),
+                        SubstanceImageCreator.getMaximizeIcon(null, titlePaneScheme)),
 
                 "InternalFrame.minimizeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        SubstanceImageCreator.getRestoreIcon(titlePaneScheme)),
+                        SubstanceImageCreator.getRestoreIcon(null, titlePaneScheme)),
 
                 "InternalFrame.paletteCloseIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        SubstanceImageCreator.getCloseIcon(titlePaneScheme)),
+                        SubstanceImageCreator.getCloseIcon(null, titlePaneScheme)),
 
                 "Label.background",
                 defaultBackgroundColor,

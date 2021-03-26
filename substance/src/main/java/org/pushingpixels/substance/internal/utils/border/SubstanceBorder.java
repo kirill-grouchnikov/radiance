@@ -80,18 +80,6 @@ public class SubstanceBorder implements Border, UIResource {
 	}
 
 	/**
-	 * Creates a new border with dynamic insets (computed at the invocation time
-	 * of {@link #getBorderInsets(Component)} call).
-	 * 
-	 * @param radiusScaleFactor
-	 *            Radius scale factor.
-	 */
-	public SubstanceBorder(float radiusScaleFactor) {
-		this();
-		this.radiusScaleFactor = radiusScaleFactor;
-	}
-
-	/**
 	 * Creates a new border with the specified insets.
 	 * 
 	 * @param insets
@@ -155,6 +143,7 @@ public class SubstanceBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
+		double scale = SubstanceCoreUtilities.getScaleFactor(c);
 		float radius = this.radiusScaleFactor
 				* SubstanceSizeUtils
 						.getClassicButtonCornerRadius(SubstanceSizeUtils
@@ -171,13 +160,14 @@ public class SubstanceBorder implements Border, UIResource {
 				finalAlpha, g));
 
 		if (width * height < 100000) {
-			HashMapKey hashKey = SubstanceCoreUtilities.getHashKey(
+			ImageHashMapKey hashKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+					scale, width, height, radius,
 					SubstanceCoreUtilities.getBorderPainter(c).getDisplayName(),
-					SubstanceSizeUtils.getComponentFontSize(c), width, height, radius,
+					SubstanceSizeUtils.getComponentFontSize(c),
 					borderColorScheme.getDisplayName());
 			BufferedImage result = smallImageCache.get(hashKey);
 			if (result == null) {
-				result = SubstanceCoreUtilities.getBlankImage(width, height);
+				result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 				Graphics2D g2d = result.createGraphics();
 				SubstanceImageCreator.paintBorder(c, g2d, 0, 0, width, height,
 						radius, borderColorScheme);

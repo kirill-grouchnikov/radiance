@@ -111,6 +111,8 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
+		double scale = SubstanceCoreUtilities.getScaleFactor(c);
+
 		float radius = 0.0f;
 		StateTransitionTracker stateTransitionTracker = ui
 				.getStateTransitionTracker(cellId);
@@ -127,14 +129,14 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 				.getColorScheme(c, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 						currState);
 
-		HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(
-				SubstanceSizeUtils.getComponentFontSize(c), width, height,
-				radius, baseBorderScheme.getDisplayName());
+		ImageHashMapKey baseKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+				scale, width, height, radius,
+				SubstanceSizeUtils.getComponentFontSize(c), baseBorderScheme.getDisplayName());
 		BufferedImage baseLayer = smallImageCache.get(baseKey);
 		float baseAlpha = SubstanceColorSchemeUtilities.getAlpha(c, currState);
 
 		if (baseLayer == null) {
-			baseLayer = SubstanceCoreUtilities.getBlankImage(width, height);
+			baseLayer = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 			Graphics2D g2d = baseLayer.createGraphics();
 			SubstanceImageCreator.paintBorder(c, g2d, 0, 0, width, height,
 					radius, baseBorderScheme);
@@ -163,14 +165,14 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 								ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 								activeState);
 
-				HashMapKey key = SubstanceCoreUtilities.getHashKey(
-						SubstanceSizeUtils.getComponentFontSize(c), width,
-						height, radius, borderScheme.getDisplayName());
+				ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+						scale, width, height, radius,
+						SubstanceSizeUtils.getComponentFontSize(c), borderScheme.getDisplayName());
 				BufferedImage layer = smallImageCache.get(key);
 				float activeAlpha = SubstanceColorSchemeUtilities.getAlpha(c, activeState);
 
 				if (layer == null) {
-					layer = SubstanceCoreUtilities.getBlankImage(width, height);
+					layer = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 					Graphics2D g2d = layer.createGraphics();
 					SubstanceImageCreator.paintBorder(c, g2d, 0, 0, width,
 							height, radius, borderScheme);

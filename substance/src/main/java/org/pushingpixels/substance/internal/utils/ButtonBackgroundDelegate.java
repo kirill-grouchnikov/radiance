@@ -37,8 +37,8 @@ import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.api.shaper.RectangularButtonShaper;
 import org.pushingpixels.substance.api.shaper.PillButtonShaper;
+import org.pushingpixels.substance.api.shaper.RectangularButtonShaper;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.animation.ModificationAwareUI;
@@ -49,7 +49,6 @@ import org.pushingpixels.trident.api.Timeline.TimelineState;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 import java.util.Set;

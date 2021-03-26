@@ -197,7 +197,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
         }
 
         g2d.dispose();
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     @Override

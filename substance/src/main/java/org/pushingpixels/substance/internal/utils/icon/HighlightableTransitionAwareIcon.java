@@ -101,6 +101,8 @@ public class HighlightableTransitionAwareIcon implements Icon {
     }
 
     private ResizableIcon getIconToPaint() {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.component);
+
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo =
@@ -117,7 +119,8 @@ public class HighlightableTransitionAwareIcon implements Icon {
                 this.component, baseAssociationKind, currState);
         float baseAlpha = SubstanceColorSchemeUtilities.getAlpha(this.component, currState);
 
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(this.component.getClass().getName(),
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, this.component.getClass().getName(),
                 this.uniqueIconTypeId, SubstanceSizeUtils.getComponentFontSize(this.component),
                 baseScheme.getDisplayName(), baseAlpha);
         ResizableIcon layerBase = iconMap.get(keyBase);
@@ -127,13 +130,13 @@ public class HighlightableTransitionAwareIcon implements Icon {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
             } else {
-                BufferedImage baseImage = SubstanceCoreUtilities.getBlankImage(
+                BufferedImage baseImage = SubstanceCoreUtilities.getBlankImage(scale,
                         baseFullOpacity.getIconWidth(), baseFullOpacity.getIconHeight());
                 Graphics2D g2base = baseImage.createGraphics();
                 g2base.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
                 baseFullOpacity.paintIcon(this.component, g2base, 0, 0);
                 g2base.dispose();
-                layerBase = new ImageWrapperIcon(baseImage);
+                layerBase = new ScaleAwareImageWrapperIcon(baseImage, scale);
                 iconMap.put(keyBase, layerBase);
             }
         }
@@ -142,8 +145,8 @@ public class HighlightableTransitionAwareIcon implements Icon {
             return layerBase;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(layerBase.getIconWidth(),
-                layerBase.getIconHeight());
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale,
+                layerBase.getIconWidth(), layerBase.getIconHeight());
         Graphics2D g2d = result.createGraphics();
         // draw the base layer
         layerBase.paintIcon(this.component, g2d, 0, 0);
@@ -168,8 +171,8 @@ public class HighlightableTransitionAwareIcon implements Icon {
                         this.component, associationKind, activeState);
                 float alpha = SubstanceColorSchemeUtilities.getAlpha(this.component, activeState);
 
-                HashMapKey key = SubstanceCoreUtilities.getHashKey(
-                        this.component.getClass().getName(), this.uniqueIconTypeId,
+                ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, this.component.getClass().getName(), this.uniqueIconTypeId,
                         SubstanceSizeUtils.getComponentFontSize(this.component),
                         scheme.getDisplayName(), alpha);
                 ResizableIcon layer = iconMap.get(key);
@@ -179,13 +182,13 @@ public class HighlightableTransitionAwareIcon implements Icon {
                         layer = fullOpacity;
                         iconMap.put(key, layer);
                     } else {
-                        BufferedImage image = SubstanceCoreUtilities.getBlankImage(
+                        BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale,
                                 fullOpacity.getIconWidth(), fullOpacity.getIconHeight());
                         Graphics2D g2layer = image.createGraphics();
                         g2layer.setComposite(AlphaComposite.SrcOver.derive(alpha));
                         fullOpacity.paintIcon(this.component, g2layer, 0, 0);
                         g2layer.dispose();
-                        layer = new ImageWrapperIcon(image);
+                        layer = new ScaleAwareImageWrapperIcon(image, scale);
                         iconMap.put(key, layer);
                     }
                 }
@@ -193,7 +196,7 @@ public class HighlightableTransitionAwareIcon implements Icon {
             }
         }
         g2d.dispose();
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     @Override

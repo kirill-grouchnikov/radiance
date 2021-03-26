@@ -786,7 +786,7 @@ public class SubstanceIconFactory {
     /**
      * Cache of title pane icons.
      */
-    private static final Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> titlePaneIcons =
+    private static final Map<IconKind, LazyResettableHashMap<ScaleAwareImageWrapperIcon>> titlePaneIcons =
             SubstanceIconFactory.createTitlePaneIcons();
 
     /**
@@ -794,8 +794,8 @@ public class SubstanceIconFactory {
      * 
      * @return Empty map of title pane icons.
      */
-    private static Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> createTitlePaneIcons() {
-        Map<IconKind, LazyResettableHashMap<ImageWrapperIcon>> result = new HashMap<>();
+    private static Map<IconKind, LazyResettableHashMap<ScaleAwareImageWrapperIcon>> createTitlePaneIcons() {
+        Map<IconKind, LazyResettableHashMap<ScaleAwareImageWrapperIcon>> result = new HashMap<>();
 
         result.put(IconKind.CLOSE, new LazyResettableHashMap<>("Close title pane icons"));
         result.put(IconKind.MINIMIZE, new LazyResettableHashMap<>("Minimize title pane icons"));
@@ -813,31 +813,31 @@ public class SubstanceIconFactory {
      *            Color scheme.
      * @return Title pane icon of the specified kind.
      */
-    public static ImageWrapperIcon getTitlePaneIcon(IconKind iconKind, SubstanceColorScheme scheme) {
-
-        LazyResettableHashMap<ImageWrapperIcon> kindMap =
+    public static ScaleAwareImageWrapperIcon getTitlePaneIcon(Component titlePane,
+            IconKind iconKind, SubstanceColorScheme scheme) {
+        LazyResettableHashMap<ScaleAwareImageWrapperIcon> kindMap =
                 SubstanceIconFactory.titlePaneIcons.get(iconKind);
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(scheme.getDisplayName());
-        ImageWrapperIcon result = kindMap.get(key);
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                SubstanceCoreUtilities.getScaleFactor(titlePane), scheme.getDisplayName());
+        ScaleAwareImageWrapperIcon result = kindMap.get(key);
         if (result != null)
             return result;
 
         switch (iconKind) {
             case CLOSE:
-                result = SubstanceImageCreator.getCloseIcon(scheme);
+                result = SubstanceImageCreator.getCloseIcon(titlePane, scheme);
                 break;
             case MINIMIZE:
-                result = SubstanceImageCreator.getMinimizeIcon(scheme);
+                result = SubstanceImageCreator.getMinimizeIcon(titlePane, scheme);
                 break;
             case MAXIMIZE:
-                result = SubstanceImageCreator.getMaximizeIcon(scheme);
+                result = SubstanceImageCreator.getMaximizeIcon(titlePane, scheme);
                 break;
             case RESTORE:
-                result = SubstanceImageCreator.getRestoreIcon(scheme);
+                result = SubstanceImageCreator.getRestoreIcon(titlePane, scheme);
                 break;
         }
         kindMap.put(key, result);
         return result;
     }
-
 }

@@ -604,6 +604,7 @@ public final class SubstanceImageCreator {
             ComponentState componentState, int offsetX, SubstanceColorScheme fillColorScheme,
             SubstanceColorScheme markColorScheme, SubstanceColorScheme borderColorScheme,
             float checkMarkVisibility, float alpha) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(component);
 
         if (!componentState.isActive()) {
             fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
@@ -615,8 +616,8 @@ public final class SubstanceImageCreator {
         Shape contourBorder = new Ellipse2D.Float(borderDelta / 2.0f, borderDelta / 2.0f,
                 dimension - borderDelta, dimension - borderDelta);
 
-        BufferedImage offBackground = SubstanceCoreUtilities.getBlankImage(dimension + offsetX,
-                dimension);
+        BufferedImage offBackground = SubstanceCoreUtilities.getBlankImage(scale,
+                dimension + offsetX, dimension);
         Graphics2D graphics = (Graphics2D) offBackground.getGraphics().create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -757,16 +758,17 @@ public final class SubstanceImageCreator {
      *            Alpha channel for the echo image.
      * @return Image with overlayed echo.
      */
-    private static BufferedImage overlayEcho(BufferedImage image, float echoAlpha, Color echoColor) {
+    private static BufferedImage overlayEcho(double scale, BufferedImage image,
+            float echoAlpha, Color echoColor) {
         int width = image.getWidth();
         int height = image.getHeight();
 
         int offsetX = 0, offsetY = 0;
         BufferedImage echo = new ColorFilter(echoColor).filter(image, null);
-        double factor = NeonCortex.getScaleFactor();
-        int tweakedWidth = (int) (width / factor);
-        int tweakedHeight = (int) (height / factor);
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(tweakedWidth, tweakedHeight);
+        int tweakedWidth = (int) (width / scale);
+        int tweakedHeight = (int) (height / scale);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(
+                scale, tweakedWidth, tweakedHeight);
         Graphics2D graphics = (Graphics2D) result.getGraphics().create();
         graphics.setComposite(getAlphaComposite(0.2f * echoAlpha * echoAlpha * echoAlpha));
         graphics.drawImage(echo, offsetX - 1, offsetY - 1, tweakedWidth, tweakedHeight, null);
@@ -793,9 +795,10 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Minimize</code> icon.
      */
-    public static ImageWrapperIcon getMinimizeIcon(SubstanceColorScheme scheme) {
+    public static ScaleAwareImageWrapperIcon getMinimizeIcon(Component titlePane,
+            SubstanceColorScheme scheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
-        return getMinimizeIcon(iSize, scheme);
+        return getMinimizeIcon(titlePane, iSize, scheme);
     }
 
     /**
@@ -807,8 +810,11 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Minimize</code> icon.
      */
-    public static ImageWrapperIcon getMinimizeIcon(int iSize, SubstanceColorScheme scheme) {
-        BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
+    public static ScaleAwareImageWrapperIcon getMinimizeIcon(Component titlePane, int iSize,
+            SubstanceColorScheme scheme) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+
+        BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 2;
         int end = 3 * iSize / 4;
@@ -823,8 +829,8 @@ public final class SubstanceImageCreator {
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-        return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
+        return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.overlayEcho(scale, image,
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor), scale);
     }
 
     /**
@@ -834,9 +840,12 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Restore</code> icon.
      */
-    public static ImageWrapperIcon getRestoreIcon(SubstanceColorScheme scheme) {
+    public static ScaleAwareImageWrapperIcon getRestoreIcon(Component titlePane,
+            SubstanceColorScheme scheme) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
-        BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
+        BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 1;
         int end = iSize - start;
@@ -875,8 +884,8 @@ public final class SubstanceImageCreator {
         int fgStrength = SubstanceColorUtilities.getColorBrightness(color.getRGB());
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-        return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
+        return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.overlayEcho(scale, image,
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor), scale);
     }
 
     /**
@@ -886,9 +895,10 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Maximize</code> icon.
      */
-    public static ImageWrapperIcon getMaximizeIcon(SubstanceColorScheme scheme) {
+    public static ScaleAwareImageWrapperIcon getMaximizeIcon(Component titlePane,
+            SubstanceColorScheme scheme) {
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
-        return getMaximizeIcon(iSize, scheme);
+        return getMaximizeIcon(titlePane, iSize, scheme);
     }
 
     /**
@@ -900,8 +910,11 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Maximize</code> icon.
      */
-    public static ImageWrapperIcon getMaximizeIcon(int iSize, SubstanceColorScheme scheme) {
-        BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
+    public static ScaleAwareImageWrapperIcon getMaximizeIcon(Component titlePane, int iSize,
+            SubstanceColorScheme scheme) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+
+        BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         int start = iSize / 4 - 1;
         int end = iSize - start;
@@ -923,8 +936,8 @@ public final class SubstanceImageCreator {
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
 
-        return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
+        return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.overlayEcho(scale, image,
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor), scale);
     }
 
     /**
@@ -934,8 +947,10 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Close</code> icon.
      */
-    public static ImageWrapperIcon getCloseIcon(SubstanceColorScheme scheme) {
-        return SubstanceImageCreator.getCloseIcon(SubstanceSizeUtils.getTitlePaneIconSize(), scheme);
+    public static ScaleAwareImageWrapperIcon getCloseIcon(Component titlePane,
+            SubstanceColorScheme scheme) {
+        return SubstanceImageCreator.getCloseIcon(titlePane,
+                SubstanceSizeUtils.getTitlePaneIconSize(), scheme);
     }
 
     /**
@@ -947,8 +962,11 @@ public final class SubstanceImageCreator {
      *            Color scheme for the icon.
      * @return <code>Close</code> icon.
      */
-    public static ImageWrapperIcon getCloseIcon(int iSize, SubstanceColorScheme scheme) {
-        BufferedImage image = SubstanceCoreUtilities.getBlankImage(iSize, iSize);
+    public static ScaleAwareImageWrapperIcon getCloseIcon(Component titlePane, int iSize,
+            SubstanceColorScheme scheme) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+
+        BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -975,8 +993,8 @@ public final class SubstanceImageCreator {
         int echoStrength = SubstanceColorUtilities.getColorBrightness(echoColor.getRGB());
         boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
 
-        return new ImageWrapperIcon(SubstanceImageCreator.overlayEcho(image,
-                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor));
+        return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.overlayEcho(scale, image,
+                noEcho ? 0 : SubstanceColorUtilities.getColorStrength(color), echoColor), scale);
     }
 
     /**

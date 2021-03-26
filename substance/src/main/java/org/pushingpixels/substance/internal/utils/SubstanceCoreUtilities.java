@@ -1596,7 +1596,7 @@ public class SubstanceCoreUtilities {
         return new ImageHashMapKey(scale, objects);
     }
 
-    public static double getScaleFactor(JComponent component) {
+    public static double getScaleFactor(Component component) {
         if ((component == null) || (component.getGraphicsConfiguration() == null)) {
             // TODO - revisit this
             return UIUtil.getScaleFactor();

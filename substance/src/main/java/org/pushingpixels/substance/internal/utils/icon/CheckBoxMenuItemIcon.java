@@ -64,7 +64,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
     /**
      * Icon cache to speed up the painting.
      */
-    private static LazyResettableHashMap<ImageWrapperIcon> iconMap =
+    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> iconMap =
             new LazyResettableHashMap<>("CheckBoxMenuItemIcon");
 
     /**
@@ -85,7 +85,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
      * 
      * @return Icon to paint.
      */
-    private ImageWrapperIcon getIconToPaint() {
+    private ScaleAwareImageWrapperIcon getIconToPaint() {
         if (this.menuItem == null) {
             return null;
         }
@@ -113,28 +113,31 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
         float alpha = SubstanceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.menuItem);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
         int checkMarkSize = this.size + 3;
 
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, fontSize, checkMarkSize,
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
                 baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut,
                 alpha);
-        ImageWrapperIcon iconBase = iconMap.get(keyBase);
+        ScaleAwareImageWrapperIcon iconBase = iconMap.get(keyBase);
         if (iconBase == null) {
-            iconBase = new ImageWrapperIcon(
+            iconBase = new ScaleAwareImageWrapperIcon(
                     SubstanceImageCreator.getCheckBox(this.menuItem, fillPainter, borderPainter,
                             checkMarkSize, currState, baseFillColorScheme, baseMarkColorScheme,
-                            baseBorderColorScheme, visibility, isCheckMarkFadingOut, alpha));
+                            baseBorderColorScheme, visibility, isCheckMarkFadingOut, alpha),
+                    scale);
             iconMap.put(keyBase, iconBase);
         }
         if (currState.isDisabled() || (activeStates.size() == 1)) {
             return iconBase;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(iconBase.getIconWidth(),
-                iconBase.getIconHeight());
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale,
+                iconBase.getIconWidth(), iconBase.getIconHeight());
         Graphics2D g2d = result.createGraphics();
         // draw the base layer
         iconBase.paintIcon(this.menuItem, g2d, 0, 0);
@@ -160,16 +163,17 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
                         .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER,
                                 activeState);
 
-                HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
+                ImageHashMapKey keyLayer = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, fontSize, checkMarkSize,
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
                         borderColorScheme.getDisplayName(), visibility, alpha);
-                ImageWrapperIcon iconLayer = iconMap.get(keyLayer);
+                ScaleAwareImageWrapperIcon iconLayer = iconMap.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new ImageWrapperIcon(SubstanceImageCreator.getCheckBox(
+                    iconLayer = new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getCheckBox(
                             this.menuItem, fillPainter, borderPainter, checkMarkSize, currState,
                             fillColorScheme, markColorScheme, borderColorScheme, visibility,
-                            isCheckMarkFadingOut, alpha));
+                            isCheckMarkFadingOut, alpha), scale);
                     iconMap.put(keyLayer, iconLayer);
                 }
 
@@ -178,7 +182,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         }
 
         g2d.dispose();
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     @Override

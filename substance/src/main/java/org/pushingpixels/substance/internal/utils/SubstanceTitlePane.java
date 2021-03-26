@@ -365,11 +365,11 @@ public class SubstanceTitlePane extends JComponent {
      * Create the <code>Action</code>s that get associated with the buttons and menu items.
      */
     private void createActions() {
-        this.closeAction = new CloseAction();
+        this.closeAction = new CloseAction(this);
         if (this.getWindowDecorationStyle() == JRootPane.FRAME) {
-            this.iconifyAction = new IconifyAction();
-            this.restoreAction = new RestoreAction();
-            this.maximizeAction = new MaximizeAction();
+            this.iconifyAction = new IconifyAction(this);
+            this.restoreAction = new RestoreAction(this);
+            this.maximizeAction = new MaximizeAction(this);
         }
     }
 
@@ -452,7 +452,7 @@ public class SubstanceTitlePane extends JComponent {
         this.closeButton.setBorder(null);
 
         Icon closeIcon = new TransitionAwareIcon(closeButton,
-                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                         SubstanceIconFactory.IconKind.CLOSE, scheme),
                 "substance.titlePane.closeIcon");
         this.closeButton.setIcon(closeIcon);
@@ -470,7 +470,7 @@ public class SubstanceTitlePane extends JComponent {
             this.minimizeButton.setBorder(null);
 
             Icon minIcon = new TransitionAwareIcon(this.minimizeButton,
-                    scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                    scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                             SubstanceIconFactory.IconKind.MINIMIZE, scheme),
                     "substance.titlePane.minIcon");
             this.minimizeButton.setIcon(minIcon);
@@ -487,7 +487,7 @@ public class SubstanceTitlePane extends JComponent {
             this.toggleButton.setBorder(null);
 
             Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                    scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                    scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                             SubstanceIconFactory.IconKind.MAXIMIZE, scheme),
                     "substance.titlePane.maxIcon");
             this.toggleButton.setIcon(maxIcon);
@@ -562,7 +562,7 @@ public class SubstanceTitlePane extends JComponent {
                 if (frame.isResizable()) {
                     if ((state & Frame.MAXIMIZED_BOTH) != 0) {
                         Icon restoreIcon = new TransitionAwareIcon(this.toggleButton,
-                                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                                         SubstanceIconFactory.IconKind.RESTORE, scheme),
                                 "substance.titlePane.restoreIcon");
                         this.updateToggleButton(this.restoreAction, restoreIcon);
@@ -572,7 +572,7 @@ public class SubstanceTitlePane extends JComponent {
                         this.restoreAction.setEnabled(true);
                     } else {
                         Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                                         SubstanceIconFactory.IconKind.MAXIMIZE, scheme),
                                 "substance.titlePane.maxIcon");
                         this.updateToggleButton(this.maximizeAction, maxIcon);
@@ -762,9 +762,9 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new close action.
          */
-        public CloseAction() {
+        public CloseAction(Component titlePane) {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close"),
-                    SubstanceImageCreator.getCloseIcon(
+                    SubstanceImageCreator.getCloseIcon(titlePane,
                             SubstanceCoreUtilities.getSkin(rootPane)
                                     .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
@@ -784,9 +784,9 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new iconify action.
          */
-        private IconifyAction() {
+        private IconifyAction(Component titlePane) {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify"),
-                    SubstanceImageCreator.getMinimizeIcon(
+                    SubstanceImageCreator.getMinimizeIcon(titlePane,
                             SubstanceCoreUtilities.getSkin(rootPane)
                                     .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
@@ -807,9 +807,9 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new restore action.
          */
-        private RestoreAction() {
+        private RestoreAction(Component titlePane) {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore"),
-                    SubstanceImageCreator.getRestoreIcon(
+                    SubstanceImageCreator.getRestoreIcon(titlePane,
                             SubstanceCoreUtilities.getSkin(rootPane)
                                     .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }
@@ -837,9 +837,9 @@ public class SubstanceTitlePane extends JComponent {
         /**
          * Creates a new maximize action.
          */
-        private MaximizeAction() {
+        private MaximizeAction(Component titlePane) {
             super(SubstanceCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize"),
-                    SubstanceImageCreator.getMaximizeIcon(
+                    SubstanceImageCreator.getMaximizeIcon(titlePane,
                             SubstanceCoreUtilities.getSkin(rootPane)
                                     .getActiveColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE)));
         }

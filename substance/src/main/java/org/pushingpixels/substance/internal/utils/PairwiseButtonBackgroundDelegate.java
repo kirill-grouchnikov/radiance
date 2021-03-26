@@ -47,7 +47,6 @@ import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.EnumSet;
 import java.util.Map;
@@ -67,8 +66,7 @@ public class PairwiseButtonBackgroundDelegate {
      * If so, the background from the map is returned.
      */
     private static LazyResettableHashMap<BufferedImage> pairwiseBackgrounds =
-            new LazyResettableHashMap<>(
-                    "PairwiseButtonBackgroundDelegate");
+            new LazyResettableHashMap<>("PairwiseButtonBackgroundDelegate");
 
     /**
      * Paints background image for the specified button in button pair (such as scrollbar arrows,
@@ -206,6 +204,8 @@ public class PairwiseButtonBackgroundDelegate {
         if (SubstanceCoreUtilities.isButtonNeverPainted(button)) {
             return null;
         }
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+
         Set<Side> openSides = toIgnoreOpenSides ? EnumSet.noneOf(Side.class)
                 : SubstanceCoreUtilities.getSides(button, SubstanceSynapse.BUTTON_OPEN_SIDE);
         Set<Side> straightSides = SubstanceCoreUtilities.getSides(button,
@@ -218,7 +218,8 @@ public class PairwiseButtonBackgroundDelegate {
                 && shaper instanceof RectangularButtonShaper) {
             radius = ((RectangularButtonShaper) shaper).getCornerRadius(button, 0.0f);
         }
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, straightSides, openSides,
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height, straightSides, openSides,
                 colorScheme.getDisplayName(), borderScheme.getDisplayName(),
                 button.getClass().getName(), fillPainter.getDisplayName(), shaper.getDisplayName(),
                 isBorderPainted, isContentAreaFilled, radius);
@@ -237,7 +238,7 @@ public class PairwiseButtonBackgroundDelegate {
             SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(button);
 
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-            finalBackground = SubstanceCoreUtilities.getBlankImage(width, height);
+            finalBackground = SubstanceCoreUtilities.getBlankImage(scale, width, height);
             Graphics2D finalGraphics = (Graphics2D) finalBackground.getGraphics();
             finalGraphics.translate(-deltaLeft, -deltaTop);
             if (needsRotation) {
@@ -254,10 +255,9 @@ public class PairwiseButtonBackgroundDelegate {
                 AffineTransform at = AffineTransform.getTranslateInstance(0, translateY);
                 at.rotate(-Math.PI / 2);
 
-                double scaleFactor = NeonCortex.getScaleFactor();
                 finalGraphics.scale(1, 1);
                 finalGraphics.setTransform(at);
-                finalGraphics.scale(scaleFactor, scaleFactor);
+                finalGraphics.scale(scale, scale);
 
                 if (isContentAreaFilled) {
                     fillPainter.paintContourBackground(finalGraphics, button,

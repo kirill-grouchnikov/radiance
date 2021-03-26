@@ -299,19 +299,19 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             return;
 
         Icon restoreIcon = new TransitionAwareIcon(this.maxButton,
-                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                         SubstanceIconFactory.IconKind.RESTORE, scheme),
                 "substance.internalFrame.restoreIcon");
         Icon maximizeIcon = new TransitionAwareIcon(this.maxButton,
-                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                         SubstanceIconFactory.IconKind.MAXIMIZE, scheme),
                 "substance.internalFrame.maxIcon");
         Icon minimizeIcon = new TransitionAwareIcon(this.iconButton,
-                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                         SubstanceIconFactory.IconKind.MINIMIZE, scheme),
                 "substance.internalFrame.minIcon");
         Icon closeIcon = new TransitionAwareIcon(this.closeButton,
-                scheme -> SubstanceIconFactory.getTitlePaneIcon(
+                scheme -> SubstanceIconFactory.getTitlePaneIcon(this,
                         SubstanceIconFactory.IconKind.CLOSE, scheme),
                 "substance.internalFrame.closeIcon");
         if (this.frame.isIcon()) {

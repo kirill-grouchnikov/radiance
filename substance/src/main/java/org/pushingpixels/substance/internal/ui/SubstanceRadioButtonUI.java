@@ -75,7 +75,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
     /**
      * Icons for all component states
      */
-    private static LazyResettableHashMap<ImageWrapperIcon> icons = new LazyResettableHashMap<>(
+    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons = new LazyResettableHashMap<>(
             "SubstanceRadioButtonUI");
 
     StateTransitionTracker stateTransitionTracker;
@@ -140,8 +140,9 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      *            State transition tracker for the radio button.
      * @return Matching icon.
      */
-    private static ImageWrapperIcon getIcon(JToggleButton button,
+    private static ScaleAwareImageWrapperIcon getIcon(JToggleButton button,
             StateTransitionTracker stateTransitionTracker) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
@@ -163,35 +164,37 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
         float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
         float alpha = SubstanceColorSchemeUtilities.getAlpha(button, currState);
 
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, fontSize, checkMarkSize,
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
                 baseBorderColorScheme.getDisplayName(), visibility, alpha);
-        ImageWrapperIcon iconBase = icons.get(keyBase);
+        ScaleAwareImageWrapperIcon iconBase = icons.get(keyBase);
         if (iconBase == null) {
-            iconBase = new ImageWrapperIcon(SubstanceImageCreator.getRadioButton(button, fillPainter,
+            iconBase = new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getRadioButton(button, fillPainter,
                     borderPainter, checkMarkSize, currState, 0, baseFillColorScheme,
-                    baseMarkColorScheme, baseBorderColorScheme, visibility, alpha));
+                    baseMarkColorScheme, baseBorderColorScheme, visibility, alpha), scale);
             icons.put(keyBase, iconBase);
         }
         if (currState.isDisabled() || (activeStates.size() == 1)) {
             return iconBase;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(iconBase.getIconWidth(),
-                iconBase.getIconHeight());
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(
+                scale, iconBase.getIconWidth(), iconBase.getIconHeight());
         Graphics2D g2d = result.createGraphics();
         // draw the base layer
         iconBase.paintIcon(button, g2d, 0, 0);
 
         // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             // System.out.println("Painting state " + activeState + "[curr is "
             // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
+            if (activeState == currState) {
                 continue;
+            }
 
             float stateContribution = activeEntry.getValue().getContribution();
             if (stateContribution > 0.0f) {
@@ -203,16 +206,17 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
                 SubstanceColorScheme borderColorScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(button, ColorSchemeAssociationKind.BORDER, activeState);
 
-                HashMapKey keyLayer = SubstanceCoreUtilities.getHashKey(fontSize, checkMarkSize,
+                ImageHashMapKey keyLayer = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, fontSize, checkMarkSize,
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
                         borderColorScheme.getDisplayName(), visibility, alpha);
-                ImageWrapperIcon iconLayer = icons.get(keyLayer);
+                ScaleAwareImageWrapperIcon iconLayer = icons.get(keyLayer);
                 if (iconLayer == null) {
-                    iconLayer = new ImageWrapperIcon(
+                    iconLayer = new ScaleAwareImageWrapperIcon(
                             SubstanceImageCreator.getRadioButton(button, fillPainter, borderPainter,
                                     checkMarkSize, currState, 0, fillColorScheme, markColorScheme,
-                                    borderColorScheme, visibility, alpha));
+                                    borderColorScheme, visibility, alpha), scale);
                     icons.put(keyLayer, iconLayer);
                 }
 
@@ -221,7 +225,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
         }
 
         g2d.dispose();
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     public static ComponentUI createUI(JComponent comp) {
