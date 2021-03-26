@@ -104,6 +104,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			return SubstanceImageCreator.getArrowIcon(
 					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
 					SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize),
+					SubstanceCoreUtilities.getScaleFactor(spinner),
 					SubstanceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.NORTH, scheme);
 		}, "substance.spinner.nextButton");
 		this.nextButton.setIcon(icon);
@@ -131,9 +132,10 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 
 		Icon icon = new TransitionAwareIcon(this.prevButton, scheme -> {
 			int fontSize = SubstanceSizeUtils.getComponentFontSize(prevButton);
-			float spinnerArrowIconHeight = SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize);
 			return SubstanceImageCreator.getArrowIcon(
-					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize), spinnerArrowIconHeight,
+					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
+					SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize),
+					SubstanceCoreUtilities.getScaleFactor(spinner),
 					SubstanceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH, scheme);
 		}, "substance.spinner.prevButton");
 		this.prevButton.setIcon(icon);

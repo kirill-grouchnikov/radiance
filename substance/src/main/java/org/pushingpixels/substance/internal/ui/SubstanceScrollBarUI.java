@@ -164,6 +164,8 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @return Image for vertical thumb.
      */
     private BufferedImage getThumbVertical(Rectangle thumbBounds) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.scrollbar);
+
         int width = Math.max(1, thumbBounds.width);
         int delta = Math.max(0, (int) (0.4 * width));
         if (delta % 2 == 1) {
@@ -240,10 +242,13 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private static BufferedImage getThumbVertical(JScrollBar scrollBar, int width, int height,
             SubstanceColorScheme scheme, SubstanceColorScheme borderScheme) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(scrollBar);
+
         SubstanceFillPainter painter = SubstanceCoreUtilities.getFillPainter(scrollBar);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(scrollBar);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(scrollBar);
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, scheme.getDisplayName(),
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height, scheme.getDisplayName(),
                 borderScheme.getDisplayName(), painter.getDisplayName(), shaper.getDisplayName(),
                 borderPainter.getDisplayName());
         BufferedImage result = SubstanceScrollBarUI.thumbVerticalMap.get(key);
@@ -278,6 +283,8 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @return Image for horizontal thumb.
      */
     private BufferedImage getThumbHorizontal(Rectangle thumbBounds) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.scrollbar);
+
         int width = Math.max(1, thumbBounds.width);
         int height = Math.max(1, thumbBounds.height);
         int delta = Math.max(0, (int) (0.4 * height));
@@ -354,10 +361,13 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private static BufferedImage getThumbHorizontal(JScrollBar scrollBar, int width, int height,
             SubstanceColorScheme scheme, SubstanceColorScheme borderScheme) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(scrollBar);
+
         SubstanceFillPainter painter = SubstanceCoreUtilities.getFillPainter(scrollBar);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(scrollBar);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(scrollBar);
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, scheme.getDisplayName(),
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height, scheme.getDisplayName(),
                 borderScheme.getDisplayName(), painter.getDisplayName(), shaper.getDisplayName(),
                 borderPainter.getDisplayName());
 

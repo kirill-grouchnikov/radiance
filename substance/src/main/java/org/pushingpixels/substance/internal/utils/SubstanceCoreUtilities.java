@@ -1597,12 +1597,12 @@ public class SubstanceCoreUtilities {
     }
 
     public static double getScaleFactor(JComponent component) {
-        GraphicsConfiguration gc = component.getGraphicsConfiguration();
-        if (gc == null) {
+        if ((component == null) || (component.getGraphicsConfiguration() == null)) {
             // TODO - revisit this
             return UIUtil.getScaleFactor();
         }
-        AffineTransform transform = gc.getDevice().getDefaultConfiguration().getDefaultTransform();
+        AffineTransform transform = component.getGraphicsConfiguration().getDevice()
+                .getDefaultConfiguration().getDefaultTransform();
         return Math.max(transform.getScaleX(), transform.getScaleY());
     }
 

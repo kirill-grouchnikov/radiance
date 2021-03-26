@@ -60,6 +60,8 @@ public class ComboBoxBackgroundDelegate {
     public static BufferedImage getFullAlphaBackground(JComboBox combo,
             SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter, int width,
             int height) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(combo);
+
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
                 .getTransitionTracker().getModelStateInfo();
@@ -76,7 +78,8 @@ public class ComboBoxBackgroundDelegate {
         SubstanceColorScheme baseBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(combo,
                 ColorSchemeAssociationKind.BORDER, currState);
 
-        HashMapKey keyBase = SubstanceCoreUtilities.getHashKey(width, height,
+        ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height,
                 baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 combo.getClass().getName(), radius, comboFontSize);
@@ -113,7 +116,8 @@ public class ComboBoxBackgroundDelegate {
                         .getColorScheme(combo, activeState);
                 SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(combo, ColorSchemeAssociationKind.BORDER, activeState);
-                HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height,
+                ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, width, height,
                         fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         combo.getClass().getName(), radius, comboFontSize);
@@ -134,11 +138,12 @@ public class ComboBoxBackgroundDelegate {
             SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme, float radius) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(combo);
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
                 borderDelta);
 
-        BufferedImage newBackground = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage newBackground = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D finalGraphics = (Graphics2D) newBackground.getGraphics();
         fillPainter.paintContourBackground(finalGraphics, combo, width, height, contour, false,
                 fillScheme, true);

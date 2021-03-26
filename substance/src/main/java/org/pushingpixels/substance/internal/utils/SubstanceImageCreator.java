@@ -172,7 +172,7 @@ public final class SubstanceImageCreator {
 
     /**
      * Returns arrow icon for the specified parameters.
-     * 
+     *
      * @param fontSize
      *            Font size.
      * @param direction
@@ -199,8 +199,36 @@ public final class SubstanceImageCreator {
     }
 
     /**
+     * Returns arrow icon for the specified parameters.
+     *
+     * @param fontSize
+     *            Font size.
+     * @param direction
+     *            Arrow direction.
+     * @param colorScheme
+     *            Arrow icon color scheme.
+     * @return Arrow icon.
+     */
+    public static ScaleAwareImageWrapperIcon getArrowIcon(double scale, int fontSize, int direction,
+            SubstanceColorScheme colorScheme) {
+        float origWidth = SubstanceSizeUtils.getArrowIconWidth(fontSize);
+        float origHeight = SubstanceSizeUtils.getArrowIconHeight(fontSize);
+        float width = origWidth;
+        float height = origHeight;
+        if (direction == SwingConstants.CENTER)
+            height *= 2;
+        float strokeWidth = SubstanceSizeUtils.getArrowStrokeWidth(fontSize);
+        ScaleAwareImageWrapperIcon result = new ScaleAwareImageWrapperIcon(
+                getArrow(width, height, scale, strokeWidth, direction, colorScheme), scale);
+        int finalWidth = (int) (Math.max(origWidth, origHeight) + 2);
+        int finalHeight = (int) (Math.max(origWidth, height) + 2);
+        result.setDimension(new Dimension(finalWidth, finalHeight));
+        return result;
+    }
+
+    /**
      * Retrieves arrow icon.
-     * 
+     *
      * @param width
      *            Arrow width.
      * @param height
@@ -217,14 +245,41 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#SOUTH
      * @see SwingConstants#EAST
      */
+    @Deprecated
     public static ImageWrapperIcon getArrowIcon(float width, float height, float strokeWidth,
             int direction, SubstanceColorScheme scheme) {
         return new ImageWrapperIcon(getArrow(width, height, strokeWidth, direction, scheme));
     }
 
     /**
+     * Retrieves arrow icon.
+     *
+     * @param width
+     *            Arrow width.
+     * @param height
+     *            Arrow height.
+     * @param strokeWidth
+     *            Stroke width.
+     * @param direction
+     *            Arrow direction.
+     * @param scheme
+     *            Color scheme for the arrow.
+     * @return Arrow image.
+     * @see SwingConstants#NORTH
+     * @see SwingConstants#WEST
+     * @see SwingConstants#SOUTH
+     * @see SwingConstants#EAST
+     */
+    public static ScaleAwareImageWrapperIcon getArrowIcon(float width, float height, double scale,
+            float strokeWidth, int direction, SubstanceColorScheme scheme) {
+        return new ScaleAwareImageWrapperIcon(
+                getArrow(width, height, scale, strokeWidth, direction, scheme),
+                scale);
+    }
+
+    /**
      * Retrieves arrow image.
-     * 
+     *
      * @param width
      *            Arrow width.
      * @param height
@@ -242,6 +297,7 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#EAST
      * @see SwingConstants#CENTER
      */
+    @Deprecated
     private static BufferedImage getArrow(float width, float height, float strokeWidth,
             int direction, SubstanceColorScheme scheme) {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
@@ -279,6 +335,95 @@ public final class SubstanceImageCreator {
                     scheme);
             NeonCortex.drawImage(graphics, top, 0, 0);
             NeonCortex.drawImage(graphics, bottom, 0, (int) (height / 2.0));
+            return arrowImage;
+        } else {
+            float cushion = strokeWidth / 2.0f;
+            GeneralPath gp = new GeneralPath();
+            switch (direction) {
+                case SwingConstants.SOUTH:
+                    gp.moveTo(cushion, cushion);
+                    gp.lineTo(0.5f * (width), height - cushion - 1);
+                    gp.lineTo(width - cushion, cushion);
+                    break;
+                case SwingConstants.NORTH:
+                    gp.moveTo(cushion, height - cushion - 1);
+                    gp.lineTo(0.5f * (width), cushion);
+                    gp.lineTo(width - cushion, height - cushion - 1);
+                    break;
+                case SwingConstants.EAST:
+                    gp.moveTo(cushion, cushion);
+                    gp.lineTo(width - 1 - cushion, 0.5f * (height));
+                    gp.lineTo(cushion, height - cushion);
+                    break;
+                case SwingConstants.WEST:
+                    gp.moveTo(width - 1 - cushion, cushion);
+                    gp.lineTo(cushion, 0.5f * (height));
+                    gp.lineTo(width - 1 - cushion, height - cushion);
+                    break;
+            }
+            graphics.draw(gp);
+
+            return arrowImage;
+        }
+    }
+
+    /**
+     * Retrieves arrow image.
+     *
+     * @param width
+     *            Arrow width.
+     * @param height
+     *            Arrow height.
+     * @param strokeWidth
+     *            Stroke width.
+     * @param direction
+     *            Arrow direction.
+     * @param scheme
+     *            Color scheme for the arrow.
+     * @return Arrow image.
+     * @see SwingConstants#NORTH
+     * @see SwingConstants#WEST
+     * @see SwingConstants#SOUTH
+     * @see SwingConstants#EAST
+     * @see SwingConstants#CENTER
+     */
+    private static BufferedImage getArrow(float width, float height, double scale, float strokeWidth,
+            int direction, SubstanceColorScheme scheme) {
+        if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
+            float tmp = width;
+            width = height;
+            height = tmp;
+        }
+        BufferedImage arrowImage = SubstanceCoreUtilities.getBlankImage((int) Math.ceil(width),
+                (int) Math.ceil(height));
+
+        // System.out.println(width + ":" + height + ":" + strokeWidth);
+
+        // get graphics and set hints
+        Graphics2D graphics = (Graphics2D) arrowImage.getGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        // graphics.setColor(Color.green);
+        // graphics.drawRect(0, 0, (int) width -1 , (int) height - 1);
+
+        Color arrowColor = scheme.getMarkColor();
+
+        graphics.setColor(arrowColor);
+        Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+        graphics.setStroke(stroke);
+
+        if (direction == SwingConstants.CENTER) {
+            float smallHeight = (height - strokeWidth) / 2;
+            BufferedImage top = getArrow(width, smallHeight, scale, strokeWidth, SwingConstants.NORTH,
+                    scheme);
+            BufferedImage bottom = getArrow(width, smallHeight, scale, strokeWidth, SwingConstants.SOUTH,
+                    scheme);
+            NeonCortex.drawImageWithScale(graphics, scale, top, 0, 0);
+            NeonCortex.drawImageWithScale(graphics, scale, bottom, 0, (int) (height / 2.0));
             return arrowImage;
         } else {
             float cushion = strokeWidth / 2.0f;
