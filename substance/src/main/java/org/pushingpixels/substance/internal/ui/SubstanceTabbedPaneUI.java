@@ -642,6 +642,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     private static BufferedImage getTabBackground(JTabbedPane tabPane, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme,
             boolean paintOnlyBorder) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(tabPane);
@@ -661,7 +662,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height + dy,
                 cornerRadius, straightSides, borderInsets);
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D resGraphics = result.createGraphics();
 
         if (!paintOnlyBorder) {
@@ -692,7 +693,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
             int width, int height, int tabPlacement, SubstanceSlices.Side side,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme) {
-
+        double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(tabPane);
@@ -706,7 +707,8 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             // special handling of tabs placed in decoration areas
             tabColor = SubstanceColorUtilities.getBackgroundFillColor(compForBackground);
         }
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, tabPlacement,
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height, tabPlacement,
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 shaper.getDisplayName(), tabPlacement == SwingConstants.BOTTOM, side.name(),
                 colorScheme.getDisplayName(), borderScheme.getDisplayName(), tabColor);
@@ -720,7 +722,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 case BOTTOM:
                     BufferedImage unrotated = getFinalTabBackgroundImage(tabPane, tabIndex,
                             width, height, SwingConstants.TOP, side, colorScheme, borderScheme);
-                    return SubstanceImageCreator.getRotated(unrotated, 2);
+                    return SubstanceImageCreator.getRotated(scale, unrotated, 2);
                 case TOP:
                 case LEFT:
                 case RIGHT:
@@ -728,8 +730,8 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             colorScheme, borderScheme, false);
                     int fw = backgroundImage.getWidth();
                     int fh = backgroundImage.getHeight();
-                    BufferedImage fade = SubstanceCoreUtilities
-                            .getBlankUnscaledImage(backgroundImage);
+                    BufferedImage fade = SubstanceCoreUtilities.getBlankUnscaledImage(
+                            backgroundImage);
                     Graphics2D fadeGraphics = fade.createGraphics();
                     fadeGraphics.setColor(tabColor);
                     fadeGraphics.fillRect(0, 0, fw, fh);

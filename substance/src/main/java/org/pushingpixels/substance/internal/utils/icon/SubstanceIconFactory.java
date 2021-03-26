@@ -85,14 +85,15 @@ public class SubstanceIconFactory {
      * 
      * @param size
      *            The size of the icon to retrieve.
-     * @param isMirrorred
+     * @param isMirrored
      *            Indication whether the icon should be mirrored.
      * @return Icon for horizontal slider in {@link SubstanceSliderUI}.
      */
-    public static Icon getSliderHorizontalIcon(int size, boolean isMirrorred) {
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(size, isMirrorred);
+    public static Icon getSliderHorizontalIcon(JSlider slider, int size, boolean isMirrored) {
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                SubstanceCoreUtilities.getScaleFactor(slider), size, isMirrored);
         if (SubstanceIconFactory.sliderHorizontalIcons.get(key) == null) {
-            Icon icon = new SliderHorizontalIcon(size, isMirrorred);
+            Icon icon = new SliderHorizontalIcon(size, isMirrored);
             SubstanceIconFactory.sliderHorizontalIcons.put(key, icon);
         }
         return SubstanceIconFactory.sliderHorizontalIcons.get(key);
@@ -105,8 +106,9 @@ public class SubstanceIconFactory {
      *            The size of the icon to retrieve.
      * @return Round icon for slider in {@link SubstanceSliderUI}.
      */
-    public static Icon getSliderRoundIcon(int size) {
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(size);
+    public static Icon getSliderRoundIcon(JSlider slider, int size) {
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                SubstanceCoreUtilities.getScaleFactor(slider), size);
         if (SubstanceIconFactory.sliderRoundIcons.get(key) == null) {
             Icon icon = new SliderRoundIcon(size);
             SubstanceIconFactory.sliderRoundIcons.put(key, icon);
@@ -123,8 +125,9 @@ public class SubstanceIconFactory {
      *            Indication whether the icon should be mirrored.
      * @return Icon for vertical slider in {@link SubstanceSliderUI}.
      */
-    public static Icon getSliderVerticalIcon(int size, boolean isMirrorred) {
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(size, isMirrorred);
+    public static Icon getSliderVerticalIcon(JSlider slider, int size, boolean isMirrorred) {
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                SubstanceCoreUtilities.getScaleFactor(slider), size, isMirrorred);
         if (SubstanceIconFactory.sliderVerticalIcons.get(key) == null) {
             Icon icon = new SliderVerticalIcon(size, isMirrorred);
             SubstanceIconFactory.sliderVerticalIcons.put(key, icon);
@@ -133,10 +136,11 @@ public class SubstanceIconFactory {
     }
 
     public static ResizableIcon getTreeIcon(JTree tree, boolean isCollapsed) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(tree);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int size = SubstanceSizeUtils.getTreeIconSize(fontSize);
 
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(size, isCollapsed);
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, size, isCollapsed);
         if (SubstanceIconFactory.treeIcons.get(key) == null) {
             ResizableIcon icon = new TreeIcon(size, isCollapsed);
             SubstanceIconFactory.treeIcons.put(key, icon);
@@ -153,7 +157,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+        private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons =
                 new LazyResettableHashMap<>("SubstanceIconFactory.SliderHorizontalIcon");
 
         /**
@@ -179,8 +183,9 @@ public class SubstanceIconFactory {
             this.isMirrorred = isMirrorred;
         }
 
-        private ImageWrapperIcon getIcon(JSlider slider,
+        private ScaleAwareImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
             StateTransitionTracker.ModelStateInfo modelStateInfo =
                     stateTransitionTracker.getModelStateInfo();
             Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -199,22 +204,24 @@ public class SubstanceIconFactory {
             SubstanceColorScheme baseBorderScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(slider, ColorSchemeAssociationKind.BORDER, currState);
 
-            HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(this.size, width,
+            ImageHashMapKey baseKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, this.size, width,
                     baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                     fillPainter.getDisplayName(), borderPainter.getDisplayName(), this.isMirrorred);
 
-            ImageWrapperIcon baseLayer = SliderHorizontalIcon.icons.get(baseKey);
+            ScaleAwareImageWrapperIcon baseLayer = SliderHorizontalIcon.icons.get(baseKey);
             if (baseLayer == null) {
                 baseLayer = getSingleLayer(slider, width, fillPainter, borderPainter,
                         baseFillScheme, baseBorderScheme);
                 SliderHorizontalIcon.icons.put(baseKey, baseLayer);
             }
 
-            if (currState.isDisabled() || (activeStates.size() == 1))
+            if (currState.isDisabled() || (activeStates.size() == 1)) {
                 return baseLayer;
+            }
 
-            BufferedImage result = SubstanceCoreUtilities.getBlankImage(baseLayer.getIconWidth(),
-                    baseLayer.getIconHeight());
+            BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale,
+                    baseLayer.getIconWidth(), baseLayer.getIconHeight());
             Graphics2D g2d = result.createGraphics();
             baseLayer.paintIcon(slider, g2d, 0, 0);
             for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
@@ -234,12 +241,13 @@ public class SubstanceIconFactory {
                 SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(slider, ColorSchemeAssociationKind.BORDER, activeState);
 
-                HashMapKey key = SubstanceCoreUtilities.getHashKey(this.size, width,
+                ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, this.size, width,
                         fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                         fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                         this.isMirrorred);
 
-                ImageWrapperIcon layer = SliderHorizontalIcon.icons.get(key);
+                ScaleAwareImageWrapperIcon layer = SliderHorizontalIcon.icons.get(key);
                 if (layer == null) {
                     layer = getSingleLayer(slider, width, fillPainter, borderPainter, fillScheme,
                             borderScheme);
@@ -251,17 +259,19 @@ public class SubstanceIconFactory {
             }
 
             g2d.dispose();
-            return new ImageWrapperIcon(result);
+            return new ScaleAwareImageWrapperIcon(result, scale);
         }
 
-        private ImageWrapperIcon getSingleLayer(JSlider slider, float width,
+        private ScaleAwareImageWrapperIcon getSingleLayer(JSlider slider, float width,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
             Shape contour = SubstanceOutlineUtilities.getTriangleButtonOutline(width, this.size - 1,
                     2, borderDelta);
 
-            BufferedImage stateImage = SubstanceCoreUtilities.getBlankImage(this.size, this.size);
+            BufferedImage stateImage = SubstanceCoreUtilities.getBlankImage(
+                    scale, this.size, this.size);
             Graphics2D g2d = stateImage.createGraphics();
             g2d.translate((this.size - width) / 2.0f, 0);
 
@@ -277,10 +287,10 @@ public class SubstanceIconFactory {
             g2d.dispose();
 
             if (this.isMirrorred) {
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 2);
+                stateImage = SubstanceImageCreator.getRotated(scale, stateImage, 2);
             }
 
-            return new ImageWrapperIcon(stateImage);
+            return new ScaleAwareImageWrapperIcon(stateImage, scale);
         }
 
         @Override
@@ -320,7 +330,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+        private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons =
                 new LazyResettableHashMap<>("SubstanceIconFactory.SliderRoundIcon");
 
         /**
@@ -345,8 +355,9 @@ public class SubstanceIconFactory {
          *            The slider itself.
          * @return Icon that matches the specified state of the slider thumb.
          */
-        private ImageWrapperIcon getIcon(JSlider slider,
+        private ScaleAwareImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
             StateTransitionTracker.ModelStateInfo modelStateInfo =
                     stateTransitionTracker.getModelStateInfo();
             Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -365,11 +376,12 @@ public class SubstanceIconFactory {
             SubstanceColorScheme baseBorderScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(slider, ColorSchemeAssociationKind.BORDER, currState);
 
-            HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(this.size, width,
+            ImageHashMapKey baseKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, this.size, width,
                     baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                     fillPainter.getDisplayName(), borderPainter.getDisplayName());
 
-            ImageWrapperIcon baseLayer = SliderRoundIcon.icons.get(baseKey);
+            ScaleAwareImageWrapperIcon baseLayer = SliderRoundIcon.icons.get(baseKey);
             if (baseLayer == null) {
                 baseLayer = getSingleLayer(slider, width, fillPainter, borderPainter,
                         baseFillScheme, baseBorderScheme);
@@ -380,8 +392,8 @@ public class SubstanceIconFactory {
                 return baseLayer;
             }
 
-            BufferedImage result = SubstanceCoreUtilities.getBlankImage(baseLayer.getIconWidth(),
-                    baseLayer.getIconHeight());
+            BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale,
+                    baseLayer.getIconWidth(), baseLayer.getIconHeight());
             Graphics2D g2d = result.createGraphics();
             baseLayer.paintIcon(slider, g2d, 0, 0);
 
@@ -402,11 +414,12 @@ public class SubstanceIconFactory {
                 SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(slider, ColorSchemeAssociationKind.BORDER, activeState);
 
-                HashMapKey key = SubstanceCoreUtilities.getHashKey(this.size, width,
+                ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, this.size, width,
                         fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                         fillPainter.getDisplayName(), borderPainter.getDisplayName());
 
-                ImageWrapperIcon layer = SliderRoundIcon.icons.get(key);
+                ScaleAwareImageWrapperIcon layer = SliderRoundIcon.icons.get(key);
                 if (layer == null) {
                     layer = getSingleLayer(slider, width, fillPainter, borderPainter, fillScheme,
                             borderScheme);
@@ -418,17 +431,19 @@ public class SubstanceIconFactory {
             }
 
             g2d.dispose();
-            return new ImageWrapperIcon(result);
+            return new ScaleAwareImageWrapperIcon(result, scale);
         }
 
-        private ImageWrapperIcon getSingleLayer(JSlider slider, float width,
+        private ScaleAwareImageWrapperIcon getSingleLayer(JSlider slider, float width,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
             Shape contour = new Ellipse2D.Float(borderDelta, borderDelta,
                     width - 2 * borderDelta - 1, width - 2 * borderDelta - 1);
 
-            BufferedImage stateImage = SubstanceCoreUtilities.getBlankImage(this.size, this.size);
+            BufferedImage stateImage = SubstanceCoreUtilities.getBlankImage(
+                    scale, this.size, this.size);
             Graphics2D g2d = stateImage.createGraphics();
 
             float delta = (this.size - width) / 2.0f;
@@ -446,7 +461,7 @@ public class SubstanceIconFactory {
             borderPainter.paintBorder(g2d, slider, width, this.size, contour, contourInner,
                     borderScheme);
 
-            return new ImageWrapperIcon(stateImage);
+            return new ScaleAwareImageWrapperIcon(stateImage, scale);
         }
 
         @Override
@@ -486,7 +501,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+        private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons =
                 new LazyResettableHashMap<>("SubstanceIconFactory.SliderVerticalIcon");
 
         /**
@@ -519,8 +534,9 @@ public class SubstanceIconFactory {
          *            The slider itself.
          * @return Icon that matches the specified state of the slider thumb.
          */
-        private ImageWrapperIcon getIcon(JSlider slider,
+        private ScaleAwareImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
             StateTransitionTracker.ModelStateInfo modelStateInfo =
                     stateTransitionTracker.getModelStateInfo();
             Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -541,12 +557,13 @@ public class SubstanceIconFactory {
             SubstanceColorScheme baseBorderScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(slider, ColorSchemeAssociationKind.BORDER, currState);
 
-            HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(this.size, height,
+            ImageHashMapKey baseKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, this.size, height,
                     slider.getComponentOrientation(), baseFillScheme.getDisplayName(),
                     baseBorderScheme.getDisplayName(), fillPainter.getDisplayName(),
                     borderPainter.getDisplayName(), this.isMirrorred);
 
-            ImageWrapperIcon baseLayer = SliderVerticalIcon.icons.get(baseKey);
+            ScaleAwareImageWrapperIcon baseLayer = SliderVerticalIcon.icons.get(baseKey);
             if (baseLayer == null) {
                 baseLayer = getSingleLayer(slider, height, delta, fillPainter, borderPainter,
                         baseFillScheme, baseBorderScheme);
@@ -557,8 +574,8 @@ public class SubstanceIconFactory {
                 return baseLayer;
             }
 
-            BufferedImage result = SubstanceCoreUtilities.getBlankImage(baseLayer.getIconWidth(),
-                    baseLayer.getIconHeight());
+            BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale,
+                    baseLayer.getIconWidth(), baseLayer.getIconHeight());
             Graphics2D g2d = result.createGraphics();
             baseLayer.paintIcon(slider, g2d, 0, 0);
 
@@ -579,12 +596,13 @@ public class SubstanceIconFactory {
                 SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(slider, ColorSchemeAssociationKind.BORDER, activeState);
 
-                HashMapKey key = SubstanceCoreUtilities.getHashKey(this.size, height,
+                ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                        scale, this.size, height,
                         slider.getComponentOrientation(), fillScheme.getDisplayName(),
                         borderScheme.getDisplayName(), fillPainter.getDisplayName(),
                         borderPainter.getDisplayName(), this.isMirrorred);
 
-                ImageWrapperIcon layer = SliderVerticalIcon.icons.get(key);
+                ScaleAwareImageWrapperIcon layer = SliderVerticalIcon.icons.get(key);
                 if (layer == null) {
                     layer = getSingleLayer(slider, height, delta, fillPainter, borderPainter,
                             fillScheme, borderScheme);
@@ -596,18 +614,19 @@ public class SubstanceIconFactory {
             }
 
             g2d.dispose();
-            return new ImageWrapperIcon(result);
+            return new ScaleAwareImageWrapperIcon(result, scale);
         }
 
-        private ImageWrapperIcon getSingleLayer(JSlider slider, int height, int delta,
+        private ScaleAwareImageWrapperIcon getSingleLayer(JSlider slider, int height, int delta,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
             float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
             Shape contour = SubstanceOutlineUtilities.getTriangleButtonOutline(height,
                     this.size - 1, 2, borderDelta);
 
-            BufferedImage stateImage = SubstanceCoreUtilities.getBlankImage(this.size - 1,
-                    this.size - 1);
+            BufferedImage stateImage = SubstanceCoreUtilities.getBlankImage(scale,
+                    this.size - 1, this.size - 1);
             Graphics2D g2d = stateImage.createGraphics();
             g2d.translate(delta, 0);
 
@@ -622,16 +641,16 @@ public class SubstanceIconFactory {
                     borderScheme);
 
             if (this.isMirrorred) {
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 1);
+                stateImage = SubstanceImageCreator.getRotated(scale, stateImage, 1);
             } else {
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 3);
+                stateImage = SubstanceImageCreator.getRotated(scale, stateImage, 3);
             }
 
             if (!slider.getComponentOrientation().isLeftToRight()) {
-                stateImage = SubstanceImageCreator.getRotated(stateImage, 2);
+                stateImage = SubstanceImageCreator.getRotated(scale, stateImage, 2);
             }
 
-            return new ImageWrapperIcon(stateImage);
+            return new ScaleAwareImageWrapperIcon(stateImage, scale);
         }
 
         @Override
@@ -670,7 +689,7 @@ public class SubstanceIconFactory {
         /**
          * Icon hash.
          */
-        private static LazyResettableHashMap<ImageWrapperIcon> icons =
+        private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons =
                 new LazyResettableHashMap<>("SubstanceIconFactory.TreeIcon");
 
         /**
@@ -699,7 +718,8 @@ public class SubstanceIconFactory {
         /**
          * Retrieves icon that matches the specified state of the tree.
          */
-        private static ImageWrapperIcon getIcon(JTree tree, boolean isCollapsed) {
+        private static ScaleAwareImageWrapperIcon getIcon(JTree tree, boolean isCollapsed) {
+            double scale = SubstanceCoreUtilities.getScaleFactor(tree);
             ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(tree,
@@ -711,17 +731,18 @@ public class SubstanceIconFactory {
 
             int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
 
-            HashMapKey key = SubstanceCoreUtilities.getHashKey(fontSize,
+            ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, fontSize,
                     fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                     markScheme.getDisplayName(), isCollapsed);
 
-            ImageWrapperIcon result = TreeIcon.icons.get(key);
+            ScaleAwareImageWrapperIcon result = TreeIcon.icons.get(key);
             if (result != null) {
                 return result;
             }
 
-            result = new ImageWrapperIcon(SubstanceImageCreator.getTreeIcon(tree, fillScheme,
-                    borderScheme, markScheme, isCollapsed));
+            result = new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getTreeIcon(
+                    tree, fillScheme, borderScheme, markScheme, isCollapsed), scale);
             TreeIcon.icons.put(key, result);
 
             return result;
@@ -738,7 +759,7 @@ public class SubstanceIconFactory {
             // "Tree.collapsedIcon" and "Tree.expandedIcon" UIManager
             // entries to paint on non-JTree components. Sigh.
             JTree tree = (c instanceof JTree) ? (JTree) c : null;
-            ImageWrapperIcon iconToDraw = TreeIcon.getIcon(tree, this.isCollapsed);
+            ScaleAwareImageWrapperIcon iconToDraw = TreeIcon.getIcon(tree, this.isCollapsed);
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, y);
             iconToDraw.paintIcon(c, g2d, 0, 0);

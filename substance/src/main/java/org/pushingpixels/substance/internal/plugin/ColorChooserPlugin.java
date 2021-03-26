@@ -81,6 +81,7 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     "Slider.upThumbSmall",
                     (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceIconFactory
                                     .getSliderHorizontalIcon(
+                                            null,
                                             SubstanceSizeUtils
                                                     .getSliderIconSize(SubstanceSizeUtils
                                                             .getControlFontSize()) - 2,
@@ -90,6 +91,7 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     "Slider.leftThumbSmall",
                     (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceIconFactory
                                     .getSliderVerticalIcon(
+                                            null,
                                             SubstanceSizeUtils
                                                     .getSliderIconSize(SubstanceSizeUtils
                                                             .getControlFontSize()) - 2,

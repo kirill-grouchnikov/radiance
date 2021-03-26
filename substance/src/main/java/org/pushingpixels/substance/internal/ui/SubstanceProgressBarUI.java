@@ -65,30 +65,30 @@ import java.util.Set;
  */
 public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static final ComponentState DETERMINATE_SELECTED = new ComponentState(
-            "determinate enabled", new ComponentStateFacet[] { ComponentStateFacet.ENABLE,
-            ComponentStateFacet.DETERMINATE, ComponentStateFacet.SELECTION },
+            "determinate enabled", new ComponentStateFacet[] {ComponentStateFacet.ENABLE,
+            ComponentStateFacet.DETERMINATE, ComponentStateFacet.SELECTION},
             null);
 
     private static final ComponentState DETERMINATE_SELECTED_DISABLED = new ComponentState(
             "determinate disabled",
-            new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE,
-                    ComponentStateFacet.SELECTION },
-            new ComponentStateFacet[] { ComponentStateFacet.ENABLE });
+            new ComponentStateFacet[] {ComponentStateFacet.DETERMINATE,
+                    ComponentStateFacet.SELECTION},
+            new ComponentStateFacet[] {ComponentStateFacet.ENABLE});
 
     private static final ComponentState INDETERMINATE_SELECTED = new ComponentState(
             "indeterminate enabled",
-            new ComponentStateFacet[] { ComponentStateFacet.ENABLE, ComponentStateFacet.SELECTION },
-            new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE });
+            new ComponentStateFacet[] {ComponentStateFacet.ENABLE, ComponentStateFacet.SELECTION},
+            new ComponentStateFacet[] {ComponentStateFacet.DETERMINATE});
 
     private static final ComponentState INDETERMINATE_SELECTED_DISABLED = new ComponentState(
             "indeterminate disabled", null,
-            new ComponentStateFacet[] { ComponentStateFacet.DETERMINATE, ComponentStateFacet.ENABLE,
-                    ComponentStateFacet.SELECTION });
+            new ComponentStateFacet[] {ComponentStateFacet.DETERMINATE, ComponentStateFacet.ENABLE,
+                    ComponentStateFacet.SELECTION});
 
     private static final SubstanceFillPainter progressFillPainter = new FractionBasedFillPainter(
-            "Progress fill (internal)", new float[] { 0.0f, 0.5f, 1.0f },
-            new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
-                    ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID });
+            "Progress fill (internal)", new float[] {0.0f, 0.5f, 1.0f},
+            new ColorSchemeSingleColorQuery[] {ColorSchemeSingleColorQuery.EXTRALIGHT,
+                    ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID});
 
     private final class SubstanceChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
@@ -242,15 +242,16 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
      * @param colorScheme Color scheme to paint the stripe image.
      * @return Stripe image.
      */
-    private static BufferedImage getStripe(int baseSize, boolean isRotated,
+    private static BufferedImage getStripe(double scale, int baseSize, boolean isRotated,
             SubstanceColorScheme colorScheme) {
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(baseSize, isRotated,
-                colorScheme.getDisplayName());
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale,
+                baseSize, isRotated, colorScheme.getDisplayName());
         BufferedImage result = SubstanceProgressBarUI.stripeMap.get(key);
         if (result == null) {
-            result = SubstanceImageCreator.getStripe(baseSize, colorScheme.getUltraLightColor());
+            result = SubstanceImageCreator.getStripe(scale, baseSize,
+                    colorScheme.getUltraLightColor());
             if (isRotated) {
-                result = SubstanceImageCreator.getRotated(result, 1);
+                result = SubstanceImageCreator.getRotated(scale, result, 1);
             }
             SubstanceProgressBarUI.stripeMap.put(key, result);
         }
@@ -272,11 +273,13 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static BufferedImage getDeterminateBackground(JProgressBar bar, int width, int height,
             SubstanceColorScheme scheme, SubstanceFillPainter fillPainter, int orientation,
             ComponentOrientation componentOrientation) {
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, scheme.getDisplayName(),
-                fillPainter.getDisplayName(), orientation, componentOrientation);
+        double scale = SubstanceCoreUtilities.getScaleFactor(bar);
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, width, height,
+                scheme.getDisplayName(), fillPainter.getDisplayName(),
+                orientation, componentOrientation);
         BufferedImage result = SubstanceProgressBarUI.backgroundMap.get(key);
         if (result == null) {
-            result = SubstanceCoreUtilities.getBlankImage(width, height);
+            result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
             Graphics2D g2d = result.createGraphics();
             float radius = 0.5f * SubstanceSizeUtils
                     .getClassicButtonCornerRadius(SubstanceSizeUtils.getComponentFontSize(bar));
@@ -286,7 +289,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             g2d.dispose();
 
             if (orientation == SwingConstants.VERTICAL) {
-                result = SubstanceImageCreator.getRotated(result, 3);
+                result = SubstanceImageCreator.getRotated(scale, result, 3);
             }
             SubstanceProgressBarUI.backgroundMap.put(key, result);
         }
@@ -308,17 +311,18 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static BufferedImage getDeterminateProgress(JProgressBar bar, int width, int height,
             boolean isFull, SubstanceColorScheme scheme, SubstanceFillPainter fillPainter,
             int orientation, ComponentOrientation componentOrientation) {
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, scheme.getDisplayName(),
-                fillPainter.getDisplayName(), orientation, componentOrientation);
+        double scale = SubstanceCoreUtilities.getScaleFactor(bar);
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, width, height,
+                scheme.getDisplayName(), fillPainter.getDisplayName(),
+                orientation, componentOrientation);
         BufferedImage result = SubstanceProgressBarUI.progressMap.get(key);
         if (result == null) {
-            result = SubstanceCoreUtilities.getBlankImage(width, height);
+            result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
             Graphics2D g2d = result.createGraphics();
             float radius = 0.5f * SubstanceSizeUtils
                     .getClassicButtonCornerRadius(SubstanceSizeUtils.getComponentFontSize(bar));
             Side straightSide = (orientation == SwingConstants.VERTICAL) ? Side.RIGHT
-                    :
-                    (componentOrientation.isLeftToRight() ? Side.RIGHT : Side.LEFT);
+                    : (componentOrientation.isLeftToRight() ? Side.RIGHT : Side.LEFT);
             Set<Side> straightSides = isFull ? null : EnumSet.of(straightSide);
             Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius,
                     straightSides);
@@ -327,7 +331,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             g2d.dispose();
 
             if (orientation == SwingConstants.VERTICAL) {
-                result = SubstanceImageCreator.getRotated(result, 3);
+                result = SubstanceImageCreator.getRotated(scale, result, 3);
             }
             SubstanceProgressBarUI.progressMap.put(key, result);
         }
@@ -443,6 +447,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             return;
         }
 
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
         ComponentState progressState = getProgressState();
 
         final int barRectWidth = progressBar.getWidth() - 2 * margin;
@@ -468,16 +473,16 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(progressBar,
                 progressState);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-            SubstanceImageCreator.paintRectangularStripedBackground(g2d, margin,
+            SubstanceImageCreator.paintRectangularStripedBackground(g2d, scale, margin,
                     margin, barRectWidth, barRectHeight, scheme,
-                    SubstanceProgressBarUI.getStripe(barRectHeight, false, scheme), valComplete,
-                    0.6f, false);
+                    SubstanceProgressBarUI.getStripe(scale, barRectHeight, false, scheme),
+                    valComplete, 0.6f, false);
         } else {
             // fix for issue 95. Vertical progress bar grows from the
             // bottom.
-            SubstanceImageCreator.paintRectangularStripedBackground(g2d, margin,
+            SubstanceImageCreator.paintRectangularStripedBackground(g2d, scale, margin,
                     margin, barRectWidth, barRectHeight, scheme,
-                    SubstanceProgressBarUI.getStripe(barRectWidth, true, scheme),
+                    SubstanceProgressBarUI.getStripe(scale, barRectWidth, true, scheme),
                     2 * barRectWidth - valComplete, 0.6f, true);
         }
 

@@ -261,13 +261,13 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             Shape contour = SubstanceOutlineUtilities.getBaseOutline(height, width, radius,
                     null, borderDelta);
 
-            result = SubstanceCoreUtilities.getBlankImage(height, width);
+            result = SubstanceCoreUtilities.getBlankImage(scale, height, width);
             painter.paintContourBackground(result.createGraphics(), scrollBar, height, width,
                     contour, false, scheme, true);
 
             borderPainter.paintBorder(result.getGraphics(), scrollBar, height, width, contour, null,
                     borderScheme);
-            result = SubstanceImageCreator.getRotated(result, 3);
+            result = SubstanceImageCreator.getRotated(scale, result, 3);
             // System.out.println(key);
             SubstanceScrollBarUI.thumbVerticalMap.put(key, result);
         }

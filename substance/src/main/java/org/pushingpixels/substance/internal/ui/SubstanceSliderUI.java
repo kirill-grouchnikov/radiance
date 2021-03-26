@@ -503,9 +503,9 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
         int size = SubstanceSizeUtils
                 .getSliderIconSize(SubstanceSizeUtils.getComponentFontSize(slider));
         // System.out.println("Slider size : " + size);
-        this.horizontalIcon = SubstanceIconFactory.getSliderHorizontalIcon(size, false);
-        this.roundIcon = SubstanceIconFactory.getSliderRoundIcon(size);
-        this.verticalIcon = SubstanceIconFactory.getSliderVerticalIcon(size, false);
+        this.horizontalIcon = SubstanceIconFactory.getSliderHorizontalIcon(slider, size, false);
+        this.roundIcon = SubstanceIconFactory.getSliderRoundIcon(slider, size);
+        this.verticalIcon = SubstanceIconFactory.getSliderVerticalIcon(slider, size, false);
 
         int focusIns = (int) Math.ceil(2.0 * SubstanceSizeUtils.getFocusStrokeWidth());
         this.focusInsets = new Insets(focusIns, focusIns, focusIns, focusIns);

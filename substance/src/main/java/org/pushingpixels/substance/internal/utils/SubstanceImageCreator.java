@@ -485,7 +485,7 @@ public final class SubstanceImageCreator {
 
     /**
      * Returns rotated image.
-     * 
+     *
      * @param bi
      *            Image to rotate.
      * @param quadrantClockwise
@@ -493,7 +493,7 @@ public final class SubstanceImageCreator {
      *            times this value.
      * @return Rotated image.
      */
-    public static BufferedImage getRotated(BufferedImage bi, int quadrantClockwise) {
+    public static BufferedImage getRotated(double scale, BufferedImage bi, int quadrantClockwise) {
         if (quadrantClockwise == 0) {
             return bi;
         }
@@ -504,9 +504,8 @@ public final class SubstanceImageCreator {
             width = bi.getHeight();
             height = bi.getWidth();
         }
-        double factor = NeonCortex.getScaleFactor();
-        BufferedImage biRot = SubstanceCoreUtilities.getBlankImage((int) (width / factor),
-                (int) (height / factor));
+        BufferedImage biRot = SubstanceCoreUtilities.getBlankImage(scale,
+                (int) (width / scale), (int) (height / scale));
         AffineTransform at = null;
         switch (quadrantClockwise) {
             case 1:
@@ -522,7 +521,7 @@ public final class SubstanceImageCreator {
                 at.rotate(-Math.PI / 2);
         }
         Graphics2D rotg = biRot.createGraphics();
-        rotg.scale(1.0f / factor, 1.0f / factor);
+        rotg.scale(1.0f / scale, 1.0f / scale);
         if (at != null) {
             rotg.setTransform(at);
         }
@@ -1118,11 +1117,10 @@ public final class SubstanceImageCreator {
      * @param isVertical
      *            Indication of horizontal / vertical orientation.
      */
-    public static void paintRectangularStripedBackground(Graphics g, int startX,
-            int startY, int width, int height, SubstanceColorScheme colorScheme,
+    public static void paintRectangularStripedBackground(Graphics g, double scaleFactor,
+            int startX, int startY, int width, int height, SubstanceColorScheme colorScheme,
             BufferedImage stripeImage, int stripeOffset, float borderAlpha, boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
-        double scaleFactor = NeonCortex.getScaleFactor();
         if (!isVertical) {
             LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
                     new float[] { 0.0f, 0.2f, 0.5f, 0.8f, 1.0f },
@@ -1184,10 +1182,10 @@ public final class SubstanceImageCreator {
      *            Stripe color.
      * @return Diagonal stripe image.
      */
-    public static BufferedImage getStripe(int baseSize, Color color) {
+    public static BufferedImage getStripe(double scale, int baseSize, Color color) {
         int width = (int) (1.8 * baseSize);
         int height = baseSize;
-        BufferedImage intermediate = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage intermediate = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D graphics = (Graphics2D) intermediate.getGraphics();
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -1343,9 +1341,10 @@ public final class SubstanceImageCreator {
     public static BufferedImage getTreeIcon(JTree tree, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme, SubstanceColorScheme markScheme,
             boolean isCollapsed) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(tree);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int dim = SubstanceSizeUtils.getTreeIconSize(fontSize);
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(dim, dim);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, dim, dim);
         Graphics2D graphics = (Graphics2D) result.getGraphics();
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
