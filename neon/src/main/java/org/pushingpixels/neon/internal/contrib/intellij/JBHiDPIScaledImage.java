@@ -30,7 +30,8 @@ public class JBHiDPIScaledImage extends BufferedImage {
         this.scaleFactor = scaleFactor;
     }
 
-    private JBHiDPIScaledImage(double scaleFactor, ColorModel cm, WritableRaster raster, boolean isRasterPremultiplied) {
+    private JBHiDPIScaledImage(double scaleFactor, ColorModel cm, WritableRaster raster,
+            boolean isRasterPremultiplied) {
         super(cm, raster, isRasterPremultiplied, null);
         this.scaleFactor = scaleFactor;
     }
