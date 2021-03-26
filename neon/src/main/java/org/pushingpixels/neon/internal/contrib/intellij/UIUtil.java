@@ -56,11 +56,6 @@ public class UIUtil {
 
         }
 
-        private static double getScaleFactor(Graphics2D g) {
-            GraphicsDevice device = g.getDeviceConfiguration().getDevice();
-            return getScaleFactor(device);
-        }
-
         private static double getScaleFactor() {
             double result = 1.0;
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -77,19 +72,7 @@ public class UIUtil {
 
     }
 
-    public static double getScaleFactor(Graphics2D graphics) {
-        return DetectRetinaKit.getScaleFactor(graphics);
-    }
-
-    private static Double cachedScaleFactorReply = null;
-
     public static double getScaleFactor() {
-//        if (cachedScaleFactorReply != null) {
-//            return cachedScaleFactorReply;
-//        }
-
-        double result = GraphicsEnvironment.isHeadless() ? 1.0 : DetectRetinaKit.getScaleFactor();
-        cachedScaleFactorReply = Double.valueOf(result);
-        return cachedScaleFactorReply;
+        return GraphicsEnvironment.isHeadless() ? 1.0 : DetectRetinaKit.getScaleFactor();
     }
 }

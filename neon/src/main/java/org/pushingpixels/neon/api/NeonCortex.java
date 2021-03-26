@@ -268,7 +268,7 @@ public class NeonCortex {
      */
     public static BufferedImage getBlankScaledImage(double scale, int width, int height) {
         if (scale > 1.0) {
-            return JBHiDPIScaledImage.create(scale, width, height, BufferedImage.TYPE_INT_ARGB);
+            return JBHiDPIScaledImage.createScaled(scale, width, height, BufferedImage.TYPE_INT_ARGB);
         } else {
             GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice d = e.getDefaultScreenDevice();
