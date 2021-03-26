@@ -174,7 +174,7 @@ public class SubstanceBorder implements Border, UIResource {
 				g2d.dispose();
 				smallImageCache.put(hashKey, result);
 			}
-			NeonCortex.drawImage(graphics, result, x, y);
+			NeonCortex.drawImageWithScale(graphics, scale, result, x, y);
 		} else {
 			// for borders larger than 100000 pixels, use simple
 			// painting

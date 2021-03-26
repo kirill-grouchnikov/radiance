@@ -49,7 +49,6 @@ import java.awt.event.ContainerEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.EnumSet;
 
@@ -200,7 +199,7 @@ public class ScrollPaneSelector extends JComponent {
         if (theImage == null || theRectangle == null)
             return new Dimension();
         Insets insets = getInsets();
-        double scaleFactor = NeonCortex.getScaleFactor();
+        double scaleFactor = SubstanceCoreUtilities.getScaleFactor(theScrollPane);
         return new Dimension((int) (theImage.getWidth() / scaleFactor) + insets.left + insets.right,
                 (int) (theImage.getHeight() / scaleFactor) + insets.top + insets.bottom);
     }
@@ -216,7 +215,8 @@ public class ScrollPaneSelector extends JComponent {
         int yOffset = insets.top;
         int availableWidth = getWidth() - insets.left - insets.right;
         int availableHeight = getHeight() - insets.top - insets.bottom;
-        NeonCortex.drawImage(g2d, theImage, xOffset, yOffset);
+        NeonCortex.drawImageWithScale(g2d, SubstanceCoreUtilities.getScaleFactor(theScrollPane),
+                theImage, xOffset, yOffset);
 
         Color tmpColor = g2d.getColor();
         Area area = new Area(new Rectangle(xOffset, yOffset, availableWidth, availableHeight));

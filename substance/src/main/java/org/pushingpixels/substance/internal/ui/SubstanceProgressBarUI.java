@@ -344,6 +344,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             return;
         }
 
+        double scale = SubstanceCoreUtilities.getScaleFactor(progressBar);
+
         ComponentState fillState = getFillState();
         ComponentState progressState = getProgressState();
 
@@ -368,12 +370,12 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             BufferedImage back = getDeterminateBackground(progressBar, barRectWidth, barRectHeight,
                     fillScheme, fillPainter, progressBar.getOrientation(),
                     this.progressBar.getComponentOrientation());
-            NeonCortex.drawImage(g2d, back, margin, margin);
+            NeonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
         } else {
             BufferedImage back = getDeterminateBackground(progressBar, barRectHeight, barRectWidth,
                     fillScheme, fillPainter, progressBar.getOrientation(),
                     this.progressBar.getComponentOrientation());
-            NeonCortex.drawImage(g2d, back, margin, margin);
+            NeonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
         }
 
         if (amountFull > 0) {
@@ -390,12 +392,12 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
                     if (progressBar.getComponentOrientation().isLeftToRight()) {
-                        NeonCortex.drawImage(g2d, progress, margin, margin);
+                        NeonCortex.drawImageWithScale(g2d, scale, progress, margin, margin);
                     } else {
                         // fix for RTL determinate horizontal progress
                         // bar in 2.3
-                        NeonCortex.drawImage(g2d, progress, margin + barRectWidth - amountFull,
-                                margin);
+                        NeonCortex.drawImageWithScale(g2d, scale, progress,
+                                margin + barRectWidth - amountFull, margin);
                     }
                 }
             } else { // VERTICAL
@@ -408,7 +410,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                             progressWidth, isFull, progressColorScheme, progressFillPainter,
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
-                    NeonCortex.drawImage(g2d, progress, margin,
+                    NeonCortex.drawImageWithScale(g2d, scale, progress, margin,
                             margin + barRectHeight - progressHeight);
                 }
             }

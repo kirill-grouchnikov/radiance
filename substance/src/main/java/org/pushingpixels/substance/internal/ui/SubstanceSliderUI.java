@@ -300,7 +300,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
             cacheGraphics.dispose();
         }
 
-        NeonCortex.drawImage(graphics, trackImage, 0, 0);
+        NeonCortex.drawImageWithScale(g2d, scale, trackImage, 0, 0);
 
         g2d.dispose();
     }

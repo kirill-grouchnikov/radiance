@@ -92,7 +92,7 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 				this.internalPaint((Graphics2D) result.getGraphics(), comp, width, height, scheme);
 				smallImageCache.put(key, result);
 			}
-			NeonCortex.drawImage(graphics, result, 0, 0);
+			NeonCortex.drawImageWithScale(graphics, scale, result, 0, 0);
 			return;
 		}
 

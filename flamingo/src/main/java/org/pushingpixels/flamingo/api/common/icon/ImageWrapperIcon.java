@@ -157,7 +157,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
             double scale = NeonCortex.getScaleFactor();
             int dx = (this.width - (int) (image.getWidth() / scale)) / 2;
             int dy = (this.height - (int) (image.getHeight() / scale)) / 2;
-            NeonCortex.drawImage(g, image, x + dx, y + dy);
+            NeonCortex.drawImageWithScale(g, scale, image, x + dx, y + dy);
         }
     }
 

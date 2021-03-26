@@ -30,6 +30,7 @@
 package org.pushingpixels.substance.extras.api.tabbed;
 
 import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,9 +65,10 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 		int compHeight = tabComponent.getHeight();
 
 		if ((compWidth > 0) && (compHeight > 0)) {
+			double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
 			// draw tab component
-			BufferedImage tempCanvas = new BufferedImage(compWidth, compHeight,
-					BufferedImage.TYPE_INT_ARGB);
+			BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(scale,
+					compWidth, compHeight);
 			Graphics tempCanvasGraphics = tempCanvas.getGraphics();
 			tabComponent.paint(tempCanvasGraphics);
 
@@ -86,7 +88,7 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 				int dy = (h - sdHeight) / 2;
 
 				BufferedImage thumbnail = NeonCortex.createThumbnail(tempCanvas, sdWidth);
-				NeonCortex.drawImage(g2, thumbnail, dx, dy);
+				NeonCortex.drawImageWithScale(g2, scale, thumbnail, dx, dy);
 			} else {
 				// System.out.println("Putting " + frame.hashCode() + "
 				// -> " + snapshot.hashCode());

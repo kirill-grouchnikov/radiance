@@ -1023,7 +1023,7 @@ public final class SubstanceImageCreator {
                 for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
                     int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
 
-                    NeonCortex.drawImage(graphics, stripeImage, stripePos, 0);
+                    NeonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, stripePos, 0);
                 }
             }
         } else {
@@ -1043,7 +1043,7 @@ public final class SubstanceImageCreator {
                 for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
                     int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
 
-                    NeonCortex.drawImage(graphics, stripeImage, 0, stripePos);
+                    NeonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, 0, stripePos);
                 }
             }
         }
@@ -1465,8 +1465,8 @@ public final class SubstanceImageCreator {
             Color crayonColor = new Color(0xff000000 | SubstanceImageCreator.crayonColors[i]);
             BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(
                     scale, crayonColor, 22, 120);
-            NeonCortex.drawImage(graphics, crayonImage, SubstanceImageCreator.crayonX(i),
-                    SubstanceImageCreator.crayonY(i));
+            NeonCortex.drawImageWithScale(graphics, scale, crayonImage,
+                    SubstanceImageCreator.crayonX(i), SubstanceImageCreator.crayonY(i));
         }
 
         graphics.dispose();

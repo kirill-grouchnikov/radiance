@@ -273,7 +273,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
 
         g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraActionAlpha, g));
-        NeonCortex.drawImage(g2d, ribbonBackground, 0, 0);
+        NeonCortex.drawImageWithScale(g2d, SubstanceCoreUtilities.getScaleFactor(button),
+                ribbonBackground, 0, 0);
 
         g2d.dispose();
     }

@@ -178,7 +178,8 @@ public class PairwiseButtonBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            NeonCortex.drawImage(graphics, fullOpacity, 0, 0);
+            NeonCortex.drawImageWithScale(graphics, SubstanceCoreUtilities.getScaleFactor(button),
+                    fullOpacity, 0, 0);
             graphics.dispose();
         }
     }

@@ -372,7 +372,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImage(g2d, fullAlphaBackground, 0, 0);
+            NeonCortex.drawImageWithScale(g2d, SubstanceCoreUtilities.getScaleFactor(commandButton),
+                    fullAlphaBackground, 0, 0);
             g2d.dispose();
         }
     }
