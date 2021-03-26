@@ -164,7 +164,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @return Image for vertical thumb.
      */
     private BufferedImage getThumbVertical(Rectangle thumbBounds) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.scrollbar);
+        double scale = NeonCortex.getScaleFactor(this.scrollbar);
 
         int width = Math.max(1, thumbBounds.width);
         int delta = Math.max(0, (int) (0.4 * width));
@@ -242,7 +242,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private static BufferedImage getThumbVertical(JScrollBar scrollBar, int width, int height,
             SubstanceColorScheme scheme, SubstanceColorScheme borderScheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(scrollBar);
+        double scale = NeonCortex.getScaleFactor(scrollBar);
 
         SubstanceFillPainter painter = SubstanceCoreUtilities.getFillPainter(scrollBar);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(scrollBar);
@@ -257,7 +257,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
             // System.out.println("New image for vertical thumb");
             float radius = width / 2;
 
-            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(scrollBar) / 2.0f;
             Shape contour = SubstanceOutlineUtilities.getBaseOutline(height, width, radius,
                     null, borderDelta);
 
@@ -283,7 +283,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @return Image for horizontal thumb.
      */
     private BufferedImage getThumbHorizontal(Rectangle thumbBounds) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.scrollbar);
+        double scale = NeonCortex.getScaleFactor(this.scrollbar);
 
         int width = Math.max(1, thumbBounds.width);
         int height = Math.max(1, thumbBounds.height);
@@ -361,7 +361,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private static BufferedImage getThumbHorizontal(JScrollBar scrollBar, int width, int height,
             SubstanceColorScheme scheme, SubstanceColorScheme borderScheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(scrollBar);
+        double scale = NeonCortex.getScaleFactor(scrollBar);
 
         SubstanceFillPainter painter = SubstanceCoreUtilities.getFillPainter(scrollBar);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(scrollBar);
@@ -372,7 +372,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
                 borderPainter.getDisplayName());
 
         float radius = height / 2;
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(scrollBar) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
                 borderDelta);
         BufferedImage opaque = SubstanceScrollBarUI.thumbHorizontalMap.get(key);
@@ -438,7 +438,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
         if (isVertical) {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,

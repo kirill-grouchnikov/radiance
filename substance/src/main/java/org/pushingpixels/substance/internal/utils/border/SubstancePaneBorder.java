@@ -77,7 +77,7 @@ public class SubstancePaneBorder extends AbstractBorder implements UIResource {
 
         Graphics2D graphics = (Graphics2D) g.create();
 
-        double scaleFactor = NeonCortex.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor(c);
         float strokeWidth = (scaleFactor <= 2.0f) ? 0.5f + (float) scaleFactor / 2.0f
                 : (float) scaleFactor;
         graphics.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_SQUARE,

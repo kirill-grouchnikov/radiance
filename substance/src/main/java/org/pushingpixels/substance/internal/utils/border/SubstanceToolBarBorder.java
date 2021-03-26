@@ -58,7 +58,7 @@ public class SubstanceToolBarBorder extends AbstractBorder implements UIResource
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.translate(x, y);
-		double scaleFactor = NeonCortex.getScaleFactor();
+		double scaleFactor = NeonCortex.getScaleFactor(c);
 		graphics.scale(1.0f / scaleFactor, 1.0f / scaleFactor);
 
 		if (((JToolBar) c).isFloatable()) {

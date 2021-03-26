@@ -203,7 +203,7 @@ public class TrackListing extends JPanel implements Scrollable {
 
             // tracks
             y += detailsFontHeight / 2;
-            double borderThickness = 1.0f / NeonCortex.getScaleFactor();
+            double borderThickness = 1.0f / NeonCortex.getScaleFactor(this);
             for (Track track : tracks) {
                 g2d.setColor(new Color(44, 44, 44));
                 float topY = y - (int) detailsFontHeight + 2;

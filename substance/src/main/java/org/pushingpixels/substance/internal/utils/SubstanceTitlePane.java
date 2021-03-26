@@ -666,7 +666,7 @@ public class SubstanceTitlePane extends JComponent {
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                 (this.window != null) ? this.window : this.getRootPane());
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(this), font);
+                NeonCortex.getScaleFactor(this), font);
         int titleWidth = titleTextRect.width - 20;
         String clippedTitle = SubstanceCoreUtilities.clipString(fm, titleWidth, theTitle);
 
@@ -715,7 +715,7 @@ public class SubstanceTitlePane extends JComponent {
             Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     (this.window != null) ? this.window : this.getRootPane());
             FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                    SubstanceCoreUtilities.getScaleFactor(this), font);
+                    NeonCortex.getScaleFactor(this), font);
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary
@@ -863,7 +863,7 @@ public class SubstanceTitlePane extends JComponent {
         @Override
         public void paint(Graphics g) {
             if (appIcon != null) {
-                double scaleFactor = SubstanceCoreUtilities.getScaleFactor(this);
+                double scaleFactor = NeonCortex.getScaleFactor(this);
                 g.drawImage(appIcon, 0, 0, (int) (appIcon.getWidth(null) / scaleFactor),
                         (int) (appIcon.getHeight(null) / scaleFactor), null);
             } else {
@@ -966,7 +966,7 @@ public class SubstanceTitlePane extends JComponent {
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
                                 .getFontSet().getWindowTitleFont();
                         int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(
-                                SubstanceCoreUtilities.getScaleFactor(c), font)
+                                NeonCortex.getScaleFactor(c), font)
                                 .stringWidth(displayTitle);
                         switch (titleTextHorizontalGravity) {
                             case LEADING:
@@ -1118,7 +1118,7 @@ public class SubstanceTitlePane extends JComponent {
         } else {
             int prefSize = getControlButtonSize();
             this.appIcon = SubstanceCoreUtilities.getScaledIconImage(
-                    SubstanceCoreUtilities.getScaleFactor(this),
+                    NeonCortex.getScaleFactor(this),
                     iconImages, prefSize, prefSize);
         }
     }
@@ -1170,7 +1170,7 @@ public class SubstanceTitlePane extends JComponent {
 
     private int getPaneHeight() {
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(this), this.getFont());
+                NeonCortex.getScaleFactor(this), this.getFont());
         int fontHeight = fm.getHeight();
         fontHeight += 7;
         int iconHeight = 0;

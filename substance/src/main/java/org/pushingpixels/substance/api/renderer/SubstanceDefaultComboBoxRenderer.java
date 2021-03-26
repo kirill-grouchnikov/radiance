@@ -70,8 +70,8 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
         super();
         this.combo = combo;
 
-        Insets ins = SubstanceSizeUtils.getListCellRendererInsets(SubstanceSizeUtils
-                .getComponentFontSize(combo));
+        Insets ins = SubstanceSizeUtils.getListCellRendererInsets(combo,
+                SubstanceSizeUtils.getComponentFontSize(combo));
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
     }
 

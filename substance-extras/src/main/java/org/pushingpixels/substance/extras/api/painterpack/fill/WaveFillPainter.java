@@ -38,6 +38,7 @@ import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -57,7 +58,7 @@ public class WaveFillPainter implements SubstanceFillPainter {
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
             Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        double scale = NeonCortex.getScaleFactor(comp);
         int iWidth = (int) Math.ceil(width);
         int iHeight = (int) Math.ceil(height);
         // create rectangular background and later draw it on

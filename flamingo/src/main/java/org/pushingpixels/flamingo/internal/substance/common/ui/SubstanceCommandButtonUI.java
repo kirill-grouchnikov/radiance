@@ -372,7 +372,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImageWithScale(g2d, SubstanceCoreUtilities.getScaleFactor(commandButton),
+            NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(commandButton),
                     fullAlphaBackground, 0, 0);
             g2d.dispose();
         }
@@ -413,7 +413,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                 this.commandButton.getProjection().getPresentationModel().isMenu();
         if (isSelectedMenu) {
             Graphics2D g2d = (Graphics2D) g.create();
-            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth();
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(this.commandButton);
             Rectangle2D.Float extended = new Rectangle2D.Float(iconRect.x - borderDelta / 2.0f,
                     iconRect.y - borderDelta / 2.0f, iconRect.width + borderDelta,
                     iconRect.height + borderDelta);
@@ -534,7 +534,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected ResizableIcon createPopupActionIcon() {
-        final double scale = SubstanceCoreUtilities.getScaleFactor(this.commandButton);
+        final double scale = NeonCortex.getScaleFactor(this.commandButton);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(this.commandButton);
         int arrowIconHeight = (int) SubstanceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getArrowIconWidth(fontSize);
@@ -637,8 +637,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             }
         }
 
-        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
-                .getComponentFontSize(this.commandButton));
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(this.commandButton,
+                SubstanceSizeUtils.getComponentFontSize(this.commandButton));
         Rectangle innerFocusArea = this.isInnerFocusOnAction ? layoutInfo.actionClickArea
                 : layoutInfo.popupClickArea;
         Shape insetFocusArea = new Rectangle2D.Float(

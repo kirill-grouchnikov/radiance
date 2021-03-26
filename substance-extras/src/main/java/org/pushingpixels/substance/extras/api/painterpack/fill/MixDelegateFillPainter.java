@@ -80,7 +80,7 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 			MixColorScheme mixColorScheme = (MixColorScheme) fillScheme;
 			SubstanceColorScheme[] origSchemes = mixColorScheme.getOrigSchemes();
 
-			double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+			double scale = NeonCortex.getScaleFactor(comp);
 	        int iWidth = (int) Math.ceil(width);
 	        int iHeight = (int) Math.ceil(height);
 			BufferedImage[] components = new BufferedImage[origSchemes.length];

@@ -345,9 +345,8 @@ public class SubstanceButtonUI extends BasicButtonUI implements
 
         if (b.isFocusPainted()) {
             SubstanceCoreUtilities.paintFocus(g2d, b, b, this, null, textRect,
-                    1.0f, SubstanceSizeUtils
-                            .getFocusRingPadding(SubstanceSizeUtils
-                                    .getComponentFontSize(b)));
+                    1.0f, SubstanceSizeUtils.getFocusRingPadding(
+                            b, SubstanceSizeUtils.getComponentFontSize(b)));
         }
         g2d.dispose();
 

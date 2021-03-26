@@ -31,8 +31,8 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -54,7 +54,7 @@ public class CommandButtonLayoutManagerCustom extends CommandButtonLayoutManager
 		Insets borderInsets = commandButton.getInsets();
 		int bx = borderInsets.left + borderInsets.right;
 		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-				SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
+				NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
 		JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
 		int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
 		int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);

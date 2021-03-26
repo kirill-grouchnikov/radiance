@@ -172,8 +172,8 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		// instead of computing the cell renderer insets on
 		// every cell rendering, compute it once and expose to the
 		// SubstanceDefaultTreeCellRenderer
-		this.cellRendererInsets = SubstanceSizeUtils
-				.getTreeCellRendererInsets(SubstanceSizeUtils.getComponentFontSize(tree));
+		this.cellRendererInsets = SubstanceSizeUtils.getTreeCellRendererInsets(
+				tree, SubstanceSizeUtils.getComponentFontSize(tree));
 
 		for (SubstanceWidget lafWidget : this.lafWidgets) {
 			lafWidget.installDefaults();

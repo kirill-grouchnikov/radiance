@@ -94,7 +94,7 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
             }
         }
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(c,
                 ComponentState.DISABLED_UNSELECTED);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(

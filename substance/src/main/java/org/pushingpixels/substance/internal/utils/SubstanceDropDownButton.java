@@ -96,7 +96,7 @@ public final class SubstanceDropDownButton extends JButton {
 
         int width = getWidth();
         int height = getHeight();
-        int clipDelta = (int) SubstanceSizeUtils.getBorderStrokeWidth();
+        int clipDelta = (int) SubstanceSizeUtils.getBorderStrokeWidth(this);
 
         if (this.getComponentOrientation().isLeftToRight()) {
             g2d.clipRect(clipDelta, 0, width - clipDelta, height);

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -91,7 +92,7 @@ public class SubstanceIconFactory {
      */
     public static Icon getSliderHorizontalIcon(JSlider slider, int size, boolean isMirrored) {
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
-                SubstanceCoreUtilities.getScaleFactor(slider), size, isMirrored);
+                NeonCortex.getScaleFactor(slider), size, isMirrored);
         if (SubstanceIconFactory.sliderHorizontalIcons.get(key) == null) {
             Icon icon = new SliderHorizontalIcon(size, isMirrored);
             SubstanceIconFactory.sliderHorizontalIcons.put(key, icon);
@@ -108,7 +109,7 @@ public class SubstanceIconFactory {
      */
     public static Icon getSliderRoundIcon(JSlider slider, int size) {
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
-                SubstanceCoreUtilities.getScaleFactor(slider), size);
+                NeonCortex.getScaleFactor(slider), size);
         if (SubstanceIconFactory.sliderRoundIcons.get(key) == null) {
             Icon icon = new SliderRoundIcon(size);
             SubstanceIconFactory.sliderRoundIcons.put(key, icon);
@@ -127,7 +128,7 @@ public class SubstanceIconFactory {
      */
     public static Icon getSliderVerticalIcon(JSlider slider, int size, boolean isMirrorred) {
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
-                SubstanceCoreUtilities.getScaleFactor(slider), size, isMirrorred);
+                NeonCortex.getScaleFactor(slider), size, isMirrorred);
         if (SubstanceIconFactory.sliderVerticalIcons.get(key) == null) {
             Icon icon = new SliderVerticalIcon(size, isMirrorred);
             SubstanceIconFactory.sliderVerticalIcons.put(key, icon);
@@ -136,7 +137,7 @@ public class SubstanceIconFactory {
     }
 
     public static ResizableIcon getTreeIcon(JTree tree, boolean isCollapsed) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(tree);
+        double scale = NeonCortex.getScaleFactor(tree);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int size = SubstanceSizeUtils.getTreeIconSize(fontSize);
 
@@ -185,7 +186,7 @@ public class SubstanceIconFactory {
 
         private ScaleAwareImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
+            double scale = NeonCortex.getScaleFactor(slider);
             StateTransitionTracker.ModelStateInfo modelStateInfo =
                     stateTransitionTracker.getModelStateInfo();
             Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -265,8 +266,8 @@ public class SubstanceIconFactory {
         private ScaleAwareImageWrapperIcon getSingleLayer(JSlider slider, float width,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
-            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            double scale = NeonCortex.getScaleFactor(slider);
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(slider) / 2.0f;
             Shape contour = SubstanceOutlineUtilities.getTriangleButtonOutline(width, this.size - 1,
                     2, borderDelta);
 
@@ -278,7 +279,7 @@ public class SubstanceIconFactory {
             fillPainter.paintContourBackground(g2d, slider, width, this.size, contour, false,
                     fillScheme, true);
 
-            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(slider);
             GeneralPath contourInner = SubstanceOutlineUtilities.getTriangleButtonOutline(width,
                     this.size - 1, 2, borderThickness + borderDelta);
 
@@ -357,7 +358,7 @@ public class SubstanceIconFactory {
          */
         private ScaleAwareImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
+            double scale = NeonCortex.getScaleFactor(slider);
             StateTransitionTracker.ModelStateInfo modelStateInfo =
                     stateTransitionTracker.getModelStateInfo();
             Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -437,8 +438,8 @@ public class SubstanceIconFactory {
         private ScaleAwareImageWrapperIcon getSingleLayer(JSlider slider, float width,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
-            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            double scale = NeonCortex.getScaleFactor(slider);
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(slider) / 2.0f;
             Shape contour = new Ellipse2D.Float(borderDelta, borderDelta,
                     width - 2 * borderDelta - 1, width - 2 * borderDelta - 1);
 
@@ -452,7 +453,7 @@ public class SubstanceIconFactory {
             fillPainter.paintContourBackground(g2d, slider, width, this.size, contour, false,
                     fillScheme, true);
 
-            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(slider);
             Shape contourInner = new Ellipse2D.Float(borderDelta + borderThickness,
                     borderDelta + borderThickness,
                     width - 2 * borderDelta - 2 * borderThickness - 1,
@@ -536,7 +537,7 @@ public class SubstanceIconFactory {
          */
         private ScaleAwareImageWrapperIcon getIcon(JSlider slider,
                 StateTransitionTracker stateTransitionTracker) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
+            double scale = NeonCortex.getScaleFactor(slider);
             StateTransitionTracker.ModelStateInfo modelStateInfo =
                     stateTransitionTracker.getModelStateInfo();
             Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -620,8 +621,8 @@ public class SubstanceIconFactory {
         private ScaleAwareImageWrapperIcon getSingleLayer(JSlider slider, int height, int delta,
                 SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter,
                 SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(slider);
-            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            double scale = NeonCortex.getScaleFactor(slider);
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(slider) / 2.0f;
             Shape contour = SubstanceOutlineUtilities.getTriangleButtonOutline(height,
                     this.size - 1, 2, borderDelta);
 
@@ -633,7 +634,7 @@ public class SubstanceIconFactory {
             fillPainter.paintContourBackground(g2d, slider, height, this.size, contour, false,
                     fillScheme, true);
 
-            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(slider);
             GeneralPath contourInner = SubstanceOutlineUtilities.getTriangleButtonOutline(height,
                     this.size - 1, 2, borderThickness + borderDelta);
 
@@ -719,7 +720,7 @@ public class SubstanceIconFactory {
          * Retrieves icon that matches the specified state of the tree.
          */
         private static ScaleAwareImageWrapperIcon getIcon(JTree tree, boolean isCollapsed) {
-            double scale = SubstanceCoreUtilities.getScaleFactor(tree);
+            double scale = NeonCortex.getScaleFactor(tree);
             ComponentState state = ((tree == null) || tree.isEnabled()) ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
             SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(tree,
@@ -839,7 +840,7 @@ public class SubstanceIconFactory {
         LazyResettableHashMap<ScaleAwareImageWrapperIcon> kindMap =
                 SubstanceIconFactory.titlePaneIcons.get(iconKind);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
-                SubstanceCoreUtilities.getScaleFactor(titlePane), scheme.getDisplayName());
+                NeonCortex.getScaleFactor(titlePane), scheme.getDisplayName());
         ScaleAwareImageWrapperIcon result = kindMap.get(key);
         if (result != null)
             return result;

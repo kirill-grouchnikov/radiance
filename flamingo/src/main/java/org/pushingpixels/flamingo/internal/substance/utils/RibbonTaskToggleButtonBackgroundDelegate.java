@@ -51,7 +51,6 @@ import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.util.EnumSet;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
      */
     private static synchronized BufferedImage getTaskToggleButtonBackground(
             JRibbonTaskToggleButton button, int width, int height) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
         JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -202,7 +201,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             int height, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme,
             SubstanceBorderPainter borderPainter) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
         Set<Side> bottom = EnumSet.of(Side.BOTTOM);
 
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
@@ -212,8 +211,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
 
         float radius = getTaskToggleButtonCornerRadius(button);
-        float borderDelta = 2.0f * SubstanceSizeUtils.getBorderStrokeWidth();
-        float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = 2.0f * SubstanceSizeUtils.getBorderStrokeWidth(button);
+        float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth(button) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width,
                 height + 2 + borderDelta, radius, bottom, borderInsets);
 
@@ -231,7 +230,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             graphics.fill(contour);
         }
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(button);
         Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(width,
                 height + 2 + borderDelta, radius, bottom, borderThickness + borderInsets);
 
@@ -273,7 +272,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
 
         g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraActionAlpha, g));
-        NeonCortex.drawImageWithScale(g2d, SubstanceCoreUtilities.getScaleFactor(button),
+        NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(button),
                 ribbonBackground, 0, 0);
 
         g2d.dispose();

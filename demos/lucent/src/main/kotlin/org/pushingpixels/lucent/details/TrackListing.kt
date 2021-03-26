@@ -200,7 +200,7 @@ class TrackListing : JPanel(), Scrollable {
 
                 // tracks
                 y += (detailsFontHeight / 2).toInt()
-                val borderThickness = 1.0f / NeonCortex.getScaleFactor()
+                val borderThickness = 1.0f / NeonCortex.getScaleFactor(this)
                 for (track in tracks!!) {
                     it.color = Color(44, 44, 44)
                     val topY = (y - detailsFontHeight.toInt() + 2).toFloat()

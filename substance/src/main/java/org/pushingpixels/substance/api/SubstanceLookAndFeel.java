@@ -276,6 +276,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
             result = intermediate;
         }
 
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, NeonCortex.getScaleFactor(component));
     }
 }

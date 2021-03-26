@@ -149,59 +149,24 @@ public class NeonCortex {
      * @return Thumbnail of the specified width.
      * @author Romain Guy
      */
-    public static BufferedImage createThumbnail(BufferedImage image, int requestedThumbWidth) {
-        float ratio = (float) image.getWidth() / (float) image.getHeight();
-        int width = image.getWidth();
-        BufferedImage thumb = image;
-
-        double scaleFactor = getScaleFactor();
-        do {
-            width /= 2;
-            if (width < requestedThumbWidth) {
-                width = requestedThumbWidth;
-            }
-
-            BufferedImage temp = NeonCortex.getBlankImage(width, (int) (width / ratio));
-            Graphics2D g2 = temp.createGraphics();
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scaleFactor),
-                    (int) (temp.getHeight() / scaleFactor), null);
-            g2.dispose();
-
-            thumb = temp;
-        } while (width != requestedThumbWidth);
-
-        return thumb;
-    }
-
-    /**
-     * Creates a thumbnail of the specified width.
-     *
-     * @param image               The original image.
-     * @param requestedThumbWidth The width of the resulting thumbnail.
-     * @return Thumbnail of the specified width.
-     * @author Romain Guy
-     */
     public static BufferedImage createThumbnail(double scale, BufferedImage image,
             int requestedThumbWidth) {
         float ratio = (float) image.getWidth() / (float) image.getHeight();
         int width = image.getWidth();
         BufferedImage thumb = image;
 
-        double scaleFactor = getScaleFactor();
         do {
             width /= 2;
             if (width < requestedThumbWidth) {
                 width = requestedThumbWidth;
             }
 
-            BufferedImage temp = NeonCortex.getBlankImage(scale, width, (int) (width / ratio));
+            BufferedImage temp = NeonCortex.getBlankScaledImage(scale, width, (int) (width / ratio));
             Graphics2D g2 = temp.createGraphics();
             g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scaleFactor),
-                    (int) (temp.getHeight() / scaleFactor), null);
+            g2.drawImage(thumb, 0, 0, (int) (temp.getWidth() / scale),
+                    (int) (temp.getHeight() / scale), null);
             g2.dispose();
 
             thumb = temp;
@@ -276,25 +241,35 @@ public class NeonCortex {
         return UIUtil.getScaleFactor();
     }
 
+    public static double getScaleFactor(Component component) {
+        if ((component == null) || (component.getGraphicsConfiguration() == null)) {
+            // TODO - revisit this
+            return UIUtil.getScaleFactor();
+        }
+        AffineTransform transform = component.getGraphicsConfiguration().getDevice()
+                .getDefaultConfiguration().getDefaultTransform();
+        return Math.max(transform.getScaleX(), transform.getScaleY());
+    }
+
     /**
      * Gets a scaled, high-DPI aware image of specified dimensions.
      * <p>
-     * Use {@link #drawImage(Graphics, Image, int, int)} or
-     * {@link #drawImage(Graphics, Image, int, int, int, int, int, int)} to draw the image
-     * obtained with this method. Note that applying an extension of
+     * Use {@link #drawImageWithScale(Graphics, double, Image, int, int)} or
+     * {@link #drawImageWithScale(Graphics, double, Image, int, int, int, int, int, int)}
+     * to draw the image obtained with this method. Note that applying an extension of
      * {@link NeonAbstractFilter} is a "safe" operation
      * as far as preserving the scale-aware configuration. If you are using a custom
      * {@link java.awt.image.BufferedImageOp} that is not a
      * {@link NeonAbstractFilter}, the resulting image will be
      * a regular {@link BufferedImage} that will not be drawn correctly using one of the
-     * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor()}
+     * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor(Component)}
      * to divide the image width and height for the purposes of drawing.
      *
      * @param width  Width of the target image
      * @param height Width of the target image
      * @return A scaled, high-DPI aware image of specified dimensions.
      */
-    public static BufferedImage getBlankImage(double scale, int width, int height) {
+    public static BufferedImage getBlankScaledImage(double scale, int width, int height) {
         if (scale > 1.0) {
             return JBHiDPIScaledImage.create(scale, width, height, BufferedImage.TYPE_INT_ARGB);
         } else {
@@ -303,28 +278,6 @@ public class NeonCortex {
             GraphicsConfiguration c = d.getDefaultConfiguration();
             return c.createCompatibleImage(width, height, Transparency.TRANSLUCENT);
         }
-    }
-
-    /**
-     * Gets a scaled, high-DPI aware image of specified dimensions.
-     * <p>
-     * Use {@link #drawImage(Graphics, Image, int, int)} or
-     * {@link #drawImage(Graphics, Image, int, int, int, int, int, int)} to draw the image
-     * obtained with this method. Note that applying an extension of
-     * {@link NeonAbstractFilter} is a "safe" operation
-     * as far as preserving the scale-aware configuration. If you are using a custom
-     * {@link java.awt.image.BufferedImageOp} that is not a
-     * {@link NeonAbstractFilter}, the resulting image will be
-     * a regular {@link BufferedImage} that will not be drawn correctly using one of the
-     * <code>drawImage</code> methods above. In such a case, use {@link #getScaleFactor()}
-     * to divide the image width and height for the purposes of drawing.
-     *
-     * @param width  Width of the target image
-     * @param height Width of the target image
-     * @return A scaled, high-DPI aware image of specified dimensions.
-     */
-    public static BufferedImage getBlankImage(int width, int height) {
-        return getBlankImage(UIUtil.getScaleFactor(), width, height);
     }
 
     /**
@@ -345,18 +298,6 @@ public class NeonCortex {
         }
     }
 
-    public static void drawImage(Graphics g, Image img, int x, int y) {
-        if (img instanceof JBHiDPIScaledImage) {
-            double scaleFactor = (g instanceof Graphics2D) ?
-                    UIUtil.getScaleFactor(((Graphics2D) g)) :
-                    UIUtil.getScaleFactor();
-            g.drawImage(img, x, y, (int) (img.getWidth(null) / scaleFactor),
-                    (int) (img.getHeight(null) / scaleFactor), null);
-        } else {
-            g.drawImage(img, x, y, img.getWidth(null), img.getHeight(null), null);
-        }
-    }
-
     public static void drawImageWithScale(Graphics g, double scaleFactor, Image img, int x, int y) {
         if (img instanceof JBHiDPIScaledImage) {
             g.drawImage(img, x, y, (int) (img.getWidth(null) / scaleFactor),
@@ -366,10 +307,9 @@ public class NeonCortex {
         }
     }
 
-    public static void drawImage(Graphics g, Image img, int x, int y,
+    public static void drawImageWithScale(Graphics g, double scaleFactor, Image img, int x, int y,
             int width, int height, int offsetX, int offsetY) {
         if (img instanceof JBHiDPIScaledImage) {
-            double scaleFactor = UIUtil.getScaleFactor();
             g.drawImage(img, x, y, x + width, y + height,
                     x + (int) (offsetX * scaleFactor), y + (int) (offsetY * scaleFactor),
                     x + (int) ((offsetX + width) * scaleFactor),
@@ -398,8 +338,9 @@ public class NeonCortex {
             public void setDimension(Dimension newDimension) {
                 ResizableIcon original = sourceFactory.createNewIcon();
                 original.setDimension(newDimension);
-                BufferedImage flat = NeonCortex.getBlankImage(newDimension.width,
-                        newDimension.height);
+                BufferedImage flat = NeonCortex.getBlankScaledImage(
+                        NeonCortex.getScaleFactor(null),
+                        newDimension.width, newDimension.height);
                 original.paintIcon(null, flat.getGraphics(), 0, 0);
                 this.colorized = new ColorFilter(color).filter(flat, null);
 
@@ -411,16 +352,7 @@ public class NeonCortex {
             public void paintIcon(Component c, Graphics g, int x, int y) {
                 Graphics2D g2d = (Graphics2D) g.create();
                 g2d.translate(x, y);
-                double scaleFactor;
-                if ((c == null) || (c.getGraphicsConfiguration() == null)) {
-                    // TODO - revisit this
-                    scaleFactor = UIUtil.getScaleFactor();
-                } else {
-                    AffineTransform transform = c.getGraphicsConfiguration().getDevice().
-                            getDefaultConfiguration().getDefaultTransform();
-                    scaleFactor = Math.max(transform.getScaleX(), transform.getScaleY());
-                }
-
+                double scaleFactor = NeonCortex.getScaleFactor(c);
                 NeonCortex.drawImageWithScale(g2d, scaleFactor, this.colorized, 0, 0);
                 g2d.dispose();
             }

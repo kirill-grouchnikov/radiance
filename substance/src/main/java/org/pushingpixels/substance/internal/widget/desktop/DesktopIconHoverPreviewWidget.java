@@ -32,7 +32,7 @@ package org.pushingpixels.substance.internal.widget.desktop;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
-import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
+import org.pushingpixels.substance.internal.utils.ScaleAwareImageWrapperIcon;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
@@ -96,9 +96,11 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
             }
             BufferedImage previewImage = snapshot;
             if (previewImage != null) {
-                double scaleFactor = NeonCortex.getScaleFactor();
+                double scaleFactor = NeonCortex.getScaleFactor(
+                        DesktopIconHoverPreviewWidget.this.previewWindow);
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().removeAll();
-                JLabel previewLabel = new JLabel(new ImageWrapperIcon(previewImage));
+                JLabel previewLabel = new JLabel(new ScaleAwareImageWrapperIcon(
+                        previewImage, scaleFactor));
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().add(previewLabel,
                         BorderLayout.CENTER);
                 DesktopIconHoverPreviewWidget.this.previewWindow.setSize(
@@ -246,7 +248,8 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
                     (double) maxHeight / (double) frameHeight);
             if (coef < 1.0) {
                 int sdWidth = (int) (coef * frameWidth);
-                BufferedImage scaledDown = NeonCortex.createThumbnail(tempCanvas, sdWidth);
+                BufferedImage scaledDown = NeonCortex.createThumbnail(
+                        NeonCortex.getScaleFactor(frame), tempCanvas, sdWidth);
                 snapshot = scaledDown;
             } else {
                 snapshot = tempCanvas;

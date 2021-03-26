@@ -225,7 +225,7 @@ public class TestColorSelector extends JFrame {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setColor(color);
             g2d.fillRect(x, y, w, h);
-            float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor();
+            float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor(c);
             g2d.setColor(color.darker());
             g2d.setStroke(new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_ROUND));

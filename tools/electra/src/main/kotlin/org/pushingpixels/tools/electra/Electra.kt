@@ -68,7 +68,7 @@ fun main() {
                 g.render {
                     val borderColorScheme = SubstanceCortex.ComponentScope.getCurrentSkin(c).getColorScheme(c,
                             ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED)
-                    val strokeWidth = 1.0f / NeonCortex.getScaleFactor().toFloat()
+                    val strokeWidth = 1.0f / NeonCortex.getScaleFactor(c).toFloat()
                     it.stroke = BasicStroke(strokeWidth, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND)
 
                     it.color = borderColorScheme.midColor

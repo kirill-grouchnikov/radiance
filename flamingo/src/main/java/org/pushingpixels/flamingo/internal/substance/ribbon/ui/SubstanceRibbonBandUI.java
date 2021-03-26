@@ -185,7 +185,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     private ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
             final JCommandButton button) {
-        final double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        final double scale = NeonCortex.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);

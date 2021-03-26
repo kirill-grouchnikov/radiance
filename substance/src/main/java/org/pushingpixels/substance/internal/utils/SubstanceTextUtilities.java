@@ -79,7 +79,7 @@ public class SubstanceTextUtilities {
 
         // blur the text shadow
         BufferedImage blurred = SubstanceCoreUtilities.getBlankImage(
-                SubstanceCoreUtilities.getScaleFactor(c), width, height);
+                NeonCortex.getScaleFactor(c), width, height);
         Graphics2D gBlurred = (Graphics2D) blurred.getGraphics();
         gBlurred.setFont(graphics.getFont());
         gBlurred.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -94,7 +94,7 @@ public class SubstanceTextUtilities {
         blurred = convolve.filter(blurred, null);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, luminFactor, g));
-        double scaleFactor = NeonCortex.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor(c);
         graphics.drawImage(blurred, 0, 0, (int) (blurred.getWidth() / scaleFactor),
                 (int) (blurred.getHeight() / scaleFactor), null);
         graphics.setComposite(WidgetUtilities.getAlphaComposite(c, g));
@@ -489,7 +489,7 @@ public class SubstanceTextUtilities {
 
         // Match the logic / shape in SubstanceImageCreator.paintSimpleBorder that draws the
         // border
-        float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(comp);
         g2d.fill(new Rectangle2D.Float(borderStrokeWidth / 2.0f, borderStrokeWidth / 2.0f,
                 comp.getWidth() - borderStrokeWidth, comp.getHeight() - borderStrokeWidth));
 
@@ -556,7 +556,7 @@ public class SubstanceTextUtilities {
             g2d.setPaint(new GradientPaint(0, 0,
                     SubstanceColorUtilities.getAlphaColor(borderColor, 48), 0, shadowHeight,
                     SubstanceColorUtilities.getAlphaColor(borderColor, 0)));
-            float yTop = SubstanceSizeUtils.getBorderStrokeWidth();
+            float yTop = SubstanceSizeUtils.getBorderStrokeWidth(comp);
             g2d.fill(new Rectangle2D.Float(borderStrokeWidth, yTop,
                     comp.getWidth() - 2 * borderStrokeWidth, shadowHeight));
         }

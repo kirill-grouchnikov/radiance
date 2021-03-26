@@ -143,7 +143,7 @@ public class SubstanceBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		double scale = SubstanceCoreUtilities.getScaleFactor(c);
+		double scale = NeonCortex.getScaleFactor(c);
 		float radius = this.radiusScaleFactor
 				* SubstanceSizeUtils
 						.getClassicButtonCornerRadius(SubstanceSizeUtils

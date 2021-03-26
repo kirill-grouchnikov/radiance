@@ -125,7 +125,7 @@ public class ColorWheel extends JPanel {
         int w = getWidth();
         int h = getHeight();
 
-        double scaleFactor = SubstanceCoreUtilities.getScaleFactor(this);
+        double scaleFactor = NeonCortex.getScaleFactor(this);
         if (colorWheelImage == null || (scaleFactor * colorWheelImage.getWidth(this)) != w
                 || (scaleFactor * colorWheelImage.getHeight(this)) != h) {
             if (colorWheelImage != null) {

@@ -88,7 +88,7 @@ public class CommandButtonBackgroundDelegate {
             ButtonModel buttonModel, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             StateTransitionTracker stateTransitionTracker, boolean ignoreSelections) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
+        double scale = NeonCortex.getScaleFactor(commandButton);
         StateTransitionTracker.ModelStateInfo modelStateInfo = (stateTransitionTracker == null)
                 ? null : stateTransitionTracker.getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -233,8 +233,8 @@ public class CommandButtonBackgroundDelegate {
             float radius, Set<SubstanceSlices.Side> straightSides,
             JCommandButton.CommandButtonLocationOrderKind locationOrderKind, int dx, int dy,
             int dw, int dh, boolean isVertical) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        double scale = NeonCortex.getScaleFactor(commandButton);
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(commandButton) / 2.0f;
 
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width + dw, height + dh, radius,
                 straightSides, borderDelta);
@@ -244,7 +244,7 @@ public class CommandButtonBackgroundDelegate {
         fillPainter.paintContourBackground(finalGraphics, commandButton, width + dw, height + dh,
                 contour, false, fillScheme, true);
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(commandButton);
         Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(width + dw, height + dh,
                 radius, straightSides, borderDelta + borderThickness);
         borderPainter.paintBorder(finalGraphics, commandButton, width + dw, height + dh, contour,
@@ -314,7 +314,7 @@ public class CommandButtonBackgroundDelegate {
     public static BufferedImage getCombinedCommandButtonBackground(
             JCommandButton commandButton, ButtonModel actionModel, Rectangle actionArea,
             PopupButtonModel popupModel, Rectangle popupArea) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
+        double scale = NeonCortex.getScaleFactor(commandButton);
         ButtonModel backgroundModel = new DefaultButtonModel();
         backgroundModel.setEnabled(actionModel.isEnabled() && popupModel.isEnabled());
 
@@ -409,7 +409,7 @@ public class CommandButtonBackgroundDelegate {
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
             JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
             ButtonModel model, StateTransitionTracker stateTransitionTracker, Color textColor) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
+        double scale = NeonCortex.getScaleFactor(commandButton);
         boolean useThemed = (SubstanceCoreUtilities.getIconThemingType(commandButton) != null);
         Icon themed = useThemed
                 ? SubstanceCoreUtilities.getThemedIcon(commandButton, regular, textColor)

@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.internal.substance.common;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -129,7 +130,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      * @return Icon to paint.
      */
     private ResizableIcon getIconToPaint() {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.comp);
+        double scale = NeonCortex.getScaleFactor(this.comp);
         StateTransitionTracker stateTransitionTracker = this.stateTransitionTrackerDelegate
                 .getStateTransitionTracker();
 

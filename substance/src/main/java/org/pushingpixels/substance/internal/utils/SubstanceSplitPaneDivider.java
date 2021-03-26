@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -94,8 +95,8 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
         @Override
         public Dimension getPreferredSize() {
-            Insets bInsets = SubstanceSizeUtils
-                    .getButtonInsets(SubstanceSizeUtils.getComponentFontSize(this));
+            Insets bInsets = SubstanceSizeUtils.getButtonInsets(this,
+                    SubstanceSizeUtils.getComponentFontSize(this));
             int iconWidth = getIcon().getIconWidth();
             int iconHeight = getIcon().getIconHeight();
             return new Dimension(iconWidth + bInsets.left + bInsets.right,
@@ -269,7 +270,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     @Override
     protected JButton createLeftOneTouchButton() {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.splitPane);
+        double scale = NeonCortex.getScaleFactor(this.splitPane);
 
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
@@ -308,7 +309,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     @Override
     protected JButton createRightOneTouchButton() {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.splitPane);
+        double scale = NeonCortex.getScaleFactor(this.splitPane);
 
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
@@ -352,7 +353,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
      * @param orientation Split pane orientation.
      */
     public void updateOneTouchButtons(int orientation) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.splitPane);
+        double scale = NeonCortex.getScaleFactor(this.splitPane);
         if (orientation == JSplitPane.VERTICAL_SPLIT) {
             if (this.leftButton != null) {
                 this.leftButton.setIcon(

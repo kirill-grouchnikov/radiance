@@ -130,7 +130,7 @@ public final class SubstanceSlices {
                 float dashPhase = (dashLength + dashGap)
                         * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
-                graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
+                graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                         new float[] {dashLength, dashGap}, dashPhase));
 
@@ -170,16 +170,17 @@ public final class SubstanceSlices {
                     float dashGap = getDashGap(fontSize);
                     float dashPhase = (dashLength + dashGap) * (1.0f
                             - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-                    graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
+                    graphics.setStroke(new BasicStroke(
+                            SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                             BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[] {dashLength, dashGap}, dashPhase));
 
                     Shape contour = shaper.getButtonOutline((AbstractButton) mainComp,
-                            2 * SubstanceSizeUtils.getBorderStrokeWidth(), mainComp.getWidth(),
-                            mainComp.getHeight(), false);
+                            2 * SubstanceSizeUtils.getBorderStrokeWidth(mainComp),
+                            mainComp.getWidth(), mainComp.getHeight(), false);
                     graphics.draw(contour);
                 } else {
-                    float delta = SubstanceSizeUtils.getBorderStrokeWidth();
+                    float delta = SubstanceSizeUtils.getBorderStrokeWidth(mainComp);
                     Shape contour = (focusShape != null) ? focusShape
                             : SubstanceOutlineUtilities.getBaseOutline(
                             mainComp.getWidth() - 2 * delta,
@@ -193,7 +194,8 @@ public final class SubstanceSlices {
                     float dashGap = getDashGap(fontSize);
                     float dashPhase = (dashLength + dashGap) * (1.0f
                             - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-                    graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
+                    graphics.setStroke(new BasicStroke(
+                            SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                             BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[] {dashLength, dashGap}, dashPhase));
                     graphics.draw(contour);
@@ -228,7 +230,8 @@ public final class SubstanceSlices {
                         float dashGap = getDashGap(fontSize);
                         float dashPhase = (dashLength + dashGap) * (1.0f
                                 - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-                        graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
+                        graphics.setStroke(new BasicStroke(
+                                SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                                 BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                                 new float[] {dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
@@ -253,7 +256,8 @@ public final class SubstanceSlices {
                     float dashPhase = (dashLength + dashGap) * (1.0f
                             - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
-                    graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
+                    graphics.setStroke(new BasicStroke(
+                            SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                             BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[] {dashLength, dashGap}, dashPhase));
                     graphics.draw(contour);
@@ -275,7 +279,8 @@ public final class SubstanceSlices {
                     TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
                     Rectangle textRect, float extraPadding) {
                 int fontSize = SubstanceSizeUtils.getComponentFontSize(mainComp);
-                graphics.setStroke(new BasicStroke(1.5f * SubstanceSizeUtils.getFocusStrokeWidth(),
+                graphics.setStroke(new BasicStroke(
+                        1.5f * SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
                 if ((focusShape == null)
                         && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
@@ -321,7 +326,8 @@ public final class SubstanceSlices {
                 float dashPhase = (dashLength + dashGap)
                         * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
 
-                graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getFocusStrokeWidth(),
+                graphics.setStroke(new BasicStroke(
+                        SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                         new float[] {dashLength, dashGap}, dashPhase));
 
@@ -347,7 +353,8 @@ public final class SubstanceSlices {
                 if (textRect == null)
                     return;
 
-                graphics.setStroke(new BasicStroke(1.5f * SubstanceSizeUtils.getFocusStrokeWidth(),
+                graphics.setStroke(new BasicStroke(
+                        1.5f * SubstanceSizeUtils.getFocusStrokeWidth(mainComp),
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
                 graphics.translate(textRect.x - 1, textRect.y);
                 graphics.drawLine(0, textRect.height - 1, textRect.width, textRect.height - 1);

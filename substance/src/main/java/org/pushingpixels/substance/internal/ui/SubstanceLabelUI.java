@@ -137,7 +137,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
                     SubstanceColorScheme scheme = skin
                             .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
                     FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                            SubstanceCoreUtilities.getScaleFactor(label), label.getFont());
+                            NeonCortex.getScaleFactor(label), label.getFont());
                     int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                             + fm.getAscent();
                     g2d.translate(paintTextR.x + 3, 0);

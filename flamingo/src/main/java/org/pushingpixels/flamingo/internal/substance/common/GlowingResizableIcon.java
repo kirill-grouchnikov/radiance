@@ -85,7 +85,7 @@ public class GlowingResizableIcon implements ResizableIcon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         if (this.delegate == null)
             return;
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         float fadePos = this.iconGlowTracker.getIconGlowPosition();
         String key = scale + ":" + fadePos + ":" + this.getIconWidth() + ":" + this.getIconHeight();
         if (!this.cachedImages.containsKey(key)) {

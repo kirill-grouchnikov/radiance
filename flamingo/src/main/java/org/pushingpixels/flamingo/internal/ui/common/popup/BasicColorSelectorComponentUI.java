@@ -397,7 +397,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         float brightness = hsb[2] * 0.7f;
         g2d.setColor(new Color(brightness, brightness, brightness));
 
-        float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor();
+        float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor(c);
         float ty = this.colorSelectorComponent.isTopOpen() ? borderThickness : 0;
         float by = this.colorSelectorComponent.isBottomOpen() ? borderThickness : 0;
         g2d.setStroke(

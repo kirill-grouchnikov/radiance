@@ -57,7 +57,7 @@ public class DefaultPreviewPainter extends PreviewPainter {
         int compHeight = component.getHeight();
 
         if ((compWidth > 0) && (compHeight > 0)) {
-            double scaleFactor = SubstanceCoreUtilities.getScaleFactor(parent);
+            double scaleFactor = NeonCortex.getScaleFactor(parent);
             // draw component
             BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(
                     scaleFactor, compWidth, compHeight);

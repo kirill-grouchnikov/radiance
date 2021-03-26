@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -92,7 +93,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
                 icon = super.getIcon(f);
                 if (icon == null) {
                     icon = new ImageIcon(SubstanceCoreUtilities.getBlankImage(
-                            SubstanceCoreUtilities.getScaleFactor(null), 8, 8));
+                            NeonCortex.getScaleFactor(null), 8, 8));
                 }
                 // System.out.println("Super : " + f.getAbsolutePath() + " --> "
                 // + icon);

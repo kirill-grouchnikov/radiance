@@ -137,8 +137,8 @@ abstract class SubstanceSkinRobot(
      * @param count Sequence number for the screenshot.
      */
     private fun makeScreenshot(frame: SampleFrame, screenshotDirectory: String, count: Int) {
-        val bi = NeonCortex.getBlankImage(
-            SubstanceCortex.GlobalScope.getScaleFactor(frame),
+        val bi = NeonCortex.getBlankScaledImage(
+            NeonCortex.getScaleFactor(frame),
             frame.width,
             frame.height
         )

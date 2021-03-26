@@ -435,7 +435,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
         Point left = clip.getLocation();
         // tweak the points for issue 378 - making sure that the
         // grid lines are repainted correctly on scroll.
-        int lineWeight = (int) Math.ceil(SubstanceSizeUtils.getBorderStrokeWidth());
+        int lineWeight = (int) Math.ceil(SubstanceSizeUtils.getBorderStrokeWidth(header));
         left = new Point(left.x - 2 * lineWeight, left.y);
         Point right = new Point(clip.x + clip.width + 2 * lineWeight, clip.y);
 
@@ -454,7 +454,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
 
         Color gridColor = getGridColor(this.header);
 
-        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.header);
         g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(gridColor);
@@ -829,7 +829,7 @@ public class SubstanceTableHeaderUI extends BasicTableHeaderUI {
                     borderScheme);
 
             g2d.setColor(getGridColor(this.header));
-            float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+            float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.header);
             g2d.setStroke(
                     new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

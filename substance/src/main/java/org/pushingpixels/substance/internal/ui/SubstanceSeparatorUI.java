@@ -89,7 +89,7 @@ public class SubstanceSeparatorUI extends BasicSeparatorUI {
 
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
-		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(c);
 		int prefSize = (int) (Math.ceil(2.0 * borderStrokeWidth));
 		if (((JSeparator) c).getOrientation() == SwingConstants.VERTICAL)
 			return new Dimension(prefSize, 0);

@@ -252,8 +252,8 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 				float scale = Math.max(scaleX, scaleY);
 				if (scale > 1.0f) {
 					int finalWidth = (int) (bestMatchPlane.getWidth() / scale);
-					result = NeonCortex.createThumbnail(bestMatchPlane,
-							finalWidth);
+					result = NeonCortex.createThumbnail(NeonCortex.getScaleFactor(null),
+							bestMatchPlane, finalWidth);
 				}
 
 				return result;

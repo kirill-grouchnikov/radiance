@@ -80,7 +80,7 @@ public class ButtonBackgroundDelegate {
     private static BufferedImage getFullAlphaBackground(AbstractButton button,
             SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -258,15 +258,15 @@ public class ButtonBackgroundDelegate {
             SubstanceBorderPainter borderPainter, int width, int height,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme,
             Set<Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
-        int openDelta = (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth()));
-        openDelta *= NeonCortex.getScaleFactor();
+        int openDelta = (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth(button)));
+        openDelta *= scale;
         int deltaLeft = ((openSides != null) && openSides.contains(Side.LEFT)) ? openDelta : 0;
         int deltaRight = ((openSides != null) && openSides.contains(Side.RIGHT)) ? openDelta : 0;
         int deltaTop = ((openSides != null) && openSides.contains(Side.TOP)) ? openDelta : 0;
         int deltaBottom = ((openSides != null) && openSides.contains(Side.BOTTOM)) ? openDelta : 0;
 
         // System.err.println(key);
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(button) / 2.0f;
         Shape contour = shaper.getButtonOutline(button, borderDelta, width + deltaLeft + deltaRight,
                 height + deltaTop + deltaBottom, false);
 
@@ -280,7 +280,7 @@ public class ButtonBackgroundDelegate {
         }
 
         if (isBorderPainted) {
-            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+            float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(button);
             Shape contourInner = borderPainter.isPaintingInnerContour()
                     ? shaper.getButtonOutline(button, borderDelta + borderThickness,
                     width + deltaLeft + deltaRight, height + deltaTop + deltaBottom, true)
@@ -363,7 +363,7 @@ public class ButtonBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImageWithScale(graphics, SubstanceCoreUtilities.getScaleFactor(button),
+            NeonCortex.drawImageWithScale(graphics, NeonCortex.getScaleFactor(button),
                     bgImage, 0, y);
             graphics.dispose();
         }

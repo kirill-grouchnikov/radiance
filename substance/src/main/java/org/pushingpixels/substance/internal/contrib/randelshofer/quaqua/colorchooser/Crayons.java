@@ -15,7 +15,6 @@
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -167,7 +166,7 @@ public class Crayons extends javax.swing.JPanel {
     public void paintComponent(Graphics gr) {
         Graphics2D g2d = (Graphics2D) gr.create();
         NeonCortex.installDesktopHints(g2d, getFont());
-        double scaleFactor = SubstanceCoreUtilities.getScaleFactor(this);
+        double scaleFactor = NeonCortex.getScaleFactor(this);
         NeonCortex.drawImageWithScale(g2d, scaleFactor, crayonsImage, 0, 0);
 
         if (selectedCrayon != null) {

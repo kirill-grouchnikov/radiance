@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResiz
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -84,7 +85,7 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureExpandButton(JCommandButton button) {
-        final double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        final double scale = NeonCortex.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -105,7 +106,7 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollDownButton(JCommandButton button) {
-        final double scale = SubstanceCoreUtilities.getScaleFactor(this.ribbonGallery);
+        final double scale = NeonCortex.getScaleFactor(this.ribbonGallery);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
@@ -124,7 +125,7 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollUpButton(JCommandButton button) {
-        final double scale = SubstanceCoreUtilities.getScaleFactor(this.ribbonGallery);
+        final double scale = NeonCortex.getScaleFactor(this.ribbonGallery);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);

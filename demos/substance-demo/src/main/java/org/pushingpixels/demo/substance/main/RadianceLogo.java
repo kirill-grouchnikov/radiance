@@ -53,7 +53,7 @@ public class RadianceLogo {
     }
 
     public static BufferedImage getLogoImage(Component comp, SubstanceColorScheme scheme) {
-        return getLogoIcon(scheme).toImage(SubstanceCortex.GlobalScope.getScaleFactor(comp));
+        return getLogoIcon(scheme).toImage(NeonCortex.getScaleFactor(comp));
     }
 
     public static void configureOn(JFrame frame) {

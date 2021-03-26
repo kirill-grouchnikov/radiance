@@ -682,7 +682,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         Rectangle maxCell = this.table.getCellRect(rMax, cMax, true);
         Rectangle damagedArea = minCell.union(maxCell);
 
-        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.table);
         g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -1032,7 +1032,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             component.applyComponentOrientation(this.table.getComponentOrientation());
 
             if (hasHighlights) {
-                float extra = SubstanceSizeUtils.getBorderStrokeWidth();
+                float extra = SubstanceSizeUtils.getBorderStrokeWidth(this.table);
                 float extraWidth = highlightOpenSides.contains(SubstanceSlices.Side.LEFT) ? 0.0f
                         : extra;
                 float extraHeight = highlightOpenSides.contains(SubstanceSlices.Side.TOP) ? 0.0f
@@ -1102,7 +1102,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                     SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                             .getColorScheme(table, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
                                     currState);
-                    float extra = SubstanceSizeUtils.getBorderStrokeWidth();
+                    float extra = SubstanceSizeUtils.getBorderStrokeWidth(table);
                     HighlightPainterUtils.paintHighlight(g2d, this.rendererPane, rendererComponent,
                             new Rectangle(highlightCellRect.x - (int) extra,
                                     highlightCellRect.y - (int) extra,
@@ -1110,7 +1110,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                                     highlightCellRect.height + (int) extra),
                             0.8f, null, scheme, borderScheme);
                 } else {
-                    float extra = SubstanceSizeUtils.getBorderStrokeWidth();
+                    float extra = SubstanceSizeUtils.getBorderStrokeWidth(table);
                     float extraWidth = highlightOpenSides.contains(SubstanceSlices.Side.LEFT) ? 0.0f
                             : extra;
                     float extraHeight = highlightOpenSides.contains(SubstanceSlices.Side.TOP) ? 0.0f
@@ -1445,7 +1445,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                                 .getCellRect(RowRepaintCallback.this.rowIndex, i, true));
                     }
                     if (!table.getShowHorizontalLines() && !table.getShowVerticalLines()) {
-                        float extra = SubstanceSizeUtils.getBorderStrokeWidth();
+                        float extra = SubstanceSizeUtils.getBorderStrokeWidth(this.table);
                         rect.y -= (int) extra;
                         rect.height += 2 * (int) extra;
                     }
@@ -1516,7 +1516,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
                                 ColumnRepaintCallback.this.columnIndex, true));
                     }
                     if (!table.getShowHorizontalLines() && !table.getShowVerticalLines()) {
-                        float extra = SubstanceSizeUtils.getBorderStrokeWidth();
+                        float extra = SubstanceSizeUtils.getBorderStrokeWidth(this.table);
                         rect.x -= (int) extra;
                         rect.width += 2 * (int) extra;
                     }
@@ -2292,7 +2292,7 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
         Rectangle rect = this.table.getCellRect(row, column, true);
 
         if (!table.getShowHorizontalLines() && !table.getShowVerticalLines()) {
-            float extra = SubstanceSizeUtils.getBorderStrokeWidth();
+            float extra = SubstanceSizeUtils.getBorderStrokeWidth(table);
             rect.x -= (int) extra;
             rect.width += 2 * (int) extra;
             rect.y -= (int) extra;

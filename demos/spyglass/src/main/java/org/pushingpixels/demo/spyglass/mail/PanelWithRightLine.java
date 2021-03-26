@@ -56,7 +56,7 @@ public class PanelWithRightLine extends JPanel {
             g2d.setColor(this.rightLineColor);
             int width = getWidth();
 
-            float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
+            float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor(this);
             g2d.setStroke(new BasicStroke(borderStrokeWidth));
             Line2D.Float line = new Line2D.Float(width - borderStrokeWidth, 0,
                     width - borderStrokeWidth, getHeight());

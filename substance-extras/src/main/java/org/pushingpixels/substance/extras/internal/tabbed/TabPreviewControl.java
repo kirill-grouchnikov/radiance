@@ -96,7 +96,7 @@ public class TabPreviewControl extends JPanel {
             int w = this.previewImagePanel.getWidth();
             int h = this.previewImagePanel.getHeight();
 
-            double scaleFactor = NeonCortex.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor(this);
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setComposite(AlphaComposite.SrcOver.derive(alpha));
             int dx = (w - (int) (pw / scaleFactor)) / 2;

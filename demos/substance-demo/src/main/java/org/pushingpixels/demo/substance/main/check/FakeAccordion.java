@@ -138,7 +138,7 @@ public class FakeAccordion extends JPanel {
                             SubstanceSlices.ColorSchemeAssociationKind.BORDER,
                             ComponentState.ENABLED);
 
-                    float borderThicknessOuter = 1.0f / (float) NeonCortex.getScaleFactor();
+                    float borderThicknessOuter = 1.0f / (float) NeonCortex.getScaleFactor(c);
                     float radiusOuter = 5.0f;
 
                     Graphics2D g2d = (Graphics2D) g.create();

@@ -104,7 +104,7 @@ public class NoiseFactory {
 		}
 		
 		// and now returning an image that is hi DPI aware if needed
-		double scale = SubstanceCoreUtilities.getScaleFactor(null);
+		double scale = NeonCortex.getScaleFactor(null);
 		if (scale > 1.0) {
 			BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 			Graphics2D g2d = result.createGraphics();

@@ -111,8 +111,8 @@ public class SubstanceRibbonApplicationMenuPopupPanelUI
 
             @Override
             public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
-                float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+                float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
+                float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
 
                 Graphics2D g2d = (Graphics2D) g.create();
                 SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(

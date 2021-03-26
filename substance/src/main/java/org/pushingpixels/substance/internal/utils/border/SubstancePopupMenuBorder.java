@@ -49,7 +49,7 @@ public class SubstancePopupMenuBorder implements Border, UIResource {
 				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+		float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
 		float borderDelta = borderThickness / 2.0f;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);

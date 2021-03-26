@@ -79,7 +79,7 @@ public class SubstanceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                     ComponentState.ENABLED);
             borderColor = bgBorderScheme.getLineColor();
         }
-        float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth(this.colorSelectorPanel);
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setStroke(new BasicStroke(lineThickness));
@@ -101,7 +101,7 @@ public class SubstanceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                     ComponentState.ENABLED);
             borderColor = bgBorderScheme.getLineColor();
         }
-        float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float lineThickness = SubstanceSizeUtils.getBorderStrokeWidth(this.colorSelectorPanel);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setStroke(new BasicStroke(lineThickness));
         g2d.setColor(borderColor);

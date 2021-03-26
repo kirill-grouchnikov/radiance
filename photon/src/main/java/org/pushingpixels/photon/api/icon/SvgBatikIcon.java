@@ -188,7 +188,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
         BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
                 + this.getIconHeight());
         if (image != null) {
-            double scaleFactor = NeonCortex.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor(c);
             int dx = (int) ((this.width - image.getWidth() / scaleFactor) / 2);
             int dy = (int) ((this.height - image.getHeight() / scaleFactor) / 2);
             Graphics2D g2d = (Graphics2D) g.create();

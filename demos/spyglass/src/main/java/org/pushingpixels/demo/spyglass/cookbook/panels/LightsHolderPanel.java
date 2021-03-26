@@ -45,7 +45,7 @@ public class LightsHolderPanel extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
-        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor(this);
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
 
         LinearGradientPaint lgp = new LinearGradientPaint(0, 0, getWidth(), 0,

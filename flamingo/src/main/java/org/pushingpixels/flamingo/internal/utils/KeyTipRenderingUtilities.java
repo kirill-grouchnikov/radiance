@@ -64,14 +64,13 @@ public class KeyTipRenderingUtilities {
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
         float alpha = SubstanceColorSchemeUtilities.getAlpha(c, state);
-        SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(c, state);
-        SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
-                .getColorScheme(c, SubstanceSlices.ColorSchemeAssociationKind.BORDER, state);
+        SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(c, state);
+        SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                c, SubstanceSlices.ColorSchemeAssociationKind.BORDER, state);
         float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(
                 SubstanceSizeUtils.getComponentFontSize(c));
 
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
@@ -81,7 +80,7 @@ public class KeyTipRenderingUtilities {
         fillPainter.paintContourBackground(g2d, c, rect.width, rect.height,
                 contour, false, fillScheme, true);
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
         Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(rect.width, rect.height,
                 radius, null, borderDelta + borderThickness);
         borderPainter.paintBorder(g2d, c, rect.width, rect.height, contour,

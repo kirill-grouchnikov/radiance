@@ -65,7 +65,7 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 		int compHeight = tabComponent.getHeight();
 
 		if ((compWidth > 0) && (compHeight > 0)) {
-			double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
+			double scale = NeonCortex.getScaleFactor(tabPane);
 			// draw tab component
 			BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(scale,
 					compWidth, compHeight);
@@ -87,7 +87,7 @@ public class DefaultTabPreviewPainter extends TabPreviewPainter {
 				int dx = (w - sdWidth) / 2;
 				int dy = (h - sdHeight) / 2;
 
-				BufferedImage thumbnail = NeonCortex.createThumbnail(tempCanvas, sdWidth);
+				BufferedImage thumbnail = NeonCortex.createThumbnail(scale, tempCanvas, sdWidth);
 				NeonCortex.drawImageWithScale(g2, scale, thumbnail, dx, dy);
 			} else {
 				// System.out.println("Putting " + frame.hashCode() + "

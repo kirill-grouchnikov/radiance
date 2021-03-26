@@ -121,7 +121,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
 
             // task group title
             FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                    SubstanceCoreUtilities.getScaleFactor(ribbon), ribbon.getFont());
+                    NeonCortex.getScaleFactor(ribbon), ribbon.getFont());
             int yOffset = (height - fm.getHeight()) / 2;
             NeonCortex.installDesktopHints(g2d, ribbon.getFont());
 
@@ -244,7 +244,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                             })
                             .build());
             overflowProjection.setComponentCustomizer(button -> {
-                final double scale = SubstanceCoreUtilities.getScaleFactor(button);
+                final double scale = NeonCortex.getScaleFactor(button);
                 final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
                 int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
                 int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);

@@ -534,7 +534,7 @@ public class JRibbonFrame extends JFrame {
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
         super.setIconImages(Collections.singletonList(SubstanceCoreUtilities.getBlankImage(
-                SubstanceCoreUtilities.getScaleFactor(null), 16, 16)));
+                NeonCortex.getScaleFactor(null), 16, 16)));
     }
 
     @Override
@@ -821,7 +821,7 @@ public class JRibbonFrame extends JFrame {
             }
         }
         Image result = SubstanceCoreUtilities.getBlankImage(
-                SubstanceCoreUtilities.getScaleFactor(null), size, size);
+                NeonCortex.getScaleFactor(null), size, size);
         Graphics2D g2d = (Graphics2D) result.getGraphics().create();
         icon.paintIcon(null, g2d, 0, 0);
         g2d.dispose();

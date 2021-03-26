@@ -228,7 +228,7 @@ class ShapeEditor : JFrame() {
                             this.image!!.height, null)
                 }
 
-                val strokeSize = 1.0f / NeonCortex.getScaleFactor().toFloat()
+                val strokeSize = 1.0f / NeonCortex.getScaleFactor(this.editorFrame).toFloat()
                 // grid
                 it.color = Color(0, 0, 0, 128)
                 it.stroke = BasicStroke(strokeSize, BasicStroke.CAP_ROUND,

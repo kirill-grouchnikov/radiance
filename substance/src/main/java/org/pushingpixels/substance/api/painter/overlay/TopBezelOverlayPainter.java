@@ -89,7 +89,7 @@ public final class TopBezelOverlayPainter implements SubstanceOverlayPainter {
 				topMostWithSameDecorationAreaType);
 		int dy = inTopMost.y;
 
-		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(comp);
 		graphics.setStroke(new BasicStroke(borderStrokeWidth));
 
 		SubstanceColorScheme colorScheme = skin

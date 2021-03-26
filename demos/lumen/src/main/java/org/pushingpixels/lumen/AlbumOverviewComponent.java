@@ -190,8 +190,9 @@ public class AlbumOverviewComponent extends JComponent {
                     float factor = Math.min(1.0f, Math.min(vFactor, hFactor));
                     if (factor < 1.0f) {
                         // scaled to fit available area
-                        image = NeonCortex.createThumbnail(image,
-                                (int) (factor * image.getWidth()));
+                        image = NeonCortex.createThumbnail(
+                                NeonCortex.getScaleFactor(AlbumOverviewComponent.this),
+                                image, (int) (factor * image.getWidth()));
                     }
 
                     imageLoadedDone = true;
@@ -271,7 +272,7 @@ public class AlbumOverviewComponent extends JComponent {
             g2dImage.setComposite(AlphaComposite.SrcOver.derive(this.alpha * this.imageAlpha));
 
             // draw the album art image
-            double scaleFactor = NeonCortex.getScaleFactor();
+            double scaleFactor = NeonCortex.getScaleFactor(this);
             int imageWidth = this.image.getWidth();
             int imageHeight = this.image.getHeight();
             contentHorizontalOffset = (int) ((this.getWidth() - imageWidth / scaleFactor) / 2);

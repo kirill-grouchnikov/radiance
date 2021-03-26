@@ -69,7 +69,7 @@ public final class BottomLineOverlayPainter implements SubstanceOverlayPainter {
 		Component topMostWithSameDecorationAreaType = SubstanceCoreUtilities
 				.getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
 
-		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(comp);
 		graphics.setStroke(new BasicStroke(borderStrokeWidth));
 
 		SubstanceColorScheme colorScheme = skin.getBackgroundColorScheme(decorationAreaType);

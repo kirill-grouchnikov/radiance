@@ -154,7 +154,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
         BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
                 + this.getIconHeight());
         if (image != null) {
-            double scale = NeonCortex.getScaleFactor();
+            double scale = NeonCortex.getScaleFactor(null);
             int dx = (this.width - (int) (image.getWidth() / scale)) / 2;
             int dy = (this.height - (int) (image.getHeight() / scale)) / 2;
             NeonCortex.drawImageWithScale(g, scale, image, x + dx, y + dy);
@@ -193,7 +193,6 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
         SwingWorker<BufferedImage, Void> worker = new SwingWorker<BufferedImage, Void>() {
             @Override
             protected BufferedImage doInBackground() throws Exception {
-                double extraScale = 1.0;
                 if (imageInputStream != null) {
                     synchronized (imageInputStream) {
                         if (originalImage == null) {
@@ -207,7 +206,6 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                     Graphics g = originalImage.createGraphics();
                     g.drawImage(image, 0, 0, null);
                     g.dispose();
-                    extraScale = NeonCortex.getScaleFactor();
                 }
 
                 BufferedImage result = originalImage;
@@ -219,7 +217,8 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                 float scale = Math.max(scaleX, scaleY);
                 if (scale > 1.0f) {
                     int finalWidth = (int) (originalImage.getWidth() / scale);
-                    result = NeonCortex.createThumbnail(originalImage, finalWidth);
+                    result = NeonCortex.createThumbnail(NeonCortex.getScaleFactor(null),
+                            originalImage, finalWidth);
                 }
 
                 return result;

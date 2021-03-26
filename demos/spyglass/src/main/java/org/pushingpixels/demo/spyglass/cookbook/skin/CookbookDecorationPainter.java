@@ -164,7 +164,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             int offsetY = comp.getLocationOnScreen().y
                     - farthestOfTheSameAreaType.getLocationOnScreen().y;
 
-            final double scaleFactor = NeonCortex.getScaleFactor();
+            final double scaleFactor = NeonCortex.getScaleFactor(comp);
             int lightImageScaledWidth = (int) (this.lightImage.getWidth() / scaleFactor);
 
             int currTileX = -offsetX;
@@ -199,8 +199,8 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
     }
 
     private static BufferedImage getLightImage() {
-        BufferedImage lightConeImage = SubstanceCortex.GlobalScope.getBlankImage(
-                SubstanceCortex.GlobalScope.getScaleFactor(null), 200, 100);
+        double scale = NeonCortex.getScaleFactor(null);
+        BufferedImage lightConeImage = SubstanceCortex.GlobalScope.getBlankImage(scale, 200, 100);
         Graphics2D lightConeGraphics = lightConeImage.createGraphics();
         lightConeGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -224,21 +224,20 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
         BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(
-                SubstanceCortex.GlobalScope.getScaleFactor(null), 150, 100);
+                NeonCortex.getScaleFactor(null), 150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         finalGraphics.translate(-25, -10);
-        double scaleFactor = NeonCortex.getScaleFactor();
         finalGraphics.drawImage(lightConeImage, 0, 0,
-                (int) (lightConeImage.getWidth() / scaleFactor),
-                (int) (lightConeImage.getHeight() / scaleFactor), null);
+                (int) (lightConeImage.getWidth() / scale),
+                (int) (lightConeImage.getHeight() / scale), null);
 
         // Emulate the appearance of the light bulb itself
         finalGraphics.setColor(new Color(200, 200, 255, 96));
         finalGraphics.fillOval(97, 6, 8, 8);
         finalGraphics.setColor(new Color(200, 200, 255, 128));
-        float borderStrokeWidth = 1.0f / (float) scaleFactor;
+        float borderStrokeWidth = 1.0f / (float) scale;
         finalGraphics.setStroke(new BasicStroke(borderStrokeWidth));
         finalGraphics.drawOval(97, 6, 8, 8);
         finalGraphics.dispose();

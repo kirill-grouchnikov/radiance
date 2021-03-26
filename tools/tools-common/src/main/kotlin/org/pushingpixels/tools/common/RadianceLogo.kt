@@ -48,7 +48,7 @@ object RadianceLogo {
     }
 
     fun getLogoImage(comp: Component, scheme: SubstanceColorScheme): BufferedImage {
-        return getLogoIcon(scheme).toImage(SubstanceCortex.GlobalScope.getScaleFactor(comp))
+        return getLogoIcon(scheme).toImage(NeonCortex.getScaleFactor(comp))
     }
 
     fun getTitlePaneLogoImage(comp: Component): BufferedImage {

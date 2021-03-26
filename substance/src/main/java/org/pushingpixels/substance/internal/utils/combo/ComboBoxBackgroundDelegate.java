@@ -60,7 +60,7 @@ public class ComboBoxBackgroundDelegate {
     public static BufferedImage getFullAlphaBackground(JComboBox combo,
             SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter, int width,
             int height) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(combo);
+        double scale = NeonCortex.getScaleFactor(combo);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -138,8 +138,8 @@ public class ComboBoxBackgroundDelegate {
             SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme, float radius) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(combo);
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        double scale = NeonCortex.getScaleFactor(combo);
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(combo) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
                 borderDelta);
 
@@ -147,7 +147,7 @@ public class ComboBoxBackgroundDelegate {
         Graphics2D finalGraphics = (Graphics2D) newBackground.getGraphics();
         fillPainter.paintContourBackground(finalGraphics, combo, width, height, contour, false,
                 fillScheme, true);
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(combo);
         Shape contourInner = borderPainter.isPaintingInnerContour()
                 ? SubstanceOutlineUtilities.getBaseOutline(width, height, radius - borderThickness,
                         null, borderDelta + borderThickness)
@@ -217,7 +217,7 @@ public class ComboBoxBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImageWithScale(graphics, SubstanceCoreUtilities.getScaleFactor(combo),
+            NeonCortex.drawImageWithScale(graphics, NeonCortex.getScaleFactor(combo),
                     bgImage, 0, y);
             graphics.dispose();
         }

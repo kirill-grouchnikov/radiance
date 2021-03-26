@@ -111,15 +111,15 @@ abstract class FlamingoSkinRobot(
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(ribbonFrame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(
-            SubstanceCortex.GlobalScope.getScaleFactor(ribbonFrame),
+        val bi = NeonCortex.getBlankScaledImage(
+            NeonCortex.getScaleFactor(ribbonFrame),
             ribbonFrame.width, ribbonFrame.height
         )
         val g = bi.graphics
         ribbonFrame.paint(g)
 
-        val finalIm = NeonCortex.getBlankImage(
-            SubstanceCortex.GlobalScope.getScaleFactor(ribbonFrame), 500, 200
+        val finalIm = NeonCortex.getBlankScaledImage(
+            NeonCortex.getScaleFactor(ribbonFrame), 500, 200
         )
         finalIm.graphics.drawImage(bi, 0, 0, null)
 

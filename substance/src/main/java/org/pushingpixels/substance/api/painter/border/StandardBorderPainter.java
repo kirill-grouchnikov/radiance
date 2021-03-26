@@ -70,7 +70,7 @@ public class StandardBorderPainter implements SubstanceBorderPainter {
         Color bottomBorderColor = getBottomBorderColor(borderScheme);
 
         if ((topBorderColor != null) && (midBorderColor != null) && (bottomBorderColor != null)) {
-            float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+            float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(c);
             // issue 433 - the "c" can be null when painting
             // the border of a tree icon used outside the
             // JTree context.

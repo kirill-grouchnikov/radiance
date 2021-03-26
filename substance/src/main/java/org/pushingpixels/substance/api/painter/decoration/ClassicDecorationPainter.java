@@ -34,7 +34,6 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.substance.internal.utils.HashMapKey;
 import org.pushingpixels.substance.internal.utils.ImageHashMapKey;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -83,7 +82,7 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 			SubstanceSkin skin) {
 		SubstanceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
 		if (width * height < 100000) {
-			double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+			double scale = NeonCortex.getScaleFactor(comp);
 			ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
 					scale, width, height, scheme.getDisplayName());
 			BufferedImage result = smallImageCache.get(key);

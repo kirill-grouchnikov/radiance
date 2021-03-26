@@ -71,7 +71,7 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
 
         float radius = this.getCornerRadius(button, extraInsets);
         if (isInner) {
-            radius -= SubstanceSizeUtils.getBorderStrokeWidth();
+            radius -= SubstanceSizeUtils.getBorderStrokeWidth(button);
             if (radius < 0.0f)
                 radius = 0.0f;
         }
@@ -102,8 +102,8 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
         return new SubstanceButtonBorder(ClassicButtonShaper.class) {
             public Insets getBorderInsets(Component c) {
                 int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
-                Insets buttonInsets = SubstanceSizeUtils.getButtonInsets(fontSize);
-                float focusPadding = SubstanceSizeUtils.getFocusRingPadding(fontSize);
+                Insets buttonInsets = SubstanceSizeUtils.getButtonInsets(button, fontSize);
+                float focusPadding = SubstanceSizeUtils.getFocusRingPadding(button, fontSize);
                 int lrPadding = SubstanceCoreUtilities.hasText(button)
                         ? SubstanceSizeUtils.getTextButtonLRPadding(fontSize)
                         : 0;
@@ -154,7 +154,7 @@ public class ClassicButtonShaper implements SubstanceButtonShaper, RectangularBu
 
         int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int extraPadding = SubstanceSizeUtils.getExtraPadding(fontSize);
-        float focusPadding = SubstanceSizeUtils.getFocusRingPadding(fontSize);
+        float focusPadding = SubstanceSizeUtils.getFocusRingPadding(button, fontSize);
         int iconPaddingWidth = 6 + 2 * extraPadding + (int) (2 * focusPadding);
         int iconPaddingHeight = 6 + 2 * extraPadding;
         if (margin != null) {

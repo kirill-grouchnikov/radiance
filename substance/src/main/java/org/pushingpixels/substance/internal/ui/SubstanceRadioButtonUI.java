@@ -142,7 +142,7 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
      */
     private static ScaleAwareImageWrapperIcon getIcon(JToggleButton button,
             StateTransitionTracker stateTransitionTracker) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
@@ -317,8 +317,8 @@ public class SubstanceRadioButtonUI extends BasicRadioButtonUI implements Transi
 
         if (b.isFocusPainted()) {
             // make sure that the focus ring is not clipped
-            float focusRingPadding = SubstanceSizeUtils
-                    .getFocusRingPadding(SubstanceSizeUtils.getComponentFontSize(button)) / 2;
+            float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(
+                    button, SubstanceSizeUtils.getComponentFontSize(button)) / 2;
             SubstanceCoreUtilities.paintFocus(g2d, button, button, this, null, textRect, 1.0f,
                     focusRingPadding);
         }

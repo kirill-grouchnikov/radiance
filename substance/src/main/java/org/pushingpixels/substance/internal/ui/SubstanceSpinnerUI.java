@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
@@ -104,7 +105,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			return SubstanceImageCreator.getArrowIcon(
 					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
 					SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize),
-					SubstanceCoreUtilities.getScaleFactor(spinner),
+					NeonCortex.getScaleFactor(spinner),
 					SubstanceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.NORTH, scheme);
 		}, "substance.spinner.nextButton");
 		this.nextButton.setIcon(icon);
@@ -135,7 +136,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			return SubstanceImageCreator.getArrowIcon(
 					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
 					SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize),
-					SubstanceCoreUtilities.getScaleFactor(spinner),
+					NeonCortex.getScaleFactor(spinner),
 					SubstanceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH, scheme);
 		}, "substance.spinner.prevButton");
 		this.prevButton.setIcon(icon);
@@ -305,7 +306,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			size.width += insets.left + insets.right;
 			size.height += insets.top + insets.bottom;
 
-			Insets buttonInsets = SubstanceSizeUtils.getSpinnerArrowButtonInsets();
+			Insets buttonInsets = SubstanceSizeUtils.getSpinnerArrowButtonInsets(spinner);
 			size.width += (buttonInsets.left + buttonInsets.right);
 
 			return size;
@@ -321,7 +322,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			int buttonsWidth = Math.max(nextD.width, previousD.width);
 			int editorHeight = height - (insets.top + insets.bottom);
 
-			Insets buttonInsets = SubstanceSizeUtils.getSpinnerArrowButtonInsets();
+			Insets buttonInsets = SubstanceSizeUtils.getSpinnerArrowButtonInsets(spinner);
 
 			/*
 			 * Deal with the spinner's componentOrientation property.

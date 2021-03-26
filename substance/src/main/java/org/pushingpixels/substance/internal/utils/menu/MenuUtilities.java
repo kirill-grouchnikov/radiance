@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.menu;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -237,7 +238,7 @@ public class MenuUtilities {
             viewRect.height -= (i.bottom + viewRect.y);
         }
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(menuItem);
+        double scale = NeonCortex.getScaleFactor(menuItem);
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(scale, menuItem.getFont());
         FontMetrics fmAccel = SubstanceMetricsUtilities.getFontMetrics(scale, acceleratorFont);
 

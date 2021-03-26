@@ -216,8 +216,8 @@ public class SubstanceSizeUtils {
 	 * 
 	 * @return Stroke width of borders.
 	 */
-	public static float getBorderStrokeWidth() {
-		return 1.0f / (float) NeonCortex.getScaleFactor();
+	public static float getBorderStrokeWidth(Component c) {
+		return 1.0f / (float) NeonCortex.getScaleFactor(c);
 	}
 
 	/**
@@ -227,14 +227,14 @@ public class SubstanceSizeUtils {
 	 *            Font size.
 	 * @return Button insets under the specified font size.
 	 */
-	public static Insets getButtonInsets(int fontSize) {
+	public static Insets getButtonInsets(Component c, int fontSize) {
 		// Special handling to make buttons
 		// have the same height as text components.
 		// We subtract the border stroke width - since the new
 		// text component border appearance has a lighter "halo"
 		// around the darker inner border.
 		Insets textInsets = getTextBorderInsets(fontSize);
-		int borderStroke = (int) getBorderStrokeWidth();
+		int borderStroke = (int) getBorderStrokeWidth(c);
 		int topDelta = textInsets.top - borderStroke;
 		int bottomDelta = textInsets.bottom - borderStroke;
 
@@ -414,10 +414,10 @@ public class SubstanceSizeUtils {
 	 *            Font size.
 	 * @return Focus ring padding amount under the specified font size.
 	 */
-	public static float getFocusRingPadding(int fontSize) {
+	public static float getFocusRingPadding(Component c, int fontSize) {
 	    // Should always account for the border stroke width so that the focus ring
 	    // doesn't end too close to the outer border of the control
-	    float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+	    float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(c);
 		if (fontSize < 14) {
 			return 2 + borderStrokeWidth;
 		}
@@ -428,8 +428,8 @@ public class SubstanceSizeUtils {
 	/**
 	 * Returns the stroke width of focus rings.
 	 */
-	public static float getFocusStrokeWidth() {
-        return 1.0f / (float) NeonCortex.getScaleFactor();
+	public static float getFocusStrokeWidth(Component c) {
+        return 1.0f / (float) NeonCortex.getScaleFactor(c);
 	}
 
 	/**
@@ -450,7 +450,7 @@ public class SubstanceSizeUtils {
 	 *            Font size.
 	 * @return List cell renderer insets under the specified font size.
 	 */
-	public static Insets getListCellRendererInsets(int fontSize) {
+	public static Insets getListCellRendererInsets(Component c, int fontSize) {
 		// Special handling to make non-editable combo boxes
 		// have the same height as text components. The combo box
 		// uses list cell renderer, so to compute the top and
@@ -461,7 +461,7 @@ public class SubstanceSizeUtils {
 		// around the darker inner border.
 		Insets textInsets = getTextBorderInsets(fontSize);
 		Insets comboInsets = getComboBorderInsets(fontSize);
-		int borderStroke = (int) getBorderStrokeWidth();
+		int borderStroke = (int) getBorderStrokeWidth(c);
 		int topDelta = textInsets.top - comboInsets.top - borderStroke;
 		int bottomDelta = textInsets.bottom - comboInsets.bottom - borderStroke;
 
@@ -709,8 +709,8 @@ public class SubstanceSizeUtils {
 	 * 
 	 * @return Spinner arrow button insets under the specified font size.
 	 */
-	public static Insets getSpinnerArrowButtonInsets() {
-		int borderStrokeWidth = (int) Math.floor(getBorderStrokeWidth());
+	public static Insets getSpinnerArrowButtonInsets(Component c) {
+		int borderStrokeWidth = (int) Math.floor(getBorderStrokeWidth(c));
 		return new Insets(borderStrokeWidth, borderStrokeWidth, borderStrokeWidth, borderStrokeWidth);
 	}
 
@@ -777,8 +777,8 @@ public class SubstanceSizeUtils {
 	 * 
 	 * @return Tabbed pane content insets.
 	 */
-	public static Insets getTabbedPaneContentInsets() {
-		float borderStrokeWidth = getBorderStrokeWidth();
+	public static Insets getTabbedPaneContentInsets(Component c) {
+		float borderStrokeWidth = getBorderStrokeWidth(c);
 		int inset = (int) Math.ceil(borderStrokeWidth + 0.5f);
 		return new Insets(inset, inset, inset, inset);
 	}
@@ -788,8 +788,8 @@ public class SubstanceSizeUtils {
 	 * 
 	 * @return Stroke width of tab close buttons.
 	 */
-	public static float getTabCloseButtonStrokeWidth() {
-		return getBorderStrokeWidth();
+	public static float getTabCloseButtonStrokeWidth(Component c) {
+		return getBorderStrokeWidth(c);
 	}
 
 	/**
@@ -911,8 +911,8 @@ public class SubstanceSizeUtils {
 	 *            Font size.
 	 * @return Tree cell renderer insets under the specified font size.
 	 */
-	public static Insets getTreeCellRendererInsets(int fontSize) {
-		Insets listCellInsets = getListCellRendererInsets(fontSize);
+	public static Insets getTreeCellRendererInsets(Component c, int fontSize) {
+		Insets listCellInsets = getListCellRendererInsets(c, fontSize);
 		return new Insets(listCellInsets.top - 1, listCellInsets.left - 2,
 				listCellInsets.bottom - 1, listCellInsets.right - 2);
 	}

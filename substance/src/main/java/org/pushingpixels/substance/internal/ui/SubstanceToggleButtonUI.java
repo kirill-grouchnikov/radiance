@@ -251,9 +251,8 @@ public class SubstanceToggleButtonUI extends BasicToggleButtonUI implements
 
         if (b.isFocusPainted()) {
             SubstanceCoreUtilities.paintFocus(g, b, b, this, null, textRect,
-                    1.0f, SubstanceSizeUtils
-                            .getFocusRingPadding(SubstanceSizeUtils
-                                    .getComponentFontSize(b)));
+                    1.0f, SubstanceSizeUtils.getFocusRingPadding(
+                            b, SubstanceSizeUtils.getComponentFontSize(b)));
         }
     }
 

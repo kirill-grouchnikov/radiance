@@ -1347,10 +1347,6 @@ public class SubstanceCortex {
             return SubstanceCoreUtilities.getBlankImage(scaleFactor, width, height);
         }
 
-        public static double getScaleFactor(Component c) {
-            return SubstanceCoreUtilities.getScaleFactor(c);
-        }
-
         /**
          * Returns the colorized version of icon based off of the passed icon factory.
          *
@@ -1382,7 +1378,8 @@ public class SubstanceCortex {
                 public void paintIcon(Component c, Graphics g, int x, int y) {
                     Graphics2D g2d = (Graphics2D) g.create();
                     g2d.translate(x, y);
-                    NeonCortex.drawImage(g2d, this.colorized, x, y);
+                    NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(c),
+                            this.colorized, x, y);
                     g2d.dispose();
                 }
 

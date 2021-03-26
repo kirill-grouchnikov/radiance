@@ -747,7 +747,7 @@ public class SkinUtilities {
                 foregroundColor,
 
                 "Spinner.arrowButtonInsets",
-                SubstanceSizeUtils.getSpinnerArrowButtonInsets(),
+                SubstanceSizeUtils.getSpinnerArrowButtonInsets(null),
 
                 "Spinner.background",
                 defaultTextBackgroundColor,
@@ -1131,6 +1131,7 @@ public class SkinUtilities {
                 inputMapSet.getTreeFocusInputMap().getUiMap());
 
         // add user scale factor to allow layout managers (e.g. MigLayout) to use it
-        uiDefaults.put("laf.scaleFactor", (UIDefaults.ActiveValue) t -> NeonCortex.getScaleFactor());
+        uiDefaults.put("laf.scaleFactor",
+                (UIDefaults.ActiveValue) t -> NeonCortex.getScaleFactor(null));
     }
 }

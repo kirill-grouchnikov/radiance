@@ -34,8 +34,8 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -75,7 +75,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 : commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
+                NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
         JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
         int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
         int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);
@@ -157,7 +157,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         // length of the first part and the second part + action label icon
         // is minimal between all possible space characters
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(commandButton), this.commandButton.getFont());
+                NeonCortex.getScaleFactor(commandButton), this.commandButton.getFont());
 
         String title = (this.commandButton == null) ? null : this.commandButton.getText();
         if (title != null) {
@@ -231,7 +231,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
+                NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
         JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();

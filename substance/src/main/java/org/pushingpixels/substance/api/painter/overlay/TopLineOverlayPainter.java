@@ -69,14 +69,13 @@ public final class TopLineOverlayPainter implements SubstanceOverlayPainter {
 			DecorationAreaType decorationAreaType, int width, int height,
 			SubstanceSkin skin) {
 		Component topMostWithSameDecorationAreaType = SubstanceCoreUtilities
-				.getTopMostParentWithDecorationAreaType(comp,
-						decorationAreaType);
+				.getTopMostParentWithDecorationAreaType(comp, decorationAreaType);
 
 		Point inTopMost = SwingUtilities.convertPoint(comp, new Point(0, 0),
 				topMostWithSameDecorationAreaType);
 		int dy = inTopMost.y;
 
-		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(comp);
 		graphics.setStroke(new BasicStroke(borderStrokeWidth));
 
 		SubstanceColorScheme colorScheme = skin

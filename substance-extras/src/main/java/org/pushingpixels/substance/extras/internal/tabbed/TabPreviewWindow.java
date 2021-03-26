@@ -29,15 +29,19 @@
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
-import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
+import org.pushingpixels.substance.internal.utils.ScaleAwareImageWrapperIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -169,7 +173,8 @@ public class TabPreviewWindow extends JWindow implements ActionListener {
                         tabPane, tabIndex, currTabPreviewInfo.getPreviewWidth(),
                         currTabPreviewInfo.getPreviewHeight());
                 TabPreviewWindow.this.getContentPane().removeAll();
-                final JLabel previewLabel = new PreviewLabel(new ImageWrapperIcon(componentSnap));
+                final JLabel previewLabel = new PreviewLabel(new ScaleAwareImageWrapperIcon(
+                        componentSnap, NeonCortex.getScaleFactor(tabPane)));
                 TabPreviewWindow.this.addComponentListener(new ComponentAdapter() {
                     @Override
                     public void componentShown(ComponentEvent e) {

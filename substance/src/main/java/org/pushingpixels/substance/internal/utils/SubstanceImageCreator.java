@@ -114,10 +114,10 @@ public final class SubstanceImageCreator {
 
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(c);
         graphics.translate(x, y);
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
                 borderDelta);
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
         boolean skipInnerBorder = (c instanceof JTextComponent)
                 || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
                         && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
@@ -427,7 +427,7 @@ public final class SubstanceImageCreator {
         int width = icon.getIconWidth();
         int height = icon.getIconHeight();
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(component);
+        double scale = NeonCortex.getScaleFactor(component);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 
         icon.paintIcon(null, result.getGraphics(), 0, 0);
@@ -456,7 +456,7 @@ public final class SubstanceImageCreator {
         int width = icon.getIconWidth();
         int height = icon.getIconHeight();
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         icon.paintIcon(c, result.getGraphics(), 0, 0);
         return new ScaleAwareImageWrapperIcon(new AlphaFilter(alpha).filter(result, null), scale);
@@ -488,13 +488,13 @@ public final class SubstanceImageCreator {
             ComponentState componentState, int offsetX, SubstanceColorScheme fillColorScheme,
             SubstanceColorScheme markColorScheme, SubstanceColorScheme borderColorScheme,
             float checkMarkVisibility, float alpha) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(component);
+        double scale = NeonCortex.getScaleFactor(component);
 
         if (!componentState.isActive()) {
             fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
         }
 
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(component);
 
         // float fDelta = borderThickness / 2.0f;
         Shape contourBorder = new Ellipse2D.Float(borderDelta / 2.0f, borderDelta / 2.0f,
@@ -580,7 +580,7 @@ public final class SubstanceImageCreator {
             SubstanceColorScheme fillColorScheme, SubstanceColorScheme markColorScheme,
             SubstanceColorScheme borderColorScheme, float checkMarkVisibility,
             boolean isCheckMarkFadingOut, float alpha) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
 
         int xOffset = SubstanceSizeUtils
                 .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(button), 2, 9, 1, false);
@@ -595,7 +595,7 @@ public final class SubstanceImageCreator {
         }
 
         int contourDim = dimension - delta;
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(button) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(contourDim, contourDim,
                 cornerRadius, null, borderDelta);
 
@@ -611,7 +611,7 @@ public final class SubstanceImageCreator {
         fillPainter.paintContourBackground(graphics, button, contourDim, contourDim, contour, false,
                 fillColorScheme, true);
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(button);
         Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(contourDim, contourDim,
                 cornerRadius - borderThickness, null, borderThickness + borderDelta);
         borderPainter.paintBorder(graphics, button, contourDim, contourDim, contour, contourInner,
@@ -696,7 +696,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getMinimizeIcon(Component titlePane, int iSize,
             SubstanceColorScheme scheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+        double scale = NeonCortex.getScaleFactor(titlePane);
 
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -726,7 +726,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getRestoreIcon(Component titlePane,
             SubstanceColorScheme scheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+        double scale = NeonCortex.getScaleFactor(titlePane);
 
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
@@ -796,7 +796,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getMaximizeIcon(Component titlePane, int iSize,
             SubstanceColorScheme scheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+        double scale = NeonCortex.getScaleFactor(titlePane);
 
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -848,7 +848,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getCloseIcon(Component titlePane, int iSize,
             SubstanceColorScheme scheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(titlePane);
+        double scale = NeonCortex.getScaleFactor(titlePane);
 
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -902,7 +902,7 @@ public final class SubstanceImageCreator {
      *            if <code>true</code>, the gradient will be vertical, if <code>false</code>, the
      *            gradient will be horizontal.
      */
-    public static void paintRectangularBackground(Graphics g, int startX, int startY,
+    public static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
             int width, int height, SubstanceColorScheme colorScheme, float borderAlpha,
             boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create();
@@ -930,7 +930,7 @@ public final class SubstanceImageCreator {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            paintSimpleBorderAliased(g2d, width, height, colorScheme);
+            paintSimpleBorderAliased(c, g2d, width, height, colorScheme);
 
             g2d.dispose();
         }
@@ -951,7 +951,7 @@ public final class SubstanceImageCreator {
      */
     public static void paintSimpleBorder(Component c, Graphics2D g2d, float width, float height,
             SubstanceColorScheme borderColorScheme) {
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
 
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(c);
         g2d.setColor(borderPainter.getRepresentativeColor(borderColorScheme));
@@ -964,9 +964,9 @@ public final class SubstanceImageCreator {
                 width - borderThickness, height - borderThickness));
     }
 
-    public static void paintSimpleBorderAliased(Graphics2D g2d, int width, int height,
+    public static void paintSimpleBorderAliased(Component c, Graphics2D g2d, int width, int height,
             SubstanceColorScheme colorScheme) {
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
 
         g2d.setColor(SubstanceColorUtilities.getMidBorderColor(colorScheme));
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
@@ -1002,7 +1002,7 @@ public final class SubstanceImageCreator {
      * @param isVertical
      *            Indication of horizontal / vertical orientation.
      */
-    public static void paintRectangularStripedBackground(Graphics g, double scaleFactor,
+    public static void paintRectangularStripedBackground(Component c, Graphics g, double scaleFactor,
             int startX, int startY, int width, int height, SubstanceColorScheme colorScheme,
             BufferedImage stripeImage, int stripeOffset, float borderAlpha, boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
@@ -1052,7 +1052,7 @@ public final class SubstanceImageCreator {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            paintSimpleBorderAliased(g2d, width, height, colorScheme);
+            paintSimpleBorderAliased(c, g2d, width, height, colorScheme);
             g2d.dispose();
         }
         graphics.dispose();
@@ -1106,7 +1106,7 @@ public final class SubstanceImageCreator {
      */
     public static BufferedImage getDragImage(Component c, SubstanceColorScheme colorScheme,
             int width, int height, int maxNumberOfStripes) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D graphics = (Graphics2D) result.getGraphics();
 
@@ -1184,7 +1184,7 @@ public final class SubstanceImageCreator {
         int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
         int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(divider);
+        double scale = NeonCortex.getScaleFactor(divider);
         BufferedImage singleDot = SubstanceCoreUtilities.getBlankImage(
                 scale, bumpDotDiameter, bumpDotDiameter);
         Graphics2D dotGraphics = (Graphics2D) singleDot.getGraphics();
@@ -1228,7 +1228,7 @@ public final class SubstanceImageCreator {
     public static BufferedImage getTreeIcon(JTree tree, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme, SubstanceColorScheme markScheme,
             boolean isCollapsed) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(tree);
+        double scale = NeonCortex.getScaleFactor(tree);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int dim = SubstanceSizeUtils.getTreeIconSize(fontSize);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, dim, dim);
@@ -1242,7 +1242,7 @@ public final class SubstanceImageCreator {
         SubstanceFillPainter fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
         SubstanceBorderPainter fbp = new FlatBorderPainter();
 
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(tree) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(dim, dim,
                 SubstanceSizeUtils.getClassicButtonCornerRadius(dim) / 1.5f, null, borderDelta);
 
@@ -1450,7 +1450,7 @@ public final class SubstanceImageCreator {
     public static Image getCrayonsImage(Color fillColor) {
         int iw = 195;
         int ih = 208;
-        double scale = SubstanceCoreUtilities.getScaleFactor(null);
+        double scale = NeonCortex.getScaleFactor(null);
         Image image = SubstanceCoreUtilities.getBlankImage(scale, iw, ih);
         Graphics2D graphics = (Graphics2D) image.getGraphics().create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -1546,11 +1546,7 @@ public final class SubstanceImageCreator {
      * @return Caps lock icon that matches the specified scheme.
      */
     public static Icon getCapsLockIcon(SubstanceColorScheme scheme, Component c) {
-        int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
-        int extraPadding = SubstanceSizeUtils.getExtraPadding(componentFontSize);
-        int size = 32;//11 + 2 * extraPadding;
-
-        return SubstanceCortex.GlobalScope.getIconPack().getCapsLockIcon(size, scheme);
+        return SubstanceCortex.GlobalScope.getIconPack().getCapsLockIcon(32, scheme);
     }
 
     /**
@@ -1572,7 +1568,7 @@ public final class SubstanceImageCreator {
         if ((w == 0) || (h == 0)) {
             return null;
         }
-        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        double scale = NeonCortex.getScaleFactor(comp);
         BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(scale, w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -1612,7 +1608,7 @@ public final class SubstanceImageCreator {
             return null;
         }
         BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(
-                SubstanceCoreUtilities.getScaleFactor(comp), w, h);
+                NeonCortex.getScaleFactor(comp), w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);

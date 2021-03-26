@@ -208,11 +208,10 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        double scale = NeonCortex.getScaleFactor(comp);
         Image colorizedTile = this.getColorizedTile(scale, tileScheme);
-        float scaleFactor = (float) NeonCortex.getScaleFactor();
-        int tileWidth = (int) (colorizedTile.getWidth(null) / scaleFactor);
-        int tileHeight = (int) (colorizedTile.getHeight(null) / scaleFactor);
+        int tileWidth = (int) (colorizedTile.getWidth(null) / scale);
+        int tileHeight = (int) (colorizedTile.getHeight(null) / scale);
 
         offsetTextureX = offsetTextureX % tileWidth;
         offsetTextureY = offsetTextureY % tileHeight;

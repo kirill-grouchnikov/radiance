@@ -101,7 +101,7 @@ public class HighlightPainterUtils {
                 openKey += oSide.name() + "-";
             }
 
-            double scale = SubstanceCoreUtilities.getScaleFactor(c);
+            double scale = NeonCortex.getScaleFactor(c);
             ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
                     scale, highlightPainter.getDisplayName(),
                     highlightBorderPainter.getDisplayName(), rect.width, rect.height,
@@ -121,7 +121,7 @@ public class HighlightPainterUtils {
             float borderAlpha, Set<Side> openSides, SubstanceColorScheme currScheme,
             SubstanceColorScheme currBorderScheme, SubstanceHighlightPainter highlightPainter,
             SubstanceBorderPainter highlightBorderPainter) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, rect.width, rect.height);
         Graphics2D resGraphics = result.createGraphics();
         highlightPainter.paintHighlight(resGraphics, c, rect.width, rect.height, currScheme);
@@ -159,13 +159,13 @@ public class HighlightPainterUtils {
             return;
         }
 
-        int openDelta = 3 + (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth()));
+        int openDelta = 3 + (int) (Math.ceil(3.0 * SubstanceSizeUtils.getBorderStrokeWidth(comp)));
         int deltaLeft = openSides.contains(Side.LEFT) ? openDelta : 0;
         int deltaRight = openSides.contains(Side.RIGHT) ? openDelta : 0;
         int deltaTop = openSides.contains(Side.TOP) ? openDelta : 0;
         int deltaBottom = openSides.contains(Side.BOTTOM) ? openDelta : 0;
 
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(comp);
         Shape contour = new Rectangle2D.Float(borderDelta / 2.0f, borderDelta / 2.0f,
                 width + deltaLeft + deltaRight - borderDelta,
                 height + deltaTop + deltaBottom - borderDelta);

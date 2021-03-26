@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.animation.effects;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -108,7 +109,7 @@ public class GhostPaintingUtils {
      */
     private static synchronized BufferedImage getComponentGhostImage(JComponent comp,
             Timeline ghostPressTimeline, double ghostScaleFactor) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        double scale = NeonCortex.getScaleFactor(comp);
         String key = scale + ":"  + ghostPressTimeline.getTimelinePosition() + ":" +
                 comp.hashCode() + ":" + ghostScaleFactor;
 
@@ -142,7 +143,7 @@ public class GhostPaintingUtils {
      */
     private static synchronized BufferedImage getIconGhostImage(JComponent comp,
             Timeline ghostRolloverTimeline, Icon icon, double ghostScaleFactor) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        double scale = NeonCortex.getScaleFactor(comp);
         String key = scale + ":" + ghostRolloverTimeline.getTimelinePosition() + ":" +
                 comp.hashCode() + ":" + icon.hashCode() + ":" + ghostScaleFactor;
 

@@ -226,8 +226,8 @@ public class SubstanceRibbonTaskToggleButtonUI extends
         // decoration background fill.
         float radius = RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
                 (JRibbonTaskToggleButton) this.commandButton);
-        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
-                .getComponentFontSize(this.commandButton));
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(this.commandButton,
+                SubstanceSizeUtils.getComponentFontSize(this.commandButton));
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(this.commandButton.getWidth(),
                 this.commandButton.getHeight(), radius, EnumSet.of(SubstanceSlices.Side.BOTTOM),
                 focusRingPadding);

@@ -40,8 +40,8 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
@@ -161,7 +161,7 @@ public class FlamingoUtilities {
         Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(ribbon), titleFont);
+                NeonCortex.getScaleFactor(ribbon), titleFont);
         int fontHeight = fm.getHeight();
         fontHeight += 7;
         int iconHeight = 0;

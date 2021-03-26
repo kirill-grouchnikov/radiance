@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -66,7 +66,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         Insets borderInsets = commandButton.getInsets();
         int by = borderInsets.top + borderInsets.bottom;
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
+                NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
 
         String buttonText = commandButton.getText();
         int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
@@ -223,7 +223,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         }
 
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
+                NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
         JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();

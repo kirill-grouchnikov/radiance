@@ -66,7 +66,7 @@ public class PillButtonShaper implements SubstanceButtonShaper, RectangularButto
 
         float radius = this.getCornerRadius(button, extraInsets);
         if (isInner) {
-            radius -= SubstanceSizeUtils.getBorderStrokeWidth();
+            radius -= SubstanceSizeUtils.getBorderStrokeWidth(button);
             if (radius < 0.0f)
                 radius = 0.0f;
         }
@@ -90,8 +90,8 @@ public class PillButtonShaper implements SubstanceButtonShaper, RectangularButto
         return new SubstanceButtonBorder(PillButtonShaper.class) {
             public Insets getBorderInsets(Component c) {
                 int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
-                Insets buttonInsets = SubstanceSizeUtils.getButtonInsets(fontSize);
-                float focusPadding = SubstanceSizeUtils.getFocusRingPadding(fontSize);
+                Insets buttonInsets = SubstanceSizeUtils.getButtonInsets(button, fontSize);
+                float focusPadding = SubstanceSizeUtils.getFocusRingPadding(button, fontSize);
                 int lrPadding = SubstanceCoreUtilities.hasText(button)
                         ? SubstanceSizeUtils.getTextButtonLRPadding(fontSize)
                         : 0;

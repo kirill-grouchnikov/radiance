@@ -47,10 +47,12 @@ class BigAlbumArt : JComponent() {
      * [.setAlbumArtImage].
      */
     private var oldImage: BufferedImage? = null
+
     /**
      * The album art image for the currently displayed Amazon album item.
      */
     private var image: BufferedImage? = null
+
     /**
      * The alpha value for [.image].
      */
@@ -79,31 +81,39 @@ class BigAlbumArt : JComponent() {
         val factor = min(1.0f, min(vFactor, hFactor))
         if (factor < 1.0f) {
             // scaled to fit available area
-            this.image = NeonCortex.createThumbnail(image, (factor * image.width).toInt())
+            this.image = NeonCortex.createThumbnail(
+                NeonCortex.getScaleFactor(this),
+                image, (factor * image.width).toInt()
+            )
         }
     }
 
     override fun paintComponent(g: Graphics) {
         val g2d = g.create() as Graphics2D
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON)
+        g2d.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON
+        )
 
         val w = width
         val h = height
         g2d.color = Color(192, 192, 192)
         g2d.fillRoundRect(0, 0, w - 1, h - 1, 4, 4)
 
-        val scaleFactor = NeonCortex.getScaleFactor()
+        val scaleFactor = NeonCortex.getScaleFactor(this)
         if (this.imageAlpha < 1.0f) {
             val g2dImage = g2d.create() as Graphics2D
             g2dImage.composite = AlphaComposite.SrcOver
             if (this.oldImage != null) {
                 // draw the original image
                 val offsetX = ((this.width - this.oldImage!!.width / scaleFactor) / 2).toInt()
-                val offsetY = INSETS + ((ALBUM_ART_DIM - this.oldImage!!.height / scaleFactor) / 2).toInt()
-                g2dImage.drawImage(this.oldImage, offsetX, offsetY,
-                        (this.oldImage!!.width / scaleFactor).toInt(),
-                        (this.oldImage!!.height / scaleFactor).toInt(), null)
+                val offsetY =
+                    INSETS + ((ALBUM_ART_DIM - this.oldImage!!.height / scaleFactor) / 2).toInt()
+                g2dImage.drawImage(
+                    this.oldImage, offsetX, offsetY,
+                    (this.oldImage!!.width / scaleFactor).toInt(),
+                    (this.oldImage!!.height / scaleFactor).toInt(), null
+                )
             }
             g2dImage.dispose()
         }
@@ -114,10 +124,13 @@ class BigAlbumArt : JComponent() {
             if (this.image != null) {
                 // draw the original image
                 val offsetX = ((this.width - this.image!!.width / scaleFactor) / 2).toInt()
-                val offsetY = INSETS + ((ALBUM_ART_DIM - this.image!!.height / scaleFactor) / 2).toInt()
-                g2dImage.drawImage(this.image, offsetX, offsetY,
-                        (this.image!!.width / scaleFactor).toInt(),
-                        (this.image!!.height / scaleFactor).toInt(), null)
+                val offsetY =
+                    INSETS + ((ALBUM_ART_DIM - this.image!!.height / scaleFactor) / 2).toInt()
+                g2dImage.drawImage(
+                    this.image, offsetX, offsetY,
+                    (this.image!!.width / scaleFactor).toInt(),
+                    (this.image!!.height / scaleFactor).toInt(), null
+                )
             }
             g2dImage.dispose()
         }
@@ -137,10 +150,12 @@ class BigAlbumArt : JComponent() {
          * The maximum dimension of the album art.
          */
         const val ALBUM_ART_DIM = 220
+
         /**
          * Album art insets.
          */
         const val INSETS = 3
+
         /**
          * The total dimension required to display album art and track listing side
          * by side.

@@ -178,7 +178,7 @@ public class PairwiseButtonBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            NeonCortex.drawImageWithScale(graphics, SubstanceCoreUtilities.getScaleFactor(button),
+            NeonCortex.drawImageWithScale(graphics, NeonCortex.getScaleFactor(button),
                     fullOpacity, 0, 0);
             graphics.dispose();
         }
@@ -205,7 +205,7 @@ public class PairwiseButtonBackgroundDelegate {
         if (SubstanceCoreUtilities.isButtonNeverPainted(button)) {
             return null;
         }
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
 
         Set<Side> openSides = toIgnoreOpenSides ? EnumSet.noneOf(Side.class)
                 : SubstanceCoreUtilities.getSides(button, SubstanceSynapse.BUTTON_OPEN_SIDE);
@@ -238,7 +238,7 @@ public class PairwiseButtonBackgroundDelegate {
 
             SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(button);
 
-            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(button) / 2.0f;
             finalBackground = SubstanceCoreUtilities.getBlankImage(scale, width, height);
             Graphics2D finalGraphics = (Graphics2D) finalBackground.getGraphics();
             finalGraphics.translate(-deltaLeft, -deltaTop);

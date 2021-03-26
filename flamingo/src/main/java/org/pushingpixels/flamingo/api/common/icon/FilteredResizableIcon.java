@@ -32,7 +32,6 @@ package org.pushingpixels.flamingo.api.common.icon;
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -99,7 +98,7 @@ public class FilteredResizableIcon implements ResizableIcon {
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         // check cache
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         String key = scale + ":" + this.getIconWidth() + ":" + this.getIconHeight();
         if (!this.cachedImages.containsKey(key)) {
             // check if loading
@@ -110,7 +109,7 @@ public class FilteredResizableIcon implements ResizableIcon {
                     return;
                 }
             }
-            BufferedImage offscreen = NeonCortex.getBlankImage(
+            BufferedImage offscreen = NeonCortex.getBlankScaledImage(
                     scale, this.getIconWidth(), this.getIconHeight());
             Graphics2D g2d = offscreen.createGraphics();
             this.delegate.paintIcon(c, g2d, 0, 0);

@@ -45,7 +45,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
@@ -108,7 +107,7 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
      */
     private static Icon getIcon(JToggleButton button,
             StateTransitionTracker stateTransitionTracker) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(button);
+        double scale = NeonCortex.getScaleFactor(button);
 
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();

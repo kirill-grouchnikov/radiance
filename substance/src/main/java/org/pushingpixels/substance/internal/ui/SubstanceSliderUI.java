@@ -267,14 +267,14 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
             int height) {
         Graphics2D g2d = (Graphics2D) graphics.create();
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.slider);
+        double scale = NeonCortex.getScaleFactor(this.slider);
         SubstanceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(this.slider);
 
         int componentFontSize = SubstanceSizeUtils.getComponentFontSize(this.slider);
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(this.slider) / 2.0f;
         float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
-        float borderThickness = (int) SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = (int) SubstanceSizeUtils.getBorderStrokeWidth(this.slider);
 
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
                 scale, width, height, radius, borderDelta,
@@ -332,7 +332,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(this.slider);
         float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(
                 SubstanceSizeUtils.getComponentFontSize(slider)) / 2.0f;
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(slider) / 2.0f;
 
         // fill selected portion
         if (this.slider.isEnabled()) {
@@ -509,7 +509,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
         this.roundIcon = SubstanceIconFactory.getSliderRoundIcon(slider, size);
         this.verticalIcon = SubstanceIconFactory.getSliderVerticalIcon(slider, size, false);
 
-        int focusIns = (int) Math.ceil(2.0 * SubstanceSizeUtils.getFocusStrokeWidth());
+        int focusIns = (int) Math.ceil(2.0 * SubstanceSizeUtils.getFocusStrokeWidth(slider));
         this.focusInsets = new Insets(focusIns, focusIns, focusIns, focusIns);
     }
 
@@ -555,7 +555,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
     @Override
     public void paintFocus(Graphics g) {
         SubstanceCoreUtilities.paintFocus(g, this.slider, this.slider, this, null, null, 1.0f,
-                SubstanceSizeUtils.getFocusStrokeWidth());
+                SubstanceSizeUtils.getFocusStrokeWidth(this.slider));
     }
 
     /**

@@ -50,7 +50,7 @@ public interface ResizableIcon extends Icon {
 	void setDimension(Dimension newDimension);
 
 	default BufferedImage toImage(double scale) {
-		BufferedImage result = NeonCortex.getBlankImage(scale,
+		BufferedImage result = NeonCortex.getBlankScaledImage(scale,
 				this.getIconWidth(), this.getIconHeight());
 		this.paintIcon(null, result.getGraphics(), 0, 0);
 		return result;

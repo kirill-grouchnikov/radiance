@@ -118,7 +118,7 @@ public class SwatchPanel extends javax.swing.JPanel {
                 int y = yoffset + row * (swatchSize.height + gap.height) + 1;
                 g2d.fillRect(x, y, swatchSize.width + 1, swatchSize.height + 1);
 
-                float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+                float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this);
                 g2d.setStroke(new BasicStroke(borderStrokeWidth));
 
                 g2d.setColor(SubstanceColorUtilities.deriveByBrightness(cellColor, -0.5f));

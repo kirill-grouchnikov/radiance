@@ -88,7 +88,7 @@ public class SubstancePopupMenuSeparatorUI extends BasicPopupMenuSeparatorUI {
 
 	@Override
 	public Dimension getPreferredSize(JComponent c) {
-		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(c);
 		int prefSize = (int) (Math.ceil(2.0 * borderStrokeWidth));
 		return new Dimension(0, prefSize);
 	}

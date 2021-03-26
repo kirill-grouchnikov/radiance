@@ -68,7 +68,7 @@ class ColorIcon(private var color: Color) : ResizableIcon {
         g.render {
             it.color = color
             it.fillRect(x, y, w, h)
-            val borderThickness = 1.0f / NeonCortex.getScaleFactor().toFloat()
+            val borderThickness = 1.0f / NeonCortex.getScaleFactor(c).toFloat()
             it.color = color.deriveByBrightness(-0.4)
             it.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_ROUND)

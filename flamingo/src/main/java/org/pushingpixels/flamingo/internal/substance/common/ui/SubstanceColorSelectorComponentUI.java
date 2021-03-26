@@ -96,7 +96,8 @@ public class SubstanceColorSelectorComponentUI extends BasicColorSelectorCompone
         int h = this.colorSelectorComponent.getHeight();
         Graphics2D g2d = (Graphics2D) g.create();
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(
+                this.colorSelectorComponent);
 
         g2d.setComposite(AlphaComposite.SrcOver.derive(this.rollover));
         SubstanceColorScheme highlightBorderScheme = SubstanceColorSchemeUtilities.getColorScheme(
@@ -113,8 +114,9 @@ public class SubstanceColorSelectorComponentUI extends BasicColorSelectorCompone
 
     @Override
     protected void paintFocus(Graphics g) {
-        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(SubstanceSizeUtils
-                .getComponentFontSize(this.colorSelectorComponent));
+        float focusRingPadding = SubstanceSizeUtils.getFocusRingPadding(
+                this.colorSelectorComponent,
+                SubstanceSizeUtils.getComponentFontSize(this.colorSelectorComponent));
         Shape insetFocusArea = new Rectangle2D.Float(focusRingPadding, focusRingPadding,
                 this.colorSelectorComponent.getWidth() - 2 * focusRingPadding,
                 this.colorSelectorComponent.getHeight() - 2 * focusRingPadding);

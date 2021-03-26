@@ -153,7 +153,7 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
         this.setEnabled(list.isEnabled());
         this.setFont(list.getFont());
 
-        Insets ins = SubstanceSizeUtils.getListCellRendererInsets(
+        Insets ins = SubstanceSizeUtils.getListCellRendererInsets(list,
                 SubstanceSizeUtils.getComponentFontSize(list));
         this.setBorder(new EmptyBorder(ins.top, ins.left, ins.bottom, ins.right));
 

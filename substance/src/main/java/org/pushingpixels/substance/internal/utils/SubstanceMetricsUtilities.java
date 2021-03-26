@@ -60,7 +60,7 @@ public class SubstanceMetricsUtilities {
         if (offscreens.containsKey(scale)) {
             return offscreens.get(scale);
         }
-        BufferedImage offscreen = NeonCortex.getBlankImage(scale, 1, 1);
+        BufferedImage offscreen = NeonCortex.getBlankScaledImage(scale, 1, 1);
         offscreens.put(scale, offscreen);
         return offscreen;
     }
@@ -117,7 +117,7 @@ public class SubstanceMetricsUtilities {
             return new Dimension(icon.getIconWidth() + dx,
                     icon.getIconHeight() + dy);
         } else {
-            FontMetrics fm = getFontMetrics(SubstanceCoreUtilities.getScaleFactor(label), font);
+            FontMetrics fm = getFontMetrics(NeonCortex.getScaleFactor(label), font);
             iconR.setBounds(0, 0, 0, 0);
             textR.setBounds(0, 0, 0, 0);
             viewR.setBounds(dx, dy, Short.MAX_VALUE, Short.MAX_VALUE);
@@ -151,7 +151,7 @@ public class SubstanceMetricsUtilities {
 
         SwingUtilities.layoutCompoundLabel(
                 button,
-                getFontMetrics(SubstanceCoreUtilities.getScaleFactor(button), button.getFont()),
+                getFontMetrics(NeonCortex.getScaleFactor(button), button.getFont()),
                 button.getText(), button.getIcon(),
                 button.getVerticalAlignment(), button.getHorizontalAlignment(),
                 button.getVerticalTextPosition(), button.getHorizontalTextPosition(),
@@ -179,7 +179,7 @@ public class SubstanceMetricsUtilities {
             buttonIcon = defaultIcon;
         }
 
-        FontMetrics fm = getFontMetrics(SubstanceCoreUtilities.getScaleFactor(button),
+        FontMetrics fm = getFontMetrics(NeonCortex.getScaleFactor(button),
                 button.getFont());
 
         textR.setBounds(0, 0, 0, 0);

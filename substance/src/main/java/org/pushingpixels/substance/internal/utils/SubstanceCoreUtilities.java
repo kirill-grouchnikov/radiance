@@ -31,7 +31,6 @@ package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.UiThreadingViolationException;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -64,7 +63,6 @@ import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.*;
@@ -486,7 +484,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonCortex.getBlankImage(scale, width, height);
+        return NeonCortex.getBlankScaledImage(scale, width, height);
     }
 
     /**
@@ -1078,7 +1076,9 @@ public class SubstanceCoreUtilities {
         return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.SHOW_EXTRA_WIDGETS));
     }
 
-    public static ImageWrapperIcon getThemedIcon(JComponent comp, Icon orig, Color textColor) {
+    public static ScaleAwareImageWrapperIcon getThemedIcon(JComponent comp, Icon orig,
+            Color textColor) {
+        double scale = NeonCortex.getScaleFactor(comp);
         IconThemingStrategy iconThemingStrategy =
                 SubstanceCoreUtilities.getIconThemingType(comp);
 
@@ -1087,20 +1087,21 @@ public class SubstanceCoreUtilities {
         switch (iconThemingStrategy) {
             case USE_ENABLED_WHEN_INACTIVE:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-                return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(comp, orig,
-                        colorScheme, brightnessFactor));
+                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(
+                        comp, orig, colorScheme, brightnessFactor), scale);
             case FOLLOW_FOREGROUND: {
                 Color foreground = (textColor != null) ? textColor
                         : colorScheme.getForegroundColor();
-                return new ImageWrapperIcon(SubstanceImageCreator.getColorImage(comp, orig,
-                        foreground, 1.0f));
+                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorImage(
+                        comp, orig, foreground, 1.0f), scale);
             }
         }
         return null;
     }
 
-    public static ImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig,
+    public static ScaleAwareImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig,
             Color textColor) {
+        double scale = NeonCortex.getScaleFactor(tab);
         IconThemingStrategy iconThemingStrategy =
                 SubstanceCoreUtilities.getIconThemingType(tab);
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(tab,
@@ -1109,11 +1110,13 @@ public class SubstanceCoreUtilities {
         switch (iconThemingStrategy) {
             case USE_ENABLED_WHEN_INACTIVE:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-                return new ImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(tab, orig,
-                        colorScheme, brightnessFactor));
+                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(
+                        tab, orig, colorScheme, brightnessFactor), scale);
             case FOLLOW_FOREGROUND:
-                return new ImageWrapperIcon(SubstanceImageCreator.getColorImage(tab, orig,
-                        (textColor != null) ? textColor : colorScheme.getForegroundColor(), 1.0f));
+                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorImage(
+                        tab, orig,
+                        (textColor != null) ? textColor : colorScheme.getForegroundColor(), 1.0f),
+                        scale);
         }
         return null;
     }
@@ -1565,16 +1568,6 @@ public class SubstanceCoreUtilities {
 
     public static ImageHashMapKey getScaleAwareHashKey(double scale, Object... objects) {
         return new ImageHashMapKey(scale, objects);
-    }
-
-    public static double getScaleFactor(Component component) {
-        if ((component == null) || (component.getGraphicsConfiguration() == null)) {
-            // TODO - revisit this
-            return UIUtil.getScaleFactor();
-        }
-        AffineTransform transform = component.getGraphicsConfiguration().getDevice()
-                .getDefaultConfiguration().getDefaultTransform();
-        return Math.max(transform.getScaleX(), transform.getScaleY());
     }
 
     /**

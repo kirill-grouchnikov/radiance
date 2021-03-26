@@ -108,17 +108,17 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
             SubstanceSlices.PasswordStrength strength = passwordStrengthChecker
                     .getStrength(jpf.getPassword());
             if (c.getComponentOrientation().isLeftToRight())
-                paintPasswordStrengthMarker(g, x + width - StrengthCheckedBorder.GUTTER_WIDTH, y,
+                paintPasswordStrengthMarker(c, g, x + width - StrengthCheckedBorder.GUTTER_WIDTH, y,
                         StrengthCheckedBorder.GUTTER_WIDTH, height, strength);
             else
-                paintPasswordStrengthMarker(g, x, y, StrengthCheckedBorder.GUTTER_WIDTH, height,
+                paintPasswordStrengthMarker(c, g, x, y, StrengthCheckedBorder.GUTTER_WIDTH, height,
                         strength);
 
             String tooltip = passwordStrengthChecker.getDescription(strength);
             jpf.setToolTipText(tooltip);
         }
 
-        private void paintPasswordStrengthMarker(Graphics g, int x, int y, int width, int height,
+        private void paintPasswordStrengthMarker(Component c, Graphics g, int x, int y, int width, int height,
                 SubstanceSlices.PasswordStrength pStrength) {
             Graphics2D g2 = (Graphics2D) g.create();
 
@@ -132,7 +132,8 @@ public class PasswordStrengthCheckerWidget extends SubstanceWidget<JPasswordFiel
                 colorScheme = SubstanceColorSchemeUtilities.GREEN;
 
             if (colorScheme != null) {
-                SubstanceImageCreator.paintRectangularBackground(g, x, y, width, height, colorScheme, 0.5f, false);
+                SubstanceImageCreator.paintRectangularBackground(c, g, x, y, width, height,
+                        colorScheme, 0.5f, false);
             }
 
             g2.dispose();

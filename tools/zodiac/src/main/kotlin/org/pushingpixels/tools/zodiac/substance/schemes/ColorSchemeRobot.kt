@@ -105,8 +105,8 @@ abstract class BaseColorSchemeRobot(
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(
-            SubstanceCortex.GlobalScope.getScaleFactor(frame),
+        val bi = NeonCortex.getBlankScaledImage(
+            NeonCortex.getScaleFactor(frame),
             frame.width,
             frame.height
         )

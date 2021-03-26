@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -144,7 +145,7 @@ public class TransitionAwareIcon implements Icon {
      * @return Icon to paint.
      */
     private synchronized ResizableIcon getIconToPaint() {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.comp);
+        double scale = NeonCortex.getScaleFactor(this.comp);
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo =

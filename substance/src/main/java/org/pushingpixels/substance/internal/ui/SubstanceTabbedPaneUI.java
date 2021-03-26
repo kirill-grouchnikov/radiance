@@ -642,13 +642,13 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     private static BufferedImage getTabBackground(JTabbedPane tabPane, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme,
             boolean paintOnlyBorder) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
+        double scale = NeonCortex.getScaleFactor(tabPane);
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(tabPane);
 
-        float borderDelta = 2.0f * SubstanceSizeUtils.getBorderStrokeWidth();
-        float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+        float borderDelta = 2.0f * SubstanceSizeUtils.getBorderStrokeWidth(tabPane);
+        float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth(tabPane) / 2.0f;
         int dy = (int) (2 + borderDelta);
         Set<Side> straightSides = EnumSet.of(Side.BOTTOM);
 
@@ -670,7 +670,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                     false, fillScheme, true);
         }
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth();
+        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(tabPane);
         Shape contourInner = borderPainter.isPaintingInnerContour()
                 ? SubstanceOutlineUtilities.getBaseOutline(width, height + dy,
                         cornerRadius - borderThickness, straightSides,
@@ -693,7 +693,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
             int width, int height, int tabPlacement, SubstanceSlices.Side side,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
+        double scale = NeonCortex.getScaleFactor(tabPane);
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(tabPane);
@@ -758,7 +758,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         if (fillPainter == null)
             return null;
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
+        double scale = NeonCortex.getScaleFactor(tabPane);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
                 scale, width, height, toPaintBorder,
                 fillPainter.getDisplayName(), fillScheme.getDisplayName(),
@@ -782,9 +782,9 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             }
 
             finalGraphics.setStroke(new BasicStroke(
-                    SubstanceSizeUtils.getTabCloseButtonStrokeWidth()));
+                    SubstanceSizeUtils.getTabCloseButtonStrokeWidth(tabPane)));
 
-            int delta = (int) (Math.floor(SubstanceSizeUtils.getBorderStrokeWidth()));
+            int delta = (int) (Math.floor(SubstanceSizeUtils.getBorderStrokeWidth(tabPane)));
             if (delta % 2 != 0)
                 delta--;
             int iconSize = width - delta;
@@ -802,7 +802,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintTabBackground(Graphics g, int tabPlacement, final int tabIndex, final int x,
             final int y, int w, int h, boolean isSelected) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.tabPane);
+        double scale = NeonCortex.getScaleFactor(this.tabPane);
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, g));
 
@@ -1054,7 +1054,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected JButton createScrollButton(final int direction) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.tabPane);
+        double scale = NeonCortex.getScaleFactor(this.tabPane);
         SubstanceScrollButton ssb = new SubstanceScrollButton();
         Icon icon = new TransitionAwareIcon(ssb, scheme -> {
             // fix for defect 279 - tab pane might not yet have the font installed.
@@ -1224,7 +1224,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             int height) {
         int dimension = SubstanceCoreUtilities.getCloseButtonSize(this.tabPane, tabIndex);
 
-        int borderDelta = (int) Math.ceil(3.0f + SubstanceSizeUtils.getBorderStrokeWidth());
+        int borderDelta = (int) Math.ceil(3.0f + SubstanceSizeUtils.getBorderStrokeWidth(tabPane));
 
         int xs = this.tabPane.getComponentOrientation().isLeftToRight()
                 ? x + width - dimension - borderDelta
@@ -1640,14 +1640,15 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected Insets getContentBorderInsets(int tabPlacement) {
-        Insets insets = SubstanceSizeUtils.getTabbedPaneContentInsets();
+        Insets insets = SubstanceSizeUtils.getTabbedPaneContentInsets(this.tabPane);
 
         TabContentPaneBorderKind kind = SubstanceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == TabContentPaneBorderKind.DOUBLE_FULL)
                 || (kind == TabContentPaneBorderKind.DOUBLE_PLACEMENT);
         boolean isPlacement = (kind == TabContentPaneBorderKind.SINGLE_PLACEMENT)
                 || (kind == TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        int delta = isDouble ? (int) Math.ceil(SubstanceSizeUtils.getBorderStrokeWidth() + 1.5f)
+        int delta = isDouble
+                ? (int) Math.ceil(SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane) + 1.5f)
                 : 0;
 
         if (isPlacement) {
@@ -1704,7 +1705,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane);
         int joinKind = BasicStroke.JOIN_ROUND;
         int capKind = BasicStroke.CAP_BUTT;
         g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
@@ -1733,7 +1734,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             // Break line to show visual connection to selected tab
             SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(this.tabPane);
             int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
-            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
             GeneralPath bottomOutline = new GeneralPath();
             bottomOutline.moveTo(x, y + h - 1);
             bottomOutline.lineTo(selRect.x + borderInsets, y + h - 1);
@@ -1784,7 +1785,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             if (tabPlacement != SwingConstants.LEFT)
                 return;
         }
-        int ribbonDelta = (int) (SubstanceSizeUtils.getBorderStrokeWidth() + 1.5f);
+        int ribbonDelta = (int) (SubstanceSizeUtils.getBorderStrokeWidth(tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
@@ -1793,7 +1794,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane);
         int joinKind = BasicStroke.JOIN_ROUND;
         int capKind = BasicStroke.CAP_BUTT;
         g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
@@ -1822,7 +1823,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(this.tabPane);
             int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
 
-            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
             GeneralPath leftOutline = new GeneralPath();
             leftOutline.moveTo(x, y);
             leftOutline.lineTo(x, selRect.y + borderInsets + delta + 1);
@@ -1875,7 +1876,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             if (tabPlacement != SwingConstants.RIGHT)
                 return;
         }
-        int ribbonDelta = (int) (SubstanceSizeUtils.getBorderStrokeWidth() + 1.5f);
+        int ribbonDelta = (int) (SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
@@ -1884,7 +1885,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane);
         int joinKind = BasicStroke.JOIN_ROUND;
         int capKind = BasicStroke.CAP_BUTT;
         g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
@@ -1913,7 +1914,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(this.tabPane);
             int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
 
-            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
             GeneralPath rightOutline = new GeneralPath();
             rightOutline.moveTo(x + w - 1, y);
             rightOutline.lineTo(x + w - 1, selRect.y + borderInsets);
@@ -1973,7 +1974,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
+        float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane);
         int joinKind = BasicStroke.JOIN_ROUND;
         int capKind = BasicStroke.CAP_BUTT;
         g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
@@ -2003,7 +2004,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
             // Break line to show visual connection to selected tab
             SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(this.tabPane);
             int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
-            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
+            float borderInsets = SubstanceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
             GeneralPath topOutline = new GeneralPath();
             topOutline.moveTo(x, y);
             topOutline.lineTo(selRect.x + borderInsets, y);

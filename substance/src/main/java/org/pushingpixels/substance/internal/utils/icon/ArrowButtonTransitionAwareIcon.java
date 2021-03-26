@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -106,7 +107,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
         this.delegate = scheme -> {
             int fontSize = SubstanceSizeUtils.getComponentFontSize(component);
             return SubstanceImageCreator.getArrowIcon(
-                    SubstanceCoreUtilities.getScaleFactor(component),
+                    NeonCortex.getScaleFactor(component),
                     fontSize, orientation, scheme);
         };
 
@@ -128,7 +129,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
      * @return Icon to be painted.
      */
     private ResizableIcon getIconToPaint() {
-        double scale = SubstanceCoreUtilities.getScaleFactor(this.component);
+        double scale = NeonCortex.getScaleFactor(this.component);
 
         boolean isMenu = (this.component instanceof JMenu);
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate

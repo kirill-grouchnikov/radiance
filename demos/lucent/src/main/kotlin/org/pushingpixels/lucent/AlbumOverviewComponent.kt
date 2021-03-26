@@ -120,8 +120,8 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
         }
 
         this.addDelayedMouseListener(
-                onMouseEntered = { rolloverTimeline.playLoop(RepeatBehavior.REVERSE) },
-                onMouseExited = { rolloverTimeline.playReverse() })
+            onMouseEntered = { rolloverTimeline.playLoop(RepeatBehavior.REVERSE) },
+            onMouseExited = { rolloverTimeline.playReverse() })
 
         this.addDelayedComponentListener(onComponentResized = {
             if (borderAlpha > 0.0f) {
@@ -164,8 +164,10 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
                     val factor = min(1.0f, min(vFactor, hFactor))
                     if (factor < 1.0f) {
                         // scaled to fit available area
-                        image = NeonCortex.createThumbnail(image!!,
-                                (factor * image!!.width).toInt())
+                        image = NeonCortex.createThumbnail(
+                            NeonCortex.getScaleFactor(this@AlbumOverviewComponent),
+                            image!!, (factor * image!!.width).toInt()
+                        )
                     }
 
                     imageLoadedDone = true
@@ -176,11 +178,11 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
 
         // and fade it in
         loadScenario.addScenarioActor(
-                this.componentTimeline {
-                    property(::imageAlpha from 0.0f to 1.0f)
-                    repaintCallback()
-                    duration = 500
-                })
+            this.componentTimeline {
+                property(::imageAlpha from 0.0f to 1.0f)
+                repaintCallback()
+                duration = 500
+            })
 
         return loadScenario
     }
@@ -189,23 +191,33 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
         g.render {
             it.composite = AlphaComposite.SrcOver.derive(this.alpha)
 
-            it.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON)
-            it.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+            it.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON
+            )
+            it.setRenderingHint(
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON
+            )
 
-            it.paint = GradientPaint(0f, 0f, Color(0, 0, 0, 196), 0f,
-                    DEFAULT_HEIGHT.toFloat(), Color(0, 0, 0, 0))
+            it.paint = GradientPaint(
+                0f, 0f, Color(0, 0, 0, 196), 0f,
+                DEFAULT_HEIGHT.toFloat(), Color(0, 0, 0, 0)
+            )
             it.fillRoundRect(0, 0, DEFAULT_WIDTH - 1, DEFAULT_HEIGHT - 1, 18, 18)
             it.drawRoundRect(0, 0, DEFAULT_WIDTH - 1, DEFAULT_HEIGHT - 1, 18, 18)
 
             if (this.borderAlpha > 0.0f) {
                 // show the pulsating bluish outline of the rollover album
                 it.composite = AlphaComposite.SrcOver.derive(this.alpha * this.borderAlpha)
-                it.paint = GradientPaint(0f, 0f, Color(64, 140, 255, 196),
-                        0f, DEFAULT_HEIGHT.toFloat(), Color(64, 140, 255, 0))
-                it.stroke = BasicStroke(2.0f, BasicStroke.CAP_ROUND,
-                        BasicStroke.JOIN_ROUND)
+                it.paint = GradientPaint(
+                    0f, 0f, Color(64, 140, 255, 196),
+                    0f, DEFAULT_HEIGHT.toFloat(), Color(64, 140, 255, 0)
+                )
+                it.stroke = BasicStroke(
+                    2.0f, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND
+                )
                 it.drawRoundRect(1, 1, DEFAULT_WIDTH - 2, DEFAULT_HEIGHT - 2, 17, 17)
                 it.stroke = BasicStroke(1.0f)
                 it.composite = AlphaComposite.SrcOver.derive(this.alpha)
@@ -216,13 +228,16 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
                 it.composite = AlphaComposite.SrcOver.derive(this.alpha * this.imageAlpha)
 
                 // draw the album art image
-                val scaleFactor = NeonCortex.getScaleFactor()
+                val scaleFactor = NeonCortex.getScaleFactor(this)
                 val imageWidth = this.image!!.width
                 val imageHeight = this.image!!.height
                 contentHorizontalOffset = ((this.width - imageWidth / scaleFactor) / 2).toInt()
-                val offsetY = INSETS + ((OVERVIEW_IMAGE_DIM - imageHeight / scaleFactor) / 2).toInt()
-                it.drawImage(this.image, contentHorizontalOffset, offsetY,
-                        (imageWidth / scaleFactor).toInt(), (imageHeight / scaleFactor).toInt(), null)
+                val offsetY =
+                    INSETS + ((OVERVIEW_IMAGE_DIM - imageHeight / scaleFactor) / 2).toInt()
+                it.drawImage(
+                    this.image, contentHorizontalOffset, offsetY,
+                    (imageWidth / scaleFactor).toInt(), (imageHeight / scaleFactor).toInt(), null
+                )
                 it.composite = AlphaComposite.SrcOver.derive(this.alpha)
             }
 
@@ -232,12 +247,16 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
             val fontMetrics = it.fontMetrics
             val textY = INSETS + OVERVIEW_IMAGE_DIM + fontMetrics.height
             val textWidth = DEFAULT_WIDTH - 2 * contentHorizontalOffset
-            LucentUtils.paintMultilineText(it, this.caption!!, contentHorizontalOffset,
-                    textWidth, textY, 2)
+            LucentUtils.paintMultilineText(
+                it, this.caption!!, contentHorizontalOffset,
+                textWidth, textY, 2
+            )
 
             it.color = Color(64, 140, 255)
-            LucentUtils.paintMultilineText(it, this.releaseDate!!, contentHorizontalOffset, textWidth,
-                    textY + 2 * it.fontMetrics.height, 1)
+            LucentUtils.paintMultilineText(
+                it, this.releaseDate!!, contentHorizontalOffset, textWidth,
+                textY + 2 * it.fontMetrics.height, 1
+            )
         }
     }
 

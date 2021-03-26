@@ -74,7 +74,7 @@ public class CookbookBorderRight implements Border {
 
         Graphics2D g2d = (Graphics2D) g.create();
         // dark line on the right-hand side
-        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor();
+        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor(c);
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
         Line2D.Float line = new Line2D.Float(x + width - borderStrokeWidth, y,
                 x + width - borderStrokeWidth, y + height);

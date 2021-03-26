@@ -33,8 +33,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -120,7 +120,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
 
         Font font = b.getFont();
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(b), font);
+                NeonCortex.getScaleFactor(b), font);
 
         Rectangle iconR = new Rectangle();
         Rectangle textR = new Rectangle();

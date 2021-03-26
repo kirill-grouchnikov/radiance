@@ -29,8 +29,9 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
+import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
-import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
+import org.pushingpixels.substance.internal.utils.ScaleAwareImageWrapperIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
@@ -83,8 +84,8 @@ public class GlowingIcon implements Icon {
 		if (toPaint == null) {
 			int width = this.getIconWidth();
 			int height = this.getIconHeight();
-			BufferedImage image = SubstanceCoreUtilities.getBlankImage(
-					SubstanceCoreUtilities.getScaleFactor(c), width, height);
+			double scale = NeonCortex.getScaleFactor(c);
+			BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 			Graphics2D graphics = (Graphics2D) image.getGraphics();
 			//graphics.scale(1.0f / scale, 1.0f / scale);
 			this.delegate.paintIcon(c, graphics, 0, 0);
@@ -104,7 +105,7 @@ public class GlowingIcon implements Icon {
 							| (newColor.getGreen() << 8) | newColor.getBlue());
 				}
 			}
-			toPaint = new ImageWrapperIcon(image);
+			toPaint = new ScaleAwareImageWrapperIcon(image, scale);
 			this.iconMap.put(fadePos, toPaint);
 		}
 		Graphics2D g2d = (Graphics2D) g.create();

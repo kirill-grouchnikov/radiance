@@ -199,7 +199,7 @@ public class ScrollPaneSelector extends JComponent {
         if (theImage == null || theRectangle == null)
             return new Dimension();
         Insets insets = getInsets();
-        double scaleFactor = SubstanceCoreUtilities.getScaleFactor(theScrollPane);
+        double scaleFactor = NeonCortex.getScaleFactor(theScrollPane);
         return new Dimension((int) (theImage.getWidth() / scaleFactor) + insets.left + insets.right,
                 (int) (theImage.getHeight() / scaleFactor) + insets.top + insets.bottom);
     }
@@ -215,7 +215,7 @@ public class ScrollPaneSelector extends JComponent {
         int yOffset = insets.top;
         int availableWidth = getWidth() - insets.left - insets.right;
         int availableHeight = getHeight() - insets.top - insets.bottom;
-        NeonCortex.drawImageWithScale(g2d, SubstanceCoreUtilities.getScaleFactor(theScrollPane),
+        NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(theScrollPane),
                 theImage, xOffset, yOffset);
 
         Color tmpColor = g2d.getColor();
@@ -288,7 +288,7 @@ public class ScrollPaneSelector extends JComponent {
         int previewWidth = (int) (theComponent.getWidth() * theScale);
         int previewHeight = (int) (theComponent.getHeight() * theScale);
         theImage = SubstanceCoreUtilities.getBlankImage(
-                SubstanceCoreUtilities.getScaleFactor(theComponent),
+                NeonCortex.getScaleFactor(theComponent),
                 previewWidth, previewHeight);
 
         Graphics2D g = theImage.createGraphics();

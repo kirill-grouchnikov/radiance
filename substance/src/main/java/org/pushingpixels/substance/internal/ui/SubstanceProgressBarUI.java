@@ -273,7 +273,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static BufferedImage getDeterminateBackground(JProgressBar bar, int width, int height,
             SubstanceColorScheme scheme, SubstanceFillPainter fillPainter, int orientation,
             ComponentOrientation componentOrientation) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(bar);
+        double scale = NeonCortex.getScaleFactor(bar);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, width, height,
                 scheme.getDisplayName(), fillPainter.getDisplayName(),
                 orientation, componentOrientation);
@@ -311,7 +311,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static BufferedImage getDeterminateProgress(JProgressBar bar, int width, int height,
             boolean isFull, SubstanceColorScheme scheme, SubstanceFillPainter fillPainter,
             int orientation, ComponentOrientation componentOrientation) {
-        double scale = SubstanceCoreUtilities.getScaleFactor(bar);
+        double scale = NeonCortex.getScaleFactor(bar);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, width, height,
                 scheme.getDisplayName(), fillPainter.getDisplayName(),
                 orientation, componentOrientation);
@@ -344,7 +344,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             return;
         }
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(progressBar);
+        double scale = NeonCortex.getScaleFactor(progressBar);
 
         ComponentState fillState = getFillState();
         ComponentState progressState = getProgressState();
@@ -449,7 +449,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             return;
         }
 
-        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        double scale = NeonCortex.getScaleFactor(c);
         ComponentState progressState = getProgressState();
 
         final int barRectWidth = progressBar.getWidth() - 2 * margin;
@@ -475,14 +475,14 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(progressBar,
                 progressState);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-            SubstanceImageCreator.paintRectangularStripedBackground(g2d, scale, margin,
+            SubstanceImageCreator.paintRectangularStripedBackground(c, g2d, scale, margin,
                     margin, barRectWidth, barRectHeight, scheme,
                     SubstanceProgressBarUI.getStripe(scale, barRectHeight, false, scheme),
                     valComplete, 0.6f, false);
         } else {
             // fix for issue 95. Vertical progress bar grows from the
             // bottom.
-            SubstanceImageCreator.paintRectangularStripedBackground(g2d, scale, margin,
+            SubstanceImageCreator.paintRectangularStripedBackground(c, g2d, scale, margin,
                     margin, barRectWidth, barRectHeight, scheme,
                     SubstanceProgressBarUI.getStripe(scale, barRectWidth, true, scheme),
                     2 * barRectWidth - valComplete, 0.6f, true);
@@ -665,7 +665,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private Rectangle getStringRectangle(String progressString, int x, int y, int width,
             int height) {
         FontMetrics fontSizer = SubstanceMetricsUtilities.getFontMetrics(
-                SubstanceCoreUtilities.getScaleFactor(progressBar), progressBar.getFont());
+                NeonCortex.getScaleFactor(progressBar), progressBar.getFont());
 
         int stringWidth = fontSizer.stringWidth(progressString);
 

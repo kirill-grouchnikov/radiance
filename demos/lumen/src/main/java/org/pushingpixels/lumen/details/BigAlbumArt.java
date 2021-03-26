@@ -92,7 +92,8 @@ public class BigAlbumArt extends JComponent {
         float factor = Math.min(1.0f, Math.min(vFactor, hFactor));
         if (factor < 1.0f) {
             // scaled to fit available area
-            this.image = NeonCortex.createThumbnail(image, (int) (factor * image.getWidth()));
+            this.image = NeonCortex.createThumbnail(NeonCortex.getScaleFactor(this),
+                    image, (int) (factor * image.getWidth()));
         }
     }
 
@@ -116,7 +117,7 @@ public class BigAlbumArt extends JComponent {
         g2d.setColor(new Color(192, 192, 192));
         g2d.fillRoundRect(0, 0, w - 1, h - 1, 4, 4);
 
-        double scaleFactor = NeonCortex.getScaleFactor();
+        double scaleFactor = NeonCortex.getScaleFactor(this);
         if (this.imageAlpha < 1.0f) {
             Graphics2D g2dImage = (Graphics2D) g2d.create();
             g2dImage.setComposite(AlphaComposite.SrcOver);
