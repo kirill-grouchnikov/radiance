@@ -54,8 +54,10 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class SubstanceSkinRobot(private var skin: SubstanceSkin,
-        private val screenshotFilename: String) : ZodiacRobot {
+abstract class SubstanceSkinRobot(
+    private var skin: SubstanceSkin,
+    private val screenshotFilename: String
+) : ZodiacRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
@@ -70,11 +72,14 @@ abstract class SubstanceSkinRobot(private var skin: SubstanceSkin,
         withContext(Dispatchers.Swing) {
             frame = SampleFrame()
             frame.iconImage = RadianceLogo.getLogoImage(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(
-                            frame.rootPane).getColorScheme(
-                            DecorationAreaType.PRIMARY_TITLE_PANE,
-                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED))
+                SubstanceCortex.ComponentScope.getCurrentSkin(
+                    frame.rootPane
+                ).getColorScheme(
+                    DecorationAreaType.PRIMARY_TITLE_PANE,
+                    SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    ComponentState.ENABLED
+                )
+            )
             frame.setSize(340, 258)
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -89,8 +94,10 @@ abstract class SubstanceSkinRobot(private var skin: SubstanceSkin,
         // and move the mouse to it
         withContext(Dispatchers.Swing) {
             val locOnScreen = defaultButton.locationOnScreen
-            robot.mouseMove(locOnScreen.x + defaultButton.width / 2,
-                    locOnScreen.y + defaultButton.height / 2)
+            robot.mouseMove(
+                locOnScreen.x + defaultButton.width / 2,
+                locOnScreen.y + defaultButton.height / 2
+            )
         }
 
         // wait for a second
@@ -131,7 +138,11 @@ abstract class SubstanceSkinRobot(private var skin: SubstanceSkin,
      * @param count Sequence number for the screenshot.
      */
     private fun makeScreenshot(frame: SampleFrame, screenshotDirectory: String, count: Int) {
-        val bi = NeonCortex.getBlankImage(frame.width, frame.height)
+        val bi = NeonCortex.getBlankImage(
+            SubstanceCortex.GlobalScope.getScaleFactor(frame),
+            frame.width,
+            frame.height
+        )
         val g = bi.graphics
         frame.paint(g)
         try {

@@ -54,8 +54,10 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class FlamingoSkinRobot(private var skin: SubstanceSkin,
-        private val screenshotFilename: String) : ZodiacRobot {
+abstract class FlamingoSkinRobot(
+    private var skin: SubstanceSkin,
+    private val screenshotFilename: String
+) : ZodiacRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 
@@ -66,12 +68,13 @@ abstract class FlamingoSkinRobot(private var skin: SubstanceSkin,
         }
 
         // create the frame and set the icon image
-        val ribbonFrame : BasicCheckRibbon
+        val ribbonFrame: BasicCheckRibbon
         withContext(Dispatchers.Swing) {
             ribbonFrame = BasicCheckRibbon()
             ribbonFrame.configureRibbon()
             ribbonFrame.applyComponentOrientation(
-                    ComponentOrientation.getOrientation(Locale.getDefault()))
+                ComponentOrientation.getOrientation(Locale.getDefault())
+            )
             val r = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
             ribbonFrame.preferredSize = Dimension(r.width, r.height / 2)
             ribbonFrame.minimumSize = Dimension(100, r.height / 3)
@@ -108,11 +111,16 @@ abstract class FlamingoSkinRobot(private var skin: SubstanceSkin,
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(ribbonFrame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(ribbonFrame.width, ribbonFrame.height)
+        val bi = NeonCortex.getBlankImage(
+            SubstanceCortex.GlobalScope.getScaleFactor(ribbonFrame),
+            ribbonFrame.width, ribbonFrame.height
+        )
         val g = bi.graphics
         ribbonFrame.paint(g)
 
-        val finalIm = NeonCortex.getBlankImage(500, 200)
+        val finalIm = NeonCortex.getBlankImage(
+            SubstanceCortex.GlobalScope.getScaleFactor(ribbonFrame), 500, 200
+        )
         finalIm.graphics.drawImage(bi, 0, 0, null)
 
         try {

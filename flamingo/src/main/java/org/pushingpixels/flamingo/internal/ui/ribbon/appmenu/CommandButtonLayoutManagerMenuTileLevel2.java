@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -54,7 +55,8 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         Insets borderInsets = commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
         int by = borderInsets.top + borderInsets.bottom;
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
         JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 
         int titleWidth = fm.stringWidth(commandButton.getText());
@@ -123,7 +125,8 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int width = commandButton.getWidth();
         int height = commandButton.getHeight();
 
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
         JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
@@ -204,7 +207,9 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 attributedDescription.addAttribute(TextAttribute.FONT, commandButton.getFont());
                 LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
                         attributedDescription.getIterator(),
-                        SubstanceMetricsUtilities.getFontRenderContext(commandButton.getFont()));
+                        SubstanceMetricsUtilities.getFontRenderContext(
+                                SubstanceCoreUtilities.getScaleFactor(commandButton),
+                                commandButton.getFont()));
                 // The max width of the extra text line - need to leave
                 // space for the popup arrow icon
                 int maxFirstExtraLineWidth = width - x - ins.right - layoutHGap
@@ -325,7 +330,9 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 attributedDescription.addAttribute(TextAttribute.FONT, commandButton.getFont());
                 LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
                         attributedDescription.getIterator(),
-                        SubstanceMetricsUtilities.getFontRenderContext(commandButton.getFont()));
+                        SubstanceMetricsUtilities.getFontRenderContext(
+                                SubstanceCoreUtilities.getScaleFactor(commandButton),
+                                commandButton.getFont()));
                 // The max width of the extra text line - need to leave
                 // space for the popup arrow icon
                 int maxFirstExtraLineWidth = x - ins.left - layoutHGap - labelHeight;

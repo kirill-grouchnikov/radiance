@@ -533,7 +533,8 @@ public class JRibbonFrame extends JFrame {
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
-        super.setIconImages(Collections.singletonList(SubstanceCoreUtilities.getBlankImage(16, 16)));
+        super.setIconImages(Collections.singletonList(SubstanceCoreUtilities.getBlankImage(
+                SubstanceCoreUtilities.getScaleFactor(null), 16, 16)));
     }
 
     @Override
@@ -819,7 +820,8 @@ public class JRibbonFrame extends JFrame {
                 }
             }
         }
-        Image result = SubstanceCoreUtilities.getBlankImage(size, size);
+        Image result = SubstanceCoreUtilities.getBlankImage(
+                SubstanceCoreUtilities.getScaleFactor(null), size, size);
         Graphics2D g2d = (Graphics2D) result.getGraphics().create();
         icon.paintIcon(null, g2d, 0, 0);
         g2d.dispose();

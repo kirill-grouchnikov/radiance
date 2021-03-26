@@ -109,7 +109,8 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 				prefSize.width += (int) (v.getPreferredSpan(View.X_AXIS) + 6);
 				prefSize.height += (int) (v.getPreferredSpan(View.Y_AXIS) + 2);
 			} else {
-				FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
+				FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+						SubstanceCoreUtilities.getScaleFactor(c), font);
 				prefSize.width += fm.stringWidth(text) + 6;
 				prefSize.height += fm.getHeight() + 2;
 			}

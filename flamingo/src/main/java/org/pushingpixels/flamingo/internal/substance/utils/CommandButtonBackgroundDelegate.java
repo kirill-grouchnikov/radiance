@@ -88,6 +88,7 @@ public class CommandButtonBackgroundDelegate {
             ButtonModel buttonModel, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             StateTransitionTracker stateTransitionTracker, boolean ignoreSelections) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
         StateTransitionTracker.ModelStateInfo modelStateInfo = (stateTransitionTracker == null)
                 ? null : stateTransitionTracker.getModelStateInfo();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
@@ -158,7 +159,8 @@ public class CommandButtonBackgroundDelegate {
             }
         }
 
-        HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(currState, width, height,
+        ImageHashMapKey baseKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, currState, width, height,
                 baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                 fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                 commandButton.getClass().getName(), radius, straightSides,
@@ -178,10 +180,10 @@ public class CommandButtonBackgroundDelegate {
             return baseLayer;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D g2d = result.createGraphics();
 
-        NeonCortex.drawImage(g2d, baseLayer, 0, 0);
+        NeonCortex.drawImageWithScale(g2d, scale, baseLayer, 0, 0);
 
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
                 activeStates.entrySet()) {
@@ -200,7 +202,8 @@ public class CommandButtonBackgroundDelegate {
             SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(commandButton, ColorSchemeAssociationKind.BORDER, activeState);
 
-            HashMapKey key = SubstanceCoreUtilities.getHashKey(activeState, width, height,
+            ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, activeState, width, height,
                     fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                     fillPainter.getDisplayName(), borderPainter.getDisplayName(),
                     commandButton.getClass().getName(), radius, straightSides,
@@ -217,7 +220,7 @@ public class CommandButtonBackgroundDelegate {
             }
 
             g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-            NeonCortex.drawImage(g2d, layer, 0, 0);
+            NeonCortex.drawImageWithScale(g2d, scale, layer, 0, 0);
         }
 
         g2d.dispose();
@@ -230,11 +233,12 @@ public class CommandButtonBackgroundDelegate {
             float radius, Set<SubstanceSlices.Side> straightSides,
             JCommandButton.CommandButtonLocationOrderKind locationOrderKind, int dx, int dy,
             int dw, int dh, boolean isVertical) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth() / 2.0f;
 
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width + dw, height + dh, radius,
                 straightSides, borderDelta);
-        BufferedImage newBackground = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage newBackground = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D finalGraphics = (Graphics2D) newBackground.getGraphics();
         finalGraphics.translate(dx, dy);
         fillPainter.paintContourBackground(finalGraphics, commandButton, width + dw, height + dh,
@@ -310,6 +314,7 @@ public class CommandButtonBackgroundDelegate {
     public static BufferedImage getCombinedCommandButtonBackground(
             JCommandButton commandButton, ButtonModel actionModel, Rectangle actionArea,
             PopupButtonModel popupModel, Rectangle popupArea) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
         ButtonModel backgroundModel = new DefaultButtonModel();
         backgroundModel.setEnabled(actionModel.isEnabled() && popupModel.isEnabled());
 
@@ -326,10 +331,10 @@ public class CommandButtonBackgroundDelegate {
                 commandButton, backgroundModel, fillPainter, borderPainter,
                 commandButton.getWidth(), commandButton.getHeight(), null, ignoreSelections);
 
-        BufferedImage layers = SubstanceCoreUtilities.getBlankImage(fullAlphaBackground.getWidth(),
-                fullAlphaBackground.getHeight());
+        BufferedImage layers = SubstanceCoreUtilities.getBlankImage(scale,
+                fullAlphaBackground.getWidth(), fullAlphaBackground.getHeight());
         Graphics2D combinedGraphics = layers.createGraphics();
-        NeonCortex.drawImage(combinedGraphics, fullAlphaBackground, 0, 0);
+        NeonCortex.drawImageWithScale(combinedGraphics, scale, fullAlphaBackground, 0, 0);
 
         ActionPopupTransitionAwareUI ui = (ActionPopupTransitionAwareUI) commandButton.getUI();
 
@@ -346,7 +351,7 @@ public class CommandButtonBackgroundDelegate {
                     .getFullAlphaBackground(commandButton, backgroundModel, fillPainter,
                             borderPainter, commandButton.getWidth(), commandButton.getHeight(),
                             ui.getTransitionTracker(), ignoreSelections);
-            NeonCortex.drawImage(combinedGraphics, rolloverBackground, 0, 0);
+            NeonCortex.drawImageWithScale(combinedGraphics, scale, rolloverBackground, 0, 0);
         }
 
         if ((actionArea != null) && !actionArea.isEmpty()) {
@@ -366,7 +371,7 @@ public class CommandButtonBackgroundDelegate {
                     .getFullAlphaBackground(commandButton, null, fillPainter, borderPainter,
                             commandButton.getWidth(), commandButton.getHeight(),
                             ui.getActionTransitionTracker(), ignoreSelections);
-            NeonCortex.drawImage(graphicsAction, actionAreaBackground, 0, 0);
+            NeonCortex.drawImageWithScale(graphicsAction, scale, actionAreaBackground, 0, 0);
             // graphicsAction.setColor(Color.red);
             // graphicsAction.fill(toFill);
             graphicsAction.dispose();
@@ -391,7 +396,7 @@ public class CommandButtonBackgroundDelegate {
                     .getFullAlphaBackground(commandButton, null, fillPainter, borderPainter,
                             commandButton.getWidth(), commandButton.getHeight(),
                             ui.getPopupTransitionTracker(), ignoreSelections);
-            NeonCortex.drawImage(graphicsPopup, popupAreaBackground, 0, 0);
+            NeonCortex.drawImageWithScale(graphicsPopup, scale, popupAreaBackground, 0, 0);
             // graphicsPopup.setColor(Color.blue);
             // graphicsPopup.fill(toFill);
             graphicsPopup.dispose();
@@ -404,6 +409,7 @@ public class CommandButtonBackgroundDelegate {
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
             JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
             ButtonModel model, StateTransitionTracker stateTransitionTracker, Color textColor) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(commandButton);
         boolean useThemed = (SubstanceCoreUtilities.getIconThemingType(commandButton) != null);
         Icon themed = useThemed
                 ? SubstanceCoreUtilities.getThemedIcon(commandButton, regular, textColor)
@@ -428,27 +434,26 @@ public class CommandButtonBackgroundDelegate {
         if (useRegularVersion) {
             regular.paintIcon(commandButton, g2d, 0, 0);
         } else {
-            double scaleFactor = NeonCortex.getScaleFactor();
             if (alpha < 1.0f) {
                 // paint the themed image full opaque on a separate image
-                BufferedImage themedImage = SubstanceCoreUtilities
-                        .getBlankImage(themed.getIconWidth(), themed.getIconHeight());
+                BufferedImage themedImage = SubstanceCoreUtilities.getBlankImage(scale,
+                        themed.getIconWidth(), themed.getIconHeight());
                 themed.paintIcon(commandButton, themedImage.createGraphics(), 0, 0);
                 // and paint that image translucently
                 g2d.setComposite(WidgetUtilities.getAlphaComposite(commandButton, 1.0f - alpha, g));
-                g2d.drawImage(themedImage, 0, 0, (int) (themedImage.getWidth() / scaleFactor),
-                        (int) (themedImage.getHeight() / scaleFactor), null);
+                g2d.drawImage(themedImage, 0, 0, (int) (themedImage.getWidth() / scale),
+                        (int) (themedImage.getHeight() / scale), null);
             }
 
             if (alpha > 0.0f) {
                 // paint the regular image full opaque on a separate image
-                BufferedImage regularImage = SubstanceCoreUtilities
-                        .getBlankImage(regular.getIconWidth(), regular.getIconHeight());
+                BufferedImage regularImage = SubstanceCoreUtilities.getBlankImage(scale,
+                        regular.getIconWidth(), regular.getIconHeight());
                 regular.paintIcon(commandButton, regularImage.createGraphics(), 0, 0);
                 // and paint that image translucently
                 g2d.setComposite(WidgetUtilities.getAlphaComposite(commandButton, alpha, g));
-                g2d.drawImage(regularImage, 0, 0, (int) (regularImage.getWidth() / scaleFactor),
-                        (int) (regularImage.getHeight() / scaleFactor), null);
+                g2d.drawImage(regularImage, 0, 0, (int) (regularImage.getWidth() / scale),
+                        (int) (regularImage.getHeight() / scale), null);
             }
         }
         g2d.dispose();

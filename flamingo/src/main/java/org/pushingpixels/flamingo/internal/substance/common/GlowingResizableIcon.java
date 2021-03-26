@@ -85,8 +85,9 @@ public class GlowingResizableIcon implements ResizableIcon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         if (this.delegate == null)
             return;
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
         float fadePos = this.iconGlowTracker.getIconGlowPosition();
-        String key = fadePos + ":" + this.getIconWidth() + ":" + this.getIconHeight();
+        String key = scale + ":" + fadePos + ":" + this.getIconWidth() + ":" + this.getIconHeight();
         if (!this.cachedImages.containsKey(key)) {
             // check if loading
             if (this.delegate instanceof AsynchronousLoading) {
@@ -96,8 +97,8 @@ public class GlowingResizableIcon implements ResizableIcon {
                     return;
                 }
             }
-            BufferedImage offscreen = SubstanceCoreUtilities.getBlankImage(this.getIconWidth(),
-                    this.getIconHeight());
+            BufferedImage offscreen = SubstanceCoreUtilities.getBlankImage(scale,
+                    this.getIconWidth(), this.getIconHeight());
             Graphics2D g2d = offscreen.createGraphics();
             this.delegate.paintIcon(c, g2d, 0, 0);
             g2d.dispose();
@@ -122,7 +123,7 @@ public class GlowingResizableIcon implements ResizableIcon {
         BufferedImage toDraw = this.cachedImages.get(key);
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(x, y);
-        NeonCortex.drawImage(g2d, toDraw, 0, 0);
+        NeonCortex.drawImageWithScale(g2d, scale, toDraw, 0, 0);
         g2d.dispose();
     }
 }

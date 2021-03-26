@@ -94,15 +94,16 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
             }
         }
 
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
         SubstanceColorScheme scheme = SubstanceColorSchemeUtilities.getColorScheme(c,
                 ComponentState.DISABLED_UNSELECTED);
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(this.getIconWidth(),
-                this.getIconHeight(), scheme.getDisplayName());
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, this.getIconWidth(), this.getIconHeight(), scheme.getDisplayName());
 
         BufferedImage filtered = this.cachedImages.get(key);
         if (filtered == null) {
-            BufferedImage offscreen = SubstanceCoreUtilities.getBlankImage(this.getIconWidth(),
-                    this.getIconHeight());
+            BufferedImage offscreen = SubstanceCoreUtilities.getBlankImage(scale,
+                    this.getIconWidth(), this.getIconHeight());
             Graphics2D g2d = offscreen.createGraphics();
             this.delegate.paintIcon(c, g2d, 0, 0);
             g2d.dispose();
@@ -110,7 +111,7 @@ public class SubstanceDisabledResizableIcon implements ResizableIcon {
             this.cachedImages.put(key, filtered);
         }
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.drawImage(g2d, filtered, 0, 0);
+        NeonCortex.drawImageWithScale(g2d, scale, filtered, 0, 0);
         g2d.dispose();
     }
 }

@@ -82,6 +82,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
      */
     private static synchronized BufferedImage getTaskToggleButtonBackground(
             JRibbonTaskToggleButton button, int width, int height) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
         JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -122,7 +123,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 : selectedTask.getBand(0);
         Color bgColor = (band != null) ? band.getBackground() : parent.getBackground();
 
-        HashMapKey baseKey = SubstanceCoreUtilities.getHashKey(width, height,
+        ImageHashMapKey baseKey = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height,
                 baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
                 borderPainter.getDisplayName(), decorationPainter.getDisplayName(),
                 button.getParent().getBackground().getRGB(), button.getActionModel(),
@@ -142,10 +144,10 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             return baseLayer;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D g2d = result.createGraphics();
 
-        NeonCortex.drawImage(g2d, baseLayer, 0, 0);
+        NeonCortex.drawImageWithScale(g2d, scale, baseLayer, 0, 0);
 
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
                 : activeStates.entrySet()) {
@@ -166,7 +168,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(ribbon,
                     ColorSchemeAssociationKind.BORDER, activeState);
 
-            HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height,
+            ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, width, height,
                     fillScheme.getDisplayName(), borderScheme.getDisplayName(),
                     borderPainter.getDisplayName(), decorationPainter.getDisplayName(),
                     button.getParent().getBackground().getRGB(),
@@ -183,7 +186,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             }
 
             g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-            NeonCortex.drawImage(g2d, layer, 0, 0);
+            NeonCortex.drawImageWithScale(g2d, scale, layer, 0, 0);
         }
 
         g2d.dispose();
@@ -199,6 +202,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             int height, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme,
             SubstanceBorderPainter borderPainter) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(button);
         Set<Side> bottom = EnumSet.of(Side.BOTTOM);
 
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
@@ -213,7 +217,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width,
                 height + 2 + borderDelta, radius, bottom, borderInsets);
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height + 2);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height + 2);
         Graphics2D graphics = result.createGraphics();
 
         SubstanceSkin skin = SubstanceCoreUtilities.getSkin(button);

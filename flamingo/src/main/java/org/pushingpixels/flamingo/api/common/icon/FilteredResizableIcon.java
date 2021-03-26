@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.common.icon;
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -99,7 +99,8 @@ public class FilteredResizableIcon implements ResizableIcon {
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         // check cache
-        String key = this.getIconWidth() + ":" + this.getIconHeight();
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        String key = scale + ":" + this.getIconWidth() + ":" + this.getIconHeight();
         if (!this.cachedImages.containsKey(key)) {
             // check if loading
             if (this.delegate instanceof AsynchronousLoading) {
@@ -109,8 +110,8 @@ public class FilteredResizableIcon implements ResizableIcon {
                     return;
                 }
             }
-            BufferedImage offscreen = NeonCortex.getBlankImage(this.getIconWidth(),
-                    this.getIconHeight());
+            BufferedImage offscreen = NeonCortex.getBlankImage(
+                    scale, this.getIconWidth(), this.getIconHeight());
             Graphics2D g2d = offscreen.createGraphics();
             this.delegate.paintIcon(c, g2d, 0, 0);
             g2d.dispose();
@@ -122,9 +123,8 @@ public class FilteredResizableIcon implements ResizableIcon {
         g2d.translate(x, y);
         // Note that here we shouldn't use NeonCortex.drawImage as the result of applying
         // a generic (non-NeonAbstractFilter) filter is not going to be a high-DPI wrapper.
-        double scaleFactor = UIUtil.getScaleFactor();
-        g2d.drawImage(toDraw, 0, 0, (int) (toDraw.getWidth(null) / scaleFactor),
-                (int) (toDraw.getHeight(null) / scaleFactor), null);
+        g2d.drawImage(toDraw, 0, 0, (int) (toDraw.getWidth(null) / scale),
+                (int) (toDraw.getHeight(null) / scale), null);
         g2d.dispose();
     }
 

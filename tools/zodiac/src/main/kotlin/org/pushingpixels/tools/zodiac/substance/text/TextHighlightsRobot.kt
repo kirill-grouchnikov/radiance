@@ -61,8 +61,10 @@ import javax.swing.text.DefaultCaret
  *
  * @author Kirill Grouchnikov
  */
-abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
-        private val screenshotFilename: String) : ZodiacRobot {
+abstract class TextHighlightsRobot(
+    private val skin: SubstanceSkin,
+    private val screenshotFilename: String
+) : ZodiacRobot {
     private fun makeTextField(text: String): JTextField {
         val result = SubstanceTextField(text, 20)
         // force the display of text selection even when the focus has been lost
@@ -79,28 +81,35 @@ abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
         val frame = JFrame("Text highlights")
 
         frame.iconImage = RadianceLogo.getLogoImage(
-                SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
-                        DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED))
+            SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
+                DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                ComponentState.ENABLED
+            )
+        )
 
         frame.contentPane.layout = BoxLayout(frame.contentPane, BoxLayout.Y_AXIS)
 
         val panelTitlePane = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                panelTitlePane, DecorationAreaType.PRIMARY_TITLE_PANE)
+            panelTitlePane, DecorationAreaType.PRIMARY_TITLE_PANE
+        )
         val panelToolbar = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                panelToolbar, DecorationAreaType.TOOLBAR)
+            panelToolbar, DecorationAreaType.TOOLBAR
+        )
         val panelGeneral = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                panelGeneral, DecorationAreaType.CONTROL_PANE)
+            panelGeneral, DecorationAreaType.CONTROL_PANE
+        )
         val panelNone = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                panelNone, DecorationAreaType.NONE)
+            panelNone, DecorationAreaType.NONE
+        )
         val panelFooter = JPanel(FlowLayout())
         SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
-                panelFooter, DecorationAreaType.FOOTER)
+            panelFooter, DecorationAreaType.FOOTER
+        )
 
         panelTitlePane.add(makeTextField("sample title pane"))
         panelToolbar.add(makeTextField("sample toolbar"))
@@ -177,7 +186,10 @@ abstract class TextHighlightsRobot(private val skin: SubstanceSkin,
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(frame.width, frame.height)
+        val bi = NeonCortex.getBlankImage(
+            SubstanceCortex.GlobalScope.getScaleFactor(frame),
+            frame.width, frame.height
+        )
         val g = bi.graphics
         frame.paint(g)
         try {

@@ -80,11 +80,12 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 			MixColorScheme mixColorScheme = (MixColorScheme) fillScheme;
 			SubstanceColorScheme[] origSchemes = mixColorScheme.getOrigSchemes();
 
+			double scale = SubstanceCoreUtilities.getScaleFactor(comp);
 	        int iWidth = (int) Math.ceil(width);
 	        int iHeight = (int) Math.ceil(height);
 			BufferedImage[] components = new BufferedImage[origSchemes.length];
 			for (int i = 0; i < origSchemes.length; i++) {
-				components[i] = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
+				components[i] = SubstanceCoreUtilities.getBlankImage(scale, iWidth, iHeight);
 				Graphics2D g2d = components[i].createGraphics();
 				this.delegate.paintContourBackground(g2d, comp, width, height,
 						contour, isFocused, origSchemes[i], hasShine);
@@ -100,7 +101,7 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 						components[i], start, end);
 			}
 			Graphics2D g2d = (Graphics2D) g.create();
-			NeonCortex.drawImage(g2d, current, 0, 0);
+			NeonCortex.drawImageWithScale(g2d, scale, current, 0, 0);
 			g2d.dispose();
 			return;
 		}

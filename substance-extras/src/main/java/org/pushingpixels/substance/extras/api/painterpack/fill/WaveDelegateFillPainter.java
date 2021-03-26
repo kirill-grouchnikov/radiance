@@ -89,6 +89,8 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 	@Override
 	public void paintContourBackground(Graphics g, Component comp, float width, float height,
 	        Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
+		double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+
 		GeneralPath clipBottom = new GeneralPath();
 		clipBottom.moveTo(0, height);
 		clipBottom.lineTo(width, height);
@@ -104,7 +106,7 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 				SubstanceCoreUtilities.getScaleFactor(comp),
 				iWidth, iHeight, null, clipBottom);
 
-		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
+		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(scale, iWidth, iHeight);
 		Graphics2D bottomGraphics = (Graphics2D) bottomImage.getGraphics();
 		bottomGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -134,8 +136,7 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 				height, contour, isFocused, bottomColorScheme, hasShine);
 		// bottomGraphics.drawImage(bottomFullImage, 0, 0, null);
 
-		BufferedImage image = SubstanceCoreUtilities.getBlankImage(iWidth,
-				iHeight);
+		BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iWidth, iHeight);
 		Graphics2D graphics = (Graphics2D) image.getGraphics();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);

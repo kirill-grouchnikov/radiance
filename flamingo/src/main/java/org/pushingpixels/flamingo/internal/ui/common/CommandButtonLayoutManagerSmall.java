@@ -34,6 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -50,7 +51,8 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
         Insets borderInsets = commandButton.getInsets();
         // int bx = borderInsets.left + borderInsets.right;
         int by = borderInsets.top + borderInsets.bottom;
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
 
         int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
 
@@ -171,7 +173,8 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
         boolean hasIcon = (buttonIcon != null);
         boolean hasPopupIcon = FlamingoUtilities.hasPopupAction(commandButton);
 
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(commandButton.getFont());
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
         JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();

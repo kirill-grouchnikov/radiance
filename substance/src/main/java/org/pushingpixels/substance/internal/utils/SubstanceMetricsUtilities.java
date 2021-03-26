@@ -35,6 +35,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -46,45 +47,56 @@ import java.util.Map;
  * width of hinted text, leading to text cut-off.
  */
 public class SubstanceMetricsUtilities {
-    private static BufferedImage offscreen = NeonCortex.getBlankImage(1, 1);
-    private static Map<Font, FontMetrics> metricsMap = new SoftHashMap<>();
-    private static Map<Font, FontRenderContext> renderContextMap = new SoftHashMap<>();
+    private static Map<Double, BufferedImage> offscreens = new HashMap<>();
+    private static Map<HashMapKey, FontMetrics> metricsMap = new SoftHashMap<>();
+    private static Map<HashMapKey, FontRenderContext> renderContextMap = new SoftHashMap<>();
 
     private static Rectangle iconR = new Rectangle();
     private static Rectangle textR = new Rectangle();
     private static Rectangle viewR = new Rectangle();
     private static Insets insets = new Insets(0, 0, 0, 0);
 
-    public static FontMetrics getFontMetrics(Font font) {
-        if (metricsMap.containsKey(font)) {
-            return metricsMap.get(font);
+    private static BufferedImage getOffscreenImage(double scale) {
+        if (offscreens.containsKey(scale)) {
+            return offscreens.get(scale);
+        }
+        BufferedImage offscreen = NeonCortex.getBlankImage(scale, 1, 1);
+        offscreens.put(scale, offscreen);
+        return offscreen;
+    }
+
+    public static FontMetrics getFontMetrics(double scale, Font font) {
+        HashMapKey key = SubstanceCoreUtilities.getHashKey(scale, font);
+        if (metricsMap.containsKey(key)) {
+            return metricsMap.get(key);
         }
 
-        Graphics2D g2d = offscreen.createGraphics();
+        Graphics2D g2d = getOffscreenImage(scale).createGraphics();
         g2d.setFont(font);
         NeonCortex.installDesktopHints(g2d, font);
         FontMetrics result = g2d.getFontMetrics();
         NeonCortex.clearDesktopHints(g2d, font);
         g2d.dispose();
 
-        metricsMap.put(font, result);
+        metricsMap.put(key, result);
 
         return result;
     }
 
-    public static FontRenderContext getFontRenderContext(Font font) {
-        if (renderContextMap.containsKey(font)) {
-            return renderContextMap.get(font);
+    public static FontRenderContext getFontRenderContext(double scale, Font font) {
+        HashMapKey key = SubstanceCoreUtilities.getHashKey(scale, font);
+        if (renderContextMap.containsKey(key)) {
+            return renderContextMap.get(key);
         }
 
-        Graphics2D g2d = offscreen.createGraphics();
+        Graphics2D g2d = getOffscreenImage(scale).createGraphics();
         g2d.setFont(font);
         NeonCortex.installDesktopHints(g2d, font);
         FontRenderContext result = g2d.getFontRenderContext();
         NeonCortex.clearDesktopHints(g2d, font);
         g2d.dispose();
 
-        renderContextMap.put(font, result);
+        renderContextMap.put(key, result);
 
         return result;
     }
@@ -105,7 +117,7 @@ public class SubstanceMetricsUtilities {
             return new Dimension(icon.getIconWidth() + dx,
                     icon.getIconHeight() + dy);
         } else {
-            FontMetrics fm = getFontMetrics(font);
+            FontMetrics fm = getFontMetrics(SubstanceCoreUtilities.getScaleFactor(label), font);
             iconR.setBounds(0, 0, 0, 0);
             textR.setBounds(0, 0, 0, 0);
             viewR.setBounds(dx, dy, Short.MAX_VALUE, Short.MAX_VALUE);
@@ -138,7 +150,9 @@ public class SubstanceMetricsUtilities {
         viewR.setBounds(0, 0, Short.MAX_VALUE, Short.MAX_VALUE);
 
         SwingUtilities.layoutCompoundLabel(
-                button, getFontMetrics(button.getFont()), button.getText(), button.getIcon(),
+                button,
+                getFontMetrics(SubstanceCoreUtilities.getScaleFactor(button), button.getFont()),
+                button.getText(), button.getIcon(),
                 button.getVerticalAlignment(), button.getHorizontalAlignment(),
                 button.getVerticalTextPosition(), button.getHorizontalTextPosition(),
                 viewR, iconR, textR, (button.getText() == null) ? 0 : button.getIconTextGap());
@@ -165,7 +179,8 @@ public class SubstanceMetricsUtilities {
             buttonIcon = defaultIcon;
         }
 
-        FontMetrics fm = getFontMetrics(button.getFont());
+        FontMetrics fm = getFontMetrics(SubstanceCoreUtilities.getScaleFactor(button),
+                button.getFont());
 
         textR.setBounds(0, 0, 0, 0);
         iconR.setBounds(0, 0, 0, 0);

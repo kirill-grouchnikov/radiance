@@ -237,8 +237,9 @@ public class MenuUtilities {
             viewRect.height -= (i.bottom + viewRect.y);
         }
 
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(menuItem.getFont());
-        FontMetrics fmAccel = SubstanceMetricsUtilities.getFontMetrics(acceleratorFont);
+        double scale = SubstanceCoreUtilities.getScaleFactor(menuItem);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(scale, menuItem.getFont());
+        FontMetrics fmAccel = SubstanceMetricsUtilities.getFontMetrics(scale, acceleratorFont);
 
         // get Accelerator text
         KeyStroke accelerator = menuItem.getAccelerator();

@@ -46,6 +46,7 @@ import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
@@ -480,6 +481,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int appMenuButtonWidth = 0;
             if (isShowingAppMenuButton) {
                 FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                        SubstanceCoreUtilities.getScaleFactor(applicationMenuButton),
                         applicationMenuButton.getFont());
 
                 appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenuCommandProjection()

@@ -612,7 +612,8 @@ class JElectrifiedImageComponent(private val originalImageComponent: JImageCompo
         val finalWidth = WIDTH + extraLeft + extraRight
         val finalHeight = electrifiedHeight + extraTop + extraBottom
 
-        val compatibleImage = NeonCortex.getBlankImage(finalWidth, finalHeight)
+        val compatibleImage = NeonCortex.getBlankImage(
+            SubstanceCortex.GlobalScope.getScaleFactor(this), finalWidth, finalHeight)
 
         compatibleImage.render {
             it.translate(extraLeft, extraTop)

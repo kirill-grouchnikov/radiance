@@ -255,7 +255,9 @@ public class TabPreviewThread extends TrackableThread {
 			final TabPreviewInfo previewInfo, final int tabIndex) {
 		int pWidth = previewInfo.getPreviewWidth();
 		int pHeight = previewInfo.getPreviewHeight();
-		final BufferedImage previewImage = SubstanceCoreUtilities.getBlankImage(pWidth, pHeight);
+		double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
+		final BufferedImage previewImage = SubstanceCoreUtilities.getBlankImage(
+				scale, pWidth, pHeight);
 		Component comp = tabPane.getComponentAt(tabIndex);
 
 		if (previewPainter.hasPreview(tabPane, tabIndex)) {

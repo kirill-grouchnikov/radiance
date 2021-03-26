@@ -57,11 +57,12 @@ public class WaveFillPainter implements SubstanceFillPainter {
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
             Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
         int iWidth = (int) Math.ceil(width);
         int iHeight = (int) Math.ceil(height);
         // create rectangular background and later draw it on
         // result image with contour clip.
-        BufferedImage rectangular = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
+        BufferedImage rectangular = SubstanceCoreUtilities.getBlankImage(scale, iWidth, iHeight);
         Graphics2D rgraphics = (Graphics2D) rectangular.getGraphics();
 
         Color lightFillColor = fillScheme.getUltraLightColor();

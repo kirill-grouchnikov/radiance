@@ -355,11 +355,11 @@ public final class SubstanceImageCreator {
         // graphics.fillRect(0, 0, downArrowImage.getWidth(), downArrowImage.getHeight());
 
         if (!toggle) {
-            NeonCortex.drawImage(graphics, singleArrow, 0, 0);
-            NeonCortex.drawImage(graphics, singleArrow, 0, (int) arrowGap);
+            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, 0);
+            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, (int) arrowGap);
         } else {
-            NeonCortex.drawImage(graphics, singleArrow, 0, 0);
-            NeonCortex.drawImage(graphics, singleArrow, (int) arrowGap, 0);
+            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, 0);
+            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, (int) arrowGap, 0);
         }
 
         return new ScaleAwareImageWrapperIcon(downArrowImage, scale);

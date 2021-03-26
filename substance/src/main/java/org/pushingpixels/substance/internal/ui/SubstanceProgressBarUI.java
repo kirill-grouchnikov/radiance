@@ -662,7 +662,8 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
      */
     private Rectangle getStringRectangle(String progressString, int x, int y, int width,
             int height) {
-        FontMetrics fontSizer = SubstanceMetricsUtilities.getFontMetrics(progressBar.getFont());
+        FontMetrics fontSizer = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(progressBar), progressBar.getFont());
 
         int stringWidth = fontSizer.stringWidth(progressString);
 

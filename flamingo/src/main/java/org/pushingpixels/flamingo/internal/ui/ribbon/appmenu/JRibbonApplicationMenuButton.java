@@ -37,6 +37,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -71,6 +72,7 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                             result.isTextInActionArea = false;
 
                             FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                                    SubstanceCoreUtilities.getScaleFactor(commandButton),
                                     commandButton.getFont());
                             int labelHeight = fm.getAscent() + fm.getDescent();
 

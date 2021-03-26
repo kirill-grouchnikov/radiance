@@ -665,7 +665,8 @@ public class SubstanceTitlePane extends JComponent {
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                 (this.window != null) ? this.window : this.getRootPane());
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(this), font);
         int titleWidth = titleTextRect.width - 20;
         String clippedTitle = SubstanceCoreUtilities.clipString(fm, titleWidth, theTitle);
 
@@ -713,7 +714,8 @@ public class SubstanceTitlePane extends JComponent {
         if (displayTitle != null) {
             Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     (this.window != null) ? this.window : this.getRootPane());
-            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                    SubstanceCoreUtilities.getScaleFactor(this), font);
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary
@@ -963,7 +965,8 @@ public class SubstanceTitlePane extends JComponent {
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy()
                                 .getFontSet().getWindowTitleFont();
-                        int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(font)
+                        int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(
+                                SubstanceCoreUtilities.getScaleFactor(c), font)
                                 .stringWidth(displayTitle);
                         switch (titleTextHorizontalGravity) {
                             case LEADING:
@@ -1166,7 +1169,8 @@ public class SubstanceTitlePane extends JComponent {
     }
 
     private int getPaneHeight() {
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(this.getFont());
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(this), this.getFont());
         int fontHeight = fm.getHeight();
         fontHeight += 7;
         int iconHeight = 0;

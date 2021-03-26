@@ -49,8 +49,10 @@ import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 
-abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
-        private val screenshotFilename: String) : ZodiacRobot {
+abstract class BaseColorSchemeRobot(
+    private var skin: SubstanceSkin,
+    private val screenshotFilename: String
+) : ZodiacRobot {
 
     private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
@@ -62,14 +64,16 @@ abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
         }
 
         // create the frame and set the icon image
-        val frame : JFrame
+        val frame: JFrame
         withContext(Dispatchers.Swing) {
             frame = SampleFrame()
             frame.iconImage = RadianceLogo.getLogoImage(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
-                            DecorationAreaType.PRIMARY_TITLE_PANE,
-                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                            ComponentState.ENABLED))
+                SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
+                    DecorationAreaType.PRIMARY_TITLE_PANE,
+                    SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    ComponentState.ENABLED
+                )
+            )
             frame.setSize(340, 258)
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -101,7 +105,11 @@ abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankImage(frame.width, frame.height)
+        val bi = NeonCortex.getBlankImage(
+            SubstanceCortex.GlobalScope.getScaleFactor(frame),
+            frame.width,
+            frame.height
+        )
         val g = bi.graphics
         frame.paint(g)
         try {
@@ -121,5 +129,7 @@ abstract class BaseColorSchemeRobot(private var skin: SubstanceSkin,
  * @author Kirill Grouchnikov
  */
 abstract class ColorSchemeRobot(colorScheme: SubstanceColorScheme, screenshotFilename: String) :
-        BaseColorSchemeRobot(if (colorScheme.isDark) RobotDefaultDarkSkin(colorScheme) else
-            RobotDefaultSkin(colorScheme), screenshotFilename)
+    BaseColorSchemeRobot(
+        if (colorScheme.isDark) RobotDefaultDarkSkin(colorScheme) else
+            RobotDefaultSkin(colorScheme), screenshotFilename
+    )

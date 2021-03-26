@@ -31,6 +31,7 @@ package org.pushingpixels.substance.api.colorscheme;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -91,7 +92,8 @@ public interface SchemeBaseColors extends SubstanceTrait {
 	Color getUltraDarkColor();
 
 	default BufferedImage toImage() {
-		BufferedImage result = NeonCortex.getBlankImage(240, 40);
+		BufferedImage result = NeonCortex.getBlankImage(
+				SubstanceCoreUtilities.getScaleFactor(null), 240, 40);
 		Graphics2D g2d = result.createGraphics();
 
 		g2d.setColor(this.getUltraLightColor());

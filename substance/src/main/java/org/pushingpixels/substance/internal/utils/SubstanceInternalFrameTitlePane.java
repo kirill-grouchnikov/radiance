@@ -204,7 +204,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                 this.frame);
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
+        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                SubstanceCoreUtilities.getScaleFactor(this), font);
         int titleWidth = titleTextRect.width - 20;
         String clippedTitle = SubstanceCoreUtilities.clipString(fm, titleWidth, theTitle);
 
@@ -254,7 +255,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
         if (displayTitle != null) {
             Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     this.frame);
-            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(font);
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                    SubstanceCoreUtilities.getScaleFactor(this), font);
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary
@@ -480,7 +482,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             if (frame.isIconifiable()) {
                 width += 16 + (frame.isMaximizable() ? 2 : (frame.isClosable() ? 10 : 4));
             }
-            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(getFont());
+            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                    SubstanceCoreUtilities.getScaleFactor(c), getFont());
             String frameTitle = frame.getTitle();
             int title_w = frameTitle != null ? fm.stringWidth(frameTitle) : 0;
             int title_length = frameTitle != null ? frameTitle.length() : 0;
@@ -547,8 +550,8 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                         String displayTitle = getDisplayTitle();
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getWindowTitleFont();
-                        int displayTitleWidth =
-                                SubstanceMetricsUtilities.getFontMetrics(font).stringWidth(displayTitle);
+                        int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(
+                                SubstanceCoreUtilities.getScaleFactor(c), font).stringWidth(displayTitle);
                         switch (titleTextGravity) {
                             case LEADING:
                                 menuBarLeft = leftToRight ? titleRect.x - buttonWidth - spacing
