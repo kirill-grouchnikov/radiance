@@ -48,18 +48,19 @@ public static class MyPanel extends JPanel {
 
 ### Working with high-resolution / high-DPI displays
 
-`NeonCortex.getScaleFactor` API returns the scale factor of the highest-resolution connected graphics device / display. The result should be used for any custom application rendering code that draws content directly on `Canvas` in the `paintComponent` method.
+`NeonCortex.getScaleFactor(Component)` API returns the scale factor of the graphics device / display that the component is displayed on. The result should be used for any custom application rendering code that draws content directly on `Graphics` in the `paintComponent` method.
 
 This API is primarily meant to be used in conjunction with the following APIs that target offloading frequently performed rendering operations to cached, offscreen images:
 
-* `NeonCortex.getBlankImage` returns a `BufferedImage` that scales all rendering commands on high-resolution displays.
-* `NeonCortex.drawImage` renders an image obtained with `getBlankImage` on the passed `Graphics`, scaling the content as necessary.
+* `NeonCortex.getBlankScaledImage` returns a `BufferedImage` that scales all rendering commands on the specific display.
+* `NeonCortex.drawImageWithScale` renders an image obtained with `getBlankScaledImage` on the passed `Graphics`, scaling the content as necessary.
 
 Consider the following use case - a UI delegate for the `JButton` component may want to cache the composited visuals for most frequently sized buttons. On a high-resolution / Retina display, we want the final result to look crisp, with a pixel-wide hairline outline. The following steps should be followed to achieve the target look:
 
-* Obtain a scalable blank image with `NeonCortex.getBlankImage`, passing the width and height of the button in pixels. Note that here we are passing the "unscaled" pixels in the traditional, legacy Swing coordinate system. For example, on a MacBook Retina screen, the button will be rendered as a 140x60 pixel block, while `JButton.getWidth()` and `JButton.getHeight()` will return 70 and 30, respectively.
-* Use `NeonCortex.getScaleFactor` to compute the stroke width of the button border / outline. Due to the legacy Swing considerations, creating a `BasicStroke` with width equal to `1.0f` will create a border that is too thick on a Retina screen. The correct border stroke width should be `1.0f / NeonCortex.getScaleFactor()`
-* After all button visuals have been combined into the buffered image, use `NeonCortex.drawImage` to render that image onto the target `Graphics`.
+* Get the scale factor for the button with `NeonCortex.getScaleFactor(Component)`
+* Obtain a scalable blank image with `NeonCortex.getBlankScaledImage`, passing the scale factor, as well as width and height of the button in pixels. Note that here we are passing the "unscaled" pixels in the traditional, legacy Swing coordinate system. For example, on a MacBook Retina screen, the button will be rendered as a 140x60 pixel block, while `JButton.getWidth()` and `JButton.getHeight()` will return 70 and 30, respectively.
+* Use `NeonCortex.getScaleFactor(Component)` to compute the stroke width of the button border / outline. Due to the legacy Swing considerations, creating a `BasicStroke` with width equal to `1.0f` will create a border that is too thick on a Retina screen. The correct border stroke width should be `1.0f / NeonCortex.getScaleFactor(Component)`
+* After all button visuals have been combined into the buffered image, use `NeonCortex.drawImageWithScale` to render that image onto the target `Graphics`.
 
 What is happening under the hood? Going back to our 70x30 button which takes 140x60 area on the underlying Retina hardware, the image returned in the first step will actually be 140x60 pixels wide. Then, in the second step, we are scaling down the stroke in our rendering pass - since we want to treat all screen densities consistently, while the underlying buffered image will scale that stroke back to be 1 pixel wide (on an image that is twice as big as far as the pure pixel size goes). Finally, when the 2x image is rendered on the target graphics, it is scaled back down by 2x. As far as Swing is concerned, it is rendering a 140x60 image in a 70x30 area. However, when it gets down to rendering the actual pixels, the underlying graphics pipeline will do the right thing and render our 140x60 image in a 140x60 screen area.
 
