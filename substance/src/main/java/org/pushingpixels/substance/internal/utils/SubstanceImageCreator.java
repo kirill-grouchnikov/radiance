@@ -1206,7 +1206,7 @@ public final class SubstanceImageCreator {
             int cx = bumpColOffset + col * bumpCellSize;
             for (int row = 0; row < bumpRows; row++) {
                 int cy = bumpRowOffset + row * bumpCellSize + (bumpCellSize - bumpDotDiameter) / 2;
-                NeonCortex.drawImage(graphics, singleDot, cx, cy);
+                NeonCortex.drawImageWithScale(graphics, scale, singleDot, cx, cy);
             }
         }
         graphics.dispose();

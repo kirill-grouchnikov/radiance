@@ -802,6 +802,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintTabBackground(Graphics g, int tabPlacement, final int tabIndex, final int x,
             final int y, int w, int h, boolean isSelected) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.tabPane);
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, g));
 
@@ -926,7 +927,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 currState);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha, g));
-        NeonCortex.drawImage(graphics, fullOpacity, x, y);
+        NeonCortex.drawImageWithScale(graphics, scale, fullOpacity, x, y);
 
         // Check if requested to paint close buttons.
         if (SubstanceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -979,11 +980,11 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             baseMarkScheme);
 
                     if (cyclePos < 1.0f) {
-                        NeonCortex.drawImage(graphics, layer1, orig.x, orig.y);
+                        NeonCortex.drawImageWithScale(graphics, scale, layer1, orig.x, orig.y);
                     }
                     if (cyclePos > 0.0f) {
                         graphics.setComposite(AlphaComposite.SrcOver.derive(cyclePos));
-                        NeonCortex.drawImage(graphics, layer2, orig.x, orig.y);
+                        NeonCortex.drawImageWithScale(graphics, scale, layer2, orig.x, orig.y);
                     }
                 } else {
                     BufferedImage layerBase = SubstanceTabbedPaneUI.getCloseButtonImage(
@@ -992,7 +993,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
                     if ((modelStateInfo == null) || currState.isDisabled()
                             || (modelStateInfo.getStateContributionMap().size() == 1)) {
-                        NeonCortex.drawImage(graphics, layerBase, orig.x, orig.y);
+                        NeonCortex.drawImageWithScale(graphics, scale, layerBase, orig.x, orig.y);
                     } else {
                         BufferedImage complete = SubstanceCoreUtilities.getBlankUnscaledImage(layerBase);
                         Graphics2D g2d = complete.createGraphics();
@@ -1030,7 +1031,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             }
                         }
                         g2d.dispose();
-                        NeonCortex.drawImage(graphics, complete, orig.x, orig.y);
+                        NeonCortex.drawImageWithScale(graphics, scale, complete, orig.x, orig.y);
                     }
                 }
             }

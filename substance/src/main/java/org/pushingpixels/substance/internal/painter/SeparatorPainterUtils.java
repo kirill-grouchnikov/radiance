@@ -377,7 +377,7 @@ public class SeparatorPainterUtils {
 		}
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.drawImage(g2d, singleLine, 0, 0);
+		NeonCortex.drawImageWithScale(g2d, scale, singleLine, 0, 0);
 		g2d.dispose();
 	}
 
@@ -448,7 +448,7 @@ public class SeparatorPainterUtils {
 
 		Graphics2D g2d = (Graphics2D) g.create();
 		for (int lineX : x) {
-			NeonCortex.drawImage(g2d, singleLine, lineX, y);
+			NeonCortex.drawImageWithScale(g2d, scale, singleLine, lineX, y);
 		}
 		g2d.dispose();
 	}
@@ -524,7 +524,7 @@ public class SeparatorPainterUtils {
 
 		Graphics2D g2d = (Graphics2D) g.create();
 		for (int lineY : y) {
-			NeonCortex.drawImage(g2d, singleLine, x, lineY);
+			NeonCortex.drawImageWithScale(g2d, scale, singleLine, x, lineY);
 		}
 		g2d.dispose();
 	}

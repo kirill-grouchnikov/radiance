@@ -217,7 +217,8 @@ public class ComboBoxBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImage(graphics, bgImage, 0, y);
+            NeonCortex.drawImageWithScale(graphics, SubstanceCoreUtilities.getScaleFactor(combo),
+                    bgImage, 0, y);
             graphics.dispose();
         }
     }

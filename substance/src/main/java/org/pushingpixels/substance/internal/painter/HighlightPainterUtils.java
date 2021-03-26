@@ -113,7 +113,7 @@ public class HighlightPainterUtils {
                         borderScheme, highlightPainter, highlightBorderPainter);
                 smallCache.put(key, result);
             }
-            NeonCortex.drawImage(g2d, result, 0, 0);
+            NeonCortex.drawImageWithScale(g2d, scale, result, 0, 0);
         }
     }
 

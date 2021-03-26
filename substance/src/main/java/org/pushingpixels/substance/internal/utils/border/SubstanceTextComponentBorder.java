@@ -142,7 +142,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                         g2base.dispose();
                         smallImageCache.put(baseHashKey, baseLayer);
                     }
-                    NeonCortex.drawImage(graphics, baseLayer, 0, 0);
+                    NeonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
                 } else {
                     SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height,
                             baseBorderScheme);
@@ -186,7 +186,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                                 smallImageCache.put(extraHashKey, extraLayer);
                             }
 
-                            NeonCortex.drawImage(graphics, extraLayer, 0, 0);
+                            NeonCortex.drawImageWithScale(graphics, scale, extraLayer, 0, 0);
                         } else {
                             SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height,
                                     borderScheme);
@@ -218,7 +218,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                 smallImageCache.put(baseHashKey, baseLayer);
             }
 
-            NeonCortex.drawImage(graphics, baseLayer, 0, 0);
+            NeonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
         } else {
             SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height, borderColorScheme);
         }

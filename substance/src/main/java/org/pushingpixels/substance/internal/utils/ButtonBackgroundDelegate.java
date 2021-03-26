@@ -363,7 +363,8 @@ public class ButtonBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImage(graphics, bgImage, 0, y);
+            NeonCortex.drawImageWithScale(graphics, SubstanceCoreUtilities.getScaleFactor(button),
+                    bgImage, 0, y);
             graphics.dispose();
         }
     }

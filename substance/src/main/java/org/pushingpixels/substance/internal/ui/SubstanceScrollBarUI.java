@@ -438,20 +438,22 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
-        double scaleFactor = NeonCortex.getScaleFactor();
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
         if (isVertical) {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
             BufferedImage thumbImage = this.getThumbVertical(adjustedBounds);
-            int xdelta = (thumbBounds.width - (int) (thumbImage.getWidth() / scaleFactor)) / 2;
-            NeonCortex.drawImage(graphics, thumbImage, adjustedBounds.x + xdelta, adjustedBounds.y);
+            int xdelta = (thumbBounds.width - (int) (thumbImage.getWidth() / scale)) / 2;
+            NeonCortex.drawImageWithScale(graphics, scale, thumbImage,
+                    adjustedBounds.x + xdelta, adjustedBounds.y);
         } else {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
             BufferedImage thumbImage = this.getThumbHorizontal(adjustedBounds);
-            int ydelta = (thumbBounds.height - (int) (thumbImage.getHeight() / scaleFactor)) / 2;
-            NeonCortex.drawImage(graphics, thumbImage, adjustedBounds.x, adjustedBounds.y + ydelta);
+            int ydelta = (thumbBounds.height - (int) (thumbImage.getHeight() / scale)) / 2;
+            NeonCortex.drawImageWithScale(graphics, scale, thumbImage,
+                    adjustedBounds.x, adjustedBounds.y + ydelta);
         }
         graphics.dispose();
     }
