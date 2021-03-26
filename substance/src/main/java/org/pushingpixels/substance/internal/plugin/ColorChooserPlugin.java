@@ -123,7 +123,6 @@ public class ColorChooserPlugin implements SubstanceComponentPlugin {
                     "ColorChooser.crayonsImage",
                     (UIDefaults.LazyValue) ((UIDefaults table) -> SubstanceImageCreator.getCrayonsImage(
                             SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.NONE)
-//                            skin.getBackgroundColorScheme(DecorationAreaType.NONE).getBackgroundFillColor()
                     )),
                     "ColorChooser.textSliderGap",
                     Integer.valueOf(0),

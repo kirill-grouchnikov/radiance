@@ -100,8 +100,9 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 
         int iWidth = (int) Math.ceil(width);
         int iHeight = (int) Math.ceil(height);
-		BufferedImage clipShapeBottom = SubstanceCoreUtilities.softClip(iWidth, iHeight, null,
-				clipBottom);
+		BufferedImage clipShapeBottom = SubstanceCoreUtilities.softClip(
+				SubstanceCoreUtilities.getScaleFactor(comp),
+				iWidth, iHeight, null, clipBottom);
 
 		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
 		Graphics2D bottomGraphics = (Graphics2D) bottomImage.getGraphics();

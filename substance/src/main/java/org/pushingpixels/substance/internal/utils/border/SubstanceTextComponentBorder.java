@@ -135,7 +135,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                             baseBorderScheme.getDisplayName());
                     BufferedImage baseLayer = smallImageCache.get(baseHashKey);
                     if (baseLayer == null) {
-                        baseLayer = SubstanceCoreUtilities.getBlankImage(width, height);
+                        baseLayer = SubstanceCoreUtilities.getBlankImage(scale, width, height);
                         Graphics2D g2base = baseLayer.createGraphics();
                         SubstanceImageCreator.paintSimpleBorder(c, g2base, width, height,
                                 baseBorderScheme);

@@ -57,12 +57,13 @@ public class DefaultPreviewPainter extends PreviewPainter {
         int compHeight = component.getHeight();
 
         if ((compWidth > 0) && (compHeight > 0)) {
+            double scaleFactor = SubstanceCoreUtilities.getScaleFactor(parent);
             // draw component
-            BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(compWidth, compHeight);
+            BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(
+                    scaleFactor, compWidth, compHeight);
             Graphics tempCanvasGraphics = tempCanvas.getGraphics();
             component.paint(tempCanvasGraphics);
 
-            double scaleFactor = NeonCortex.getScaleFactor();
             // check if need to scale down
             double coef = Math.min((double) w / (double) compWidth,
                     (double) h / (double) compHeight) / scaleFactor;
@@ -72,7 +73,8 @@ public class DefaultPreviewPainter extends PreviewPainter {
                 int dx = x + ((int) (w / scaleFactor) - sdWidth) / 2;
                 int dy = y + ((int) (h / scaleFactor) - sdHeight) / 2;
 
-                BufferedImage thumbnail = NeonCortex.createThumbnail(tempCanvas, sdWidth);
+                BufferedImage thumbnail = NeonCortex.createThumbnail(
+                        scaleFactor, tempCanvas, sdWidth);
                 g.drawImage(thumbnail, dx, dy, (int) (thumbnail.getWidth() / scaleFactor),
                         (int) (thumbnail.getHeight() / scaleFactor), null);
             } else {

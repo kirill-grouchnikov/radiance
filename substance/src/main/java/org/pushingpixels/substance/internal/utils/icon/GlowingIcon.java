@@ -83,8 +83,8 @@ public class GlowingIcon implements Icon {
 		if (toPaint == null) {
 			int width = this.getIconWidth();
 			int height = this.getIconHeight();
-			BufferedImage image = SubstanceCoreUtilities.getBlankImage(width,
-					height);
+			BufferedImage image = SubstanceCoreUtilities.getBlankImage(
+					SubstanceCoreUtilities.getScaleFactor(c), width, height);
 			Graphics2D graphics = (Graphics2D) image.getGraphics();
 			//graphics.scale(1.0f / scale, 1.0f / scale);
 			this.delegate.paintIcon(c, graphics, 0, 0);

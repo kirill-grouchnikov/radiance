@@ -185,6 +185,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
 
     private ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
             final JCommandButton button) {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
@@ -193,7 +194,7 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                 (scheme, width, height) -> {
                     Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);
                     return SubstanceImageCreator.getDoubleArrowIcon(
-                            width, height,
+                            scale, width, height,
                             SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                             SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                             ribbonBand.getComponentOrientation().isLeftToRight()

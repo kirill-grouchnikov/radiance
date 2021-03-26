@@ -208,7 +208,8 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 
-        Image colorizedTile = this.getColorizedTile(tileScheme);
+        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        Image colorizedTile = this.getColorizedTile(scale, tileScheme);
         float scaleFactor = (float) NeonCortex.getScaleFactor();
         int tileWidth = (int) (colorizedTile.getWidth(null) / scaleFactor);
         int tileHeight = (int) (colorizedTile.getHeight(null) / scaleFactor);
@@ -256,20 +257,21 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
      *            Color scheme for the colorization.
      * @return Colorized tile.
      */
-    protected BufferedImage getColorizedTile(SubstanceColorScheme scheme) {
-        BufferedImage result = this.colorizedTileMap.get(scheme.getDisplayName());
+    protected BufferedImage getColorizedTile(double scale, SubstanceColorScheme scheme) {
+        String key = scale + ":" + scheme.getDisplayName();
+        BufferedImage result = this.colorizedTileMap.get(key);
         if (result == null) {
-            float scaleFactor = (float) NeonCortex.getScaleFactor();
             int tileWidth = this.originalTile.getWidth(null);
             int tileHeight = this.originalTile.getHeight(null);
-            BufferedImage tileBi = SubstanceCoreUtilities.getBlankImage((int) (tileWidth / scaleFactor),
-                    (int) (tileHeight / scaleFactor));
+            BufferedImage tileBi = SubstanceCoreUtilities.getBlankImage(scale,
+                    (int) (tileWidth / scale),
+                    (int) (tileHeight / scale));
             Graphics2D tile2D = tileBi.createGraphics();
-            tile2D.drawImage(this.originalTile, 0, 0, (int) (tileWidth / scaleFactor),
-                    (int) ( tileHeight / scaleFactor), null);
+            tile2D.drawImage(this.originalTile, 0, 0, (int) (tileWidth / scale),
+                    (int) ( tileHeight / scale), null);
             tile2D.dispose();
             result = SubstanceImageCreator.getColorSchemeImage(tileBi, scheme, 0.0f, 1.0f);
-            this.colorizedTileMap.put(scheme.getDisplayName(), result);
+            this.colorizedTileMap.put(key, result);
         }
         return result;
     }

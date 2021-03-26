@@ -1343,8 +1343,12 @@ public class SubstanceCortex {
                     Integer.valueOf(comboPopupFlyoutOrientation));
         }
 
-        public static BufferedImage getBlankImage(int width, int height) {
-            return SubstanceCoreUtilities.getBlankImage(width, height);
+        public static BufferedImage getBlankImage(double scaleFactor, int width, int height) {
+            return SubstanceCoreUtilities.getBlankImage(scaleFactor, width, height);
+        }
+
+        public static double getScaleFactor(Component c) {
+            return SubstanceCoreUtilities.getScaleFactor(c);
         }
 
         /**

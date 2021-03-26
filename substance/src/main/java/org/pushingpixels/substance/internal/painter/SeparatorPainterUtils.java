@@ -54,8 +54,8 @@ public class SeparatorPainterUtils {
 	/**
 	 * Cached images of separators.
 	 */
-	private static LazyResettableHashMap<BufferedImage> cached = new LazyResettableHashMap<>(
-			"SeparatorPainterUtils");
+	private static LazyResettableHashMap<BufferedImage> cached =
+			new LazyResettableHashMap<>("SeparatorPainterUtils");
 
 	/**
 	 * Paints a separator.
@@ -222,13 +222,15 @@ public class SeparatorPainterUtils {
 		if ((width == 0) || (height == 0))
 			return;
 
-		HashMapKey key = SubstanceCoreUtilities.getHashKey(fontSize, scheme.getDisplayName(), width,
+		double scale = SubstanceCoreUtilities.getScaleFactor(c);
+		ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+				scale, fontSize, scheme.getDisplayName(), width,
 				height, orientation, hasShadow, maxGradLengthStart, maxGradLengthEnd,
 				toUseAlphaColors, backgrFill.getRGB());
 
 		BufferedImage singleLine = cached.get(key);
 		if (singleLine == null) {
-			singleLine = SubstanceCoreUtilities.getBlankImage(width, height);
+			singleLine = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 			Graphics2D graphics = singleLine.createGraphics();
 
 			Color primary = scheme.getSeparatorPrimaryColor();
@@ -402,15 +404,17 @@ public class SeparatorPainterUtils {
 		int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
 		Color backgrFill = SubstanceColorUtilities.getBackgroundFillColor(c);
 
-		HashMapKey key = SubstanceCoreUtilities.getHashKey(componentFontSize,
+		double scale = SubstanceCoreUtilities.getScaleFactor(c);
+		ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+				scale, componentFontSize,
 				scheme.getDisplayName(), 0, height, SwingConstants.VERTICAL, true, 0.0,
 				fadeStartFraction, backgrFill.getRGB());
 
 		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
 		BufferedImage singleLine = cached.get(key);
 		if (singleLine == null) {
-			singleLine = SubstanceCoreUtilities
-					.getBlankImage(Math.max(2, (int) Math.ceil(2.0 * borderStrokeWidth)), height);
+			singleLine = SubstanceCoreUtilities.getBlankImage(scale,
+					Math.max(2, (int) Math.ceil(2.0 * borderStrokeWidth)), height);
 			Graphics2D graphics = singleLine.createGraphics();
 
 			Color primary = scheme.getSeparatorPrimaryColor();
@@ -476,15 +480,17 @@ public class SeparatorPainterUtils {
 		int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
 		Color backgrFill = SubstanceColorUtilities.getBackgroundFillColor(c);
 
-		HashMapKey key = SubstanceCoreUtilities.getHashKey(componentFontSize,
+		double scale = SubstanceCoreUtilities.getScaleFactor(c);
+		ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+				scale, componentFontSize,
 				scheme.getDisplayName(), width, 0, SwingConstants.VERTICAL, true, 0.0,
 				fadeStartFraction, isLtr, backgrFill.getRGB());
 
 		float borderStrokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
 		BufferedImage singleLine = cached.get(key);
 		if (singleLine == null) {
-			singleLine = SubstanceCoreUtilities.getBlankImage(width,
-					Math.max(2, (int) Math.ceil(2.0 * borderStrokeWidth)));
+			singleLine = SubstanceCoreUtilities.getBlankImage(scale,
+					width, Math.max(2, (int) Math.ceil(2.0 * borderStrokeWidth)));
 			Graphics2D graphics = singleLine.createGraphics();
 
 			Color primary = scheme.getSeparatorPrimaryColor();

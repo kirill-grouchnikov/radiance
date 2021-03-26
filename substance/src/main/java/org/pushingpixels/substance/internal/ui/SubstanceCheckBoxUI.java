@@ -151,8 +151,8 @@ public class SubstanceCheckBoxUI extends SubstanceRadioButtonUI {
             return iconBase;
         }
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(iconBase.getIconWidth(),
-                iconBase.getIconHeight());
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale,
+                iconBase.getIconWidth(), iconBase.getIconHeight());
         Graphics2D g2d = result.createGraphics();
         // draw the base layer
         iconBase.paintIcon(button, g2d, 0, 0);

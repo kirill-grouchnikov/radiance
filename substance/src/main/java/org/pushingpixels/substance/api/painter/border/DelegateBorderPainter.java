@@ -177,8 +177,8 @@ public class DelegateBorderPainter extends StandardBorderPainter {
 	 * @return Transformed color scheme.
 	 */
 	private SubstanceColorScheme getShiftScheme(SubstanceColorScheme orig) {
-		HashMapKey key = SubstanceCoreUtilities.getHashKey(orig
-				.getDisplayName(), this.getDisplayName(), this.transform);
+		HashMapKey key = SubstanceCoreUtilities.getHashKey(orig.getDisplayName(),
+				this.getDisplayName(), this.transform);
 		SubstanceColorScheme result = transformMap.get(key);
 		if (result == null) {
 			result = this.transform.transform(orig);

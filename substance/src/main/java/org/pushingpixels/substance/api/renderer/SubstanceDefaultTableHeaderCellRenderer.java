@@ -174,14 +174,15 @@ public class SubstanceDefaultTableHeaderCellRenderer extends
                 if (sortKeys.size() > 0
                         && (sortKeys.get(0).getColumn() ==
                         table.convertColumnIndexToModel(column))) {
+                    double scale = SubstanceCoreUtilities.getScaleFactor(table);
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:
-                            sortIcon = SubstanceImageCreator.getArrowIcon(
+                            sortIcon = SubstanceImageCreator.getArrowIcon(scale,
                                     SubstanceSizeUtils.getComponentFontSize(tableHeader),
                                     SwingConstants.NORTH, scheme);
                             break;
                         case DESCENDING:
-                            sortIcon = SubstanceImageCreator.getArrowIcon(
+                            sortIcon = SubstanceImageCreator.getArrowIcon(scale,
                                     SubstanceSizeUtils.getComponentFontSize(tableHeader),
                                     SwingConstants.SOUTH, scheme);
                             break;

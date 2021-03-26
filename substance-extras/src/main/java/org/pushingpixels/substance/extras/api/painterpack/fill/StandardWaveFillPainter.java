@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.StandardFillPainter;
 import org.pushingpixels.substance.internal.colorscheme.HueShiftColorScheme;
 import org.pushingpixels.substance.internal.colorscheme.TintColorScheme;

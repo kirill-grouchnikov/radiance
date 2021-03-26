@@ -102,24 +102,25 @@ public class GhostPaintingUtils {
      * 
      * @param comp
      *            Component.
-     * @param scaleFactor
+     * @param ghostScaleFactor
      *            Scale factor.
      * @return A scaled ghost image of the specified component.
      */
     private static synchronized BufferedImage getComponentGhostImage(JComponent comp,
-            Timeline ghostPressTimeline, double scaleFactor) {
-        String key = ghostPressTimeline.getTimelinePosition() + ":" + comp.hashCode() + ":"
-                + scaleFactor;
+            Timeline ghostPressTimeline, double ghostScaleFactor) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        String key = scale + ":"  + ghostPressTimeline.getTimelinePosition() + ":" +
+                comp.hashCode() + ":" + ghostScaleFactor;
 
         BufferedImage result = componentGhostCache.get(key);
         if (result == null) {
             Rectangle bounds = comp.getBounds();
 
-            double iWidth = bounds.width * scaleFactor;
-            double iHeight = bounds.height * scaleFactor;
-            result = SubstanceCoreUtilities.getBlankImage((int) iWidth, (int) iHeight);
+            double iWidth = bounds.width * ghostScaleFactor;
+            double iHeight = bounds.height * ghostScaleFactor;
+            result = SubstanceCoreUtilities.getBlankImage(scale, (int) iWidth, (int) iHeight);
             Graphics2D iGraphics = result.createGraphics();
-            iGraphics.scale(scaleFactor, scaleFactor);
+            iGraphics.scale(ghostScaleFactor, ghostScaleFactor);
             comp.paint(iGraphics);
             iGraphics.dispose();
 
@@ -135,24 +136,25 @@ public class GhostPaintingUtils {
      *            Component.
      * @param icon
      *            Icon.
-     * @param scaleFactor
+     * @param ghostScaleFactor
      *            Scale factor.
      * @return A scaled ghost image of the specified icon.
      */
     private static synchronized BufferedImage getIconGhostImage(JComponent comp,
-            Timeline ghostRolloverTimeline, Icon icon, double scaleFactor) {
-        String key = ghostRolloverTimeline.getTimelinePosition() + ":" + comp.hashCode() + ":"
-                + icon.hashCode() + ":" + scaleFactor;
+            Timeline ghostRolloverTimeline, Icon icon, double ghostScaleFactor) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        String key = scale + ":" + ghostRolloverTimeline.getTimelinePosition() + ":" +
+                comp.hashCode() + ":" + icon.hashCode() + ":" + ghostScaleFactor;
 
         BufferedImage result = iconGhostCache.get(key);
         if (result == null) {
             int oWidth = icon.getIconWidth();
             int oHeight = icon.getIconHeight();
-            double iWidth = oWidth * scaleFactor;
-            double iHeight = oHeight * scaleFactor;
-            result = SubstanceCoreUtilities.getBlankImage((int) iWidth, (int) iHeight);
+            double iWidth = oWidth * ghostScaleFactor;
+            double iHeight = oHeight * ghostScaleFactor;
+            result = SubstanceCoreUtilities.getBlankImage(scale, (int) iWidth, (int) iHeight);
             Graphics2D iGraphics = result.createGraphics();
-            iGraphics.scale(scaleFactor, scaleFactor);
+            iGraphics.scale(ghostScaleFactor, ghostScaleFactor);
             icon.paintIcon(comp, iGraphics, 0, 0);
             iGraphics.dispose();
 

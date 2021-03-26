@@ -287,7 +287,9 @@ public class ScrollPaneSelector extends JComponent {
         theScale = Math.min(scaleX, scaleY);
         int previewWidth = (int) (theComponent.getWidth() * theScale);
         int previewHeight = (int) (theComponent.getHeight() * theScale);
-        theImage = SubstanceCoreUtilities.getBlankImage(previewWidth, previewHeight);
+        theImage = SubstanceCoreUtilities.getBlankImage(
+                SubstanceCoreUtilities.getScaleFactor(theComponent),
+                previewWidth, previewHeight);
 
         Graphics2D g = theImage.createGraphics();
         previewPainter.previewComponent(null, theComponent, 0, g, 0, 0, theImage.getWidth(),

@@ -83,14 +83,14 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Hash map for storing already computed backgrounds.
      */
-    private static LazyResettableHashMap<BufferedImage> backgroundMap = new LazyResettableHashMap<>(
-            "SubstanceTabbedPaneUI.background");
+    private static LazyResettableHashMap<BufferedImage> backgroundMap =
+            new LazyResettableHashMap<>("SubstanceTabbedPaneUI.background");
 
     /**
      * Hash map for storing already computed backgrounds.
      */
-    private static LazyResettableHashMap<BufferedImage> closeButtonMap = new LazyResettableHashMap<>(
-            "SubstanceTabbedPaneUI.closeButton");
+    private static LazyResettableHashMap<BufferedImage> closeButtonMap =
+            new LazyResettableHashMap<>("SubstanceTabbedPaneUI.closeButton");
 
     /**
      * Key - tab component. Value - the looping timeline that animates the tab component when it's
@@ -758,30 +758,31 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         if (fillPainter == null)
             return null;
 
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, toPaintBorder,
+        double scale = SubstanceCoreUtilities.getScaleFactor(tabPane);
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height, toPaintBorder,
                 fillPainter.getDisplayName(), fillScheme.getDisplayName(),
                 markScheme.getDisplayName());
         BufferedImage result = SubstanceTabbedPaneUI.closeButtonMap.get(key);
         if (result == null) {
-            result = SubstanceCoreUtilities.getBlankImage(width, height);
+            result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
             Graphics2D finalGraphics = (Graphics2D) result.getGraphics().create();
 
             if (toPaintBorder) {
-                Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, 1,
-                        null);
+                Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, 1, null);
                 fillPainter.paintContourBackground(finalGraphics, tabPane, width, height, contour,
                         false, fillScheme, true);
                 // finalGraphics.drawImage(background, 0, 0, null);
-                SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
-                        .getBorderPainter(tabPane);
+                SubstanceBorderPainter borderPainter =
+                        SubstanceCoreUtilities.getBorderPainter(tabPane);
                 finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
                 borderPainter.paintBorder(finalGraphics, tabPane, width, height, contour, null,
                         markScheme);
             }
 
-            finalGraphics
-                    .setStroke(new BasicStroke(SubstanceSizeUtils.getTabCloseButtonStrokeWidth()));
+            finalGraphics.setStroke(new BasicStroke(
+                    SubstanceSizeUtils.getTabCloseButtonStrokeWidth()));
 
             int delta = (int) (Math.floor(SubstanceSizeUtils.getBorderStrokeWidth()));
             if (delta % 2 != 0)
@@ -1052,11 +1053,12 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected JButton createScrollButton(final int direction) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.tabPane);
         SubstanceScrollButton ssb = new SubstanceScrollButton();
         Icon icon = new TransitionAwareIcon(ssb, scheme -> {
             // fix for defect 279 - tab pane might not yet have the font installed.
             int fontSize = SubstanceSizeUtils.getComponentFontSize(tabPane);
-            return SubstanceImageCreator.getArrowIcon(fontSize, direction, scheme);
+            return SubstanceImageCreator.getArrowIcon(scale, fontSize, direction, scheme);
         }, "substance.tabbedpane.scroll." + direction);
         ssb.setIcon(icon);
         return ssb;

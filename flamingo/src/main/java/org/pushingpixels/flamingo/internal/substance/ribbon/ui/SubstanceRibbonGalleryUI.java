@@ -84,16 +84,17 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureExpandButton(JCommandButton button) {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> SubstanceImageCreator
-                        .getDoubleArrowIcon(
-                                width, height, SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                SwingConstants.SOUTH, scheme),
+                (scheme, width, height) -> SubstanceImageCreator.getDoubleArrowIcon(
+                        scale, width, height,
+                        SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                        SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                        SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         SubstanceCortex.ComponentScope.setButtonStraightSide(button,

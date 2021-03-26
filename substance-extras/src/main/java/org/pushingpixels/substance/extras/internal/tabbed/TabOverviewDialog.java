@@ -515,13 +515,14 @@ public class TabOverviewDialog extends JDialog {
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
 
             int controlFontSize = SubstanceSizeUtils.getControlFontSize();
+            double scale = SubstanceCoreUtilities.getScaleFactor(this);
             SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
             this.caroselMenu.setUpDownIcons(
-                    SubstanceImageCreator.getArrowIcon(controlFontSize, SwingConstants.NORTH,
-                            colorScheme),
-                    SubstanceImageCreator.getArrowIcon(controlFontSize, SwingConstants.SOUTH,
-                            colorScheme));
+                    SubstanceImageCreator.getArrowIcon(scale, controlFontSize,
+                            SwingConstants.NORTH, colorScheme),
+                    SubstanceImageCreator.getArrowIcon(scale, controlFontSize,
+                            SwingConstants.SOUTH, colorScheme));
 
             this.setLayout(new BorderLayout());
             this.add(caroselMenu, BorderLayout.CENTER);
@@ -548,14 +549,15 @@ public class TabOverviewDialog extends JDialog {
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
                 this.caroselMenu.setBackground(UIManager.getColor("Panel.background"));
 
+                double scale = SubstanceCoreUtilities.getScaleFactor(this.caroselMenu);
                 int controlFontSize = SubstanceSizeUtils.getControlFontSize();
                 SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
                 this.caroselMenu.setUpDownIcons(
-                        SubstanceImageCreator.getArrowIcon(controlFontSize, SwingConstants.NORTH,
-                                colorScheme),
-                        SubstanceImageCreator.getArrowIcon(controlFontSize, SwingConstants.SOUTH,
-                                colorScheme));
+                        SubstanceImageCreator.getArrowIcon(scale, controlFontSize,
+                                SwingConstants.NORTH, colorScheme),
+                        SubstanceImageCreator.getArrowIcon(scale, controlFontSize,
+                                SwingConstants.SOUTH, colorScheme));
             }
         }
     }

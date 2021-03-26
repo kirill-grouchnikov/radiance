@@ -154,9 +154,10 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     return;
                 }
                 // find all matching menu items / menus
-                LinkedList<SearchResult> searchResults = SearchPanel.this
-                        .findOccurences(searchString);
+                LinkedList<SearchResult> searchResults =
+                        SearchPanel.this.findOccurences(searchString);
                 int count = 0;
+                final double scale = SubstanceCoreUtilities.getScaleFactor(SearchPanel.this);
                 for (SearchResult searchResult : searchResults) {
                     // show only first 16 results.
                     if (count == 16)
@@ -166,7 +167,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                     final int finalCount = count;
                     resultButton.setIcon(new TransitionAwareIcon(resultButton,
                             () -> (TransitionAwareUI) resultButton.getUI(),
-                            scheme -> SubstanceImageCreator.getHexaMarker(finalCount, scheme),
+                            scheme -> SubstanceImageCreator.getHexaMarker(scale, finalCount, scheme),
                             state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
                                     ? ColorSchemeAssociationKind.HIGHLIGHT
                                     : ColorSchemeAssociationKind.MARK,
@@ -501,13 +502,13 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         if (searchPanel == null) {
             return;
         }
+        final double scale = SubstanceCoreUtilities.getScaleFactor(searchPanel);
         for (Map.Entry<Integer, JButton> entry : searchPanel.resultButtons.entrySet()) {
             int index = entry.getKey();
             JButton button = entry.getValue();
-
             button.setIcon(new TransitionAwareIcon(button,
                     () -> (TransitionAwareUI) button.getUI(),
-                    scheme -> SubstanceImageCreator.getHexaMarker(index, scheme),
+                    scheme -> SubstanceImageCreator.getHexaMarker(scale, index, scheme),
                     state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
                             ? ColorSchemeAssociationKind.HIGHLIGHT
                             : ColorSchemeAssociationKind.MARK,

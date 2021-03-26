@@ -181,34 +181,6 @@ public final class SubstanceImageCreator {
      *            Arrow icon color scheme.
      * @return Arrow icon.
      */
-    public static ImageWrapperIcon getArrowIcon(int fontSize, int direction,
-            SubstanceColorScheme colorScheme) {
-        float origWidth = SubstanceSizeUtils.getArrowIconWidth(fontSize);
-        float origHeight = SubstanceSizeUtils.getArrowIconHeight(fontSize);
-        float width = origWidth;
-        float height = origHeight;
-        if (direction == SwingConstants.CENTER)
-            height *= 2;
-        float strokeWidth = SubstanceSizeUtils.getArrowStrokeWidth(fontSize);
-        ImageWrapperIcon result = new ImageWrapperIcon(
-                getArrow(width, height, strokeWidth, direction, colorScheme));
-        int finalWidth = (int) (Math.max(origWidth, origHeight) + 2);
-        int finalHeight = (int) (Math.max(origWidth, height) + 2);
-        result.setDimension(new Dimension(finalWidth, finalHeight));
-        return result;
-    }
-
-    /**
-     * Returns arrow icon for the specified parameters.
-     *
-     * @param fontSize
-     *            Font size.
-     * @param direction
-     *            Arrow direction.
-     * @param colorScheme
-     *            Arrow icon color scheme.
-     * @return Arrow icon.
-     */
     public static ScaleAwareImageWrapperIcon getArrowIcon(double scale, int fontSize, int direction,
             SubstanceColorScheme colorScheme) {
         float origWidth = SubstanceSizeUtils.getArrowIconWidth(fontSize);
@@ -272,96 +244,6 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#EAST
      * @see SwingConstants#CENTER
      */
-    @Deprecated
-    private static BufferedImage getArrow(float width, float height, float strokeWidth,
-            int direction, SubstanceColorScheme scheme) {
-        if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
-            float tmp = width;
-            width = height;
-            height = tmp;
-        }
-        BufferedImage arrowImage = SubstanceCoreUtilities.getBlankImage((int) Math.ceil(width),
-                (int) Math.ceil(height));
-
-        // System.out.println(width + ":" + height + ":" + strokeWidth);
-
-        // get graphics and set hints
-        Graphics2D graphics = (Graphics2D) arrowImage.getGraphics();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_PURE);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        // graphics.setColor(Color.green);
-        // graphics.drawRect(0, 0, (int) width -1 , (int) height - 1);
-
-        Color arrowColor = scheme.getMarkColor();
-
-        graphics.setColor(arrowColor);
-        Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-        graphics.setStroke(stroke);
-
-        if (direction == SwingConstants.CENTER) {
-            float smallHeight = (height - strokeWidth) / 2;
-            BufferedImage top = getArrow(width, smallHeight, strokeWidth, SwingConstants.NORTH,
-                    scheme);
-            BufferedImage bottom = getArrow(width, smallHeight, strokeWidth, SwingConstants.SOUTH,
-                    scheme);
-            NeonCortex.drawImage(graphics, top, 0, 0);
-            NeonCortex.drawImage(graphics, bottom, 0, (int) (height / 2.0));
-            return arrowImage;
-        } else {
-            float cushion = strokeWidth / 2.0f;
-            GeneralPath gp = new GeneralPath();
-            switch (direction) {
-                case SwingConstants.SOUTH:
-                    gp.moveTo(cushion, cushion);
-                    gp.lineTo(0.5f * (width), height - cushion - 1);
-                    gp.lineTo(width - cushion, cushion);
-                    break;
-                case SwingConstants.NORTH:
-                    gp.moveTo(cushion, height - cushion - 1);
-                    gp.lineTo(0.5f * (width), cushion);
-                    gp.lineTo(width - cushion, height - cushion - 1);
-                    break;
-                case SwingConstants.EAST:
-                    gp.moveTo(cushion, cushion);
-                    gp.lineTo(width - 1 - cushion, 0.5f * (height));
-                    gp.lineTo(cushion, height - cushion);
-                    break;
-                case SwingConstants.WEST:
-                    gp.moveTo(width - 1 - cushion, cushion);
-                    gp.lineTo(cushion, 0.5f * (height));
-                    gp.lineTo(width - 1 - cushion, height - cushion);
-                    break;
-            }
-            graphics.draw(gp);
-
-            return arrowImage;
-        }
-    }
-
-    /**
-     * Retrieves arrow image.
-     *
-     * @param width
-     *            Arrow width.
-     * @param height
-     *            Arrow height.
-     * @param strokeWidth
-     *            Stroke width.
-     * @param direction
-     *            Arrow direction.
-     * @param scheme
-     *            Color scheme for the arrow.
-     * @return Arrow image.
-     * @see SwingConstants#NORTH
-     * @see SwingConstants#WEST
-     * @see SwingConstants#SOUTH
-     * @see SwingConstants#EAST
-     * @see SwingConstants#CENTER
-     */
     private static BufferedImage getArrow(float width, float height, double scale, float strokeWidth,
             int direction, SubstanceColorScheme scheme) {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
@@ -369,8 +251,8 @@ public final class SubstanceImageCreator {
             width = height;
             height = tmp;
         }
-        BufferedImage arrowImage = SubstanceCoreUtilities.getBlankImage((int) Math.ceil(width),
-                (int) Math.ceil(height));
+        BufferedImage arrowImage = SubstanceCoreUtilities.getBlankImage(scale,
+                (int) Math.ceil(width), (int) Math.ceil(height));
 
         // System.out.println(width + ":" + height + ":" + strokeWidth);
 
@@ -393,10 +275,10 @@ public final class SubstanceImageCreator {
 
         if (direction == SwingConstants.CENTER) {
             float smallHeight = (height - strokeWidth) / 2;
-            BufferedImage top = getArrow(width, smallHeight, scale, strokeWidth, SwingConstants.NORTH,
-                    scheme);
-            BufferedImage bottom = getArrow(width, smallHeight, scale, strokeWidth, SwingConstants.SOUTH,
-                    scheme);
+            BufferedImage top = getArrow(width, smallHeight, scale, strokeWidth,
+                    SwingConstants.NORTH, scheme);
+            BufferedImage bottom = getArrow(width, smallHeight, scale, strokeWidth,
+                    SwingConstants.SOUTH, scheme);
             NeonCortex.drawImageWithScale(graphics, scale, top, 0, 0);
             NeonCortex.drawImageWithScale(graphics, scale, bottom, 0, (int) (height / 2.0));
             return arrowImage;
@@ -433,7 +315,7 @@ public final class SubstanceImageCreator {
 
     /**
      * Retrieves arrow icon.
-     * 
+     *
      * @param fullWidth
      *            Full icon width.
      * @param fullHeight
@@ -450,18 +332,18 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#SOUTH
      * @see SwingConstants#EAST
      */
-    public static ImageWrapperIcon getDoubleArrowIcon(float fullWidth,
+    public static ScaleAwareImageWrapperIcon getDoubleArrowIcon(double scale, float fullWidth,
             float fullHeight, float arrowGap, float strokeWidth, int direction,
             SubstanceColorScheme colorScheme) {
         boolean toggle = (direction == SwingConstants.WEST) || (direction == SwingConstants.EAST);
         int singleArrowWidth = toggle ? (int) fullHeight : (int) fullWidth;
         int singleArrowHeight = toggle ? (int) (fullWidth - arrowGap)
                 : (int) (fullHeight - arrowGap);
-        BufferedImage downArrowImage = SubstanceCoreUtilities.getBlankImage((int) fullWidth,
-                (int) fullHeight);
+        BufferedImage downArrowImage = SubstanceCoreUtilities.getBlankImage(scale,
+                (int) fullWidth, (int) fullHeight);
 
-        BufferedImage singleArrow = getArrow(singleArrowWidth, singleArrowHeight, strokeWidth,
-                direction, colorScheme);
+        BufferedImage singleArrow = getArrow(singleArrowWidth, singleArrowHeight, scale,
+                strokeWidth, direction, colorScheme);
 
         // get graphics and set hints
         Graphics2D graphics = (Graphics2D) downArrowImage.getGraphics();
@@ -480,7 +362,7 @@ public final class SubstanceImageCreator {
             NeonCortex.drawImage(graphics, singleArrow, (int) arrowGap, 0);
         }
 
-        return new ImageWrapperIcon(downArrowImage);
+        return new ScaleAwareImageWrapperIcon(downArrowImage, scale);
     }
 
     /**
@@ -537,7 +419,7 @@ public final class SubstanceImageCreator {
      *            Icon.
      * @return Greyscale version of the specified icon.
      */
-    public static Icon toGrayscale(Icon icon) {
+    public static Icon toGrayscale(Component component, Icon icon) {
         if (icon == null) {
             return null;
         }
@@ -545,10 +427,12 @@ public final class SubstanceImageCreator {
         int width = icon.getIconWidth();
         int height = icon.getIconHeight();
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        double scale = SubstanceCoreUtilities.getScaleFactor(component);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 
         icon.paintIcon(null, result.getGraphics(), 0, 0);
-        Icon resultIcon = new ImageWrapperIcon(new GrayscaleFilter().filter(result, null));
+        Icon resultIcon = new ScaleAwareImageWrapperIcon(new GrayscaleFilter().filter(result, null),
+                scale);
         return resultIcon;
     }
 
@@ -572,9 +456,10 @@ public final class SubstanceImageCreator {
         int width = icon.getIconWidth();
         int height = icon.getIconHeight();
 
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         icon.paintIcon(c, result.getGraphics(), 0, 0);
-        return new ImageWrapperIcon(new AlphaFilter(alpha).filter(result, null));
+        return new ScaleAwareImageWrapperIcon(new AlphaFilter(alpha).filter(result, null), scale);
     }
 
     /**
@@ -1221,7 +1106,8 @@ public final class SubstanceImageCreator {
      */
     public static BufferedImage getDragImage(Component c, SubstanceColorScheme colorScheme,
             int width, int height, int maxNumberOfStripes) {
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D graphics = (Graphics2D) result.getGraphics();
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -1298,8 +1184,9 @@ public final class SubstanceImageCreator {
         int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
         int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
 
-        BufferedImage singleDot = SubstanceCoreUtilities.getBlankImage(bumpDotDiameter,
-                bumpDotDiameter);
+        double scale = SubstanceCoreUtilities.getScaleFactor(divider);
+        BufferedImage singleDot = SubstanceCoreUtilities.getBlankImage(
+                scale, bumpDotDiameter, bumpDotDiameter);
         Graphics2D dotGraphics = (Graphics2D) singleDot.getGraphics();
         dotGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -1390,8 +1277,9 @@ public final class SubstanceImageCreator {
      *            Crayon height.
      * @return Crayon image.
      */
-    private static BufferedImage getSingleCrayon(Color mainColor, int width, int height) {
-        BufferedImage image = SubstanceCoreUtilities.getBlankImage(width, height);
+    private static BufferedImage getSingleCrayon(double scale, Color mainColor,
+            int width, int height) {
+        BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 
         int baseTop = (int) (0.2 * height);
 
@@ -1562,7 +1450,8 @@ public final class SubstanceImageCreator {
     public static Image getCrayonsImage(Color fillColor) {
         int iw = 195;
         int ih = 208;
-        Image image = SubstanceCoreUtilities.getBlankImage(iw, ih);
+        double scale = SubstanceCoreUtilities.getScaleFactor(null);
+        Image image = SubstanceCoreUtilities.getBlankImage(scale, iw, ih);
         Graphics2D graphics = (Graphics2D) image.getGraphics().create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -1574,7 +1463,8 @@ public final class SubstanceImageCreator {
 
         for (int i = 0; i < SubstanceImageCreator.crayonColors.length; i++) {
             Color crayonColor = new Color(0xff000000 | SubstanceImageCreator.crayonColors[i]);
-            BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(crayonColor, 22, 120);
+            BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(
+                    scale, crayonColor, 22, 120);
             NeonCortex.drawImage(graphics, crayonImage, SubstanceImageCreator.crayonX(i),
                     SubstanceImageCreator.crayonY(i));
         }
@@ -1593,11 +1483,11 @@ public final class SubstanceImageCreator {
      *            Icon color scheme.
      * @return Icon representation of the specified integer value.
      */
-    public static ImageWrapperIcon getHexaMarker(int value,
+    public static ScaleAwareImageWrapperIcon getHexaMarker(double scale, int value,
             SubstanceColorScheme colorScheme) {
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(9, 9);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, 9, 9);
         if (colorScheme == null) {
-            return new ImageWrapperIcon(result);
+            return new ScaleAwareImageWrapperIcon(result, scale);
         }
 
         value %= 16;
@@ -1630,7 +1520,7 @@ public final class SubstanceImageCreator {
         graphics.fillOval(0, 0, 4, 4);
 
         graphics.dispose();
-        return new ImageWrapperIcon(result);
+        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     /**
@@ -1682,7 +1572,8 @@ public final class SubstanceImageCreator {
         if ((w == 0) || (h == 0)) {
             return null;
         }
-        BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(w, h);
+        double scale = SubstanceCoreUtilities.getScaleFactor(comp);
+        BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(scale, w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
@@ -1720,7 +1611,8 @@ public final class SubstanceImageCreator {
         if ((w == 0) || (h == 0)) {
             return null;
         }
-        BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(w, h);
+        BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(
+                SubstanceCoreUtilities.getScaleFactor(comp), w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);

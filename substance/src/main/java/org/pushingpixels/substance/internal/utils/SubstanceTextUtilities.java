@@ -78,7 +78,8 @@ public class SubstanceTextUtilities {
         NeonCortex.installDesktopHints(graphics, c.getFont());
 
         // blur the text shadow
-        BufferedImage blurred = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage blurred = SubstanceCoreUtilities.getBlankImage(
+                SubstanceCoreUtilities.getScaleFactor(c), width, height);
         Graphics2D gBlurred = (Graphics2D) blurred.getGraphics();
         gBlurred.setFont(graphics.getFont());
         gBlurred.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,

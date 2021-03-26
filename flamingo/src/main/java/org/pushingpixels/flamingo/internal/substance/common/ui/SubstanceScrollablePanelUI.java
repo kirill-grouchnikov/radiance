@@ -39,10 +39,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.ImageWrapperIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -80,15 +77,16 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
 
     @Override
     protected void configureLeadingScrollerButton(JCommandButton button) {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
-                    ImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
+                    ScaleAwareImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(
-                                    width, height,
+                                    scale, width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                     (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
@@ -109,15 +107,16 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
 
     @Override
     protected void configureTrailingScrollerButton(JCommandButton button) {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
-                    ImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
+                    ScaleAwareImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
                             .getDoubleArrowIcon(
-                                    width, height,
+                                    scale, width, height,
                                     SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                     (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)

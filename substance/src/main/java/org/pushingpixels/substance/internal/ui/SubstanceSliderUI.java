@@ -98,8 +98,8 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
     /**
      * Cache of track images.
      */
-    private static final LazyResettableHashMap<BufferedImage> trackCache = new LazyResettableHashMap<>(
-            "SubstanceSliderUI.track");
+    private static final LazyResettableHashMap<BufferedImage> trackCache =
+            new LazyResettableHashMap<>("SubstanceSliderUI.track");
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -267,6 +267,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
             int height) {
         Graphics2D g2d = (Graphics2D) graphics.create();
 
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.slider);
         SubstanceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(this.slider);
 
@@ -275,12 +276,13 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
         float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
         float borderThickness = (int) SubstanceSizeUtils.getBorderStrokeWidth();
 
-        HashMapKey key = SubstanceCoreUtilities.getHashKey(width, height, radius, borderDelta,
+        ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                scale, width, height, radius, borderDelta,
                 borderThickness, fillColorScheme.getDisplayName(), borderScheme.getDisplayName());
 
         BufferedImage trackImage = trackCache.get(key);
         if (trackImage == null) {
-            trackImage = SubstanceCoreUtilities.getBlankImage(width + 1, height + 1);
+            trackImage = SubstanceCoreUtilities.getBlankImage(scale, width + 1, height + 1);
             Graphics2D cacheGraphics = trackImage.createGraphics();
 
             Shape contour = SubstanceOutlineUtilities.getBaseOutline(width + 1, height + 1, radius,

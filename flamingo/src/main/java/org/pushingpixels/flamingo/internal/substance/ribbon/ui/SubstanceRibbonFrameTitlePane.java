@@ -243,14 +243,14 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                             })
                             .build());
             overflowProjection.setComponentCustomizer(button -> {
+                final double scale = SubstanceCoreUtilities.getScaleFactor(button);
                 final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
                 int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
                 int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
                 ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                         () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                        (scheme, width, height) -> SubstanceImageCreator
-                                .getDoubleArrowIcon(
-                                        arrowIconWidth, arrowIconHeight,
+                        (scheme, width, height) -> SubstanceImageCreator.getDoubleArrowIcon(
+                                        scale, arrowIconWidth, arrowIconHeight,
                                         SubstanceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                         SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                         getComponentOrientation().isLeftToRight()

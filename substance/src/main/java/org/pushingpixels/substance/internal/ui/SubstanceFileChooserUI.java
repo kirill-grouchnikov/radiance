@@ -91,7 +91,8 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
             if (icon == null) {
                 icon = super.getIcon(f);
                 if (icon == null) {
-                    icon = new ImageIcon(SubstanceCoreUtilities.getBlankImage(8, 8));
+                    icon = new ImageIcon(SubstanceCoreUtilities.getBlankImage(
+                            SubstanceCoreUtilities.getScaleFactor(null), 8, 8));
                 }
                 // System.out.println("Super : " + f.getAbsolutePath() + " --> "
                 // + icon);

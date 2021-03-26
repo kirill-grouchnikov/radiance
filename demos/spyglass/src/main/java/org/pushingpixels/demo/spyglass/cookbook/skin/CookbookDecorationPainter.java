@@ -199,7 +199,8 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
     }
 
     private static BufferedImage getLightImage() {
-        BufferedImage lightConeImage = SubstanceCortex.GlobalScope.getBlankImage(200, 100);
+        BufferedImage lightConeImage = SubstanceCortex.GlobalScope.getBlankImage(
+                SubstanceCortex.GlobalScope.getScaleFactor(null), 200, 100);
         Graphics2D lightConeGraphics = lightConeImage.createGraphics();
         lightConeGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -222,7 +223,8 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         GaussianFilter gaussianFilter = new GaussianFilter(29.0f);
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
-        BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(150, 100);
+        BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(
+                SubstanceCortex.GlobalScope.getScaleFactor(null), 150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);

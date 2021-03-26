@@ -101,7 +101,9 @@ public class HighlightPainterUtils {
                 openKey += oSide.name() + "-";
             }
 
-            HashMapKey key = SubstanceCoreUtilities.getHashKey(highlightPainter.getDisplayName(),
+            double scale = SubstanceCoreUtilities.getScaleFactor(c);
+            ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
+                    scale, highlightPainter.getDisplayName(),
                     highlightBorderPainter.getDisplayName(), rect.width, rect.height,
                     fillScheme.getDisplayName(), borderScheme.getDisplayName(), borderAlpha,
                     openKey);
@@ -119,7 +121,8 @@ public class HighlightPainterUtils {
             float borderAlpha, Set<Side> openSides, SubstanceColorScheme currScheme,
             SubstanceColorScheme currBorderScheme, SubstanceHighlightPainter highlightPainter,
             SubstanceBorderPainter highlightBorderPainter) {
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(rect.width, rect.height);
+        double scale = SubstanceCoreUtilities.getScaleFactor(c);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, rect.width, rect.height);
         Graphics2D resGraphics = result.createGraphics();
         highlightPainter.paintHighlight(resGraphics, c, rect.width, rect.height, currScheme);
         paintHighlightBorder(resGraphics, c, rect.width, rect.height, borderAlpha, openSides,

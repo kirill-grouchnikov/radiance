@@ -1045,11 +1045,11 @@ public class SubstanceCoreUtilities {
      *
      * @author Chris Campbell.
      */
-    public static BufferedImage softClip(int width, int height, BufferedImage source,
-            Shape clipShape) {
+    public static BufferedImage softClip(double scale, int width, int height,
+            BufferedImage source, Shape clipShape) {
         // Create a translucent intermediate image in which we can perform
         // the soft clipping
-        BufferedImage img = SubstanceCoreUtilities.getBlankImage(width, height);
+        BufferedImage img = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D g2 = img.createGraphics();
 
         // Clear the image so all pixels have zero alpha

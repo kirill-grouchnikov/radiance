@@ -125,7 +125,7 @@ public class ColorWheel extends JPanel {
         int w = getWidth();
         int h = getHeight();
 
-        double scaleFactor = NeonCortex.getScaleFactor();
+        double scaleFactor = SubstanceCoreUtilities.getScaleFactor(this);
         if (colorWheelImage == null || (scaleFactor * colorWheelImage.getWidth(this)) != w
                 || (scaleFactor * colorWheelImage.getHeight(this)) != h) {
             if (colorWheelImage != null) {
@@ -135,7 +135,8 @@ public class ColorWheel extends JPanel {
                     (int) (h * scaleFactor));
             colorWheelImage = createImage(colorWheelProducer);
             if (scaleFactor > 1) {
-                BufferedImage retinaWheelImage = SubstanceCoreUtilities.getBlankImage(w, h);
+                BufferedImage retinaWheelImage = SubstanceCoreUtilities.getBlankImage(
+                        scaleFactor, w, h);
                 Graphics2D wheel2D = retinaWheelImage.createGraphics();
                 wheel2D.drawImage(colorWheelImage, 0, 0, w, h, null);
                 wheel2D.dispose();

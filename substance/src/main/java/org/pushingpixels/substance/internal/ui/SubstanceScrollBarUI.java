@@ -379,7 +379,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
         if (opaque == null) {
             // System.out.println("New image for horizontal thumb");
 
-            opaque = SubstanceCoreUtilities.getBlankImage(width, height);
+            opaque = SubstanceCoreUtilities.getBlankImage(scale, width, height);
             painter.paintContourBackground(opaque.createGraphics(), scrollBar, width, height,
                     contour, false, scheme, true);
 
