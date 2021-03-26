@@ -104,15 +104,15 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollDownButton(JCommandButton button) {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(this.ribbonGallery);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> SubstanceImageCreator
-                        .getArrowIcon(width, height,
-                                SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                SwingConstants.SOUTH, scheme),
+                (scheme, width, height) -> SubstanceImageCreator.getArrowIcon(width, height, scale,
+                        SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                        SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         SubstanceCortex.ComponentScope.setButtonStraightSide(button,
@@ -123,12 +123,13 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollUpButton(JCommandButton button) {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(this.ribbonGallery);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> SubstanceImageCreator.getArrowIcon(width, height,
+                (scheme, width, height) -> SubstanceImageCreator.getArrowIcon(width, height, scale,
                         SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                         SwingConstants.NORTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));

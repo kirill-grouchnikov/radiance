@@ -533,6 +533,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected ResizableIcon createPopupActionIcon() {
+        final double scale = SubstanceCoreUtilities.getScaleFactor(this.commandButton);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(this.commandButton);
         int arrowIconHeight = (int) SubstanceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getArrowIconWidth(fontSize);
@@ -548,8 +549,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                                     ? SwingConstants.EAST : SwingConstants.WEST);
                     // System.out.println(direction + ":" + width + ":"
                     // + height);
-                    return SubstanceImageCreator.getArrowIcon(width,
-                            height, SubstanceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
+                    return SubstanceImageCreator.getArrowIcon(width, height, scale,
+                            SubstanceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
                             direction, scheme);
                     // System.out.println(" --> " + result.getIconWidth()
                     // + "*" + result.getIconHeight());

@@ -269,6 +269,8 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     @Override
     protected JButton createLeftOneTouchButton() {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.splitPane);
+
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
                 scheme -> {
@@ -276,6 +278,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                             SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                            scale,
                             SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                             SwingConstants.NORTH, scheme);
                 }, "substance.splitPane.left.vertical");
@@ -285,6 +288,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                             SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                            scale,
                             SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                             SwingConstants.WEST, scheme);
                 }, "substance.splitPane.left.horizontal");
@@ -304,6 +308,8 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     @Override
     protected JButton createRightOneTouchButton() {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.splitPane);
+
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
                 scheme -> {
@@ -311,6 +317,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                             SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                            scale,
                             SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                             SwingConstants.SOUTH, scheme);
                 }, "substance.splitPane.right.vertical");
@@ -320,6 +327,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                     return SubstanceImageCreator.getArrowIcon(
                             SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                             SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                            scale,
                             SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                             SwingConstants.EAST, scheme);
                 }, "substance.splitPane.right.horizontal");
@@ -344,6 +352,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
      * @param orientation Split pane orientation.
      */
     public void updateOneTouchButtons(int orientation) {
+        double scale = SubstanceCoreUtilities.getScaleFactor(this.splitPane);
         if (orientation == JSplitPane.VERTICAL_SPLIT) {
             if (this.leftButton != null) {
                 this.leftButton.setIcon(
@@ -352,6 +361,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                                     SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                                    scale,
                                     SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                                     SwingConstants.NORTH, scheme);
                         }, "substance.splitPane.left.vertical"));
@@ -363,6 +373,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                                     SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                                    scale,
                                     SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                                     SwingConstants.SOUTH, scheme);
                         }, "substance.splitPane.right.vertical"));
@@ -375,6 +386,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                                     SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                                    scale,
                                     SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                                     SwingConstants.WEST, scheme);
                         }, "substance.splitPane.left.horizontal"));
@@ -386,6 +398,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
                             return SubstanceImageCreator.getArrowIcon(
                                     SubstanceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
                                     SubstanceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
+                                    scale,
                                     SubstanceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
                                     SwingConstants.EAST, scheme);
                         }, "substance.splitPane.right.horizontal"));

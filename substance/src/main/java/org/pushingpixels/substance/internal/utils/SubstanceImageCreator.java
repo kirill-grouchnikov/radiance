@@ -245,31 +245,6 @@ public final class SubstanceImageCreator {
      * @see SwingConstants#SOUTH
      * @see SwingConstants#EAST
      */
-    @Deprecated
-    public static ImageWrapperIcon getArrowIcon(float width, float height, float strokeWidth,
-            int direction, SubstanceColorScheme scheme) {
-        return new ImageWrapperIcon(getArrow(width, height, strokeWidth, direction, scheme));
-    }
-
-    /**
-     * Retrieves arrow icon.
-     *
-     * @param width
-     *            Arrow width.
-     * @param height
-     *            Arrow height.
-     * @param strokeWidth
-     *            Stroke width.
-     * @param direction
-     *            Arrow direction.
-     * @param scheme
-     *            Color scheme for the arrow.
-     * @return Arrow image.
-     * @see SwingConstants#NORTH
-     * @see SwingConstants#WEST
-     * @see SwingConstants#SOUTH
-     * @see SwingConstants#EAST
-     */
     public static ScaleAwareImageWrapperIcon getArrowIcon(float width, float height, double scale,
             float strokeWidth, int direction, SubstanceColorScheme scheme) {
         return new ScaleAwareImageWrapperIcon(
