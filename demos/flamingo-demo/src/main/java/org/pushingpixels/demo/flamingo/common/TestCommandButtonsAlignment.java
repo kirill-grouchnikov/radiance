@@ -56,7 +56,7 @@ public class TestCommandButtonsAlignment extends JFrame {
 
     private TestCommandButtonsAlignment() {
         super("Alignment");
-        this.setIconImage(RadianceLogo.getLogoImage(
+        this.setIconImage(RadianceLogo.getLogoImage(this,
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,

@@ -86,7 +86,7 @@ public class SimpleDialog extends JDialog {
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
             SimpleDialog sd = new SimpleDialog();
             if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-                sd.setIconImage(RadianceLogo.getLogoImage(
+                sd.setIconImage(RadianceLogo.getLogoImage(sd,
                         SubstanceCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
                                 .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));

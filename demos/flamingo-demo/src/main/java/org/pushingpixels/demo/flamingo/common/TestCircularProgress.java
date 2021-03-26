@@ -42,7 +42,7 @@ import java.awt.event.ActionEvent;
 
 public class TestCircularProgress extends JFrame {
     public TestCircularProgress() {
-        this.setIconImage(RadianceLogo.getLogoImage(
+        this.setIconImage(RadianceLogo.getLogoImage(this,
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,

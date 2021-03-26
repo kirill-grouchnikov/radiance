@@ -217,7 +217,7 @@ public class FileTreePanel extends JPanel {
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 
             JFrame frame = new JFrame("File tree");
-            frame.setIconImage(RadianceLogo.getLogoImage(
+            frame.setIconImage(RadianceLogo.getLogoImage(frame,
                     SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                             SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,

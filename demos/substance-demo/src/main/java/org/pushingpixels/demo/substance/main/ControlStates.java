@@ -56,8 +56,8 @@ public class ControlStates extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setIconImage(RadianceLogo
-                .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+        this.setIconImage(RadianceLogo.getLogoImage(this,
+                SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
                         .getColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                                 SubstanceSlices.ColorSchemeAssociationKind.FILL,
                                 ComponentState.ENABLED)));

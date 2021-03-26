@@ -32,7 +32,9 @@ package org.pushingpixels.demo.plasma
 import org.pushingpixels.demo.plasma.svg.radiance_menu
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.ResizableIcon
+import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
+import java.awt.Component
 import java.awt.Dimension
 import java.awt.image.BufferedImage
 
@@ -46,7 +48,7 @@ object RadianceLogo {
         return base
     }
 
-    fun getLogoImage(scheme: SubstanceColorScheme): BufferedImage {
-        return getLogoIcon(scheme).toImage()
+    fun getLogoImage(comp: Component, scheme: SubstanceColorScheme): BufferedImage {
+        return getLogoIcon(scheme).toImage(SubstanceCortex.GlobalScope.getScaleFactor(comp))
     }
 }

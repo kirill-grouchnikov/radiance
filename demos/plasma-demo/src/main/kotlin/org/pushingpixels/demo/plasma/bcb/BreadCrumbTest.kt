@@ -39,8 +39,8 @@ import org.pushingpixels.demo.plasma.common.ExplorerFileViewPanel
 import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.meteor.addDelayedActionListener
+import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
@@ -61,7 +61,7 @@ fun main() {
 
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
-        bar.model.addDelayedPathListener{ ev ->
+        bar.model.addDelayedPathListener { ev ->
             val newPath = ev.source.items
             println("New path is ")
             for (item in newPath) {
@@ -98,10 +98,13 @@ fun main() {
         frame.add(controls, BorderLayout.SOUTH)
 
         frame.iconImage = RadianceLogo.getLogoImage(
-                SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED))
+            frame,
+            SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                ComponentState.ENABLED
+            )
+        )
         frame.setSize(550, 385)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE

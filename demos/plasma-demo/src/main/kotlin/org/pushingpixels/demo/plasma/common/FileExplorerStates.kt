@@ -38,8 +38,8 @@ import org.pushingpixels.demo.plasma.RadianceLogo
 import org.pushingpixels.ember.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.meteor.addDelayedActionListener
+import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
@@ -88,23 +88,31 @@ fun main() {
         }
         controls.add(setPath)
 
-        val states = JComboBox<CommandButtonPresentationState>(DefaultComboBoxModel(
+        val states = JComboBox<CommandButtonPresentationState>(
+            DefaultComboBoxModel(
                 arrayOf<CommandButtonPresentationState>(
-                        CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
-                        CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL)))
+                    CommandButtonPresentationState.BIG, CommandButtonPresentationState.TILE,
+                    CommandButtonPresentationState.MEDIUM, CommandButtonPresentationState.SMALL
+                )
+            )
+        )
         states.addItemListener {
             filePanel.cancelMainWorker()
-            filePanel.projection.presentationModel.commandPresentationState = states.getItemAt(states.selectedIndex)
+            filePanel.projection.presentationModel.commandPresentationState =
+                states.getItemAt(states.selectedIndex)
         }
         controls.add(states)
 
         frame.add(controls, BorderLayout.SOUTH)
 
         frame.iconImage = RadianceLogo.getLogoImage(
-                SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED))
+            frame,
+            SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                ComponentState.ENABLED
+            )
+        )
         frame.setSize(600, 400)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE

@@ -31,7 +31,6 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
@@ -54,7 +53,7 @@ public class MultiLevelMenu extends JFrame {
 
     public MultiLevelMenu() {
         super("Multi level menu");
-        this.setIconImage(RadianceLogo.getLogoImage(
+        this.setIconImage(RadianceLogo.getLogoImage(this,
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,

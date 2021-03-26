@@ -40,8 +40,8 @@ import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
-import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.neon.api.icon.ResizableIcon
+import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSlices
@@ -77,9 +77,11 @@ fun main() {
                 }
             }
 
-            override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
-                    stream: InputStream, state: CommandButtonPresentationState,
-                    dimension: Dimension): ResizableIcon {
+            override fun getResizableIcon(
+                leaf: AbstractFileViewPanel.Leaf,
+                stream: InputStream, state: CommandButtonPresentationState,
+                dimension: Dimension
+            ): ResizableIcon {
                 var dimensionForIcon = dimension
                 val prefSize = state.preferredIconSize
                 if (prefSize > 0) {
@@ -111,8 +113,10 @@ fun main() {
 
         frame.add(bar, BorderLayout.NORTH)
 
-        val jsp = JScrollPane(fileViewPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS)
+        val jsp = JScrollPane(
+            fileViewPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
+        )
         frame.add(jsp, BorderLayout.CENTER)
 
         val iconSizeSlider = JSlider()
@@ -129,7 +133,8 @@ fun main() {
             if (!iconSizeSlider.model.valueIsAdjusting) {
                 if (iconSizeSlider.value != fileViewPanel.projection.presentationModel.commandIconDimension) {
                     GlobalScope.launch(Dispatchers.Swing) {
-                        fileViewPanel.projection.presentationModel.commandIconDimension = iconSizeSlider.value
+                        fileViewPanel.projection.presentationModel.commandIconDimension =
+                            iconSizeSlider.value
                     }
                 }
             }
@@ -137,10 +142,13 @@ fun main() {
         frame.add(iconSizeSlider, BorderLayout.SOUTH)
 
         frame.iconImage = RadianceLogo.getLogoImage(
-                SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED))
+            frame,
+            SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                ComponentState.ENABLED
+            )
+        )
         frame.setSize(550, 400)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE

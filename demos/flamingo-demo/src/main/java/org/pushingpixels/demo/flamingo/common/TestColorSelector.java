@@ -65,7 +65,7 @@ public class TestColorSelector extends JFrame {
     private Color backgroundColor;
 
     private TestColorSelector() {
-        this.setIconImage(RadianceLogo.getLogoImage(
+        this.setIconImage(RadianceLogo.getLogoImage(this,
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,

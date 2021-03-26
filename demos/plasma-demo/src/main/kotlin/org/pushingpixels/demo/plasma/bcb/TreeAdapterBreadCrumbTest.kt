@@ -75,7 +75,8 @@ fun <T> List<T>.toEnumeration(): Enumeration<T> {
 /**
  * A node in the file tree that will be used by the {@link BreadcrumbTreeAdapterSelector}
  */
-data class FileTreeNode(val file: File?, val children: Array<File>, val nodeParent: TreeNode?) : TreeNode {
+data class FileTreeNode(val file: File?, val children: Array<File>, val nodeParent: TreeNode?) :
+    TreeNode {
     constructor(file: File, parent: TreeNode) : this(file, file.listFiles() ?: arrayOf(), parent)
     constructor(children: Array<File>) : this(null, children, null)
 
@@ -161,8 +162,10 @@ class FileListModel : AbstractListModel<File>() {
  * Renderer for the file list
  */
 class FileListRenderer : SubstanceDefaultListCellRenderer() {
-    override fun getListCellRendererComponent(list: JList<*>, value: Any?, index: Int,
-            isSelected: Boolean, cellHasFocus: Boolean): Component {
+    override fun getListCellRendererComponent(
+        list: JList<*>, value: Any?, index: Int,
+        isSelected: Boolean, cellHasFocus: Boolean
+    ): Component {
         val file = value as File?
         this.icon = FileSystemView.getFileSystemView().getSystemIcon(file)
         this.text = FileSystemView.getFileSystemView().getSystemDisplayName(file)
@@ -179,24 +182,28 @@ fun main() {
 
         val rootTreeNode = FileTreeNode(File.listRoots())
         val bar: BreadcrumbTreeAdapterSelector<FileTreeNode> =
-                BreadcrumbTreeAdapterSelector(DefaultTreeModel(rootTreeNode),
-                        object : BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode> {
-                            override fun toString(node: FileTreeNode): String {
-                                if (node.file == null) {
-                                    return "Computer"
-                                }
-                                var result = FileSystemView.getFileSystemView().getSystemDisplayName(node.file)
-                                if (result.isEmpty()) {
-                                    result = node.file.absolutePath
-                                }
-                                return result
-                            }
+            BreadcrumbTreeAdapterSelector(DefaultTreeModel(rootTreeNode),
+                object : BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode> {
+                    override fun toString(node: FileTreeNode): String {
+                        if (node.file == null) {
+                            return "Computer"
+                        }
+                        var result =
+                            FileSystemView.getFileSystemView().getSystemDisplayName(node.file)
+                        if (result.isEmpty()) {
+                            result = node.file.absolutePath
+                        }
+                        return result
+                    }
 
-                            override fun getIcon(node: FileTreeNode): Icon? {
-                                return if (node.file == null) null else FileSystemView.getFileSystemView().getSystemIcon(
-                                        node.file)
-                            }
-                        }, false)
+                    override fun getIcon(node: FileTreeNode): Icon? {
+                        return if (node.file == null) null else FileSystemView.getFileSystemView()
+                            .getSystemIcon(
+                                node.file
+                            )
+                    }
+                }, false
+            )
 
 
         val fileList = JList<File>()
@@ -236,10 +243,13 @@ fun main() {
         frame.add(fileListScrollPane, BorderLayout.CENTER)
 
         frame.iconImage = RadianceLogo.getLogoImage(
-                SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED))
+            frame,
+            SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                ComponentState.ENABLED
+            )
+        )
         frame.setSize(700, 400)
         frame.setLocation(300, 100)
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE

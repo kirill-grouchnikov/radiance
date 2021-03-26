@@ -57,7 +57,7 @@ fun main() {
         SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
 
         val electraFrame = JFrame("Electra")
-        electraFrame.iconImage = RadianceLogo.getTitlePaneLogoImage()
+        electraFrame.iconImage = RadianceLogo.getTitlePaneLogoImage(electraFrame)
 
         electraFrame.layout = GridLayout(1, 2)
 

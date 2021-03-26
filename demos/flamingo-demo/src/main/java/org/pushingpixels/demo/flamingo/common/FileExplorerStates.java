@@ -112,7 +112,7 @@ public class FileExplorerStates extends JFrame {
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 
             FileExplorerStates test = new FileExplorerStates();
-            test.setIconImage(RadianceLogo.getLogoImage(
+            test.setIconImage(RadianceLogo.getLogoImage(test,
                     SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                             SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,

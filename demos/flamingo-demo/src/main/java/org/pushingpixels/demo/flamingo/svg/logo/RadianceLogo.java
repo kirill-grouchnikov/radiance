@@ -31,6 +31,7 @@ package org.pushingpixels.demo.flamingo.svg.logo;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
@@ -47,7 +48,7 @@ public class RadianceLogo {
         return base;
     }
 
-    public static BufferedImage getLogoImage(SubstanceColorScheme scheme) {
-        return getLogoIcon(scheme).toImage();
+    public static BufferedImage getLogoImage(Component comp, SubstanceColorScheme scheme) {
+        return getLogoIcon(scheme).toImage(SubstanceCortex.GlobalScope.getScaleFactor(comp));
     }
 }

@@ -67,7 +67,7 @@ abstract class BaseColorSchemeRobot(
         val frame: JFrame
         withContext(Dispatchers.Swing) {
             frame = SampleFrame()
-            frame.iconImage = RadianceLogo.getLogoImage(
+            frame.iconImage = RadianceLogo.getLogoImage(frame,
                 SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                     DecorationAreaType.PRIMARY_TITLE_PANE,
                     SubstanceSlices.ColorSchemeAssociationKind.FILL,

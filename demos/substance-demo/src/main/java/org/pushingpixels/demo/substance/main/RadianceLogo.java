@@ -52,18 +52,18 @@ public class RadianceLogo {
         return base;
     }
 
-    public static BufferedImage getLogoImage(SubstanceColorScheme scheme) {
-        return getLogoIcon(scheme).toImage();
+    public static BufferedImage getLogoImage(Component comp, SubstanceColorScheme scheme) {
+        return getLogoIcon(scheme).toImage(SubstanceCortex.GlobalScope.getScaleFactor(comp));
     }
 
     public static void configureOn(JFrame frame) {
-        frame.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+        frame.setIconImage(RadianceLogo.getLogoImage(frame, SubstanceCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
                 .getColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
         SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
-                () -> frame.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
-                        .getCurrentSkin(frame.getRootPane())
-                        .getColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                                SubstanceSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
+                () -> frame.setIconImage(RadianceLogo.getLogoImage(frame,
+                        SubstanceCortex.ComponentScope.getCurrentSkin(frame.getRootPane())
+                                .getColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        SubstanceSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
     }
 }

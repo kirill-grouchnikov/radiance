@@ -81,6 +81,7 @@ abstract class TextHighlightsRobot(
         val frame = JFrame("Text highlights")
 
         frame.iconImage = RadianceLogo.getLogoImage(
+            frame,
             SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 SubstanceSlices.ColorSchemeAssociationKind.FILL,

@@ -85,16 +85,16 @@ public class Check extends JFrame {
         super("Substance test application");
 
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-            setIconImage(RadianceLogo
-                    .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+            setIconImage(RadianceLogo.getLogoImage(this,
+                    SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
                             .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                     ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
         }
         SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
-                () -> setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
-                        .getCurrentSkin(Check.this.getRootPane())
-                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
+                () -> setIconImage(RadianceLogo.getLogoImage(Check.this,
+                        SubstanceCortex.ComponentScope.getCurrentSkin(Check.this.getRootPane())
+                                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
 
         setLayout(new BorderLayout());
 

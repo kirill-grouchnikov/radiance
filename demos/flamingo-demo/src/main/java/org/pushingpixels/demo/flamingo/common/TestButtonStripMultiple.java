@@ -53,7 +53,7 @@ public class TestButtonStripMultiple extends JFrame {
     public TestButtonStripMultiple() {
         this.setLayout(new FlowLayout());
 
-        this.setIconImage(RadianceLogo.getLogoImage(
+        this.setIconImage(RadianceLogo.getLogoImage(this,
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,

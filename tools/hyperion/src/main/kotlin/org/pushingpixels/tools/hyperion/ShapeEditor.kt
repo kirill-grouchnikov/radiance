@@ -450,7 +450,7 @@ class ShapeEditor : JFrame() {
         this.minorPoints = ArrayList()
         this.minorPoints!!.add(Point2D.Double(0.55, 0.55))
 
-        this.iconImage = RadianceLogo.getTitlePaneLogoImage()
+        this.iconImage = RadianceLogo.getTitlePaneLogoImage(this)
     }
 }
 

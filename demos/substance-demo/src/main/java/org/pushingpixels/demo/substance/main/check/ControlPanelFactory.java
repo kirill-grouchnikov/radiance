@@ -491,8 +491,8 @@ public class ControlPanelFactory {
         launchFrameDialogWithIcon.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             SimpleDialog sd = new SimpleDialog();
             if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-                sd.setIconImage(RadianceLogo.getLogoImage(SubstanceCortex.ComponentScope
-                        .getCurrentSkin(sd.getRootPane())
+                sd.setIconImage(RadianceLogo.getLogoImage(sd,
+                        SubstanceCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
                         .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
             }

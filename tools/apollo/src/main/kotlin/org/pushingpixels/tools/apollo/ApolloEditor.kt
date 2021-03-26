@@ -63,7 +63,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
     private val hsvGraph: JHsvGraph
 
     init {
-        this.iconImage = RadianceLogo.getTitlePaneLogoImage()
+        this.iconImage = RadianceLogo.getTitlePaneLogoImage(this)
 
         val leftPanelBuilder = FormBuilder.create().columns("fill:pref")
                 .rows("fill:pref, \$lg, fill:pref, \$lg, fill:pref:grow, \$lg, fill:pref")

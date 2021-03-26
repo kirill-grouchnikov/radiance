@@ -84,7 +84,7 @@ object RainbowUtils {
         fileFrame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
 
         fileFrame.layout = BorderLayout()
-        fileFrame.iconImage = RadianceLogo.getTitlePaneLogoImage()
+        fileFrame.iconImage = RadianceLogo.getTitlePaneLogoImage(fileFrame)
 
         val jtp = JTabbedPane()
         jtp.tabPlacement = SwingConstants.LEFT

@@ -31,8 +31,11 @@ package org.pushingpixels.demo.substance.main;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.*;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.extras.api.skinpack.OfficeSilver2007Skin;
 
 import javax.swing.*;
@@ -41,8 +44,8 @@ public class ControlStatesExtended extends JFrame {
     public ControlStatesExtended() {
         super("States");
 
-        setIconImage(RadianceLogo
-                .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+        setIconImage(RadianceLogo.getLogoImage(this,
+                SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
                         .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
 

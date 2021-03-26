@@ -56,7 +56,7 @@ public class TestButtonStripVertical extends JFrame {
     private TestButtonStripVertical() {
         super("Tests for vertical buttons strips");
 
-        this.setIconImage(RadianceLogo.getLogoImage(
+        this.setIconImage(RadianceLogo.getLogoImage(this,
                 SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                         SubstanceSlices.ColorSchemeAssociationKind.FILL,

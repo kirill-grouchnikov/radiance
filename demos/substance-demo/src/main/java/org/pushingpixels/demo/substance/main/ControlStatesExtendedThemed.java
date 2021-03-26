@@ -46,8 +46,8 @@ public class ControlStatesExtendedThemed extends JFrame {
     public ControlStatesExtendedThemed() {
         super("States");
 
-        setIconImage(RadianceLogo
-                .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+        setIconImage(RadianceLogo.getLogoImage(this,
+                SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
                         .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
 

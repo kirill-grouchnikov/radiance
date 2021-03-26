@@ -31,7 +31,6 @@ package org.pushingpixels.demo.flamingo.bcb;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbTreeAdapterSelector;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.substance.api.ComponentState;
@@ -334,7 +333,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
             SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 
             JTreeAdapterBreadCrumbTest test = new JTreeAdapterBreadCrumbTest();
-            test.setIconImage(RadianceLogo.getLogoImage(
+            test.setIconImage(RadianceLogo.getLogoImage(test,
                     SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
                             SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                             SubstanceSlices.ColorSchemeAssociationKind.FILL,
