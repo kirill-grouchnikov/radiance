@@ -38,7 +38,7 @@ buildscript {
         gradle_version                  =    '6.8.3'
 
         // Core dependencies
-        kotlin_version                  =   '1.4.31'
+        kotlin_version                  =   '1.4.32'
         kotlinx_coroutines_version      =    '1.4.3'
         gradle_nexus_plugin_version     =    '2.3.1'
         gradle_versions_plugin_version  =   '0.38.0'
