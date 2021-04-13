@@ -31,6 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
+    implementation project(':substance')
     implementation project(':tools:beacon')
     implementation project(':demos:substance-demo')
 }

@@ -35,23 +35,27 @@ ext.isRelease = false
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =    '6.8.3'
+        gradle_version                       =      '7.0'
 
         // Core dependencies
         kotlin_version                       =   '1.4.32'
         kotlinx_coroutines_version           =    '1.4.3'
-        gradle_maven_publish_plugin_version  =   '0.14.2'
-        gradle_versions_plugin_version       =   '0.38.0'
         batik_version                        =     '1.14'
-        dokka_version                        =   '1.4.20'
 
         // Demo dependencies
         retrofit_version                     =    '2.9.0'
         rsyntaxtextarea_version              =    '3.1.2'
-        jgoodies_common_version             =    '1.8.1'
+        jgoodies_common_version             =     '1.8.1'
         jgoodies_forms_version               =    '1.9.0'
         jxlayer_version                      =    '3.0.4'
         jhlabs_filters_version               =  '2.0.235'
+
+        // Publish dependencies
+        gradle_maven_publish_plugin_version  =   '0.14.2'
+        dokka_version                        =   '1.4.20'
+
+        // Misc dependencies
+        gradle_versions_plugin_version       =   '0.38.0'
     }
     repositories {
         mavenCentral()

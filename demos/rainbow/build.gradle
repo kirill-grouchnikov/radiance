@@ -38,6 +38,7 @@ dependencies {
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
     implementation "com.fifesoft:rsyntaxtextarea:$rsyntaxtextarea_version"
     implementation "org.swinglabs:jxlayer:$jxlayer_version"
+    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':neon')
     implementation project(':photon')
     implementation project(':substance')

@@ -33,6 +33,7 @@ apply plugin: 'java'
 dependencies {
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
+    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':neon')
     implementation project(':trident')
     implementation project(':substance')

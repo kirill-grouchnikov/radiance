@@ -31,7 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compile("org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}")
+    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':neon')
 }
 

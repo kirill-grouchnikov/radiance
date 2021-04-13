@@ -29,12 +29,12 @@
  */
 
 apply plugin: 'java-gradle-plugin'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 dependencies {
     implementation project(':photon')
-    compile gradleApi()
-    compile localGroovy()
+    implementation gradleApi()
+    implementation localGroovy()
 }
 
 ext.designation = "tools"
