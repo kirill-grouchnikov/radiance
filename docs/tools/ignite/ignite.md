@@ -1,3 +1,4 @@
+
 ## Ignite - Gradle plugin for transcoding SVG content
 
 The goal of this project is to allow build-time transcoding of SVG content into Java / Kotlin classes by wrapping [Photon APIs](../../photon/photon.md) and making them available for Gradle builds.
@@ -27,7 +28,7 @@ In case you want to use the latest snapshot version of Ignite, use the Sonatype 
 buildscript {
     repositories {
         maven {
-            url 'http://oss.sonatype.org/content/repositories/snapshots'
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
         }
     }
     dependencies {
