@@ -83,6 +83,7 @@ public class KCommandMenu {
     init {
         maxVisibleMenuCommands = -1
         toDismissOnCommandActivation = true
+        horizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.START
         groups.add(defaultGroup)
     }
 

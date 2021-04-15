@@ -38,14 +38,14 @@ buildscript {
         gradle_version                       =      '7.0'
 
         // Core dependencies
-        kotlin_version                       =   '1.4.32'
+        kotlin_version                       = '1.5.0-RC'
         kotlinx_coroutines_version           =    '1.4.3'
         batik_version                        =     '1.14'
 
         // Demo dependencies
         retrofit_version                     =    '2.9.0'
         rsyntaxtextarea_version              =    '3.1.2'
-        jgoodies_common_version             =     '1.8.1'
+        jgoodies_common_version              =    '1.8.1'
         jgoodies_forms_version               =    '1.9.0'
         jxlayer_version                      =    '3.0.4'
         jhlabs_filters_version               =  '2.0.235'
