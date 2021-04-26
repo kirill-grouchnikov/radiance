@@ -38,7 +38,7 @@ buildscript {
         gradle_version                       =      '7.0'
 
         // Core dependencies
-        kotlin_version                       = '1.5.0-RC'
+        kotlin_version                       =    '1.5.0'
         kotlinx_coroutines_version           =    '1.4.3'
         batik_version                        =     '1.14'
 
@@ -51,8 +51,8 @@ buildscript {
         jhlabs_filters_version               =  '2.0.235'
 
         // Publish dependencies
-        gradle_maven_publish_plugin_version  =   '0.14.2'
-        dokka_version                        =   '1.4.20'
+        gradle_maven_publish_plugin_version  =   '0.15.0'
+        dokka_version                        =   '1.4.32'
 
         // Misc dependencies
         gradle_versions_plugin_version       =   '0.38.0'
