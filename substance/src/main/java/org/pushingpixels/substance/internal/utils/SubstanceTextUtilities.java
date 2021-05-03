@@ -41,6 +41,8 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicGraphicsUtils;
 import javax.swing.text.JTextComponent;
@@ -550,11 +552,11 @@ public class SubstanceTextUtilities {
         }
         // At this point we should have the color that matches the border color. Use that to
         // paint emulated drop shadow along the top edge of the component.
-        boolean hasSubstanceTextBorder = (comp.getBorder() instanceof SubstanceTextComponentBorder);
-        if (hasSubstanceTextBorder) {
+        if (hasSubstanceTextBorder(comp)) {
             int shadowHeight = 6;
+            int topAlpha = state.isDisabled() ? 16 : 32;
             g2d.setPaint(new GradientPaint(0, 0,
-                    SubstanceColorUtilities.getAlphaColor(borderColor, 48), 0, shadowHeight,
+                    SubstanceColorUtilities.getAlphaColor(borderColor, topAlpha), 0, shadowHeight,
                     SubstanceColorUtilities.getAlphaColor(borderColor, 0)));
             float yTop = SubstanceSizeUtils.getBorderStrokeWidth(comp);
             g2d.fill(new Rectangle2D.Float(borderStrokeWidth, yTop,
@@ -562,4 +564,18 @@ public class SubstanceTextUtilities {
         }
         g2d.dispose();
     }
+
+    private static boolean hasSubstanceTextBorder(JComponent comp) {
+        Border border = comp.getBorder();
+        if (border instanceof SubstanceTextComponentBorder) {
+            return true;
+        }
+        if (border instanceof CompoundBorder) {
+            CompoundBorder compoundBorder = (CompoundBorder) border;
+            return (compoundBorder.getOutsideBorder() instanceof SubstanceTextComponentBorder) ||
+                    (compoundBorder.getInsideBorder() instanceof SubstanceTextComponentBorder);
+        }
+        return false;
+    }
 }
+
