@@ -35,7 +35,6 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelector.LocaleInfo> {
     public static class LocaleInfo {

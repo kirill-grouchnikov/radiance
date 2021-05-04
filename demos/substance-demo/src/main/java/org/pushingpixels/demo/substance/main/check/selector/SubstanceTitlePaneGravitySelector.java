@@ -34,7 +34,6 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class SubstanceTitlePaneGravitySelector extends
         FlexiComboBox<SubstanceTitlePaneGravitySelector.TitlePaneConfiguration> {

@@ -35,7 +35,6 @@ import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class SubstanceSkinSelector extends FlexiComboBox<SkinInfo> {

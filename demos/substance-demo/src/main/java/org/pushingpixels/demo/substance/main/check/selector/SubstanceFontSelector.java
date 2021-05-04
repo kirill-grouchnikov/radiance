@@ -36,7 +36,6 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.URL;
 
 public class SubstanceFontSelector extends FlexiComboBox<SubstanceFontSelector.FontInfo> {
