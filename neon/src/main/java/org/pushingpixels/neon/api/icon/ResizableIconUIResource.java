@@ -33,7 +33,7 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 
 public class ResizableIconUIResource implements ResizableIcon, UIResource {
-    private ResizableIcon delegate;
+    protected ResizableIcon delegate;
 
 	public ResizableIconUIResource(ResizableIcon delegate) {
 		this.delegate = delegate;
