@@ -27,19 +27,35 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.demo.neon;
 
-rootProject.name = "radiance"
+import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.icon.ResizableIcon;
 
-include 'neon', 'trident', 'photon', 'substance',
-		'substance-extras', 'flamingo',
-		'kotlin-ext:ember', 'kotlin-ext:meteor',
-		'kotlin-ext:plasma', 'kotlin-ext:torch',
-		'demos:beacon-demo', 'demos:flamingo-demo',
-		'demos:plasma-demo', 'demos:ion',
-		'demos:neon-demo',
-        'demos:substance-demo', 'demos:trident-demo',
-		'demos:torch-demo', 'demos:lucent',
-		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
-        'tools:apollo', 'tools:beacon', 'tools:electra',
-		'tools:hyperion', 'tools:ignite', 'tools:lightbeam',
-		'tools:tools-common', 'tools:zodiac'
+import javax.swing.*;
+import java.awt.*;
+
+public class IconFrame {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Icons");
+            frame.setSize(400, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            ResizableIcon redIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.red);
+            ResizableIcon greenIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.green);
+            ResizableIcon blueIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.blue);
+            redIcon.setDimension(new Dimension(20, 20));
+            greenIcon.setDimension(new Dimension(20, 20));
+            blueIcon.setDimension(new Dimension(20, 20));
+
+            frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+            frame.add(new JLabel(redIcon));
+            frame.add(new JLabel(greenIcon));
+            frame.add(new JLabel(blueIcon));
+
+            frame.setVisible(true);
+        });
+    }
+}

@@ -28,18 +28,10 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "radiance"
+apply plugin: 'kotlin'
 
-include 'neon', 'trident', 'photon', 'substance',
-		'substance-extras', 'flamingo',
-		'kotlin-ext:ember', 'kotlin-ext:meteor',
-		'kotlin-ext:plasma', 'kotlin-ext:torch',
-		'demos:beacon-demo', 'demos:flamingo-demo',
-		'demos:plasma-demo', 'demos:ion',
-		'demos:neon-demo',
-        'demos:substance-demo', 'demos:trident-demo',
-		'demos:torch-demo', 'demos:lucent',
-		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
-        'tools:apollo', 'tools:beacon', 'tools:electra',
-		'tools:hyperion', 'tools:ignite', 'tools:lightbeam',
-		'tools:tools-common', 'tools:zodiac'
+dependencies {
+    implementation project(':neon')
+}
+
+ext.designation = "demo"

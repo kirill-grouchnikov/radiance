@@ -51,6 +51,8 @@ java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter so
 
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../substance/src/main/java/org/pushingpixels/substance/internal/svg outputPackageName=org.pushingpixels.substance.internal.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
 
+java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/neon-demo/src/main/kotlin/org/pushingpixels/demo/neon outputPackageName=org.pushingpixels.demo.neon templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
+
 # Don't convert the substance-demo transcoding to deep traversal since one of the
 # folders needs class name prefix while others don't
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main/check/svg outputPackageName=org.pushingpixels.demo.substance.main.check.svg templateFile=/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ outputLanguage=java
