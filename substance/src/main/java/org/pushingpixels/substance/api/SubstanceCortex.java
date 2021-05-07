@@ -29,11 +29,15 @@
  */
 package org.pushingpixels.substance.api;
 
+import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.font.FontPolicy;
 import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.neon.api.icon.ResizableAsyncLoadingIconUIResource;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.internal.ColorFilter;
+import org.pushingpixels.neon.internal.ResizableAsyncLoadingIcon;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -1359,40 +1363,64 @@ public class SubstanceCortex {
          */
         public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
-            return new ResizableIcon() {
-                private int width;
-                private int height;
-                private BufferedImage colorized;
+            class SubstanceResizableAsyncLoadingIcon extends ResizableAsyncLoadingIcon {
+                private SubstanceColorScheme colorScheme;
+                private float brightnessFactor;
 
-                @Override
-                public void setDimension(Dimension newDimension) {
-                    ResizableIcon original = sourceFactory.createNewIcon();
-                    original.setDimension(newDimension);
-                    this.colorized = SubstanceImageCreator.getColorSchemeImage(null,
-                            original, colorScheme, brightnessFactor);
-                    this.width = newDimension.width;
-                    this.height = newDimension.height;
+                SubstanceResizableAsyncLoadingIcon(ResizableIcon.Factory sourceFactory,
+                        SubstanceColorScheme colorScheme, float brightnessFactor) {
+                    super(sourceFactory);
+                    this.colorScheme = colorScheme;
+                    this.brightnessFactor = brightnessFactor;
                 }
 
                 @Override
-                public void paintIcon(Component c, Graphics g, int x, int y) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.translate(x, y);
-                    NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(c),
-                            this.colorized, x, y);
-                    g2d.dispose();
+                protected void makeColorized() {
+                    this.currColorized = SubstanceImageCreator.getColorSchemeImage(null,
+                            this.currDelegate, colorScheme, brightnessFactor);
                 }
+            }
 
-                @Override
-                public int getIconWidth() {
-                    return this.width;
-                }
+            ResizableIcon original = sourceFactory.createNewIcon();
+            if (original instanceof AsynchronousLoading) {
+                return new SubstanceResizableAsyncLoadingIcon(sourceFactory, colorScheme,
+                        brightnessFactor);
+            } else {
+                return new ResizableIcon() {
+                    private int width;
+                    private int height;
+                    private BufferedImage colorized;
 
-                @Override
-                public int getIconHeight() {
-                    return this.height;
-                }
-            };
+                    @Override
+                    public void setDimension(Dimension newDimension) {
+                        ResizableIcon original = sourceFactory.createNewIcon();
+                        original.setDimension(newDimension);
+                        this.colorized = SubstanceImageCreator.getColorSchemeImage(null,
+                                original, colorScheme, brightnessFactor);
+                        this.width = newDimension.width;
+                        this.height = newDimension.height;
+                    }
+
+                    @Override
+                    public void paintIcon(Component c, Graphics g, int x, int y) {
+                        Graphics2D g2d = (Graphics2D) g.create();
+                        g2d.translate(x, y);
+                        NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(c),
+                                this.colorized, x, y);
+                        g2d.dispose();
+                    }
+
+                    @Override
+                    public int getIconWidth() {
+                        return this.width;
+                    }
+
+                    @Override
+                    public int getIconHeight() {
+                        return this.height;
+                    }
+                };
+            }
         }
 
         /**
@@ -1409,8 +1437,13 @@ public class SubstanceCortex {
         public static ResizableIconUIResource colorizeIconAsUiResource(
                 ResizableIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
-            return new ResizableIconUIResource(colorizeIcon(sourceFactory, colorScheme,
-                    brightnessFactor));
+            ResizableIcon colorized = colorizeIcon(sourceFactory, colorScheme,
+                    brightnessFactor);
+            if (colorized instanceof AsynchronousLoading) {
+                return new ResizableAsyncLoadingIconUIResource(colorized);
+            } else {
+                return new ResizableIconUIResource(colorized);
+            }
         }
 
         /**

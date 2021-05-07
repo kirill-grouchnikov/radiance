@@ -38,6 +38,9 @@ import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.colorscheme.LimeGreenColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
 
 import javax.swing.*;
@@ -95,7 +98,7 @@ public class IconFrame {
                                     IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)),
-                            Color.green
+                            new Color(0, 128, 0)
                     ))
                     .build();
             frame.add(greenCommand.project(presentationModel).buildComponent());
@@ -111,6 +114,58 @@ public class IconFrame {
                     ))
                     .build();
             frame.add(blueCommand.project(presentationModel).buildComponent());
+
+            Command originalTangoCommand = Command.builder()
+                    .setText("None")
+                    .setIconFactory(() -> SvgBatikResizableIcon.getSvgIcon(
+                            IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
+                            NeonCortex.getScaleFactor(frame),
+                            new Dimension(16, 16)
+                    ))
+                    .build();
+            frame.add(originalTangoCommand.project(presentationModel).buildComponent());
+
+            Command redTangoCommand = Command.builder()
+                    .setText("Red")
+                    .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
+                            () -> SvgBatikResizableIcon.getSvgIcon(
+                                    IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
+                                    NeonCortex.getScaleFactor(frame),
+                                    new Dimension(16, 16)
+                            ),
+                            new SunfireRedColorScheme(),
+                            1.0f
+                    ))
+                    .build();
+            frame.add(redTangoCommand.project(presentationModel).buildComponent());
+
+            Command greenTangoCommand = Command.builder()
+                    .setText("Green")
+                    .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
+                            () -> SvgBatikResizableIcon.getSvgIcon(
+                                    IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
+                                    NeonCortex.getScaleFactor(frame),
+                                    new Dimension(16, 16)
+                            ),
+                            new LimeGreenColorScheme(),
+                            1.0f
+                    ))
+                    .build();
+            frame.add(greenTangoCommand.project(presentationModel).buildComponent());
+
+            Command blueTangoCommand = Command.builder()
+                    .setText("Blue")
+                    .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
+                            () -> SvgBatikResizableIcon.getSvgIcon(
+                                    IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
+                                    NeonCortex.getScaleFactor(frame),
+                                    new Dimension(16, 16)
+                            ),
+                            new SteelBlueColorScheme(),
+                            1.0f
+                    ))
+                    .build();
+            frame.add(blueTangoCommand.project(presentationModel).buildComponent());
 
             frame.setVisible(true);
         });

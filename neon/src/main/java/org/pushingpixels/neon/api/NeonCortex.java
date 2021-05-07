@@ -36,6 +36,7 @@ import org.pushingpixels.neon.api.icon.ResizableAsyncLoadingIconUIResource;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.neon.internal.ColorFilter;
+import org.pushingpixels.neon.internal.ResizableAsyncLoadingIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
@@ -328,103 +329,27 @@ public class NeonCortex {
      * @return The colorized version of the icon.
      */
     public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory, Color color) {
-        class ResizableAsyncLoadingIcon implements ResizableIcon, AsynchronousLoading {
-            private ResizableIcon.Factory sourceFactory;
+        class NeonResizableAsyncLoadingIcon extends ResizableAsyncLoadingIcon {
             private Color color;
-            private int width;
-            private int height;
-            private ResizableIcon currDelegate;
-            private BufferedImage currColorized;
-            private EventListenerList listenerList;
 
-            ResizableAsyncLoadingIcon(ResizableIcon.Factory sourceFactory, Color color) {
-                this.sourceFactory = sourceFactory;
+            NeonResizableAsyncLoadingIcon(ResizableIcon.Factory sourceFactory, Color color) {
+                super(sourceFactory);
                 this.color = color;
-                this.listenerList = new EventListenerList();
             }
 
-            private void makeColorized() {
+            @Override
+            protected void makeColorized() {
                 BufferedImage flat = NeonCortex.getBlankScaledImage(
                         NeonCortex.getScaleFactor(null),
                         this.width, this.height);
                 this.currDelegate.paintIcon(null, flat.getGraphics(), 0, 0);
                 this.currColorized = new ColorFilter(this.color).filter(flat, null);
             }
-
-            @Override
-            public void setDimension(Dimension newDimension) {
-                this.width = newDimension.width;
-                this.height = newDimension.height;
-                this.currDelegate = this.sourceFactory.createNewIcon();
-                this.currDelegate.setDimension(newDimension);
-                AsynchronousLoading async = (AsynchronousLoading) this.currDelegate;
-                if (async.isLoading()) {
-                    this.currColorized = null;
-                    async.addAsynchronousLoadListener(new AsynchronousLoadListener() {
-                        @Override
-                        public void completed(boolean success) {
-                            if (success) {
-                                makeColorized();
-                            }
-                            async.removeAsynchronousLoadListener(this);
-
-                            Object[] listeners = listenerList.getListenerList();
-                            // Process the listeners last to first, notifying
-                            // those that are interested in this event
-                            for (int i = listeners.length - 2; i >= 0; i -= 2) {
-                                if (listeners[i] == AsynchronousLoadListener.class) {
-                                    ((AsynchronousLoadListener) listeners[i + 1]).completed(success);
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    // Already loaded
-                    makeColorized();
-                }
-            }
-
-            @Override
-            public void paintIcon(Component c, Graphics g, int x, int y) {
-                if (this.currColorized != null) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.translate(x, y);
-                    double scaleFactor = NeonCortex.getScaleFactor(c);
-                    NeonCortex.drawImageWithScale(g2d, scaleFactor, this.currColorized, 0, 0);
-                    g2d.dispose();
-                }
-            }
-
-            @Override
-            public int getIconWidth() {
-                return this.width;
-            }
-
-            @Override
-            public int getIconHeight() {
-                return this.height;
-            }
-
-            @Override
-            public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
-                this.listenerList.add(AsynchronousLoadListener.class, l);
-            }
-
-            @Override
-            public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
-                this.listenerList.remove(AsynchronousLoadListener.class, l);
-            }
-
-            @Override
-            public boolean isLoading() {
-                return (this.currDelegate != null) &&
-                        ((AsynchronousLoading)this.currColorized).isLoading();
-            }
         }
 
         ResizableIcon original = sourceFactory.createNewIcon();
         if (original instanceof AsynchronousLoading) {
-            return new ResizableAsyncLoadingIcon(sourceFactory, color);
+            return new NeonResizableAsyncLoadingIcon(sourceFactory, color);
         } else {
             return new ResizableIcon() {
                 private int width;
@@ -495,7 +420,7 @@ public class NeonCortex {
         if (colorized instanceof AsynchronousLoading) {
             return new ResizableAsyncLoadingIconUIResource(colorized);
         } else {
-            return new ResizableIconUIResource(colorizeIcon(sourceFactory, color));
+            return new ResizableIconUIResource(colorized);
         }
     }
 
