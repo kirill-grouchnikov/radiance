@@ -36,7 +36,7 @@ import java.awt.event.ActionEvent;
 public class CommandActionEvent extends ActionEvent {
     private Command command;
 
-    public CommandActionEvent(JCommandButton source, int id, Command flamingoCommand,
+    public CommandActionEvent(Object source, int id, Command flamingoCommand,
             String command, long when, int modifiers) {
         super(source, id, command, when, modifiers);
         this.command = flamingoCommand;
@@ -47,6 +47,10 @@ public class CommandActionEvent extends ActionEvent {
     }
 
     public JCommandButton getButtonSource() {
-        return (JCommandButton) this.getSource();
+        Object source = this.getSource();
+        if (source instanceof JCommandButton) {
+            return (JCommandButton) source;
+        }
+        return null;
     }
 }

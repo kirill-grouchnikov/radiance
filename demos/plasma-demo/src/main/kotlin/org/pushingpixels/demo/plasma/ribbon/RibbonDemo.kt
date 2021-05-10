@@ -83,7 +83,8 @@ object SkinSwitcher {
         result.addDelayedItemListener {
             val selected = result.selectedItem as String
             SubstanceCortex.GlobalScope.setSkin(
-                    SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className)
+                SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className
+            )
         }
 
         return result
@@ -245,8 +246,10 @@ private class ExpandCommandListener : (CommandActionEvent?) -> Unit {
     }
 }
 
-private class SimpleResizableIcon(private val priority: PresentationPriority,
-        private var currWidth: Int, private var currHeight: Int) : ResizableIcon {
+private class SimpleResizableIcon(
+    private val priority: PresentationPriority,
+    private var currWidth: Int, private var currHeight: Int
+) : ResizableIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
@@ -263,8 +266,10 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
 
     override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
         val graphics = g.create() as Graphics2D
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON)
+        graphics.setRenderingHint(
+            RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON
+        )
 
         val rx = this.currWidth / 3
         val ry = this.currHeight / 3
@@ -296,10 +301,15 @@ private class SimpleResizableIcon(private val priority: PresentationPriority,
 private class RibbonDemoBuilder {
     var currLocale = Locale.getDefault()
     var resourceBundle = ResourceBundle.getBundle(
-            "org.pushingpixels.demo.plasma.resources.Resources", currLocale)
+        "org.pushingpixels.demo.plasma.resources.Resources", currLocale
+    )
     lateinit var rulerPanel: RulerPanel
     val documentNewCommand: KCommand
+
+    val copyCommand: KCommand
     val pasteCommand: KCommand
+    val cutCommand: KCommand
+
     val menuSaveSelection: KCommand
     val menuClearSelection: KCommand
     val applyStyles: KCommand
@@ -315,6 +325,24 @@ private class RibbonDemoBuilder {
             title = resourceBundle.getString("DocumentNew.text")
             iconFactory = Document_new.factory()
             action = { println("Document New activated") }
+        }
+
+        cutCommand = command {
+            title = resourceBundle.getString("Cut.text")
+            iconFactory = Edit_cut.factory()
+            action = { println("Cut!") }
+            actionRichTooltip {
+                title = resourceBundle.getString("Cut.text")
+                description = resourceBundle.getString("Cut.tooltip.actionParagraph1")
+            }
+            menu = getSimplePopupMenu()
+        }
+
+        copyCommand = command {
+            title = resourceBundle.getString("Copy.text")
+            iconFactory = Edit_copy.factory()
+            action = { println("Copy!") }
+            menu = getSimplePopupMenu()
         }
 
         pasteCommand = command {
@@ -352,7 +380,8 @@ private class RibbonDemoBuilder {
 
 
         val mfButtonText = MessageFormat(
-                resourceBundle.getString("StylesGallery.textButton"))
+            resourceBundle.getString("StylesGallery.textButton")
+        )
         mfButtonText.locale = currLocale
 
         styleGalleryContentModel = galleryContent {
@@ -363,16 +392,16 @@ private class RibbonDemoBuilder {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
                         iconFactory = DecoratedResizableIcon.factory(
-                                Font_x_generic.factory(),
-                                DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
-                                    graphics.render {
-                                        it.color = Color.black
-                                        it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .getFontSet().controlFont
-                                        NeonCortex.installDesktopHints(it, it.font)
-                                        it.drawString("$i", x + 2, y + height - 2)
-                                    }
-                                })
+                            Font_x_generic.factory(),
+                            DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
+                                graphics.render {
+                                    it.color = Color.black
+                                    it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                        .getFontSet().controlFont
+                                    NeonCortex.installDesktopHints(it, it.font)
+                                    it.drawString("$i", x + 2, y + height - 2)
+                                }
+                            })
                         isToggle = (i != 1)
                         isToggleSelected = (i == 1)
                     }
@@ -384,24 +413,27 @@ private class RibbonDemoBuilder {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
                         iconFactory = DecoratedResizableIcon.factory(
-                                Font_x_generic.factory(),
-                                DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
-                                    graphics.render {
-                                        it.color = Color.black
-                                        it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                .fontSet.controlFont
-                                        NeonCortex.installDesktopHints(it, it.font)
-                                        it.drawString("$i", x + 2, y + height - 2)
-                                    }
-                                })
+                            Font_x_generic.factory(),
+                            DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
+                                graphics.render {
+                                    it.color = Color.black
+                                    it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                        .fontSet.controlFont
+                                    NeonCortex.installDesktopHints(it, it.font)
+                                    it.drawString("$i", x + 2, y + height - 2)
+                                }
+                            })
                         isToggle = true
                     }
                 }
             }
 
-            onCommandActivated = { command -> println("*** Command '" + command.text + "' activated! ***") }
-            onCommandPreviewActivated = { command -> println("Preview activated for '" + command.text + "'") }
-            onCommandPreviewCanceled = { command -> println("Preview canceled for '" + command.text + "'") }
+            onCommandActivated =
+                { command -> println("*** Command '" + command.text + "' activated! ***") }
+            onCommandPreviewActivated =
+                { command -> println("Preview activated for '" + command.text + "'") }
+            onCommandPreviewCanceled =
+                { command -> println("Preview canceled for '" + command.text + "'") }
 
             extraPopupGroup {
                 command(command = menuSaveSelection, actionKeyTip = "SS")
@@ -414,13 +446,15 @@ private class RibbonDemoBuilder {
         }
 
         fontComboBoxModel = comboBoxContentModel {
-            items("+ Minor (Calibri)   ", "+ Minor (Columbus)   ",
-                    "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
-                    "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
-                    "+ Minor (California)   ", "+ Minor (Calendula)   ",
-                    "+ Minor (Coriander)   ", "+ Minor (Callisto)   ",
-                    "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
-                    "+ Minor (Candella)   ", "+ Minor (Cambria)   ")
+            items(
+                "+ Minor (Calibri)   ", "+ Minor (Columbus)   ",
+                "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
+                "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
+                "+ Minor (California)   ", "+ Minor (Calendula)   ",
+                "+ Minor (Coriander)   ", "+ Minor (Callisto)   ",
+                "+ Minor (Cajun)   ", "+ Minor (Congola)   ",
+                "+ Minor (Candella)   ", "+ Minor (Cambria)   "
+            )
             richTooltip {
                 title = resourceBundle.getString("Seasons.tooltip.title")
             }
@@ -441,7 +475,8 @@ private class RibbonDemoBuilder {
             stepSize = 5
             iconFactory = Format_justify_left.factory()
             caption = resourceBundle.getString("IndentLeft.text")
-            selectionChangeListener = { _, newSelection -> println("New selection -> $newSelection") }
+            selectionChangeListener =
+                { _, newSelection -> println("New selection -> $newSelection") }
             richTooltip {
                 title = resourceBundle.getString("IndentLeft.tooltip.title")
                 description {
@@ -456,9 +491,9 @@ private class RibbonDemoBuilder {
         val ribbon = ribbonFrame.ribbon
 
         val formBuilder = FormBuilder.create()
-                .columns("right:pref, 8dlu, fill:pref:grow")
-                .rows("p, \$lg, p, \$lg, p, \$lg, p, \$lg, p, \$lg, p, \$lg, p")
-                .padding(EmptyBorder(20, 4, 0, 4))
+            .columns("right:pref, 8dlu, fill:pref:grow")
+            .rows("p, \$lg, p, \$lg, p, \$lg, p, \$lg, p, \$lg, p, \$lg, p")
+            .padding(EmptyBorder(20, 4, 0, 4))
 
         val group1Visible = JCheckBox("visible")
         val group2Visible = JCheckBox("visible")
@@ -483,7 +518,8 @@ private class RibbonDemoBuilder {
         val localeSwitcher = LocaleSwitcher.getLocaleSwitcher { selected ->
             currLocale = selected
             resourceBundle = ResourceBundle.getBundle(
-                    "org.pushingpixels.demo.plasma.resources.Resources", currLocale)
+                "org.pushingpixels.demo.plasma.resources.Resources", currLocale
+            )
             Window.getWindows().forEach {
                 it.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale))
                 SwingUtilities.updateComponentTreeUI(it)
@@ -544,26 +580,26 @@ private class RibbonDemoBuilder {
             }
             collapsedStateKeyTip = "ZC"
 
-            command(priority = PresentationPriority.TOP, popupKeyTip = "V", isTextClickAction = true,
-                    command = pasteCommand)
+            command(
+                priority = PresentationPriority.TOP,
+                popupKeyTip = "V",
+                isTextClickAction = true,
+                command = pasteCommand
+            )
 
-            command(PresentationPriority.MEDIUM, popupKeyTip = "X", isTextClickAction = true) {
-                title = resourceBundle.getString("Cut.text")
-                iconFactory = Edit_cut.factory()
-                action = { println("Cut!") }
-                actionRichTooltip {
-                    title = resourceBundle.getString("Cut.text")
-                    description = resourceBundle.getString("Cut.tooltip.actionParagraph1")
-                }
-                menu = getSimplePopupMenu()
-            }
+            command(
+                priority = PresentationPriority.MEDIUM,
+                popupKeyTip = "X",
+                isTextClickAction = true,
+                command = cutCommand
+            )
 
-            command(PresentationPriority.MEDIUM, popupKeyTip = "C", isTextClickSecondary = true) {
-                title = resourceBundle.getString("Copy.text")
-                iconFactory = Edit_copy.factory()
-                action = { println("Copy!") }
-                menu = getSimplePopupMenu()
-            }
+            command(
+                priority = PresentationPriority.MEDIUM,
+                popupKeyTip = "C",
+                isTextClickSecondary = true,
+                command = copyCommand
+            )
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "FP") {
                 title = resourceBundle.getString("Format.text")
@@ -572,10 +608,12 @@ private class RibbonDemoBuilder {
                     val mfGroupTitle = MessageFormat(resourceBundle.getString("PanelStyles.text"))
                     mfGroupTitle.locale = currLocale
                     val mfTooltipTitle = MessageFormat(
-                            resourceBundle.getString("PanelStyles.tooltip.textActionTitle"))
+                        resourceBundle.getString("PanelStyles.tooltip.textActionTitle")
+                    )
                     mfTooltipTitle.locale = currLocale
                     val mfTooltipParagraph = MessageFormat(
-                            resourceBundle.getString("PanelStyles.tooltip.textActionParagraph1"))
+                        resourceBundle.getString("PanelStyles.tooltip.textActionParagraph1")
+                    )
                     mfTooltipParagraph.locale = currLocale
 
                     commandPanel {
@@ -593,16 +631,17 @@ private class RibbonDemoBuilder {
                                 for (i in 0 until 15) {
                                     command {
                                         iconFactory = DecoratedResizableIcon.factory(
-                                                Font_x_generic.factory(),
-                                                DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
-                                                    graphics.render {
-                                                        it.color = Color.black
-                                                        it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                                .fontSet.controlFont
-                                                        NeonCortex.installDesktopHints(it, it.font)
-                                                        it.drawString("" + i, x + 2, y + height - 2)
-                                                    }
-                                                })
+                                            Font_x_generic.factory(),
+                                            DecoratedResizableIcon.IconDecorator { _, graphics, x, y, _, height ->
+                                                graphics.render {
+                                                    it.color = Color.black
+                                                    it.font =
+                                                        SubstanceCortex.GlobalScope.getFontPolicy()
+                                                            .fontSet.controlFont
+                                                    NeonCortex.installDesktopHints(it, it.font)
+                                                    it.drawString("" + i, x + 2, y + height - 2)
+                                                }
+                                            })
 
                                         isToggle = true
                                         action = { println("Invoked action on $i") }
@@ -628,20 +667,24 @@ private class RibbonDemoBuilder {
                     }
                 }
                 secondaryRichTooltip {
-                    title = "Main title that can go over multiple lines of text even exceeding the bigger"
+                    title =
+                        "Main title that can go over multiple lines of text even exceeding the bigger"
                     description {
                         +"Simple description that can go over multiple lines of text even exceeding the bigger"
                         +"Second paragraph that can be multiline as well to test this feature"
                     }
                     mainIconFactory = Address_book_new.factory()
-                    footer = "Multiline footer description to provide a little bit more information on this subject"
+                    footer =
+                        "Multiline footer description to provide a little bit more information on this subject"
                     footerIconFactory = Help_browser.factory()
                 }
             }
 
             resizePolicies = { ribbonBand ->
-                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
-                        CoreRibbonResizePolicies.Mid2Low(ribbonBand))
+                listOf(
+                    CoreRibbonResizePolicies.Mirror(ribbonBand),
+                    CoreRibbonResizePolicies.Mid2Low(ribbonBand)
+                )
             }
         }
     }
@@ -761,8 +804,10 @@ private class RibbonDemoBuilder {
                     command {
                         title = resourceBundle.getString("ColorSelector.textMoreColor")
                         action = DelayedCommandListener {
-                            val newColor = JColorChooser.showDialog(it.buttonSource,
-                                    "Color chooser", defaultColor)
+                            val newColor = JColorChooser.showDialog(
+                                it.buttonSource,
+                                "Color chooser", defaultColor
+                            )
                             if (newColor != null) {
                                 onColorActivatedListener.invoke(newColor)
                                 JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
@@ -772,7 +817,8 @@ private class RibbonDemoBuilder {
                 }
             }
 
-            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
+            resizePolicies =
+                { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
         }
     }
 
@@ -821,7 +867,8 @@ private class RibbonDemoBuilder {
                     action = { println("Bold toggled") }
                     actionRichTooltip {
                         title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                        description = resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
+                        description =
+                            resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
                     }
                 }
 
@@ -831,7 +878,8 @@ private class RibbonDemoBuilder {
                     action = { println("Italic toggled") }
                     actionRichTooltip {
                         title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                        description = resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
+                        description =
+                            resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
                     }
                 }
 
@@ -841,7 +889,8 @@ private class RibbonDemoBuilder {
                     action = { println("Underline toggled") }
                     actionRichTooltip {
                         title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                        description = resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
+                        description =
+                            resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
                     }
                 }
 
@@ -850,8 +899,10 @@ private class RibbonDemoBuilder {
                     isToggle = true
                     action = { println("Strikethrough toggled") }
                     actionRichTooltip {
-                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                        description = resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
+                        title =
+                            resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                        description =
+                            resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
                     }
                 }
             }
@@ -920,8 +971,10 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                command(priority = PresentationPriority.MEDIUM, command = documentNewCommand,
-                        actionKeyTip = "DN")
+                command(
+                    priority = PresentationPriority.MEDIUM, command = documentNewCommand,
+                    actionKeyTip = "DN"
+                )
 
                 command(priority = PresentationPriority.MEDIUM) {
                     title = resourceBundle.getString("DocumentOpen.text")
@@ -954,7 +1007,8 @@ private class RibbonDemoBuilder {
                 }
             }
 
-            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
+            resizePolicies =
+                { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
         }
     }
 
@@ -990,8 +1044,10 @@ private class RibbonDemoBuilder {
             }
 
             resizePolicies = { ribbonBand ->
-                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
-                        CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand))
+                listOf(
+                    CoreRibbonResizePolicies.Mirror(ribbonBand),
+                    CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand)
+                )
             }
         }
     }
@@ -1054,9 +1110,11 @@ private class RibbonDemoBuilder {
             }
 
             resizePolicies = { ribbonBand ->
-                listOf(CoreRibbonResizePolicies.Mirror(ribbonBand),
-                        CoreRibbonResizePolicies.Mid2Low(ribbonBand),
-                        CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand))
+                listOf(
+                    CoreRibbonResizePolicies.Mirror(ribbonBand),
+                    CoreRibbonResizePolicies.Mid2Low(ribbonBand),
+                    CoreRibbonResizePolicies.IconRibbonBandResizePolicy(ribbonBand)
+                )
             }
         }
     }
@@ -1117,7 +1175,8 @@ private class RibbonDemoBuilder {
                 }
             }
 
-            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
+            resizePolicies =
+                { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesRestrictive(ribbonBand) }
         }
     }
 
@@ -1158,9 +1217,11 @@ private class RibbonDemoBuilder {
 
             comboBox<String> {
                 content {
-                    items(resourceBundle.getString("Pictures.text"),
-                            resourceBundle.getString("Video.text"),
-                            resourceBundle.getString("Audio.text"))
+                    items(
+                        resourceBundle.getString("Pictures.text"),
+                        resourceBundle.getString("Video.text"),
+                        resourceBundle.getString("Audio.text")
+                    )
                     caption = resourceBundle.getString("Multimedia.text")
                 }
                 presentation {
@@ -1302,7 +1363,8 @@ private class RibbonDemoBuilder {
                 +getShowHideBand()
             }
 
-            bandResizeSequencingPolicySource = { task -> CoreRibbonResizeSequencingPolicies.CollapseFromLast(task) }
+            bandResizeSequencingPolicySource =
+                { task -> CoreRibbonResizeSequencingPolicies.CollapseFromLast(task) }
         }
     }
 
@@ -1323,7 +1385,8 @@ private class RibbonDemoBuilder {
                 action = { println("Slide Show activated") }
             }
 
-            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
+            resizePolicies =
+                { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
         }
     }
 
@@ -1350,7 +1413,8 @@ private class RibbonDemoBuilder {
                 action = { println("Animation 3 activated") }
             }
 
-            resizePolicies = { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
+            resizePolicies =
+                { ribbonBand -> CoreRibbonResizePolicies.getCorePoliciesNone(ribbonBand) }
         }
     }
 
@@ -1377,21 +1441,21 @@ private class RibbonDemoBuilder {
                         for (i in 1..40) {
                             command {
                                 iconFactory = DecoratedResizableIcon.factory(
-                                        Appointment_new.factory(),
-                                        DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
-                                            g.render {
-                                                it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                        .fontSet.controlFont.deriveFont(9.0f)
-                                                NeonCortex.installDesktopHints(it, it.font)
-                                                it.color = Color.black
-                                                it.drawString("" + i, x + 1, y + height - 2)
-                                                it.drawString("" + i, x + 3, y + height - 2)
-                                                it.drawString("" + i, x + 2, y + height - 1)
-                                                it.drawString("" + i, x + 2, y + height - 3)
-                                                it.color = Color.white
-                                                it.drawString("" + i, x + 2, y + height - 2)
-                                            }
-                                        })
+                                    Appointment_new.factory(),
+                                    DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
+                                        g.render {
+                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .fontSet.controlFont.deriveFont(9.0f)
+                                            NeonCortex.installDesktopHints(it, it.font)
+                                            it.color = Color.black
+                                            it.drawString("" + i, x + 1, y + height - 2)
+                                            it.drawString("" + i, x + 3, y + height - 2)
+                                            it.drawString("" + i, x + 2, y + height - 1)
+                                            it.drawString("" + i, x + 2, y + height - 3)
+                                            it.color = Color.white
+                                            it.drawString("" + i, x + 2, y + height - 2)
+                                        }
+                                    })
                                 action = { println("Activated action $i") }
                                 isToggle = true
                             }
@@ -1403,21 +1467,21 @@ private class RibbonDemoBuilder {
                         for (i in 41..70) {
                             command {
                                 iconFactory = DecoratedResizableIcon.factory(
-                                        Appointment_new.factory(),
-                                        DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
-                                            g.render {
-                                                it.font = SubstanceCortex.GlobalScope.getFontPolicy()
-                                                        .fontSet.controlFont.deriveFont(9.0f)
-                                                NeonCortex.installDesktopHints(it, it.font)
-                                                it.color = Color.black
-                                                it.drawString("" + i, x + 1, y + height - 2)
-                                                it.drawString("" + i, x + 3, y + height - 2)
-                                                it.drawString("" + i, x + 2, y + height - 1)
-                                                it.drawString("" + i, x + 2, y + height - 3)
-                                                it.color = Color.white
-                                                it.drawString("" + i, x + 2, y + height - 2)
-                                            }
-                                        })
+                                    Appointment_new.factory(),
+                                    DecoratedResizableIcon.IconDecorator { _, g, x, y, _, height ->
+                                        g.render {
+                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                                .fontSet.controlFont.deriveFont(9.0f)
+                                            NeonCortex.installDesktopHints(it, it.font)
+                                            it.color = Color.black
+                                            it.drawString("" + i, x + 1, y + height - 2)
+                                            it.drawString("" + i, x + 3, y + height - 2)
+                                            it.drawString("" + i, x + 2, y + height - 1)
+                                            it.drawString("" + i, x + 2, y + height - 3)
+                                            it.color = Color.white
+                                            it.drawString("" + i, x + 2, y + height - 2)
+                                        }
+                                    })
                                 action = { println("Activated action $i") }
                                 isToggle = true
                             }
@@ -1670,15 +1734,18 @@ private class RibbonDemoBuilder {
 
 fun getApplicationMenuRichTooltipIcon(): Factory {
     val appMenuButtonTooltipImage = ImageIO
-            .read(RibbonDemoBuilder::class.java.classLoader.getResource(
-                    "org.pushingpixels.demo.plasma.ribbon/appmenubutton-tooltip-main.png"))
+        .read(
+            RibbonDemoBuilder::class.java.classLoader.getResource(
+                "org.pushingpixels.demo.plasma.ribbon/appmenubutton-tooltip-main.png"
+            )
+        )
     val appMenuButtonTooltipImageWidth = appMenuButtonTooltipImage.width
     val appMenuButtonTooltipImageHeight = appMenuButtonTooltipImage.height
     val appMenuButtonTooltipImageRatio =
-            appMenuButtonTooltipImageWidth.toFloat() / appMenuButtonTooltipImageHeight.toFloat()
+        appMenuButtonTooltipImageWidth.toFloat() / appMenuButtonTooltipImageHeight.toFloat()
     val appMenuButtonTooltipImageInitialWidth = 160
     val appMenuButtonTooltipImageInitialHeight =
-            (appMenuButtonTooltipImageInitialWidth / appMenuButtonTooltipImageRatio).toInt()
+        (appMenuButtonTooltipImageInitialWidth / appMenuButtonTooltipImageRatio).toInt()
     val appMenuRichTooltipMainIcon = object : ResizableIcon {
         private var width: Int = 0
         private var height: Int = 0
@@ -1697,12 +1764,17 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
         }
 
         override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
-            g.drawImage(appMenuButtonTooltipImage, x, y, iconWidth, iconHeight,
-                    null)
+            g.drawImage(
+                appMenuButtonTooltipImage, x, y, iconWidth, iconHeight,
+                null
+            )
         }
     }
-    appMenuRichTooltipMainIcon.setDimension(Dimension(
-            appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight))
+    appMenuRichTooltipMainIcon.setDimension(
+        Dimension(
+            appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight
+        )
+    )
     return (Factory { appMenuRichTooltipMainIcon })
 }
 
@@ -1733,9 +1805,11 @@ fun main() {
 
                     tasks {
                         +builder.getContextualRibbonTask(
-                                builder.resourceBundle.getString("Task11.textTaskTitle"), "XA")
+                            builder.resourceBundle.getString("Task11.textTaskTitle"), "XA"
+                        )
                         +builder.getContextualRibbonTask(
-                                builder.resourceBundle.getString("Task12.textTaskTitle"), "XB")
+                            builder.resourceBundle.getString("Task12.textTaskTitle"), "XB"
+                        )
                     }
                 }
 
@@ -1745,13 +1819,17 @@ fun main() {
 
                     tasks {
                         +builder.getContextualRibbonTask(
-                                builder.resourceBundle.getString("Task21.textTaskTitle"), "YA")
+                            builder.resourceBundle.getString("Task21.textTaskTitle"), "YA"
+                        )
                     }
                 }
             }
 
             anchored {
-                command(popupKeyTip = "GS", popupHorizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.END) {
+                command(
+                    popupKeyTip = "GS",
+                    popupHorizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.END
+                ) {
                     title = builder.resourceBundle.getString("Share.title")
                     iconFactory = Internet_mail.factory()
 
@@ -1785,7 +1863,8 @@ fun main() {
 
                     actionRichTooltip {
                         title = builder.resourceBundle.getString("Help.tooltip.title")
-                        description = builder.resourceBundle.getString("Help.tooltip.actionParagraph")
+                        description =
+                            builder.resourceBundle.getString("Help.tooltip.actionParagraph")
                     }
                 }
             }
@@ -1855,10 +1934,12 @@ fun main() {
 
                         commandPopupMenu {
                             group {
-                                title = builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
+                                title =
+                                    builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
 
                                 val mf = MessageFormat(
-                                        builder.resourceBundle.getString("AppMenu.default.textButton"))
+                                    builder.resourceBundle.getString("AppMenu.default.textButton")
+                                )
                                 mf.locale = builder.currLocale
                                 for (i in 0..4) {
                                     command {
@@ -1879,10 +1960,12 @@ fun main() {
 
                         commandPopupMenu {
                             group {
-                                title = builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
+                                title =
+                                    builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
 
                                 val mf = MessageFormat(
-                                        builder.resourceBundle.getString("AppMenuOpen.secondary.textButton"))
+                                    builder.resourceBundle.getString("AppMenuOpen.secondary.textButton")
+                                )
                                 mf.locale = builder.currLocale
                                 for (i in 0..4) {
                                     command {
@@ -1911,27 +1994,34 @@ fun main() {
 
                         commandPopupMenu {
                             group {
-                                title = builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
+                                title =
+                                    builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
 
                                 command(actionKeyTip = "W") {
-                                    title = builder.resourceBundle.getString("AppMenuSaveAs.word.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSaveAs.word.text")
                                     iconFactory = X_office_document.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSaveAs.word.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSaveAs.word.description")
                                     action = { println("Invoked saved as Word") }
                                 }
 
                                 command(actionKeyTip = "H") {
-                                    title = builder.resourceBundle.getString("AppMenuSaveAs.html.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSaveAs.html.text")
                                     iconFactory = Text_html.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSaveAs.html.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSaveAs.html.description")
                                     action = { println("Invoked saved as HTML") }
                                     isActionEnabled = false
                                 }
 
                                 command(actionKeyTip = "O") {
-                                    title = builder.resourceBundle.getString("AppMenuSaveAs.other.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSaveAs.other.text")
                                     iconFactory = Document_save_as.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSaveAs.other.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSaveAs.other.description")
                                     action = { println("Invoked saved as other") }
                                 }
                             }
@@ -1948,41 +2038,51 @@ fun main() {
 
                         commandPopupMenu {
                             group {
-                                title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
+                                title =
+                                    builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
 
                                 command(actionKeyTip = "P") {
-                                    title = builder.resourceBundle.getString("AppMenuPrint.print.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuPrint.print.text")
                                     iconFactory = Printer.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuPrint.print.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuPrint.print.description")
                                     action = { println("Invoked print") }
                                 }
 
                                 command(actionKeyTip = "Q") {
-                                    title = builder.resourceBundle.getString("AppMenuPrint.quick.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuPrint.quick.text")
                                     iconFactory = Printer.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuPrint.quick.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuPrint.quick.description")
                                     action = { println("Invoked quick") }
                                 }
 
                                 command(actionKeyTip = "V") {
-                                    title = builder.resourceBundle.getString("AppMenuPrint.preview.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuPrint.preview.text")
                                     iconFactory = Document_print_preview.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuPrint.preview.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuPrint.preview.description")
                                     action = { println("Invoked preview") }
                                 }
                             }
 
                             group {
-                                title = builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
+                                title =
+                                    builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
 
                                 command(actionKeyTip = "M") {
-                                    title = builder.resourceBundle.getString("AppMenuPrint.memo.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuPrint.memo.text")
                                     iconFactory = Text_x_generic.factory()
                                     action = { println("Invoked memo") }
                                 }
 
                                 command(actionKeyTip = "C") {
-                                    title = builder.resourceBundle.getString("AppMenuPrint.custom.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuPrint.custom.text")
                                     iconFactory = Text_x_generic.factory()
                                     action = { println("Invoked custom") }
                                 }
@@ -1997,42 +2097,53 @@ fun main() {
 
                         commandPopupMenu {
                             group {
-                                title = builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
+                                title =
+                                    builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
 
                                 command(actionKeyTip = "E") {
-                                    title = builder.resourceBundle.getString("AppMenuSend.email.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSend.email.text")
                                     iconFactory = Mail_message_new.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSend.email.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSend.email.description")
                                     action = { println("Invoked email") }
                                 }
 
                                 command(actionKeyTip = "H") {
-                                    title = builder.resourceBundle.getString("AppMenuSend.html.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSend.html.text")
                                     iconFactory = Text_html.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSend.html.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSend.html.description")
                                     action = { println("Invoked HTML") }
                                 }
 
                                 command(actionKeyTip = "W") {
-                                    title = builder.resourceBundle.getString("AppMenuSend.word.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSend.word.text")
                                     iconFactory = X_office_document.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSend.word.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSend.word.description")
                                     action = { println("Invoked Word") }
                                 }
 
                                 command(popupKeyTip = "X") {
-                                    title = builder.resourceBundle.getString("AppMenuSend.wireless.text")
+                                    title =
+                                        builder.resourceBundle.getString("AppMenuSend.wireless.text")
                                     iconFactory = Mail_message_new.factory()
-                                    extraText = builder.resourceBundle.getString("AppMenuSend.wireless.description")
+                                    extraText =
+                                        builder.resourceBundle.getString("AppMenuSend.wireless.description")
                                     menu = commandPopupMenu {
                                         command(actionKeyTip = "W") {
-                                            title = builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
+                                            title =
+                                                builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
                                             iconFactory = EmptyResizableIcon.factory()
                                             action = { println("WiFi activated") }
                                         }
 
                                         command(actionKeyTip = "B") {
-                                            title = builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
+                                            title =
+                                                builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
                                             iconFactory = EmptyResizableIcon.factory()
                                             action = { println("Bluetooth activated") }
                                         }
@@ -2069,6 +2180,27 @@ fun main() {
             }
 
             onTaskSelectionChange = { task -> println("Task [${task.title}] selected") }
+
+            keyboardActions {
+                +RibbonKeyboardAction(
+                    actionName = "Cut",
+                    actionKeyStroke = if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                        KeyStroke.getKeyStroke("meta X") else KeyStroke.getKeyStroke("ctrl X"),
+                    command = builder.cutCommand
+                )
+                +RibbonKeyboardAction(
+                    actionName = "Copy",
+                    actionKeyStroke = if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                        KeyStroke.getKeyStroke("meta C") else KeyStroke.getKeyStroke("ctrl C"),
+                    command = builder.copyCommand
+                )
+                +RibbonKeyboardAction(
+                    actionName = "Paste",
+                    actionKeyStroke = if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                        KeyStroke.getKeyStroke("meta V") else KeyStroke.getKeyStroke("ctrl V"),
+                    command = builder.pasteCommand
+                )
+            }
         }
 
         val javaRibbonFrame = ribbonFrame.asJavaRibbonFrame()
@@ -2078,7 +2210,8 @@ fun main() {
         javaRibbonFrame.add(builder.rulerPanel, BorderLayout.CENTER)
 
         javaRibbonFrame.applyComponentOrientation(
-                ComponentOrientation.getOrientation(builder.currLocale))
+            ComponentOrientation.getOrientation(builder.currLocale)
+        )
         val r = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
         javaRibbonFrame.preferredSize = Dimension(r.width, r.height / 2)
         javaRibbonFrame.minimumSize = Dimension(r.width / 10, r.height / 2)

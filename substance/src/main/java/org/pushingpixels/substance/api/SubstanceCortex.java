@@ -36,7 +36,6 @@ import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.neon.api.icon.ResizableAsyncLoadingIconUIResource;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
-import org.pushingpixels.neon.internal.ColorFilter;
 import org.pushingpixels.neon.internal.ResizableAsyncLoadingIcon;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;

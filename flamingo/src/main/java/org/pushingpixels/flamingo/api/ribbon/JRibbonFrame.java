@@ -297,6 +297,30 @@ public class JRibbonFrame extends JFrame {
         }
     }
 
+    public static class RibbonKeyboardAction {
+        private String actionName;
+        private KeyStroke actionKeyStroke;
+        private Command command;
+
+        public RibbonKeyboardAction(String actionName, KeyStroke actionKeyStroke, Command command) {
+            this.actionName = actionName;
+            this.actionKeyStroke = actionKeyStroke;
+            this.command = command;
+        }
+
+        public String getActionName() {
+            return actionName;
+        }
+
+        public KeyStroke getActionKeyStroke() {
+            return actionKeyStroke;
+        }
+
+        public Command getCommand() {
+            return command;
+        }
+    }
+
     /**
      * Creates a new ribbon frame with no title.
      *
@@ -751,6 +775,11 @@ public class JRibbonFrame extends JFrame {
         JRootPane rp = new JRibbonRootPane();
         rp.setOpaque(true);
         return rp;
+    }
+
+    public void setKeyboardActions(Set<RibbonKeyboardAction> actions) {
+        JRibbonRootPane rootPane = (JRibbonRootPane) this.getRootPane();
+        rootPane.setKeyboardActions(actions);
     }
 
     @Override

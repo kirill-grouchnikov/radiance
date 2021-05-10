@@ -96,7 +96,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private CommandGroup styleGalleryCommandGroup1;
     private CommandGroup styleGalleryCommandGroup2;
 
+    private Command copyCommand;
     private Command pasteCommand;
+    private Command cutCommand;
 
     private Command alignLeftCommand;
     private Command alignCenterCommand;
@@ -572,34 +574,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 JRibbonBand.PresentationPriority.TOP);
 
         clipboardBand.addRibbonCommand(
-                Command.builder()
-                        .setText(resourceBundle.getString("Cut.text"))
-                        .setIconFactory(Edit_cut.factory())
-                        .setAction(commandActionEvent -> System.out.println("Cut!"))
-                        .setActionRichTooltip(RichTooltip.builder()
-                                .setTitle(resourceBundle.getString("Cut.text"))
-                                .addDescriptionSection(resourceBundle
-                                        .getString("Cut.tooltip.actionParagraph1"))
-                                .build())
-                        .setSecondaryContentModel(this.popupMenuContentModel)
-                        .build()
-                        .project(CommandButtonPresentationModel.builder()
-                                .setPopupKeyTip("X")
-                                .setTextClickAction()
-                                .build()),
+                this.cutCommand.project(CommandButtonPresentationModel.builder()
+                        .setPopupKeyTip("X")
+                        .setTextClickAction()
+                        .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         clipboardBand.addRibbonCommand(
-                Command.builder()
-                        .setText(resourceBundle.getString("Copy.text"))
-                        .setIconFactory(Edit_copy.factory())
-                        .setAction(commandActionEvent -> System.out.println("Copy!"))
-                        .setSecondaryContentModel(this.popupMenuContentModel)
-                        .build()
-                        .project(CommandButtonPresentationModel.builder()
-                                .setPopupKeyTip("C")
-                                .setTextClickPopup()
-                                .build()),
+                this.copyCommand.project(CommandButtonPresentationModel.builder()
+                        .setPopupKeyTip("C")
+                        .setTextClickPopup()
+                        .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         List<CommandGroup> formatMenuEntries = new ArrayList<>();
@@ -1261,6 +1246,26 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Arrays.asList(new CommandGroup(menuCommands1),
                         new CommandGroup(menuCommands2)));
 
+        this.cutCommand = Command.builder()
+                .setText(resourceBundle.getString("Cut.text"))
+                .setIconFactory(Edit_cut.factory())
+                .setAction(commandActionEvent -> System.out.println("Cut!"))
+                .setActionRichTooltip(RichTooltip.builder()
+                        .setTitle(resourceBundle.getString("Cut.text"))
+                        .addDescriptionSection(resourceBundle
+                                .getString("Cut.tooltip.actionParagraph1"))
+                        .build())
+                .setSecondaryContentModel(this.popupMenuContentModel)
+                .build();
+
+        this.copyCommand = Command.builder()
+                .setText(resourceBundle.getString("Copy.text"))
+                .setIconFactory(Edit_copy.factory())
+                .setAction(commandActionEvent -> System.out.println("Copy!"))
+                .setSecondaryContentModel(this.popupMenuContentModel)
+                .build();
+
+
         this.pasteCommand = Command.builder()
                 .setText(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
@@ -1809,6 +1814,24 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.getRibbon().addOnTaskSelectionChangedListener(task ->
                 System.out.println("Task [" + task.getTitle() + "] is selected"));
+
+        Set<JRibbonFrame.RibbonKeyboardAction> keyboardActions = new HashSet<>();
+        keyboardActions.add(new RibbonKeyboardAction("cut",
+                (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                        ? KeyStroke.getKeyStroke("meta X")
+                        : KeyStroke.getKeyStroke("ctrl X"),
+                this.cutCommand));
+        keyboardActions.add(new RibbonKeyboardAction("copy",
+                (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                        ? KeyStroke.getKeyStroke("meta C")
+                        : KeyStroke.getKeyStroke("ctrl C"),
+                this.copyCommand));
+        keyboardActions.add(new RibbonKeyboardAction("paste",
+                (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                        ? KeyStroke.getKeyStroke("meta V")
+                        : KeyStroke.getKeyStroke("ctrl V"),
+                this.pasteCommand));
+        this.setKeyboardActions(keyboardActions);
 
         this.add(getControlPanel(), BorderLayout.EAST);
 

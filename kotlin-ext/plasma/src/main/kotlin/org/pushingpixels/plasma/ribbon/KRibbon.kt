@@ -38,10 +38,11 @@ import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCom
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
-import org.pushingpixels.plasma.*
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
+import org.pushingpixels.plasma.*
 import java.awt.Color
 import javax.swing.JComponent
+import javax.swing.KeyStroke
 
 @PlasmaElementMarker
 public class KRibbonTaskContainer {
@@ -111,10 +112,26 @@ public class KRibbonContextualTaskGroupContainer {
     }
 }
 
+public data class RibbonKeyboardAction(
+    val actionName: String,
+    val actionKeyStroke: KeyStroke,
+    val command: KCommand
+)
+
+@PlasmaElementMarker
+public class KRibbonKeyboardActions {
+    internal val keyboardActions = arrayListOf<RibbonKeyboardAction>()
+
+    public operator fun RibbonKeyboardAction.unaryPlus() {
+        this@KRibbonKeyboardActions.keyboardActions.add(this)
+    }
+}
+
 @PlasmaElementMarker
 public class KRibbonFrame {
     public var title: String? by NullableDelegate { hasBeenConverted }
     public var applicationIconFactory: Factory? by NullableDelegate { hasBeenConverted }
+    private val keyboardActions = KRibbonKeyboardActions()
     private val tasks = KRibbonTaskContainer()
     private val contextualTaskGroups = KRibbonContextualTaskGroupContainer()
     private val anchoredCommands = KCommandGroup()
@@ -124,6 +141,10 @@ public class KRibbonFrame {
 
     private lateinit var ribbonFrame: JRibbonFrame
     private var hasBeenConverted: Boolean = false
+
+    public fun keyboardActions(init: KRibbonKeyboardActions.() -> Unit) {
+        keyboardActions.init()
+    }
 
     public fun tasks(init: KRibbonTaskContainer.() -> Unit) {
         tasks.init()
@@ -163,19 +184,25 @@ public class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                        taskbarComponent.toJavaCommand(), null)
-                is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(taskbarComponent)
-                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(RibbonGalleryProjection(
+                    taskbarComponent.toJavaCommand(), null
+                )
+                is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
+                    taskbarComponent
+                )
+                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
+                    RibbonGalleryProjection(
                         taskbarComponent.content.asJavaRibbonGalleryContentModel(),
-                        taskbarComponent.presentation.toRibbonGalleryPresentationModel()))
+                        taskbarComponent.presentation.toRibbonGalleryPresentationModel()
+                    )
+                )
             }
         }
 
         for (contextualTaskGroup in contextualTaskGroups.taskGroups) {
             ribbonFrame.ribbon.addContextualTaskGroup(
-                    RibbonContextualTaskGroup(contextualTaskGroup.title,
-                            contextualTaskGroup.color,
-                            contextualTaskGroup.tasks.tasks.map { it.asJavaRibbonTask() })
+                RibbonContextualTaskGroup(contextualTaskGroup.title,
+                    contextualTaskGroup.color,
+                    contextualTaskGroup.tasks.tasks.map { it.asJavaRibbonTask() })
             )
         }
 
@@ -184,21 +211,32 @@ public class KRibbonFrame {
         }
 
         val ribbonMenuCommandProjection =
-                RibbonApplicationMenuCommandButtonProjection(
-                        Command.builder()
-                                .setText(applicationMenu.title)
-                                .setSecondaryRichTooltip(applicationMenu.getRichTooltip())
-                                .setSecondaryContentModel(applicationMenu.asJavaRibbonApplicationMenu())
-                                .build(),
-                        CommandButtonPresentationModel.builder()
-                                .setPopupKeyTip(applicationMenu.keyTip)
-                                .build())
+            RibbonApplicationMenuCommandButtonProjection(
+                Command.builder()
+                    .setText(applicationMenu.title)
+                    .setSecondaryRichTooltip(applicationMenu.getRichTooltip())
+                    .setSecondaryContentModel(applicationMenu.asJavaRibbonApplicationMenu())
+                    .build(),
+                CommandButtonPresentationModel.builder()
+                    .setPopupKeyTip(applicationMenu.keyTip)
+                    .build()
+            )
 
         val overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay> = hashMapOf()
         applicationMenu.populateCommandOverlays(overlays)
         ribbonMenuCommandProjection.commandOverlays = overlays
 
         ribbonFrame.ribbon.setApplicationMenuCommand(ribbonMenuCommandProjection)
+
+        if (keyboardActions.keyboardActions.isNotEmpty()) {
+            ribbonFrame.setKeyboardActions(keyboardActions.keyboardActions.map {
+                JRibbonFrame.RibbonKeyboardAction(
+                    it.actionName,
+                    it.actionKeyStroke,
+                    it.command.javaCommand
+                )
+            }.toSet())
+        }
 
         hasBeenConverted = true
 

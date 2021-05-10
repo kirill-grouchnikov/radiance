@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
+import org.pushingpixels.flamingo.api.common.CommandActionEvent;
+import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
@@ -37,6 +39,7 @@ import org.pushingpixels.neon.api.NeonCortex;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Set;
 
 /**
  * Root pane for the {@link JRibbonFrame}. This class is for internal use only and should not be
@@ -51,27 +54,12 @@ public class JRibbonRootPane extends JRootPane {
     public static final String uiClassID = "RibbonRootPaneUI";
 
     public JRibbonRootPane() {
-        InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = this.getActionMap();
-
-        actionMap.put("toggleMinimized", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JRibbonFrame ribbonFrame = (JRibbonFrame) SwingUtilities
-                        .getWindowAncestor(JRibbonRootPane.this);
-                JRibbon ribbon = ribbonFrame.getRibbon();
-                ribbon.setMinimized(!ribbon.isMinimized());
-            }
-        });
-        KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex
-                .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt R") :
-                KeyStroke.getKeyStroke("ctrl F1");
-        inputMap.put(keyStroke, "toggleMinimized");
-
         updateUI();
 
         KeyboardFocusManager.getCurrentKeyboardFocusManager().
                 setDefaultFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
+
+        resetMaps();
     }
 
     @Override
@@ -82,5 +70,54 @@ public class JRibbonRootPane extends JRootPane {
     @Override
     public String getUIClassID() {
         return uiClassID;
+    }
+
+    private void resetMaps() {
+        ActionMap actionMap = this.getActionMap();
+        actionMap.clear();
+        actionMap.put("toggleMinimized", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRibbonFrame ribbonFrame = (JRibbonFrame) SwingUtilities
+                        .getWindowAncestor(JRibbonRootPane.this);
+                JRibbon ribbon = ribbonFrame.getRibbon();
+                ribbon.setMinimized(!ribbon.isMinimized());
+            }
+        });
+
+        InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.clear();
+        KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                ? KeyStroke.getKeyStroke("meta alt R")
+                : KeyStroke.getKeyStroke("ctrl F1");
+        inputMap.put(keyStroke, "toggleMinimized");
+    }
+
+    public void setKeyboardActions(Set<JRibbonFrame.RibbonKeyboardAction> actions) {
+        this.resetMaps();
+
+        ActionMap actionMap = this.getActionMap();
+        InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+        for (JRibbonFrame.RibbonKeyboardAction action : actions) {
+            actionMap.put(action.getActionName(), new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Command command = action.getCommand();
+                    if (command.isActionEnabled()) {
+                        command.getAction().commandActivated(
+                                new CommandActionEvent(
+                                        JRibbonRootPane.this,
+                                        ActionEvent.ACTION_PERFORMED,
+                                        command,
+                                        e.getActionCommand(),
+                                        e.getWhen(),
+                                        e.getModifiers()
+                                ));
+                    }
+                }
+            });
+            inputMap.put(action.getActionKeyStroke(), action.getActionName());
+        }
     }
 }
