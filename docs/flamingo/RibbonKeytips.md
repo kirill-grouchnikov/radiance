@@ -38,4 +38,4 @@ If you press "A", only keytips that start with A will remain visible. Then, pres
 
 ### Next
 
-Continue to [keyboard accelerators](KeyboardAccelerators.md).
+Continue to [keyboard accelerators](RibbonKeyboardAccelerators.md).
