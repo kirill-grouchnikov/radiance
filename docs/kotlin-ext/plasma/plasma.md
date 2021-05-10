@@ -142,6 +142,13 @@ val ribbonFrame = ribbonFrame {
         // ...
     }
 
+    onTaskSelectionChange = { ... }
+
+    keyboardActions {
+        // ...
+    }
+}
+
 // This returns a JRibbonFrame object
 val javaRibbonFrame = ribbonFrame.asRibbonFrame()
 
