@@ -1,6 +1,6 @@
 ## Flamingo - keyboard traversal
 
-In addition to [keytips](RibbonKeytips.md) that are used to navigate to and activate a specific command in the larger context of the ribbon, Flamingo comes with built-in support for navigating command buttons based UIs using keyboard only.
+In addition to [keytips](RibbonKeytips.md) and [keyboard accelerators](RibbonKeyboardAccelerators.md) that are used to activate a *specific* command in the larger context of the ribbon using the keyboard, Flamingo comes with built-in support for navigating command buttons based UIs using keyboard only.
 
 |  | Key(s) | Action | Additional info |
 | --- | --- | --- | --- |
