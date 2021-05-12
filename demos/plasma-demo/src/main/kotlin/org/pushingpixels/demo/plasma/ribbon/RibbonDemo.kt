@@ -1825,6 +1825,8 @@ fun main() {
                 }
             }
 
+            onTaskSelectionChange = { task -> println("Task [${task.title}] selected") }
+
             anchored {
                 command(
                     popupKeyTip = "GS",
@@ -2178,8 +2180,6 @@ fun main() {
                     }
                 }
             }
-
-            onTaskSelectionChange = { task -> println("Task [${task.title}] selected") }
 
             keyboardActions {
                 +RibbonKeyboardAction(

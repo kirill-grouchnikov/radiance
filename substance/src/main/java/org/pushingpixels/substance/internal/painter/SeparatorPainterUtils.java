@@ -42,6 +42,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -254,8 +255,10 @@ public class SeparatorPainterUtils {
 				// Dynamically create the array of stop fractions and corresponding
 				// colors. If the start fraction is 0, we need to skip the 0-opacity
 				// first stop, as identical fractions in LinearGradientPaint lead to
-				// a crash. The same applies to end fraction 0.
-				int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 2 +
+				// a crash. The same applies to end fraction 0, and identical start
+				// and end fraction values
+				int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
+						((gradEndFraction > gradStartFraction) ? 1 : 0) +
 						((gradEndFraction < 1.0f) ? 1 : 0);
 				float[] stops = new float[stopsCount];
 				Color[] colors = new Color[stopsCount];
@@ -268,9 +271,11 @@ public class SeparatorPainterUtils {
 				stops[stopIndex] = gradStartFraction;
 				colors[stopIndex] = primary;
 				stopIndex++;
-				stops[stopIndex] = gradEndFraction;
-				colors[stopIndex] = primary;
-				stopIndex++;
+				if (gradEndFraction > gradStartFraction) {
+					stops[stopIndex] = gradEndFraction;
+					colors[stopIndex] = primary;
+					stopIndex++;
+				}
 				if (gradEndFraction < 1.0f) {
 					stops[stopIndex] = 1.0f;
 					colors[stopIndex] = primaryZero;
@@ -293,9 +298,11 @@ public class SeparatorPainterUtils {
 					stops[stopIndex] = gradStartFraction;
 					colors[stopIndex] = secondary;
 					stopIndex++;
-					stops[stopIndex] = gradEndFraction;
-					colors[stopIndex] = secondary;
-					stopIndex++;
+					if (gradEndFraction > gradStartFraction) {
+						stops[stopIndex] = gradEndFraction;
+						colors[stopIndex] = secondary;
+						stopIndex++;
+					}
 					if (gradEndFraction < 1.0f) {
 						stops[stopIndex] = 1.0f;
 						colors[stopIndex] = secondaryZero;
@@ -319,8 +326,10 @@ public class SeparatorPainterUtils {
 				// Dynamically create the array of stop fractions and corresponding
 				// colors. If the start fraction is 0, we need to skip the 0-opacity
 				// first stop, as identical fractions in LinearGradientPaint lead to
-				// a crash. The same applies to end fraction 0.
-				int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 2 +
+				// a crash. The same applies to end fraction 0, and identical start
+				// and end fraction values
+				int stopsCount = ((gradStartFraction > 0.0f) ? 1 : 0) + 1 +
+						((gradEndFraction > gradStartFraction) ? 1 : 0) +
 						((gradEndFraction < 1.0f) ? 1 : 0);
 				float[] stops = new float[stopsCount];
 				Color[] colors = new Color[stopsCount];
@@ -333,9 +342,11 @@ public class SeparatorPainterUtils {
 				stops[stopIndex] = gradStartFraction;
 				colors[stopIndex] = primary;
 				stopIndex++;
-				stops[stopIndex] = gradEndFraction;
-				colors[stopIndex] = primary;
-				stopIndex++;
+				if (gradEndFraction > gradStartFraction) {
+					stops[stopIndex] = gradEndFraction;
+					colors[stopIndex] = primary;
+					stopIndex++;
+				}
 				if (gradEndFraction < 1.0f) {
 					stops[stopIndex] = 1.0f;
 					colors[stopIndex] = primaryZero;
@@ -358,9 +369,11 @@ public class SeparatorPainterUtils {
 					stops[stopIndex] = gradStartFraction;
 					colors[stopIndex] = secondary;
 					stopIndex++;
-					stops[stopIndex] = gradEndFraction;
-					colors[stopIndex] = secondary;
-					stopIndex++;
+					if (gradEndFraction > gradStartFraction) {
+						stops[stopIndex] = gradEndFraction;
+						colors[stopIndex] = secondary;
+						stopIndex++;
+					}
 					if (gradEndFraction < 1.0f) {
 						stops[stopIndex] = 1.0f;
 						colors[stopIndex] = secondaryZero;
