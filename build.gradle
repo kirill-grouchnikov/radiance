@@ -35,7 +35,7 @@ ext.isRelease = false
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =      '7.0'
+        gradle_version                       =    '7.0.1'
 
         // Core dependencies
         kotlin_version                       =    '1.5.0'
