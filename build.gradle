@@ -35,11 +35,11 @@ ext.isRelease = false
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =    '7.0.1'
+        gradle_version                       =    '7.0.2'
 
         // Core dependencies
         kotlin_version                       =    '1.5.0'
-        kotlinx_coroutines_version           =    '1.4.3'
+        kotlinx_coroutines_version           =    '1.5.0'
         batik_version                        =     '1.14'
 
         // Demo dependencies
