@@ -421,38 +421,46 @@ public class SampleMenuFactory {
 
         JMenu syntheticaMenu = new JMenu("Synthetica family");
         customLafMenus.add(syntheticaMenu);
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica standard",
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Standard",
                 "de.javasoft.synthetica.standard.SyntheticaStandardLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica plain",
-                "de.javasoft.synthetica.plain.SyntheticaPlainLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica dark",
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Classy",
+                "de.javasoft.synthetica.classy.SyntheticaClassyLookAndFeel"));
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Dark",
                 "de.javasoft.synthetica.dark.SyntheticaDarkLookAndFeel"));
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Plain",
+                "de.javasoft.synthetica.plain.SyntheticaPlainLookAndFeel"));
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Simple2D",
+                "de.javasoft.synthetica.simple2d.SyntheticaSimple2DLookAndFeel"));
         syntheticaMenu.addSeparator();
 
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica AluOxide",
+                "de.javasoft.synthetica.aluoxide.SyntheticaAluOxideLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlackEye",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel"));
+                "de.javasoft.synthetica.blackeye.SyntheticaBlackEyeLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlackMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel"));
+                "de.javasoft.synthetica.blackmoon.SyntheticaBlackMoonLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlackStar",
-                "de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel"));
+                "de.javasoft.synthetica.blackstar.SyntheticaBlackStarLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueIce",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueIceLookAndFeel"));
+                "de.javasoft.synthetica.blueice.SyntheticaBlueIceLookAndFeel"));
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueLight",
+                "de.javasoft.synthetica.bluelight.SyntheticaBlueLightLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueMoonLookAndFeel"));
+                "de.javasoft.synthetica.bluemoon.SyntheticaBlueMoonLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueSteel",
-                "de.javasoft.plaf.synthetica.SyntheticaBlueSteelLookAndFeel"));
+                "de.javasoft.synthetica.bluesteel.SyntheticaBlueSteelLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica GreenDream",
-                "de.javasoft.plaf.synthetica.SyntheticaGreenDreamLookAndFeel"));
+                "de.javasoft.synthetica.greendream.SyntheticaGreenDreamLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica MauveMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaMauveMetallicLookAndFeel"));
+                "de.javasoft.synthetica.mauvemetallic.SyntheticaMauveMetallicLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica OrangeMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaOrangeMetallicLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica SkyMetallic",
-                "de.javasoft.plaf.synthetica.SyntheticaSkyMetallicLookAndFeel"));
+                "de.javasoft.synthetica.orangemetallic.SyntheticaOrangeMetallicLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica SilverMoon",
-                "de.javasoft.plaf.synthetica.SyntheticaSilverMoonLookAndFeel"));
+                "de.javasoft.synthetica.silvermoon.SyntheticaSilverMoonLookAndFeel"));
+        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica SkyMetallic",
+                "de.javasoft.synthetica.skymetallic.SyntheticaSkyMetallicLookAndFeel"));
         syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica WhiteVision",
-                "de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel"));
+                "de.javasoft.synthetica.whitevision.SyntheticaWhiteVisionLookAndFeel"));
 
         JMenu flatMenu = new JMenu("Flat family");
         customLafMenus.add(flatMenu);
@@ -465,10 +473,27 @@ public class SampleMenuFactory {
         flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Darcula",
                 "com.formdev.flatlaf.FlatDarculaLaf"));
 
+        JMenu darkMenu = new JMenu("Dark family");
+        customLafMenus.add(darkMenu);
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Default",
+                "com.github.weisj.darklaf.DarkLaf"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Darcula Theme",
+                "com.github.weisj.darklaf.theme.laf.DarculaThemeDarklafLookAndFeel"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "High Contrast Dark Theme",
+                "com.github.weisj.darklaf.theme.laf.HighContrastDarkThemeDarklafLookAndFeel"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "High Contrast Light Theme",
+                "com.github.weisj.darklaf.theme.laf.HighContrastLightThemeDarklafLookAndFeel"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "IntelliJ Theme",
+                "com.github.weisj.darklaf.theme.laf.IntelliJThemeDarklafLookAndFeel"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "One Dark Theme",
+                "com.github.weisj.darklaf.theme.laf.OneDarkThemeDarklafLookAndFeel"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Solarized Dark Theme",
+                "com.github.weisj.darklaf.theme.laf.SolarizedDarkThemeDarklafLookAndFeel"));
+        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Solarized Light Theme",
+                "com.github.weisj.darklaf.theme.laf.SolarizedLightThemeDarklafLookAndFeel"));
+
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Darcula",
                 "com.bulenkov.darcula.DarculaLaf"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Dark",
-                "com.github.weisj.darklaf.DarkLaf"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Material",
                 "mdlaf.MaterialLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "WebLaf",
