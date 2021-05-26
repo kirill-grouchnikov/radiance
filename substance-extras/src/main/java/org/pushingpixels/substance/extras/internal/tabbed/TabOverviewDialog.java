@@ -37,7 +37,6 @@ import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.components.*;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupBorder;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.Timeline.TimelineState;
@@ -141,13 +140,7 @@ public class TabOverviewDialog extends JDialog {
             boolean isSelected = (TabOverviewDialog.this.tabPane.getSelectedIndex() == this.index);
             Border innerBorder = isSelected ? new LineBorder(Color.blue, 2)
                     : new LineBorder(Color.black, 1);
-            this.previewControl.setBorder(new CompoundBorder(new ShadowPopupBorder(), innerBorder));
-            // if (isSelected)
-            // this.previewControl.setBorder(new LineBorder(Color.blue, 2));
-            // else
-            // this.previewControl.setBorder(new CompoundBorder(
-            // new EmptyBorder(1, 1, 1, 1), new LineBorder(
-            // Color.black, 1)));
+            this.previewControl.setBorder(innerBorder);
         }
 
         @Override
@@ -157,13 +150,7 @@ public class TabOverviewDialog extends JDialog {
             boolean isSelected = (TabOverviewDialog.this.tabPane.getSelectedIndex() == this.index);
             Border innerBorder = isSelected ? new LineBorder(Color.black, 2)
                     : new LineBorder(Color.black, 1);
-            this.previewControl.setBorder(new CompoundBorder(new ShadowPopupBorder(), innerBorder));
-            // if (isSelected)
-            // this.previewControl.setBorder(new LineBorder(Color.black, 2));
-            // else
-            // this.previewControl.setBorder(new CompoundBorder(
-            // new EmptyBorder(1, 1, 1, 1), new LineBorder(
-            // Color.black, 1)));
+            this.previewControl.setBorder(innerBorder);
         }
     }
 

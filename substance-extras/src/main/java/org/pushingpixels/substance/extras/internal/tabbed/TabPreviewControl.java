@@ -2,7 +2,6 @@ package org.pushingpixels.substance.extras.internal.tabbed;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -77,7 +76,7 @@ public class TabPreviewControl extends JPanel {
         final boolean isSelected = (tabPane.getSelectedIndex() == tabIndex);
         Border innerBorder = isSelected ? new LineBorder(Color.black, 2)
                 : new LineBorder(Color.black, 1);
-        this.setBorder(new CompoundBorder(new ShadowPopupBorder(), innerBorder));
+        this.setBorder(innerBorder);
 
         this.alpha = 0.0f;
         this.zoom = 1.0f;
@@ -119,7 +118,7 @@ public class TabPreviewControl extends JPanel {
         final boolean isSelected = (this.tabPane.getSelectedIndex() == tabIndex);
         Border innerBorder = isSelected ? new LineBorder(Color.black, 2)
                 : new LineBorder(Color.black, 1);
-        this.setBorder(new CompoundBorder(new ShadowPopupBorder(), innerBorder));
+        this.setBorder(innerBorder);
     }
 
     /**

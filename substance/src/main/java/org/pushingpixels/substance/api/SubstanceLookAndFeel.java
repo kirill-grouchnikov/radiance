@@ -34,7 +34,6 @@ import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.SubstancePluginRepository;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
-import org.pushingpixels.substance.internal.contrib.jgoodies.looks.common.ShadowPopupFactory;
 import org.pushingpixels.substance.internal.ui.*;
 import org.pushingpixels.substance.internal.utils.*;
 
@@ -205,7 +204,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
     @Override
     public void initialize() {
         super.initialize();
-        ShadowPopupFactory.install();
 
         SubstanceCortex.GlobalScope.setSkin(this.skin, false);
 
@@ -237,8 +235,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         Toolkit.getDefaultToolkit().removeAWTEventListener(this.awtEventListener);
 
         SubstanceCortex.GlobalScope.unsetSkin();
-
-        ShadowPopupFactory.uninstall();
 
         SubstanceCoreUtilities.stopThreads();
 
