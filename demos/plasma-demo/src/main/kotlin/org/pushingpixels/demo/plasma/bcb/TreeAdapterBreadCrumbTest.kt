@@ -81,7 +81,7 @@ data class FileTreeNode(val file: File?, val children: Array<File>, val nodePare
     constructor(children: Array<File>) : this(null, children, null)
 
     init {
-        children.sortWith(compareBy { it.name.toLowerCase() })
+        children.sortWith(compareBy { it.name.lowercase() })
     }
 
     override fun children(): Enumeration<FileTreeNode> {
@@ -146,7 +146,7 @@ class FileListModel : AbstractListModel<File>() {
     }
 
     fun sort() {
-        files.sortWith(compareBy({ it.isDirectory }, { it.name.toLowerCase() }))
+        files.sortWith(compareBy({ it.isDirectory }, { it.name.lowercase() }))
     }
 
     override fun getElementAt(index: Int): File {

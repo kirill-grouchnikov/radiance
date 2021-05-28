@@ -91,7 +91,7 @@ fun main() {
             }
 
             override fun toShowFile(pair: StringValuePair<File>): Boolean {
-                val name = pair.key.toLowerCase()
+                val name = pair.key.lowercase()
                 return name.endsWith(".jpeg") || name.endsWith(".jpg") || name.endsWith(".gif")
                         || name.endsWith(".png") || name.endsWith(".bmp")
             }

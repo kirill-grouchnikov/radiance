@@ -55,7 +55,7 @@ buildscript {
         dokka_version                        =   '1.4.32'
 
         // Misc dependencies
-        gradle_versions_plugin_version       =   '0.38.0'
+        gradle_versions_plugin_version       =   '0.39.0'
     }
     repositories {
         mavenCentral()

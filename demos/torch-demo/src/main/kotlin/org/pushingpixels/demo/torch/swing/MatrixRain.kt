@@ -81,7 +81,7 @@ class Drop(private var font: Font) {
             // choose random katakana letter
             val start = 33
             val delta = 95
-            val c = (start + Math.random() * delta).toChar()
+            val c = (start + Math.random() * delta).toInt().toChar()
             val l = Letter(x, y, c, font)
             this.letters.add(l)
             val t = l.timeline {

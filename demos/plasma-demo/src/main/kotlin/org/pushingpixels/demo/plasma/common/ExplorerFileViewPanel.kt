@@ -88,7 +88,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         if (lastPointIndex >= 0) {
             ext = name.substring(lastPointIndex + 1)
         }
-        ext = ext.toLowerCase()
+        ext = ext.lowercase()
         if (ext.compareTo("jpg") == 0 || ext.compareTo("jpeg") == 0
                 || ext.compareTo("gif") == 0 || ext.compareTo("png") == 0
                 || ext.compareTo("bmp") == 0) {
@@ -129,7 +129,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
     override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
         val filename = leaf.leafName
         val lastDot = filename.lastIndexOf('.')
-        val ext = if (lastDot >= 0) filename.substring(lastDot + 1).toUpperCase() else "Generic"
+        val ext = if (lastDot >= 0) filename.substring(lastDot + 1).uppercase() else "Generic"
         command.extraText = "$ext file"
     }
 
