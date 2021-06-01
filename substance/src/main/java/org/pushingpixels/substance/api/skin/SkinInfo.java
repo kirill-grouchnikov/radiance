@@ -37,6 +37,10 @@ import org.pushingpixels.substance.internal.utils.TraitInfoImpl;
  * @author Kirill Grouchnikov
  */
 public class SkinInfo extends TraitInfoImpl {
+	private boolean isLookAndFeelClassNameResolved;
+	private LazyClassNameResolver lookAndFeelClassNameResolver;
+	private String lookAndFeelClassName;
+
 	/**
 	 * Simple constructor.
 	 * 
@@ -45,8 +49,10 @@ public class SkinInfo extends TraitInfoImpl {
 	 * @param skinClassNameResolver
 	 *            Class name resolver of <code>this</code> skin.
 	 */
-	public SkinInfo(String skinDisplayName, LazyClassNameResolver skinClassNameResolver) {
+	public SkinInfo(String skinDisplayName, LazyClassNameResolver skinClassNameResolver,
+			LazyClassNameResolver lookAndFeelClassNameResolver) {
 		super(skinDisplayName, skinClassNameResolver);
+		this.lookAndFeelClassNameResolver = lookAndFeelClassNameResolver;
 	}
 
 	@Override
@@ -60,5 +66,14 @@ public class SkinInfo extends TraitInfoImpl {
 	@Override
 	public int hashCode() {
 		return this.getDisplayName().hashCode();
+	}
+
+	public String getLookAndFeelClassName() {
+		if (!this.isLookAndFeelClassNameResolved) {
+			this.lookAndFeelClassName = this.lookAndFeelClassNameResolver.createClassName();
+			this.isLookAndFeelClassNameResolved = true;
+		}
+
+		return this.lookAndFeelClassName;
 	}
 }

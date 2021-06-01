@@ -44,15 +44,24 @@ public class SubstanceExtrasSkinPlugin implements SubstanceSkinPlugin {
     @Override
     public Set<SkinInfo> getSkins() {
         Set<SkinInfo> result = new HashSet<>();
-        result.add(new SkinInfo(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class::getName));
-        result.add(new SkinInfo(FindingNemoSkin.NAME, FindingNemoSkin.class::getName));
-        result.add(new SkinInfo(HarvestSkin.NAME, HarvestSkin.class::getName));
-        result.add(new SkinInfo(MangoSkin.NAME, MangoSkin.class::getName));
-        result.add(new SkinInfo(MagmaSkin.NAME, MagmaSkin.class::getName));
-        result.add(new SkinInfo(StreetlightsSkin.NAME, StreetlightsSkin.class::getName));
-        result.add(new SkinInfo(OfficeBlack2007Skin.NAME, OfficeBlack2007Skin.class::getName));
-        result.add(new SkinInfo(OfficeBlue2007Skin.NAME, OfficeBlue2007Skin.class::getName));
-        result.add(new SkinInfo(OfficeSilver2007Skin.NAME, OfficeSilver2007Skin.class::getName));
+        result.add(new SkinInfo(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class::getName,
+                SubstanceFieldOfWheatLookAndFeel.class::getName));
+        result.add(new SkinInfo(FindingNemoSkin.NAME, FindingNemoSkin.class::getName,
+                SubstanceFindingNemoLookAndFeel.class::getName));
+        result.add(new SkinInfo(HarvestSkin.NAME, HarvestSkin.class::getName,
+                SubstanceHarvestLookAndFeel.class::getName));
+        result.add(new SkinInfo(MangoSkin.NAME, MangoSkin.class::getName,
+                SubstanceMangoLookAndFeel.class::getName));
+        result.add(new SkinInfo(MagmaSkin.NAME, MagmaSkin.class::getName,
+                SubstanceMagmaLookAndFeel.class::getName));
+        result.add(new SkinInfo(StreetlightsSkin.NAME, StreetlightsSkin.class::getName,
+                SubstanceStreetlightsLookAndFeel.class::getName));
+        result.add(new SkinInfo(OfficeBlack2007Skin.NAME, OfficeBlack2007Skin.class::getName,
+                SubstanceOfficeBlack2007LookAndFeel.class::getName));
+        result.add(new SkinInfo(OfficeBlue2007Skin.NAME, OfficeBlue2007Skin.class::getName,
+                SubstanceOfficeBlue2007LookAndFeel.class::getName));
+        result.add(new SkinInfo(OfficeSilver2007Skin.NAME, OfficeSilver2007Skin.class::getName,
+                SubstanceOfficeSilver2007LookAndFeel.class::getName));
         return result;
     }
 }
