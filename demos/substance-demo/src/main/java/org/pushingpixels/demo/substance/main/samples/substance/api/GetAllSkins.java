@@ -32,6 +32,8 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
@@ -74,6 +76,11 @@ public class GetAllSkins extends JFrame {
                 return super.getListCellRendererComponent(list, si.getDisplayName(), index,
                         isSelected, cellHasFocus);
             }
+        });
+        cb.addItemListener(e -> {
+            SkinInfo selected = (SkinInfo) cb.getSelectedItem();
+            System.out.println("Skin class " + selected.getClassName() + " look-and-feel class " +
+                    selected.getLookAndFeelClassName());
         });
         panel.add(new JLabel("All skins:"));
         panel.add(cb);
