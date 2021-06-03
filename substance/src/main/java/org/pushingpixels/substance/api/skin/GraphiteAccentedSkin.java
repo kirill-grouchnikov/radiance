@@ -138,7 +138,9 @@ public abstract class GraphiteAccentedSkin extends SubstanceSkin.Accented {
 
         defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.MARK,
-                ComponentState.SELECTED);
+                ComponentState.SELECTED, ComponentState.PRESSED_SELECTED,
+                ComponentState.PRESSED_UNSELECTED, ComponentState.ROLLOVER_UNSELECTED,
+                ComponentState.ROLLOVER_SELECTED);
         defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
         defaultSchemeBundle.registerColorScheme(this.getActiveControlsAccent(),
                 ColorSchemeAssociationKind.MARK,
