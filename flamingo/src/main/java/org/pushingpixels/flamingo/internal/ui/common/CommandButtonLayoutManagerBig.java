@@ -69,6 +69,18 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         return FlamingoUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
     }
 
+    protected int getCurrentIconWidth(JCommandButton commandButton) {
+        return (commandButton.getIcon() != null)
+                ? this.getPreferredIconSize(commandButton)
+                : 0;
+    }
+
+    protected int getCurrentIconHeight(JCommandButton commandButton) {
+        return (commandButton.getIcon() != null)
+                ? this.getPreferredIconSize(commandButton)
+                : 0;
+    }
+
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
         Insets borderInsets = (commandButton == null) ? new Insets(0, 0, 0, 0)
@@ -87,11 +99,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         int title1Width = (this.titlePart1 == null) ? 0 : fm.stringWidth(this.titlePart1);
         int title2Width = (this.titlePart2 == null) ? 0 : fm.stringWidth(this.titlePart2);
 
-        int prefIconSize = hasIcon ? this.getPreferredIconSize(commandButton) : 0;
-
-        int width = Math.max(prefIconSize, Math.max(title1Width, title2Width + 4 * layoutHGap
-                + jsep.getPreferredSize().height
-                + (FlamingoUtilities.hasPopupAction(commandButton) ? 1 + fm.getHeight() / 2 : 0)));
+        int width = Math.max(this.getCurrentIconWidth(commandButton),
+                Math.max(title1Width, title2Width + 4 * layoutHGap
+                        + jsep.getPreferredSize().height
+                        + (FlamingoUtilities.hasPopupAction(commandButton) ? 1 + fm.getHeight() / 2 : 0)));
 
         // start height with the top inset
         int height = borderInsets.top;
@@ -100,7 +111,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             // padding above the icon
             height += layoutVGap;
             // icon height
-            height += prefIconSize;
+            height += this.getCurrentIconHeight(commandButton);
             // padding below the icon
             height += layoutVGap;
         }

@@ -48,7 +48,7 @@ public abstract class CommandButtonPresentationState {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(
                         JCommandButton commandButton) {
-                    return new CommandButtonLayoutManagerCustom(commandButton);
+                    return new CommandButtonLayoutManagerFitToIcon(commandButton);
                 }
             };
 
