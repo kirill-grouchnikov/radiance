@@ -36,7 +36,6 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.X_office_document;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;

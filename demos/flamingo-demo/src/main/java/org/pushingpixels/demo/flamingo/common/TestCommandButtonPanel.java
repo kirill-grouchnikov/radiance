@@ -41,7 +41,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

@@ -35,7 +35,6 @@ import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
@@ -50,7 +49,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;

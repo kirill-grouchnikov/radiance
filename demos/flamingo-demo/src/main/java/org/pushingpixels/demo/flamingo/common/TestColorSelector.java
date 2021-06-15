@@ -31,7 +31,6 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;

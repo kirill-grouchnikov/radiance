@@ -53,7 +53,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.color.ColorSpace;
-import java.awt.event.ActionEvent;
 import java.awt.image.ColorConvertOp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
