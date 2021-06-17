@@ -35,7 +35,7 @@ The `SvgBatchConverter` class is the entry point into the offline batch converte
 
 Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline for a single SVG source folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-photon)):
 
-<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.12.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.4.01.jar:../build/libs-core/xmlgraphics-commons-2.4.jar org.pushingpixels.photon.api.transcoder.SvgBatchConverter <b>sourceFolder=</b>../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.demo.flamingo.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ <b>outputLanguage=</b>java</code>
+<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.4.01.jar:../build/libs-core/xmlgraphics-commons-2.6.jar org.pushingpixels.photon.api.transcoder.SvgBatchConverter <b>sourceFolder=</b>../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.demo.flamingo.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ <b>outputLanguage=</b>java</code>
 
 The first part is enumerating all the jar files required for the converter - Photon and Batik. In this sample script, the Photon jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
@@ -59,7 +59,7 @@ The `SvgDeepBatchConverter` class is the entry point into the offline recursive 
 
 Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline recursively for all SVG files under a folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-photon)):
 
-<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.12.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.4.01.jar:../build/libs-core/xmlgraphics-commons-2.4.jar org.pushingpixels.photon.api.transcoder.SvgDeepBatchConverter <b>sourceRootFolder=</b>../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/ <b>outputRootPackageName=</b>org.pushingpixels.demo.spyglass <b>templateFile=</b>/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ <b>outputLanguage=</b>java</code>
+<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.4.01.jar:../build/libs-core/xmlgraphics-commons-2.6.jar org.pushingpixels.photon.api.transcoder.SvgDeepBatchConverter <b>sourceRootFolder=</b>../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/ <b>outputRootPackageName=</b>org.pushingpixels.demo.spyglass <b>templateFile=</b>/org/pushingpixels/photon/api/transcoder/java/SvgTranscoderTemplateResizable.templ <b>outputLanguage=</b>java</code>
 
 The first part is enumerating all the jar files required for the converter - Photon and Batik. In this sample script, the Photon jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
@@ -122,10 +122,20 @@ The following table summarizes the level of support for different SVG elements.
 
 ### Dependency versions for Photon
 
+* For **4.0.0**, use
+  * `batik-all-1.14.jar`
+  * `xml-apis-1.4.01.jar`
+  * `xml-apis-ext-1.3.04.jar`
+  * `xmlgraphics-commons-2.6.jar`
+* For **3.5.1**, use
+  * `batik-all-1.13.jar`
+  * `xml-apis-1.4.01.jar`
+  * `xml-apis-ext-1.3.04.jar`
+  * `xmlgraphics-commons-2.4.jar`
 * For **3.0.0**, use
   * `batik-all-1.13.jar`
   * `xml-apis-1.4.01.jar`
-  * `xml-apis-ext-1.4.01.jar`
+  * `xml-apis-ext-1.3.04.jar`
   * `xmlgraphics-commons-2.4.jar`
 * For **2.5.1**, use
   * `batik-all-1.11.jar`
