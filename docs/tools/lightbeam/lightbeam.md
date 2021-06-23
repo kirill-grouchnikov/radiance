@@ -14,7 +14,7 @@ Now configure the specific version of Java runtime that you want to test under a
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
-`RADIANCE_VERSION=4.0.0`
+`RADIANCE_VERSION=4.5-SNAPSHOT`
 
 `CLASSPATH=./drop/$RADIANCE_VERSION/tools/radiance-lightbeam-$RADIANCE_VERSION.jar:./build/libs-tools/jgoodies-forms-1.9.0.jar:./build/libs-tools/jgoodies-common-1.8.1.jar`
 
@@ -49,7 +49,7 @@ With this, you can compare the performance of your look-and-feel with that of co
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
-`RADIANCE_VERSION=4.0.0`
+`RADIANCE_VERSION=4.5-SNAPSHOT`
 
 `CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lightbeam-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
 

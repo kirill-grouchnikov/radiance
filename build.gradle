@@ -28,9 +28,9 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '4.0.0'
-ext.codename = 'Feldspar'
-ext.isRelease = true
+version = '4.5-SNAPSHOT'
+ext.codename = 'Garnet'
+ext.isRelease = false
 
 buildscript {
     ext {
