@@ -28,10 +28,6 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = '4.5-SNAPSHOT'
-ext.codename = 'Garnet'
-ext.isRelease = false
-
 buildscript {
     ext {
         // Build dependencies
@@ -82,7 +78,7 @@ wrapper {
 }
 
 allprojects {
-    version = rootProject.version
+    version = findProperty('VERSION_NAME')
 
     repositories {
         mavenCentral()
@@ -135,7 +131,7 @@ allprojects {
 
         manifest {
             // add radiance version, build JDK and build JDK vendor into the manifest file
-            attributes("Radiance-Version": "${rootProject.version} [${rootProject.ext.codename}]",    \
+            attributes("Radiance-Version": "${findProperty('VERSION_NAME')} [${findProperty('CODENAME')}]",    \
                  "Build-JDK": System.getProperty('java.version'),    \
                  "Build-JDK-Vendor": System.getProperty('java.vendor'))
         }
