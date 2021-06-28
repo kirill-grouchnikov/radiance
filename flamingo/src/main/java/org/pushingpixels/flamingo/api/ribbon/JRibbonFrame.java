@@ -692,18 +692,18 @@ public class JRibbonFrame extends JFrame {
             }
             if (projection instanceof RibbonGalleryProjection) {
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                        (RibbonGalleryProjection) projection);
+                        ribbon, (RibbonGalleryProjection) projection);
             } else if (projection instanceof ComponentProjection) {
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                        (ComponentProjection<? extends JComponent, ?
+                        ribbon, (ComponentProjection<? extends JComponent, ?
                                 extends ComponentContentModel>) projection);
             } else if (projection instanceof CommandButtonProjection) {
                 CommandButtonProjection<? extends Command> commandButtonProjection =
                         (CommandButtonProjection<? extends Command>) projection;
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                        commandButtonProjection);
+                        ribbon, commandButtonProjection);
             } else {
-                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
+                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(ribbon);
             }
         } else {
             // Special case - popup trigger in a ribbon gallery
@@ -711,20 +711,20 @@ public class JRibbonFrame extends JFrame {
                     JRibbonGallery.class, c);
             if (gallery != null) {
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                        gallery.getProjection());
+                        ribbon, gallery.getProjection());
             } else {
                 // Another special case - wrapped component
                 JRibbonComponent component = (JRibbonComponent) SwingUtilities.getAncestorOfClass(
                         JRibbonComponent.class, c);
                 if (component != null) {
                     menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
-                            component.getProjection());
+                            ribbon, component.getProjection());
                 } else {
                     if ((c instanceof JCommandButton) &&
                             (!(c instanceof FlamingoInternalButton))) {
                         menuContentModel =
                                 onShowContextualMenuListener.getContextualMenuContentModel(
-                                        ((JCommandButton) c).getProjection());
+                                        ribbon, ((JCommandButton) c).getProjection());
                     }
                 }
             }
@@ -733,7 +733,7 @@ public class JRibbonFrame extends JFrame {
         if (menuContentModel == null) {
             // If the popup trigger is not on any of the "supported" ribbon content, ask the
             // application to provide the general contextual menu items
-            menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel();
+            menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(ribbon);
         }
 
         CommandPopupMenuProjection globalContextMenuProjection = new CommandPopupMenuProjection(

@@ -31,6 +31,7 @@ package org.pushingpixels.plasma.ribbon
 
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.ribbon.JRibbon
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask
@@ -140,6 +141,7 @@ public class KRibbonFrame {
     private val taskbar = KRibbonTaskbar()
     private val applicationMenu = KRibbonApplicationMenu()
     public var onTaskSelectionChange: ((ribbonTask: RibbonTask) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onShowContextualMenuListener: JRibbon.OnShowContextualMenuListener? by NullableDelegate { hasBeenConverted }
 
     private lateinit var ribbonFrame: JRibbonFrame
     private var hasBeenConverted: Boolean = false
@@ -213,6 +215,10 @@ public class KRibbonFrame {
 
         if (onTaskSelectionChange != null) {
             ribbonFrame.ribbon.addOnTaskSelectionChangedListener(onTaskSelectionChange)
+        }
+
+        if (onShowContextualMenuListener != null) {
+            ribbonFrame.ribbon.onShowContextualMenuListener = onShowContextualMenuListener
         }
 
         val ribbonMenuCommandProjection =

@@ -223,15 +223,16 @@ public class JRibbon extends JComponent {
 
     public interface OnShowContextualMenuListener {
         CommandMenuContentModel getContextualMenuContentModel(
-                RibbonGalleryProjection galleryProjection);
+                JRibbon ribbon, RibbonGalleryProjection galleryProjection);
 
         CommandMenuContentModel getContextualMenuContentModel(
+                JRibbon ribbon,
                 ComponentProjection<? extends JComponent, ? extends ComponentContentModel> componentProjection);
 
         CommandMenuContentModel getContextualMenuContentModel(
-                CommandButtonProjection<? extends Command> commandProjection);
+                JRibbon ribbon, CommandButtonProjection<? extends Command> commandProjection);
 
-        CommandMenuContentModel getContextualMenuContentModel();
+        CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon);
     }
 
     @FunctionalInterface

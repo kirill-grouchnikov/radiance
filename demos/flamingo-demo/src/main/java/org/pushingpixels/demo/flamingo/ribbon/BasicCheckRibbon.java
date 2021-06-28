@@ -1707,18 +1707,18 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.getRibbon().setOnShowContextualMenuListener(
                 new JRibbon.OnShowContextualMenuListener() {
-                    private CommandMenuContentModel build(Command... commands) {
+                    private CommandMenuContentModel build(JRibbon ribbon, Command... commands) {
                         CommandGroup commandGroup = new CommandGroup(commands);
 
-                        if (getRibbon().isMinimized()) {
+                        if (ribbon.isMinimized()) {
                             commandGroup.addCommand(Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.showRibbon"))
-                                    .setAction(commandActionEvent -> getRibbon().setMinimized(false))
+                                    .setAction(commandActionEvent -> ribbon.setMinimized(false))
                                     .build());
                         } else {
                             commandGroup.addCommand(Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.hideRibbon"))
-                                    .setAction(commandActionEvent -> getRibbon().setMinimized(true))
+                                    .setAction(commandActionEvent -> ribbon.setMinimized(true))
                                     .build());
                         }
                         commandGroup.addCommand(Command.builder()
@@ -1732,13 +1732,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
                     @Override
                     public CommandMenuContentModel getContextualMenuContentModel(
-                            RibbonGalleryProjection galleryProjection) {
+                            JRibbon ribbon, RibbonGalleryProjection galleryProjection) {
                         Command galleryCommand;
-                        if (getRibbon().isShowingInTaskbar(galleryProjection.getContentModel())) {
+                        if (ribbon.isShowingInTaskbar(galleryProjection.getContentModel())) {
                             galleryCommand = Command.builder()
                                     .setText(resourceBundle.getString(
                                             "ContextMenu.removeFromTaskbar"))
-                                    .setAction(commandActionEvent -> getRibbon().removeTaskbarGallery(
+                                    .setAction(commandActionEvent -> ribbon.removeTaskbarGallery(
                                             galleryProjection.getContentModel()))
                                     .build();
                         } else {
@@ -1750,55 +1750,55 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                             .build();
                             galleryCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                                    .setAction(commandActionEvent -> getRibbon().addTaskbarGalleryDropdown(
+                                    .setAction(commandActionEvent -> ribbon.addTaskbarGalleryDropdown(
                                             new RibbonGalleryProjection(
                                                     galleryProjection.getContentModel(),
                                                     presentationModel)))
                                     .build();
                         }
 
-                        return build(galleryCommand);
+                        return build(ribbon, galleryCommand);
                     }
 
                     @Override
                     public CommandMenuContentModel getContextualMenuContentModel(
-                            ComponentProjection<? extends JComponent, ?
+                            JRibbon ribbon, ComponentProjection<? extends JComponent, ?
                                     extends ComponentContentModel> componentProjection) {
                         Command componentCommand;
-                        if (getRibbon().isShowingInTaskbar(componentProjection.getContentModel())) {
+                        if (ribbon.isShowingInTaskbar(componentProjection.getContentModel())) {
                             componentCommand = Command.builder()
                                     .setText(resourceBundle.getString(
                                             "ContextMenu.removeFromTaskbar"))
-                                    .setAction(commandActionEvent -> getRibbon().removeTaskbarComponent(
+                                    .setAction(commandActionEvent -> ribbon.removeTaskbarComponent(
                                             componentProjection.getContentModel()))
                                     .build();
                         } else {
                             componentCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
                                     .setAction(commandActionEvent ->
-                                            getRibbon().addTaskbarComponent(componentProjection))
+                                            ribbon.addTaskbarComponent(componentProjection))
                                     .build();
                         }
 
-                        return build(componentCommand);
+                        return build(ribbon, componentCommand);
                     }
 
                     @Override
                     public CommandMenuContentModel getContextualMenuContentModel(
-                            CommandButtonProjection<? extends Command> commandButtonProjection) {
+                            JRibbon ribbon, CommandButtonProjection<? extends Command> commandButtonProjection) {
                         Command originalCommand = commandButtonProjection.getContentModel();
                         Command commandCommand;
-                        if (getRibbon().isShowingInTaskbar(originalCommand)) {
+                        if (ribbon.isShowingInTaskbar(originalCommand)) {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString(
                                             "ContextMenu.removeFromTaskbar"))
                                     .setAction(commandActionEvent ->
-                                            getRibbon().removeTaskbarCommand(originalCommand))
+                                            ribbon.removeTaskbarCommand(originalCommand))
                                     .build();
                         } else {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                                    .setAction(commandActionEvent -> getRibbon().addTaskbarCommand(
+                                    .setAction(commandActionEvent -> ribbon.addTaskbarCommand(
                                             new RibbonTaskbarCommandButtonProjection(originalCommand,
                                                     RibbonTaskbarCommandButtonPresentationModel.builder()
                                                             .setPopupMenuPresentationModel(commandButtonProjection.getPresentationModel().
@@ -1806,12 +1806,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                     .build();
                         }
 
-                        return build(commandCommand);
+                        return build(ribbon, commandCommand);
                     }
 
                     @Override
-                    public CommandMenuContentModel getContextualMenuContentModel() {
-                        return build();
+                    public CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon) {
+                        return build(ribbon);
                     }
                 });
 

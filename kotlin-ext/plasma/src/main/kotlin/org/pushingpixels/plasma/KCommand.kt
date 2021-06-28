@@ -45,6 +45,7 @@ import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresent
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
+import org.pushingpixels.substance.api.SubstanceSlices
 
 @PlasmaElementMarker
 public open class KCommand {
@@ -323,15 +324,18 @@ public class KColorSelectorCommand : KCommand() {
         }
         populateBuilder(colorSelectorBuilder, this)
         colorSelectorBuilder.setColorSelectorPopupMenuContentModel(
-                colorSelectorPopupMenu?.toJavaPopupMenuContentModel())
+            colorSelectorPopupMenu?.toJavaPopupMenuContentModel()
+        )
         javaCommand = colorSelectorBuilder.build()
         hasBeenConverted = true
         return javaCommand as ColorSelectorCommand
     }
 
     internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): JCommandButton {
-        return ColorSelectorCommandButtonProjection(asJavaColorSelectorCommand(),
-                presentation.toColorSelectorCommandPresentation(this)).buildComponent()
+        return ColorSelectorCommandButtonProjection(
+            asJavaColorSelectorCommand(),
+            presentation.toColorSelectorCommandPresentation(this)
+        ).buildComponent()
     }
 }
 
@@ -343,16 +347,18 @@ public fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorS
 
 @PlasmaElementMarker
 public open class KCommandButtonPresentation {
-    public var presentationState: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
+    public var presentationState: CommandButtonPresentationState =
+        CommandButtonPresentationState.FIT_TO_ICON
     public var isFlat: Boolean = true
     public var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     public var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
     public var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
     public var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
-            CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
+        CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
     public var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
-            CommandButtonPresentationModel.PopupHorizontalGravity.START
+        CommandButtonPresentationModel.PopupHorizontalGravity.START
     public var iconDimension: Int? = null
+    public var iconThemingStrategy: SubstanceSlices.IconThemingStrategy? = null
     public var isMenu: Boolean = false
     public var actionKeyTip: String? = null
     public var popupKeyTip: String? = null
@@ -361,27 +367,30 @@ public open class KCommandButtonPresentation {
     public var isFireActionOnRollover: Boolean = false
     public var isFireActionOnPress: Boolean = false
     public var isAutoRepeatAction: Boolean = false
-    public var autoRepeatInitialInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
-    public var autoRepeatSubsequentInterval: Int = CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
+    public var autoRepeatInitialInterval: Int =
+        CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
+    public var autoRepeatSubsequentInterval: Int =
+        CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
 
     internal fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
         val result = CommandButtonPresentationModel.builder()
-                .setPresentationState(presentationState)
-                .setFlat(isFlat)
-                .setHorizontalAlignment(horizontalAlignment)
-                .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
-                .setVerticalGapScaleFactor(verticalGapScaleFactor)
-                .setPopupOrientationKind(popupOrientationKind)
-                .setPopupHorizontalGravity(command.menu?.horizontalGravity ?: popupHorizontalGravity)
-                .setIconDimension(iconDimension)
-                .setActionKeyTip(actionKeyTip)
-                .setPopupKeyTip(popupKeyTip)
-                .setMenu(isMenu)
-                .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
-                .setFireActionOnRollover(isFireActionOnRollover)
-                .setFireActionOnPress(isFireActionOnPress)
-                .setAutoRepeatAction(isAutoRepeatAction)
-                .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
+            .setPresentationState(presentationState)
+            .setFlat(isFlat)
+            .setHorizontalAlignment(horizontalAlignment)
+            .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
+            .setVerticalGapScaleFactor(verticalGapScaleFactor)
+            .setPopupOrientationKind(popupOrientationKind)
+            .setPopupHorizontalGravity(command.menu?.horizontalGravity ?: popupHorizontalGravity)
+            .setIconDimension(iconDimension)
+            .setIconThemingStrategy(iconThemingStrategy)
+            .setActionKeyTip(actionKeyTip)
+            .setPopupKeyTip(popupKeyTip)
+            .setMenu(isMenu)
+            .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
+            .setFireActionOnRollover(isFireActionOnRollover)
+            .setFireActionOnPress(isFireActionOnPress)
+            .setAutoRepeatAction(isAutoRepeatAction)
+            .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
 
         if (isTextClickAction) {
             result.setTextClickAction()
@@ -398,22 +407,23 @@ public open class KCommandButtonPresentation {
 public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     public var colorColumns: Int = 10
     public var menuPresentationState: CommandButtonPresentationState =
-            CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE
+        CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE
 
     internal fun toColorSelectorCommandPresentation(command: KColorSelectorCommand): CommandButtonPresentationModel {
         return CommandButtonPresentationModel.builder()
-                .setPresentationState(presentationState)
-                .setFlat(isFlat)
-                .setHorizontalAlignment(horizontalAlignment)
-                .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
-                .setVerticalGapScaleFactor(verticalGapScaleFactor)
-                .setPopupOrientationKind(popupOrientationKind)
-                .setIconDimension(iconDimension)
-                .setActionKeyTip(actionKeyTip)
-                .setPopupKeyTip(popupKeyTip)
-                .setMenu(isMenu)
-                .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
-                .build()
+            .setPresentationState(presentationState)
+            .setFlat(isFlat)
+            .setHorizontalAlignment(horizontalAlignment)
+            .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
+            .setVerticalGapScaleFactor(verticalGapScaleFactor)
+            .setPopupOrientationKind(popupOrientationKind)
+            .setIconDimension(iconDimension)
+            .setIconThemingStrategy(iconThemingStrategy)
+            .setActionKeyTip(actionKeyTip)
+            .setPopupKeyTip(popupKeyTip)
+            .setMenu(isMenu)
+            .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
+            .build()
     }
 }
 
@@ -422,17 +432,19 @@ public class KCommandGroup {
     public var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()
 
-    internal data class CommandConfig(val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
-            val isTextClickAction: Boolean?, val isTextClickSecondary: Boolean?,
-            val popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity?) {
+    internal data class CommandConfig(
+        val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
+        val isTextClickAction: Boolean?, val isTextClickSecondary: Boolean?,
+        val popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity?
+    ) {
         fun toJavaCommand(): Command {
             return command.asJavaCommand()
         }
 
         fun toJavaProjection(): CommandButtonProjection<Command> {
             val presentationBuilder = CommandButtonPresentationModel.builder()
-                    .setActionKeyTip(actionKeyTip)
-                    .setPopupKeyTip(secondaryKeyTip)
+                .setActionKeyTip(actionKeyTip)
+                .setPopupKeyTip(secondaryKeyTip)
             if ((isTextClickAction != null) && isTextClickAction) {
                 presentationBuilder.setTextClickAction()
             }
@@ -447,8 +459,8 @@ public class KCommandGroup {
 
         fun toJavaPresentationOverlay(): CommandButtonPresentationModel.Overlay {
             val overlay = CommandButtonPresentationModel.overlay()
-                    .setActionKeyTip(actionKeyTip)
-                    .setPopupKeyTip(secondaryKeyTip)
+                .setActionKeyTip(actionKeyTip)
+                .setPopupKeyTip(secondaryKeyTip)
             if ((isTextClickAction != null) && isTextClickAction) {
                 overlay.setTextClickAction()
             }
@@ -463,23 +475,35 @@ public class KCommandGroup {
         this@KCommandGroup.commands.add(CommandConfig(this, null, null, false, false, null))
     }
 
-    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            init: KCommand.() -> Unit): KCommand {
+    public fun command(
+        actionKeyTip: String? = null, popupKeyTip: String? = null,
+        isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        init: KCommand.() -> Unit
+    ): KCommand {
         val command = KCommand()
         command.init()
-        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
-                popupHorizontalGravity))
+        commands.add(
+            CommandConfig(
+                command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
+                popupHorizontalGravity
+            )
+        )
         return command
     }
 
-    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            command: KCommand) {
-        commands.add(CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
-                popupHorizontalGravity))
+    public fun command(
+        actionKeyTip: String? = null, popupKeyTip: String? = null,
+        isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        command: KCommand
+    ) {
+        commands.add(
+            CommandConfig(
+                command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
+                popupHorizontalGravity
+            )
+        )
     }
 
     internal fun toCommandGroupModel(): CommandGroup {

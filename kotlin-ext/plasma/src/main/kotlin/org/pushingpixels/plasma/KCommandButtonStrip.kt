@@ -33,22 +33,27 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
+import org.pushingpixels.substance.api.SubstanceSlices
 import javax.swing.JComponent
 
 @PlasmaElementMarker
 public class KCommandButtonStripPresentation {
-    public var orientation: CommandStripPresentationModel.StripOrientation = CommandStripPresentationModel.StripOrientation.HORIZONTAL
-    public var commandIconDimension: CommandButtonPresentationState = CommandButtonPresentationState.SMALL
+    public var orientation: CommandStripPresentationModel.StripOrientation =
+        CommandStripPresentationModel.StripOrientation.HORIZONTAL
+    public var presentationState: CommandButtonPresentationState =
+        CommandButtonPresentationState.SMALL
+    public var iconThemingStrategy: SubstanceSlices.IconThemingStrategy? = null
     public var horizontalGapScaleFactor: Double = -1.0
     public var verticalGapScaleFactor: Double = -1.0
 
-    internal fun toCommandStripPresentationModel() : CommandStripPresentationModel {
+    internal fun toCommandStripPresentationModel(): CommandStripPresentationModel {
         return CommandStripPresentationModel.builder()
-                .setCommandPresentationState(commandIconDimension)
-                .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
-                .setVerticalGapScaleFactor(verticalGapScaleFactor)
-                .setOrientation(orientation)
-                .build()
+            .setCommandPresentationState(presentationState)
+            .setIconThemingStrategy(iconThemingStrategy)
+            .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
+            .setVerticalGapScaleFactor(verticalGapScaleFactor)
+            .setOrientation(orientation)
+            .build()
     }
 }
 
@@ -59,7 +64,16 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commandToggleGroup = KCommandToggleGroupModel()
 
     public operator fun KCommand.unaryPlus() {
-        this@KCommandStrip.commandConfigs.add(KCommandGroup.CommandConfig(this, null, null, null, null, null))
+        this@KCommandStrip.commandConfigs.add(
+            KCommandGroup.CommandConfig(
+                this,
+                null,
+                null,
+                null,
+                null,
+                null
+            )
+        )
     }
 
     public fun command(actionKeyTip: String? = null, init: KCommand.() -> Unit): KCommand {
@@ -69,14 +83,24 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
             // Our button strip is marked as a single toggle group
             if (command.toggleGroup != null) {
                 throw IllegalStateException(
-                        "Command with an explicitly declared toggle group is in a button strip with an implicit toggle group")
+                    "Command with an explicitly declared toggle group is in a button strip with an implicit toggle group"
+                )
             }
             // Mark the command explicitly as toggle
             command.isToggle = true
             // And associate it with our implicit toggle group
             command.toggleGroup = commandToggleGroup
         }
-        commandConfigs.add(KCommandGroup.CommandConfig(command, actionKeyTip, null, null, null, null))
+        commandConfigs.add(
+            KCommandGroup.CommandConfig(
+                command,
+                actionKeyTip,
+                null,
+                null,
+                null,
+                null
+            )
+        )
         return command
     }
 
@@ -91,9 +115,12 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
     public fun toJavaProjection(): CommandStripProjection {
         val commandGroupModel = CommandGroup(commandConfigs.map { it.command.asJavaCommand() })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
-        val commandOverlays = commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
+        val commandOverlays =
+            commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }
+                .toMap()
 
-        val commandStripProjection = CommandStripProjection(commandGroupModel, commandStripPresentationModel)
+        val commandStripProjection =
+            CommandStripProjection(commandGroupModel, commandStripPresentationModel)
         commandStripProjection.commandOverlays = commandOverlays
 
         return commandStripProjection

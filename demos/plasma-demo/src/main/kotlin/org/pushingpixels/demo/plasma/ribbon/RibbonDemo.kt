@@ -43,13 +43,25 @@ import org.pushingpixels.flamingo.api.common.HorizontalAlignment
 import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon
+import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.common.model.CommandGroup
+import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
+import org.pushingpixels.flamingo.api.ribbon.JRibbon
+import org.pushingpixels.flamingo.api.ribbon.JRibbon.OnShowContextualMenuListener
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
+import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
+import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedItemListener
 import org.pushingpixels.meteor.awt.brightness
@@ -1826,6 +1838,112 @@ fun main() {
             }
 
             onTaskSelectionChange = { task -> println("Task [${task.title}] selected") }
+
+            onShowContextualMenuListener = object : OnShowContextualMenuListener {
+                private fun build(ribbon: JRibbon, vararg commands: Command): CommandMenuContentModel {
+                    val commandGroup = CommandGroup(*commands)
+                    if (ribbon.isMinimized) {
+                        commandGroup.addCommand(
+                            Command.builder()
+                                .setText(builder.resourceBundle.getString("ContextMenu.showRibbon"))
+                                .setAction { ribbon.isMinimized = false }
+                                .build())
+                    } else {
+                        commandGroup.addCommand(
+                            Command.builder()
+                                .setText(builder.resourceBundle.getString("ContextMenu.hideRibbon"))
+                                .setAction { ribbon.isMinimized = true }
+                                .build())
+                    }
+                    commandGroup.addCommand(
+                        Command.builder()
+                            .setText(builder.resourceBundle.getString("ContextMenu.configureRibbon"))
+                            .setAction { JOptionPane.showMessageDialog(null, "Configure ribbon option selected") }
+                            .build())
+                    return CommandMenuContentModel(commandGroup)
+                }
+
+                override fun getContextualMenuContentModel(ribbon: JRibbon,
+                    galleryProjection: RibbonGalleryProjection
+                ): CommandMenuContentModel {
+                    val galleryCommand =
+                        if (ribbon.isShowingInTaskbar(galleryProjection.contentModel)) {
+                            Command.builder()
+                                .setText(builder.resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                                .setAction { ribbon.removeTaskbarGallery(galleryProjection.contentModel) }
+                                .build()
+                        } else {
+                            val presentationModel = RibbonGalleryPresentationModel.builder()
+                                .setPreferredPopupMaxCommandColumns(4)
+                                .setPreferredPopupMaxVisibleCommandRows(2)
+                                .setCommandPresentationState(JRibbonBand.BIG_FIXED)
+                                .build()
+                            Command.builder()
+                                .setText(builder.resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                .setAction {
+                                    ribbon.addTaskbarGalleryDropdown(
+                                        RibbonGalleryProjection(
+                                            galleryProjection.contentModel,
+                                            presentationModel
+                                        )
+                                    )
+                                }
+                                .build()
+                        }
+                    return build(ribbon, galleryCommand)
+                }
+
+                override fun getContextualMenuContentModel(ribbon: JRibbon,
+                    componentProjection: ComponentProjection<out JComponent?, out ComponentContentModel?>
+                ): CommandMenuContentModel {
+                    val componentCommand =
+                        if (ribbon.isShowingInTaskbar(componentProjection.contentModel)) {
+                            Command.builder()
+                                .setText(builder.resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                                .setAction { ribbon.removeTaskbarComponent(componentProjection.contentModel) }
+                                .build()
+                        } else {
+                            Command.builder()
+                                .setText(builder.resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                .setAction { ribbon.addTaskbarComponent(componentProjection) }
+                                .build()
+                        }
+                    return build(ribbon, componentCommand)
+                }
+
+                override fun getContextualMenuContentModel(ribbon: JRibbon,
+                    commandButtonProjection: CommandButtonProjection<out Command>
+                ): CommandMenuContentModel {
+                    val originalCommand = commandButtonProjection.contentModel
+                    val commandCommand = if (ribbon.isShowingInTaskbar(originalCommand)) {
+                        Command.builder()
+                            .setText(builder.resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                            .setAction { ribbon.removeTaskbarCommand(originalCommand) }
+                            .build()
+                    } else {
+                        Command.builder()
+                            .setText(builder.resourceBundle.getString("ContextMenu.addToTaskbar"))
+                            .setAction {
+                                ribbon.addTaskbarCommand(
+                                    RibbonTaskbarCommandButtonProjection(
+                                        originalCommand,
+                                        RibbonTaskbarCommandButtonPresentationModel.builder()
+                                            .setPopupMenuPresentationModel(
+                                                commandButtonProjection.presentationModel
+                                                    .popupMenuPresentationModel
+                                            ).build()
+                                    )
+                                )
+                            }
+                            .build()
+                    }
+                    return build(ribbon, commandCommand)
+                }
+
+                override fun getContextualMenuContentModel(ribbon: JRibbon): CommandMenuContentModel {
+                    return build(ribbon)
+                }
+            }
 
             anchored {
                 command(
