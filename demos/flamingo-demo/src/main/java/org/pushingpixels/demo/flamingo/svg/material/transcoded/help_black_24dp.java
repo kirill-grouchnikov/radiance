@@ -18,7 +18,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class ic_help_black_24px implements ResizableIcon {
+public class help_black_24dp implements ResizableIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -157,7 +157,7 @@ g.setTransform(transformsStack.pop());
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private ic_help_black_24px() {
+	private help_black_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -216,7 +216,7 @@ g.setTransform(transformsStack.pop());
      * @return A new instance of this icon with specified dimensions.
      */
     public static ResizableIcon of(int width, int height) {
-       ic_help_black_24px base = new ic_help_black_24px();
+       help_black_24dp base = new help_black_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -230,7 +230,7 @@ g.setTransform(transformsStack.pop());
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static ResizableIconUIResource uiResourceOf(int width, int height) {
-       ic_help_black_24px base = new ic_help_black_24px();
+       help_black_24dp base = new help_black_24dp();
        base.width = width;
        base.height = height;
        return new ResizableIconUIResource(base);
@@ -242,7 +242,7 @@ g.setTransform(transformsStack.pop());
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return ic_help_black_24px::new;
+        return help_black_24dp::new;
     }
 }
 

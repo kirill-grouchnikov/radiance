@@ -29,10 +29,11 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.svg.material.transcoded.ic_error_black_24px;
-import org.pushingpixels.demo.flamingo.svg.material.transcoded.ic_help_black_24px;
-import org.pushingpixels.demo.flamingo.svg.material.transcoded.ic_info_black_24px;
-import org.pushingpixels.demo.flamingo.svg.material.transcoded.ic_warning_black_24px;
+import org.pushingpixels.demo.flamingo.svg.material.transcoded.error_black_24dp;
+import org.pushingpixels.demo.flamingo.svg.material.transcoded.help_black_24dp;
+import org.pushingpixels.demo.flamingo.svg.material.transcoded.info_black_24dp;
+import org.pushingpixels.demo.flamingo.svg.material.transcoded.warning_black_24dp;
+import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.GraphiteGlassSkin;
@@ -44,10 +45,16 @@ public class TestCommandButtonsThemedIcons extends TestCommandButtons {
         super();
 
         // reconfigure the commands to show Material (single color) icons
-        copyCommand.setIconFactory(ic_error_black_24px.factory());
-        cutCommand.setIconFactory(ic_help_black_24px.factory());
-        pasteActionCommand.setIconFactory(ic_warning_black_24px.factory());
-        pastePopupCommand.setIconFactory(ic_info_black_24px.factory());
+        copyCommand.setIconFactory(error_black_24dp.factory());
+        cutCommand.setIconFactory(help_black_24dp.factory());
+        pasteActionCommand.setIconFactory(warning_black_24dp.factory());
+        pastePopupCommand.setIconFactory(info_black_24dp.factory());
+    }
+
+    @Override
+    protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
+        // configure the presentation builder to use FOLLOW_FOREGROUND theming strategy
+        builder.setIconThemingStrategy(SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
     }
 
     /**
@@ -59,8 +66,6 @@ public class TestCommandButtonsThemedIcons extends TestCommandButtons {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             SubstanceCortex.GlobalScope.setSkin(new GraphiteGlassSkin());
-            SubstanceCortex.GlobalScope.setIconThemingStrategy(
-                    SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
 
             TestCommandButtonsThemedIcons frame = new TestCommandButtonsThemedIcons();
             frame.setSize(800, 400);

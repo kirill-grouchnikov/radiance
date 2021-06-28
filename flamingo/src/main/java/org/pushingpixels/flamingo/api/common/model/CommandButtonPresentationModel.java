@@ -33,6 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.substance.api.SubstanceSlices;
 
 /**
  * Encapsulates presentation metadata for displaying commands as buttons. Use a new instance of
@@ -54,6 +55,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
+    private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
     private boolean isFlat;
     private boolean isFocusable;
     private int horizontalAlignment;
@@ -93,6 +95,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.verticalGapScaleFactor : this.verticalGapScaleFactor;
         result.iconDimension = (overlay.iconDimension != null)
                 ? overlay.iconDimension : this.iconDimension;
+        result.iconThemingStrategy = (overlay.iconThemingStrategy != null)
+                ? overlay.iconThemingStrategy : this.iconThemingStrategy;
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.popupOrientationKind = (overlay.popupOrientationKind != null)
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
@@ -164,6 +168,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     public Integer getIconDimension() {
         return this.iconDimension;
+    }
+
+    public SubstanceSlices.IconThemingStrategy getIconThemingStrategy() {
+        return this.iconThemingStrategy;
     }
 
     public PopupOrientationKind getPopupOrientationKind() {
@@ -268,6 +276,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
         private Integer iconDimension;
+        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
         private Boolean isMenu;
         private PopupOrientationKind popupOrientationKind;
         private PopupHorizontalGravity popupHorizontalGravity;
@@ -316,6 +325,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Overlay setIconDimension(Integer iconDimension) {
             this.iconDimension = iconDimension;
+            return this;
+        }
+
+        public Overlay setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
+            this.iconThemingStrategy = iconThemingStrategy;
             return this;
         }
 
@@ -397,6 +411,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private double horizontalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
+        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
         private boolean isMenu = false;
         private PopupOrientationKind popupOrientationKind = PopupOrientationKind.DOWNWARD;
         private PopupHorizontalGravity popupHorizontalGravity = PopupHorizontalGravity.START;
@@ -446,6 +461,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Builder setIconDimension(Integer iconDimension) {
             this.iconDimension = iconDimension;
+            return this;
+        }
+
+        public Builder setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
+            this.iconThemingStrategy = iconThemingStrategy;
             return this;
         }
 
@@ -528,6 +548,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.isFlat = this.isFlat;
             commandPresentation.isFocusable = this.isFocusable;
             commandPresentation.iconDimension = this.iconDimension;
+            commandPresentation.iconThemingStrategy = this.iconThemingStrategy;
             commandPresentation.isMenu = this.isMenu;
             commandPresentation.popupOrientationKind = this.popupOrientationKind;
             commandPresentation.popupHorizontalGravity = this.popupHorizontalGravity;

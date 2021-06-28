@@ -18,7 +18,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class ic_info_black_24px implements ResizableIcon {
+public class error_black_24dp implements ResizableIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -39,11 +39,6 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0
-g.setTransform(transformsStack.pop());
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-transformsStack.push(g.getTransform());
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_1
 if (generalPath == null) {
    generalPath = new GeneralPath();
 } else {
@@ -57,15 +52,15 @@ generalPath.curveTo(22.0f, 6.4799995f, 17.52f, 2.0f, 12.0f, 2.0f);
 generalPath.closePath();
 generalPath.moveTo(13.0f, 17.0f);
 generalPath.lineTo(11.0f, 17.0f);
-generalPath.lineTo(11.0f, 11.0f);
-generalPath.lineTo(13.0f, 11.0f);
+generalPath.lineTo(11.0f, 15.0f);
+generalPath.lineTo(13.0f, 15.0f);
 generalPath.lineTo(13.0f, 17.0f);
 generalPath.closePath();
-generalPath.moveTo(13.0f, 9.0f);
-generalPath.lineTo(11.0f, 9.0f);
+generalPath.moveTo(13.0f, 13.0f);
+generalPath.lineTo(11.0f, 13.0f);
 generalPath.lineTo(11.0f, 7.0f);
 generalPath.lineTo(13.0f, 7.0f);
-generalPath.lineTo(13.0f, 9.0f);
+generalPath.lineTo(13.0f, 13.0f);
 generalPath.closePath();
 shape = generalPath;
 paint = new Color(0, 0, 0, 255);
@@ -148,7 +143,7 @@ g.setTransform(transformsStack.pop());
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private ic_info_black_24px() {
+	private error_black_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -207,7 +202,7 @@ g.setTransform(transformsStack.pop());
      * @return A new instance of this icon with specified dimensions.
      */
     public static ResizableIcon of(int width, int height) {
-       ic_info_black_24px base = new ic_info_black_24px();
+       error_black_24dp base = new error_black_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -221,7 +216,7 @@ g.setTransform(transformsStack.pop());
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static ResizableIconUIResource uiResourceOf(int width, int height) {
-       ic_info_black_24px base = new ic_info_black_24px();
+       error_black_24dp base = new error_black_24dp();
        base.width = width;
        base.height = height;
        return new ResizableIconUIResource(base);
@@ -233,7 +228,7 @@ g.setTransform(transformsStack.pop());
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return ic_info_black_24px::new;
+        return error_black_24dp::new;
     }
 }
 

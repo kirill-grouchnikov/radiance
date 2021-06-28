@@ -18,7 +18,7 @@ import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class ic_warning_black_24px implements ResizableIcon {
+public class info_black_24dp implements ResizableIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -49,22 +49,23 @@ if (generalPath == null) {
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(1.0f, 21.0f);
-generalPath.lineTo(23.0f, 21.0f);
-generalPath.lineTo(12.0f, 2.0f);
-generalPath.lineTo(1.0f, 21.0f);
+generalPath.moveTo(12.0f, 2.0f);
+generalPath.curveTo(6.48f, 2.0f, 2.0f, 6.48f, 2.0f, 12.0f);
+generalPath.curveTo(2.0f, 17.52f, 6.48f, 22.0f, 12.0f, 22.0f);
+generalPath.curveTo(17.52f, 22.0f, 22.0f, 17.52f, 22.0f, 12.0f);
+generalPath.curveTo(22.0f, 6.4799995f, 17.52f, 2.0f, 12.0f, 2.0f);
 generalPath.closePath();
-generalPath.moveTo(13.0f, 18.0f);
-generalPath.lineTo(11.0f, 18.0f);
-generalPath.lineTo(11.0f, 16.0f);
-generalPath.lineTo(13.0f, 16.0f);
-generalPath.lineTo(13.0f, 18.0f);
+generalPath.moveTo(13.0f, 17.0f);
+generalPath.lineTo(11.0f, 17.0f);
+generalPath.lineTo(11.0f, 11.0f);
+generalPath.lineTo(13.0f, 11.0f);
+generalPath.lineTo(13.0f, 17.0f);
 generalPath.closePath();
-generalPath.moveTo(13.0f, 14.0f);
-generalPath.lineTo(11.0f, 14.0f);
-generalPath.lineTo(11.0f, 10.0f);
-generalPath.lineTo(13.0f, 10.0f);
-generalPath.lineTo(13.0f, 14.0f);
+generalPath.moveTo(13.0f, 9.0f);
+generalPath.lineTo(11.0f, 9.0f);
+generalPath.lineTo(11.0f, 7.0f);
+generalPath.lineTo(13.0f, 7.0f);
+generalPath.lineTo(13.0f, 9.0f);
 generalPath.closePath();
 shape = generalPath;
 paint = new Color(0, 0, 0, 255);
@@ -107,7 +108,7 @@ g.setTransform(transformsStack.pop());
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 1.0;
+        return 2.0;
     }
 
     /**
@@ -125,7 +126,7 @@ g.setTransform(transformsStack.pop());
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 22.0;
+		return 20.0;
 	}
 
 	/**
@@ -134,7 +135,7 @@ g.setTransform(transformsStack.pop());
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 19.0;
+		return 20.0;
 	}
 
 	/** The current width of this resizable icon. */
@@ -147,7 +148,7 @@ g.setTransform(transformsStack.pop());
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private ic_warning_black_24px() {
+	private info_black_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -206,7 +207,7 @@ g.setTransform(transformsStack.pop());
      * @return A new instance of this icon with specified dimensions.
      */
     public static ResizableIcon of(int width, int height) {
-       ic_warning_black_24px base = new ic_warning_black_24px();
+       info_black_24dp base = new info_black_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -220,7 +221,7 @@ g.setTransform(transformsStack.pop());
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static ResizableIconUIResource uiResourceOf(int width, int height) {
-       ic_warning_black_24px base = new ic_warning_black_24px();
+       info_black_24dp base = new info_black_24dp();
        base.width = width;
        base.height = height;
        return new ResizableIconUIResource(base);
@@ -232,7 +233,7 @@ g.setTransform(transformsStack.pop());
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return ic_warning_black_24px::new;
+        return info_black_24dp::new;
     }
 }
 

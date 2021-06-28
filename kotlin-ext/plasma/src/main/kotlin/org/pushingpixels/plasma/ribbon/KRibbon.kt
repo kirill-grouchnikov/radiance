@@ -34,8 +34,10 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
@@ -184,7 +186,10 @@ public class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                    taskbarComponent.toJavaCommand(), null
+                    RibbonTaskbarCommandButtonProjection(
+                        taskbarComponent.toJavaCommand(),
+                        RibbonTaskbarCommandButtonPresentationModel.builder().build()
+                    )
                 )
                 is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
                     taskbarComponent

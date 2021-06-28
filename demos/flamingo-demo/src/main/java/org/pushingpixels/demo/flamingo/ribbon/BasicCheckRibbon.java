@@ -54,8 +54,10 @@ import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
 import org.pushingpixels.flamingo.api.ribbon.*;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel;
+import org.pushingpixels.flamingo.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
@@ -1796,10 +1798,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         } else {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                                    .setAction(commandActionEvent ->
-                                            getRibbon().addTaskbarCommand(originalCommand,
-                                                    commandButtonProjection.getPresentationModel().
-                                                            getPopupMenuPresentationModel()))
+                                    .setAction(commandActionEvent -> getRibbon().addTaskbarCommand(
+                                            new RibbonTaskbarCommandButtonProjection(originalCommand,
+                                                    RibbonTaskbarCommandButtonPresentationModel.builder()
+                                                            .setPopupMenuPresentationModel(commandButtonProjection.getPresentationModel().
+                                                                    getPopupMenuPresentationModel()).build())))
                                     .build();
                         }
 
@@ -1881,13 +1884,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbon ribbon = this.getRibbon();
 
         // taskbar components
-        ribbon.addTaskbarCommand(this.pasteCommand, null);
+        ribbon.addTaskbarCommand(new RibbonTaskbarCommandButtonProjection(
+                this.pasteCommand,
+                RibbonTaskbarCommandButtonPresentationModel.builder().build()));
 
-        ribbon.addTaskbarCommand(Command.builder()
-                .setIconFactory(Edit_clear.factory())
-                .setAction(commandActionEvent -> System.out.println("Taskbar Clear activated"))
-                .setActionEnabled(false)
-                .build(), null);
+        ribbon.addTaskbarCommand(new RibbonTaskbarCommandButtonProjection(
+                Command.builder()
+                        .setIconFactory(Edit_clear.factory())
+                        .setAction(commandActionEvent -> System.out.println("Taskbar Clear activated"))
+                        .setActionEnabled(false)
+                        .build(),
+                RibbonTaskbarCommandButtonPresentationModel.builder().build()));
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection<>(this.fontComboBoxModel,
                 ComponentPresentationModel.withDefaults()));
@@ -1915,7 +1922,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()));
 
         // Add the same "Save as" command that we have in the application menu to the taskbar
-        ribbon.addTaskbarCommand(this.amEntrySaveAs, null);
+        ribbon.addTaskbarCommand(new RibbonTaskbarCommandButtonProjection(
+                this.amEntrySaveAs,
+                RibbonTaskbarCommandButtonPresentationModel.builder().build()));
     }
 
     private void configureApplicationMenu() {

@@ -42,6 +42,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjecti
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
+import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
@@ -279,32 +280,25 @@ public class JRibbon extends JComponent {
         return this.taskbarKeyTipPolicy;
     }
 
-    /**
-     * Adds the specified command to the taskbar area of this ribbon.
-     *
-     * @param command                    The taskbar command to add.
-     * @param popupMenuPresentationModel Optional presentation model for the popup menu of the command.
-     *                                   This must be set if {@link Command#getSecondaryContentModel()}
-     *                                   has non-null {@link CommandMenuContentModel#getPanelContentModel()}.
-     *                                   Otherwise it can be null.
-     * @see #clearTaskbar()
-     */
-    public synchronized void addTaskbarCommand(Command command,
-            AbstractPopupMenuPresentationModel popupMenuPresentationModel) {
+    public synchronized void addTaskbarCommand(
+            RibbonTaskbarCommandButtonProjection projection) {
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
+                .setIconThemingStrategy(projection.getPresentationModel().getIconThemingStrategy())
                 .setHorizontalGapScaleFactor(0.5)
                 .setVerticalGapScaleFactor(0.5)
-                .setPopupMenuPresentationModel(popupMenuPresentationModel)
+                .setPopupMenuPresentationModel(
+                        projection.getPresentationModel().getPopupMenuPresentationModel())
                 .build();
 
-        CommandButtonProjection<Command> projection = command.project(presentationModel);
-        JCommandButton commandButton = projection.buildComponent();
+        CommandButtonProjection<Command> commandButtonProjection =
+                projection.getContentModel().project(presentationModel);
+        JCommandButton commandButton = commandButtonProjection.buildComponent();
 
         commandButton.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(commandButton);
 
-        this.taskbarCommandMap.put(command, commandButton);
+        this.taskbarCommandMap.put(projection.getContentModel(), commandButton);
 
         this.fireStateChanged();
     }
@@ -379,8 +373,7 @@ public class JRibbon extends JComponent {
     public synchronized void addTaskbarComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
         JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
-        ribbonComponent.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION,
-                projection);
+        ribbonComponent.putClientProperty(FlamingoUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(ribbonComponent);
         this.fireStateChanged();
     }

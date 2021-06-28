@@ -45,6 +45,7 @@ import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
@@ -530,6 +531,8 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.setDisabledIcon((command.getDisabledIconFactory() != null)
                 ? command.getDisabledIconFactory().createNewIcon()
                 : null);
+        SubstanceCortex.ComponentScope.setIconThemingStrategy(this,
+                commandPresentation.getIconThemingStrategy());
 
         boolean hasAction = (command.getAction() != null);
 

@@ -30,6 +30,7 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
+import org.pushingpixels.substance.api.SubstanceSlices;
 
 import javax.swing.event.EventListenerList;
 
@@ -65,6 +66,8 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
      */
     private CommandButtonPresentationState commandPresentationState;
 
+    private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+
     /**
      * Scale factor for horizontal gaps.
      */
@@ -99,6 +102,10 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         return this.commandPresentationState;
     }
 
+    public SubstanceSlices.IconThemingStrategy getIconThemingStrategy() {
+        return this.iconThemingStrategy;
+    }
+
     public double getHorizontalGapScaleFactor() {
         return this.hgapScaleFactor;
     }
@@ -126,6 +133,7 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
     public static class Builder {
         private CommandButtonPresentationState commandPresentationState
                 = CommandButtonPresentationState.SMALL;
+        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;
@@ -136,6 +144,11 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         public Builder setCommandPresentationState(
                 CommandButtonPresentationState commandPresentationState) {
             this.commandPresentationState = commandPresentationState;
+            return this;
+        }
+
+        public Builder setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
+            this.iconThemingStrategy = iconThemingStrategy;
             return this;
         }
 
@@ -172,6 +185,7 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         public CommandStripPresentationModel build() {
             CommandStripPresentationModel presentationModel = new CommandStripPresentationModel();
             presentationModel.commandPresentationState = this.commandPresentationState;
+            presentationModel.iconThemingStrategy = this.iconThemingStrategy;
             presentationModel.orientation = this.orientation;
             if (this.hgapScaleFactor < 0) {
                 presentationModel.hgapScaleFactor =
