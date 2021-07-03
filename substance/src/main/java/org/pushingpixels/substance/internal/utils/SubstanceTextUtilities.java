@@ -281,10 +281,6 @@ public class SubstanceTextUtilities {
      * @return The foreground color for the specified component.
      */
     public static Color getForegroundColor(JComponent component, String text, ComponentState state, float textAlpha) {
-        if ((text == null) || (text.length() == 0)) {
-            return null;
-        }
-
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
                 || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
 

@@ -34,10 +34,10 @@ import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.IconThemingStrategy;
 import org.pushingpixels.substance.api.skin.MagellanSkin;
 
 import javax.swing.*;
@@ -96,7 +96,11 @@ public class ControlStatesExtendedThemed extends JFrame {
 
             SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             SubstanceCortex.GlobalScope.setSkin(new MagellanSkin());
-            SubstanceCortex.GlobalScope.setIconThemingStrategy(IconThemingStrategy.FOLLOW_FOREGROUND);
+            SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
+            );
 
             new ControlStatesExtendedThemed().setVisible(true);
         });

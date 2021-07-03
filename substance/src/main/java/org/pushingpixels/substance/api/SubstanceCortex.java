@@ -790,15 +790,20 @@ public class SubstanceCortex {
 
         /**
          * Specifies how icons on controls such as buttons, toggle buttons, labels, tabs and menu
-         * items should match the color of the current color scheme when they are in default state.
-         * The control is in default state when it's not pressed, not selected, not armed and not
-         * rolled over. By default, all controls show regular (full-color original) icons.
+         * items are themed.
          *
-         * @param iconThemingStrategy Icon theming strategy.
-         * @see ComponentScope#setIconThemingStrategy(JComponent, IconThemingStrategy)
+         * @param activeIconFilterStrategy Icon filter strategy for controls in active states.
+         * @param enabledIconFilterStrategy Icon filter strategy for controls in enabled state.
+         * @param disabledIconFilterStrategy Icon filter strategy for controls in disabled states.
+         * @see ComponentScope#setIconFilterStrategies(JComponent, IconFilterStrategy, IconFilterStrategy, IconFilterStrategy)
          */
-        public static void setIconThemingStrategy(IconThemingStrategy iconThemingStrategy) {
-            UIManager.put(SubstanceSynapse.ICON_THEMING_STRATEGY, iconThemingStrategy);
+        public static void setIconFilterStrategies(
+                IconFilterStrategy activeIconFilterStrategy,
+                IconFilterStrategy enabledIconFilterStrategy,
+                IconFilterStrategy disabledIconFilterStrategy) {
+            UIManager.put(SubstanceSynapse.ICON_FILTER_STRATEGY_ACTIVE, activeIconFilterStrategy);
+            UIManager.put(SubstanceSynapse.ICON_FILTER_STRATEGY_ENABLED, enabledIconFilterStrategy);
+            UIManager.put(SubstanceSynapse.ICON_FILTER_STRATEGY_DISABLED, disabledIconFilterStrategy);
         }
 
         /**
@@ -2092,18 +2097,23 @@ public class SubstanceCortex {
         }
 
         /**
-         * Specifies how the icon(s) on the specified component should match the color of the
-         * current color scheme when it is in default state. The control is in default state when
-         * it's not pressed, not selected, not armed and not rolled over. By default, all controls
-         * show regular (full-color original) icons.
+         * Specifies how icon on the specified control is themed.
          *
-         * @param component           Component.
-         * @param iconThemingStrategy Icon theming strategy for the component icon(s).
-         * @see GlobalScope#setIconThemingStrategy(IconThemingStrategy)
+         * @param activeIconFilterStrategy Icon filter strategy for active states.
+         * @param enabledIconFilterStrategy Icon filter strategy for enabled state.
+         * @param disabledIconFilterStrategy Icon filter strategy for disabled states.
+         * @see GlobalScope#setIconFilterStrategies(IconFilterStrategy, IconFilterStrategy, IconFilterStrategy)
          */
-        public static void setIconThemingStrategy(JComponent component,
-                IconThemingStrategy iconThemingStrategy) {
-            component.putClientProperty(SubstanceSynapse.ICON_THEMING_STRATEGY, iconThemingStrategy);
+        public static void setIconFilterStrategies(JComponent component,
+                IconFilterStrategy activeIconFilterStrategy,
+                IconFilterStrategy enabledIconFilterStrategy,
+                IconFilterStrategy disabledIconFilterStrategy) {
+            component.putClientProperty(SubstanceSynapse.ICON_FILTER_STRATEGY_ACTIVE,
+                    activeIconFilterStrategy);
+            component.putClientProperty(SubstanceSynapse.ICON_FILTER_STRATEGY_ENABLED,
+                    enabledIconFilterStrategy);
+            component.putClientProperty(SubstanceSynapse.ICON_FILTER_STRATEGY_DISABLED,
+                    disabledIconFilterStrategy);
         }
     }
 

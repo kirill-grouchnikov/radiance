@@ -813,21 +813,20 @@ public final class SubstanceSlices {
         SELECTION_FOREGROUND
     }
 
-    public enum IconThemingStrategy {
-        FOLLOW_FOREGROUND {
-            @Override
-            public boolean isForInactiveState() {
-                return false;
-            }
-        },
-        USE_ENABLED_WHEN_INACTIVE {
-            @Override
-            public boolean isForInactiveState() {
-                return true;
-            }
-        };
+    /**
+     * Enumerates available icon filter strategies.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public enum IconFilterStrategy {
+        /** The icon is always painted in its original appearance. */
+        ORIGINAL,
 
-        public abstract boolean isForInactiveState();
+        /** The icon is themed based on the current text color. */
+        THEMED_FOLLOW_TEXT,
+
+        /** The icon is themed based on the color scheme that matches the current component state. */
+        THEMED_FOLLOW_COLOR_SCHEME
     }
 
     public enum BackgroundAppearanceStrategy {

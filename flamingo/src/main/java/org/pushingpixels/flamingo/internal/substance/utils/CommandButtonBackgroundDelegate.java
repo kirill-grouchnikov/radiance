@@ -409,16 +409,10 @@ public class CommandButtonBackgroundDelegate {
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
             JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
             ButtonModel model, StateTransitionTracker stateTransitionTracker, Color textColor) {
-        double scale = NeonCortex.getScaleFactor(commandButton);
-        boolean useThemed = (SubstanceCoreUtilities.getIconThemingType(commandButton) != null);
-        Icon themed = useThemed
-                ? SubstanceCoreUtilities.getThemedIcon(commandButton, regular, textColor)
-                : regular;
-
-        boolean useRegularVersion = (model.isArmed() || model.isPressed() || model.isSelected()
-                || regular.getClass().isAnnotationPresent(TransitionAware.class));
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(iconRect.x, iconRect.y);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
         float alpha = stateTransitionTracker.getActiveStrength();
         if (alpha > 0 && glowingIcon != null && model.isEnabled()
@@ -429,33 +423,45 @@ public class CommandButtonBackgroundDelegate {
             return;
         }
 
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        if (useRegularVersion) {
+        if (regular.getClass().isAnnotationPresent(TransitionAware.class)) {
             regular.paintIcon(commandButton, g2d, 0, 0);
-        } else {
-            if (alpha < 1.0f) {
-                // paint the themed image full opaque on a separate image
-                BufferedImage themedImage = SubstanceCoreUtilities.getBlankImage(scale,
-                        themed.getIconWidth(), themed.getIconHeight());
-                themed.paintIcon(commandButton, themedImage.createGraphics(), 0, 0);
-                // and paint that image translucently
-                g2d.setComposite(WidgetUtilities.getAlphaComposite(commandButton, 1.0f - alpha, g));
-                g2d.drawImage(themedImage, 0, 0, (int) (themedImage.getWidth() / scale),
-                        (int) (themedImage.getHeight() / scale), null);
-            }
+            return;
+        }
 
-            if (alpha > 0.0f) {
-                // paint the regular image full opaque on a separate image
-                BufferedImage regularImage = SubstanceCoreUtilities.getBlankImage(scale,
-                        regular.getIconWidth(), regular.getIconHeight());
-                regular.paintIcon(commandButton, regularImage.createGraphics(), 0, 0);
-                // and paint that image translucently
-                g2d.setComposite(WidgetUtilities.getAlphaComposite(commandButton, alpha, g));
-                g2d.drawImage(regularImage, 0, 0, (int) (regularImage.getWidth() / scale),
-                        (int) (regularImage.getHeight() / scale), null);
+        StateTransitionTracker.ModelStateInfo stateInfo = stateTransitionTracker.getModelStateInfo();
+        ComponentState currentState = stateInfo.getCurrModelState();
+        if (currentState.isDisabled()) {
+            // No support yet for transitions between disabled and enabled / active
+            // states
+            Icon disabledIcon = SubstanceCoreUtilities.getFilteredIcon(commandButton,
+                    regular, currentState, textColor);
+            disabledIcon.paintIcon(commandButton, g2d, 0, 0);
+        } else {
+            // Active states are painted on top of the icon that corresponds to the
+            // enabled state
+            Icon enabledIcon = SubstanceCoreUtilities.getFilteredIcon(commandButton,
+                    regular, ComponentState.ENABLED, textColor);
+            enabledIcon.paintIcon(commandButton, g2d, 0, 0);
+            if (stateTransitionTracker.getActiveStrength() > 0.0f) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
+                        stateInfo.getStateContributionMap().entrySet()) {
+                    if (entry.getKey() == ComponentState.ENABLED) {
+                        continue;
+                    }
+                    float contribution = entry.getValue().getContribution();
+                    if (contribution > 0.0f) {
+                        Icon activeIcon = SubstanceCoreUtilities.getFilteredIcon(commandButton,
+                                regular, entry.getKey(), textColor);
+                        if (activeIcon != enabledIcon) {
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(
+                                    commandButton, contribution, g));
+                            activeIcon.paintIcon(commandButton, g2d, 0, 0);
+                        }
+                    }
+                }
             }
         }
+
         g2d.dispose();
     }
 }

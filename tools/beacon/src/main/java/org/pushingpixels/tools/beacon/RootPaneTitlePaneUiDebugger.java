@@ -178,20 +178,53 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                                                 : ComponentOrientation.RIGHT_TO_LEFT)));
                         popup.add(ltrChange);
 
-                        final JCheckBoxMenuItem useThemedIcons = new JCheckBoxMenuItem(
-                                "Use themed icons");
-                        useThemedIcons.setSelected(
-                                SubstanceCoreUtilities.getIconThemingType(null) ==
-                                        SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE);
-                        useThemedIcons.addActionListener((ActionEvent event) ->
+                        JMenu iconFiltering = new JMenu("Icon filtering");
+
+                        JMenuItem defaultIconFiltering = new JMenuItem("Default");
+                        defaultIconFiltering.addActionListener((ActionEvent event) ->
                                 SwingUtilities.invokeLater(() -> {
-                                    SubstanceCortex.GlobalScope.setIconThemingStrategy(
-                                            useThemedIcons.isSelected()
-                                                    ? SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE
-                                                    : null);
+                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
                                     jcomp.repaint();
                                 }));
-                        popup.add(useThemedIcons);
+                        iconFiltering.add(defaultIconFiltering);
+
+                        JMenuItem mutedIconFiltering = new JMenuItem("Muted");
+                        mutedIconFiltering.addActionListener((ActionEvent event) ->
+                                SwingUtilities.invokeLater(() -> {
+                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+                                    jcomp.repaint();
+                                }));
+                        iconFiltering.add(mutedIconFiltering);
+
+                        JMenuItem textInactiveIconFiltering = new JMenuItem("Text inactive");
+                        textInactiveIconFiltering.addActionListener((ActionEvent event) ->
+                                SwingUtilities.invokeLater(() -> {
+                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+                                    jcomp.repaint();
+                                }));
+                        iconFiltering.add(textInactiveIconFiltering);
+
+                        JMenuItem textAlwaysIconFiltering = new JMenuItem("Text always");
+                        textAlwaysIconFiltering.addActionListener((ActionEvent event) ->
+                                SwingUtilities.invokeLater(() -> {
+                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+                                    jcomp.repaint();
+                                }));
+                        iconFiltering.add(textAlwaysIconFiltering);
+
+                        popup.add(iconFiltering);
 
                         final JCheckBoxMenuItem ghostDebugMode = new JCheckBoxMenuItem(
                                 "Ghost debug mode");

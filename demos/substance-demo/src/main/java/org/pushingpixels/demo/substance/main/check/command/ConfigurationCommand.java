@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.demo.substance.main.check.command;
 
+import javax.swing.*;
+
 /**
  * Base interface for configuring a single control.
  * 

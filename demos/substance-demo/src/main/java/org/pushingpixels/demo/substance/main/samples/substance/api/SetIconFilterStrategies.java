@@ -41,17 +41,17 @@ import java.awt.*;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#setIconThemingStrategy(SubstanceSlices.IconThemingStrategy)} API.
+ * {@link SubstanceCortex.GlobalScope#setIconFilterStrategies(SubstanceSlices.IconFilterStrategy, SubstanceSlices.IconFilterStrategy, SubstanceSlices.IconFilterStrategy)} API.
  *
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.GlobalScope#setIconThemingStrategy(SubstanceSlices.IconThemingStrategy)
+ * @see SubstanceCortex.GlobalScope#setIconFilterStrategies(SubstanceSlices.IconFilterStrategy, SubstanceSlices.IconFilterStrategy, SubstanceSlices.IconFilterStrategy)
  */
-public class SetIconThemingStrategy extends JFrame {
+public class SetIconFilterStrategies extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public SetIconThemingStrategy() {
-        super("Use themed default icons");
+    public SetIconFilterStrategies() {
+        super("Use filtered inactive icons");
 
         this.setLayout(new BorderLayout());
 
@@ -62,13 +62,15 @@ public class SetIconThemingStrategy extends JFrame {
         this.add(panel, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JCheckBox useThemedIcons = new JCheckBox("use themed icons");
+        final JCheckBox useThemedIcons = new JCheckBox("use filtered inactive icons");
         useThemedIcons.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             // based on the checkbox selection status, call the API
-            SubstanceCortex.GlobalScope.setIconThemingStrategy(useThemedIcons.isSelected()
-                    ? SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE
-                    : null);
-            SetIconThemingStrategy.this.repaint();
+            SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                    SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                    useThemedIcons.isSelected() ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME : SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+            );
+            SetIconFilterStrategies.this.repaint();
         }));
         controls.add(useThemedIcons);
         this.add(controls, BorderLayout.SOUTH);
@@ -87,7 +89,7 @@ public class SetIconThemingStrategy extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin());
-            new SetIconThemingStrategy().setVisible(true);
+            new SetIconFilterStrategies().setVisible(true);
         });
     }
 }

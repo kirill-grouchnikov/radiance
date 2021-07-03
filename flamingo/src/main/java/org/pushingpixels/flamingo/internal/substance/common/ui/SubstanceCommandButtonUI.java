@@ -621,7 +621,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
 
         if (layoutInfo.iconRect != null) {
             // Important - have the icon follow the foreground color of the action area
-            // if it is configured with SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND
+            // if it is configured with SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
             this.paintButtonIcon(g2d, layoutInfo.iconRect,
                     getForegroundColor(this.getActionTransitionTracker().getModelStateInfo()));
         }

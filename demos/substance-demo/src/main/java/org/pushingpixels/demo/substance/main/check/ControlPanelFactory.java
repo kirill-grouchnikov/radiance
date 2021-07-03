@@ -39,6 +39,7 @@ import org.pushingpixels.demo.substance.main.check.svg.vaadin.folder_open;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
@@ -296,7 +297,10 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", folder_open.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bfo, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bfo,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         bfo.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showOpenDialog(mainFrame);
@@ -304,7 +308,10 @@ public class ControlPanelFactory {
         builder.append("File chooser", bfo);
 
         JButton bfs = new JButton("Save dialog", folder_open.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bfs, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bfs,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         bfs.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser jfc = new JFileChooser();
             jfc.showSaveDialog(mainFrame);
@@ -312,7 +319,10 @@ public class ControlPanelFactory {
         builder.append("", bfs);
 
         JButton bc = new JButton("Open", folder_open.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bc, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bc,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         bc.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
                     new Color(23, 45, 200));
@@ -376,28 +386,40 @@ public class ControlPanelFactory {
         bopi.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
                         "Sample title", JOptionPane.INFORMATION_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bopi, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bopi,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Info", bopi);
 
         JButton bope = new JButton("Show", ic_error_black_24px.of(16, 16));
         bope.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
                         "Sample title", JOptionPane.ERROR_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bope, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bope,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Error", bope);
 
         JButton bopw = new JButton("Show", ic_warning_black_24px.of(16, 16));
         bopw.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bopw, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bopw,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Warning", bopw);
 
         JButton bopq = new JButton("Show", ic_help_black_24px.of(16, 16));
         bopq.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE)));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bopq, IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bopq,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Question", bopq);
 
         JButton bopc = new JButton("Show");

@@ -44,6 +44,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.ListUI;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -54,8 +55,10 @@ import java.util.Map;
  */
 @SubstanceRenderer
 public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
-        implements ThemedIconAwareRenderer {
+        implements FilteredIconAwareRenderer {
     protected float rolloverArmAmount;
+
+    protected Map<ComponentState, Float> activeContributions = new HashMap<>();
 
     /**
      * Constructs a default renderer object for an item in a list.
@@ -70,6 +73,7 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
             boolean isSelected, boolean cellHasFocus) {
         this.setComponentOrientation(list.getComponentOrientation());
         this.rolloverArmAmount = 0.0f;
+        this.activeContributions.clear();
 
         ListUI listUI = list.getUI();
         if (listUI instanceof SubstanceListUI) {
@@ -102,9 +106,9 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                         ComponentState activeState = activeEntry.getKey();
                         float contribution = activeEntry.getValue().getContribution();
                         if (activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER)
-                                || activeState.isFacetActive(
-                                SubstanceSlices.ComponentStateFacet.ARM)) {
+                                || activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM)) {
                             this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
+                            this.activeContributions.put(activeState, contribution);
                         }
 
                         SubstanceColorScheme scheme = getColorSchemeForState(list, ui, activeState);
@@ -127,6 +131,7 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
                         currState.isFacetActive(SubstanceSlices.ComponentStateFacet.SELECTION) ||
                         currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM);
                 this.rolloverArmAmount = isActive ? 1.0f : 0.0f;
+                this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
                 super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
             }
         } else {
@@ -162,8 +167,8 @@ public class SubstanceDefaultListCellRenderer extends DefaultListCellRenderer
     }
 
     @Override
-    public float getRolloverArmAmount() {
-        return this.rolloverArmAmount;
+    public Map<ComponentState, Float> getActiveContributions() {
+        return this.activeContributions;
     }
 
     private SubstanceColorScheme getColorSchemeForState(JList list, SubstanceListUI ui,

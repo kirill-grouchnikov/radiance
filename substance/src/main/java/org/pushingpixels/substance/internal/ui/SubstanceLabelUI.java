@@ -45,6 +45,7 @@ import javax.swing.plaf.basic.BasicLabelUI;
 import javax.swing.text.View;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 
 /**
  * UI for labels in <b>Substance</b> look and feel.
@@ -101,9 +102,9 @@ public class SubstanceLabelUI extends BasicLabelUI {
             return;
         }
 
-        float rolloverAmount = 0.0f;
-        SubstanceSlices.IconThemingStrategy iconThemingStrategy =
-                SubstanceCoreUtilities.getIconThemingType(label);
+        SubstanceSlices.IconFilterStrategy iconFilterStrategy = label.isEnabled()
+                ? SubstanceCoreUtilities.getEnabledIconFilterStrategy(label)
+                : SubstanceCoreUtilities.getDisabledIconFilterStrategy(label);
 
         Insets insets = label.getInsets(paintViewInsets);
         paintViewR.x = insets.left;
@@ -126,45 +127,46 @@ public class SubstanceLabelUI extends BasicLabelUI {
         ComponentState labelState = label.isEnabled() ? ComponentState.ENABLED
                 : ComponentState.DISABLED_UNSELECTED;
         float labelAlpha = SubstanceColorSchemeUtilities.getAlpha(label, labelState);
-        Color textColor = null;
-        if (text != null) {
-            final View v = (View) c.getClientProperty(BasicHTML.propertyKey);
-            if (v != null) {
-                v.paint(g2d, paintTextR);
+
+        Color textColor;
+        final View v = (View) c.getClientProperty(BasicHTML.propertyKey);
+        if (v != null) {
+            v.paint(g2d, paintTextR);
+            // This text color may not correspond to the text of the HTML-based rendering, but we
+            // still need "something" for filtered icons
+            textColor = SubstanceTextUtilities.getForegroundColor(label, text, labelState, labelAlpha);
+        } else {
+            if (label.getClientProperty(SubstanceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
+                SubstanceSkin skin = SubstanceCoreUtilities.getSkin(label.getRootPane());
+                SubstanceColorScheme scheme = skin.getEnabledColorScheme(
+                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                        NeonCortex.getScaleFactor(label), label.getFont());
+                int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
+                        + fm.getAscent();
+                g2d.translate(paintTextR.x + 3, 0);
+                textColor = scheme.getForegroundColor();
+                SubstanceTextUtilities.paintTextWithDropShadow(label, g2d,
+                        textColor, scheme.getEchoColor(), clippedText,
+                        paintTextR.width + 6, paintTextR.height, 0, yOffset);
+                g2d.translate(-paintTextR.x - 3, 0);
             } else {
-                if (label.getClientProperty(SubstanceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
-                    SubstanceSkin skin = SubstanceCoreUtilities.getSkin(label.getRootPane());
-                    SubstanceColorScheme scheme = skin
-                            .getEnabledColorScheme(SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-                    FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                            NeonCortex.getScaleFactor(label), label.getFont());
-                    int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
-                            + fm.getAscent();
-                    g2d.translate(paintTextR.x + 3, 0);
-                    textColor = scheme.getForegroundColor();
-                    SubstanceTextUtilities.paintTextWithDropShadow(label, g2d,
-                            textColor, scheme.getEchoColor(), clippedText,
-                            paintTextR.width + 6, paintTextR.height, 0, yOffset);
-                    g2d.translate(-paintTextR.x - 3, 0);
-                } else {
-                    // fix for issue 406 - use the same FG computation
-                    // color as for other controls
-                    textColor = SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
-                            label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
-                }
+                // fix for issue 406 - use the same FG computation
+                // color as for other controls
+                textColor = SubstanceTextUtilities.paintText(g2d, label, paintTextR, clippedText,
+                        label.getDisplayedMnemonicIndex(), labelState, labelAlpha);
             }
         }
 
-        // Get themed icon if relevant
-        Icon themedIcon = null;
+        // Get active contributions from filter-aware renderers
+        Map<ComponentState, Float> activeContributions = null;
         if (label.isEnabled()) {
-            if ((icon != null) && (iconThemingStrategy != null)) {
-                if (label instanceof ThemedIconAwareRenderer) {
-                    ThemedIconAwareRenderer themedIconAwareRenderer =
-                            (ThemedIconAwareRenderer) label;
-                    rolloverAmount = themedIconAwareRenderer.getRolloverArmAmount();
+            if ((icon != null) && (iconFilterStrategy != null)) {
+                if (label instanceof FilteredIconAwareRenderer) {
+                    FilteredIconAwareRenderer filteredIconAwareRenderer =
+                            (FilteredIconAwareRenderer) label;
+                    activeContributions = filteredIconAwareRenderer.getActiveContributions();
                 }
-                themedIcon = SubstanceCoreUtilities.getThemedIcon(c, icon, textColor);
             }
         }
 
@@ -172,18 +174,36 @@ public class SubstanceLabelUI extends BasicLabelUI {
         if (icon != null) {
             g2d.translate(paintIconR.x, paintIconR.y);
 
-            if (themedIcon != null) {
-                themedIcon.paintIcon(c, g2d, 0, 0);
-                if ((rolloverAmount > 0.0f) && (iconThemingStrategy != null)
-                        && iconThemingStrategy.isForInactiveState()
-                        && (icon != themedIcon)) {
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, rolloverAmount, g));
-                    icon.paintIcon(c, g2d, 0, 0);
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(c, g));
-                }
+            if (!label.isEnabled()) {
+                // No support yet for transitions between disabled and enabled / active
+                // states
+                Icon disabledIcon = SubstanceCoreUtilities.getFilteredIcon(label,
+                        icon, labelState, textColor);
+                disabledIcon.paintIcon(c, g2d, 0, 0);
             } else {
-                icon.paintIcon(c, g2d, 0, 0);
+                // Active states are painted on top of the icon that corresponds to the
+                // enabled state
+                Icon enabledIcon = SubstanceCoreUtilities.getFilteredIcon(label,
+                        icon, labelState, textColor);
+                enabledIcon.paintIcon(c, g2d, 0, 0);
+                if (activeContributions != null) {
+                    for (Map.Entry<ComponentState, Float> entry : activeContributions.entrySet()) {
+                        if (entry.getKey() == ComponentState.ENABLED) {
+                            continue;
+                        }
+                        float contribution = entry.getValue();
+                        if (contribution > 0.0f) {
+                            Icon activeIcon = SubstanceCoreUtilities.getFilteredIcon(label,
+                                    icon, entry.getKey(), textColor);
+                            if (activeIcon != enabledIcon) {
+                                g2d.setComposite(WidgetUtilities.getAlphaComposite(label, contribution, g));
+                                activeIcon.paintIcon(c, g2d, 0, 0);
+                            }
+                        }
+                    }
+                }
             }
+
             g2d.translate(-paintIconR.x, -paintIconR.y);
         }
         g2d.dispose();

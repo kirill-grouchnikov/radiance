@@ -2176,57 +2176,39 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(iconRect.x, iconRect.y);
-        IconThemingStrategy iconThemingStrategy =
-                SubstanceCoreUtilities.getIconThemingType(this.tabPane);
-        if (iconThemingStrategy != null) {
-            ComponentState currState = this.getTabState(tabIndex, true);
-            StateTransitionTracker tabTracker = stateTransitionMultiTracker.getTracker(tabIndex);
-            Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.tabPane, tabIndex, icon,
-                    this.tabTextColorMap.get(tabIndex));
 
-            if (tabTracker == null) {
-                if (currState.isFacetActive(ComponentStateFacet.ROLLOVER)
-                        || currState.isFacetActive(ComponentStateFacet.SELECTION)
-                        || currState.isDisabled()) {
-                    if (iconThemingStrategy.isForInactiveState()) {
-                        // use the original (full color or disabled) icon
-                        icon.paintIcon(this.tabPane, g2d, 0, 0);
-                    } else {
-                        themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
-                    }
-                    return;
-                }
-            }
-
-            if (tabTracker != null) {
-                // The tab is currently being animated. First paint the themed icon at full alpha.
-                themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
-                float activeAmount = tabTracker.getActiveStrength();
-                if ((activeAmount > 0.0f) && (iconThemingStrategy != null)
-                        && iconThemingStrategy.isForInactiveState()
-                        && (icon != themedIcon)) {
-                    // Non-zero active amount (the tab is participating in a rollover
-                    // animation e.g.), and the icon theming type is only for inactive
-                    // state. This means that we also need to paint the original tab icon
-                    // based on the active amount.
-                    g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane,
-                            activeAmount, g));
-                    icon.paintIcon(this.tabPane, g2d, 0, 0);
-                }
-            } else {
-                // The tab is not being animated
-                if (iconThemingStrategy.isForInactiveState() &&
-                        (this.tabPane.getSelectedIndex() == tabIndex)) {
-                    // Selected tab and the icon theming type is only for inactive state
-                    // (which selected is not) - paint the original icon at full alpha
-                    icon.paintIcon(this.tabPane, g2d, 0, 0);
-                } else {
-                    // Otherwise - paint the themed icon at full alpha
-                    themedIcon.paintIcon(this.tabPane, g2d, 0, 0);
-                }
-            }
+        ComponentState currentState = this.getTabState(tabIndex, true);
+        StateTransitionTracker tabTracker = stateTransitionMultiTracker.getTracker(tabIndex);
+        if (currentState.isDisabled()) {
+            // No support yet for transitions between disabled and enabled / active
+            // states
+            Icon disabledIcon = SubstanceCoreUtilities.getFilteredIcon(this.tabPane, tabIndex,
+                    icon, currentState, this.tabTextColorMap.get(tabIndex));
+            disabledIcon.paintIcon(this.tabPane, g2d, 0, 0);
         } else {
-            icon.paintIcon(this.tabPane, g2d, 0, 0);
+            // Active states are painted on top of the icon that corresponds to the
+            // enabled state
+            Icon enabledIcon = SubstanceCoreUtilities.getFilteredIcon(this.tabPane, tabIndex,
+                    icon, ComponentState.ENABLED, this.tabTextColorMap.get(tabIndex));
+            enabledIcon.paintIcon(this.tabPane, g2d, 0, 0);
+            if ((tabTracker != null) && (tabTracker.getActiveStrength() > 0.0f)) {
+                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
+                        tabTracker.getModelStateInfo().getStateContributionMap().entrySet()) {
+                    if (entry.getKey() == ComponentState.ENABLED) {
+                        continue;
+                    }
+                    float contribution = entry.getValue().getContribution();
+                    if (contribution > 0.0f) {
+                        Icon activeIcon = SubstanceCoreUtilities.getFilteredIcon(this.tabPane, tabIndex,
+                                icon, entry.getKey(), this.tabTextColorMap.get(tabIndex));
+                        if (activeIcon != enabledIcon) {
+                            g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane,
+                                    contribution, g));
+                            activeIcon.paintIcon(this.tabPane, g2d, 0, 0);
+                        }
+                    }
+                }
+            }
         }
         g2d.dispose();
     }

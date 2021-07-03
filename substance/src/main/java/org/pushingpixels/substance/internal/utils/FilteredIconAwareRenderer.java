@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-public interface ThemedIconAwareRenderer {
-	float getRolloverArmAmount();
+import org.pushingpixels.substance.api.ComponentState;
+
+import java.util.Map;
+
+public interface FilteredIconAwareRenderer {
+	Map<ComponentState, Float> getActiveContributions();
 }

@@ -99,8 +99,10 @@ public class Check extends JFrame {
         setLayout(new BorderLayout());
 
         jtp = new JTabbedPane();
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(jtp,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(jtp,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         mainTabPreviewPainter = new MyMainTabPreviewPainter();
         SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp, mainTabPreviewPainter);
@@ -453,10 +455,12 @@ public class Check extends JFrame {
         final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("themed icons");
         useThemedDefaultIconsCheckBox.addActionListener(
                 actionEvent -> SwingUtilities.invokeLater(() -> {
-                    SubstanceCortex.GlobalScope.setIconThemingStrategy(
-                            useThemedDefaultIconsCheckBox.isSelected()
-                                    ? SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE
-                                    : null);
+                    boolean isSelected = useThemedDefaultIconsCheckBox.isSelected();
+                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
+                            isSelected ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT: SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                            isSelected ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT: SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                            isSelected ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT: SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+                    );
                     repaint();
                 }));
         statusBar.add(useThemedDefaultIconsCheckBox);

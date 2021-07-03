@@ -45,6 +45,7 @@ import javax.swing.plaf.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -57,7 +58,7 @@ import java.util.Map;
  */
 @SubstanceRenderer
 public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCellRenderer,
-        ThemedIconAwareRenderer {
+        FilteredIconAwareRenderer {
     /**
      * Last tree the renderer was painted in.
      */
@@ -73,7 +74,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
      */
     protected boolean hasFocus;
 
-    private float rolloverArmAmount;
+    private Map<ComponentState, Float> activeContributions = new HashMap<>();
 
     /**
      * Returns a new instance of SubstanceDefaultTreeCellRenderer. Alignment is set to start
@@ -158,7 +159,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
         this.hasFocus = hasFocus;
         this.setText(stringValue);
 
-        this.rolloverArmAmount = 0.0f;
+        this.activeContributions.clear();
 
         TreeUI treeUI = tree.getUI();
         if (treeUI instanceof SubstanceTreeUI) {
@@ -181,7 +182,6 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
-                    this.rolloverArmAmount = 0.0f;
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -197,7 +197,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                                 SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
                                 activeState.isFacetActive(
                                         SubstanceSlices.ComponentStateFacet.ARM)) {
-                            this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
+                            this.activeContributions.put(activeState, contribution);
                         }
                         aggrRed += schemeFg.getRed() * contribution;
                         aggrGreen += schemeFg.getGreen() * contribution;
@@ -218,7 +218,7 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
                 boolean isActive = currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER)
                         || currState.isFacetActive(SubstanceSlices.ComponentStateFacet.SELECTION)
                         || currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM);
-                this.rolloverArmAmount = isActive ? 1.0f : 0.0f;
+                this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
             }
         } else {
             if (sel) {
@@ -271,8 +271,8 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
     }
 
     @Override
-    public float getRolloverArmAmount() {
-        return this.rolloverArmAmount;
+    public Map<ComponentState, Float> getActiveContributions() {
+        return this.activeContributions;
     }
 
     private SubstanceColorScheme getColorSchemeForState(JTree tree, SubstanceTreeUI ui,

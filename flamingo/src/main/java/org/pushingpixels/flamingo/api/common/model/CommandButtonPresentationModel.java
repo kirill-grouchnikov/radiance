@@ -35,6 +35,8 @@ import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresen
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.substance.api.SubstanceSlices;
 
+import javax.swing.*;
+
 /**
  * Encapsulates presentation metadata for displaying commands as buttons. Use a new instance of
  * {@link Builder} to configure a new presentation, and {@link Builder#build()} to build a
@@ -55,7 +57,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
-    private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+    private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
+    private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
     private boolean isFlat;
     private boolean isFocusable;
     private int horizontalAlignment;
@@ -95,8 +99,12 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.verticalGapScaleFactor : this.verticalGapScaleFactor;
         result.iconDimension = (overlay.iconDimension != null)
                 ? overlay.iconDimension : this.iconDimension;
-        result.iconThemingStrategy = (overlay.iconThemingStrategy != null)
-                ? overlay.iconThemingStrategy : this.iconThemingStrategy;
+        result.activeIconFilterStrategy = (overlay.activeIconFilterStrategy != null)
+                ? overlay.activeIconFilterStrategy : this.activeIconFilterStrategy;
+        result.enabledIconFilterStrategy = (overlay.enabledIconFilterStrategy != null)
+                ? overlay.enabledIconFilterStrategy : this.enabledIconFilterStrategy;
+        result.disabledIconFilterStrategy = (overlay.disabledIconFilterStrategy != null)
+                ? overlay.disabledIconFilterStrategy : this.disabledIconFilterStrategy;
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.popupOrientationKind = (overlay.popupOrientationKind != null)
                 ? overlay.popupOrientationKind : this.popupOrientationKind;
@@ -170,8 +178,16 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.iconDimension;
     }
 
-    public SubstanceSlices.IconThemingStrategy getIconThemingStrategy() {
-        return this.iconThemingStrategy;
+    public SubstanceSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+        return this.activeIconFilterStrategy;
+    }
+
+    public SubstanceSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+        return this.enabledIconFilterStrategy;
+    }
+
+    public SubstanceSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+        return this.disabledIconFilterStrategy;
     }
 
     public PopupOrientationKind getPopupOrientationKind() {
@@ -276,7 +292,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
         private Integer iconDimension;
-        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
+        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
+        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
         private Boolean isMenu;
         private PopupOrientationKind popupOrientationKind;
         private PopupHorizontalGravity popupHorizontalGravity;
@@ -328,8 +346,13 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
-            this.iconThemingStrategy = iconThemingStrategy;
+        public Overlay setIconFilterStrategies(
+                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            this.activeIconFilterStrategy = activeIconFilterStrategy;
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
             return this;
         }
 
@@ -411,7 +434,12 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private double horizontalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
-        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.ORIGINAL;
+        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.ORIGINAL;
+        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private boolean isMenu = false;
         private PopupOrientationKind popupOrientationKind = PopupOrientationKind.DOWNWARD;
         private PopupHorizontalGravity popupHorizontalGravity = PopupHorizontalGravity.START;
@@ -464,8 +492,13 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
-            this.iconThemingStrategy = iconThemingStrategy;
+        public Builder setIconFilterStrategies(
+                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            this.activeIconFilterStrategy = activeIconFilterStrategy;
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
             return this;
         }
 
@@ -548,7 +581,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.isFlat = this.isFlat;
             commandPresentation.isFocusable = this.isFocusable;
             commandPresentation.iconDimension = this.iconDimension;
-            commandPresentation.iconThemingStrategy = this.iconThemingStrategy;
+            commandPresentation.activeIconFilterStrategy = this.activeIconFilterStrategy;
+            commandPresentation.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
+            commandPresentation.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             commandPresentation.isMenu = this.isMenu;
             commandPresentation.popupOrientationKind = this.popupOrientationKind;
             commandPresentation.popupHorizontalGravity = this.popupHorizontalGravity;

@@ -358,7 +358,12 @@ public open class KCommandButtonPresentation {
     public var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
         CommandButtonPresentationModel.PopupHorizontalGravity.START
     public var iconDimension: Int? = null
-    public var iconThemingStrategy: SubstanceSlices.IconThemingStrategy? = null
+    public var activeIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
+        SubstanceSlices.IconFilterStrategy.ORIGINAL
+    public var enabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
+        SubstanceSlices.IconFilterStrategy.ORIGINAL
+    public var disabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
+        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
     public var isMenu: Boolean = false
     public var actionKeyTip: String? = null
     public var popupKeyTip: String? = null
@@ -382,7 +387,11 @@ public open class KCommandButtonPresentation {
             .setPopupOrientationKind(popupOrientationKind)
             .setPopupHorizontalGravity(command.menu?.horizontalGravity ?: popupHorizontalGravity)
             .setIconDimension(iconDimension)
-            .setIconThemingStrategy(iconThemingStrategy)
+            .setIconFilterStrategies(
+                activeIconFilterStrategy,
+                enabledIconFilterStrategy,
+                disabledIconFilterStrategy
+            )
             .setActionKeyTip(actionKeyTip)
             .setPopupKeyTip(popupKeyTip)
             .setMenu(isMenu)
@@ -418,7 +427,11 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
             .setPopupOrientationKind(popupOrientationKind)
             .setIconDimension(iconDimension)
-            .setIconThemingStrategy(iconThemingStrategy)
+            .setIconFilterStrategies(
+                activeIconFilterStrategy,
+                enabledIconFilterStrategy,
+                disabledIconFilterStrategy
+            )
             .setActionKeyTip(actionKeyTip)
             .setPopupKeyTip(popupKeyTip)
             .setMenu(isMenu)

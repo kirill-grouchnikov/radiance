@@ -166,23 +166,31 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
         JLabel bLabel = new JLabel("Buttons");
         bLabel.setIcon(button.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel tbLabel = new JLabel("Toggle buttons");
         tbLabel.setIcon(bullseye.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(tbLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(tbLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel cbLabel = new JLabel("Check boxes");
         cbLabel.setIcon(check_square_o.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(cbLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(cbLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel rbLabel = new JLabel("Radio buttons");
         rbLabel.setIcon(dot_circle.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(rbLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(rbLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         builderButtons.append(bLabel, tbLabel);
         builderButtons.append(cbLabel, rbLabel);

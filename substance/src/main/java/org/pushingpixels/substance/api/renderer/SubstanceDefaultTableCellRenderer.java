@@ -52,6 +52,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -61,8 +62,8 @@ import java.util.Map;
  */
 @SubstanceRenderer
 public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
-        implements ThemedIconAwareRenderer {
-    private float rolloverArmAmount;
+        implements FilteredIconAwareRenderer {
+    private Map<ComponentState, Float> activeContributions = new HashMap<>();
 
     /**
      * Renderer for boolean columns.
@@ -256,8 +257,8 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
     }
 
     @Override
-    public float getRolloverArmAmount() {
-        return this.rolloverArmAmount;
+    public Map<ComponentState, Float> getActiveContributions() {
+        return this.activeContributions;
     }
 
     @Override
@@ -271,7 +272,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
         TableUI tableUI = table.getUI();
         SubstanceTableUI ui = (SubstanceTableUI) tableUI;
 
-        this.rolloverArmAmount = 0.0f;
+        this.activeContributions.clear();
 
         // Recompute the focus indication to prevent flicker - JTable
         // registers a listener on selection changes and repaints the
@@ -302,7 +303,6 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
                 if (currState.isDisabled() || (activeStates == null)
                         || (activeStates.size() == 1)) {
                     super.setForeground(new ColorUIResource(colorScheme.getForegroundColor()));
-                    this.rolloverArmAmount = 0.0f;
                 } else {
                     float aggrRed = 0;
                     float aggrGreen = 0;
@@ -317,7 +317,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
                         if (activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ROLLOVER)
                                 || activeState.isFacetActive(
                                 SubstanceSlices.ComponentStateFacet.ARM)) {
-                            this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
+                            this.activeContributions.put(activeState, contribution);
                         }
                         aggrRed += schemeFg.getRed() * contribution;
                         aggrGreen += schemeFg.getGreen() * contribution;
@@ -340,7 +340,7 @@ public class SubstanceDefaultTableCellRenderer extends DefaultTableCellRenderer
                     SubstanceSlices.ComponentStateFacet.ROLLOVER) ||
                     currState.isFacetActive(SubstanceSlices.ComponentStateFacet.SELECTION) ||
                     currState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM);
-            this.rolloverArmAmount = isActive ? 1.0f : 0.0f;
+            this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
             super.setForeground(new ColorUIResource(scheme.getForegroundColor()));
         }
 

@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
@@ -59,6 +59,7 @@ import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -391,46 +392,52 @@ public class SubstanceButtonUI extends BasicButtonUI implements
         Graphics2D graphics = (Graphics2D) g.create();
         GhostPaintingUtils.paintGhostIcon(graphics, (AbstractButton) c, iconRect);
 
-//		 graphics.setColor(Color.blue);
-//		 graphics.fill(iconRect);
-
-        // We have three types of icons:
-        // 1. The original button icon
-        // 2. The themed version of 1.
-        // 3. The glowing version of 1.
         AbstractButton b = (AbstractButton) c;
         Icon originalIcon = SubstanceCoreUtilities.getOriginalIcon(b, b.getIcon());
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(b, g));
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        float activeAmount = this.substanceVisualStateTracker
-                .getStateTransitionTracker().getActiveStrength();
+        StateTransitionTracker stateTracker = this.substanceVisualStateTracker
+                .getStateTransitionTracker();
         graphics.translate(iconRect.x, iconRect.y);
-        if (activeAmount >= 0.0f) {
-            if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
-                    AnimationFacet.ICON_GLOW, b)
-                    && this.substanceVisualStateTracker
-                    .getStateTransitionTracker().getIconGlowTracker().isPlaying()) {
-                this.glowingIcon.paintIcon(b, graphics, 0, 0);
+        if (AnimationConfigurationManager.getInstance().isAnimationAllowed(
+                AnimationFacet.ICON_GLOW, b)
+                && stateTracker.getIconGlowTracker().isPlaying()) {
+            this.glowingIcon.paintIcon(b, graphics, 0, 0);
+        } else {
+            StateTransitionTracker.ModelStateInfo stateInfo = stateTracker.getModelStateInfo();
+            ComponentState currentState = stateInfo.getCurrModelState();
+            if (currentState.isDisabled()) {
+                // No support yet for transitions between disabled and enabled / active
+                // states
+                Icon disabledIcon = SubstanceCoreUtilities.getFilteredIcon(b,
+                        originalIcon, currentState, this.textColor);
+                disabledIcon.paintIcon(b, graphics, 0, 0);
             } else {
-                SubstanceSlices.IconThemingStrategy iconThemingStrategy =
-                        SubstanceCoreUtilities.getIconThemingType(b);
-                Icon themedIcon = (!(b instanceof JRadioButton)
-                        && !(b instanceof JCheckBox)
-                        && (iconThemingStrategy != null))
-                        ? SubstanceCoreUtilities.getThemedIcon(b, originalIcon, this.textColor)
-                        : originalIcon;
-                themedIcon.paintIcon(b, graphics, 0, 0);
-                if ((activeAmount > 0.0f) && (iconThemingStrategy != null)
-                        && iconThemingStrategy.isForInactiveState()
-                        && (originalIcon != themedIcon)) {
-                    graphics.setComposite(WidgetUtilities.getAlphaComposite(b, activeAmount, g));
-                    originalIcon.paintIcon(b, graphics, 0, 0);
+                // Active states are painted on top of the icon that corresponds to the
+                // enabled state
+                Icon enabledIcon = SubstanceCoreUtilities.getFilteredIcon(b,
+                        originalIcon, ComponentState.ENABLED, this.textColor);
+                enabledIcon.paintIcon(b, graphics, 0, 0);
+                if (stateTracker.getActiveStrength() > 0.0f) {
+                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
+                            stateInfo.getStateContributionMap().entrySet()) {
+                        if (entry.getKey() == ComponentState.ENABLED) {
+                            continue;
+                        }
+                        float contribution = entry.getValue().getContribution();
+                        if (contribution > 0.0f) {
+                            Icon activeIcon = SubstanceCoreUtilities.getFilteredIcon(b,
+                                    originalIcon, entry.getKey(), this.textColor);
+                            if (activeIcon != enabledIcon) {
+                                graphics.setComposite(WidgetUtilities.getAlphaComposite(b, contribution, g));
+                                activeIcon.paintIcon(b, graphics, 0, 0);
+                            }
+                        }
+                    }
                 }
             }
-        } else {
-            originalIcon.paintIcon(b, graphics, 0, 0);
         }
         graphics.dispose();
     }

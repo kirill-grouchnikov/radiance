@@ -174,7 +174,10 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         CommandButtonPresentationModel presentation = CommandButtonPresentationModel.withDefaults()
                 .overlayWith(CommandButtonPresentationModel.overlay()
                         .setPresentationState(stripPresentationModel.getCommandPresentationState())
-                        .setIconThemingStrategy(stripPresentationModel.getIconThemingStrategy())
+                        .setIconFilterStrategies(
+                                stripPresentationModel.getActiveIconFilterStrategy(),
+                                stripPresentationModel.getEnabledIconFilterStrategy(),
+                                stripPresentationModel.getDisabledIconFilterStrategy())
                         .setHorizontalGapScaleFactor(
                                 stripPresentationModel.getHorizontalGapScaleFactor())
                         .setVerticalGapScaleFactor(

@@ -127,15 +127,24 @@ public class SubstanceSynapse {
     public final static String USE_THEMED_ICONS_ON_OPTION_PANES = "substancelaf.internal.useThemedIconsOnOptionPanes";
 
     /**
-     * Client property name for specifying how icons on controls such as buttons, toggle buttons,
-     * labels, tabs and menu items should be themed.
+     * Client property name for specifying how icons in active states are filtered.
      */
-    public final static String ICON_THEMING_STRATEGY = "substancelaf.internal.iconThemingStrategy";
+    public final static String ICON_FILTER_STRATEGY_ACTIVE = "substancelaf.internal.iconFilterStrategyActive";
+
+    /**
+     * Client property name for specifying how icons in the enabled state are filtered.
+     */
+    public final static String ICON_FILTER_STRATEGY_ENABLED = "substancelaf.internal.iconFilterStrategyEnabled";
+
+    /**
+     * Client property name for specifying how icons in disabled states are filtered.
+     */
+    public final static String ICON_FILTER_STRATEGY_DISABLED = "substancelaf.internal.iconFilterStrategyDisabled";
 
     /**
      * Client property name for specifying when control background should be painted.
      */
-    public final static String BACKGROUND_APPEARANCE_STRATEGY = "substancelaf.internal.buttonBackgroundStrategy";
+    public final static String BACKGROUND_APPEARANCE_STRATEGY = "substancelaf.internal.backgroundAppearanceStrategy";
 
     /**
      * Client property name for specifying that contents of a frame, dialog, internal frame, desktop

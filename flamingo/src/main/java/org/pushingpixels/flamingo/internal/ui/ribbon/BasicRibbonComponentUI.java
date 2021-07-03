@@ -50,8 +50,6 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
 
     private PropertyChangeListener projectionPropertyChangeListener;
 
-    private ResizableIcon disabledIcon;
-
     @Override
     public void installUI(JComponent c) {
         this.ribbonComponent = (JRibbonComponent) c;
@@ -77,7 +75,6 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
             ResizableIcon icon = this.ribbonComponent.getIcon();
             if (icon != null) {
                 icon.setDimension(new Dimension(16, 16));
-                this.disabledIcon = createDisabledIcon();
             }
         }
 
@@ -116,7 +113,6 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 ResizableIcon newIcon = (ResizableIcon) propertyChangeEvent.getNewValue();
                 if (newIcon != null) {
                     newIcon.setDimension(new Dimension(16, 16));
-                    this.disabledIcon = createDisabledIcon();
                 }
 
                 ribbonComponent.revalidate();
@@ -375,7 +371,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         JRibbonComponent ribbonComp = (JRibbonComponent) c;
         if (isIconVisible(this.ribbonComponent.getPresentationPriority())) {
             Insets ins = ribbonComp.getInsets();
-            ResizableIcon icon = ribbonComp.isEnabled() ? ribbonComp.getIcon() : this.disabledIcon;
+            ResizableIcon icon = ribbonComp.getIcon();
             if (icon != null) {
                 int availableHeight = ribbonComp.getHeight() - ins.top - ins.bottom;
                 int iconY = Math.max(0, ins.top + (availableHeight - icon.getIconHeight()) / 2);
@@ -396,8 +392,6 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     private int getLayoutGap() {
         return 4;
     }
-
-    protected abstract ResizableIcon createDisabledIcon();
 
     private boolean isIconVisible(JRibbonBand.PresentationPriority presentationPriority) {
         if (this.ribbonComponent.isSimpleWrapper()) {

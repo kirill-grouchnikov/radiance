@@ -61,8 +61,10 @@ public class FakeAccordion extends JPanel {
             // Make an expand / collapse button with straight edges
             JButton titleButton = new JButton(title);
             titleButton.setIcon(icon);
-            SubstanceCortex.ComponentScope.setIconThemingStrategy(titleButton,
-                    SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+            SubstanceCortex.ComponentScope.setIconFilterStrategies(titleButton,
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                    SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
             titleButton.setIconTextGap(8);
             SubstanceCortex.ComponentScope.setButtonStraightSides(titleButton,
                     EnumSet.allOf(SubstanceSlices.Side.class));

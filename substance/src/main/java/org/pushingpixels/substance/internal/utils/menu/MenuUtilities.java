@@ -31,8 +31,6 @@ package org.pushingpixels.substance.internal.utils.menu;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.utils.*;
@@ -47,6 +45,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 
 /**
  * Menu-related utilities.
@@ -609,28 +608,35 @@ public class MenuUtilities {
         // paint menu highlight
         SubstanceMenuBackgroundDelegate.paintHighlights(g2d, menuItem, 0.5f);
 
+        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem.getUI();
+        StateTransitionTracker stateTracker = transitionAwareUI.getTransitionTracker();
+        StateTransitionTracker.ModelStateInfo stateInfo = stateTracker.getModelStateInfo();
+
+        ComponentState currentState = stateInfo.getCurrModelState();
+
         Graphics2D graphics = (Graphics2D) g2d.create();
         if (menuItem.getParent() instanceof JMenuBar) {
             graphics.translate(popupMetrics.maxIconTextGap / 2, 0);
         }
-        Color textColor = null;
-        if (mli.text != null) {
-            View v = (View) menuItem.getClientProperty(BasicHTML.propertyKey);
-            if (v != null) {
-                v.paint(graphics, mli.textRect);
-            } else {
-                textColor = SubstanceTextUtilities.paintText(graphics, menuItem, mli.textRect,
-                        mli.text, menuItem.getDisplayedMnemonicIndex());
-            }
+        float textAlpha = SubstanceColorSchemeUtilities.getAlpha(menuItem,
+                ComponentState.getState(menuItem.getModel(), menuItem, true));
+        Color textColor;
+        View v = (View) menuItem.getClientProperty(BasicHTML.propertyKey);
+        if (v != null) {
+            v.paint(graphics, mli.textRect);
+            // This text color may not correspond to the text of the HTML-based rendering, but we
+            // still need "something" for filtered icons
+            textColor = SubstanceTextUtilities.getForegroundColor(menuItem, mli.text, currentState,
+                    textAlpha);
+        } else {
+            textColor = SubstanceTextUtilities.paintText(graphics, menuItem, mli.textRect,
+                    mli.text, menuItem.getDisplayedMnemonicIndex());
         }
         // draw the accelerator text
         if (acceleratorText != null && !acceleratorText.equals("")) {
             SubstanceTextUtilities.paintText(graphics, menuItem, mli.acceleratorRect,
                     acceleratorText, -1);
         }
-
-        float textAlpha = SubstanceColorSchemeUtilities.getAlpha(menuItem,
-                ComponentState.getState(menuItem.getModel(), menuItem, true));
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, textAlpha, g2d));
         // draw the check icon
@@ -659,40 +665,42 @@ public class MenuUtilities {
             }
 
             if (icon != null) {
-                SubstanceSlices.IconThemingStrategy iconThemingStrategy =
-                        SubstanceCoreUtilities.getIconThemingType(menuItem);
-                boolean useThemed = (iconThemingStrategy != null);
-
                 graphics.translate(mli.iconRect.x, mli.iconRect.y);
                 graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                         RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-                if (!useThemed) {
-                    icon.paintIcon(menuItem, graphics, 0, 0);
+
+                if (currentState.isDisabled()) {
+                    // No support yet for transitions between disabled and enabled / active
+                    // states
+                    Icon disabledIcon = SubstanceCoreUtilities.getFilteredIcon(menuItem,
+                            icon, currentState, textColor);
+                    disabledIcon.paintIcon(menuItem, graphics, 0, 0);
                 } else {
-                    Icon themed = SubstanceCoreUtilities.getThemedIcon(menuItem, icon, textColor);
-                    boolean useRegularVersion = iconThemingStrategy.isForInactiveState()
-                            && (model.isPressed() || model.isSelected());
-                    if (useRegularVersion) {
-                        icon.paintIcon(menuItem, graphics, 0, 0);
-                    } else {
-                        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem.getUI();
-                        StateTransitionTracker stateTransitionTracker = transitionAwareUI
-                                .getTransitionTracker();
-                        float rolloverAmount = Math.max(
-                                stateTransitionTracker
-                                        .getFacetStrength(ComponentStateFacet.ROLLOVER),
-                                stateTransitionTracker.getFacetStrength(ComponentStateFacet.ARM));
-                        themed.paintIcon(menuItem, graphics, 0, 0);
-                        if ((rolloverAmount > 0) && (iconThemingStrategy != null)
-                                && iconThemingStrategy.isForInactiveState()
-                                && (icon != themed)) {
-                            graphics.setComposite(
-                                    WidgetUtilities.getAlphaComposite(menuItem, rolloverAmount, g));
-                            icon.paintIcon(menuItem, graphics, 0, 0);
-                            graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, g));
+                    // Active states are painted on top of the icon that corresponds to the
+                    // enabled state
+                    Icon enabledIcon = SubstanceCoreUtilities.getFilteredIcon(menuItem,
+                            icon, ComponentState.ENABLED, textColor);
+                    enabledIcon.paintIcon(menuItem, graphics, 0, 0);
+                    if (stateTracker.getActiveStrength() > 0.0f) {
+                        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
+                                stateInfo.getStateContributionMap().entrySet()) {
+                            if (entry.getKey() == ComponentState.ENABLED) {
+                                continue;
+                            }
+                            float contribution = entry.getValue().getContribution();
+                            if (contribution > 0.0f) {
+                                Icon activeIcon = SubstanceCoreUtilities.getFilteredIcon(menuItem,
+                                        icon, entry.getKey(), textColor);
+                                if (activeIcon != enabledIcon) {
+                                    graphics.setComposite(WidgetUtilities.getAlphaComposite(
+                                            menuItem, contribution, g));
+                                    activeIcon.paintIcon(menuItem, graphics, 0, 0);
+                                }
+                            }
                         }
                     }
                 }
+
                 graphics.translate(-mli.iconRect.x, -mli.iconRect.y);
             }
         }

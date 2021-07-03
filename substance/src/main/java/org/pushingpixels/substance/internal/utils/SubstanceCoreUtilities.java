@@ -719,28 +719,55 @@ public class SubstanceCoreUtilities {
         }
     }
 
-    /**
-     * Checks whether the specified component will show scheme-colorized icon in the default state.
-     *
-     * @param comp Component.
-     * @return <code>true</code> if the specified component will show scheme-colorized icon in the
-     * default state, <code>false</code> otherwise.
-     */
-    public static IconThemingStrategy getIconThemingType(JComponent comp) {
+    public static IconFilterStrategy getActiveIconFilterStrategy(JComponent comp) {
         if ((comp == null) || comp.getClass().isAnnotationPresent(SubstanceInternalButton.class)) {
-            return null;
+            return IconFilterStrategy.ORIGINAL;
         }
-        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_THEMING_STRATEGY);
-        if (compProperty instanceof IconThemingStrategy) {
-            return (IconThemingStrategy) compProperty;
-        }
-
-        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_THEMING_STRATEGY);
-        if (globalProperty instanceof IconThemingStrategy) {
-            return (IconThemingStrategy) globalProperty;
+        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_FILTER_STRATEGY_ACTIVE);
+        if (compProperty instanceof IconFilterStrategy) {
+            return (IconFilterStrategy) compProperty;
         }
 
-        return null;
+        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_FILTER_STRATEGY_ACTIVE);
+        if (globalProperty instanceof IconFilterStrategy) {
+            return (IconFilterStrategy) globalProperty;
+        }
+
+        return IconFilterStrategy.ORIGINAL;
+    }
+
+    public static IconFilterStrategy getEnabledIconFilterStrategy(JComponent comp) {
+        if ((comp == null) || comp.getClass().isAnnotationPresent(SubstanceInternalButton.class)) {
+            return IconFilterStrategy.ORIGINAL;
+        }
+        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_FILTER_STRATEGY_ENABLED);
+        if (compProperty instanceof IconFilterStrategy) {
+            return (IconFilterStrategy) compProperty;
+        }
+
+        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_FILTER_STRATEGY_ENABLED);
+        if (globalProperty instanceof IconFilterStrategy) {
+            return (IconFilterStrategy) globalProperty;
+        }
+
+        return IconFilterStrategy.ORIGINAL;
+    }
+
+    public static IconFilterStrategy getDisabledIconFilterStrategy(JComponent comp) {
+        if ((comp == null) || comp.getClass().isAnnotationPresent(SubstanceInternalButton.class)) {
+            return IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        }
+        Object compProperty = comp.getClientProperty(SubstanceSynapse.ICON_FILTER_STRATEGY_DISABLED);
+        if (compProperty instanceof IconFilterStrategy) {
+            return (IconFilterStrategy) compProperty;
+        }
+
+        Object globalProperty = UIManager.get(SubstanceSynapse.ICON_FILTER_STRATEGY_DISABLED);
+        if (globalProperty instanceof IconFilterStrategy) {
+            return (IconFilterStrategy) globalProperty;
+        }
+
+        return IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
     }
 
     /**
@@ -1076,47 +1103,59 @@ public class SubstanceCoreUtilities {
         return Boolean.TRUE.equals(UIManager.get(SubstanceSynapse.SHOW_EXTRA_WIDGETS));
     }
 
-    public static ScaleAwareImageWrapperIcon getThemedIcon(JComponent comp, Icon orig,
-            Color textColor) {
-        double scale = NeonCortex.getScaleFactor(comp);
-        IconThemingStrategy iconThemingStrategy =
-                SubstanceCoreUtilities.getIconThemingType(comp);
+    public static IconFilterStrategy getIconFilterStrategy(JComponent component,
+            ComponentState componentState) {
+        if (componentState.isDisabled()) {
+            return SubstanceCoreUtilities.getDisabledIconFilterStrategy(component);
+        }
+        if (componentState == ComponentState.ENABLED) {
+            return SubstanceCoreUtilities.getEnabledIconFilterStrategy(component);
+        }
+        return SubstanceCoreUtilities.getActiveIconFilterStrategy(component);
+    }
 
-        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(comp,
-                ComponentState.ENABLED);
-        switch (iconThemingStrategy) {
-            case USE_ENABLED_WHEN_INACTIVE:
-                float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(
-                        comp, orig, colorScheme, brightnessFactor), scale);
-            case FOLLOW_FOREGROUND: {
+    public static Icon getFilteredIcon(JComponent comp, Icon orig,
+            ComponentState componentState, Color textColor) {
+        double scale = NeonCortex.getScaleFactor(comp);
+
+        IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(comp, componentState);
+        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                comp, componentState);
+        switch (iconFilterStrategy) {
+            case ORIGINAL:
+                return orig;
+            case THEMED_FOLLOW_TEXT:
                 Color foreground = (textColor != null) ? textColor
                         : colorScheme.getForegroundColor();
                 return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorImage(
                         comp, orig, foreground, 1.0f), scale);
-            }
+            case THEMED_FOLLOW_COLOR_SCHEME:
+                float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(
+                        comp, orig, colorScheme, brightnessFactor), scale);
         }
         return null;
     }
 
-    public static ScaleAwareImageWrapperIcon getThemedIcon(JTabbedPane tab, int tabIndex, Icon orig,
-            Color textColor) {
+    public static Icon getFilteredIcon(JTabbedPane tab, int tabIndex, Icon orig,
+            ComponentState componentState, Color textColor) {
         double scale = NeonCortex.getScaleFactor(tab);
-        IconThemingStrategy iconThemingStrategy =
-                SubstanceCoreUtilities.getIconThemingType(tab);
-        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(tab,
-                tabIndex, ColorSchemeAssociationKind.TAB, ComponentState.ENABLED);
 
-        switch (iconThemingStrategy) {
-            case USE_ENABLED_WHEN_INACTIVE:
+        IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(tab, componentState);
+        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(
+                tab, componentState);
+        switch (iconFilterStrategy) {
+            case ORIGINAL:
+                return orig;
+            case THEMED_FOLLOW_TEXT:
+                Color foreground = (textColor != null) ? textColor
+                        : colorScheme.getForegroundColor();
+                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorImage(
+                        tab, orig, foreground, 1.0f), scale);
+            case THEMED_FOLLOW_COLOR_SCHEME:
                 float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
                 return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorSchemeImage(
                         tab, orig, colorScheme, brightnessFactor), scale);
-            case FOLLOW_FOREGROUND:
-                return new ScaleAwareImageWrapperIcon(SubstanceImageCreator.getColorImage(
-                        tab, orig,
-                        (textColor != null) ? textColor : colorScheme.getForegroundColor(), 1.0f),
-                        scale);
         }
         return null;
     }

@@ -34,7 +34,9 @@ import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresen
 import org.pushingpixels.substance.api.SubstanceSlices;
 
 public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePresentationModel {
-    private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+    private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
+    private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
 
     private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
@@ -45,8 +47,16 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
         return new Builder();
     }
 
-    public SubstanceSlices.IconThemingStrategy getIconThemingStrategy() {
-        return this.iconThemingStrategy;
+    public SubstanceSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+        return this.activeIconFilterStrategy;
+    }
+
+    public SubstanceSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+        return this.enabledIconFilterStrategy;
+    }
+
+    public SubstanceSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+        return this.disabledIconFilterStrategy;
     }
 
     public AbstractPopupMenuPresentationModel getPopupMenuPresentationModel() {
@@ -54,12 +64,22 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
     }
 
     public static class Builder {
-        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.ORIGINAL;
+        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.ORIGINAL;
+        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
 
         private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
-        public Builder setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
-            this.iconThemingStrategy = iconThemingStrategy;
+        public Builder setIconFilterStrategies(
+                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            this.activeIconFilterStrategy = activeIconFilterStrategy;
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
             return this;
         }
 
@@ -70,7 +90,9 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
 
         public RibbonTaskbarCommandButtonPresentationModel build() {
             RibbonTaskbarCommandButtonPresentationModel presentationModel = new RibbonTaskbarCommandButtonPresentationModel();
-            presentationModel.iconThemingStrategy = this.iconThemingStrategy;
+            presentationModel.activeIconFilterStrategy = this.activeIconFilterStrategy;
+            presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
+            presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.popupMenuPresentationModel = this.popupMenuPresentationModel;
             return presentationModel;
         }

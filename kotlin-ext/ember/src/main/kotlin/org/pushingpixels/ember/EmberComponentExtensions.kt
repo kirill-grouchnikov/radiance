@@ -210,7 +210,8 @@ public fun JTextComponent.setTextEditContextMenuPresence(hasEditContextMenu: Boo
 @EmberComponentScope
 public fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropSupport: Boolean?) {
     SubstanceCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(
-            this, hasAutomaticDragAndDropSupport)
+        this, hasAutomaticDragAndDropSupport
+    )
 }
 
 /**
@@ -383,9 +384,11 @@ public fun JComponent.setTabComponentCloseCallback(tabCloseCallback: TabCloseCal
  */
 @EmberComponentScope
 public fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
-        runModifiedAnimationOnTabCloseButton: Boolean?) {
+    runModifiedAnimationOnTabCloseButton: Boolean?
+) {
     SubstanceCortex.ComponentScope.setRunModifiedAnimationOnTabCloseButton(
-            this, runModifiedAnimationOnTabCloseButton)
+        this, runModifiedAnimationOnTabCloseButton
+    )
 }
 
 /**
@@ -401,9 +404,11 @@ public fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
  */
 @EmberComponentScope
 public fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
-        runModifiedAnimationOnTabCloseButton: Boolean?) {
+    runModifiedAnimationOnTabCloseButton: Boolean?
+) {
     SubstanceCortex.ComponentScope.setRunModifiedAnimationOnTabCloseButton(
-            this, runModifiedAnimationOnTabCloseButton)
+        this, runModifiedAnimationOnTabCloseButton
+    )
 }
 
 /**
@@ -413,9 +418,12 @@ public fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
  */
 @EmberComponentScope
 public fun JTabbedPane.setTabContentPaneBorderKind(
-        tabContentPaneBorderKind: SubstanceSlices.TabContentPaneBorderKind) {
-    SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(this,
-            tabContentPaneBorderKind)
+    tabContentPaneBorderKind: SubstanceSlices.TabContentPaneBorderKind
+) {
+    SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(
+        this,
+        tabContentPaneBorderKind
+    )
 }
 
 /**
@@ -450,7 +458,8 @@ public fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) 
  */
 @EmberComponentScope
 public fun JComboBox<*>.setComboBoxPrototypeCallback(
-        comboPopupPrototypeCallback: ComboPopupPrototypeCallback<*>) {
+    comboPopupPrototypeCallback: ComboPopupPrototypeCallback<*>
+) {
     SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(this, comboPopupPrototypeCallback)
 }
 
@@ -465,7 +474,8 @@ public fun JComboBox<*>.setComboBoxPrototypeCallback(
 @EmberComponentScope
 public fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisplayValue: Any) {
     SubstanceCortex.ComponentScope.setComboBoxPrototypeDisplayValue(
-            this, comboPopupPrototypeDisplayValue)
+        this, comboPopupPrototypeDisplayValue
+    )
 }
 
 /**
@@ -491,19 +501,25 @@ public fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisp
 @EmberComponentScope
 public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrientation: Int?) {
     SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(
-            this, comboPopupFlyoutOrientation)
+        this, comboPopupFlyoutOrientation
+    )
 }
 
 /**
- * Specifies how the icon(s) on the specified component should match the color of the
- * current color scheme when it is in default state. The control is in default state when
- * it's not pressed, not selected, not armed and not rolled over. By default, all controls
- * show regular (full-color original) icons.
+ * Specifies how icon on the specified control is themed.
  *
- * @param iconThemingStrategy Icon theming type for the component icon(s).
+ * @param activeIconFilterStrategy Icon filter strategy for active states.
+ * @param enabledIconFilterStrategy Icon filter strategy for enabled state.
+ * @param disabledIconFilterStrategy Icon filter strategy for disabled states.
  */
 @EmberComponentScope
-public fun JComponent.setIconThemingType(iconThemingStrategy: SubstanceSlices.IconThemingStrategy) {
-    SubstanceCortex.ComponentScope.setIconThemingStrategy(this, iconThemingStrategy)
+public fun JComponent.setIconFilterStrategies(
+    activeIconFilterStrategy: SubstanceSlices.IconFilterStrategy,
+    enabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy,
+    disabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy
+) {
+    SubstanceCortex.ComponentScope.setIconFilterStrategies(
+        this, activeIconFilterStrategy, enabledIconFilterStrategy, disabledIconFilterStrategy
+    )
 }
 

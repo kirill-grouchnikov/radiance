@@ -155,21 +155,29 @@ public class SampleMenuFactory {
 
         LinkedList<JMenuItem> list4 = new LinkedList<>();
         JMenuItem themed1 = new JMenuItem("Themed enabled", ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed1,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(themed1,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         JMenuItem themed2 = new JMenuItem("Themed disabled", ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed2,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(themed2,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         themed2.setEnabled(false);
         JCheckBoxMenuItem themed3 = new JCheckBoxMenuItem("Themed selected enabled",
                 ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed3,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(themed3,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         themed3.setSelected(true);
         JCheckBoxMenuItem themed4 = new JCheckBoxMenuItem("Themed selected disabled",
                 ic_info_black_24px.of(16, 16));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(themed4,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(themed4,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         themed4.setSelected(true);
         themed4.setEnabled(false);
 

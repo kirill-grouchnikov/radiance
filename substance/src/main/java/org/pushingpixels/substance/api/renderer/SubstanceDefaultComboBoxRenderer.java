@@ -110,6 +110,7 @@ public class SubstanceDefaultComboBoxRenderer extends SubstanceDefaultListCellRe
                             activeState.isFacetActive(ComponentStateFacet.ROLLOVER) ||
                             activeState.isFacetActive(SubstanceSlices.ComponentStateFacet.ARM)) {
                         this.rolloverArmAmount = Math.max(this.rolloverArmAmount, contribution);
+                        this.activeContributions.put(activeState, contribution);
                     }
                 }
             } else {

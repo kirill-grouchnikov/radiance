@@ -42,14 +42,23 @@ public class KCommandButtonStripPresentation {
         CommandStripPresentationModel.StripOrientation.HORIZONTAL
     public var presentationState: CommandButtonPresentationState =
         CommandButtonPresentationState.SMALL
-    public var iconThemingStrategy: SubstanceSlices.IconThemingStrategy? = null
+    public var activeIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
+        SubstanceSlices.IconFilterStrategy.ORIGINAL
+    public var enabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
+        SubstanceSlices.IconFilterStrategy.ORIGINAL
+    public var disabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
+        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
     public var horizontalGapScaleFactor: Double = -1.0
     public var verticalGapScaleFactor: Double = -1.0
 
     internal fun toCommandStripPresentationModel(): CommandStripPresentationModel {
         return CommandStripPresentationModel.builder()
             .setCommandPresentationState(presentationState)
-            .setIconThemingStrategy(iconThemingStrategy)
+            .setIconFilterStrategies(
+                activeIconFilterStrategy,
+                enabledIconFilterStrategy,
+                disabledIconFilterStrategy
+            )
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
             .setOrientation(orientation)

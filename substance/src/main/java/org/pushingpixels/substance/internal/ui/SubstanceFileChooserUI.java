@@ -31,12 +31,15 @@ package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -131,9 +134,14 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
                         : iconPack.getFileChooserFileIcon(ICON_SIZE, colorScheme);
             }
 
-            if (SubstanceCoreUtilities.getIconThemingType(null) != null) {
-                icon = SubstanceCoreUtilities.getThemedIcon(fileChooser, icon, null);
-            }
+            // Filter the icon
+            float labelAlpha = SubstanceColorSchemeUtilities.getAlpha(fileChooser,
+                    ComponentState.ENABLED);
+            Color textColor = SubstanceTextUtilities.getForegroundColor(
+                    fileChooser, "", ComponentState.ENABLED, labelAlpha);
+            icon = SubstanceCoreUtilities.getFilteredIcon(fileChooser,
+                    icon, ComponentState.ENABLED, textColor);
+
             return icon;
         }
     }

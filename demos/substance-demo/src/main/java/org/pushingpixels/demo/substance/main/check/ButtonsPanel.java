@@ -36,7 +36,11 @@ import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
-import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_cut;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.bullseye;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.button;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.check_square_o;
+import org.pushingpixels.demo.substance.main.check.svg.vaadin.dot_circle;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
@@ -311,29 +315,37 @@ public class ButtonsPanel extends JPanel {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 54).padding(Paddings.DIALOG);
+                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 55).padding(Paddings.DIALOG);
 
         builder.append("");
 
         JLabel bLabel = new JLabel("Buttons");
         bLabel.setIcon(button.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(bLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(bLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel tbLabel = new JLabel("Toggle buttons");
         tbLabel.setIcon(bullseye.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(tbLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(tbLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel cbLabel = new JLabel("Check boxes");
         cbLabel.setIcon(check_square_o.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(cbLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(cbLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         JLabel rbLabel = new JLabel("Radio buttons");
         rbLabel.setIcon(dot_circle.of(12, 12));
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(rbLabel,
-                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(rbLabel,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
 
         // bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
         // tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
@@ -357,18 +369,41 @@ public class ButtonsPanel extends JPanel {
                 new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
         this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
         this.addRow(builder, "With icon", se.of(16, 16), new IconCommand(se.of(16, 16)));
-        this.addRow(builder, "Themed for inactive", ic_help_black_24px.of(16, 16),
+        this.addRow(builder, "Themed follow color scheme", edit_cut.of(16, 16),
+                new ChainCommand<>(new IconCommand(edit_cut.of(16, 16)),
+                        (AbstractButton ab) ->
+                                SubstanceCortex.ComponentScope.setIconFilterStrategies(ab,
+                                        SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconFilterStrategies(label,
+                        SubstanceSlices.IconFilterStrategy.ORIGINAL,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME));
+        this.addRow(builder, "Themed follow text", ic_help_black_24px.of(16, 16),
                 new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
-                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(ab,
-                                SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE)),
-                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(label,
-                        SubstanceSlices.IconThemingStrategy.USE_ENABLED_WHEN_INACTIVE));
-        this.addRow(builder, "Themed for foreground", ic_help_black_24px.of(16, 16),
-                new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
-                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(ab,
-                                SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND)),
-                (JLabel label) -> SubstanceCortex.ComponentScope.setIconThemingStrategy(label,
-                        SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND));
+                        (AbstractButton ab) ->
+                                SubstanceCortex.ComponentScope.setIconFilterStrategies(ab,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconFilterStrategies(label,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
+        this.addRow(builder, "Themed follow text (disabled)", ic_help_black_24px.of(16, 16),
+                new ChainCommand<>(
+                        new IconCommand(ic_help_black_24px.of(16, 16)),
+                        (AbstractButton ab) -> ab.setEnabled(false),
+                        (AbstractButton ab) ->
+                                SubstanceCortex.ComponentScope.setIconFilterStrategies(ab,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT)),
+                (JLabel label) -> SubstanceCortex.ComponentScope.setIconFilterStrategies(label,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());

@@ -285,7 +285,11 @@ public class JRibbon extends JComponent {
             RibbonTaskbarCommandButtonProjection projection) {
         CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
-                .setIconThemingStrategy(projection.getPresentationModel().getIconThemingStrategy())
+                .setIconFilterStrategies(
+                        projection.getPresentationModel().getActiveIconFilterStrategy(),
+                        projection.getPresentationModel().getEnabledIconFilterStrategy(),
+                        projection.getPresentationModel().getDisabledIconFilterStrategy()
+                )
                 .setHorizontalGapScaleFactor(0.5)
                 .setVerticalGapScaleFactor(0.5)
                 .setPopupMenuPresentationModel(

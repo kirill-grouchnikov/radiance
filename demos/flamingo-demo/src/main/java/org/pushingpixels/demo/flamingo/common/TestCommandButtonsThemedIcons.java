@@ -53,8 +53,13 @@ public class TestCommandButtonsThemedIcons extends TestCommandButtons {
 
     @Override
     protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
-        // configure the presentation builder to use FOLLOW_FOREGROUND theming strategy
-        builder.setIconThemingStrategy(SubstanceSlices.IconThemingStrategy.FOLLOW_FOREGROUND);
+        // configure the presentation builder to use THEMED_FOLLOW_TEXT icon filter strategy
+        // under all states
+        builder.setIconFilterStrategies(
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
+        );
     }
 
     /**

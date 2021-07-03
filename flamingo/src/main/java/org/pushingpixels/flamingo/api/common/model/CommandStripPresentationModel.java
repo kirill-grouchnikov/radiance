@@ -32,8 +32,6 @@ package org.pushingpixels.flamingo.api.common.model;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 
-import javax.swing.event.EventListenerList;
-
 public class CommandStripPresentationModel implements ImmutablePresentationModel {
     public static final double DEFAULT_GAP_SCALE_FACTOR_PRIMARY_AXIS = 0.75;
     public static final double DEFAULT_GAP_SCALE_FACTOR_SECONDARY_AXIS = 1.0;
@@ -56,17 +54,14 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
     }
 
     /**
-     * Stores the listeners on this model.
-     */
-    private EventListenerList listenerList = new EventListenerList();
-
-    /**
      * Presentation state for the buttons in this button strip. Default state is
      * {@link CommandButtonPresentationState#SMALL}.
      */
     private CommandButtonPresentationState commandPresentationState;
 
-    private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+    private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
+    private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
 
     /**
      * Scale factor for horizontal gaps.
@@ -102,8 +97,16 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         return this.commandPresentationState;
     }
 
-    public SubstanceSlices.IconThemingStrategy getIconThemingStrategy() {
-        return this.iconThemingStrategy;
+    public SubstanceSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+        return this.activeIconFilterStrategy;
+    }
+
+    public SubstanceSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+        return this.enabledIconFilterStrategy;
+    }
+
+    public SubstanceSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+        return this.disabledIconFilterStrategy;
     }
 
     public double getHorizontalGapScaleFactor() {
@@ -133,7 +136,12 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
     public static class Builder {
         private CommandButtonPresentationState commandPresentationState
                 = CommandButtonPresentationState.SMALL;
-        private SubstanceSlices.IconThemingStrategy iconThemingStrategy;
+        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.ORIGINAL;
+        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.ORIGINAL;
+        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy =
+                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;
@@ -147,8 +155,13 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
             return this;
         }
 
-        public Builder setIconThemingStrategy(SubstanceSlices.IconThemingStrategy iconThemingStrategy) {
-            this.iconThemingStrategy = iconThemingStrategy;
+        public Builder setIconFilterStrategies(
+                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
+                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            this.activeIconFilterStrategy = activeIconFilterStrategy;
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
             return this;
         }
 
@@ -185,7 +198,9 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         public CommandStripPresentationModel build() {
             CommandStripPresentationModel presentationModel = new CommandStripPresentationModel();
             presentationModel.commandPresentationState = this.commandPresentationState;
-            presentationModel.iconThemingStrategy = this.iconThemingStrategy;
+            presentationModel.activeIconFilterStrategy = this.activeIconFilterStrategy;
+            presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
+            presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.orientation = this.orientation;
             if (this.hgapScaleFactor < 0) {
                 presentationModel.hgapScaleFactor =

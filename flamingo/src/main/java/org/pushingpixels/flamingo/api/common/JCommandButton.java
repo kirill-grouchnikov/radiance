@@ -531,8 +531,10 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.setDisabledIcon((command.getDisabledIconFactory() != null)
                 ? command.getDisabledIconFactory().createNewIcon()
                 : null);
-        SubstanceCortex.ComponentScope.setIconThemingStrategy(this,
-                commandPresentation.getIconThemingStrategy());
+        SubstanceCortex.ComponentScope.setIconFilterStrategies(this,
+                commandPresentation.getActiveIconFilterStrategy(),
+                commandPresentation.getEnabledIconFilterStrategy(),
+                commandPresentation.getDisabledIconFilterStrategy());
 
         boolean hasAction = (command.getAction() != null);
 
