@@ -27,12 +27,22 @@ width="757" height="550"/>
 
 This is a screenshot of the main Substance demo app running under the Nebula Amethyst skin. As UIs with lots of icons can get pretty busy, Substance provides APIs to theme the icons based on the current skin visuals.
 
-The APIs are in the `SubstanceCortex` class, one in the `GlobalScope` to apply on all icons in your app, and one in the `ComponentScope` to configure icon theming for the specific control:
+The APIs are in the `SubstanceCortex` class, one in the `GlobalScope` to apply on all icons in your app, and one in the `ComponentScope` to configure icon filtering (theming) for the specific control:
 
-* `SubstanceCortex.GlobalScope.setIconThemingType` for global icon theming
-* `SubstanceCortex.ComponentScope.setIconThemingType` for per-component icon theming
+* `SubstanceCortex.GlobalScope.setIconFilterStrategies` for global icon filtering
+* `SubstanceCortex.ComponentScope.setIconFilterStrategies` for per-component icon filtering
 
-At the present moment, two icon theming types are supported. The first is `SubstanceSlices.IconThemingType.USE_ENABLED_WHEN_INACTIVE` which works best for multi-color / multi-tone icons and Substance skins with multi-color color schemes. Here is the same UI with this icon theming type:
+These APIs apply for components / icons in three states:
+ * Disabled
+ * Enabled
+ * Active (any combination of rollover, pressed, armed, selected)
+
+ Three icon filtering strategies are supported:
+ * `ORIGINAL` - leave the icon as supplied by the applicatio with no filtering applied
+ * `THEMED_FOLLOW_TEXT` - filter the icon to use the text color that matches the current component state
+ * `THEMED_FOLLOW_COLOR_SCHEME` - filter the icon to use the Substance color scheme from the currently set skin that matches the component in its current state
+
+`THEMED_FOLLOW_COLOR_SCHEME` which works best for multi-color / multi-tone icons and Substance skins with multi-color color schemes. Here is the same UI with this icon filter strategy applied on enabled and disabled component states:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/icon-theming-enabled.png"
 width="757" height="550"/>
@@ -42,9 +52,9 @@ Take a look at the icons in the toolbar. The icon for the active / selected butt
 * The original Tango icons have enough contrast to continue being easily recognizable when they are themed in what is essentially a mono-chrome purple color palette
 * Nebula Amethyst skin uses color schemes with different background colors for the ultra light to ultra dark range, so that when these colors are used to theme the original icons, the icons remain crisp and legible.
 
-The second option is `SubstanceSlices.IconThemingType.FOLLOW_FOREGROUND` which works best for single-tone icons found in such popular icon packs as [Material](https://material.io/resources/icons/), [Ionicons](https://ionicons.com/), [Friconix](https://friconix.com/), [Flexicons](https://setproduct.com/flexicons), [Font Awesome](https://fontawesome.com/) and many others:
+`THEMED_FOLLOW_TEXT` works best for single-tone icons found in such popular icon packs as [Material](https://material.io/resources/icons/), [Ionicons](https://ionicons.com/), [Friconix](https://friconix.com/), [Flexicons](https://setproduct.com/flexicons), [Font Awesome](https://fontawesome.com/) and many others:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states-extended-themed.png"
 width="275" height="279"/>
 
-In this screenshot of the same UI from earlier under the Magellan skin, all the buttons use the same help icon from the Material icon pack converted by [Photon](../photon/photon.md). At runtime, Substance themes the icon to follow the foreground / text color of the button for a consistent look across all component states.
+In this screenshot of the same UI from earlier under the Magellan skin, all the buttons use the same help icon from the Material icon pack converted by [Photon](../photon/photon.md). At runtime, Substance filters the icon to follow the foreground / text color of the button for a consistent look across all component states.
