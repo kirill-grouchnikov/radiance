@@ -30,10 +30,7 @@
 package org.pushingpixels.demo.substance.main;
 
 import org.pushingpixels.demo.substance.main.check.*;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceFontSelector;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
-import org.pushingpixels.demo.substance.main.check.selector.SubstanceTitlePaneGravitySelector;
+import org.pushingpixels.demo.substance.main.check.selector.*;
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
 import org.pushingpixels.substance.api.ComponentState;
@@ -452,18 +449,13 @@ public class Check extends JFrame {
         titlePaneGravitySelector.setToolTipText("Application title pane gravity");
         statusBar.add(titlePaneGravitySelector);
 
-        final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("themed icons");
-        useThemedDefaultIconsCheckBox.addActionListener(
-                actionEvent -> SwingUtilities.invokeLater(() -> {
-                    boolean isSelected = useThemedDefaultIconsCheckBox.isSelected();
-                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
-                            isSelected ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT: SubstanceSlices.IconFilterStrategy.ORIGINAL,
-                            isSelected ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT: SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                            isSelected ? SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT: SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
-                    );
-                    repaint();
-                }));
-        statusBar.add(useThemedDefaultIconsCheckBox);
+        SubstanceIconFilterStrategySelector iconFilterStrategySelector = new SubstanceIconFilterStrategySelector();
+        SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(iconFilterStrategySelector,
+                SwingUtilities.NORTH);
+        SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(iconFilterStrategySelector,
+                new WidestComboPopupPrototype<SubstanceIconFilterStrategySelector.IconFilterStrategyConfiguration>());
+        iconFilterStrategySelector.setToolTipText("Icon filter strategies");
+        statusBar.add(iconFilterStrategySelector);
 
         return statusBar;
     }
