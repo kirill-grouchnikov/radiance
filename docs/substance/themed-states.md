@@ -38,7 +38,7 @@ These APIs apply for components / icons in three states:
  * Active (any combination of rollover, pressed, armed, selected)
 
  Three icon filtering strategies are supported:
- * `ORIGINAL` - leave the icon as supplied by the applicatio with no filtering applied
+ * `ORIGINAL` - leave the icon as supplied by the application with no filtering applied
  * `THEMED_FOLLOW_TEXT` - filter the icon to use the text color that matches the current component state
  * `THEMED_FOLLOW_COLOR_SCHEME` - filter the icon to use the Substance color scheme from the currently set skin that matches the component in its current state
 
