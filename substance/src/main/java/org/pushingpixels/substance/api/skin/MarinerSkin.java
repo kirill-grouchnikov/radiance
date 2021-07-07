@@ -149,6 +149,11 @@ public class MarinerSkin extends SubstanceSkin {
                 enabledMarkScheme.shade(0.7f), ColorSchemeAssociationKind.MARK,
                 ComponentState.ROLLOVER_UNSELECTED);
 
+        headerSchemeBundle.registerHighlightAlpha(1.0f);
+        headerSchemeBundle.registerHighlightColorScheme(activeScheme);
+        // the next line is to have consistent coloring during the rollover menu animations
+        headerSchemeBundle.registerHighlightAlpha(0.0f, ComponentState.ENABLED);
+
         this.registerDecorationAreaSchemeBundle(headerSchemeBundle, headerColorScheme,
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
