@@ -232,29 +232,18 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
             SubstanceStripingUtils.applyStripedBackground(tree, row, this);
         }
 
-        // There needs to be a way to specify disabled icons.
-        if (!tree.isEnabled()) {
-            this.setEnabled(false);
-            if (leaf) {
-                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(tree,
-                        SubstanceImageCreator.withAlpha(tree, this.getDefaultLeafIcon(), 0.5)));
-            } else if (expanded) {
-                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(tree,
-                        SubstanceImageCreator.withAlpha(tree, this.getDefaultOpenIcon(), 0.5)));
-            } else {
-                this.setDisabledIcon(SubstanceImageCreator.toGrayscale(tree,
-                        SubstanceImageCreator.withAlpha(tree, this.getDefaultClosedIcon(), 0.5)));
-            }
+        this.setEnabled(tree.isEnabled());
+        if (leaf) {
+            this.setIcon(this.getDefaultLeafIcon());
+            this.setDisabledIcon(this.getDefaultLeafIcon());
+        } else if (expanded) {
+            this.setIcon(this.getDefaultOpenIcon());
+            this.setDisabledIcon(this.getDefaultOpenIcon());
         } else {
-            this.setEnabled(true);
-            if (leaf) {
-                this.setIcon(this.getDefaultLeafIcon());
-            } else if (expanded) {
-                this.setIcon(this.getDefaultOpenIcon());
-            } else {
-                this.setIcon(this.getDefaultClosedIcon());
-            }
+            this.setIcon(this.getDefaultClosedIcon());
+            this.setDisabledIcon(this.getDefaultClosedIcon());
         }
+
         this.setComponentOrientation(tree.getComponentOrientation());
 
         this.setOpaque(false);

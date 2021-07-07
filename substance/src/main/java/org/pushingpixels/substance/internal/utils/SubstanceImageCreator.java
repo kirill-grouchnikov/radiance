@@ -413,56 +413,6 @@ public final class SubstanceImageCreator {
     }
 
     /**
-     * Translated the specified icon to grey scale.
-     * 
-     * @param icon
-     *            Icon.
-     * @return Greyscale version of the specified icon.
-     */
-    public static Icon toGrayscale(Component component, Icon icon) {
-        if (icon == null) {
-            return null;
-        }
-
-        int width = icon.getIconWidth();
-        int height = icon.getIconHeight();
-
-        double scale = NeonCortex.getScaleFactor(component);
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
-
-        icon.paintIcon(null, result.getGraphics(), 0, 0);
-        Icon resultIcon = new ScaleAwareImageWrapperIcon(new GrayscaleFilter().filter(result, null),
-                scale);
-        return resultIcon;
-    }
-
-    /**
-     * Makes the specified icon transparent.
-     * 
-     * @param c
-     *            Component.
-     * @param icon
-     *            Icon.
-     * @param alpha
-     *            The alpha of the resulting image. The closer this value is to 0.0, the more
-     *            transparent resulting image will be.
-     * @return Transparent version of the specified icon.
-     */
-    public static Icon withAlpha(Component c, Icon icon, double alpha) {
-        if (icon == null) {
-            return null;
-        }
-
-        int width = icon.getIconWidth();
-        int height = icon.getIconHeight();
-
-        double scale = NeonCortex.getScaleFactor(c);
-        BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
-        icon.paintIcon(c, result.getGraphics(), 0, 0);
-        return new ScaleAwareImageWrapperIcon(new AlphaFilter(alpha).filter(result, null), scale);
-    }
-
-    /**
      * Retrieves radio button of the specified size that matches the specified parameters.
      * 
      * @param component
