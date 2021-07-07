@@ -379,21 +379,15 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     }
 
     private void paintButtonIconRegular(Graphics g, Rectangle iconRect, Color textColor) {
-        Icon regular = this.commandButton.getIcon();
-        if (toUseDisabledIcon() && (this.commandButton.getDisabledIcon() != null)
-                && ((regular != null)
-                && !regular.getClass().isAnnotationPresent(TransitionAware.class))) {
-            regular = this.commandButton.getDisabledIcon();
-        }
-
-        if ((iconRect == null) || (regular == null) || (iconRect.width == 0)
+        Icon icon = this.commandButton.getIcon();
+        if ((iconRect == null) || (icon == null) || (iconRect.width == 0)
                 || (iconRect.height == 0)) {
             return;
         }
 
         Graphics2D g2d = (Graphics2D) g.create();
 
-        GhostPaintingUtils.paintGhostIcon(g2d, this.commandButton, regular, iconRect);
+        GhostPaintingUtils.paintGhostIcon(g2d, this.commandButton, icon, iconRect);
         g2d.setComposite(WidgetUtilities.getAlphaComposite(this.commandButton, g));
 
         StateTransitionTracker tracker = this.substanceVisualStateTracker
@@ -404,7 +398,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             model = this.commandButton.getPopupModel();
         }
         CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, this.commandButton,
-                regular, this.glowingIcon, model, tracker, textColor);
+                icon, this.glowingIcon, model, tracker, textColor);
         g2d.dispose();
     }
 
@@ -442,7 +436,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         }
         this.paintButtonIconRegular(g, iconRect, textColor);
         // does it actually have an icon?
-        Icon iconToPaint = this.getIconToPaint();
+        Icon iconToPaint = this.commandButton.getIcon();
         if (isSelectedMenu && (iconToPaint == null)) {
             // draw a checkmark
             Graphics2D g2d = (Graphics2D) g.create();
@@ -772,27 +766,6 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
             return Math.min(1.0f, actionRolloverCycle + popupRolloverCycle);
         }
         return 1.0f;
-    }
-
-    @Override
-    protected void syncDisabledIcon() {
-        ResizableIcon currDisabledIcon = this.commandButton.getDisabledIcon();
-        ResizableIcon icon = this.commandButton.getIcon();
-        if ((currDisabledIcon == null) || ((currDisabledIcon instanceof UIResource)
-                && !currDisabledIcon.getClass().isAnnotationPresent(TransitionAware.class))) {
-            if (icon != null) {
-                this.commandButton.setDisabledIcon(
-                        new ResizableIconUIResource(new SubstanceDisabledResizableIcon(icon)));
-            } else {
-                this.commandButton.setDisabledIcon(null);
-            }
-        } else {
-            // disabled icon coming from app code
-            if (icon != null) {
-                this.commandButton.getDisabledIcon()
-                        .setDimension(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-            }
-        }
     }
 
     @Override

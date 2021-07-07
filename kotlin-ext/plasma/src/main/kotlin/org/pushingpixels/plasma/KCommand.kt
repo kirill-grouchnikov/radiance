@@ -98,21 +98,6 @@ public open class KCommand {
             }
         }
 
-    // The "disabledIconFactory" property can be modified even after [KCommandButton.toButton] has been called
-    // multiple times. Internally, the setter propagates the new value to the underlying
-    // builder and the cached [Command] instance, which then gets propagated to be reflected in all
-    // command buttons created from this command.
-    private var _disabledIconFactory: Factory? = null
-    public var disabledIconFactory: Factory?
-        get() = _disabledIconFactory
-        set(value) {
-            _disabledIconFactory = value
-            builder.setDisabledIconFactory(value)
-            if (hasBeenConverted) {
-                javaCommand.iconFactory = value
-            }
-        }
-
     public var onActionPreviewActivated: (() -> Unit)? by NullableDelegate { hasBeenConverted }
     public var onActionPreviewCanceled: (() -> Unit)? by NullableDelegate { hasBeenConverted }
 
@@ -249,7 +234,6 @@ public open class KCommand {
         fun populateBuilder(builder: Command.BaseBuilder<*, *>, command: KCommand) {
             builder.setText(command.title)
             builder.setIconFactory(command.iconFactory)
-            builder.setDisabledIconFactory(command.disabledIconFactory)
             builder.setExtraText(command.extraText)
             builder.setAction(command.action)
 

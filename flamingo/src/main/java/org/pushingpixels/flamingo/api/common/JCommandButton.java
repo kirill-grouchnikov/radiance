@@ -89,14 +89,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     private ResizableIcon icon;
 
     /**
-     * Associated disabled icon.
-     *
-     * @see #setDisabledIcon(ResizableIcon)
-     * @see #getDisabledIcon()
-     */
-    private ResizableIcon disabledIcon;
-
-    /**
      * The button text.
      *
      * @see #setText(String)
@@ -528,9 +520,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.setIcon((command.getIconFactory() != null)
                 ? command.getIconFactory().createNewIcon()
                 : null);
-        this.setDisabledIcon((command.getDisabledIconFactory() != null)
-                ? command.getDisabledIconFactory().createNewIcon()
-                : null);
         SubstanceCortex.ComponentScope.setIconFilterStrategies(this,
                 commandPresentation.getActiveIconFilterStrategy(),
                 commandPresentation.getEnabledIconFilterStrategy(),
@@ -701,7 +690,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * Returns the associated icon.
      *
      * @return The associated icon.
-     * @see #getDisabledIcon()
      * @see #setIcon(ResizableIcon)
      */
     public ResizableIcon getIcon() {
@@ -713,7 +701,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * event.
      *
      * @param defaultIcon New default icon for this button.
-     * @see #setDisabledIcon(ResizableIcon)
      * @see #getIcon()
      */
     public void setIcon(ResizableIcon defaultIcon) {
@@ -729,28 +716,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
             }
             repaint();
         }
-    }
-
-    /**
-     * Sets the disabled icon for this button.
-     *
-     * @param disabledIcon Disabled icon for this button.
-     * @see #setIcon(ResizableIcon)
-     * @see #getDisabledIcon()
-     */
-    public void setDisabledIcon(ResizableIcon disabledIcon) {
-        this.disabledIcon = disabledIcon;
-    }
-
-    /**
-     * Returns the associated disabled icon.
-     *
-     * @return The associated disabled icon.
-     * @see #setDisabledIcon(ResizableIcon)
-     * @see #getIcon()
-     */
-    public ResizableIcon getDisabledIcon() {
-        return disabledIcon;
     }
 
     /**

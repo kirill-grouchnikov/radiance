@@ -62,7 +62,6 @@ import java.util.EventListener;
 public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
     private String text;
     private ResizableIcon.Factory iconFactory;
-    private ResizableIcon.Factory disabledIconFactory;
     private String extraText;
     private CommandAction action;
     private CommandActionPreview actionPreview;
@@ -146,18 +145,6 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
             ResizableIcon.Factory old = this.iconFactory;
             this.iconFactory = iconFactory;
             this.weakPropertyChangeSupport.firePropertyChange("iconFactory", old, this.iconFactory);
-        }
-    }
-
-    public ResizableIcon.Factory getDisabledIconFactory() {
-        return this.disabledIconFactory;
-    }
-
-    public void setDisabledIconFactory(ResizableIcon.Factory disabledIconFactory) {
-        if (this.disabledIconFactory != disabledIconFactory) {
-            ResizableIcon.Factory old = this.disabledIconFactory;
-            this.disabledIconFactory = disabledIconFactory;
-            this.weakPropertyChangeSupport.firePropertyChange("disabledIconFactory", old, this.disabledIconFactory);
         }
     }
 
@@ -304,7 +291,6 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
         protected String text;
         protected String extraText;
         protected ResizableIcon.Factory iconFactory;
-        protected ResizableIcon.Factory disabledIconFactory;
         protected CommandAction action;
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
@@ -319,7 +305,6 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
         protected void configureBaseCommand(Command command) {
             command.text = this.text;
             command.iconFactory = this.iconFactory;
-            command.disabledIconFactory = this.disabledIconFactory;
             command.extraText = this.extraText;
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
@@ -347,12 +332,6 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
         @SuppressWarnings("unchecked")
         public B setIconFactory(ResizableIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
-            return (B) this;
-        }
-
-        @SuppressWarnings("unchecked")
-        public B setDisabledIconFactory(ResizableIcon.Factory iconFactory) {
-            this.disabledIconFactory = iconFactory;
             return (B) this;
         }
 

@@ -40,7 +40,6 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -52,8 +51,6 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.color.ColorSpace;
-import java.awt.image.ColorConvertOp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -91,8 +88,6 @@ public class TestCommandToggleButtons extends JFrame {
                 .setText(resourceBundle.getString("Short.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
-                .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
-                        new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
                 .setAction(commandActionEvent -> System.out
                         .println(stamp() + ": command activated, selection state is "
@@ -103,8 +98,6 @@ public class TestCommandToggleButtons extends JFrame {
                 .setText(resourceBundle.getString("LongerLines.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
-                .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
-                        new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
                 .setAction(commandActionEvent -> System.out
                         .println(stamp() + ": command activated, selection state is "
@@ -115,8 +108,6 @@ public class TestCommandToggleButtons extends JFrame {
                 .setText(resourceBundle.getString("LongerLines.text"))
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
                 .setIconFactory(Edit_paste.factory())
-                .setDisabledIconFactory(FilteredResizableIcon.factory(Edit_paste.factory(),
-                        new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null)))
                 .setToggle()
                 .setAction(commandActionEvent -> System.out
                         .println(stamp() + ": command activated, selection state is "

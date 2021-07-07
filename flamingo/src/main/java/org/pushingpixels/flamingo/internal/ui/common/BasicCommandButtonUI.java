@@ -157,7 +157,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      */
     protected void installDefaults() {
         this.updateBorder();
-        this.syncDisabledIcon();
         Font currFont = this.commandButton.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
             this.commandButton.setFont(SubstanceCortex.GlobalScope.getFontPolicy()
@@ -250,19 +249,16 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                         if (success) {
                             if (commandButton != null) {
                                 syncIconDimension();
-                                syncDisabledIcon();
                                 commandButton.repaint();
                             }
                         }
                     });
                     if (!async.isLoading()) {
                         syncIconDimension();
-                        syncDisabledIcon();
                         commandButton.repaint();
                     }
                 } else {
                     syncIconDimension();
-                    syncDisabledIcon();
                     commandButton.revalidate();
                     commandButton.repaint();
                 }
@@ -300,7 +296,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
             if ("presentationState".equals(propertyChangeEvent.getPropertyName())) {
                 syncIconDimension();
-                syncDisabledIcon();
 
                 commandButton.invalidate();
                 commandButton.revalidate();
@@ -330,10 +325,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
                 ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
                 commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
-            }
-            if ("disabledIconFactory".equals(propertyChangeEvent.getPropertyName())) {
-                ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
-                commandButton.setDisabledIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("isToggleSelected".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.getActionModel().setSelected((Boolean) propertyChangeEvent.getNewValue());
@@ -365,12 +356,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
             if ("actionEnabled".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.getActionModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
-                syncDisabledIcon();
                 commandButton.repaint();
             }
             if ("secondaryEnabled".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.getPopupModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
-                syncDisabledIcon();
                 commandButton.repaint();
             }
         };
@@ -513,33 +502,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         NeonCortex.installDesktopHints(g2d, this.commandButton.getFont());
         super.update(g2d, c);
         g2d.dispose();
-    }
-
-    /**
-     * Returns the current icon.
-     *
-     * @return Current icon.
-     */
-    protected Icon getIconToPaint() {
-        return (toUseDisabledIcon() && this.commandButton.getDisabledIcon() != null)
-                ? this.commandButton.getDisabledIcon()
-                : this.commandButton.getIcon();
-    }
-
-    protected boolean toUseDisabledIcon() {
-        // special case for command buttons with POPUP_ONLY kind -
-        // check the popup model
-        boolean toUseDisabledIcon;
-        if (this.commandButton.getCommandButtonKind() == JCommandButton.CommandButtonKind.POPUP_ONLY) {
-            toUseDisabledIcon = !this.commandButton.getPopupModel().isEnabled();
-        } else {
-            toUseDisabledIcon = !this.commandButton.getActionModel().isEnabled();
-        }
-        // Disabled state at the component level overrides the model state
-        if (!toUseDisabledIcon && !this.commandButton.isEnabled()) {
-            toUseDisabledIcon = true;
-        }
-        return toUseDisabledIcon;
     }
 
     /**
@@ -731,9 +693,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 PopupPanelManager.defaultManager().addPopup(commandButton, popup, popupPanel);
             });
         }
-    }
-
-    protected void syncDisabledIcon() {
     }
 
     private void syncIconDimension() {

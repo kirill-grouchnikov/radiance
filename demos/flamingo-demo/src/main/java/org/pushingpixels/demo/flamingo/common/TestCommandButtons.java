@@ -111,11 +111,6 @@ public class TestCommandButtons extends JFrame {
         this.pasteActionCommand = Command.builder()
                 .setText(resourceBundle.getString("Paste.text"))
                 .setIconFactory(Edit_paste.factory())
-                .setDisabledIconFactory(
-                        () -> SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                                Edit_paste.factory(),
-                                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
-                                        ComponentState.DISABLED_UNSELECTED)))
                 .setExtraText(resourceBundle.getString("Paste.textExtra"))
                 .setAction(commandActionEvent -> System.out.println(stamp() + ": Main paste"))
                 .build();
