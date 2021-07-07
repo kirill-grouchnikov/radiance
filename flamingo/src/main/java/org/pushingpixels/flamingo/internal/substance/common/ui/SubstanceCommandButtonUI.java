@@ -46,13 +46,11 @@ import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon
 import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonBackgroundDelegate;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualStateTracker;
-import org.pushingpixels.flamingo.internal.substance.utils.SubstanceDisabledResizableIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -69,7 +67,6 @@ import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker.ModelStateInfo;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
-import org.pushingpixels.substance.internal.utils.icon.TransitionAware;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostingListener;
 

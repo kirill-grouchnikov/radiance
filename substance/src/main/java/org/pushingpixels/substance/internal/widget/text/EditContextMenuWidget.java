@@ -119,7 +119,6 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
                 scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextCutActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.cut");
         result.setIcon(icon);
-        result.setDisabledIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.cut());
         return result;
@@ -135,7 +134,6 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
                 scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextCopyActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.copy");
         result.setIcon(icon);
-        result.setDisabledIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.copy());
         return result;
@@ -157,7 +155,6 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
                 scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextPasteActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.paste");
         result.setIcon(icon);
-        result.setDisabledIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.paste());
         return result;
@@ -174,7 +171,6 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
                 scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextDeleteActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.delete");
         result.setIcon(icon);
-        result.setDisabledIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.replaceSelection(null));
         return result;
@@ -190,7 +186,6 @@ public class EditContextMenuWidget extends SubstanceWidget<JTextComponent> {
                 scheme -> SubstanceCortex.GlobalScope.getIconPack().getTextSelectAllActionIcon(ICON_SIZE, scheme),
                 ComponentStateFacet.ARM, "substance.widget.editcontext.selectall");
         result.setIcon(icon);
-        result.setDisabledIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.selectAll());
         return result;

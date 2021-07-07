@@ -31,17 +31,17 @@ package org.pushingpixels.substance.api;
 
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.SubstancePluginRepository;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.ui.*;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
+import org.pushingpixels.substance.internal.utils.MemoryAnalyzer;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicLookAndFeel;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
-import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
@@ -252,26 +252,15 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
 
     @Override
     public Icon getDisabledIcon(JComponent component, Icon icon) {
-        if (icon == null) {
-            return null;
-        }
-        SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(component,
-                ComponentState.DISABLED_UNSELECTED);
-        BufferedImage result = SubstanceImageCreator.getColorSchemeImage(component, icon, colorScheme, 0.5f);
-        float alpha = SubstanceColorSchemeUtilities.getAlpha(component,
-                ComponentState.DISABLED_UNSELECTED);
-        if (alpha < 1.0f) {
-            BufferedImage intermediate = SubstanceCoreUtilities
-                    .getBlankUnscaledImage(result.getWidth(), result.getHeight());
-            Graphics2D g2d = intermediate.createGraphics();
-            g2d.setComposite(AlphaComposite.SrcOver.derive(alpha));
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.drawImage(result, 0, 0, result.getWidth(), result.getHeight(), null);
-            g2d.dispose();
-            result = intermediate;
-        }
-
-        return new ScaleAwareImageWrapperIcon(result, NeonCortex.getScaleFactor(component));
+        // Substance no longer provides its own implementation of this method. It does
+        // not scale well for skins that have different color treatments for different
+        // decoration areas. It also does not provide enough flexibility for creating
+        // visuals of disabled icons based on a single color vs based on a color scheme
+        // that matches the disabled component state.
+        //
+        // Use SubstanceCortex.GlobalScope.setIconFilterStrategies and
+        // SubstanceCortex.ComponentScope.setIconFilterStrategies for configuring the
+        // visual appearance of icons on disabled components.
+        return super.getDisabledIcon(component, icon);
     }
 }

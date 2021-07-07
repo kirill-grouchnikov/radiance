@@ -175,7 +175,6 @@ protected void installListeners() {
         }
         if ("actionEnabled".equals(propertyChangeEvent.getPropertyName())) {
             commandButton.getActionModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
-            syncDisabledIcon();
             commandButton.repaint();
         }
         ...

@@ -656,11 +656,11 @@ public class MenuUtilities {
                 icon = menuItem.getDisabledIcon();
             } else if (model.isPressed() && model.isArmed()) {
                 icon = menuItem.getPressedIcon();
-                if (icon == null) {
-                    // Use default icon
-                    icon = menuItem.getIcon();
-                }
             } else {
+                icon = menuItem.getIcon();
+            }
+            if (icon == null) {
+                // Use default icon
                 icon = menuItem.getIcon();
             }
 

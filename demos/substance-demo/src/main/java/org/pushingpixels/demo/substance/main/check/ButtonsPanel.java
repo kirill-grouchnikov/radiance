@@ -1,31 +1,31 @@
 /*
  * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.substance.main.check;
 
@@ -53,7 +53,7 @@ import java.util.EnumSet;
 /**
  * Test application panel for testing {@link JButton}, {@link JToggleButton}, {@link JRadioButton}
  * and {@link JCheckBox} components.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class ButtonsPanel extends JPanel {
@@ -64,7 +64,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that removes the focus painting from the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class NoFocusCommand implements ConfigurationCommand<AbstractButton> {
@@ -76,7 +76,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that sets a 5-pixel margin on the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class MarginCommand implements ConfigurationCommand<AbstractButton> {
@@ -88,7 +88,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that sets the specified text on the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class TextCommand implements ConfigurationCommand<AbstractButton> {
@@ -99,9 +99,8 @@ public class ButtonsPanel extends JPanel {
 
         /**
          * Creates a text configuration command.
-         * 
-         * @param text
-         *            Text to set.
+         *
+         * @param text Text to set.
          */
         public TextCommand(String text) {
             this.text = text;
@@ -115,7 +114,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that sets the specified tooltip text on the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class TooltipTextCommand implements ConfigurationCommand<AbstractButton> {
@@ -126,9 +125,8 @@ public class ButtonsPanel extends JPanel {
 
         /**
          * Creates a tooltip text configuration command.
-         * 
-         * @param tooltipText
-         *            Tooltip text to set.
+         *
+         * @param tooltipText Tooltip text to set.
          */
         public TooltipTextCommand(String tooltipText) {
             this.tooltipText = tooltipText;
@@ -142,7 +140,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that sets a popup menu handler on the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class PopupMenuCommand implements ConfigurationCommand<AbstractButton> {
@@ -154,7 +152,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that sets the specified font on the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class FontCommand implements ConfigurationCommand<AbstractButton> {
@@ -165,9 +163,8 @@ public class ButtonsPanel extends JPanel {
 
         /**
          * Creates a font configuration command.
-         * 
-         * @param font
-         *            Font to set.
+         *
+         * @param font Font to set.
          */
         public FontCommand(Font font) {
             this.font = font;
@@ -181,7 +178,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that sets the specified icon on the specified button.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class IconCommand implements ConfigurationCommand<AbstractButton> {
@@ -192,9 +189,8 @@ public class ButtonsPanel extends JPanel {
 
         /**
          * Creates an icon configuration command.
-         * 
-         * @param icon
-         *            Icon to set.
+         *
+         * @param icon Icon to set.
          */
         public IconCommand(Icon icon) {
             this.icon = icon;
@@ -210,7 +206,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that marks the button to not have content area filled.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class NoContentAreaFilledCommand implements ConfigurationCommand<AbstractButton> {
@@ -222,7 +218,7 @@ public class ButtonsPanel extends JPanel {
 
     /**
      * A configure command that marks the button to not have border painted.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private static class NoBorderPaintedCommand implements ConfigurationCommand<AbstractButton> {
@@ -235,9 +231,9 @@ public class ButtonsPanel extends JPanel {
     /**
      * Returns a row of buttons, consisting of {@link JButton}, {@link JToggleButton},
      * {@link JCheckBox} and {@link JRadioButton} in default states.
-     * 
+     *
      * @return A row of buttons, consisting of {@link JButton}, {@link JToggleButton},
-     *         {@link JCheckBox} and {@link JRadioButton} in default states.
+     * {@link JCheckBox} and {@link JRadioButton} in default states.
      */
     private AbstractButton[] getRow() {
         AbstractButton[] result = new AbstractButton[4];
@@ -258,14 +254,10 @@ public class ButtonsPanel extends JPanel {
     /**
      * Adds a row of buttons configured with the specified text, icon and configuration command.
      *
-     * @param builder
-     *            Form builder.
-     * @param label
-     *            Text to set.
-     * @param icon
-     *            Icon to set.
-     * @param cmd
-     *            Configuration command to apply.
+     * @param builder Form builder.
+     * @param label   Text to set.
+     * @param icon    Icon to set.
+     * @param cmd     Configuration command to apply.
      */
     private void addRow(TestFormLayoutBuilder builder, String label, Icon icon,
             ConfigurationCommand<? super AbstractButton> cmd) {
@@ -275,14 +267,10 @@ public class ButtonsPanel extends JPanel {
     /**
      * Adds a row of buttons configured with the specified text, icon and configuration command.
      *
-     * @param builder
-     *            Form builder.
-     * @param label
-     *            Text to set.
-     * @param icon
-     *            Icon to set.
-     * @param cmd
-     *            Configuration command to apply.
+     * @param builder Form builder.
+     * @param label   Text to set.
+     * @param icon    Icon to set.
+     * @param cmd     Configuration command to apply.
      */
     private void addRow(TestFormLayoutBuilder builder, String label, Icon icon,
             ConfigurationCommand<? super AbstractButton> cmd, ConfigurationCommand<JLabel> labelCmd) {
@@ -315,7 +303,7 @@ public class ButtonsPanel extends JPanel {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 55).padding(Paddings.DIALOG);
+                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 56).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -369,6 +357,10 @@ public class ButtonsPanel extends JPanel {
                 new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
         this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
         this.addRow(builder, "With icon", se.of(16, 16), new IconCommand(se.of(16, 16)));
+        this.addRow(builder, "With icon (disabled)", se.of(16, 16),
+                new ChainCommand<>(
+                        (AbstractButton ab) -> ab.setEnabled(false),
+                        new IconCommand(se.of(16, 16))));
         this.addRow(builder, "Themed follow color scheme", edit_cut.of(16, 16),
                 new ChainCommand<>(new IconCommand(edit_cut.of(16, 16)),
                         (AbstractButton ab) ->
