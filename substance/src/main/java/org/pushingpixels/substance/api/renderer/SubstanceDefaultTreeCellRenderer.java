@@ -235,13 +235,10 @@ public class SubstanceDefaultTreeCellRenderer extends JLabel implements TreeCell
         this.setEnabled(tree.isEnabled());
         if (leaf) {
             this.setIcon(this.getDefaultLeafIcon());
-            this.setDisabledIcon(this.getDefaultLeafIcon());
         } else if (expanded) {
             this.setIcon(this.getDefaultOpenIcon());
-            this.setDisabledIcon(this.getDefaultOpenIcon());
         } else {
             this.setIcon(this.getDefaultClosedIcon());
-            this.setDisabledIcon(this.getDefaultClosedIcon());
         }
 
         this.setComponentOrientation(tree.getComponentOrientation());

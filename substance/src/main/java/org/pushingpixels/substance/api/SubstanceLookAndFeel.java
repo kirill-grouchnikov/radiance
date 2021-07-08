@@ -261,6 +261,6 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         // Use SubstanceCortex.GlobalScope.setIconFilterStrategies and
         // SubstanceCortex.ComponentScope.setIconFilterStrategies for configuring the
         // visual appearance of icons on disabled components.
-        return super.getDisabledIcon(component, icon);
+        return icon;
     }
 }
