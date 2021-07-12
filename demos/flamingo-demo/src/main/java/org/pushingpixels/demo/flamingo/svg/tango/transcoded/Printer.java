@@ -441,10 +441,10 @@ g.setTransform(transformsStack.pop());
 		return 42.55818176269531;
 	}
 
-	/** The current width of this resizable icon. */
+	/** The current width of this icon. */
 	private int width;
 
-    /** The current height of this resizable icon. */
+    /** The current height of this icon. */
 	private int height;
 
 	/**

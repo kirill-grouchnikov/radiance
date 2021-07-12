@@ -1521,10 +1521,10 @@ _paint1(g, origAlpha);
 		return 47.0;
 	}
 
-	/** The current width of this resizable icon. */
+	/** The current width of this icon. */
 	private int width;
 
-    /** The current height of this resizable icon. */
+    /** The current height of this icon. */
 	private int height;
 
 	/**
