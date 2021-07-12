@@ -48,7 +48,7 @@ compileJava.doFirst {
         outputDirectory = file('src/main/java/org/radiance/demo/svg')
         outputLanguage = 'java'
         outputPackageName = 'org.radiance.demo.svg'
-        useResizableTemplate = true
+        useNeonTemplate = true
         transcode()
     }
 }
@@ -63,7 +63,7 @@ compileKotlin.doFirst {
         outputDirectory = file('src/main/java/org/radiance/demo/svg')
         outputLanguage = 'kotlin'
         outputPackageName = 'org.radiance.demo.svg'
-        useResizableTemplate = true
+        useNeonTemplate = true
         transcode()
     }
 }
@@ -80,7 +80,7 @@ compileJava.doFirst {
         outputRootDirectory = file('src/main/java/org/radiance/demo/svg')
         outputLanguage = 'java'
         outputRootPackageName = 'org.radiance.demo.svg'
-        useResizableTemplate = true
+        useNeonTemplate = true
         transcode()
     }
 }
@@ -95,7 +95,7 @@ compileKotlin.doFirst {
         outputRootDirectory = file('src/main/java/org/radiance/demo/svg')
         outputLanguage = 'kotlin'
         outputRootPackageName = 'org.radiance.demo.svg'
-        useResizableTemplate = true
+        useNeonTemplate = true
         transcode()
     }
 }
@@ -104,7 +104,7 @@ compileKotlin.doFirst {
 
 Note that using either `compileJava` or `compileKotlin` assumes that you have at least one "real" source file in your project so that these tasks are executed by Gradle. If you are planning to use Ignite in a module that will have only SVG content and the transcoded classes, you will need to use the `ignite` / `igniteDeep` tasks in a different way (perhaps as a default task).
 
-In case you are using `useResizableTemplate = true`, you would also need to declare a dependency on the matching [Neon](../../neon/neon.md) version:
+In case you are using `useNeonTemplate = true`, you would also need to declare a dependency on the matching [Neon](../../neon/neon.md) version:
 
 ```groovy
 dependencies {

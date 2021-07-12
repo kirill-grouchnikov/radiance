@@ -47,7 +47,7 @@ public class IgniteTask extends IgniteBaseTask {
 
     private String outputClassNamePrefix = "";
 
-    private boolean useResizableTemplate;
+    private boolean useNeonTemplate;
 
     private File inputDirectory;
 
@@ -84,13 +84,13 @@ public class IgniteTask extends IgniteBaseTask {
     }
 
     @Input
-    public boolean isUseResizableTemplate() {
-        return useResizableTemplate;
+    public boolean isUseNeonTemplate() {
+        return useNeonTemplate;
     }
 
-    @Option(option = "useResizableTemplate", description = "Configures the usage of resizable template.")
-    public void setUseResizableTemplate(boolean useResizableTemplate) {
-        this.useResizableTemplate = useResizableTemplate;
+    @Option(option = "useNeonTemplate", description = "Configures the usage of Neon template.")
+    public void setUseNeonTemplate(boolean useNeonTemplate) {
+        this.useNeonTemplate = useNeonTemplate;
     }
 
     @InputDirectory
@@ -137,7 +137,7 @@ public class IgniteTask extends IgniteBaseTask {
 
         String templateFileName = "/org/pushingpixels/photon/api/transcoder/" + outputLanguage + "/"
                 + "SvgTranscoderTemplate";
-        templateFileName += (useResizableTemplate ? "Resizable" : "Plain");
+        templateFileName += (useNeonTemplate ? "Neon" : "Plain");
         templateFileName += ".templ";
 
         this.transcodeAllFilesInFolder(inputDirectory, outputDirectory,

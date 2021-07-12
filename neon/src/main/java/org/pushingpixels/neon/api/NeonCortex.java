@@ -328,10 +328,10 @@ public class NeonCortex {
      * @return The colorized version of the icon.
      */
     public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, Color color) {
-        class NeonResizableAsyncLoadingIcon extends NeonAsyncLoadingIcon {
+        class InternalAsyncLoadingIcon extends NeonAsyncLoadingIcon {
             private Color color;
 
-            NeonResizableAsyncLoadingIcon(NeonIcon.Factory sourceFactory, Color color) {
+            InternalAsyncLoadingIcon(NeonIcon.Factory sourceFactory, Color color) {
                 super(sourceFactory);
                 this.color = color;
             }
@@ -348,7 +348,7 @@ public class NeonCortex {
 
         NeonIcon original = sourceFactory.createNewIcon();
         if (original instanceof AsynchronousLoading) {
-            return new NeonResizableAsyncLoadingIcon(sourceFactory, color);
+            return new InternalAsyncLoadingIcon(sourceFactory, color);
         } else {
             return new NeonIcon() {
                 private int width;
