@@ -182,6 +182,11 @@ public class SvgBatikNeonIcon extends SvgBatikIcon implements
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
         listenerList.add(AsynchronousLoadListener.class, l);
     }

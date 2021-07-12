@@ -89,6 +89,13 @@ public class IconDeckNeonIcon<T> implements NeonIcon, AsynchronousLoading {
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        for (NeonIcon icon: iconDeck.values()) {
+            icon.setColorFilter(colorFilter);
+        }
+    }
+
+    @Override
     public int getIconHeight() {
         return currentIcon.getIconHeight();
     }

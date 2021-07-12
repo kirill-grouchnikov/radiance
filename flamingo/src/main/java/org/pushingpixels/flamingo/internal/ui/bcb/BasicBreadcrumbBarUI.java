@@ -480,6 +480,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                             iw = newDimension.width;
                             ih = newDimension.height;
                         }
+
+                        @Override
+                        public void setColorFilter(ColorFilter colorFilter) {
+                            throw new UnsupportedOperationException();
+                        }
                     });
                 }
 
@@ -572,6 +577,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     public void setDimension(Dimension newDimension) {
                         iw = newDimension.width;
                         ih = newDimension.height;
+                    }
+
+                    @Override
+                    public void setColorFilter(ColorFilter colorFilter) {
+                        throw new UnsupportedOperationException();
                     }
                 });
             }

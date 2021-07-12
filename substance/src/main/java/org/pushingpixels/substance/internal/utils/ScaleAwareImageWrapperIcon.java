@@ -65,6 +65,11 @@ public class ScaleAwareImageWrapperIcon implements NeonIcon, UIResource {
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
         int dx = (this.width - this.getInternalWidth()) / 2;

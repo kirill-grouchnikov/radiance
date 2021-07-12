@@ -716,6 +716,11 @@ public class SubstanceIconFactory {
             this.size = newDimension.width;
         }
 
+        @Override
+        public void setColorFilter(ColorFilter colorFilter) {
+            throw new UnsupportedOperationException();
+        }
+
         /**
          * Retrieves icon that matches the specified state of the tree.
          */

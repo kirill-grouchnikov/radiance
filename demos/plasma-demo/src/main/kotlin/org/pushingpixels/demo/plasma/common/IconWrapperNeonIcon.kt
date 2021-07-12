@@ -35,13 +35,13 @@ import java.awt.Dimension
 import java.awt.Graphics
 import javax.swing.Icon
 
-class IconWrapperNeonIcon(val delegate: Icon) : NeonIcon {
+class IconWrapperNeonIcon(private val delegate: Icon) : NeonIcon {
     override fun getIconHeight(): Int {
-        return delegate.getIconHeight()
+        return delegate.iconHeight
     }
 
     override fun getIconWidth(): Int {
-        return delegate.getIconHeight()
+        return delegate.iconHeight
     }
 
     override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
@@ -49,4 +49,8 @@ class IconWrapperNeonIcon(val delegate: Icon) : NeonIcon {
     }
 
     override fun setDimension(dim: Dimension) {}
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        throw UnsupportedOperationException()
+    }
 }

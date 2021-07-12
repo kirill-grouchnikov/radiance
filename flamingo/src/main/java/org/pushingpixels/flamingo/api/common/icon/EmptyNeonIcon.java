@@ -75,6 +75,10 @@ public class EmptyNeonIcon implements NeonIcon {
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+    }
+
+    @Override
     public int getIconHeight() {
         return this.height;
     }

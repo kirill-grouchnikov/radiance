@@ -75,6 +75,11 @@ public class ScaledNeonIcon implements NeonIcon {
 		delegate.setDimension(newDimension);
 	}
 
+	@Override
+	public void setColorFilter(ColorFilter colorFilter) {
+		delegate.setColorFilter(colorFilter);
+	}
+
 	public static Factory factory(Factory delegate, double scaleFactor) {
 		return () -> new ScaledNeonIcon(delegate.createNewIcon(), scaleFactor);
 	}

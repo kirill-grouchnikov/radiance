@@ -122,6 +122,11 @@ public class DecoratedNeonIcon implements NeonIcon, AsynchronousLoading {
         this.delegate.setDimension(newDimension);
     }
 
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.delegate.setColorFilter(colorFilter);
+    }
+
     /**
      * Adds the specified decorator to the end of the decorator sequence. If the
      * specified decorator already exists, it is not moved to the end of the

@@ -50,6 +50,7 @@ import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
+import java.lang.UnsupportedOperationException
 import java.util.*
 import javax.swing.JColorChooser
 import javax.swing.JFrame
@@ -88,6 +89,10 @@ class ColorIcon(private var color: Color) : NeonIcon {
     override fun setDimension(newDimension: Dimension) {
         w = newDimension.width
         h = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        throw UnsupportedOperationException()
     }
 
     companion object {

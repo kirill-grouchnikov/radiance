@@ -29,15 +29,14 @@
  */
 package org.pushingpixels.demo.flamingo;
 
+import org.pushingpixels.demo.flamingo.icon.DemoAsyncLoadingIcon;
+import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon;
 import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.demo.flamingo.icon.NeonAsyncLoadingIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -175,74 +174,16 @@ public class IconFrame {
         });
     }
 
-    /**
-     * Returns the colorized version of icon based off of the passed icon factory.
-     *
-     * @param sourceFactory Source factory to be used to create the icon.
-     * @param color         Color for colorization.
-     * @return The colorized version of the icon.
-     */
-    public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, Color color) {
-        class DemoAsyncLoadingIcon extends NeonAsyncLoadingIcon {
-            private Color color;
-
-            DemoAsyncLoadingIcon(NeonIcon.Factory sourceFactory, Color color) {
-                super(sourceFactory);
-                this.color = color;
-            }
-
+    private static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, Color targetColor) {
+        return new DemoAsyncLoadingIcon(sourceFactory, color -> targetColor) {
             @Override
             protected void makeColorized() {
                 BufferedImage flat = NeonCortex.getBlankScaledImage(
                         NeonCortex.getScaleFactor(null),
                         this.width, this.height);
                 this.currDelegate.paintIcon(null, flat.getGraphics(), 0, 0);
-                this.currColorized = new ImageColorFilter(this.color).filter(flat, null);
+                this.currColorized = new DemoColorFilter(this.colorFilter).filter(flat, null);
             }
-        }
-
-        NeonIcon original = sourceFactory.createNewIcon();
-        if (original instanceof AsynchronousLoading) {
-            return new DemoAsyncLoadingIcon(sourceFactory, color);
-        } else {
-            return new NeonIcon() {
-                private int width;
-                private int height;
-                private BufferedImage colorized;
-
-                @Override
-                public void setDimension(Dimension newDimension) {
-                    NeonIcon original = sourceFactory.createNewIcon();
-                    original.setDimension(newDimension);
-                    BufferedImage flat = NeonCortex.getBlankScaledImage(
-                            NeonCortex.getScaleFactor(null),
-                            newDimension.width, newDimension.height);
-                    original.paintIcon(null, flat.getGraphics(), 0, 0);
-                    this.colorized = new ImageColorFilter(color).filter(flat, null);
-
-                    this.width = newDimension.width;
-                    this.height = newDimension.height;
-                }
-
-                @Override
-                public void paintIcon(Component c, Graphics g, int x, int y) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.translate(x, y);
-                    double scaleFactor = NeonCortex.getScaleFactor(c);
-                    NeonCortex.drawImageWithScale(g2d, scaleFactor, this.colorized, 0, 0);
-                    g2d.dispose();
-                }
-
-                @Override
-                public int getIconWidth() {
-                    return this.width;
-                }
-
-                @Override
-                public int getIconHeight() {
-                    return this.height;
-                }
-            };
-        }
+        };
     }
 }

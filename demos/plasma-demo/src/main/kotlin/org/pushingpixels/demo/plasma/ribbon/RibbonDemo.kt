@@ -76,6 +76,7 @@ import org.pushingpixels.plasma.synapse.*
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessSkin
 import java.awt.*
+import java.lang.UnsupportedOperationException
 import java.text.MessageFormat
 import java.util.*
 import javax.imageio.ImageIO
@@ -266,6 +267,10 @@ private class SimpleNeonIcon(
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
         this.currHeight = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        throw UnsupportedOperationException()
     }
 
     override fun getIconHeight(): Int {
@@ -1773,6 +1778,10 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
         override fun setDimension(newDimension: Dimension) {
             this.width = newDimension.width
             this.height = newDimension.height
+        }
+
+        override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+            throw UnsupportedOperationException()
         }
 
         override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {

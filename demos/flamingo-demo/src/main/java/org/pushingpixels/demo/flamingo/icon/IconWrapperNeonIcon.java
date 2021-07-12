@@ -62,4 +62,9 @@ public class IconWrapperNeonIcon implements NeonIcon {
     @Override
     public void setDimension(Dimension dim) {
     }
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        throw new UnsupportedOperationException();
+    }
 }

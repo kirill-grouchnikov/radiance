@@ -33,6 +33,8 @@ alias JAVA="java"
 RADIANCE_VERSION=4.5-SNAPSHOT
 CLASSPATH=../drop/$RADIANCE_VERSION/core/radiance-photon-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar
 
+java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/plasma-demo/src/main/kotlin/org/pushingpixels/demo/plasma outputPackageName=org.pushingpixels.demo.plasma templateFile=/org/pushingpixels/photon/api/transcoder/kotlin/SvgTranscoderTemplateNeon.templ outputLanguage=kotlin
+
 java -cp $CLASSPATH org.pushingpixels.photon.api.transcoder.SvgBatchConverter sourceFolder=../demos/plasma-demo/src/main/kotlin/org/pushingpixels/demo/plasma/svg outputPackageName=org.pushingpixels.demo.plasma.svg templateFile=/org/pushingpixels/photon/api/transcoder/kotlin/SvgTranscoderTemplateNeon.templ outputLanguage=kotlin
 
 # Don't convert the flamingo-demo transcoding to deep traversal since one of the

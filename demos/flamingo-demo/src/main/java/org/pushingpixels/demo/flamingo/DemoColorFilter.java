@@ -30,6 +30,7 @@
 package org.pushingpixels.demo.flamingo;
 
 import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -37,11 +38,11 @@ import java.awt.image.BufferedImage;
 /**
  * @author Kirill Grouchnikov
  */
-public class ImageColorFilter extends NeonAbstractFilter {
-	private int color;
+public class DemoColorFilter extends NeonAbstractFilter {
+	private NeonIcon.ColorFilter colorFilter;
 	
-	public ImageColorFilter(Color color) {
-		this.color = color.getRGB();
+	public DemoColorFilter(NeonIcon.ColorFilter colorFilter) {
+		this.colorFilter = colorFilter;
 	}
 
 	@Override
@@ -56,15 +57,17 @@ public class ImageColorFilter extends NeonAbstractFilter {
 		int[] pixels = new int[width * height];
 		getPixels(src, 0, 0, width, height, pixels);
 		
-		int colorAlpha = (this.color >>> 24) & 0xFF;
-		int colorRed = (this.color >>> 16) & 0xFF;
-		int colorGreen = (this.color >>> 8) & 0xFF;
-		int colorBlue = this.color & 0xFF;
 		for (int i = 0; i < pixels.length; i++) {
-			// Multiply source alpha by the alpha in our target color
-			int alpha = ((pixels[i] >>> 24) & 0xFF) * colorAlpha / 256;
-			// and use R/G/B from our target color
-			pixels[i] = alpha << 24 | colorRed << 16 | colorGreen << 8 | colorBlue;
+			int argb = pixels[i];
+			int a = (argb >>> 24) & 0xFF;
+			int r = (argb >>> 16) & 0xFF;
+			int g = (argb >>> 8) & 0xFF;
+			int b = (argb >>> 0) & 0xFF;
+
+			Color filtered = this.colorFilter.filter(new Color(r, g, b, a));
+
+			pixels[i] = (a * filtered.getAlpha() / 256) << 24 | filtered.getRed() << 16 |
+					filtered.getGreen() << 8 | filtered.getBlue();
 		}
 		setPixels(dst, 0, 0, width, height, pixels);
 

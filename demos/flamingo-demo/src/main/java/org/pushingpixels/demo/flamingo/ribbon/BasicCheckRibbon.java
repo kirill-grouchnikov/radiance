@@ -2189,6 +2189,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }
 
                 @Override
+                public void setColorFilter(ColorFilter colorFilter) {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
                 public void paintIcon(Component c, Graphics g, int x, int y) {
                     g.drawImage(appMenuButtonTooltipImage, x, y, getIconWidth(), getIconHeight(),
                             null);

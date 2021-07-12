@@ -56,8 +56,16 @@ public class LayeredIcon implements NeonIcon {
 
     @Override
     public void setDimension(Dimension newDimension) {
-        for (NeonIcon layer : layers)
+        for (NeonIcon layer : this.layers) {
             layer.setDimension(newDimension);
+        }
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        for (NeonIcon layer : this.layers) {
+            layer.setColorFilter(colorFilter);
+        }
     }
 
     @Override

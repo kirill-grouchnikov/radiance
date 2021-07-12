@@ -82,6 +82,11 @@ public class GlowingNeonIcon implements NeonIcon {
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        delegate.setColorFilter(colorFilter);
+    }
+
+    @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         if (this.delegate == null)
             return;

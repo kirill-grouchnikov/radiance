@@ -84,6 +84,11 @@ public class ColorNeonIcon implements NeonIcon {
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public int getIconHeight() {
         return this.height;
     }

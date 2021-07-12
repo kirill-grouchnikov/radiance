@@ -1,4 +1,4 @@
-package org.pushingpixels.demo.flamingo.svg.logo
+package org.pushingpixels.demo.plasma
 
 import java.awt.*
 import java.awt.geom.*
@@ -21,9 +21,11 @@ import org.pushingpixels.neon.api.icon.NeonIconUIResource
 class radiance_menu private constructor(private var width: Int, private var height: Int)
        : NeonIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
+    @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private var colorFilter: NeonIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -39,36 +41,41 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 2.0f, 2.0f))
 // _0_0
-shape = GeneralPath()
-(shape as GeneralPath).moveTo(10.0, 0.0)
-(shape as GeneralPath).lineTo(20.0, 10.0)
-(shape as GeneralPath).lineTo(10.0, 20.0)
-(shape as GeneralPath).lineTo(0.0, 10.0)
-(shape as GeneralPath).lineTo(10.0, 0.0)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(5.70703, 7.12131)
-(shape as GeneralPath).lineTo(2.82861, 10.0)
-(shape as GeneralPath).lineTo(5.70703, 12.8787)
-(shape as GeneralPath).lineTo(7.17188, 11.4141)
-(shape as GeneralPath).lineTo(8.58594, 12.8282)
-(shape as GeneralPath).lineTo(7.12109, 14.2928)
-(shape as GeneralPath).lineTo(10.0, 17.1716)
-(shape as GeneralPath).lineTo(12.8789, 14.2928)
-(shape as GeneralPath).lineTo(11.4141, 12.8282)
-(shape as GeneralPath).lineTo(12.8281, 11.4141)
-(shape as GeneralPath).lineTo(14.293, 12.8787)
-(shape as GeneralPath).lineTo(17.1714, 10.0)
-(shape as GeneralPath).lineTo(14.293, 7.12131)
-(shape as GeneralPath).lineTo(10.0, 11.4141)
-(shape as GeneralPath).lineTo(5.70703, 7.12131)
-(shape as GeneralPath).closePath()
-(shape as GeneralPath).moveTo(7.12158, 5.70715)
-(shape as GeneralPath).lineTo(10.0, 8.58591)
-(shape as GeneralPath).lineTo(12.8789, 5.70718)
-(shape as GeneralPath).lineTo(10.0, 2.82843)
-(shape as GeneralPath).lineTo(7.12158, 5.70715)
-(shape as GeneralPath).closePath()
-paint = Color(0, 0, 0, 255)
+if (generalPath == null) {
+   generalPath = GeneralPath()
+} else {
+   generalPath!!.reset()
+}
+generalPath!!.moveTo(10.0f, 0.0f)
+generalPath!!.lineTo(20.0f, 10.0f)
+generalPath!!.lineTo(10.0f, 20.0f)
+generalPath!!.lineTo(0.0f, 10.0f)
+generalPath!!.lineTo(10.0f, 0.0f)
+generalPath!!.closePath()
+generalPath!!.moveTo(5.70703f, 7.12131f)
+generalPath!!.lineTo(2.82861f, 10.0f)
+generalPath!!.lineTo(5.70703f, 12.8787f)
+generalPath!!.lineTo(7.17188f, 11.4141f)
+generalPath!!.lineTo(8.58594f, 12.8282f)
+generalPath!!.lineTo(7.12109f, 14.2928f)
+generalPath!!.lineTo(10.0f, 17.1716f)
+generalPath!!.lineTo(12.8789f, 14.2928f)
+generalPath!!.lineTo(11.4141f, 12.8282f)
+generalPath!!.lineTo(12.8281f, 11.4141f)
+generalPath!!.lineTo(14.293f, 12.8787f)
+generalPath!!.lineTo(17.1714f, 10.0f)
+generalPath!!.lineTo(14.293f, 7.12131f)
+generalPath!!.lineTo(10.0f, 11.4141f)
+generalPath!!.lineTo(5.70703f, 7.12131f)
+generalPath!!.closePath()
+generalPath!!.moveTo(7.12158f, 5.70715f)
+generalPath!!.lineTo(10.0f, 8.58591f)
+generalPath!!.lineTo(12.8789f, 5.70718f)
+generalPath!!.lineTo(10.0f, 2.82843f)
+generalPath!!.lineTo(7.12158f, 5.70715f)
+generalPath!!.closePath()
+shape = generalPath
+paint = colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -92,6 +99,7 @@ g.transform = transformsStack.pop()
 
 
 	    shape = null
+	    generalPath = null
 	    paint = null
 	    stroke = null
 	    clip = null
@@ -174,12 +182,16 @@ g.transform = transformsStack.pop()
         return height
     }
 
-    override fun setDimension(newDimension: Dimension) {
+    override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
     }
 
-    override fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        this.colorFilter = colorFilter
+    }
+
+    override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {
         val g2d = g.create() as Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON)

@@ -38,16 +38,19 @@ import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class NeonAsyncLoadingIcon implements NeonIcon, AsynchronousLoading {
+public abstract class DemoAsyncLoadingIcon implements NeonIcon, AsynchronousLoading {
     protected NeonIcon.Factory sourceFactory;
     protected int width;
     protected int height;
     protected NeonIcon currDelegate;
-    protected BufferedImage currColorized;
     protected EventListenerList listenerList;
 
-    public NeonAsyncLoadingIcon(NeonIcon.Factory sourceFactory) {
+    protected ColorFilter colorFilter;
+    protected BufferedImage currColorized;
+
+    public DemoAsyncLoadingIcon(NeonIcon.Factory sourceFactory, ColorFilter colorFilter) {
         this.sourceFactory = sourceFactory;
+        this.colorFilter = colorFilter;
         this.listenerList = new EventListenerList();
     }
 
@@ -82,6 +85,14 @@ public abstract class NeonAsyncLoadingIcon implements NeonIcon, AsynchronousLoad
             });
         } else {
             // Already loaded
+            makeColorized();
+        }
+    }
+
+    @Override
+    public void setColorFilter(NeonIcon.ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+        if (!this.isLoading()) {
             makeColorized();
         }
     }

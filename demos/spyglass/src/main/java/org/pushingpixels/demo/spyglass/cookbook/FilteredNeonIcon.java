@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.flamingo.api.common.icon;
+package org.pushingpixels.demo.spyglass.cookbook;
 
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
@@ -93,6 +93,11 @@ public class FilteredNeonIcon implements NeonIcon {
     @Override
     public void setDimension(Dimension newDimension) {
         delegate.setDimension(newDimension);
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        delegate.setColorFilter(colorFilter);
     }
 
     @Override

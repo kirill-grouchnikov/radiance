@@ -34,7 +34,6 @@ import com.jhlabs.image.CompoundFilter;
 import com.jhlabs.image.Gradient;
 import com.jhlabs.image.PointFilter;
 import org.pushingpixels.demo.spyglass.cookbook.skin.GoldenBrownColorScheme;
-import org.pushingpixels.flamingo.api.common.icon.FilteredNeonIcon;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
@@ -93,6 +92,12 @@ public class EchoNeonIcon implements NeonIcon {
     public void setDimension(Dimension newDimension) {
         this.original.setDimension(newDimension);
         this.echo.setDimension(newDimension);
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.original.setColorFilter(colorFilter);
+        this.echo.setColorFilter(colorFilter);
     }
 
     @Override

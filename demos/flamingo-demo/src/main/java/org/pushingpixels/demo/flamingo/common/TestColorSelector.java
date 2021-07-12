@@ -233,6 +233,11 @@ public class TestColorSelector extends JFrame {
         }
 
         @Override
+        public void setColorFilter(ColorFilter colorFilter) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public int getIconWidth() {
             return w;
         }
