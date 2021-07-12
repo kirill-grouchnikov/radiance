@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.flamingo.api.common.icon;
+package org.pushingpixels.demo.flamingo.icon;
 
 import org.pushingpixels.neon.api.icon.NeonIcon;
 
@@ -41,8 +41,7 @@ import java.net.URL;
  * 
  * @author Kirill Grouchnikov
  */
-public class IcoWrapperNeonIcon extends IcoWrapperIcon implements
-		NeonIcon {
+public class IcoWrapperNeonIcon extends IcoWrapperIcon implements NeonIcon {
 	/**
 	 * Returns the icon for the specified URL.
 	 * 
@@ -92,5 +91,10 @@ public class IcoWrapperNeonIcon extends IcoWrapperIcon implements
 	@Override
 	public void setDimension(Dimension dim) {
 		this.setPreferredSize(dim);
+	}
+
+	@Override
+	public void setColorFilter(ColorFilter colorFilter) {
+		throw new UnsupportedOperationException();
 	}
 }

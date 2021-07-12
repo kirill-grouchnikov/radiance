@@ -45,6 +45,7 @@ dependencies {
     implementation project(':kotlin-ext:ember')
     implementation project(':kotlin-ext:meteor')
     implementation project(':flamingo')
+    implementation project(':demos:flamingo-demo')
 }
 
 ext.designation = "demo"

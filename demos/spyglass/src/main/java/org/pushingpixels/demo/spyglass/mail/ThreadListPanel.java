@@ -30,11 +30,9 @@
 package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.spyglass.mail.svg.ic_mail_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_person_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_refresh_black_24px;
-import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -43,6 +41,7 @@ import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -68,9 +67,12 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        NeonIcon editIcon = NeonCortex.colorizeIcon(
-                ic_mode_edit_black_24px.factory(), mainSelectorIconColor, 0.8f);
-        editIcon.setDimension(new Dimension(14, 14));
+        NeonIcon editIcon = ic_mode_edit_black_24px.of(14, 14);
+        Color filterColor = new Color(mainSelectorIconColor.getRed(),
+                mainSelectorIconColor.getGreen(),
+                mainSelectorIconColor.getBlue(),
+                204);
+        editIcon.setColorFilter(color -> filterColor);
         this.add(getTitlePanel(editIcon));
 
         NeonIcon mailIcon = ic_refresh_black_24px.factory().createNewIcon();

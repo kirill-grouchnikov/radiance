@@ -32,11 +32,6 @@ package org.pushingpixels.neon.api;
 import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
 import org.pushingpixels.neon.api.font.FontPolicy;
 import org.pushingpixels.neon.api.font.FontSet;
-import org.pushingpixels.neon.api.icon.NeonAsyncLoadingIconUIResource;
-import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.neon.api.icon.NeonIconUIResource;
-import org.pushingpixels.neon.internal.ImageColorFilter;
-import org.pushingpixels.neon.internal.NeonAsyncLoadingIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
@@ -317,109 +312,6 @@ public class NeonCortex {
             g.drawImage(img, x, y, x + width, y + height,
                     x + offsetX, y + offsetY,
                     x + offsetX + width, y + offsetY + height, null);
-        }
-    }
-
-    /**
-     * Returns the colorized version of icon based off of the passed icon factory.
-     *
-     * @param sourceFactory Source factory to be used to create the icon.
-     * @param color         Color for colorization.
-     * @return The colorized version of the icon.
-     */
-    public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, Color color) {
-        class InternalAsyncLoadingIcon extends NeonAsyncLoadingIcon {
-            private Color color;
-
-            InternalAsyncLoadingIcon(NeonIcon.Factory sourceFactory, Color color) {
-                super(sourceFactory);
-                this.color = color;
-            }
-
-            @Override
-            protected void makeColorized() {
-                BufferedImage flat = NeonCortex.getBlankScaledImage(
-                        NeonCortex.getScaleFactor(null),
-                        this.width, this.height);
-                this.currDelegate.paintIcon(null, flat.getGraphics(), 0, 0);
-                this.currColorized = new ImageColorFilter(this.color).filter(flat, null);
-            }
-        }
-
-        NeonIcon original = sourceFactory.createNewIcon();
-        if (original instanceof AsynchronousLoading) {
-            return new InternalAsyncLoadingIcon(sourceFactory, color);
-        } else {
-            return new NeonIcon() {
-                private int width;
-                private int height;
-                private BufferedImage colorized;
-
-                @Override
-                public void setDimension(Dimension newDimension) {
-                    NeonIcon original = sourceFactory.createNewIcon();
-                    original.setDimension(newDimension);
-                    BufferedImage flat = NeonCortex.getBlankScaledImage(
-                            NeonCortex.getScaleFactor(null),
-                            newDimension.width, newDimension.height);
-                    original.paintIcon(null, flat.getGraphics(), 0, 0);
-                    this.colorized = new ImageColorFilter(color).filter(flat, null);
-
-                    this.width = newDimension.width;
-                    this.height = newDimension.height;
-                }
-
-                @Override
-                public void paintIcon(Component c, Graphics g, int x, int y) {
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.translate(x, y);
-                    double scaleFactor = NeonCortex.getScaleFactor(c);
-                    NeonCortex.drawImageWithScale(g2d, scaleFactor, this.colorized, 0, 0);
-                    g2d.dispose();
-                }
-
-                @Override
-                public int getIconWidth() {
-                    return this.width;
-                }
-
-                @Override
-                public int getIconHeight() {
-                    return this.height;
-                }
-            };
-        }
-    }
-
-    /**
-     * Returns the colorized version of icon based off of the passed icon factory.
-     *
-     * @param sourceFactory Source factory to be used to create the icon.
-     * @param color         Color for colorization.
-     * @param alpha         Alpha value for colorization.
-     * @return The colorized version of the icon.
-     */
-    public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory,
-            Color color, float alpha) {
-        return colorizeIcon(sourceFactory, new Color(color.getRed(), color.getGreen(),
-                color.getBlue(), (int) (alpha * 255)));
-    }
-
-    /**
-     * Returns the colorized version of icon based off of the passed icon factory. The returned
-     * icon also implements the marker {@link javax.swing.plaf.UIResource} interface.
-     *
-     * @param sourceFactory Source factory to be used to create the icon.
-     * @param color         Color for colorization.
-     * @return The colorized version of the icon.
-     */
-    public static NeonIconUIResource colorizeIconAsUiResource(
-            NeonIcon.Factory sourceFactory, Color color) {
-        NeonIcon colorized = colorizeIcon(sourceFactory, color);
-        if (colorized instanceof AsynchronousLoading) {
-            return new NeonAsyncLoadingIconUIResource(colorized);
-        } else {
-            return new NeonIconUIResource(colorized);
         }
     }
 }

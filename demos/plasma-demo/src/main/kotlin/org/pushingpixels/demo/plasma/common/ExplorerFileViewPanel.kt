@@ -33,8 +33,8 @@ import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.StringValuePair
-import org.pushingpixels.flamingo.api.common.icon.IcoWrapperNeonIcon
-import org.pushingpixels.flamingo.api.common.icon.ImageWrapperNeonIcon
+import org.pushingpixels.demo.flamingo.icon.IcoWrapperNeonIcon
+import org.pushingpixels.demo.flamingo.icon.ImageWrapperNeonIcon
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.NeonIcon

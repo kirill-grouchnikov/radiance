@@ -1,37 +1,36 @@
 /*
  * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
-import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -56,7 +55,10 @@ public class ThreadPanel extends JPanel {
         SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
         SubstanceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
-        Color iconColor = fillScheme.getForegroundColor();
+        Color iconColor = new Color(fillScheme.getForegroundColor().getRed(),
+                fillScheme.getForegroundColor().getGreen(),
+                fillScheme.getForegroundColor().getBlue(),
+                204);
         Color backgroundColor = fillScheme.getLightColor();
         Color innerBackgroundColor = fillScheme.getUltraLightColor();
 
@@ -87,29 +89,24 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.LEADING, 24, 0));
         result.setBorder(new EmptyBorder(14, 4, 14, 4));
 
-        NeonIcon closeIcon = NeonCortex.colorizeIcon(
-                ic_close_black_24px.factory(), iconColor, 0.8f);
-        closeIcon.setDimension(new Dimension(16, 16));
+        NeonIcon closeIcon = ic_close_black_24px.of(16, 16);
+        closeIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(closeIcon));
 
-        NeonIcon listIcon = NeonCortex.colorizeIcon(
-                ic_view_list_black_24px.factory(), iconColor, 0.8f);
-        listIcon.setDimension(new Dimension(16, 16));
+        NeonIcon listIcon = ic_view_list_black_24px.of(16, 16);
+        listIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(listIcon));
 
-        NeonIcon alarmIcon = NeonCortex.colorizeIcon(
-                ic_access_alarm_black_24px.factory(), iconColor, 0.8f);
-        alarmIcon.setDimension(new Dimension(16, 16));
+        NeonIcon alarmIcon = ic_access_alarm_black_24px.of(16, 16);
+        alarmIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(alarmIcon));
 
-        NeonIcon archiveIcon = NeonCortex.colorizeIcon(
-                ic_archive_black_24px.factory(), iconColor, 0.8f);
-        archiveIcon.setDimension(new Dimension(16, 16));
+        NeonIcon archiveIcon = ic_archive_black_24px.of(16, 16);
+        archiveIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(archiveIcon));
 
-        NeonIcon deleteIcon = NeonCortex.colorizeIcon(
-                ic_delete_black_24px.factory(), iconColor, 0.8f);
-        deleteIcon.setDimension(new Dimension(16, 16));
+        NeonIcon deleteIcon = ic_delete_black_24px.of(16, 16);
+        deleteIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(deleteIcon));
 
         result.setBackground(backgroundColor);
@@ -179,14 +176,12 @@ public class ThreadPanel extends JPanel {
         dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
         firstRow.add(dateLabel).xy(3, 1);
 
-        NeonIcon replyIcon = NeonCortex.colorizeIcon(
-                ic_reply_black_24px.factory(), iconColor, 0.8f);
-        replyIcon.setDimension(new Dimension(14, 14));
+        NeonIcon replyIcon = ic_reply_black_24px.of(14, 14);
+        replyIcon.setColorFilter(color -> iconColor);
         firstRow.add(new JLabel(replyIcon)).xy(5, 1);
 
-        NeonIcon moreIcon = NeonCortex.colorizeIcon(
-                ic_more_horiz_black_24px.factory(), iconColor, 0.8f);
-        moreIcon.setDimension(new Dimension(14, 14));
+        NeonIcon moreIcon = ic_more_horiz_black_24px.of(14, 14);
+        moreIcon.setColorFilter(color -> iconColor);
         firstRow.add(new JLabel(moreIcon)).xy(7, 1);
 
         JLabel toLabel = new JLabel("To: " + to);
@@ -228,14 +223,12 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
         result.setBorder(new EmptyBorder(16, 24, 16, 0));
 
-        NeonIcon replyIcon = NeonCortex.colorizeIcon(
-                ic_reply_black_24px.factory(), iconColor, 0.8f);
-        replyIcon.setDimension(new Dimension(14, 14));
+        NeonIcon replyIcon = ic_reply_black_24px.of(14, 14);
+        replyIcon.setColorFilter(color -> iconColor);
         JButton reply = new JButton("Reply", replyIcon);
 
-        NeonIcon forwardIcon = NeonCortex.colorizeIcon(
-                ic_forward_black_24px.factory(), iconColor, 0.8f);
-        forwardIcon.setDimension(new Dimension(14, 14));
+        NeonIcon forwardIcon = ic_forward_black_24px.of(14, 14);
+        forwardIcon.setColorFilter(color -> iconColor);
         JButton forward = new JButton("Forward", forwardIcon);
 
         // Mark the button panel to be flat - effectively marking both action buttons as flat

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.demo.neon;
 
-import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
@@ -43,12 +42,12 @@ public class IconFrame {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            NeonIcon redIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.red);
-            NeonIcon greenIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.green);
-            NeonIcon blueIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.blue);
-            redIcon.setDimension(new Dimension(20, 20));
-            greenIcon.setDimension(new Dimension(20, 20));
-            blueIcon.setDimension(new Dimension(20, 20));
+            NeonIcon redIcon = radiance_menu.of(20, 20);
+            redIcon.setColorFilter(color -> Color.red);
+            NeonIcon greenIcon = radiance_menu.of(20, 20);
+            greenIcon.setColorFilter(color -> Color.green);
+            NeonIcon blueIcon = radiance_menu.of(20, 20);
+            blueIcon.setColorFilter(color -> Color.blue);
 
             frame.setLayout(new FlowLayout(FlowLayout.CENTER));
             frame.add(new JLabel(redIcon));

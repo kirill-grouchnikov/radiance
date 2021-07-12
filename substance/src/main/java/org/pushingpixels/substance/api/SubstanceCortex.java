@@ -36,7 +36,6 @@ import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.neon.api.icon.NeonAsyncLoadingIconUIResource;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.neon.api.icon.NeonIconUIResource;
-import org.pushingpixels.neon.internal.NeonAsyncLoadingIcon;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -792,8 +791,8 @@ public class SubstanceCortex {
          * Specifies how icons on controls such as buttons, toggle buttons, labels, tabs and menu
          * items are themed.
          *
-         * @param activeIconFilterStrategy Icon filter strategy for controls in active states.
-         * @param enabledIconFilterStrategy Icon filter strategy for controls in enabled state.
+         * @param activeIconFilterStrategy   Icon filter strategy for controls in active states.
+         * @param enabledIconFilterStrategy  Icon filter strategy for controls in enabled state.
          * @param disabledIconFilterStrategy Icon filter strategy for controls in disabled states.
          * @see ComponentScope#setIconFilterStrategies(JComponent, IconFilterStrategy, IconFilterStrategy, IconFilterStrategy)
          */
@@ -1362,69 +1361,43 @@ public class SubstanceCortex {
          * @param colorScheme      Color scheme for colorization.
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
-         * @see NeonCortex#colorizeIcon(NeonIcon.Factory, Color)
-         * @see NeonCortex#colorizeIcon(NeonIcon.Factory, Color, float)
          */
         public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
-            class SubstanceAsyncLoadingIcon extends NeonAsyncLoadingIcon {
-                private SubstanceColorScheme colorScheme;
-                private float brightnessFactor;
+            return new NeonIcon() {
+                private int width;
+                private int height;
+                private BufferedImage colorized;
 
-                SubstanceAsyncLoadingIcon(NeonIcon.Factory sourceFactory,
-                        SubstanceColorScheme colorScheme, float brightnessFactor) {
-                    super(sourceFactory);
-                    this.colorScheme = colorScheme;
-                    this.brightnessFactor = brightnessFactor;
+                @Override
+                public void setDimension(Dimension newDimension) {
+                    NeonIcon original = sourceFactory.createNewIcon();
+                    original.setDimension(newDimension);
+                    this.colorized = SubstanceImageCreator.getColorSchemeImage(null,
+                            original, colorScheme, brightnessFactor);
+                    this.width = newDimension.width;
+                    this.height = newDimension.height;
                 }
 
                 @Override
-                protected void makeColorized() {
-                    this.currColorized = SubstanceImageCreator.getColorSchemeImage(null,
-                            this.currDelegate, colorScheme, brightnessFactor);
+                public void paintIcon(Component c, Graphics g, int x, int y) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.translate(x, y);
+                    NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(c),
+                            this.colorized, x, y);
+                    g2d.dispose();
                 }
-            }
 
-            NeonIcon original = sourceFactory.createNewIcon();
-            if (original instanceof AsynchronousLoading) {
-                return new SubstanceAsyncLoadingIcon(sourceFactory, colorScheme,
-                        brightnessFactor);
-            } else {
-                return new NeonIcon() {
-                    private int width;
-                    private int height;
-                    private BufferedImage colorized;
+                @Override
+                public int getIconWidth() {
+                    return this.width;
+                }
 
-                    @Override
-                    public void setDimension(Dimension newDimension) {
-                        NeonIcon original = sourceFactory.createNewIcon();
-                        original.setDimension(newDimension);
-                        this.colorized = SubstanceImageCreator.getColorSchemeImage(null,
-                                original, colorScheme, brightnessFactor);
-                        this.width = newDimension.width;
-                        this.height = newDimension.height;
-                    }
-
-                    @Override
-                    public void paintIcon(Component c, Graphics g, int x, int y) {
-                        Graphics2D g2d = (Graphics2D) g.create();
-                        g2d.translate(x, y);
-                        NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(c),
-                                this.colorized, x, y);
-                        g2d.dispose();
-                    }
-
-                    @Override
-                    public int getIconWidth() {
-                        return this.width;
-                    }
-
-                    @Override
-                    public int getIconHeight() {
-                        return this.height;
-                    }
-                };
-            }
+                @Override
+                public int getIconHeight() {
+                    return this.height;
+                }
+            };
         }
 
         /**
@@ -2097,8 +2070,8 @@ public class SubstanceCortex {
         /**
          * Specifies how icon on the specified control is themed.
          *
-         * @param activeIconFilterStrategy Icon filter strategy for active states.
-         * @param enabledIconFilterStrategy Icon filter strategy for enabled state.
+         * @param activeIconFilterStrategy   Icon filter strategy for active states.
+         * @param enabledIconFilterStrategy  Icon filter strategy for enabled state.
          * @param disabledIconFilterStrategy Icon filter strategy for disabled states.
          * @see GlobalScope#setIconFilterStrategies(IconFilterStrategy, IconFilterStrategy, IconFilterStrategy)
          */

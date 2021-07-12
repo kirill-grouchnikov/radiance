@@ -34,13 +34,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
+import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.NeonIcon
-import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon
 import java.awt.Dimension
 import java.io.InputStream
 
@@ -83,8 +83,8 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         val name = leaf.leafName
         val scale = NeonCortex.getScaleFactor(this)
         return if (name.endsWith(".svg"))
-            org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon.getSvgIcon(leaf.leafStream, scale, dimension)
+            SvgBatikNeonIcon.getSvgIcon(leaf.leafStream, scale, dimension)
         else
-            org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
+            SvgBatikNeonIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
     }
 }

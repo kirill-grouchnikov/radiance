@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.flamingo;
+package org.pushingpixels.demo.flamingo.icon;
 
 import org.pushingpixels.neon.api.icon.NeonIcon;
 

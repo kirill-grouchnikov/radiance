@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.neon.internal;
+package org.pushingpixels.demo.flamingo;
 
 import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
 
