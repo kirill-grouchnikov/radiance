@@ -31,7 +31,7 @@ package org.pushingpixels.plasma.synapse
 
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection
-import org.pushingpixels.neon.api.icon.ResizableIcon
+import org.pushingpixels.neon.api.icon.NeonIcon
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NullableDelegate
@@ -48,7 +48,7 @@ public class KRibbonCheckBoxContentModel {
     internal var hasBeenConverted: Boolean = false
 
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
-    public var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
+    public var iconFactory: NeonIcon.Factory? by NullableDelegate { false }
     public var caption: String? by NullableDelegate { false }
     public var text: String? by NullableDelegate { false }
     public var actionListener: ((event: ActionEvent) -> Unit)? by NullableDelegate { false }

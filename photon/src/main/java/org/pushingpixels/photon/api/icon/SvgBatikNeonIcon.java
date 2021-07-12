@@ -33,7 +33,7 @@ import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
 import org.apache.batik.swing.gvt.GVTTreeRendererEvent;
 import org.pushingpixels.neon.api.AsynchronousLoadListener;
 import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
@@ -46,13 +46,13 @@ import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
 /**
- * SVG-based implementation of {@link ResizableIcon} based on Apache Batik
+ * SVG-based implementation of {@link NeonIcon} based on Apache Batik
  * library.
  *
  * @author Kirill Grouchnikov
  */
-public class SvgBatikResizableIcon extends SvgBatikIcon implements
-        ResizableIcon, AsynchronousLoading {
+public class SvgBatikNeonIcon extends SvgBatikIcon implements
+        NeonIcon, AsynchronousLoading {
     /**
      * The listeners.
      */
@@ -88,10 +88,10 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
      * @param initialDim Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static SvgBatikResizableIcon getSvgIcon(URL location,
+    public static SvgBatikNeonIcon getSvgIcon(URL location,
             double scale, final Dimension initialDim) {
         try {
-            return new SvgBatikResizableIcon(location.openStream(), scale, initialDim);
+            return new SvgBatikNeonIcon(location.openStream(), scale, initialDim);
         } catch (IOException ioe) {
             return null;
         }
@@ -105,12 +105,12 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
      * @param initialDim  Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static SvgBatikResizableIcon getSvgIcon(InputStream inputStream,
+    public static SvgBatikNeonIcon getSvgIcon(InputStream inputStream,
             double scale, final Dimension initialDim) {
         if (inputStream == null)
             return null;
         try {
-            return new SvgBatikResizableIcon(inputStream, scale, initialDim);
+            return new SvgBatikNeonIcon(inputStream, scale, initialDim);
         } catch (IOException ioe) {
             return null;
         }
@@ -124,10 +124,10 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
      * @param initialDim Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static SvgBatikResizableIcon getSvgzIcon(URL location,
+    public static SvgBatikNeonIcon getSvgzIcon(URL location,
             double scale, final Dimension initialDim) {
         try {
-            return new SvgBatikResizableIcon(constructFromZipStream(location.openStream()),
+            return new SvgBatikNeonIcon(constructFromZipStream(location.openStream()),
                     scale, initialDim);
         } catch (IOException ioe) {
             return null;
@@ -142,10 +142,10 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
      * @param initialDim  Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static SvgBatikResizableIcon getSvgzIcon(InputStream inputStream,
+    public static SvgBatikNeonIcon getSvgzIcon(InputStream inputStream,
             double scale, final Dimension initialDim) {
         try {
-            return new SvgBatikResizableIcon(constructFromZipStream(inputStream), scale, initialDim);
+            return new SvgBatikNeonIcon(constructFromZipStream(inputStream), scale, initialDim);
         } catch (IOException ioe) {
             return null;
         }
@@ -158,7 +158,7 @@ public class SvgBatikResizableIcon extends SvgBatikIcon implements
      * @param initialDim  Initial dimension.
      * @throws IOException in case any I/O operation failed.
      */
-    private SvgBatikResizableIcon(InputStream inputStream,
+    private SvgBatikNeonIcon(InputStream inputStream,
             double scale, final Dimension initialDim) throws IOException {
         super(inputStream, scale, initialDim.width, initialDim.height);
         this.listenerList = new EventListenerList();

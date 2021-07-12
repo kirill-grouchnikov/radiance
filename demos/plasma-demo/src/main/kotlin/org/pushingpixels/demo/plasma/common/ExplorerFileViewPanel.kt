@@ -33,12 +33,12 @@ import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.StringValuePair
-import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon
-import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.IcoWrapperNeonIcon
+import org.pushingpixels.flamingo.api.common.icon.ImageWrapperNeonIcon
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon
+import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon
 import java.awt.Dimension
 import java.io.File
 import java.io.InputStream
@@ -63,8 +63,8 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         return true
     }
 
-    override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf,
-            stream: InputStream, state: CommandButtonPresentationState, dimension: Dimension): ResizableIcon? {
+    override fun getNeonIcon(leaf: AbstractFileViewPanel.Leaf,
+            stream: InputStream, state: CommandButtonPresentationState, dimension: Dimension): NeonIcon? {
         var dimensionToUse = dimension
         val prefSize = state.preferredIconSize
         if (prefSize > 0) {
@@ -76,7 +76,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
             if (sourceProp is File) {
                 val delegate = FileSystemView.getFileSystemView().getSystemIcon(sourceProp)
                 if (delegate != null) {
-                    return IconWrapperResizableIcon(delegate)
+                    return IconWrapperNeonIcon(delegate)
                 }
             }
             return null
@@ -92,23 +92,23 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         if (ext.compareTo("jpg") == 0 || ext.compareTo("jpeg") == 0
                 || ext.compareTo("gif") == 0 || ext.compareTo("png") == 0
                 || ext.compareTo("bmp") == 0) {
-            return ImageWrapperResizableIcon.getIcon(stream, dimensionToUse)
+            return ImageWrapperNeonIcon.getIcon(stream, dimensionToUse)
         }
 
         val scale = NeonCortex.getScaleFactor(this)
         if (ext.compareTo("svg") == 0) {
-            return SvgBatikResizableIcon.getSvgIcon(stream, scale, dimensionToUse)
+            return SvgBatikNeonIcon.getSvgIcon(stream, scale, dimensionToUse)
         }
 
         if (ext.compareTo("svgz") == 0) {
-            return SvgBatikResizableIcon.getSvgzIcon(stream, scale, dimensionToUse)
+            return SvgBatikNeonIcon.getSvgzIcon(stream, scale, dimensionToUse)
         }
 
         if (ext.compareTo("ico") == 0) {
-            return IcoWrapperResizableIcon.getIcon(stream, scale, dimensionToUse)
+            return IcoWrapperNeonIcon.getIcon(stream, scale, dimensionToUse)
         }
 
-        var icon: ResizableIcon? = iconMapping[ext]
+        var icon: NeonIcon? = iconMapping[ext]
         if (icon == null) {
             try {
                 val className = "org.pushingpixels.demo.flamingo.svg.filetypes.transcoded.ext_$ext"
@@ -116,7 +116,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
                 if (transcodedClass != null) {
                     val of = transcodedClass.getDeclaredMethod("of", Int::class.javaPrimitiveType,
                             Int::class.javaPrimitiveType)
-                    icon = of.invoke(null, prefSize, prefSize) as ResizableIcon
+                    icon = of.invoke(null, prefSize, prefSize) as NeonIcon
                     iconMapping[ext] = icon
                 }
             } catch (t: Throwable) {
@@ -126,7 +126,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         return icon
     }
 
-    override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
+    override fun configureCommand(leaf: Leaf, command: Command, icon: NeonIcon?) {
         val filename = leaf.leafName
         val lastDot = filename.lastIndexOf('.')
         val ext = if (lastDot >= 0) filename.substring(lastDot + 1).uppercase() else "Generic"
@@ -138,6 +138,6 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
     }
 
     companion object {
-        private val iconMapping = HashMap<String, ResizableIcon>()
+        private val iconMapping = HashMap<String, NeonIcon>()
     }
 }

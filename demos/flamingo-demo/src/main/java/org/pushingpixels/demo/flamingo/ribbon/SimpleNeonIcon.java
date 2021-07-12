@@ -30,18 +30,18 @@
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 
-public class SimpleResizableIcon implements ResizableIcon {
+public class SimpleNeonIcon implements NeonIcon {
     private int currWidth;
 
     private int currHeight;
 
     private JRibbonBand.PresentationPriority priority;
 
-    public SimpleResizableIcon(JRibbonBand.PresentationPriority priority, int startWidth,
+    public SimpleNeonIcon(JRibbonBand.PresentationPriority priority, int startWidth,
             int startHeight) {
         this.priority = priority;
         this.currWidth = startWidth;
@@ -98,8 +98,8 @@ public class SimpleResizableIcon implements ResizableIcon {
 
     public static class FactoryTop implements Factory {
         @Override
-        public ResizableIcon createNewIcon() {
-            return new SimpleResizableIcon(JRibbonBand.PresentationPriority.TOP, 16, 16);
+        public NeonIcon createNewIcon() {
+            return new SimpleNeonIcon(JRibbonBand.PresentationPriority.TOP, 16, 16);
         }
     }
 

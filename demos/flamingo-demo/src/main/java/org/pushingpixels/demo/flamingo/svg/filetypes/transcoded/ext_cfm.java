@@ -11,14 +11,14 @@ import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class ext_cfm implements ResizableIcon {
+public class ext_cfm implements NeonIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -476,7 +476,7 @@ g.setTransform(transformsStack.pop());
      * @param height Required height of the icon
      * @return A new instance of this icon with specified dimensions.
      */
-    public static ResizableIcon of(int width, int height) {
+    public static NeonIcon of(int width, int height) {
        ext_cfm base = new ext_cfm();
        base.width = width;
        base.height = height;
@@ -490,11 +490,11 @@ g.setTransform(transformsStack.pop());
      * @param height Required height of the icon
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
-    public static ResizableIconUIResource uiResourceOf(int width, int height) {
+    public static NeonIconUIResource uiResourceOf(int width, int height) {
        ext_cfm base = new ext_cfm();
        base.width = width;
        base.height = height;
-       return new ResizableIconUIResource(base);
+       return new NeonIconUIResource(base);
     }
 
     /**

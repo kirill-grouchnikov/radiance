@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
@@ -66,7 +66,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
 
         this.forSizing = Command.builder()
                 .setText("Text")
-                .setIconFactory(EmptyResizableIcon.factory())
+                .setIconFactory(EmptyNeonIcon.factory())
                 .setAction(commandActionEvent -> {})
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.BIG).build())

@@ -10,16 +10,16 @@ import java.util.Stack
 import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
-import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource
+import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.neon.api.icon.NeonIcon.Factory
+import org.pushingpixels.neon.api.icon.NeonIconUIResource
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 class Contact_new private constructor(private var width: Int, private var height: Int)
-       : ResizableIcon {
+       : NeonIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
     @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
@@ -1332,7 +1332,7 @@ _paint1(g, origAlpha)
          * @param height Required height of the icon
          * @return A new instance of this icon with specified dimensions.
          */
-        fun of(width: Int, height: Int): ResizableIcon {
+        fun of(width: Int, height: Int): NeonIcon {
             return Contact_new(width, height)
         }
 
@@ -1343,8 +1343,8 @@ _paint1(g, origAlpha)
          * @param height Required height of the icon
          * @return A new [UIResource] instance of this icon with specified dimensions.
          */
-        fun uiResourceOf(width: Int, height: Int): ResizableIconUIResource {
-            return ResizableIconUIResource(Contact_new(width, height))
+        fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
+            return NeonIconUIResource(Contact_new(width, height))
         }
 
         /**

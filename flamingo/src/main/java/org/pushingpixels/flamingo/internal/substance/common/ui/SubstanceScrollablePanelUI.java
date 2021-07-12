@@ -32,14 +32,17 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.ScaleAwareImageWrapperIcon;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -81,7 +84,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+        NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
                     ScaleAwareImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
@@ -111,7 +114,7 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+        NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
                     ScaleAwareImageWrapperIcon doubleArrowIcon = SubstanceImageCreator

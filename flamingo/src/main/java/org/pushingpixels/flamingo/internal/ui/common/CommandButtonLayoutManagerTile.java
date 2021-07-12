@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -201,7 +201,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
         }
 
-        ResizableIcon buttonIcon = commandButton.getIcon();
+        NeonIcon buttonIcon = commandButton.getIcon();
         String buttonText = commandButton.getText();
         String buttonExtraText = commandButton.getExtraText();
 

@@ -31,15 +31,15 @@ package org.pushingpixels.demo.flamingo.svg;
 
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon;
 import org.pushingpixels.photon.api.transcoder.SvgStreamTranscoder;
 import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 
@@ -92,7 +92,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * Sets the current files to show. The current contents of the panel are discarded. The file
      * list is scanned for files ending with <code>.svg</code> or <code>.svgz</code>. For each such
      * file a new {@link Command} with an SVG-based implementation of
-     * {@link ResizableIcon} is added to the panel content model.
+     * {@link NeonIcon} is added to the panel content model.
      *
      * @param leafs Information on the files to show in the panel.
      */
@@ -110,15 +110,15 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
             Command svgCommand = Command.builder()
                     .setText(name.replace('-', ' '))
-                    .setIconFactory(EmptyResizableIcon.factory())
+                    .setIconFactory(EmptyNeonIcon.factory())
                     .setAction(commandActionEvent -> {
                         try {
-                            ResizableIcon icon = commandActionEvent.getCommand().getIconFactory().createNewIcon();
-                            if (!(icon instanceof SvgBatikResizableIcon)) {
+                            NeonIcon icon = commandActionEvent.getCommand().getIconFactory().createNewIcon();
+                            if (!(icon instanceof SvgBatikNeonIcon)) {
                                 return;
                             }
 
-                            SvgBatikResizableIcon svgIcon = (SvgBatikResizableIcon) icon;
+                            SvgBatikNeonIcon svgIcon = (SvgBatikNeonIcon) icon;
 
                             System.out.println(name);
                             String svgClassName = name.substring(0, name.lastIndexOf('.'));
@@ -184,9 +184,9 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                     Dimension svgDim = new Dimension(iconDimension, iconDimension);
 
                     double scale = NeonCortex.getScaleFactor(SvgFileViewPanel.this);
-                    final SvgBatikResizableIcon svgIcon = name.endsWith(".svg")
-                            ? SvgBatikResizableIcon.getSvgIcon(svgStream, scale, svgDim)
-                            : SvgBatikResizableIcon.getSvgzIcon(svgStream, scale, svgDim);
+                    final SvgBatikNeonIcon svgIcon = name.endsWith(".svg")
+                            ? SvgBatikNeonIcon.getSvgIcon(svgStream, scale, svgDim)
+                            : SvgBatikNeonIcon.getSvgzIcon(svgStream, scale, svgDim);
 
                     newCommands.get(name).setIconFactory(() -> svgIcon);
                 }

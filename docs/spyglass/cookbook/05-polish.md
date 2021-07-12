@@ -29,7 +29,7 @@ In addition to the details on the gradient fill and the double border, there is 
 
 The icons used for the header and footer buttons were created using the [Photon transcoder](../../photon/photon.md). A few icons from the [Material icon set](https://material.io/tools/icons/) were transcoded offline to pure Java2D classes.
 
-If you take a closer look at the icon visuals in the design mockup, you will notice that all the icons have a dark brown "halo" around them that further reinforces the overall golden-brown color scheme of the app. On out side, this can be achieved by applying a combination of a [few filters](http://www.jhlabs.com/ip/filters/index.html) to create that darker halo shade. The full code is in `EchoResizableIcon` class, and the most relevant snippet is:
+If you take a closer look at the icon visuals in the design mockup, you will notice that all the icons have a dark brown "halo" around them that further reinforces the overall golden-brown color scheme of the app. On out side, this can be achieved by applying a combination of a [few filters](http://www.jhlabs.com/ip/filters/index.html) to create that darker halo shade. The full code is in `EchoNeonIcon` class, and the most relevant snippet is:
 
 ```java
 static BufferedImageOp iconShadowFilter;

@@ -94,7 +94,7 @@ Let's take a look at what we're doing here:
 - The listener's only method (elided `breadcrumbPathEvent`) gets a `BreadcrumbPathEvent` object.
 - Use `BreadcrumbPathEvent.getSource()` to obtain the model (or use the same `bar.getModel()` above) and then `BreadcrumbBarModel.getItems()` to get the currently selected path.
 - Create a `SwingWorker` to load the list of files in the selected path in the background using `BreadcrumbBarCallBack.getLeafs()`. We want to run this off the UI thread so that the UI remains responsive during this potentially blocking I/O operation.
-- When the list of files is loaded, call `AbstractFileViewPanel.setFolder()` API to update the panel to show the files from the currently selected path. As that content is loaded, `AbstractFileViewPanel` calls into its abstract `configureCommand()` and `getResizableIcon` (which are implemented in our subclass) to get the application-specific visual representation of each file.
+- When the list of files is loaded, call `AbstractFileViewPanel.setFolder()` API to update the panel to show the files from the currently selected path. As that content is loaded, `AbstractFileViewPanel` calls into its abstract `configureCommand()` and `getNeonIcon` (which are implemented in our subclass) to get the application-specific visual representation of each file.
 
 ### Core breadcrumb bar integrations
 

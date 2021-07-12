@@ -6,8 +6,8 @@ import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.ImageWrapperResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.ImageWrapperNeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -82,13 +82,13 @@ public class Viewer extends JFrame {
             }
 
             @Override
-            protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
+            protected NeonIcon getNeonIcon(AbstractFileViewPanel.Leaf leaf,
                     InputStream stream, CommandButtonPresentationState state, Dimension dimension) {
                 int prefSize = state.getPreferredIconSize();
                 if (prefSize > 0) {
                     dimension = new Dimension(prefSize, prefSize);
                 }
-                return ImageWrapperResizableIcon.getIcon(stream, dimension);
+                return ImageWrapperNeonIcon.getIcon(stream, dimension);
             }
 
             @Override

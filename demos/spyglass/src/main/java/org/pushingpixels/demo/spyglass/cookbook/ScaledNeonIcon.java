@@ -27,39 +27,55 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.flamingo;
+package org.pushingpixels.demo.spyglass.cookbook;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class IconWrapperResizableIcon implements ResizableIcon {
-    protected Icon delegate;
+/**
+ * Custom implementation of resizable icon that allows scaling down another
+ * resizable icon during the painting.
+ * 
+ * @author Kirill Grouchnikov
+ */
+public class ScaledNeonIcon implements NeonIcon {
+	private NeonIcon delegate;
 
-    public IconWrapperResizableIcon(Icon delegate) {
-        if (delegate == null) {
-            throw new IllegalArgumentException("Cannot pass null delegate");
-        }
-        this.delegate = delegate;
-    }
+	private double scaleFactor;
 
-    @Override
-    public int getIconHeight() {
-        return delegate.getIconHeight();
-    }
+	public ScaledNeonIcon(NeonIcon delegate, double scaleFactor) {
+		this.delegate = delegate;
+		this.scaleFactor = scaleFactor;
+	}
 
-    @Override
-    public int getIconWidth() {
-        return delegate.getIconHeight();
-    }
+	public int getIconHeight() {
+		return delegate.getIconHeight();
+	}
 
-    @Override
-    public void paintIcon(Component c, Graphics g, int x, int y) {
-        delegate.paintIcon(c, g, x, y);
-    }
+	public int getIconWidth() {
+		return delegate.getIconWidth();
+	}
 
-    @Override
-    public void setDimension(Dimension dim) {
-    }
+	public void paintIcon(Component c, Graphics g, int x, int y) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		double dx = this.getIconWidth() * (1.0 - this.scaleFactor) / 2;
+		double dy = this.getIconHeight() * (1.0 - this.scaleFactor) / 2;
+
+		g2d.translate((int) dx, (int) dy);
+		g2d.scale(this.scaleFactor, this.scaleFactor);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		delegate.paintIcon(c, g2d, x, y);
+
+		g2d.dispose();
+	}
+
+	public void setDimension(Dimension newDimension) {
+		delegate.setDimension(newDimension);
+	}
+
+	public static Factory factory(Factory delegate, double scaleFactor) {
+		return () -> new ScaledNeonIcon(delegate.createNewIcon(), scaleFactor);
+	}
 }

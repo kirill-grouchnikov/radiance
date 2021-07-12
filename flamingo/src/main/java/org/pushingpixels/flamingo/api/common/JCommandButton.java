@@ -44,7 +44,7 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandB
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.accessibility.AccessibleContext;
@@ -83,10 +83,10 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     /**
      * Associated icon.
      *
-     * @see #setIcon(ResizableIcon)
+     * @see #setIcon(NeonIcon)
      * @see #getIcon()
      */
-    private ResizableIcon icon;
+    private NeonIcon icon;
 
     /**
      * The button text.
@@ -690,9 +690,9 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * Returns the associated icon.
      *
      * @return The associated icon.
-     * @see #setIcon(ResizableIcon)
+     * @see #setIcon(NeonIcon)
      */
-    public ResizableIcon getIcon() {
+    public NeonIcon getIcon() {
         return icon;
     }
 
@@ -703,8 +703,8 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * @param defaultIcon New default icon for this button.
      * @see #getIcon()
      */
-    public void setIcon(ResizableIcon defaultIcon) {
-        ResizableIcon oldValue = this.icon;
+    public void setIcon(NeonIcon defaultIcon) {
+        NeonIcon oldValue = this.icon;
         this.icon = defaultIcon;
 
         firePropertyChange("icon", oldValue, defaultIcon);

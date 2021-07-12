@@ -27,26 +27,39 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.plasma.common
+package org.pushingpixels.demo.flamingo;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon
-import java.awt.Component
-import java.awt.Dimension
-import java.awt.Graphics
-import javax.swing.Icon
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
-class IconWrapperResizableIcon(val delegate: Icon) : ResizableIcon {
-    override fun getIconHeight(): Int {
-        return delegate.getIconHeight()
+import javax.swing.*;
+import java.awt.*;
+
+public class IconWrapperNeonIcon implements NeonIcon {
+    protected Icon delegate;
+
+    public IconWrapperNeonIcon(Icon delegate) {
+        if (delegate == null) {
+            throw new IllegalArgumentException("Cannot pass null delegate");
+        }
+        this.delegate = delegate;
     }
 
-    override fun getIconWidth(): Int {
-        return delegate.getIconHeight()
+    @Override
+    public int getIconHeight() {
+        return delegate.getIconHeight();
     }
 
-    override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
-        delegate.paintIcon(c, g, x, y)
+    @Override
+    public int getIconWidth() {
+        return delegate.getIconHeight();
     }
 
-    override fun setDimension(dim: Dimension) {}
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        delegate.paintIcon(c, g, x, y);
+    }
+
+    @Override
+    public void setDimension(Dimension dim) {
+    }
 }

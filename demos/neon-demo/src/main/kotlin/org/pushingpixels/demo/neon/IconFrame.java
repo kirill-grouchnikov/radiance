@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.neon;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,9 +43,9 @@ public class IconFrame {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            ResizableIcon redIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.red);
-            ResizableIcon greenIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.green);
-            ResizableIcon blueIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.blue);
+            NeonIcon redIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.red);
+            NeonIcon greenIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.green);
+            NeonIcon blueIcon = NeonCortex.colorizeIcon(radiance_menu.factory(), Color.blue);
             redIcon.setDimension(new Dimension(20, 20));
             greenIcon.setDimension(new Dimension(20, 20));
             blueIcon.setDimension(new Dimension(20, 20));

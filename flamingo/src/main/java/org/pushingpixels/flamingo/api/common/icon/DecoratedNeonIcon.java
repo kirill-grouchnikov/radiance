@@ -31,22 +31,22 @@ package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.api.AsynchronousLoadListener;
 import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Implementation of {@link ResizableIcon} that adds decorations to a main icon.
+ * Implementation of {@link NeonIcon} that adds decorations to a main icon.
  *
  * @author Kirill Grouchnikov
  */
-public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoading {
+public class DecoratedNeonIcon implements NeonIcon, AsynchronousLoading {
     /**
      * The main delegate icon.
      */
-    private ResizableIcon delegate;
+    private NeonIcon delegate;
 
     /**
      * List of icon decorators.
@@ -80,7 +80,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
      * @param delegate   The main icon.
      * @param decorators Icon decorators.
      */
-    public DecoratedResizableIcon(ResizableIcon delegate, IconDecorator... decorators) {
+    public DecoratedNeonIcon(NeonIcon delegate, IconDecorator... decorators) {
         this.delegate = delegate;
         this.decorators = new ArrayList<>();
         if (decorators != null) {
@@ -94,7 +94,7 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
      *
      * @param delegate Main icon.
      */
-    public DecoratedResizableIcon(ResizableIcon delegate) {
+    public DecoratedNeonIcon(NeonIcon delegate) {
         this(delegate, (IconDecorator) null);
     }
 
@@ -177,6 +177,6 @@ public class DecoratedResizableIcon implements ResizableIcon, AsynchronousLoadin
     }
 
     public static Factory factory(Factory original, IconDecorator... decorators) {
-        return () -> new DecoratedResizableIcon(original.createNewIcon(), decorators);
+        return () -> new DecoratedNeonIcon(original.createNewIcon(), decorators);
     }
 }

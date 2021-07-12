@@ -2,23 +2,17 @@ package org.pushingpixels.demo.flamingo.svg.filetypes.transcoded;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.lang.ref.WeakReference;
-import java.util.Base64;
 import java.util.Stack;
-import javax.imageio.ImageIO;
-import javax.swing.SwingUtilities;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class ext_vtx implements ResizableIcon {
+public class ext_vtx implements NeonIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -462,7 +456,7 @@ g.setTransform(transformsStack.pop());
      * @param height Required height of the icon
      * @return A new instance of this icon with specified dimensions.
      */
-    public static ResizableIcon of(int width, int height) {
+    public static NeonIcon of(int width, int height) {
        ext_vtx base = new ext_vtx();
        base.width = width;
        base.height = height;
@@ -476,11 +470,11 @@ g.setTransform(transformsStack.pop());
      * @param height Required height of the icon
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
-    public static ResizableIconUIResource uiResourceOf(int width, int height) {
+    public static NeonIconUIResource uiResourceOf(int width, int height) {
        ext_vtx base = new ext_vtx();
        base.width = width;
        base.height = height;
-       return new ResizableIconUIResource(base);
+       return new NeonIconUIResource(base);
     }
 
     /**

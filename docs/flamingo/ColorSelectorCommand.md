@@ -70,10 +70,10 @@ First let's take a look at the functionality that we see in this screenshot, and
 
 #### Button icon
 
-First we have a custom implementation of the `ResizableIcon` interface that paints a square fill with slightly darker outline based on the color passed to the constructor:
+First we have a custom implementation of the `NeonIcon` interface that paints a square fill with slightly darker outline based on the color passed to the constructor:
 
 ```java
-private static class ColorIcon implements ResizableIcon {
+private static class ColorIcon implements NeonIcon {
     private int w;
     private int h;
     private Color color;

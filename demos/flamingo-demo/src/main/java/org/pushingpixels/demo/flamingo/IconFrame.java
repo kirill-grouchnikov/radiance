@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon;
+import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -71,7 +71,7 @@ public class IconFrame {
 
             Command originalCommand = Command.builder()
                     .setText("None")
-                    .setIconFactory(() -> SvgBatikResizableIcon.getSvgIcon(
+                    .setIconFactory(() -> SvgBatikNeonIcon.getSvgIcon(
                             IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),
                             NeonCortex.getScaleFactor(frame),
                             new Dimension(16, 16)
@@ -82,7 +82,7 @@ public class IconFrame {
             Command redCommand = Command.builder()
                     .setText("Red")
                     .setIconFactory(() -> NeonCortex.colorizeIcon(
-                            () -> SvgBatikResizableIcon.getSvgIcon(
+                            () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)),
@@ -94,7 +94,7 @@ public class IconFrame {
             Command greenCommand = Command.builder()
                     .setText("Green")
                     .setIconFactory(() -> NeonCortex.colorizeIcon(
-                            () -> SvgBatikResizableIcon.getSvgIcon(
+                            () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)),
@@ -106,7 +106,7 @@ public class IconFrame {
             Command blueCommand = Command.builder()
                     .setText("Red")
                     .setIconFactory(() -> NeonCortex.colorizeIcon(
-                            () -> SvgBatikResizableIcon.getSvgIcon(
+                            () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)),
@@ -117,7 +117,7 @@ public class IconFrame {
 
             Command originalTangoCommand = Command.builder()
                     .setText("None")
-                    .setIconFactory(() -> SvgBatikResizableIcon.getSvgIcon(
+                    .setIconFactory(() -> SvgBatikNeonIcon.getSvgIcon(
                             IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                             NeonCortex.getScaleFactor(frame),
                             new Dimension(16, 16)
@@ -128,7 +128,7 @@ public class IconFrame {
             Command redTangoCommand = Command.builder()
                     .setText("Red")
                     .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
-                            () -> SvgBatikResizableIcon.getSvgIcon(
+                            () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)
@@ -142,7 +142,7 @@ public class IconFrame {
             Command greenTangoCommand = Command.builder()
                     .setText("Green")
                     .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
-                            () -> SvgBatikResizableIcon.getSvgIcon(
+                            () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)
@@ -156,7 +156,7 @@ public class IconFrame {
             Command blueTangoCommand = Command.builder()
                     .setText("Blue")
                     .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
-                            () -> SvgBatikResizableIcon.getSvgIcon(
+                            () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                                     NeonCortex.getScaleFactor(frame),
                                     new Dimension(16, 16)

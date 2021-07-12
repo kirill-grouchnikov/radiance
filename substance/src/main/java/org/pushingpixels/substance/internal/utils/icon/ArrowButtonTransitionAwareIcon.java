@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.internal.utils.icon;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -57,7 +57,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
      * is that the {@link #delegate} returns an icon that paints the same for
      * the same parameters.
      */
-    private static LazyResettableHashMap<ResizableIcon> iconMap =
+    private static LazyResettableHashMap<NeonIcon> iconMap =
             new LazyResettableHashMap<>("ButtonArrowTransitionAwareIcon");
 
     /**
@@ -128,7 +128,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
      *
      * @return Icon to be painted.
      */
-    private ResizableIcon getIconToPaint() {
+    private NeonIcon getIconToPaint() {
         double scale = NeonCortex.getScaleFactor(this.component);
 
         boolean isMenu = (this.component instanceof JMenu);
@@ -155,9 +155,9 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
                 scale, this.component.getClass().getName(), this.orientation,
                 SubstanceSizeUtils.getComponentFontSize(this.component),
                 baseScheme.getDisplayName(), baseAlpha);
-        ResizableIcon layerBase = iconMap.get(keyBase);
+        NeonIcon layerBase = iconMap.get(keyBase);
         if (layerBase == null) {
-            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+            NeonIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -222,9 +222,9 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
                         scale, this.component.getClass().getName(),
                         this.orientation, SubstanceSizeUtils.getComponentFontSize(this.component),
                         scheme.getDisplayName(), alpha);
-                ResizableIcon layer = iconMap.get(key);
+                NeonIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+                    NeonIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);

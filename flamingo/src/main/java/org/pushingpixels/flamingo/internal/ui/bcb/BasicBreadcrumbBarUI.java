@@ -38,11 +38,11 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -137,7 +137,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         this.forSizing = Command.builder()
                 .setText("Text")
-                .setIconFactory(EmptyResizableIcon.factory())
+                .setIconFactory(EmptyNeonIcon.factory())
                 .setAction(commandActionEvent -> {})
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
@@ -454,7 +454,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 configureMainAction(command, bi);
                 final Icon icon = bi.getIcon();
                 if (icon != null) {
-                    button.setIcon(new ResizableIcon() {
+                    button.setIcon(new NeonIcon() {
                         int iw = icon.getIconWidth();
                         int ih = icon.getIconHeight();
 
@@ -547,7 +547,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             final Icon icon = bi.getIcon();
             if (icon != null) {
-                commandBuilder.setIconFactory(() -> new ResizableIcon() {
+                commandBuilder.setIconFactory(() -> new NeonIcon() {
                     int iw = icon.getIconWidth();
                     int ih = icon.getIconHeight();
 

@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.internal.utils.icon;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -78,7 +78,7 @@ public class SubstanceIconFactory {
     /**
      * Icons for tree collapse / expand in {@link SubstanceTreeUI}.
      */
-    private static LazyResettableHashMap<ResizableIcon> treeIcons =
+    private static LazyResettableHashMap<NeonIcon> treeIcons =
             new LazyResettableHashMap<>("SubstanceIconFactory.treeIcon");
 
     /**
@@ -136,14 +136,14 @@ public class SubstanceIconFactory {
         return SubstanceIconFactory.sliderVerticalIcons.get(key);
     }
 
-    public static ResizableIcon getTreeIcon(JTree tree, boolean isCollapsed) {
+    public static NeonIcon getTreeIcon(JTree tree, boolean isCollapsed) {
         double scale = NeonCortex.getScaleFactor(tree);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int size = SubstanceSizeUtils.getTreeIconSize(fontSize);
 
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, size, isCollapsed);
         if (SubstanceIconFactory.treeIcons.get(key) == null) {
-            ResizableIcon icon = new TreeIcon(size, isCollapsed);
+            NeonIcon icon = new TreeIcon(size, isCollapsed);
             SubstanceIconFactory.treeIcons.put(key, icon);
         }
         return SubstanceIconFactory.treeIcons.get(key);
@@ -686,7 +686,7 @@ public class SubstanceIconFactory {
      * 
      * @author Kirill Grouchnikov
      */
-    private static class TreeIcon implements ResizableIcon, UIResource {
+    private static class TreeIcon implements NeonIcon, UIResource {
         /**
          * Icon hash.
          */

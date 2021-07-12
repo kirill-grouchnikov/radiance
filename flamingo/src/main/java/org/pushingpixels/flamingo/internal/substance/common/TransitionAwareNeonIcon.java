@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.substance.common;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -51,7 +51,7 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 @TransitionAware
-public class TransitionAwareResizableIcon implements ResizableIcon {
+public class TransitionAwareNeonIcon implements NeonIcon {
     /**
      * The width of the rendered image.
      */
@@ -79,7 +79,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
          * @param height Icon height.
          * @return Icon that matches the specified theme.
          */
-        ResizableIcon getColorSchemeIcon(SubstanceColorScheme scheme, int width, int height);
+        NeonIcon getColorSchemeIcon(SubstanceColorScheme scheme, int width, int height);
     }
 
     /**
@@ -99,7 +99,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      * is that the {@link #delegate} returns an icon that paints the same for
      * the same parameters.
      */
-    private LazyResettableHashMap<ResizableIcon> iconMap;
+    private LazyResettableHashMap<NeonIcon> iconMap;
 
     public interface StateTransitionTrackerDelegate {
         StateTransitionTracker getStateTransitionTracker();
@@ -113,13 +113,13 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      * @param delegate                       Delegate to compute the actual icons.
      * @param initialDim                     Initial icon dimension.
      */
-    public TransitionAwareResizableIcon(JCommandButton button,
+    public TransitionAwareNeonIcon(JCommandButton button,
             StateTransitionTrackerDelegate stateTransitionTrackerDelegate,
             Delegate delegate, Dimension initialDim) {
         this.comp = button;
         this.stateTransitionTrackerDelegate = stateTransitionTrackerDelegate;
         this.delegate = delegate;
-        this.iconMap = new LazyResettableHashMap<>("TransitionAwareResizableIcon");
+        this.iconMap = new LazyResettableHashMap<>("TransitionAwareNeonIcon");
         this.width = initialDim.width;
         this.height = initialDim.height;
     }
@@ -129,7 +129,7 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
      *
      * @return Icon to paint.
      */
-    private ResizableIcon getIconToPaint() {
+    private NeonIcon getIconToPaint() {
         double scale = NeonCortex.getScaleFactor(this.comp);
         StateTransitionTracker stateTransitionTracker = this.stateTransitionTrackerDelegate
                 .getStateTransitionTracker();
@@ -148,9 +148,9 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
         ImageHashMapKey keyBase = SubstanceCoreUtilities.getScaleAwareHashKey(
                 scale, baseScheme.getDisplayName(), baseAlpha, this.width, this.height);
         // System.out.println(key);
-        ResizableIcon layerBase = this.iconMap.get(keyBase);
+        NeonIcon layerBase = this.iconMap.get(keyBase);
         if (layerBase == null) {
-            ResizableIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme, width, height);
+            NeonIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme, width, height);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -197,9 +197,9 @@ public class TransitionAwareResizableIcon implements ResizableIcon {
 
                 ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale,
                         scheme.getDisplayName(), alpha, this.width, this.height);
-                ResizableIcon layer = iconMap.get(key);
+                NeonIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    ResizableIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme, width, height);
+                    NeonIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme, width, height);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);

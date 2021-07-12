@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -39,7 +39,7 @@ import java.beans.PropertyChangeSupport;
 public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
         implements RibbonSpinnerContentModel {
     private boolean isEnabled;
-    private ResizableIcon.Factory iconFactory;
+    private NeonIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     private SpinnerSelectionChangeListener selectionChangeListener;
@@ -77,7 +77,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
     }
 
     @Override
-    public ResizableIcon.Factory getIconFactory() {
+    public NeonIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -102,7 +102,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
         private int minimum;
         private int maximum;
         private int stepSize;
-        private ResizableIcon.Factory iconFactory;
+        private NeonIcon.Factory iconFactory;
         private String caption;
         private RibbonSpinnerContentModel.SpinnerSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
@@ -120,7 +120,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
             return this;
         }
 
-        public Builder setIconFactory(ResizableIcon.Factory iconFactory) {
+        public Builder setIconFactory(NeonIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

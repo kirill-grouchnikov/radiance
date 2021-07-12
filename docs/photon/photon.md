@@ -15,7 +15,7 @@ This is the recommended way of using Photon. SVG has a wide feature surface whic
 Photon transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Photon ships with two sets of built-in template files (one for Java and one for Kotlin) that create slightly different wrappers around the Java2D draw calls:
 
 * `SvgTranscoderTemplatePlain.templ` - generates a class with a static method to paint the icon content onto the passed `Graphics2D` object. The generated class also has methods to query the bounding box of the original SVG content.
-* `SvgTranscoderTemplateResizable.templ` - generates a class that implements [Neon](../neon/neon.md)'s `ResizableIcon` interface. An instance of the generated class can be passed to any relevant Substance or Flamingo API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
+* `SvgTranscoderTemplateResizable.templ` - generates a class that implements [Neon](../neon/neon.md)'s `NeonIcon` interface. An instance of the generated class can be passed to any relevant Substance or Flamingo API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
 
 A couple of usages of transcoded resizable icons in Radiance itself are:
 
@@ -80,16 +80,16 @@ Photon **does not** provide support for such huge SVG files. At some point, the 
 
 ### Dynamic display of SVG content at runtime
 
-The second option to display content of SVG icons is to use the `SvgBatikResizableIcon` class. It provides a number of static methods to load the SVG content from an `InputStream` or a `URL`. The source can be either uncompressed or compressed (use `getSvgIcon` or `getSvgzIcon` APIs respectively).
+The second option to display content of SVG icons is to use the `SvgBatikNeonIcon` class. It provides a number of static methods to load the SVG content from an `InputStream` or a `URL`. The source can be either uncompressed or compressed (use `getSvgIcon` or `getSvgzIcon` APIs respectively).
 
 If you choose this route, keep the following in mind:
 
 * You will need to bring in Photon, Neon, Batik and all of Batik's dependencies into your classpath.
 * SVG has a wide feature surface which, depending on the complexity of your SVG sources, can lead to significant initial parsing and rendering time of the icon content. In the meantime, you are not showing any graphical content in that specific Swing view.
 
-Note that `SvgBatikResizableIcon`'s primary intent is to be used with components that expect to be populated with resizable icon content. However, since this class implements the core Swing `Icon` interface, you can use the instance returned by one of the class's static methods anywhere you use icons today.
+Note that `SvgBatikNeonIcon`'s primary intent is to be used with components that expect to be populated with resizable icon content. However, since this class implements the core Swing `Icon` interface, you can use the instance returned by one of the class's static methods anywhere you use icons today.
 
-If your app needs to track the loading of the SVG content, you can use the following APIs on the `SvgBatikResizableIcon` class:
+If your app needs to track the loading of the SVG content, you can use the following APIs on the `SvgBatikNeonIcon` class:
 
 * `addAsynchronousLoadListener(AsynchronousLoadListener)` API to be notified on content load completion
 * `isLoading()` API to query whether the content loading has been completed

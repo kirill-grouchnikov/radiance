@@ -41,7 +41,7 @@ import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuC
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -210,7 +210,7 @@ public class TestColorSelector extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    private static class ColorIcon implements ResizableIcon {
+    private static class ColorIcon implements NeonIcon {
         private int w;
         private int h;
         private Color color;

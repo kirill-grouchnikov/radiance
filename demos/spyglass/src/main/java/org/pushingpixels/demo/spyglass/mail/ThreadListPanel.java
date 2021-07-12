@@ -34,7 +34,7 @@ import org.pushingpixels.demo.spyglass.mail.svg.ic_mail_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_person_outline_black_24px;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -67,12 +67,12 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        ResizableIcon editIcon = NeonCortex.colorizeIcon(
+        NeonIcon editIcon = NeonCortex.colorizeIcon(
                 ic_mode_edit_black_24px.factory(), mainSelectorIconColor, 0.8f);
         editIcon.setDimension(new Dimension(14, 14));
         this.add(getTitlePanel(editIcon));
 
-        ResizableIcon mailIcon = NeonCortex.colorizeIcon(
+        NeonIcon mailIcon = NeonCortex.colorizeIcon(
                 ic_mail_outline_black_24px.factory(), mainSelectorIconColor);
         mailIcon.setDimension(new Dimension(12, 12));
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
@@ -248,7 +248,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         }
     }
 
-    private JPanel getInboxLabel(String title, ResizableIcon icon, Color background) {
+    private JPanel getInboxLabel(String title, NeonIcon icon, Color background) {
         FormBuilder builder = FormBuilder.create().
                 columns("center:pref, 4dlu, fill:pref:grow").
                 rows("p").
@@ -267,7 +267,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         return result;
     }
 
-    private JPanel getTitlePanel(ResizableIcon icon) {
+    private JPanel getTitlePanel(NeonIcon icon) {
         FormBuilder builder = FormBuilder.create().
                 columns("fill:pref:grow, 8dlu, center:pref").
                 rows("p").

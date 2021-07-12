@@ -32,21 +32,21 @@ package org.pushingpixels.neon.internal;
 import org.pushingpixels.neon.api.AsynchronousLoadListener;
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class ResizableAsyncLoadingIcon implements ResizableIcon, AsynchronousLoading {
-    protected ResizableIcon.Factory sourceFactory;
+public abstract class NeonAsyncLoadingIcon implements NeonIcon, AsynchronousLoading {
+    protected NeonIcon.Factory sourceFactory;
     protected int width;
     protected int height;
-    protected ResizableIcon currDelegate;
+    protected NeonIcon currDelegate;
     protected BufferedImage currColorized;
     protected EventListenerList listenerList;
 
-    public ResizableAsyncLoadingIcon(ResizableIcon.Factory sourceFactory) {
+    public NeonAsyncLoadingIcon(NeonIcon.Factory sourceFactory) {
         this.sourceFactory = sourceFactory;
         this.listenerList = new EventListenerList();
     }

@@ -31,12 +31,12 @@ package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Font_x_generic;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.DecoratedNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.text.MessageFormat;
@@ -58,7 +58,7 @@ public class QuickStylesPanel {
             List<Command> commands = new ArrayList<>();
             for (int i = 0; i < 15; i++) {
                 final String deco = groupIndex + "/" + i;
-                ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+                NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
                         Font_x_generic.factory(),
                         (Component c, Graphics g, int x, int y,
                                 int width, int height) -> {

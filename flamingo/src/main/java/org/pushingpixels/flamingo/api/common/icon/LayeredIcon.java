@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 
@@ -39,24 +39,24 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class LayeredIcon implements ResizableIcon {
+public class LayeredIcon implements NeonIcon {
     /**
      * The layer icons.
      */
-    protected ResizableIcon[] layers;
+    protected NeonIcon[] layers;
 
     /**
      * Creates a new layered icon.
      *
      * @param layers Layer icons.
      */
-    public LayeredIcon(ResizableIcon... layers) {
+    public LayeredIcon(NeonIcon... layers) {
         this.layers = layers;
     }
 
     @Override
     public void setDimension(Dimension newDimension) {
-        for (ResizableIcon layer : layers)
+        for (NeonIcon layer : layers)
             layer.setDimension(newDimension);
     }
 
@@ -72,7 +72,7 @@ public class LayeredIcon implements ResizableIcon {
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
-        for (ResizableIcon layer : layers) {
+        for (NeonIcon layer : layers) {
             layer.paintIcon(c, g, x, y);
         }
     }

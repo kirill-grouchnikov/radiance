@@ -6,9 +6,9 @@ import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.flamingo.api.common.icon.IcoWrapperResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.IcoWrapperNeonIcon;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -86,13 +86,13 @@ public class IcoViewer extends JFrame {
             }
 
             @Override
-            protected ResizableIcon getResizableIcon(AbstractFileViewPanel.Leaf leaf,
+            protected NeonIcon getNeonIcon(AbstractFileViewPanel.Leaf leaf,
                     InputStream stream, CommandButtonPresentationState state, Dimension dimension) {
                 int prefSize = state.getPreferredIconSize();
                 if (prefSize > 0) {
                     dimension = new Dimension(prefSize, prefSize);
                 }
-                return IcoWrapperResizableIcon.getIcon(stream,
+                return IcoWrapperNeonIcon.getIcon(stream,
                         NeonCortex.getScaleFactor(fileViewPanel), dimension);
             }
 

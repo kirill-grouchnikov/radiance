@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.spyglass.cookbook.EchoResizableIcon;
-import org.pushingpixels.demo.spyglass.cookbook.ScaledResizableIcon;
+import org.pushingpixels.demo.spyglass.cookbook.EchoNeonIcon;
+import org.pushingpixels.demo.spyglass.cookbook.ScaledNeonIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -55,8 +55,8 @@ public class RecipeListPanel extends SingleContentPanel {
                 rows("p").
                 padding(new EmptyBorder(8, 4, 0, 4));
 
-        EchoResizableIcon smallerIcon = new EchoResizableIcon(
-                ScaledResizableIcon.factory(ic_format_size_white_24px.factory(), 0.6f));
+        EchoNeonIcon smallerIcon = new EchoNeonIcon(
+                ScaledNeonIcon.factory(ic_format_size_white_24px.factory(), 0.6f));
         smallerIcon.setDimension(new Dimension(16, 16));
         JLabel smaller = new JLabel(smallerIcon);
         titlePaneBuilder.add(smaller).xy(1, 1);
@@ -64,8 +64,8 @@ public class RecipeListPanel extends SingleContentPanel {
         JSlider slider = new JSlider(0, 100, 80);
         titlePaneBuilder.add(slider).xy(3, 1);
 
-        EchoResizableIcon biggerIcon = new EchoResizableIcon(
-                ScaledResizableIcon.factory(ic_format_size_white_24px.factory(), 0.8f));
+        EchoNeonIcon biggerIcon = new EchoNeonIcon(
+                ScaledNeonIcon.factory(ic_format_size_white_24px.factory(), 0.8f));
         smallerIcon.setDimension(new Dimension(16, 16));
         JLabel bigger = new JLabel(biggerIcon);
         titlePaneBuilder.add(bigger).xy(5, 1);
@@ -74,17 +74,17 @@ public class RecipeListPanel extends SingleContentPanel {
         JComponent titlePaneControlButtons = new CommandStripProjection(
                 new CommandGroup(
                         Command.builder()
-                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
                                         .factory(ic_view_headline_white_24px.factory(), 0.75f)))
                                 .inToggleGroupAsSelected(viewGroup)
                                 .build(),
                         Command.builder()
-                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
                                         .factory(ic_view_list_white_24px.factory(), 0.75f)))
                                 .inToggleGroup(viewGroup)
                                 .build(),
                         Command.builder()
-                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
                                         .factory(ic_view_stream_white_24px.factory(), 0.75f)))
                                 .inToggleGroup(viewGroup)
                                 .build()),
@@ -120,11 +120,11 @@ public class RecipeListPanel extends SingleContentPanel {
         final JComponent controlButtons = new CommandStripProjection(
                 new CommandGroup(
                         Command.builder()
-                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
                                         .factory(ic_add_white_24px.factory(), 0.75f)))
                                 .build(),
                         Command.builder()
-                                .setIconFactory(EchoResizableIcon.factory(ScaledResizableIcon
+                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
                                         .factory(ic_remove_white_24px.factory(), 0.75f)))
                                 .build()),
                 CommandStripPresentationModel.withDefaults())

@@ -39,7 +39,7 @@ import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KCommand
 import org.pushingpixels.plasma.KCommandGroup
 import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.neon.api.icon.ResizableIcon.Factory
+import org.pushingpixels.neon.api.icon.NeonIcon.Factory
 
 @PlasmaElementMarker
 public class GalleryCommandVisibilityContainer {

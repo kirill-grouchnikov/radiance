@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.io.IOException;
@@ -37,12 +37,12 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Implementation of {@link ResizableIcon} interface that wraps image files.
+ * Implementation of {@link NeonIcon} interface that wraps image files.
  *
  * @author Kirill Grouchnikov
  */
-public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
-        ResizableIcon {
+public class ImageWrapperNeonIcon extends ImageWrapperIcon implements
+        NeonIcon {
     /**
      * Returns the icon for the specified URL.
      *
@@ -50,9 +50,9 @@ public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
      * @param initialDim Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static ImageWrapperResizableIcon getIcon(Image image,
+    public static ImageWrapperNeonIcon getIcon(Image image,
             Dimension initialDim) {
-        return new ImageWrapperResizableIcon(image, initialDim);
+        return new ImageWrapperNeonIcon(image, initialDim);
     }
 
     /**
@@ -62,10 +62,10 @@ public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
      * @param initialDim Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static ImageWrapperResizableIcon getIcon(URL location,
+    public static ImageWrapperNeonIcon getIcon(URL location,
             Dimension initialDim) {
         try {
-            return new ImageWrapperResizableIcon(location.openStream(),
+            return new ImageWrapperNeonIcon(location.openStream(),
                     initialDim);
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -80,9 +80,9 @@ public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
      * @param initialDim  Initial dimension of the icon.
      * @return Icon instance.
      */
-    public static ImageWrapperResizableIcon getIcon(InputStream inputStream,
+    public static ImageWrapperNeonIcon getIcon(InputStream inputStream,
             Dimension initialDim) {
-        return new ImageWrapperResizableIcon(inputStream, initialDim);
+        return new ImageWrapperNeonIcon(inputStream, initialDim);
     }
 
     /**
@@ -91,7 +91,7 @@ public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
      * @param image      Image.
      * @param initialDim Initial dimension of the icon.
      */
-    private ImageWrapperResizableIcon(Image image, Dimension initialDim) {
+    private ImageWrapperNeonIcon(Image image, Dimension initialDim) {
         super(image, initialDim.width, initialDim.height);
     }
 
@@ -101,7 +101,7 @@ public class ImageWrapperResizableIcon extends ImageWrapperIcon implements
      * @param inputStream Input stream with the image content.
      * @param initialDim  Initial dimension of the icon.
      */
-    private ImageWrapperResizableIcon(InputStream inputStream,
+    private ImageWrapperNeonIcon(InputStream inputStream,
             final Dimension initialDim) {
         super(inputStream, initialDim.width, initialDim.height);
     }

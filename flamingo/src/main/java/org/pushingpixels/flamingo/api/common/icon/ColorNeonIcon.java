@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 
 /**
- * Implementation of {@link ResizableIcon} that fills the icon with a solid
+ * Implementation of {@link NeonIcon} that fills the icon with a solid
  * color.
  *
  * @author Kirill Grouchnikov
  */
-public class ColorResizableIcon implements ResizableIcon {
+public class ColorNeonIcon implements NeonIcon {
     /**
      * The current icon width.
      */
@@ -61,7 +61,7 @@ public class ColorResizableIcon implements ResizableIcon {
      * @param initialDim Initial dimension of the icon.
      * @param color      fill color.
      */
-    public ColorResizableIcon(Dimension initialDim, Color color) {
+    public ColorNeonIcon(Dimension initialDim, Color color) {
         this.width = initialDim.width;
         this.height = initialDim.height;
         this.color = color;
@@ -73,7 +73,7 @@ public class ColorResizableIcon implements ResizableIcon {
      * @param initialDim Initial dimension of the icon.
      * @param color      fill color.
      */
-    public ColorResizableIcon(int initialDim, Color color) {
+    public ColorNeonIcon(int initialDim, Color color) {
         this(new Dimension(initialDim, initialDim), color);
     }
 
@@ -100,6 +100,6 @@ public class ColorResizableIcon implements ResizableIcon {
     }
 
     public static Factory factory(Color color) {
-        return () -> new ColorResizableIcon(16, color);
+        return () -> new ColorNeonIcon(16, color);
     }
 }

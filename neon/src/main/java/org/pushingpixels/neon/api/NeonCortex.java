@@ -32,17 +32,16 @@ package org.pushingpixels.neon.api;
 import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
 import org.pushingpixels.neon.api.font.FontPolicy;
 import org.pushingpixels.neon.api.font.FontSet;
-import org.pushingpixels.neon.api.icon.ResizableAsyncLoadingIconUIResource;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonAsyncLoadingIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 import org.pushingpixels.neon.internal.ColorFilter;
-import org.pushingpixels.neon.internal.ResizableAsyncLoadingIcon;
+import org.pushingpixels.neon.internal.NeonAsyncLoadingIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.neon.internal.font.*;
 
-import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -328,11 +327,11 @@ public class NeonCortex {
      * @param color         Color for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory, Color color) {
-        class NeonResizableAsyncLoadingIcon extends ResizableAsyncLoadingIcon {
+    public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, Color color) {
+        class NeonResizableAsyncLoadingIcon extends NeonAsyncLoadingIcon {
             private Color color;
 
-            NeonResizableAsyncLoadingIcon(ResizableIcon.Factory sourceFactory, Color color) {
+            NeonResizableAsyncLoadingIcon(NeonIcon.Factory sourceFactory, Color color) {
                 super(sourceFactory);
                 this.color = color;
             }
@@ -347,18 +346,18 @@ public class NeonCortex {
             }
         }
 
-        ResizableIcon original = sourceFactory.createNewIcon();
+        NeonIcon original = sourceFactory.createNewIcon();
         if (original instanceof AsynchronousLoading) {
             return new NeonResizableAsyncLoadingIcon(sourceFactory, color);
         } else {
-            return new ResizableIcon() {
+            return new NeonIcon() {
                 private int width;
                 private int height;
                 private BufferedImage colorized;
 
                 @Override
                 public void setDimension(Dimension newDimension) {
-                    ResizableIcon original = sourceFactory.createNewIcon();
+                    NeonIcon original = sourceFactory.createNewIcon();
                     original.setDimension(newDimension);
                     BufferedImage flat = NeonCortex.getBlankScaledImage(
                             NeonCortex.getScaleFactor(null),
@@ -400,7 +399,7 @@ public class NeonCortex {
      * @param alpha         Alpha value for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
+    public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory,
             Color color, float alpha) {
         return colorizeIcon(sourceFactory, new Color(color.getRed(), color.getGreen(),
                 color.getBlue(), (int) (alpha * 255)));
@@ -414,13 +413,13 @@ public class NeonCortex {
      * @param color         Color for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIconUIResource colorizeIconAsUiResource(
-            ResizableIcon.Factory sourceFactory, Color color) {
-        ResizableIcon colorized = colorizeIcon(sourceFactory, color);
+    public static NeonIconUIResource colorizeIconAsUiResource(
+            NeonIcon.Factory sourceFactory, Color color) {
+        NeonIcon colorized = colorizeIcon(sourceFactory, color);
         if (colorized instanceof AsynchronousLoading) {
-            return new ResizableAsyncLoadingIconUIResource(colorized);
+            return new NeonAsyncLoadingIconUIResource(colorized);
         } else {
-            return new ResizableIconUIResource(colorized);
+            return new NeonIconUIResource(colorized);
         }
     }
 
@@ -433,8 +432,8 @@ public class NeonCortex {
      * @param alpha         Alpha value for colorization.
      * @return The colorized version of the icon.
      */
-    public static ResizableIconUIResource colorizeIconAsUiResource(
-            ResizableIcon.Factory sourceFactory, Color color, float alpha) {
+    public static NeonIconUIResource colorizeIconAsUiResource(
+            NeonIcon.Factory sourceFactory, Color color, float alpha) {
         return colorizeIconAsUiResource(sourceFactory,
                 new Color(color.getRed(), color.getGreen(),
                         color.getBlue(), (int) (alpha * 255)));

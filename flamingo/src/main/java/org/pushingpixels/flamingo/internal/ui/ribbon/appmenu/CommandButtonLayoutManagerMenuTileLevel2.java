@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -150,7 +150,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int layoutHGap = 2 * FlamingoUtilities.getHLayoutGap(commandButton);
         int layoutVGap = 2 * FlamingoUtilities.getVLayoutGap(commandButton);
 
-        ResizableIcon buttonIcon = commandButton.getIcon();
+        NeonIcon buttonIcon = commandButton.getIcon();
         boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
         if (ltr) {

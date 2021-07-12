@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.neon.api;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.util.concurrent.ExecutorService;
 
 /**
  * This interface is used for asynchronously-loaded contents. For example, the SVG-based
- * implementation of {@link ResizableIcon} in Photon uses the
+ * implementation of {@link NeonIcon} in Photon uses the
  * {@link ExecutorService} to load the SVG image in the background. When the image is loaded, the
  * component that contains this image (command button from Flamingo, for example) is notified so
  * that it can repaint itself.

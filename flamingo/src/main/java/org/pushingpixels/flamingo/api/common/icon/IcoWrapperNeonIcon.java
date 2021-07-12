@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.io.IOException;
@@ -37,12 +37,12 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Implementation of {@link ResizableIcon} interface that wraps ICO files.
+ * Implementation of {@link NeonIcon} interface that wraps ICO files.
  * 
  * @author Kirill Grouchnikov
  */
-public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
-		ResizableIcon {
+public class IcoWrapperNeonIcon extends IcoWrapperIcon implements
+		NeonIcon {
 	/**
 	 * Returns the icon for the specified URL.
 	 * 
@@ -52,10 +52,10 @@ public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
 	 *            Initial dimension of the icon.
 	 * @return Icon instance.
 	 */
-	public static IcoWrapperResizableIcon getIcon(URL location, double scale,
+	public static IcoWrapperNeonIcon getIcon(URL location, double scale,
 			final Dimension initialDim) {
 		try {
-			return new IcoWrapperResizableIcon(location.openStream(), scale, initialDim);
+			return new IcoWrapperNeonIcon(location.openStream(), scale, initialDim);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			return null;
@@ -71,9 +71,9 @@ public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
 	 *            Initial dimension of the icon.
 	 * @return Icon instance.
 	 */
-	public static IcoWrapperResizableIcon getIcon(InputStream inputStream, double scale,
+	public static IcoWrapperNeonIcon getIcon(InputStream inputStream, double scale,
 			final Dimension initialDim) {
-		return new IcoWrapperResizableIcon(inputStream, scale, initialDim);
+		return new IcoWrapperNeonIcon(inputStream, scale, initialDim);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class IcoWrapperResizableIcon extends IcoWrapperIcon implements
 	 * @param initialDim
 	 *            Initial dimension of the icon.
 	 */
-	private IcoWrapperResizableIcon(InputStream inputStream, double scale,
+	private IcoWrapperNeonIcon(InputStream inputStream, double scale,
 			Dimension initialDim) {
 		super(inputStream, scale, initialDim.width, initialDim.height);
 	}

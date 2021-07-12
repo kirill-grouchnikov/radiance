@@ -40,7 +40,7 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -117,7 +117,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     /**
      * The "expand" action icon.
      */
-    protected ResizableIcon popupActionIcon;
+    protected NeonIcon popupActionIcon;
 
     protected CommandButtonLayoutManager layoutManager;
 
@@ -217,7 +217,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected void installComponents() {
         this.updatePopupActionIcon();
 
-        ResizableIcon buttonIcon = this.commandButton.getIcon();
+        NeonIcon buttonIcon = this.commandButton.getIcon();
         if (buttonIcon instanceof AsynchronousLoading) {
             ((AsynchronousLoading) buttonIcon).addAsynchronousLoadListener((boolean success) -> {
                 if (success && (commandButton != null))
@@ -323,7 +323,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.setExtraText((String) propertyChangeEvent.getNewValue());
             }
             if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
-                ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
+                NeonIcon.Factory factory = (NeonIcon.Factory) propertyChangeEvent.getNewValue();
                 commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("isToggleSelected".equals(propertyChangeEvent.getPropertyName())) {
@@ -418,7 +418,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      *
      * @return The icon for the popup area.
      */
-    protected ResizableIcon createPopupActionIcon() {
+    protected NeonIcon createPopupActionIcon() {
         return null;
     }
 
@@ -696,7 +696,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     private void syncIconDimension() {
-        ResizableIcon icon = this.commandButton.getIcon();
+        NeonIcon icon = this.commandButton.getIcon();
         CommandButtonPresentationState commandButtonState =
                 this.commandButton.getPresentationState();
 

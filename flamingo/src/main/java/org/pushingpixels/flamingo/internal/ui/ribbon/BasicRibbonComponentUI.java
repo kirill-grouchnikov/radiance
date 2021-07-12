@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -72,7 +72,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
      */
     protected void installDefaults() {
         if (!this.ribbonComponent.isSimpleWrapper()) {
-            ResizableIcon icon = this.ribbonComponent.getIcon();
+            NeonIcon icon = this.ribbonComponent.getIcon();
             if (icon != null) {
                 icon.setDimension(new Dimension(16, 16));
             }
@@ -110,7 +110,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
                 ribbonComponent.doLayout();
             }
             if ("icon".equals(propertyChangeEvent.getPropertyName())) {
-                ResizableIcon newIcon = (ResizableIcon) propertyChangeEvent.getNewValue();
+                NeonIcon newIcon = (NeonIcon) propertyChangeEvent.getNewValue();
                 if (newIcon != null) {
                     newIcon.setDimension(new Dimension(16, 16));
                 }
@@ -208,7 +208,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
             int width = ins.left;
             int height = minMain.height;
             if (isIconVisible(ribbonComponent.getPresentationPriority())) {
-                ResizableIcon icon = ribbonComponent.getIcon();
+                NeonIcon icon = ribbonComponent.getIcon();
                 if (icon != null) {
                     width += (icon.getIconWidth() + getLayoutGap());
                     height = Math.max(height, icon.getIconHeight());
@@ -371,7 +371,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         JRibbonComponent ribbonComp = (JRibbonComponent) c;
         if (isIconVisible(this.ribbonComponent.getPresentationPriority())) {
             Insets ins = ribbonComp.getInsets();
-            ResizableIcon icon = ribbonComp.getIcon();
+            NeonIcon icon = ribbonComp.getIcon();
             if (icon != null) {
                 int availableHeight = ribbonComp.getHeight() - ins.top - ins.bottom;
                 int iconY = Math.max(0, ins.top + (availableHeight - icon.getIconHeight()) / 2);
@@ -417,7 +417,7 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
         int width = ins.left;
         int height = prefMain.height;
         if (isIconVisible(priority)) {
-            ResizableIcon icon = ribbonComponent.getIcon();
+            NeonIcon icon = ribbonComponent.getIcon();
             if (icon != null) {
                 width += (icon.getIconWidth() + getLayoutGap());
                 height = Math.max(height, icon.getIconHeight());

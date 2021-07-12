@@ -27,55 +27,26 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.spyglass.cookbook;
+package org.pushingpixels.demo.plasma.common
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon
+import java.awt.Component
+import java.awt.Dimension
+import java.awt.Graphics
+import javax.swing.Icon
 
-import java.awt.*;
+class IconWrapperNeonIcon(val delegate: Icon) : NeonIcon {
+    override fun getIconHeight(): Int {
+        return delegate.getIconHeight()
+    }
 
-/**
- * Custom implementation of resizable icon that allows scaling down another
- * resizable icon during the painting.
- * 
- * @author Kirill Grouchnikov
- */
-public class ScaledResizableIcon implements ResizableIcon {
-	private ResizableIcon delegate;
+    override fun getIconWidth(): Int {
+        return delegate.getIconHeight()
+    }
 
-	private double scaleFactor;
+    override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
+        delegate.paintIcon(c, g, x, y)
+    }
 
-	public ScaledResizableIcon(ResizableIcon delegate, double scaleFactor) {
-		this.delegate = delegate;
-		this.scaleFactor = scaleFactor;
-	}
-
-	public int getIconHeight() {
-		return delegate.getIconHeight();
-	}
-
-	public int getIconWidth() {
-		return delegate.getIconWidth();
-	}
-
-	public void paintIcon(Component c, Graphics g, int x, int y) {
-		Graphics2D g2d = (Graphics2D) g.create();
-		double dx = this.getIconWidth() * (1.0 - this.scaleFactor) / 2;
-		double dy = this.getIconHeight() * (1.0 - this.scaleFactor) / 2;
-
-		g2d.translate((int) dx, (int) dy);
-		g2d.scale(this.scaleFactor, this.scaleFactor);
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		delegate.paintIcon(c, g2d, x, y);
-
-		g2d.dispose();
-	}
-
-	public void setDimension(Dimension newDimension) {
-		delegate.setDimension(newDimension);
-	}
-
-	public static Factory factory(Factory delegate, double scaleFactor) {
-		return () -> new ScaledResizableIcon(delegate.createNewIcon(), scaleFactor);
-	}
+    override fun setDimension(dim: Dimension) {}
 }

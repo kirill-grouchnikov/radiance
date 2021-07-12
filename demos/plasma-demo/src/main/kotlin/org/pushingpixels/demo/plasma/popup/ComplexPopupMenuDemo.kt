@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon
+import org.pushingpixels.flamingo.api.common.icon.DecoratedNeonIcon
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
@@ -82,9 +82,9 @@ fun main() {
                                 for (i in 0 until 15) {
                                     command {
                                         val decoration = "$groupIndex/$i"
-                                        iconFactory = DecoratedResizableIcon.factory(
+                                        iconFactory = DecoratedNeonIcon.factory(
                                                 Font_x_generic.factory(),
-                                                DecoratedResizableIcon.IconDecorator { component, graphics, x, y, width, height ->
+                                                DecoratedNeonIcon.IconDecorator { component, graphics, x, y, width, height ->
                                                     graphics.render {
                                                         it.color = Color.black
                                                         if (component.componentOrientation.isLeftToRight) {

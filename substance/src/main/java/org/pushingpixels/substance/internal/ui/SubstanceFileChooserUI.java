@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -125,7 +125,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
         public Icon getDefaultIcon(File f) {
             JFileChooser fileChooser = getFileChooser();
             Icon icon = fileChooser.getFileSystemView().getSystemIcon(f);
-            if (icon instanceof ResizableIconUIResource) {
+            if (icon instanceof NeonIconUIResource) {
                 SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
                 SubstanceColorScheme colorScheme = SubstanceCoreUtilities.getSkin(fileChooser)
                         .getEnabledColorScheme(DecorationAreaType.NONE);

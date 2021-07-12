@@ -43,7 +43,7 @@ for (int groupIndex = 0; groupIndex < 4; groupIndex++) {
     List<Command> commands = new ArrayList<>();
     for (int i = 0; i < 15; i++) {
         final String deco = groupIndex + "/" + i;
-        ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+        NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
                 Font_x_generic.factory(),
                 ...
                 });

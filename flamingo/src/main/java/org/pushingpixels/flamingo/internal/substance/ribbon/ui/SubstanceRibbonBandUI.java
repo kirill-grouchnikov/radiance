@@ -34,12 +34,12 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -183,13 +183,13 @@ public class SubstanceRibbonBandUI extends BasicRibbonBandUI {
                 .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip()).build();
     }
 
-    private ResizableIcon getExpandButtonIcon(final SubstanceSkin skin,
+    private NeonIcon getExpandButtonIcon(final SubstanceSkin skin,
             final JCommandButton button) {
         final double scale = NeonCortex.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-        final ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+        final NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
                     Color bgFillColor = SubstanceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);

@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.api.renderer;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -67,12 +67,12 @@ import java.util.Set;
  * {@link #registerThemeAwareLabelsWithText(JLabel...)} and
  * {@link #unregisterThemeAwareLabelsWithText(JLabel...)} in
  * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
- * <li>Use {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIcon.Factory, Dimension)}
+ * <li>Use {@link #registerThemeAwareLabelWithIcon(JLabel, NeonIcon.Factory, Dimension)}
  * in the constructor to "mark" those sub-component labels that should participate in highlight
  * animations on their icons based on the current state (rollover, selection, etc). In case a
  * specific label is using a fixed icon for some of the rows in your list or different icon
  * sources for different rows, use
- * {@link #registerThemeAwareLabelWithIcon(JLabel, ResizableIcon.Factory, Dimension)} and
+ * {@link #registerThemeAwareLabelWithIcon(JLabel, NeonIcon.Factory, Dimension)} and
  * {@link #unregisterThemeAwareLabelWithIcon(JLabel)} in
  * {@link #onPreRender(JList, Object, int)} instead of in the constructor.</li>
  * </ul>
@@ -86,10 +86,10 @@ import java.util.Set;
 public abstract class SubstancePanelListCellRenderer<T> extends JPanel
         implements ListCellRenderer<T> {
     private static class IconData {
-        private ResizableIcon.Factory iconFactory;
+        private NeonIcon.Factory iconFactory;
         private Dimension iconSize;
 
-        private IconData(ResizableIcon.Factory iconFactory, Dimension iconSize) {
+        private IconData(NeonIcon.Factory iconFactory, Dimension iconSize) {
             this.iconFactory = iconFactory;
             this.iconSize = iconSize;
         }
@@ -117,9 +117,9 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
     }
 
     protected void registerThemeAwareLabelWithIcon(JLabel label,
-            ResizableIcon.Factory resizableIconFactory, Dimension iconDimension) {
+            NeonIcon.Factory NeonIconFactory, Dimension iconDimension) {
         this.themeAwareLabelsWithIcons.put(label,
-                new IconData(resizableIconFactory, iconDimension));
+                new IconData(NeonIconFactory, iconDimension));
     }
 
     protected void unregisterThemeAwareLabelWithIcon(JLabel label) {
@@ -202,7 +202,7 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
             JLabel label = themeAwareLabelsWithIcons.getKey();
             IconData iconData = themeAwareLabelsWithIcons.getValue();
 
-            ResizableIcon icon = NeonCortex.colorizeIcon(iconData.iconFactory, labelForeground);
+            NeonIcon icon = NeonCortex.colorizeIcon(iconData.iconFactory, labelForeground);
             icon.setDimension(iconData.iconSize);
 
             label.setIcon(icon);

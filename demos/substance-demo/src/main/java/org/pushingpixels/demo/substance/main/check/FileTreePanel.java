@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -120,7 +120,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                         Class<?> transcodedClass = Class.forName(className);
                         if (transcodedClass != null) {
                             Method of = transcodedClass.getDeclaredMethod("of", int.class, int.class);
-                            icon = (ResizableIcon) of.invoke(null, 16, 16);
+                            icon = (NeonIcon) of.invoke(null, 16, 16);
                             iconCache.put(ext, icon);
                         }
                     } catch (Throwable t) {

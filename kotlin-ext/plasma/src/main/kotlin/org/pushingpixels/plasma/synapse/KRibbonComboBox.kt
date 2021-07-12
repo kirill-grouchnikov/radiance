@@ -31,7 +31,7 @@ package org.pushingpixels.plasma.synapse
 
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection
-import org.pushingpixels.neon.api.icon.ResizableIcon
+import org.pushingpixels.neon.api.icon.NeonIcon
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NullableDelegate
@@ -48,7 +48,7 @@ public class KRibbonComboBoxContentModel<T> {
 
     private var richTooltip: KRichTooltip? by NullableDelegate { false }
     private var items: Array<out T>? = null
-    public var iconFactory: ResizableIcon.Factory? by NullableDelegate { false }
+    public var iconFactory: NeonIcon.Factory? by NullableDelegate { false }
     public var caption: String? by NullableDelegate { false }
     public var selectionChangeListener: ((oldSelection: Any?, newSelection: Any?) -> Unit)?
             by NullableDelegate { hasBeenConverted }

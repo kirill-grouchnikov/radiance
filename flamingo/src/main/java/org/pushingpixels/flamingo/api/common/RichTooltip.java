@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -70,7 +70,7 @@ import java.util.List;
  * </pre>
  *
  * <p>
- * The {@link Builder#setMainIconFactory(ResizableIcon.Factory)} can be used to place an image below
+ * The {@link Builder#setMainIconFactory(NeonIcon.Factory)} can be used to place an image below
  * the title and to the left of the description sections:
  * </p>
  *
@@ -105,7 +105,7 @@ import java.util.List;
  * </pre>
  *
  * <p>
- * The {@link Builder#setFooterIconFactory(ResizableIcon.Factory)}  can be used to place an image to
+ * The {@link Builder#setFooterIconFactory(NeonIcon.Factory)}  can be used to place an image to
  * the left of the footer sections:
  * </p>
  *
@@ -160,7 +160,7 @@ public class RichTooltip {
      *
      * @see #getMainIcon()
      */
-    private ResizableIcon mainIcon;
+    private NeonIcon mainIcon;
 
     /**
      * The description sections of this tooltip.
@@ -174,7 +174,7 @@ public class RichTooltip {
      *
      * @see #getFooterIcon()
      */
-    private ResizableIcon footerIcon;
+    private NeonIcon footerIcon;
 
     /**
      * The footer sections of this tooltip. Can be empty.
@@ -201,7 +201,7 @@ public class RichTooltip {
      * @return The main icon of this tooltip.
      * @see #getDescriptionSections()
      */
-    public ResizableIcon getMainIcon() {
+    public NeonIcon getMainIcon() {
         return this.mainIcon;
     }
 
@@ -223,7 +223,7 @@ public class RichTooltip {
      * @return The footer icon of this tooltip.
      * @see #getFooterSections()
      */
-    public ResizableIcon getFooterIcon() {
+    public NeonIcon getFooterIcon() {
         return this.footerIcon;
     }
 
@@ -244,9 +244,9 @@ public class RichTooltip {
 
     public static class Builder {
         private String title;
-        private ResizableIcon.Factory mainIconFactory;
+        private NeonIcon.Factory mainIconFactory;
         private List<String> descriptionSections;
-        private ResizableIcon.Factory footerIconFactory;
+        private NeonIcon.Factory footerIconFactory;
         private List<String> footerSections;
 
         @SuppressWarnings("unchecked")
@@ -273,7 +273,7 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setMainIconFactory(ResizableIcon.Factory mainIconFactory) {
+        public Builder setMainIconFactory(NeonIcon.Factory mainIconFactory) {
             this.mainIconFactory = mainIconFactory;
             return this;
         }
@@ -286,7 +286,7 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setFooterIconFactory(ResizableIcon.Factory footerIconFactory) {
+        public Builder setFooterIconFactory(NeonIcon.Factory footerIconFactory) {
             this.footerIconFactory = footerIconFactory;
             return this;
         }

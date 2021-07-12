@@ -32,7 +32,7 @@ package org.pushingpixels.demo.spyglass.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -87,27 +87,27 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.LEADING, 24, 0));
         result.setBorder(new EmptyBorder(14, 4, 14, 4));
 
-        ResizableIcon closeIcon = NeonCortex.colorizeIcon(
+        NeonIcon closeIcon = NeonCortex.colorizeIcon(
                 ic_close_black_24px.factory(), iconColor, 0.8f);
         closeIcon.setDimension(new Dimension(16, 16));
         result.add(new JLabel(closeIcon));
 
-        ResizableIcon listIcon = NeonCortex.colorizeIcon(
+        NeonIcon listIcon = NeonCortex.colorizeIcon(
                 ic_view_list_black_24px.factory(), iconColor, 0.8f);
         listIcon.setDimension(new Dimension(16, 16));
         result.add(new JLabel(listIcon));
 
-        ResizableIcon alarmIcon = NeonCortex.colorizeIcon(
+        NeonIcon alarmIcon = NeonCortex.colorizeIcon(
                 ic_access_alarm_black_24px.factory(), iconColor, 0.8f);
         alarmIcon.setDimension(new Dimension(16, 16));
         result.add(new JLabel(alarmIcon));
 
-        ResizableIcon archiveIcon = NeonCortex.colorizeIcon(
+        NeonIcon archiveIcon = NeonCortex.colorizeIcon(
                 ic_archive_black_24px.factory(), iconColor, 0.8f);
         archiveIcon.setDimension(new Dimension(16, 16));
         result.add(new JLabel(archiveIcon));
 
-        ResizableIcon deleteIcon = NeonCortex.colorizeIcon(
+        NeonIcon deleteIcon = NeonCortex.colorizeIcon(
                 ic_delete_black_24px.factory(), iconColor, 0.8f);
         deleteIcon.setDimension(new Dimension(16, 16));
         result.add(new JLabel(deleteIcon));
@@ -179,12 +179,12 @@ public class ThreadPanel extends JPanel {
         dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
         firstRow.add(dateLabel).xy(3, 1);
 
-        ResizableIcon replyIcon = NeonCortex.colorizeIcon(
+        NeonIcon replyIcon = NeonCortex.colorizeIcon(
                 ic_reply_black_24px.factory(), iconColor, 0.8f);
         replyIcon.setDimension(new Dimension(14, 14));
         firstRow.add(new JLabel(replyIcon)).xy(5, 1);
 
-        ResizableIcon moreIcon = NeonCortex.colorizeIcon(
+        NeonIcon moreIcon = NeonCortex.colorizeIcon(
                 ic_more_horiz_black_24px.factory(), iconColor, 0.8f);
         moreIcon.setDimension(new Dimension(14, 14));
         firstRow.add(new JLabel(moreIcon)).xy(7, 1);
@@ -199,7 +199,7 @@ public class ThreadPanel extends JPanel {
         messagePane.setText(message);
 
         Color historyColor = new Color(32, 96, 148);
-        ResizableIcon historyIcon = NeonCortex.colorizeIcon(
+        NeonIcon historyIcon = NeonCortex.colorizeIcon(
                 ic_history_black_24px.factory(), historyColor);
         historyIcon.setDimension(new Dimension(12, 12));
         JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
@@ -228,12 +228,12 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
         result.setBorder(new EmptyBorder(16, 24, 16, 0));
 
-        ResizableIcon replyIcon = NeonCortex.colorizeIcon(
+        NeonIcon replyIcon = NeonCortex.colorizeIcon(
                 ic_reply_black_24px.factory(), iconColor, 0.8f);
         replyIcon.setDimension(new Dimension(14, 14));
         JButton reply = new JButton("Reply", replyIcon);
 
-        ResizableIcon forwardIcon = NeonCortex.colorizeIcon(
+        NeonIcon forwardIcon = NeonCortex.colorizeIcon(
                 ic_forward_black_24px.factory(), iconColor, 0.8f);
         forwardIcon.setDimension(new Dimension(14, 14));
         JButton forward = new JButton("Forward", forwardIcon);

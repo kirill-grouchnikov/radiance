@@ -30,8 +30,8 @@
 package org.pushingpixels.substance.internal.ui;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -164,10 +164,10 @@ public class SubstanceTreeUI extends BasicTreeUI {
 			}
 		}
 
-		ResizableIcon expandedIcon = SubstanceIconFactory.getTreeIcon(this.tree, false);
-		ResizableIcon collapsedIcon = SubstanceIconFactory.getTreeIcon(this.tree, true);
-		setExpandedIcon(new ResizableIconUIResource(expandedIcon));
-		setCollapsedIcon(new ResizableIconUIResource(collapsedIcon));
+		NeonIcon expandedIcon = SubstanceIconFactory.getTreeIcon(this.tree, false);
+		NeonIcon collapsedIcon = SubstanceIconFactory.getTreeIcon(this.tree, true);
+		setExpandedIcon(new NeonIconUIResource(expandedIcon));
+		setCollapsedIcon(new NeonIconUIResource(collapsedIcon));
 
 		// instead of computing the cell renderer insets on
 		// every cell rendering, compute it once and expose to the

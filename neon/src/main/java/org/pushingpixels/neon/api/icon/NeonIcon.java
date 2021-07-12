@@ -29,32 +29,44 @@
  */
 package org.pushingpixels.neon.api.icon;
 
-import javax.swing.plaf.UIResource;
+import org.pushingpixels.neon.api.NeonCortex;
+
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class ResizableIconUIResource implements ResizableIcon, UIResource {
-    protected ResizableIcon delegate;
+/**
+ * Interface for icons that have resizability behaviour.
+ * 
+ * @author Kirill Grouchnikov
+ */
+public interface NeonIcon extends Icon {
+	/**
+	 * Changes the dimension of <code>this</code> icon.
+	 * 
+	 * @param newDimension
+	 *            New dimension for <code>this</code> icon.
+	 */
+	void setDimension(Dimension newDimension);
 
-	public ResizableIconUIResource(ResizableIcon delegate) {
-		this.delegate = delegate;
+	default BufferedImage toImage(double scale) {
+		BufferedImage result = NeonCortex.getBlankScaledImage(scale,
+				this.getIconWidth(), this.getIconHeight());
+		this.paintIcon(null, result.getGraphics(), 0, 0);
+		return result;
 	}
 
-	public int getIconHeight() {
-		return delegate.getIconHeight();
-	}
-
-	public int getIconWidth() {
-		return delegate.getIconWidth();
-	}
-
-	public void paintIcon(Component c, Graphics g, int x, int y) {
-		Graphics2D g2d = (Graphics2D) g.create();
-		g2d.translate(x, y);
-		delegate.paintIcon(c, g2d, 0, 0);
-		g2d.dispose();
-	}
-
-	public void setDimension(Dimension newDimension) {
-		delegate.setDimension(newDimension);
-	}
+    /**
+     * Interface for creating icons that have resizability behaviour.
+     *
+     * @author Kirill Grouchnikov
+     */
+    interface Factory {
+        /**
+         * Returns a new instance of the icon managed by this factory.
+         *
+         * @return A new instance of the icon managed by this factory.
+         */
+		NeonIcon createNewIcon();
+    }
 }

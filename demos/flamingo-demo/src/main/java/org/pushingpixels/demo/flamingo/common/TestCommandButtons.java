@@ -37,7 +37,7 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -133,18 +133,18 @@ public class TestCommandButtons extends JFrame {
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "2" }))
-                .setIconFactory(EmptyResizableIcon.factory())
+                .setIconFactory(EmptyNeonIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 2"))
                 .build());
         simpleEntries1.add(Command.builder()
                 .setText(mf.format(new Object[] { "3" }))
-                .setIconFactory(EmptyResizableIcon.factory())
+                .setIconFactory(EmptyNeonIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 3"))
                 .build());
 
         simpleEntries2.add(Command.builder()
                 .setText(mf.format(new Object[] { "4" }))
-                .setIconFactory(EmptyResizableIcon.factory())
+                .setIconFactory(EmptyNeonIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 4"))
                 .build());
         simpleEntries2.add(Command.builder()

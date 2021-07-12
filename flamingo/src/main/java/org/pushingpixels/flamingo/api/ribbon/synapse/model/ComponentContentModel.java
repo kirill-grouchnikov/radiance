@@ -31,14 +31,14 @@ package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.ContentModel;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.beans.PropertyChangeListener;
 
 public interface ComponentContentModel extends ContentModel {
     boolean isEnabled();
     void setEnabled(boolean enabled);
-    ResizableIcon.Factory getIconFactory();
+    NeonIcon.Factory getIconFactory();
     String getCaption();
     RichTooltip getRichTooltip();
 

@@ -29,44 +29,34 @@
  */
 package org.pushingpixels.neon.api.icon;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.neon.api.AsynchronousLoadListener;
+import org.pushingpixels.neon.api.AsynchronousLoading;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-/**
- * Interface for icons that have resizability behaviour.
- * 
- * @author Kirill Grouchnikov
- */
-public interface ResizableIcon extends Icon {
-	/**
-	 * Changes the dimension of <code>this</code> icon.
-	 * 
-	 * @param newDimension
-	 *            New dimension for <code>this</code> icon.
-	 */
-	void setDimension(Dimension newDimension);
-
-	default BufferedImage toImage(double scale) {
-		BufferedImage result = NeonCortex.getBlankScaledImage(scale,
-				this.getIconWidth(), this.getIconHeight());
-		this.paintIcon(null, result.getGraphics(), 0, 0);
-		return result;
+public class NeonAsyncLoadingIconUIResource extends NeonIconUIResource
+		implements AsynchronousLoading {
+	public NeonAsyncLoadingIconUIResource(NeonIcon delegate) {
+		super(delegate);
 	}
 
-    /**
-     * Interface for creating icons that have resizability behaviour.
-     *
-     * @author Kirill Grouchnikov
-     */
-    interface Factory {
-        /**
-         * Returns a new instance of the icon managed by this factory.
-         *
-         * @return A new instance of the icon managed by this factory.
-         */
-        ResizableIcon createNewIcon();
-    }
+	@Override
+	public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
+		if (delegate instanceof AsynchronousLoading) {
+			((AsynchronousLoading) delegate).addAsynchronousLoadListener(l);
+		}
+	}
+
+	@Override
+	public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
+		if (delegate instanceof AsynchronousLoading) {
+			((AsynchronousLoading) delegate).removeAsynchronousLoadListener(l);
+		}
+	}
+
+	@Override
+	public boolean isLoading() {
+		if (delegate instanceof AsynchronousLoading) {
+			return ((AsynchronousLoading) delegate).isLoading();
+		}
+		return false;
+	}
 }

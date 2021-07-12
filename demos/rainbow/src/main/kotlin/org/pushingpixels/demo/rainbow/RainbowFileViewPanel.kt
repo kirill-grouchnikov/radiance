@@ -39,8 +39,8 @@ import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
 import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.neon.api.icon.ResizableIcon
-import org.pushingpixels.photon.api.icon.SvgBatikResizableIcon
+import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon
 import java.awt.Dimension
 import java.io.InputStream
 
@@ -55,7 +55,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         TransitionLayoutManager.getInstance().track(this, true)
     }
 
-    override fun configureCommand(leaf: Leaf, command: Command, icon: ResizableIcon?) {
+    override fun configureCommand(leaf: Leaf, command: Command, icon: NeonIcon?) {
         command.actionRichTooltip = RichTooltip.builder()
                 .setTitle("Transcode")
                 .addDescriptionSection("Click to generate Java2D class")
@@ -63,7 +63,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         command.action = CommandAction {
             GlobalScope.launch(Dispatchers.Swing) {
                 // can't pass the stream contents since the input can be .svgz
-                val svgIcon = icon as SvgBatikResizableIcon
+                val svgIcon = icon as SvgBatikNeonIcon
                 RainbowUtils.processSvgButtonClick(svgIcon.svgBytes, leaf.leafName)
             }
         }
@@ -78,13 +78,13 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         return bar.callback.getLeafContent(leaf)
     }
 
-    override fun getResizableIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
-            state: CommandButtonPresentationState, dimension: Dimension): ResizableIcon? {
+    override fun getNeonIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
+            state: CommandButtonPresentationState, dimension: Dimension): NeonIcon? {
         val name = leaf.leafName
         val scale = NeonCortex.getScaleFactor(this)
         return if (name.endsWith(".svg"))
-            SvgBatikResizableIcon.getSvgIcon(leaf.leafStream, scale, dimension)
+            SvgBatikNeonIcon.getSvgIcon(leaf.leafStream, scale, dimension)
         else
-            SvgBatikResizableIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
+            SvgBatikNeonIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
     }
 }

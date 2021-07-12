@@ -43,14 +43,14 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTaskbarKeyTipPolicy;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonLayoutManagerSmall;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -248,7 +248,7 @@ public class SubstanceRibbonFrameTitlePane extends SubstanceTitlePane {
                 final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
                 int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
                 int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-                ResizableIcon arrowIcon = new TransitionAwareResizableIcon(button,
+                NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
                         () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                         (scheme, width, height) -> SubstanceImageCreator.getDoubleArrowIcon(
                                         scale, arrowIconWidth, arrowIconHeight,

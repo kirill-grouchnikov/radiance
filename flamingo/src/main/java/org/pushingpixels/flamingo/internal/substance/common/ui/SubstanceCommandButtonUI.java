@@ -42,15 +42,15 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareResizableIcon;
+import org.pushingpixels.flamingo.internal.substance.common.GlowingNeonIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonBackgroundDelegate;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -122,7 +122,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
      * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)} returns
      * true on {@link AnimationFacet#ICON_GLOW}.
      */
-    private GlowingResizableIcon glowingIcon;
+    private GlowingNeonIcon glowingIcon;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -289,8 +289,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
      * Tracks possible usage of glowing icon.
      */
     private void trackGlowingIcon() {
-        ResizableIcon currIcon = this.commandButton.getIcon();
-        if (currIcon instanceof GlowingResizableIcon)
+        NeonIcon currIcon = this.commandButton.getIcon();
+        if (currIcon instanceof GlowingNeonIcon)
             return;
         if (currIcon == null)
             return;
@@ -299,7 +299,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         StateTransitionTracker tracker = isPopupOnly
                 ? this.substanceVisualStateTracker.getPopupStateTransitionTracker()
                 : this.substanceVisualStateTracker.getActionStateTransitionTracker();
-        this.glowingIcon = new GlowingResizableIcon(currIcon, tracker.getIconGlowTracker());
+        this.glowingIcon = new GlowingNeonIcon(currIcon, tracker.getIconGlowTracker());
     }
 
     private void paintButtonBackground(Graphics graphics) {
@@ -524,12 +524,12 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     }
 
     @Override
-    protected ResizableIcon createPopupActionIcon() {
+    protected NeonIcon createPopupActionIcon() {
         final double scale = NeonCortex.getScaleFactor(this.commandButton);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(this.commandButton);
         int arrowIconHeight = (int) SubstanceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getArrowIconWidth(fontSize);
-        return new TransitionAwareResizableIcon(this.commandButton,
+        return new TransitionAwareNeonIcon(this.commandButton,
                 this::getPopupTransitionTracker,
                 (scheme, width, height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =

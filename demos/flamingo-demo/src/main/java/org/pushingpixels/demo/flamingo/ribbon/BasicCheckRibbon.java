@@ -35,9 +35,9 @@ import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.ColorResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.DecoratedResizableIcon;
-import org.pushingpixels.flamingo.api.common.icon.EmptyResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.ColorNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.DecoratedNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
@@ -68,7 +68,7 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxPr
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
@@ -785,7 +785,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         selectorBuilder.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ColorSelector.textAutomatic"))
-                .setIconFactory(ColorResizableIcon.factory(defaultColor))
+                .setIconFactory(ColorNeonIcon.factory(defaultColor))
                 .setAction(commandActionEvent -> {
                     colorActivationListener.onColorActivated(defaultColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor);
@@ -859,14 +859,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     private JRibbonBand getPreviewBand() {
         JRibbonBand previewBand = new JRibbonBand(resourceBundle.getString("Preview.textBandTitle"),
-                new SimpleResizableIcon.FactoryTop());
+                new SimpleNeonIcon.FactoryTop());
 
         previewBand.setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesNone(previewBand));
 
         previewBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("Preview.text"))
-                        .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Preview activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -874,7 +874,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         previewBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("SlideShow.text"))
-                        .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Slide Show activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -998,12 +998,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JRibbonBand getAnimationBand() {
         JRibbonBand animationBand = new JRibbonBand(
                 resourceBundle.getString("Animation.textBandTitle"),
-                new SimpleResizableIcon.FactoryTop());
+                new SimpleNeonIcon.FactoryTop());
 
         animationBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("CustomAnimation.text"))
-                        .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Animation 1 activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -1011,7 +1011,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         animationBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("CustomAnimation.text"))
-                        .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Animation 2 activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -1019,7 +1019,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         animationBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("CustomAnimation.text"))
-                        .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Animation 3 activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -1034,14 +1034,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JRibbonBand getTransitionBand() {
         JRibbonBand transitionBand = new JRibbonBand(
                 resourceBundle.getString("TransitionToThis.textBandTitle"),
-                new SimpleResizableIcon.FactoryTop());
+                new SimpleNeonIcon.FactoryTop());
 
         List<CommandGroup> transitionGalleryCommands = new ArrayList<>();
 
         List<Command> transitionGalleryCommandsList = new ArrayList<>();
         for (int i = 1; i <= 40; i++) {
             final int index = i;
-            ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+            NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
@@ -1074,7 +1074,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         List<Command> transitionGalleryButtonsList2 = new ArrayList<>();
         for (int i = 41; i <= 70; i++) {
             final int index = i;
-            ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+            NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
@@ -1132,7 +1132,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         RibbonDefaultComboBoxContentModel.<String>builder()
                                 .setItems(new String[] {
                                         "[" + resourceBundle.getString("NoSound.text") + "]     "})
-                                .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                                .setIconFactory(new SimpleNeonIcon.FactoryTop())
                                 .build(),
                         ComponentPresentationModel.withDefaults()));
         transitionBand.addRibbonComponent(
@@ -1156,7 +1156,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JRibbonBand getTransitionNextBand() {
         JRibbonBand transitionBand = new JRibbonBand(
                 resourceBundle.getString("TransitionToNext.textBandTitle"),
-                new SimpleResizableIcon.FactoryTop());
+                new SimpleNeonIcon.FactoryTop());
 
         transitionBand.addRibbonComponent(new RibbonCheckBoxProjection(
                 RibbonCheckBoxContentModel.builder()
@@ -1173,7 +1173,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         transitionBand.addRibbonComponent(new RibbonSpinnerProjection(
                 RibbonSpinnerDateContentModel.builder()
-                        .setIconFactory(new SimpleResizableIcon.FactoryTop())
+                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
                         .build(),
                 ComponentPresentationModel.withDefaults()));
 
@@ -1215,27 +1215,27 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.popupCommand1 = Command.builder()
                 .setText(mf.format(new Object[] {"1"}))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFF80DEEA)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFF80DEEA)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 1 activated"))
                 .build();
         this.popupCommand2 = Command.builder()
                 .setText(mf.format(new Object[] {"2"}))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFF80CBC4)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFF80CBC4)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 2 activated"))
                 .build();
         this.popupCommand3 = Command.builder()
                 .setText(mf.format(new Object[] {"3"}))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFFA5D6A7)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFA5D6A7)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 3 activated"))
                 .build();
         this.popupCommand4 = Command.builder()
                 .setText(mf.format(new Object[] {"4"}))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFFC5E1A5)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFC5E1A5)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 4 activated"))
                 .build();
         this.popupCommand5 = Command.builder()
                 .setText(mf.format(new Object[] {"5"}))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFFE6EE9C)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFE6EE9C)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 5 activated"))
                 .build();
 
@@ -1393,17 +1393,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.menuSaveSelection = Command.builder()
                 .setText(resourceBundle.getString("Format.menuSaveSelection.text"))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFFFBC02D)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFFBC02D)))
                 .setAction(commandActionEvent -> System.out.println("Save Selection activated"))
                 .build();
         this.menuClearSelection = Command.builder()
                 .setText(resourceBundle.getString("Format.menuClearSelection.text"))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFFFFA000)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFFFA000)))
                 .setAction(commandActionEvent -> System.out.println("Clear Selection activated"))
                 .build();
         this.applyStyles = Command.builder()
                 .setText(resourceBundle.getString("Format.applyStyles.text"))
-                .setIconFactory(ColorResizableIcon.factory(new Color(0xFFF57C00)))
+                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFF57C00)))
                 .setAction(commandActionEvent -> System.out.println("Apply Styles activated"))
                 .build();
 
@@ -1520,7 +1520,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mfButtonText.setLocale(currLocale);
         for (int i = 0; i < 30; i++) {
             final int index = i;
-            ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+            NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
                     Font_x_generic.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
@@ -2105,7 +2105,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         Command wirelessWiFi = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
-                .setIconFactory(EmptyResizableIcon.factory())
+                .setIconFactory(EmptyNeonIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("WiFi activated"))
                 .build();
 
@@ -2168,7 +2168,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             final int appMenuButtonTooltipImageInitialHeight = (int)
                     (appMenuButtonTooltipImageInitialWidth
                             / appMenuButtonTooltipImageRatio);
-            final ResizableIcon appMenuRichTooltipMainIcon = new ResizableIcon() {
+            final NeonIcon appMenuRichTooltipMainIcon = new NeonIcon() {
                 private int width;
                 private int height;
 
@@ -2328,7 +2328,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             int count = 5 + (int) (10 * Math.random());
             for (int i = 0; i < count; i++) {
                 final int index = i;
-                ResizableIcon.Factory iconFactory = DecoratedResizableIcon.factory(
+                NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
                         Font_x_generic.factory(),
                         (Component c, Graphics g, int x, int y, int width, int height) -> {
                             Graphics2D g2d = (Graphics2D) g.create();
@@ -2478,7 +2478,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         final PropertyChangeListener globalFocusListener = propertyChangeEvent -> {
             if ("focusOwner".equals(propertyChangeEvent.getPropertyName())) {
                 String toShow = "";
-                ResizableIcon icon = null;
+                NeonIcon icon = null;
                 Object owner = propertyChangeEvent.getNewValue();
                 if (owner == null) {
                     focusInfo.setText("No focus owner");

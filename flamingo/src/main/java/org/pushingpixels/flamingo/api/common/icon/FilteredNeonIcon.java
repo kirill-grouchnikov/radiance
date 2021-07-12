@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -40,12 +40,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Implementation of {@link ResizableIcon} that allows applying a
+ * Implementation of {@link NeonIcon} that allows applying a
  * {@link BufferedImageOp} on another icon.
  *
  * @author Kirill Grouchnikov
  */
-public class FilteredResizableIcon implements ResizableIcon {
+public class FilteredNeonIcon implements NeonIcon {
     /**
      * Image cache to speed up rendering.
      */
@@ -54,7 +54,7 @@ public class FilteredResizableIcon implements ResizableIcon {
     /**
      * The main (pre-filtered) icon.
      */
-    private ResizableIcon delegate;
+    private NeonIcon delegate;
 
     /**
      * Filter operation.
@@ -67,7 +67,7 @@ public class FilteredResizableIcon implements ResizableIcon {
      * @param delegate  The main (pre-filtered) icon.
      * @param operation Filter operation.
      */
-    private FilteredResizableIcon(ResizableIcon delegate, BufferedImageOp operation) {
+    private FilteredNeonIcon(NeonIcon delegate, BufferedImageOp operation) {
         super();
         this.delegate = delegate;
         this.operation = operation;
@@ -129,6 +129,6 @@ public class FilteredResizableIcon implements ResizableIcon {
 
     public static Factory factory(Factory delegateFactory,
             BufferedImageOp operation) {
-        return () -> new FilteredResizableIcon(delegateFactory.createNewIcon(), operation);
+        return () -> new FilteredNeonIcon(delegateFactory.createNewIcon(), operation);
     }
 }

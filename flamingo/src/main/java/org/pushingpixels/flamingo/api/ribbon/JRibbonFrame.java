@@ -53,7 +53,7 @@ import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.neon.api.AsynchronousLoadListener;
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
@@ -788,7 +788,7 @@ public class JRibbonFrame extends JFrame {
         this.wasSetIconImagesCalled = true;
     }
 
-    public synchronized void setApplicationIcon(final ResizableIcon.Factory iconFactory) {
+    public synchronized void setApplicationIcon(final NeonIcon.Factory iconFactory) {
         if (iconFactory == null) {
             return;
         }
@@ -798,7 +798,7 @@ public class JRibbonFrame extends JFrame {
         new Thread(() -> setApplicationAndMenuButtonIcon(iconFactory)).start();
     }
 
-    private void setApplicationAndMenuButtonIcon(final ResizableIcon.Factory iconFactory) {
+    private void setApplicationAndMenuButtonIcon(final NeonIcon.Factory iconFactory) {
         final Image icon16 = getImage(iconFactory, 16);
         if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS) {
             SwingUtilities.invokeLater(() -> setLegacyIconImages(
@@ -823,8 +823,8 @@ public class JRibbonFrame extends JFrame {
         super.setIconImages(images);
     }
 
-    private static Image getImage(ResizableIcon.Factory iconFactory, int size) {
-        ResizableIcon icon = iconFactory.createNewIcon();
+    private static Image getImage(NeonIcon.Factory iconFactory, int size) {
+        NeonIcon icon = iconFactory.createNewIcon();
         icon.setDimension(new Dimension(size, size));
         if (icon instanceof AsynchronousLoading) {
             AsynchronousLoading async = (AsynchronousLoading) icon;

@@ -29,16 +29,16 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 
 /**
- * Implementation of {@link ResizableIcon} that paints nothing.
+ * Implementation of {@link NeonIcon} that paints nothing.
  *
  * @author Kirill Grouchnikov
  */
-public class EmptyResizableIcon implements ResizableIcon {
+public class EmptyNeonIcon implements NeonIcon {
     /**
      * The current icon width.
      */
@@ -54,7 +54,7 @@ public class EmptyResizableIcon implements ResizableIcon {
      *
      * @param initialDim Initial dimension of the icon.
      */
-    public EmptyResizableIcon(Dimension initialDim) {
+    public EmptyNeonIcon(Dimension initialDim) {
         this.width = initialDim.width;
         this.height = initialDim.height;
     }
@@ -64,7 +64,7 @@ public class EmptyResizableIcon implements ResizableIcon {
      *
      * @param initialDim Initial dimension of the icon.
      */
-    public EmptyResizableIcon(int initialDim) {
+    public EmptyNeonIcon(int initialDim) {
         this(new Dimension(initialDim, initialDim));
     }
 
@@ -89,6 +89,6 @@ public class EmptyResizableIcon implements ResizableIcon {
     }
 
     public static Factory factory() {
-        return () -> new EmptyResizableIcon(16);
+        return () -> new EmptyNeonIcon(16);
     }
 }

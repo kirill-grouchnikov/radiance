@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonLocatio
 import org.pushingpixels.flamingo.api.common.JCommandButtonStrip;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
-import org.pushingpixels.flamingo.internal.substance.common.GlowingResizableIcon;
+import org.pushingpixels.flamingo.internal.substance.common.GlowingNeonIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.substance.api.ComponentState;
@@ -407,7 +407,7 @@ public class CommandButtonBackgroundDelegate {
     }
 
     public static void paintCommandButtonIcon(Graphics2D g, Rectangle iconRect,
-            JCommandButton commandButton, Icon regular, GlowingResizableIcon glowingIcon,
+            JCommandButton commandButton, Icon regular, GlowingNeonIcon glowingIcon,
             ButtonModel model, StateTransitionTracker stateTransitionTracker, Color textColor) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(iconRect.x, iconRect.y);

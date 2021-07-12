@@ -29,34 +29,32 @@
  */
 package org.pushingpixels.neon.api.icon;
 
-import org.pushingpixels.neon.api.AsynchronousLoadListener;
-import org.pushingpixels.neon.api.AsynchronousLoading;
+import javax.swing.plaf.UIResource;
+import java.awt.*;
 
-public class ResizableAsyncLoadingIconUIResource extends ResizableIconUIResource
-		implements AsynchronousLoading {
-	public ResizableAsyncLoadingIconUIResource(ResizableIcon delegate) {
-		super(delegate);
+public class NeonIconUIResource implements NeonIcon, UIResource {
+    protected NeonIcon delegate;
+
+	public NeonIconUIResource(NeonIcon delegate) {
+		this.delegate = delegate;
 	}
 
-	@Override
-	public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
-		if (delegate instanceof AsynchronousLoading) {
-			((AsynchronousLoading) delegate).addAsynchronousLoadListener(l);
-		}
+	public int getIconHeight() {
+		return delegate.getIconHeight();
 	}
 
-	@Override
-	public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
-		if (delegate instanceof AsynchronousLoading) {
-			((AsynchronousLoading) delegate).removeAsynchronousLoadListener(l);
-		}
+	public int getIconWidth() {
+		return delegate.getIconWidth();
 	}
 
-	@Override
-	public boolean isLoading() {
-		if (delegate instanceof AsynchronousLoading) {
-			return ((AsynchronousLoading) delegate).isLoading();
-		}
-		return false;
+	public void paintIcon(Component c, Graphics g, int x, int y) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		g2d.translate(x, y);
+		delegate.paintIcon(c, g2d, 0, 0);
+		g2d.dispose();
+	}
+
+	public void setDimension(Dimension newDimension) {
+		delegate.setDimension(newDimension);
 	}
 }

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.icon;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
@@ -46,108 +46,108 @@ import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
  * @see SubstanceCortex.GlobalScope#setIconPack(SubstanceIconPack)
  */
 public interface SubstanceIconPack {
-    ResizableIcon getOptionPaneInformationIcon(int preferredSize,
+    NeonIcon getOptionPaneInformationIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getOptionPaneWarningIcon(int preferredSize,
+    NeonIcon getOptionPaneWarningIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getOptionPaneErrorIcon(int preferredSize,
+    NeonIcon getOptionPaneErrorIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getOptionPaneQuestionIcon(int preferredSize,
+    NeonIcon getOptionPaneQuestionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserNewFolderIcon(int preferredSize,
+    NeonIcon getFileChooserNewFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserUpFolderIcon(int preferredSize,
+    NeonIcon getFileChooserUpFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserHomeFolderIcon(int preferredSize,
+    NeonIcon getFileChooserHomeFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserListViewIcon(int preferredSize,
+    NeonIcon getFileChooserListViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserDetailsViewIcon(int preferredSize,
+    NeonIcon getFileChooserDetailsViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserViewMenuIcon(int preferredSize,
+    NeonIcon getFileChooserViewMenuIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserComputerIcon(int preferredSize,
+    NeonIcon getFileChooserComputerIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserDirectoryIcon(int preferredSize,
+    NeonIcon getFileChooserDirectoryIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserFileIcon(int preferredSize,
+    NeonIcon getFileChooserFileIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserFloppyDriveIcon(int preferredSize,
+    NeonIcon getFileChooserFloppyDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getFileChooserHardDriveIcon(int preferredSize,
+    NeonIcon getFileChooserHardDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getLockIcon(int preferredSize,
+    NeonIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getCapsLockIcon(int preferredSize,
+    NeonIcon getCapsLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getInspectIcon(int preferredSize,
+    NeonIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getRefreshIcon(int preferredSize,
+    NeonIcon getRefreshIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getAllowedIcon(int preferredSize,
+    NeonIcon getAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getNotAllowedIcon(int preferredSize,
+    NeonIcon getNotAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getTextCopyActionIcon(int preferredSize,
+    NeonIcon getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getTextCutActionIcon(int preferredSize,
+    NeonIcon getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getTextPasteActionIcon(int preferredSize,
+    NeonIcon getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getTextDeleteActionIcon(int preferredSize,
+    NeonIcon getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getTextSelectAllActionIcon(int preferredSize,
+    NeonIcon getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getColorChooserColorPalettesIcon(int preferredSize,
+    NeonIcon getColorChooserColorPalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getColorChooserColorSlidersIcon(int preferredSize,
+    NeonIcon getColorChooserColorSlidersIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getColorChooserColorSwatchesIcon(int preferredSize,
+    NeonIcon getColorChooserColorSwatchesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getColorChooserColorWheelIcon(int preferredSize,
+    NeonIcon getColorChooserColorWheelIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getColorChooserCrayonsIcon(int preferredSize,
+    NeonIcon getColorChooserCrayonsIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getColorChooserImagePalettesIcon(int preferredSize,
+    NeonIcon getColorChooserImagePalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getScrollVerticalIcon(int preferredSize,
+    NeonIcon getScrollVerticalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getScrollHorizontalIcon(int preferredSize,
+    NeonIcon getScrollHorizontalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 
-    ResizableIcon getScrollAllIcon(int preferredSize,
+    NeonIcon getScrollAllIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme);
 }

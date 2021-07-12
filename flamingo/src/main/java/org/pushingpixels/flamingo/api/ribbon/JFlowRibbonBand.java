@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JFlowBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
 
@@ -55,7 +55,7 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
      * @param title       Band title.
      * @param iconFactory Associated icon factory (for collapsed state).
      */
-    public JFlowRibbonBand(String title, ResizableIcon.Factory iconFactory) {
+    public JFlowRibbonBand(String title, NeonIcon.Factory iconFactory) {
         this(title, iconFactory, null);
     }
 
@@ -66,7 +66,7 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
      * @param iconFactory           Associated icon factory (for collapsed state).
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      */
-    public JFlowRibbonBand(String title, ResizableIcon.Factory iconFactory,
+    public JFlowRibbonBand(String title, NeonIcon.Factory iconFactory,
             CommandAction expandCommandListener) {
         super(title, iconFactory, expandCommandListener, new JFlowBandControlPanel());
         this.resizePolicies = CoreRibbonResizePolicies.getCoreFlowPoliciesRestrictive(this, 3);

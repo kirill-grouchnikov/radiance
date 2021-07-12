@@ -31,37 +31,37 @@ package org.pushingpixels.flamingo.api.common.icon;
 
 import org.pushingpixels.neon.api.AsynchronousLoadListener;
 import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import java.awt.*;
 import java.util.Map;
 
 /**
- * Implementation of the {@link ResizableIcon} that allows switching the icon
+ * Implementation of the {@link NeonIcon} that allows switching the icon
  * painting at runtime. This class can be used as a delegate in the
- * {@link DecoratedResizableIcon} where the "base" icon is changed at runtime
+ * {@link DecoratedNeonIcon} where the "base" icon is changed at runtime
  * without the need to recompute all the decorators.
  *
  * @param <T> enumeration key into the deck
  * @author Kenneth Flynn flynnk@darkcornersoftware.com.
  */
-public class IconDeckResizableIcon<T> implements ResizableIcon, AsynchronousLoading {
+public class IconDeckNeonIcon<T> implements NeonIcon, AsynchronousLoading {
     /**
      * Currently shown icon.
      */
-    private ResizableIcon currentIcon;
+    private NeonIcon currentIcon;
 
     /**
      * The icon deck.
      */
-    private final Map<T, ? extends ResizableIcon> iconDeck;
+    private final Map<T, ? extends NeonIcon> iconDeck;
 
     /**
      * Creates the icon deck.
      *
      * @param iconDeck Icon deck.
      */
-    public IconDeckResizableIcon(Map<T, ? extends ResizableIcon> iconDeck) {
+    public IconDeckNeonIcon(Map<T, ? extends NeonIcon> iconDeck) {
         if (iconDeck.isEmpty())
             throw new IllegalArgumentException(
                     "Icon deck is empty; must have at least one icon");
@@ -80,7 +80,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon, AsynchronousLoad
 
     @Override
     public void setDimension(Dimension dim) {
-        for (ResizableIcon icon : iconDeck.values()) {
+        for (NeonIcon icon : iconDeck.values()) {
             int currH = icon.getIconHeight();
             int currW = icon.getIconWidth();
             if ((currH != dim.height) || (currW != dim.width))
@@ -105,7 +105,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon, AsynchronousLoad
 
     @Override
     public void addAsynchronousLoadListener(AsynchronousLoadListener l) {
-        for (ResizableIcon icon : iconDeck.values()) {
+        for (NeonIcon icon : iconDeck.values()) {
             if (icon instanceof AsynchronousLoading)
                 ((AsynchronousLoading) icon).addAsynchronousLoadListener(l);
         }
@@ -113,7 +113,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon, AsynchronousLoad
 
     @Override
     public boolean isLoading() {
-        for (ResizableIcon icon : iconDeck.values()) {
+        for (NeonIcon icon : iconDeck.values()) {
             if (icon instanceof AsynchronousLoading) {
                 if (((AsynchronousLoading) icon).isLoading())
                     return true;
@@ -125,7 +125,7 @@ public class IconDeckResizableIcon<T> implements ResizableIcon, AsynchronousLoad
 
     @Override
     public void removeAsynchronousLoadListener(AsynchronousLoadListener l) {
-        for (ResizableIcon icon : iconDeck.values()) {
+        for (NeonIcon icon : iconDeck.values()) {
             if (icon instanceof AsynchronousLoading)
                 ((AsynchronousLoading) icon).removeAsynchronousLoadListener(l);
         }

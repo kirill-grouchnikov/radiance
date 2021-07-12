@@ -33,10 +33,10 @@ import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.font.FontPolicy;
 import org.pushingpixels.neon.api.font.FontSet;
-import org.pushingpixels.neon.api.icon.ResizableAsyncLoadingIconUIResource;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
-import org.pushingpixels.neon.internal.ResizableAsyncLoadingIcon;
+import org.pushingpixels.neon.api.icon.NeonAsyncLoadingIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
+import org.pushingpixels.neon.internal.NeonAsyncLoadingIcon;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
@@ -1362,16 +1362,16 @@ public class SubstanceCortex {
          * @param colorScheme      Color scheme for colorization.
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
-         * @see NeonCortex#colorizeIcon(ResizableIcon.Factory, Color)
-         * @see NeonCortex#colorizeIcon(ResizableIcon.Factory, Color, float)
+         * @see NeonCortex#colorizeIcon(NeonIcon.Factory, Color)
+         * @see NeonCortex#colorizeIcon(NeonIcon.Factory, Color, float)
          */
-        public static ResizableIcon colorizeIcon(ResizableIcon.Factory sourceFactory,
+        public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
-            class SubstanceResizableAsyncLoadingIcon extends ResizableAsyncLoadingIcon {
+            class SubstanceAsyncLoadingIcon extends NeonAsyncLoadingIcon {
                 private SubstanceColorScheme colorScheme;
                 private float brightnessFactor;
 
-                SubstanceResizableAsyncLoadingIcon(ResizableIcon.Factory sourceFactory,
+                SubstanceAsyncLoadingIcon(NeonIcon.Factory sourceFactory,
                         SubstanceColorScheme colorScheme, float brightnessFactor) {
                     super(sourceFactory);
                     this.colorScheme = colorScheme;
@@ -1385,19 +1385,19 @@ public class SubstanceCortex {
                 }
             }
 
-            ResizableIcon original = sourceFactory.createNewIcon();
+            NeonIcon original = sourceFactory.createNewIcon();
             if (original instanceof AsynchronousLoading) {
-                return new SubstanceResizableAsyncLoadingIcon(sourceFactory, colorScheme,
+                return new SubstanceAsyncLoadingIcon(sourceFactory, colorScheme,
                         brightnessFactor);
             } else {
-                return new ResizableIcon() {
+                return new NeonIcon() {
                     private int width;
                     private int height;
                     private BufferedImage colorized;
 
                     @Override
                     public void setDimension(Dimension newDimension) {
-                        ResizableIcon original = sourceFactory.createNewIcon();
+                        NeonIcon original = sourceFactory.createNewIcon();
                         original.setDimension(newDimension);
                         this.colorized = SubstanceImageCreator.getColorSchemeImage(null,
                                 original, colorScheme, brightnessFactor);
@@ -1435,18 +1435,18 @@ public class SubstanceCortex {
          * @param colorScheme      Color scheme for colorization.
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
-         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color)
-         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color, float)
+         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color)
+         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color, float)
          */
-        public static ResizableIconUIResource colorizeIconAsUiResource(
-                ResizableIcon.Factory sourceFactory,
+        public static NeonIconUIResource colorizeIconAsUiResource(
+                NeonIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme, float brightnessFactor) {
-            ResizableIcon colorized = colorizeIcon(sourceFactory, colorScheme,
+            NeonIcon colorized = colorizeIcon(sourceFactory, colorScheme,
                     brightnessFactor);
             if (colorized instanceof AsynchronousLoading) {
-                return new ResizableAsyncLoadingIconUIResource(colorized);
+                return new NeonAsyncLoadingIconUIResource(colorized);
             } else {
-                return new ResizableIconUIResource(colorized);
+                return new NeonIconUIResource(colorized);
             }
         }
 
@@ -1457,11 +1457,11 @@ public class SubstanceCortex {
          * @param sourceFactory Source factory to be used to create the icon.
          * @param colorScheme   Color scheme for colorization.
          * @return The colorized version of the icon.
-         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color)
-         * @see NeonCortex#colorizeIconAsUiResource(ResizableIcon.Factory, Color, float)
+         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color)
+         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color, float)
          */
-        public static ResizableIconUIResource colorizeIconAsUiResource(
-                ResizableIcon.Factory sourceFactory,
+        public static NeonIconUIResource colorizeIconAsUiResource(
+                NeonIcon.Factory sourceFactory,
                 SubstanceColorScheme colorScheme) {
             float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
             return colorizeIconAsUiResource(sourceFactory, colorScheme, brightnessFactor);

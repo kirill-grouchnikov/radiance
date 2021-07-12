@@ -30,7 +30,7 @@
 package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIconUIResource;
+import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -1025,11 +1025,11 @@ public class SkinUtilities {
 
                 "Tree.collapsedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new ResizableIconUIResource(SubstanceIconFactory.getTreeIcon(null, true))),
+                        new NeonIconUIResource(SubstanceIconFactory.getTreeIcon(null, true))),
 
                 "Tree.expandedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new ResizableIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
+                        new NeonIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
 
                 "Tree.leftChildIndent", SubstanceSizeUtils.getTreeLeftIndent(
                 SubstanceSizeUtils.getControlFontSize()),

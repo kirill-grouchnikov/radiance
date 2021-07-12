@@ -32,7 +32,7 @@ package org.pushingpixels.demo.spyglass.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -51,11 +51,11 @@ import java.util.List;
  */
 public class DestinationsPanel extends PanelWithRightLine {
     private static class DestinationInfo {
-        public ResizableIcon.Factory iconFactory;
+        public NeonIcon.Factory iconFactory;
         public String title;
         public int unread;
 
-        public DestinationInfo(ResizableIcon.Factory iconFactory, String title, int unread) {
+        public DestinationInfo(NeonIcon.Factory iconFactory, String title, int unread) {
             this.iconFactory = iconFactory;
             this.title = title;
             this.unread = unread;
@@ -98,7 +98,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        ResizableIcon refreshIcon = NeonCortex.colorizeIcon(
+        NeonIcon refreshIcon = NeonCortex.colorizeIcon(
                 ic_refresh_black_24px.factory(), mainSelectorIconTitleColor);
         refreshIcon.setDimension(new Dimension(12, 12));
         this.add(getRefreshAction(window, refreshIcon));
@@ -184,7 +184,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         return result;
     }
 
-    private JPanel getRefreshAction(Window window, ResizableIcon icon) {
+    private JPanel getRefreshAction(Window window, NeonIcon icon) {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref:grow").
                 rows("p").

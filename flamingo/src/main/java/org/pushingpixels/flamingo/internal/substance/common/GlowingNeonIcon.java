@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.substance.common;
 
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -41,7 +41,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class GlowingResizableIcon implements ResizableIcon {
+public class GlowingNeonIcon implements NeonIcon {
     /**
      * Image cache to speed up rendering.
      */
@@ -50,11 +50,11 @@ public class GlowingResizableIcon implements ResizableIcon {
     /**
      * The main (pre-filtered) icon.
      */
-    private ResizableIcon delegate;
+    private NeonIcon delegate;
 
     private IconGlowTracker iconGlowTracker;
 
-    public GlowingResizableIcon(ResizableIcon delegate, IconGlowTracker iconGlowTracker) {
+    public GlowingNeonIcon(NeonIcon delegate, IconGlowTracker iconGlowTracker) {
         this.delegate = delegate;
         this.iconGlowTracker = iconGlowTracker;
         this.cachedImages = new LinkedHashMap<String, BufferedImage>() {

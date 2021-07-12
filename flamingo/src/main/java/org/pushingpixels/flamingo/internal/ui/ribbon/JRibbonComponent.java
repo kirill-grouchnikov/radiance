@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonComponentUI;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +58,7 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
     /**
      * Wrapper icon. Can be <code>null</code>.
      */
-    private ResizableIcon icon;
+    private NeonIcon icon;
 
     /**
      * Wrapper caption. Can be <code>null</code>.
@@ -113,7 +113,7 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
         this.horizontalAlignment =
                 projection.getPresentationModel().getHorizontalAlignment();
         if (projection.getContentModel().getIconFactory() != null) {
-            ResizableIcon icon = projection.getContentModel().getIconFactory().createNewIcon();
+            NeonIcon icon = projection.getContentModel().getIconFactory().createNewIcon();
             icon.setDimension(new Dimension(16, 16));
             this.icon = icon;
         }
@@ -161,7 +161,7 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
      *
      * @return The wrapper icon of this wrapper component.
      */
-    public ResizableIcon getIcon() {
+    public NeonIcon getIcon() {
         return this.icon;
     }
 
@@ -186,8 +186,8 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
         this.firePropertyChange("caption", old, this.caption);
     }
 
-    public void setIcon(ResizableIcon icon) {
-        ResizableIcon old = this.icon;
+    public void setIcon(NeonIcon icon) {
+        NeonIcon old = this.icon;
         this.icon = icon;
         this.firePropertyChange("icon", old, this.icon);
     }

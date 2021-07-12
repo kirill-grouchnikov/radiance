@@ -34,18 +34,18 @@ import com.jhlabs.image.CompoundFilter;
 import com.jhlabs.image.Gradient;
 import com.jhlabs.image.PointFilter;
 import org.pushingpixels.demo.spyglass.cookbook.skin.GoldenBrownColorScheme;
-import org.pushingpixels.flamingo.api.common.icon.FilteredResizableIcon;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.flamingo.api.common.icon.FilteredNeonIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.Kernel;
 
-public class EchoResizableIcon implements ResizableIcon {
-    private ResizableIcon echo;
+public class EchoNeonIcon implements NeonIcon {
+    private NeonIcon echo;
 
-    private ResizableIcon original;
+    private NeonIcon original;
 
     static BufferedImageOp iconShadowFilter;
 
@@ -83,9 +83,9 @@ public class EchoResizableIcon implements ResizableIcon {
         iconShadowFilter = new CompoundFilter(blurFilter, inverseFilter);
     }
 
-    public EchoResizableIcon(Factory originalFactory) {
+    public EchoNeonIcon(Factory originalFactory) {
         this.original = originalFactory.createNewIcon();
-        this.echo = FilteredResizableIcon.factory(originalFactory, iconShadowFilter)
+        this.echo = FilteredNeonIcon.factory(originalFactory, iconShadowFilter)
                 .createNewIcon();
     }
 
@@ -112,6 +112,6 @@ public class EchoResizableIcon implements ResizableIcon {
     }
 
     public static Factory factory(Factory delegate) {
-        return () -> new EchoResizableIcon(delegate);
+        return () -> new EchoNeonIcon(delegate);
     }
 }

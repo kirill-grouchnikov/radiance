@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.tree.dnd;
 
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -68,7 +68,7 @@ class DnDBorderFactory {
             SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
             SubstanceColorScheme colorScheme = SubstanceCoreUtilities.getSkin(c)
                     .getEnabledColorScheme(ComponentOrParentChainScope.getDecorationType(c));
-            ResizableIcon icon = iconPack.getAllowedIcon(12, colorScheme);
+            NeonIcon icon = iconPack.getAllowedIcon(12, colorScheme);
 
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.translate(x, yh - icon.getIconHeight());

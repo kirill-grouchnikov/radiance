@@ -170,7 +170,7 @@ protected void installListeners() {
             commandButton.setText((String) propertyChangeEvent.getNewValue());
         }
         if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
-            ResizableIcon.Factory factory = (ResizableIcon.Factory) propertyChangeEvent.getNewValue();
+            NeonIcon.Factory factory = (NeonIcon.Factory) propertyChangeEvent.getNewValue();
             commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
         }
         if ("actionEnabled".equals(propertyChangeEvent.getPropertyName())) {

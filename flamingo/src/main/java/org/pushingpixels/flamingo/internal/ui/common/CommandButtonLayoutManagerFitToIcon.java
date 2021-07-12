@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.neon.api.icon.ResizableIcon;
+import org.pushingpixels.neon.api.icon.NeonIcon;
 
 public class CommandButtonLayoutManagerFitToIcon extends CommandButtonLayoutManagerBig {
 	public CommandButtonLayoutManagerFitToIcon(JCommandButton commandButton) {
@@ -44,13 +44,13 @@ public class CommandButtonLayoutManagerFitToIcon extends CommandButtonLayoutMana
 
 	@Override
 	protected int getCurrentIconWidth(JCommandButton commandButton) {
-		ResizableIcon icon = commandButton.getIcon();
+		NeonIcon icon = commandButton.getIcon();
 		return (icon == null) ? 0 : icon.getIconWidth();
 	}
 
 	@Override
 	protected int getCurrentIconHeight(JCommandButton commandButton) {
-		ResizableIcon icon = commandButton.getIcon();
+		NeonIcon icon = commandButton.getIcon();
 		return (icon == null) ? 0 : icon.getIconHeight();
 	}
 }
