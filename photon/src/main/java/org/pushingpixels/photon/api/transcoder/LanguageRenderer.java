@@ -52,6 +52,8 @@ public interface LanguageRenderer {
 
     String getObjectNoNull(String objectName);
 
+    String getNullableInvocation(String objectName, String functionName, String parameter);
+
     String startPrimitiveArrayOf(String primitiveTypeName);
 
     String startGenericArrayOf(String className);

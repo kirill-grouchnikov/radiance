@@ -24,6 +24,7 @@ public class tr implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -54,7 +55,7 @@ generalPath.lineTo(512.0f, 512.0f);
 generalPath.lineTo(0.0f, 512.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(243, 25, 48, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(243, 25, 48, 255)) : new Color(243, 25, 48, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -74,7 +75,7 @@ generalPath.curveTo(88.572f, 193.34f, 146.819f, 136.09f, 218.672f, 136.09f);
 generalPath.curveTo(290.525f, 136.09f, 348.772f, 193.344f, 348.772f, 263.97f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -94,7 +95,7 @@ generalPath.curveTo(147.12f, 207.46301f, 193.71799f, 161.66098f, 251.2f, 161.660
 generalPath.curveTo(308.682f, 161.66098f, 355.28f, 207.46399f, 355.28f, 263.964f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(243, 24, 48, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(243, 24, 48, 255)) : new Color(243, 24, 48, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -120,7 +121,7 @@ generalPath.lineTo(401.61603f, 243.65802f);
 generalPath.lineTo(374.10403f, 204.23001f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -221,6 +222,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

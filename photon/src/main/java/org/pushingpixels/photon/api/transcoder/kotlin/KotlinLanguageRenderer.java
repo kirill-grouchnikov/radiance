@@ -61,6 +61,11 @@ public class KotlinLanguageRenderer implements LanguageRenderer {
     }
 
     @Override
+    public String getNullableInvocation(String objectName, String functionName, String parameter) {
+        return objectName + "?." + functionName + "(" + parameter + ") ?: " + parameter;
+    }
+
+    @Override
     public String startPrimitiveArrayOf(String primitiveTypeName) {
         return primitiveTypeName + "ArrayOf(";
     }

@@ -31,6 +31,7 @@ package org.pushingpixels.photon.api.transcoder.java;
 
 import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
 
+import java.awt.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,6 +59,12 @@ public class JavaLanguageRenderer implements LanguageRenderer {
     @Override
     public String getObjectNoNull(String objectName) {
         return objectName;
+    }
+
+    @Override
+    public String getNullableInvocation(String objectName, String functionName, String parameter) {
+        return "(" + objectName + " != null) ? " + objectName + "." + functionName +
+                "(" + parameter + ") : " + parameter;
     }
 
     @Override

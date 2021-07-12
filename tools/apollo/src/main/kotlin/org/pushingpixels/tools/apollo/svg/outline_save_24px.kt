@@ -25,6 +25,7 @@ class outline_save_24px private constructor(private var width: Int, private var 
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private var colorFilter: NeonIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -81,7 +82,7 @@ generalPath!!.lineTo(19.0f, 7.83f)
 generalPath!!.lineTo(19.0f, 19.0f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(0, 0, 0, 255)
+paint = colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -101,7 +102,7 @@ generalPath!!.curveTo(13.66f, 18.0f, 15.0f, 16.66f, 15.0f, 15.0f)
 generalPath!!.curveTo(15.0f, 13.34f, 13.66f, 12.0f, 12.0f, 12.0f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(0, 0, 0, 255)
+paint = colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -110,7 +111,7 @@ transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1_0_2
 shape = Rectangle2D.Double(6.0, 6.0, 9.0, 4.0)
-paint = Color(0, 0, 0, 255)
+paint = colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -222,6 +223,10 @@ g.transform = transformsStack.pop()
     override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        this.colorFilter = colorFilter
     }
 
     override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {

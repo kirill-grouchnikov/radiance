@@ -24,6 +24,7 @@ public class hk implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -54,7 +55,7 @@ generalPath.lineTo(0.0f, 0.004f);
 generalPath.lineTo(1063.0f, 0.004f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -80,7 +81,7 @@ generalPath.curveTo(508.49805f, 301.90897f, 504.09906f, 308.972f, 502.47806f, 32
 generalPath.curveTo(502.24606f, 344.62897f, 508.61505f, 347.87198f, 516.3721f, 360.14197f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -96,10 +97,10 @@ if (generalPath == null) {
 generalPath.moveTo(502.132f, 239.037f);
 generalPath.lineTo(502.132f, 238.69f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -117,7 +118,7 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_3
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -151,7 +152,7 @@ generalPath.lineTo(516.283f, 228.90402f);
 generalPath.lineTo(509.63702f, 236.04002f);
 generalPath.lineTo(510.79703f, 226.67502f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -177,7 +178,7 @@ generalPath.curveTo(576.11206f, 330.00803f, 568.06903f, 327.872f, 555.8641f, 329
 generalPath.curveTo(533.4361f, 336.54703f, 532.2021f, 343.58704f, 522.7441f, 354.60004f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -193,10 +194,10 @@ if (generalPath == null) {
 generalPath.moveTo(634.36f, 305.5f);
 generalPath.lineTo(634.69f, 305.397f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -214,7 +215,7 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_7
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -248,7 +249,7 @@ generalPath.lineTo(648.19196f, 316.061f);
 generalPath.lineTo(639.42194f, 311.798f);
 generalPath.lineTo(648.7169f, 310.163f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -274,7 +275,7 @@ generalPath.curveTo(568.62006f, 403.25397f, 568.0921f, 394.951f, 562.27606f, 384
 generalPath.curveTo(548.8661f, 364.86597f, 541.7991f, 365.93097f, 528.35205f, 360.45798f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -290,10 +291,10 @@ if (generalPath == null) {
 generalPath.moveTo(610.357f, 450.702f);
 generalPath.lineTo(610.559f, 450.984f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -311,7 +312,7 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_11
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -345,7 +346,7 @@ generalPath.lineTo(604.737f, 467.17297f);
 generalPath.lineTo(605.993f, 457.50296f);
 generalPath.lineTo(610.495f, 465.79797f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -375,7 +376,7 @@ generalPath.curveTo(496.79306f, 419.35794f, 504.61407f, 416.51892f, 513.46606f, 
 generalPath.curveTo(528.08905f, 389.61893f, 525.0821f, 383.1339f, 526.55804f, 368.69193f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -391,10 +392,10 @@ if (generalPath == null) {
 generalPath.moveTo(462.977f, 472.74f);
 generalPath.lineTo(462.763f, 473.013f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -412,7 +413,7 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_13_2
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -446,7 +447,7 @@ generalPath.lineTo(445.58902f, 471.971f);
 generalPath.lineTo(455.22302f, 470.463f);
 generalPath.lineTo(448.52603f, 477.113f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -477,7 +478,7 @@ generalPath.curveTo(460.03f, 355.9f, 465.30698f, 362.33298f, 476.40698f, 367.807
 generalPath.curveTo(498.47897f, 375.53598f, 503.59497f, 370.546f, 517.707f, 367.13797f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -493,10 +494,10 @@ if (generalPath == null) {
 generalPath.moveTo(398.446f, 341.743f);
 generalPath.lineTo(398.118f, 341.631f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -514,7 +515,7 @@ g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_14_2
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 stroke = new BasicStroke(3.127f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -548,7 +549,7 @@ generalPath.lineTo(393.395f, 325.08698f);
 generalPath.lineTo(398.02f, 333.67197f);
 generalPath.lineTo(389.52f, 329.56497f);
 shape = generalPath;
-paint = new Color(186, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(186, 0, 0, 255)) : new Color(186, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -650,6 +651,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

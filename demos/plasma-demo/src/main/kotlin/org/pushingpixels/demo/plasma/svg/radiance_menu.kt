@@ -25,6 +25,7 @@ class radiance_menu private constructor(private var width: Int, private var heig
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private var colorFilter: NeonIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -74,7 +75,7 @@ generalPath!!.lineTo(10.0f, 2.82843f)
 generalPath!!.lineTo(7.12158f, 5.70715f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(0, 0, 0, 255)
+paint = colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -184,6 +185,10 @@ g.transform = transformsStack.pop()
     override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        this.colorFilter = colorFilter
     }
 
     override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {

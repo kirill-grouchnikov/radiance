@@ -56,6 +56,8 @@ public interface NeonIcon extends Icon {
 		return result;
 	}
 
+	default void setColorFilter(ColorFilter colorFilter) {}
+
     /**
      * Interface for creating icons that have resizability behaviour.
      *
@@ -69,4 +71,8 @@ public interface NeonIcon extends Icon {
          */
 		NeonIcon createNewIcon();
     }
+
+    interface ColorFilter {
+    	Color filter(Color color);
+	}
 }

@@ -431,9 +431,11 @@ abstract class SvgBaseTranscoder {
             colorsRep.append(languageRenderer.startGenericArrayOf("Color"));
             for (Color color : colors) {
                 colorsRep.append(sep);
-                colorsRep.append(languageRenderer.getObjectCreation("Color") + "(" + color.getRed()
-                        + ", " + color.getGreen() + ", " + color.getBlue() + ", " + color.getAlpha()
-                        + ")");
+                String colorParameter = languageRenderer.getObjectCreation("Color") + "("
+                        + color.getRed() + ", " + color.getGreen() + ", " + color.getBlue() +
+                        ", " + color.getAlpha() + ")";
+                colorsRep.append(
+                        "(" + languageRenderer.getNullableInvocation("colorFilter", "filter", colorParameter) + ")");
                 sep = ",";
             }
             colorsRep.append(languageRenderer.endArray());
@@ -830,9 +832,11 @@ abstract class SvgBaseTranscoder {
             colorsRep.append(languageRenderer.startGenericArrayOf("Color"));
             for (Color color : colors) {
                 colorsRep.append(sep);
-                colorsRep.append(languageRenderer.getObjectCreation("Color") + "(" + color.getRed()
-                        + ", " + color.getGreen() + ", " + color.getBlue() + ", " + color.getAlpha()
-                        + ")");
+                String colorParameter = languageRenderer.getObjectCreation("Color") + "("
+                        + color.getRed() + ", " + color.getGreen() + ", " + color.getBlue() +
+                        ", " + color.getAlpha() + ")";
+                colorsRep.append(
+                        "(" + languageRenderer.getNullableInvocation("colorFilter", "filter", colorParameter) + ")");
                 sep = ",";
             }
             colorsRep.append(languageRenderer.endArray());
@@ -894,9 +898,12 @@ abstract class SvgBaseTranscoder {
         }
         if (paint instanceof Color) {
             Color c = (Color) paint;
-            printWriterManager.println("paint = " + languageRenderer.getObjectCreation("Color") + "("
+            String colorParameter = languageRenderer.getObjectCreation("Color") + "("
                     + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + ", " + c.getAlpha()
-                    + ")" + languageRenderer.getStatementEnd());
+                    + ")";
+            printWriterManager.println("paint = " +
+                    languageRenderer.getNullableInvocation("colorFilter", "filter", colorParameter) +
+                    languageRenderer.getStatementEnd());
             return;
         }
         if (paint == null) {
@@ -934,9 +941,12 @@ abstract class SvgBaseTranscoder {
         }
         if (paint instanceof Color) {
             Color c = (Color) paint;
-            printWriterManager.println("paint = " + languageRenderer.getObjectCreation("Color") + "("
+            String colorParameter = languageRenderer.getObjectCreation("Color") + "("
                     + c.getRed() + ", " + c.getGreen() + ", " + c.getBlue() + ", " + c.getAlpha()
-                    + ")" + languageRenderer.getStatementEnd());
+                    + ")";
+            printWriterManager.println("paint = " +
+                    languageRenderer.getNullableInvocation("colorFilter", "filter", colorParameter) +
+                    languageRenderer.getStatementEnd());
             printWriterManager.println("g" + languageRenderer.startSetterAssignment("paint") + "paint"
                     + languageRenderer.endSetterAssignment() + languageRenderer.getStatementEnd());
             printWriterManager.println("g.fill(shape)" + languageRenderer.getStatementEnd());

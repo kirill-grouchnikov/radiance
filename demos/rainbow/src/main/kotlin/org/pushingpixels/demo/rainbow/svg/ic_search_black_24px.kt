@@ -25,6 +25,7 @@ class ic_search_black_24px private constructor(private var width: Int, private v
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private var colorFilter: NeonIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -66,7 +67,7 @@ generalPath!!.curveTo(11.99f, 5.0f, 14.0f, 7.01f, 14.0f, 9.5f)
 generalPath!!.curveTo(14.0f, 11.99f, 11.99f, 14.0f, 9.5f, 14.0f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(0, 0, 0, 255)
+paint = colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -181,6 +182,10 @@ g.transform = transformsStack.pop()
     override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        this.colorFilter = colorFilter
     }
 
     override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {

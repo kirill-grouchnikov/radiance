@@ -35,7 +35,7 @@ import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.neon.api.icon.NeonAsyncLoadingIconUIResource;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.neon.api.icon.NeonIconUIResource;
-import org.pushingpixels.neon.internal.ColorFilter;
+import org.pushingpixels.neon.internal.ImageColorFilter;
 import org.pushingpixels.neon.internal.NeonAsyncLoadingIcon;
 import org.pushingpixels.neon.internal.contrib.intellij.JBHiDPIScaledImage;
 import org.pushingpixels.neon.internal.contrib.intellij.UIUtil;
@@ -342,7 +342,7 @@ public class NeonCortex {
                         NeonCortex.getScaleFactor(null),
                         this.width, this.height);
                 this.currDelegate.paintIcon(null, flat.getGraphics(), 0, 0);
-                this.currColorized = new ColorFilter(this.color).filter(flat, null);
+                this.currColorized = new ImageColorFilter(this.color).filter(flat, null);
             }
         }
 
@@ -363,7 +363,7 @@ public class NeonCortex {
                             NeonCortex.getScaleFactor(null),
                             newDimension.width, newDimension.height);
                     original.paintIcon(null, flat.getGraphics(), 0, 0);
-                    this.colorized = new ColorFilter(color).filter(flat, null);
+                    this.colorized = new ImageColorFilter(color).filter(flat, null);
 
                     this.width = newDimension.width;
                     this.height = newDimension.height;

@@ -24,6 +24,7 @@ public class gb implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -58,7 +59,7 @@ generalPath.lineTo(1000.02f, 500.01f);
 generalPath.lineTo(0.0f, 500.01f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(0, 0, 102, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 102, 255)) : new Color(0, 0, 102, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -88,7 +89,7 @@ generalPath.lineTo(888.218f, 0.0f);
 generalPath.lineTo(1000.02f, 0.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -114,7 +115,7 @@ generalPath.lineTo(1000.02f, 166.67f);
 generalPath.lineTo(0.0f, 166.67f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -164,7 +165,7 @@ generalPath.lineTo(1000.01996f, 462.74298f);
 generalPath.lineTo(1000.01996f, 500.00998f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(204, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(204, 0, 0, 255)) : new Color(204, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -266,6 +267,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

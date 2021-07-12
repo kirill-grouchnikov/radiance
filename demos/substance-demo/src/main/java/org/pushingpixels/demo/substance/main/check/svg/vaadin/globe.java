@@ -24,6 +24,7 @@ public class globe implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -122,7 +123,7 @@ generalPath.curveTo(12.800001f, 12.600001f, 12.900001f, 12.700002f, 13.000001f, 
 generalPath.curveTo(11.700001f, 14.200001f, 10.000001f, 15.000001f, 8.000001f, 15.000001f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(68, 68, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(68, 68, 68, 255)) : new Color(68, 68, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -222,6 +223,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

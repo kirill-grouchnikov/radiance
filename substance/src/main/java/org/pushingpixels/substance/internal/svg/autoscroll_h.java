@@ -24,6 +24,7 @@ public class autoscroll_h implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -40,10 +41,10 @@ transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(-0.6782799959182739f, 0.7348039746284485f, -0.7348030209541321f, -0.6782799959182739f, 1215.0908203125f, 9.868412971496582f));
 // _0_0
 shape = new Ellipse2D.Double(755.333984375, 474.52398681640625, 160.70399475097656, 159.44400024414062);
-paint = new Color(74, 74, 74, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(74, 74, 74, 255)) : new Color(74, 74, 74, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
 shape = new Ellipse2D.Double(755.333984375, 474.52398681640625, 160.70399475097656, 159.44400024414062);
 g.setPaint(paint);
@@ -65,10 +66,10 @@ generalPath.lineTo(-867.122f, 53.828f);
 generalPath.lineTo(-760.055f, -51.146f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(74, 74, 74, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(74, 74, 74, 255)) : new Color(74, 74, 74, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -100,10 +101,10 @@ generalPath.lineTo(-867.122f, 53.828f);
 generalPath.lineTo(-760.055f, -51.146f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(74, 74, 74, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(74, 74, 74, 255)) : new Color(74, 74, 74, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -216,6 +217,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

@@ -24,6 +24,7 @@ public class ca implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -54,7 +55,7 @@ generalPath.lineTo(443.595f, 515.025f);
 generalPath.lineTo(81.32f, 515.025f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -109,7 +110,7 @@ generalPath.curveTo(158.157f, 209.509f, 138.921f, 202.299f, 126.028f, 199.485f);
 generalPath.curveTo(130.432f, 215.38f, 144.204f, 241.787f, 135.488f, 250.442f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(191, 10, 48, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(191, 10, 48, 255)) : new Color(191, 10, 48, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -210,6 +211,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

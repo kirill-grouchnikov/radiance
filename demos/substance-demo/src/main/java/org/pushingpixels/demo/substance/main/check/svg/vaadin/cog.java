@@ -24,6 +24,7 @@ public class cog implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -85,7 +86,7 @@ generalPath.curveTo(10.2f, 4.0f, 12.0f, 5.8f, 12.0f, 8.0f);
 generalPath.curveTo(12.0f, 10.2f, 10.2f, 12.0f, 8.0f, 12.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(68, 68, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(68, 68, 68, 255)) : new Color(68, 68, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -105,7 +106,7 @@ generalPath.curveTo(5.6000004f, 6.5189996f, 6.7190003f, 5.3999996f, 8.1f, 5.3999
 generalPath.curveTo(9.481001f, 5.3999996f, 10.6f, 6.5189996f, 10.6f, 7.8999996f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(68, 68, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(68, 68, 68, 255)) : new Color(68, 68, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -205,6 +206,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

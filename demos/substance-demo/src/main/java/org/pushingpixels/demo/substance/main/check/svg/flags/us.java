@@ -24,6 +24,7 @@ public class us implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -88,7 +89,7 @@ generalPath.lineTo(247.0f, 130.0f);
 generalPath.lineTo(0.0f, 130.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(189, 61, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(189, 61, 68, 255)) : new Color(189, 61, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -132,7 +133,7 @@ generalPath.lineTo(247.0f, 120.0f);
 generalPath.lineTo(0.0f, 120.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -152,7 +153,7 @@ generalPath.lineTo(98.8f, 70.0f);
 generalPath.lineTo(0.0f, 70.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(25, 47, 93, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(25, 47, 93, 255)) : new Color(25, 47, 93, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -533,7 +534,7 @@ generalPath.lineTo(78.525f, 40.762997f);
 generalPath.lineTo(81.434f, 40.762997f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -672,7 +673,7 @@ generalPath.lineTo(78.525f, 54.762997f);
 generalPath.lineTo(81.434f, 54.762997f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -757,7 +758,7 @@ generalPath.lineTo(86.75901f, 61.763f);
 generalPath.lineTo(89.66801f, 61.763f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -860,6 +861,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

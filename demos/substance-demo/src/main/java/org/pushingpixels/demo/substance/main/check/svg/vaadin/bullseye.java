@@ -24,6 +24,7 @@ public class bullseye implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -57,7 +58,7 @@ generalPath.curveTo(11.8f, 1.0999994f, 14.9f, 4.1999993f, 14.9f, 7.9999995f);
 generalPath.curveTo(14.9f, 11.799999f, 11.799999f, 14.9f, 7.9999995f, 14.9f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(68, 68, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(68, 68, 68, 255)) : new Color(68, 68, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -83,7 +84,7 @@ generalPath.curveTo(10.5f, 3.4f, 12.6f, 5.5f, 12.6f, 8.0f);
 generalPath.curveTo(12.6f, 10.5f, 10.5f, 12.6f, 8.0f, 12.6f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(68, 68, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(68, 68, 68, 255)) : new Color(68, 68, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -103,7 +104,7 @@ generalPath.curveTo(9.9f, 11.4f, 11.4f, 9.9f, 11.4f, 7.9999995f);
 generalPath.curveTo(11.4f, 6.0999994f, 9.9f, 4.5999994f, 7.9999995f, 4.5999994f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(68, 68, 68, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(68, 68, 68, 255)) : new Color(68, 68, 68, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -203,6 +204,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

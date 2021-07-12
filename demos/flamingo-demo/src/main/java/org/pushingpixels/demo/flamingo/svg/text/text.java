@@ -24,6 +24,7 @@ public class text implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -46,7 +47,7 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 gText.setPaint(paint);
 if (generalPathText == null) {
    generalPathText = new GeneralPath();
@@ -93,7 +94,7 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 gText.setPaint(paint);
 if (generalPathText == null) {
    generalPathText = new GeneralPath();
@@ -177,7 +178,7 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 gText.setPaint(paint);
 if (generalPathText == null) {
    generalPathText = new GeneralPath();
@@ -234,7 +235,7 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 gText.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-paint = new Color(255, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 0, 0, 255)) : new Color(255, 0, 0, 255);
 gText.setPaint(paint);
 if (generalPathText == null) {
    generalPathText = new GeneralPath();
@@ -626,6 +627,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

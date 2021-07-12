@@ -25,6 +25,7 @@ class Info private constructor(private var width: Int, private var height: Int)
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private var colorFilter: NeonIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -56,7 +57,7 @@ generalPath!!.curveTo(60.678f, 2.5f, 77.5f, 19.322f, 77.5f, 40.0f)
 generalPath!!.curveTo(77.5f, 60.678f, 60.678f, 77.5f, 40.0f, 77.5f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(139, 183, 240, 255)
+paint = colorFilter?.filter(Color(139, 183, 240, 255)) ?: Color(139, 183, 240, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -86,7 +87,7 @@ generalPath!!.curveTo(78.0f, 19.013f, 60.987f, 2.0f, 40.0f, 2.0f)
 generalPath!!.lineTo(40.0f, 2.0f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(78, 122, 181, 255)
+paint = colorFilter?.filter(Color(78, 122, 181, 255)) ?: Color(78, 122, 181, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -97,7 +98,7 @@ transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1
 shape = Ellipse2D.Double(37.0, 21.0, 6.0, 6.0)
-paint = Color(255, 255, 255, 255)
+paint = colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -126,7 +127,7 @@ generalPath!!.lineTo(45.0f, 58.0f)
 generalPath!!.lineTo(45.0f, 56.0f)
 generalPath!!.closePath()
 shape = generalPath
-paint = Color(255, 255, 255, 255)
+paint = colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -237,6 +238,10 @@ g.transform = transformsStack.pop()
     override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        this.colorFilter = colorFilter
     }
 
     override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {

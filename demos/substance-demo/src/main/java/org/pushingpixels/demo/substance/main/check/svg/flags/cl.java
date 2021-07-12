@@ -24,6 +24,7 @@ public class cl implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -54,7 +55,7 @@ generalPath.lineTo(1062.99f, 354.34f);
 generalPath.lineTo(354.31f, 354.34f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 254);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 254)) : new Color(255, 255, 255, 254);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -73,7 +74,7 @@ generalPath.lineTo(354.34f, 354.34f);
 generalPath.lineTo(0.0f, 354.34f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(0, 57, 166, 254);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 57, 166, 254)) : new Color(0, 57, 166, 254);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -99,7 +100,7 @@ generalPath.lineTo(211.513f, 197.944f);
 generalPath.lineTo(232.273f, 265.337f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 254);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 254)) : new Color(255, 255, 255, 254);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -118,7 +119,7 @@ generalPath.lineTo(1063.0f, 708.66003f);
 generalPath.lineTo(0.0f, 708.66003f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(213, 43, 30, 254);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(213, 43, 30, 254)) : new Color(213, 43, 30, 254);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -219,6 +220,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

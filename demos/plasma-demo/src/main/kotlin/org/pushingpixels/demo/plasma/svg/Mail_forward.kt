@@ -25,6 +25,7 @@ class Mail_forward private constructor(private var width: Int, private var heigh
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
+    private var colorFilter: NeonIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -63,7 +64,7 @@ generalPath!!.curveTo(10.120504f, 34.712322f, 15.379496f, 34.712322f, 19.642813f
 generalPath!!.curveTo(23.90613f, 36.077507f, 26.522034f, 37.338345f, 26.5f, 38.7f)
 generalPath!!.closePath()
 shape = generalPath
-paint = RadialGradientPaint(Point2D.Double(6.7027130126953125, 73.61571502685547), 7.228416f, Point2D.Double(6.7027130126953125, 73.61571502685547), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 255),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.9022150039672852f, 0.0f, 0.0f, 0.5257030129432678f, 0.0f, 0.0f))
+paint = RadialGradientPaint(Point2D.Double(6.7027130126953125, 73.61571502685547), 7.228416f, Point2D.Double(6.7027130126953125, 73.61571502685547), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(0, 0, 0, 255)) ?: Color(0, 0, 0, 255)),(colorFilter?.filter(Color(0, 0, 0, 0)) ?: Color(0, 0, 0, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.9022150039672852f, 0.0f, 0.0f, 0.5257030129432678f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -90,10 +91,10 @@ generalPath!!.curveTo(43.24856f, 15.480833f, 43.22054f, 15.462487f, 43.21875f, 1
 generalPath!!.lineTo(6.34375f, 15.454879f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(11.57284164428711, 4.746162414550781), Point2D.Double(18.47528648376465, 26.02290916442871), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(226, 226, 226, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.3434749841690063f, 0.0f, 0.0f, 1.5058460235595703f, 2.8795111179351807f, -2.2660179138183594f))
+paint = LinearGradientPaint(Point2D.Double(11.57284164428711, 4.746162414550781), Point2D.Double(18.47528648376465, 26.02290916442871), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(226, 226, 226, 255)) ?: Color(226, 226, 226, 255))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.3434749841690063f, 0.0f, 0.0f, 1.5058460235595703f, 2.8795111179351807f, -2.2660179138183594f))
 g.paint = paint
 g.fill(shape)
-paint = Color(136, 138, 133, 255)
+paint = colorFilter?.filter(Color(136, 138, 133, 255)) ?: Color(136, 138, 133, 255)
 stroke = BasicStroke(0.99684346f,0,1,4.0f,null,0.0f)
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -132,7 +133,7 @@ generalPath!!.lineTo(30.577332f, 29.058712f)
 generalPath!!.lineTo(20.490673f, 29.058712f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(9.164306640625, 38.070892333984375), Point2D.Double(9.885503768920898, 52.09067916870117), floatArrayOf(0.0f,0.23809524f,1.0f), arrayOf(Color(223, 224, 223, 255),Color(166, 176, 166, 255),Color(181, 190, 181, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(2.4547810554504395f, 0.0f, 0.0f, 0.762004017829895f, 2.8817501068115234f, 0.33738601207733154f))
+paint = LinearGradientPaint(Point2D.Double(9.164306640625, 38.070892333984375), Point2D.Double(9.885503768920898, 52.09067916870117), floatArrayOf(0.0f,0.23809524f,1.0f), arrayOf((colorFilter?.filter(Color(223, 224, 223, 255)) ?: Color(223, 224, 223, 255)),(colorFilter?.filter(Color(166, 176, 166, 255)) ?: Color(166, 176, 166, 255)),(colorFilter?.filter(Color(181, 190, 181, 255)) ?: Color(181, 190, 181, 255))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(2.4547810554504395f, 0.0f, 0.0f, 0.762004017829895f, 2.8817501068115234f, 0.33738601207733154f))
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -140,7 +141,7 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_2_2
-paint = Color(255, 255, 255, 255)
+paint = colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)
 stroke = BasicStroke(0.9968433f,0,0,4.0f,null,0.0f)
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -183,7 +184,7 @@ generalPath!!.lineTo(23.446392f, 32.99672f)
 generalPath!!.curveTo(23.412766f, 32.99672f, 23.368837f, 33.0041f, 23.329298f, 32.99672f)
 generalPath!!.closePath()
 shape = generalPath
-paint = RadialGradientPaint(Point2D.Double(27.741130828857422, 38.71150588989258), 17.977943f, Point2D.Double(27.741130828857422, 38.71150588989258), floatArrayOf(0.0f,1.0f), arrayOf(Color(0, 0, 0, 33),Color(0, 0, 0, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.6299290060997009f, 0.45937299728393555f, -0.14767499268054962f, 0.24851199984550476f, 16.517240524291992f, 9.053736686706543f))
+paint = RadialGradientPaint(Point2D.Double(27.741130828857422, 38.71150588989258), 17.977943f, Point2D.Double(27.741130828857422, 38.71150588989258), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(0, 0, 0, 33)) ?: Color(0, 0, 0, 33)),(colorFilter?.filter(Color(0, 0, 0, 0)) ?: Color(0, 0, 0, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.6299290060997009f, 0.45937299728393555f, -0.14767499268054962f, 0.24851199984550476f, 16.517240524291992f, 9.053736686706543f))
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -206,10 +207,10 @@ generalPath!!.lineTo(20.895334f, 31.085394f)
 generalPath!!.curveTo(20.860706f, 31.085394f, 20.81388f, 31.091858f, 20.77475f, 31.085394f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(11.742170333862305, 11.484869956970215), Point2D.Double(13.846982955932617, 11.98198127746582), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(226, 226, 226, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.2960150241851807f, 0.0f, 0.0f, -1.4369200468063354f, 3.7465760707855225f, 33.20515823364258f))
+paint = LinearGradientPaint(Point2D.Double(11.742170333862305, 11.484869956970215), Point2D.Double(13.846982955932617, 11.98198127746582), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(226, 226, 226, 255)) ?: Color(226, 226, 226, 255))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.2960150241851807f, 0.0f, 0.0f, -1.4369200468063354f, 3.7465760707855225f, 33.20515823364258f))
 g.paint = paint
 g.fill(shape)
-paint = Color(152, 152, 152, 255)
+paint = colorFilter?.filter(Color(152, 152, 152, 255)) ?: Color(152, 152, 152, 255)
 stroke = BasicStroke(0.85390013f,0,1,4.0f,null,0.0f)
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -255,7 +256,7 @@ generalPath!!.lineTo(20.750174f, 30.490479f)
 generalPath!!.curveTo(20.719887f, 30.488811f, 20.66042f, 30.49869f, 20.625174f, 30.490479f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(10.027000427246094, 20.21976089477539), Point2D.Double(17.178024291992188, -7.527464389801025), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(226, 226, 226, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.5706069469451904f, 0.0f, 0.0f, -1.2315109968185425f, 2.973436117172241f, 33.3348503112793f))
+paint = LinearGradientPaint(Point2D.Double(10.027000427246094, 20.21976089477539), Point2D.Double(17.178024291992188, -7.527464389801025), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(226, 226, 226, 255)) ?: Color(226, 226, 226, 255))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.5706069469451904f, 0.0f, 0.0f, -1.2315109968185425f, 2.973436117172241f, 33.3348503112793f))
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -263,7 +264,7 @@ g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_2_6
-paint = LinearGradientPaint(Point2D.Double(11.841544151306152, 4.250730514526367), Point2D.Double(40.0240592956543, 7.412107467651367), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(237, 237, 237, 255)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.3709280490875244f, 0.0f, 0.0f, -1.4645600318908691f, 2.525057077407837f, 33.71268844604492f))
+paint = LinearGradientPaint(Point2D.Double(11.841544151306152, 4.250730514526367), Point2D.Double(40.0240592956543, 7.412107467651367), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(237, 237, 237, 255)) ?: Color(237, 237, 237, 255))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.3709280490875244f, 0.0f, 0.0f, -1.4645600318908691f, 2.525057077407837f, 33.71268844604492f))
 stroke = BasicStroke(0.85389996f,0,0,4.0f,null,0.0f)
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -301,7 +302,7 @@ generalPath!!.lineTo(30.057478f, 30.432299f)
 generalPath!!.lineTo(20.95951f, 30.447113f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(17.39720344543457, 33.35737609863281), Point2D.Double(22.177709579467773, 31.02674102783203), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+paint = LinearGradientPaint(Point2D.Double(17.39720344543457, 33.35737609863281), Point2D.Double(22.177709579467773, 31.02674102783203), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(255, 255, 255, 0)) ?: Color(255, 255, 255, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -328,10 +329,10 @@ generalPath!!.curveTo(22.462412f, 33.006348f, 22.462412f, 23.337969f, 22.462412f
 generalPath!!.curveTo(39.481644f, 22.456387f, 30.293505f, 37.380238f, 49.78573f, 36.46161f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(32.707862854003906, 28.042139053344727), Point2D.Double(43.98674392700195, 34.40784454345703), floatArrayOf(0.0f,1.0f), arrayOf(Color(253, 157, 20, 255),Color(255, 200, 121, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+paint = LinearGradientPaint(Point2D.Double(32.707862854003906, 28.042139053344727), Point2D.Double(43.98674392700195, 34.40784454345703), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(253, 157, 20, 255)) ?: Color(253, 157, 20, 255)),(colorFilter?.filter(Color(255, 200, 121, 0)) ?: Color(255, 200, 121, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
-paint = LinearGradientPaint(Point2D.Double(32.707862854003906, 28.042139053344727), Point2D.Double(43.98674392700195, 34.40784454345703), floatArrayOf(0.0f,1.0f), arrayOf(Color(159, 98, 11, 255),Color(255, 200, 121, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+paint = LinearGradientPaint(Point2D.Double(32.707862854003906, 28.042139053344727), Point2D.Double(43.98674392700195, 34.40784454345703), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(159, 98, 11, 255)) ?: Color(159, 98, 11, 255)),(colorFilter?.filter(Color(255, 200, 121, 0)) ?: Color(255, 200, 121, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 stroke = BasicStroke(1.1824504f,0,0,4.0f,null,0.0f)
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -355,7 +356,7 @@ g.composite = AlphaComposite.getInstance(3, 0.7f * origAlpha)
 transformsStack.push(g.transform)
 g.transform(AffineTransform(-0.8457019925117493f, 0.0f, 0.0f, -0.8457019925117493f, 51.403228759765625f, 49.140480041503906f))
 // _0_0_3_1
-paint = LinearGradientPaint(Point2D.Double(23.70759391784668, 11.027570724487305), Point2D.Double(36.172122955322266, 50.995052337646484), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.9141139984130859f, 1.412791001969375E-16f, -1.412791001969375E-16f, 0.9141139984130859f, -3.8686978816986084f, -2.706902027130127f))
+paint = LinearGradientPaint(Point2D.Double(23.70759391784668, 11.027570724487305), Point2D.Double(36.172122955322266, 50.995052337646484), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(255, 255, 255, 0)) ?: Color(255, 255, 255, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(0.9141139984130859f, 1.412791001969375E-16f, -1.412791001969375E-16f, 0.9141139984130859f, -3.8686978816986084f, -2.706902027130127f))
 stroke = BasicStroke(1.1824498f,0,0,10.0f,null,0.0f)
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -401,7 +402,7 @@ generalPath!!.lineTo(28.59375f, 37.625f)
 generalPath!!.curveTo(37.938694f, 35.04962f, 35.789047f, 29.926678f, 40.78125f, 29.625f)
 generalPath!!.closePath()
 shape = generalPath
-paint = LinearGradientPaint(Point2D.Double(11.6875, 14.319357872009277), Point2D.Double(37.11378479003906, 36.08745193481445), floatArrayOf(0.0f,1.0f), arrayOf(Color(255, 255, 255, 255),Color(255, 255, 255, 0)), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
+paint = LinearGradientPaint(Point2D.Double(11.6875, 14.319357872009277), Point2D.Double(37.11378479003906, 36.08745193481445), floatArrayOf(0.0f,1.0f), arrayOf((colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)),(colorFilter?.filter(Color(255, 255, 255, 0)) ?: Color(255, 255, 255, 0))), MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 g.paint = paint
 g.fill(shape)
 g.transform = transformsStack.pop()
@@ -513,6 +514,10 @@ g.transform = transformsStack.pop()
     override @Synchronized fun setDimension(newDimension: Dimension) {
         width = newDimension.width
         height = newDimension.height
+    }
+
+    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        this.colorFilter = colorFilter
     }
 
     override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {

@@ -37,10 +37,8 @@ import org.pushingpixels.substance.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.painter.SimplisticFillPainter;
-import org.pushingpixels.substance.internal.utils.filters.ColorFilter;
+import org.pushingpixels.substance.internal.utils.filters.ImageColorFilter;
 import org.pushingpixels.substance.internal.utils.filters.ColorSchemeFilter;
-import org.pushingpixels.substance.internal.utils.filters.GrayscaleFilter;
-import org.pushingpixels.substance.internal.utils.filters.AlphaFilter;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -598,7 +596,7 @@ public final class SubstanceImageCreator {
         int height = image.getHeight();
 
         int offsetX = 0, offsetY = 0;
-        BufferedImage echo = new ColorFilter(echoColor).filter(image, null);
+        BufferedImage echo = new ImageColorFilter(echoColor).filter(image, null);
         int tweakedWidth = (int) (width / scale);
         int tweakedHeight = (int) (height / scale);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(
@@ -1565,6 +1563,6 @@ public final class SubstanceImageCreator {
         original.paintIcon(comp, origImage.getGraphics(), 0, 0);
         g2d.dispose();
 
-        return new ColorFilter(color, alpha).filter(origImage, null);
+        return new ImageColorFilter(color, alpha).filter(origImage, null);
     }
 }

@@ -24,6 +24,7 @@ public class media_floppy implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -48,7 +49,7 @@ transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_0_0
 shape = new Rectangle2D.Double(-1559.2523193359375, -150.6968536376953, 1339.633544921875, 478.357177734375);
-paint = new LinearGradientPaint(new Point2D.Double(302.8571472167969, 366.64788818359375), new Point2D.Double(302.8571472167969, 609.5050659179688), new float[] {0.0f,0.5f,1.0f}, new Color[] {new Color(0, 0, 0, 0),new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(2.7743890285491943f, 0.0f, 0.0f, 1.9697060585021973f, -1892.178955078125f, -872.8853759765625f));
+paint = new LinearGradientPaint(new Point2D.Double(302.8571472167969, 366.64788818359375), new Point2D.Double(302.8571472167969, 609.5050659179688), new float[] {0.0f,0.5f,1.0f}, new Color[] {((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 0)) : new Color(0, 0, 0, 0)),((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255)),((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 0)) : new Color(0, 0, 0, 0))}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(2.7743890285491943f, 0.0f, 0.0f, 1.9697060585021973f, -1892.178955078125f, -872.8853759765625f));
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -67,7 +68,7 @@ generalPath.curveTo(-76.74459f, 328.55087f, 125.78146f, 220.48074f, 125.78138f, 
 generalPath.curveTo(125.78138f, -43.572304f, -33.655437f, -150.68036f, -219.61876f, -150.68037f);
 generalPath.closePath();
 shape = generalPath;
-paint = new RadialGradientPaint(new Point2D.Double(605.7142944335938, 486.64788818359375), 117.14286f, new Point2D.Double(605.7142944335938, 486.64788818359375), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(2.7743890285491943f, 0.0f, 0.0f, 1.9697060585021973f, -1891.633056640625f, -872.8853759765625f));
+paint = new RadialGradientPaint(new Point2D.Double(605.7142944335938, 486.64788818359375), 117.14286f, new Point2D.Double(605.7142944335938, 486.64788818359375), new float[] {0.0f,1.0f}, new Color[] {((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255)),((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 0)) : new Color(0, 0, 0, 0))}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(2.7743890285491943f, 0.0f, 0.0f, 1.9697060585021973f, -1891.633056640625f, -872.8853759765625f));
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -86,7 +87,7 @@ generalPath.curveTo(-1702.1265f, 328.55087f, -1904.6525f, 220.48074f, -1904.6525
 generalPath.curveTo(-1904.6525f, -43.572304f, -1745.2157f, -150.68036f, -1559.2523f, -150.68037f);
 generalPath.closePath();
 shape = generalPath;
-paint = new RadialGradientPaint(new Point2D.Double(605.7142944335938, 486.64788818359375), 117.14286f, new Point2D.Double(605.7142944335938, 486.64788818359375), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(-2.7743890285491943f, 0.0f, 0.0f, 1.9697060585021973f, 112.76229858398438f, -872.8853759765625f));
+paint = new RadialGradientPaint(new Point2D.Double(605.7142944335938, 486.64788818359375), 117.14286f, new Point2D.Double(605.7142944335938, 486.64788818359375), new float[] {0.0f,1.0f}, new Color[] {((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255)),((colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 0)) : new Color(0, 0, 0, 0))}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(-2.7743890285491943f, 0.0f, 0.0f, 1.9697060585021973f, 112.76229858398438f, -872.8853759765625f));
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -111,10 +112,10 @@ generalPath.lineTo(3.494052f, 4.6312885f);
 generalPath.curveTo(3.494052f, 4.0419936f, 3.9684658f, 3.5675797f, 4.5577602f, 3.5675797f);
 generalPath.closePath();
 shape = generalPath;
-paint = new LinearGradientPaint(new Point2D.Double(40.88472366333008, 71.86913299560547), new Point2D.Double(16.879831314086914, -0.38931384682655334), new float[] {0.0f,1.0f}, new Color[] {new Color(30, 45, 105, 255),new Color(120, 167, 224, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.9766119718551636f, 0.0f, 0.0f, 1.1397889852523804f, 0.5642150044441223f, -3.27115797996521f));
+paint = new LinearGradientPaint(new Point2D.Double(40.88472366333008, 71.86913299560547), new Point2D.Double(16.879831314086914, -0.38931384682655334), new float[] {0.0f,1.0f}, new Color[] {((colorFilter != null) ? colorFilter.filter(new Color(30, 45, 105, 255)) : new Color(30, 45, 105, 255)),((colorFilter != null) ? colorFilter.filter(new Color(120, 167, 224, 255)) : new Color(120, 167, 224, 255))}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.9766119718551636f, 0.0f, 0.0f, 1.1397889852523804f, 0.5642150044441223f, -3.27115797996521f));
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(37, 55, 95, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(37, 55, 95, 255)) : new Color(37, 55, 95, 255);
 stroke = new BasicStroke(1.0000001f,1,1,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -141,7 +142,7 @@ transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_2
 shape = new Rectangle2D.Double(9.0, 4.0, 30.0, 23.0);
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -150,7 +151,7 @@ transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_3
 shape = new RoundRectangle2D.Double(9.0, 4.0, 30.0, 4.0, 0.2524154484272003, 0.25241541862487793);
-paint = new Color(211, 28, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(211, 28, 0, 255)) : new Color(211, 28, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -159,7 +160,7 @@ transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_4
 shape = new RoundRectangle2D.Double(6.0, 6.0, 2.0, 2.0, 0.2524154484272003, 0.25241541862487793);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -175,10 +176,10 @@ if (generalPath == null) {
 generalPath.moveTo(11.0f, 12.5f);
 generalPath.lineTo(37.0f, 12.5f);
 shape = generalPath;
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -204,10 +205,10 @@ if (generalPath == null) {
 generalPath.moveTo(11.0f, 17.5f);
 generalPath.lineTo(37.0f, 17.5f);
 shape = generalPath;
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -233,10 +234,10 @@ if (generalPath == null) {
 generalPath.moveTo(11.0f, 22.5f);
 generalPath.lineTo(37.0f, 22.5f);
 shape = generalPath;
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(0, 0, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
 stroke = new BasicStroke(1.0f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -254,7 +255,7 @@ g.setComposite(AlphaComposite.getInstance(3, 0.59659094f * origAlpha));
 transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_8
-paint = new LinearGradientPaint(new Point2D.Double(13.783584594726562, -0.9967289566993713), new Point2D.Double(33.07471466064453, 55.70154571533203), new float[] {0.0f,1.0f}, new Color[] {new Color(255, 255, 255, 255),new Color(255, 255, 255, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.9854320287704468f, 0.0f, 0.0f, 1.148179054260254f, 0.6410700082778931f, -2.93388295173645f));
+paint = new LinearGradientPaint(new Point2D.Double(13.783584594726562, -0.9967289566993713), new Point2D.Double(33.07471466064453, 55.70154571533203), new float[] {0.0f,1.0f}, new Color[] {((colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255)),((colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 0)) : new Color(255, 255, 255, 0))}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(0.9854320287704468f, 0.0f, 0.0f, 1.148179054260254f, 0.6410700082778931f, -2.93388295173645f));
 stroke = new BasicStroke(1.0f,1,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -294,10 +295,10 @@ generalPath.lineTo(12.511131f, 30.245836f);
 generalPath.curveTo(12.511131f, 29.313093f, 13.225996f, 28.562183f, 14.113967f, 28.562183f);
 generalPath.closePath();
 shape = generalPath;
-paint = new LinearGradientPaint(new Point2D.Double(20.125, 21.84375), new Point2D.Double(28.5625, 42.46875), new float[] {0.0f,0.5f,1.0f}, new Color[] {new Color(133, 133, 133, 255),new Color(203, 203, 203, 255),new Color(107, 107, 107, 255)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0676980018615723f, 0.0f, 0.0f, 1.1215319633483887f, -1.3689370155334473f, -5.574460029602051f));
+paint = new LinearGradientPaint(new Point2D.Double(20.125, 21.84375), new Point2D.Double(28.5625, 42.46875), new float[] {0.0f,0.5f,1.0f}, new Color[] {((colorFilter != null) ? colorFilter.filter(new Color(133, 133, 133, 255)) : new Color(133, 133, 133, 255)),((colorFilter != null) ? colorFilter.filter(new Color(203, 203, 203, 255)) : new Color(203, 203, 203, 255)),((colorFilter != null) ? colorFilter.filter(new Color(107, 107, 107, 255)) : new Color(107, 107, 107, 255))}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0676980018615723f, 0.0f, 0.0f, 1.1215319633483887f, -1.3689370155334473f, -5.574460029602051f));
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(82, 82, 82, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(82, 82, 82, 255)) : new Color(82, 82, 82, 255);
 stroke = new BasicStroke(0.99999946f,0,0,4.0f,null,0.0f);
 if (generalPath == null) {
    generalPath = new GeneralPath();
@@ -322,10 +323,10 @@ transformsStack.push(g.getTransform());
 g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_10
 shape = new RoundRectangle2D.Double(16.464279174804688, 30.456600189208984, 5.029752731323242, 10.065970420837402, 1.5024142265319824, 1.5024152994155884);
-paint = new Color(73, 103, 162, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(73, 103, 162, 255)) : new Color(73, 103, 162, 255);
 g.setPaint(paint);
 g.fill(shape);
-paint = new Color(82, 82, 82, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(82, 82, 82, 255)) : new Color(82, 82, 82, 255);
 stroke = new BasicStroke(0.9999996f,0,0,4.0f,null,0.0f);
 shape = new RoundRectangle2D.Double(16.464279174804688, 30.456600189208984, 5.029752731323242, 10.065970420837402, 1.5024142265319824, 1.5024152994155884);
 g.setPaint(paint);
@@ -429,6 +430,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

@@ -24,6 +24,7 @@ public class hu implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -54,7 +55,7 @@ generalPath.lineTo(0.0f, 0.0f);
 generalPath.lineTo(512.004f, 0.0f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -73,7 +74,7 @@ generalPath.lineTo(0.0f, 341.323f);
 generalPath.lineTo(512.004f, 341.323f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(56, 141, 0, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(56, 141, 0, 255)) : new Color(56, 141, 0, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -92,7 +93,7 @@ generalPath.lineTo(0.0f, 0.137f);
 generalPath.lineTo(512.004f, 0.137f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(212, 53, 22, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(212, 53, 22, 255)) : new Color(212, 53, 22, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -193,6 +194,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {

@@ -24,6 +24,7 @@ public class tw implements NeonIcon {
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
+    private NeonIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -54,7 +55,7 @@ generalPath.lineTo(744.09f, 496.06f);
 generalPath.lineTo(0.0f, 496.06f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(222, 33, 16, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(222, 33, 16, 255)) : new Color(222, 33, 16, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -73,7 +74,7 @@ generalPath.lineTo(373.69f, 248.03f);
 generalPath.lineTo(0.0f, 248.03f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(8, 57, 156, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(8, 57, 156, 255)) : new Color(8, 57, 156, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -112,7 +113,7 @@ generalPath.lineTo(286.40506f, 123.45202f);
 generalPath.lineTo(241.97507f, 138.22202f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -151,7 +152,7 @@ generalPath.lineTo(247.76999f, 141.342f);
 generalPath.lineTo(239.08398f, 155.219f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(0, 83, 135, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 83, 135, 255)) : new Color(0, 83, 135, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -171,7 +172,7 @@ generalPath.curveTo(136.522f, 96.537f, 159.022f, 74.03801f, 186.775f, 74.03801f)
 generalPath.curveTo(214.52798f, 74.03801f, 237.02798f, 96.53801f, 237.02798f, 124.29101f);
 generalPath.closePath();
 shape = generalPath;
-paint = new Color(255, 255, 255, 255);
+paint = (colorFilter != null) ? colorFilter.filter(new Color(255, 255, 255, 255)) : new Color(255, 255, 255, 255);
 g.setPaint(paint);
 g.fill(shape);
 g.setTransform(transformsStack.pop());
@@ -272,6 +273,11 @@ g.setTransform(transformsStack.pop());
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
+
+    @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        this.colorFilter = colorFilter;
+    }
 
     @Override
 	public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
