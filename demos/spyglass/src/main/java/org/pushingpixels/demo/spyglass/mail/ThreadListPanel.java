@@ -33,6 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_mail_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_person_outline_black_24px;
+import org.pushingpixels.demo.spyglass.mail.svg.ic_refresh_black_24px;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
@@ -72,8 +73,8 @@ public class ThreadListPanel extends PanelWithRightLine {
         editIcon.setDimension(new Dimension(14, 14));
         this.add(getTitlePanel(editIcon));
 
-        NeonIcon mailIcon = NeonCortex.colorizeIcon(
-                ic_mail_outline_black_24px.factory(), mainSelectorIconColor);
+        NeonIcon mailIcon = ic_refresh_black_24px.factory().createNewIcon();
+        mailIcon.setColorFilter(color -> mainSelectorIconColor);
         mailIcon.setDimension(new Dimension(12, 12));
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
 

@@ -1435,8 +1435,7 @@ public class SubstanceCortex {
          * @param colorScheme      Color scheme for colorization.
          * @param brightnessFactor Brightness factor for colorization.
          * @return The colorized version of the icon.
-         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color)
-         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color, float)
+         * @see NeonIcon#setColorFilter(NeonIcon.ColorFilter)
          */
         public static NeonIconUIResource colorizeIconAsUiResource(
                 NeonIcon.Factory sourceFactory,
@@ -1458,7 +1457,6 @@ public class SubstanceCortex {
          * @param colorScheme   Color scheme for colorization.
          * @return The colorized version of the icon.
          * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color)
-         * @see NeonCortex#colorizeIconAsUiResource(NeonIcon.Factory, Color, float)
          */
         public static NeonIconUIResource colorizeIconAsUiResource(
                 NeonIcon.Factory sourceFactory,

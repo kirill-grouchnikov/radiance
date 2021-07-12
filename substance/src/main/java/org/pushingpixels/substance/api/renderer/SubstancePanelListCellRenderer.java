@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
-import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -202,7 +201,8 @@ public abstract class SubstancePanelListCellRenderer<T> extends JPanel
             JLabel label = themeAwareLabelsWithIcons.getKey();
             IconData iconData = themeAwareLabelsWithIcons.getValue();
 
-            NeonIcon icon = NeonCortex.colorizeIcon(iconData.iconFactory, labelForeground);
+            NeonIcon icon = iconData.iconFactory.createNewIcon();
+            icon.setColorFilter(color -> labelForeground);
             icon.setDimension(iconData.iconSize);
 
             label.setIcon(icon);

@@ -199,8 +199,8 @@ public class ThreadPanel extends JPanel {
         messagePane.setText(message);
 
         Color historyColor = new Color(32, 96, 148);
-        NeonIcon historyIcon = NeonCortex.colorizeIcon(
-                ic_history_black_24px.factory(), historyColor);
+        NeonIcon historyIcon = ic_refresh_black_24px.factory().createNewIcon();
+        historyIcon.setColorFilter(color -> historyColor);
         historyIcon.setDimension(new Dimension(12, 12));
         JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
         historyLabel.setBorder(new EmptyBorder(24, 16, 16, 16));

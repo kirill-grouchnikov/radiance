@@ -41,7 +41,8 @@ import java.awt.image.BufferedImage
 object RadianceLogo {
     fun getLogoIcon(scheme: SubstanceColorScheme): NeonIcon {
         // Step 1 - create a colorized version of the transcoded Radiance logo
-        val base = NeonCortex.colorizeIcon(radiance_menu.factory(), scheme.foregroundColor)
+        val base = radiance_menu.factory().createNewIcon()
+        base.setColorFilter { scheme.foregroundColor }
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(Dimension(16, 16))
         // Step 3 - good to go

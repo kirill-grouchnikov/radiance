@@ -44,8 +44,8 @@ import java.awt.image.BufferedImage;
 public class RadianceLogo {
     public static NeonIcon getLogoIcon(SubstanceColorScheme scheme) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
-        NeonIcon base = NeonCortex.colorizeIcon(radiance_menu.factory(),
-                scheme.getForegroundColor());
+        NeonIcon base = radiance_menu.factory().createNewIcon();
+        base.setColorFilter(color -> scheme.getForegroundColor());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));
         // Step 3 - good to go

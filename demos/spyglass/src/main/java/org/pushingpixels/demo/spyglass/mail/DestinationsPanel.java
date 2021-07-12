@@ -31,7 +31,6 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
-import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -98,8 +97,8 @@ public class DestinationsPanel extends PanelWithRightLine {
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        NeonIcon refreshIcon = NeonCortex.colorizeIcon(
-                ic_refresh_black_24px.factory(), mainSelectorIconTitleColor);
+        NeonIcon refreshIcon = ic_refresh_black_24px.factory().createNewIcon();
+        refreshIcon.setColorFilter(color -> mainSelectorIconTitleColor);
         refreshIcon.setDimension(new Dimension(12, 12));
         this.add(getRefreshAction(window, refreshIcon));
         this.add(getMainLabel("MAIL"));

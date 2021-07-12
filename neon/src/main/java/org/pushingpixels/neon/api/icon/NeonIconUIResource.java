@@ -57,4 +57,9 @@ public class NeonIconUIResource implements NeonIcon, UIResource {
 	public void setDimension(Dimension newDimension) {
 		delegate.setDimension(newDimension);
 	}
+
+	@Override
+	public void setColorFilter(ColorFilter colorFilter) {
+		delegate.setColorFilter(colorFilter);
+	}
 }

@@ -422,20 +422,4 @@ public class NeonCortex {
             return new NeonIconUIResource(colorized);
         }
     }
-
-    /**
-     * Returns the colorized version of icon based off of the passed icon factory. The returned
-     * icon also implements the marker {@link javax.swing.plaf.UIResource} interface.
-     *
-     * @param sourceFactory Source factory to be used to create the icon.
-     * @param color         Color for colorization.
-     * @param alpha         Alpha value for colorization.
-     * @return The colorized version of the icon.
-     */
-    public static NeonIconUIResource colorizeIconAsUiResource(
-            NeonIcon.Factory sourceFactory, Color color, float alpha) {
-        return colorizeIconAsUiResource(sourceFactory,
-                new Color(color.getRed(), color.getGreen(),
-                        color.getBlue(), (int) (alpha * 255)));
-    }
 }
