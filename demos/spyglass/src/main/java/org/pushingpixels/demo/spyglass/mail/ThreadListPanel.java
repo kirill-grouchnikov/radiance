@@ -75,9 +75,8 @@ public class ThreadListPanel extends PanelWithRightLine {
         editIcon.setColorFilter(color -> filterColor);
         this.add(getTitlePanel(editIcon));
 
-        NeonIcon mailIcon = ic_refresh_black_24px.factory().createNewIcon();
+        NeonIcon mailIcon = ic_refresh_black_24px.of(12, 12);
         mailIcon.setColorFilter(color -> mainSelectorIconColor);
-        mailIcon.setDimension(new Dimension(12, 12));
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
 
         JList<ThreadInfo> threadList = new JList<>(new ThreadListModel(

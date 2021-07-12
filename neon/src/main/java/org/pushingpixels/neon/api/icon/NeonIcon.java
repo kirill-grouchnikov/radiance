@@ -59,7 +59,7 @@ public interface NeonIcon extends Icon {
 	void setColorFilter(ColorFilter colorFilter);
 
     /**
-     * Interface for creating icons that have resizability behaviour.
+     * Interface for creating Neon icons.
      *
      * @author Kirill Grouchnikov
      */

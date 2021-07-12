@@ -6,11 +6,11 @@ The goal of this project is to enable usage of vector-based icons in Swing appli
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for build instructions of the latest stable release.
 
-There are two ways to use Photon for working with vector icons. In both cases the original format is SVG, and in both cases you need the [matching version](#dependency-versions-for-photon) of [Apache Batik](https://xmlgraphics.apache.org/batik/) and its dependencies.
+The original icon format supported by Photon is SVG, and you need the [matching version](#dependency-versions-for-photon) of [Apache Batik](https://xmlgraphics.apache.org/batik/) and its dependencies.
 
 ### Offline transcoding of SVG content
 
-This is the recommended way of using Photon. SVG has a wide feature surface which, depending on the complexity of your SVG sources, can lead to significant initial parsing and rendering time of the icon content.
+SVG has a wide feature surface which, depending on the complexity of your SVG sources, can lead to significant initial parsing and rendering time of the icon content.
 
 Photon transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Photon ships with two sets of built-in template files (one for Java and one for Kotlin) that create slightly different wrappers around the Java2D draw calls:
 
@@ -77,22 +77,6 @@ The intended usage and the scope of Photon is to convert reasonably sized icons 
 SVG content can be arbitrarily complex. For example, [this Spanish flag](https://en.wikipedia.org/wiki/File:Flag_of_Spain.svg) is a 59KB SVG file. It is transcoded by Photon to a 674KB Java file, and then compiled to a 302KB class file. There are more complex flags, such as [Ecuador](https://en.wikipedia.org/wiki/File:Flag_of_Ecuador.svg) with a lot more details or [Afghanistan](https://en.wikipedia.org/wiki/File:Flag_of_Afghanistan.svg) that has a huge path with more than 8K elements in it (all the white outlines of mosque, wheat and inscription is a single path). Such files produce a Java / Kotlin class that can't be compiled due to too many symbols in it.
 
 Photon **does not** provide support for such huge SVG files. At some point, the binary size of the compiled transcoded classes is at the same order of magnitude as simply bundling the original SVGs and the full Batik distribution.
-
-### Dynamic display of SVG content at runtime
-
-The second option to display content of SVG icons is to use the `SvgBatikNeonIcon` class. It provides a number of static methods to load the SVG content from an `InputStream` or a `URL`. The source can be either uncompressed or compressed (use `getSvgIcon` or `getSvgzIcon` APIs respectively).
-
-If you choose this route, keep the following in mind:
-
-* You will need to bring in Photon, Neon, Batik and all of Batik's dependencies into your classpath.
-* SVG has a wide feature surface which, depending on the complexity of your SVG sources, can lead to significant initial parsing and rendering time of the icon content. In the meantime, you are not showing any graphical content in that specific Swing view.
-
-Note that `SvgBatikNeonIcon`'s primary intent is to be used with components that expect to be populated with resizable icon content. However, since this class implements the core Swing `Icon` interface, you can use the instance returned by one of the class's static methods anywhere you use icons today.
-
-If your app needs to track the loading of the SVG content, you can use the following APIs on the `SvgBatikNeonIcon` class:
-
-* `addAsynchronousLoadListener(AsynchronousLoadListener)` API to be notified on content load completion
-* `isLoading()` API to query whether the content loading has been completed
 
 ### SVG format support
 
