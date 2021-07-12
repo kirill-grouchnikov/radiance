@@ -39,7 +39,6 @@ import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon;
 import org.pushingpixels.photon.api.transcoder.SvgStreamTranscoder;
 import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
 

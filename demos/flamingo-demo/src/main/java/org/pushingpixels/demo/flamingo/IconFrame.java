@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon;
+import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;

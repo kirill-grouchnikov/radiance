@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.photon.api.icon;
+package org.pushingpixels.demo.flamingo.svg;
 
 import org.apache.batik.bridge.InterruptedBridgeException;
 import org.apache.batik.bridge.UserAgentAdapter;

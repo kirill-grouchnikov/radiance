@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.icon.ImageWrapperNeonIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon;
+import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;

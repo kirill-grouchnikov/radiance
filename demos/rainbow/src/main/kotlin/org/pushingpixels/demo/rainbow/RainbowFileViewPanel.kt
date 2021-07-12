@@ -40,7 +40,7 @@ import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
 import org.pushingpixels.neon.api.NeonCortex
 import org.pushingpixels.neon.api.icon.NeonIcon
-import org.pushingpixels.photon.api.icon.SvgBatikNeonIcon
+import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon
 import java.awt.Dimension
 import java.io.InputStream
 
@@ -63,7 +63,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         command.action = CommandAction {
             GlobalScope.launch(Dispatchers.Swing) {
                 // can't pass the stream contents since the input can be .svgz
-                val svgIcon = icon as SvgBatikNeonIcon
+                val svgIcon = icon as org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon
                 RainbowUtils.processSvgButtonClick(svgIcon.svgBytes, leaf.leafName)
             }
         }
@@ -83,8 +83,8 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         val name = leaf.leafName
         val scale = NeonCortex.getScaleFactor(this)
         return if (name.endsWith(".svg"))
-            SvgBatikNeonIcon.getSvgIcon(leaf.leafStream, scale, dimension)
+            org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon.getSvgIcon(leaf.leafStream, scale, dimension)
         else
-            SvgBatikNeonIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
+            org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
     }
 }
