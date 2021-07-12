@@ -181,9 +181,7 @@ g.transform = transformsStack.pop()
          * @return A new [UIResource] instance of this icon with specified dimensions.
          */
         fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
-            return NeonIconUIResource(
-                outline_edit_24px(width, height)
-            )
+            return NeonIconUIResource(outline_edit_24px(width, height))
         }
 
         /**

@@ -122,7 +122,7 @@ object RainbowUtils {
         transcoder.setPrintWriter(pw)
         transcoder.transcode(RainbowUtils::class.java.getResourceAsStream(
                 "/org/pushingpixels/photon/api/transcoder/java" +
-                        "/SvgTranscoderTemplateResizable.templ"))
+                        "/SvgTranscoderTemplateNeon.templ"))
 
         val javaEditorPane = RSyntaxTextArea(20, 60)
         javaEditorPane.syntaxEditingStyle = SyntaxConstants.SYNTAX_STYLE_JAVA
