@@ -31,11 +31,8 @@ package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
-
-import java.awt.*;
 
 /**
  * Custom Substance icon pack based on Tango icons (license in resources/TangoIcons.license).
@@ -173,46 +170,46 @@ public class TangoIconPack implements SubstanceIconPack {
     @Override
     public NeonIcon getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                edit_copy.factory(), preferredIconColorScheme);
-        base.setDimension(new Dimension(preferredSize, preferredSize));
-        return base;
+        NeonIcon result = edit_copy.of(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorScheme.getColorFilter(
+                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+        return result;
     }
 
     @Override
     public NeonIcon getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                edit_cut.factory(), preferredIconColorScheme);
-        base.setDimension(new Dimension(preferredSize, preferredSize));
-        return base;
+        NeonIcon result = edit_cut.of(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorScheme.getColorFilter(
+                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+        return result;
     }
 
     @Override
     public NeonIcon getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                edit_paste.factory(), preferredIconColorScheme);
-        base.setDimension(new Dimension(preferredSize, preferredSize));
-        return base;
+        NeonIcon result = edit_paste.of(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorScheme.getColorFilter(
+                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+        return result;
     }
 
     @Override
     public NeonIcon getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                edit_delete.factory(), preferredIconColorScheme);
-        base.setDimension(new Dimension(preferredSize, preferredSize));
-        return base;
+        NeonIcon result = edit_delete.of(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorScheme.getColorFilter(
+                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+        return result;
     }
 
     @Override
     public NeonIcon getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon base = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                edit_select_all.factory(), preferredIconColorScheme);
-        base.setDimension(new Dimension(preferredSize, preferredSize));
-        return base;
+        NeonIcon result = edit_select_all.of(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorScheme.getColorFilter(
+                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+        return result;
     }
 
     @Override

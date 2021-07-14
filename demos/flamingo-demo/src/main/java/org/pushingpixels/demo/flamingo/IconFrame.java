@@ -42,6 +42,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.LimeGreenColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SteelBlueColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
 
@@ -56,7 +57,7 @@ public class IconFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
 
             JFrame frame = new JFrame("Icons");
-            frame.setSize(400, 300);
+            frame.setSize(400, 150);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setIconImage(RadianceLogo.getLogoImage(frame,
@@ -130,44 +131,35 @@ public class IconFrame {
 
             Command redTangoCommand = Command.builder()
                     .setText("Red")
-                    .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
+                    .setIconFactory(() -> colorizeIcon(
                             () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                                     NeonCortex.getScaleFactor(frame),
-                                    new Dimension(16, 16)
-                            ),
-                            new SunfireRedColorScheme(),
-                            1.0f
-                    ))
-                    .build();
+                                    new Dimension(16, 16)),
+                            new SunfireRedColorScheme(), 1.0f, 1.0f
+                    )).build();
             frame.add(redTangoCommand.project(presentationModel).buildComponent());
 
             Command greenTangoCommand = Command.builder()
                     .setText("Green")
-                    .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
+                    .setIconFactory(() -> colorizeIcon(
                             () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                                     NeonCortex.getScaleFactor(frame),
-                                    new Dimension(16, 16)
-                            ),
-                            new LimeGreenColorScheme(),
-                            1.0f
-                    ))
-                    .build();
+                                    new Dimension(16, 16)),
+                            new LimeGreenColorScheme(), 1.0f, 1.0f
+                    )).build();
             frame.add(greenTangoCommand.project(presentationModel).buildComponent());
 
             Command blueTangoCommand = Command.builder()
                     .setText("Blue")
-                    .setIconFactory(() -> SubstanceCortex.GlobalScope.colorizeIcon(
+                    .setIconFactory(() -> colorizeIcon(
                             () -> SvgBatikNeonIcon.getSvgIcon(
                                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
                                     NeonCortex.getScaleFactor(frame),
-                                    new Dimension(16, 16)
-                            ),
-                            new SteelBlueColorScheme(),
-                            1.0f
-                    ))
-                    .build();
+                                    new Dimension(16, 16)),
+                            new SteelBlueColorScheme(), 1.0f, 1.0f
+                    )).build();
             frame.add(blueTangoCommand.project(presentationModel).buildComponent());
 
             frame.setVisible(true);
@@ -176,6 +168,20 @@ public class IconFrame {
 
     private static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, Color targetColor) {
         return new DemoAsyncLoadingIcon(sourceFactory, color -> targetColor) {
+            @Override
+            protected void makeColorized() {
+                BufferedImage flat = NeonCortex.getBlankScaledImage(
+                        NeonCortex.getScaleFactor(null),
+                        this.width, this.height);
+                this.currDelegate.paintIcon(null, flat.getGraphics(), 0, 0);
+                this.currColorized = new DemoColorFilter(this.colorFilter).filter(flat, null);
+            }
+        };
+    }
+
+    private static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory,
+            SubstanceColorScheme colorScheme, float brightnessFactor, float alpha) {
+        return new DemoAsyncLoadingIcon(sourceFactory, colorScheme.getColorFilter(brightnessFactor, alpha)) {
             @Override
             protected void makeColorized() {
                 BufferedImage flat = NeonCortex.getBlankScaledImage(

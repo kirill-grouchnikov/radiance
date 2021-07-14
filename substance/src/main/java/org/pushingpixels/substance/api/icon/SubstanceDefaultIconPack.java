@@ -30,12 +30,9 @@
 package org.pushingpixels.substance.api.icon;
 
 import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.svg.*;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
-
-import java.awt.*;
 
 /**
  * Default icon pack interface for <b>Substance</b> look and feel. This class is part of officially
@@ -167,10 +164,9 @@ public class SubstanceDefaultIconPack implements SubstanceIconPack {
     @Override
     public NeonIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon result = SubstanceCortex.GlobalScope.colorizeIconAsUiResource(
-                ic_lock_outline_black_24px.factory(), preferredIconColorScheme,
-                preferredIconColorScheme.isDark() ? 0.6f : -0.1f);
-        result.setDimension(new Dimension(preferredSize, preferredSize));
+        NeonIcon result = ic_lock_outline_black_24px.uiResourceOf(preferredSize, preferredSize);
+        result.setColorFilter(preferredIconColorScheme.getColorFilter(
+                preferredIconColorScheme.isDark() ? 0.6f : -0.1f, 1.0f));
         return result;
     }
 

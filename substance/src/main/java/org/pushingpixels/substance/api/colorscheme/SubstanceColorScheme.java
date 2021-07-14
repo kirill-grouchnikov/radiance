@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
+import org.pushingpixels.neon.api.icon.NeonIcon;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
+import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.internal.utils.filters.ColorSchemeFilter;
 
 import java.awt.*;
 
@@ -164,4 +167,42 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors, 
      * @return This color scheme.
      */
     SubstanceColorScheme named(String colorSchemeDisplayName);
+
+    default NeonIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
+        SubstanceColorScheme origin = this;
+        return color -> {
+            int[] interpolated = ColorSchemeFilter.getInterpolatedColors(origin);
+            int steps = interpolated.length;
+
+            int brightness = SubstanceColorUtilities.getColorBrightness(color.getRGB());
+
+            int a = color.getAlpha();
+            int r = color.getRed();
+            int g = color.getGreen();
+            int b = color.getBlue();
+
+            float[] hsb = Color.RGBtoHSB(r, g, b, null);
+            int pixelColor = interpolated[brightness * steps / 256];
+
+            int ri = (pixelColor >>> 16) & 0xFF;
+            int gi = (pixelColor >>> 8) & 0xFF;
+            int bi = (pixelColor >>> 0) & 0xFF;
+            float[] hsbi = Color.RGBtoHSB(ri, gi, bi, null);
+
+            hsb[0] = hsbi[0];
+            hsb[1] = hsbi[1];
+            if (brightnessFactor >= 0.0f) {
+                hsb[2] = brightnessFactor * hsb[2]
+                        + (1.0f - brightnessFactor) * hsbi[2];
+            } else {
+                hsb[2] = hsb[2] * hsbi[2] * (1.0f + brightnessFactor);
+            }
+
+            Color converted = new Color(Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]));
+            int finalAlpha = (int) (a * alpha);
+
+            return new Color(converted.getRed(), converted.getGreen(), converted.getBlue(),
+                    finalAlpha);
+        };
+    }
 }

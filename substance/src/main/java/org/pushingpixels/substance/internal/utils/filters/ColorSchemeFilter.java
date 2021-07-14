@@ -69,23 +69,12 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
         ColorSchemeFilter filter = filters.get(key);
         if (filter == null) {
             filter = new ColorSchemeFilter(scheme, originalBrightnessFactor, alpha);
-            //filters.put(key, filter);
+            filters.put(key, filter);
         }
         return filter;
     }
 
-    /**
-     * @throws IllegalArgumentException if <code>scheme</code> is null
-     */
-    private ColorSchemeFilter(SubstanceColorScheme scheme, float originalBrightnessFactor,
-            float alpha) {
-        if (scheme == null) {
-            throw new IllegalArgumentException("mixColor cannot be null");
-        }
-
-        this.originalBrightnessFactor = originalBrightnessFactor;
-        this.alpha = alpha;
-
+    public static int[] getInterpolatedColors(SubstanceColorScheme scheme) {
         // collect the brightness factors of the color scheme
         Map<Integer, Color> schemeColorMapping = new TreeMap<>();
         int ultraLight = scheme.getUltraLightColor().getRGB();
@@ -147,14 +136,14 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
         schemeBrightness = new ArrayList<>(stretchedColorMapping.keySet());
         Collections.sort(schemeBrightness);
 
-        this.interpolated = new int[MAPSTEPS];
+        int[] interpolated = new int[MAPSTEPS];
         for (int i = 0; i < MAPSTEPS; i++) {
             int brightness = (int) (256.0 * i / MAPSTEPS);
             if (schemeBrightness.contains(brightness)) {
-                this.interpolated[i] = stretchedColorMapping.get(brightness).getRGB();
+                interpolated[i] = stretchedColorMapping.get(brightness).getRGB();
             } else {
                 if (hasSameBrightness) {
-                    this.interpolated[i] = stretchedColorMapping.get(lowestSchemeBrightness)
+                    interpolated[i] = stretchedColorMapping.get(lowestSchemeBrightness)
                             .getRGB();
                 } else {
                     int currIndex = 0;
@@ -165,7 +154,7 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
                             // interpolate
                             Color currStopColor = stretchedColorMapping.get(currStopValue);
                             Color nextStopColor = stretchedColorMapping.get(nextStopValue);
-                            this.interpolated[i] = SubstanceColorUtilities.getInterpolatedRGB(
+                            interpolated[i] = SubstanceColorUtilities.getInterpolatedRGB(
                                     currStopColor, nextStopColor,
                                     1.0 - (double) (brightness - currStopValue)
                                             / (double) (nextStopValue - currStopValue));
@@ -176,6 +165,21 @@ public class ColorSchemeFilter extends NeonAbstractFilter {
                 }
             }
         }
+        return interpolated;
+    }
+
+    /**
+     * @throws IllegalArgumentException if <code>scheme</code> is null
+     */
+    private ColorSchemeFilter(SubstanceColorScheme scheme, float originalBrightnessFactor,
+            float alpha) {
+        if (scheme == null) {
+            throw new IllegalArgumentException("Color scheme cannot be null");
+        }
+
+        this.originalBrightnessFactor = originalBrightnessFactor;
+        this.alpha = alpha;
+        this.interpolated = getInterpolatedColors(scheme);
     }
 
     @Override

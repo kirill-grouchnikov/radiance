@@ -194,16 +194,6 @@ Sets the global icon pack to be used by Substance.
 
 Retrieves the currently used global icon pack.
 
-`public static NeonIcon colorizeIcon(NeonIcon.Factory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
-
-Creates a colorized version of a resizable icon.
-
-`public static NeonIconUIResource colorizeIconAsUiResource(NeonIcon.Factory sourceFactory, SubstanceColorScheme colorScheme, float brightnessFactor)`
-
-`public static NeonIconUIResource colorizeIconAsUiResource(NeonIcon.Factory sourceFactory, SubstanceColorScheme colorScheme)`
-
-Create a colorized version of a resizable icon that implements the marker `UIResource` interface.
-
 `public static void setUseConstantThemesOnOptionPanes(Boolean useConstantThemesOnOptionPanes)`
 
 Sets the new setting for the icons of the `JOptionPane`s created with predefined message types
