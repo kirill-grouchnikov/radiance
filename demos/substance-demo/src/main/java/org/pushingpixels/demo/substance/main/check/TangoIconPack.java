@@ -172,7 +172,7 @@ public class TangoIconPack implements SubstanceIconPack {
             SubstanceColorScheme preferredIconColorScheme) {
         NeonIcon result = edit_copy.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -181,7 +181,7 @@ public class TangoIconPack implements SubstanceIconPack {
             SubstanceColorScheme preferredIconColorScheme) {
         NeonIcon result = edit_cut.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -190,7 +190,7 @@ public class TangoIconPack implements SubstanceIconPack {
             SubstanceColorScheme preferredIconColorScheme) {
         NeonIcon result = edit_paste.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -199,7 +199,7 @@ public class TangoIconPack implements SubstanceIconPack {
             SubstanceColorScheme preferredIconColorScheme) {
         NeonIcon result = edit_delete.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
@@ -208,7 +208,7 @@ public class TangoIconPack implements SubstanceIconPack {
             SubstanceColorScheme preferredIconColorScheme) {
         NeonIcon result = edit_select_all.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.2f : 0.8f, 1.0f));
+                preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
