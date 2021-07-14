@@ -95,6 +95,6 @@ The first block uses an alpha-derived filter color on a 14x14 icon. The second b
 
 The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `SubstanceColorScheme.getColorFilter` API for visuals like in the second row of this screen:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/neon/icon-color-filtering.png" width="446" height="296" border=0 align="center">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/neon/icon-color-filtering.png" width="446" height="196" border=0 align="center">
 
 Here, the colors of Sunfire, Lime Green and Steel Blue color schemes from Substance are used to filter the original visuals of an icon from the Tango icon set, preserving its overall visual feel, while at the same time making it blend more with the specific Substance visuals.
