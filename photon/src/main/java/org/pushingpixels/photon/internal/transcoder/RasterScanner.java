@@ -63,6 +63,10 @@ public class RasterScanner {
         scanGraphicsNode(gvtRoot);
     }
 
+    public boolean hasRasters() {
+        return !this.processedMD5s.isEmpty();
+    }
+
     private void scanPatternPaint(PatternPaint paint) {
         // Since PatternGraphicsNode does not (yet?) expose its content, we ask it to
         // paint itself to a custom extension of Graphics2D that tracks image draw operations

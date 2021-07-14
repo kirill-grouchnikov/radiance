@@ -69,21 +69,23 @@ abstract class SvgBaseTranscoder {
 
     private LanguageRenderer languageRenderer;
 
-    /**
-     * Class name for the generated Java2D code.
-     */
+    // Class name for the generated Java2D code.
     private String classname;
 
-    /**
-     * Package name for the generated Java2D code.
-     */
+    // Package name for the generated Java2D code.
     private String packageName;
+
+    private boolean hasRasters = false;
 
     private final static String TOKEN_PACKAGE = "TOKEN_PACKAGE";
 
     private final static String TOKEN_CLASSNAME = "TOKEN_CLASSNAME";
 
     private final static String TOKEN_RASTER_CODE = "TOKEN_RASTER_CODE";
+
+    private final static String TOKEN_SET_COLOR_FILTER = "TOKEN_SET_COLOR_FILTER";
+
+    private final static String TOKEN_SUPPORTS_COLOR_FILTER = "TOKEN_SUPPORTS_COLOR_FILTER";
 
     private final static String TOKEN_PAINTING_CODE = "TOKEN_PAINTING_CODE";
 
@@ -218,6 +220,16 @@ abstract class SvgBaseTranscoder {
 
         String rasterCode = new String(rasterCodeStream.toByteArray());
         templateString = templateString.replaceAll(TOKEN_RASTER_CODE, rasterCode);
+
+        this.hasRasters = rasterScanner.hasRasters();
+        String setColorFilter = this.hasRasters
+                ? "throw " + this.languageRenderer.getObjectCreation("UnsupportedOperationException") +
+                "(\"Color filters on raster content not supported\")"
+                : "this.colorFilter = colorFilter";
+        templateString = templateString.replace(TOKEN_SET_COLOR_FILTER,
+                setColorFilter + this.languageRenderer.getStatementEnd());
+        templateString = templateString.replace(TOKEN_SUPPORTS_COLOR_FILTER,
+                this.hasRasters ? "false" : "true");
 
         // Pass 2 - transcode the rest of the content
         this.printWriterManager = new PrintWriterManager();

@@ -132,8 +132,12 @@ class TOKEN_CLASSNAME private constructor(private var width: Int, private var he
         height = newDimension.height
     }
 
+    override fun supportsColorFilter(): Boolean {
+        return TOKEN_SUPPORTS_COLOR_FILTER
+    }
+
     override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
-        this.colorFilter = colorFilter
+        TOKEN_SET_COLOR_FILTER
     }
 
     override @Synchronized fun paintIcon(c: Component?, g: Graphics, x: Int, y: Int) {

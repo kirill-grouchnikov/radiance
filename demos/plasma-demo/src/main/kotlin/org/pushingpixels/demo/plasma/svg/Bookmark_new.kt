@@ -557,6 +557,10 @@ g.transform = transformsStack.pop()
         height = newDimension.height
     }
 
+    override fun supportsColorFilter(): Boolean {
+        return true
+    }
+
     override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
         this.colorFilter = colorFilter
     }

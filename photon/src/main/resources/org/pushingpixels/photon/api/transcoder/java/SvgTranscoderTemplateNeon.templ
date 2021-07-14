@@ -121,8 +121,13 @@ public class TOKEN_CLASSNAME implements NeonIcon {
 	}
 
     @Override
+    public boolean supportsColorFilter() {
+        return TOKEN_SUPPORTS_COLOR_FILTER;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
-        this.colorFilter = colorFilter;
+        TOKEN_SET_COLOR_FILTER
     }
 
     @Override

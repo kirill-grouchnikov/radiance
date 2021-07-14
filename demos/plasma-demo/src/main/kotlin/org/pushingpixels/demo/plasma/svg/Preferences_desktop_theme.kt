@@ -1376,6 +1376,10 @@ _paint1(g, origAlpha)
         height = newDimension.height
     }
 
+    override fun supportsColorFilter(): Boolean {
+        return true
+    }
+
     override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
         this.colorFilter = colorFilter
     }

@@ -877,6 +877,11 @@ g.setTransform(transformsStack.pop());
 	}
 
     @Override
+    public boolean supportsColorFilter() {
+        return true;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         this.colorFilter = colorFilter;
     }

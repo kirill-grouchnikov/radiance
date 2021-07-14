@@ -11448,6 +11448,11 @@ _paint11(g, origAlpha);
 	}
 
     @Override
+    public boolean supportsColorFilter() {
+        return true;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         this.colorFilter = colorFilter;
     }
