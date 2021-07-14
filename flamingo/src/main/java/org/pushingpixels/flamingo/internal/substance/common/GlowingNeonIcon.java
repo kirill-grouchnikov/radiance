@@ -82,6 +82,11 @@ public class GlowingNeonIcon implements NeonIcon {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return delegate.supportsColorFilter();
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         delegate.setColorFilter(colorFilter);
     }

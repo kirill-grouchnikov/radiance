@@ -95,6 +95,11 @@ public class EchoNeonIcon implements NeonIcon {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return true;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         this.original.setColorFilter(colorFilter);
         this.echo.setColorFilter(colorFilter);

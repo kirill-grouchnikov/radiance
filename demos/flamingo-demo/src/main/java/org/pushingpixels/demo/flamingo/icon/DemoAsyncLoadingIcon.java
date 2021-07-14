@@ -90,6 +90,11 @@ public abstract class DemoAsyncLoadingIcon implements NeonIcon, AsynchronousLoad
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return true;
+    }
+
+    @Override
     public void setColorFilter(NeonIcon.ColorFilter colorFilter) {
         this.colorFilter = colorFilter;
         if (!this.isLoading()) {

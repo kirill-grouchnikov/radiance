@@ -62,6 +62,16 @@ public class LayeredIcon implements NeonIcon {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        for (NeonIcon layer: this.layers) {
+            if (!layer.supportsColorFilter()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         for (NeonIcon layer : this.layers) {
             layer.setColorFilter(colorFilter);

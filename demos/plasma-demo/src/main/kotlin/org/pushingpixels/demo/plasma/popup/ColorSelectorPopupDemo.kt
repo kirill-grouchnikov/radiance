@@ -91,6 +91,10 @@ class ColorIcon(private var color: Color) : NeonIcon {
         h = newDimension.height
     }
 
+    override fun supportsColorFilter(): Boolean {
+        return false
+    }
+
     override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
         throw UnsupportedOperationException()
     }

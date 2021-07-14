@@ -182,6 +182,11 @@ public class SvgBatikNeonIcon extends SvgBatikIcon implements
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return false;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         throw new UnsupportedOperationException();
     }

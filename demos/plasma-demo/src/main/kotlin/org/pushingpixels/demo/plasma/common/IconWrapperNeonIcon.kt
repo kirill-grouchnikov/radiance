@@ -50,6 +50,10 @@ class IconWrapperNeonIcon(private val delegate: Icon) : NeonIcon {
 
     override fun setDimension(dim: Dimension) {}
 
+    override fun supportsColorFilter(): Boolean {
+        return false
+    }
+
     override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
         throw UnsupportedOperationException()
     }

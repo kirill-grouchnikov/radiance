@@ -75,6 +75,11 @@ public class EmptyNeonIcon implements NeonIcon {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return true;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
     }
 

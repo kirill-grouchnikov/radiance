@@ -76,6 +76,11 @@ public class ScaledNeonIcon implements NeonIcon {
 	}
 
 	@Override
+	public boolean supportsColorFilter() {
+		return this.delegate.supportsColorFilter();
+	}
+
+	@Override
 	public void setColorFilter(ColorFilter colorFilter) {
 		delegate.setColorFilter(colorFilter);
 	}

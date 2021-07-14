@@ -56,9 +56,7 @@ public interface NeonIcon extends Icon {
 		return result;
 	}
 
-	default boolean supportsColorFilter() {
-		return false;
-	}
+	boolean supportsColorFilter();
 
 	void setColorFilter(ColorFilter colorFilter);
 

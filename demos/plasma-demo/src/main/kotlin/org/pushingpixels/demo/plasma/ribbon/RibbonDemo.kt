@@ -269,6 +269,10 @@ private class SimpleNeonIcon(
         this.currHeight = newDimension.height
     }
 
+    override fun supportsColorFilter(): Boolean {
+        return false
+    }
+
     override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
         throw UnsupportedOperationException()
     }
@@ -1778,6 +1782,10 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
         override fun setDimension(newDimension: Dimension) {
             this.width = newDimension.width
             this.height = newDimension.height
+        }
+
+        override fun supportsColorFilter(): Boolean {
+            return false
         }
 
         override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {

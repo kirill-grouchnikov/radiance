@@ -123,6 +123,11 @@ public class DecoratedNeonIcon implements NeonIcon, AsynchronousLoading {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return this.delegate.supportsColorFilter();
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         this.delegate.setColorFilter(colorFilter);
     }

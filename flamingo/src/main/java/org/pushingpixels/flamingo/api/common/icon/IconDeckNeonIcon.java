@@ -89,6 +89,16 @@ public class IconDeckNeonIcon<T> implements NeonIcon, AsynchronousLoading {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        for (NeonIcon icon: iconDeck.values()) {
+            if (!icon.supportsColorFilter()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         for (NeonIcon icon: iconDeck.values()) {
             icon.setColorFilter(colorFilter);

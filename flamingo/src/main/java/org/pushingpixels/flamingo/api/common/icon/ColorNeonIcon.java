@@ -84,6 +84,11 @@ public class ColorNeonIcon implements NeonIcon {
     }
 
     @Override
+    public boolean supportsColorFilter() {
+        return false;
+    }
+
+    @Override
     public void setColorFilter(ColorFilter colorFilter) {
         throw new UnsupportedOperationException();
     }
