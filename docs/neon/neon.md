@@ -74,9 +74,14 @@ The [Photon library](../photon/photon.md) provides tools for using SVG content v
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right">
 
+### Icon colorization
+
+`NeonIcon.setColorFilter` API provides support for colorizing Neon icons.
+
 [VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of colorized icons in [complex list renderers](../substance/renderers.md). Note the visuals of the selected elements in the destinations list on the left and the threads list in the middle - the icon is colorized with the same foreground color as the associated texts.
 
-`NeonIcon.setColorFilter` API provides support for colorizing the icon with the provided color filter.
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right">
+
 
 In the screenshot above, the first two icons in the middle panel (the one next to the search box and the one right below it next to the "Inbox" label) are colorized like this:
 
@@ -93,7 +98,7 @@ mailIcon.setColorFilter(color -> mainSelectorIconColor);
 ```
 The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [Photon](../photon/photon.md) from the [Material icon set](https://material.io/tools/icons/).
 
-The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `SubstanceColorScheme.getColorFilter` API for visuals like in the second row of this screen:
+The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `NeonIcon.setColorFilter` together with the `SubstanceColorScheme.getColorFilter` API for visuals like in the second row of this screen:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/neon/icon-color-filtering.png" width="446" height="196" border=0 align="center">
 
