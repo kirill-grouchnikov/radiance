@@ -33,6 +33,7 @@ import org.pushingpixels.demo.substance.main.check.*;
 import org.pushingpixels.demo.substance.main.check.selector.*;
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
+import org.pushingpixels.neon.api.font.FontSet;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
@@ -57,12 +58,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.EnumSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class Check extends JFrame {
@@ -407,6 +410,59 @@ public class Check extends JFrame {
                 });
     }
 
+    private static class DialogFontSet implements FontSet {
+        /**
+         * The base Substance font set.
+         */
+        private FontSet delegate;
+
+        /**
+         * Creates a wrapper font set.
+         *
+         * @param delegate
+         *            The base Substance font set.
+         */
+        public DialogFontSet(FontSet delegate) {
+            super();
+            this.delegate = delegate;
+        }
+
+        /**
+         * Returns the wrapped font.
+         *
+         * @param systemFont
+         *            Original font.
+         * @return Wrapped font.
+         */
+        private FontUIResource getWrappedFont(FontUIResource systemFont) {
+            return new FontUIResource("Dialog", systemFont.getStyle(), systemFont.getSize());
+        }
+
+        public FontUIResource getControlFont() {
+            return this.getWrappedFont(this.delegate.getControlFont());
+        }
+
+        public FontUIResource getMenuFont() {
+            return this.getWrappedFont(this.delegate.getMenuFont());
+        }
+
+        public FontUIResource getMessageFont() {
+            return this.getWrappedFont(this.delegate.getMessageFont());
+        }
+
+        public FontUIResource getSmallFont() {
+            return this.getWrappedFont(this.delegate.getSmallFont());
+        }
+
+        public FontUIResource getTitleFont() {
+            return this.getWrappedFont(this.delegate.getTitleFont());
+        }
+
+        public FontUIResource getWindowTitleFont() {
+            return this.getWrappedFont(this.delegate.getWindowTitleFont());
+        }
+    }
+
     private JPanel getStatusBar() {
         JPanel statusBar = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         statusBar.setBorder(new EmptyBorder(4, 5, 4, 5));
@@ -422,7 +478,29 @@ public class Check extends JFrame {
         skinSelector.setToolTipText("Substance skin");
         statusBar.add(skinSelector);
 
-        SubstanceLocaleSelector localeSelector = new SubstanceLocaleSelector(this);
+        SubstanceLocaleSelector localeSelector = new SubstanceLocaleSelector(true, selected -> {
+            LookAndFeel currLaf = UIManager.getLookAndFeel();
+            Locale.setDefault(selected);
+            Check.this.applyComponentOrientation(
+                    ComponentOrientation.getOrientation(Locale.getDefault()));
+            if (currLaf instanceof SubstanceLookAndFeel) {
+                SubstanceCortex.GlobalScope.resetLabelBundle();
+                if ("CN".equals(selected.getCountry())) {
+                    final FontSet currFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
+                            .getFontSet();
+                    SubstanceCortex.GlobalScope.setFontPolicy(
+                            () -> new DialogFontSet(currFontSet));
+                } else {
+                    SubstanceCortex.GlobalScope.setFontPolicy(null);
+                }
+            }
+            try {
+                UIManager.setLookAndFeel(currLaf.getClass().getName());
+            } catch (Exception exc) {
+            }
+            SwingUtilities.updateComponentTreeUI(Check.this);
+        });
+
         SubstanceCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(localeSelector,
                 SwingUtilities.NORTH);
         SubstanceCortex.ComponentScope.setComboBoxPrototypeCallback(localeSelector,

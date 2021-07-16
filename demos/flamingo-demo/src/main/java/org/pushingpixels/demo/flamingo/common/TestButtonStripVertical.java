@@ -31,9 +31,9 @@ package org.pushingpixels.demo.flamingo.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -66,7 +66,7 @@ public class TestButtonStripVertical extends JFrame {
         this.add(buttonPanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        controlPanel.add(new SubstanceLocaleSelector(false, selected -> {
             currLocale = selected;
             remove(buttonPanel);
             buttonPanel = getButtonPanel();
@@ -74,8 +74,7 @@ public class TestButtonStripVertical extends JFrame {
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
             SwingUtilities.updateComponentTreeUI(window);
-        });
-        controlPanel.add(localeSwitcher);
+        }));
         this.add(controlPanel, BorderLayout.SOUTH);
 
         this.pack();

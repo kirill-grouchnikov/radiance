@@ -31,10 +31,10 @@ package org.pushingpixels.demo.flamingo.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.demo.flamingo.LocaleSwitcher;
-import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
@@ -250,7 +250,7 @@ public class TestCommandButtons extends JFrame {
     }
 
     protected void configureControlPanel(JPanel controlPanel) {
-        controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
+        controlPanel.add(new SubstanceSkinSelector());
 
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
@@ -272,17 +272,18 @@ public class TestCommandButtons extends JFrame {
         }));
         controlPanel.add(popupEnabled);
 
-        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        controlPanel.add(new SubstanceLocaleSelector(false, selected -> {
             currLocale = selected;
-            resourceBundle = ResourceBundle.getBundle("test.resource.Resources", currLocale);
+            resourceBundle = ResourceBundle.getBundle(
+                    "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
+
             remove(buttonPanel);
             buttonPanel = getButtonPanel();
             add(buttonPanel, BorderLayout.CENTER);
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
             SwingUtilities.updateComponentTreeUI(window);
-        });
-        controlPanel.add(localeSwitcher);
+        }));
     }
 
     /**

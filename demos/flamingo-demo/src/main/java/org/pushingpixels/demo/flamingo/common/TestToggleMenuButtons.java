@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.*;
@@ -134,7 +134,7 @@ public class TestToggleMenuButtons extends JFrame {
         this.add(main, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        controlPanel.add(SkinSwitcher.getSkinSwitcher(this));
+        controlPanel.add(new SubstanceSkinSelector());
         this.add(controlPanel, BorderLayout.SOUTH);
 
         this.setSize(300, 200);

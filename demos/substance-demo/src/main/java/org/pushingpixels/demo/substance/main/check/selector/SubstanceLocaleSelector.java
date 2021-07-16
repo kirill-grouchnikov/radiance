@@ -30,11 +30,11 @@
 package org.pushingpixels.demo.substance.main.check.selector;
 
 import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
-import org.pushingpixels.demo.substance.main.check.MyLocaleChangeListener;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.neon.api.icon.NeonIcon;
 
 import javax.swing.*;
+import java.util.Locale;
 
 public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelector.LocaleInfo> {
     public static class LocaleInfo {
@@ -52,44 +52,58 @@ public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelect
         }
     }
 
-    public SubstanceLocaleSelector(JFrame frame) {
+    private static LocaleInfo[] FULL = new LocaleInfo[] {
+            new LocaleInfo("English", us.of(16, 16), "en", "US"),
+            new LocaleInfo("Arabic", sa.of(16, 16), "ar", "AR"),
+            new LocaleInfo("Bulgarian", bg.of(16, 16), "bg", "BG"),
+            new LocaleInfo("Chinese (Simplified)", cn.of(16, 16), "zh", "CN"),
+            new LocaleInfo("Chinese (Hong Kong)", hk.of(16, 16), "zh", "HK"),
+            new LocaleInfo("Chinese (Taiwan)", tw.of(16, 16), "zh", "TW"),
+            new LocaleInfo("Czech", cz.of(16, 16), "cs", "CZ"),
+            new LocaleInfo("Danish", dk.of(16, 16), "da", "DK"),
+            new LocaleInfo("Dutch", nl.of(16, 16), "nl", "NL"),
+            new LocaleInfo("Finnish", fi.of(16, 16), "fi", "FI"),
+            new LocaleInfo("French", fr.of(16, 16), "fr", "FR"),
+            new LocaleInfo("French (Canada)", ca.of(16, 16), "fr", "CA"),
+            new LocaleInfo("German", de.of(16, 16), "de", "DE"),
+            new LocaleInfo("Greek", gr.of(16, 16), "el", "GR"),
+            new LocaleInfo("Hebrew", il.of(16, 16), "iw", "IL"),
+            new LocaleInfo("Hungarian", hu.of(16, 16), "hu", "HU"),
+            new LocaleInfo("Italian", it.of(16, 16), "it", "IT"),
+            new LocaleInfo("Japanese", jp.of(16, 16), "ja", "JP"),
+            new LocaleInfo("Norwegian", no.of(16, 16), "no", "NO"),
+            new LocaleInfo("Polish", pl.of(16, 16), "pl", "PL"),
+            new LocaleInfo("Portuguese", pt.of(16, 16), "pt", "PT"),
+            new LocaleInfo("Portuguese (Brazil)", br.of(16, 16), "pt", "BR"),
+            new LocaleInfo("Romanian", ro.of(16, 16), "ro", "RO"),
+            new LocaleInfo("Russian", ru.of(16, 16), "ru", "RU"),
+            new LocaleInfo("Spanish", es.of(16, 16), "es", "ES"),
+            new LocaleInfo("Spanish (Argentina)", ar.of(16, 16), "es", "AR"),
+            new LocaleInfo("Spanish (Mexico)", mx.of(16, 16), "es", "MX"),
+            new LocaleInfo("Swedish", se.of(16, 16), "sv", "SE"),
+            new LocaleInfo("Thai", th.of(16, 16), "th", "TH"),
+            new LocaleInfo("Turkish", tr.of(16, 16), "tr", "TR"),
+            new LocaleInfo("Vietnamese", vn.of(16, 16), "vi", "VN")
+    };
+
+    private static LocaleInfo[] SHORT = new LocaleInfo[] {
+            new LocaleInfo("English", us.of(16, 16), "en", "US"),
+            new LocaleInfo("Arabic", sa.of(16, 16), "ar", "AR")
+    };
+
+    public interface LocaleCallback {
+        void onLocaleSelected(Locale selected);
+    }
+
+    public SubstanceLocaleSelector(boolean full, LocaleCallback callback) {
         // populate the combobox
-        super(new LocaleInfo("English", us.of(16, 16), "en", "US"),
-                new LocaleInfo("Arabic", sa.of(16, 16), "ar", "AR"),
-                new LocaleInfo("Bulgarian", bg.of(16, 16), "bg", "BG"),
-                new LocaleInfo("Chinese (Simplified)", cn.of(16, 16), "zh", "CN"),
-                new LocaleInfo("Chinese (Hong Kong)", hk.of(16, 16), "zh", "HK"),
-                new LocaleInfo("Chinese (Taiwan)", tw.of(16, 16), "zh", "TW"),
-                new LocaleInfo("Czech", cz.of(16, 16), "cs", "CZ"),
-                new LocaleInfo("Danish", dk.of(16, 16), "da", "DK"),
-                new LocaleInfo("Dutch", nl.of(16, 16), "nl", "NL"),
-                new LocaleInfo("Finnish", fi.of(16, 16), "fi", "FI"),
-                new LocaleInfo("French", fr.of(16, 16), "fr", "FR"),
-                new LocaleInfo("French (Canada)", ca.of(16, 16), "fr", "CA"),
-                new LocaleInfo("German", de.of(16, 16), "de", "DE"),
-                new LocaleInfo("Greek", gr.of(16, 16), "el", "GR"),
-                new LocaleInfo("Hebrew", il.of(16, 16), "iw", "IL"),
-                new LocaleInfo("Hungarian", hu.of(16, 16), "hu", "HU"),
-                new LocaleInfo("Italian", it.of(16, 16), "it", "IT"),
-                new LocaleInfo("Japanese", jp.of(16, 16), "ja", "JP"),
-                new LocaleInfo("Norwegian", no.of(16, 16), "no", "NO"),
-                new LocaleInfo("Polish", pl.of(16, 16), "pl", "PL"),
-                new LocaleInfo("Portuguese", pt.of(16, 16), "pt", "PT"),
-                new LocaleInfo("Portuguese (Brazil)", br.of(16, 16), "pt", "BR"),
-                new LocaleInfo("Romanian", ro.of(16, 16), "ro", "RO"),
-                new LocaleInfo("Russian", ru.of(16, 16), "ru", "RU"),
-                new LocaleInfo("Spanish", es.of(16, 16), "es", "ES"),
-                new LocaleInfo("Spanish (Argentina)", ar.of(16, 16), "es", "AR"),
-                new LocaleInfo("Spanish (Mexico)", mx.of(16, 16), "es", "MX"),
-                new LocaleInfo("Swedish", se.of(16, 16), "sv", "SE"),
-                new LocaleInfo("Thai", th.of(16, 16), "th", "TH"),
-                new LocaleInfo("Turkish", tr.of(16, 16), "tr", "TR"),
-                new LocaleInfo("Vietnamese", vn.of(16, 16), "vi", "VN"));
+        super(full ? FULL : SHORT);
 
         // add an action listener to change locale based on user selection
         this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             LocaleInfo selected = (LocaleInfo) getSelectedItem();
-            MyLocaleChangeListener.changeLocale(frame, selected.countryCode, selected.langCode);
+            assert (selected != null);
+            callback.onLocaleSelected(new Locale(selected.langCode, selected.countryCode));
         }));
     }
 

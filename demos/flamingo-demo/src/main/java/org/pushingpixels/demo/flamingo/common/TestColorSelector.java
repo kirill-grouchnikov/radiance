@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.demo.flamingo.LocaleSwitcher;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;
@@ -194,7 +194,7 @@ public class TestColorSelector extends JFrame {
         top.add(hasStandard);
         top.add(hasRecent);
 
-        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        top.add(new SubstanceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
@@ -202,8 +202,7 @@ public class TestColorSelector extends JFrame {
             TestColorSelector.this
                     .applyComponentOrientation(ComponentOrientation.getOrientation(selected));
             SwingUtilities.updateComponentTreeUI(TestColorSelector.this);
-        });
-        top.add(localeSwitcher);
+        }));
 
         setSize(500, 400);
         setLocationRelativeTo(null);

@@ -30,10 +30,10 @@
 package org.pushingpixels.demo.flamingo.ribbon;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.flamingo.LocaleSwitcher;
-import org.pushingpixels.demo.flamingo.SkinSwitcher;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
+import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.ColorNeonIcon;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedNeonIcon;
@@ -2261,7 +2261,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1);
         builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
 
-        builder.addLabel("Skin").xy(1, 5).add(SkinSwitcher.getSkinSwitcher(this)).xy(3, 5);
+        builder.addLabel("Skin").xy(1, 5).add(new SubstanceSkinSelector()).xy(3, 5);
         SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> {
             rulerPanel.selectBackgroundFill(
                     SubstanceCortex.GlobalScope.getCurrentSkin().getEnabledColorScheme(
@@ -2313,7 +2313,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }));
         builder.add("Change 'Paragraph'").xy(1, 11).add(changeParagraph).xy(3, 11);
 
-        JComboBox<LocaleSwitcher.LocaleInfo> localeSwitcher = LocaleSwitcher.getLocaleSwitcher((Locale selected) -> {
+        builder.add("Locale").xy(1, 13).add(new SubstanceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle
                     .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
@@ -2321,8 +2321,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
                 SwingUtilities.updateComponentTreeUI(window);
             }
-        });
-        builder.add("Locale").xy(1, 13).add(localeSwitcher).xy(3, 13);
+        })).xy(3, 13);
 
         JButton galleryUpdate = new JButton("update");
         galleryUpdate.addActionListener(actionEvent -> {

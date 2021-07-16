@@ -39,6 +39,7 @@ dependencies {
     implementation project(':substance')
     implementation project(':flamingo')
     implementation project(':photon')
+    implementation project(':demos:substance-demo')
 }
 
 ext.designation = "demo"
