@@ -27,40 +27,85 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.demo.flamingo.icon;
+package org.pushingpixels.neon.api.icon;
 
 import org.pushingpixels.neon.api.AsynchronousLoadListener;
 import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class DemoAsyncLoadingIcon implements NeonIcon, AsynchronousLoading {
-    protected NeonIcon.Factory sourceFactory;
-    protected int width;
-    protected int height;
-    protected NeonIcon currDelegate;
-    protected EventListenerList listenerList;
+/**
+ * Implementation of the {@link NeonIcon} interface that supports color filtering of content
+ * by drawing it into offscreen images and applying the requested
+ * {@link org.pushingpixels.neon.api.icon.NeonIcon.ColorFilter}. Note that this is a heavy
+ * operation that consumes additional memory resources. If your original icon returns
+ * {@code true} from its {@link NeonIcon#supportsColorFilter()}, do not use this class.
+ */
+public class ImageBackedFilterableNeonIcon implements NeonIcon, AsynchronousLoading {
+    private NeonIcon.Factory sourceFactory;
+    private int width;
+    private int height;
+    private NeonIcon currDelegate;
+    private EventListenerList listenerList;
 
-    protected ColorFilter colorFilter;
-    protected BufferedImage currColorized;
+    private ColorFilter colorFilter;
+    private BufferedImage currColorized;
 
-    public DemoAsyncLoadingIcon(NeonIcon.Factory sourceFactory, ColorFilter colorFilter) {
+    private class InternalColorFilter extends NeonAbstractFilter {
+        private NeonIcon.ColorFilter colorFilter;
+
+        public InternalColorFilter(NeonIcon.ColorFilter colorFilter) {
+            this.colorFilter = colorFilter;
+        }
+
+        @Override
+        public BufferedImage filter(BufferedImage src, BufferedImage dst) {
+            if (dst == null) {
+                dst = createCompatibleDestImage(src, null);
+            }
+
+            int width = src.getWidth();
+            int height = src.getHeight();
+
+            int[] pixels = new int[width * height];
+            getPixels(src, 0, 0, width, height, pixels);
+
+            for (int i = 0; i < pixels.length; i++) {
+                int argb = pixels[i];
+                int a = (argb >>> 24) & 0xFF;
+                int r = (argb >>> 16) & 0xFF;
+                int g = (argb >>> 8) & 0xFF;
+                int b = (argb >>> 0) & 0xFF;
+
+                Color filtered = this.colorFilter.filter(new Color(r, g, b, a));
+
+                pixels[i] = (a * filtered.getAlpha() / 256) << 24 | filtered.getRed() << 16 |
+                        filtered.getGreen() << 8 | filtered.getBlue();
+            }
+            setPixels(dst, 0, 0, width, height, pixels);
+
+            return dst;
+        }
+    }
+
+    public ImageBackedFilterableNeonIcon(NeonIcon.Factory sourceFactory, ColorFilter colorFilter) {
         this.sourceFactory = sourceFactory;
         this.colorFilter = colorFilter;
         this.listenerList = new EventListenerList();
     }
-
-    protected abstract void makeColorized();
 
     @Override
     public void setDimension(Dimension newDimension) {
         this.width = newDimension.width;
         this.height = newDimension.height;
         this.currDelegate = this.sourceFactory.createNewIcon();
+        if (this.currDelegate.supportsColorFilter()) {
+            throw new IllegalStateException("Do not use this class for icons that support color filter directly");
+        }
         this.currDelegate.setDimension(newDimension);
         AsynchronousLoading async = (AsynchronousLoading) this.currDelegate;
         if (async.isLoading()) {
@@ -100,6 +145,14 @@ public abstract class DemoAsyncLoadingIcon implements NeonIcon, AsynchronousLoad
         if (!this.isLoading()) {
             makeColorized();
         }
+    }
+
+    private void makeColorized() {
+        BufferedImage flat = NeonCortex.getBlankScaledImage(
+                NeonCortex.getScaleFactor(null),
+                this.width, this.height);
+        this.currDelegate.paintIcon(null, flat.getGraphics(), 0, 0);
+        this.currColorized = new InternalColorFilter(this.colorFilter).filter(flat, null);
     }
 
     @Override
