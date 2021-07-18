@@ -206,6 +206,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         }
 
         JCommandButton button = commandProjection.buildComponent();
+        button.setComponentOrientation(this.buttonStrip.getComponentOrientation());
 
         this.buttonStrip.add(button);
         this.commandButtonMap.put(command, button);
