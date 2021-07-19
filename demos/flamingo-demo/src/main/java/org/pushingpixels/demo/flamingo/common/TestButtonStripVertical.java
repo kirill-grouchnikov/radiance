@@ -68,9 +68,6 @@ public class TestButtonStripVertical extends JFrame {
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         controlPanel.add(new SubstanceLocaleSelector(false, selected -> {
             currLocale = selected;
-            remove(buttonPanel);
-            buttonPanel = getButtonPanel();
-            add(buttonPanel, BorderLayout.CENTER);
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
             SwingUtilities.updateComponentTreeUI(window);

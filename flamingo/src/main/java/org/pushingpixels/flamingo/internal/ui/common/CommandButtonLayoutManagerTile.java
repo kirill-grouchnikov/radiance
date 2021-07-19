@@ -184,20 +184,14 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             // how we should shift the content horizontally.
             switch (commandButton.getHorizontalAlignment()) {
                 case SwingConstants.LEADING:
-                    if (!ltr) {
-                        // shift everything to the right
-                        shiftX = width - prefWidth;
-                    }
                     break;
                 case SwingConstants.CENTER:
                     // shift everything to be centered horizontally
                     shiftX = (width - prefWidth) / 2;
                     break;
                 case SwingConstants.TRAILING:
-                    if (ltr) {
-                        // shift everything to the right
-                        shiftX = width - prefWidth;
-                    }
+                    // shift everything to the end of the button bounds
+                    shiftX = width - prefWidth;
             }
         }
 

@@ -2315,8 +2315,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         builder.add("Locale").xy(1, 13).add(new SubstanceLocaleSelector(false, selected -> {
             currLocale = selected;
-            resourceBundle = ResourceBundle
-                    .getBundle("org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
+            resourceBundle = ResourceBundle.getBundle(
+                    "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
             for (Window window : Window.getWindows()) {
                 window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
                 SwingUtilities.updateComponentTreeUI(window);
@@ -2604,6 +2604,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
                 final JCommandPopupMenu menu = new CommandPopupMenuProjection(popupMenuContentModel,
                         popupMenuPresentationModel).buildComponent();
+                menu.applyComponentOrientation(statusBar.getComponentOrientation());
 
                 Popup popup = PopupFactory.getSharedInstance().getPopup(statusBar, menu, pt.x,
                         pt.y - menu.getPreferredSize().height);

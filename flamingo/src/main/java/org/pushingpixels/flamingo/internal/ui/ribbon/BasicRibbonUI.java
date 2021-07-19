@@ -1207,6 +1207,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             for (CommandButtonProjection anchoredCommandProjection : anchoredCommands) {
                 this.anchoredButtons.add(anchoredCommandProjection.buildComponent());
             }
+            this.anchoredButtons.applyComponentOrientation(this.ribbon.getComponentOrientation());
             this.ribbon.add(this.anchoredButtons);
         }
 

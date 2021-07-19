@@ -31,6 +31,7 @@ package org.pushingpixels.flamingo.api.common;
 
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
@@ -606,7 +607,11 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                         commandPopupMenuProjection.setComponentCustomizer(
                                 (Projection.ComponentCustomizer<JCommandPopupMenu>) commandProjection.getPopupMenuCustomizer());
                     }
-                    this.setPopupCallback(commandButton -> commandPopupMenuProjection.buildComponent());
+                    this.setPopupCallback(commandButton -> {
+                        JPopupPanel result = commandPopupMenuProjection.buildComponent();
+                        result.applyComponentOrientation(JCommandButton.this.getComponentOrientation());
+                        return result;
+                    });
                 }
             }
             this.setPopupRichTooltip(command.getSecondaryRichTooltip());
