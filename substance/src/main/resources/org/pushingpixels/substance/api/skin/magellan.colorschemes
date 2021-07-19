@@ -235,15 +235,3 @@ Magellan Light Blue Separator {
     colorUltraDark=#7197C2
     colorForeground=#003269
 }
-
-Magellan Uneditable Controls {
-    kind=Light
-    colorUltraLight=#0556A4
-    colorExtraLight=#0556A4
-    colorLight=#0556A4
-    colorMid=#0556A4
-    colorDark=#0556A4
-    colorUltraDark=#0555A3
-    colorForeground=#8ABDF6
-}
-

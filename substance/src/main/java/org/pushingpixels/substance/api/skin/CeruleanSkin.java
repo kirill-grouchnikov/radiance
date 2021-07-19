@@ -114,15 +114,6 @@ public class CeruleanSkin extends SubstanceSkin {
 		defaultSchemeBundle.registerColorScheme(disabledScheme, ColorSchemeAssociationKind.BORDER,
 				determinateDisabledState, indeterminateDisabledState);
 
-		// for uneditable fields
-		ComponentState editable = new ComponentState("editable", new ComponentStateFacet[] {
-				ComponentStateFacet.ENABLE, ComponentStateFacet.EDITABLE }, null);
-		ComponentState uneditable = new ComponentState("uneditable", editable,
-				new ComponentStateFacet[] { ComponentStateFacet.ENABLE },
-				new ComponentStateFacet[] { ComponentStateFacet.EDITABLE });
-		defaultSchemeBundle.registerColorScheme(defaultSchemeBundle.getColorScheme(editable),
-				ColorSchemeAssociationKind.FILL, uneditable);
-
 		// for text highlight
 		ColorSchemes kitchenSinkSchemes = SubstanceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(

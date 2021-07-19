@@ -130,17 +130,6 @@ Mariner Header Border {
     colorForeground=#686262
 }
 
-Mariner Uneditable {
-    kind=Light
-    colorUltraLight=#CACFD3
-    colorExtraLight=#CBD0D4
-    colorLight=#B3B5C1
-    colorMid=#B2B5BA
-    colorDark=#AEB3B9
-    colorUltraDark=#A5A9AC
-    colorForeground=#000000
-}
-
 Mariner Footer Enabled {
     kind=Light
     colorUltraLight=#DADEE1

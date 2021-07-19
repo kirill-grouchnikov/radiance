@@ -29,15 +29,10 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.api.AsynchronousLoading;
 import org.pushingpixels.neon.api.NeonCortex;
 import org.pushingpixels.neon.api.font.FontPolicy;
 import org.pushingpixels.neon.api.font.FontSet;
-import org.pushingpixels.neon.api.icon.NeonAsyncLoadingIconUIResource;
-import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.neon.api.icon.NeonIconUIResource;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;

@@ -1030,12 +1030,6 @@ public final class SubstanceSlices {
         public static final ComponentStateFacet DETERMINATE = new ComponentStateFacet("determinate", 10);
 
         /**
-         * Facet that describes the editable bit. This is relevant for {@link JTextComponent}
-         * derived controls and its {@link JTextComponent#setEditable(boolean)} API.
-         */
-        public static final ComponentStateFacet EDITABLE = new ComponentStateFacet("editable", 50);
-
-        /**
          * Creates a new facet.
          *
          * @param name  Facet name.

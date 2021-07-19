@@ -45,7 +45,7 @@ public interface SubstanceComponentPlugin {
     default void initialize() {}
 
     /**
-     * Unitializes <code>this</code> plugin.
+     * Uninitializes <code>this</code> plugin.
      */
     default void uninitialize() {}
 

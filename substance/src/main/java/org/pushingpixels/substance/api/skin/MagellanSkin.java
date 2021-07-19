@@ -181,15 +181,6 @@ public class MagellanSkin extends SubstanceSkin {
                 ComponentState.PRESSED_UNSELECTED,
                 ComponentState.PRESSED_SELECTED);
 
-        // color scheme for the uneditable text components
-        ComponentState uneditable = new ComponentState("uneditable",
-                new ComponentStateFacet[] {ComponentStateFacet.ENABLE},
-                new ComponentStateFacet[] {ComponentStateFacet.EDITABLE});
-        SubstanceColorScheme uneditableControls = colorSchemes
-                .get("Magellan Uneditable Controls");
-        defaultColorSchemeBundle.registerColorScheme(uneditableControls,
-                ColorSchemeAssociationKind.FILL, uneditable);
-
         // color scheme for the selected state - preventing fallback to the
         // rollover selected state
         defaultColorSchemeBundle.registerColorScheme(blueControlsActive,

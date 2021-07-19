@@ -66,9 +66,8 @@ import java.util.*;
  * example, {@link ComponentStateFacet#ROLLOVER} facet applies to all controls
  * that can show rollover effects - including buttons, menu items, comboboxes,
  * sliders, scrollbars and many more. Some facets apply to a very narrow range
- * of controls. For example, {@link ComponentStateFacet#EDITABLE} is only
- * relevant for editable controls, such as text components, editable comboboxes
- * or spinners.
+ * of controls. For example, {@link ComponentStateFacet#DETERMINATE} is only
+ * relevant for progress bars.
  * </p>
  * 
  * <p>
@@ -101,12 +100,11 @@ import java.util.*;
  * no other registered component states. This way the application code can
  * register a few color schemes in the specific bundle, and have all other
  * states "fall back" to the smaller subset of states.</li>
- * <li>Facets such as {@link ComponentStateFacet#DETERMINATE}, or
- * {@link ComponentStateFacet#EDITABLE} are relevant only for a small subset of
- * controls. In order to simplify the API signature of {@link ComponentState},
- * these facets are not part of any of the predefined static states in this
- * class. Instead, they are used internally in the matching UI delegates (such
- * as for progress bar or text components) to find the best match among all the
+ * <li>Facets such as {@link ComponentStateFacet#DETERMINATE} are relevant only
+ * for a small subset of controls. In order to simplify the API signature of
+ * {@link ComponentState}, these facets are not part of any of the predefined static
+ * states in this class. Instead, they are used internally in the matching UI delegates
+ * (such as for progress bar or text components) to find the best match among all the
  * registered states of the current skin. The specific skin can define its own
  * {@link ComponentState} instances that use these facets. For example,
  * {@link NebulaAccentedSkin} defines a number of component states that use the

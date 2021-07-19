@@ -116,13 +116,6 @@ public class MarinerSkin extends SubstanceSkin {
         defaultSchemeBundle.registerColorScheme(enabledMarkScheme, ColorSchemeAssociationKind.MARK,
                 ComponentState.ENABLED);
 
-        ComponentState uneditableState = new ComponentState("uneditable",
-                new ComponentStateFacet[] {ComponentStateFacet.ENABLE},
-                new ComponentStateFacet[] {ComponentStateFacet.EDITABLE});
-        SubstanceColorScheme uneditableControls = schemes.get("Mariner Uneditable");
-        defaultSchemeBundle.registerColorScheme(uneditableControls, ColorSchemeAssociationKind.FILL,
-                uneditableState);
-
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
         // header color scheme bundle
