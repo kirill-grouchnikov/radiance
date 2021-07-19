@@ -24,7 +24,7 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ### Photon
 
-[Photon](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content can be either loaded asynchronously at runtime from a variety of local and remote sources, or transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+[Photon](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
 
 ### Trident
 
