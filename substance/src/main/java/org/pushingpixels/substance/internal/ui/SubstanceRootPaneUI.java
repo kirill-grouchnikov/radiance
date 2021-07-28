@@ -343,11 +343,11 @@ public class SubstanceRootPaneUI extends BasicRootPaneUI {
      *            Root pane.
      */
     private void uninstallWindowListeners(JRootPane root) {
-        if (this.window != null) {
+        if ((this.window != null) && (this.substanceMouseInputListener != null)) {
             this.window.removeMouseListener(this.substanceMouseInputListener);
             this.window.removeMouseMotionListener(this.substanceMouseInputListener);
         }
-        if (this.titlePane != null) {
+        if ((this.titlePane != null) && (this.substanceTitleMouseInputListener != null)) {
             this.titlePane.removeMouseListener(this.substanceTitleMouseInputListener);
             this.titlePane.removeMouseMotionListener(this.substanceTitleMouseInputListener);
         }
