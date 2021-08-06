@@ -133,7 +133,8 @@ allprojects {
             // add radiance version, build JDK and build JDK vendor into the manifest file
             attributes("Radiance-Version": "${findProperty('VERSION_NAME')} [${findProperty('CODENAME')}]",    \
                  "Build-JDK": System.getProperty('java.version'),    \
-                 "Build-JDK-Vendor": System.getProperty('java.vendor'))
+                 "Build-JDK-Vendor": System.getProperty('java.vendor'), \
+                 "Automatic-Module-Name": "org.pushing-pixels." + "${findProperty('POM_ARTIFACT_ID')}")
         }
     }
 
