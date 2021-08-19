@@ -430,38 +430,20 @@ public class ControlPanelFactory {
         builder.append("Custom", bopc);
 
         JButton buttonOptionPaneSimpleInput = new JButton("Show");
-        buttonOptionPaneSimpleInput
-                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
-                    JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
-                    dialog.setSize(400, 300);
-                    dialog.setLocationRelativeTo(mainFrame);
-                    dialog.setLayout(new BorderLayout());
-                    JDesktopPane panel = new JDesktopPane();
-                    panel.applyComponentOrientation(
-                            ComponentOrientation.getOrientation(Locale.getDefault()));
-                    dialog.add(panel, BorderLayout.CENTER);
-                    JOptionPane.showInputDialog(panel, "Sample Question Message", "Default Answer");
-                    dialog.dispose();
-                }));
+        buttonOptionPaneSimpleInput.addActionListener(actionEvent ->
+                SwingUtilities.invokeLater(() ->
+                        JOptionPane.showInputDialog(mainFrame,
+                                "Sample Question Message", "Default Answer")));
         builder.append("Simple input", buttonOptionPaneSimpleInput);
 
         JButton buttonOptionPaneComplexInput = new JButton("Show");
-        buttonOptionPaneComplexInput
-                .addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
-                    JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
-                    dialog.setSize(400, 300);
-                    dialog.setLocationRelativeTo(mainFrame);
-                    dialog.setLayout(new BorderLayout());
-                    JDesktopPane panel = new JDesktopPane();
-                    panel.applyComponentOrientation(
-                            ComponentOrientation.getOrientation(Locale.getDefault()));
-                    dialog.add(panel, BorderLayout.CENTER);
-                    // dialog.setVisible(true);
-                    String[] optionChoices = new String[] {"entry1", "entry2", "entry3", "entry4"};
-                    JOptionPane.showInputDialog(panel, "Sample Question Message", "Title Goes Here",
-                            JOptionPane.QUESTION_MESSAGE, null, optionChoices, "entry1");
-                    dialog.dispose();
-                }));
+        buttonOptionPaneComplexInput.addActionListener(actionEvent ->
+                SwingUtilities.invokeLater(() -> JOptionPane.showInputDialog(
+                        mainFrame,
+                        "Sample Question Message", "Title Goes Here",
+                        JOptionPane.QUESTION_MESSAGE, null,
+                        new String[] {"entry1", "entry2", "entry3", "entry4"},
+                        "entry1")));
         builder.append("Complex input", buttonOptionPaneComplexInput);
 
         JButton buttonOptionPaneInternalInput = new JButton("Show");
@@ -475,7 +457,6 @@ public class ControlPanelFactory {
                     panel.applyComponentOrientation(
                             ComponentOrientation.getOrientation(Locale.getDefault()));
                     dialog.add(panel, BorderLayout.CENTER);
-                    // dialog.setVisible(true);
                     JOptionPane.showInternalInputDialog(panel, "Sample info message",
                             "Sample title", JOptionPane.INFORMATION_MESSAGE);
                     dialog.dispose();
@@ -515,8 +496,8 @@ public class ControlPanelFactory {
             if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
                 sd.setIconImage(RadianceLogo.getLogoImage(sd,
                         SubstanceCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
-                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
             }
             sd.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
             sd.setModal(false);
