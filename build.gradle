@@ -31,10 +31,10 @@
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =    '7.1.1'
+        gradle_version                       =      '7.2'
 
         // Core dependencies
-        kotlin_version                       =   '1.5.20'
+        kotlin_version                       =   '1.5.30'
         kotlinx_coroutines_version           =    '1.5.1'
         batik_version                        =     '1.14'
 
@@ -119,6 +119,7 @@ allprojects {
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
             useIR = true
+            jvmTarget = "9"
         }
     }
 
