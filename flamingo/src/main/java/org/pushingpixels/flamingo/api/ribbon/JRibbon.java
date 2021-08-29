@@ -36,7 +36,6 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
@@ -72,7 +71,7 @@ import java.util.*;
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu content set by
  * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} </li>
- * <li>Taskbar panel populated by {@link #addTaskbarCommand(Command, AbstractPopupMenuPresentationModel)},
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(RibbonTaskbarCommandButtonProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
  * and {@link #addTaskbarComponent(ComponentProjection)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandButtonProjection)}</li>
@@ -104,7 +103,7 @@ import java.util.*;
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add a taskbar component use the {@link #addTaskbarCommand(Command, AbstractPopupMenuPresentationModel)},
+ * selected. To add content to taskbar, use the {@link #addTaskbarCommand(RibbonTaskbarCommandButtonProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
  * {@link #addTaskbarComponent(ComponentProjection)} APIs. The taskbar panel lives in the top-left
  * corner of the application frame.
@@ -453,7 +452,10 @@ public class JRibbon extends JComponent {
     /**
      * Removes all taskbar content from this ribbon.
      *
-     * @see #addTaskbarCommand(Command, AbstractPopupMenuPresentationModel) 
+     * @see #addTaskbarCommand(RibbonTaskbarCommandButtonProjection)
+     * @see #addTaskbarComponent(ComponentProjection)
+     * @see #addTaskbarGalleryDropdown(RibbonGalleryProjection)
+     * @see #addTaskbarAppMenuLink(Command)
      */
     public synchronized void clearTaskbar() {
         this.taskbarCommandMap.clear();
