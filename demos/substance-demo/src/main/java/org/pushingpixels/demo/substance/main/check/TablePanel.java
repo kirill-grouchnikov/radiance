@@ -346,9 +346,8 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         builder.append("", areColsSelectable);
 
         JButton setRowSelectionInterval = new JButton("select all rows");
-        setRowSelectionInterval.addActionListener(actionEvent -> new Thread(() -> {
-            table.setRowSelectionInterval(0, table.getModel().getRowCount() - 1);
-        }).start());
+        setRowSelectionInterval.addActionListener(actionEvent -> SwingUtilities.invokeLater(() ->
+                table.setRowSelectionInterval(0, table.getModel().getRowCount() - 1)));
         builder.append("Row selection", setRowSelectionInterval);
 
         final JCheckBox isSorted = new JCheckBox("Sorted");

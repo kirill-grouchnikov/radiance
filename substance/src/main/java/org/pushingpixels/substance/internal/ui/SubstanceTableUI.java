@@ -936,11 +936,12 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             activeStates = null;
             boolean isRollover = false;
             if (table.getRowSelectionAllowed()) {
-                isRollover = (row == rolledOverRow);
                 if (table.getColumnSelectionAllowed()) {
-                    isRollover = isRollover && (column == rolledOverColumn);
+                    isRollover = (row == rolledOverRow) && (column == rolledOverColumn);
+                } else {
+                    isRollover = (row == rolledOverRow);
                 }
-            } else {
+            } else if (table.getColumnSelectionAllowed()) {
                 isRollover = (column == rolledOverColumn);
             }
             boolean isSelected = table.isCellSelected(row, column);
@@ -2107,8 +2108,20 @@ public class SubstanceTableUI extends BasicTableUI implements UpdateOptimization
             int row = cellIndex.row;
             int column = cellIndex.column;
             TableCellId cellId = this.getId(row, column);
-            boolean isRollover = _hasRolloverAnimations() ? rolledOverIndices.contains(cellId) :
-                    (row == rolledOverRow);
+
+            boolean isRollover = false;
+            if (_hasRolloverAnimations()) {
+                isRollover = rolledOverIndices.contains(cellId);
+            } else if (table.getRowSelectionAllowed()) {
+                if (table.getColumnSelectionAllowed()) {
+                    isRollover = (row == rolledOverRow) && (column == rolledOverColumn);
+                } else {
+                    isRollover = (row == rolledOverRow);
+                }
+            } else if (table.getColumnSelectionAllowed()) {
+                isRollover = (column == rolledOverColumn);
+            }
+
             boolean isSelected = false;
             boolean hasSelectionAnimations = (this.updateInfo != null)
                     ? this.updateInfo.hasSelectionAnimations
