@@ -30,10 +30,7 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
 
@@ -83,20 +80,22 @@ public class FakeAccordion extends JPanel {
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    // Get the accented background fill to delineate the content
-                    SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(this);
-                    SubstanceSlices.DecorationAreaType decorationAreaType =
-                            SubstanceCortex.ComponentOrParentChainScope.getDecorationType(this);
-                    SubstanceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
-                    Color accentedFill = scheme.getAccentedBackgroundFillColor();
+                    if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                        // Get the accented background fill to delineate the content
+                        SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(this);
+                        SubstanceSlices.DecorationAreaType decorationAreaType =
+                                SubstanceCortex.ComponentOrParentChainScope.getDecorationType(this);
+                        SubstanceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+                        Color accentedFill = scheme.getAccentedBackgroundFillColor();
 
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setColor(accentedFill);
-                    int radiusOuter = 7;
-                    g2d.fillRoundRect(0, -radiusOuter, this.getWidth(),
-                            this.getHeight() + radiusOuter - 1,
-                            2 * radiusOuter, 2 * radiusOuter);
-                    g2d.dispose();
+                        Graphics2D g2d = (Graphics2D) g.create();
+                        g2d.setColor(accentedFill);
+                        int radiusOuter = 7;
+                        g2d.fillRoundRect(0, -radiusOuter, this.getWidth(),
+                                this.getHeight() + radiusOuter - 1,
+                                2 * radiusOuter, 2 * radiusOuter);
+                        g2d.dispose();
+                    }
                 }
             };
 
@@ -129,6 +128,9 @@ public class FakeAccordion extends JPanel {
 
                 @Override
                 public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                    if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
+                        return;
+                    }
                     // Use the border visuals from the current skin.
                     // Note the usage of ColorSchemeAssociationKind.BORDER to retrieve
                     // the matching color scheme, and subsequent usage of

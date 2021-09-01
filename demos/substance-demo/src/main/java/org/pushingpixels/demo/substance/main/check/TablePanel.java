@@ -32,6 +32,7 @@ package org.pushingpixels.demo.substance.main.check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableCellRenderer;
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
@@ -288,19 +289,21 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         this.add(instructional, BorderLayout.NORTH);
 
         // create a looping animation to change the label foreground to draw some attention.
-        SwingComponentTimeline.componentBuilder(instructional)
-                .addPropertyToInterpolate("foreground",
-                        () -> SubstanceCortex.ComponentScope.getCurrentSkin(table)
-                                .getColorScheme(table, ComponentState.ENABLED).getForegroundColor(),
-                        () -> SubstanceCortex.GlobalScope.getCurrentSkin()
-                                .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
-                                .getMidColor())
-                .setDuration(1000)
-                .playLoop(RepeatBehavior.REVERSE);
+        if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+            SwingComponentTimeline.componentBuilder(instructional)
+                    .addPropertyToInterpolate("foreground",
+                            () -> SubstanceCortex.ComponentScope.getCurrentSkin(table)
+                                    .getColorScheme(table, ComponentState.ENABLED).getForegroundColor(),
+                            () -> SubstanceCortex.GlobalScope.getCurrentSkin()
+                                    .getOptionPaneIconColorScheme(JOptionPane.WARNING_MESSAGE)
+                                    .getMidColor())
+                    .setDuration(1000)
+                    .playLoop(RepeatBehavior.REVERSE);
+        }
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 4dlu, fill:pref:grow",
-                2, 18);
+                2, 19);
 
         builder.appendSeparator("Table settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
@@ -341,6 +344,12 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         areColsSelectable.addActionListener(actionEvent -> TablePanel.this.table
                 .setColumnSelectionAllowed(areColsSelectable.isSelected()));
         builder.append("", areColsSelectable);
+
+        JButton setRowSelectionInterval = new JButton("select all rows");
+        setRowSelectionInterval.addActionListener(actionEvent -> new Thread(() -> {
+            table.setRowSelectionInterval(0, table.getModel().getRowCount() - 1);
+        }).start());
+        builder.append("Row selection", setRowSelectionInterval);
 
         final JCheckBox isSorted = new JCheckBox("Sorted");
         final JCheckBox toHideOddModelRows = new JCheckBox("Hide odd rows");
