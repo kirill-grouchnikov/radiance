@@ -115,9 +115,11 @@ object RainbowUtils {
         val javaBaos = ByteArrayOutputStream()
         val pw = PrintWriter(javaBaos)
 
-        val transcoder = SvgStreamTranscoder(
+        val transcoder =
+            SvgStreamTranscoder(
                 ByteArrayInputStream(svgBytes), javaClassFilename,
-                JavaLanguageRenderer())
+                JavaLanguageRenderer()
+            )
 
         transcoder.setPrintWriter(pw)
         transcoder.transcode(RainbowUtils::class.java.getResourceAsStream(

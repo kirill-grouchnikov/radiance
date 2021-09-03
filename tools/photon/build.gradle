@@ -35,6 +35,6 @@ dependencies {
     implementation project(':neon')
 }
 
-ext.designation = "core"
+ext.designation = "tools"
 
 apply plugin: 'com.vanniktech.maven.publish'

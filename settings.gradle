@@ -30,7 +30,7 @@
 
 rootProject.name = "radiance"
 
-include 'neon', 'trident', 'photon', 'substance',
+include 'neon', 'trident', 'substance',
 		'substance-extras', 'flamingo',
 		'kotlin-ext:ember', 'kotlin-ext:meteor',
 		'kotlin-ext:plasma', 'kotlin-ext:torch',
@@ -40,6 +40,6 @@ include 'neon', 'trident', 'photon', 'substance',
         'demos:substance-demo', 'demos:trident-demo',
 		'demos:torch-demo', 'demos:lucent',
 		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
-        'tools:apollo', 'tools:beacon', 'tools:electra',
-		'tools:hyperion', 'tools:ignite', 'tools:lightbeam',
-		'tools:tools-common', 'tools:zodiac'
+		'tools:tools-common', 'tools:apollo', 'tools:beacon',
+		'tools:electra', 'tools:hyperion', 'tools:photon',
+		'tools:ignite', 'tools:lightbeam', 'tools:zodiac'

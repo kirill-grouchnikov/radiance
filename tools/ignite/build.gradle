@@ -32,7 +32,7 @@ apply plugin: 'java-gradle-plugin'
 apply plugin: 'maven-publish'
 
 dependencies {
-    implementation project(':photon')
+    implementation project(':tools:photon')
     implementation gradleApi()
     implementation localGroovy()
 }

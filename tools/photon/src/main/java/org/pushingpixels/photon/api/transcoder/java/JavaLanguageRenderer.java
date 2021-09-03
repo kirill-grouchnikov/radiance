@@ -31,7 +31,6 @@ package org.pushingpixels.photon.api.transcoder.java;
 
 import org.pushingpixels.photon.api.transcoder.LanguageRenderer;
 
-import java.awt.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

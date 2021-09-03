@@ -38,7 +38,7 @@ dependencies {
     implementation project(':trident')
     implementation project(':substance')
     implementation project(':flamingo')
-    implementation project(':photon')
+    implementation project(':tools:photon')
     implementation project(':demos:substance-demo')
 }
 
