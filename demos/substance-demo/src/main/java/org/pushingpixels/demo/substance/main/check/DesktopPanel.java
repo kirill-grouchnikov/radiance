@@ -32,6 +32,7 @@ package org.pushingpixels.demo.substance.main.check;
 import org.pushingpixels.demo.substance.main.RadianceLogo;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
@@ -116,14 +117,16 @@ public class DesktopPanel extends ControllablePanel {
                 title += "0";
             }
             final JInternalFrame jif = new JInternalFrame(title);
-            jif.setFrameIcon(RadianceLogo
-                    .getLogoIcon(SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
-                            .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
-                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-            SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> jif.setFrameIcon(RadianceLogo.getLogoIcon(
-                    SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
-                            .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
-                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED))));
+            if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                jif.setFrameIcon(RadianceLogo
+                        .getLogoIcon(SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
+                                .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
+                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> jif.setFrameIcon(RadianceLogo.getLogoIcon(
+                        SubstanceCortex.ComponentScope.getCurrentSkin(jif.getRootPane())
+                                .getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
+                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED))));
+            }
             jif.setLayout(new BorderLayout());
             JPanel controls = new JPanel(new FlowLayout());
             int comps = 5 + (int) (10 * Math.random());
