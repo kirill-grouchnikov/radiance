@@ -15,7 +15,7 @@ SVG has a wide feature surface which, depending on the complexity of your SVG so
 Photon transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Photon ships with two sets of built-in template files (one for Java and one for Kotlin) that create slightly different wrappers around the Java2D draw calls:
 
 * `SvgTranscoderTemplatePlain.templ` - generates a class with a static method to paint the icon content onto the passed `Graphics2D` object. The generated class also has methods to query the bounding box of the original SVG content.
-* `SvgTranscoderTemplateNeon.templ` - generates a class that implements [Neon](../neon/neon.md)'s `NeonIcon` interface. An instance of the generated class can be passed to any relevant Substance or Flamingo API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
+* `SvgTranscoderTemplateNeon.templ` - generates a class that implements [Neon](../../neon/neon.md)'s `NeonIcon` interface. An instance of the generated class can be passed to any relevant Substance or Flamingo API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
 
 A couple of usages of transcoded resizable icons in Radiance itself are:
 

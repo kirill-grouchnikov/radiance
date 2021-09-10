@@ -22,10 +22,6 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Neon](docs/neon/neon.md) provides APIs to work with images and text that scale with the display resolution. Neon icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
 
-### Photon
-
-[Photon](docs/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
-
 ### Trident
 
 [Trident](docs/trident/trident.md) provides powerful and flexible animation APIs that scale from simple, single-property cases to complex scenarios that involve multiple animations. Trident powers all animations in the Radiance libraries.
@@ -72,6 +68,8 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 * [Lightbeam](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
+* [Photon](docs/tools/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+
 * [Zodiac](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
 
 ## Demos
@@ -86,7 +84,7 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon)
 `radiance-neon` for [Neon](docs/neon/neon.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/photon/photon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/tools/photon/photon.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident) `radiance-trident` for [Trident](docs/trident/trident.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for [Substance](docs/substance/substance.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-flamingo) `radiance-flamingo` for [Flamingo](docs/flamingo/flamingo.md)

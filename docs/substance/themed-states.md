@@ -57,4 +57,4 @@ Take a look at the icons in the toolbar. The icon for the active / selected butt
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states-extended-themed.png"
 width="275" height="279"/>
 
-In this screenshot of the same UI from earlier under the Magellan skin, all the buttons use the same help icon from the Material icon pack converted by [Photon](../photon/photon.md). At runtime, Substance filters the icon to follow the foreground / text color of the button for a consistent look across all component states.
+In this screenshot of the same UI from earlier under the Magellan skin, all the buttons use the same help icon from the Material icon pack converted by [Photon](../tools/photon/photon.md). At runtime, Substance filters the icon to follow the foreground / text color of the button for a consistent look across all component states.

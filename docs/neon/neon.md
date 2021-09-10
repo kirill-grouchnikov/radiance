@@ -70,7 +70,7 @@ What is happening under the hood? Going back to our 70x30 button which takes 140
 
 The `NeonIcon` extends the core `Icon` interface to allow scaling and colorizing the icon visuals at runtime. Scaling is relevant for controls that can be dynamically resized. This class is used extensively in Flamingo for such controls as ribbon buttons or file viewer panel, but can be used in core and third-party components as well.
 
-The [Photon library](../photon/photon.md) provides tools for using SVG content via the `NeonIcon` interface. Photon can be used offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original visuals with no additional runtime dependencies.
+The [Photon library](../tools/photon/photon.md) provides tools for using SVG content via the `NeonIcon` interface. Photon can be used offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original visuals with no additional runtime dependencies.
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right">
 
@@ -96,7 +96,7 @@ editIcon.setColorFilter(color -> filterColor);
 NeonIcon mailIcon = ic_refresh_black_24px.of(12, 12);
 mailIcon.setColorFilter(color -> mainSelectorIconColor);
 ```
-The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [Photon](../photon/photon.md) from the [Material icon set](https://material.io/tools/icons/).
+The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [Photon](../tools/photon/photon.md) from the [Material icon set](https://material.io/tools/icons/).
 
 The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `NeonIcon.setColorFilter` together with the `SubstanceColorScheme.getColorFilter`.
 
