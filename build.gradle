@@ -47,8 +47,8 @@ buildscript {
         jhlabs_filters_version               =  '2.0.235'
 
         // Publish dependencies
-        gradle_maven_publish_plugin_version  =   '0.17.0'
-        dokka_version                        =   '1.4.32'
+        gradle_maven_publish_plugin_version  =   '0.18.0'
+        dokka_version                        =   '1.5.30'
 
         // Misc dependencies
         gradle_versions_plugin_version       =   '0.39.0'
