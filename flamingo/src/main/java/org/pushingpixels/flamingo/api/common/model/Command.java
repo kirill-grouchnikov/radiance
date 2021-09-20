@@ -287,6 +287,11 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
         return new CommandButtonProjection<>(this, commandPresentation);
     }
 
+    @Override
+    public String toString() {
+        return "Command @" + hashCode() + " {text='" + text + "'}";
+    }
+
     public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder<T, B>> {
         protected String text;
         protected String extraText;

@@ -97,6 +97,7 @@ public class PopupPanelManager {
                 originalListener.popupHidden(event);
             } else {
                 // the original is reclaimed - unregister explicitly
+                System.out.println("Removing " + this.listenerRef + " as weak");
                 PopupPanelManager.defaultManager().listenerList.remove(this);
                 this.listenerRef = null;
             }
@@ -349,12 +350,13 @@ public class PopupPanelManager {
             throw new IllegalArgumentException("Don't pass an explicitly wrapped listener");
         }
 
-        // In addition to removing the specified popup listener, this will also remove all
-        // wrappers around listeners that have been reclaimed
+        // Remove the specified popup listener. We don't want to remove all reclaimed listeners,
+        // as that will throw ConcurrentModificationException if we get here from a listener
+        // that removes itself as part of its notification logic.
         for (int i = this.listenerList.size() - 1; i >= 0; i--) {
             WeakPopupListener current = this.listenerList.get(i);
             PopupListener original = current.listenerRef.get();
-            if ((original == null) || (original == l)) {
+            if (original == l) {
                 this.listenerList.remove(i);
             }
         }
@@ -372,7 +374,20 @@ public class PopupPanelManager {
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listenerList.size() - 1; i >= 0; i--) {
-            listenerList.get(i).popupShown(popupEvent);
+            WeakPopupListener current = this.listenerList.get(i);
+            PopupListener original = current.listenerRef.get();
+            if (original != null) {
+                original.popupShown(popupEvent);
+            }
+        }
+
+        // Remove all wrappers around listeners that have been reclaimed
+        for (int i = this.listenerList.size() - 1; i >= 0; i--) {
+            WeakPopupListener current = this.listenerList.get(i);
+            PopupListener original = current.listenerRef.get();
+            if (original == null) {
+                this.listenerList.remove(i);
+            }
         }
     }
 
@@ -388,7 +403,20 @@ public class PopupPanelManager {
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listenerList.size() - 1; i >= 0; i--) {
-            listenerList.get(i).popupHidden(popupEvent);
+            WeakPopupListener current = this.listenerList.get(i);
+            PopupListener original = current.listenerRef.get();
+            if (original != null) {
+                original.popupHidden(popupEvent);
+            }
+        }
+
+        // Remove all wrappers around listeners that have been reclaimed
+        for (int i = this.listenerList.size() - 1; i >= 0; i--) {
+            WeakPopupListener current = this.listenerList.get(i);
+            PopupListener original = current.listenerRef.get();
+            if (original == null) {
+                this.listenerList.remove(i);
+            }
         }
     }
 }

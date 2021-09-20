@@ -36,6 +36,7 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
@@ -47,7 +48,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -403,12 +403,38 @@ public class JRibbonGallery extends JComponent {
             commandPopupMenuProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
         }
 
-        commandPopupMenuProjection.setComponentCustomizer(galleryPopupMenu -> {
+        commandPopupMenuProjection.setComponentCustomizer(
+                new RibbonGalleryCommandPopupMenuCustomizer(galleryProjection, componentOrientation));
+
+        return commandPopupMenuProjection;
+    }
+
+    private static class RibbonGalleryCommandPopupMenuCustomizer
+            implements Projection.ComponentCustomizer<JCommandPopupMenu> {
+        private RibbonGalleryProjection galleryProjection;
+        private ComponentOrientation componentOrientation;
+
+        // Do not convert this to a local variable inside #customizeComponent, as we need
+        // this strong reference to prevent PopupPanelManager from garbage collecting its
+        // internal weak reference.
+        @SuppressWarnings("FieldCanBeLocal")
+        private PopupPanelManager.PopupListener popupListener;
+
+        public RibbonGalleryCommandPopupMenuCustomizer(
+                RibbonGalleryProjection galleryProjection,
+                ComponentOrientation componentOrientation
+        ) {
+            this.galleryProjection = galleryProjection;
+            this.componentOrientation = componentOrientation;
+        }
+
+        @Override
+        public void customizeComponent(JCommandPopupMenu galleryPopupMenu) {
             galleryPopupMenu.applyComponentOrientation(componentOrientation);
 
             // Configure a popup listener for the two-way sync between the gallery model and
             // its present popup menu manifestation.
-            PopupPanelManager.PopupListener popupListener = new PopupPanelManager.PopupListener() {
+            this.popupListener = new PopupPanelManager.PopupListener() {
                 @Override
                 public void popupShown(PopupPanelManager.PopupEvent event) {
                     // scroll the popup to reveal the selected command
@@ -423,11 +449,10 @@ public class JRibbonGallery extends JComponent {
                     PopupPanelManager.defaultManager().removePopupListener(this);
                 }
             };
-            PopupPanelManager.defaultManager().addPopupListener(popupListener);
-        });
-
-        return commandPopupMenuProjection;
+            PopupPanelManager.defaultManager().addPopupListener(this.popupListener);
+        }
     }
 }
+
 
 
