@@ -31,6 +31,7 @@ package org.pushingpixels.substance.api.skin;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.PurpleColorScheme;
@@ -54,6 +55,10 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 	public NebulaAmethystSkin() {
 		super(new AccentBuilder().withWindowChromeAccent(new PurpleColorScheme()));
 
+		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+				this.getClass().getClassLoader().getResourceAsStream(
+						"org/pushingpixels/substance/api/skin/nebula.colorschemes"));
+
 		// Also apply the window chrome accent color on the TOOLBAR area
 		SubstanceColorScheme windowChromeAccent = this.getWindowChromeAccent();
 		this.registerAsDecorationArea(windowChromeAccent, DecorationAreaType.TOOLBAR);
@@ -62,8 +67,9 @@ public class NebulaAmethystSkin extends NebulaAccentedSkin {
 		this.addOverlayPainter(this.bottomLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
 		SubstanceColorSchemeBundle toolbarBundle = new SubstanceColorSchemeBundle(
-				windowChromeAccent.saturate(0.1f), windowChromeAccent, windowChromeAccent);
-		toolbarBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED,
+				windowChromeAccent.saturate(0.1f), windowChromeAccent,
+				schemes.get("Nebula Amethyst Title Disabled"));
+		toolbarBundle.registerAlpha(0.8f, ComponentState.DISABLED_SELECTED,
 				ComponentState.DISABLED_UNSELECTED);
 		toolbarBundle.registerColorScheme(windowChromeAccent.saturate(0.08f),
 				SubstanceSlices.ColorSchemeAssociationKind.SEPARATOR);

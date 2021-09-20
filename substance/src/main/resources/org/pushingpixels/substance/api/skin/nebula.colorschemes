@@ -127,3 +127,13 @@ Nebula Decorations Separator {
     colorSeparatorSecondary=#EFEFEC
 }
 
+Nebula Amethyst Title Disabled {
+    kind=Light
+    colorUltraLight=#F0DCF5
+    colorExtraLight=#DAD1E9
+    colorLight=#CBAFED
+    colorMid=#C987E2
+    colorDark=#8C48AA
+    colorUltraDark=#5E2772
+    colorForeground=#73048F
+}
