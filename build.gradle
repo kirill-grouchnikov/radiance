@@ -34,7 +34,7 @@ buildscript {
         gradle_version                       =      '7.2'
 
         // Core dependencies
-        kotlin_version                       =   '1.5.30'
+        kotlin_version                       =   '1.5.31'
         kotlinx_coroutines_version           =    '1.5.2'
         batik_version                        =     '1.14'
 
