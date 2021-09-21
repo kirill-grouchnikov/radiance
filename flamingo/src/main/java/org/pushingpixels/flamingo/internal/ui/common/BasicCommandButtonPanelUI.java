@@ -311,6 +311,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
         @Override
         public void layoutContainer(Container parent) {
+            if ((parent.getWidth() <= 0) || (parent.getHeight() <= 0)) {
+                return;
+            }
+
             Insets bInsets = parent.getInsets();
             Insets groupInsets = getGroupInsets();
             int left = bInsets.left;
