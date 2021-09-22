@@ -60,8 +60,6 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 * [Beacon](docs/tools/beacon/beacon.md) is a visual runtime debugger for Substance.
 
-* [Electra](docs/tools/electra/electra.md) simplifies the process of adding callout bubbles to documentation screenshots.
-
 * [Hyperion](docs/tools/hyperion/hyperion.md) can be used creating and editing files that define custom button shapers.
 
 * [Ignite](docs/tools/ignite/ignite.md) is a Gradle plugin that wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.

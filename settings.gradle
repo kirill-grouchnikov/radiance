@@ -41,5 +41,5 @@ include 'neon', 'trident', 'substance',
 		'demos:torch-demo', 'demos:lucent',
 		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
 		'tools:tools-common', 'tools:apollo', 'tools:beacon',
-		'tools:electra', 'tools:hyperion', 'tools:photon',
+		'tools:hyperion', 'tools:photon',
 		'tools:ignite', 'tools:lightbeam', 'tools:zodiac'
