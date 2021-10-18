@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -43,7 +43,7 @@ import java.awt.image.BufferedImage;
  *
  * @author Kirill Grouchnikov
  */
-public class ScaleAwareImageWrapperIcon implements NeonIcon, UIResource {
+public class ScaleAwareImageWrapperIcon implements RadianceIcon, UIResource {
     private final double scale;
 
     private BufferedImage imageSource;

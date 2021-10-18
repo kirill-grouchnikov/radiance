@@ -1,11 +1,10 @@
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -95,7 +94,7 @@ public class TabPreviewControl extends JPanel {
             int w = this.previewImagePanel.getWidth();
             int h = this.previewImagePanel.getHeight();
 
-            double scaleFactor = NeonCortex.getScaleFactor(this);
+            double scaleFactor = RadianceCommonCortex.getScaleFactor(this);
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setComposite(AlphaComposite.SrcOver.derive(alpha));
             int dx = (w - (int) (pw / scaleFactor)) / 2;

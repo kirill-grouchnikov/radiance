@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.demo.flamingo;
 
-import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon;
+import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.ImageBackedFilterableNeonIcon;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.ImageBackedFilterableRadianceIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -71,9 +71,9 @@ public class IconFrame {
                             CommandButtonPresentationState.MEDIUM
                     ).setFlat(false).build();
 
-            NeonIcon.Factory radianceFactory = () -> SvgBatikNeonIcon.getSvgIcon(
+            RadianceIcon.Factory radianceFactory = () -> SvgBatikRadianceIcon.getSvgIcon(
                     IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),
-                    NeonCortex.getScaleFactor(frame),
+                    RadianceCommonCortex.getScaleFactor(frame),
                     new Dimension(16, 16));
 
             Command originalCommand = Command.builder()
@@ -84,28 +84,28 @@ public class IconFrame {
 
             Command redCommand = Command.builder()
                     .setText("Red")
-                    .setIconFactory(() -> new ImageBackedFilterableNeonIcon(radianceFactory,
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
                             color -> Color.red))
                     .build();
             frame.add(redCommand.project(presentationModel).buildComponent());
 
             Command greenCommand = Command.builder()
                     .setText("Green")
-                    .setIconFactory(() -> new ImageBackedFilterableNeonIcon(radianceFactory,
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
                             color -> new Color(0, 128, 0)))
                     .build();
             frame.add(greenCommand.project(presentationModel).buildComponent());
 
             Command blueCommand = Command.builder()
                     .setText("Red")
-                    .setIconFactory(() -> new ImageBackedFilterableNeonIcon(radianceFactory,
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(radianceFactory,
                             color -> Color.blue))
                     .build();
             frame.add(blueCommand.project(presentationModel).buildComponent());
 
-            NeonIcon.Factory tangoFactory = () -> SvgBatikNeonIcon.getSvgIcon(
+            RadianceIcon.Factory tangoFactory = () -> SvgBatikRadianceIcon.getSvgIcon(
                     IconFrame.class.getResourceAsStream("svg/tango/Edit-paste.svg"),
-                    NeonCortex.getScaleFactor(frame),
+                    RadianceCommonCortex.getScaleFactor(frame),
                     new Dimension(16, 16));
 
             Command originalTangoCommand = Command.builder()
@@ -116,21 +116,21 @@ public class IconFrame {
 
             Command redTangoCommand = Command.builder()
                     .setText("Red")
-                    .setIconFactory(() -> new ImageBackedFilterableNeonIcon(tangoFactory,
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
                             new SunfireRedColorScheme().getColorFilter(1.0f, 1.0f)))
                     .build();
             frame.add(redTangoCommand.project(presentationModel).buildComponent());
 
             Command greenTangoCommand = Command.builder()
                     .setText("Green")
-                    .setIconFactory(() -> new ImageBackedFilterableNeonIcon(tangoFactory,
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
                             new LimeGreenColorScheme().getColorFilter(1.0f, 1.0f)))
                     .build();
             frame.add(greenTangoCommand.project(presentationModel).buildComponent());
 
             Command blueTangoCommand = Command.builder()
                     .setText("Blue")
-                    .setIconFactory(() -> new ImageBackedFilterableNeonIcon(tangoFactory,
+                    .setIconFactory(() -> new ImageBackedFilterableRadianceIcon(tangoFactory,
                             new SteelBlueColorScheme().getColorFilter(1.0f, 1.0f)))
                     .build();
             frame.add(blueTangoCommand.project(presentationModel).buildComponent());

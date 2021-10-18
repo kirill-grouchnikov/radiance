@@ -14,7 +14,7 @@ Commands are created with the builder pattern which is pervasive throughout Flam
 | --- | --- | --- | --- |
 | **Base** | text | String | yes |
 |  | extraText | String | yes |
-|  | iconFactory | NeonIcon.Factory | yes |
+|  | iconFactory | RadianceIcon.Factory | yes |
 | **Action** | action | CommandAction | yes |
 |  | actionPreview | CommandActionPreview | yes |
 |  | actionRichTooltip | RichTooltip | yes |

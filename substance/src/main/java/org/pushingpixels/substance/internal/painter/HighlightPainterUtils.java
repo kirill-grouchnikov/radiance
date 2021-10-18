@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -101,7 +101,7 @@ public class HighlightPainterUtils {
                 openKey += oSide.name() + "-";
             }
 
-            double scale = NeonCortex.getScaleFactor(c);
+            double scale = RadianceCommonCortex.getScaleFactor(c);
             ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
                     scale, highlightPainter.getDisplayName(),
                     highlightBorderPainter.getDisplayName(), rect.width, rect.height,
@@ -113,7 +113,7 @@ public class HighlightPainterUtils {
                         borderScheme, highlightPainter, highlightBorderPainter);
                 smallCache.put(key, result);
             }
-            NeonCortex.drawImageWithScale(g2d, scale, result, 0, 0);
+            RadianceCommonCortex.drawImageWithScale(g2d, scale, result, 0, 0);
         }
     }
 
@@ -121,7 +121,7 @@ public class HighlightPainterUtils {
             float borderAlpha, Set<Side> openSides, SubstanceColorScheme currScheme,
             SubstanceColorScheme currBorderScheme, SubstanceHighlightPainter highlightPainter,
             SubstanceBorderPainter highlightBorderPainter) {
-        double scale = NeonCortex.getScaleFactor(c);
+        double scale = RadianceCommonCortex.getScaleFactor(c);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, rect.width, rect.height);
         Graphics2D resGraphics = result.createGraphics();
         highlightPainter.paintHighlight(resGraphics, c, rect.width, rect.height, currScheme);

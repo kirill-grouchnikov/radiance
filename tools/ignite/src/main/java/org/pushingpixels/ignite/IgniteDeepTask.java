@@ -47,7 +47,7 @@ public class IgniteDeepTask extends IgniteBaseTask {
 
     private String outputClassNamePrefix = "";
 
-    private boolean useNeonTemplate;
+    private boolean useRadianceTemplate;
 
     private File inputRootDirectory;
 
@@ -84,13 +84,13 @@ public class IgniteDeepTask extends IgniteBaseTask {
     }
 
     @Input
-    public boolean isUseNeonTemplate() {
-        return useNeonTemplate;
+    public boolean isUseRadianceTemplate() {
+        return useRadianceTemplate;
     }
 
-    @Option(option = "useNeonTemplate", description = "Configures the usage of Neon template.")
-    public void setUseNeonTemplate(boolean useNeonTemplate) {
-        this.useNeonTemplate = useNeonTemplate;
+    @Option(option = "useRadianceTemplate", description = "Configures the usage of Radiance template.")
+    public void setUseRadianceTemplate(boolean useRadianceTemplate) {
+        this.useRadianceTemplate = useRadianceTemplate;
     }
 
     @InputDirectory
@@ -137,7 +137,7 @@ public class IgniteDeepTask extends IgniteBaseTask {
 
         String templateFileName = "/org/pushingpixels/photon/api/transcoder/" + outputLanguage + "/"
                 + "SvgTranscoderTemplate";
-        templateFileName += (useNeonTemplate ? "Neon" : "Plain");
+        templateFileName += (useRadianceTemplate ? "Radiance" : "Plain");
         templateFileName += ".templ";
 
         processFolder(inputRootDirectory, outputRootDirectory, outputClassNamePrefix, outputFileNameExtension,

@@ -35,7 +35,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSkin
 import org.pushingpixels.tools.zodiac.ZodiacRobot
@@ -111,15 +111,15 @@ abstract class FlamingoSkinRobot(
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(ribbonFrame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankScaledImage(
-            NeonCortex.getScaleFactor(ribbonFrame),
+        val bi = RadianceCommonCortex.getBlankScaledImage(
+            RadianceCommonCortex.getScaleFactor(ribbonFrame),
             ribbonFrame.width, ribbonFrame.height
         )
         val g = bi.graphics
         ribbonFrame.paint(g)
 
-        val finalIm = NeonCortex.getBlankScaledImage(
-            NeonCortex.getScaleFactor(ribbonFrame), 500, 200
+        val finalIm = RadianceCommonCortex.getBlankScaledImage(
+            RadianceCommonCortex.getScaleFactor(ribbonFrame), 500, 200
         )
         finalIm.graphics.drawImage(bi, 0, 0, null)
 

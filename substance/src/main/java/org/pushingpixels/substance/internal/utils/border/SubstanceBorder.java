@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -143,7 +143,7 @@ public class SubstanceBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		double scale = NeonCortex.getScaleFactor(c);
+		double scale = RadianceCommonCortex.getScaleFactor(c);
 		float radius = this.radiusScaleFactor
 				* SubstanceSizeUtils
 						.getClassicButtonCornerRadius(SubstanceSizeUtils
@@ -174,7 +174,7 @@ public class SubstanceBorder implements Border, UIResource {
 				g2d.dispose();
 				smallImageCache.put(hashKey, result);
 			}
-			NeonCortex.drawImageWithScale(graphics, scale, result, x, y);
+			RadianceCommonCortex.drawImageWithScale(graphics, scale, result, x, y);
 		} else {
 			// for borders larger than 100000 pixels, use simple
 			// painting

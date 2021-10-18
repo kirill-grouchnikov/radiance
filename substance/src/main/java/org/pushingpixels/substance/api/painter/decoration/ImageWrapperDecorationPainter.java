@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -208,7 +208,7 @@ public abstract class ImageWrapperDecorationPainter implements SubstanceDecorati
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(comp, this.textureAlpha, g));
 
-        double scale = NeonCortex.getScaleFactor(comp);
+        double scale = RadianceCommonCortex.getScaleFactor(comp);
         Image colorizedTile = this.getColorizedTile(scale, tileScheme);
         int tileWidth = (int) (colorizedTile.getWidth(null) / scale);
         int tileHeight = (int) (colorizedTile.getHeight(null) / scale);

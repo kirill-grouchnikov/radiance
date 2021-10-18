@@ -39,8 +39,8 @@ import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.StringValuePair
-import org.pushingpixels.demo.flamingo.icon.ImageWrapperNeonIcon
-import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
@@ -77,17 +77,17 @@ fun main() {
                 }
             }
 
-            override fun getNeonIcon(
+            override fun getRadianceIcon(
                 leaf: AbstractFileViewPanel.Leaf,
                 stream: InputStream, state: CommandButtonPresentationState,
                 dimension: Dimension
-            ): NeonIcon {
+            ): RadianceIcon {
                 var dimensionForIcon = dimension
                 val prefSize = state.preferredIconSize
                 if (prefSize > 0) {
                     dimensionForIcon = Dimension(prefSize, prefSize)
                 }
-                return ImageWrapperNeonIcon.getIcon(stream, dimensionForIcon)
+                return ImageWrapperRadianceIcon.getIcon(stream, dimensionForIcon)
             }
 
             override fun toShowFile(pair: StringValuePair<File>): Boolean {

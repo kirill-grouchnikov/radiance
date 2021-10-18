@@ -35,9 +35,9 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceLocaleSelector;
 import org.pushingpixels.demo.substance.main.check.selector.SubstanceSkinSelector;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.ColorNeonIcon;
-import org.pushingpixels.flamingo.api.common.icon.DecoratedNeonIcon;
-import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.ColorRadianceIcon;
+import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
@@ -67,8 +67,8 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProject
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
@@ -785,7 +785,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         selectorBuilder.addCommand(Command.builder()
                 .setText(resourceBundle.getString("ColorSelector.textAutomatic"))
-                .setIconFactory(ColorNeonIcon.factory(defaultColor))
+                .setIconFactory(ColorRadianceIcon.factory(defaultColor))
                 .setAction(commandActionEvent -> {
                     colorActivationListener.onColorActivated(defaultColor);
                     JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor);
@@ -859,14 +859,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     private JRibbonBand getPreviewBand() {
         JRibbonBand previewBand = new JRibbonBand(resourceBundle.getString("Preview.textBandTitle"),
-                new SimpleNeonIcon.FactoryTop());
+                new SimpleRadianceIcon.FactoryTop());
 
         previewBand.setResizePolicies(CoreRibbonResizePolicies.getCorePoliciesNone(previewBand));
 
         previewBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("Preview.text"))
-                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                        .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Preview activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -874,7 +874,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         previewBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("SlideShow.text"))
-                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                        .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Slide Show activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -998,12 +998,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JRibbonBand getAnimationBand() {
         JRibbonBand animationBand = new JRibbonBand(
                 resourceBundle.getString("Animation.textBandTitle"),
-                new SimpleNeonIcon.FactoryTop());
+                new SimpleRadianceIcon.FactoryTop());
 
         animationBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("CustomAnimation.text"))
-                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                        .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Animation 1 activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -1011,7 +1011,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         animationBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("CustomAnimation.text"))
-                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                        .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Animation 2 activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -1019,7 +1019,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         animationBand.addRibbonCommand(
                 Command.builder()
                         .setText(resourceBundle.getString("CustomAnimation.text"))
-                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                        .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                         .setAction(commandActionEvent -> System.out.println("Animation 3 activated"))
                         .build()
                         .project(CommandButtonPresentationModel.withDefaults()),
@@ -1034,20 +1034,20 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JRibbonBand getTransitionBand() {
         JRibbonBand transitionBand = new JRibbonBand(
                 resourceBundle.getString("TransitionToThis.textBandTitle"),
-                new SimpleNeonIcon.FactoryTop());
+                new SimpleRadianceIcon.FactoryTop());
 
         List<CommandGroup> transitionGalleryCommands = new ArrayList<>();
 
         List<Command> transitionGalleryCommandsList = new ArrayList<>();
         for (int i = 1; i <= 40; i++) {
             final int index = i;
-            NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
+            RadianceIcon.Factory iconFactory = DecoratedRadianceIcon.factory(
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
-                        NeonCortex.installDesktopHints(g2d, g2d.getFont());
+                        RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.setColor(Color.black);
                         g2d.drawString("" + index, x + 1, y + height - 2);
                         g2d.drawString("" + index, x + 3, y + height - 2);
@@ -1074,13 +1074,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
         List<Command> transitionGalleryButtonsList2 = new ArrayList<>();
         for (int i = 41; i <= 70; i++) {
             final int index = i;
-            NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
+            RadianceIcon.Factory iconFactory = DecoratedRadianceIcon.factory(
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
-                        NeonCortex.installDesktopHints(g2d, g2d.getFont());
+                        RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.setColor(Color.black);
                         g2d.drawString("" + index, x + 1, y + height - 2);
                         g2d.drawString("" + index, x + 3, y + height - 2);
@@ -1132,7 +1132,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         RibbonDefaultComboBoxContentModel.<String>builder()
                                 .setItems(new String[] {
                                         "[" + resourceBundle.getString("NoSound.text") + "]     "})
-                                .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                                .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                                 .build(),
                         ComponentPresentationModel.withDefaults()));
         transitionBand.addRibbonComponent(
@@ -1156,7 +1156,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JRibbonBand getTransitionNextBand() {
         JRibbonBand transitionBand = new JRibbonBand(
                 resourceBundle.getString("TransitionToNext.textBandTitle"),
-                new SimpleNeonIcon.FactoryTop());
+                new SimpleRadianceIcon.FactoryTop());
 
         transitionBand.addRibbonComponent(new RibbonCheckBoxProjection(
                 RibbonCheckBoxContentModel.builder()
@@ -1173,7 +1173,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         transitionBand.addRibbonComponent(new RibbonSpinnerProjection(
                 RibbonSpinnerDateContentModel.builder()
-                        .setIconFactory(new SimpleNeonIcon.FactoryTop())
+                        .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                         .build(),
                 ComponentPresentationModel.withDefaults()));
 
@@ -1215,27 +1215,27 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.popupCommand1 = Command.builder()
                 .setText(mf.format(new Object[] {"1"}))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFF80DEEA)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFF80DEEA)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 1 activated"))
                 .build();
         this.popupCommand2 = Command.builder()
                 .setText(mf.format(new Object[] {"2"}))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFF80CBC4)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFF80CBC4)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 2 activated"))
                 .build();
         this.popupCommand3 = Command.builder()
                 .setText(mf.format(new Object[] {"3"}))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFA5D6A7)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFA5D6A7)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 3 activated"))
                 .build();
         this.popupCommand4 = Command.builder()
                 .setText(mf.format(new Object[] {"4"}))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFC5E1A5)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFC5E1A5)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 4 activated"))
                 .build();
         this.popupCommand5 = Command.builder()
                 .setText(mf.format(new Object[] {"5"}))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFE6EE9C)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFE6EE9C)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 5 activated"))
                 .build();
 
@@ -1393,17 +1393,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.menuSaveSelection = Command.builder()
                 .setText(resourceBundle.getString("Format.menuSaveSelection.text"))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFFBC02D)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFFBC02D)))
                 .setAction(commandActionEvent -> System.out.println("Save Selection activated"))
                 .build();
         this.menuClearSelection = Command.builder()
                 .setText(resourceBundle.getString("Format.menuClearSelection.text"))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFFFA000)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFFFA000)))
                 .setAction(commandActionEvent -> System.out.println("Clear Selection activated"))
                 .build();
         this.applyStyles = Command.builder()
                 .setText(resourceBundle.getString("Format.applyStyles.text"))
-                .setIconFactory(ColorNeonIcon.factory(new Color(0xFFF57C00)))
+                .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFF57C00)))
                 .setAction(commandActionEvent -> System.out.println("Apply Styles activated"))
                 .build();
 
@@ -1520,14 +1520,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mfButtonText.setLocale(currLocale);
         for (int i = 0; i < 30; i++) {
             final int index = i;
-            NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
+            RadianceIcon.Factory iconFactory = DecoratedRadianceIcon.factory(
                     Font_x_generic.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
                         g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                                 getControlFont());
-                        NeonCortex.installDesktopHints(g2d, g2d.getFont());
+                        RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.drawString("" + index, x + 2, y + height - 2);
                         g2d.dispose();
                     });
@@ -1820,17 +1820,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         Set<JRibbonFrame.RibbonKeyboardAction> keyboardActions = new HashSet<>();
         keyboardActions.add(new RibbonKeyboardAction("cut",
-                (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                         ? KeyStroke.getKeyStroke("meta X")
                         : KeyStroke.getKeyStroke("ctrl X"),
                 this.cutCommand));
         keyboardActions.add(new RibbonKeyboardAction("copy",
-                (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                         ? KeyStroke.getKeyStroke("meta C")
                         : KeyStroke.getKeyStroke("ctrl C"),
                 this.copyCommand));
         keyboardActions.add(new RibbonKeyboardAction("paste",
-                (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                         ? KeyStroke.getKeyStroke("meta V")
                         : KeyStroke.getKeyStroke("ctrl V"),
                 this.pasteCommand));
@@ -2105,7 +2105,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         Command wirelessWiFi = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("WiFi activated"))
                 .build();
 
@@ -2168,7 +2168,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             final int appMenuButtonTooltipImageInitialHeight = (int)
                     (appMenuButtonTooltipImageInitialWidth
                             / appMenuButtonTooltipImageRatio);
-            final NeonIcon appMenuRichTooltipMainIcon = new NeonIcon() {
+            final RadianceIcon appMenuRichTooltipMainIcon = new RadianceIcon() {
                 private int width;
                 private int height;
 
@@ -2337,14 +2337,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
             int count = 5 + (int) (10 * Math.random());
             for (int i = 0; i < count; i++) {
                 final int index = i;
-                NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
+                RadianceIcon.Factory iconFactory = DecoratedRadianceIcon.factory(
                         Font_x_generic.factory(),
                         (Component c, Graphics g, int x, int y, int width, int height) -> {
                             Graphics2D g2d = (Graphics2D) g.create();
                             g2d.setColor(Color.black);
                             g2d.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
                                     getControlFont());
-                            NeonCortex.installDesktopHints(g2d, g2d.getFont());
+                            RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                             g2d.drawString("" + index, x + 2, y + height - 2);
                             g2d.dispose();
                         });
@@ -2461,7 +2461,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             c.setVisible(true);
             c.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex
+            KeyStroke keyStroke = (RadianceCommonCortex.getPlatform() == RadianceCommonCortex
                     .Platform.MACOS) ? KeyStroke.getKeyStroke("meta alt E") :
                     KeyStroke.getKeyStroke("alt shift E");
             c.getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
@@ -2487,7 +2487,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         final PropertyChangeListener globalFocusListener = propertyChangeEvent -> {
             if ("focusOwner".equals(propertyChangeEvent.getPropertyName())) {
                 String toShow = "";
-                NeonIcon icon = null;
+                RadianceIcon icon = null;
                 Object owner = propertyChangeEvent.getNewValue();
                 if (owner == null) {
                     focusInfo.setText("No focus owner");
@@ -2673,7 +2673,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g.create();
-            NeonCortex.installDesktopHints(g2d, getFont());
+            RadianceCommonCortex.installDesktopHints(g2d, getFont());
 
             g2d.setColor(backgroundFill);
             g2d.fillRect(0, 0, getWidth(), getHeight());

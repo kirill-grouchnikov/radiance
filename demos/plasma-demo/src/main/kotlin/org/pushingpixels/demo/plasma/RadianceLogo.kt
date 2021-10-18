@@ -30,14 +30,14 @@
 package org.pushingpixels.demo.plasma
 
 import org.pushingpixels.demo.plasma.svg.radiance_menu
-import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
 import java.awt.Component
 import java.awt.image.BufferedImage
 
 object RadianceLogo {
-    fun getLogoIcon(scheme: SubstanceColorScheme): NeonIcon {
+    fun getLogoIcon(scheme: SubstanceColorScheme): RadianceIcon {
         // Step 1 - create a 16x16 version of the transcoded Radiance logo
         val base = radiance_menu.of(16, 16)
         // Step 2 - apply color filter
@@ -47,6 +47,6 @@ object RadianceLogo {
     }
 
     fun getLogoImage(comp: Component, scheme: SubstanceColorScheme): BufferedImage {
-        return getLogoIcon(scheme).toImage(NeonCortex.getScaleFactor(comp))
+        return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp))
     }
 }

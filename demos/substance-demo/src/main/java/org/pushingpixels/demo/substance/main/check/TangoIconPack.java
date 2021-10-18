@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 
@@ -42,226 +42,226 @@ import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 public class TangoIconPack implements SubstanceIconPack {
 
     @Override
-    public NeonIcon getOptionPaneInformationIcon(int preferredSize,
+    public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_information.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getOptionPaneWarningIcon(int preferredSize,
+    public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_warning.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getOptionPaneErrorIcon(int preferredSize,
+    public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getOptionPaneQuestionIcon(int preferredSize,
+    public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return help_browser.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserNewFolderIcon(int preferredSize,
+    public RadianceIcon getFileChooserNewFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return folder_new.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserUpFolderIcon(int preferredSize,
+    public RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_up.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserHomeFolderIcon(int preferredSize,
+    public RadianceIcon getFileChooserHomeFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return user_home.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserListViewIcon(int preferredSize,
+    public RadianceIcon getFileChooserListViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return format_justify_fill.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserDetailsViewIcon(int preferredSize,
+    public RadianceIcon getFileChooserDetailsViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return accessories_text_editor.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserViewMenuIcon(int preferredSize,
+    public RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return emblem_system.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserComputerIcon(int preferredSize,
+    public RadianceIcon getFileChooserComputerIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return computer.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserDirectoryIcon(int preferredSize,
+    public RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return folder.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserFileIcon(int preferredSize,
+    public RadianceIcon getFileChooserFileIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return text_x_generic.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserFloppyDriveIcon(int preferredSize,
+    public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return media_floppy.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getFileChooserHardDriveIcon(int preferredSize,
+    public RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getLockIcon(int preferredSize,
+    public RadianceIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return locked.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getCapsLockIcon(int preferredSize,
+    public RadianceIcon getCapsLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_top.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getInspectIcon(int preferredSize,
+    public RadianceIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return system_search.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getRefreshIcon(int preferredSize,
+    public RadianceIcon getRefreshIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return view_refresh.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getAllowedIcon(int preferredSize,
+    public RadianceIcon getAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return list_add.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getNotAllowedIcon(int preferredSize,
+    public RadianceIcon getNotAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getTextCopyActionIcon(int preferredSize,
+    public RadianceIcon getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon result = edit_copy.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_copy.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
     @Override
-    public NeonIcon getTextCutActionIcon(int preferredSize,
+    public RadianceIcon getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon result = edit_cut.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_cut.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
     @Override
-    public NeonIcon getTextPasteActionIcon(int preferredSize,
+    public RadianceIcon getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon result = edit_paste.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_paste.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
     @Override
-    public NeonIcon getTextDeleteActionIcon(int preferredSize,
+    public RadianceIcon getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon result = edit_delete.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_delete.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
     @Override
-    public NeonIcon getTextSelectAllActionIcon(int preferredSize,
+    public RadianceIcon getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        NeonIcon result = edit_select_all.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_select_all.of(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
     }
 
     @Override
-    public NeonIcon getColorChooserColorPalettesIcon(int preferredSize,
+    public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_angel.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getColorChooserColorSlidersIcon(int preferredSize,
+    public RadianceIcon getColorChooserColorSlidersIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_glasses.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getColorChooserColorSwatchesIcon(int preferredSize,
+    public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_grin.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getColorChooserColorWheelIcon(int preferredSize,
+    public RadianceIcon getColorChooserColorWheelIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_plain.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getColorChooserCrayonsIcon(int preferredSize,
+    public RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_sad.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getColorChooserImagePalettesIcon(int preferredSize,
+    public RadianceIcon getColorChooserImagePalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_smile.of(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getScrollHorizontalIcon(int preferredSize,
+    public RadianceIcon getScrollHorizontalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_next.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getScrollVerticalIcon(int preferredSize,
+    public RadianceIcon getScrollVerticalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_down.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public NeonIcon getScrollAllIcon(int preferredSize,
+    public RadianceIcon getScrollAllIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return view_fullscreen.uiResourceOf(preferredSize, preferredSize);
     }

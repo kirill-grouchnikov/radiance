@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -39,7 +39,7 @@ import java.beans.PropertyChangeSupport;
 public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E>
         implements RibbonComboBoxContentModel<E> {
     private boolean isEnabled;
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     private ComboBoxSelectionChangeListener selectionChangeListener;
@@ -77,7 +77,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
     }
 
     @Override
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -99,7 +99,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
     public static class Builder<E> {
         private boolean isEnabled = true;
         private E[] items;
-        private NeonIcon.Factory iconFactory;
+        private RadianceIcon.Factory iconFactory;
         private String caption;
         private ComboBoxSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
@@ -114,7 +114,7 @@ public class RibbonDefaultComboBoxContentModel<E> extends DefaultComboBoxModel<E
             return this;
         }
 
-        public Builder<E> setIconFactory(NeonIcon.Factory iconFactory) {
+        public Builder<E> setIconFactory(RadianceIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

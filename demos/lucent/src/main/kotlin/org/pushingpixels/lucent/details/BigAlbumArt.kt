@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lucent.details
 
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import java.awt.*
 import java.awt.image.BufferedImage
 import javax.swing.JComponent
@@ -81,8 +81,8 @@ class BigAlbumArt : JComponent() {
         val factor = min(1.0f, min(vFactor, hFactor))
         if (factor < 1.0f) {
             // scaled to fit available area
-            this.image = NeonCortex.createThumbnail(
-                NeonCortex.getScaleFactor(this),
+            this.image = RadianceCommonCortex.createThumbnail(
+                RadianceCommonCortex.getScaleFactor(this),
                 image, (factor * image.width).toInt()
             )
         }
@@ -100,7 +100,7 @@ class BigAlbumArt : JComponent() {
         g2d.color = Color(192, 192, 192)
         g2d.fillRoundRect(0, 0, w - 1, h - 1, 4, 4)
 
-        val scaleFactor = NeonCortex.getScaleFactor(this)
+        val scaleFactor = RadianceCommonCortex.getScaleFactor(this)
         if (this.imageAlpha < 1.0f) {
             val g2dImage = g2d.create() as Graphics2D
             g2dImage.composite = AlphaComposite.SrcOver

@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.substance.main.check.selector;
 
 import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
-import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;

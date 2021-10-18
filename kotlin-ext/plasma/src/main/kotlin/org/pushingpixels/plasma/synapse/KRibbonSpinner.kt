@@ -32,7 +32,7 @@ package org.pushingpixels.plasma.synapse
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerDateContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection
-import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
 import org.pushingpixels.plasma.NonNullDelegate
@@ -50,7 +50,7 @@ public class KRibbonSpinnerNumberContentModel {
     internal var hasBeenConverted: Boolean = false
 
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
-    public var iconFactory: NeonIcon.Factory? by NullableDelegate { false }
+    public var iconFactory: RadianceIcon.Factory? by NullableDelegate { false }
     public var caption: String? by NullableDelegate { false }
     public var value : Int by NonNullDelegate { false }
     public var minimum : Int by NonNullDelegate { false }
@@ -167,7 +167,7 @@ public class KRibbonSpinnerDateContentModel {
     internal var hasBeenConverted: Boolean = false
 
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
-    public var iconFactory: NeonIcon.Factory? by NullableDelegate { false }
+    public var iconFactory: RadianceIcon.Factory? by NullableDelegate { false }
     public var caption: String? by NullableDelegate { false }
 
     public var value : Date? by NullableDelegate { false }

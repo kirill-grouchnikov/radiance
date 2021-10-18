@@ -31,7 +31,7 @@ package org.pushingpixels.lucent.content
 
 import org.pushingpixels.meteor.addDelayedHierarchyListener
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import java.awt.*
@@ -159,9 +159,9 @@ open class Stage0Base : JComponent() {
             it.clip = clip
 
             if (this.searchString != null) {
-                it.font = NeonCortex.getDefaultFontPolicy().fontSet.controlFont
+                it.font = RadianceCommonCortex.getDefaultFontPolicy().fontSet.controlFont
                         .deriveFont(14.0f).deriveFont(Font.BOLD)
-                NeonCortex.installDesktopHints(it, it.font)
+                RadianceCommonCortex.installDesktopHints(it, it.font)
                 val fa = it.fontMetrics.ascent
                 val x = (width - it.fontMetrics.stringWidth(this.searchString!!)) / 2
                 val y = (TITLE_HEIGHT + fa) / 2

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIconUIResource;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -96,7 +96,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
                 icon = super.getIcon(f);
                 if (icon == null) {
                     icon = new ImageIcon(SubstanceCoreUtilities.getBlankImage(
-                            NeonCortex.getScaleFactor(null), 8, 8));
+                            RadianceCommonCortex.getScaleFactor(null), 8, 8));
                 }
                 // System.out.println("Super : " + f.getAbsolutePath() + " --> "
                 // + icon);
@@ -125,7 +125,7 @@ public class SubstanceFileChooserUI extends MetalFileChooserUI {
         public Icon getDefaultIcon(File f) {
             JFileChooser fileChooser = getFileChooser();
             Icon icon = fileChooser.getFileSystemView().getSystemIcon(f);
-            if (icon instanceof NeonIconUIResource) {
+            if (icon instanceof RadianceIconUIResource) {
                 SubstanceIconPack iconPack = SubstanceCortex.GlobalScope.getIconPack();
                 SubstanceColorScheme colorScheme = SubstanceCoreUtilities.getSkin(fileChooser)
                         .getEnabledColorScheme(DecorationAreaType.NONE);

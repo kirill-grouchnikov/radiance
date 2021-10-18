@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.colorscheme.*;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -90,7 +90,7 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 	@Override
 	public void paintContourBackground(Graphics g, Component comp, float width, float height,
 	        Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
-		double scale = NeonCortex.getScaleFactor(comp);
+		double scale = RadianceCommonCortex.getScaleFactor(comp);
 
 		GeneralPath clipBottom = new GeneralPath();
 		clipBottom.moveTo(0, height);
@@ -104,7 +104,7 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
         int iWidth = (int) Math.ceil(width);
         int iHeight = (int) Math.ceil(height);
 		BufferedImage clipShapeBottom = SubstanceCoreUtilities.softClip(
-				NeonCortex.getScaleFactor(comp),
+				RadianceCommonCortex.getScaleFactor(comp),
 				iWidth, iHeight, null, clipBottom);
 
 		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(scale, iWidth, iHeight);

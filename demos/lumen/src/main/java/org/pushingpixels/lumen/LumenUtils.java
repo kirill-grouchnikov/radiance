@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lumen;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.Timeline.TimelineState;
 import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
@@ -72,7 +72,7 @@ public class LumenUtils {
 
     public static int paintMultilineText(Graphics2D g2d, String text,
             int textX, int textWidth, int textY, int maxTextLineCount) {
-        NeonCortex.installDesktopHints(g2d, g2d.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
         FontRenderContext frc = new FontRenderContext(new AffineTransform(),
                 true, false);
         int fa = g2d.getFontMetrics().getAscent();

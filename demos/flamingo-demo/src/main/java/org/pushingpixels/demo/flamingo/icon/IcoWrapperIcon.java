@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.demo.flamingo.icon;
 
-import org.pushingpixels.neon.api.AsynchronousLoadListener;
-import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
+import org.pushingpixels.radiance.common.api.AsynchronousLoading;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -255,7 +255,7 @@ abstract class IcoWrapperIcon implements Icon, AsynchronousLoading {
 				float scaleFactor = Math.max(scaleX, scaleY);
 				if (scaleFactor > 1.0f) {
 					int finalWidth = (int) (bestMatchPlane.getWidth() / scaleFactor);
-					result = NeonCortex.createThumbnail(scale, bestMatchPlane, finalWidth);
+					result = RadianceCommonCortex.createThumbnail(scale, bestMatchPlane, finalWidth);
 				}
 
 				return result;

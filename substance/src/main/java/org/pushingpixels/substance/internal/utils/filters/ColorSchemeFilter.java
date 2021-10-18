@@ -34,7 +34,7 @@
 
 package org.pushingpixels.substance.internal.utils.filters;
 
-import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
+import org.pushingpixels.radiance.common.api.filter.RadianceAbstractFilter;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.HashMapKey;
 import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
@@ -51,7 +51,7 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 
-public class ColorSchemeFilter extends NeonAbstractFilter {
+public class ColorSchemeFilter extends RadianceAbstractFilter {
     private int[] interpolated;
 
     private static final int MAPSTEPS = 512;

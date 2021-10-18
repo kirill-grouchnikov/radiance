@@ -32,7 +32,7 @@ apply plugin: 'java'
 
 dependencies {
     implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
-    implementation project(':neon')
+    implementation project(':common')
 }
 
 ext.designation = "tools"

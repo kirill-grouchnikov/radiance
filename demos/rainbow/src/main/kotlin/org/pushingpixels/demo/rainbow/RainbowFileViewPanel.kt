@@ -34,13 +34,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon
+import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.*
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
-import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.neon.api.icon.NeonIcon
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import java.awt.Dimension
 import java.io.InputStream
 
@@ -55,7 +55,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         TransitionLayoutManager.getInstance().track(this, true)
     }
 
-    override fun configureCommand(leaf: Leaf, command: Command, icon: NeonIcon?) {
+    override fun configureCommand(leaf: Leaf, command: Command, icon: RadianceIcon?) {
         command.actionRichTooltip = RichTooltip.builder()
                 .setTitle("Transcode")
                 .addDescriptionSection("Click to generate Java2D class")
@@ -63,7 +63,7 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         command.action = CommandAction {
             GlobalScope.launch(Dispatchers.Swing) {
                 // can't pass the stream contents since the input can be .svgz
-                val svgIcon = icon as org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon
+                val svgIcon = icon as SvgBatikRadianceIcon
                 RainbowUtils.processSvgButtonClick(svgIcon.svgBytes, leaf.leafName)
             }
         }
@@ -78,13 +78,13 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
         return bar.callback.getLeafContent(leaf)
     }
 
-    override fun getNeonIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
-            state: CommandButtonPresentationState, dimension: Dimension): NeonIcon? {
+    override fun getRadianceIcon(leaf: AbstractFileViewPanel.Leaf, stream: InputStream,
+                                 state: CommandButtonPresentationState, dimension: Dimension): RadianceIcon? {
         val name = leaf.leafName
-        val scale = NeonCortex.getScaleFactor(this)
+        val scale = RadianceCommonCortex.getScaleFactor(this)
         return if (name.endsWith(".svg"))
-            SvgBatikNeonIcon.getSvgIcon(leaf.leafStream, scale, dimension)
+            SvgBatikRadianceIcon.getSvgIcon(leaf.leafStream, scale, dimension)
         else
-            SvgBatikNeonIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
+            SvgBatikRadianceIcon.getSvgzIcon(leaf.leafStream, scale, dimension)
     }
 }

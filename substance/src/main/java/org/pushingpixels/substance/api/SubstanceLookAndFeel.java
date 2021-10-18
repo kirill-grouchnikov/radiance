@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.api;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.internal.contrib.jgoodies.looks.LookUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.substance.internal.SubstancePluginRepository;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.ui.*;
@@ -172,7 +172,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
         this.skin.addCustomEntriesToTable(table);
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        if ((NeonCortex.getPlatform() != NeonCortex.Platform.MACOS)
+        if ((RadianceCommonCortex.getPlatform() != RadianceCommonCortex.Platform.MACOS)
                 || !LookUtils.IS_OS_MAC_MOJAVE_OR_LATER) {
             Map<Object, Object> desktopHints =
                     (Map<Object, Object>) toolkit.getDesktopProperty("awt.font.desktophints");

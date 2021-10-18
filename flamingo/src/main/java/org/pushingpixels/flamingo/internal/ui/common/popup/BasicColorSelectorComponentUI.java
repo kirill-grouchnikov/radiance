@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
@@ -397,7 +397,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         float brightness = hsb[2] * 0.7f;
         g2d.setColor(new Color(brightness, brightness, brightness));
 
-        float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor(c);
+        float borderThickness = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
         float ty = this.colorSelectorComponent.isTopOpen() ? borderThickness : 0;
         float by = this.colorSelectorComponent.isBottomOpen() ? borderThickness : 0;
         g2d.setStroke(

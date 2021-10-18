@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.preview;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
@@ -57,7 +57,7 @@ public class DefaultPreviewPainter extends PreviewPainter {
         int compHeight = component.getHeight();
 
         if ((compWidth > 0) && (compHeight > 0)) {
-            double scaleFactor = NeonCortex.getScaleFactor(parent);
+            double scaleFactor = RadianceCommonCortex.getScaleFactor(parent);
             // draw component
             BufferedImage tempCanvas = SubstanceCoreUtilities.getBlankImage(
                     scaleFactor, compWidth, compHeight);
@@ -73,7 +73,7 @@ public class DefaultPreviewPainter extends PreviewPainter {
                 int dx = x + ((int) (w / scaleFactor) - sdWidth) / 2;
                 int dy = y + ((int) (h / scaleFactor) - sdHeight) / 2;
 
-                BufferedImage thumbnail = NeonCortex.createThumbnail(
+                BufferedImage thumbnail = RadianceCommonCortex.createThumbnail(
                         scaleFactor, tempCanvas, sdWidth);
                 g.drawImage(thumbnail, dx, dy, (int) (thumbnail.getWidth() / scaleFactor),
                         (int) (thumbnail.getHeight() / scaleFactor), null);

@@ -39,7 +39,7 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.EventDispatcher;
 import org.apache.batik.util.EventDispatcher.Dispatcher;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -191,7 +191,7 @@ abstract class SvgBatikIcon extends UserAgentAdapter implements Icon {
         BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
                 + this.getIconHeight());
         if (image != null) {
-            double scaleFactor = NeonCortex.getScaleFactor(c);
+            double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
             int dx = (int) ((this.width - image.getWidth() / scaleFactor) / 2);
             int dy = (int) ((this.height - image.getHeight() / scaleFactor) / 2);
             Graphics2D g2d = (Graphics2D) g.create();

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.combo;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -60,7 +60,7 @@ public class ComboBoxBackgroundDelegate {
     public static BufferedImage getFullAlphaBackground(JComboBox combo,
             SubstanceFillPainter fillPainter, SubstanceBorderPainter borderPainter, int width,
             int height) {
-        double scale = NeonCortex.getScaleFactor(combo);
+        double scale = RadianceCommonCortex.getScaleFactor(combo);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -138,7 +138,7 @@ public class ComboBoxBackgroundDelegate {
             SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme, float radius) {
-        double scale = NeonCortex.getScaleFactor(combo);
+        double scale = RadianceCommonCortex.getScaleFactor(combo);
         float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(combo) / 2.0f;
         Shape contour = SubstanceOutlineUtilities.getBaseOutline(width, height, radius, null,
                 borderDelta);
@@ -217,7 +217,7 @@ public class ComboBoxBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImageWithScale(graphics, NeonCortex.getScaleFactor(combo),
+            RadianceCommonCortex.drawImageWithScale(graphics, RadianceCommonCortex.getScaleFactor(combo),
                     bgImage, 0, y);
             graphics.dispose();
         }

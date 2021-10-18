@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceWidget;
@@ -164,7 +164,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @return Image for vertical thumb.
      */
     private BufferedImage getThumbVertical(Rectangle thumbBounds) {
-        double scale = NeonCortex.getScaleFactor(this.scrollbar);
+        double scale = RadianceCommonCortex.getScaleFactor(this.scrollbar);
 
         int width = Math.max(1, thumbBounds.width);
         int delta = Math.max(0, (int) (0.4 * width));
@@ -242,7 +242,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private static BufferedImage getThumbVertical(JScrollBar scrollBar, int width, int height,
             SubstanceColorScheme scheme, SubstanceColorScheme borderScheme) {
-        double scale = NeonCortex.getScaleFactor(scrollBar);
+        double scale = RadianceCommonCortex.getScaleFactor(scrollBar);
 
         SubstanceFillPainter painter = SubstanceCoreUtilities.getFillPainter(scrollBar);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(scrollBar);
@@ -283,7 +283,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      * @return Image for horizontal thumb.
      */
     private BufferedImage getThumbHorizontal(Rectangle thumbBounds) {
-        double scale = NeonCortex.getScaleFactor(this.scrollbar);
+        double scale = RadianceCommonCortex.getScaleFactor(this.scrollbar);
 
         int width = Math.max(1, thumbBounds.width);
         int height = Math.max(1, thumbBounds.height);
@@ -361,7 +361,7 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
      */
     private static BufferedImage getThumbHorizontal(JScrollBar scrollBar, int width, int height,
             SubstanceColorScheme scheme, SubstanceColorScheme borderScheme) {
-        double scale = NeonCortex.getScaleFactor(scrollBar);
+        double scale = RadianceCommonCortex.getScaleFactor(scrollBar);
 
         SubstanceFillPainter painter = SubstanceCoreUtilities.getFillPainter(scrollBar);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(scrollBar);
@@ -438,21 +438,21 @@ public class SubstanceScrollBarUI extends BasicScrollBarUI implements Transition
 
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
-        double scale = NeonCortex.getScaleFactor(c);
+        double scale = RadianceCommonCortex.getScaleFactor(c);
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
         if (isVertical) {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
             BufferedImage thumbImage = this.getThumbVertical(adjustedBounds);
             int xdelta = (thumbBounds.width - (int) (thumbImage.getWidth() / scale)) / 2;
-            NeonCortex.drawImageWithScale(graphics, scale, thumbImage,
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, thumbImage,
                     adjustedBounds.x + xdelta, adjustedBounds.y);
         } else {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
             BufferedImage thumbImage = this.getThumbHorizontal(adjustedBounds);
             int ydelta = (thumbBounds.height - (int) (thumbImage.getHeight() / scale)) / 2;
-            NeonCortex.drawImageWithScale(graphics, scale, thumbImage,
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, thumbImage,
                     adjustedBounds.x, adjustedBounds.y + ydelta);
         }
         graphics.dispose();

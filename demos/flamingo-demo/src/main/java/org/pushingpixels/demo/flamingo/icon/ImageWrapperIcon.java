@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.demo.flamingo.icon;
 
-import org.pushingpixels.neon.api.AsynchronousLoadListener;
-import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
+import org.pushingpixels.radiance.common.api.AsynchronousLoading;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -154,10 +154,10 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
         BufferedImage image = this.cachedImages.get(this.getIconWidth() + ":"
                 + this.getIconHeight());
         if (image != null) {
-            double scale = NeonCortex.getScaleFactor(null);
+            double scale = RadianceCommonCortex.getScaleFactor(null);
             int dx = (this.width - (int) (image.getWidth() / scale)) / 2;
             int dy = (this.height - (int) (image.getHeight() / scale)) / 2;
-            NeonCortex.drawImageWithScale(g, scale, image, x + dx, y + dy);
+            RadianceCommonCortex.drawImageWithScale(g, scale, image, x + dx, y + dy);
         }
     }
 
@@ -201,7 +201,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                         }
                     }
                 } else {
-                    originalImage = NeonCortex.getBlankUnscaledImage(image.getWidth(null),
+                    originalImage = RadianceCommonCortex.getBlankUnscaledImage(image.getWidth(null),
                             image.getHeight(null));
                     Graphics g = originalImage.createGraphics();
                     g.drawImage(image, 0, 0, null);
@@ -217,7 +217,7 @@ abstract class ImageWrapperIcon implements Icon, AsynchronousLoading {
                 float scale = Math.max(scaleX, scaleY);
                 if (scale > 1.0f) {
                     int finalWidth = (int) (originalImage.getWidth() / scale);
-                    result = NeonCortex.createThumbnail(NeonCortex.getScaleFactor(null),
+                    result = RadianceCommonCortex.createThumbnail(RadianceCommonCortex.getScaleFactor(null),
                             originalImage, finalWidth);
                 }
 

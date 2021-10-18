@@ -33,7 +33,7 @@ import org.pushingpixels.lucent.LucentUtils
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.data.Track
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import java.awt.*
 import java.awt.font.FontRenderContext
 import java.awt.geom.AffineTransform
@@ -109,7 +109,7 @@ class TrackListing : JPanel(), Scrollable {
             return super.getPreferredSize()
         }
 
-        val controlFont = NeonCortex.getDefaultFontPolicy().fontSet.controlFont
+        val controlFont = RadianceCommonCortex.getDefaultFontPolicy().fontSet.controlFont
         val keyFont = controlFont.deriveFont(15.0f)
         val detailsFont = controlFont.deriveFont(13.0f)
 
@@ -153,7 +153,7 @@ class TrackListing : JPanel(), Scrollable {
                 return
             }
 
-            val controlFont = NeonCortex.getDefaultFontPolicy().fontSet.controlFont
+            val controlFont = RadianceCommonCortex.getDefaultFontPolicy().fontSet.controlFont
             val keyFont = controlFont.deriveFont(15.0f)
             val detailsFont = controlFont.deriveFont(13.0f)
             it.font = keyFont
@@ -200,7 +200,7 @@ class TrackListing : JPanel(), Scrollable {
 
                 // tracks
                 y += (detailsFontHeight / 2).toInt()
-                val borderThickness = 1.0f / NeonCortex.getScaleFactor(this)
+                val borderThickness = 1.0f / RadianceCommonCortex.getScaleFactor(this)
                 for (track in tracks!!) {
                     it.color = Color(44, 44, 44)
                     val topY = (y - detailsFontHeight.toInt() + 2).toFloat()

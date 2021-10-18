@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -267,7 +267,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
             int height) {
         Graphics2D g2d = (Graphics2D) graphics.create();
 
-        double scale = NeonCortex.getScaleFactor(this.slider);
+        double scale = RadianceCommonCortex.getScaleFactor(this.slider);
         SubstanceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(this.slider);
 
@@ -300,7 +300,7 @@ public class SubstanceSliderUI extends BasicSliderUI implements TransitionAwareU
             cacheGraphics.dispose();
         }
 
-        NeonCortex.drawImageWithScale(g2d, scale, trackImage, 0, 0);
+        RadianceCommonCortex.drawImageWithScale(g2d, scale, trackImage, 0, 0);
 
         g2d.dispose();
     }

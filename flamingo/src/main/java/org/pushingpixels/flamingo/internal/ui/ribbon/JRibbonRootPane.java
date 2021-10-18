@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +87,7 @@ public class JRibbonRootPane extends JRootPane {
 
         InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.clear();
-        KeyStroke keyStroke = (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+        KeyStroke keyStroke = (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                 ? KeyStroke.getKeyStroke("meta alt R")
                 : KeyStroke.getKeyStroke("ctrl F1");
         inputMap.put(keyStroke, "toggleMinimized");

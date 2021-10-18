@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
@@ -105,7 +105,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			return SubstanceImageCreator.getArrowIcon(
 					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
 					SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize),
-					NeonCortex.getScaleFactor(spinner),
+					RadianceCommonCortex.getScaleFactor(spinner),
 					SubstanceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.NORTH, scheme);
 		}, "substance.spinner.nextButton");
 		this.nextButton.setIcon(icon);
@@ -136,7 +136,7 @@ public class SubstanceSpinnerUI extends BasicSpinnerUI {
 			return SubstanceImageCreator.getArrowIcon(
 					SubstanceSizeUtils.getSpinnerArrowIconWidth(fontSize),
 					SubstanceSizeUtils.getSpinnerArrowIconHeight(fontSize),
-					NeonCortex.getScaleFactor(spinner),
+					RadianceCommonCortex.getScaleFactor(spinner),
 					SubstanceSizeUtils.getArrowStrokeWidth(fontSize), SwingConstants.SOUTH, scheme);
 		}, "substance.spinner.prevButton");
 		this.prevButton.setIcon(icon);

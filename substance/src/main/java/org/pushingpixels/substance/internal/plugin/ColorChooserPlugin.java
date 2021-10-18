@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.plugin;
 
-import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.substance.api.SubstanceComponentPlugin;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;

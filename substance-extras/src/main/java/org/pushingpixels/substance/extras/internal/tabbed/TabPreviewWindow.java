@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
@@ -174,7 +174,7 @@ public class TabPreviewWindow extends JWindow implements ActionListener {
                         currTabPreviewInfo.getPreviewHeight());
                 TabPreviewWindow.this.getContentPane().removeAll();
                 final JLabel previewLabel = new PreviewLabel(new ScaleAwareImageWrapperIcon(
-                        componentSnap, NeonCortex.getScaleFactor(tabPane)));
+                        componentSnap, RadianceCommonCortex.getScaleFactor(tabPane)));
                 TabPreviewWindow.this.addComponentListener(new ComponentAdapter() {
                     @Override
                     public void componentShown(ComponentEvent e) {

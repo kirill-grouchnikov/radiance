@@ -5,7 +5,7 @@
 Lumen aims to provide blueprints for adding animation to Swing applications using the [Trident](../trident/trident.md) animation engine. Lumen is a Swing application that connects to [MusicBrainz](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) and Amazon, and shows a list of albums for a specific performer. It is a pure Swing / Java2D application with the following dependencies:
 
 * [Trident](../trident/trident.md) for animations
-* [Neon](../neon/neon.md) for consistent text appearance and correct high-DPI rendering
+* [Common](../common/common.md) for consistent text appearance and correct high-DPI rendering
 * [Retrofit](https://github.com/square/retrofit) for fetching information from MusicBrainz without manual handling of endpoints and JSON parsing
 
 [Lucent](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/lucent) is a port of Lumen to Kotlin.

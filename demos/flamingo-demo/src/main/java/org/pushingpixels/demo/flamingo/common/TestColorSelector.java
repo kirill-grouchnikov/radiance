@@ -40,8 +40,8 @@ import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -209,7 +209,7 @@ public class TestColorSelector extends JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    private static class ColorIcon implements NeonIcon {
+    private static class ColorIcon implements RadianceIcon {
         private int w;
         private int h;
         private Color color;
@@ -223,7 +223,7 @@ public class TestColorSelector extends JFrame {
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setColor(color);
             g2d.fillRect(x, y, w, h);
-            float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor(c);
+            float borderThickness = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
             g2d.setColor(color.darker());
             g2d.setStroke(new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_ROUND));

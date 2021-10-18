@@ -33,7 +33,7 @@ import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.hue
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.awt.saturation
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import java.awt.Color
 import java.awt.Font
@@ -55,7 +55,7 @@ class JHsvGraph : JComponent() {
 
         g.render {
             it.font = SubstanceCortex.GlobalScope.getFontPolicy().fontSet.controlFont.deriveFont(Font.BOLD)
-            NeonCortex.installDesktopHints(it, it.font)
+            RadianceCommonCortex.installDesktopHints(it, it.font)
 
             it.color = Color.black
 

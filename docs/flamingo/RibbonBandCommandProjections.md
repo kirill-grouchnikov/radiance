@@ -36,31 +36,31 @@ mf.setLocale(currLocale);
 
 this.popupCommand1 = Command.builder()
         .setText(mf.format(new Object[] { "1" }))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFF80DEEA)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFF80DEEA)))
         .setAction(commandActionEvent ->
                 System.out.println("Test menu item 1 activated"))
         .build();
 this.popupCommand2 = Command.builder()
         .setText(mf.format(new Object[] { "2" }))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFF80CBC4)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFF80CBC4)))
         .setAction(commandActionEvent ->
                 System.out.println("Test menu item 2 activated"))
         .build();
 this.popupCommand3 = Command.builder()
         .setText(mf.format(new Object[] { "3" }))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFFA5D6A7)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFA5D6A7)))
         .setAction(commandActionEvent ->
                 System.out.println("Test menu item 3 activated"))
         .build();
 this.popupCommand4 = Command.builder()
         .setText(mf.format(new Object[] { "4" }))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFFC5E1A5)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFC5E1A5)))
         .setAction(commandActionEvent ->
                 System.out.println("Test menu item 4 activated"))
         .build();
 this.popupCommand5 = Command.builder()
         .setText(mf.format(new Object[] { "5" }))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFFE6EE9C)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFE6EE9C)))
         .setAction(commandActionEvent ->
                 System.out.println("Test menu item 5 activated"))
         .build();

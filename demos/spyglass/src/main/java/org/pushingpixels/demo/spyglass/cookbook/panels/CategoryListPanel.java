@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.spyglass.cookbook.EchoNeonIcon;
-import org.pushingpixels.demo.spyglass.cookbook.ScaledNeonIcon;
+import org.pushingpixels.demo.spyglass.cookbook.EchoRadianceIcon;
+import org.pushingpixels.demo.spyglass.cookbook.ScaledRadianceIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.ic_add_white_24px;
 import org.pushingpixels.demo.spyglass.cookbook.svg.ic_remove_white_24px;
 import org.pushingpixels.demo.spyglass.cookbook.svg.ic_settings_white_24px;
@@ -57,15 +57,15 @@ public class CategoryListPanel extends SingleContentPanel {
         JComponent controlButtons = new CommandStripProjection(
                 new CommandGroup(
                         Command.builder()
-                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
+                                .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
                                         .factory(ic_add_white_24px.factory(), 0.75f)))
                                 .build(),
                         Command.builder()
-                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
+                                .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
                                         .factory(ic_remove_white_24px.factory(), 0.75f)))
                                 .build(),
                         Command.builder()
-                                .setIconFactory(EchoNeonIcon.factory(ScaledNeonIcon
+                                .setIconFactory(EchoRadianceIcon.factory(ScaledRadianceIcon
                                         .factory(ic_settings_white_24px.factory(), 0.75f)))
                                 .setSecondaryContentModel(new CommandMenuContentModel(
                                         new CommandGroup(Command.builder()

@@ -49,7 +49,7 @@ for (int groupIndex = 0; groupIndex < 4; groupIndex++) {
     List<Command> commands = new ArrayList<>();
     for (int i = 0; i < 15; i++) {
         final String deco = groupIndex + "/" + i;
-        NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
+        RadianceIcon.Factory iconFactory = DecoratedRadianceIcon.factory(
                 Font_x_generic.factory(),
                 ...
                 });
@@ -81,13 +81,13 @@ extraEntries.add(new CommandGroup(
                 .build(),
         Command.builder()
                 .setText(resourceBundle.getString("ClearSelection.text"))
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build()
 ));
 extraEntries.add(new CommandGroup(
         Command.builder()
                 .setText(resourceBundle.getString("ApplyStyles.text"))
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build()
 ));
 

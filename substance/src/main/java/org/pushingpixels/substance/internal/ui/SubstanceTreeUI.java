@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.neon.api.icon.NeonIconUIResource;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -164,10 +164,10 @@ public class SubstanceTreeUI extends BasicTreeUI {
 			}
 		}
 
-		NeonIcon expandedIcon = SubstanceIconFactory.getTreeIcon(this.tree, false);
-		NeonIcon collapsedIcon = SubstanceIconFactory.getTreeIcon(this.tree, true);
-		setExpandedIcon(new NeonIconUIResource(expandedIcon));
-		setCollapsedIcon(new NeonIconUIResource(collapsedIcon));
+		RadianceIcon expandedIcon = SubstanceIconFactory.getTreeIcon(this.tree, false);
+		RadianceIcon collapsedIcon = SubstanceIconFactory.getTreeIcon(this.tree, true);
+		setExpandedIcon(new RadianceIconUIResource(expandedIcon));
+		setCollapsedIcon(new RadianceIconUIResource(collapsedIcon));
 
 		// instead of computing the cell renderer insets on
 		// every cell rendering, compute it once and expose to the
@@ -922,7 +922,7 @@ public class SubstanceTreeUI extends BasicTreeUI {
 		// trees resulted in inconsistent behaviour)
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.installDesktopHints(g2d, c.getFont());
+		RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
 
 		SubstanceStripingUtils.setup(c);
 		if (initialPath != null && paintingEnumerator != null) {

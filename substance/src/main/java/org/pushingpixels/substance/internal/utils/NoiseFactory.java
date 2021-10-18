@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
@@ -104,7 +104,7 @@ public class NoiseFactory {
 		}
 		
 		// and now returning an image that is hi DPI aware if needed
-		double scale = NeonCortex.getScaleFactor(null);
+		double scale = RadianceCommonCortex.getScaleFactor(null);
 		if (scale > 1.0) {
 			BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 			Graphics2D g2d = result.createGraphics();

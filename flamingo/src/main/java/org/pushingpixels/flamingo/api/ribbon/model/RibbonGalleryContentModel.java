@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.ContentModel;
 import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
@@ -47,7 +47,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
     private List<CommandGroup> commandGroups;
     private List<CommandGroup> extraPopupCommandGroups;
     private Command selectedCommand;
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
 
     /**
      * Stores the listeners on this model.
@@ -88,7 +88,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
 
     private CommandGroup.CommandGroupListener commandGroupListener;
 
-    public RibbonGalleryContentModel(NeonIcon.Factory iconFactory,
+    public RibbonGalleryContentModel(RadianceIcon.Factory iconFactory,
             List<CommandGroup> commands) {
         this.weakChangeSupport = new WeakChangeSupport(this);
         this.iconFactory = iconFactory;
@@ -117,7 +117,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
         this.extraPopupCommandGroups = new ArrayList<>();
     }
 
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 

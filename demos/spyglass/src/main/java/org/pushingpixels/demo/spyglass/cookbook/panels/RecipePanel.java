@@ -30,15 +30,15 @@
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.demo.spyglass.cookbook.EchoNeonIcon;
-import org.pushingpixels.demo.spyglass.cookbook.ScaledNeonIcon;
+import org.pushingpixels.demo.spyglass.cookbook.EchoRadianceIcon;
+import org.pushingpixels.demo.spyglass.cookbook.ScaledRadianceIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -57,19 +57,19 @@ public class RecipePanel extends SingleContentPanel {
                 padding(new EmptyBorder(10, 16, 0, 16));
 
         titlePaneBuilder.add(getCommandButton(
-                EchoNeonIcon.factory(ScaledNeonIcon.factory(
+                EchoRadianceIcon.factory(ScaledRadianceIcon.factory(
                         ic_bookmark_border_white_24px.factory(), 0.8f)),
                 "Bookmark")).xy(1, 1);
         titlePaneBuilder.add(getCommandButton(
-                EchoNeonIcon.factory(ScaledNeonIcon.factory(
+                EchoRadianceIcon.factory(ScaledRadianceIcon.factory(
                         ic_star_border_white_24px.factory(), 0.8f)),
                 "Star")).xy(3, 1);
         titlePaneBuilder.add(getCommandButton(
-                EchoNeonIcon.factory(ScaledNeonIcon.factory(
+                EchoRadianceIcon.factory(ScaledRadianceIcon.factory(
                         ic_view_stream_white_24px.factory(), 0.8f)),
                 "Print")).xy(5, 1);
         titlePaneBuilder.add(getCommandButton(
-                EchoNeonIcon.factory(ScaledNeonIcon.factory(
+                EchoRadianceIcon.factory(ScaledRadianceIcon.factory(
                         ic_send_white_24px.factory(), 0.8f)),
                 "Send")).xy(7, 1);
 
@@ -79,7 +79,7 @@ public class RecipePanel extends SingleContentPanel {
         titlePaneBuilder.add(title).xy(9, 1);
 
         titlePaneBuilder.add(getCommandButton(
-                EchoNeonIcon.factory(ScaledNeonIcon.factory(
+                EchoRadianceIcon.factory(ScaledRadianceIcon.factory(
                         ic_help_outline_white_24px.factory(), 0.8f)),
                 "Help")).xy(11, 1);
 
@@ -87,7 +87,7 @@ public class RecipePanel extends SingleContentPanel {
         this.titlePanel.add(titlePaneBuilder.build(), BorderLayout.CENTER);
     }
 
-    private JCommandButton getCommandButton(NeonIcon.Factory iconFactory,
+    private JCommandButton getCommandButton(RadianceIcon.Factory iconFactory,
             String tooltip) {
         return Command.builder()
                 .setIconFactory(iconFactory)

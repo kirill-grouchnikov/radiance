@@ -32,7 +32,7 @@ package org.pushingpixels.lumen.details;
 import org.pushingpixels.lumen.LumenUtils;
 import org.pushingpixels.lumen.data.SearchResultRelease;
 import org.pushingpixels.lumen.data.Track;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -111,7 +111,7 @@ public class TrackListing extends JPanel implements Scrollable {
             return super.getPreferredSize();
         }
 
-        Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
+        Font controlFont = RadianceCommonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
         Font keyFont = controlFont.deriveFont(15.0f);
         Font detailsFont = controlFont.deriveFont(13.0f);
 
@@ -156,7 +156,7 @@ public class TrackListing extends JPanel implements Scrollable {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        Font controlFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
+        Font controlFont = RadianceCommonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
         Font keyFont = controlFont.deriveFont(15.0f);
         Font detailsFont = controlFont.deriveFont(13.0f);
         g2d.setFont(keyFont);
@@ -203,7 +203,7 @@ public class TrackListing extends JPanel implements Scrollable {
 
             // tracks
             y += detailsFontHeight / 2;
-            double borderThickness = 1.0f / NeonCortex.getScaleFactor(this);
+            double borderThickness = 1.0f / RadianceCommonCortex.getScaleFactor(this);
             for (Track track : tracks) {
                 g2d.setColor(new Color(44, 44, 44));
                 float topY = y - (int) detailsFontHeight + 2;

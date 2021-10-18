@@ -38,9 +38,9 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
-import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.AsynchronousLoading;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.swing.*;
@@ -117,7 +117,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     /**
      * The "expand" action icon.
      */
-    protected NeonIcon popupActionIcon;
+    protected RadianceIcon popupActionIcon;
 
     protected CommandButtonLayoutManager layoutManager;
 
@@ -217,7 +217,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected void installComponents() {
         this.updatePopupActionIcon();
 
-        NeonIcon buttonIcon = this.commandButton.getIcon();
+        RadianceIcon buttonIcon = this.commandButton.getIcon();
         if (buttonIcon instanceof AsynchronousLoading) {
             ((AsynchronousLoading) buttonIcon).addAsynchronousLoadListener((boolean success) -> {
                 if (success && (commandButton != null))
@@ -323,7 +323,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.setExtraText((String) propertyChangeEvent.getNewValue());
             }
             if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
-                NeonIcon.Factory factory = (NeonIcon.Factory) propertyChangeEvent.getNewValue();
+                RadianceIcon.Factory factory = (RadianceIcon.Factory) propertyChangeEvent.getNewValue();
                 commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
             }
             if ("isToggleSelected".equals(propertyChangeEvent.getPropertyName())) {
@@ -418,7 +418,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      *
      * @return The icon for the popup area.
      */
-    protected NeonIcon createPopupActionIcon() {
+    protected RadianceIcon createPopupActionIcon() {
         return null;
     }
 
@@ -499,7 +499,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, this.commandButton.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, this.commandButton.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }
@@ -696,7 +696,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     private void syncIconDimension() {
-        NeonIcon icon = this.commandButton.getIcon();
+        RadianceIcon icon = this.commandButton.getIcon();
         CommandButtonPresentationState commandButtonState =
                 this.commandButton.getPresentationState();
 

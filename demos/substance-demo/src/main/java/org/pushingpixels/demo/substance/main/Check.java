@@ -33,7 +33,7 @@ import org.pushingpixels.demo.substance.main.check.*;
 import org.pushingpixels.demo.substance.main.check.selector.*;
 import org.pushingpixels.demo.substance.main.check.svg.tango.*;
 import org.pushingpixels.demo.substance.main.check.svg.vaadin.*;
-import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;

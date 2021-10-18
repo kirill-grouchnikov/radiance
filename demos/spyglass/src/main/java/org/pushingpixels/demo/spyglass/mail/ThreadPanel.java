@@ -31,7 +31,7 @@ package org.pushingpixels.demo.spyglass.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -89,23 +89,23 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.LEADING, 24, 0));
         result.setBorder(new EmptyBorder(14, 4, 14, 4));
 
-        NeonIcon closeIcon = ic_close_black_24px.of(16, 16);
+        RadianceIcon closeIcon = ic_close_black_24px.of(16, 16);
         closeIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(closeIcon));
 
-        NeonIcon listIcon = ic_view_list_black_24px.of(16, 16);
+        RadianceIcon listIcon = ic_view_list_black_24px.of(16, 16);
         listIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(listIcon));
 
-        NeonIcon alarmIcon = ic_access_alarm_black_24px.of(16, 16);
+        RadianceIcon alarmIcon = ic_access_alarm_black_24px.of(16, 16);
         alarmIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(alarmIcon));
 
-        NeonIcon archiveIcon = ic_archive_black_24px.of(16, 16);
+        RadianceIcon archiveIcon = ic_archive_black_24px.of(16, 16);
         archiveIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(archiveIcon));
 
-        NeonIcon deleteIcon = ic_delete_black_24px.of(16, 16);
+        RadianceIcon deleteIcon = ic_delete_black_24px.of(16, 16);
         deleteIcon.setColorFilter(color -> iconColor);
         result.add(new JLabel(deleteIcon));
 
@@ -176,11 +176,11 @@ public class ThreadPanel extends JPanel {
         dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
         firstRow.add(dateLabel).xy(3, 1);
 
-        NeonIcon replyIcon = ic_reply_black_24px.of(14, 14);
+        RadianceIcon replyIcon = ic_reply_black_24px.of(14, 14);
         replyIcon.setColorFilter(color -> iconColor);
         firstRow.add(new JLabel(replyIcon)).xy(5, 1);
 
-        NeonIcon moreIcon = ic_more_horiz_black_24px.of(14, 14);
+        RadianceIcon moreIcon = ic_more_horiz_black_24px.of(14, 14);
         moreIcon.setColorFilter(color -> iconColor);
         firstRow.add(new JLabel(moreIcon)).xy(7, 1);
 
@@ -194,7 +194,7 @@ public class ThreadPanel extends JPanel {
         messagePane.setText(message);
 
         Color historyColor = new Color(32, 96, 148);
-        NeonIcon historyIcon = ic_refresh_black_24px.factory().createNewIcon();
+        RadianceIcon historyIcon = ic_refresh_black_24px.factory().createNewIcon();
         historyIcon.setColorFilter(color -> historyColor);
         historyIcon.setDimension(new Dimension(12, 12));
         JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
@@ -223,11 +223,11 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
         result.setBorder(new EmptyBorder(16, 24, 16, 0));
 
-        NeonIcon replyIcon = ic_reply_black_24px.of(14, 14);
+        RadianceIcon replyIcon = ic_reply_black_24px.of(14, 14);
         replyIcon.setColorFilter(color -> iconColor);
         JButton reply = new JButton("Reply", replyIcon);
 
-        NeonIcon forwardIcon = ic_forward_black_24px.of(14, 14);
+        RadianceIcon forwardIcon = ic_forward_black_24px.of(14, 14);
         forwardIcon.setColorFilter(color -> iconColor);
         JButton forward = new JButton("Forward", forwardIcon);
 

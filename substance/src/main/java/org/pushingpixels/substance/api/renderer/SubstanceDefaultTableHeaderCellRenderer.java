@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.renderer;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -175,7 +175,7 @@ public class SubstanceDefaultTableHeaderCellRenderer extends
                 if (sortKeys.size() > 0
                         && (sortKeys.get(0).getColumn() ==
                         table.convertColumnIndexToModel(column))) {
-                    double scale = NeonCortex.getScaleFactor(table);
+                    double scale = RadianceCommonCortex.getScaleFactor(table);
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:
                             sortIcon = SubstanceImageCreator.getArrowIcon(scale,

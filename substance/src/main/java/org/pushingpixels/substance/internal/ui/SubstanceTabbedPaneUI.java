@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.SubstanceSlices.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -642,7 +642,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     private static BufferedImage getTabBackground(JTabbedPane tabPane, int width, int height,
             SubstanceColorScheme fillScheme, SubstanceColorScheme borderScheme,
             boolean paintOnlyBorder) {
-        double scale = NeonCortex.getScaleFactor(tabPane);
+        double scale = RadianceCommonCortex.getScaleFactor(tabPane);
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(tabPane);
@@ -693,7 +693,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
             int width, int height, int tabPlacement, SubstanceSlices.Side side,
             SubstanceColorScheme colorScheme, SubstanceColorScheme borderScheme) {
-        double scale = NeonCortex.getScaleFactor(tabPane);
+        double scale = RadianceCommonCortex.getScaleFactor(tabPane);
         SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(tabPane);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(tabPane);
         SubstanceButtonShaper shaper = SubstanceCoreUtilities.getButtonShaper(tabPane);
@@ -758,7 +758,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
         if (fillPainter == null)
             return null;
 
-        double scale = NeonCortex.getScaleFactor(tabPane);
+        double scale = RadianceCommonCortex.getScaleFactor(tabPane);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
                 scale, width, height, toPaintBorder,
                 fillPainter.getDisplayName(), fillScheme.getDisplayName(),
@@ -802,7 +802,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintTabBackground(Graphics g, int tabPlacement, final int tabIndex, final int x,
             final int y, int w, int h, boolean isSelected) {
-        double scale = NeonCortex.getScaleFactor(this.tabPane);
+        double scale = RadianceCommonCortex.getScaleFactor(this.tabPane);
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, g));
 
@@ -927,7 +927,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 currState);
 
         graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha, g));
-        NeonCortex.drawImageWithScale(graphics, scale, fullOpacity, x, y);
+        RadianceCommonCortex.drawImageWithScale(graphics, scale, fullOpacity, x, y);
 
         // Check if requested to paint close buttons.
         if (SubstanceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -980,11 +980,11 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             baseMarkScheme);
 
                     if (cyclePos < 1.0f) {
-                        NeonCortex.drawImageWithScale(graphics, scale, layer1, orig.x, orig.y);
+                        RadianceCommonCortex.drawImageWithScale(graphics, scale, layer1, orig.x, orig.y);
                     }
                     if (cyclePos > 0.0f) {
                         graphics.setComposite(AlphaComposite.SrcOver.derive(cyclePos));
-                        NeonCortex.drawImageWithScale(graphics, scale, layer2, orig.x, orig.y);
+                        RadianceCommonCortex.drawImageWithScale(graphics, scale, layer2, orig.x, orig.y);
                     }
                 } else {
                     BufferedImage layerBase = SubstanceTabbedPaneUI.getCloseButtonImage(
@@ -993,7 +993,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
                     if ((modelStateInfo == null) || currState.isDisabled()
                             || (modelStateInfo.getStateContributionMap().size() == 1)) {
-                        NeonCortex.drawImageWithScale(graphics, scale, layerBase, orig.x, orig.y);
+                        RadianceCommonCortex.drawImageWithScale(graphics, scale, layerBase, orig.x, orig.y);
                     } else {
                         BufferedImage complete = SubstanceCoreUtilities.getBlankUnscaledImage(layerBase);
                         Graphics2D g2d = complete.createGraphics();
@@ -1031,7 +1031,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                             }
                         }
                         g2d.dispose();
-                        NeonCortex.drawImageWithScale(graphics, scale, complete, orig.x, orig.y);
+                        RadianceCommonCortex.drawImageWithScale(graphics, scale, complete, orig.x, orig.y);
                     }
                 }
             }
@@ -1054,7 +1054,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected JButton createScrollButton(final int direction) {
-        double scale = NeonCortex.getScaleFactor(this.tabPane);
+        double scale = RadianceCommonCortex.getScaleFactor(this.tabPane);
         SubstanceScrollButton ssb = new SubstanceScrollButton();
         Icon icon = new TransitionAwareIcon(ssb, scheme -> {
             // fix for defect 279 - tab pane might not yet have the font installed.
@@ -1180,7 +1180,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
                 // BasicTabbedPaneUI.ScrollableTabPanel
                 // which does not have the right rendering hints
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonCortex.installDesktopHints(g2d, tabPane.getFont());
+                RadianceCommonCortex.installDesktopHints(g2d, tabPane.getFont());
                 super.paintTab(g2d, tabPlacement, rects, tabIndex, iconRect, textRect);
                 g2d.dispose();
             }
@@ -2256,7 +2256,7 @@ public class SubstanceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }

@@ -40,9 +40,9 @@ import org.pushingpixels.demo.plasma.svg.*
 import org.pushingpixels.flamingo.api.common.CommandActionEvent
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.HorizontalAlignment
-import org.pushingpixels.flamingo.api.common.icon.ColorNeonIcon
-import org.pushingpixels.flamingo.api.common.icon.DecoratedNeonIcon
-import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon
+import org.pushingpixels.flamingo.api.common.icon.ColorRadianceIcon
+import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon
+import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon
 import org.pushingpixels.flamingo.api.common.model.Command
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
@@ -67,9 +67,9 @@ import org.pushingpixels.meteor.addDelayedItemListener
 import org.pushingpixels.meteor.awt.brightness
 import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.neon.api.icon.NeonIcon
-import org.pushingpixels.neon.api.icon.NeonIcon.Factory
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.plasma.*
 import org.pushingpixels.plasma.ribbon.*
 import org.pushingpixels.plasma.synapse.*
@@ -133,7 +133,7 @@ class RulerPanel : JPanel() {
         super.paintComponent(g)
 
         g.render {
-            NeonCortex.installDesktopHints(it, font)
+            RadianceCommonCortex.installDesktopHints(it, font)
             it.color = backgroundFill
             it.fillRect(0, 0, width, height)
 
@@ -259,10 +259,10 @@ private class ExpandCommandListener : (CommandActionEvent?) -> Unit {
     }
 }
 
-private class SimpleNeonIcon(
+private class SimpleRadianceIcon(
     private val priority: PresentationPriority,
     private var currWidth: Int, private var currHeight: Int
-) : NeonIcon {
+) : RadianceIcon {
 
     override fun setDimension(newDimension: Dimension) {
         this.currWidth = newDimension.width
@@ -273,7 +273,7 @@ private class SimpleNeonIcon(
         return false
     }
 
-    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+    override fun setColorFilter(colorFilter: RadianceIcon.ColorFilter?) {
         throw UnsupportedOperationException()
     }
 
@@ -313,8 +313,8 @@ private class SimpleNeonIcon(
     }
 
     class FactoryTop : Factory {
-        override fun createNewIcon(): NeonIcon {
-            return SimpleNeonIcon(PresentationPriority.TOP, 16, 16)
+        override fun createNewIcon(): RadianceIcon {
+            return SimpleRadianceIcon(PresentationPriority.TOP, 16, 16)
         }
     }
 }
@@ -383,19 +383,19 @@ private class RibbonDemoBuilder {
 
         menuSaveSelection = command {
             title = resourceBundle.getString("Format.menuSaveSelection.text")
-            iconFactory = ColorNeonIcon.factory(Color(0xFB, 0xC0, 0x2D))
+            iconFactory = ColorRadianceIcon.factory(Color(0xFB, 0xC0, 0x2D))
             action = { println("Save Selection activated") }
         }
 
         menuClearSelection = command {
             title = resourceBundle.getString("Format.menuClearSelection.text")
-            iconFactory = ColorNeonIcon.factory(Color(0xFF, 0xA0, 0x00))
+            iconFactory = ColorRadianceIcon.factory(Color(0xFF, 0xA0, 0x00))
             action = { println("Clear Selection activated") }
         }
 
         applyStyles = command {
             title = resourceBundle.getString("Format.applyStyles.text")
-            iconFactory = ColorNeonIcon.factory(Color(0xF5, 0x7C, 0x00))
+            iconFactory = ColorRadianceIcon.factory(Color(0xF5, 0x7C, 0x00))
             action = { println("Apply Styles activated") }
         }
 
@@ -412,14 +412,14 @@ private class RibbonDemoBuilder {
                 for (i in 0 until 10) {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
-                        iconFactory = DecoratedNeonIcon.factory(
+                        iconFactory = DecoratedRadianceIcon.factory(
                             Font_x_generic.factory(),
-                            DecoratedNeonIcon.IconDecorator { _, graphics, x, y, _, height ->
+                            DecoratedRadianceIcon.IconDecorator { _, graphics, x, y, _, height ->
                                 graphics.render {
                                     it.color = Color.black
                                     it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                         .getFontSet().controlFont
-                                    NeonCortex.installDesktopHints(it, it.font)
+                                    RadianceCommonCortex.installDesktopHints(it, it.font)
                                     it.drawString("$i", x + 2, y + height - 2)
                                 }
                             })
@@ -433,14 +433,14 @@ private class RibbonDemoBuilder {
                 for (i in 10 until 30) {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
-                        iconFactory = DecoratedNeonIcon.factory(
+                        iconFactory = DecoratedRadianceIcon.factory(
                             Font_x_generic.factory(),
-                            DecoratedNeonIcon.IconDecorator { _, graphics, x, y, _, height ->
+                            DecoratedRadianceIcon.IconDecorator { _, graphics, x, y, _, height ->
                                 graphics.render {
                                     it.color = Color.black
                                     it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                         .fontSet.controlFont
-                                    NeonCortex.installDesktopHints(it, it.font)
+                                    RadianceCommonCortex.installDesktopHints(it, it.font)
                                     it.drawString("$i", x + 2, y + height - 2)
                                 }
                             })
@@ -557,17 +557,17 @@ private class RibbonDemoBuilder {
             group {
                 command(actionKeyTip = "1") {
                     title = mf.format(arrayOf("1"))
-                    iconFactory = ColorNeonIcon.factory(Color(0x80, 0xDE, 0xEA))
+                    iconFactory = ColorRadianceIcon.factory(Color(0x80, 0xDE, 0xEA))
                     action = { println("Test menu item 1 activated") }
                 }
                 command(actionKeyTip = "2") {
                     title = mf.format(arrayOf("2"))
-                    iconFactory = ColorNeonIcon.factory(Color(0x80, 0xCB, 0xC4))
+                    iconFactory = ColorRadianceIcon.factory(Color(0x80, 0xCB, 0xC4))
                     action = { println("Test menu item 2 activated") }
                 }
                 command(actionKeyTip = "3") {
                     title = mf.format(arrayOf("3"))
-                    iconFactory = ColorNeonIcon.factory(Color(0xA5, 0xD6, 0xA7))
+                    iconFactory = ColorRadianceIcon.factory(Color(0xA5, 0xD6, 0xA7))
                     action = { println("Test menu item 3 activated") }
                 }
             }
@@ -575,12 +575,12 @@ private class RibbonDemoBuilder {
             group {
                 command(actionKeyTip = "4") {
                     title = mf.format(arrayOf("4"))
-                    iconFactory = ColorNeonIcon.factory(Color(0xC5, 0xE1, 0xA5))
+                    iconFactory = ColorRadianceIcon.factory(Color(0xC5, 0xE1, 0xA5))
                     action = { println("Test menu item 4 activated") }
                 }
                 command(actionKeyTip = "5") {
                     title = mf.format(arrayOf("5"))
-                    iconFactory = ColorNeonIcon.factory(Color(0xE6, 0xEE, 0x9C))
+                    iconFactory = ColorRadianceIcon.factory(Color(0xE6, 0xEE, 0x9C))
                     action = { println("Test menu item 5 activated") }
                 }
             }
@@ -651,15 +651,15 @@ private class RibbonDemoBuilder {
 
                                 for (i in 0 until 15) {
                                     command {
-                                        iconFactory = DecoratedNeonIcon.factory(
+                                        iconFactory = DecoratedRadianceIcon.factory(
                                             Font_x_generic.factory(),
-                                            DecoratedNeonIcon.IconDecorator { _, graphics, x, y, _, height ->
+                                            DecoratedRadianceIcon.IconDecorator { _, graphics, x, y, _, height ->
                                                 graphics.render {
                                                     it.color = Color.black
                                                     it.font =
                                                         SubstanceCortex.GlobalScope.getFontPolicy()
                                                             .fontSet.controlFont
-                                                    NeonCortex.installDesktopHints(it, it.font)
+                                                    RadianceCommonCortex.installDesktopHints(it, it.font)
                                                     it.drawString("" + i, x + 2, y + height - 2)
                                                 }
                                             })
@@ -1392,17 +1392,17 @@ private class RibbonDemoBuilder {
     fun getPreviewBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Preview.textBandTitle")
-            iconFactory = SimpleNeonIcon.FactoryTop()
+            iconFactory = SimpleRadianceIcon.FactoryTop()
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("Preview.text")
-                iconFactory = SimpleNeonIcon.FactoryTop()
+                iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Preview activated") }
             }
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("SlideShow.text")
-                iconFactory = SimpleNeonIcon.FactoryTop()
+                iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Slide Show activated") }
             }
 
@@ -1414,23 +1414,23 @@ private class RibbonDemoBuilder {
     fun getAnimationBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("Animation.textBandTitle")
-            iconFactory = SimpleNeonIcon.FactoryTop()
+            iconFactory = SimpleRadianceIcon.FactoryTop()
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("CustomAnimation.text")
-                iconFactory = SimpleNeonIcon.FactoryTop()
+                iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Animation 1 activated") }
             }
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("CustomAnimation.text")
-                iconFactory = SimpleNeonIcon.FactoryTop()
+                iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Animation 2 activated") }
             }
 
             command(PresentationPriority.TOP) {
                 title = resourceBundle.getString("CustomAnimation.text")
-                iconFactory = SimpleNeonIcon.FactoryTop()
+                iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Animation 3 activated") }
             }
 
@@ -1442,7 +1442,7 @@ private class RibbonDemoBuilder {
     fun getTransitionBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("TransitionToThis.textBandTitle")
-            iconFactory = SimpleNeonIcon.FactoryTop()
+            iconFactory = SimpleRadianceIcon.FactoryTop()
 
             gallery(PresentationPriority.TOP) {
                 presentation {
@@ -1461,13 +1461,13 @@ private class RibbonDemoBuilder {
                         title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
                         for (i in 1..40) {
                             command {
-                                iconFactory = DecoratedNeonIcon.factory(
+                                iconFactory = DecoratedRadianceIcon.factory(
                                     Appointment_new.factory(),
-                                    DecoratedNeonIcon.IconDecorator { _, g, x, y, _, height ->
+                                    DecoratedRadianceIcon.IconDecorator { _, g, x, y, _, height ->
                                         g.render {
                                             it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                 .fontSet.controlFont.deriveFont(9.0f)
-                                            NeonCortex.installDesktopHints(it, it.font)
+                                            RadianceCommonCortex.installDesktopHints(it, it.font)
                                             it.color = Color.black
                                             it.drawString("" + i, x + 1, y + height - 2)
                                             it.drawString("" + i, x + 3, y + height - 2)
@@ -1487,13 +1487,13 @@ private class RibbonDemoBuilder {
                         title = resourceBundle.getString("TransitionGallery.textGroupTitle2")
                         for (i in 41..70) {
                             command {
-                                iconFactory = DecoratedNeonIcon.factory(
+                                iconFactory = DecoratedRadianceIcon.factory(
                                     Appointment_new.factory(),
-                                    DecoratedNeonIcon.IconDecorator { _, g, x, y, _, height ->
+                                    DecoratedRadianceIcon.IconDecorator { _, g, x, y, _, height ->
                                         g.render {
                                             it.font = SubstanceCortex.GlobalScope.getFontPolicy()
                                                 .fontSet.controlFont.deriveFont(9.0f)
-                                            NeonCortex.installDesktopHints(it, it.font)
+                                            RadianceCommonCortex.installDesktopHints(it, it.font)
                                             it.color = Color.black
                                             it.drawString("" + i, x + 1, y + height - 2)
                                             it.drawString("" + i, x + 3, y + height - 2)
@@ -1515,7 +1515,7 @@ private class RibbonDemoBuilder {
                 comboBox<String> {
                     content {
                         items("[" + resourceBundle.getString("NoSound.text") + "]     ")
-                        iconFactory = SimpleNeonIcon.FactoryTop()
+                        iconFactory = SimpleRadianceIcon.FactoryTop()
                     }
                 }
 
@@ -1538,7 +1538,7 @@ private class RibbonDemoBuilder {
     fun getTransitionNextBand(): KRibbonBand {
         return ribbonBand {
             title = resourceBundle.getString("TransitionToNext.textBandTitle")
-            iconFactory = SimpleNeonIcon.FactoryTop()
+            iconFactory = SimpleRadianceIcon.FactoryTop()
 
             checkBox {
                 content {
@@ -1555,7 +1555,7 @@ private class RibbonDemoBuilder {
 
             spinnerDate {
                 content {
-                    iconFactory = SimpleNeonIcon.FactoryTop()
+                    iconFactory = SimpleRadianceIcon.FactoryTop()
                 }
             }
         }
@@ -1767,7 +1767,7 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
     val appMenuButtonTooltipImageInitialWidth = 160
     val appMenuButtonTooltipImageInitialHeight =
         (appMenuButtonTooltipImageInitialWidth / appMenuButtonTooltipImageRatio).toInt()
-    val appMenuRichTooltipMainIcon = object : NeonIcon {
+    val appMenuRichTooltipMainIcon = object : RadianceIcon {
         private var width: Int = 0
         private var height: Int = 0
 
@@ -1788,7 +1788,7 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
             return false
         }
 
-        override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+        override fun setColorFilter(colorFilter: RadianceIcon.ColorFilter?) {
             throw UnsupportedOperationException()
         }
 
@@ -2274,14 +2274,14 @@ fun main() {
                                         command(actionKeyTip = "W") {
                                             title =
                                                 builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
-                                            iconFactory = EmptyNeonIcon.factory()
+                                            iconFactory = EmptyRadianceIcon.factory()
                                             action = { println("WiFi activated") }
                                         }
 
                                         command(actionKeyTip = "B") {
                                             title =
                                                 builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
-                                            iconFactory = EmptyNeonIcon.factory()
+                                            iconFactory = EmptyRadianceIcon.factory()
                                             action = { println("Bluetooth activated") }
                                         }
                                     }
@@ -2319,19 +2319,19 @@ fun main() {
             keyboardActions {
                 +RibbonKeyboardAction(
                     actionName = "Cut",
-                    actionKeyStroke = if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                    actionKeyStroke = if (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                         KeyStroke.getKeyStroke("meta X") else KeyStroke.getKeyStroke("ctrl X"),
                     command = builder.cutCommand
                 )
                 +RibbonKeyboardAction(
                     actionName = "Copy",
-                    actionKeyStroke = if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                    actionKeyStroke = if (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                         KeyStroke.getKeyStroke("meta C") else KeyStroke.getKeyStroke("ctrl C"),
                     command = builder.copyCommand
                 )
                 +RibbonKeyboardAction(
                     actionName = "Paste",
-                    actionKeyStroke = if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+                    actionKeyStroke = if (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                         KeyStroke.getKeyStroke("meta V") else KeyStroke.getKeyStroke("ctrl V"),
                     command = builder.pasteCommand
                 )

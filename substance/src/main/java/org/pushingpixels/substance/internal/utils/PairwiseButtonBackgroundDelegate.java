@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -178,7 +178,7 @@ public class PairwiseButtonBackgroundDelegate {
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            NeonCortex.drawImageWithScale(graphics, NeonCortex.getScaleFactor(button),
+            RadianceCommonCortex.drawImageWithScale(graphics, RadianceCommonCortex.getScaleFactor(button),
                     fullOpacity, 0, 0);
             graphics.dispose();
         }
@@ -205,7 +205,7 @@ public class PairwiseButtonBackgroundDelegate {
         if (SubstanceCoreUtilities.isButtonNeverPainted(button)) {
             return null;
         }
-        double scale = NeonCortex.getScaleFactor(button);
+        double scale = RadianceCommonCortex.getScaleFactor(button);
 
         Set<Side> openSides = toIgnoreOpenSides ? EnumSet.noneOf(Side.class)
                 : SubstanceCoreUtilities.getSides(button, SubstanceSynapse.BUTTON_OPEN_SIDE);

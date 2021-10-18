@@ -36,7 +36,7 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin
 import org.pushingpixels.substance.extras.api.shaperpack.CanonicalPath
@@ -217,7 +217,7 @@ class ShapeEditor : JFrame() {
                 it.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
                 val controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.font = controlFont.deriveFont(10f)
-                NeonCortex.installDesktopHints(it, it.font)
+                RadianceCommonCortex.installDesktopHints(it, it.font)
 
                 val width = this.width
                 val height = this.height
@@ -228,7 +228,7 @@ class ShapeEditor : JFrame() {
                             this.image!!.height, null)
                 }
 
-                val strokeSize = 1.0f / NeonCortex.getScaleFactor(this.editorFrame).toFloat()
+                val strokeSize = 1.0f / RadianceCommonCortex.getScaleFactor(this.editorFrame).toFloat()
                 // grid
                 it.color = Color(0, 0, 0, 128)
                 it.stroke = BasicStroke(strokeSize, BasicStroke.CAP_ROUND,

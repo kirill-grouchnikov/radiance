@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.menu;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -158,7 +158,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
                 LinkedList<SearchResult> searchResults =
                         SearchPanel.this.findOccurences(searchString);
                 int count = 0;
-                final double scale = NeonCortex.getScaleFactor(SearchPanel.this);
+                final double scale = RadianceCommonCortex.getScaleFactor(SearchPanel.this);
                 for (SearchResult searchResult : searchResults) {
                     // show only first 16 results.
                     if (count == 16)
@@ -503,7 +503,7 @@ public class MenuSearchWidget extends SubstanceWidget<JMenuBar> {
         if (searchPanel == null) {
             return;
         }
-        final double scale = NeonCortex.getScaleFactor(searchPanel);
+        final double scale = RadianceCommonCortex.getScaleFactor(searchPanel);
         for (Map.Entry<Integer, JButton> entry : searchPanel.resultButtons.entrySet()) {
             int index = entry.getKey();
             JButton button = entry.getValue();

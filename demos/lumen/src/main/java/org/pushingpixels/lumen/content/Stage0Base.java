@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lumen.content;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.trident.api.Timeline;
 import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
 
@@ -173,9 +173,9 @@ public class Stage0Base extends JComponent {
         g2d.setClip(clip);
 
         if (this.searchString != null) {
-            g2d.setFont(NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont()
+            g2d.setFont(RadianceCommonCortex.getDefaultFontPolicy().getFontSet().getControlFont()
                     .deriveFont(14.0f).deriveFont(Font.BOLD));
-            NeonCortex.installDesktopHints(g2d, g2d.getFont());
+            RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
             int fa = g2d.getFontMetrics().getAscent();
             int x = (getWidth() - g2d.getFontMetrics().stringWidth(this.searchString)) / 2;
             int y = (TITLE_HEIGHT + fa) / 2;

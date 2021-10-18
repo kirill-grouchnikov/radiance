@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -661,7 +661,7 @@ public class SubstanceListUI extends BasicListUI implements UpdateOptimizationAw
         BackgroundPaintingUtils.updateIfOpaque(g, c);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         SubstanceStripingUtils.setup(c);
         this.updateInfo = new UpdateOptimizationInfo(c);
         this.paint(g2d, c);

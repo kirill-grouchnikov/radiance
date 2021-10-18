@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.painter;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -42,7 +42,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -223,7 +222,7 @@ public class SeparatorPainterUtils {
 		if ((width == 0) || (height == 0))
 			return;
 
-		double scale = NeonCortex.getScaleFactor(c);
+		double scale = RadianceCommonCortex.getScaleFactor(c);
 		ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
 				scale, fontSize, scheme.getDisplayName(), width,
 				height, orientation, hasShadow, maxGradLengthStart, maxGradLengthEnd,
@@ -390,7 +389,7 @@ public class SeparatorPainterUtils {
 		}
 
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.drawImageWithScale(g2d, scale, singleLine, 0, 0);
+		RadianceCommonCortex.drawImageWithScale(g2d, scale, singleLine, 0, 0);
 		g2d.dispose();
 	}
 
@@ -417,7 +416,7 @@ public class SeparatorPainterUtils {
 		int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
 		Color backgrFill = SubstanceColorUtilities.getBackgroundFillColor(c);
 
-		double scale = NeonCortex.getScaleFactor(c);
+		double scale = RadianceCommonCortex.getScaleFactor(c);
 		ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
 				scale, componentFontSize,
 				scheme.getDisplayName(), 0, height, SwingConstants.VERTICAL, true, 0.0,
@@ -461,7 +460,7 @@ public class SeparatorPainterUtils {
 
 		Graphics2D g2d = (Graphics2D) g.create();
 		for (int lineX : x) {
-			NeonCortex.drawImageWithScale(g2d, scale, singleLine, lineX, y);
+			RadianceCommonCortex.drawImageWithScale(g2d, scale, singleLine, lineX, y);
 		}
 		g2d.dispose();
 	}
@@ -493,7 +492,7 @@ public class SeparatorPainterUtils {
 		int componentFontSize = SubstanceSizeUtils.getComponentFontSize(c);
 		Color backgrFill = SubstanceColorUtilities.getBackgroundFillColor(c);
 
-		double scale = NeonCortex.getScaleFactor(c);
+		double scale = RadianceCommonCortex.getScaleFactor(c);
 		ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
 				scale, componentFontSize,
 				scheme.getDisplayName(), width, 0, SwingConstants.VERTICAL, true, 0.0,
@@ -537,7 +536,7 @@ public class SeparatorPainterUtils {
 
 		Graphics2D g2d = (Graphics2D) g.create();
 		for (int lineY : y) {
-			NeonCortex.drawImageWithScale(g2d, scale, singleLine, x, lineY);
+			RadianceCommonCortex.drawImageWithScale(g2d, scale, singleLine, x, lineY);
 		}
 		g2d.dispose();
 	}

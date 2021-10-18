@@ -30,12 +30,12 @@
 package org.pushingpixels.flamingo.internal.substance.ribbon.ui;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.flamingo.internal.substance.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -85,11 +85,11 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureExpandButton(JCommandButton button) {
-        final double scale = NeonCortex.getScaleFactor(button);
+        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
+        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> SubstanceImageCreator.getDoubleArrowIcon(
                         scale, width, height,
@@ -106,11 +106,11 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollDownButton(JCommandButton button) {
-        final double scale = NeonCortex.getScaleFactor(this.ribbonGallery);
+        final double scale = RadianceCommonCortex.getScaleFactor(this.ribbonGallery);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
+        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> SubstanceImageCreator.getArrowIcon(width, height, scale,
                         SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
@@ -125,11 +125,11 @@ public class SubstanceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollUpButton(JCommandButton button) {
-        final double scale = NeonCortex.getScaleFactor(this.ribbonGallery);
+        final double scale = RadianceCommonCortex.getScaleFactor(this.ribbonGallery);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
+        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> SubstanceImageCreator.getArrowIcon(width, height, scale,
                         SubstanceSizeUtils.getDoubleArrowStrokeWidth(fontSize),

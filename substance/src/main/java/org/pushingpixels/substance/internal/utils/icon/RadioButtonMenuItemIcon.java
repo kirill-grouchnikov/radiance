@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -98,7 +98,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 modelStateInfo.getStateContributionMap();
 
-        double scale = NeonCortex.getScaleFactor(this.menuItem);
+        double scale = RadianceCommonCortex.getScaleFactor(this.menuItem);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
         int checkMarkSize = this.size;
 

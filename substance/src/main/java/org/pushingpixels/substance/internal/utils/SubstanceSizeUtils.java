@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.font.FontPolicy;
-import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.font.FontPolicy;
+import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
@@ -217,7 +217,7 @@ public class SubstanceSizeUtils {
 	 * @return Stroke width of borders.
 	 */
 	public static float getBorderStrokeWidth(Component c) {
-		return 1.0f / (float) NeonCortex.getScaleFactor(c);
+		return 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
 	}
 
 	/**
@@ -429,7 +429,7 @@ public class SubstanceSizeUtils {
 	 * Returns the stroke width of focus rings.
 	 */
 	public static float getFocusStrokeWidth(Component c) {
-        return 1.0f / (float) NeonCortex.getScaleFactor(c);
+        return 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
 	}
 
 	/**

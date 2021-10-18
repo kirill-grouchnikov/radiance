@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.colorscheme;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.trait.SubstanceTrait;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.filters.ColorSchemeFilter;
@@ -168,7 +168,7 @@ public interface SubstanceColorScheme extends SubstanceTrait, SchemeBaseColors, 
      */
     SubstanceColorScheme named(String colorSchemeDisplayName);
 
-    default NeonIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
+    default RadianceIcon.ColorFilter getColorFilter(float brightnessFactor, float alpha) {
         SubstanceColorScheme origin = this;
         return color -> {
             int[] interpolated = ColorSchemeFilter.getInterpolatedColors(origin);

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.*;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
@@ -142,7 +142,7 @@ public class FakeAccordion extends JPanel {
                             SubstanceSlices.ColorSchemeAssociationKind.BORDER,
                             ComponentState.ENABLED);
 
-                    float borderThicknessOuter = 1.0f / (float) NeonCortex.getScaleFactor(c);
+                    float borderThicknessOuter = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
                     float radiusOuter = 5.0f;
 
                     Graphics2D g2d = (Graphics2D) g.create();

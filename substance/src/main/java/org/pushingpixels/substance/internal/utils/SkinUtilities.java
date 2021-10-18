@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIconUIResource;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -1025,11 +1025,11 @@ public class SkinUtilities {
 
                 "Tree.collapsedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new NeonIconUIResource(SubstanceIconFactory.getTreeIcon(null, true))),
+                        new RadianceIconUIResource(SubstanceIconFactory.getTreeIcon(null, true))),
 
                 "Tree.expandedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new NeonIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
+                        new RadianceIconUIResource(SubstanceIconFactory.getTreeIcon(null, false))),
 
                 "Tree.leftChildIndent", SubstanceSizeUtils.getTreeLeftIndent(
                 SubstanceSizeUtils.getControlFontSize()),
@@ -1132,6 +1132,6 @@ public class SkinUtilities {
 
         // add user scale factor to allow layout managers (e.g. MigLayout) to use it
         uiDefaults.put("laf.scaleFactor",
-                (UIDefaults.ActiveValue) t -> NeonCortex.getScaleFactor(null));
+                (UIDefaults.ActiveValue) t -> RadianceCommonCortex.getScaleFactor(null));
     }
 }

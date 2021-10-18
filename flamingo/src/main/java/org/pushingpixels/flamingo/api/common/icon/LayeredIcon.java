@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.icon;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import java.awt.*;
 
@@ -39,31 +39,31 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class LayeredIcon implements NeonIcon {
+public class LayeredIcon implements RadianceIcon {
     /**
      * The layer icons.
      */
-    protected NeonIcon[] layers;
+    protected RadianceIcon[] layers;
 
     /**
      * Creates a new layered icon.
      *
      * @param layers Layer icons.
      */
-    public LayeredIcon(NeonIcon... layers) {
+    public LayeredIcon(RadianceIcon... layers) {
         this.layers = layers;
     }
 
     @Override
     public void setDimension(Dimension newDimension) {
-        for (NeonIcon layer : this.layers) {
+        for (RadianceIcon layer : this.layers) {
             layer.setDimension(newDimension);
         }
     }
 
     @Override
     public boolean supportsColorFilter() {
-        for (NeonIcon layer: this.layers) {
+        for (RadianceIcon layer: this.layers) {
             if (!layer.supportsColorFilter()) {
                 return false;
             }
@@ -73,7 +73,7 @@ public class LayeredIcon implements NeonIcon {
 
     @Override
     public void setColorFilter(ColorFilter colorFilter) {
-        for (NeonIcon layer : this.layers) {
+        for (RadianceIcon layer : this.layers) {
             layer.setColorFilter(colorFilter);
         }
     }
@@ -90,7 +90,7 @@ public class LayeredIcon implements NeonIcon {
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
-        for (NeonIcon layer : layers) {
+        for (RadianceIcon layer : layers) {
             layer.paintIcon(c, g, x, y);
         }
     }

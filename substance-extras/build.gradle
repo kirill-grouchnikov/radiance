@@ -31,7 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation project(':neon')
+    implementation project(':common')
     implementation project(':trident')
     implementation project(':substance')
 }

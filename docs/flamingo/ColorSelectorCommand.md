@@ -70,10 +70,10 @@ First let's take a look at the functionality that we see in this screenshot, and
 
 #### Button icon
 
-First we have a custom implementation of the `NeonIcon` interface that paints a square fill with slightly darker outline based on the color passed to the constructor:
+First we have a custom implementation of the `RadianceIcon` interface that paints a square fill with slightly darker outline based on the color passed to the constructor:
 
 ```java
-private static class ColorIcon implements NeonIcon {
+private static class ColorIcon implements RadianceIcon {
     private int w;
     private int h;
     private Color color;
@@ -87,7 +87,7 @@ private static class ColorIcon implements NeonIcon {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setColor(color);
         g2d.fillRect(x, y, w, h);
-        float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor();
+        float borderThickness = 1.0f / (float) RadianceCommonCortex.getScaleFactor();
         g2d.setColor(color.darker());
         g2d.setStroke(new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND));

@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -40,7 +40,7 @@ import java.util.Date;
 public class RibbonSpinnerDateContentModel extends SpinnerDateModel
         implements RibbonSpinnerContentModel {
     private boolean isEnabled;
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
     private String caption;
     private SpinnerSelectionChangeListener selectionChangeListener;
     private RichTooltip richTooltip;
@@ -82,7 +82,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
     }
 
     @Override
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -107,7 +107,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
         private Comparable<Date> start;
         private Comparable<Date> end;
         private int calendarField;
-        private NeonIcon.Factory iconFactory;
+        private RadianceIcon.Factory iconFactory;
         private String caption;
         private RibbonSpinnerContentModel.SpinnerSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
@@ -125,7 +125,7 @@ public class RibbonSpinnerDateContentModel extends SpinnerDateModel
             return this;
         }
 
-        public Builder setIconFactory(NeonIcon.Factory iconFactory) {
+        public Builder setIconFactory(RadianceIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -70,7 +70,7 @@ import java.util.List;
  * </pre>
  *
  * <p>
- * The {@link Builder#setMainIconFactory(NeonIcon.Factory)} can be used to place an image below
+ * The {@link Builder#setMainIconFactory(RadianceIcon.Factory)} can be used to place an image below
  * the title and to the left of the description sections:
  * </p>
  *
@@ -105,7 +105,7 @@ import java.util.List;
  * </pre>
  *
  * <p>
- * The {@link Builder#setFooterIconFactory(NeonIcon.Factory)}  can be used to place an image to
+ * The {@link Builder#setFooterIconFactory(RadianceIcon.Factory)}  can be used to place an image to
  * the left of the footer sections:
  * </p>
  *
@@ -160,7 +160,7 @@ public class RichTooltip {
      *
      * @see #getMainIcon()
      */
-    private NeonIcon mainIcon;
+    private RadianceIcon mainIcon;
 
     /**
      * The description sections of this tooltip.
@@ -174,7 +174,7 @@ public class RichTooltip {
      *
      * @see #getFooterIcon()
      */
-    private NeonIcon footerIcon;
+    private RadianceIcon footerIcon;
 
     /**
      * The footer sections of this tooltip. Can be empty.
@@ -201,7 +201,7 @@ public class RichTooltip {
      * @return The main icon of this tooltip.
      * @see #getDescriptionSections()
      */
-    public NeonIcon getMainIcon() {
+    public RadianceIcon getMainIcon() {
         return this.mainIcon;
     }
 
@@ -223,7 +223,7 @@ public class RichTooltip {
      * @return The footer icon of this tooltip.
      * @see #getFooterSections()
      */
-    public NeonIcon getFooterIcon() {
+    public RadianceIcon getFooterIcon() {
         return this.footerIcon;
     }
 
@@ -244,9 +244,9 @@ public class RichTooltip {
 
     public static class Builder {
         private String title;
-        private NeonIcon.Factory mainIconFactory;
+        private RadianceIcon.Factory mainIconFactory;
         private List<String> descriptionSections;
-        private NeonIcon.Factory footerIconFactory;
+        private RadianceIcon.Factory footerIconFactory;
         private List<String> footerSections;
 
         @SuppressWarnings("unchecked")
@@ -273,7 +273,7 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setMainIconFactory(NeonIcon.Factory mainIconFactory) {
+        public Builder setMainIconFactory(RadianceIcon.Factory mainIconFactory) {
             this.mainIconFactory = mainIconFactory;
             return this;
         }
@@ -286,7 +286,7 @@ public class RichTooltip {
             return this;
         }
 
-        public Builder setFooterIconFactory(NeonIcon.Factory footerIconFactory) {
+        public Builder setFooterIconFactory(RadianceIcon.Factory footerIconFactory) {
             this.footerIconFactory = footerIconFactory;
             return this;
         }

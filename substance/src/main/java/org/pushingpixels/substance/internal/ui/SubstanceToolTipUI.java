@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
@@ -110,7 +110,7 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 				prefSize.height += (int) (v.getPreferredSpan(View.Y_AXIS) + 2);
 			} else {
 				FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-						NeonCortex.getScaleFactor(c), font);
+						RadianceCommonCortex.getScaleFactor(c), font);
 				prefSize.width += fm.stringWidth(text) + 6;
 				prefSize.height += fm.getHeight() + 2;
 			}
@@ -121,7 +121,7 @@ public class SubstanceToolTipUI extends BasicToolTipUI {
 	@Override
 	public void update(Graphics g, JComponent c) {
 		Graphics2D g2d = (Graphics2D) g.create();
-		NeonCortex.installDesktopHints(g2d, c.getFont());
+		RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
 		super.update(g2d, c);
 		g2d.dispose();
 	}

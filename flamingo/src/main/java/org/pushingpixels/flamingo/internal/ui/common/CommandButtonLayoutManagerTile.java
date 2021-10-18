@@ -33,8 +33,8 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -53,7 +53,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         Insets borderInsets = commandButton.getInsets();
         int by = borderInsets.top + borderInsets.bottom;
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
+                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 
         String buttonText = commandButton.getText();
         int titleWidth = (buttonText == null) ? 0 : fm
@@ -195,7 +195,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
         }
 
-        NeonIcon buttonIcon = commandButton.getIcon();
+        RadianceIcon buttonIcon = commandButton.getIcon();
         String buttonText = commandButton.getText();
         String buttonExtraText = commandButton.getExtraText();
 
@@ -204,7 +204,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         boolean hasPopupIcon = FlamingoUtilities.hasPopupAction(commandButton);
 
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
+                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
         JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();

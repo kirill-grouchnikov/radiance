@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
@@ -45,24 +45,24 @@ public class SamplePopupMenu {
 
         menuProjections1.add(Command.builder()
                 .setText("Test menu item 1")
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build());
         menuProjections1.add(Command.builder()
                 .setText("Test menu item 2")
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build());
         menuProjections1.add(Command.builder()
                 .setText("Test menu item 3")
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build());
 
         menuProjections2.add(Command.builder()
                 .setText("Test menu item 4")
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build());
         menuProjections2.add(Command.builder()
                 .setText("Test menu item 5")
-                .setIconFactory(EmptyNeonIcon.factory())
+                .setIconFactory(EmptyRadianceIcon.factory())
                 .build());
 
         CommandMenuContentModel menuContentModel = new CommandMenuContentModel(

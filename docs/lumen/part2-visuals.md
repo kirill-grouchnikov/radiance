@@ -56,8 +56,8 @@ If we have an artist name to display, we position it in the middle of the title 
 
 ```java
    if (this.searchString != null) {
-      NeonCortex.installDesktopHints(g2d, this);
-      g2d.setFont(NeonCortex.getDefaultFontPolicy().getFontSet().
+      RadianceCommonCortex.installDesktopHints(g2d, this);
+      g2d.setFont(RadianceCommonCortex.getDefaultFontPolicy().getFontSet().
             getControlFont().deriveFont(14.0f).deriveFont(Font.BOLD));
       int fa = g2d.getFontMetrics().getAscent();
       int x = (getWidth() - g2d.getFontMetrics().stringWidth(

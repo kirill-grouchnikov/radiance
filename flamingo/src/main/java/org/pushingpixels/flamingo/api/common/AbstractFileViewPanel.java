@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
-import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.AsynchronousLoading;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -188,8 +188,8 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Sets the current entries to show. The current contents of the panel are discarded. For each
      * matching entry determined by the {@link #toShowFile(StringValuePair)} call, a new
-     * {@link JCommandButton} with matching implementation of {@link NeonIcon} from
-     * {@link #getNeonIcon(Leaf, InputStream, CommandButtonPresentationState, Dimension)} is
+     * {@link JCommandButton} with matching implementation of {@link RadianceIcon} from
+     * {@link #getRadianceIcon(Leaf, InputStream, CommandButtonPresentationState, Dimension)} is
      * added to the panel.
      *
      * @param leafs Information on the entries to show in the panel.
@@ -212,7 +212,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
             // a bit later in this method
             Command command = Command.builder()
                     .setText(name)
-                    .setIconFactory(EmptyNeonIcon.factory())
+                    .setIconFactory(EmptyRadianceIcon.factory())
                     .build();
 
             // We only have one command group in this projection's content model
@@ -258,7 +258,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     int iconDimension = getProjection().getPresentationModel()
                             .getCommandIconDimension();
                     Dimension dim = new Dimension(iconDimension, iconDimension);
-                    final NeonIcon icon = getNeonIcon(leaf, stream,
+                    final RadianceIcon icon = getRadianceIcon(leaf, stream,
                             getProjection().getPresentationModel().getCommandPresentationState(),
                             dim);
                     if (icon == null) {
@@ -335,7 +335,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param dimension Icon dimension.
      * @return File icon.
      */
-    protected abstract NeonIcon getNeonIcon(Leaf leaf, InputStream stream,
+    protected abstract RadianceIcon getRadianceIcon(Leaf leaf, InputStream stream,
             CommandButtonPresentationState state, Dimension dimension);
 
     /**
@@ -346,7 +346,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * @param command Command to configure.
      * @param icon    Command icon.
      */
-    protected void configureCommand(Leaf leaf, Command command, NeonIcon icon) {
+    protected void configureCommand(Leaf leaf, Command command, RadianceIcon icon) {
     }
 
     /**

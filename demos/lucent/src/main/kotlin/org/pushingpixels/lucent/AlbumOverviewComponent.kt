@@ -37,7 +37,7 @@ import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.meteor.addDelayedComponentListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.trident.api.Timeline.RepeatBehavior
@@ -129,7 +129,7 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
             }
         })
 
-        this.labelFont = NeonCortex.getDefaultFontPolicy().fontSet.controlFont
+        this.labelFont = RadianceCommonCortex.getDefaultFontPolicy().fontSet.controlFont
 
         GlobalScope.launch(Dispatchers.Swing) { getLoadImageScenario(albumItem).play() }
     }
@@ -164,8 +164,8 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
                     val factor = min(1.0f, min(vFactor, hFactor))
                     if (factor < 1.0f) {
                         // scaled to fit available area
-                        image = NeonCortex.createThumbnail(
-                            NeonCortex.getScaleFactor(this@AlbumOverviewComponent),
+                        image = RadianceCommonCortex.createThumbnail(
+                            RadianceCommonCortex.getScaleFactor(this@AlbumOverviewComponent),
                             image!!, (factor * image!!.width).toInt()
                         )
                     }
@@ -228,7 +228,7 @@ class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
                 it.composite = AlphaComposite.SrcOver.derive(this.alpha * this.imageAlpha)
 
                 // draw the album art image
-                val scaleFactor = NeonCortex.getScaleFactor(this)
+                val scaleFactor = RadianceCommonCortex.getScaleFactor(this)
                 val imageWidth = this.image!!.width
                 val imageHeight = this.image!!.height
                 contentHorizontalOffset = ((this.width - imageWidth / scaleFactor) / 2).toInt()

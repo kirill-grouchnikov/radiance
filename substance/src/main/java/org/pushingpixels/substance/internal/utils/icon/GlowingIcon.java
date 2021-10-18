@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.ScaleAwareImageWrapperIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
@@ -84,7 +84,7 @@ public class GlowingIcon implements Icon {
 		if (toPaint == null) {
 			int width = this.getIconWidth();
 			int height = this.getIconHeight();
-			double scale = NeonCortex.getScaleFactor(c);
+			double scale = RadianceCommonCortex.getScaleFactor(c);
 			BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, width, height);
 			Graphics2D graphics = (Graphics2D) image.getGraphics();
 			//graphics.scale(1.0f / scale, 1.0f / scale);

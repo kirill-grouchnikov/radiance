@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
@@ -74,7 +74,7 @@ public class SubstanceTitlePaneUtilities {
                 return ExtraComponentKind.TRAILING;
             case PLATFORM:
             default: {
-                NeonCortex.Platform platform = NeonCortex.getPlatform();
+                RadianceCommonCortex.Platform platform = RadianceCommonCortex.getPlatform();
                 switch (platform) {
                     case MACOS:
                         return ExtraComponentKind.LEADING;
@@ -145,7 +145,7 @@ public class SubstanceTitlePaneUtilities {
                 return isLtr ? true : false;
             case PLATFORM:
             default: {
-                NeonCortex.Platform platform = NeonCortex.getPlatform();
+                RadianceCommonCortex.Platform platform = RadianceCommonCortex.getPlatform();
                 switch (platform) {
                     case MACOS:
                         return isLtr ? false : true;
@@ -168,7 +168,7 @@ public class SubstanceTitlePaneUtilities {
                 return SubstanceSlices.HorizontalGravity.LEADING;
             case PLATFORM:
             default: {
-                NeonCortex.Platform platform = NeonCortex.getPlatform();
+                RadianceCommonCortex.Platform platform = RadianceCommonCortex.getPlatform();
                 switch (platform) {
                     case WINDOWS:
                         return SubstanceSlices.HorizontalGravity.LEADING;
@@ -191,7 +191,7 @@ public class SubstanceTitlePaneUtilities {
                 return SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS;
             case PLATFORM:
             default: {
-                NeonCortex.Platform platform = NeonCortex.getPlatform();
+                RadianceCommonCortex.Platform platform = RadianceCommonCortex.getPlatform();
                 switch (platform) {
                     case MACOS:
                         return SubstanceSlices.TitleIconHorizontalGravity.NEXT_TO_TITLE;

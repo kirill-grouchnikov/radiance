@@ -34,7 +34,7 @@ dependencies {
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
     implementation "com.jhlabs:filters:$jhlabs_filters_version"
-    implementation project(':neon')
+    implementation project(':common')
     implementation project(':substance')
     implementation project(':flamingo')
     implementation project(':demos:substance-demo')

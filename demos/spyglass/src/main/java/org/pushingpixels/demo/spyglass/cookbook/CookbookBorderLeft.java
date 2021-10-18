@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -89,7 +89,7 @@ public class CookbookBorderLeft implements Border {
                         baseColor.getBlue(), (int) (baseColor.getAlpha() * this.alphaBottom))));
         // start one pixel lower so that the top border painted by the
         // decoration painter on footers doesn't get overriden
-        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor(c);
+        float borderStrokeWidth = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
         float topY = y + (skipTopPixel ? borderStrokeWidth : 0);
         float bottomY = y + height - borderStrokeWidth - (skipBottomPixel ? borderStrokeWidth : 0);

@@ -42,15 +42,15 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.internal.substance.common.GlowingNeonIcon;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
+import org.pushingpixels.flamingo.internal.substance.common.GlowingRadianceIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonBackgroundDelegate;
 import org.pushingpixels.flamingo.internal.substance.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -122,7 +122,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
      * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)} returns
      * true on {@link AnimationFacet#ICON_GLOW}.
      */
-    private GlowingNeonIcon glowingIcon;
+    private GlowingRadianceIcon glowingIcon;
 
     public static ComponentUI createUI(JComponent comp) {
         SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -289,8 +289,8 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
      * Tracks possible usage of glowing icon.
      */
     private void trackGlowingIcon() {
-        NeonIcon currIcon = this.commandButton.getIcon();
-        if (currIcon instanceof GlowingNeonIcon)
+        RadianceIcon currIcon = this.commandButton.getIcon();
+        if (currIcon instanceof GlowingRadianceIcon)
             return;
         if (currIcon == null)
             return;
@@ -299,7 +299,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
         StateTransitionTracker tracker = isPopupOnly
                 ? this.substanceVisualStateTracker.getPopupStateTransitionTracker()
                 : this.substanceVisualStateTracker.getActionStateTransitionTracker();
-        this.glowingIcon = new GlowingNeonIcon(currIcon, tracker.getIconGlowTracker());
+        this.glowingIcon = new GlowingRadianceIcon(currIcon, tracker.getIconGlowTracker());
     }
 
     private void paintButtonBackground(Graphics graphics) {
@@ -369,7 +369,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
                     WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(commandButton),
+            RadianceCommonCortex.drawImageWithScale(g2d, RadianceCommonCortex.getScaleFactor(commandButton),
                     fullAlphaBackground, 0, 0);
             g2d.dispose();
         }
@@ -524,12 +524,12 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     }
 
     @Override
-    protected NeonIcon createPopupActionIcon() {
-        final double scale = NeonCortex.getScaleFactor(this.commandButton);
+    protected RadianceIcon createPopupActionIcon() {
+        final double scale = RadianceCommonCortex.getScaleFactor(this.commandButton);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(this.commandButton);
         int arrowIconHeight = (int) SubstanceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getArrowIconWidth(fontSize);
-        return new TransitionAwareNeonIcon(this.commandButton,
+        return new TransitionAwareRadianceIcon(this.commandButton,
                 this::getPopupTransitionTracker,
                 (scheme, width, height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =
@@ -692,7 +692,7 @@ public class SubstanceCommandButtonUI extends BasicCommandButtonUI
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, this.commandButton.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, this.commandButton.getFont());
         this.paint(g2d, c);
 
         if (this.commandButton.getProjection().getPresentationModel().isMenu()) {

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.filters;
 
-import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
+import org.pushingpixels.radiance.common.api.filter.RadianceAbstractFilter;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -37,7 +37,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Kirill Grouchnikov
  */
-public class ImageColorFilter extends NeonAbstractFilter {
+public class ImageColorFilter extends RadianceAbstractFilter {
 	private int color;
 	private float alpha;
 

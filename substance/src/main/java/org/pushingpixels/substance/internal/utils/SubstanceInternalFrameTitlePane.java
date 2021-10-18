@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -206,7 +206,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
         Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                 this.frame);
         FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                NeonCortex.getScaleFactor(this), font);
+                RadianceCommonCortex.getScaleFactor(this), font);
         int titleWidth = titleTextRect.width - 20;
         String clippedTitle = SubstanceCoreUtilities.clipString(fm, titleWidth, theTitle);
 
@@ -257,7 +257,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
             Rectangle titleTextRect = SubstanceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     this.frame);
             FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                    NeonCortex.getScaleFactor(this), font);
+                    RadianceCommonCortex.getScaleFactor(this), font);
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary
@@ -484,7 +484,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
                 width += 16 + (frame.isMaximizable() ? 2 : (frame.isClosable() ? 10 : 4));
             }
             FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                    NeonCortex.getScaleFactor(c), getFont());
+                    RadianceCommonCortex.getScaleFactor(c), getFont());
             String frameTitle = frame.getTitle();
             int title_w = frameTitle != null ? fm.stringWidth(frameTitle) : 0;
             int title_length = frameTitle != null ? frameTitle.length() : 0;
@@ -552,7 +552,7 @@ public class SubstanceInternalFrameTitlePane extends BasicInternalFrameTitlePane
 
                         Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getWindowTitleFont();
                         int displayTitleWidth = SubstanceMetricsUtilities.getFontMetrics(
-                                NeonCortex.getScaleFactor(c), font).stringWidth(displayTitle);
+                                RadianceCommonCortex.getScaleFactor(c), font).stringWidth(displayTitle);
                         switch (titleTextGravity) {
                             case LEADING:
                                 menuBarLeft = leftToRight ? titleRect.x - buttonWidth - spacing

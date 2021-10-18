@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +40,7 @@ import java.util.Map;
 
 /**
  * Utility methods to keep component preferred size and component painting in sync.
- * All update() calls in the UI delegates use {@link NeonCortex#installDesktopHints}
+ * All update() calls in the UI delegates use {@link RadianceCommonCortex#installDesktopHints}
  * on the passed {@link Graphics} object. Components that show texts (labels, buttons, etc)
  * should also account for text hinting for computing the preferred size. Otherwise on
  * some JVM versions on specific screens the width of unhinted text is not the same as the
@@ -60,7 +60,7 @@ public class SubstanceMetricsUtilities {
         if (offscreens.containsKey(scale)) {
             return offscreens.get(scale);
         }
-        BufferedImage offscreen = NeonCortex.getBlankScaledImage(scale, 1, 1);
+        BufferedImage offscreen = RadianceCommonCortex.getBlankScaledImage(scale, 1, 1);
         offscreens.put(scale, offscreen);
         return offscreen;
     }
@@ -73,9 +73,9 @@ public class SubstanceMetricsUtilities {
 
         Graphics2D g2d = getOffscreenImage(scale).createGraphics();
         g2d.setFont(font);
-        NeonCortex.installDesktopHints(g2d, font);
+        RadianceCommonCortex.installDesktopHints(g2d, font);
         FontMetrics result = g2d.getFontMetrics();
-        NeonCortex.clearDesktopHints(g2d, font);
+        RadianceCommonCortex.clearDesktopHints(g2d, font);
         g2d.dispose();
 
         metricsMap.put(key, result);
@@ -91,9 +91,9 @@ public class SubstanceMetricsUtilities {
 
         Graphics2D g2d = getOffscreenImage(scale).createGraphics();
         g2d.setFont(font);
-        NeonCortex.installDesktopHints(g2d, font);
+        RadianceCommonCortex.installDesktopHints(g2d, font);
         FontRenderContext result = g2d.getFontRenderContext();
-        NeonCortex.clearDesktopHints(g2d, font);
+        RadianceCommonCortex.clearDesktopHints(g2d, font);
         g2d.dispose();
 
         renderContextMap.put(key, result);
@@ -117,7 +117,7 @@ public class SubstanceMetricsUtilities {
             return new Dimension(icon.getIconWidth() + dx,
                     icon.getIconHeight() + dy);
         } else {
-            FontMetrics fm = getFontMetrics(NeonCortex.getScaleFactor(label), font);
+            FontMetrics fm = getFontMetrics(RadianceCommonCortex.getScaleFactor(label), font);
             iconR.setBounds(0, 0, 0, 0);
             textR.setBounds(0, 0, 0, 0);
             viewR.setBounds(dx, dy, Short.MAX_VALUE, Short.MAX_VALUE);
@@ -151,7 +151,7 @@ public class SubstanceMetricsUtilities {
 
         SwingUtilities.layoutCompoundLabel(
                 button,
-                getFontMetrics(NeonCortex.getScaleFactor(button), button.getFont()),
+                getFontMetrics(RadianceCommonCortex.getScaleFactor(button), button.getFont()),
                 button.getText(), button.getIcon(),
                 button.getVerticalAlignment(), button.getHorizontalAlignment(),
                 button.getVerticalTextPosition(), button.getHorizontalTextPosition(),
@@ -179,7 +179,7 @@ public class SubstanceMetricsUtilities {
             buttonIcon = defaultIcon;
         }
 
-        FontMetrics fm = getFontMetrics(NeonCortex.getScaleFactor(button),
+        FontMetrics fm = getFontMetrics(RadianceCommonCortex.getScaleFactor(button),
                 button.getFont());
 
         textR.setBounds(0, 0, 0, 0);

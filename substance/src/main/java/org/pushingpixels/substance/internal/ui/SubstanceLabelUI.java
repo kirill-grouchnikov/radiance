@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -141,7 +141,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
                 SubstanceColorScheme scheme = skin.getEnabledColorScheme(
                         SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
                 FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                        NeonCortex.getScaleFactor(label), label.getFont());
+                        RadianceCommonCortex.getScaleFactor(label), label.getFont());
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                         + fm.getAscent();
                 g2d.translate(paintTextR.x + 3, 0);
@@ -226,7 +226,7 @@ public class SubstanceLabelUI extends BasicLabelUI {
             return;
         }
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         this.paint(g2d, c);
         g2d.dispose();
     }

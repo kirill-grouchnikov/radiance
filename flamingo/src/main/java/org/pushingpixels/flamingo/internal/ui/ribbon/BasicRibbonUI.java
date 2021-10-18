@@ -43,7 +43,7 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPo
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
@@ -305,7 +305,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, this.ribbon.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, this.ribbon.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }
@@ -480,7 +480,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             int appMenuButtonWidth = 0;
             if (isShowingAppMenuButton) {
                 FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-                        NeonCortex.getScaleFactor(applicationMenuButton),
+                        RadianceCommonCortex.getScaleFactor(applicationMenuButton),
                         applicationMenuButton.getFont());
 
                 appMenuButtonWidth = fm.stringWidth(ribbon.getApplicationMenuCommandProjection()

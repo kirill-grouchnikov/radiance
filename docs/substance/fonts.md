@@ -4,15 +4,15 @@ Typography is one of the core pillars of modern applications. Radiance in genera
 
 ### Working with platform fonts
 
-`NeonCortex.getDefaultFontPolicy()` API retrieves the font policy that is consistent with the default control font set used by the underlying platform / operating system. Use `getFontSet()` on the result (passing `null` as the parameter is supported), and then query the resulting font set for the specific font to use in your application.
+`RadianceCommonCortex.getDefaultFontPolicy()` API retrieves the font policy that is consistent with the default control font set used by the underlying platform / operating system. Use `getFontSet()` on the result (passing `null` as the parameter is supported), and then query the resulting font set for the specific font to use in your application.
 
-`NeonCortex.getScaledFontPolicy()` API retrieves the platform-consistent font policy with all fonts scaled up or down by the passed multiplier.
+`RadianceCommonCortex.getScaledFontPolicy()` API retrieves the platform-consistent font policy with all fonts scaled up or down by the passed multiplier.
 
 Note that on Catalina (macOS 10.15), Substance is using `Helvetica Neue` instead of the system `San Francisco`. See more details on [this bug](https://github.com/kirill-grouchnikov/radiance/issues/224).
 
 ### Rendering text
 
-`NeonCortex.installDesktopHints` API should be used for rendering platform-consistent text in your application running under the Substance look-and-feel.
+`RadianceCommonCortex.installDesktopHints` API should be used for rendering platform-consistent text in your application running under the Substance look-and-feel.
 
 For example:
 
@@ -23,7 +23,7 @@ public static class MyPanel extends JPanel {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, this.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, this.getFont());
         g2d.drawString("Sample text", 50, 50);
         g2d.dispose();
     }
@@ -34,7 +34,7 @@ public static class MyPanel extends JPanel {
 
 What if you want to go beyond the built-in default font selection for core or custom Swing components? For example, maybe you want to bump up the font size for that table header, or use italic version in some of your labels (remember that while italic works reasonably well for Latin scripts, it doesn't scale as well to scripts such as CJK and others).
 
-First, you get the current Substance font policy. While the above-mentioned `NeonCortex.getScaledFontPolicy` returns a desktop-consistent font policy, it is recommended to use `SubstanceCortex.GlobalScope.getFontPolicy` that respects the custom font policy set by the (optional) earlier application call to `SubstanceCortex.GlobalScope.setFontPolicy`.
+First, you get the current Substance font policy. While the above-mentioned `RadianceCommonCortex.getScaledFontPolicy` returns a desktop-consistent font policy, it is recommended to use `SubstanceCortex.GlobalScope.getFontPolicy` that respects the custom font policy set by the (optional) earlier application call to `SubstanceCortex.GlobalScope.setFontPolicy`.
 
 ```java
 Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy()

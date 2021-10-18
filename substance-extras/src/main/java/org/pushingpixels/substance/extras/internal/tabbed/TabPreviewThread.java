@@ -42,7 +42,7 @@ import java.util.Map;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.tabbed.DeltaQueue.DeltaMatcher;
 import org.pushingpixels.substance.extras.internal.tabbed.DeltaQueue.Deltable;
@@ -256,7 +256,7 @@ public class TabPreviewThread extends TrackableThread {
 			final TabPreviewInfo previewInfo, final int tabIndex) {
 		int pWidth = previewInfo.getPreviewWidth();
 		int pHeight = previewInfo.getPreviewHeight();
-		double scale = NeonCortex.getScaleFactor(tabPane);
+		double scale = RadianceCommonCortex.getScaleFactor(tabPane);
 		final BufferedImage previewImage = SubstanceCoreUtilities.getBlankImage(
 				scale, pWidth, pHeight);
 		Component comp = tabPane.getComponentAt(tabIndex);

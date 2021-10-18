@@ -162,7 +162,7 @@ public class SVGApplication {
                     });
                     Document svgDoc = transcoder.transcode(this.getClass().getResourceAsStream(
                             "/org/pushingpixels/photon/api/transcoder/java" +
-                                    "/SvgTranscoderTemplateNeon.templ"));
+                                    "/SvgTranscoderTemplateRadiance.templ"));
                     traverse(svgDoc, "");
                 } catch (IOException ex) {
                     ex.printStackTrace();

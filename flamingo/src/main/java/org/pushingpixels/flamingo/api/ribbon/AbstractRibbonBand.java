@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonBandUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.util.Collections;
@@ -91,7 +91,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * <code>this</code> listener.
      *
      * @see #getExpandCommandListener()
-     * @see #AbstractRibbonBand(String, NeonIcon.Factory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, RadianceIcon.Factory, CommandAction, AbstractBandControlPanel)
      */
     private CommandAction expandCommandListener;
 
@@ -125,7 +125,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      *
      * @see #getIconFactory()
      */
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
 
     /**
      * The current resize policy for this band. Must be one of the policies in
@@ -184,7 +184,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * @param expandCommandListener Expand command listener (can be <code>null</code>).
      * @param controlPanel          The control panel of this ribbon band.
      */
-    public AbstractRibbonBand(String title, NeonIcon.Factory iconFactory,
+    public AbstractRibbonBand(String title, RadianceIcon.Factory iconFactory,
             CommandAction expandCommandListener, AbstractBandControlPanel controlPanel) {
         super();
         this.title = title;
@@ -248,9 +248,9 @@ public abstract class AbstractRibbonBand extends JComponent {
      * Returns the icon factory for the collapsed state.
      *
      * @return The icon factory for the collapsed state.
-     * @see #AbstractRibbonBand(String, NeonIcon.Factory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, RadianceIcon.Factory, CommandAction, AbstractBandControlPanel)
      */
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -259,7 +259,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * property change event.
      *
      * @param title The new title for this ribbon band.
-     * @see #AbstractRibbonBand(String, NeonIcon.Factory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, RadianceIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #getTitle()
      */
     public void setTitle(String title) {
@@ -273,7 +273,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * result may be <code>null</code>.
      *
      * @return Expand action listener of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, NeonIcon.Factory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, RadianceIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #setExpandCommandListener(CommandAction)
      */
     public CommandAction getExpandCommandListener() {
@@ -299,7 +299,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      * may be <code>null</code>.
      *
      * @return Control panel of <code>this</code> ribbon band.
-     * @see #AbstractRibbonBand(String, NeonIcon.Factory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, RadianceIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #setControlPanel(AbstractBandControlPanel)
      */
     public AbstractBandControlPanel getControlPanel() {
@@ -312,7 +312,7 @@ public abstract class AbstractRibbonBand extends JComponent {
      *
      * @param controlPanel The new control panel for <code>this</code> ribbon band. May
      *                     be <code>null</code>.
-     * @see #AbstractRibbonBand(String, NeonIcon.Factory, CommandAction, AbstractBandControlPanel)
+     * @see #AbstractRibbonBand(String, RadianceIcon.Factory, CommandAction, AbstractBandControlPanel)
      * @see #getControlPanel()
      */
     public void setControlPanel(AbstractBandControlPanel controlPanel) {

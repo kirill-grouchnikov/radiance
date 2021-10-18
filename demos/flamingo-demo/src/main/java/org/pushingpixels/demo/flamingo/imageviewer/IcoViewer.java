@@ -1,14 +1,14 @@
 package org.pushingpixels.demo.flamingo.imageviewer;
 
+import org.pushingpixels.demo.flamingo.icon.IcoWrapperRadianceIcon;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.demo.flamingo.icon.IcoWrapperNeonIcon;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -86,14 +86,14 @@ public class IcoViewer extends JFrame {
             }
 
             @Override
-            protected NeonIcon getNeonIcon(AbstractFileViewPanel.Leaf leaf,
+            protected RadianceIcon getRadianceIcon(AbstractFileViewPanel.Leaf leaf,
                     InputStream stream, CommandButtonPresentationState state, Dimension dimension) {
                 int prefSize = state.getPreferredIconSize();
                 if (prefSize > 0) {
                     dimension = new Dimension(prefSize, prefSize);
                 }
-                return IcoWrapperNeonIcon.getIcon(stream,
-                        NeonCortex.getScaleFactor(fileViewPanel), dimension);
+                return IcoWrapperRadianceIcon.getIcon(stream,
+                        RadianceCommonCortex.getScaleFactor(fileViewPanel), dimension);
             }
 
             @Override

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.desktop;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.internal.ui.SubstanceDesktopIconUI;
 import org.pushingpixels.substance.internal.utils.ScaleAwareImageWrapperIcon;
@@ -96,7 +96,7 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
             }
             BufferedImage previewImage = snapshot;
             if (previewImage != null) {
-                double scaleFactor = NeonCortex.getScaleFactor(
+                double scaleFactor = RadianceCommonCortex.getScaleFactor(
                         DesktopIconHoverPreviewWidget.this.previewWindow);
                 DesktopIconHoverPreviewWidget.this.previewWindow.getContentPane().removeAll();
                 JLabel previewLabel = new JLabel(new ScaleAwareImageWrapperIcon(
@@ -248,8 +248,8 @@ public class DesktopIconHoverPreviewWidget extends SubstanceWidget<JDesktopIcon>
                     (double) maxHeight / (double) frameHeight);
             if (coef < 1.0) {
                 int sdWidth = (int) (coef * frameWidth);
-                BufferedImage scaledDown = NeonCortex.createThumbnail(
-                        NeonCortex.getScaleFactor(frame), tempCanvas, sdWidth);
+                BufferedImage scaledDown = RadianceCommonCortex.createThumbnail(
+                        RadianceCommonCortex.getScaleFactor(frame), tempCanvas, sdWidth);
                 snapshot = scaledDown;
             } else {
                 snapshot = tempCanvas;

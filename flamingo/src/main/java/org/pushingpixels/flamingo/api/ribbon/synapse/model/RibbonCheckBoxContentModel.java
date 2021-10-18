@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -38,7 +38,7 @@ import java.beans.PropertyChangeSupport;
 
 public class RibbonCheckBoxContentModel implements ComponentContentModel {
     private boolean isEnabled;
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     private ActionListener actionListener;
@@ -95,7 +95,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
     }
 
     @Override
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -115,7 +115,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
 
     public static class Builder {
         private boolean isEnabled = true;
-        private NeonIcon.Factory iconFactory;
+        private RadianceIcon.Factory iconFactory;
         private String caption;
         private RichTooltip richTooltip;
         private String text;
@@ -137,7 +137,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
             return this;
         }
 
-        public Builder setIconFactory(NeonIcon.Factory iconFactory) {
+        public Builder setIconFactory(RadianceIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

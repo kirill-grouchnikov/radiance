@@ -31,7 +31,7 @@ package org.pushingpixels.demo.substance.main.check.selector;
 
 import org.pushingpixels.demo.substance.main.check.FlexiComboBox;
 import org.pushingpixels.demo.substance.main.check.svg.flags.*;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.util.Locale;
@@ -39,11 +39,11 @@ import java.util.Locale;
 public class SubstanceLocaleSelector extends FlexiComboBox<SubstanceLocaleSelector.LocaleInfo> {
     public static class LocaleInfo {
         private String language;
-        private NeonIcon icon;
+        private RadianceIcon icon;
         private String langCode;
         private String countryCode;
 
-        private LocaleInfo(String language, NeonIcon icon, String langCode,
+        private LocaleInfo(String language, RadianceIcon icon, String langCode,
                 String countryCode) {
             this.language = language;
             this.icon = icon;

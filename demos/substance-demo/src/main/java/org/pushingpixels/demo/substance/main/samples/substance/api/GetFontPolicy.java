@@ -29,16 +29,14 @@
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import org.pushingpixels.neon.api.font.FontPolicy;
-import org.pushingpixels.neon.api.font.FontSet;
+import org.pushingpixels.radiance.common.api.font.FontPolicy;
+import org.pushingpixels.radiance.common.api.font.FontSet;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 /**
  * Test application that shows the use of the {@link SubstanceCortex.GlobalScope#getFontPolicy()}

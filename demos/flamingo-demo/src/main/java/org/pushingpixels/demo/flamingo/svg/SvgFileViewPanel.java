@@ -31,16 +31,16 @@ package org.pushingpixels.demo.flamingo.svg;
 
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.flamingo.api.common.*;
-import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.photon.api.transcoder.SvgStreamTranscoder;
 import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,7 +91,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * Sets the current files to show. The current contents of the panel are discarded. The file
      * list is scanned for files ending with <code>.svg</code> or <code>.svgz</code>. For each such
      * file a new {@link Command} with an SVG-based implementation of
-     * {@link NeonIcon} is added to the panel content model.
+     * {@link RadianceIcon} is added to the panel content model.
      *
      * @param leafs Information on the files to show in the panel.
      */
@@ -109,15 +109,15 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
             Command svgCommand = Command.builder()
                     .setText(name.replace('-', ' '))
-                    .setIconFactory(EmptyNeonIcon.factory())
+                    .setIconFactory(EmptyRadianceIcon.factory())
                     .setAction(commandActionEvent -> {
                         try {
-                            NeonIcon icon = commandActionEvent.getCommand().getIconFactory().createNewIcon();
-                            if (!(icon instanceof SvgBatikNeonIcon)) {
+                            RadianceIcon icon = commandActionEvent.getCommand().getIconFactory().createNewIcon();
+                            if (!(icon instanceof SvgBatikRadianceIcon)) {
                                 return;
                             }
 
-                            SvgBatikNeonIcon svgIcon = (SvgBatikNeonIcon) icon;
+                            SvgBatikRadianceIcon svgIcon = (SvgBatikRadianceIcon) icon;
 
                             System.out.println(name);
                             String svgClassName = name.substring(0, name.lastIndexOf('.'));
@@ -136,7 +136,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                             transcoder.setPrintWriter(pw);
                             transcoder.transcode(this.getClass().getResourceAsStream(
                                     "/org/pushingpixels/photon/api/transcoder/java" +
-                                            "/SvgTranscoderTemplateNeon.templ"));
+                                            "/SvgTranscoderTemplateRadiance.templ"));
                             JOptionPane.showMessageDialog(
                                     SwingUtilities.getWindowAncestor(SvgFileViewPanel.this),
                                     "Finished with '" + javaClassFilename + "'");
@@ -182,10 +182,10 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                             .getCommandIconDimension();
                     Dimension svgDim = new Dimension(iconDimension, iconDimension);
 
-                    double scale = NeonCortex.getScaleFactor(SvgFileViewPanel.this);
-                    final SvgBatikNeonIcon svgIcon = name.endsWith(".svg")
-                            ? SvgBatikNeonIcon.getSvgIcon(svgStream, scale, svgDim)
-                            : SvgBatikNeonIcon.getSvgzIcon(svgStream, scale, svgDim);
+                    double scale = RadianceCommonCortex.getScaleFactor(SvgFileViewPanel.this);
+                    final SvgBatikRadianceIcon svgIcon = name.endsWith(".svg")
+                            ? SvgBatikRadianceIcon.getSvgIcon(svgStream, scale, svgDim)
+                            : SvgBatikRadianceIcon.getSvgzIcon(svgStream, scale, svgDim);
 
                     newCommands.get(name).setIconFactory(() -> svgIcon);
                 }

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -57,7 +57,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
      * is that the {@link #delegate} returns an icon that paints the same for
      * the same parameters.
      */
-    private static LazyResettableHashMap<NeonIcon> iconMap =
+    private static LazyResettableHashMap<RadianceIcon> iconMap =
             new LazyResettableHashMap<>("ButtonArrowTransitionAwareIcon");
 
     /**
@@ -107,7 +107,7 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
         this.delegate = scheme -> {
             int fontSize = SubstanceSizeUtils.getComponentFontSize(component);
             return SubstanceImageCreator.getArrowIcon(
-                    NeonCortex.getScaleFactor(component),
+                    RadianceCommonCortex.getScaleFactor(component),
                     fontSize, orientation, scheme);
         };
 
@@ -128,8 +128,8 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
      *
      * @return Icon to be painted.
      */
-    private NeonIcon getIconToPaint() {
-        double scale = NeonCortex.getScaleFactor(this.component);
+    private RadianceIcon getIconToPaint() {
+        double scale = RadianceCommonCortex.getScaleFactor(this.component);
 
         boolean isMenu = (this.component instanceof JMenu);
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
@@ -155,9 +155,9 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
                 scale, this.component.getClass().getName(), this.orientation,
                 SubstanceSizeUtils.getComponentFontSize(this.component),
                 baseScheme.getDisplayName(), baseAlpha);
-        NeonIcon layerBase = iconMap.get(keyBase);
+        RadianceIcon layerBase = iconMap.get(keyBase);
         if (layerBase == null) {
-            NeonIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+            RadianceIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -222,9 +222,9 @@ public class ArrowButtonTransitionAwareIcon implements Icon {
                         scale, this.component.getClass().getName(),
                         this.orientation, SubstanceSizeUtils.getComponentFontSize(this.component),
                         scheme.getDisplayName(), alpha);
-                NeonIcon layer = iconMap.get(key);
+                RadianceIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    NeonIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+                    RadianceIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);

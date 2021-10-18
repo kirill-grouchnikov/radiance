@@ -23,7 +23,7 @@ mfButtonText.setLocale(currLocale);
 
 for (int i = 0; i < 30; i++) {
     final int index = i;
-    NeonIcon.Factory iconFactory = DecoratedNeonIcon.factory(
+    RadianceIcon.Factory iconFactory = DecoratedRadianceIcon.factory(
             Font_x_generic.factory(),
             (Component c, Graphics g, int x, int y, int width, int height) -> {
                 // custom painting for the command index in the bottom-left corner
@@ -63,19 +63,19 @@ These are commands shown below the expanded scrollable panel of gallery commands
 ```java
 this.menuSaveSelection = Command.builder()
         .setText(resourceBundle.getString("Format.menuSaveSelection.text"))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFFFBC02D)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFFBC02D)))
         .setAction(commandActionEvent -> System.out.println(
                 "Save Selection activated"))
         .build();
 this.menuClearSelection = Command.builder()
         .setText(resourceBundle.getString("Format.menuClearSelection.text"))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFFFFA000)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFFFA000)))
         .setAction(commandActionEvent -> System.out.println(
                 "Clear Selection activated"))
         .build();
 this.applyStyles = Command.builder()
         .setText(resourceBundle.getString("Format.applyStyles.text"))
-        .setIconFactory(ColorNeonIcon.factory(new Color(0xFFF57C00)))
+        .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFF57C00)))
         .setAction(commandActionEvent -> System.out.println(
                 "Apply Styles activated"))
         .build();

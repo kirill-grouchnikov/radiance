@@ -10,22 +10,22 @@ import java.util.Stack
 import javax.imageio.ImageIO
 import javax.swing.plaf.UIResource
 
-import org.pushingpixels.neon.api.icon.NeonIcon
-import org.pushingpixels.neon.api.icon.NeonIcon.Factory
-import org.pushingpixels.neon.api.icon.NeonIconUIResource
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
+import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
 class Address_book_new private constructor(private var width: Int, private var height: Int)
-       : NeonIcon {
+       : RadianceIcon {
     @Suppress("UNUSED_VARIABLE") private var shape: Shape? = null
     @Suppress("UNUSED_VARIABLE") private var generalPath: GeneralPath? = null
     @Suppress("UNUSED_VARIABLE") private var paint: Paint? = null
     @Suppress("UNUSED_VARIABLE") private var stroke: Stroke? = null
     @Suppress("UNUSED_VARIABLE") private var clip: Shape? = null
-    private var colorFilter: NeonIcon.ColorFilter? = null
+    private var colorFilter: RadianceIcon.ColorFilter? = null
     private val transformsStack = Stack<AffineTransform>()
 
     
@@ -551,7 +551,7 @@ g.transform = transformsStack.pop()
          * @param height Required height of the icon
          * @return A new instance of this icon with specified dimensions.
          */
-        fun of(width: Int, height: Int): NeonIcon {
+        fun of(width: Int, height: Int): RadianceIcon {
             return Address_book_new(width, height)
         }
 
@@ -562,8 +562,8 @@ g.transform = transformsStack.pop()
          * @param height Required height of the icon
          * @return A new [UIResource] instance of this icon with specified dimensions.
          */
-        fun uiResourceOf(width: Int, height: Int): NeonIconUIResource {
-            return NeonIconUIResource(Address_book_new(width, height))
+        fun uiResourceOf(width: Int, height: Int): RadianceIconUIResource {
+            return RadianceIconUIResource(Address_book_new(width, height))
         }
 
         /**
@@ -593,7 +593,7 @@ g.transform = transformsStack.pop()
         return true
     }
 
-    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+    override fun setColorFilter(colorFilter: RadianceIcon.ColorFilter?) {
         this.colorFilter = colorFilter
     }
 

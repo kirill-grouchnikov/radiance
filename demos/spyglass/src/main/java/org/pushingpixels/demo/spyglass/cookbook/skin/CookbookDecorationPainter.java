@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
 import com.jhlabs.image.*;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -164,7 +164,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
             int offsetY = comp.getLocationOnScreen().y
                     - farthestOfTheSameAreaType.getLocationOnScreen().y;
 
-            final double scaleFactor = NeonCortex.getScaleFactor(comp);
+            final double scaleFactor = RadianceCommonCortex.getScaleFactor(comp);
             int lightImageScaledWidth = (int) (this.lightImage.getWidth() / scaleFactor);
 
             int currTileX = -offsetX;
@@ -199,7 +199,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
     }
 
     private static BufferedImage getLightImage() {
-        double scale = NeonCortex.getScaleFactor(null);
+        double scale = RadianceCommonCortex.getScaleFactor(null);
         BufferedImage lightConeImage = SubstanceCortex.GlobalScope.getBlankImage(scale, 200, 100);
         Graphics2D lightConeGraphics = lightConeImage.createGraphics();
         lightConeGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -224,7 +224,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
         BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(
-                NeonCortex.getScaleFactor(null), 150, 100);
+                RadianceCommonCortex.getScaleFactor(null), 150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);

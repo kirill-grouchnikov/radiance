@@ -50,10 +50,10 @@ import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.neon.api.AsynchronousLoadListener;
-import org.pushingpixels.neon.api.AsynchronousLoading;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
+import org.pushingpixels.radiance.common.api.AsynchronousLoading;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
@@ -176,7 +176,7 @@ public class JRibbonFrame extends JFrame {
                     .getCurrentlyShownKeyTips();
             if (keyTips != null) {
                 Graphics2D g2d = (Graphics2D) g.create();
-                NeonCortex.installDesktopHints(g2d, getFont());
+                RadianceCommonCortex.installDesktopHints(g2d, getFont());
 
                 for (KeyTipManager.KeyTipLink keyTip : keyTips) {
                     // Components in generic popup panels do not display keytips as that interferes
@@ -558,7 +558,7 @@ public class JRibbonFrame extends JFrame {
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
         super.setIconImages(Collections.singletonList(SubstanceCoreUtilities.getBlankImage(
-                NeonCortex.getScaleFactor(null), 16, 16)));
+                RadianceCommonCortex.getScaleFactor(null), 16, 16)));
     }
 
     @Override
@@ -788,7 +788,7 @@ public class JRibbonFrame extends JFrame {
         this.wasSetIconImagesCalled = true;
     }
 
-    public synchronized void setApplicationIcon(final NeonIcon.Factory iconFactory) {
+    public synchronized void setApplicationIcon(final RadianceIcon.Factory iconFactory) {
         if (iconFactory == null) {
             return;
         }
@@ -798,9 +798,9 @@ public class JRibbonFrame extends JFrame {
         new Thread(() -> setApplicationAndMenuButtonIcon(iconFactory)).start();
     }
 
-    private void setApplicationAndMenuButtonIcon(final NeonIcon.Factory iconFactory) {
+    private void setApplicationAndMenuButtonIcon(final RadianceIcon.Factory iconFactory) {
         final Image icon16 = getImage(iconFactory, 16);
-        if (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS) {
+        if (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS) {
             SwingUtilities.invokeLater(() -> setLegacyIconImages(
                     Collections.singletonList(icon16)));
         } else {
@@ -823,8 +823,8 @@ public class JRibbonFrame extends JFrame {
         super.setIconImages(images);
     }
 
-    private static Image getImage(NeonIcon.Factory iconFactory, int size) {
-        NeonIcon icon = iconFactory.createNewIcon();
+    private static Image getImage(RadianceIcon.Factory iconFactory, int size) {
+        RadianceIcon icon = iconFactory.createNewIcon();
         icon.setDimension(new Dimension(size, size));
         if (icon instanceof AsynchronousLoading) {
             AsynchronousLoading async = (AsynchronousLoading) icon;
@@ -850,7 +850,7 @@ public class JRibbonFrame extends JFrame {
             }
         }
         Image result = SubstanceCoreUtilities.getBlankImage(
-                NeonCortex.getScaleFactor(null), size, size);
+                RadianceCommonCortex.getScaleFactor(null), size, size);
         Graphics2D g2d = (Graphics2D) result.getGraphics().create();
         icon.paintIcon(null, g2d, 0, 0);
         g2d.dispose();

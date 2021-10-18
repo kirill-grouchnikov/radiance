@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -114,7 +114,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
         boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
         float alpha = SubstanceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
-        double scale = NeonCortex.getScaleFactor(this.menuItem);
+        double scale = RadianceCommonCortex.getScaleFactor(this.menuItem);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(this.menuItem);
         int checkMarkSize = this.size + 3;
 

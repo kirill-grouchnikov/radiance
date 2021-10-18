@@ -283,7 +283,7 @@ public void paintIcon(Component c, Graphics g, int x, int y) {
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.setColor(color);
     g2d.fillRect(x, y, w, h);
-    float borderThickness = 1.0f / (float) NeonCortex.getScaleFactor();
+    float borderThickness = 1.0f / (float) RadianceCommonCortex.getScaleFactor();
     g2d.setColor(color.darker());
     g2d.setStroke(new BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
             BasicStroke.JOIN_ROUND));
@@ -299,7 +299,7 @@ override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
     g.render {
         it.color = color
         it.fillRect(x, y, w, h)
-        val borderThickness = 1.0f / NeonCortex.getScaleFactor().toFloat()
+        val borderThickness = 1.0f / RadianceCommonCortex.getScaleFactor().toFloat()
         it.color = color.darker()
         it.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND)

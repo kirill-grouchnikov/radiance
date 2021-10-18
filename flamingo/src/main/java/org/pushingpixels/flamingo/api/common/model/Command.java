@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.internal.utils.WeakChangeSupport;
 import org.pushingpixels.flamingo.internal.utils.WeakPropertyChangeSupport;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.event.ChangeListener;
 import java.beans.PropertyChangeListener;
@@ -61,7 +61,7 @@ import java.util.EventListener;
  */
 public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
     private String text;
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
     private String extraText;
     private CommandAction action;
     private CommandActionPreview actionPreview;
@@ -136,13 +136,13 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
         }
     }
 
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
-    public void setIconFactory(NeonIcon.Factory iconFactory) {
+    public void setIconFactory(RadianceIcon.Factory iconFactory) {
         if (this.iconFactory != iconFactory) {
-            NeonIcon.Factory old = this.iconFactory;
+            RadianceIcon.Factory old = this.iconFactory;
             this.iconFactory = iconFactory;
             this.weakPropertyChangeSupport.firePropertyChange("iconFactory", old, this.iconFactory);
         }
@@ -295,7 +295,7 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
     public abstract static class BaseBuilder<T extends Command, B extends BaseBuilder<T, B>> {
         protected String text;
         protected String extraText;
-        protected NeonIcon.Factory iconFactory;
+        protected RadianceIcon.Factory iconFactory;
         protected CommandAction action;
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
@@ -335,7 +335,7 @@ public class Command implements ContentModel, ChangeAware, PropertyChangeAware {
         }
 
         @SuppressWarnings("unchecked")
-        public B setIconFactory(NeonIcon.Factory iconFactory) {
+        public B setIconFactory(RadianceIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return (B) this;
         }

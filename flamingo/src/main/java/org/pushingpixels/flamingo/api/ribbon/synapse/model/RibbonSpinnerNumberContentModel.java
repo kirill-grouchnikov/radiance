@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.ribbon.synapse.model;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -39,7 +39,7 @@ import java.beans.PropertyChangeSupport;
 public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
         implements RibbonSpinnerContentModel {
     private boolean isEnabled;
-    private NeonIcon.Factory iconFactory;
+    private RadianceIcon.Factory iconFactory;
     private String caption;
     private RichTooltip richTooltip;
     private SpinnerSelectionChangeListener selectionChangeListener;
@@ -77,7 +77,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
     }
 
     @Override
-    public NeonIcon.Factory getIconFactory() {
+    public RadianceIcon.Factory getIconFactory() {
         return this.iconFactory;
     }
 
@@ -102,7 +102,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
         private int minimum;
         private int maximum;
         private int stepSize;
-        private NeonIcon.Factory iconFactory;
+        private RadianceIcon.Factory iconFactory;
         private String caption;
         private RibbonSpinnerContentModel.SpinnerSelectionChangeListener selectionChangeListener;
         private RichTooltip richTooltip;
@@ -120,7 +120,7 @@ public class RibbonSpinnerNumberContentModel extends SpinnerNumberModel
             return this;
         }
 
-        public Builder setIconFactory(NeonIcon.Factory iconFactory) {
+        public Builder setIconFactory(RadianceIcon.Factory iconFactory) {
             this.iconFactory = iconFactory;
             return this;
         }

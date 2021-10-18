@@ -33,7 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_person_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_refresh_black_24px;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -41,7 +41,6 @@ import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -67,7 +66,7 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        NeonIcon editIcon = ic_mode_edit_black_24px.of(14, 14);
+        RadianceIcon editIcon = ic_mode_edit_black_24px.of(14, 14);
         Color filterColor = new Color(mainSelectorIconColor.getRed(),
                 mainSelectorIconColor.getGreen(),
                 mainSelectorIconColor.getBlue(),
@@ -75,7 +74,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         editIcon.setColorFilter(color -> filterColor);
         this.add(getTitlePanel(editIcon));
 
-        NeonIcon mailIcon = ic_refresh_black_24px.of(12, 12);
+        RadianceIcon mailIcon = ic_refresh_black_24px.of(12, 12);
         mailIcon.setColorFilter(color -> mainSelectorIconColor);
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
 
@@ -250,7 +249,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         }
     }
 
-    private JPanel getInboxLabel(String title, NeonIcon icon, Color background) {
+    private JPanel getInboxLabel(String title, RadianceIcon icon, Color background) {
         FormBuilder builder = FormBuilder.create().
                 columns("center:pref, 4dlu, fill:pref:grow").
                 rows("p").
@@ -269,7 +268,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         return result;
     }
 
-    private JPanel getTitlePanel(NeonIcon icon) {
+    private JPanel getTitlePanel(RadianceIcon icon) {
         FormBuilder builder = FormBuilder.create().
                 columns("fill:pref:grow, 8dlu, center:pref").
                 rows("p").

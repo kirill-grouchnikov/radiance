@@ -41,7 +41,7 @@ import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
-import org.pushingpixels.neon.api.icon.NeonIcon.Factory
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.plasma.*
 import java.awt.Color
 import javax.swing.JComponent

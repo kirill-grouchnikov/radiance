@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.api.painter.decoration;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -82,7 +82,7 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 			SubstanceSkin skin) {
 		SubstanceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
 		if (width * height < 100000) {
-			double scale = NeonCortex.getScaleFactor(comp);
+			double scale = RadianceCommonCortex.getScaleFactor(comp);
 			ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(
 					scale, width, height, scheme.getDisplayName());
 			BufferedImage result = smallImageCache.get(key);
@@ -91,7 +91,7 @@ public class ClassicDecorationPainter implements SubstanceDecorationPainter {
 				this.internalPaint((Graphics2D) result.getGraphics(), comp, width, height, scheme);
 				smallImageCache.put(key, result);
 			}
-			NeonCortex.drawImageWithScale(graphics, scale, result, 0, 0);
+			RadianceCommonCortex.drawImageWithScale(graphics, scale, result, 0, 0);
 			return;
 		}
 

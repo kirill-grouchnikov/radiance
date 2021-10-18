@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -41,7 +41,6 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -120,7 +119,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                         Class<?> transcodedClass = Class.forName(className);
                         if (transcodedClass != null) {
                             Method of = transcodedClass.getDeclaredMethod("of", int.class, int.class);
-                            icon = (NeonIcon) of.invoke(null, 16, 16);
+                            icon = (RadianceIcon) of.invoke(null, 16, 16);
                             iconCache.put(ext, icon);
                         }
                     } catch (Throwable t) {

@@ -37,7 +37,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
-    implementation project(':neon')
+    implementation project(':common')
     implementation project(':trident')
     implementation project(':substance')
     implementation project(':kotlin-ext:torch')

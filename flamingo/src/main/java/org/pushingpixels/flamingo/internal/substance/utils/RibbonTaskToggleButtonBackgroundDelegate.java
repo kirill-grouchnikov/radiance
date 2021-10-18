@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -81,7 +81,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
      */
     private static synchronized BufferedImage getTaskToggleButtonBackground(
             JRibbonTaskToggleButton button, int width, int height) {
-        double scale = NeonCortex.getScaleFactor(button);
+        double scale = RadianceCommonCortex.getScaleFactor(button);
         JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -146,7 +146,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D g2d = result.createGraphics();
 
-        NeonCortex.drawImageWithScale(g2d, scale, baseLayer, 0, 0);
+        RadianceCommonCortex.drawImageWithScale(g2d, scale, baseLayer, 0, 0);
 
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
                 : activeStates.entrySet()) {
@@ -185,7 +185,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             }
 
             g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-            NeonCortex.drawImageWithScale(g2d, scale, layer, 0, 0);
+            RadianceCommonCortex.drawImageWithScale(g2d, scale, layer, 0, 0);
         }
 
         g2d.dispose();
@@ -201,7 +201,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             int height, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme,
             SubstanceBorderPainter borderPainter) {
-        double scale = NeonCortex.getScaleFactor(button);
+        double scale = RadianceCommonCortex.getScaleFactor(button);
         Set<Side> bottom = EnumSet.of(Side.BOTTOM);
 
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
@@ -272,7 +272,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         }
 
         g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraActionAlpha, g));
-        NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(button),
+        RadianceCommonCortex.drawImageWithScale(g2d, RadianceCommonCortex.getScaleFactor(button),
                 ribbonBackground, 0, 0);
 
         g2d.dispose();

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -277,8 +277,8 @@ public final class SubstanceImageCreator {
                     SwingConstants.NORTH, scheme);
             BufferedImage bottom = getArrow(width, smallHeight, scale, strokeWidth,
                     SwingConstants.SOUTH, scheme);
-            NeonCortex.drawImageWithScale(graphics, scale, top, 0, 0);
-            NeonCortex.drawImageWithScale(graphics, scale, bottom, 0, (int) (height / 2.0));
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, top, 0, 0);
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, bottom, 0, (int) (height / 2.0));
             return arrowImage;
         } else {
             float cushion = strokeWidth / 2.0f;
@@ -353,11 +353,11 @@ public final class SubstanceImageCreator {
         // graphics.fillRect(0, 0, downArrowImage.getWidth(), downArrowImage.getHeight());
 
         if (!toggle) {
-            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, 0);
-            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, (int) arrowGap);
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, 0);
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, (int) arrowGap);
         } else {
-            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, 0);
-            NeonCortex.drawImageWithScale(graphics, scale, singleArrow, (int) arrowGap, 0);
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, singleArrow, 0, 0);
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, singleArrow, (int) arrowGap, 0);
         }
 
         return new ScaleAwareImageWrapperIcon(downArrowImage, scale);
@@ -436,7 +436,7 @@ public final class SubstanceImageCreator {
             ComponentState componentState, int offsetX, SubstanceColorScheme fillColorScheme,
             SubstanceColorScheme markColorScheme, SubstanceColorScheme borderColorScheme,
             float checkMarkVisibility, float alpha) {
-        double scale = NeonCortex.getScaleFactor(component);
+        double scale = RadianceCommonCortex.getScaleFactor(component);
 
         if (!componentState.isActive()) {
             fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
@@ -528,7 +528,7 @@ public final class SubstanceImageCreator {
             SubstanceColorScheme fillColorScheme, SubstanceColorScheme markColorScheme,
             SubstanceColorScheme borderColorScheme, float checkMarkVisibility,
             boolean isCheckMarkFadingOut, float alpha) {
-        double scale = NeonCortex.getScaleFactor(button);
+        double scale = RadianceCommonCortex.getScaleFactor(button);
 
         int xOffset = SubstanceSizeUtils
                 .getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(button), 2, 9, 1, false);
@@ -574,7 +574,7 @@ public final class SubstanceImageCreator {
             BufferedImage checkMark = SubstanceImageCreator.getCheckMark(scale,
                     dimension - yOffset / 2, markColorScheme, checkMarkVisibility);
 
-            NeonCortex.drawImageWithScale(graphics, scale, checkMark, 1 + 2 * xOffset / 3,
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, checkMark, 1 + 2 * xOffset / 3,
                     (dimension < 14) ? 0 : -1);
         }
 
@@ -644,7 +644,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getMinimizeIcon(Component titlePane, int iSize,
             SubstanceColorScheme scheme) {
-        double scale = NeonCortex.getScaleFactor(titlePane);
+        double scale = RadianceCommonCortex.getScaleFactor(titlePane);
 
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -674,7 +674,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getRestoreIcon(Component titlePane,
             SubstanceColorScheme scheme) {
-        double scale = NeonCortex.getScaleFactor(titlePane);
+        double scale = RadianceCommonCortex.getScaleFactor(titlePane);
 
         int iSize = SubstanceSizeUtils.getTitlePaneIconSize();
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
@@ -744,7 +744,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getMaximizeIcon(Component titlePane, int iSize,
             SubstanceColorScheme scheme) {
-        double scale = NeonCortex.getScaleFactor(titlePane);
+        double scale = RadianceCommonCortex.getScaleFactor(titlePane);
 
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -796,7 +796,7 @@ public final class SubstanceImageCreator {
      */
     public static ScaleAwareImageWrapperIcon getCloseIcon(Component titlePane, int iSize,
             SubstanceColorScheme scheme) {
-        double scale = NeonCortex.getScaleFactor(titlePane);
+        double scale = RadianceCommonCortex.getScaleFactor(titlePane);
 
         BufferedImage image = SubstanceCoreUtilities.getBlankImage(scale, iSize, iSize);
         Graphics2D graphics = image.createGraphics();
@@ -971,7 +971,7 @@ public final class SubstanceImageCreator {
                 for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
                     int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
 
-                    NeonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, stripePos, 0);
+                    RadianceCommonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, stripePos, 0);
                 }
             }
         } else {
@@ -991,7 +991,7 @@ public final class SubstanceImageCreator {
                 for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
                     int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
 
-                    NeonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, 0, stripePos);
+                    RadianceCommonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, 0, stripePos);
                 }
             }
         }
@@ -1054,7 +1054,7 @@ public final class SubstanceImageCreator {
      */
     public static BufferedImage getDragImage(Component c, SubstanceColorScheme colorScheme,
             int width, int height, int maxNumberOfStripes) {
-        double scale = NeonCortex.getScaleFactor(c);
+        double scale = RadianceCommonCortex.getScaleFactor(c);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D graphics = (Graphics2D) result.getGraphics();
 
@@ -1132,7 +1132,7 @@ public final class SubstanceImageCreator {
         int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
         int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
 
-        double scale = NeonCortex.getScaleFactor(divider);
+        double scale = RadianceCommonCortex.getScaleFactor(divider);
         BufferedImage singleDot = SubstanceCoreUtilities.getBlankImage(
                 scale, bumpDotDiameter, bumpDotDiameter);
         Graphics2D dotGraphics = (Graphics2D) singleDot.getGraphics();
@@ -1154,7 +1154,7 @@ public final class SubstanceImageCreator {
             int cx = bumpColOffset + col * bumpCellSize;
             for (int row = 0; row < bumpRows; row++) {
                 int cy = bumpRowOffset + row * bumpCellSize + (bumpCellSize - bumpDotDiameter) / 2;
-                NeonCortex.drawImageWithScale(graphics, scale, singleDot, cx, cy);
+                RadianceCommonCortex.drawImageWithScale(graphics, scale, singleDot, cx, cy);
             }
         }
         graphics.dispose();
@@ -1176,7 +1176,7 @@ public final class SubstanceImageCreator {
     public static BufferedImage getTreeIcon(JTree tree, SubstanceColorScheme fillScheme,
             SubstanceColorScheme borderScheme, SubstanceColorScheme markScheme,
             boolean isCollapsed) {
-        double scale = NeonCortex.getScaleFactor(tree);
+        double scale = RadianceCommonCortex.getScaleFactor(tree);
         int fontSize = SubstanceSizeUtils.getComponentFontSize(tree);
         int dim = SubstanceSizeUtils.getTreeIconSize(fontSize);
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(scale, dim, dim);
@@ -1398,7 +1398,7 @@ public final class SubstanceImageCreator {
     public static Image getCrayonsImage(Color fillColor) {
         int iw = 195;
         int ih = 208;
-        double scale = NeonCortex.getScaleFactor(null);
+        double scale = RadianceCommonCortex.getScaleFactor(null);
         Image image = SubstanceCoreUtilities.getBlankImage(scale, iw, ih);
         Graphics2D graphics = (Graphics2D) image.getGraphics().create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -1413,7 +1413,7 @@ public final class SubstanceImageCreator {
             Color crayonColor = new Color(0xff000000 | SubstanceImageCreator.crayonColors[i]);
             BufferedImage crayonImage = SubstanceImageCreator.getSingleCrayon(
                     scale, crayonColor, 22, 120);
-            NeonCortex.drawImageWithScale(graphics, scale, crayonImage,
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, crayonImage,
                     SubstanceImageCreator.crayonX(i), SubstanceImageCreator.crayonY(i));
         }
 
@@ -1516,7 +1516,7 @@ public final class SubstanceImageCreator {
         if ((w == 0) || (h == 0)) {
             return null;
         }
-        double scale = NeonCortex.getScaleFactor(comp);
+        double scale = RadianceCommonCortex.getScaleFactor(comp);
         BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(scale, w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -1556,7 +1556,7 @@ public final class SubstanceImageCreator {
             return null;
         }
         BufferedImage origImage = SubstanceCoreUtilities.getBlankImage(
-                NeonCortex.getScaleFactor(comp), w, h);
+                RadianceCommonCortex.getScaleFactor(comp), w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);

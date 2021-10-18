@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -95,7 +95,7 @@ public class KeyTipRenderingUtilities {
 
         LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
         int strHeight = (int) lineMetrics.getHeight();
-        NeonCortex.installDesktopHints(g2d, font);
+        RadianceCommonCortex.installDesktopHints(g2d, font);
         g2d.drawString(keyTip, (rect.width - strWidth) / 2,
                 (rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
 

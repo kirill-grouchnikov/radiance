@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.UiThreadingViolationException;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
@@ -484,7 +484,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonCortex.getBlankScaledImage(scale, width, height);
+        return RadianceCommonCortex.getBlankScaledImage(scale, width, height);
     }
 
     /**
@@ -513,7 +513,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonCortex.getBlankUnscaledImage(width, height);
+        return RadianceCommonCortex.getBlankUnscaledImage(width, height);
     }
 
     /**
@@ -543,7 +543,7 @@ public class SubstanceCoreUtilities {
             }
         }
 
-        return NeonCortex.getBlankUnscaledImage(imageWidth, imageHeight);
+        return RadianceCommonCortex.getBlankUnscaledImage(imageWidth, imageHeight);
     }
 
     /**
@@ -1116,7 +1116,7 @@ public class SubstanceCoreUtilities {
 
     public static Icon getFilteredIcon(JComponent comp, Icon orig,
             ComponentState componentState, Color textColor) {
-        double scale = NeonCortex.getScaleFactor(comp);
+        double scale = RadianceCommonCortex.getScaleFactor(comp);
 
         IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(comp, componentState);
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(
@@ -1139,7 +1139,7 @@ public class SubstanceCoreUtilities {
 
     public static Icon getFilteredIcon(JTabbedPane tab, int tabIndex, Icon orig,
             ComponentState componentState, Color textColor) {
-        double scale = NeonCortex.getScaleFactor(tab);
+        double scale = RadianceCommonCortex.getScaleFactor(tab);
 
         IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(tab, componentState);
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(

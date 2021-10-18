@@ -31,7 +31,7 @@ package org.pushingpixels.plasma
 
 import org.pushingpixels.flamingo.api.common.RichTooltip
 import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel
-import org.pushingpixels.neon.api.icon.NeonIcon.Factory
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import java.awt.Color
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty

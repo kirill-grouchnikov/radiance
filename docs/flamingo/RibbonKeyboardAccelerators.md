@@ -7,17 +7,17 @@ Use the `JRibbonFrame.setKeyboardActions` API to pass a list of keyboard actions
 ```java
 Set<JRibbonFrame.RibbonKeyboardAction> keyboardActions = new HashSet<>();
 keyboardActions.add(new RibbonKeyboardAction("cut",
-        (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+        (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                 ? KeyStroke.getKeyStroke("meta X")
                 : KeyStroke.getKeyStroke("ctrl X"),
         this.cutCommand));
 keyboardActions.add(new RibbonKeyboardAction("copy",
-        (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+        (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                 ? KeyStroke.getKeyStroke("meta C")
                 : KeyStroke.getKeyStroke("ctrl C"),
         this.copyCommand));
 keyboardActions.add(new RibbonKeyboardAction("paste",
-        (NeonCortex.getPlatform() == NeonCortex.Platform.MACOS)
+        (RadianceCommonCortex.getPlatform() == RadianceCommonCortex.Platform.MACOS)
                 ? KeyStroke.getKeyStroke("meta V")
                 : KeyStroke.getKeyStroke("ctrl V"),
         this.pasteCommand));

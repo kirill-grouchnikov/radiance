@@ -135,7 +135,7 @@ public AlbumOverviewComponent(final SearchResultRelease albumItem) {
       }
   });
 
-  this.labelFont = NeonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
+  this.labelFont = RadianceCommonCortex.getDefaultFontPolicy().getFontSet().getControlFont();
 
   SwingUtilities.invokeLater(() -> getLoadImageScenario(albumItem).play());
 }
@@ -198,7 +198,7 @@ TimelineRunnable scaler = new TimelineRunnable() {
       float factor = Math.min(1.0f, Math.min(vFactor, hFactor));
       if (factor < 1.0f) {
           // scaled to fit available area
-          image = NeonCortex.createThumbnail(image,
+          image = RadianceCommonCortex.createThumbnail(image,
                   (int) (factor * image.getWidth()));
       }
 
@@ -280,7 +280,7 @@ protected void paintComponent(Graphics g) {
       g2dImage.setComposite(AlphaComposite.SrcOver.derive(this.alpha * this.imageAlpha));
 
       // draw the album art image
-      double scaleFactor = NeonCortex.getScaleFactor();
+      double scaleFactor = RadianceCommonCortex.getScaleFactor();
       int imageWidth = this.image.getWidth();
       int imageHeight = this.image.getHeight();
       contentHorizontalOffset = (int) ((this.getWidth() - imageWidth / scaleFactor) / 2);

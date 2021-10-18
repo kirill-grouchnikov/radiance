@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -52,9 +52,9 @@ import java.util.List;
 public class ListPanel extends ControllablePanel {
     private static class ModelEntry {
         public String text;
-        public NeonIcon icon;
+        public RadianceIcon icon;
 
-        public ModelEntry(String text, NeonIcon icon) {
+        public ModelEntry(String text, RadianceIcon icon) {
             this.text = text;
             this.icon = icon;
         }

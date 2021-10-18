@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
@@ -270,7 +270,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     @Override
     protected JButton createLeftOneTouchButton() {
-        double scale = NeonCortex.getScaleFactor(this.splitPane);
+        double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
 
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
@@ -309,7 +309,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
 
     @Override
     protected JButton createRightOneTouchButton() {
-        double scale = NeonCortex.getScaleFactor(this.splitPane);
+        double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
 
         JButton oneTouchButton = new SubstanceSplitPaneDividerButton();
         Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
@@ -353,7 +353,7 @@ public class SubstanceSplitPaneDivider extends BasicSplitPaneDivider implements 
      * @param orientation Split pane orientation.
      */
     public void updateOneTouchButtons(int orientation) {
-        double scale = NeonCortex.getScaleFactor(this.splitPane);
+        double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
         if (orientation == JSplitPane.VERTICAL_SPLIT) {
             if (this.leftButton != null) {
                 this.leftButton.setIcon(

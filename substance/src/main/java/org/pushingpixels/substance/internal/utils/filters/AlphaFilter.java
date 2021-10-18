@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.substance.internal.utils.filters;
 
-import org.pushingpixels.neon.api.filter.NeonAbstractFilter;
+import org.pushingpixels.radiance.common.api.filter.RadianceAbstractFilter;
 
 import java.awt.image.BufferedImage;
 
 /**
  * @author Kirill Grouchnikov
  */
-public class AlphaFilter extends NeonAbstractFilter {
+public class AlphaFilter extends RadianceAbstractFilter {
 	private double alpha;
 
 	public AlphaFilter(double alpha) {

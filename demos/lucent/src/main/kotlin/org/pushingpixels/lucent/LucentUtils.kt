@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lucent
 
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.torch.TorchWindow
 import org.pushingpixels.torch.windowTimeline
 import java.awt.Font
@@ -71,7 +71,7 @@ object LucentUtils {
     fun paintMultilineText(g2d: Graphics2D, text: String,
                            textX: Int, textWidth: Int, textY: Int, maxTextLineCount: Int): Int {
         var currTextY = textY
-        NeonCortex.installDesktopHints(g2d, g2d.font)
+        RadianceCommonCortex.installDesktopHints(g2d, g2d.font)
         val frc = FontRenderContext(AffineTransform(), true, false)
         val fa = g2d.fontMetrics.ascent
 

@@ -11,20 +11,20 @@ import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.neon.api.icon.NeonIconUIResource;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 
 /**
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
  */
-public class computer implements NeonIcon {
+public class computer implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
     private Stroke stroke = null;
     private Shape clip = null;
-    private NeonIcon.ColorFilter colorFilter = null;
+    private RadianceIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
     
@@ -932,7 +932,7 @@ g.setTransform(transformsStack.pop());
      * @param height Required height of the icon
      * @return A new instance of this icon with specified dimensions.
      */
-    public static NeonIcon of(int width, int height) {
+    public static RadianceIcon of(int width, int height) {
        computer base = new computer();
        base.width = width;
        base.height = height;
@@ -946,11 +946,11 @@ g.setTransform(transformsStack.pop());
      * @param height Required height of the icon
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
-    public static NeonIconUIResource uiResourceOf(int width, int height) {
+    public static RadianceIconUIResource uiResourceOf(int width, int height) {
        computer base = new computer();
        base.width = width;
        base.height = height;
-       return new NeonIconUIResource(base);
+       return new RadianceIconUIResource(base);
     }
 
     /**

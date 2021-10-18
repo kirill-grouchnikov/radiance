@@ -32,10 +32,10 @@ package org.pushingpixels.flamingo.internal.substance.common.ui;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel;
 import org.pushingpixels.flamingo.api.common.JScrollablePanel.ScrollType;
-import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareNeonIcon;
+import org.pushingpixels.flamingo.internal.substance.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
@@ -80,11 +80,11 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
 
     @Override
     protected void configureLeadingScrollerButton(JCommandButton button) {
-        final double scale = NeonCortex.getScaleFactor(button);
+        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
+        RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
                     ScaleAwareImageWrapperIcon doubleArrowIcon = SubstanceImageCreator
@@ -110,11 +110,11 @@ public class SubstanceScrollablePanelUI extends BasicScrollablePanelUI {
 
     @Override
     protected void configureTrailingScrollerButton(JCommandButton button) {
-        final double scale = NeonCortex.getScaleFactor(button);
+        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = SubstanceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) SubstanceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) SubstanceSizeUtils.getSmallArrowIconWidth(fontSize);
-        NeonIcon arrowIcon = new TransitionAwareNeonIcon(button,
+        RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
                 (scheme, width, height) -> {
                     ScaleAwareImageWrapperIcon doubleArrowIcon = SubstanceImageCreator

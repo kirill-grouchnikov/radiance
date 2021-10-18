@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.substance.internal.utils.icon;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
@@ -68,7 +68,7 @@ public class TransitionAwareIcon implements Icon {
          * @param scheme Color scheme.
          * @return Icon that matches the specified scheme.
          */
-        NeonIcon getColorSchemeIcon(SubstanceColorScheme scheme);
+        RadianceIcon getColorSchemeIcon(SubstanceColorScheme scheme);
     }
 
     @FunctionalInterface
@@ -106,7 +106,7 @@ public class TransitionAwareIcon implements Icon {
      * Icon cache to speed up the subsequent icon painting. The basic assumption is that the
      * {@link #delegate} returns an icon that paints the same for the same parameters.
      */
-    private static LazyResettableHashMap<NeonIcon> iconMap =
+    private static LazyResettableHashMap<RadianceIcon> iconMap =
             new LazyResettableHashMap<>("TransitionAwareIcon");
 
     private int iconWidth;
@@ -132,7 +132,7 @@ public class TransitionAwareIcon implements Icon {
         this.colorSchemeAssociationKindDelegate = colorSchemeAssociationKindDelegate;
         this.uniqueIconTypeId = uniqueIconTypeId;
 
-        NeonIcon markEnabledIcon = this.delegate.getColorSchemeIcon(
+        RadianceIcon markEnabledIcon = this.delegate.getColorSchemeIcon(
                 SubstanceColorSchemeUtilities.getColorScheme(comp,
                         ColorSchemeAssociationKind.MARK, ComponentState.ENABLED));
         this.iconWidth = markEnabledIcon.getIconWidth();
@@ -144,8 +144,8 @@ public class TransitionAwareIcon implements Icon {
      *
      * @return Icon to paint.
      */
-    private synchronized NeonIcon getIconToPaint() {
-        double scale = NeonCortex.getScaleFactor(this.comp);
+    private synchronized RadianceIcon getIconToPaint() {
+        double scale = RadianceCommonCortex.getScaleFactor(this.comp);
         StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
                 .getTransitionAwareUI().getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo =
@@ -171,9 +171,9 @@ public class TransitionAwareIcon implements Icon {
                 scale, this.uniqueIconTypeId,
                 SubstanceSizeUtils.getComponentFontSize(this.comp), baseScheme.getDisplayName(),
                 baseAlpha);
-        NeonIcon layerBase = iconMap.get(keyBase);
+        RadianceIcon layerBase = iconMap.get(keyBase);
         if (layerBase == null) {
-            NeonIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
+            RadianceIcon baseFullOpacity = this.delegate.getColorSchemeIcon(baseScheme);
             if (baseAlpha == 1.0f) {
                 layerBase = baseFullOpacity;
                 iconMap.put(keyBase, layerBase);
@@ -224,9 +224,9 @@ public class TransitionAwareIcon implements Icon {
                         scale, this.uniqueIconTypeId,
                         SubstanceSizeUtils.getComponentFontSize(this.comp), scheme.getDisplayName(),
                         alpha);
-                NeonIcon layer = iconMap.get(key);
+                RadianceIcon layer = iconMap.get(key);
                 if (layer == null) {
-                    NeonIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
+                    RadianceIcon fullOpacity = this.delegate.getColorSchemeIcon(scheme);
                     if (alpha == 1.0f) {
                         layer = fullOpacity;
                         iconMap.put(key, layer);

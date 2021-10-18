@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,7 +56,7 @@ public class PanelWithRightLine extends JPanel {
             g2d.setColor(this.rightLineColor);
             int width = getWidth();
 
-            float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor(this);
+            float borderStrokeWidth = 1.0f / (float) RadianceCommonCortex.getScaleFactor(this);
             g2d.setStroke(new BasicStroke(borderStrokeWidth));
             Line2D.Float line = new Line2D.Float(width - borderStrokeWidth, 0,
                     width - borderStrokeWidth, getHeight());

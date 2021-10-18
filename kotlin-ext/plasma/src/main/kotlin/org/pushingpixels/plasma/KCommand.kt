@@ -44,7 +44,7 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
-import org.pushingpixels.neon.api.icon.NeonIcon.Factory
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.substance.api.SubstanceSlices
 
 @PlasmaElementMarker

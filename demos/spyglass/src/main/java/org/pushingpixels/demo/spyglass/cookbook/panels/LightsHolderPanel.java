@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +45,7 @@ public class LightsHolderPanel extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
-        float borderStrokeWidth = 1.0f / (float) NeonCortex.getScaleFactor(this);
+        float borderStrokeWidth = 1.0f / (float) RadianceCommonCortex.getScaleFactor(this);
         g2d.setStroke(new BasicStroke(borderStrokeWidth));
 
         LinearGradientPaint lgp = new LinearGradientPaint(0, 0, getWidth(), 0,

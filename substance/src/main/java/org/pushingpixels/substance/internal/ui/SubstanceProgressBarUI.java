@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.ui;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ComponentStateFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
@@ -273,7 +273,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static BufferedImage getDeterminateBackground(JProgressBar bar, int width, int height,
             SubstanceColorScheme scheme, SubstanceFillPainter fillPainter, int orientation,
             ComponentOrientation componentOrientation) {
-        double scale = NeonCortex.getScaleFactor(bar);
+        double scale = RadianceCommonCortex.getScaleFactor(bar);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, width, height,
                 scheme.getDisplayName(), fillPainter.getDisplayName(),
                 orientation, componentOrientation);
@@ -311,7 +311,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private static BufferedImage getDeterminateProgress(JProgressBar bar, int width, int height,
             boolean isFull, SubstanceColorScheme scheme, SubstanceFillPainter fillPainter,
             int orientation, ComponentOrientation componentOrientation) {
-        double scale = NeonCortex.getScaleFactor(bar);
+        double scale = RadianceCommonCortex.getScaleFactor(bar);
         ImageHashMapKey key = SubstanceCoreUtilities.getScaleAwareHashKey(scale, width, height,
                 scheme.getDisplayName(), fillPainter.getDisplayName(),
                 orientation, componentOrientation);
@@ -344,7 +344,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             return;
         }
 
-        double scale = NeonCortex.getScaleFactor(progressBar);
+        double scale = RadianceCommonCortex.getScaleFactor(progressBar);
 
         ComponentState fillState = getFillState();
         ComponentState progressState = getProgressState();
@@ -370,12 +370,12 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             BufferedImage back = getDeterminateBackground(progressBar, barRectWidth, barRectHeight,
                     fillScheme, fillPainter, progressBar.getOrientation(),
                     this.progressBar.getComponentOrientation());
-            NeonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
+            RadianceCommonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
         } else {
             BufferedImage back = getDeterminateBackground(progressBar, barRectHeight, barRectWidth,
                     fillScheme, fillPainter, progressBar.getOrientation(),
                     this.progressBar.getComponentOrientation());
-            NeonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
+            RadianceCommonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
         }
 
         if (amountFull > 0) {
@@ -392,11 +392,11 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
                     if (progressBar.getComponentOrientation().isLeftToRight()) {
-                        NeonCortex.drawImageWithScale(g2d, scale, progress, margin, margin);
+                        RadianceCommonCortex.drawImageWithScale(g2d, scale, progress, margin, margin);
                     } else {
                         // fix for RTL determinate horizontal progress
                         // bar in 2.3
-                        NeonCortex.drawImageWithScale(g2d, scale, progress,
+                        RadianceCommonCortex.drawImageWithScale(g2d, scale, progress,
                                 margin + barRectWidth - amountFull, margin);
                     }
                 }
@@ -410,7 +410,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
                             progressWidth, isFull, progressColorScheme, progressFillPainter,
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
-                    NeonCortex.drawImageWithScale(g2d, scale, progress, margin,
+                    RadianceCommonCortex.drawImageWithScale(g2d, scale, progress, margin,
                             margin + barRectHeight - progressHeight);
                 }
             }
@@ -449,7 +449,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
             return;
         }
 
-        double scale = NeonCortex.getScaleFactor(c);
+        double scale = RadianceCommonCortex.getScaleFactor(c);
         ComponentState progressState = getProgressState();
 
         final int barRectWidth = progressBar.getWidth() - 2 * margin;
@@ -665,7 +665,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     private Rectangle getStringRectangle(String progressString, int x, int y, int width,
             int height) {
         FontMetrics fontSizer = SubstanceMetricsUtilities.getFontMetrics(
-                NeonCortex.getScaleFactor(progressBar), progressBar.getFont());
+                RadianceCommonCortex.getScaleFactor(progressBar), progressBar.getFont());
 
         int stringWidth = fontSizer.stringWidth(progressString);
 
@@ -682,7 +682,7 @@ public class SubstanceProgressBarUI extends BasicProgressBarUI {
     @Override
     public void update(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
-        NeonCortex.installDesktopHints(g2d, c.getFont());
+        RadianceCommonCortex.installDesktopHints(g2d, c.getFont());
         super.update(g2d, c);
         g2d.dispose();
     }

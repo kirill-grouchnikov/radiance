@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -104,7 +104,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = SubstanceCoreUtilities
                 .getTextComponentForTransitions(c);
-        double scale = NeonCortex.getScaleFactor(c);
+        double scale = RadianceCommonCortex.getScaleFactor(c);
         boolean useCache = (width * height < 100000);
         SubstanceBorderPainter borderPainter = SubstanceCoreUtilities.getBorderPainter(c);
         if (componentForTransitions != null) {
@@ -142,7 +142,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                         g2base.dispose();
                         smallImageCache.put(baseHashKey, baseLayer);
                     }
-                    NeonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
+                    RadianceCommonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
                 } else {
                     SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height,
                             baseBorderScheme);
@@ -186,7 +186,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                                 smallImageCache.put(extraHashKey, extraLayer);
                             }
 
-                            NeonCortex.drawImageWithScale(graphics, scale, extraLayer, 0, 0);
+                            RadianceCommonCortex.drawImageWithScale(graphics, scale, extraLayer, 0, 0);
                         } else {
                             SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height,
                                     borderScheme);
@@ -218,7 +218,7 @@ public class SubstanceTextComponentBorder implements Border, UIResource {
                 smallImageCache.put(baseHashKey, baseLayer);
             }
 
-            NeonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
+            RadianceCommonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
         } else {
             SubstanceImageCreator.paintSimpleBorder(c, graphics, width, height, borderColorScheme);
         }

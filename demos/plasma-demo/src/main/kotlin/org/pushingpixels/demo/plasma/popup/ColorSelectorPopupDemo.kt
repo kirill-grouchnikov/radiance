@@ -38,9 +38,9 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.neon.api.NeonCortex
-import org.pushingpixels.neon.api.icon.NeonIcon
-import org.pushingpixels.neon.api.icon.NeonIcon.Factory
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.plasma.DelayedCommandListener
 import org.pushingpixels.plasma.KColorSelectorCommand
 import org.pushingpixels.plasma.colorSelectorCommandButton
@@ -57,7 +57,7 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.WindowConstants
 
-class ColorIcon(private var color: Color) : NeonIcon {
+class ColorIcon(private var color: Color) : RadianceIcon {
     private var w: Int = 0
     private var h: Int = 0
 
@@ -69,7 +69,7 @@ class ColorIcon(private var color: Color) : NeonIcon {
         g.render {
             it.color = color
             it.fillRect(x, y, w, h)
-            val borderThickness = 1.0f / NeonCortex.getScaleFactor(c).toFloat()
+            val borderThickness = 1.0f / RadianceCommonCortex.getScaleFactor(c).toFloat()
             it.color = color.deriveByBrightness(-0.4)
             it.stroke = BasicStroke(borderThickness, BasicStroke.CAP_ROUND,
                     BasicStroke.JOIN_ROUND)
@@ -95,7 +95,7 @@ class ColorIcon(private var color: Color) : NeonIcon {
         return false
     }
 
-    override fun setColorFilter(colorFilter: NeonIcon.ColorFilter?) {
+    override fun setColorFilter(colorFilter: RadianceIcon.ColorFilter?) {
         throw UnsupportedOperationException()
     }
 

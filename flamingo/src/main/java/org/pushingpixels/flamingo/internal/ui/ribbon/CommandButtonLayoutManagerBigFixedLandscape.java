@@ -32,8 +32,8 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
 
 import javax.swing.*;
@@ -54,7 +54,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		int bx = borderInsets.left + borderInsets.right;
 		int by = borderInsets.top + borderInsets.bottom;
 		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-				NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
+				RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 		int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);
 
@@ -107,7 +107,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		int y = ins.top;
 
 		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
-				NeonCortex.getScaleFactor(commandButton), commandButton.getFont());
+				RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();
 
 		JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
@@ -130,7 +130,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 		// int layoutGap = FlamingoUtilities.getLayoutGap(commandButton);
 
-		NeonIcon buttonIcon = commandButton.getIcon();
+		RadianceIcon buttonIcon = commandButton.getIcon();
 
 		if (commandButton.getText() == null) {
 			y = ins.top

@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.demo.flamingo.svg.logo;
 
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class RadianceLogo {
-    public static NeonIcon getLogoIcon(SubstanceColorScheme scheme) {
+    public static RadianceIcon getLogoIcon(SubstanceColorScheme scheme) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
-        NeonIcon base = radiance_menu.factory().createNewIcon();
+        RadianceIcon base = radiance_menu.factory().createNewIcon();
         base.setColorFilter(color -> scheme.getForegroundColor());
         // Step 2 - configure the colorized version to be 16x16
         base.setDimension(new Dimension(16, 16));
@@ -48,6 +48,6 @@ public class RadianceLogo {
     }
 
     public static BufferedImage getLogoImage(Component comp, SubstanceColorScheme scheme) {
-        return getLogoIcon(scheme).toImage(NeonCortex.getScaleFactor(comp));
+        return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 }

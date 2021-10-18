@@ -38,7 +38,7 @@ import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.X_office_document;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.icon.EmptyNeonIcon;
+import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.substance.api.ComponentState;
@@ -121,16 +121,16 @@ public class TestPopupCommandButtons extends JFrame {
                         .build());
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "2" }))
-                        .setIconFactory(EmptyNeonIcon.factory())
+                        .setIconFactory(EmptyRadianceIcon.factory())
                         .build());
                 simpleEntries1.add(Command.builder()
                         .setText(mf.format(new Object[] { "3" }))
-                        .setIconFactory(EmptyNeonIcon.factory())
+                        .setIconFactory(EmptyRadianceIcon.factory())
                         .build());
 
                 simpleEntries2.add(Command.builder()
                         .setText(mf.format(new Object[] { "4" }))
-                        .setIconFactory(EmptyNeonIcon.factory())
+                        .setIconFactory(EmptyRadianceIcon.factory())
                         .build());
                 simpleEntries2.add(Command.builder()
                         .setText(mf.format(new Object[] { "5" }))
@@ -166,13 +166,13 @@ public class TestPopupCommandButtons extends JFrame {
                                 .build(),
                         Command.builder()
                                 .setText(resourceBundle.getString("ClearSelection.text"))
-                                .setIconFactory(EmptyNeonIcon.factory())
+                                .setIconFactory(EmptyRadianceIcon.factory())
                                 .build()
                 ));
                 extraEntries.add(new CommandGroup(
                         Command.builder()
                                 .setText(resourceBundle.getString("ApplyStyles.text"))
-                                .setIconFactory(EmptyNeonIcon.factory())
+                                .setIconFactory(EmptyRadianceIcon.factory())
                                 .build()
                 ));
 

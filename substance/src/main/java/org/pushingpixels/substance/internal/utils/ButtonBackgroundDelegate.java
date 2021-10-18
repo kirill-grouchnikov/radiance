@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
@@ -80,7 +80,7 @@ public class ButtonBackgroundDelegate {
     private static BufferedImage getFullAlphaBackground(AbstractButton button,
             SubstanceButtonShaper shaper, SubstanceFillPainter fillPainter,
             SubstanceBorderPainter borderPainter, int width, int height) {
-        double scale = NeonCortex.getScaleFactor(button);
+        double scale = RadianceCommonCortex.getScaleFactor(button);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
@@ -363,7 +363,7 @@ public class ButtonBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            NeonCortex.drawImageWithScale(graphics, NeonCortex.getScaleFactor(button),
+            RadianceCommonCortex.drawImageWithScale(graphics, RadianceCommonCortex.getScaleFactor(button),
                     bgImage, 0, y);
             graphics.dispose();
         }

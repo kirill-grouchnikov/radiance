@@ -34,7 +34,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.substance.api.ComponentState
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.substance.api.SubstanceSkin
@@ -187,8 +187,8 @@ abstract class TextHighlightsRobot(
      * Creates the screenshot and saves it on the disk.
      */
     private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
-        val bi = NeonCortex.getBlankScaledImage(
-            NeonCortex.getScaleFactor(frame),
+        val bi = RadianceCommonCortex.getBlankScaledImage(
+            RadianceCommonCortex.getScaleFactor(frame),
             frame.width, frame.height
         )
         val g = bi.graphics

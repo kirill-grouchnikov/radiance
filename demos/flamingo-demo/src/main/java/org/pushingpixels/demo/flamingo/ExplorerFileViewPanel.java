@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.demo.flamingo;
 
-import org.pushingpixels.demo.flamingo.icon.IconWrapperNeonIcon;
+import org.pushingpixels.demo.flamingo.icon.IconWrapperRadianceIcon;
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.demo.flamingo.icon.IcoWrapperNeonIcon;
-import org.pushingpixels.demo.flamingo.icon.ImageWrapperNeonIcon;
+import org.pushingpixels.demo.flamingo.icon.IcoWrapperRadianceIcon;
+import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
-import org.pushingpixels.neon.api.NeonCortex;
-import org.pushingpixels.neon.api.icon.NeonIcon;
-import org.pushingpixels.demo.flamingo.svg.SvgBatikNeonIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -59,7 +59,7 @@ import java.util.Map;
 public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     private JBreadcrumbBar<T> bar;
 
-    private static Map<String, NeonIcon> iconMapping = new HashMap<>();
+    private static Map<String, RadianceIcon> iconMapping = new HashMap<>();
 
     private boolean useNativeIcons;
 
@@ -86,7 +86,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     }
 
     @Override
-    protected NeonIcon getNeonIcon(AbstractFileViewPanel.Leaf leaf,
+    protected RadianceIcon getRadianceIcon(AbstractFileViewPanel.Leaf leaf,
             InputStream stream, CommandButtonPresentationState state, Dimension dimension) {
         int prefSize = state.getPreferredIconSize();
         if (prefSize > 0) {
@@ -98,7 +98,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
             if (sourceProp instanceof File) {
                 Icon delegate = FileSystemView.getFileSystemView().getSystemIcon((File) sourceProp);
                 if (delegate != null) {
-                    return new IconWrapperNeonIcon(delegate);
+                    return new IconWrapperRadianceIcon(delegate);
                 }
             }
             return null;
@@ -114,23 +114,23 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
         if ((ext.compareTo("jpg") == 0) || (ext.compareTo("jpeg") == 0)
                 || (ext.compareTo("gif") == 0) || (ext.compareTo("png") == 0)
                 || (ext.compareTo("bmp") == 0)) {
-            return ImageWrapperNeonIcon.getIcon(stream, dimension);
+            return ImageWrapperRadianceIcon.getIcon(stream, dimension);
         }
 
-        double scale = NeonCortex.getScaleFactor(this);
+        double scale = RadianceCommonCortex.getScaleFactor(this);
         if (ext.compareTo("svg") == 0) {
-            return SvgBatikNeonIcon.getSvgIcon(stream, scale, dimension);
+            return SvgBatikRadianceIcon.getSvgIcon(stream, scale, dimension);
         }
 
         if (ext.compareTo("svgz") == 0) {
-            return SvgBatikNeonIcon.getSvgzIcon(stream, scale, dimension);
+            return SvgBatikRadianceIcon.getSvgzIcon(stream, scale, dimension);
         }
 
         if (ext.compareTo("ico") == 0) {
-            return IcoWrapperNeonIcon.getIcon(stream, scale, dimension);
+            return IcoWrapperRadianceIcon.getIcon(stream, scale, dimension);
         }
 
-        NeonIcon icon = iconMapping.get(ext);
+        RadianceIcon icon = iconMapping.get(ext);
         if (icon == null) {
             try {
                 String className = "org.pushingpixels.demo.flamingo.svg.filetypes.transcoded.ext_"
@@ -138,7 +138,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
                 Class<?> transcodedClass = Class.forName(className);
                 if (transcodedClass != null) {
                     Method of = transcodedClass.getDeclaredMethod("of", int.class, int.class);
-                    icon = (NeonIcon) of.invoke(null, prefSize, prefSize);
+                    icon = (RadianceIcon) of.invoke(null, prefSize, prefSize);
                     iconMapping.put(ext, icon);
                 }
             } catch (Throwable t) {
@@ -148,7 +148,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     }
 
     @Override
-    protected void configureCommand(Leaf leaf, Command command, NeonIcon icon) {
+    protected void configureCommand(Leaf leaf, Command command, RadianceIcon icon) {
         String filename = leaf.getLeafName();
         String ext = "Generic";
         int lastDot = filename.lastIndexOf('.');

@@ -27,8 +27,8 @@
 ::  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set RADIANCE_VERSION=4.5.0
+set RADIANCE_VERSION=5.0-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lightbeam-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set SUBSTANCE_CLASSPATH=../../drop/%RADIANCE_VERSION%/core/radiance-substance-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-trident-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-neon-%RADIANCE_VERSION%.jar
+set SUBSTANCE_CLASSPATH=../../drop/%RADIANCE_VERSION%/core/radiance-substance-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-trident-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-common-%RADIANCE_VERSION%.jar
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel -cp %CLASSPATH%;%SUBSTANCE_CLASSPATH% org.pushingpixels.lightbeam.DynamicPerformanceSuite 10

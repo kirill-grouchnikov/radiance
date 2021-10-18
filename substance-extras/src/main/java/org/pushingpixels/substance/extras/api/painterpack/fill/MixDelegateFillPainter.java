@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
@@ -80,7 +80,7 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 			MixColorScheme mixColorScheme = (MixColorScheme) fillScheme;
 			SubstanceColorScheme[] origSchemes = mixColorScheme.getOrigSchemes();
 
-			double scale = NeonCortex.getScaleFactor(comp);
+			double scale = RadianceCommonCortex.getScaleFactor(comp);
 	        int iWidth = (int) Math.ceil(width);
 	        int iHeight = (int) Math.ceil(height);
 			BufferedImage[] components = new BufferedImage[origSchemes.length];
@@ -101,7 +101,7 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 						components[i], start, end);
 			}
 			Graphics2D g2d = (Graphics2D) g.create();
-			NeonCortex.drawImageWithScale(g2d, scale, current, 0, 0);
+			RadianceCommonCortex.drawImageWithScale(g2d, scale, current, 0, 0);
 			g2d.dispose();
 			return;
 		}

@@ -14,7 +14,7 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import javax.swing.*;
@@ -125,7 +125,7 @@ public class ColorWheel extends JPanel {
         int w = getWidth();
         int h = getHeight();
 
-        double scaleFactor = NeonCortex.getScaleFactor(this);
+        double scaleFactor = RadianceCommonCortex.getScaleFactor(this);
         if (colorWheelImage == null || (scaleFactor * colorWheelImage.getWidth(this)) != w
                 || (scaleFactor * colorWheelImage.getHeight(this)) != h) {
             if (colorWheelImage != null) {

@@ -14,12 +14,11 @@
 
 package org.pushingpixels.substance.internal.contrib.randelshofer.quaqua.colorchooser;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
@@ -83,7 +82,7 @@ public class ColorWheelChooser extends SubstanceColorChooserPanel implements UIR
 	}
 
     @Override
-    public NeonIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+    public RadianceIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserColorWheelIcon(size,
                 colorScheme);
     }

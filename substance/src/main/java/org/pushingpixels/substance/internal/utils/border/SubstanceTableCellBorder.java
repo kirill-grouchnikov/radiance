@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.utils.border;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -112,7 +112,7 @@ public class SubstanceTableCellBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		double scale = NeonCortex.getScaleFactor(c);
+		double scale = RadianceCommonCortex.getScaleFactor(c);
 
 		float radius = 0.0f;
 		StateTransitionTracker stateTransitionTracker = ui

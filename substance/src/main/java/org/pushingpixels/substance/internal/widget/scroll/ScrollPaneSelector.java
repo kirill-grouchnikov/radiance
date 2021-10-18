@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.widget.scroll;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.painter.preview.PreviewPainter;
@@ -199,7 +199,7 @@ public class ScrollPaneSelector extends JComponent {
         if (theImage == null || theRectangle == null)
             return new Dimension();
         Insets insets = getInsets();
-        double scaleFactor = NeonCortex.getScaleFactor(theScrollPane);
+        double scaleFactor = RadianceCommonCortex.getScaleFactor(theScrollPane);
         return new Dimension((int) (theImage.getWidth() / scaleFactor) + insets.left + insets.right,
                 (int) (theImage.getHeight() / scaleFactor) + insets.top + insets.bottom);
     }
@@ -215,7 +215,7 @@ public class ScrollPaneSelector extends JComponent {
         int yOffset = insets.top;
         int availableWidth = getWidth() - insets.left - insets.right;
         int availableHeight = getHeight() - insets.top - insets.bottom;
-        NeonCortex.drawImageWithScale(g2d, NeonCortex.getScaleFactor(theScrollPane),
+        RadianceCommonCortex.drawImageWithScale(g2d, RadianceCommonCortex.getScaleFactor(theScrollPane),
                 theImage, xOffset, yOffset);
 
         Color tmpColor = g2d.getColor();
@@ -288,7 +288,7 @@ public class ScrollPaneSelector extends JComponent {
         int previewWidth = (int) (theComponent.getWidth() * theScale);
         int previewHeight = (int) (theComponent.getHeight() * theScale);
         theImage = SubstanceCoreUtilities.getBlankImage(
-                NeonCortex.getScaleFactor(theComponent),
+                RadianceCommonCortex.getScaleFactor(theComponent),
                 previewWidth, previewHeight);
 
         Graphics2D g = theImage.createGraphics();

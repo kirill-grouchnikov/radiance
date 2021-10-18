@@ -45,7 +45,7 @@ import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandB
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import javax.accessibility.AccessibleContext;
@@ -84,10 +84,10 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     /**
      * Associated icon.
      *
-     * @see #setIcon(NeonIcon)
+     * @see #setIcon(RadianceIcon)
      * @see #getIcon()
      */
-    private NeonIcon icon;
+    private RadianceIcon icon;
 
     /**
      * The button text.
@@ -695,9 +695,9 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * Returns the associated icon.
      *
      * @return The associated icon.
-     * @see #setIcon(NeonIcon)
+     * @see #setIcon(RadianceIcon)
      */
-    public NeonIcon getIcon() {
+    public RadianceIcon getIcon() {
         return icon;
     }
 
@@ -708,8 +708,8 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * @param defaultIcon New default icon for this button.
      * @see #getIcon()
      */
-    public void setIcon(NeonIcon defaultIcon) {
-        NeonIcon oldValue = this.icon;
+    public void setIcon(RadianceIcon defaultIcon) {
+        RadianceIcon oldValue = this.icon;
         this.icon = defaultIcon;
 
         firePropertyChange("icon", oldValue, defaultIcon);

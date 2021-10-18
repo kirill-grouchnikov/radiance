@@ -1,6 +1,6 @@
 package org.pushingpixels.substance.internal.contrib.xoetrope.editor.color;
 
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -906,7 +906,7 @@ public class ColorWheelPanel extends SubstanceColorChooserPanel implements
 	}
 
 	@Override
-	public NeonIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
+	public RadianceIcon getHiDpiAwareIcon(int size, SubstanceColorScheme colorScheme) {
         return SubstanceCortex.GlobalScope.getIconPack().getColorChooserImagePalettesIcon(size,
                 colorScheme);
 	}

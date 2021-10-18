@@ -31,7 +31,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.neon.api.icon.NeonIcon;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
 
@@ -360,7 +360,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 
             // The main image
             int x = ltr ? ins.left : parent.getWidth() - ins.right;
-            NeonIcon mainImage = tooltipInfo.getMainIcon();
+            RadianceIcon mainImage = tooltipInfo.getMainIcon();
             if (mainImage != null) {
                 mainImageLabel = new JLabel(mainImage);
                 richTooltipPanel.add(mainImageLabel);

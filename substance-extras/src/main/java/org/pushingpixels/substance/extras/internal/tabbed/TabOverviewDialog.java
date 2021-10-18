@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.extras.internal.tabbed;
 
-import org.pushingpixels.neon.api.NeonCortex;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
@@ -503,7 +503,7 @@ public class TabOverviewDialog extends JDialog {
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
 
             int controlFontSize = SubstanceSizeUtils.getControlFontSize();
-            double scale = NeonCortex.getScaleFactor(this);
+            double scale = RadianceCommonCortex.getScaleFactor(this);
             SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
             this.caroselMenu.setUpDownIcons(
@@ -537,7 +537,7 @@ public class TabOverviewDialog extends JDialog {
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
                 this.caroselMenu.setBackground(UIManager.getColor("Panel.background"));
 
-                double scale = NeonCortex.getScaleFactor(this.caroselMenu);
+                double scale = RadianceCommonCortex.getScaleFactor(this.caroselMenu);
                 int controlFontSize = SubstanceSizeUtils.getControlFontSize();
                 SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
                         .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);

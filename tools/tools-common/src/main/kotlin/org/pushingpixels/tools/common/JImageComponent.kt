@@ -32,7 +32,7 @@ package org.pushingpixels.tools.common
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.swing.KeyboardActionScopeType
 import org.pushingpixels.meteor.swing.wireActionToKeyStroke
-import org.pushingpixels.neon.api.NeonCortex
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 
 import javax.imageio.ImageIO
@@ -311,7 +311,7 @@ class JImageComponent(hasKeyboardZoom: Boolean) : JPanel() {
                 it.translate(-this.leftX, -this.topY)
                 it.drawImage(this.image, 0, 0, null)
             } else {
-                NeonCortex.installDesktopHints(it, font)
+                RadianceCommonCortex.installDesktopHints(it, font)
                 it.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.color = Color.black
 
