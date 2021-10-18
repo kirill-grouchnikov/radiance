@@ -41,8 +41,9 @@ import java.util.*;
 
 /**
  * Tracer for memory usage patterns of <b>Radiance</b> look-and-feel. The
- * tracer is started when VM has <code>-Dradiancelaf.traceFile</code> flag. The
- * value of this flag specifies the location of trace log file. When activated,
+ * tracer is started when
+ * {@link org.pushingpixels.radiance.laf.api.RadianceLafCortex.GlobalScope#setTraceFilename(String)}
+ * is called before setting Radiance of the look and feel. When activated,
  * the tracer runs a thread that collects information on memory usage and
  * appends it to the trace log file every <code>X</code> seconds. The
  * <code>X</code> (delay) is specified in the constructor. This class is <b>for
