@@ -3,13 +3,13 @@
 Radiance is a collection of libraries for writing modern, elegant and fast Swing applications. It is built with Java 9, and runs on Java 9 and later.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebula1.png" width="340" height="258" border=0>
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/gemini2.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebula1.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/gemini2.png" width="340" height="258" border=0>
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitechalk1.png" width="340" height="258" border=0>
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nightshade2.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphitechalk1.png" width="340" height="258" border=0>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nightshade2.png" width="340" height="258" border=0>
 </p>
 
 ## General questions
@@ -26,9 +26,9 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Animation](docs/animation/animation.md) provides powerful and flexible animation APIs that scale from simple, single-property cases to complex scenarios that involve multiple animations. It powers all animations in the Radiance libraries.
 
-### Substance
+### Laf
 
-[Substance](docs/substance/substance.md) provides a comprehensive set of APIs for skinning Swing applications, addressing the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a flexible API surface for rendering third-party / application components.
+[Laf](docs/substance/substance.md) provides a comprehensive set of APIs for skinning Swing applications, addressing the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a flexible API surface for rendering third-party / application components.
 
 ### Flamingo
 
@@ -56,19 +56,20 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ## Tools
 
-* [Apollo](docs/tools/apollo/apollo.md) is a tool for creating and editing color scheme lists.
+* [Laf Benchmark](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
-* [Beacon](docs/tools/beacon/beacon.md) is a visual runtime debugger for Substance.
+* [Laf Debugger](docs/tools/lafdebugger/lafdebugger.md) is a visual runtime debugger for Radiance Laf.
 
-* [Hyperion](docs/tools/hyperion/hyperion.md) can be used creating and editing files that define custom button shapers.
+* [Scheme Editor](docs/tools/schemeeditor/schemeeditor.md) is a tool for creating and editing color scheme lists.
 
-* [Ignite](docs/tools/ignite/ignite.md) is a Gradle plugin that wraps the Photon library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+* [Screenshot](docs/tools/screenshot/screenshot.md) has utilities for taking screenshots for Radiance documentation.
 
-* [Lightbeam](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
+* [Shaper Editor](docs/tools/shapeeditor/shapeeditor.md) can be used creating and editing files that define custom button shapers.
 
-* [Photon](docs/tools/photon/photon.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+* [SVG Transcoder Plugin](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md) is a Gradle plugin that wraps the SVG Transcoder library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
-* [Zodiac](docs/tools/zodiac/zodiac.md) has utilities for taking screenshots for Substance and Flamingo documentation.
+* [SVG Transcoder](docs/tools/svgtranscoder/svgtranscoder.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+
 
 ## Demos
 
@@ -95,9 +96,9 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 
 ### Tools artifacts
 
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/beacon/beacon.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/ignite/ignite.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/tools/photon/photon.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/lafdebugger/lafdebugger.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/tools/svgtranscoder/svgtranscoder.md)
 
 ### Snapshots
 

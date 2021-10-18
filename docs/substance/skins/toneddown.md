@@ -11,8 +11,8 @@ Available in the `BusinessSkin`. In addition, the `SubstanceBusinessLookAndFeel`
 * `UIManager.setLookAndFeel("SubstanceBusinessLookAndFeel");`
 
 <p align="left">
-<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/business1.png" width="340" height="258">
-<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/business2.png" width="340" height="258">
+<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/business1.png" width="340" height="258">
+<img alt="Business" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/business2.png" width="340" height="258">
 </p>
 
 ### Business Blue Steel
@@ -26,8 +26,8 @@ Available in the `BusinessBlueSteelSkin`. In addition, the `SubstanceBusinessBlu
 * `UIManager.setLookAndFeel("SubstanceBusinessBlueSteelLookAndFeel");`
 
 <p align="left">
-<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/businessbluesteel1.png" width="340" height="258">
-<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/businessbluesteel2.png" width="340" height="258">
+<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/businessbluesteel1.png" width="340" height="258">
+<img alt="BusinessBlueSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/businessbluesteel2.png" width="340" height="258">
 </p>
 
 ### Business Black Steel
@@ -41,8 +41,8 @@ Available in the `BusinessBlackSteelSkin`. In addition, the `SubstanceBusinessBl
 * `UIManager.setLookAndFeel("SubstanceBusinessBlackSteelLookAndFeel");`
 
 <p align="left">
-<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/businessblacksteel1.png" width="340" height="258">
-<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/businessblacksteel2.png" width="340" height="258">
+<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/businessblacksteel1.png" width="340" height="258">
+<img alt="BusinessBlackSteel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/businessblacksteel2.png" width="340" height="258">
 </p>
 
 ### Creme
@@ -56,8 +56,8 @@ Available in the `CremeSkin`. In addition, the `SubstanceCremeLookAndFeel` can b
 * `UIManager.setLookAndFeel("SubstanceCremeLookAndFeel");`
 
 <p align="left">
-<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/creme1.png" width="340" height="258">
-<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/creme2.png" width="340" height="258">
+<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/creme1.png" width="340" height="258">
+<img alt="Creme" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/creme2.png" width="340" height="258">
 </p>
 
 ### Creme Coffee
@@ -71,8 +71,8 @@ Available in the `CremeCoffeeSkin`. In addition, the `SubstanceCremeCoffeeLookAn
 * `UIManager.setLookAndFeel("SubstanceCremeCoffeeLookAndFeel");`
 
 <p align="left">
-<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/cremecoffee1.png" width="340" height="258">
-<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/cremecoffee2.png" width="340" height="258">
+<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/cremecoffee1.png" width="340" height="258">
+<img alt="CremeCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/cremecoffee2.png" width="340" height="258">
 </p>
 
 ### Sahara
@@ -86,8 +86,8 @@ Available in the `SaharaSkin`. In addition, the `SubstanceSaharaLookAndFeel` can
 * `UIManager.setLookAndFeel("SubstanceSaharaLookAndFeel");`
 
 <p align="left">
-<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/sahara1.png" width="340" height="258">
-<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/sahara2.png" width="340" height="258">
+<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/sahara1.png" width="340" height="258">
+<img alt="Sahara" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/sahara2.png" width="340" height="258">
 </p>
 
 ### Moderate
@@ -101,8 +101,8 @@ Available in the `ModerateSkin`. In addition, the `SubstanceModerateLookAndFeel`
 * `UIManager.setLookAndFeel("SubstanceModerateLookAndFeel");`
 
 <p align="left">
-<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/moderate1.png" width="340" height="258">
-<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/moderate2.png" width="340" height="258">
+<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/moderate1.png" width="340" height="258">
+<img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/moderate2.png" width="340" height="258">
 </p>
 
 ### Nebula
@@ -116,8 +116,8 @@ Available in the `NebulaSkin`. In addition, the `SubstanceNebulaLookAndFeel` can
 * `UIManager.setLookAndFeel("SubstanceNebulaLookAndFeel");`
 
 <p align="left">
-<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebula1.png" width="340" height="258">
-<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebula2.png" width="340" height="258">
+<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebula1.png" width="340" height="258">
+<img alt="Nebula" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebula2.png" width="340" height="258">
 </p>
 
 ### Nebula Amethyst
@@ -131,8 +131,8 @@ Available in the `NebulaAmethystSkin`. In addition, the `SubstanceNebulaAmethyst
 * `UIManager.setLookAndFeel("SubstanceNebulaAmethystLookAndFeel");`
 
 <p align="left">
-<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebulaamethyst1.png" width="340" height="258">
-<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebulaamethyst2.png" width="340" height="258">
+<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebulaamethyst1.png" width="340" height="258">
+<img alt="Nebula Amethyst" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebulaamethyst2.png" width="340" height="258">
 </p>
 
 ### Nebula Brick Wall
@@ -146,8 +146,8 @@ Available in the `NebulaBrickWallSkin`. In addition, the `SubstanceNebulaBrickWa
 * `UIManager.setLookAndFeel("SubstanceNebulaBrickWallLookAndFeel");`
 
 <p align="left">
-<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebulabrickwall1.png" width="340" height="258">
-<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nebulabrickwall2.png" width="340" height="258">
+<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebulabrickwall1.png" width="340" height="258">
+<img alt="NebulaBrickWall" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nebulabrickwall2.png" width="340" height="258">
 </p>
 
 ### Autumn
@@ -161,8 +161,8 @@ Available in the `AutumnSkin`. In addition, the `SubstanceAutumnLookAndFeel` can
 * `UIManager.setLookAndFeel("SubstanceAutumnLookAndFeel");`
 
 <p align="left">
-<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/autumn1.png" width="340" height="258">
-<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/autumn2.png" width="340" height="258">
+<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/autumn1.png" width="340" height="258">
+<img alt="Autumn" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/autumn2.png" width="340" height="258">
 </p>
 
 ### Mist Silver
@@ -176,8 +176,8 @@ Available in the `MistSilverSkin`. In addition, the `SubstanceMistSilverLookAndF
 * `UIManager.setLookAndFeel("SubstanceMistSilverLookAndFeel");`
 
 <p align="left">
-<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/mistsilver1.png" width="340" height="258">
-<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/mistsilver2.png" width="340" height="258">
+<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/mistsilver1.png" width="340" height="258">
+<img alt="MistSilver" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/mistsilver2.png" width="340" height="258">
 </p>
 
 ### Mist Aqua
@@ -191,8 +191,8 @@ Available in the `MistAquaSkin`. In addition, the `SubstanceMistAquaLookAndFeel`
 * `UIManager.setLookAndFeel("SubstanceMistAquaLookAndFeel");`
 
 <p align="left">
-<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/mistaqua1.png" width="340" height="258">
-<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/mistaqua2.png" width="340" height="258">
+<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/mistaqua1.png" width="340" height="258">
+<img alt="MistAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/mistaqua2.png" width="340" height="258">
 </p>
 
 ### Dust
@@ -206,8 +206,8 @@ Available in the `DustSkin`. In addition, the `SubstanceDustLookAndFeel` can be 
 * `UIManager.setLookAndFeel("SubstanceDustLookAndFeel");`
 
 <p align="left">
-<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/dust1.png" width="340" height="258">
-<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/dust2.png" width="340" height="258">
+<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/dust1.png" width="340" height="258">
+<img alt="Dust" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/dust2.png" width="340" height="258">
 </p>
 
 ### Dust Coffee
@@ -221,8 +221,8 @@ Available in the `DustCoffeeSkin`. In addition, the `SubstanceDustCoffeeLookAndF
 * `UIManager.setLookAndFeel("SubstanceDustCoffeeLookAndFeel");`
 
 <p align="left">
-<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/dustcoffee1.png" width="340" height="258">
-<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/dustcoffee2.png" width="340" height="258">
+<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/dustcoffee1.png" width="340" height="258">
+<img alt="DustCoffee" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/dustcoffee2.png" width="340" height="258">
 </p>
 
 ### Gemini
@@ -236,8 +236,8 @@ Available in the `GeminiSkin`. In addition, the `SubstanceGeminiLookAndFeel` can
 * `UIManager.setLookAndFeel("SubstanceGeminiLookAndFeel");`
 
 <p align="left">
-<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/gemini1.png" width="340" height="258">
-<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/gemini2.png" width="340" height="258">
+<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/gemini1.png" width="340" height="258">
+<img alt="Gemini" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/gemini2.png" width="340" height="258">
 </p>
 
 ### Mariner
@@ -251,8 +251,8 @@ Available in the `MarinerSkin`. In addition, the `SubstanceMarinerLookAndFeel` c
 * `UIManager.setLookAndFeel("SubstanceMarinerLookAndFeel");`
 
 <p align="left">
-<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/mariner1.png" width="340" height="258">
-<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/mariner2.png" width="340" height="258">
+<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/mariner1.png" width="340" height="258">
+<img alt="Mariner" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/mariner2.png" width="340" height="258">
 </p>
 
 ### Sentinel
@@ -266,8 +266,8 @@ Available in the `SentinelSkin`. In addition, the `SubstanceSentinelLookAndFeel`
 * `UIManager.setLookAndFeel("SubstanceSentinelLookAndFeel");`
 
 <p align="left">
-<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/sentinel1.png" width="340" height="258">
-<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/sentinel2.png" width="340" height="258">
+<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/sentinel1.png" width="340" height="258">
+<img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/sentinel2.png" width="340" height="258">
 </p>
 
 ### Cerulean
@@ -281,8 +281,8 @@ Available in the `CeruleanSkin`. In addition, the `SubstanceCeruleanLookAndFeel`
 * `UIManager.setLookAndFeel("SubstanceCeruleanLookAndFeel");`
 
 <p align="left">
-<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/cerulean1.png" width="340" height="258">
-<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/cerulean2.png" width="340" height="258">
+<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/cerulean1.png" width="340" height="258">
+<img alt="Cerulean" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/cerulean2.png" width="340" height="258">
 </p>
 
 ### Green Magic
@@ -296,8 +296,8 @@ Available in the `GreenMagicSkin`. In addition, the `SubstanceGreenMagicLookAndF
 * `UIManager.setLookAndFeel("SubstanceGreenMagicLookAndFeel");`
 
 <p align="left">
-<img alt="Green Magic" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/greenmagic1.png" width="340" height="258">
-<img alt="Green Magic" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/greenmagic2.png" width="340" height="258">
+<img alt="Green Magic" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/greenmagic1.png" width="340" height="258">
+<img alt="Green Magic" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/greenmagic2.png" width="340" height="258">
 </p>
 
 

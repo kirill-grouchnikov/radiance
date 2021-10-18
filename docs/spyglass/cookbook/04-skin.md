@@ -18,7 +18,7 @@ The main two color schemes for Cookbook UI are Golden Brown and Dark Brown. Here
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/04-skin/darkbrown.png" width="240" border=0/>
 
-Radiance includes [Apollo](../../tools/apollo/apollo.md) - a visual editor for creating and editing files that serve as color scheme lists.
+Radiance includes [Apollo](../../tools/schemeeditor/schemeeditor.md) - a visual editor for creating and editing files that serve as color scheme lists.
 
 Looking at the Cookbook UI design we can see that `Golden Brown` color scheme is used for:
 

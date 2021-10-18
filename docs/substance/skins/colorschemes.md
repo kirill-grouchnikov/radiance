@@ -42,7 +42,7 @@ The idea behind derived colors is to find the balance between consistent visuals
 
 Let's take a look at the following UI under the core Business skin:
 
-<img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/dustcoffee1.png" width="340" height="258" />
+<img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/dustcoffee1.png" width="340" height="258" />
 
 To point out just a few places where Substance is using derived colors:
 

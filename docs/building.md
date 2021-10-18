@@ -18,7 +18,7 @@ To build library artifacts, run `./gradlew` in your terminal. After this command
 
 ### Local third-party dependencies
 
-Some Radiance libraries have third-party dependencies. To print the full dependency tree, run `./gradlew printRuntimeDependencies`. Here is a snippet that shows the dependencies for [Photon](tools/photon/photon.md):
+Some Radiance libraries have third-party dependencies. To print the full dependency tree, run `./gradlew printRuntimeDependencies`. Here is a snippet that shows the dependencies for [Photon](tools/svgtranscoder/svgtranscoder.md):
 
 ```
 ------------------ photon -------------------

@@ -108,7 +108,7 @@ Command commandAlignFill = Command.builder()
 
 Each command in this example is configured with the following three attributes:
 
-1. Factory for creating a resizable icon for the command's representation (or projection, in Flamingo's terms) on the screen. In this case, the classes for `Format_justify_*` icons were transcoded by [Photon](../tools/photon/photon.md).
+1. Factory for creating a resizable icon for the command's representation (or projection, in Flamingo's terms) on the screen. In this case, the classes for `Format_justify_*` icons were transcoded by [Photon](../tools/svgtranscoder/svgtranscoder.md).
 2. Action to be taken when the command's representation on the screen is activated. Here, each command's action is mapped to call our helper `setAlignment` method.
 3. Finally, each command is marked to belong to the same `CommandToggleGroupModel`, and the first command (align left) is marked also to be the selected one.
 

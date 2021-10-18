@@ -49,7 +49,7 @@ this.pasteActionCommand = Command.builder()
     .build();
 ```
 
-As with all code samples in Flamingo documentation, the classes for icons passed to `setIconFactory()` API calls were transcoded by [Photon](../tools/photon/photon.md).
+As with all code samples in Flamingo documentation, the classes for icons passed to `setIconFactory()` API calls were transcoded by [Photon](../tools/svgtranscoder/svgtranscoder.md).
 
 ### Action attributes
 
