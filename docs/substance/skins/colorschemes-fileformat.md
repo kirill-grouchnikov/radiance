@@ -1,33 +1,33 @@
-## Substance look and feel - file format for defining multiple color schemes
+## Radiance look and feel - file format for defining multiple color schemes
 
-A [color scheme](colorschemes.md) implements the `SubstanceColorScheme` interface. Substance API has a number of base classes that provide a more structured way to define color schemes. In addition to the `BaseLightColorScheme` and `BaseDarkColorScheme`, you can define multiple color schemes in a single text file and then load them in your skin class.
+A [color scheme](colorschemes.md) implements the `RadianceColorScheme` interface. Radiance API has a number of base classes that provide a more structured way to define color schemes. In addition to the `BaseLightColorScheme` and `BaseDarkColorScheme`, you can define multiple color schemes in a single text file and then load them in your skin class.
 
 Let's see how this works.
 
 ### Basics
 
-`SubstanceSkin.getColorSchemes(URL)` and `SubstanceSkin.getColorSchemes(String)` APIs return a `SubstanceSkin.ColorSchemes` object. For example, here is how the [Business Black Steel skin](toneddown.md#business-black-steel) loads its color schemes:
+`RadianceSkin.getColorSchemes(URL)` and `RadianceSkin.getColorSchemes(String)` APIs return a `RadianceSkin.ColorSchemes` object. For example, here is how the [Business Black Steel skin](toneddown.md#business-black-steel) loads its color schemes:
 
 ```java
-SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
-    .getColorSchemes("org/pushingpixels/substance/api/skin/business.colorschemes");
+RadianceSkin.ColorSchemes businessSchemes = RadianceSkin
+    .getColorSchemes("org/pushingpixels/radiance/laf/api/skin/business.colorschemes");
 ```
 
-Then, use `SubstanceSkin.ColorSchemes.get(String)` API to get a specific color scheme based on its name:
+Then, use `RadianceSkin.ColorSchemes.get(String)` API to get a specific color scheme based on its name:
 
 ```java
-SubstanceColorScheme activeScheme = businessSchemes.get("Business Black Steel Active");
-SubstanceColorScheme enabledScheme = businessSchemes.get("Business Black Steel Enabled");
-SubstanceColorScheme disabledScheme = businessSchemes.get("Business Black Steel Disabled");
+RadianceColorScheme activeScheme = businessSchemes.get("Business Black Steel Active");
+RadianceColorScheme enabledScheme = businessSchemes.get("Business Black Steel Enabled");
+RadianceColorScheme disabledScheme = businessSchemes.get("Business Black Steel Disabled");
 
 // the default color scheme bundle
-SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
 ```
 
 ### File format
 
-Color schemes are defined in a plaintext format. The file itself does not have to have the `.colorschemes` filename extension. Core Substance skins use this convention for consistency.
+Color schemes are defined in a plaintext format. The file itself does not have to have the `.colorschemes` filename extension. Core Radiance skins use this convention for consistency.
 
 A snippet that defines a single color scheme looks like this:
 
@@ -44,7 +44,7 @@ Business Black Steel Active {
 }
 ```
 
-Note that you have to provide values for `kind`, as well as for each one of the seven base `color` entries defined by the [BaseColorScheme](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/BaseColorScheme.java) interface. Otherwise calling `SubstanceSkin.getColorSchemes` will throw an exception at runtime.
+Note that you have to provide values for `kind`, as well as for each one of the seven base `color` entries defined by the [BaseColorScheme](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/laf/src/main/java/org/pushingpixels/radiance/laf/api/colorscheme/BaseColorScheme.java) interface. Otherwise calling `RadianceSkin.getColorSchemes` will throw an exception at runtime.
 
 For simpler color schemes that are used with painters that only look at a single color - such as a flat background fill of a specific [decoration area](../painters/decoration.md), you can use the `colorBackground` shortcut to provide the same color for all non-foreground base colors:
 
@@ -56,7 +56,7 @@ Twilight Header Border {
 }
 ```
 
-Optionally, you can specify one or more colors defined by the [SchemeDerivedColors](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/java/org/pushingpixels/substance/api/colorscheme/SchemeDerivedColors.java) interface:
+Optionally, you can specify one or more colors defined by the [SchemeDerivedColors](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/laf/src/main/java/org/pushingpixels/radiance/laf/api/colorscheme/SchemeDerivedColors.java) interface:
 
 ```plaintext
 Green Magic Footer Fill {
@@ -108,7 +108,7 @@ Sentinel Active {
 }
 ```
 
-You can also specify two colors as "end" points for the ultra light to ultra dark spectrum, and let Substance compute the rest of the colors for you:
+You can also specify two colors as "end" points for the ultra light to ultra dark spectrum, and let Radiance compute the rest of the colors for you:
 
 ```plaintext
 Sentinel Decorations Separator {
@@ -122,4 +122,4 @@ This way you can have a small collection of "core" colors define the entire appe
 
 <img alt="Sentinel" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/sentinel1.png" width="340" height="258">
 
-This entire skin is defined by a dozen or so [core colors](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/substance/src/main/resources/org/pushingpixels/substance/api/skin/sentinel.colorschemes), and around 30 color schemes created from these core colors.
+This entire skin is defined by a dozen or so [core colors](https://github.com/kirill-grouchnikov/radiance/blob/sunshine/laf/src/main/resources/org/pushingpixels/radiance/laf/api/skin/sentinel.colorschemes), and around 30 color schemes created from these core colors.

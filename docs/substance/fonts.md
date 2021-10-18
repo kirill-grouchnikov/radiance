@@ -1,6 +1,6 @@
-## Substance look and feel - working with fonts
+## Radiance look and feel - working with fonts
 
-Typography is one of the core pillars of modern applications. Radiance in general, and Substance as one of its parts, come with a number of APIs to work with platform and custom fonts.
+Typography is one of the core pillars of modern applications. Radiance in general, and Radiance as one of its parts, come with a number of APIs to work with platform and custom fonts.
 
 ### Working with platform fonts
 
@@ -8,11 +8,11 @@ Typography is one of the core pillars of modern applications. Radiance in genera
 
 `RadianceCommonCortex.getScaledFontPolicy()` API retrieves the platform-consistent font policy with all fonts scaled up or down by the passed multiplier.
 
-Note that on Catalina (macOS 10.15), Substance is using `Helvetica Neue` instead of the system `San Francisco`. See more details on [this bug](https://github.com/kirill-grouchnikov/radiance/issues/224).
+Note that on Catalina (macOS 10.15), Radiance is using `Helvetica Neue` instead of the system `San Francisco`. See more details on [this bug](https://github.com/kirill-grouchnikov/radiance/issues/224).
 
 ### Rendering text
 
-`RadianceCommonCortex.installDesktopHints` API should be used for rendering platform-consistent text in your application running under the Substance look-and-feel.
+`RadianceCommonCortex.installDesktopHints` API should be used for rendering platform-consistent text in your application running under the Radiance look-and-feel.
 
 For example:
 
@@ -34,16 +34,16 @@ public static class MyPanel extends JPanel {
 
 What if you want to go beyond the built-in default font selection for core or custom Swing components? For example, maybe you want to bump up the font size for that table header, or use italic version in some of your labels (remember that while italic works reasonably well for Latin scripts, it doesn't scale as well to scripts such as CJK and others).
 
-First, you get the current Substance font policy. While the above-mentioned `RadianceCommonCortex.getScaledFontPolicy` returns a desktop-consistent font policy, it is recommended to use `SubstanceCortex.GlobalScope.getFontPolicy` that respects the custom font policy set by the (optional) earlier application call to `SubstanceCortex.GlobalScope.setFontPolicy`.
+First, you get the current Radiance font policy. While the above-mentioned `RadianceCommonCortex.getScaledFontPolicy` returns a desktop-consistent font policy, it is recommended to use `RadianceLafCortex.GlobalScope.getFontPolicy` that respects the custom font policy set by the (optional) earlier application call to `RadianceLafCortex.GlobalScope.setFontPolicy`.
 
 ```java
-Font controlFont = SubstanceCortex.GlobalScope.getFontPolicy()
+Font controlFont = RadianceLafCortex.GlobalScope.getFontPolicy()
     .getFontSet().getControlFont();
 ```
 
 Here, we get the current global font policy, then get the font set and finally get the control font from it. In a similar way, you can retrieve other fonts such as menu, message etc.
 
-The next thing you want to do is to "unwrap" the result, and then "wrap" it as a composite font. The unwrapping is needed to create a `Font` that is not a `UIResource` so that it's not unset by Substance later on. The wrapping is needed for creating a [font "chain"](https://github.com/kirill-grouchnikov/radiance/issues/4) where a character that is not present in the particular font implementation is rendered by a "fallback" glyph. The only currently supported way to create a composite font in Swing is via `StyleContext`.
+The next thing you want to do is to "unwrap" the result, and then "wrap" it as a composite font. The unwrapping is needed to create a `Font` that is not a `UIResource` so that it's not unset by Radiance later on. The wrapping is needed for creating a [font "chain"](https://github.com/kirill-grouchnikov/radiance/issues/4) where a character that is not present in the particular font implementation is rendered by a "fallback" glyph. The only currently supported way to create a composite font in Swing is via `StyleContext`.
 
 ```java
 Font base = StyleContext.getDefaultStyleContext().getFont(
@@ -51,7 +51,7 @@ Font base = StyleContext.getDefaultStyleContext().getFont(
     controlFont.getSize());
 ```
 
-The line above combines both steps - unwrapping the Substance control font by using its "parts" - family, style and size. And wrapping it in a composite font by calling `StyleContext.getDefaultStyleContext().getFont`.
+The line above combines both steps - unwrapping the Radiance control font by using its "parts" - family, style and size. And wrapping it in a composite font by calling `StyleContext.getDefaultStyleContext().getFont`.
 
 From this point, you can derive your own font and set it on the specific component:
 
@@ -62,7 +62,7 @@ button.setFont(base.deriveFont((float) (controlFont.getSize() + 1.0f)));
 
 ### Using a custom font policy
 
-What if you want to use a custom font everywhere in your Substance-based application? This is what `SubstanceCortex.GlobalScope.setFontPolicy` API is for.
+What if you want to use a custom font everywhere in your Radiance-based application? This is what `RadianceLafCortex.GlobalScope.setFontPolicy` API is for.
 
 First, you load your font (one or more variants) from the TTF file (or any compatible resource supported by the `Font.createFont` core API):
 
@@ -74,7 +74,7 @@ URL boldFontURL = classLoader.getResource(boldFontFileName);
 Font boldFont = Font.createFont(Font.TRUETYPE_FONT, boldFontURL.openStream());
 ```
 
-Next, you decide on how to use these variants to derive the Substance font set parts:
+Next, you decide on how to use these variants to derive the Radiance font set parts:
 
 ```java
 Font controlFont = baseFont.deriveFont(13.0f);
@@ -138,10 +138,10 @@ private static class FontSetWrapper implements FontSet {
 }
 ```
 
-You can now set your custom font as the global Substance font policy:
+You can now set your custom font as the global Radiance font policy:
 
 ```java
-SubstanceCortex.GlobalScope.setFontPolicy(
+RadianceLafCortex.GlobalScope.setFontPolicy(
     new FontSetWrapper(controlFont, menuFont, titleFont,
         messageFont, smallFont, windowTitleFont);
 ````

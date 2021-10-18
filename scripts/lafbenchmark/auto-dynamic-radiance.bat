@@ -29,6 +29,6 @@
 
 set RADIANCE_VERSION=5.0-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lafbenchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set SUBSTANCE_CLASSPATH=../../drop/%RADIANCE_VERSION%/core/radiance-laf-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-animation-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-common-%RADIANCE_VERSION%.jar
+set RADIANCE_CLASSPATH=../../drop/%RADIANCE_VERSION%/core/radiance-laf-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-animation-%RADIANCE_VERSION%.jar;../../drop/%RADIANCE_VERSION%/core/radiance-common-%RADIANCE_VERSION%.jar
 
-"%JAVA_HOME%"\bin\java -Dswing.defaultlaf=org.pushingpixels.radiance.laf.api.skin.RadianceGeminiLookAndFeel -cp %CLASSPATH%;%SUBSTANCE_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
+"%JAVA_HOME%"\bin\java -Dswing.defaultlaf=org.pushingpixels.radiance.laf.api.skin.RadianceGeminiLookAndFeel -cp %CLASSPATH%;%RADIANCE_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10

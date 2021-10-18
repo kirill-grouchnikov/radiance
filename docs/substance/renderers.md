@@ -1,4 +1,4 @@
-## Substance look and feel - renderers
+## Radiance look and feel - renderers
 
 ### Basics
 
@@ -6,25 +6,25 @@ Swing's core approach to visualizing large sets of data as lists, trees or table
 
 For example, a table with 20 rows and 10 columns does not contain 200 child views (or one for each cell). Instead, the `JTableColumn.setCellRenderer` and `JTable.setDefaultRenderer` APIs are used to configure the renderer(s) for specific data types (checkbox for boolean values, labels for strings, etc). At runtime, the same renderer instance is used to paint (or rubber stamp) the visuals for all the cells in the column or of the specific data type. Transitioning to the edit mode (usually double-clicking a cell) adds an actual interactive child hierarchy configured by `JTableColumn.setCellEditor`, `JTable.setDefaultEditor` and `JTable.setCellEditor`.
 
-### Substance label-based renderers
+### Radiance label-based renderers
 
 The `org.pushingpixels.radiance.laf.api.renderer` package provides base renderer classes for consistent layout metrics and visuals. The following classes extend the matching default core renderers and apply consistent margins, paddings, fonts, foreground and background colors (including highlight animations), as well as odd-even background striping:
 
-* `SubstanceDefaultListCellRenderer` for `JList`
-* `SubstanceDefaultComboBoxRenderer` for `JComboBox`
-* `SubstanceDefaultTreeCellRenderer` for `JTree`
-* `SubstanceDefaultTableCellRenderer` for `JTable`
-* `SubstanceDefaultTableHeaderCellRenderer` for `JTableHeader`
+* `RadianceDefaultListCellRenderer` for `JList`
+* `RadianceDefaultComboBoxRenderer` for `JComboBox`
+* `RadianceDefaultTreeCellRenderer` for `JTree`
+* `RadianceDefaultTableCellRenderer` for `JTable`
+* `RadianceDefaultTableHeaderCellRenderer` for `JTableHeader`
 
-If you do not configure a custom renderer for one of your data containers, a matching default renderer provided by Substance will be used. Otherwise, it is highly recommended to extend the matching renderer classes for consistent visuals throughout your app.
+If you do not configure a custom renderer for one of your data containers, a matching default renderer provided by Radiance will be used. Otherwise, it is highly recommended to extend the matching renderer classes for consistent visuals throughout your app.
 
-### Complex Substance list renderers
+### Complex Radiance list renderers
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/complex-list-renderer.png" width="946" border=0 align="right"/>
 
-[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of `SubstancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
+[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of `RadiancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
 
-In both cases the [highlights](painters/highlight.md) configured on the matching [decoration areas](painters/decoration.md) provide "special" visuals for highlighted rows - those that are in selected, rollover, armed or pressed state. In addition to configuring the background and foreground colors for the highlights at the skin level, the flow of layout and data binding when you use the `SubstancePanelListCellRenderer` base class is:
+In both cases the [highlights](painters/highlight.md) configured on the matching [decoration areas](painters/decoration.md) provide "special" visuals for highlighted rows - those that are in selected, rollover, armed or pressed state. In addition to configuring the background and foreground colors for the highlights at the skin level, the flow of layout and data binding when you use the `RadiancePanelListCellRenderer` base class is:
 
 * In your renderer constructor, add all sub-components to your renderer and define the layout constraints.
 * In `bindData(JList, Object, int)` bind the relevant data fields to those sub-components.
@@ -44,17 +44,17 @@ JList<DestinationInfo> destinationList = new JList<>(new DestinationListModel(
 destinationList.setCellRenderer(new DestinationRenderer());
 ```
 
-We extend the base Substance panel-based renderer:
+We extend the base Radiance panel-based renderer:
 
 ```java
 private static class DestinationRenderer extends
-       SubstancePanelListCellRenderer<DestinationInfo> {
+        RadiancePanelListCellRenderer<DestinationInfo> {
     private JLabel iconLabel;
     private JLabel titleLabel;
     private JLabel unreadLabel;
 ```
 
-The constructor uses `FormLayout` to configure the layout constraints and registers the three labels to be theme-aware so that at runtime these labels will participate in correct highlight animation sequences driven by Substance:
+The constructor uses `FormLayout` to configure the layout constraints and registers the three labels to be theme-aware so that at runtime these labels will participate in correct highlight animation sequences driven by Radiance:
 
 ```java
 public DestinationRenderer() {
@@ -99,7 +99,7 @@ And finally, we configure the icon factory for the renderer based on the data mo
 protected void onPreRender(JList<? extends DestinationInfo> list,
         DestinationInfo value, int index) {
     // Register the matching icon factory here without setting the actual icon. The
-    // icon will be created and colorized by Substance runtime based on the highlight
+    // icon will be created and colorized by Radiance runtime based on the highlight
     // state of the specific row at render time
     this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
             new Dimension(16, 16));

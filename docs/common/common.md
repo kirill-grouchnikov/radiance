@@ -28,7 +28,7 @@ KeyStroke keyStroke = (RadianceCommonCortex.getPlatform() == CommonCortex.Platfo
 
 ### Rendering text
 
-`RadianceCommonCortex.installDesktopHints` API should be used for rendering platform-consistent text in your application running under the Substance look-and-feel.
+`RadianceCommonCortex.installDesktopHints` API should be used for rendering platform-consistent text in your application running under the Radiance look-and-feel.
 
 For example:
 
@@ -72,15 +72,15 @@ The `RadianceIcon` extends the core `Icon` interface to allow scaling and colori
 
 The [Photon library](../tools/svgtranscoder/svgtranscoder.md) provides tools for using SVG content via the `RadianceIcon` interface. Photon can be used offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original visuals with no additional runtime dependencies.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/complex-list-renderer.png" width="946" border=0 align="right">
 
 ### Icon colorization
 
 `RadianceIcon.setColorFilter` API provides support for colorizing Common icons.
 
-[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of colorized icons in [complex list renderers](../substance/renderers.md). Note the visuals of the selected elements in the destinations list on the left and the threads list in the middle - the icon is colorized with the same foreground color as the associated texts.
+[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of colorized icons in [complex list renderers](../laf/renderers.md). Note the visuals of the selected elements in the destinations list on the left and the threads list in the middle - the icon is colorized with the same foreground color as the associated texts.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/complex-list-renderer.png" width="946" border=0 align="right">
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/complex-list-renderer.png" width="946" border=0 align="right">
 
 
 In the screenshot above, the first two icons in the middle panel (the one next to the search box and the one right below it next to the "Inbox" label) are colorized like this:
@@ -98,7 +98,7 @@ mailIcon.setColorFilter(color -> mainSelectorIconColor);
 ```
 The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [Photon](../tools/svgtranscoder/svgtranscoder.md) from the [Material icon set](https://material.io/tools/icons/).
 
-The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `RadianceIcon.setColorFilter` together with the `SubstanceColorScheme.getColorFilter`.
+The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `RadianceIcon.setColorFilter` together with the `RadianceColorScheme.getColorFilter`.
 
 How does color filtering work? There is a "fast" way, and there is a "slow" way.
 
@@ -110,6 +110,6 @@ This class implements color filtering by using offscreen images and a custom `Bu
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/common/icon-color-filtering.png" width="446" height="196" border=0 align="center">
 
-Here, the colors of Sunfire, Lime Green and Steel Blue color schemes from Substance are used to filter the original visuals of an icon from the Tango icon set (second row), preserving its overall visual feel, while at the same time making it blend more with the specific Substance visuals.
+Here, the colors of Sunfire, Lime Green and Steel Blue color schemes from Radiance are used to filter the original visuals of an icon from the Tango icon set (second row), preserving its overall visual feel, while at the same time making it blend more with the specific Radiance visuals.
 
 Note that in this particular example, the original SVG icon is not transcoded by Photon (which would have resulted in a `RadianceIcon` class that uses the fast path), but rather using Apache Batik at runtime to asynchronously load the original SVG, and then colorizing the icon visuals rendered by Batik.

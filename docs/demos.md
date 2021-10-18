@@ -1,9 +1,9 @@
 ## Radiance demos
 
-* For **Substance** - the `demos/substance-demo` module
+* For **Laf** - the `demos/laf-demo` module
   * The main demo is `Check` class. In order to switch the demo to other third-party look-and-feels you will need to download the matching jar files locally and add them to the classpath.
-  * Smaller demos for showing how to use individual APIs in `org.pushingpixels.demo.substance.main.samples.substance.api` package
-* For **Substance**, advanced - the `demos/spyglass` module
+  * Smaller demos for showing how to use individual APIs in `org.pushingpixels.radiance.demo.laf.main.samples.laf.api` package
+* For **Laf**, advanced - the `demos/spyglass` module
   * Skeleton of a chat app in `org.pushingpixels.demo.spyglass.chat.ChatFrame` class
   * Skeleton of a mail app in `org.pushingpixels.demo.spyglass.mail.VisorMail` class
   * Custom skin in `org.pushingpixels.demo.spyglass.seaglass` package
@@ -24,4 +24,4 @@
   * Experimenting with splines in `org.pushingpixels.radiance.demo.animation.swing.tracker` package
   * Music browser with heavy usage of Radiance animations in the [Lumen](lumen/lumen.md) sample
 * **Ion** - the `demos/ion` module. Sample walkthroughs for [replacing](https://www.pushing-pixels.org/2018/08/07/replacing-swingworker-with-kotlin-coroutines.html) `SwingWorker` with Kotlin coroutines in the `org.pushingpixels.demo.ion` package.
-* **Rainbow** - the `demos/rainbow` module. Image browser that displays SVG content from local disk. Integrates functionality from Common, Animation, Substance, Flamingo, Meteor and Photon in the `org.pushingpixels.demo.rainbow.RainbowLocalViewer` file.
+* **Rainbow** - the `demos/rainbow` module. Image browser that displays SVG content from local disk. Integrates functionality from Common, Animation, Laf, Flamingo, Meteor and Photon in the `org.pushingpixels.demo.rainbow.RainbowLocalViewer` file.

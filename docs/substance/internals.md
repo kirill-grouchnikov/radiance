@@ -1,8 +1,8 @@
-## Substance look and feel - internals
+## Radiance look and feel - internals
 
 ### Introduction
 
-If you're interested in knowing more about Substance internals, this document is for you. It is a rather advanced topic, and it assumes a certain level of familiarity with how Swing internals work in general. Here is a list of overview articles that provide a glimpse into how Swing operates:
+If you're interested in knowing more about Radiance internals, this document is for you. It is a rather advanced topic, and it assumes a certain level of familiarity with how Swing internals work in general. Here is a list of overview articles that provide a glimpse into how Swing operates:
 
 * [Swing painting pipeline](http://www.pushing-pixels.org/2007/08/07/swing-painting-pipeline-the-conclusion.html)
 * [How to write a custom look-and-feel](https://community.oracle.com/docs/DOC-983579)
@@ -25,27 +25,27 @@ A look-and-feel is a collection of UI delegates. Each UI delegate handles the sp
 
 As you can see, painting is only one contact point among many. In an ideal model-view separation promoted by the core Swing library, the UI delegate is responsible for anything that is related to the component's visual and interaction facets.
 
-### Why choose Substance?
+### Why choose Radiance?
 
-Why would you want to use a third-party look-and-feel when core Swing has a number of bundled look-and-feels (including the addition of Nimbus in JDK 6)? Subjective preferences about the visuals aside, Substance provides the following features one would expect from a modern UI toolkit:
+Why would you want to use a third-party look-and-feel when core Swing has a number of bundled look-and-feels (including the addition of Nimbus in JDK 6)? Subjective preferences about the visuals aside, Radiance provides the following features one would expect from a modern UI toolkit:
 
 * Full high DPI support for the core Swing controls with resolution-independent painting.
 * Respecting the desktop font settings of the current environment.
 * Built-in animations for the core Swing controls (rollover, selection, ...)
-* Skinning layer, and especially decoration areas. It enables even the most demanding designs to be implemented as self-contained Substance skins that can be ported across different applications in the same portfolio.
+* Skinning layer, and especially decoration areas. It enables even the most demanding designs to be implemented as self-contained Radiance skins that can be ported across different applications in the same portfolio.
 
-### Substance implementation
+### Radiance implementation
 
-As a high-level view, the following Substance classes (and dependencies) address the four main points above:
+As a high-level view, the following Radiance classes (and dependencies) address the four main points above:
 
-* `SubstanceSizeUtils` has a bunch of methods to compute the different metrics based on the component font size. It makes sure that all the component visuals (paddings, gaps, margins, insets, ...) scale and result in consistent physical appearance on various hardware.
+* `RadianceSizeUtils` has a bunch of methods to compute the different metrics based on the component font size. It makes sure that all the component visuals (paddings, gaps, margins, insets, ...) scale and result in consistent physical appearance on various hardware.
 * [Common](../common/common.md) has font policy implementations for Windows, Gnome, KDE and Mac desktops.
 * [Animation](../animation/animation.md) is the animation engine that powers all built-in animations.
-* `SubstanceSkin` and `SubstanceColorSchemeBundle` are the main classes in the skinning layer.
+* `RadianceSkin` and `RadianceColorSchemeBundle` are the main classes in the skinning layer.
 
-Each Substance UI delegate uses these four classes at different contact points:
+Each Radiance UI delegate uses these four classes at different contact points:
 
-* `SubstanceSizeUtils` is used during the initialization to set up gaps, margins and insets. It is also used in the layout managers to compute the preferred sizes and layout internal sub-components.
+* `RadianceSizeUtils` is used during the initialization to set up gaps, margins and insets. It is also used in the layout managers to compute the preferred sizes and layout internal sub-components.
 * `Common`-provided font configuration is used to populate the all the `*.font` entries in the `UIManager` that are later used to set the fonts on the components during the initialization stage.
 * `Animation` is used in various mouse / change listeners to initiate animation sequences (such as mouse rollover over a button, tab losing selection state) and during the painting to show cross-fades between the states.
-* `SubstanceSkin` is used during the painting to compute the colors for painting the different visual areas of the component.
+* `RadianceSkin` is used during the painting to compute the colors for painting the different visual areas of the component.

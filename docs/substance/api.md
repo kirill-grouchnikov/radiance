@@ -1,6 +1,6 @@
-## Substance look and feel - API
+## Radiance look and feel - API
 
-The `SubstanceCortex` class in the `org.pushingpixels.radiance.laf.api` package is the only officially-supported entry point into configuring the behavior of Substance-powered UIs and for querying the state of such UIs. The API surface of this class is broken into a number of scopes, with every scope applying at the specific granularity level of control:
+The `RadianceLafCortex` class in the `org.pushingpixels.radiance.laf.api` package is the only officially-supported entry point into configuring the behavior of Radiance-powered UIs and for querying the state of such UIs. The API surface of this class is broken into a number of scopes, with every scope applying at the specific granularity level of control:
 
 * **GlobalScope** - configuring and querying the global state of the application.
 * **WindowScope** - configuring and querying state at the level of the application `Window`s.
@@ -23,11 +23,11 @@ Returns all available skins.
 
 Sets the specified skin.
 
-`public static boolean setSkin(SubstanceSkin skin)`
+`public static boolean setSkin(RadianceSkin skin)`
 
 Sets the specified skin.
 
-`public static SubstanceSkin getCurrentSkin(Component c)`
+`public static RadianceSkin getCurrentSkin(Component c)`
 
 Returns the current skin for the specified component.
 
@@ -43,11 +43,11 @@ Unregisters a listener on skin change.
 
 #### Working with plugins and widgets
 
-`public static void registerComponentPlugin(SubstanceComponentPlugin componentPlugin)`
+`public static void registerComponentPlugin(RadianceLafComponentPlugin componentPlugin)`
 
-Registers the specified component plugin that provides Substance-powered UI delegates for custom components.
+Registers the specified component plugin that provides Radiance-powered UI delegates for custom components.
 
-`public static void registerSkinPlugin(SubstanceSkinPlugin skinPlugin)`
+`public static void registerSkinPlugin(RadianceLafSkinPlugin skinPlugin)`
 
 Registers the specified skin plugin.
 
@@ -55,7 +55,7 @@ Registers the specified skin plugin.
 
 Registers the specified widget class to be applicable to all components of the specified class.
 
-`public static void setWidgetVisible(JRootPane rootPane, boolean visible, SubstanceWidgetType... substanceWidgets)`
+`public static void setWidgetVisible(JRootPane rootPane, boolean visible, WidgetType... radianceWidgets)`
 
 Sets the visibility of the specified widget kind(s).
 
@@ -71,11 +71,11 @@ Specifies global visibility of the lock icon on non-editable text components.
 
 `public static FontPolicy getFontPolicy()`
 
-Looks up and retrieves the font policy used by the Substance family.
+Looks up and retrieves the font policy used by the Radiance family.
 
 `public static void setFontPolicy(FontPolicy fontPolicy)`
 
-Sets the font policy to be used with Substance family.
+Sets the font policy to be used with Radiance family.
 
 #### Working with tab closing
 
@@ -186,11 +186,11 @@ Returns all listeners registered on locale change.
 
 #### Working with icons
 
-`public static void setIconPack(SubstanceIconPack iconPack)`
+`public static void setIconPack(RadianceIconPack iconPack)`
 
-Sets the global icon pack to be used by Substance.
+Sets the global icon pack to be used by Radiance.
 
-`public static SubstanceIconPack getIconPack()`
+`public static RadianceIconPack getIconPack()`
 
 Retrieves the currently used global icon pack.
 
@@ -204,33 +204,33 @@ Specifies that icons on controls such as buttons, toggle buttons, labels, tabs a
 
 #### Working with button bars
 
-`public static SubstanceSlices.ButtonOrder getButtonBarOrder()`
+`public static RadianceLafSlices.ButtonOrder getButtonBarOrder()`
 
 Returns the currently set button order for all containers that display grouped buttons, such as `JOptionPane`s, for example.
 
-`public static void setButtonBarOrder(SubstanceSlices.ButtonOrder buttonBarButtonOrder)`
+`public static void setButtonBarOrder(RadianceLafSlices.ButtonOrder buttonBarButtonOrder)`
 
 Sets the button order for all containers that display grouped buttons, such as `JOptionPane`s, for example.
 
-`public static SubstanceSlices.HorizontalGravity getButtonBarGravity()`
+`public static RadianceLafSlices.HorizontalGravity getButtonBarGravity()`
 
 Returns the currently set button bar gravity for all containers that display grouped buttons, such as `JOptionPane`s, for example.
 
-`public static void setButtonBarGravity(SubstanceSlices.HorizontalGravity buttonBarGravity)`
+`public static void setButtonBarGravity(RadianceLafSlices.HorizontalGravity buttonBarGravity)`
 
 Sets the button bar gravity for all containers that display grouped buttons, such as `JOptionPane`s, for example.
 
 #### Working with title pane content
 
-`public static void configureTitleContentGravity(SubstanceSlices.HorizontalGravity titleTextHorizontalGravity, SubstanceSlices.HorizontalGravity titleControlButtonGroupHorizontalGravity, SubstanceSlices.TitleIconHorizontalGravity titleIconHorizontalGravity)`
+`public static void configureTitleContentGravity(RadianceLafSlices.HorizontalGravity titleTextHorizontalGravity, RadianceLafSlices.HorizontalGravity titleControlButtonGroupHorizontalGravity, RadianceLafSlices.TitleIconHorizontalGravity titleIconHorizontalGravity)`
 
 Configures title pane content gravity for all decorated application windows.
 
-`public static SubstanceSlices.HorizontalGravity getTitleTextHorizontalGravity()`
+`public static RadianceLafSlices.HorizontalGravity getTitleTextHorizontalGravity()`
 
 Returns the gravity for the title text in title panes of all decorated application windows.
 
-`public static SubstanceSlices.TitleIconHorizontalGravity getTitleIconHorizontalGravity()`
+`public static RadianceLafSlices.TitleIconHorizontalGravity getTitleIconHorizontalGravity()`
 
 Returns the gravity for the icon in title panes of all decorated application windows.
 
@@ -274,7 +274,7 @@ Specifies whether scroll panes should have have auto-scroll support invoked on m
 
 Specifies whether buttons should ignore the default (minimum) dimension.
 
-`public static void setBackgroundAppearanceStrategy(SubstanceSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy)`
+`public static void setBackgroundAppearanceStrategy(RadianceLafSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy)`
 
 Specifies when components should paint their background.
 
@@ -326,7 +326,7 @@ Returns the global scale factor of the screen hardware that is showing the appli
 
 #### Working with title pane content
 
-`public static void extendContentIntoTitlePane(Window window, SubstanceSlices.HorizontalGravity controlButtonGroupHorizontalGravity, SubstanceSlices.VerticalGravity controlButtonGroupVerticalGravity)`
+`public static void extendContentIntoTitlePane(Window window, RadianceLafSlices.HorizontalGravity controlButtonGroupHorizontalGravity, RadianceLafSlices.VerticalGravity controlButtonGroupVerticalGravity)`
 
 Marks the specified window to have its content extend vertically into the title pane area.
 
@@ -342,19 +342,19 @@ Queries the insets that should be reserved for the main control buttons (close /
 
 Increase the preferred height of the title pane area in case the content you extend into that area with `extendContentIntoTitlePane(Window)` API is taller than the main control buttons.
 
-`public static SubstanceSlices.HorizontalGravity getTitleControlButtonGroupHorizontalGravity(Window window)`
+`public static RadianceLafSlices.HorizontalGravity getTitleControlButtonGroupHorizontalGravity(Window window)`
 
 Returns the horizontal gravity for the control button group in the title pane of the specific window.
 
 #### Working with widgets
 
-`public static void setWidgetVisible(Window window, boolean visible, SubstanceWidgetType... substanceWidgets)`
+`public static void setWidgetVisible(Window window, boolean visible, WidgetType... radianceWidgets)`
 
 Sets the visibility of the specified widget type(s).
 
 ### RootPaneScope
 
-`public static void setSkin(JRootPane rootPane, SubstanceSkin skin)`
+`public static void setSkin(JRootPane rootPane, RadianceSkin skin)`
 
 Specifies a skin to be used on the specific root pane.
 
@@ -366,7 +366,7 @@ Specifies that contents of a root pane have been modified and not saved.
 
 #### Working with skins
 
-`public static SubstanceSkin getCurrentSkin(Component c)`
+`public static RadianceSkin getCurrentSkin(Component c)`
 
 Returns the current skin for the specified component.
 
@@ -438,19 +438,19 @@ Returns the immediate decoration area type of the specified component.
 
 #### Working with buttons
 
-`public static void setButtonOpenSide(JComponent comp, SubstanceSlices.Side openSide)`
+`public static void setButtonOpenSide(JComponent comp, RadianceLafSlices.Side openSide)`
 
 Specifies the open side for the specific button component.
 
-`public static void setButtonOpenSides(JComponent comp, Set<SubstanceSlices.Side> openSides)`
+`public static void setButtonOpenSides(JComponent comp, Set<RadianceLafSlices.Side> openSides)`
 
 Specifies the open sides for the specific button component.
 
-`public static void setButtonStraightSide(JComponent comp, SubstanceSlices.Side straightSide)`
+`public static void setButtonStraightSide(JComponent comp, RadianceLafSlices.Side straightSide)`
 
 Specifies the straight side for the specific button component.
 
-`public static void setButtonStraightSides(JComponent comp, Set<SubstanceSlices.Side> straightSides)`
+`public static void setButtonStraightSides(JComponent comp, Set<RadianceLafSlices.Side> straightSides)`
 
 Specifies the straight sides for the specific button component.
 
@@ -458,7 +458,7 @@ Specifies the straight sides for the specific button component.
 
 Specifies corner radius for the specific button.
 
-`public static void setButtonShaper(JComponent comp, SubstanceButtonShaper buttonShaper)`
+`public static void setButtonShaper(JComponent comp, RadianceButtonShaper buttonShaper)`
 
 Specifies the button shaper to be used for the specific component.
 
@@ -516,7 +516,7 @@ Specifies preview painter to be used for showing preview of the specific compone
 
 Specifies whether the specific component or its immediate children should ignore the default (minimum) dimension for buttons.
 
-`public static void setBackgroundAppearanceStrategy(JComponent comp, SubstanceSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy)`
+`public static void setBackgroundAppearanceStrategy(JComponent comp, RadianceLafSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy)`
 
 Specifies when the specific component or its immediate children should paint their background.
 

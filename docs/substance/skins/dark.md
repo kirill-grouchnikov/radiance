@@ -1,14 +1,14 @@
-## Substance look and feel - dark skins
+## Radiance look and feel - dark skins
 
 ### Twilight
 
-Available in the `TwilightSkin`. In addition, the `SubstanceTwilightLookAndFeel` can be used with one of the following options:
+Available in the `TwilightSkin`. In addition, the `RadianceTwilightLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new TwilightSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("TwilightSkin")`
-* `-Dswing.defaultlaf=SubstanceTwilightLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceTwilightLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceTwilightLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new TwilightSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceTwilightSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceTwilightLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceTwilightLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceTwilightLookAndFeel");`
 
 <p align="left">
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/twilight1.png" width="340" height="258">
@@ -17,13 +17,13 @@ Available in the `TwilightSkin`. In addition, the `SubstanceTwilightLookAndFeel`
 
 ### Night Shade
 
-Available in the `NightShadeSkin`. In addition, the `SubstanceNightShadeLookAndFeel` can be used with one of the following options:
+Available in the `NightShadeSkin`. In addition, the `RadianceNightShadeLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new NightShadeSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("NightShadeSkin")`
-* `-Dswing.defaultlaf=SubstanceNightShadeLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceNightShadeLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceNightShadeLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new NightShadeSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceNightShadeSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceNightShadeLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceNightShadeLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceNightShadeLookAndFeel");`
 
 <p align="left">
 <img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/nightshade1.png" width="340" height="258">
@@ -32,13 +32,13 @@ Available in the `NightShadeSkin`. In addition, the `SubstanceNightShadeLookAndF
 
 ### Magellan
 
-Available in the `MagellanSkin`. In addition, the `SubstanceMagellanLookAndFeel` can be used with one of the following options:
+Available in the `MagellanSkin`. In addition, the `RadianceMagellanLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new MagellanSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("MagellanSkin")`
-* `-Dswing.defaultlaf=SubstanceMagellanLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceMagellanLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceMagellanLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new MagellanSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceMagellanSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceMagellanLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceMagellanLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceMagellanLookAndFeel");`
 
 <p align="left">
 <img alt="Magellan" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/magellan1.png" width="340" height="258">
@@ -47,13 +47,13 @@ Available in the `MagellanSkin`. In addition, the `SubstanceMagellanLookAndFeel`
 
 ### Graphite
 
-Available in the `GraphiteSkin`. In addition, the `SubstanceGraphiteLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSkin`. In addition, the `RadianceGraphiteLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteLookAndFeel");`
 
 <p align="left">
 <img alt="Graphite" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphite1.png" width="340" height="258">
@@ -62,13 +62,13 @@ Available in the `GraphiteSkin`. In addition, the `SubstanceGraphiteLookAndFeel`
 
 ### Graphite Chalk
 
-Available in the `GraphiteChalkSkin`. In addition, the `SubstanceGraphiteChalkLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteChalkSkin`. In addition, the `RadianceGraphiteChalkLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteChalkSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteChalkSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteChalkLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteChalkLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteChalkLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteChalkSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteChalkSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteChalkLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteChalkLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteChalkLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphitechalk1.png" width="340" height="258">
@@ -77,13 +77,13 @@ Available in the `GraphiteChalkSkin`. In addition, the `SubstanceGraphiteChalkLo
 
 ### Graphite Aqua
 
-Available in the `GraphiteAquaSkin`. In addition, the `SubstanceGraphiteAquaLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteAquaSkin`. In addition, the `RadianceGraphiteAquaLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteAquaSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteAquaSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteAquaLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteAquaLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteAquaLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteAquaSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteAquaSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteAquaLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteAquaLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteAquaLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphiteaqua1.png" width="340" height="258">
@@ -92,13 +92,13 @@ Available in the `GraphiteAquaSkin`. In addition, the `SubstanceGraphiteAquaLook
 
 ### Graphite Electric
 
-Available in the `GraphiteElectricSkin`. In addition, the `SubstanceGraphiteElectricLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteElectricSkin`. In addition, the `RadianceGraphiteElectricLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteElectricSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteElectricSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteElectricLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteElectricLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteElectricLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteElectricSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteElectricSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteElectricLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteElectricLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteElectricLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphiteelectric1.png" width="340" height="258">
@@ -107,13 +107,13 @@ Available in the `GraphiteElectricSkin`. In addition, the `SubstanceGraphiteElec
 
 ### Graphite Gold
 
-Available in the `GraphiteGoldSkin`. In addition, the `SubstanceGraphiteGoldLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteGoldSkin`. In addition, the `RadianceGraphiteGoldLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteGoldSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteGoldSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteGoldLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteGoldLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteGoldLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteGoldSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteGoldSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteGoldLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteGoldLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteGoldLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphitegold1.png" width="340" height="258">
@@ -122,13 +122,13 @@ Available in the `GraphiteGoldSkin`. In addition, the `SubstanceGraphiteGoldLook
 
 ### Graphite Sienna
 
-Available in the `GraphiteSiennaSkin`. In addition, the `SubstanceGraphiteSiennaLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSiennaSkin`. In addition, the `RadianceGraphiteSiennaLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteSiennaSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteSiennaSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteSiennaLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteSiennaLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteSiennaLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteSiennaSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteSiennaSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteSiennaLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteSiennaLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteSiennaLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteSienna" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphitesienna1.png" width="340" height="258">
@@ -137,13 +137,13 @@ Available in the `GraphiteSiennaSkin`. In addition, the `SubstanceGraphiteSienna
 
 ### Graphite Sunset
 
-Available in the `GraphiteSunsetSkin`. In addition, the `SubstanceGraphiteSunsetLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSunsetSkin`. In addition, the `RadianceGraphiteSunsetLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteSunsetSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteSunsetSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteSunsetLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteSunsetLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteSunsetLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteSunsetSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteSunsetSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteSunsetLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteSunsetLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteSunsetLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphitesunset1.png" width="340" height="258">
@@ -152,13 +152,13 @@ Available in the `GraphiteSunsetSkin`. In addition, the `SubstanceGraphiteSunset
 
 ### Graphite Glass
 
-Available in the `GraphiteGlassSkin`. In addition, the `SubstanceGraphiteGlassLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteGlassSkin`. In addition, the `RadianceGraphiteGlassLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new GraphiteGlassSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("GraphiteGlassSkin")`
-* `-Dswing.defaultlaf=SubstanceGraphiteGlassLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceGraphiteGlassLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new GraphiteGlassSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceGraphiteGlassSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceGraphiteGlassLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceGraphiteGlassLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceGraphiteGlassLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteGlass" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphiteglass1.png" width="340" height="258">
@@ -167,13 +167,13 @@ Available in the `GraphiteGlassSkin`. In addition, the `SubstanceGraphiteGlassLo
 
 ### Raven
 
-Available in the `RavenSkin`. In addition, the `SubstanceRavenLookAndFeel` can be used with one of the following options:
+Available in the `RavenSkin`. In addition, the `RadianceRavenLookAndFeel` can be used with one of the following options:
 
-* `SubstanceCortex.GlobalScope.setSkin(new RavenSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("RavenSkin")`
-* `-Dswing.defaultlaf=SubstanceRavenLookAndFeel`
-* `UIManager.setLookAndFeel(new SubstanceRavenLookAndFeel())`
-* `UIManager.setLookAndFeel("SubstanceRavenLookAndFeel");`
+* `RadianceLafCortex.GlobalScope.setSkin(new RavenSkin())`
+* `RadianceLafCortex.GlobalScope.setSkin("org.pushingpixels.laf.api.skin.RadianceRavenSkin")`
+* `-Dswing.defaultlaf=org.pushingpixels.laf.api.skin.RadianceRavenLookAndFeel`
+* `UIManager.setLookAndFeel(new RadianceRavenLookAndFeel())`
+* `UIManager.setLookAndFeel("org.pushingpixels.laf.api.skin.RadianceRavenLookAndFeel");`
 
 <p align="left">
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/raven1.png" width="340" height="258">

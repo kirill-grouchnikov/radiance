@@ -33,7 +33,7 @@ public interface ComponentSupplier<TC extends JComponent, CC extends ContentMode
 This interface uses the same generic class parameters as the `Projection` class it resides in. It allows you to effectively "substitute" your own class to be used during the flow of `Projection.buildComponent()` call. For example:
 
 ```java
-@SubstanceInternalButton
+@RadianceInternalButton
 private class RibbonBandExpandButton extends JCommandButton implements FlamingoInternalButton {
     private RibbonBandExpandButton(Projection<JCommandButton, Command,
             CommandButtonPresentationModel> projection) {
@@ -52,7 +52,7 @@ CommandButtonProjection<Command> expandCommandProjection =
 expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
 ```
 
-Here, we are "pointing" the specific projection to use our custom subclass of `JCommandButton` which is annotated with `SubstanceInternalButton` to mark it for special internal handling inside Substance.
+Here, we are "pointing" the specific projection to use our custom subclass of `JCommandButton` which is annotated with `RadianceInternalButton` to mark it for special internal handling inside Radiance.
 
 Note that the `Function` method returned from `getComponentSupplier` does not have to be the class constructor. It can be any `Function` object that matches the expected signature.
 
@@ -87,11 +87,11 @@ expandCommandProjection.setComponentCustomizer(button -> {
     // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
     // CONTROL_PANE as well to sync the mark color
     ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.CONTROL_PANE);
-    SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this.ribbonBand);
+    RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonBand);
     button.setIcon(getExpandButtonIcon(skin, button));
     // Mark the button as rectangular
-    SubstanceCortex.ComponentScope.setButtonStraightSides(button,
-            EnumSet.allOf(SubstanceSlices.Side.class));
+    RadianceCortex.ComponentScope.setButtonStraightSides(button,
+            EnumSet.allOf(RadianceSlices.Side.class));
 });
 ```
 

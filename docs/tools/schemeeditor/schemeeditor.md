@@ -1,4 +1,4 @@
-## Scheme editor - editing Substance color scheme lists
+## Scheme editor - editing Radiance color scheme lists
 
 A visual editor for creating and editing files that serve as color scheme lists.
 

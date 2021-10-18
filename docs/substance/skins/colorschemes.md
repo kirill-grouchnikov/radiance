@@ -1,8 +1,8 @@
-## Substance look and feel - color schemes
+## Radiance look and feel - color schemes
 
-A **color scheme** is a set of information that allows painting a control in a specific visual state. In general, a color scheme defines a collection of colors that are used by the various Substance [painters](../painters/overview.md) to paint different control areas (such as background fill, border etc) under a specific visual state.
+A **color scheme** is a set of information that allows painting a control in a specific visual state. In general, a color scheme defines a collection of colors that are used by the various Radiance [painters](../painters/overview.md) to paint different control areas (such as background fill, border etc) under a specific visual state.
 
-The `SubstanceColorScheme` contains all the APIs officially supported by Substance color schemes. The APIs can be roughly divided in three categories:
+The `RadianceColorScheme` contains all the APIs officially supported by Radiance color schemes. The APIs can be roughly divided in three categories:
 
 * Base colors. These are defined in the `SchemeBaseColors`
 * Derived colors. These are defined in the `SchemeDerivedColors`
@@ -38,13 +38,13 @@ The `SchemeDerivedColors` defines the following derived colors:
 * Separator primary
 * Separator secondary
 
-The idea behind derived colors is to find the balance between consistent visuals across all surfaces painted by Substance and allowing the app to customize specific colors to fit the particulars of its design language.
+The idea behind derived colors is to find the balance between consistent visuals across all surfaces painted by Radiance and allowing the app to customize specific colors to fit the particulars of its design language.
 
 Let's take a look at the following UI under the core Business skin:
 
 <img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/dustcoffee1.png" width="340" height="258" />
 
-To point out just a few places where Substance is using derived colors:
+To point out just a few places where Radiance is using derived colors:
 
 * Mark color is used for the selected mark / dot of checkboxes and radio buttons, as well as the arrow of the combobox.
 * Separator secondary color is used for the double content border of the tabbed pane
@@ -55,7 +55,7 @@ To point out just a few places where Substance is using derived colors:
 Providing one or more of the derived colors in your [color schemes file](colorschemes-fileformat.md) is the recommended approach to tweaking the overall visual language of your application while maintaining continuity across different UI surfaces.
 
 ### Core light color schemes
-The Substance core library provides the following sixteen light color schemes:
+The Radiance core library provides the following sixteen light color schemes:
 
 `Aqua`, `Barby Pink`
 <p>
@@ -99,7 +99,7 @@ The Substance core library provides the following sixteen light color schemes:
 </p>
 
 ### Core dark color schemes
-The Substance core library provides the following five dark color schemes:
+The Radiance core library provides the following five dark color schemes:
 
 `Ebony`, `Dark Violet`
 <p>
@@ -118,7 +118,7 @@ The Substance core library provides the following five dark color schemes:
 
 ### Deriving color schemes
 
-The `SubstanceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
+The `RadianceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
 
 The following API allows shifting both the background and the foreground colors:
 
@@ -138,7 +138,7 @@ The following API allows shifting both the background and the foreground colors:
    *     specified color.
    * @return Shift version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme shift(Color backgroundShiftColor,
+  public RadianceColorScheme shift(Color backgroundShiftColor,
       double backgroundShiftFactor, Color foregroundShiftColor,
       double foregroundShiftFactor)
 ```      
@@ -160,7 +160,7 @@ The following API allows shifting only the background colors:
    * @return Shift version of <code>this</code> scheme that does not change
    *   the foreground color.
    */
-  public SubstanceColorScheme shiftBackground(Color backgroundShiftColor,
+  public RadianceColorScheme shiftBackground(Color backgroundShiftColor,
       double backgroundShiftFactor)
 ```      
 Here is the same `Purple` color scheme shifted 80% towards light red in background colors:
@@ -179,7 +179,7 @@ The following API allows tinting the colors (shifting towards white):
    *     color.
    * @return Tinted version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme tint(double tintFactor)
+  public RadianceColorScheme tint(double tintFactor)
 ```
 
 The following API allows toning the colors (shifting towards gray):
@@ -194,7 +194,7 @@ The following API allows toning the colors (shifting towards gray):
    *     color.
    * @return Toned version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme tone(double toneFactor)
+  public RadianceColorScheme tone(double toneFactor)
 ```  
 The following API allows shading the colors (shifting towards black):
 
@@ -208,7 +208,7 @@ The following API allows shading the colors (shifting towards black):
    *     color.
    * @return Shaded version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme shade(double shadeFactor)
+  public RadianceColorScheme shade(double shadeFactor)
 ```
 
 Here is the same `Purple` color scheme tinted 40%, toned 40% and shaded 40%:
@@ -229,7 +229,7 @@ The following API allows saturating or desaturating the colors:
    *     colors. Negative values create more desaturated colors.
    * @return Saturated version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme saturate(double saturateFactor)
+  public RadianceColorScheme saturate(double saturateFactor)
 ```
 
 Here is the same `Purple` color scheme saturated 40% and desaturated 40%:
@@ -245,7 +245,7 @@ The following API allows inverting the colors:
    *
    * @return Inverted version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme invert()
+  public RadianceColorScheme invert()
 ```
 
 The following API allows negating the colors:
@@ -256,7 +256,7 @@ The following API allows negating the colors:
    *
    * @return Negated version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme negate()
+  public RadianceColorScheme negate()
 ```
 
 Here is the same `Purple` color scheme inverted and negated:
@@ -275,7 +275,7 @@ The following API allows shifting the hue of the colors:
    *     Value in -1.0...1.0 range.
    * @return Hue-shifted version of <code>this</code> scheme.
    */
-  public SubstanceColorScheme hueShift(double hueShiftFactor)
+  public RadianceColorScheme hueShift(double hueShiftFactor)
 ```
 
 Here is the same `Purple` color scheme hue-shifted 40%:

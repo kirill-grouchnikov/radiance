@@ -15,12 +15,12 @@ SVG has a wide feature surface which, depending on the complexity of your SVG so
 Radiance SVG transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Radiance SVG transcoder ships with two sets of built-in template files (one for Java and one for Kotlin) that create slightly different wrappers around the Java2D draw calls:
 
 * `SvgTranscoderTemplatePlain.templ` - generates a class with a static method to paint the icon content onto the passed `Graphics2D` object. The generated class also has methods to query the bounding box of the original SVG content.
-* `SvgTranscoderTemplateRadiance.templ` - generates a class that implements [common](../../common/common.md)'s `RadianceIcon` interface. An instance of the generated class can be passed to any relevant Substance or Flamingo API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
+* `SvgTranscoderTemplateRadiance.templ` - generates a class that implements [common](../../common/common.md)'s `RadianceIcon` interface. An instance of the generated class can be passed to any relevant Radiance API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
 
 A couple of usages of transcoded resizable icons in Radiance itself are:
 
 * Flamingo ribbon resize that may involve a number of command buttons going between smaller and larger icon sizes. It is recommended to use the generated static `of(int, int)` method to obtain an instance of a generated class for the specific initial size.
-* Icons in Substance icon packs configured with the `SubstanceCortex.GlobalScope.setIconPack` API.
+* Icons in Radiance icon packs configured with the `RadianceLafCortex.GlobalScope.setIconPack` API.
 
 #### Batch transcoding all SVG files in a single folder
 

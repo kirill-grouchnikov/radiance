@@ -1,16 +1,16 @@
-## Substance look and feel
+## Radiance look and feel
 
-Substance provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
+Radiance provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for build instructions of the latest stable release.
 
 ### Overview
 
 * [Getting started](getting-started.md)
-* [How to add Substance to your project](add-to-your-project.md)
+* [How to add Radiance to your project](add-to-your-project.md)
 * [Known issues](known-issues.md)
 
-### Working with Substance
+### Working with Radiance
 
 * [API surface](api.md)
 * [Animations](animations.md)
@@ -47,7 +47,7 @@ Substance provides a powerful and flexible set of APIs that can be used to skin 
 
 ### Code samples
 
-* [Main Substance demo](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/substance-demo/src/main/java/org/pushingpixels/demo/substance/main)
+* [Main Radiance demo](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/laf-demo/src/main/java/org/pushingpixels/radiance/demo/laf/main)
 * [Additional sample apps](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass)
 * [Cookbook walkthrough](../spyglass/cookbook/cookbook.md)
 

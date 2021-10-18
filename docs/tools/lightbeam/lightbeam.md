@@ -45,7 +45,7 @@ The numbers are milliseconds it takes to render a frame with a number of matchin
 
 With this, you can compare the performance of your look-and-feel with that of core / third-party libraries. You can also track performance improvements and regressions during the development cycle.
 
-[Here is the script](../../../scripts/lafbenchmark/auto-dynamic-radiance.sh) used for tracking performance numbers for Substance:
+[Here is the script](../../../scripts/lafbenchmark/auto-dynamic-radiance.sh) used for tracking performance numbers for Radiance:
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
@@ -53,6 +53,6 @@ With this, you can compare the performance of your look-and-feel with that of co
 
 `CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lafbenchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
 
-`SUBSTANCE_CLASSPATH=../../drop/$RADIANCE_VERSION/core/radiance-laf-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-animation-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-common-$RADIANCE_VERSION.jar`
+`RADIANCE_CLASSPATH=../../drop/$RADIANCE_VERSION/core/radiance-laf-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-animation-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-common-$RADIANCE_VERSION.jar`
 
-`java -Dswing.defaultlaf=SubstanceGeminiLookAndFeel -cp $CLASSPATH:$SUBSTANCE_CLASSPATH DynamicPerformanceSuite 10`
+`java -Dswing.defaultlaf=RadianceGeminiLookAndFeel -cp $CLASSPATH:$RADIANCE_CLASSPATH DynamicPerformanceSuite 10`

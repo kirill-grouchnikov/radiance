@@ -1,8 +1,8 @@
-## Substance look and feel - skins
+## Radiance look and feel - skins
 
 ### Introduction
 
-A **skin** is a set of visual settings that gives your application a polished and consistent look. The core Substance library bundles a number of predefined skins that can be broadly categorized as light and dark.
+A **skin** is a set of visual settings that gives your application a polished and consistent look. The core Radiance library bundles a number of predefined skins that can be broadly categorized as light and dark.
 
 [Light skins](toneddown.md) use predominantly light colors for painting the UI controls and containers. [Business skin](toneddown.md#business) is an example of a light skin:
 
@@ -18,7 +18,7 @@ A **skin** is a set of visual settings that gives your application a polished an
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/skins/graphitechalk2.png" width="340" height="258">
 </p>
 
-The core Substance skins are in the `org.pushingpixels.radiance.laf.api.skin` package, and `the SubstanceSkin` class contains all the APIs officially supported by Substance skins. It is possible to use different Substance skins on different windows in the same application. Consult the documentation on the `SubstanceLookAndFeel.SKIN_PROPERTY` client property.
+The core Radiance skins are in the `org.pushingpixels.radiance.laf.api.skin` package, and `the RadianceSkin` class contains all the APIs officially supported by Radiance skins. It is possible to use different Radiance skins on different windows in the same application. Consult the documentation on the `RadianceLookAndFeel.SKIN_PROPERTY` client property.
 
 ### Skin definition
 
@@ -62,7 +62,7 @@ In order to register a custom color scheme bundle and an optional background col
    *     Enumerates the area types that are affected by the parameters.
    */
   public void registerDecorationAreaSchemeBundle(
-      SubstanceColorSchemeBundle bundle, DecorationAreaType... areaTypes)
+      RadianceColorSchemeBundle bundle, DecorationAreaType... areaTypes)
 
   /**
    * Registers the specified color scheme bundle and background color scheme
@@ -77,8 +77,8 @@ In order to register a custom color scheme bundle and an optional background col
    *     Enumerates the area types that are affected by the parameters.
    */
   public void registerDecorationAreaSchemeBundle(
-      SubstanceColorSchemeBundle bundle,
-      SubstanceColorScheme backgroundColorScheme,
+      RadianceColorSchemeBundle bundle,
+      RadianceColorScheme backgroundColorScheme,
       DecorationAreaType... areaTypes)
 ```
 
@@ -95,28 +95,28 @@ Decoration areas registered with these APIs will have their background painted b
    * @param areaTypes
    *     Enumerates the area types that are affected by the parameters. Each
    *     decoration area type will be painted by {@link
-   *     SubstanceDecorationPainter#paintDecorationArea(Graphics2D,
-   *     Component, DecorationAreaType, int, int, SubstanceSkin)}.
+   *     RadianceDecorationPainter#paintDecorationArea(Graphics2D,
+   *     Component, DecorationAreaType, int, int, RadianceSkin)}.
    */
   public void registerAsDecorationArea(
-      SubstanceColorScheme backgroundColorScheme,
+      RadianceColorScheme backgroundColorScheme,
       DecorationAreaType... areaTypes)
 ```
 
 Here is an example of specifying the default color scheme bundle for the [Business Blue Steel skin](toneddown.md#business-blue-steel):
 
 ```java
-SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
-    .getColorSchemes("org/pushingpixels/substance/api/skin/business.colorschemes");
+RadianceSkin.ColorSchemes businessSchemes = RadianceSkin
+    .getColorSchemes("org/pushingpixels/radiance/laf/api/skin/business.colorschemes");
 
-SubstanceColorScheme activeScheme = businessSchemes.get("Business Blue Steel Active");
-SubstanceColorScheme enabledScheme = businessSchemes.get("Business Blue Steel Enabled");
-SubstanceColorScheme disabledScheme = businessSchemes.get("Business Blue Steel Disabled");
+RadianceColorScheme activeScheme = businessSchemes.get("Business Blue Steel Active");
+RadianceColorScheme enabledScheme = businessSchemes.get("Business Blue Steel Enabled");
+RadianceColorScheme disabledScheme = businessSchemes.get("Business Blue Steel Disabled");
 
-SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
 
-SubstanceColorScheme highlightColorScheme = businessSchemes
+RadianceColorScheme highlightColorScheme = businessSchemes
     .get("Business Blue Steel Highlight");
 defaultSchemeBundle.registerColorScheme(activeScheme, 0.5f,
     ComponentState.DISABLED_SELECTED);
@@ -126,11 +126,11 @@ this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.
 and a custom color scheme bundle for the `header`-type decoration areas:
 
 ```java
-SubstanceColorScheme activeHeaderScheme = businessSchemes
+RadianceColorScheme activeHeaderScheme = businessSchemes
     .get("Business Blue Steel Active Header");
-SubstanceColorScheme enabledHeaderScheme = businessSchemes
+RadianceColorScheme enabledHeaderScheme = businessSchemes
     .get("Business Blue Steel Enabled Header");
-SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
     activeHeaderScheme, enabledHeaderScheme, enabledHeaderScheme);
 headerSchemeBundle.registerColorScheme(enabledHeaderScheme, 0.5f,
     ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
@@ -163,7 +163,7 @@ To add polishing touches to the specific decoration areas, use [overlay painters
    * @param areaTypes
    *            Decoration area types.
    */
-  public void addOverlayPainter(SubstanceOverlayPainter overlayPainter,
+  public void addOverlayPainter(RadianceOverlayPainter overlayPainter,
       DecorationAreaType... areaTypes)
 ```
 
@@ -178,7 +178,7 @@ this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    scheme -> SubstanceColorUtilities.getAlphaColor(
+    scheme -> RadianceColorUtilities.getAlphaColor(
         scheme.getDarkColor(), 160));
 this.addOverlayPainter(this.bottomLineOverlayPainter,
     DecorationAreaType.PRIMARY_TITLE_PANE,
@@ -250,7 +250,7 @@ FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
         ColorSchemeSingleColorQuery.LIGHT,
         ColorSchemeSingleColorQuery.ULTRADARK,
         ColorSchemeSingleColorQuery.MID });
-SubstanceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
+RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
     "Office Silver 2007 Inner", outerBorderPainter,
     new int[] { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF },
     scheme -> scheme.tint(0.8f));
@@ -288,8 +288,8 @@ You can use the following API to create a derived skin:
    *     The name of the new skin.
    * @return The new skin.
    */
-  @SubstanceApi
-  public SubstanceSkin transform(ColorSchemeTransform transform,
+  @RadianceApi
+  public RadianceSkin transform(ColorSchemeTransform transform,
       final String name)
 ```      
 Where the color scheme transformation is defined by the following interface:
@@ -308,13 +308,13 @@ public interface ColorSchemeTransform {
    *            The original color scheme to transform.
    * @return The transformed color scheme.
    */
-  public SubstanceColorScheme transform(SubstanceColorScheme scheme);
+  public RadianceColorScheme transform(RadianceColorScheme scheme);
 }
 ```
 
 ### Accented skins
 
-Another, more fine grained mechanism for deriving a skin is using **accented skins**. This can be done by extending a skin that extends the `SubstanceSkin.Accented` super class.
+Another, more fine grained mechanism for deriving a skin is using **accented skins**. This can be done by extending a skin that extends the `RadianceSkin.Accented` super class.
 
 Such skins "declare" themselves to support one particular, narrowly scoped kind of derivation - providing up to five [color schemes](colorschemes.md) as accents. It is up to a skin that declares itself as accented to "decide" how to apply those accent colors.
 
@@ -338,9 +338,9 @@ The first passes a light silver scheme as the window chrome accent, while the se
 
 ### Providing custom skins
 
-Substance provides an option for specifying custom skin. This option uses the Substance plugin mechanism to register additional skins at runtime.
+Radiance provides an option for specifying custom skin. This option uses the Radiance plugin mechanism to register additional skins at runtime.
 
-The top-level entry into a skin plugin is `SubstanceSkinPlugin` interface. This interface specifies the following method:
+The top-level entry into a skin plugin is `RadianceLafSkinPlugin` interface. This interface specifies the following method:
 
 ```java
   /**
@@ -353,20 +353,20 @@ The top-level entry into a skin plugin is `SubstanceSkinPlugin` interface. This 
 
 The `SkinInfo` class contains information on single (base or custom) skin.
 
-Note that using this option you may override the skins supplied with Substance base package (by specifying the same display name).
+Note that using this option you may override the skins supplied with Radiance base package (by specifying the same display name).
 
-### Sample code to work with Substance skins
+### Sample code to work with Radiance skins
 
-The following class implements a custom combobox that lists all available Substance skins and allows changing the current Substance skin based on the user selection.
+The following class implements a custom combobox that lists all available Radiance skins and allows changing the current Radiance skin based on the user selection.
 
 ```java
-public class SubstanceSkinComboSelector extends JComboBox {
-  public SubstanceSkinComboSelector() {
+public class RadianceSkinComboSelector extends JComboBox {
+  public RadianceSkinComboSelector() {
     // populate the combobox
-    super(new ArrayList<>(SubstanceCortex.GlobalScope.getAllSkins().values()).toArray());
+    super(new ArrayList<>(RadianceLafCortex.GlobalScope.getAllSkins().values()).toArray());
     // set the current skin as the selected item
-    SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
-    for (SkinInfo skinInfo : SubstanceCortex.GlobalScope.getAllSkins().values()) {
+    RadianceSkin currentSkin = RadianceLafCortex.GlobalScope.getCurrentSkin();
+    for (SkinInfo skinInfo : RadianceLafCortex.GlobalScope.getAllSkins().values()) {
       if (skinInfo.getDisplayName().compareTo(
           currentSkin.getDisplayName()) == 0) {
         this.setSelectedItem(skinInfo);
@@ -374,7 +374,7 @@ public class SubstanceSkinComboSelector extends JComboBox {
       }
     }
     // set custom renderer to show the skin display name
-    this.setRenderer(new SubstanceDefaultComboBoxRenderer(this) {
+    this.setRenderer(new RadianceDefaultComboBoxRenderer(this) {
       @Override
       public Component getListCellRendererComponent(JList list,
           Object value, int index, boolean isSelected,
@@ -386,16 +386,16 @@ public class SubstanceSkinComboSelector extends JComboBox {
     });
     // add an action listener to change skin based on user selection
     this.addActionListener(
-            actionEvent -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope
-                    .setSkin(((SkinInfo) SubstanceSkinComboSelector.this.getSelectedItem())
+            actionEvent -> SwingUtilities.invokeLater(() -> RadianceLafCortex.GlobalScope
+                    .setSkin(((SkinInfo) RadianceSkinComboSelector.this.getSelectedItem())
                             .getClassName())));
   }
 }
 ```
 
-* First, it uses the `getAllSkins()` API to populate the combobox with the list of all available Substance skins.
-* Then, it uses the `getCurrentSkin()` API to select the combobox entry that matches the current Substance skin.
-* Since the model entries behind the combobox are `SkinInfo` objects, we extend the default Substance combobox cell renderer to use the display name of the skin.
-* Finally, we register an action listener on the combobox which gets triggerred on any selection change. The action listener uses the `setSkin(String className)` API to set the selected skin as the new global Substance skin. Note that there is no need to explicitly invoke `SwingUtilities.updateComponentTree` on all your windows after calling this Substance API.
+* First, it uses the `getAllSkins()` API to populate the combobox with the list of all available Radiance skins.
+* Then, it uses the `getCurrentSkin()` API to select the combobox entry that matches the current Radiance skin.
+* Since the model entries behind the combobox are `SkinInfo` objects, we extend the default Radiance combobox cell renderer to use the display name of the skin.
+* Finally, we register an action listener on the combobox which gets triggerred on any selection change. The action listener uses the `setSkin(String className)` API to set the selected skin as the new global Radiance skin. Note that there is no need to explicitly invoke `SwingUtilities.updateComponentTree` on all your windows after calling this Radiance API.
 
-The same approach can be used to create a menu selection of available Substance skins.
+The same approach can be used to create a menu selection of available Radiance skins.

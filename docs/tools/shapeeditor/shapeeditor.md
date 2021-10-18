@@ -18,7 +18,7 @@ When you're done with editing, click `Save contour` to save the serialized repre
 
 ### Runtime usage
 
-The [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/substance-extras) comes with three helper classes that you can use to load and display custom button shaper outlines:
+The [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/laf-extras) comes with three helper classes that you can use to load and display custom button shaper outlines:
 
 * `ShaperRepository` has methods for reading and writing serialized `.shaper` files.
 * `CanonicalPath` is returned by `.read` and accepted by `.write` methods in the repository. After reading a serialized `.shaper` file, use `CanonicalPath.getPath` to get a Java2D `GeneralPath` that matches the size and insets of the relevant control.

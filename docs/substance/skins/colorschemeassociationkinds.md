@@ -1,21 +1,21 @@
-## Substance look and feel - color scheme association kinds
+## Radiance look and feel - color scheme association kinds
 
-Color scheme association kinds in Substance are best illustrated by a simple example:
+Color scheme association kinds in Radiance are best illustrated by a simple example:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/color-scheme-association-kinds.png" width="96" height="96"/>
 
 This is a screenshot of a `JCheckBox` icon under 72 point font. This checkmark icon has three different visual areas: inner fill, border and the "V" mark. Each one of these areas is painted with a different [color scheme](colorschemes.md), and this is allowed by using the relevant **color scheme association kinds**.
 
-The `SubstanceSlices.ColorSchemeAssociationKind` is the base class for core and custom color scheme association kinds. Where is this class used?
+The `RadianceLafSlices.ColorSchemeAssociationKind` is the base class for core and custom color scheme association kinds. Where is this class used?
 
-* The first usage is in the skin definition. The main `SubstanceSkin` APIs allow associating different color schemes with different visual areas of Swing controls.
+* The first usage is in the skin definition. The main `RadianceSkin` APIs allow associating different color schemes with different visual areas of Swing controls.
 * The specific UI delegates query the component skin for the color schemes that match the relevant visual areas.
 
 Let's go back to the `JCheckBox` icon example above. How do we use the color scheme association kinds to specify three different color schemes for painting this checkmark icon?
 
 As detailed in the [skin documentation](overview.md), each skin has a number of [color scheme bundles](colorschemebundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color scheme bundle, you can specify different [color schemes](colorschemes.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
 
-In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `SubstanceColorSchemeBundle` is:
+In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `RadianceColorSchemeBundle` is:
 
 ```java
   /**
@@ -42,7 +42,7 @@ In our case, we want to specify different color schemes for different visual are
    *            Component states that further restrict the usage of the
    *            specified color scheme.
    */
-  public void registerColorScheme(SubstanceColorScheme scheme,
+  public void registerColorScheme(RadianceColorScheme scheme,
       ColorSchemeAssociationKind associationKind,
       ComponentState... states)
 ```
@@ -53,28 +53,28 @@ In our case, we want to specify different color schemes for different visual are
 
 Going back once again to the original image:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/color-scheme-association-kinds.png" width="96" height="96"/>
 
 Here is the outline of the relevant configuration code:
 
 ```java
-SubstanceColorScheme activeScheme = ...;
-SubstanceColorScheme defaultScheme = ...;
-SubstanceColorScheme disabledScheme = ...;
+RadianceColorScheme activeScheme = ...;
+RadianceColorScheme defaultScheme = ...;
+RadianceColorScheme disabledScheme = ...;
 
-SubstanceColorSchemeBundle defaultBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle defaultBundle = new RadianceColorSchemeBundle(
     activeScheme, defaultScheme, disabledScheme);
 
-SubstanceColorScheme selectedBorderScheme = ...;
+RadianceColorScheme selectedBorderScheme = ...;
 defaultBundle.registerColorScheme(selectedBorderScheme,
     ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED);
 
-SubstanceColorScheme selectedMarkScheme = ...;
+RadianceColorScheme selectedMarkScheme = ...;
 defaultBundle.registerColorScheme(selectedMarkScheme,
     ColorSchemeAssociationKind.MARK, ComponentState.SELECTED);
 ```
 
-Note that there is no explicit usage of the `ColorSchemeAssociationKind.FILL` value. This illustrates the **fallback** mechanism. In this particular case, the second parameter to the `SubstanceColorSchemeBundle` constructor is used as the fallback color scheme for inner fills under all component states. The fallback mechanism also extends to the other color scheme association kinds.
+Note that there is no explicit usage of the `ColorSchemeAssociationKind.FILL` value. This illustrates the **fallback** mechanism. In this particular case, the second parameter to the `RadianceColorSchemeBundle` constructor is used as the fallback color scheme for inner fills under all component states. The fallback mechanism also extends to the other color scheme association kinds.
 
 Here is the constructor signature of the `ColorSchemeAssociationKind`:
 
@@ -101,31 +101,30 @@ Here is the constructor signature of the `ColorSchemeAssociationKind`:
 
 The second parameter specifies what should happen when the color scheme bundle definition does not have an explicitly registered color scheme for the specific color scheme association kind under the specific component state.
 
-For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `SubstanceColorSchemeBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
+For example, the `ColorSchemeAssociationKind.MARK` has the `ColorSchemeAssociationKind.BORDER` as its fallback. This means that if you want to use the same color scheme for painting both borders and marks, you need to only call the `RadianceColorSchemeBundle.registerColorScheme` API with the `ColorSchemeAssociationKind.BORDER` value.
 
-The registered associations are used by the Substance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries the three relevant association kinds (`ColorSchemeAssociationKind.FIL`L, `ColorSchemeAssociationKind.BORDER` and `ColorSchemeAssociationKind.MARK`) and uses the relevant painters ([fill](../painters/fill.md) and [border](../painters/border.md)) to paint the matching visual areas.
+The registered associations are used by the Radiance UI delegates during the component painting. Specifically for the checkbox, the UI delegate queries the three relevant association kinds (`ColorSchemeAssociationKind.FIL`L, `ColorSchemeAssociationKind.BORDER` and `ColorSchemeAssociationKind.MARK`) and uses the relevant painters ([fill](../painters/fill.md) and [border](../painters/border.md)) to paint the matching visual areas.
 
 Applications that want to provide [custom skinning](../painters/custom-skinning.md) of their UIs can use the following two supported APIs in order to get the relevant color schemes.
 
-First, use the following API in `SubstanceCortex.ComponentScope` class to obtain the skin that should be used for painting your component:
+First, use the following API in `RadianceLafCortex.ComponentScope` class to obtain the skin that should be used for painting your component:
 
 ```java
   /**
    * Returns the current skin for the specified component. If the current
-   * look-and-feel is not Substance, this method returns <code>null</code>.
+   * look-and-feel is not Radiance, this method returns <code>null</code>.
    *
    * @param c
    *            Component. May be <code>null</code> - in this case the global
-   *            current Substance skin will be returned.
+   *            current Radiance skin will be returned.
    * @return Current skin for the specified component.
    * @see #SKIN_PROPERTY
    * @see #getCurrentSkin()
    */
-  @SubstanceApi
-  public static SubstanceSkin getCurrentSkin(Component c)
+  public static RadianceSkin getCurrentSkin(Component c)
 ```
 
-Then, use the following API in the obtained `SubstanceSkin` class to get the color scheme for the relevant visual area:
+Then, use the following API in the obtained `RadianceSkin` class to get the color scheme for the relevant visual area:
 
 ```java
   /**
@@ -141,7 +140,7 @@ Then, use the following API in the obtained `SubstanceSkin` class to get the col
    * @return Color scheme to be used for painting the specified visual area of
    *         the component under the specified component state.
    */
-  public SubstanceColorScheme getColorScheme(Component comp,
+  public RadianceColorScheme getColorScheme(Component comp,
       ColorSchemeAssociationKind associationKind,
       ComponentState componentState)
 ```			

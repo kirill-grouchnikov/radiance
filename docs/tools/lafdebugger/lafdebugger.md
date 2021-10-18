@@ -1,4 +1,4 @@
-## LAF Debugger - visual runtime debugger for Substance
+## LAF Debugger - visual runtime debugger for Radiance
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for build instructions of the latest stable release.
 
@@ -16,4 +16,4 @@ From that point on, a context menu will be added to all decorated windows in you
 * Toggle usage of themed icons
 * Toggle global ghost debug mode
 * Dump entire window component hierarchy
-* Print Substance cache statistics
+* Print Radiance cache statistics

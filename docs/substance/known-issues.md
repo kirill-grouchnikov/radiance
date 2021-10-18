@@ -1,8 +1,8 @@
-## Substance look and feel - known issues
+## Radiance look and feel - known issues
 
-Both issues documented here have been reported to Sun all the way back in 2004. Fixing them in Substance would involve copying very substantial amount of code from either Metal or Basic LAF delegates, introducing code bloating, as well as forking and inheriting unfixed bugs.
+Both issues documented here have been reported to Sun all the way back in 2004. Fixing them in Radiance would involve copying very substantial amount of code from either Metal or Basic LAF delegates, introducing code bloating, as well as forking and inheriting unfixed bugs.
 
-Note that a number of other existing Swing bugs have been either fixed or circumvented in Substance.
+Note that a number of other existing Swing bugs have been either fixed or circumvented in Radiance.
 
 The known issues are:
 

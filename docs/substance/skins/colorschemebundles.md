@@ -1,6 +1,6 @@
-## Substance look and feel - color scheme bundles
+## Radiance look and feel - color scheme bundles
 
-A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `SubstanceColorSchemeBundle` contains all the APIs officially supported by Substance color scheme bundles.
+A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `RadianceColorSchemeBundle` contains all the APIs officially supported by Radiance color scheme bundles.
 
 ### Basics
 
@@ -17,27 +17,27 @@ The `ComponentState` is the base class for core and custom [component states](co
    * @param disabledColorScheme
    *            The disabled color scheme of this bundle.
    */
-  public SubstanceColorSchemeBundle(SubstanceColorScheme activeColorScheme,
-      SubstanceColorScheme enabledColorScheme,
-      SubstanceColorScheme disabledColorScheme)
+  public RadianceColorSchemeBundle(RadianceColorScheme activeColorScheme,
+      RadianceColorScheme enabledColorScheme,
+      RadianceColorScheme disabledColorScheme)
 ```
 
 Here is a screenshot of three buttons (active, default and disabled) under the core [Business Black Steel skin](toneddown.md#business-black-steel):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states.png" width="293" height="101" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/states/control-states.png" width="293" height="101" />
 
 Here is the relevant code snippet from the definition of this skin:
 
 ```java
-SubstanceSkin.ColorSchemes businessSchemes = SubstanceSkin
-    .getColorSchemes("org/pushingpixels/substance/api/skin/business.colorschemes");
+RadianceSkin.ColorSchemes businessSchemes = RadianceSkin
+    .getColorSchemes("org/pushingpixels/radiance/laf/api/skin/business.colorschemes");
 
-SubstanceColorScheme activeScheme = businessSchemes.get("Business Black Steel Active");
-SubstanceColorScheme enabledScheme = businessSchemes.get("Business Black Steel Enabled");
-SubstanceColorScheme disabledScheme = businessSchemes.get("Business Black Steel Disabled");
+RadianceColorScheme activeScheme = businessSchemes.get("Business Black Steel Active");
+RadianceColorScheme enabledScheme = businessSchemes.get("Business Black Steel Enabled");
+RadianceColorScheme disabledScheme = businessSchemes.get("Business Black Steel Disabled");
 
 // the default color scheme bundle
-SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
 ```
 
@@ -54,13 +54,13 @@ The following API allows specifying a custom color scheme for a specific compone
    * @param states
    *     Component states.
    */
-  public void registerColorScheme(SubstanceColorScheme stateColorScheme,
+  public void registerColorScheme(RadianceColorScheme stateColorScheme,
       ComponentState... states)
 ```      
 
 For example, you can use this API if you want to visualy distinguish between buttons in rollover state and rollover selected state. Here is a screenshot of buttons in different states under the core [Office Silver 2007 skin](toneddown.md#office-silver-2007):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/states/control-states-extended.png" width="275" height="279" />
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/states/control-states-extended.png" width="275" height="279" />
 
 Here is the relevant code snippet:
 
@@ -91,14 +91,14 @@ public void registerAlpha(float alpha, ComponentState... states)
 Here is sample code from the [Autumn skin](toneddown.md#autumn) that uses the same color scheme for default and disabled states, setting alpha channel to 60% for the disabled states:
 
 ```java
-SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-    .getColorSchemes("org/pushingpixels/substance/api/skin/autumn.colorschemes");
+RadianceSkin.ColorSchemes schemes = RadianceSkin
+    .getColorSchemes("org/pushingpixels/radiance/laf/api/skin/autumn.colorschemes");
 
-SubstanceColorScheme activeScheme = schemes.get("Autumn Active");
-SubstanceColorScheme enabledScheme = schemes.get("Autumn Enabled");
-SubstanceColorScheme disabledScheme = enabledScheme;
+RadianceColorScheme activeScheme = schemes.get("Autumn Active");
+RadianceColorScheme enabledScheme = schemes.get("Autumn Enabled");
+RadianceColorScheme disabledScheme = enabledScheme;
 
-SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
 defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
 defaultSchemeBundle.registerColorScheme(disabledScheme, ComponentState.DISABLED_UNSELECTED);
@@ -122,7 +122,7 @@ The [highlight painters](../painters/highlight.md) are used to paint highlight a
    *     will be applied for all states left unspecified.
    */
   public void registerHighlightColorScheme(
-      SubstanceColorScheme stateHighlightScheme, ComponentState... states)
+      RadianceColorScheme stateHighlightScheme, ComponentState... states)
 
   /**
    * Registers a highlight alpha channel value for the specific component states.
@@ -136,7 +136,7 @@ The [highlight painters](../painters/highlight.md) are used to paint highlight a
 Here is an example of using these APIs to set state-specific alpha values for highlights in the [Business Black Steel skin](toneddown.md#business-black-steel):
 
 ```java
-SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
     activeScheme, enabledScheme, disabledScheme);
 defaultSchemeBundle.registerHighlightAlpha(0.6f, ComponentState.ROLLOVER_UNSELECTED);
 defaultSchemeBundle.registerHighlightAlpha(0.8f, ComponentState.SELECTED);
@@ -151,7 +151,7 @@ defaultSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.RO
 
 As described in the [color scheme association kind documentation](colorschemeassociationkinds.md), Swing controls have different visual areas. Even such a simple example as `JCheckBox` icon has three different visual areas: inner fill, border and the "V" mark:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/color-scheme-association-kinds.png" width="96" height="96"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf/color-scheme-association-kinds.png" width="96" height="96"/>
 
 Use the following API to specify custom color schemes to be used for specific visual areas under specific component states:
 
@@ -180,7 +180,7 @@ Use the following API to specify custom color schemes to be used for specific vi
    *            Component states that further restrict the usage of the
    *            specified color scheme.
    */
-  public void registerColorScheme(SubstanceColorScheme scheme,
+  public void registerColorScheme(RadianceColorScheme scheme,
       ColorSchemeAssociationKind associationKind,
       ComponentState... states)
 ```
@@ -208,7 +208,7 @@ You can use the following API to create a derived color scheme bundle:
    *     Color scheme transformation.
    * @return The new color scheme bundle.
    */
-  public SubstanceColorSchemeBundle transform(ColorSchemeTransform transform)
+  public RadianceColorSchemeBundle transform(ColorSchemeTransform transform)
 ```
 
 Where the color scheme transformation is defined by the following interface:
@@ -227,6 +227,6 @@ public interface ColorSchemeTransform {
    *            The original color scheme to transform.
    * @return The transformed color scheme.
    */
-  public SubstanceColorScheme transform(SubstanceColorScheme scheme);
+  public RadianceColorScheme transform(RadianceColorScheme scheme);
 }
 ```     
