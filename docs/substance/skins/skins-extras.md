@@ -13,8 +13,8 @@ Available in the `FieldOfWheatSkin`. In addition, the `SubstanceFieldOfWheatLook
 * `UIManager.setLookAndFeel("SubstanceFieldOfWheatLookAndFeel");`
 
 <p align="left">
-<img alt="Field of Wheat" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/fieldofwheat1.png" width="340" height="258">
-<img alt="Field of Wheat" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/fieldofwheat2.png" width="340" height="258">
+<img alt="Field of Wheat" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/fieldofwheat1.png" width="340" height="258">
+<img alt="Field of Wheat" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/fieldofwheat2.png" width="340" height="258">
 </p>
 
 ### Finding Nemo
@@ -28,8 +28,8 @@ Available in the `FindingNemoSkin`. In addition, the `SubstanceFindingNemoLookAn
 * `UIManager.setLookAndFeel("SubstanceFindingNemoLookAndFeel");`
 
 <p align="left">
-<img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/findingnemo1.png" width="340" height="258">
-<img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/findingnemo2.png" width="340" height="258">
+<img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/findingnemo1.png" width="340" height="258">
+<img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/findingnemo2.png" width="340" height="258">
 </p>
 
 
@@ -44,8 +44,8 @@ Available in the `HarvestSkin`. In addition, the `SubstanceHarvestLookAndFeel` c
 * `UIManager.setLookAndFeel("SubstanceHarvestLookAndFeel");`
 
 <p align="left">
-<img alt="Harvest" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/harvest1.png" width="340" height="258">
-<img alt="Harvest" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/harvest2.png" width="340" height="258">
+<img alt="Harvest" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/harvest1.png" width="340" height="258">
+<img alt="Harvest" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/harvest2.png" width="340" height="258">
 </p>
 
 ### Magma
@@ -59,8 +59,8 @@ Available in the `MagmaSkin`. In addition, the `SubstanceMagmaLookAndFeel` can b
 * `UIManager.setLookAndFeel("SubstanceMagmaLookAndFeel");`
 
 <p align="left">
-<img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/magma1.png" width="340" height="258">
-<img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/magma2.png" width="340" height="258">
+<img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/magma1.png" width="340" height="258">
+<img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/magma2.png" width="340" height="258">
 </p>
 
 ### Mango
@@ -74,8 +74,8 @@ Available in the `MangoSkin`. In addition, the `SubstanceMangoLookAndFeel` can b
 * `UIManager.setLookAndFeel("SubstanceMangoLookAndFeel");`
 
 <p align="left">
-<img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/mango1.png" width="340" height="258">
-<img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/mango2.png" width="340" height="258">
+<img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/mango1.png" width="340" height="258">
+<img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/mango2.png" width="340" height="258">
 </p>
 
 ### Office Black 2007
@@ -89,8 +89,8 @@ Available in the `OfficeBlack2007Skin`. In addition, the `SubstanceOfficeBlack20
 * `UIManager.setLookAndFeel("SubstanceOfficeBlack2007LookAndFeel");`
 
 <p align="left">
-<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblack20071.png" width="340" height="258">
-<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblack20072.png" width="340" height="258">
+<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblack20071.png" width="340" height="258">
+<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblack20072.png" width="340" height="258">
 </p>
 
 ### Office Blue 2007
@@ -104,8 +104,8 @@ Available in the `OfficeBlue2007Skin`. In addition, the `SubstanceOfficeBlue2007
 * `UIManager.setLookAndFeel("SubstanceOfficeBlue2007LookAndFeel");`
 
 <p align="left">
-<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblue20071.png" width="340" height="258">
-<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblue20072.png" width="340" height="258">
+<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblue20071.png" width="340" height="258">
+<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblue20072.png" width="340" height="258">
 </p>
 
 ### Office Silver 2007
@@ -119,8 +119,8 @@ Available in the `OfficeSilver2007Skin`. In addition, the `SubstanceOfficeSilver
 * `UIManager.setLookAndFeel("SubstanceOfficeSilver2007LookAndFeel");`
 
 <p align="left">
-<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officesilver20071.png" width="340" height="258">
-<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officesilver20072.png" width="340" height="258">
+<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officesilver20071.png" width="340" height="258">
+<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officesilver20072.png" width="340" height="258">
 </p>
 
 ### Streetlights
@@ -134,6 +134,6 @@ Available in the `StreetlightsSkin`. In addition, the `SubstanceStreetlightsLook
 * `UIManager.setLookAndFeel("SubstanceStreetlightsLookAndFeel");`
 
 <p align="left">
-<img alt="Streetlights" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/streetlights1.png" width="340" height="258">
-<img alt="Streetlights" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/streetlights2.png" width="340" height="258">
+<img alt="Streetlights" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/streetlights1.png" width="340" height="258">
+<img alt="Streetlights" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/streetlights2.png" width="340" height="258">
 </p>

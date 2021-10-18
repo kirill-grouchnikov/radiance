@@ -316,8 +316,8 @@ Available in the `OfficeSilver2007Skin`. In addition, the `SubstanceOfficeSilver
 * `UIManager.setLookAndFeel("SubstanceOfficeSilver2007LookAndFeel");`
 
 <p align="left">
-<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officesilver20071.png" width="340" height="258">
-<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officesilver20072.png" width="340" height="258">
+<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officesilver20071.png" width="340" height="258">
+<img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officesilver20072.png" width="340" height="258">
 </p>
 
 ### Office Blue 2007
@@ -331,8 +331,8 @@ Available in the `OfficeBlue2007Skin`. In addition, the `SubstanceOfficeBlue2007
 * `UIManager.setLookAndFeel("SubstanceOfficeBlue2007LookAndFeel");`
 
 <p align="left">
-<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblue20071.png" width="340" height="258">
-<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblue20072.png" width="340" height="258">
+<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblue20071.png" width="340" height="258">
+<img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblue20072.png" width="340" height="258">
 </p>
 
 ### Office Black 2007
@@ -346,8 +346,8 @@ Available in the `OfficeBlack2007Skin`. In addition, the `SubstanceOfficeBlack20
 * `UIManager.setLookAndFeel("SubstanceOfficeBlack2007LookAndFeel");`
 
 <p align="left">
-<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblack20071.png" width="340" height="258">
-<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblack20072.png" width="340" height="258">
+<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblack20071.png" width="340" height="258">
+<img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/laf-extras/skins/officeblack20072.png" width="340" height="258">
 </p>
 
 ### Additional skins
