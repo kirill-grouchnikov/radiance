@@ -31,10 +31,9 @@ package org.pushingpixels.substance.internal.utils;
 
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 

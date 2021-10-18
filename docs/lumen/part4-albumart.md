@@ -148,7 +148,7 @@ Here, we:
 * Add a rollover listener to show a "glowing" border
 * Get the timeline scenario that will load, scale and fade in the image and play it – see below.
 
-The most interesting code is in the `getLoadImageScenario`. It returns a Trident timeline scenario that has the following sequential steps:
+The most interesting code is in the `getLoadImageScenario`. It returns a Radiance timeline scenario that has the following sequential steps:
 
 * Load the `BufferedImage` from the specified `URL`. This is done with a `TimelineSwingWorker`.
 * Scale the loaded image to fit the available dimensions. This is done with a `TimelineRunnable`.
@@ -220,7 +220,7 @@ loadScenario.addScenarioActor(Timeline.builder(AlbumOverviewComponent.this)
 
 return loadScenario;
 ```
-Now we need a couple of public setters for the alpha attributes (so that the main Trident engine can interpolate them):
+Now we need a couple of public setters for the alpha attributes (so that the main Radiance animation engine can interpolate them):
 
 ```java
 /**

@@ -32,7 +32,7 @@ package org.pushingpixels.lumen.details;
 import org.pushingpixels.lumen.LumenUtils;
 import org.pushingpixels.lumen.MainWindow;
 import org.pushingpixels.lumen.data.SearchResultRelease;
-import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline;
 
 import java.awt.*;
 

@@ -35,7 +35,7 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.torch.TorchComponent
 import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.trident.api.Timeline
+import org.pushingpixels.radiance.animation.api.Timeline
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout

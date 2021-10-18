@@ -31,7 +31,7 @@ package org.pushingpixels.lucent.content
 
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.fromCurrentTo
-import org.pushingpixels.trident.api.Timeline
+import org.pushingpixels.radiance.animation.api.Timeline
 
 /**
  * Adds the following functionality to the album scroller container:

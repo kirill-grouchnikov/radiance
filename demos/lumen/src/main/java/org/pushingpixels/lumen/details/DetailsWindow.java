@@ -32,11 +32,11 @@ package org.pushingpixels.lumen.details;
 import org.pushingpixels.lumen.BackendConnector;
 import org.pushingpixels.lumen.data.SearchResultRelease;
 import org.pushingpixels.lumen.data.Track;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.TimelineRunnable;
-import org.pushingpixels.trident.api.TimelineScenario;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
-import org.pushingpixels.trident.api.swing.TimelineSwingWorker;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.TimelineRunnable;
+import org.pushingpixels.radiance.animation.api.TimelineScenario;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker;
 
 import javax.swing.*;
 import java.awt.*;

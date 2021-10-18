@@ -37,8 +37,8 @@ import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;

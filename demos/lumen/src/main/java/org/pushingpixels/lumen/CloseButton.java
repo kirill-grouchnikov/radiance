@@ -30,8 +30,8 @@
 package org.pushingpixels.lumen;
 
 import org.pushingpixels.lumen.details.DetailsWindowManager;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import java.awt.*;

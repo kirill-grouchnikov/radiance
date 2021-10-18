@@ -46,8 +46,8 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.SubstanceIconFactory;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;

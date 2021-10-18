@@ -1,6 +1,6 @@
 ### Version of Radiance (latest release is 4.5.0)
 
-### Sub-project (Common, Trident, Substance, Flamingo, ...)
+### Sub-project (Common, Animation, Substance, Flamingo, ...)
 
 ### Version of Java (current minimum is 9)
 

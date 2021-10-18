@@ -32,7 +32,7 @@ apply plugin: 'java'
 
 dependencies {
     implementation project(':common')
-    implementation project(':trident')
+    implementation project(':animation')
 }
 
 ext.designation = "core"

@@ -32,9 +32,9 @@ package org.pushingpixels.substance.extras.internal.tabbed;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.*;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import java.awt.*;

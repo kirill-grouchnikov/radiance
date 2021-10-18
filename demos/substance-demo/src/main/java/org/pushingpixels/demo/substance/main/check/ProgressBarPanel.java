@@ -30,15 +30,14 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.api.swing.RunOnEventDispatchThread;
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.swing.RunOnEventDispatchThread;
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 /**
  * Test application panel for testing {@link JProgressBar} component.

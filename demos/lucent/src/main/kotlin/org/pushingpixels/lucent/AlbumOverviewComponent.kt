@@ -40,11 +40,11 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.TimelineRunnable
-import org.pushingpixels.trident.api.TimelineScenario
-import org.pushingpixels.trident.api.ease.Spline
-import org.pushingpixels.trident.api.swing.TimelineSwingWorker
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.TimelineRunnable
+import org.pushingpixels.radiance.animation.api.TimelineScenario
+import org.pushingpixels.radiance.animation.api.ease.Spline
+import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker
 import java.awt.*
 import java.awt.image.BufferedImage
 import javax.swing.JComponent

@@ -37,7 +37,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation project(':trident')
+    implementation project(':animation')
     implementation project(':kotlin-ext:torch')
     implementation project(':kotlin-ext:meteor')
     implementation project(':common')

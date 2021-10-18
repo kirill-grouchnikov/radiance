@@ -36,12 +36,12 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
-import org.pushingpixels.trident.api.Timeline
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.ease.Linear
-import org.pushingpixels.trident.api.ease.Sine
-import org.pushingpixels.trident.api.ease.Spline
-import org.pushingpixels.trident.api.ease.TimelineEase
+import org.pushingpixels.radiance.animation.api.Timeline
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.ease.Linear
+import org.pushingpixels.radiance.animation.api.ease.Sine
+import org.pushingpixels.radiance.animation.api.ease.Spline
+import org.pushingpixels.radiance.animation.api.ease.TimelineEase
 import java.awt.Component
 import java.awt.FlowLayout
 import java.awt.GridLayout
@@ -68,13 +68,59 @@ fun main() {
         val ballPanel = BallPanel()
         main.add(ballPanel)
 
-        val eases = arrayOf(Options("1. Linear", Linear()), Options("2. Sine", Sine()),
-                Options("3. Spline (0.1, 0.0)-(0.9,1.0)", Spline(0.1f, 0.0f, 0.9f, 1.0f)),
-                Options("4. Spline (0.2, 0.0)-(0.8,1.0)", Spline(0.2f, 0.0f, 0.8f, 1.0f)),
-                Options("5. Spline (0.5, 0.0)-(0.5,1.0)", Spline(0.5f, 0.0f, 0.5f, 1.0f)),
-                Options("6. Spline (0.8, 0.0)-(0.2,1.0)", Spline(0.8f, 0.0f, 0.2f, 1.0f)),
-                Options("7. Spline (0.9, 0.0)-(0.1,1.0)", Spline(0.9f, 0.0f, 0.1f, 1.0f)),
-                Options("8. Spline (1.0, 0.0)-(0.9,1.0)", Spline(1.0f, 0.0f, 0.9f, 1.0f)))
+        val eases = arrayOf(Options("1. Linear",
+            Linear()
+        ), Options("2. Sine",
+            Sine()
+        ),
+                Options("3. Spline (0.1, 0.0)-(0.9,1.0)",
+                    Spline(
+                        0.1f,
+                        0.0f,
+                        0.9f,
+                        1.0f
+                    )
+                ),
+                Options("4. Spline (0.2, 0.0)-(0.8,1.0)",
+                    Spline(
+                        0.2f,
+                        0.0f,
+                        0.8f,
+                        1.0f
+                    )
+                ),
+                Options("5. Spline (0.5, 0.0)-(0.5,1.0)",
+                    Spline(
+                        0.5f,
+                        0.0f,
+                        0.5f,
+                        1.0f
+                    )
+                ),
+                Options("6. Spline (0.8, 0.0)-(0.2,1.0)",
+                    Spline(
+                        0.8f,
+                        0.0f,
+                        0.2f,
+                        1.0f
+                    )
+                ),
+                Options("7. Spline (0.9, 0.0)-(0.1,1.0)",
+                    Spline(
+                        0.9f,
+                        0.0f,
+                        0.1f,
+                        1.0f
+                    )
+                ),
+                Options("8. Spline (1.0, 0.0)-(0.9,1.0)",
+                    Spline(
+                        1.0f,
+                        0.0f,
+                        0.9f,
+                        1.0f
+                    )
+                ))
         val easeModel = DefaultComboBoxModel(eases)
         val easeCombo = JComboBox(easeModel)
         easeCombo.renderer = object : DefaultListCellRenderer() {

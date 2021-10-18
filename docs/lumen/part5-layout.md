@@ -242,7 +242,7 @@ private synchronized void scrollContents() {
 ```
 Canceling the old timeline makes sure that we will not have multiple timeline updating the `leadingPosition` field. And the `targetLeadingPosition` field holds the final value of the `leadingPosition` – or at least until the user makes an additional scrolling request.
 
-Finally, we have a public setter so that the Trident engine can change the value of the `leadingPosition` field:
+Finally, we have a public setter so that the Radiance animation engine can change the value of the `leadingPosition` field:
 
 ```java
 	/**

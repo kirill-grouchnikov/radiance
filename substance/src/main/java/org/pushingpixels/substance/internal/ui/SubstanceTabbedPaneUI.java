@@ -48,10 +48,10 @@ import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.utils.*;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;

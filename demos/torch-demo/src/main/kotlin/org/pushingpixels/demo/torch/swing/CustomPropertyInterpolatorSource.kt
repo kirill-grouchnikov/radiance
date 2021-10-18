@@ -37,10 +37,10 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.TridentCortex
-import org.pushingpixels.trident.api.ease.Sine
-import org.pushingpixels.trident.api.interpolator.PropertyInterpolator
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.RadianceAnimationCortex
+import org.pushingpixels.radiance.animation.api.ease.Sine
+import org.pushingpixels.radiance.animation.api.interpolator.PropertyInterpolator
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.RenderingHints
@@ -48,7 +48,8 @@ import java.awt.geom.Ellipse2D
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-private class Ellipse2DPropertyInterpolator : PropertyInterpolator<Ellipse2D> {
+private class Ellipse2DPropertyInterpolator :
+    PropertyInterpolator<Ellipse2D> {
     override fun getBasePropertyClass(): Class<Ellipse2D> {
         return Ellipse2D::class.java
     }
@@ -64,7 +65,7 @@ private class Ellipse2DPropertyInterpolator : PropertyInterpolator<Ellipse2D> {
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        TridentCortex.addPropertyInterpolator(Ellipse2DPropertyInterpolator())
+        RadianceAnimationCortex.addPropertyInterpolator(Ellipse2DPropertyInterpolator())
 
         val from = Ellipse2D.Double(10.0, 10.0, 100.0, 50.0)
         val to = Ellipse2D.Double(40.0, 40.0, 200.0, 120.0)

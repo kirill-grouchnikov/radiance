@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.torch
 
-import org.pushingpixels.trident.api.Timeline
-import org.pushingpixels.trident.api.callback.TimelineCallback
-import org.pushingpixels.trident.api.callback.TimelineCallbackAdapter
-import org.pushingpixels.trident.api.ease.TimelineEase
-import org.pushingpixels.trident.api.interpolator.KeyFrames
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback
-import org.pushingpixels.trident.api.swing.SwingRepaintTimeline
+import org.pushingpixels.radiance.animation.api.Timeline
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallback
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallbackAdapter
+import org.pushingpixels.radiance.animation.api.ease.TimelineEase
+import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline
 import java.awt.Component
 import java.awt.Rectangle
 import java.awt.Window
@@ -61,8 +61,9 @@ public open class KTimeline {
     private val propertiesGoingThrough: MutableList<PropertyGoingThrough<*>> = ArrayList()
     public var ease: TimelineEase = Timeline.DEFAULT_EASE
 
-    private var onTimelineStateChangedList: MutableList<(Timeline.TimelineState, Timeline.TimelineState,
-                                                 Float, Float) -> Unit> = ArrayList()
+    private var onTimelineStateChangedList: MutableList<(
+        Timeline.TimelineState, Timeline.TimelineState,
+        Float, Float) -> Unit> = ArrayList()
     private var onTimelinePulseList: MutableList<(Float, Float) -> Unit> = ArrayList()
 
     public fun property(fromTo: PropertyFromTo<*>) {
@@ -77,8 +78,9 @@ public open class KTimeline {
         callbacks.add(callback)
     }
 
-    public fun onTimelineStateChanged(callback: (Timeline.TimelineState, Timeline.TimelineState,
-                                          Float, Float) -> Unit) {
+    public fun onTimelineStateChanged(callback: (
+        Timeline.TimelineState, Timeline.TimelineState,
+        Float, Float) -> Unit) {
         onTimelineStateChangedList.add(callback)
     }
 
@@ -123,7 +125,8 @@ public open class KTimeline {
             builder.addPropertyToInterpolate(propBuilder)
         }
         for (prop in this.propertiesGoingThrough) {
-            builder.addPropertyToInterpolate(Timeline.property<Any>(prop.property.name)
+            builder.addPropertyToInterpolate(
+                Timeline.property<Any>(prop.property.name)
                     .goingThrough(prop.keyFrames)
                     .getWith { _, _ -> prop.property.getter.call() }
                     .setWith { _, _, value -> (prop.property as? KMutableProperty)?.setter?.call(value) })
@@ -161,7 +164,11 @@ public class KSwingComponentTimeline(public val component: Component) : KTimelin
     }
 
     public fun repaintCallback() {
-        callback(SwingRepaintCallback(component))
+        callback(
+            SwingRepaintCallback(
+                component
+            )
+        )
     }
 }
 
@@ -182,7 +189,8 @@ public class KSwingRepaintTimeline(public val component: Component) : KTimeline(
 
 public fun timeline(property: KProperty<Any>, from: Any, to: Any): Timeline {
     val builder = Timeline.Builder()
-    builder.addPropertyToInterpolate(Timeline.property<Any>(property.name)
+    builder.addPropertyToInterpolate(
+        Timeline.property<Any>(property.name)
             .from(from)
             .to(to)
             .getWith { _, _ -> property.getter.call() }
@@ -193,7 +201,8 @@ public fun timeline(property: KProperty<Any>, from: Any, to: Any): Timeline {
 
 public fun timeline(property: KProperty<Any>, to: Any): Timeline {
     val builder = Timeline.Builder()
-    builder.addPropertyToInterpolate(Timeline.property<Any>(property.name)
+    builder.addPropertyToInterpolate(
+        Timeline.property<Any>(property.name)
             .fromCurrent()
             .to(to)
             .getWith { _, _ -> property.getter.call() }

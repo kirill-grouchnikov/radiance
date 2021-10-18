@@ -36,9 +36,9 @@ import org.pushingpixels.meteor.awt.MeteorLayoutManager
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.fromCurrentTo
-import org.pushingpixels.trident.api.TimelineRunnable
-import org.pushingpixels.trident.api.TimelineScenario
-import org.pushingpixels.trident.api.swing.TimelineSwingWorker
+import org.pushingpixels.radiance.animation.api.TimelineRunnable
+import org.pushingpixels.radiance.animation.api.TimelineScenario
+import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker
 import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.JWindow

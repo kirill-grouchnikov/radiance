@@ -138,7 +138,7 @@ this.addMouseListener(new MouseAdapter() {
    }
 });
 ```
-Here, we are using the built-in Trident functionality that detects the current state of the timeline when the application code asks to play it forward or reverse. Suppose it takes two seconds to play a timeline, and you move the mouse out after one second. In this case, you do want the timeline to play back from its current position – and the other way around. Trident provides this functionality out of the box, and you do not need any additional application code or configuration.
+Here, we are using the built-in Radiance functionality that detects the current state of the timeline when the application code asks to play it forward or reverse. Suppose it takes two seconds to play a timeline, and you move the mouse out after one second. In this case, you do want the timeline to play back from its current position – and the other way around. Radiance Animation provides this functionality out of the box, and you do not need any additional application code or configuration.
 
 Finally, we are going to add an hierarchy listener to fade in the button when it first is added to the window hierarchy:
 
@@ -259,6 +259,6 @@ public static void fadeOutAndDispose(final Window window,
 }
 ```
 
-Instead of abruptly hiding the window, it fades it out over the given period of time using `Window.setOpacity` API - conveniently wrapped by Trident as the `opacity` property. We start a new timeline that interpolates this synthetic property, which effectively fades out the window. Once the timeline is done, we call `Window.dispose`.
+Instead of abruptly hiding the window, it fades it out over the given period of time using `Window.setOpacity` API - conveniently wrapped by Radiance as the `opacity` property. We start a new timeline that interpolates this synthetic property, which effectively fades out the window. Once the timeline is done, we call `Window.dispose`.
 
 Here we have seen how easy it is to add simple animation behavior to such scenarios as component appearance (fade in), rollovers and window disposal (fade-out) using built in and custom class attributes and setters. The next entry is going to show to talk about the base implementation of the album overview panel and the load progress animation.

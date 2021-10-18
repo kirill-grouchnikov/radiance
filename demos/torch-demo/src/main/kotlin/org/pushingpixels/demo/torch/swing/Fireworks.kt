@@ -38,9 +38,9 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.TimelineScenario
-import org.pushingpixels.trident.api.ease.Spline
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.TimelineScenario
+import org.pushingpixels.radiance.animation.api.ease.Spline
 import java.awt.*
 import java.awt.event.ComponentAdapter
 import java.awt.event.ComponentEvent
@@ -98,7 +98,10 @@ class VolleyExplosion(private val x: Int, private val y: Int, private val color:
                         property(circle::y from initY to finalY)
                         property(circle::opacity from 1.0f to 0.0f)
                         duration = (durationTotal - 200 + randomizer.nextInt(400)).toLong()
-                        ease = Spline(0.4f)
+                        ease =
+                            Spline(
+                                0.4f
+                            )
                     }
 
                     synchronized(this.circles) {

@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.substance.api.SubstanceCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline
 import java.awt.*
 import javax.swing.JColorChooser
 import javax.swing.JComponent

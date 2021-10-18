@@ -44,8 +44,8 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.MarinerSkin;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

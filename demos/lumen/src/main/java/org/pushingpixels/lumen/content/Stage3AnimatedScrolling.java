@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lumen.content;
 
-import org.pushingpixels.trident.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline;
 
 /**
  * Adds the following functionality to the album scroller container:

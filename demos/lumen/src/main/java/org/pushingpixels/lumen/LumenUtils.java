@@ -30,9 +30,9 @@
 package org.pushingpixels.lumen;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import java.awt.*;
 import java.awt.font.*;

@@ -35,7 +35,7 @@ dependencies {
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
     implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':common')
-    implementation project(':trident')
+    implementation project(':animation')
     implementation project(':substance')
     implementation project(':flamingo')
     implementation project(':tools:photon')

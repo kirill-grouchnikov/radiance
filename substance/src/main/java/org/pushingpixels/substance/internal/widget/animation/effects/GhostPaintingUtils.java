@@ -34,8 +34,8 @@ import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 
 import javax.swing.*;
 import java.awt.*;

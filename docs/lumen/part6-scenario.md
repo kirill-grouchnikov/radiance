@@ -15,7 +15,7 @@ The full transition scenario that is played when the user selects a specific alb
 6. (After steps 4 and 5 have both completed) – cross fade the old album art to the new album art.
 7. (After step 6 has been completed) – move the album art component (that displays the new album art) and the track listing to be displayed side by side.
 
-To implement this complex timeline scenario, the code uses the rendezvous timeline scenario provided by Trident. `Timeline.RendezvousSequence` allows simple branch-and-wait ordering. The rendezvous scenario has a stage-like approach. All actors belonging to the same stage run in parallel, while actors in stage N+1 wait for all actors in stage N to be finished. The `RendezvousSequence.rendezvous` marks the end of one stage and the beginning of another.
+To implement this complex timeline scenario, the code uses the rendezvous timeline scenario provided by Radiance. `Timeline.RendezvousSequence` allows simple branch-and-wait ordering. The rendezvous scenario has a stage-like approach. All actors belonging to the same stage run in parallel, while actors in stage N+1 wait for all actors in stage N to be finished. The `RendezvousSequence.rendezvous` marks the end of one stage and the beginning of another.
 
 Here is how the code looks like:
 
@@ -107,7 +107,7 @@ private TimelineScenario getShowAlbumDetailsScenario(final SearchResultRelease a
 }
 ```
 
-This scenario uses the full capabilities offered by the Trident timeline scenarios which allow combining multiple timeline scenario actors in a parallel, sequential or custom order. There are three core types of timeline scenario actors, all used in this code:
+This scenario uses the full capabilities offered by the Radience timeline scenarios which allow combining multiple timeline scenario actors in a parallel, sequential or custom order. There are three core types of timeline scenario actors, all used in this code:
 
 * `Timeline`
 * `TimelineSwingWorker` – extension of `SwingWorker`
@@ -229,7 +229,7 @@ Timeline albumArtCrossfadeTimeline = Timeline.builder(this.albumArt)
 	.setDuration(400)
 	.build();
 ```
-Note that this timeline is created on the child album art component. After the new album art has been loaded and scaled (in step 4), we initiate the cross-fading timeline on another object – which is fully supported by Trident timelines.
+Note that this timeline is created on the child album art component. After the new album art has been loaded and scaled (in step 4), we initiate the cross-fading timeline on another object – which is fully supported by Radience timelines.
 
 The rest of the code in this package is very similar to the code examples showed earlier, including custom painting that respects the alpha values, fading out on dispose, translucent window etc.
 

@@ -39,12 +39,12 @@ import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.*;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.callback.TimelineCallback;
-import org.pushingpixels.trident.api.ease.Spline;
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
+import org.pushingpixels.radiance.animation.api.ease.Spline;
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

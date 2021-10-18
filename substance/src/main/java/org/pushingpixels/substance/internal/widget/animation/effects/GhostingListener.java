@@ -32,12 +32,12 @@ package org.pushingpixels.substance.internal.widget.animation.effects;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.callback.TimelineCallback;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;

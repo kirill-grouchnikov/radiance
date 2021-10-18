@@ -38,10 +38,10 @@ import org.pushingpixels.substance.extras.internal.contrib.blogofbug.swing.compo
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.utils.*;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.Timeline.TimelineState;
-import org.pushingpixels.trident.api.swing.EventDispatchThreadTimelineCallbackAdapter;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.border.*;

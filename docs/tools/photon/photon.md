@@ -84,7 +84,7 @@ The following table summarizes the level of support for different SVG elements.
 
 | SVG element | Status |
 | --- | --- |
-| `<animate>` | Under consideration using Trident |
+| `<animate>` | Under consideration using Animation |
 | `<circle>` | Radiance 1.0+ |
 | `<clipPath>` | Radiance 1.0+ |
 | `<ellipse>` | Radiance 1.0+ |

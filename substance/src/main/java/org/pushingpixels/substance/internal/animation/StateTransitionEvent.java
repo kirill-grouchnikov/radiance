@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.substance.internal.animation;
 
-import org.pushingpixels.trident.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 
 import java.util.EventObject;
 

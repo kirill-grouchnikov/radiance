@@ -1,6 +1,6 @@
-## Torch - Kotlin DSL for Trident APIs
+## Torch - Kotlin DSL for Radiance APIs
 
-Torch takes advantage of some of the Kotlin language features to reduce the amount of code needed to write Trident-powered animations. Let's see a few examples.
+Torch takes advantage of some of the Kotlin language features to reduce the amount of code needed to write Radiance-powered animations. Let's see a few examples.
 
 We start with a "data" Java class
 ```java
@@ -45,7 +45,7 @@ public class SingleExplosion {
 }
 ```
 
-There's a lot of boilerplate here around the setters - these are needed so that Trident can animate object properties when a timeline is configured like this:
+There's a lot of boilerplate here around the setters - these are needed so that Radiance can animate object properties when a timeline is configured like this:
 
 ```java
 SingleExplosion circle = new SingleExplosion(this.color, initX, initY,
@@ -88,7 +88,7 @@ What do we have here?
 
 * Most of the data fields are declared only once in the class constructor. The remaining `opacity` field is still at the class level.
 * No more setters - these are not needed as they are automatically provided in Kotlin.
-* Timeline refers to the properties it needs to animate using [property references](https://kotlinlang.org/docs/reference/reflection.html#property-references) which provide compile-time safety - compared to string-based APIs in Trident. This also comes from the extension `timeline` function being used in the `circle.timeline` line.
+* Timeline refers to the properties it needs to animate using [property references](https://kotlinlang.org/docs/reference/reflection.html#property-references) which provide compile-time safety - compared to string-based APIs in Radiance. This also comes from the extension `timeline` function being used in the `circle.timeline` line.
 
 Let's see another example. Here is the Java side of things:
 

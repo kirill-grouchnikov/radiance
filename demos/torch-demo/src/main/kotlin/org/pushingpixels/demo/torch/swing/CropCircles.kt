@@ -38,9 +38,9 @@ import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.TimelineScenario
-import org.pushingpixels.trident.api.ease.Spline
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.TimelineScenario
+import org.pushingpixels.radiance.animation.api.ease.Spline
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import java.util.*
@@ -143,7 +143,8 @@ class CropPanel : JPanel() {
                     property(c1::opacity from 0.0f to 1.0f)
                     property(c1::radius from 0.0f to c1.initialRadius)
                     duration = durationTotal.toLong()
-                    ease = Spline(0.9f)
+                    ease =
+                        Spline(0.9f)
                 }
 
                 val c2 = circles2[i]
@@ -151,7 +152,8 @@ class CropPanel : JPanel() {
                     property(c2::opacity from 0.0f to 1.0f)
                     property(c2::radius from 0.0f to c2.initialRadius)
                     duration = durationTotal.toLong()
-                    ease = Spline(0.9f)
+                    ease =
+                        Spline(0.9f)
                 }
 
                 val c3 = circles3[i]
@@ -159,7 +161,8 @@ class CropPanel : JPanel() {
                     property(c3::opacity from 0.0f to 1.0f)
                     property(c3::radius from 0.0f to c3.initialRadius)
                     duration = durationTotal.toLong()
-                    ease = Spline(0.9f)
+                    ease =
+                        Spline(0.9f)
                 }
 
                 showScenario.addScenarioActor(t1)

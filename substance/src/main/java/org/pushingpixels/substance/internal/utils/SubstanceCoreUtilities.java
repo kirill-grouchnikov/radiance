@@ -54,7 +54,7 @@ import org.pushingpixels.substance.internal.utils.icon.TransitionAware;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.substance.internal.utils.menu.SubstanceMenu;
 import org.pushingpixels.substance.internal.utils.scroll.SubstanceScrollButton;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;

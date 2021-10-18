@@ -81,7 +81,7 @@ MouseAdapter adapter = new MouseAdapter() {
 this.addMouseListener(adapter);
 this.addMouseMotionListener(adapter);
 ```
-We add a public setter for the alpha attribute so that it can be interpolated by Trident:
+We add a public setter for the alpha attribute so that it can be interpolated by Radiance:
 
 ```java
    public void setAlpha(float alpha) {

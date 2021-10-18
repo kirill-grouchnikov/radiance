@@ -32,8 +32,8 @@ package org.pushingpixels.flamingo.internal.ui.common.popup;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.trident.api.Timeline;
-import org.pushingpixels.trident.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;

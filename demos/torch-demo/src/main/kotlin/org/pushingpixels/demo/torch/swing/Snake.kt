@@ -37,8 +37,8 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.repaintTimeline
 import org.pushingpixels.torch.timeline
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.swing.SwingRepaintTimeline
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.swing.SwingRepaintTimeline
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics

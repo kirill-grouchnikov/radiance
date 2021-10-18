@@ -45,8 +45,8 @@ import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior;
-import org.pushingpixels.trident.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

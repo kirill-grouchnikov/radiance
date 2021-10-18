@@ -40,11 +40,11 @@ import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.torch.goingThrough
 import org.pushingpixels.torch.repaintTimeline
-import org.pushingpixels.trident.api.Timeline
-import org.pushingpixels.trident.api.Timeline.RepeatBehavior
-import org.pushingpixels.trident.api.interpolator.KeyFrames
-import org.pushingpixels.trident.api.interpolator.KeyTimes
-import org.pushingpixels.trident.api.interpolator.KeyValues
+import org.pushingpixels.radiance.animation.api.Timeline
+import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
+import org.pushingpixels.radiance.animation.api.interpolator.KeyFrames
+import org.pushingpixels.radiance.animation.api.interpolator.KeyTimes
+import org.pushingpixels.radiance.animation.api.interpolator.KeyValues
 import java.awt.*
 import java.awt.geom.RoundRectangle2D
 import javax.swing.JFrame
@@ -80,11 +80,21 @@ class ProgressPanel : JPanel() {
         val endX = (width + INNER_WIDTH) / 2 - 18 - HIGHLIGHTER_WIDTH / 2
 
         val alphaValues = KeyValues.create(0.0f, 1.0f, 1.0f, 0.0f)
-        val alphaTimes = KeyTimes(0.0f, 0.3f, 0.7f, 1.0f)
+        val alphaTimes =
+            KeyTimes(
+                0.0f,
+                0.3f,
+                0.7f,
+                1.0f
+            )
 
         progressTimeline = this.componentTimeline {
             property(::xPosition from startX to endX)
-            property(::alpha goingThrough KeyFrames(alphaValues, alphaTimes))
+            property(::alpha goingThrough KeyFrames(
+                alphaValues,
+                alphaTimes
+            )
+            )
             duration = 1500
         }
 

@@ -11,7 +11,7 @@ You can also build Substance locally:
 * Download the latest bits for Radiance from [Github](https://github.com/kirill-grouchnikov/radiance).
 * Consult `version` string in the top-level `build.gradle` file. The rest of the instructions treat the current version as *X.Y.ZZ*.
 * [Build Radiance locally](../building.md) with Gradle.
-* Copy the binaries from `drop/X.Y.ZZ/core`. Specifically, add *radiance-substance-X.Y.ZZ.jar*, *radiance-trident-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* to the place that has your local dependencies.
+* Copy the binaries from `drop/X.Y.ZZ/core`. Specifically, add *radiance-substance-X.Y.ZZ.jar*, *radiance-animation-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* to the place that has your local dependencies.
 
 For earlier versions of Substance, see [this page](../../archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
 

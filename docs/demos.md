@@ -18,10 +18,10 @@
   * Breadcrumb demos in `org.pushingpixels.demo.plasma.bcb` package
   * Command, popup and panel demos in `org.pushingpixels.demo.plasma.common` package
   * Small image viewer demo using command panel in `org.pushingpixels.demo.plasma.imageviewer.ImageViewer` file
-* For **Trident** - the `demos/trident-demo` module
-  * Simple API usage in `org.pushingpixels.demo.trident` package
-  * More complex samples in `org.pushingpixels.demo.trident.swing` package
-  * Experimenting with splines in `org.pushingpixels.demo.trident.swing.tracker` package
-  * Music browser with heavy usage of Trident animations in the [Lumen](lumen/lumen.md) sample
+* For **Animation** - the `demos/animation-demo` module
+  * Simple API usage in `org.pushingpixels.radiance.demo.animation` package
+  * More complex samples in `org.pushingpixels.radiance.demo.animation.swing` package
+  * Experimenting with splines in `org.pushingpixels.radiance.demo.animation.swing.tracker` package
+  * Music browser with heavy usage of Radiance animations in the [Lumen](lumen/lumen.md) sample
 * **Ion** - the `demos/ion` module. Sample walkthroughs for [replacing](https://www.pushing-pixels.org/2018/08/07/replacing-swingworker-with-kotlin-coroutines.html) `SwingWorker` with Kotlin coroutines in the `org.pushingpixels.demo.ion` package.
-* **Rainbow** - the `demos/rainbow` module. Image browser that displays SVG content from local disk. Integrates functionality from Common , Trident, Substance, Flamingo, Meteor and Photon in the `org.pushingpixels.demo.rainbow.RainbowLocalViewer` file.
+* **Rainbow** - the `demos/rainbow` module. Image browser that displays SVG content from local disk. Integrates functionality from Common, Animation, Substance, Flamingo, Meteor and Photon in the `org.pushingpixels.demo.rainbow.RainbowLocalViewer` file.
