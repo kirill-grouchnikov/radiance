@@ -45,7 +45,7 @@ import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresent
 import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.substance.api.SubstanceSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
 
 @PlasmaElementMarker
 public open class KCommand {
@@ -342,12 +342,12 @@ public open class KCommandButtonPresentation {
     public var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
         CommandButtonPresentationModel.PopupHorizontalGravity.START
     public var iconDimension: Int? = null
-    public var activeIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
-        SubstanceSlices.IconFilterStrategy.ORIGINAL
-    public var enabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
-        SubstanceSlices.IconFilterStrategy.ORIGINAL
-    public var disabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
-        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+    public var activeIconFilterStrategy: RadianceLafSlices.IconFilterStrategy =
+        RadianceLafSlices.IconFilterStrategy.ORIGINAL
+    public var enabledIconFilterStrategy: RadianceLafSlices.IconFilterStrategy =
+        RadianceLafSlices.IconFilterStrategy.ORIGINAL
+    public var disabledIconFilterStrategy: RadianceLafSlices.IconFilterStrategy =
+        RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
     public var isMenu: Boolean = false
     public var actionKeyTip: String? = null
     public var popupKeyTip: String? = null

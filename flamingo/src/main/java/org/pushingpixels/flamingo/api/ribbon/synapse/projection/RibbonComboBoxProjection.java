@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.ribbon.synapse.projection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.JRibbonComboBox;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonComboBoxContentModel;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
+import org.pushingpixels.radiance.laf.api.renderer.RadianceDefaultComboBoxRenderer;
 
 /**
  * Projection that allows using a {@link javax.swing.JComboBox} as a ribbon component.
@@ -50,6 +50,6 @@ public class RibbonComboBoxProjection<E> extends ComponentProjection<JRibbonComb
 
     @Override
     protected void configureComponent(JRibbonComboBox<E> component) {
-        component.setRenderer(new SubstanceDefaultComboBoxRenderer(component));
+        component.setRenderer(new RadianceDefaultComboBoxRenderer(component));
     }
 }

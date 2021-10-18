@@ -29,15 +29,15 @@
  */
 package org.pushingpixels.demo.beacon;
 
-import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.radiance.demo.laf.main.Check;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 import org.pushingpixels.tools.beacon.RootPaneTitlePaneUiDebugger;
 
 import javax.swing.*;
 
 public class BeaconCheck {
 	public static void main(String[] args) {
-	    SubstanceCortex.GlobalScope.registerWidget(
+	    RadianceLafCortex.GlobalScope.registerWidget(
 	    		RootPaneTitlePaneUiDebugger.class.getName(), JRootPane.class, true);
 		Check.main(args);
 	}

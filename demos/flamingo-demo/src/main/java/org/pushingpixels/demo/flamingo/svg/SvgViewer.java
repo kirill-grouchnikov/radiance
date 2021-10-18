@@ -33,10 +33,10 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.flamingo.api.bcb.BreadcrumbItem;
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -76,9 +76,9 @@ public class SvgViewer extends JFrame {
     public SvgViewer() {
         super("SVG File Viewer");
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         this.bar = new BreadcrumbFileSelector();
@@ -154,11 +154,11 @@ public class SvgViewer extends JFrame {
      */
     public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SubstanceCortex.GlobalScope.allowAnimations(
-                SubstanceSlices.AnimationFacet.GHOSTING_ICON_ROLLOVER);
+        RadianceLafCortex.GlobalScope.allowAnimations(
+                RadianceLafSlices.AnimationFacet.GHOSTING_ICON_ROLLOVER);
 
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
             SvgViewer test = new SvgViewer();
             test.setSize(640, 480);
             test.setLocationRelativeTo(null);

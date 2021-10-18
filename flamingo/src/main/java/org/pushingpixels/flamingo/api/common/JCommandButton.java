@@ -41,12 +41,12 @@ import org.pushingpixels.flamingo.api.common.projection.CommandPopupMenuProjecti
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
@@ -521,7 +521,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.setIcon((command.getIconFactory() != null)
                 ? command.getIconFactory().createNewIcon()
                 : null);
-        SubstanceCortex.ComponentScope.setIconFilterStrategies(this,
+        RadianceLafCortex.ComponentScope.setIconFilterStrategies(this,
                 commandPresentation.getActiveIconFilterStrategy(),
                 commandPresentation.getEnabledIconFilterStrategy(),
                 commandPresentation.getDisabledIconFilterStrategy());
@@ -1289,7 +1289,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceCommandButtonUI.createUI(this));
+        setUI(RadianceCommandButtonUI.createUI(this));
     }
 
     @Override

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.ember
 
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceSkin
 import javax.swing.JComponent
 import javax.swing.JInternalFrame
 import javax.swing.JRootPane
@@ -44,8 +44,8 @@ import javax.swing.SwingUtilities
  * @param skin     Skin to use on all the controls in the root pane.
  */
 @EmberRootPaneScope
-public fun JRootPane.setSkin(skin: SubstanceSkin) {
-    SubstanceCortex.RootPaneScope.setSkin(this, skin)
+public fun JRootPane.setSkin(skin: RadianceSkin) {
+    RadianceLafCortex.RootPaneScope.setSkin(this, skin)
 }
 
 /**
@@ -67,5 +67,5 @@ public fun JRootPane.setSkin(skin: SubstanceSkin) {
  */
 @EmberRootPaneScope
 public fun JRootPane.setContentsModified(contentsModified: Boolean?) {
-    SubstanceCortex.RootPaneScope.setContentsModified(this, contentsModified)
+    RadianceLafCortex.RootPaneScope.setContentsModified(this, contentsModified)
 }

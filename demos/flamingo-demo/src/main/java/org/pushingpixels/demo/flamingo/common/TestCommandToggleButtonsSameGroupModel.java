@@ -40,10 +40,10 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.skin.MarinerSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.skin.MarinerSkin;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 
@@ -56,9 +56,9 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
         super("Selection state sync");
 
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         CommandToggleGroupModel justifyToggleGroup = new CommandToggleGroupModel();
@@ -129,7 +129,7 @@ public class TestCommandToggleButtonsSameGroupModel extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new MarinerSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new MarinerSkin());
 
             new TestCommandToggleButtonsSameGroupModel().setVisible(true);
         });

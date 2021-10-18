@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorPanelUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceColorSelectorPanelUI;
 
 import javax.swing.*;
 
@@ -54,7 +54,7 @@ public class JColorSelectorPanel extends JPanel {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceColorSelectorPanelUI.createUI(this));
+        setUI(RadianceColorSelectorPanelUI.createUI(this));
     }
 
     @Override

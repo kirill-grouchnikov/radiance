@@ -36,7 +36,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +86,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         Insets borderInsets = (commandButton == null) ? new Insets(0, 0, 0, 0)
                 : commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
         int layoutHGap = FlamingoUtilities.getHLayoutGap(commandButton);
@@ -167,7 +167,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         // character that breaks the title in two parts, such that the maximal
         // length of the first part and the second part + action label icon
         // is minimal between all possible space characters
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), this.commandButton.getFont());
 
         String title = (this.commandButton == null) ? null : this.commandButton.getText();
@@ -241,7 +241,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
         boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 

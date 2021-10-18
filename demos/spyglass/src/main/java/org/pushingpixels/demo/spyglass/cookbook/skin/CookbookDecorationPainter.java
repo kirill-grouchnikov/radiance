@@ -31,12 +31,12 @@ package org.pushingpixels.demo.spyglass.cookbook.skin;
 
 import com.jhlabs.image.*;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.painter.decoration.RadianceDecorationPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +44,7 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
-class CookbookDecorationPainter implements SubstanceDecorationPainter {
+class CookbookDecorationPainter implements RadianceDecorationPainter {
     private BufferedImage brushedMetalImage;
 
     private BufferedImage woodImage;
@@ -110,8 +110,8 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-            DecorationAreaType decorationAreaType, int width, int height, SubstanceSkin skin) {
-        SubstanceColorScheme fillScheme = skin.getBackgroundColorScheme(decorationAreaType);
+            DecorationAreaType decorationAreaType, int width, int height, RadianceSkin skin) {
+        RadianceColorScheme fillScheme = skin.getBackgroundColorScheme(decorationAreaType);
         BufferedImage toOverlay = this.getWatermarkImage(decorationAreaType);
         Component farthestOfTheSameAreaType = this.getFarthest(comp, decorationAreaType);
         if ((decorationAreaType == DecorationAreaType.PRIMARY_TITLE_PANE)
@@ -181,7 +181,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp, DecorationAreaType
-            decorationAreaType, Shape contour, SubstanceColorScheme colorScheme) {
+            decorationAreaType, Shape contour, RadianceColorScheme colorScheme) {
     }
 
     private Component getFarthest(Component comp, DecorationAreaType type) {
@@ -200,7 +200,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
 
     private static BufferedImage getLightImage() {
         double scale = RadianceCommonCortex.getScaleFactor(null);
-        BufferedImage lightConeImage = SubstanceCortex.GlobalScope.getBlankImage(scale, 200, 100);
+        BufferedImage lightConeImage = RadianceLafCortex.GlobalScope.getBlankImage(scale, 200, 100);
         Graphics2D lightConeGraphics = lightConeImage.createGraphics();
         lightConeGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -223,7 +223,7 @@ class CookbookDecorationPainter implements SubstanceDecorationPainter {
         GaussianFilter gaussianFilter = new GaussianFilter(29.0f);
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
-        BufferedImage finalImage = SubstanceCortex.GlobalScope.getBlankImage(
+        BufferedImage finalImage = RadianceLafCortex.GlobalScope.getBlankImage(
                 RadianceCommonCortex.getScaleFactor(null), 150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

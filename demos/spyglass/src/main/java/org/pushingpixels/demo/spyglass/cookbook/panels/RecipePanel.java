@@ -39,7 +39,7 @@ import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -74,7 +74,7 @@ public class RecipePanel extends SingleContentPanel {
                 "Send")).xy(7, 1);
 
         JLabel title = new JLabel("Cookbook");
-        SubstanceCortex.WindowScope.markLabelAsTitlePaneText(SwingUtilities.getWindowAncestor(this), title);
+        RadianceLafCortex.WindowScope.markLabelAsTitlePaneText(SwingUtilities.getWindowAncestor(this), title);
 
         titlePaneBuilder.add(title).xy(9, 1);
 

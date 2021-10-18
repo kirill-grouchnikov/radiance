@@ -33,7 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder
 import com.jgoodies.forms.factories.Paddings
 import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.deepForEach
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Font
@@ -192,7 +192,7 @@ class JColorSchemeComponent : JPanel() {
         return result
     }
 
-    fun setContent(scheme: SubstanceColorScheme) {
+    fun setContent(scheme: RadianceColorScheme) {
         this.isEnabled = true
 
         ultraLight.setColor(scheme.ultraLightColor, false)

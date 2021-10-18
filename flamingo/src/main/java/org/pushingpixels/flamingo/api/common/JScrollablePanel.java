@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common;
 
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceScrollablePanelUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceScrollablePanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.ScrollablePanelUI;
 
 import javax.swing.*;
@@ -77,7 +77,7 @@ public class JScrollablePanel<T extends JComponent> extends JPanel {
 
 	@Override
 	public void updateUI() {
-		setUI(SubstanceScrollablePanelUI.createUI(this));
+		setUI(RadianceScrollablePanelUI.createUI(this));
 	}
 
 	public void setScrollOnRollover(boolean toScrollOnRollover) {

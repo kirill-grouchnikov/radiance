@@ -44,10 +44,10 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationM
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
-import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -479,7 +479,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             int appMenuButtonWidth = 0;
             if (isShowingAppMenuButton) {
-                FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                         RadianceCommonCortex.getScaleFactor(applicationMenuButton),
                         applicationMenuButton.getFont());
 
@@ -1360,15 +1360,15 @@ public abstract class BasicRibbonUI extends RibbonUI {
         return Collections.unmodifiableList(result);
     }
 
-    @SubstancePopupContainer
+    @RadiancePopupContainer
     private static class BandHostPopupPanel extends JPopupPanel {
         private BandHostPopupPanel(Component component, Dimension originalSize) {
             this.setLayout(new BorderLayout());
             this.add(component, BorderLayout.CENTER);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
-            SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,
-                    SubstanceSlices.DecorationAreaType.CONTROL_PANE);
+            RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    RadianceLafSlices.DecorationAreaType.CONTROL_PANE);
         }
     }
 

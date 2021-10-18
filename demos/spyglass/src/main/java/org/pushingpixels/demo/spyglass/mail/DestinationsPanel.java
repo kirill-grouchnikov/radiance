@@ -32,12 +32,12 @@ package org.pushingpixels.demo.spyglass.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.laf.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -84,7 +84,7 @@ public class DestinationsPanel extends PanelWithRightLine {
     }
 
     public DestinationsPanel(Window window) {
-        SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
+        RadianceSkin currentSkin = RadianceLafCortex.GlobalScope.getCurrentSkin();
 
         ComponentOrParentChainScope.setDecorationType(this, VisorMail.DESTINATIONS);
         this.setRightLineColor(currentSkin.getColorScheme(VisorMail.DESTINATIONS,
@@ -122,7 +122,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         this.setPreferredSize(new Dimension(200, 0));
     }
 
-    private static class DestinationRenderer extends SubstancePanelListCellRenderer<DestinationInfo> {
+    private static class DestinationRenderer extends RadiancePanelListCellRenderer<DestinationInfo> {
         private JLabel iconLabel;
         private JLabel titleLabel;
         private JLabel unreadLabel;
@@ -175,7 +175,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                 padding(new EmptyBorder(8, 8, 8, 8));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        titleLabel.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         builder.add(titleLabel).xy(1, 1);
 
@@ -191,7 +191,7 @@ public class DestinationsPanel extends PanelWithRightLine {
 
         // Use Substance API to create a button that has consistent look with the
         // title pane control buttons
-        JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(window);
+        JButton refreshButton = RadianceLafCortex.WindowScope.createTitlePaneControlButton(window);
 
         refreshButton.setIcon(icon);
         refreshButton.setToolTipText("Refresh mail");

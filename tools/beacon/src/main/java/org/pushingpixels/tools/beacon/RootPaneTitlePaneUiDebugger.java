@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.tools.beacon;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
-import org.pushingpixels.substance.api.text.SubstanceTextArea;
-import org.pushingpixels.substance.internal.utils.LazyResettableHashMap;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
+import org.pushingpixels.radiance.laf.api.*;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.FocusKind;
+import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.radiance.laf.api.text.RadianceTextArea;
+import org.pushingpixels.radiance.laf.internal.utils.LazyResettableHashMap;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.laf.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,9 +44,9 @@ import java.awt.event.*;
 
 /**
  * To use this in your app, call
- * {@link org.pushingpixels.substance.api.SubstanceCortex.GlobalScope#registerWidget(String, Class, boolean)}
+ * {@link RadianceLafCortex.GlobalScope#registerWidget(String, Class, boolean)}
  */
-public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
+public class RootPaneTitlePaneUiDebugger extends RadianceLafWidget<JRootPane> {
     private MouseListener substanceDebugUiListener;
 
     private JComponent titlePane;
@@ -69,11 +69,11 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
     @Override
     public void installUI() {
         SwingUtilities.invokeLater(() -> {
-            if (!(UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)) {
+            if (!(UIManager.getLookAndFeel() instanceof RadianceLookAndFeel)) {
                 return;
             }
 
-            titlePane = SubstanceCoreUtilities.getTitlePaneComponent(
+            titlePane = RadianceCoreUtilities.getTitlePaneComponent(
                     SwingUtilities.getWindowAncestor(jcomp));
             if (titlePane != null) {
                 substanceDebugUiListener = new MouseAdapter() {
@@ -96,8 +96,8 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         // Mark the popup menu to be HEADER decoration area type for visual
                         // consistency with the popup menu displayed on clicking the application
                         // icon (from SubstanceTitlePane.SubstanceMenuBar)
-                        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(popup,
-                                SubstanceSlices.DecorationAreaType.HEADER);
+                        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(popup,
+                                RadianceLafSlices.DecorationAreaType.HEADER);
 
                         JMenu cbMenu = new JMenu("Color blindness");
                         JMenuItem protanopiaCurrent = new JMenuItem("Protanopia current");
@@ -119,7 +119,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         cbMenu.addSeparator();
 
                         JMenuItem restoreOriginal = new JMenuItem("Restore original");
-                        if (SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
+                        if (RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(null,
                                 ComponentState.ENABLED) instanceof ColorBlindColorScheme) {
                             restoreOriginal.addActionListener(
                                     new SkinChanger(scheme -> {
@@ -183,10 +183,10 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenuItem defaultIconFiltering = new JMenuItem("Default");
                         defaultIconFiltering.addActionListener((ActionEvent event) ->
                                 SwingUtilities.invokeLater(() -> {
-                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
-                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
-                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+                                    RadianceLafCortex.GlobalScope.setIconFilterStrategies(
+                                            RadianceLafSlices.IconFilterStrategy.ORIGINAL,
+                                            RadianceLafSlices.IconFilterStrategy.ORIGINAL,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
                                     jcomp.repaint();
                                 }));
                         iconFiltering.add(defaultIconFiltering);
@@ -194,10 +194,10 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenuItem mutedIconFiltering = new JMenuItem("Muted");
                         mutedIconFiltering.addActionListener((ActionEvent event) ->
                                 SwingUtilities.invokeLater(() -> {
-                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
-                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+                                    RadianceLafCortex.GlobalScope.setIconFilterStrategies(
+                                            RadianceLafSlices.IconFilterStrategy.ORIGINAL,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
                                     jcomp.repaint();
                                 }));
                         iconFiltering.add(mutedIconFiltering);
@@ -205,10 +205,10 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenuItem textInactiveIconFiltering = new JMenuItem("Text inactive");
                         textInactiveIconFiltering.addActionListener((ActionEvent event) ->
                                 SwingUtilities.invokeLater(() -> {
-                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
-                                            SubstanceSlices.IconFilterStrategy.ORIGINAL,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+                                    RadianceLafCortex.GlobalScope.setIconFilterStrategies(
+                                            RadianceLafSlices.IconFilterStrategy.ORIGINAL,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
                                     jcomp.repaint();
                                 }));
                         iconFiltering.add(textInactiveIconFiltering);
@@ -216,10 +216,10 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenuItem textAlwaysIconFiltering = new JMenuItem("Text always");
                         textAlwaysIconFiltering.addActionListener((ActionEvent event) ->
                                 SwingUtilities.invokeLater(() -> {
-                                    SubstanceCortex.GlobalScope.setIconFilterStrategies(
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                                            SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+                                    RadianceLafCortex.GlobalScope.setIconFilterStrategies(
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                            RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
                                     jcomp.repaint();
                                 }));
                         iconFiltering.add(textAlwaysIconFiltering);
@@ -242,7 +242,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
                         JMenuItem showCacheStats = new JMenuItem("Show cache stats");
                         showCacheStats.addActionListener(
                                 (ActionEvent event) -> SwingUtilities.invokeLater(() -> {
-                                    final JTextArea textArea = new SubstanceTextArea();
+                                    final JTextArea textArea = new RadianceTextArea();
                                     java.util.List<String> stats = LazyResettableHashMap.getStats();
                                     if (stats != null) {
                                         for (String stat : stats) {
@@ -304,9 +304,9 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
 
         public void actionPerformed(ActionEvent e) {
             SwingUtilities.invokeLater(() -> {
-                SubstanceSkin newSkin = SubstanceCortex.GlobalScope.getCurrentSkin().
+                RadianceSkin newSkin = RadianceLafCortex.GlobalScope.getCurrentSkin().
                         transform(transform, name);
-                SubstanceCortex.GlobalScope.setSkin(newSkin);
+                RadianceLafCortex.GlobalScope.setSkin(newSkin);
             });
         }
     }
@@ -321,7 +321,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
 
         public void actionPerformed(ActionEvent e) {
             SwingUtilities.invokeLater(
-                    () -> SubstanceCortex.GlobalScope.setTimelineDuration(newAnimationDuration));
+                    () -> RadianceLafCortex.GlobalScope.setTimelineDuration(newAnimationDuration));
         }
     }
 
@@ -335,7 +335,7 @@ public class RootPaneTitlePaneUiDebugger extends SubstanceWidget<JRootPane> {
 
         public void actionPerformed(ActionEvent e) {
             SwingUtilities.invokeLater(
-                    () -> SubstanceCortex.GlobalScope.setFocusKind(newFocusKind));
+                    () -> RadianceLafCortex.GlobalScope.setFocusKind(newFocusKind));
         }
     }
 }

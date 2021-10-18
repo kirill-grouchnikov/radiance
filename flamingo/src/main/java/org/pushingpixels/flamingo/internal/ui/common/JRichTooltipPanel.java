@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.common;
 
 import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRichTooltipPanelUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRichTooltipPanelUI;
 
 import javax.swing.*;
 
@@ -67,7 +67,7 @@ public class JRichTooltipPanel extends JPanel {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceRichTooltipPanelUI.createUI(this));
+        setUI(RadianceRichTooltipPanelUI.createUI(this));
     }
 
     public RichTooltip getTooltipInfo() {

@@ -6,7 +6,7 @@ Color scheme association kinds in Substance are best illustrated by a simple exa
 
 This is a screenshot of a `JCheckBox` icon under 72 point font. This checkmark icon has three different visual areas: inner fill, border and the "V" mark. Each one of these areas is painted with a different [color scheme](colorschemes.md), and this is allowed by using the relevant **color scheme association kinds**.
 
-The `org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind` is the base class for core and custom color scheme association kinds. Where is this class used?
+The `SubstanceSlices.ColorSchemeAssociationKind` is the base class for core and custom color scheme association kinds. Where is this class used?
 
 * The first usage is in the skin definition. The main `SubstanceSkin` APIs allow associating different color schemes with different visual areas of Swing controls.
 * The specific UI delegates query the component skin for the color schemes that match the relevant visual areas.
@@ -15,7 +15,7 @@ Let's go back to the `JCheckBox` icon example above. How do we use the color sch
 
 As detailed in the [skin documentation](overview.md), each skin has a number of [color scheme bundles](colorschemebundles.md). This means that two checkboxes with the same model state (`selected` in our case) can have different visuals, depending on the [decoration areas](../painters/decoration.md) they reside in. In the definition of the specific color scheme bundle, you can specify different [color schemes](colorschemes.md) for different component states. This means that a selected checkbox can use colors different from those of a rollover selected checkbox.
 
-In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `org.pushingpixels.substance.api.SubstanceColorSchemeBundle` is:
+In our case, we want to specify different color schemes for different visual areas of **selected** checkboxes in the default decoration area. The relevant method in the `SubstanceColorSchemeBundle` is:
 
 ```java
   /**
@@ -107,7 +107,7 @@ The registered associations are used by the Substance UI delegates during the co
 
 Applications that want to provide [custom skinning](../painters/custom-skinning.md) of their UIs can use the following two supported APIs in order to get the relevant color schemes.
 
-First, use the following API in `org.pushingpixels.substance.api.SubstanceCortex.ComponentScope` class to obtain the skin that should be used for painting your component:
+First, use the following API in `SubstanceCortex.ComponentScope` class to obtain the skin that should be used for painting your component:
 
 ```java
   /**
@@ -125,7 +125,7 @@ First, use the following API in `org.pushingpixels.substance.api.SubstanceCortex
   public static SubstanceSkin getCurrentSkin(Component c)
 ```
 
-Then, use the following API in the obtained `org.pushingpixels.substance.api.SubstanceSkin` class to get the color scheme for the relevant visual area:
+Then, use the following API in the obtained `SubstanceSkin` class to get the color scheme for the relevant visual area:
 
 ```java
   /**

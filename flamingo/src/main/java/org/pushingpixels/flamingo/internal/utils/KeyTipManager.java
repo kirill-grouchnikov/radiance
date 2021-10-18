@@ -37,8 +37,8 @@ import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonFrameTitlePane;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonFrameTitlePane;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonRootPaneUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
@@ -224,15 +224,15 @@ public class KeyTipManager {
         }
 
         // taskbar panel components
-        SubstanceRibbonFrameTitlePane titlePane = (SubstanceRibbonFrameTitlePane)
-                ((SubstanceRibbonRootPaneUI) ribbonFrame.getRootPane().getUI()).getTitlePane();
+        RadianceRibbonFrameTitlePane titlePane = (RadianceRibbonFrameTitlePane)
+                ((RadianceRibbonRootPaneUI) ribbonFrame.getRootPane().getUI()).getTitlePane();
         if (titlePane != null) {
             for (Component taskbarComp : titlePane.getTaskbarPanel().getComponents()) {
                 if (taskbarComp instanceof JCommandButton) {
                     JCommandButton cb = (JCommandButton) taskbarComp;
                     KeyTipLink actionLink = getCommandButtonActionLink(cb);
                     if (actionLink != null) {
-                        if (taskbarComp instanceof SubstanceRibbonFrameTitlePane.TaskbarOverflowButton) {
+                        if (taskbarComp instanceof RadianceRibbonFrameTitlePane.TaskbarOverflowButton) {
                             actionLink.traversal = () -> {
                                 // collect key tips of all controls in the taskbar overflow popup
                                 List<PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();

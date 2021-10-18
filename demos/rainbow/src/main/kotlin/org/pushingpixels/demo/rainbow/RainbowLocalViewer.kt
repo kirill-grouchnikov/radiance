@@ -35,9 +35,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.AnimationFacet
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.io.File
 import javax.swing.JFrame
 
@@ -50,9 +50,11 @@ import javax.swing.JFrame
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
-        SubstanceCortex.GlobalScope.setTimelineDuration(1000)
-        SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER)
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setTimelineDuration(1000)
+        RadianceLafCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER)
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val frame = RainbowViewer<File>("Local SVG File Viewer", BreadcrumbFileSelector())
         frame.setSize(700, 400)

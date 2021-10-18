@@ -34,14 +34,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.demo.substance.main.check.SampleFrame
+import org.pushingpixels.radiance.demo.laf.main.check.SampleFrame
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.ComponentState
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
+import org.pushingpixels.radiance.laf.api.ComponentState
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.tools.common.RadianceLogo
 import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.io.File
@@ -50,7 +50,7 @@ import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 abstract class BaseColorSchemeRobot(
-    private var skin: SubstanceSkin,
+    private var skin: RadianceSkin,
     private val screenshotFilename: String
 ) : ZodiacRobot {
 
@@ -59,7 +59,7 @@ abstract class BaseColorSchemeRobot(
 
         // set skin
         withContext(Dispatchers.Swing) {
-            SubstanceCortex.GlobalScope.setSkin(skin)
+            RadianceLafCortex.GlobalScope.setSkin(skin)
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
@@ -68,9 +68,9 @@ abstract class BaseColorSchemeRobot(
         withContext(Dispatchers.Swing) {
             frame = SampleFrame()
             frame.iconImage = RadianceLogo.getLogoImage(frame,
-                SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
+                RadianceLafCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                     DecorationAreaType.PRIMARY_TITLE_PANE,
-                    SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                     ComponentState.ENABLED
                 )
             )
@@ -128,7 +128,7 @@ abstract class BaseColorSchemeRobot(
  *
  * @author Kirill Grouchnikov
  */
-abstract class ColorSchemeRobot(colorScheme: SubstanceColorScheme, screenshotFilename: String) :
+abstract class ColorSchemeRobot(colorScheme: RadianceColorScheme, screenshotFilename: String) :
     BaseColorSchemeRobot(
         if (colorScheme.isDark) RobotDefaultDarkSkin(colorScheme) else
             RobotDefaultSkin(colorScheme), screenshotFilename

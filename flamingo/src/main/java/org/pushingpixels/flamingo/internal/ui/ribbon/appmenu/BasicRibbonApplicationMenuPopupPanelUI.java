@@ -38,13 +38,13 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.JPopupPanel;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -242,8 +242,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         this.footerPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING)) {
             @Override
             protected void paintComponent(Graphics g) {
-                SubstanceSkin skin = SubstanceCoreUtilities.getSkin(this);
-                SubstanceColorScheme scheme = skin.getBackgroundColorScheme(
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(this);
+                RadianceColorScheme scheme = skin.getBackgroundColorScheme(
                         DecorationPainterUtils.getDecorationType(this));
                 Color backgroundFill = scheme.getAccentedBackgroundFillColor();
 
@@ -471,8 +471,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 primary.getPopupModel().setRollover(true);
                 primary.getPopupModel().setArmed(true);
                 // Fire the rollover action so that the secondary menu content is populated
-                SubstanceCommandButtonUI buttonUI =
-                        (SubstanceCommandButtonUI) primary.getUI();
+                RadianceCommandButtonUI buttonUI =
+                        (RadianceCommandButtonUI) primary.getUI();
                 buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
                         ActionEvent.ACTION_PERFORMED,
                         primary.getActionModel().getActionCommand(),
@@ -496,8 +496,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             primary.getPopupModel().setRollover(true);
             primary.getPopupModel().setArmed(true);
             // Fire the rollover action so that the secondary menu content is populated
-            SubstanceCommandButtonUI buttonUI =
-                    (SubstanceCommandButtonUI) primary.getUI();
+            RadianceCommandButtonUI buttonUI =
+                    (RadianceCommandButtonUI) primary.getUI();
             buttonUI.fireRolloverActionPerformed(new ActionEvent(this,
                     ActionEvent.ACTION_PERFORMED,
                     primary.getActionModel().getActionCommand(),
@@ -514,8 +514,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 secondLevelButton.getPopupModel().setRollover(true);
                 secondLevelButton.getPopupModel().setArmed(true);
 
-                SubstanceCommandButtonUI secondLevelButtonUI =
-                        (SubstanceCommandButtonUI) secondLevelButton.getUI();
+                RadianceCommandButtonUI secondLevelButtonUI =
+                        (RadianceCommandButtonUI) secondLevelButton.getUI();
                 secondLevelButtonUI.processPopupAction();
 
                 int levelsToGo = pathLength - 2;
@@ -535,8 +535,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             currLevelButton.getPopupModel().setRollover(true);
                             currLevelButton.getPopupModel().setArmed(true);
 
-                            SubstanceCommandButtonUI currLevelButtonUI =
-                                    (SubstanceCommandButtonUI) currLevelButton.getUI();
+                            RadianceCommandButtonUI currLevelButtonUI =
+                                    (RadianceCommandButtonUI) currLevelButton.getUI();
                             currLevelButtonUI.processPopupAction();
                         }
                     });
@@ -752,8 +752,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             secondaryMenuButton.getPopupModel().setRollover(true);
             secondaryMenuButton.getPopupModel().setArmed(true);
 
-            SubstanceCommandButtonUI secondaryMenuButtonUI =
-                    (SubstanceCommandButtonUI) secondaryMenuButton.getUI();
+            RadianceCommandButtonUI secondaryMenuButtonUI =
+                    (RadianceCommandButtonUI) secondaryMenuButton.getUI();
             secondaryMenuButtonUI.processPopupAction();
         }
     }

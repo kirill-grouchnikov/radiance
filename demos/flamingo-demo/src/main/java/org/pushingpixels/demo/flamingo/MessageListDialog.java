@@ -29,11 +29,10 @@
  */
 package org.pushingpixels.demo.flamingo;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 
 /**
@@ -62,7 +61,7 @@ public final class MessageListDialog extends JDialog {
         JLabel messageLabel = new JLabel(mainMessage);
         JList<String> messageList = new JList<>(messages.toArray(new String[0]));
         messageList.setForeground(Color.red);
-        messageList.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        messageList.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         JScrollPane mesScrollPane = new JScrollPane(messageList);
         JButton closeButton = new JButton("Close");

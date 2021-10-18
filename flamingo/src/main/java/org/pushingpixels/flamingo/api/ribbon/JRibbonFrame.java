@@ -43,7 +43,7 @@ import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonFrameTitlePane;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonFrameTitlePane;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.*;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
@@ -54,8 +54,8 @@ import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
 import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -186,7 +186,7 @@ public class JRibbonFrame extends JFrame {
                     boolean isInPopup = (SwingUtilities.getAncestorOfClass(
                             JPopupPanel.class, keyTip.comp) != null);
                     if (isInPopup && (SwingUtilities.getAncestorOfClass(
-                            SubstanceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
+                            RadianceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
                             keyTip.comp) == null)) {
                         continue;
                     }
@@ -235,7 +235,7 @@ public class JRibbonFrame extends JFrame {
 
                     Container taskbarOverflowPanel = SwingUtilities
                             .getAncestorOfClass(
-                                    SubstanceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
+                                    RadianceRibbonFrameTitlePane.TaskbarOverflowPopupPanel.class,
                                     keyTip.comp);
                     if (taskbarOverflowPanel != null) {
                         // special case for controls in taskbar overflow - push them down
@@ -246,7 +246,7 @@ public class JRibbonFrame extends JFrame {
                     }
 
                     Container titlePane = SwingUtilities
-                            .getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                            .getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
                                     keyTip.comp);
                     if (titlePane != null) {
                         // special case for controls in title pane (taskbar)
@@ -557,13 +557,13 @@ public class JRibbonFrame extends JFrame {
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
 
-        super.setIconImages(Collections.singletonList(SubstanceCoreUtilities.getBlankImage(
+        super.setIconImages(Collections.singletonList(RadianceCoreUtilities.getBlankImage(
                 RadianceCommonCortex.getScaleFactor(null), 16, 16)));
     }
 
     @Override
     public void dispose() {
-        SubstanceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
+        RadianceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
         KeyTipManager.defaultManager().removeKeyTipListener(this.keyTipListener);
         super.dispose();
     }
@@ -572,14 +572,14 @@ public class JRibbonFrame extends JFrame {
     @Override
     public void show() {
         super.show();
-        SubstanceCoreUtilities.registerAWTEventListener(this.awtEventListener);
+        RadianceCoreUtilities.registerAWTEventListener(this.awtEventListener);
         KeyTipManager.defaultManager().addKeyTipListener(this.keyTipListener);
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void hide() {
-        SubstanceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
+        RadianceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
         KeyTipManager.defaultManager().removeKeyTipListener(this.keyTipListener);
         super.hide();
     }
@@ -591,7 +591,7 @@ public class JRibbonFrame extends JFrame {
         }
 
         if ((SwingUtilities.getAncestorOfClass(JRibbon.class, c) != null) ||
-                (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                (SwingUtilities.getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
                         c) != null)) {
             // If the component is in the ribbon or in the ribbon frame title pane, it's valid
             return true;
@@ -620,14 +620,14 @@ public class JRibbonFrame extends JFrame {
             // If the component is in the ribbon or in the ribbon frame title pane, it's valid
             boolean isValidChainRoot =
                     (SwingUtilities.getAncestorOfClass(JRibbon.class, popupInvoker) != null) ||
-                            (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+                            (SwingUtilities.getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
                                     popupInvoker) != null);
             return isValidChainRoot;
         }
     }
 
     private boolean isInTaskbar(Component c) {
-        if (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class, c) != null) {
+        if (SwingUtilities.getAncestorOfClass(RadianceRibbonFrameTitlePane.class, c) != null) {
             return true;
         }
 
@@ -651,12 +651,12 @@ public class JRibbonFrame extends JFrame {
             }
 
             // At the "top" level of the popup chain
-            return (SwingUtilities.getAncestorOfClass(SubstanceRibbonFrameTitlePane.class,
+            return (SwingUtilities.getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
                     popupInvoker) != null);
         }
     }
 
-    @SubstancePopupContainer
+    @RadiancePopupContainer
     public static class GlobalPopupMenu extends JCommandPopupMenu {
         public GlobalPopupMenu(Projection<JCommandPopupMenu, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> projection) {
@@ -849,7 +849,7 @@ public class JRibbonFrame extends JFrame {
                 }
             }
         }
-        Image result = SubstanceCoreUtilities.getBlankImage(
+        Image result = RadianceCoreUtilities.getBlankImage(
                 RadianceCommonCortex.getScaleFactor(null), size, size);
         Graphics2D g2d = (Graphics2D) result.getGraphics().create();
         icon.paintIcon(null, g2d, 0, 0);

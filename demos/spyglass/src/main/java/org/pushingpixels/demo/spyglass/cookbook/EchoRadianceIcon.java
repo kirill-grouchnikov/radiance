@@ -35,7 +35,7 @@ import com.jhlabs.image.Gradient;
 import com.jhlabs.image.PointFilter;
 import org.pushingpixels.demo.spyglass.cookbook.skin.GoldenBrownColorScheme;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
 
 import java.awt.*;
 import java.awt.image.BufferedImageOp;
@@ -58,7 +58,7 @@ public class EchoRadianceIcon implements RadianceIcon {
         }
         blurFilter.setKernel(new Kernel(kernelSide, kernelSide, kernelData));
 
-        SubstanceColorScheme colorScheme = new GoldenBrownColorScheme();
+        RadianceColorScheme colorScheme = new GoldenBrownColorScheme();
         Gradient inverseGradient = new Gradient(
                 new int[] { 0, 128, 255 },
                 new int[] { colorScheme.getUltraLightColor().getRGB(),

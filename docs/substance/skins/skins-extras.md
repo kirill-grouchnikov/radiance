@@ -4,13 +4,13 @@ The following [skins](overview.md) are available in the [extras pack](https://gi
 
 ### Field of Wheat
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.FieldOfWheatSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceFieldOfWheatLookAndFeel` can be used with one of the following options:
+Available in the `FieldOfWheatSkin`. In addition, the `SubstanceFieldOfWheatLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new FieldOfWheatSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.FieldOfWheatSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceFieldOfWheatLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.FieldOfWheatSkin")`
+* `-Dswing.defaultlaf=SubstanceFieldOfWheatLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceFieldOfWheatLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceFieldOfWheatLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceFieldOfWheatLookAndFeel");`
 
 <p align="left">
 <img alt="Field of Wheat" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/fieldofwheat1.png" width="340" height="258">
@@ -19,13 +19,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.FieldOfWheatSk
 
 ### Finding Nemo
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.FindingNemoSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceFindingNemoLookAndFeel` can be used with one of the following options:
+Available in the `FindingNemoSkin`. In addition, the `SubstanceFindingNemoLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new FindingNemoSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.FindingNemoSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceFindingNemoLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.FindingNemoSkin")`
+* `-Dswing.defaultlaf=SubstanceFindingNemoLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceFindingNemoLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceFindingNemoLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceFindingNemoLookAndFeel");`
 
 <p align="left">
 <img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/findingnemo1.png" width="340" height="258">
@@ -35,13 +35,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.FindingNemoSki
 
 ### Harvest
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.HarvestSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceHarvestLookAndFeel` can be used with one of the following options:
+Available in the `HarvestSkin`. In addition, the `SubstanceHarvestLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new HarvestSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.HarvestSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceHarvestLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.HarvestSkin")`
+* `-Dswing.defaultlaf=SubstanceHarvestLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceHarvestLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceHarvestLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceHarvestLookAndFeel");`
 
 <p align="left">
 <img alt="Harvest" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/harvest1.png" width="340" height="258">
@@ -50,13 +50,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.HarvestSkin`. 
 
 ### Magma
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.MagmaSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceMagmaLookAndFeel` can be used with one of the following options:
+Available in the `MagmaSkin`. In addition, the `SubstanceMagmaLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new MagmaSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.MagmaSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceMagmaLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.MagmaSkin")`
+* `-Dswing.defaultlaf=SubstanceMagmaLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceMagmaLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceMagmaLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceMagmaLookAndFeel");`
 
 <p align="left">
 <img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/magma1.png" width="340" height="258">
@@ -65,13 +65,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.MagmaSkin`. In
 
 ### Mango
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.MangoSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceMangoLookAndFeel` can be used with one of the following options:
+Available in the `MangoSkin`. In addition, the `SubstanceMangoLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new MangoSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.MangoSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceMangoLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.MangoSkin")`
+* `-Dswing.defaultlaf=SubstanceMangoLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceMangoLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceMangoLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceMangoLookAndFeel");`
 
 <p align="left">
 <img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/mango1.png" width="340" height="258">
@@ -80,13 +80,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.MangoSkin`. In
 
 ### Office Black 2007
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlack2007Skin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeBlack2007Skin`. In addition, the `SubstanceOfficeBlack2007LookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeBlack2007Skin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeBlack2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.OfficeBlack2007Skin")`
+* `-Dswing.defaultlaf=SubstanceOfficeBlack2007LookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceOfficeBlack2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlack2007LookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceOfficeBlack2007LookAndFeel");`
 
 <p align="left">
 <img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblack20071.png" width="340" height="258">
@@ -95,13 +95,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlack200
 
 ### Office Blue 2007
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlue2007Skin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeBlue2007Skin`. In addition, the `SubstanceOfficeBlue2007LookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeBlue2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.OfficeBlue2007Skin")`
+* `-Dswing.defaultlaf=SubstanceOfficeBlue2007LookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceOfficeBlue2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeBlue2007LookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceOfficeBlue2007LookAndFeel");`
 
 <p align="left">
 <img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officeblue20071.png" width="340" height="258">
@@ -110,13 +110,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeBlue2007
 
 ### Office Silver 2007
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeSilver2007Skin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeSilver2007Skin`. In addition, the `SubstanceOfficeSilver2007LookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.OfficeSilver2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.OfficeSilver2007Skin")`
+* `-Dswing.defaultlaf=SubstanceOfficeSilver2007LookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceOfficeSilver2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceOfficeSilver2007LookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceOfficeSilver2007LookAndFeel");`
 
 <p align="left">
 <img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/officesilver20071.png" width="340" height="258">
@@ -125,13 +125,13 @@ Available in the `org.pushingpixels.substance.extras.api.skinpack.OfficeSilver20
 
 ### Streetlights
 
-Available in the `org.pushingpixels.substance.extras.api.skinpack.StreetlightsSkin`. In addition, the `org.pushingpixels.substance.extras.api.skinpack.SubstanceStreetlightsLookAndFeel` can be used with one of the following options:
+Available in the `StreetlightsSkin`. In addition, the `SubstanceStreetlightsLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new StreetlightsSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.StreetlightsSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.extras.api.skinpack.SubstanceStreetlightsLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.radiance.laf.api.skin.StreetlightsSkin")`
+* `-Dswing.defaultlaf=SubstanceStreetlightsLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceStreetlightsLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.extras.api.skinpack.SubstanceStreetlightsLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceStreetlightsLookAndFeel");`
 
 <p align="left">
 <img alt="Streetlights" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance-extras/skins/streetlights1.png" width="340" height="258">

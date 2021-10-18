@@ -39,8 +39,8 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.MarinerSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -78,7 +78,7 @@ public class ButtonGroupDemo {
 
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new MarinerSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new MarinerSkin());
 
             JFrame frame = new JFrame("Text styling demo");
             frame.setLayout(new BorderLayout());

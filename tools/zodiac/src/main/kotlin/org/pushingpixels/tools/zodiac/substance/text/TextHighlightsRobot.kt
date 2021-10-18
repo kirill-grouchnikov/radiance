@@ -35,12 +35,12 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.ComponentState
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
-import org.pushingpixels.substance.api.text.SubstanceTextField
+import org.pushingpixels.radiance.laf.api.ComponentState
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType
+import org.pushingpixels.radiance.laf.api.text.RadianceTextField
 import org.pushingpixels.tools.common.RadianceLogo
 import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.awt.FlowLayout
@@ -62,11 +62,12 @@ import javax.swing.text.DefaultCaret
  * @author Kirill Grouchnikov
  */
 abstract class TextHighlightsRobot(
-    private val skin: SubstanceSkin,
+    private val skin: RadianceSkin,
     private val screenshotFilename: String
 ) : ZodiacRobot {
     private fun makeTextField(text: String): JTextField {
-        val result = SubstanceTextField(text, 20)
+        val result =
+            RadianceTextField(text, 20)
         // force the display of text selection even when the focus has been lost
         result.caret = object : DefaultCaret() {
             override fun setSelectionVisible(visible: Boolean) {
@@ -82,9 +83,9 @@ abstract class TextHighlightsRobot(
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
-            SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
+            RadianceLafCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                 DecorationAreaType.PRIMARY_TITLE_PANE,
-                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                 ComponentState.ENABLED
             )
         )
@@ -92,23 +93,23 @@ abstract class TextHighlightsRobot(
         frame.contentPane.layout = BoxLayout(frame.contentPane, BoxLayout.Y_AXIS)
 
         val panelTitlePane = JPanel(FlowLayout())
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
+        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(
             panelTitlePane, DecorationAreaType.PRIMARY_TITLE_PANE
         )
         val panelToolbar = JPanel(FlowLayout())
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
+        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(
             panelToolbar, DecorationAreaType.TOOLBAR
         )
         val panelGeneral = JPanel(FlowLayout())
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
+        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(
             panelGeneral, DecorationAreaType.CONTROL_PANE
         )
         val panelNone = JPanel(FlowLayout())
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
+        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(
             panelNone, DecorationAreaType.NONE
         )
         val panelFooter = JPanel(FlowLayout())
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(
+        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(
             panelFooter, DecorationAreaType.FOOTER
         )
 
@@ -132,7 +133,7 @@ abstract class TextHighlightsRobot(
 
         // set skin
         withContext(Dispatchers.Swing) {
-            SubstanceCortex.GlobalScope.setSkin(skin)
+            RadianceLafCortex.GlobalScope.setSkin(skin)
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 

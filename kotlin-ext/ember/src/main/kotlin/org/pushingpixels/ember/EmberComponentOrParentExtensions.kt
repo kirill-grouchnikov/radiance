@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.ember
 
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter
-import org.pushingpixels.substance.api.painter.preview.PreviewPainter
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
-import org.pushingpixels.substance.api.shaper.PillButtonShaper
-import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.painter.preview.DefaultPreviewPainter
+import org.pushingpixels.radiance.laf.api.painter.preview.PreviewPainter
+import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper
+import org.pushingpixels.radiance.laf.api.shaper.PillButtonShaper
+import org.pushingpixels.radiance.laf.api.shaper.RadianceButtonShaper
 import javax.swing.JComponent
 
 /**
@@ -47,12 +47,12 @@ import javax.swing.JComponent
  */
 @EmberComponentOrParentScope
 public fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter) {
-    SubstanceCortex.ComponentOrParentScope.setComponentPreviewPainter(this, previewPainter)
+    RadianceLafCortex.ComponentOrParentScope.setComponentPreviewPainter(this, previewPainter)
 }
 
 /**
  * Specifies whether this component or its immediate children should ignore the
- * default (minimum) dimension for buttons. Note that [SubstanceButtonShaper]
+ * default (minimum) dimension for buttons. Note that [RadianceButtonShaper]
  * implementations are not required to respect this call. The current implementations of the
  * default [PillButtonShaper] and [ClassicButtonShaper] respect this
  * setting.
@@ -63,7 +63,7 @@ public fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter)
  * behavior.
  */
 public fun JComponent.setButtonIgnoreMinimumSize(buttonIgnoreMinimumSize: Boolean?) {
-    SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(this, buttonIgnoreMinimumSize)
+    RadianceLafCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(this, buttonIgnoreMinimumSize)
 }
 
 /**
@@ -74,7 +74,7 @@ public fun JComponent.setButtonIgnoreMinimumSize(buttonIgnoreMinimumSize: Boolea
  * to the default behavior.
  */
 public fun JComponent.setBackgroundAppearanceStrategy(
-        backgroundAppearanceStrategy: SubstanceSlices.BackgroundAppearanceStrategy?) {
-    SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this,
+        backgroundAppearanceStrategy: RadianceLafSlices.BackgroundAppearanceStrategy?) {
+    RadianceLafCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this,
             backgroundAppearanceStrategy)
 }

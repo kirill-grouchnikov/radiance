@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonRootPaneUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonRootPaneUI;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;
@@ -64,7 +64,7 @@ public class JRibbonRootPane extends JRootPane {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceRibbonRootPaneUI.createUI(this));
+        setUI(RadianceRibbonRootPaneUI.createUI(this));
     }
 
     @Override

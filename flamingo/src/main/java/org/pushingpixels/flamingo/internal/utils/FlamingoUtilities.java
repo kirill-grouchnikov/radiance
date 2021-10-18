@@ -41,9 +41,9 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -158,15 +158,15 @@ public class FlamingoUtilities {
     }
 
     public static int getTaskToggleButtonHeight(JRibbon ribbon) {
-        Font titleFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        Font titleFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(ribbon), titleFont);
         int fontHeight = fm.getHeight();
         fontHeight += 7;
         int iconHeight = 0;
         if (ribbon.getRootPane().getWindowDecorationStyle() == JRootPane.FRAME) {
-            iconHeight = SubstanceSizeUtils.getTitlePaneIconSize();
+            iconHeight = RadianceSizeUtils.getTitlePaneIconSize();
         }
 
         return Math.max(fontHeight, iconHeight) - 2;

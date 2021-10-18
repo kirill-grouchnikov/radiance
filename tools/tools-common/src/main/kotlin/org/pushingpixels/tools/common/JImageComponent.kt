@@ -33,7 +33,7 @@ import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.swing.KeyboardActionScopeType
 import org.pushingpixels.meteor.swing.wireActionToKeyStroke
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 
 import javax.imageio.ImageIO
 import javax.swing.*
@@ -312,7 +312,7 @@ class JImageComponent(hasKeyboardZoom: Boolean) : JPanel() {
                 it.drawImage(this.image, 0, 0, null)
             } else {
                 RadianceCommonCortex.installDesktopHints(it, font)
-                it.font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
+                it.font = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.color = Color.black
 
                 val fh = it.fontMetrics.height

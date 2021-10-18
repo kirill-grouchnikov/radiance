@@ -34,13 +34,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.demo.substance.main.check.SampleFrame
+import org.pushingpixels.radiance.demo.laf.main.check.SampleFrame
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.ComponentState
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
+import org.pushingpixels.radiance.laf.api.ComponentState
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType
 import org.pushingpixels.tools.common.RadianceLogo
 import org.pushingpixels.tools.zodiac.ZodiacRobot
 import java.awt.Robot
@@ -55,7 +55,7 @@ import javax.swing.JFrame
  * @author Kirill Grouchnikov
  */
 abstract class SubstanceSkinRobot(
-    private var skin: SubstanceSkin,
+    private var skin: RadianceSkin,
     private val screenshotFilename: String
 ) : ZodiacRobot {
     private suspend fun runInner(screenshotDirectory: String) {
@@ -63,7 +63,7 @@ abstract class SubstanceSkinRobot(
 
         // set skin
         withContext(Dispatchers.Swing) {
-            SubstanceCortex.GlobalScope.setSkin(skin)
+            RadianceLafCortex.GlobalScope.setSkin(skin)
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
@@ -73,9 +73,9 @@ abstract class SubstanceSkinRobot(
             frame = SampleFrame()
             frame.iconImage = RadianceLogo.getLogoImage(
                 frame,
-                SubstanceCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
+                RadianceLafCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                     DecorationAreaType.PRIMARY_TITLE_PANE,
-                    SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                     ComponentState.ENABLED
                 )
             )

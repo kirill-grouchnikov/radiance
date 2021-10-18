@@ -38,8 +38,8 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

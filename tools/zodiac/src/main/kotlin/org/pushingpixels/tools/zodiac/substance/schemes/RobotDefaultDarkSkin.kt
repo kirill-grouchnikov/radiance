@@ -29,28 +29,28 @@
  */
 package org.pushingpixels.tools.zodiac.substance.schemes
 
-import org.pushingpixels.substance.api.ComponentState
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle
-import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery
-import org.pushingpixels.substance.api.colorscheme.DarkMetallicColorScheme
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter
-import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter
-import org.pushingpixels.substance.api.painter.decoration.MarbleNoiseDecorationPainter
-import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter
-import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper
+import org.pushingpixels.radiance.laf.api.ComponentState
+import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle
+import org.pushingpixels.radiance.laf.api.RadianceSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery
+import org.pushingpixels.radiance.laf.api.colorscheme.DarkMetallicColorScheme
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.laf.api.painter.border.ClassicBorderPainter
+import org.pushingpixels.radiance.laf.api.painter.decoration.ArcDecorationPainter
+import org.pushingpixels.radiance.laf.api.painter.decoration.MarbleNoiseDecorationPainter
+import org.pushingpixels.radiance.laf.api.painter.fill.ClassicFillPainter
+import org.pushingpixels.radiance.laf.api.painter.highlight.ClassicHighlightPainter
+import org.pushingpixels.radiance.laf.api.painter.overlay.BottomLineOverlayPainter
+import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper
 
 /**
  * The default dark skin for the Zodiac skin scripts.
  *
  * @author Kirill Grouchnikov
  */
-class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
-        SubstanceSkin.Accented(AccentBuilder()
+class RobotDefaultDarkSkin(accentColorScheme: RadianceColorScheme) :
+        RadianceSkin.Accented(AccentBuilder()
                 .withActiveControlsAccent(accentColorScheme)
                 .withWindowChromeAccent(accentColorScheme)) {
 
@@ -58,39 +58,49 @@ class RobotDefaultDarkSkin(accentColorScheme: SubstanceColorScheme) :
         this.tabFadeStart = 1.0
         this.tabFadeEnd = 1.0
 
-        val bottomLineOverlayPainter = BottomLineOverlayPainter(
-                ColorSchemeSingleColorQuery.MID)
+        val bottomLineOverlayPainter =
+            BottomLineOverlayPainter(
+                ColorSchemeSingleColorQuery.MID
+            )
         this.addOverlayPainter(bottomLineOverlayPainter,
-                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                SubstanceSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                SubstanceSlices.DecorationAreaType.HEADER)
+                RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceLafSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceLafSlices.DecorationAreaType.HEADER)
 
-        this.buttonShaper = ClassicButtonShaper()
-        this.fillPainter = ClassicFillPainter()
-        this.borderPainter = ClassicBorderPainter()
+        this.buttonShaper =
+            ClassicButtonShaper()
+        this.fillPainter =
+            ClassicFillPainter()
+        this.borderPainter =
+            ClassicBorderPainter()
 
-        val decorationPainter = MarbleNoiseDecorationPainter()
+        val decorationPainter =
+            MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(0.3f)
         this.decorationPainter = decorationPainter
 
-        this.highlightPainter = ClassicHighlightPainter()
-        this.borderPainter = ClassicBorderPainter()
+        this.highlightPainter =
+            ClassicHighlightPainter()
+        this.borderPainter =
+            ClassicBorderPainter()
 
         val inactiveScheme = this.activeControlsAccent.blendWith(DarkMetallicColorScheme(), 0.6)
-        val defaultSchemeBundle = SubstanceColorSchemeBundle(
-                this.activeControlsAccent, inactiveScheme, inactiveScheme)
+        val defaultSchemeBundle =
+            RadianceColorSchemeBundle(
+                this.activeControlsAccent, inactiveScheme, inactiveScheme
+            )
         defaultSchemeBundle.registerAlpha(0.5f,
                 ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
         defaultSchemeBundle.registerColorScheme(inactiveScheme,
                 ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED)
 
-        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, SubstanceSlices.DecorationAreaType.NONE)
+        this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, RadianceLafSlices.DecorationAreaType.NONE)
 
         this.registerAsDecorationArea(this.windowChromeAccent,
-                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                SubstanceSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                SubstanceSlices.DecorationAreaType.HEADER)
+                RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceLafSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceLafSlices.DecorationAreaType.HEADER)
     }
 
     override fun getDisplayName(): String {

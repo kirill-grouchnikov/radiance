@@ -38,10 +38,10 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,9 +54,9 @@ public class TestButtonStripMultiple extends JFrame {
         this.setLayout(new FlowLayout());
 
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         JComponent buttonStrip = new CommandStripProjection(
@@ -103,7 +103,7 @@ public class TestButtonStripMultiple extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
             TestButtonStripMultiple bst = new TestButtonStripMultiple();
             bst.setVisible(true);
         });

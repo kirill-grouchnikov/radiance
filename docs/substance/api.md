@@ -1,6 +1,6 @@
 ## Substance look and feel - API
 
-The `SubstanceCortex` class in the `org.pushingpixels.substance.api` package is the only officially-supported entry point into configuring the behavior of Substance-powered UIs and for querying the state of such UIs. The API surface of this class is broken into a number of scopes, with every scope applying at the specific granularity level of control:
+The `SubstanceCortex` class in the `org.pushingpixels.radiance.laf.api` package is the only officially-supported entry point into configuring the behavior of Substance-powered UIs and for querying the state of such UIs. The API surface of this class is broken into a number of scopes, with every scope applying at the specific granularity level of control:
 
 * **GlobalScope** - configuring and querying the global state of the application.
 * **WindowScope** - configuring and querying state at the level of the application `Window`s.

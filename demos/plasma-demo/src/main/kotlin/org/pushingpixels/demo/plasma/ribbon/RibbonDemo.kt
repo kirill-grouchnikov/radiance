@@ -73,8 +73,8 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.plasma.*
 import org.pushingpixels.plasma.ribbon.*
 import org.pushingpixels.plasma.synapse.*
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.awt.*
 import java.lang.UnsupportedOperationException
 import java.text.MessageFormat
@@ -86,17 +86,17 @@ import kotlin.system.exitProcess
 
 object SkinSwitcher {
     fun getSkinSwitcher(): JComboBox<String> {
-        val skinInfoMap = SubstanceCortex.GlobalScope.getAllSkins()
+        val skinInfoMap = RadianceLafCortex.GlobalScope.getAllSkins()
         val skinNames = skinInfoMap.keys.toTypedArray()
         val result = JComboBox<String>(skinNames)
         result.selectedIndex = skinNames.indexOfFirst {
-            it == SubstanceCortex.GlobalScope.getCurrentSkin()!!.displayName
+            it == RadianceLafCortex.GlobalScope.getCurrentSkin()!!.displayName
         }
 
         result.addDelayedItemListener {
             val selected = result.selectedItem as String
-            SubstanceCortex.GlobalScope.setSkin(
-                SubstanceCortex.GlobalScope.getAllSkins()[selected]!!.className
+            RadianceLafCortex.GlobalScope.setSkin(
+                RadianceLafCortex.GlobalScope.getAllSkins()[selected]!!.className
             )
         }
 
@@ -417,7 +417,7 @@ private class RibbonDemoBuilder {
                             DecoratedRadianceIcon.IconDecorator { _, graphics, x, y, _, height ->
                                 graphics.render {
                                     it.color = Color.black
-                                    it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                    it.font = RadianceLafCortex.GlobalScope.getFontPolicy()
                                         .getFontSet().controlFont
                                     RadianceCommonCortex.installDesktopHints(it, it.font)
                                     it.drawString("$i", x + 2, y + height - 2)
@@ -438,7 +438,7 @@ private class RibbonDemoBuilder {
                             DecoratedRadianceIcon.IconDecorator { _, graphics, x, y, _, height ->
                                 graphics.render {
                                     it.color = Color.black
-                                    it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                    it.font = RadianceLafCortex.GlobalScope.getFontPolicy()
                                         .fontSet.controlFont
                                     RadianceCommonCortex.installDesktopHints(it, it.font)
                                     it.drawString("$i", x + 2, y + height - 2)
@@ -657,7 +657,7 @@ private class RibbonDemoBuilder {
                                                 graphics.render {
                                                     it.color = Color.black
                                                     it.font =
-                                                        SubstanceCortex.GlobalScope.getFontPolicy()
+                                                        RadianceLafCortex.GlobalScope.getFontPolicy()
                                                             .fontSet.controlFont
                                                     RadianceCommonCortex.installDesktopHints(it, it.font)
                                                     it.drawString("" + i, x + 2, y + height - 2)
@@ -1465,7 +1465,7 @@ private class RibbonDemoBuilder {
                                     Appointment_new.factory(),
                                     DecoratedRadianceIcon.IconDecorator { _, g, x, y, _, height ->
                                         g.render {
-                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                            it.font = RadianceLafCortex.GlobalScope.getFontPolicy()
                                                 .fontSet.controlFont.deriveFont(9.0f)
                                             RadianceCommonCortex.installDesktopHints(it, it.font)
                                             it.color = Color.black
@@ -1491,7 +1491,7 @@ private class RibbonDemoBuilder {
                                     Appointment_new.factory(),
                                     DecoratedRadianceIcon.IconDecorator { _, g, x, y, _, height ->
                                         g.render {
-                                            it.font = SubstanceCortex.GlobalScope.getFontPolicy()
+                                            it.font = RadianceLafCortex.GlobalScope.getFontPolicy()
                                                 .fontSet.controlFont.deriveFont(9.0f)
                                             RadianceCommonCortex.installDesktopHints(it, it.font)
                                             it.color = Color.black
@@ -1812,7 +1812,9 @@ fun main() {
         JFrame.setDefaultLookAndFeelDecorated(true)
         JDialog.setDefaultLookAndFeelDecorated(true)
 
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val builder = RibbonDemoBuilder()
 

@@ -2,13 +2,13 @@
 
 ### Twilight
 
-Available in the `org.pushingpixels.substance.api.skin.TwilightSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel` can be used with one of the following options:
+Available in the `TwilightSkin`. In addition, the `SubstanceTwilightLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new TwilightSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.TwilightSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("TwilightSkin")`
+* `-Dswing.defaultlaf=SubstanceTwilightLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceTwilightLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceTwilightLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceTwilightLookAndFeel");`
 
 <p align="left">
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/twilight1.png" width="340" height="258">
@@ -17,13 +17,13 @@ Available in the `org.pushingpixels.substance.api.skin.TwilightSkin`. In additio
 
 ### Night Shade
 
-Available in the `org.pushingpixels.substance.api.skin.NightShadeSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel` can be used with one of the following options:
+Available in the `NightShadeSkin`. In addition, the `SubstanceNightShadeLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new NightShadeSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.NightShadeSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("NightShadeSkin")`
+* `-Dswing.defaultlaf=SubstanceNightShadeLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceNightShadeLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceNightShadeLookAndFeel");`
 
 <p align="left">
 <img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/nightshade1.png" width="340" height="258">
@@ -32,13 +32,13 @@ Available in the `org.pushingpixels.substance.api.skin.NightShadeSkin`. In addit
 
 ### Magellan
 
-Available in the `org.pushingpixels.substance.api.skin.MagellanSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel` can be used with one of the following options:
+Available in the `MagellanSkin`. In addition, the `SubstanceMagellanLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new MagellanSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.MagellanSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("MagellanSkin")`
+* `-Dswing.defaultlaf=SubstanceMagellanLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceMagellanLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceMagellanLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceMagellanLookAndFeel");`
 
 <p align="left">
 <img alt="Magellan" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/magellan1.png" width="340" height="258">
@@ -47,13 +47,13 @@ Available in the `org.pushingpixels.substance.api.skin.MagellanSkin`. In additio
 
 ### Graphite
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSkin`. In addition, the `SubstanceGraphiteLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteLookAndFeel");`
 
 <p align="left">
 <img alt="Graphite" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphite1.png" width="340" height="258">
@@ -62,13 +62,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteSkin`. In additio
 
 ### Graphite Chalk
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteChalkSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteChalkLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteChalkSkin`. In addition, the `SubstanceGraphiteChalkLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteChalkSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteChalkSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteChalkLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteChalkSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteChalkLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteChalkLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteChalkLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteChalkLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitechalk1.png" width="340" height="258">
@@ -77,13 +77,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteChalkSkin`. In ad
 
 ### Graphite Aqua
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteAquaSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteAquaSkin`. In addition, the `SubstanceGraphiteAquaLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteAquaSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteAquaSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteAquaSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteAquaLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteAquaLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteAquaLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteAquaLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphiteaqua1.png" width="340" height="258">
@@ -92,13 +92,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteAquaSkin`. In add
 
 ### Graphite Electric
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteElectricSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteElectricSkin`. In addition, the `SubstanceGraphiteElectricLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteElectricSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteElectricSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteElectricSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteElectricLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteElectricLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteElectricLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteElectricLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphiteelectric1.png" width="340" height="258">
@@ -107,13 +107,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteElectricSkin`. In
 
 ### Graphite Gold
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteGoldSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteGoldLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteGoldSkin`. In addition, the `SubstanceGraphiteGoldLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteGoldSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteGoldSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteGoldLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteGoldSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteGoldLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteGoldLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteGoldLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteGoldLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitegold1.png" width="340" height="258">
@@ -122,13 +122,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteGoldSkin`. In add
 
 ### Graphite Sienna
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteSiennaSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteSiennaLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSiennaSkin`. In addition, the `SubstanceGraphiteSiennaLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteSiennaSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteSiennaSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteSiennaLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteSiennaSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteSiennaLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteSiennaLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteSiennaLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteSiennaLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteSienna" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitesienna1.png" width="340" height="258">
@@ -137,13 +137,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteSiennaSkin`. In a
 
 ### Graphite Sunset
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteSunsetSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSunsetSkin`. In addition, the `SubstanceGraphiteSunsetLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteSunsetSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteSunsetSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteSunsetSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteSunsetLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteSunsetLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteSunsetLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteSunsetLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitesunset1.png" width="340" height="258">
@@ -152,13 +152,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteSunsetSkin`. In a
 
 ### Graphite Glass
 
-Available in the `org.pushingpixels.substance.api.skin.GraphiteGlassSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteGlassSkin`. In addition, the `SubstanceGraphiteGlassLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new GraphiteGlassSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.GraphiteGlassSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("GraphiteGlassSkin")`
+* `-Dswing.defaultlaf=SubstanceGraphiteGlassLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceGraphiteGlassLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteGlassLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceGraphiteGlassLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteGlass" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphiteglass1.png" width="340" height="258">
@@ -167,13 +167,13 @@ Available in the `org.pushingpixels.substance.api.skin.GraphiteGlassSkin`. In ad
 
 ### Raven
 
-Available in the `org.pushingpixels.substance.api.skin.RavenSkin`. In addition, the `org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel` can be used with one of the following options:
+Available in the `RavenSkin`. In addition, the `SubstanceRavenLookAndFeel` can be used with one of the following options:
 
 * `SubstanceCortex.GlobalScope.setSkin(new RavenSkin())`
-* `SubstanceCortex.GlobalScope.setSkin("org.pushingpixels.substance.api.skin.RavenSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel`
+* `SubstanceCortex.GlobalScope.setSkin("RavenSkin")`
+* `-Dswing.defaultlaf=SubstanceRavenLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceRavenLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceRavenLookAndFeel");`
 
 <p align="left">
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/raven1.png" width="340" height="258">

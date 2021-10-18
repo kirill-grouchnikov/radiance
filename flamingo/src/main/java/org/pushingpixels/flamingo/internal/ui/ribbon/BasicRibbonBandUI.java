@@ -42,12 +42,12 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,7 +94,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      *
      * @author Kirill Grouchnikov
      */
-    @SubstancePopupContainer
+    @RadiancePopupContainer
     protected static class CollapsedButtonPopupPanel extends JPopupPanel {
         /**
          * The main component of <code>this</code> popup panel. Can be <code>null</code>.
@@ -114,8 +114,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // System.out.println("Popup dim is " + originalSize);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
-            SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this,
-                    SubstanceSlices.DecorationAreaType.CONTROL_PANE);
+            RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    RadianceLafSlices.DecorationAreaType.CONTROL_PANE);
         }
 
         /**
@@ -342,8 +342,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // System.out.println("Ribbon band pref = "
             // + (height + ins.top + ins.bottom));
 
-            int extraTop = SubstanceSizeUtils.getDefaultBorderInsets(
-                    SubstanceSizeUtils.getComponentFontSize(controlPanel)).top;
+            int extraTop = RadianceSizeUtils.getDefaultBorderInsets(
+                    RadianceSizeUtils.getComponentFontSize(controlPanel)).top;
             return new Dimension(width + ins.left + ins.right,
                     height + extraTop + ins.top + ins.bottom);
         }
@@ -365,8 +365,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // 1. Insets on top and bottom
             // 2. Preferred height of the control panel
             // 3. Preferred height of the band title panel
-            int extraTop = SubstanceSizeUtils.getDefaultBorderInsets(
-                    SubstanceSizeUtils.getComponentFontSize(controlPanel)).top;
+            int extraTop = RadianceSizeUtils.getDefaultBorderInsets(
+                    RadianceSizeUtils.getComponentFontSize(controlPanel)).top;
             return new Dimension(width + ins.left + ins.right,
                     height + extraTop + ins.top + ins.bottom);
 
@@ -378,8 +378,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if (!c.isVisible())
                 return;
             Insets ins = c.getInsets();
-            int extraTop = SubstanceSizeUtils.getDefaultBorderInsets(
-                    SubstanceSizeUtils.getComponentFontSize(ribbonBand.getControlPanel())).top;
+            int extraTop = RadianceSizeUtils.getDefaultBorderInsets(
+                    RadianceSizeUtils.getComponentFontSize(ribbonBand.getControlPanel())).top;
 
             int availableHeight = c.getHeight() - extraTop - ins.top - ins.bottom;
             RibbonBandResizePolicy resizePolicy = ((AbstractRibbonBand) c).getCurrentResizePolicy();
@@ -476,7 +476,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         public static void install() {
             if (instance == null) {
                 instance = new AWTRibbonEventListener();
-                SubstanceCoreUtilities.registerAWTEventListener(instance);
+                RadianceCoreUtilities.registerAWTEventListener(instance);
             }
             instance.installCount++;
         }
@@ -485,7 +485,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             if (instance != null) {
                 instance.installCount--;
                 if (instance.installCount == 0) {
-                    SubstanceCoreUtilities.unregisterAWTEventListener(instance);
+                    RadianceCoreUtilities.unregisterAWTEventListener(instance);
                     instance = null;
                 }
                 return true;

@@ -43,8 +43,8 @@ import org.pushingpixels.meteor.swing.hasStyleInSelection
 import org.pushingpixels.meteor.swing.toggleStyleInSelection
 import org.pushingpixels.plasma.command
 import org.pushingpixels.plasma.commandButtonStrip
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.GeminiSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.GeminiSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -59,7 +59,9 @@ import javax.swing.text.DefaultCaret
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(GeminiSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            GeminiSkin()
+        )
 
         val frame = JFrame("Text styling demo")
         frame.layout = BorderLayout()

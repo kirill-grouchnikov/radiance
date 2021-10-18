@@ -1,6 +1,6 @@
 ## Substance look and feel - fill painters
 
-The only painting method in `org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter` is
+The only painting method in `SubstanceFillPainter` is
 
 ```java
   /**

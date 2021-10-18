@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.zodiac.substance.skins
 
-import org.pushingpixels.substance.extras.api.skinpack.*
+import org.pushingpixels.radiance.laf.extras.api.skinpack.*
 
 /**
  * Screenshot robots for Substance extras skins.

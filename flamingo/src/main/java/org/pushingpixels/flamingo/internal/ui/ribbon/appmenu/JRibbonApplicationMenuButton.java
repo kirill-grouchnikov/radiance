@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,7 +71,7 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                             result.popupActionRect = new Rectangle(0, 0, 0, 0);
                             result.isTextInActionArea = false;
 
-                            FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+                            FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                                     RadianceCommonCortex.getScaleFactor(commandButton),
                                     commandButton.getFont());
                             int labelHeight = fm.getAscent() + fm.getDescent();

@@ -18,7 +18,7 @@ A **skin** is a set of visual settings that gives your application a polished an
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/substance/skins/graphitechalk2.png" width="340" height="258">
 </p>
 
-The core Substance skins are in the `org.pushingpixels.substance.api.skin` package, and `the org.pushingpixels.substance.api.SubstanceSkin` class contains all the APIs officially supported by Substance skins. It is possible to use different Substance skins on different windows in the same application. Consult the documentation on the `SubstanceLookAndFeel.SKIN_PROPERTY` client property.
+The core Substance skins are in the `org.pushingpixels.radiance.laf.api.skin` package, and `the SubstanceSkin` class contains all the APIs officially supported by Substance skins. It is possible to use different Substance skins on different windows in the same application. Consult the documentation on the `SubstanceLookAndFeel.SKIN_PROPERTY` client property.
 
 ### Skin definition
 
@@ -340,7 +340,7 @@ The first passes a light silver scheme as the window chrome accent, while the se
 
 Substance provides an option for specifying custom skin. This option uses the Substance plugin mechanism to register additional skins at runtime.
 
-The top-level entry into a skin plugin is `org.pushingpixels.substance.api.SubstanceSkinPlugin` interface. This interface specifies the following method:
+The top-level entry into a skin plugin is `SubstanceSkinPlugin` interface. This interface specifies the following method:
 
 ```java
   /**

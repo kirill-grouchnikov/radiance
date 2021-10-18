@@ -1,7 +1,7 @@
 ## Radiance demos
 
 * For **Substance** - the `demos/substance-demo` module
-  * The main demo is `org.pushingpixels.demo.substance.main.Check` class. In order to switch the demo to other third-party look-and-feels you will need to download the matching jar files locally and add them to the classpath.
+  * The main demo is `Check` class. In order to switch the demo to other third-party look-and-feels you will need to download the matching jar files locally and add them to the classpath.
   * Smaller demos for showing how to use individual APIs in `org.pushingpixels.demo.substance.main.samples.substance.api` package
 * For **Substance**, advanced - the `demos/spyglass` module
   * Skeleton of a chat app in `org.pushingpixels.demo.spyglass.chat.ChatFrame` class

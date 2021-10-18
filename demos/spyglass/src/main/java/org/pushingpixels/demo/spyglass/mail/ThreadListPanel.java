@@ -34,13 +34,13 @@ import org.pushingpixels.demo.spyglass.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_person_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_refresh_black_24px;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.renderer.SubstancePanelListCellRenderer;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -55,14 +55,14 @@ public class ThreadListPanel extends PanelWithRightLine {
     public ThreadListPanel() {
         this.setLayout(new VerticalStackLayout());
 
-        SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
+        RadianceSkin currentSkin = RadianceLafCortex.GlobalScope.getCurrentSkin();
 
-        SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
+        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
         this.setRightLineColor(currentSkin.getColorScheme(VisorMail.THREADS,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getDarkColor());
 
         // Get the color schemes for colorizing the icons.
-        SubstanceColorScheme fillScheme = currentSkin.getColorScheme(VisorMail.THREADS,
+        RadianceColorScheme fillScheme = currentSkin.getColorScheme(VisorMail.THREADS,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
@@ -148,7 +148,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         }
     }
 
-    private static class ThreadRenderer extends SubstancePanelListCellRenderer<ThreadInfo> {
+    private static class ThreadRenderer extends RadiancePanelListCellRenderer<ThreadInfo> {
         private JLabel personLabel;
         private JLabel fromLabel;
         private JLabel timeLabel;
@@ -158,7 +158,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         private JSeparator separator;
 
         public ThreadRenderer() {
-            Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+            Font bold = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                     .getControlFont().deriveFont(Font.BOLD);
 
             FormBuilder firstRow = FormBuilder.create().
@@ -257,7 +257,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         builder.add(new JLabel(icon)).xy(1, 1);
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        titleLabel.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         builder.add(titleLabel).xy(3, 1);
         JPanel inside = builder.build();
@@ -278,10 +278,10 @@ public class ThreadListPanel extends PanelWithRightLine {
         builder.add(searchBox).xy(1, 1);
 
         JButton actionButton = new JButton(icon);
-        SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
+        RadianceLafCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
                 Boolean.TRUE);
-        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(actionButton,
-                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
+        RadianceLafCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(actionButton,
+                RadianceLafSlices.BackgroundAppearanceStrategy.FLAT);
         builder.add(actionButton).xy(3, 1);
         JPanel result = builder.build();
         return result;

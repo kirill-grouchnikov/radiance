@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.beacon;
 
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
 
 
 /**
@@ -44,7 +44,7 @@ public class TritanopiaColorScheme extends ColorBlindColorScheme {
      *
      * @param origColorScheme The original color scheme.
      */
-    public TritanopiaColorScheme(SubstanceColorScheme origColorScheme) {
+    public TritanopiaColorScheme(RadianceColorScheme origColorScheme) {
         super(origColorScheme, BlindnessKind.TRITANOPIA);
     }
 }

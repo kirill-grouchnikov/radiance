@@ -32,13 +32,13 @@ package org.pushingpixels.demo.spyglass.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -52,8 +52,8 @@ public class ThreadPanel extends JPanel {
     public ThreadPanel() {
         this.setLayout(new VerticalStackLayout());
 
-        SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
-        SubstanceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
+        RadianceSkin currentSkin = RadianceLafCortex.GlobalScope.getCurrentSkin();
+        RadianceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color iconColor = new Color(fillScheme.getForegroundColor().getRed(),
                 fillScheme.getForegroundColor().getGreen(),
@@ -119,7 +119,7 @@ public class ThreadPanel extends JPanel {
         result.setBorder(new EmptyBorder(6, 12, 16, 12));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        titleLabel.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD, 19.0f));
         result.add(titleLabel);
 
@@ -134,7 +134,7 @@ public class ThreadPanel extends JPanel {
                 columns("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref").
                 rows("p").
                 padding(new EmptyBorder(8, 16, 8, 16));
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        Font baseFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);
@@ -165,7 +165,7 @@ public class ThreadPanel extends JPanel {
                 columns("0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref").
                 rows("p").
                 padding(new EmptyBorder(8, 16, 2, 16));
-        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet()
+        Font baseFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
 
         JLabel senderLabel = new JLabel(from);
@@ -200,7 +200,7 @@ public class ThreadPanel extends JPanel {
         JLabel historyLabel = new JLabel("Show History", historyIcon, JLabel.LEADING);
         historyLabel.setBorder(new EmptyBorder(24, 16, 16, 16));
         historyLabel.setForeground(historyColor);
-        SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(historyLabel, 1.0);
+        RadianceLafCortex.ComponentOrParentChainScope.setColorizationFactor(historyLabel, 1.0);
 
         JPanel result = new JPanel(new BorderLayout());
         result.setBorder(new EmptyBorder(2, 8, 2, 8));
@@ -232,8 +232,8 @@ public class ThreadPanel extends JPanel {
         JButton forward = new JButton("Forward", forwardIcon);
 
         // Mark the button panel to be flat - effectively marking both action buttons as flat
-        SubstanceCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(result,
-                SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
+        RadianceLafCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(result,
+                RadianceLafSlices.BackgroundAppearanceStrategy.FLAT);
 
         result.add(reply);
         result.add(forward);

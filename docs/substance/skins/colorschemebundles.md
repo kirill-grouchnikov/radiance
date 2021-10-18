@@ -1,10 +1,10 @@
 ## Substance look and feel - color scheme bundles
 
-A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `org.pushingpixels.substance.api.SubstanceColorSchemeBundle` contains all the APIs officially supported by Substance color scheme bundles.
+A **color scheme bundle** is a set of information that allows painting controls in a specific decoration area. The `SubstanceColorSchemeBundle` contains all the APIs officially supported by Substance color scheme bundles.
 
 ### Basics
 
-The `org.pushingpixels.substance.api.ComponentState` is the base class for core and custom [component states](componentstates.md). A color scheme bundle is created with three major color schemes - for active, enabled and disabled controls. If no state-specific color schemes are registered on the color scheme bundle, the major color schemes are used for all component states. A color scheme bundle is created with the following constructor:
+The `ComponentState` is the base class for core and custom [component states](componentstates.md). A color scheme bundle is created with three major color schemes - for active, enabled and disabled controls. If no state-specific color schemes are registered on the color scheme bundle, the major color schemes are used for all component states. A color scheme bundle is created with the following constructor:
 
 ```java
   /**

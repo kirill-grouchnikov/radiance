@@ -37,10 +37,10 @@ import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin
-import org.pushingpixels.substance.extras.api.shaperpack.CanonicalPath
-import org.pushingpixels.substance.extras.api.shaperpack.ShaperRepository
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.BusinessBlackSteelSkin
+import org.pushingpixels.radiance.laf.extras.api.shaperpack.CanonicalPath
+import org.pushingpixels.radiance.laf.extras.api.shaperpack.ShaperRepository
 import org.pushingpixels.tools.common.RadianceLogo
 import java.awt.*
 import java.awt.geom.Point2D
@@ -215,7 +215,7 @@ class ShapeEditor : JFrame() {
         override fun paint(g: Graphics) {
             g.render {
                 it.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-                val controlFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
+                val controlFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.font = controlFont.deriveFont(10f)
                 RadianceCommonCortex.installDesktopHints(it, it.font)
 
@@ -280,8 +280,11 @@ class ShapeEditor : JFrame() {
 
                 // path
                 if (this.editorFrame.isShowPath) {
-                    val canonical = CanonicalPath(this.editorFrame.majorPoints!!,
-                            this.editorFrame.minorPoints!!, this.ratio)
+                    val canonical =
+                        CanonicalPath(
+                            this.editorFrame.majorPoints!!,
+                            this.editorFrame.minorPoints!!, this.ratio
+                        )
                     val path = canonical.getPath(width.toFloat(), height.toFloat(), 0f)
 
                     it.color = Color(96, 0, 0, 200)
@@ -379,7 +382,12 @@ class ShapeEditor : JFrame() {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 val selected = chooser.selectedFile
                 try {
-                    val path = CanonicalPath(majorPoints!!, minorPoints!!, shapePanel.ratio)
+                    val path =
+                        CanonicalPath(
+                            majorPoints!!,
+                            minorPoints!!,
+                            shapePanel.ratio
+                        )
                     ShaperRepository.write(FileOutputStream(selected), path)
                 } catch (exc: Exception) {
                 }
@@ -456,7 +464,9 @@ class ShapeEditor : JFrame() {
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(BusinessBlackSteelSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessBlackSteelSkin()
+        )
 
         val editor = ShapeEditor()
         editor.preferredSize = Dimension(600, 400)

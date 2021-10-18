@@ -1,8 +1,8 @@
 ## Substance look and feel - highlight painters
 
-The base class for Substance highlight painters is `org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter`. The highlight painter is used to paint the highlights of renderer-based UI components (such as trees, tables, lists), as well as highlights of menu items. It can also be used to paint visuals of third-party components (see [skinning primer](custom-skinning.md) for more information). This allows providing a consistent and pluggable appearance to those components. In addition, it provides an external API for applications that wish to skin custom components in a visually consistent manner.
+The base class for Substance highlight painters is `SubstanceHighlightPainter`. The highlight painter is used to paint the highlights of renderer-based UI components (such as trees, tables, lists), as well as highlights of menu items. It can also be used to paint visuals of third-party components (see [skinning primer](custom-skinning.md) for more information). This allows providing a consistent and pluggable appearance to those components. In addition, it provides an external API for applications that wish to skin custom components in a visually consistent manner.
 
-The only painting method in `org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter` is
+The only painting method in `SubstanceHighlightPainter` is
 
 ```java
   /**

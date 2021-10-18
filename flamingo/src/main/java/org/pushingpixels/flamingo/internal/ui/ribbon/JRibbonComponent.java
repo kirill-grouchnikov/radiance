@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.RichTooltipManager;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonComponentUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonComponentUI;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
@@ -133,7 +133,7 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceRibbonComponentUI.createUI(this));
+        setUI(RadianceRibbonComponentUI.createUI(this));
     }
 
     @Override

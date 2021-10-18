@@ -38,9 +38,9 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
-import org.pushingpixels.substance.internal.utils.border.SubstancePopupMenuBorder;
-import org.pushingpixels.substance.internal.utils.combo.SubstanceComboPopup;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.border.RadiancePopupMenuBorder;
+import org.pushingpixels.radiance.laf.internal.utils.combo.RadianceComboPopup;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -89,7 +89,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
     protected void installDefaults() {
         Border b = this.popupPanel.getBorder();
         if (b == null || b instanceof UIResource) {
-            this.popupPanel.setBorder(new SubstancePopupMenuBorder());
+            this.popupPanel.setBorder(new RadiancePopupMenuBorder());
         }
         LookAndFeel.installProperty(this.popupPanel, "opaque", Boolean.TRUE);
     }
@@ -117,7 +117,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
                 }
             }
         };
-        SubstanceCoreUtilities.registerAWTEventListener(this.awtEventListener);
+        RadianceCoreUtilities.registerAWTEventListener(this.awtEventListener);
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
      * Uninstalls listeners from the associated command popup menu.
      */
     protected void uninstallListeners() {
-        SubstanceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
+        RadianceCoreUtilities.unregisterAWTEventListener(this.awtEventListener);
         this.awtEventListener = null;
     }
 
@@ -578,7 +578,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
                     // wheel event
                     Component deepest = SwingUtilities.getDeepestComponentAt(src, me.getX(), me.getY());
                     if ((SwingUtilities.getAncestorOfClass(ScrollableHost.class, deepest) == null) &&
-                            (SwingUtilities.getAncestorOfClass(SubstanceComboPopup.class, deepest) == null)) {
+                            (SwingUtilities.getAncestorOfClass(RadianceComboPopup.class, deepest) == null)) {
                         // The source of the mouse wheel event is not in a menu that supports
                         // hosting scrollable content. Dismiss all our popups
                         PopupPanelManager.defaultManager().hidePopups(src);

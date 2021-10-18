@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +53,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 		Insets borderInsets = commandButton.getInsets();
 		int bx = borderInsets.left + borderInsets.right;
 		int by = borderInsets.top + borderInsets.bottom;
-		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+		FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
 				RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 		int layoutVGap = FlamingoUtilities.getVLayoutGap(commandButton);
@@ -106,7 +106,7 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 
 		int y = ins.top;
 
-		FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+		FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
 				RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();
 

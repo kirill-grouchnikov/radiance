@@ -34,13 +34,13 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.laf.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.laf.internal.utils.*;
 
 import java.awt.*;
 import java.awt.font.LineMetrics;
@@ -57,37 +57,37 @@ public class KeyTipRenderingUtilities {
 
     public static void renderKeyTip(Graphics g, Container c, Rectangle rect, String keyTip,
             boolean toPaintEnabled) {
-        SubstanceFillPainter fillPainter = SubstanceCoreUtilities.getFillPainter(c);
-        SubstanceBorderPainter borderPainter = SubstanceCoreUtilities
+        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(c);
+        RadianceBorderPainter borderPainter = RadianceCoreUtilities
                 .getBorderPainter(c);
 
         ComponentState state =
                 toPaintEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-        float alpha = SubstanceColorSchemeUtilities.getAlpha(c, state);
-        SubstanceColorScheme fillScheme = SubstanceColorSchemeUtilities.getColorScheme(c, state);
-        SubstanceColorScheme borderScheme = SubstanceColorSchemeUtilities.getColorScheme(
-                c, SubstanceSlices.ColorSchemeAssociationKind.BORDER, state);
-        float radius = SubstanceSizeUtils.getClassicButtonCornerRadius(
-                SubstanceSizeUtils.getComponentFontSize(c));
+        float alpha = RadianceColorSchemeUtilities.getAlpha(c, state);
+        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(c, state);
+        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                c, RadianceLafSlices.ColorSchemeAssociationKind.BORDER, state);
+        float radius = RadianceSizeUtils.getClassicButtonCornerRadius(
+                RadianceSizeUtils.getComponentFontSize(c));
 
-        float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
+        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
         g2d.translate(rect.x, rect.y);
-        Shape contour = SubstanceOutlineUtilities.getBaseOutline(rect.width, rect.height, radius,
+        Shape contour = RadianceOutlineUtilities.getBaseOutline(rect.width, rect.height, radius,
                 null, borderDelta);
         fillPainter.paintContourBackground(g2d, c, rect.width, rect.height,
                 contour, false, fillScheme, true);
 
-        float borderThickness = SubstanceSizeUtils.getBorderStrokeWidth(c);
-        Shape contourInner = SubstanceOutlineUtilities.getBaseOutline(rect.width, rect.height,
+        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
+        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(rect.width, rect.height,
                 radius, null, borderDelta + borderThickness);
         borderPainter.paintBorder(g2d, c, rect.width, rect.height, contour,
                 contourInner, borderScheme);
 
-        g2d.setColor(SubstanceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
-        Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
+        g2d.setColor(RadianceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
+        Font font = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);
         g2d.setFont(font);

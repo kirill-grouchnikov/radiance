@@ -32,8 +32,8 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.internal.utils.border.RadianceBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -101,13 +101,13 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
     protected void installDefaults() {
         Border b = this.richTooltipPanel.getBorder();
         if (b == null || b instanceof UIResource) {
-            this.richTooltipPanel.setBorder(new SubstanceBorder(new Insets(3, 5, 4, 5)));
+            this.richTooltipPanel.setBorder(new RadianceBorder(new Insets(3, 5, 4, 5)));
         }
         LookAndFeel.installProperty(this.richTooltipPanel, "opaque", Boolean.TRUE);
         Font f = this.richTooltipPanel.getFont();
         if (f == null || f instanceof UIResource) {
             this.richTooltipPanel.setFont(
-                    SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
+                    RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
         }
     }
 
@@ -177,7 +177,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
         public Dimension preferredLayoutSize(Container parent) {
             Insets ins = parent.getInsets();
             int gap = getLayoutGap();
-            Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
+            Font font = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont();
             Font titleFont = font.deriveFont(Font.BOLD);
 
@@ -310,7 +310,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
         public void layoutContainer(Container parent) {
             removeExistingComponents();
 
-            Font font = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet().
+            Font font = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont();
             Insets ins = richTooltipPanel.getInsets();
             int y = ins.top;

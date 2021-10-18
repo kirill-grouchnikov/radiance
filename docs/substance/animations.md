@@ -8,7 +8,7 @@ While the default animation settings (which transitions to animate, the animatio
 
 ### Using the animation APIs
 
-The animation APIs on the global and component scope in `org.pushingpixels.substance.api.SubstanceCortex` allow programmatic control over core and custom animations. You can use the various `allowAnimations` and `disallowAnimations` on all components, on all components of the specified class or on a specific component (see note below). For example, here is how you can remove rollover and selection animations from the specific list:
+The animation APIs on the global and component scope in `SubstanceCortex` allow programmatic control over core and custom animations. You can use the various `allowAnimations` and `disallowAnimations` on all components, on all components of the specified class or on a specific component (see note below). For example, here is how you can remove rollover and selection animations from the specific list:
 
 ```java
 	JList list = ...; // create the list
@@ -16,7 +16,7 @@ The animation APIs on the global and component scope in `org.pushingpixels.subst
 	SubstanceCortex.ComponentScope.disallowFades(AnimationFacet.SELECTION, list);
 ```
 
-where `org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet` provides access to core and custom animation facets.
+where `SubstanceSlices.AnimationFacet` provides access to core and custom animation facets.
 
 **Note:**
 

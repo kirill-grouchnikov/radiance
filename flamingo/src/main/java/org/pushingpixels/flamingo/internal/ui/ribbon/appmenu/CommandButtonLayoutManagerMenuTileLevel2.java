@@ -34,7 +34,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceMetricsUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +55,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         Insets borderInsets = commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
         int by = borderInsets.top + borderInsets.bottom;
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 
@@ -125,7 +125,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int width = commandButton.getWidth();
         int height = commandButton.getHeight();
 
-        FontMetrics fm = SubstanceMetricsUtilities.getFontMetrics(
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
@@ -207,7 +207,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 attributedDescription.addAttribute(TextAttribute.FONT, commandButton.getFont());
                 LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
                         attributedDescription.getIterator(),
-                        SubstanceMetricsUtilities.getFontRenderContext(
+                        RadianceMetricsUtilities.getFontRenderContext(
                                 RadianceCommonCortex.getScaleFactor(commandButton),
                                 commandButton.getFont()));
                 // The max width of the extra text line - need to leave
@@ -330,7 +330,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 attributedDescription.addAttribute(TextAttribute.FONT, commandButton.getFont());
                 LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
                         attributedDescription.getIterator(),
-                        SubstanceMetricsUtilities.getFontRenderContext(
+                        RadianceMetricsUtilities.getFontRenderContext(
                                 RadianceCommonCortex.getScaleFactor(commandButton),
                                 commandButton.getFont()));
                 // The max width of the extra text line - need to leave

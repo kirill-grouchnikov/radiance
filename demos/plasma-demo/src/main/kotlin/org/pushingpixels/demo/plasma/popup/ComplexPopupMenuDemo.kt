@@ -39,8 +39,8 @@ import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -52,7 +52,9 @@ import javax.swing.WindowConstants
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.plasma.resources.Resources", Locale.getDefault())

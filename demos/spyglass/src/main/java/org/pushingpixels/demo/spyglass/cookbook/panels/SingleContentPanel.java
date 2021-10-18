@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.spyglass.cookbook.panels;
 
 import org.pushingpixels.demo.spyglass.cookbook.CookbookFrame;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
 
 import javax.swing.*;
 import java.awt.*;

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.ember
 
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
 import java.awt.Insets
 import java.awt.Window
 import javax.swing.JButton
@@ -47,8 +47,9 @@ import javax.swing.SwingUtilities
  */
 @EmberWindowScope
 public fun Window.setWidgetVisible(visible: Boolean,
-        vararg substanceWidgets: SubstanceSlices.SubstanceWidgetType) {
-    SubstanceCortex.WindowScope.setWidgetVisible(this, visible, *substanceWidgets)
+        vararg substanceWidgets: RadianceLafSlices.WidgetType
+) {
+    RadianceLafCortex.WindowScope.setWidgetVisible(this, visible, *substanceWidgets)
 }
 
 /**
@@ -65,8 +66,8 @@ public fun Window.setWidgetVisible(visible: Boolean,
  *
  * @param controlButtonGroupHorizontalGravity Horizontal gravity for the title control
  * buttons. Must be either
- * [SubstanceSlices.HorizontalGravity.LEADING] or
- * [SubstanceSlices.HorizontalGravity.TRAILING].
+ * [RadianceLafSlices.HorizontalGravity.LEADING] or
+ * [RadianceLafSlices.HorizontalGravity.TRAILING].
  * @param controlButtonGroupVerticalGravity   Vertical gravity for the title control
  * buttons. May not be `null`.
  * @see Window.getTitlePaneControlInsets
@@ -76,9 +77,9 @@ public fun Window.setWidgetVisible(visible: Boolean,
  */
 @EmberWindowScope
 public fun Window.extendContentIntoTitlePane(
-        controlButtonGroupHorizontalGravity: SubstanceSlices.HorizontalGravity,
-        controlButtonGroupVerticalGravity: SubstanceSlices.VerticalGravity?) {
-    SubstanceCortex.WindowScope.extendContentIntoTitlePane(this,
+    controlButtonGroupHorizontalGravity: RadianceLafSlices.HorizontalGravity,
+    controlButtonGroupVerticalGravity: RadianceLafSlices.VerticalGravity?) {
+    RadianceLafCortex.WindowScope.extendContentIntoTitlePane(this,
             controlButtonGroupHorizontalGravity, controlButtonGroupVerticalGravity)
 }
 
@@ -97,7 +98,7 @@ public fun Window.extendContentIntoTitlePane(
  */
 @EmberWindowScope
 public fun Window.createTitlePaneControlButton(): JButton? {
-    return SubstanceCortex.WindowScope.createTitlePaneControlButton(this)
+    return RadianceLafCortex.WindowScope.createTitlePaneControlButton(this)
 }
 
 /**
@@ -117,7 +118,7 @@ public fun Window.createTitlePaneControlButton(): JButton? {
  */
 @EmberWindowScope
 public fun Window.getTitlePaneControlInsets(): Insets? {
-    return SubstanceCortex.WindowScope.getTitlePaneControlInsets(this)
+    return RadianceLafCortex.WindowScope.getTitlePaneControlInsets(this)
 }
 
 /**
@@ -133,7 +134,7 @@ public fun Window.getTitlePaneControlInsets(): Insets? {
  */
 @EmberWindowScope
 public fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
-    SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(this, preferredTitlePaneHeight)
+    RadianceLafCortex.WindowScope.setPreferredTitlePaneHeight(this, preferredTitlePaneHeight)
 }
 
 /**
@@ -145,6 +146,6 @@ public fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
  * @see Window.extendContentIntoTitlePane
  */
 @EmberWindowScope
-public fun Window.getTitleControlButtonGroupHorizontalGravity(): SubstanceSlices.HorizontalGravity {
-    return SubstanceCortex.WindowScope.getTitleControlButtonGroupHorizontalGravity(this)
+public fun Window.getTitleControlButtonGroupHorizontalGravity(): RadianceLafSlices.HorizontalGravity {
+    return RadianceLafCortex.WindowScope.getTitleControlButtonGroupHorizontalGravity(this)
 }

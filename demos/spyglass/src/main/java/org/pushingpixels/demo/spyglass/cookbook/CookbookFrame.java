@@ -31,11 +31,11 @@ package org.pushingpixels.demo.spyglass.cookbook;
 
 import org.pushingpixels.demo.spyglass.cookbook.panels.*;
 import org.pushingpixels.demo.spyglass.cookbook.skin.CookbookSkin;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.FocusKind;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -158,18 +158,18 @@ public class CookbookFrame extends JFrame {
     public static void main(String[] args) throws Exception {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new CookbookSkin());
-            SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
-            SubstanceCortex.GlobalScope.configureTitleContentGravity(
-                    SubstanceSlices.HorizontalGravity.CENTERED,
-                    SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
-                    SubstanceSlices.TitleIconHorizontalGravity.NONE);
+            RadianceLafCortex.GlobalScope.setSkin(new CookbookSkin());
+            RadianceLafCortex.GlobalScope.setFocusKind(FocusKind.NONE);
+            RadianceLafCortex.GlobalScope.configureTitleContentGravity(
+                    RadianceLafSlices.HorizontalGravity.CENTERED,
+                    RadianceLafSlices.HorizontalGravity.SWING_DEFAULT,
+                    RadianceLafSlices.TitleIconHorizontalGravity.NONE);
 
             JFrame frame = new CookbookFrame();
-            SubstanceCortex.WindowScope.extendContentIntoTitlePane(frame,
-                    SubstanceSlices.HorizontalGravity.LEADING,
-                    SubstanceSlices.VerticalGravity.CENTERED);
-            SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(frame, TITLE_PANE_PREF_HEIGHT);
+            RadianceLafCortex.WindowScope.extendContentIntoTitlePane(frame,
+                    RadianceLafSlices.HorizontalGravity.LEADING,
+                    RadianceLafSlices.VerticalGravity.CENTERED);
+            RadianceLafCortex.WindowScope.setPreferredTitlePaneHeight(frame, TITLE_PANE_PREF_HEIGHT);
             frame.setVisible(true);
         });
     }

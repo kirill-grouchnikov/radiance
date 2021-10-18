@@ -29,24 +29,22 @@
  */
 package org.pushingpixels.demo.spyglass.seaglass.skin;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.border.FractionBasedBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.laf.api.painter.border.FractionBasedBorderPainter;
+import org.pushingpixels.radiance.laf.api.painter.decoration.MatteDecorationPainter;
+import org.pushingpixels.radiance.laf.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.laf.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.radiance.laf.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
 
-import java.awt.*;
-
-public class SeaGlassSkin extends SubstanceSkin {
+public class SeaGlassSkin extends RadianceSkin {
 	/**
 	 * Display name for <code>this</code> skin.
 	 */
@@ -56,23 +54,23 @@ public class SeaGlassSkin extends SubstanceSkin {
 	 * Creates a new <code>Gemini</code> skin.
 	 */
 	public SeaGlassSkin() {
-		ColorSchemes schemes = SubstanceSkin.getColorSchemes(
+		ColorSchemes schemes = RadianceSkin.getColorSchemes(
 				this.getClass().getClassLoader().getResourceAsStream(
 						"org/pushingpixels/demo/spyglass/seaglass/skin/seaglass.colorschemes"));
 
-		SubstanceColorScheme activeScheme = schemes.get("Sea Glass Active");
-		SubstanceColorScheme enabledScheme = schemes.get("Sea Glass Enabled");
-		SubstanceColorScheme disabledScheme = schemes.get("Sea Glass Disabled");
+		RadianceColorScheme activeScheme = schemes.get("Sea Glass Active");
+		RadianceColorScheme enabledScheme = schemes.get("Sea Glass Enabled");
+		RadianceColorScheme disabledScheme = schemes.get("Sea Glass Disabled");
 
-		SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+		RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
 				activeScheme, enabledScheme, disabledScheme);
 
 		// borders
-		SubstanceColorScheme activeBorderScheme = schemes
+		RadianceColorScheme activeBorderScheme = schemes
 				.get("Sea Glass Active Border");
-		SubstanceColorScheme enabledBorderScheme = schemes
+		RadianceColorScheme enabledBorderScheme = schemes
 				.get("Sea Glass Enabled Border");
-		SubstanceColorScheme disabledBorderScheme = schemes
+		RadianceColorScheme disabledBorderScheme = schemes
 				.get("Sea Glass Enabled Border");
 		defaultSchemeBundle.registerColorScheme(enabledBorderScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
@@ -85,16 +83,16 @@ public class SeaGlassSkin extends SubstanceSkin {
 				ComponentState.DISABLED_UNSELECTED);
 
 		// states
-		SubstanceColorScheme defaultScheme = schemes.get("Sea Glass Default");
-		SubstanceColorScheme defaultBorderScheme = schemes
+		RadianceColorScheme defaultScheme = schemes.get("Sea Glass Default");
+		RadianceColorScheme defaultBorderScheme = schemes
 				.get("Sea Glass Default Border");
 		defaultSchemeBundle.registerColorScheme(defaultScheme,
 				ComponentState.DEFAULT);
 		defaultSchemeBundle.registerColorScheme(defaultBorderScheme,
 				ColorSchemeAssociationKind.BORDER, ComponentState.DEFAULT);
 
-		SubstanceColorScheme pressedScheme = schemes.get("Sea Glass Pressed");
-		SubstanceColorScheme pressedBorderScheme = schemes
+		RadianceColorScheme pressedScheme = schemes.get("Sea Glass Pressed");
+		RadianceColorScheme pressedBorderScheme = schemes
 				.get("Sea Glass Pressed Border");
 		defaultSchemeBundle.registerColorScheme(pressedScheme,
 				ComponentState.PRESSED_SELECTED,
@@ -104,8 +102,8 @@ public class SeaGlassSkin extends SubstanceSkin {
 				ComponentState.PRESSED_SELECTED,
 				ComponentState.PRESSED_UNSELECTED);
 
-		SubstanceColorScheme selectedScheme = schemes.get("Sea Glass Selected");
-		SubstanceColorScheme selectedBorderScheme = schemes
+		RadianceColorScheme selectedScheme = schemes.get("Sea Glass Selected");
+		RadianceColorScheme selectedBorderScheme = schemes
 				.get("Sea Glass Selected Border");
 		defaultSchemeBundle.registerColorScheme(selectedScheme,
 				ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
@@ -113,7 +111,7 @@ public class SeaGlassSkin extends SubstanceSkin {
 				ColorSchemeAssociationKind.BORDER, ComponentState.SELECTED,
 				ComponentState.ROLLOVER_SELECTED);
 
-		SubstanceColorScheme backgroundScheme = schemes
+		RadianceColorScheme backgroundScheme = schemes
 				.get("Sea Glass Background");
 
 		this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,

@@ -9,10 +9,10 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.StringValuePair;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,9 +33,9 @@ public class IcoViewer extends JFrame {
     private IcoViewer() {
         super("ICO Viewer");
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         this.bar = new BreadcrumbFileSelector();
@@ -143,7 +143,7 @@ public class IcoViewer extends JFrame {
     public static void main(String... args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
 
             IcoViewer test = new IcoViewer();
             test.setSize(800, 650);

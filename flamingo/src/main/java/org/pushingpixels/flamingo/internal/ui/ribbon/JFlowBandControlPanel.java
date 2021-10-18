@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceFlowBandControlPanelUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceFlowBandControlPanelUI;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -73,7 +73,7 @@ public class JFlowBandControlPanel extends AbstractBandControlPanel implements U
 
     @Override
     public void updateUI() {
-        setUI(SubstanceFlowBandControlPanelUI.createUI(this));
+        setUI(RadianceFlowBandControlPanelUI.createUI(this));
     }
 
     @Override

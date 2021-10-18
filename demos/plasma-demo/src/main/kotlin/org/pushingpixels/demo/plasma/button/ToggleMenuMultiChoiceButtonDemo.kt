@@ -40,8 +40,8 @@ import org.pushingpixels.demo.plasma.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
@@ -51,7 +51,9 @@ import javax.swing.WindowConstants
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val frame = JFrame("Test")
         frame.layout = FlowLayout()

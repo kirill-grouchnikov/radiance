@@ -29,7 +29,8 @@
  */
 package org.pushingpixels.tools.beacon;
 
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.radiance.laf.api.colorscheme.BaseColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
 
 import java.awt.*;
 
@@ -91,7 +92,7 @@ public class ColorBlindColorScheme extends BaseColorScheme {
     /**
      * The original color scheme.
      */
-    private SubstanceColorScheme origScheme;
+    private RadianceColorScheme origScheme;
 
     /**
      * Creates a new color scheme that simulates color-blindness.
@@ -99,7 +100,7 @@ public class ColorBlindColorScheme extends BaseColorScheme {
      * @param origScheme Original color scheme.
      * @param kind       Color-blindness kind.
      */
-    public ColorBlindColorScheme(SubstanceColorScheme origScheme,
+    public ColorBlindColorScheme(RadianceColorScheme origScheme,
             BlindnessKind kind) {
         super(kind.name() + " " + origScheme.getDisplayName(), origScheme
                 .isDark());
@@ -265,7 +266,7 @@ public class ColorBlindColorScheme extends BaseColorScheme {
      *
      * @return The original color scheme.
      */
-    public SubstanceColorScheme getOrigScheme() {
+    public RadianceColorScheme getOrigScheme() {
         return this.origScheme;
     }
 

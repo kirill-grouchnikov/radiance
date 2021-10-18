@@ -42,7 +42,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonGalleryUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonGalleryUI;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -146,7 +146,7 @@ public class JRibbonGallery extends JComponent {
      */
     @Override
     public void updateUI() {
-        setUI(SubstanceRibbonGalleryUI.createUI(this));
+        setUI(RadianceRibbonGalleryUI.createUI(this));
     }
 
     /**

@@ -33,9 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.substance.api.SubstanceSlices;
-
-import javax.swing.*;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
 
 /**
  * Encapsulates presentation metadata for displaying commands as buttons. Use a new instance of
@@ -57,9 +55,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
-    private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
-    private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
-    private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
+    private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy;
+    private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy;
     private boolean isFlat;
     private boolean isFocusable;
     private int horizontalAlignment;
@@ -178,15 +176,15 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.iconDimension;
     }
 
-    public SubstanceSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+    public RadianceLafSlices.IconFilterStrategy getActiveIconFilterStrategy() {
         return this.activeIconFilterStrategy;
     }
 
-    public SubstanceSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+    public RadianceLafSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
         return this.enabledIconFilterStrategy;
     }
 
-    public SubstanceSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+    public RadianceLafSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
         return this.disabledIconFilterStrategy;
     }
 
@@ -292,9 +290,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
         private Integer iconDimension;
-        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
-        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
-        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
+        private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy;
+        private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy;
+        private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy;
         private Boolean isMenu;
         private PopupOrientationKind popupOrientationKind;
         private PopupHorizontalGravity popupHorizontalGravity;
@@ -347,9 +345,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         }
 
         public Overlay setIconFilterStrategies(
-                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
-                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
-                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+                RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy,
+                RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy,
+                RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy) {
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;
@@ -434,12 +432,12 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private double horizontalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
-        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy =
-                SubstanceSlices.IconFilterStrategy.ORIGINAL;
-        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy =
-                SubstanceSlices.IconFilterStrategy.ORIGINAL;
-        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy =
-                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy =
+                RadianceLafSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy =
+                RadianceLafSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy =
+                RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private boolean isMenu = false;
         private PopupOrientationKind popupOrientationKind = PopupOrientationKind.DOWNWARD;
         private PopupHorizontalGravity popupHorizontalGravity = PopupHorizontalGravity.START;
@@ -493,9 +491,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         }
 
         public Builder setIconFilterStrategies(
-                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
-                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
-                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+                RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy,
+                RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy,
+                RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy) {
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;

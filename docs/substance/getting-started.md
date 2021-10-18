@@ -50,20 +50,20 @@ You will see the following frame under the default Ocean look and feel:
 
 In order to run the same frame under **Substance** look and feel, you first need to choose the Substance skin that you would like to use (see the links at the end of this document). Suppose that you choose the Business skin. Now you have the following options:
 
-* Start your VM with `-Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel`
+* Start your VM with `-Dswing.defaultlaf=SubstanceBusinessLookAndFeel`
 * `UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel");`
+* `UIManager.setLookAndFeel("SubstanceBusinessLookAndFeel");`
 * `SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());`
 
 The first option doesn't require any code changes in the application above. Run the following script:
 
-`java -Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel -cp . Walkthrough`
+`java -Dswing.defaultlaf=SubstanceBusinessLookAndFeel -cp . Walkthrough`
 
 You will see the following exception:
 
 <pre>
 Exception in thread "AWT-EventQueue-0" java.lang.Error:
-        Cannot load org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel
+        Cannot load SubstanceBusinessLookAndFeel
     at javax.swing.UIManager.initializeDefaultLAF(UIManager.java:1345)
     at javax.swing.UIManager.initialize(UIManager.java:1432)
     at javax.swing.UIManager.maybeInitialize(UIManager.java:1420)
@@ -89,7 +89,7 @@ Exception in thread "AWT-EventQueue-0" java.lang.Error:
     at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
 </pre>
 
-This means that the **org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel** class in not found in the classpath. How do you get that dependency into your project?
+This means that the **SubstanceBusinessLookAndFeel** class in not found in the classpath. How do you get that dependency into your project?
 
 The recommended way to add Substance to your project is to declare dependency on its Maven artifact:
 
@@ -98,13 +98,13 @@ The recommended way to add Substance to your project is to declare dependency on
 Alternatively, for a more manual process:
 * Download a local copy of the latest Radiance.
 * [Build](../building.md) Radiance locally with *gradlew* command.
-* Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-substance-X.Y.ZZ.jar*, *radiance-animation-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* to the place that has your local dependencies.
+* Copy the binaries with *gradlew copyJars* command. For version *X.Y.ZZ* of Radiance, add *radiance-laf-X.Y.ZZ.jar*, *radiance-animation-X.Y.ZZ.jar* and *radiance-common-X.Y.ZZ.jar* to the place that has your local dependencies.
 
 For earlier versions of Substance, see [this page](../archive/older-releases.md) for the list of binaries to take for the specific pre-Radiance versions.
 
-Assuming that you have saved *radiance-substance.jar*, *radiance-animation.jar* and *radiance-common.jar* to the *C:/temp* folder, use the following script in order to run the frame under Substance:
+Assuming that you have saved *radiance-laf.jar*, *radiance-animation.jar* and *radiance-common.jar* to the *C:/temp* folder, use the following script in order to run the frame under Substance:
 
-`java -Dswing.defaultlaf=org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel -cp .;C:/temp/radiance-substance.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough`
+`java -Dswing.defaultlaf=SubstanceBusinessLookAndFeel -cp .;C:/temp/radiance-laf.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough`
 
 The result is the same frame under Substance Business look and feel:
 
@@ -126,13 +126,13 @@ The other two options for setting Substance require changing the code. Go back t
     });
   }
 ```
-Note that here we are using another Substance skin, Graphite. In order to compile the new `Walkthrough.java`, you need to add the **radiance-substance.jar**, **radiance-animation.jar** and **radiance-common.jar** to the build path. Consult your IDE help if you're using IDE. For command-prompt compilation, use the additional `-cp` flag:
+Note that here we are using another Substance skin, Graphite. In order to compile the new `Walkthrough.java`, you need to add the **radiance-laf.jar**, **radiance-animation.jar** and **radiance-common.jar** to the build path. Consult your IDE help if you're using IDE. For command-prompt compilation, use the additional `-cp` flag:
 
-`javac -cp C:/temp/radiance-substance.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough.java`
+`javac -cp C:/temp/radiance-laf.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough.java`
 
-Now you can run your application without the `-Dswing.defaultlaf` JVM flag, but you still need to specify the location of **radiance-substance.jar**, **radiance-animation.jar** and **radiance-common.jar** as before:
+Now you can run your application without the `-Dswing.defaultlaf` JVM flag, but you still need to specify the location of **radiance-laf.jar**, **radiance-animation.jar** and **radiance-common.jar** as before:
 
-`java -cp .;C:/temp/radiance-substance.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough`
+`java -cp .;C:/temp/radiance-laf.jar;C:/temp/radiance-animation.jar;C:/temp/radiance-common.jar Walkthrough`
 
 If you don't want to create an explicit dependency on the Substance classes in your code, change your `main()` method to:
 
@@ -141,7 +141,7 @@ If you don't want to create an explicit dependency on the Substance classes in y
     JFrame.setDefaultLookAndFeelDecorated(true);
     SwingUtilities.invokeLater(() -> {
         try {
-          UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel");
+          UIManager.setLookAndFeel("SubstanceGraphiteLookAndFeel");
         } catch (Exception e) {
           System.out.println("Substance Graphite failed to initialize");
         }

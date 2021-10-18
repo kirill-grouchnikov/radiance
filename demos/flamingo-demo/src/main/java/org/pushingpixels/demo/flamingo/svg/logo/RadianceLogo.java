@@ -31,13 +31,13 @@ package org.pushingpixels.demo.flamingo.svg.logo;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class RadianceLogo {
-    public static RadianceIcon getLogoIcon(SubstanceColorScheme scheme) {
+    public static RadianceIcon getLogoIcon(RadianceColorScheme scheme) {
         // Step 1 - create a colorized version of the transcoded Radiance logo
         RadianceIcon base = radiance_menu.factory().createNewIcon();
         base.setColorFilter(color -> scheme.getForegroundColor());
@@ -47,7 +47,7 @@ public class RadianceLogo {
         return base;
     }
 
-    public static BufferedImage getLogoImage(Component comp, SubstanceColorScheme scheme) {
+    public static BufferedImage getLogoImage(Component comp, RadianceColorScheme scheme) {
         return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp));
     }
 }

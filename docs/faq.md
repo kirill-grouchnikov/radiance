@@ -42,7 +42,7 @@ That's not really a question. If you don't like it, you can either help improve 
 
 **Can I create my own look-and-feel on top of Substance?**
 
-To create a custom look for your application, start by reading the [skinning documentation](substance/skins/overview.md) and the code of the core skins in the `org.pushingpixels.substance.api.skin` package.
+To create a custom look for your application, start by reading the [skinning documentation](substance/skins/overview.md) and the code of the core skins in the `org.pushingpixels.radiance.laf.api.skin` package.
 
 While you can extend the UI delegates in the `org.pushingpixels.substance.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line Substance will use the Java module system to effectively hide the internal implementation details further.
 

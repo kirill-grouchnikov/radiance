@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.internal.ui.common;
 
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCircularProgressUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceCircularProgressUI;
 
 import javax.swing.*;
 
@@ -50,7 +50,7 @@ public class JCircularProgress extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceCircularProgressUI.createUI(this));
+        setUI(RadianceCircularProgressUI.createUI(this));
     }
 
     @Override

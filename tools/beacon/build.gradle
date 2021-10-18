@@ -31,7 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation project(':substance')
+    implementation project(':laf')
 }
 
 ext.designation = "tools"

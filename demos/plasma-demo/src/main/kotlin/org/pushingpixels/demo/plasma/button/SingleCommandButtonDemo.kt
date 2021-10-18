@@ -37,8 +37,8 @@ import org.pushingpixels.demo.plasma.svg.Help_browser
 import org.pushingpixels.demo.plasma.svg.Image_x_generic
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
@@ -48,7 +48,9 @@ import javax.swing.WindowConstants
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.demo.plasma.resources.Resources", Locale.getDefault())

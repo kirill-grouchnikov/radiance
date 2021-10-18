@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.zodiac.flamingo.skins
 
-import org.pushingpixels.substance.api.skin.*
+import org.pushingpixels.radiance.laf.api.skin.*
 
 /**
  * Screenshot robots for Substance skins.

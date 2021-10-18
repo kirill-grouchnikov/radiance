@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.api.common;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceCommandButtonPanelUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceCommandButtonPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonPanelUI;
 
 import javax.swing.*;
@@ -295,7 +295,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceCommandButtonPanelUI.createUI(this));
+        setUI(RadianceCommandButtonPanelUI.createUI(this));
     }
 
     @Override

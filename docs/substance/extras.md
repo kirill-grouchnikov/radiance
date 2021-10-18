@@ -34,7 +34,7 @@ To enable a specific widget, use `SubstanceCortex.GlobalScope.registerWidget` AP
 
 ```java
 SubstanceCortex.GlobalScope.registerWidget(
-     "org.pushingpixels.substance.extras.api.tabbed.TabHoverPreviewWidget",
+     "TabHoverPreviewWidget",
      JTabbedPane.class, false)
 ```
 

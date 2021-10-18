@@ -1,10 +1,10 @@
 package org.pushingpixels.demo.flamingo.bcb;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -214,13 +214,13 @@ public class FileTreePanel extends JPanel {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
 
             JFrame frame = new JFrame("File tree");
             frame.setIconImage(RadianceLogo.getLogoImage(frame,
-                    SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED)));
             frame.setSize(500, 400);
             frame.setLocationRelativeTo(null);

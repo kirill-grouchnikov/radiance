@@ -29,23 +29,23 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
-import org.pushingpixels.substance.api.colorscheme.TerracottaColorScheme;
-import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.substance.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.substance.api.painter.highlight.FractionBasedHighlightPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.SunGlareColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.TerracottaColorScheme;
+import org.pushingpixels.radiance.laf.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.laf.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.radiance.laf.api.painter.decoration.BrushedMetalDecorationPainter;
+import org.pushingpixels.radiance.laf.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.laf.api.painter.highlight.FractionBasedHighlightPainter;
+import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
 
-public class VisorSkin extends SubstanceSkin {
+public class VisorSkin extends RadianceSkin {
     /**
      * Display name for <code>this</code> skin.
      */
@@ -55,32 +55,32 @@ public class VisorSkin extends SubstanceSkin {
      * Creates a new <code>Visor</code> skin.
      */
     public VisorSkin() {
-        ColorSchemes visorSchemes = SubstanceSkin.getColorSchemes(
+        ColorSchemes visorSchemes = RadianceSkin.getColorSchemes(
                 this.getClass().getClassLoader().getResourceAsStream(
                         "org/pushingpixels/demo/spyglass/mail/skin/visor.colorschemes"));
 
-        SubstanceColorScheme activeScheme = visorSchemes.get("Visor Active");
-        SubstanceColorScheme enabledScheme = visorSchemes.get("Visor Enabled");
-        SubstanceColorScheme disabledScheme = visorSchemes.get("Visor Disabled");
+        RadianceColorScheme activeScheme = visorSchemes.get("Visor Active");
+        RadianceColorScheme enabledScheme = visorSchemes.get("Visor Enabled");
+        RadianceColorScheme disabledScheme = visorSchemes.get("Visor Disabled");
 
-        SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
                 activeScheme, enabledScheme, disabledScheme);
 
         defaultSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
         defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
-        SubstanceColorScheme activeDestinationsScheme =
+        RadianceColorScheme activeDestinationsScheme =
                 visorSchemes.get("Visor Active Destinations");
-        SubstanceColorScheme enabledDestinationsScheme =
+        RadianceColorScheme enabledDestinationsScheme =
                 visorSchemes.get("Visor Enabled Destinations");
-        SubstanceColorSchemeBundle destinationsSchemeBundle = new SubstanceColorSchemeBundle(
+        RadianceColorSchemeBundle destinationsSchemeBundle = new RadianceColorSchemeBundle(
                 activeDestinationsScheme, enabledDestinationsScheme, disabledScheme);
         destinationsSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_UNSELECTED);
         destinationsSchemeBundle.registerColorScheme(enabledDestinationsScheme, ComponentState.DISABLED_UNSELECTED);
 
         // use SunGlare for destinations highlights
-        SubstanceColorScheme destinationsHighlight = new SunGlareColorScheme();
+        RadianceColorScheme destinationsHighlight = new SunGlareColorScheme();
         destinationsSchemeBundle.registerAlpha(0.75f, ComponentState.ROLLOVER_UNSELECTED);
         destinationsSchemeBundle.registerHighlightColorScheme(destinationsHighlight,
                 ComponentState.ROLLOVER_UNSELECTED);
@@ -95,20 +95,20 @@ public class VisorSkin extends SubstanceSkin {
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
         // use Terracotta for borders of destinations highlights
         destinationsSchemeBundle.registerColorScheme(new TerracottaColorScheme(),
-                SubstanceSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
                 ComponentState.getActiveStates());
 
         this.registerDecorationAreaSchemeBundle(destinationsSchemeBundle,
                 VisorMail.DESTINATIONS);
 
-        SubstanceColorSchemeBundle threadsSchemeBundle = new SubstanceColorSchemeBundle(
+        RadianceColorSchemeBundle threadsSchemeBundle = new RadianceColorSchemeBundle(
                 activeScheme, enabledScheme, disabledScheme);
 
         threadsSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_SELECTED);
         threadsSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
         // Configure white-on-dark-blue highlights for the threads view
-        SubstanceColorScheme threadsHighlight = visorSchemes.get("Visor Threads Highlight");
-        SubstanceColorScheme threadsHighlightLight = visorSchemes.get("Visor Threads Highlight Light");
+        RadianceColorScheme threadsHighlight = visorSchemes.get("Visor Threads Highlight");
+        RadianceColorScheme threadsHighlightLight = visorSchemes.get("Visor Threads Highlight Light");
         threadsSchemeBundle.registerAlpha(1.0f, ComponentState.ROLLOVER_UNSELECTED);
         threadsSchemeBundle.registerHighlightColorScheme(threadsHighlightLight,
                 ComponentState.ROLLOVER_UNSELECTED);

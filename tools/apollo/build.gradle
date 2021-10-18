@@ -39,7 +39,7 @@ dependencies {
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
     implementation project(':common')
     implementation project(':animation')
-    implementation project(':substance')
+    implementation project(':laf')
     implementation project(':kotlin-ext:torch')
     implementation project(':kotlin-ext:meteor')
     implementation project(':kotlin-ext:ember')

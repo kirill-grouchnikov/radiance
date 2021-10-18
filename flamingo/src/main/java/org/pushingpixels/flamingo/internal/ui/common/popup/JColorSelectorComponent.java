@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.ui.common.popup;
 
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorComponentUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceColorSelectorComponentUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +69,7 @@ public class JColorSelectorComponent extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceColorSelectorComponentUI.createUI(this));
+        setUI(RadianceColorSelectorComponentUI.createUI(this));
     }
 
     @Override

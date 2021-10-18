@@ -39,11 +39,11 @@ import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedWindowListener
 import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.forEach
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
-import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.colorscheme.BaseDarkColorScheme
+import org.pushingpixels.radiance.laf.api.colorscheme.BaseLightColorScheme
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import org.pushingpixels.tools.apollo.svg.outline_save_24px
 import org.pushingpixels.tools.common.JImageComponent
 import org.pushingpixels.tools.common.RadianceLogo
@@ -117,7 +117,7 @@ class ApolloEditor : JFrame(), ClipboardOwner {
 
         // wire color scheme selection in the list to the
         // color scheme component
-        this.colorSchemeList.addTypedDelayedPropertyChangeListener<SubstanceColorScheme?>(
+        this.colorSchemeList.addTypedDelayedPropertyChangeListener<RadianceColorScheme?>(
                 JColorSchemeList::selectedColorScheme) { event ->
             val newSelection = event.newValue
             if (newSelection != null) {
@@ -327,7 +327,9 @@ fun main() {
     JDialog.setDefaultLookAndFeelDecorated(true)
     JFrame.setDefaultLookAndFeelDecorated(true)
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val editor = ApolloEditor()
         editor.setSize(800, 700)

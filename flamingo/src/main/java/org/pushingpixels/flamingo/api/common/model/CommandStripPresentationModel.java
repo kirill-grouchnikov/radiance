@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.api.common.model;
 
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
 
 public class CommandStripPresentationModel implements ImmutablePresentationModel {
     public static final double DEFAULT_GAP_SCALE_FACTOR_PRIMARY_AXIS = 0.75;
@@ -59,9 +59,9 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
      */
     private CommandButtonPresentationState commandPresentationState;
 
-    private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy;
-    private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy;
-    private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy;
+    private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy;
+    private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy;
 
     /**
      * Scale factor for horizontal gaps.
@@ -97,15 +97,15 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         return this.commandPresentationState;
     }
 
-    public SubstanceSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+    public RadianceLafSlices.IconFilterStrategy getActiveIconFilterStrategy() {
         return this.activeIconFilterStrategy;
     }
 
-    public SubstanceSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+    public RadianceLafSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
         return this.enabledIconFilterStrategy;
     }
 
-    public SubstanceSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+    public RadianceLafSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
         return this.disabledIconFilterStrategy;
     }
 
@@ -136,12 +136,12 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
     public static class Builder {
         private CommandButtonPresentationState commandPresentationState
                 = CommandButtonPresentationState.SMALL;
-        private SubstanceSlices.IconFilterStrategy activeIconFilterStrategy =
-                SubstanceSlices.IconFilterStrategy.ORIGINAL;
-        private SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy =
-                SubstanceSlices.IconFilterStrategy.ORIGINAL;
-        private SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy =
-                SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy =
+                RadianceLafSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy =
+                RadianceLafSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy =
+                RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;
@@ -156,9 +156,9 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         }
 
         public Builder setIconFilterStrategies(
-                SubstanceSlices.IconFilterStrategy activeIconFilterStrategy,
-                SubstanceSlices.IconFilterStrategy enabledIconFilterStrategy,
-                SubstanceSlices.IconFilterStrategy disabledIconFilterStrategy) {
+                RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy,
+                RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy,
+                RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy) {
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;

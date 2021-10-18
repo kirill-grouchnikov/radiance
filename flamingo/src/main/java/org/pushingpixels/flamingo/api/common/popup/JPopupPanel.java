@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.flamingo.api.common.popup;
 
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstancePopupPanelUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadiancePopupPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.PopupPanelUI;
 
 import javax.swing.*;
@@ -100,7 +100,7 @@ public abstract class JPopupPanel extends JPanel {
 
 	@Override
 	public void updateUI() {
-		setUI(SubstancePopupPanelUI.createUI(this));
+		setUI(RadiancePopupPanelUI.createUI(this));
 	}
 
 	/**

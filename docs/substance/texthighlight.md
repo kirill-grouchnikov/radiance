@@ -4,7 +4,7 @@ Substance [decoration areas](painters/decoration.md) are a powerful mechanism th
 
 Due to technical reasons detailed in [this bug](https://github.com/kirill-grouchnikov/radiance/issues/297), selection (text highlight) visuals in text components do not work well across decoration areas in some of the Substance skins, especially those that mix light and dark visuals.
 
-In order to have consistent visual appearance of selection highlights, Substance provides classes that extend the core Swing text components in the `org.pushingpixels.substance.api.text` package.
+In order to have consistent visual appearance of selection highlights, Substance provides classes that extend the core Swing text components in the `org.pushingpixels.radiance.laf.api.text` package.
 
 For example, instead of using the core `JTextField`, use `SubstanceTextField`:
 

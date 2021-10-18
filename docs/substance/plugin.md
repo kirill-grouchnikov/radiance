@@ -4,9 +4,9 @@ While the core library provides consistent visuals and animation effects for cor
 
 ### Creating a plugin
 
-Substance plugin is a class that implements `org.pushingpixels.substance.api.SubstanceComponentPlugin` interface, along with optional additional implementation details.
+Substance plugin is a class that implements `SubstanceComponentPlugin` interface, along with optional additional implementation details.
 
-The `org.pushingpixels.substance.api.SubstanceComponentPlugin` interface specifies the following methods which must be implemented by the plugin:
+The `SubstanceComponentPlugin` interface specifies the following methods which must be implemented by the plugin:
 
 ```java
   /**

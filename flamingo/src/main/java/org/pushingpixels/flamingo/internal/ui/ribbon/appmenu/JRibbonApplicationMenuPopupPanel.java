@@ -34,13 +34,13 @@ import org.pushingpixels.flamingo.api.common.popup.AbstractPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonApplicationMenuPopupPanelUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
-import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
+import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 
-@SubstancePopupContainer
+@RadiancePopupContainer
 public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implements ScrollableHost {
     /**
      * The UI class ID string.
@@ -77,7 +77,7 @@ public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implemen
 
     @Override
     public void updateUI() {
-        setUI(SubstanceRibbonApplicationMenuPopupPanelUI.createUI(this));
+        setUI(RadianceRibbonApplicationMenuPopupPanelUI.createUI(this));
     }
 
     @Override

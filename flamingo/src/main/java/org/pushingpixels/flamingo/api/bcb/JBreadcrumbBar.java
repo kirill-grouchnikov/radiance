@@ -32,7 +32,7 @@
  */
 package org.pushingpixels.flamingo.api.bcb;
 
-import org.pushingpixels.flamingo.internal.substance.bcb.ui.SubstanceBreadcrumbBarUI;
+import org.pushingpixels.flamingo.internal.laf.bcb.ui.RadianceBreadcrumbBarUI;
 import org.pushingpixels.flamingo.internal.ui.bcb.BreadcrumbBarUI;
 
 import javax.swing.*;
@@ -117,7 +117,7 @@ public class JBreadcrumbBar<T> extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceBreadcrumbBarUI.createUI(this));
+        setUI(RadianceBreadcrumbBarUI.createUI(this));
     }
 
     /**

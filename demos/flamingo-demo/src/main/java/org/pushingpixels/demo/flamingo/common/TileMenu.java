@@ -40,10 +40,10 @@ import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.skin.GeminiSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.skin.GeminiSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,9 +55,9 @@ public class TileMenu extends JFrame {
     public TileMenu() {
         super("Multi level menu");
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         List<Command> menuCommands = new ArrayList<>();
@@ -108,7 +108,7 @@ public class TileMenu extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new GeminiSkin());
 
             new TileMenu().setVisible(true);
         });

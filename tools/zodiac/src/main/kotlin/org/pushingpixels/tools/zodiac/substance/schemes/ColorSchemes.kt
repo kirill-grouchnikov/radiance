@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.tools.zodiac.substance.schemes
 
-import org.pushingpixels.substance.api.colorscheme.*
+import org.pushingpixels.radiance.laf.api.colorscheme.*
 import java.awt.Color
 
 /**
@@ -60,18 +60,30 @@ class SunsetScheme : ColorSchemeRobot(SunsetColorScheme(), "substance/colorschem
 class TerracottaScheme : ColorSchemeRobot(TerracottaColorScheme(), "substance/colorschemes/terracotta.png")
 class UltramarineScheme : ColorSchemeRobot(UltramarineColorScheme(), "substance/colorschemes/ultramarine.png")
 
-class DerivedDesaturatedScheme : ColorSchemeRobot(PurpleColorScheme().saturate(-0.4),
+class DerivedDesaturatedScheme : ColorSchemeRobot(
+    PurpleColorScheme().saturate(-0.4),
         "substance/colorschemes/derived-desaturate.png")
-class DerivedHueShiftedScheme : ColorSchemeRobot(PurpleColorScheme().hueShift(0.4),
+class DerivedHueShiftedScheme : ColorSchemeRobot(
+    PurpleColorScheme().hueShift(0.4),
         "substance/colorschemes/derived-hueshift.png")
-class DerivedInvertedScheme : ColorSchemeRobot(PurpleColorScheme().invert(), "substance/colorschemes/derived-invert.png")
-class DerivedNegatedScheme : ColorSchemeRobot(PurpleColorScheme().negate(), "substance/colorschemes/derived-negate.png")
-class DerivedSaturatedScheme : ColorSchemeRobot(PurpleColorScheme().saturate(0.4),
+class DerivedInvertedScheme : ColorSchemeRobot(
+    PurpleColorScheme().invert(), "substance/colorschemes/derived-invert.png")
+class DerivedNegatedScheme : ColorSchemeRobot(
+    PurpleColorScheme().negate(), "substance/colorschemes/derived-negate.png")
+class DerivedSaturatedScheme : ColorSchemeRobot(
+    PurpleColorScheme().saturate(0.4),
         "substance/colorschemes/derived-saturate.png")
-class DerivedShadedScheme : ColorSchemeRobot(PurpleColorScheme().shade(0.4), "substance/colorschemes/derived-shaded.png")
-class DerivedShiftedBackgroundScheme : ColorSchemeRobot(PurpleColorScheme().shiftBackground(Color(255, 128, 128), 0.8),
+class DerivedShadedScheme : ColorSchemeRobot(
+    PurpleColorScheme().shade(0.4), "substance/colorschemes/derived-shaded.png")
+class DerivedShiftedBackgroundScheme : ColorSchemeRobot(
+    PurpleColorScheme()
+        .shiftBackground(Color(255, 128, 128), 0.8),
         "substance/colorschemes/derived-shiftedbackground.png")
-class DerivedShiftedScheme : ColorSchemeRobot(PurpleColorScheme().shift(Color(128, 255, 128), 0.8,
+class DerivedShiftedScheme : ColorSchemeRobot(
+    PurpleColorScheme()
+        .shift(Color(128, 255, 128), 0.8,
         Color(128, 0, 0), 0.7), "substance/colorschemes/derived-shifted.png")
-class DerivedTintedScheme : ColorSchemeRobot(PurpleColorScheme().tint(0.4), "substance/colorschemes/derived-tinted.png")
-class DerivedTonedScheme : ColorSchemeRobot(PurpleColorScheme().tone(0.4), "substance/colorschemes/derived-toned.png")
+class DerivedTintedScheme : ColorSchemeRobot(
+    PurpleColorScheme().tint(0.4), "substance/colorschemes/derived-tinted.png")
+class DerivedTonedScheme : ColorSchemeRobot(
+    PurpleColorScheme().tone(0.4), "substance/colorschemes/derived-toned.png")

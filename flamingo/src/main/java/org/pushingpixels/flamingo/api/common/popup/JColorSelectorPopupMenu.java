@@ -37,11 +37,11 @@ import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuC
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
-import org.pushingpixels.flamingo.internal.substance.common.ui.SubstanceColorSelectorPopupMenuUI;
+import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceColorSelectorPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
 import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
-import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
+import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -51,7 +51,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-@SubstancePopupContainer
+@RadiancePopupContainer
 public class JColorSelectorPopupMenu extends AbstractPopupMenu {
     /**
      * @see #getUIClassID
@@ -137,7 +137,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceColorSelectorPopupMenuUI.createUI(this));
+        setUI(RadianceColorSelectorPopupMenuUI.createUI(this));
     }
 
     private void addColorSectionWithDerived(String label, Color[] primaryColors) {

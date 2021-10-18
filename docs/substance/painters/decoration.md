@@ -4,7 +4,7 @@ Menu bars, tool bars, status bars - these are common examples of special contain
 
 ### Decoration areas
 
-The `org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType` class contains the available core decoration area types. As a picture is worth a thousand words, the following screenshots illustrate the different decoration area types.
+The `SubstanceSlices.DecorationAreaType` class contains the available core decoration area types. As a picture is worth a thousand words, the following screenshots illustrate the different decoration area types.
 
 The following screenshot is the main Substance test application under the Business Black Steel skin (click to see full size version):
 
@@ -45,7 +45,7 @@ To use the matching decoration painter in custom painting routines of your appli
 * `SubstanceCortex.ComponentOrParentChainScope.getDecorationType()` to retrieve the decoration area type of the component.
 * `SubstanceDecorationPainter.paintDecorationArea()` (see below) to paint the decoration background on the specific graphics context.
 
-The base class for Substance decoration painters is `org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter`. It has two painting methods. The first paints the passed rectangular area:
+The base class for Substance decoration painters is `SubstanceDecorationPainter`. It has two painting methods. The first paints the passed rectangular area:
 
 ```java
   /**

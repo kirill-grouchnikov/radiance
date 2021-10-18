@@ -34,7 +34,7 @@ import org.pushingpixels.meteor.awt.hue
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.meteor.awt.saturation
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -54,7 +54,7 @@ class JHsvGraph : JComponent() {
         val h = height
 
         g.render {
-            it.font = SubstanceCortex.GlobalScope.getFontPolicy().fontSet.controlFont.deriveFont(Font.BOLD)
+            it.font = RadianceLafCortex.GlobalScope.getFontPolicy().fontSet.controlFont.deriveFont(Font.BOLD)
             RadianceCommonCortex.installDesktopHints(it, it.font)
 
             it.color = Color.black

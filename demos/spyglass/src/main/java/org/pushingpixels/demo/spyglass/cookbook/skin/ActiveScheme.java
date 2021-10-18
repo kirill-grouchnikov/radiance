@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
-import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.BaseLightColorScheme;
 
 import java.awt.*;
 

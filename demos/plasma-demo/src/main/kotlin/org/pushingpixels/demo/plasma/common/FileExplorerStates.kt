@@ -40,10 +40,10 @@ import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
-import org.pushingpixels.substance.api.ComponentState
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.ComponentState
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.swing.*
@@ -51,7 +51,9 @@ import javax.swing.*
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val frame = JFrame("File explorer")
         val bar = BreadcrumbFileSelector()
@@ -71,7 +73,7 @@ fun main() {
         }
 
         frame.layout = BorderLayout()
-        bar.setDecorationType(SubstanceSlices.DecorationAreaType.HEADER)
+        bar.setDecorationType(RadianceLafSlices.DecorationAreaType.HEADER)
         frame.add(bar, BorderLayout.NORTH)
 
         frame.add(JScrollPane(filePanel), BorderLayout.CENTER)
@@ -107,9 +109,9 @@ fun main() {
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
-            SubstanceCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                SubstanceSlices.ColorSchemeAssociationKind.FILL,
+            RadianceLafCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                 ComponentState.ENABLED
             )
         )

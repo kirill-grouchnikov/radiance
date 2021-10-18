@@ -8,7 +8,7 @@ For example, a table with 20 rows and 10 columns does not contain 200 child view
 
 ### Substance label-based renderers
 
-The `org.pushingpixels.substance.api.renderer` package provides base renderer classes for consistent layout metrics and visuals. The following classes extend the matching default core renderers and apply consistent margins, paddings, fonts, foreground and background colors (including highlight animations), as well as odd-even background striping:
+The `org.pushingpixels.radiance.laf.api.renderer` package provides base renderer classes for consistent layout metrics and visuals. The following classes extend the matching default core renderers and apply consistent margins, paddings, fonts, foreground and background colors (including highlight animations), as well as odd-even background striping:
 
 * `SubstanceDefaultListCellRenderer` for `JList`
 * `SubstanceDefaultComboBoxRenderer` for `JComboBox`

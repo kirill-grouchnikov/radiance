@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.ember
 
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.SubstanceSlices
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType
 import java.awt.Component
 import javax.swing.AbstractButton
 import javax.swing.JComponent
@@ -48,7 +48,7 @@ import javax.swing.plaf.UIResource
  */
 @EmberComponentOrParentChainScope
 public fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
-    SubstanceCortex.ComponentOrParentChainScope.setSelectTextOnFocus(this, selectTextOnFocus)
+    RadianceLafCortex.ComponentOrParentChainScope.setSelectTextOnFocus(this, selectTextOnFocus)
 }
 
 /**
@@ -59,7 +59,7 @@ public fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
  */
 @EmberComponentOrParentChainScope
 public fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
-    SubstanceCortex.ComponentOrParentChainScope.setToolbarButtonCornerRadius(
+    RadianceLafCortex.ComponentOrParentChainScope.setToolbarButtonCornerRadius(
             this, toolbarButtonCornerRadius)
 }
 
@@ -73,7 +73,7 @@ public fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Floa
  */
 @EmberComponentOrParentChainScope
 public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
-    SubstanceCortex.ComponentOrParentChainScope.setExtraWidgetsPresence(this, extraWidgetsPresence)
+    RadianceLafCortex.ComponentOrParentChainScope.setExtraWidgetsPresence(this, extraWidgetsPresence)
 }
 
 /**
@@ -110,7 +110,7 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  */
 @EmberComponentOrParentChainScope
 public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
-    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(this, colorizationFactor)
+    RadianceLafCortex.ComponentOrParentChainScope.setColorizationFactor(this, colorizationFactor)
 }
 
 /**
@@ -121,8 +121,8 @@ public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
  * children.
  */
 @EmberComponentOrParentChainScope
-public fun JComponent.setFocusKind(focusKind: SubstanceSlices.FocusKind) {
-    SubstanceCortex.ComponentOrParentChainScope.setFocusKind(this, focusKind)
+public fun JComponent.setFocusKind(focusKind: RadianceLafSlices.FocusKind) {
+    RadianceLafCortex.ComponentOrParentChainScope.setFocusKind(this, focusKind)
 }
 
 /**
@@ -134,7 +134,7 @@ public fun JComponent.setFocusKind(focusKind: SubstanceSlices.FocusKind) {
  */
 @EmberComponentOrParentChainScope
 public fun JComponent.setDecorationType(type: DecorationAreaType) {
-    SubstanceCortex.ComponentOrParentChainScope.setDecorationType(this, type)
+    RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this, type)
 }
 
 /**
@@ -145,7 +145,7 @@ public fun JComponent.setDecorationType(type: DecorationAreaType) {
  * hierarchy is scanned to find the closest ancestor that was passed to
  * [JComponent.setDecorationType] - and its decoration type is
  * returned. If neither the component, nor any one of its parent components has been passed
- * to the setter method, [SubstanceSlices.DecorationAreaType.NONE] is returned.
+ * to the setter method, [RadianceLafSlices.DecorationAreaType.NONE] is returned.
  *
  * @return Decoration area type of the component.
  * @see JComponent.setDecorationType
@@ -153,6 +153,6 @@ public fun JComponent.setDecorationType(type: DecorationAreaType) {
  */
 @EmberComponentOrParentChainScope
 public fun Component.getDecorationType(): DecorationAreaType {
-    return SubstanceCortex.ComponentOrParentChainScope.getDecorationType(this)
+    return RadianceLafCortex.ComponentOrParentChainScope.getDecorationType(this)
 }
 

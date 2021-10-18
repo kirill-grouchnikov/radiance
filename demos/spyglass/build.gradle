@@ -35,9 +35,9 @@ dependencies {
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
     implementation "com.jhlabs:filters:$jhlabs_filters_version"
     implementation project(':common')
-    implementation project(':substance')
+    implementation project(':laf')
     implementation project(':flamingo')
-    implementation project(':demos:substance-demo')
+    implementation project(':demos:laf-demo')
 }
 
 ext.designation = "demo"

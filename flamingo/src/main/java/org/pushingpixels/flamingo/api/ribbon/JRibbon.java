@@ -44,7 +44,7 @@ import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection;
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
@@ -648,7 +648,7 @@ public class JRibbon extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceRibbonUI.createUI(this));
+        setUI(RadianceRibbonUI.createUI(this));
         for (Component comp : this.taskbarComponents) {
             SwingUtilities.updateComponentTreeUI(comp);
         }

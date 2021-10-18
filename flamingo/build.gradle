@@ -33,7 +33,7 @@ apply plugin: 'java'
 dependencies {
     implementation project(':animation')
     implementation project(':common')
-    implementation project(':substance')
+    implementation project(':laf')
 }
 
 ext.designation = "core"

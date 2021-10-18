@@ -40,10 +40,10 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -143,8 +143,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 @Override
                 public void paintBorder(Component c, Graphics g, int x, int y, int width,
                                         int height) {
-                    g.setColor(SubstanceColorSchemeUtilities.getColorScheme(c,
-                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    g.setColor(RadianceColorSchemeUtilities.getColorScheme(c,
+                            RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED).getDarkColor());
                     g.drawLine(x, y + height - 1, x + width, y + height - 1);
                 }
@@ -212,8 +212,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 int w = Math.min(controlPanelDim.width, maxDimension.width) + left + right;
                 int h = Math.min(controlPanelDim.height, maxDimension.height) + top + bottom;
                 if (h == (maxDimension.height + top + bottom)) {
-                    int scrollBarWidth = SubstanceSizeUtils.getScrollBarWidth(
-                            SubstanceSizeUtils.getControlFontSize());
+                    int scrollBarWidth = RadianceSizeUtils.getScrollBarWidth(
+                            RadianceSizeUtils.getControlFontSize());
                     w += scrollBarWidth;
                 }
                 return new Dimension(w, h);

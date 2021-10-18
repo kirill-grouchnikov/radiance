@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
@@ -68,7 +68,7 @@ public class TestCommandToggleButtonsNoText extends TestCommandToggleButtons {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
 
             TestCommandToggleButtonsNoText frame = new TestCommandToggleButtonsNoText();
             frame.setSize(800, 400);

@@ -1,8 +1,8 @@
 ## Substance look and feel - border painters
 
-The base class for Substance border painters is `org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter`. Border painter is used to paint the outer contour of most UI components, such as buttons, check boxes, radio buttons, progress bars, tabs, scroll bars and others. This allows providing a consistent and pluggable appearance to those components. In addition, it provides an external API for applications that wish to skin custom components in a visually consistent manner.
+The base class for Substance border painters is `SubstanceBorderPainter`. Border painter is used to paint the outer contour of most UI components, such as buttons, check boxes, radio buttons, progress bars, tabs, scroll bars and others. This allows providing a consistent and pluggable appearance to those components. In addition, it provides an external API for applications that wish to skin custom components in a visually consistent manner.
 
-The `org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter` interface defines the following painting method:
+The `SubstanceBorderPainter` interface defines the following painting method:
 
 ```java
   /**

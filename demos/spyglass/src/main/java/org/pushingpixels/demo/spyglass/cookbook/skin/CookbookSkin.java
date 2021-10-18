@@ -29,25 +29,25 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.CremeColorScheme;
-import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.border.*;
-import org.pushingpixels.substance.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.substance.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.substance.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.substance.api.painter.overlay.TopBezelOverlayPainter;
-import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.laf.api.RadianceSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.laf.api.colorscheme.CremeColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.LightGrayColorScheme;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.painter.border.*;
+import org.pushingpixels.radiance.laf.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.radiance.laf.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.laf.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.laf.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
 
 import java.awt.*;
 
-public class CookbookSkin extends SubstanceSkin {
+public class CookbookSkin extends RadianceSkin {
 
     @Override
     public String getDisplayName() {
@@ -55,14 +55,14 @@ public class CookbookSkin extends SubstanceSkin {
     }
 
     public CookbookSkin() {
-        SubstanceColorScheme activeScheme = new ActiveScheme();
-        SubstanceColorScheme enabledScheme = new CremeColorScheme();
-        SubstanceColorScheme disabledScheme = new LightGrayColorScheme().tint(0.35)
+        RadianceColorScheme activeScheme = new ActiveScheme();
+        RadianceColorScheme enabledScheme = new CremeColorScheme();
+        RadianceColorScheme disabledScheme = new LightGrayColorScheme().tint(0.35)
                 .named("Cookbook Disabled");
-        SubstanceColorScheme darkBrownColorScheme = new DarkBrownColorScheme();
-        SubstanceColorScheme goldenBrownScheme = new GoldenBrownColorScheme();
+        RadianceColorScheme darkBrownColorScheme = new DarkBrownColorScheme();
+        RadianceColorScheme goldenBrownScheme = new GoldenBrownColorScheme();
 
-        SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
+        RadianceColorSchemeBundle defaultSchemeBundle = new RadianceColorSchemeBundle(
                 activeScheme, enabledScheme, disabledScheme);
         // use darker borders on enabled components
         defaultSchemeBundle.registerColorScheme(goldenBrownScheme,
@@ -71,7 +71,7 @@ public class CookbookSkin extends SubstanceSkin {
                 ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, DecorationAreaType.NONE);
 
-        SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(
+        RadianceColorSchemeBundle headerSchemeBundle = new RadianceColorSchemeBundle(
                 darkBrownColorScheme, goldenBrownScheme, goldenBrownScheme);
         headerSchemeBundle.registerAlpha(0.7f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
         headerSchemeBundle.registerColorScheme(goldenBrownScheme,
@@ -81,7 +81,7 @@ public class CookbookSkin extends SubstanceSkin {
                 DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
         // scheme bundle for the CONTROL_PANE area type
-        SubstanceColorSchemeBundle controlPaneSchemeBundle = new SubstanceColorSchemeBundle(
+        RadianceColorSchemeBundle controlPaneSchemeBundle = new RadianceColorSchemeBundle(
                 goldenBrownScheme.shiftBackground(new Color(127, 58, 11), 0.7f),
                 darkBrownColorScheme, darkBrownColorScheme);
         // use translucency on disabled controls
@@ -100,12 +100,12 @@ public class CookbookSkin extends SubstanceSkin {
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new CookbookGradientPainter();
 
-        SubstanceBorderPainter outerBorderPainter = new FractionBasedBorderPainter("Cookbook Outer",
+        RadianceBorderPainter outerBorderPainter = new FractionBasedBorderPainter("Cookbook Outer",
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.DARK,
                                 ColorSchemeSingleColorQuery.ULTRADARK,
                                 ColorSchemeSingleColorQuery.ULTRADARK });
-        SubstanceBorderPainter innerBorderPainter = new DelegateBorderPainter("Cookbook Inner",
+        RadianceBorderPainter innerBorderPainter = new DelegateBorderPainter("Cookbook Inner",
                 new ClassicBorderPainter(), 0x88FFFFFF, 0x44FFFFFF, 0x00FFFFFF,
                 scheme -> scheme.shiftBackground(scheme.getUltraLightColor(), 0.8).tint(0.7));
         this.borderPainter = new CompositeBorderPainter("Cookbook", outerBorderPainter,

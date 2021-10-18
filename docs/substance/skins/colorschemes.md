@@ -2,10 +2,10 @@
 
 A **color scheme** is a set of information that allows painting a control in a specific visual state. In general, a color scheme defines a collection of colors that are used by the various Substance [painters](../painters/overview.md) to paint different control areas (such as background fill, border etc) under a specific visual state.
 
-The `org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme` contains all the APIs officially supported by Substance color schemes. The APIs can be roughly divided in three categories:
+The `SubstanceColorScheme` contains all the APIs officially supported by Substance color schemes. The APIs can be roughly divided in three categories:
 
-* Base colors. These are defined in the `org.pushingpixels.substance.api.colorscheme.SchemeBaseColors`
-* Derived colors. These are defined in the `org.pushingpixels.substance.api.colorscheme.SchemeDerivedColors`
+* Base colors. These are defined in the `SchemeBaseColors`
+* Derived colors. These are defined in the `SchemeDerivedColors`
 * Creating derived color schemes.
 
 ### Base colors
@@ -118,7 +118,7 @@ The Substance core library provides the following five dark color schemes:
 
 ### Deriving color schemes
 
-The `org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
+The `SubstanceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
 
 The following API allows shifting both the background and the foreground colors:
 

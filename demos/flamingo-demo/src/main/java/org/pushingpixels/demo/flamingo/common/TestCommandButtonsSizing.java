@@ -10,11 +10,11 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
-import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.laf.api.ComponentState;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.renderer.RadianceDefaultListCellRenderer;
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,7 +64,7 @@ public class TestCommandButtonsSizing extends JPanel {
                 return model.size();
             }
         });
-        list.setCellRenderer(new SubstanceDefaultListCellRenderer() {
+        list.setCellRenderer(new RadianceDefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index,
                     boolean isSelected, boolean cellHasFocus) {
@@ -167,14 +167,14 @@ public class TestCommandButtonsSizing extends JPanel {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
 
             JFrame frame = new JFrame("Testing command button fonts");
             frame.setSize(800, 600);
             frame.setIconImage(RadianceLogo.getLogoImage(frame,
-                    SubstanceCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            SubstanceSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            SubstanceSlices.ColorSchemeAssociationKind.FILL,
+                    RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            RadianceLafSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED)));
 
             frame.add(new TestCommandButtonsSizing());

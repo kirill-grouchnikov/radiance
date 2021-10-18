@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandAction;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceRibbonBandUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonBandUI;
@@ -226,7 +226,7 @@ public abstract class AbstractRibbonBand extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(SubstanceRibbonBandUI.createUI(this));
+        setUI(RadianceRibbonBandUI.createUI(this));
     }
 
     @Override

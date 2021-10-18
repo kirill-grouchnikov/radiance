@@ -33,12 +33,12 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.chat.svg.ic_chat_black_24px;
 import org.pushingpixels.demo.spyglass.chat.svg.ic_help_outline_black_24px;
 import org.pushingpixels.demo.spyglass.chat.svg.ic_person_black_24px;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.skin.ModerateSkin;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.FocusKind;
+import org.pushingpixels.radiance.laf.api.skin.ModerateSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -47,23 +47,23 @@ import java.awt.*;
 public class ChatFrame extends JFrame {
     public ChatFrame() {
         this.getContentPane().setLayout(new BorderLayout());
-        SubstanceCortex.WindowScope.extendContentIntoTitlePane(this,
-                SubstanceSlices.HorizontalGravity.LEADING,
-                SubstanceSlices.VerticalGravity.CENTERED);
-        SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(this, 40);
+        RadianceLafCortex.WindowScope.extendContentIntoTitlePane(this,
+                RadianceLafSlices.HorizontalGravity.LEADING,
+                RadianceLafSlices.VerticalGravity.CENTERED);
+        RadianceLafCortex.WindowScope.setPreferredTitlePaneHeight(this, 40);
 
         FormBuilder builder = FormBuilder.create().
                 columns("pref, 8dlu, center:0dlu:grow, 8dlu, pref, 8dlu, pref, 8dlu, pref").
                 rows("p").
                 padding(new EmptyBorder(8,
-                        12 + SubstanceCortex.WindowScope.getTitlePaneControlInsets(this).left,
+                        12 + RadianceLafCortex.WindowScope.getTitlePaneControlInsets(this).left,
                         0, 12));
 
         builder.add(new JButton("New chat")).xy(1, 1);
 
         JLabel titleLabel = new JLabel("Chat", ic_chat_black_24px.of(16, 16), JLabel.CENTER);
         titleLabel.setIconTextGap(6);
-        SubstanceCortex.WindowScope.markLabelAsTitlePaneText(this, titleLabel);
+        RadianceLafCortex.WindowScope.markLabelAsTitlePaneText(this, titleLabel);
         builder.add(titleLabel).xy(3, 1);
 
         builder.add(new JTextField(12)).xy(5, 1);
@@ -81,8 +81,8 @@ public class ChatFrame extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Configure the main skin
-            SubstanceCortex.GlobalScope.setSkin(new ModerateSkin());
-            SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
+            RadianceLafCortex.GlobalScope.setSkin(new ModerateSkin());
+            RadianceLafCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 
             // Create the main frame

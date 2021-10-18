@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.ribbon;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
-import org.pushingpixels.flamingo.internal.substance.ribbon.ui.SubstanceBandControlPanelUI;
+import org.pushingpixels.flamingo.internal.laf.ribbon.ui.RadianceBandControlPanelUI;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -323,7 +323,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
 
     @Override
     public void updateUI() {
-        setUI(SubstanceBandControlPanelUI.createUI(this));
+        setUI(RadianceBandControlPanelUI.createUI(this));
     }
 
     @Override

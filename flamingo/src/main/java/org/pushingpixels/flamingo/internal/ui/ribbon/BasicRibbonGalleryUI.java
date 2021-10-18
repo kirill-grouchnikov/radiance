@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.flamingo.internal.ui.ribbon;
 
-import org.pushingpixels.flamingo.api.common.CommandActionEvent;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.Command;
@@ -45,7 +44,7 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -523,7 +522,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
     }
 
     private int getScrollerButtonWidth() {
-        return FlamingoUtilities.getScaledSize(15, SubstanceCortex.GlobalScope.getFontPolicy()
+        return FlamingoUtilities.getScaledSize(15, RadianceLafCortex.GlobalScope.getFontPolicy()
                 .getFontSet().getControlFont().getSize(), 1.0f, 1);
     }
 

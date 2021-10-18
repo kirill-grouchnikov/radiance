@@ -32,12 +32,12 @@ package org.pushingpixels.tools.apollo
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.awt.windowAncestor
 import org.pushingpixels.meteor.swing.*
-import org.pushingpixels.substance.api.SubstanceSkin
-import org.pushingpixels.substance.api.SubstanceSkin.ColorSchemes
-import org.pushingpixels.substance.api.colorscheme.BaseDarkColorScheme
-import org.pushingpixels.substance.api.colorscheme.BaseLightColorScheme
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme
-import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer
+import org.pushingpixels.radiance.laf.api.RadianceSkin
+import org.pushingpixels.radiance.laf.api.RadianceSkin.ColorSchemes
+import org.pushingpixels.radiance.laf.api.colorscheme.BaseDarkColorScheme
+import org.pushingpixels.radiance.laf.api.colorscheme.BaseLightColorScheme
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.laf.api.renderer.RadianceDefaultListCellRenderer
 import org.pushingpixels.tools.apollo.svg.*
 import java.awt.*
 import java.io.File
@@ -54,7 +54,7 @@ import kotlin.properties.Delegates
 
 /**
  * Contains information on color schemes loaded by the
- * [SubstanceSkin.getColorSchemes] API. Note that the custom
+ * [RadianceSkin.getColorSchemes] API. Note that the custom
  * skins should only use the [.get] API. The rest of the API
  * is currently internal and is used in the **Apollo**
  * visual editor.
@@ -65,7 +65,7 @@ class ApolloColorSchemes() : ColorSchemes {
     /**
      * List of color schemes of this object.
      */
-    private val schemes: MutableList<SubstanceColorScheme> = ArrayList()
+    private val schemes: MutableList<RadianceColorScheme> = ArrayList()
 
     /**
      * Creates an object based on the specified list of color schemes. This
@@ -74,7 +74,7 @@ class ApolloColorSchemes() : ColorSchemes {
      *
      * @param schemes List of color schemes.
      */
-    constructor(schemes: Collection<SubstanceColorScheme>) : this() {
+    constructor(schemes: Collection<RadianceColorScheme>) : this() {
         this.schemes.addAll(schemes)
     }
 
@@ -96,11 +96,11 @@ class ApolloColorSchemes() : ColorSchemes {
      * @param index Index.
      * @return Color scheme at the specified index.
      */
-    operator fun get(index: Int): SubstanceColorScheme {
+    operator fun get(index: Int): RadianceColorScheme {
         return schemes[index]
     }
 
-    override fun getAll(): Collection<SubstanceColorScheme> {
+    override fun getAll(): Collection<RadianceColorScheme> {
         return Collections.unmodifiableCollection(schemes)
     }
 
@@ -111,7 +111,7 @@ class ApolloColorSchemes() : ColorSchemes {
      * @param displayName Display name of a color scheme.
      * @return The color scheme with the matching display name.
      */
-    override fun get(displayName: String): SubstanceColorScheme? {
+    override fun get(displayName: String): RadianceColorScheme? {
         for (scheme in schemes) {
             if (scheme.displayName == displayName) {
                 return scheme
@@ -149,7 +149,7 @@ class ApolloColorSchemes() : ColorSchemes {
      * @param scheme      Color scheme that will replace the existing color scheme
      * (based on the display name) at the same index in the list.
      */
-    fun replace(displayName: String, scheme: SubstanceColorScheme) {
+    fun replace(displayName: String, scheme: RadianceColorScheme) {
         val index = this.indexOf(displayName)
         if (index >= 0) {
             schemes.removeAt(index)
@@ -178,7 +178,7 @@ class ApolloColorSchemes() : ColorSchemes {
      *
      * @param scheme Color scheme to add to the end of the list.
      */
-    fun add(scheme: SubstanceColorScheme) {
+    fun add(scheme: RadianceColorScheme) {
         schemes.add(scheme)
     }
 
@@ -217,7 +217,7 @@ class ApolloColorSchemes() : ColorSchemes {
 
 class JColorSchemeList : JComponent() {
     private var schemes: ApolloColorSchemes? = null
-    private val schemeList: JList<SubstanceColorScheme>
+    private val schemeList: JList<RadianceColorScheme>
     private val cardPanel: JPanel
     private val schemeListModel: ColorSchemeListModel
     var currentFile: File? = null
@@ -226,7 +226,7 @@ class JColorSchemeList : JComponent() {
     var isModified: Boolean by Delegates.observable(false) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
-    var selectedColorScheme: SubstanceColorScheme? by Delegates.observable(null) {
+    var selectedColorScheme: RadianceColorScheme? by Delegates.observable(null) {
         prop, old, new -> this.firePropertyChange(prop.name, old, new)
     }
 
@@ -319,7 +319,7 @@ class JColorSchemeList : JComponent() {
         moveUpButton.isEnabled = false
         moveUpButton.icon = outline_keyboard_arrow_up_24px.of(12, 12)
         moveUpButton.addDelayedActionListener {
-            val selected = schemeList.selectedValue as SubstanceColorScheme
+            val selected = schemeList.selectedValue as RadianceColorScheme
             schemes!!.switchWithPrevious(selected.displayName)
             schemeListModel.fireContentsChanged()
             schemeList.setSelectedValue(selected, true)
@@ -481,7 +481,7 @@ class JColorSchemeList : JComponent() {
         try {
             this.currentFile = file
             if (file != null) {
-                this.schemes = ApolloColorSchemes(SubstanceSkin.getColorSchemes(FileInputStream(file)).all)
+                this.schemes = ApolloColorSchemes(RadianceSkin.getColorSchemes(FileInputStream(file)).all)
             } else {
                 this.schemes = ApolloColorSchemes()
             }
@@ -585,16 +585,16 @@ class JColorSchemeList : JComponent() {
         this.isModified = false
     }
 
-    fun updateColorScheme(colorScheme: SubstanceColorScheme) {
+    fun updateColorScheme(colorScheme: RadianceColorScheme) {
         this.schemes!!.replace(colorScheme.displayName, colorScheme)
     }
 
-    internal inner class ColorSchemeListModel : AbstractListModel<SubstanceColorScheme>() {
+    internal inner class ColorSchemeListModel : AbstractListModel<RadianceColorScheme>() {
         override fun getSize(): Int {
             return if (schemes == null) 0 else schemes!!.size()
         }
 
-        override fun getElementAt(index: Int): SubstanceColorScheme? {
+        override fun getElementAt(index: Int): RadianceColorScheme? {
             return schemes?.get(index)
         }
 
@@ -603,10 +603,10 @@ class JColorSchemeList : JComponent() {
         }
     }
 
-    internal inner class ColorSchemeListRenderer : SubstanceDefaultListCellRenderer() {
+    internal inner class ColorSchemeListRenderer : RadianceDefaultListCellRenderer() {
         override fun getListCellRendererComponent(list: JList<*>, value: Any?, index: Int,
                 isSelected: Boolean, cellHasFocus: Boolean): Component {
-            val scheme = value as SubstanceColorScheme?
+            val scheme = value as RadianceColorScheme?
             return super.getListCellRendererComponent(list, scheme!!.displayName, index,
                     isSelected, cellHasFocus)
         }

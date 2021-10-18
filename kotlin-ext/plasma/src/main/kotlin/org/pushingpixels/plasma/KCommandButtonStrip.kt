@@ -33,7 +33,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.model.CommandGroup
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
-import org.pushingpixels.substance.api.SubstanceSlices
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices
 import javax.swing.JComponent
 
 @PlasmaElementMarker
@@ -42,12 +42,12 @@ public class KCommandButtonStripPresentation {
         CommandStripPresentationModel.StripOrientation.HORIZONTAL
     public var presentationState: CommandButtonPresentationState =
         CommandButtonPresentationState.SMALL
-    public var activeIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
-        SubstanceSlices.IconFilterStrategy.ORIGINAL
-    public var enabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
-        SubstanceSlices.IconFilterStrategy.ORIGINAL
-    public var disabledIconFilterStrategy: SubstanceSlices.IconFilterStrategy =
-        SubstanceSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
+    public var activeIconFilterStrategy: RadianceLafSlices.IconFilterStrategy =
+        RadianceLafSlices.IconFilterStrategy.ORIGINAL
+    public var enabledIconFilterStrategy: RadianceLafSlices.IconFilterStrategy =
+        RadianceLafSlices.IconFilterStrategy.ORIGINAL
+    public var disabledIconFilterStrategy: RadianceLafSlices.IconFilterStrategy =
+        RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
     public var horizontalGapScaleFactor: Double = -1.0
     public var verticalGapScaleFactor: Double = -1.0
 

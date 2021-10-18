@@ -34,7 +34,7 @@ import org.pushingpixels.meteor.awt.MeteorLayoutManager
 import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.substance.api.SubstanceCortex
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import org.pushingpixels.torch.componentTimeline
 import org.pushingpixels.torch.from
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline
@@ -142,7 +142,7 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
 
         override fun paintComponent(g: Graphics) {
             g.render {
-                it.font = SubstanceCortex.GlobalScope.getFontPolicy().fontSet.controlFont
+                it.font = RadianceLafCortex.GlobalScope.getFontPolicy().fontSet.controlFont
                 RadianceCommonCortex.installDesktopHints(it, it.font)
 
                 if (color != null) {

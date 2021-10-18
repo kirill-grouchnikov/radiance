@@ -45,8 +45,8 @@ import org.pushingpixels.plasma.DelayedCommandListener
 import org.pushingpixels.plasma.KColorSelectorCommand
 import org.pushingpixels.plasma.colorSelectorCommandButton
 import org.pushingpixels.plasma.colorSelectorPopupMenu
-import org.pushingpixels.substance.api.SubstanceCortex
-import org.pushingpixels.substance.api.skin.BusinessSkin
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex
+import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
@@ -108,7 +108,9 @@ class ColorIcon(private var color: Color) : RadianceIcon {
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        SubstanceCortex.GlobalScope.setSkin(BusinessSkin())
+        RadianceLafCortex.GlobalScope.setSkin(
+            BusinessSkin()
+        )
 
         val defaultPanelColor = Color.lightGray
 

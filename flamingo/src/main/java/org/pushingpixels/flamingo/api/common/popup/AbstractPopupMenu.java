@@ -33,7 +33,6 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
-import org.pushingpixels.substance.internal.utils.SubstancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.JPopupMenu.Separator;

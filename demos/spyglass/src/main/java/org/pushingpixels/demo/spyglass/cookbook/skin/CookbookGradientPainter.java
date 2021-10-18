@@ -30,23 +30,23 @@
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.painter.decoration.SubstanceDecorationPainter;
-import org.pushingpixels.substance.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
+import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.laf.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.laf.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.laf.api.painter.fill.RadianceFillPainter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CookbookGradientPainter implements SubstanceFillPainter {
-    private SubstanceFillPainter delegate;
+public class CookbookGradientPainter implements RadianceFillPainter {
+    private RadianceFillPainter delegate;
 
-    private SubstanceFillPainter flatDelegate;
+    private RadianceFillPainter flatDelegate;
 
     public CookbookGradientPainter() {
         this.delegate = new FractionBasedFillPainter("Cookbook Regular",
@@ -63,7 +63,7 @@ public class CookbookGradientPainter implements SubstanceFillPainter {
 
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
+            Shape contour, boolean isFocused, RadianceColorScheme fillScheme, boolean hasShine) {
         if (comp instanceof JScrollBar) {
             this.flatDelegate.paintContourBackground(g, comp, width, height, contour, isFocused,
                     fillScheme, hasShine);
@@ -81,7 +81,7 @@ public class CookbookGradientPainter implements SubstanceFillPainter {
                     && !commandButton.getActionModel().isPressed()) {
                 DecorationAreaType decorationAreaType = ComponentOrParentChainScope
                         .getDecorationType(comp);
-                SubstanceDecorationPainter decoPainter = SubstanceCortex.ComponentScope
+                RadianceDecorationPainter decoPainter = RadianceLafCortex.ComponentScope
                         .getCurrentSkin(comp).getDecorationPainter();
                 if (decoPainter instanceof CookbookDecorationPainter) {
                     BufferedImage watermark = ((CookbookDecorationPainter) decoPainter)
