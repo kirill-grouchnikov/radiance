@@ -16,7 +16,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
 class outline_keyboard_arrow_up_24px private constructor(private var width: Int, private var height: Int)
        : RadianceIcon {

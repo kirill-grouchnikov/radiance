@@ -38,8 +38,8 @@ import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.photon.api.transcoder.SvgStreamTranscoder;
-import org.pushingpixels.photon.api.transcoder.java.JavaLanguageRenderer;
+import org.pushingpixels.radiance.tools.svgtranscoder.api.SvgStreamTranscoder;
+import org.pushingpixels.radiance.tools.svgtranscoder.api.java.JavaLanguageRenderer;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;

@@ -16,7 +16,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/radiance">Photon SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
 public class nl implements RadianceIcon {
     private Shape shape = null;
