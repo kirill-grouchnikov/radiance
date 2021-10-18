@@ -44,7 +44,7 @@ dependencies {
     implementation project(':kotlin-ext:ember')
     implementation project(':kotlin-ext:meteor')
     implementation project(':flamingo')
-    implementation project(':tools:photon')
+    implementation project(':tools:svgtranscoder')
     implementation project(':demos:flamingo-demo')
 }
 

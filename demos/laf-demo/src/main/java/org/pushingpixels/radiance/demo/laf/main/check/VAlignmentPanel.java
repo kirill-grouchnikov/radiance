@@ -124,9 +124,9 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
         String fontName = "Tahoma";
         Font font = new Font(fontName, Font.PLAIN, size);
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
-            // Control font we're getting from Substance's font policy is marked as a
+            // Control font we're getting from Radiance's font policy is marked as a
             // UIResource. A font derived from such a font is not guaranteed to not be
-            // a UIResource. As we don't want Substance to reset larger fonts back to the
+            // a UIResource. As we don't want Radiance to reset larger fonts back to the
             // default (which it can at any point in time if the application-provided font
             // is a UIResource), create a non-UIResource base font explicitly.
             Font controlFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()

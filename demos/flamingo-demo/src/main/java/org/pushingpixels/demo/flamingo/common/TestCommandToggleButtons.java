@@ -35,8 +35,8 @@ import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Text_x_generic;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceLocaleSelector;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceSkinSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
@@ -213,7 +213,7 @@ public class TestCommandToggleButtons extends JFrame {
     }
 
     protected void configureControlPanel(JPanel controlPanel) {
-        controlPanel.add(new SubstanceSkinSelector());
+        controlPanel.add(new RadianceSkinSelector());
 
         final JCheckBox actionEnabled = new JCheckBox("action enabled");
         actionEnabled.setSelected(true);
@@ -223,7 +223,7 @@ public class TestCommandToggleButtons extends JFrame {
         }));
         controlPanel.add(actionEnabled);
 
-        controlPanel.add(new SubstanceLocaleSelector(false, selected -> {
+        controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.laf.main;
 
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceSkinSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
@@ -47,7 +47,7 @@ public class TestFrame extends JFrame {
     private JToolBar toolbar;
 
     public TestFrame() {
-        super("Substance skeleton");
+        super("Radiance skeleton");
 
         setLayout(new BorderLayout());
         toolbar = Check.getToolbar(22, false);
@@ -81,12 +81,12 @@ public class TestFrame extends JFrame {
         ComponentOrParentChainScope.setDecorationType(statusBar,
                 DecorationAreaType.FOOTER);
 
-        SubstanceSkinSelector skinSelector = new SubstanceSkinSelector();
+        RadianceSkinSelector skinSelector = new RadianceSkinSelector();
         RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
                 SwingUtilities.NORTH);
         RadianceLafCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
                 new WidestComboPopupPrototype<SkinInfo>());
-        skinSelector.setToolTipText("Substance skin");
+        skinSelector.setToolTipText("Radiance skin");
         statusBar.add(skinSelector);
 
         return statusBar;

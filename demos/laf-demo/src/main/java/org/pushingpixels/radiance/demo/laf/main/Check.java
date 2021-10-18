@@ -82,7 +82,7 @@ public class Check extends JFrame {
     private JToolBar toolbar;
 
     public Check() {
-        super("Substance test application");
+        super("Radiance test application");
 
         if (UIManager.getLookAndFeel() instanceof RadianceLookAndFeel) {
             setIconImage(RadianceLogo.getLogoImage(this,
@@ -412,7 +412,7 @@ public class Check extends JFrame {
 
     private static class DialogFontSet implements FontSet {
         /**
-         * The base Substance font set.
+         * The base Radiance font set.
          */
         private FontSet delegate;
 
@@ -420,7 +420,7 @@ public class Check extends JFrame {
          * Creates a wrapper font set.
          *
          * @param delegate
-         *            The base Substance font set.
+         *            The base Radiance font set.
          */
         public DialogFontSet(FontSet delegate) {
             super();
@@ -470,15 +470,15 @@ public class Check extends JFrame {
         RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
                 DecorationAreaType.FOOTER);
 
-        SubstanceSkinSelector skinSelector = new SubstanceSkinSelector();
+        RadianceSkinSelector skinSelector = new RadianceSkinSelector();
         RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
                 SwingUtilities.NORTH);
         RadianceLafCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
                 new WidestComboPopupPrototype<SkinInfo>());
-        skinSelector.setToolTipText("Substance skin");
+        skinSelector.setToolTipText("Radiance skin");
         statusBar.add(skinSelector);
 
-        SubstanceLocaleSelector localeSelector = new SubstanceLocaleSelector(true, selected -> {
+        RadianceLocaleSelector localeSelector = new RadianceLocaleSelector(true, selected -> {
             LookAndFeel currLaf = UIManager.getLookAndFeel();
             Locale.setDefault(selected);
             Check.this.applyComponentOrientation(
@@ -504,34 +504,34 @@ public class Check extends JFrame {
         RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(localeSelector,
                 SwingUtilities.NORTH);
         RadianceLafCortex.ComponentScope.setComboBoxPrototypeCallback(localeSelector,
-                new WidestComboPopupPrototype<SubstanceLocaleSelector.LocaleInfo>());
+                new WidestComboPopupPrototype<RadianceLocaleSelector.LocaleInfo>());
         localeSelector.setToolTipText("Application locale");
         statusBar.add(localeSelector);
 
         try {
-            SubstanceFontSelector fontSelector = new SubstanceFontSelector();
+            RadianceFontSelector fontSelector = new RadianceFontSelector();
             RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(fontSelector,
                     SwingUtilities.NORTH);
             RadianceLafCortex.ComponentScope.setComboBoxPrototypeCallback(fontSelector,
-                    new WidestComboPopupPrototype<SubstanceFontSelector.FontInfo>());
-            fontSelector.setToolTipText("Substance font set");
+                    new WidestComboPopupPrototype<RadianceFontSelector.FontInfo>());
+            fontSelector.setToolTipText("Radiance font set");
             statusBar.add(fontSelector);
         } catch (Throwable t) {
         }
 
-        SubstanceTitlePaneGravitySelector titlePaneGravitySelector = new SubstanceTitlePaneGravitySelector();
+        RadianceTitlePaneGravitySelector titlePaneGravitySelector = new RadianceTitlePaneGravitySelector();
         RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(titlePaneGravitySelector,
                 SwingUtilities.NORTH);
         RadianceLafCortex.ComponentScope.setComboBoxPrototypeCallback(titlePaneGravitySelector,
-                new WidestComboPopupPrototype<SubstanceTitlePaneGravitySelector.TitlePaneConfiguration>());
+                new WidestComboPopupPrototype<RadianceTitlePaneGravitySelector.TitlePaneConfiguration>());
         titlePaneGravitySelector.setToolTipText("Application title pane gravity");
         statusBar.add(titlePaneGravitySelector);
 
-        SubstanceIconFilterStrategySelector iconFilterStrategySelector = new SubstanceIconFilterStrategySelector();
+        RadianceIconFilterStrategySelector iconFilterStrategySelector = new RadianceIconFilterStrategySelector();
         RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(iconFilterStrategySelector,
                 SwingUtilities.NORTH);
         RadianceLafCortex.ComponentScope.setComboBoxPrototypeCallback(iconFilterStrategySelector,
-                new WidestComboPopupPrototype<SubstanceIconFilterStrategySelector.IconFilterStrategyConfiguration>());
+                new WidestComboPopupPrototype<RadianceIconFilterStrategySelector.IconFilterStrategyConfiguration>());
         iconFilterStrategySelector.setToolTipText("Icon filter strategies");
         statusBar.add(iconFilterStrategySelector);
 
@@ -540,13 +540,13 @@ public class Check extends JFrame {
 
     public static void main(String[] args) {
         RadianceLafCortex.GlobalScope.registerWidget(
-                "org.pushingpixels.substance.extras.api.tabbed.TabHoverPreviewWidget",
+                "org.pushingpixels.radiance.laf.extras.api.tabbed.TabHoverPreviewWidget",
                 JTabbedPane.class, false);
         RadianceLafCortex.GlobalScope.registerWidget(
-                "org.pushingpixels.substance.extras.api.tabbed.TabOverviewDialogWidget",
+                "org.pushingpixels.radiance.laf.extras.api.tabbed.TabOverviewDialogWidget",
                 JTabbedPane.class, false);
         RadianceLafCortex.GlobalScope.registerWidget(
-                "org.pushingpixels.substance.extras.api.tabbed.TabPagerWidget", JTabbedPane.class,
+                "org.pushingpixels.radiance.laf.extras.api.tabbed.TabPagerWidget", JTabbedPane.class,
                 false);
         SwingUtilities.invokeLater(() -> {
             try {

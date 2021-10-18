@@ -45,8 +45,8 @@ import java.util.List;
 
 /**
  * A container that displays a vertical stack of collapsible panels. It uses
- * a number of Substance APIs for delineating content in a way that is visually
- * consistent with the current Substance skin.
+ * a number of Radiance APIs for delineating content in a way that is visually
+ * consistent with the current Radiance skin.
  */
 public class FakeAccordion extends JPanel {
     public static class FakeAccordionPanel extends JPanel {
@@ -74,7 +74,7 @@ public class FakeAccordion extends JPanel {
             deepNonOpaque(content);
 
             // Wrap the passed content panel to have a bit of padding and accented background fill
-            // (using the SubstanceColorScheme.getAccentedBackgroundFillColor API)
+            // (using the RadianceColorScheme.getAccentedBackgroundFillColor API)
             this.contentWrapper = new JPanel(new BorderLayout()) {
                 @Override
                 protected void paintComponent(Graphics g) {
@@ -134,7 +134,7 @@ public class FakeAccordion extends JPanel {
                     // Use the border visuals from the current skin.
                     // Note the usage of ColorSchemeAssociationKind.BORDER to retrieve
                     // the matching color scheme, and subsequent usage of
-                    // SubstanceBorderPainter.paintBorder with our custom curving paths
+                    // RadianceBorderPainter.paintBorder with our custom curving paths
 
                     RadianceSkin skin = RadianceLafCortex.ComponentScope.getCurrentSkin(contentWrapper);
                     RadianceBorderPainter borderPainter = skin.getBorderPainter();

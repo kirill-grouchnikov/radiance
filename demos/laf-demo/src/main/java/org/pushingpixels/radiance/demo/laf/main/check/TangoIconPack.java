@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.laf.api.icon.RadianceIconPack;
 
 /**
- * Custom Substance icon pack based on Tango icons (license in resources/TangoIcons.license).
+ * Custom Radiance icon pack based on Tango icons (license in resources/TangoIcons.license).
  * Original SVG content from https://commons.wikimedia.org/wiki/Tango_icons transcoded offline
  * into Java2D resizable icons with Photon.
  */

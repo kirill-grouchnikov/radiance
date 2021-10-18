@@ -293,10 +293,10 @@ public class ListPanel extends ControllablePanel {
         list.setCellRenderer(new DefaultRadianceRenderer());
 
         ButtonGroup listRendererGroup = new ButtonGroup();
-        final JRadioButton defaultSubstanceRenderer = new JRadioButton("Default Substance");
-        defaultSubstanceRenderer.setSelected(true);
-        defaultSubstanceRenderer.addActionListener(actionEvent -> {
-            if (defaultSubstanceRenderer.isSelected()) {
+        final JRadioButton defaultRadianceRenderer = new JRadioButton("Default Radiance");
+        defaultRadianceRenderer.setSelected(true);
+        defaultRadianceRenderer.addActionListener(actionEvent -> {
+            if (defaultRadianceRenderer.isSelected()) {
                 list.setCellRenderer(new DefaultRadianceRenderer());
             }
         });
@@ -306,9 +306,9 @@ public class ListPanel extends ControllablePanel {
                 list.setCellRenderer(new DefaultCoreRenderer());
             }
         });
-        final JRadioButton customSubstanceRenderer = new JRadioButton("Custom Substance");
-        customSubstanceRenderer.addActionListener(actionEvent -> {
-            if (customSubstanceRenderer.isSelected()) {
+        final JRadioButton customRadianceRenderer = new JRadioButton("Custom Radiance");
+        customRadianceRenderer.addActionListener(actionEvent -> {
+            if (customRadianceRenderer.isSelected()) {
                 list.setCellRenderer(new CustomRadianceRenderer());
             }
         });
@@ -318,13 +318,13 @@ public class ListPanel extends ControllablePanel {
                 list.setCellRenderer(new CustomCoreRenderer());
             }
         });
-        listRendererGroup.add(defaultSubstanceRenderer);
+        listRendererGroup.add(defaultRadianceRenderer);
         listRendererGroup.add(defaultCoreRenderer);
-        listRendererGroup.add(customSubstanceRenderer);
+        listRendererGroup.add(customRadianceRenderer);
         listRendererGroup.add(customCoreRenderer);
-        builder.append("Select type", defaultSubstanceRenderer);
+        builder.append("Select type", defaultRadianceRenderer);
         builder.append("", defaultCoreRenderer);
-        builder.append("", customSubstanceRenderer);
+        builder.append("", customRadianceRenderer);
         builder.append("", customCoreRenderer);
 
         controlPanel = builder.build();

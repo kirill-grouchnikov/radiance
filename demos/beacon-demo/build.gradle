@@ -32,7 +32,7 @@ apply plugin: 'java'
 
 dependencies {
     implementation project(':laf')
-    implementation project(':tools:beacon')
+    implementation project(':tools:lafdebugger')
     implementation project(':demos:laf-demo')
 }
 

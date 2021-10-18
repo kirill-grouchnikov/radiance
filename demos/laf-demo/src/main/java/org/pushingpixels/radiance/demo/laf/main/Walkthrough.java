@@ -55,7 +55,7 @@ public class Walkthrough extends JFrame {
                 UIManager.setLookAndFeel(new MetalLookAndFeel());
             } catch (Throwable t) {
             }
-            // SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            // RadianceCortex.GlobalScope.setSkin(new BusinessSkin());
             Walkthrough w = new Walkthrough();
             w.setVisible(true);
         });

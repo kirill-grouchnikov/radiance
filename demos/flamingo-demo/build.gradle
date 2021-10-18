@@ -38,7 +38,7 @@ dependencies {
     implementation project(':animation')
     implementation project(':laf')
     implementation project(':flamingo')
-    implementation project(':tools:photon')
+    implementation project(':tools:svgtranscoder')
     implementation project(':demos:laf-demo')
 }
 

@@ -33,7 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceLocaleSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
@@ -66,7 +66,7 @@ public class TestButtonStripVertical extends JFrame {
         this.add(buttonPanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        controlPanel.add(new SubstanceLocaleSelector(false, selected -> {
+        controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));

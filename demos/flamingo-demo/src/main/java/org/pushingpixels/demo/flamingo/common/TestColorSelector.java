@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceLocaleSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand;
@@ -194,7 +194,7 @@ public class TestColorSelector extends JFrame {
         top.add(hasStandard);
         top.add(hasRecent);
 
-        top.add(new SubstanceLocaleSelector(false, selected -> {
+        top.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);

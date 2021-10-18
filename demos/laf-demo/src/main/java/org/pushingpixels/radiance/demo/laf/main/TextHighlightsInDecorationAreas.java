@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.laf.main;
 
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceSkinSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
 import org.pushingpixels.radiance.laf.api.skin.MagellanSkin;
@@ -93,7 +93,7 @@ public class TextHighlightsInDecorationAreas {
             frame.getContentPane().add(panelFooter);
 
             JPanel selector = new JPanel(new FlowLayout(FlowLayout.TRAILING));
-            selector.add(new SubstanceSkinSelector());
+            selector.add(new RadianceSkinSelector());
             frame.getContentPane().add(selector);
 
             frame.setSize(300, 300);

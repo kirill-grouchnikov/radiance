@@ -126,7 +126,7 @@ public class Alignment extends JFrame {
                 }
             }
 
-            if (selected.startsWith("Substance")) {
+            if (selected.startsWith("Radiance")) {
                 RadianceLafCortex.GlobalScope.setSkin(matchingLafInfo.getClassName());
             } else {
                 try {
@@ -201,7 +201,7 @@ public class Alignment extends JFrame {
         UIManager.installLookAndFeel("Squareness", "net.beeger.squareness.SquarenessLookAndFeel");
 
         for (SkinInfo sInfo : RadianceLafCortex.GlobalScope.getAllSkins().values()) {
-            UIManager.installLookAndFeel("Substance " + sInfo.getDisplayName(),
+            UIManager.installLookAndFeel("Radiance " + sInfo.getDisplayName(),
                     sInfo.getClassName());
         }
 

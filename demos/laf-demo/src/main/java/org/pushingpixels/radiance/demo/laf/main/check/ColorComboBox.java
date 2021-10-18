@@ -124,7 +124,7 @@ public class ColorComboBox extends JComboBox<ColorComboBox.Value> {
 					ColorComboBox.this.getFont()).getHeight() + 2));
 			setOpaque(true);
 			setFocusable(true);
-			// setBorder(new SubstanceBorder());
+			// setBorder(new RadianceBorder());
 		}
 
 		@Override

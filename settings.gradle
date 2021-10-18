@@ -40,6 +40,8 @@ include 'common', 'animation', 'laf',
         'demos:laf-demo', 'demos:animation-demo',
 		'demos:torch-demo', 'demos:lucent',
 		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
-		'tools:tools-common', 'tools:apollo', 'tools:beacon',
-		'tools:hyperion', 'tools:photon',
-		'tools:ignite', 'tools:lightbeam', 'tools:zodiac'
+		'tools:tools-common',
+		'tools:lafbenchmark', 'tools:lafdebugger',
+		'tools:schemeeditor', 'tools:shapeeditor',
+		'tools:svgtranscoder', 'tools:gradleplugin:svgtranscoder',
+		'tools:screenshot'

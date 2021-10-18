@@ -401,110 +401,110 @@ public class SampleMenuFactory {
         JMenu lafMenu = new JMenu("Look & feel");
         JMenu coreLafMenus = new JMenu("Core LAFs");
         lafMenu.add(coreLafMenus);
-        coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "System",
+        coreLafMenus.add(RadianceLafChanger.getMenuItem(frame, "System",
                 UIManager.getSystemLookAndFeelClassName()));
-        coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Metal",
+        coreLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Metal",
                 "javax.swing.plaf.metal.MetalLookAndFeel"));
-        coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Windows",
+        coreLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Windows",
                 "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"));
-        coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Windows Classic",
+        coreLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Windows Classic",
                 "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel"));
-        coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Motif",
+        coreLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Motif",
                 "com.sun.java.swing.plaf.motif.MotifLookAndFeel"));
-        coreLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Nimbus",
+        coreLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Nimbus",
                 "javax.swing.plaf.nimbus.NimbusLookAndFeel"));
 
         JMenu customLafMenus = new JMenu("Custom LAFs");
         lafMenu.add(customLafMenus);
         JMenu jgoodiesMenu = new JMenu("JGoodies family");
         customLafMenus.add(jgoodiesMenu);
-        jgoodiesMenu.add(SubstanceLafChanger.getMenuItem(frame, "JGoodies Plastic",
+        jgoodiesMenu.add(RadianceLafChanger.getMenuItem(frame, "JGoodies Plastic",
                 "com.jgoodies.looks.plastic.PlasticLookAndFeel"));
-        jgoodiesMenu.add(SubstanceLafChanger.getMenuItem(frame, "JGoodies PlasticXP",
+        jgoodiesMenu.add(RadianceLafChanger.getMenuItem(frame, "JGoodies PlasticXP",
                 "com.jgoodies.looks.plastic.PlasticXPLookAndFeel"));
-        jgoodiesMenu.add(SubstanceLafChanger.getMenuItem(frame, "JGoodies Plastic3D",
+        jgoodiesMenu.add(RadianceLafChanger.getMenuItem(frame, "JGoodies Plastic3D",
                 "com.jgoodies.looks.plastic.Plastic3DLookAndFeel"));
-        jgoodiesMenu.add(SubstanceLafChanger.getMenuItem(frame, "JGoodies Windows",
+        jgoodiesMenu.add(RadianceLafChanger.getMenuItem(frame, "JGoodies Windows",
                 "com.jgoodies.looks.windows.WindowsLookAndFeel"));
 
         JMenu syntheticaMenu = new JMenu("Synthetica family");
         customLafMenus.add(syntheticaMenu);
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Standard",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica Standard",
                 "de.javasoft.synthetica.standard.SyntheticaStandardLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Classy",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica Classy",
                 "de.javasoft.synthetica.classy.SyntheticaClassyLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Dark",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica Dark",
                 "de.javasoft.synthetica.dark.SyntheticaDarkLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Plain",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica Plain",
                 "de.javasoft.synthetica.plain.SyntheticaPlainLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica Simple2D",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica Simple2D",
                 "de.javasoft.synthetica.simple2d.SyntheticaSimple2DLookAndFeel"));
         syntheticaMenu.addSeparator();
 
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica AluOxide",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica AluOxide",
                 "de.javasoft.synthetica.aluoxide.SyntheticaAluOxideLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlackEye",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlackEye",
                 "de.javasoft.synthetica.blackeye.SyntheticaBlackEyeLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlackMoon",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlackMoon",
                 "de.javasoft.synthetica.blackmoon.SyntheticaBlackMoonLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlackStar",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlackStar",
                 "de.javasoft.synthetica.blackstar.SyntheticaBlackStarLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueIce",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlueIce",
                 "de.javasoft.synthetica.blueice.SyntheticaBlueIceLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueLight",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlueLight",
                 "de.javasoft.synthetica.bluelight.SyntheticaBlueLightLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueMoon",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlueMoon",
                 "de.javasoft.synthetica.bluemoon.SyntheticaBlueMoonLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica BlueSteel",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica BlueSteel",
                 "de.javasoft.synthetica.bluesteel.SyntheticaBlueSteelLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica GreenDream",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica GreenDream",
                 "de.javasoft.synthetica.greendream.SyntheticaGreenDreamLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica MauveMetallic",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica MauveMetallic",
                 "de.javasoft.synthetica.mauvemetallic.SyntheticaMauveMetallicLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica OrangeMetallic",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica OrangeMetallic",
                 "de.javasoft.synthetica.orangemetallic.SyntheticaOrangeMetallicLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica SilverMoon",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica SilverMoon",
                 "de.javasoft.synthetica.silvermoon.SyntheticaSilverMoonLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica SkyMetallic",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica SkyMetallic",
                 "de.javasoft.synthetica.skymetallic.SyntheticaSkyMetallicLookAndFeel"));
-        syntheticaMenu.add(SubstanceLafChanger.getMenuItem(frame, "Synthetica WhiteVision",
+        syntheticaMenu.add(RadianceLafChanger.getMenuItem(frame, "Synthetica WhiteVision",
                 "de.javasoft.synthetica.whitevision.SyntheticaWhiteVisionLookAndFeel"));
 
         JMenu flatMenu = new JMenu("Flat family");
         customLafMenus.add(flatMenu);
-        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Light",
+        flatMenu.add(RadianceLafChanger.getMenuItem(frame, "Flat Light",
                 "com.formdev.flatlaf.FlatLightLaf"));
-        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Dark",
+        flatMenu.add(RadianceLafChanger.getMenuItem(frame, "Flat Dark",
                 "com.formdev.flatlaf.FlatDarkLaf"));
-        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat IntelliJ",
+        flatMenu.add(RadianceLafChanger.getMenuItem(frame, "Flat IntelliJ",
                 "com.formdev.flatlaf.FlatIntelliJLaf"));
-        flatMenu.add(SubstanceLafChanger.getMenuItem(frame, "Flat Darcula",
+        flatMenu.add(RadianceLafChanger.getMenuItem(frame, "Flat Darcula",
                 "com.formdev.flatlaf.FlatDarculaLaf"));
 
         JMenu darkMenu = new JMenu("Dark family");
         customLafMenus.add(darkMenu);
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Default",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "Default",
                 "com.github.weisj.darklaf.DarkLaf"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Darcula Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "Darcula Theme",
                 "com.github.weisj.darklaf.theme.laf.DarculaThemeDarklafLookAndFeel"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "High Contrast Dark Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "High Contrast Dark Theme",
                 "com.github.weisj.darklaf.theme.laf.HighContrastDarkThemeDarklafLookAndFeel"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "High Contrast Light Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "High Contrast Light Theme",
                 "com.github.weisj.darklaf.theme.laf.HighContrastLightThemeDarklafLookAndFeel"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "IntelliJ Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "IntelliJ Theme",
                 "com.github.weisj.darklaf.theme.laf.IntelliJThemeDarklafLookAndFeel"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "One Dark Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "One Dark Theme",
                 "com.github.weisj.darklaf.theme.laf.OneDarkThemeDarklafLookAndFeel"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Solarized Dark Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "Solarized Dark Theme",
                 "com.github.weisj.darklaf.theme.laf.SolarizedDarkThemeDarklafLookAndFeel"));
-        darkMenu.add(SubstanceLafChanger.getMenuItem(frame, "Solarized Light Theme",
+        darkMenu.add(RadianceLafChanger.getMenuItem(frame, "Solarized Light Theme",
                 "com.github.weisj.darklaf.theme.laf.SolarizedLightThemeDarklafLookAndFeel"));
 
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Darcula",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Darcula",
                 "com.bulenkov.darcula.DarculaLaf"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Material",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Material",
                 "mdlaf.MaterialLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "WebLaf",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "WebLaf",
                 "com.alee.laf.WebLookAndFeel"));
 
         // From this point it's look-and-feels that are not actively developed anymore
@@ -512,87 +512,87 @@ public class SampleMenuFactory {
 
         JMenu jtattooMenu = new JMenu("JTattoo family");
         customLafMenus.add(jtattooMenu);
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Acryl",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Acryl",
                 "com.jtattoo.plaf.acryl.AcrylLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Aero",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Aero",
                 "com.jtattoo.plaf.aero.AeroLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Aluminium",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Aluminium",
                 "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Bernstein",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Bernstein",
                 "com.jtattoo.plaf.bernstein.BernsteinLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Fast",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Fast",
                 "com.jtattoo.plaf.fast.FastLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo HiFi",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo HiFi",
                 "com.jtattoo.plaf.hifi.HiFiLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Luna",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Luna",
                 "com.jtattoo.plaf.luna.LunaLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo McWin",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo McWin",
                 "com.jtattoo.plaf.mcwin.McWinLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Mint",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Mint",
                 "com.jtattoo.plaf.mint.MintLookAndFeel"));
-        jtattooMenu.add(SubstanceLafChanger.getMenuItem(frame, "JTattoo Smart",
+        jtattooMenu.add(RadianceLafChanger.getMenuItem(frame, "JTattoo Smart",
                 "com.jtattoo.plaf.smart.SmartLookAndFeel"));
 
         JMenu officeMenu = new JMenu("Office family");
         customLafMenus.add(officeMenu);
-        officeMenu.add(SubstanceLafChanger.getMenuItem(frame, "Office 2003",
+        officeMenu.add(RadianceLafChanger.getMenuItem(frame, "Office 2003",
                 "org.fife.plaf.Office2003.Office2003LookAndFeel"));
-        officeMenu.add(SubstanceLafChanger.getMenuItem(frame, "Office XP",
+        officeMenu.add(RadianceLafChanger.getMenuItem(frame, "Office XP",
                 "org.fife.plaf.OfficeXP.OfficeXPLookAndFeel"));
-        officeMenu.add(SubstanceLafChanger.getMenuItem(frame, "Visual Studio 2005",
+        officeMenu.add(RadianceLafChanger.getMenuItem(frame, "Visual Studio 2005",
                 "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel"));
 
         customLafMenus.add(
-                SubstanceLafChanger.getMenuItem(frame, "A03", "a03.swing.plaf.A03LookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Alloy",
+                RadianceLafChanger.getMenuItem(frame, "A03", "a03.swing.plaf.A03LookAndFeel"));
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Alloy",
                 "com.incors.plaf.alloy.AlloyLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "BeautyEye Cross",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "BeautyEye Cross",
                 "org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelCross"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "BeautyEye Win",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "BeautyEye Win",
                 "org.jb2011.lnf.beautyeye.BeautyEyeLookAndFeelWin"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Cezanne Textile",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Cezanne Textile",
                 "de.centigrade.laf.textile.TextileLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "EaSynth",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "EaSynth",
                 "com.easynth.lookandfeel.EaSynthLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "FH",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "FH",
                 "com.shfarr.ui.plaf.fh.FhLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Hippo",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Hippo",
                 "se.diod.hippo.plaf.HippoLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "InfoNode",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "InfoNode",
                 "net.infonode.gui.laf.InfoNodeLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Kunststoff",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Kunststoff",
                 "com.incors.plaf.kunststoff.KunststoffLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Liquid",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Liquid",
                 "com.birosoft.liquid.LiquidLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Lipstik",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Lipstik",
                 "com.lipstikLF.LipstikLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Metouia",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Metouia",
                 "net.sourceforge.mlf.metouia.MetouiaLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Napkin",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Napkin",
                 "napkin.NapkinLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "NimROD",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "NimROD",
                 "com.nilo.plaf.nimrod.NimRODLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Oyoaha",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Oyoaha",
                 "com.oyoaha.swing.plaf.oyoaha.OyoahaLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Pagosoft",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Pagosoft",
                 "com.pagosoft.plaf.PgsLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Quaqua",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Quaqua",
                 "ch.randelshofer.quaqua.QuaquaLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Sea Glass",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Sea Glass",
                 "com.seaglasslookandfeel.SeaGlassLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Simple",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Simple",
                 "com.memoire.slaf.SlafLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Skin",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Skin",
                 "com.l2fprod.gui.plaf.skin.SkinLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Smooth Metal",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Smooth Metal",
                 "smooth.metal.SmoothLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Squareness",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Squareness",
                 "net.beeger.squareness.SquarenessLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Tiny",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Tiny",
                 "de.muntjak.tinylookandfeel.TinyLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Tonic",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Tonic",
                 "com.digitprop.tonic.TonicLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Trendy",
+        customLafMenus.add(RadianceLafChanger.getMenuItem(frame, "Trendy",
                 "com.Trendy.swing.plaf.TrendyLookAndFeel"));
 
         return lafMenu;

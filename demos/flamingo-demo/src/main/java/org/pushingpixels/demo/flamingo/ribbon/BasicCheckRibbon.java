@@ -32,8 +32,8 @@ package org.pushingpixels.demo.flamingo.ribbon;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceLocaleSelector;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceSkinSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.ColorRadianceIcon;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon;
@@ -2261,7 +2261,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.add("Group 1").xy(1, 1).add(group1Visible).xy(3, 1);
         builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
 
-        builder.addLabel("Skin").xy(1, 5).add(new SubstanceSkinSelector()).xy(3, 5);
+        builder.addLabel("Skin").xy(1, 5).add(new RadianceSkinSelector()).xy(3, 5);
         RadianceLafCortex.GlobalScope.registerSkinChangeListener(() -> {
             rulerPanel.selectBackgroundFill(
                     RadianceLafCortex.GlobalScope.getCurrentSkin().getEnabledColorScheme(
@@ -2313,7 +2313,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }));
         builder.add("Change 'Paragraph'").xy(1, 11).add(changeParagraph).xy(3, 11);
 
-        builder.add("Locale").xy(1, 13).add(new SubstanceLocaleSelector(false, selected -> {
+        builder.add("Locale").xy(1, 13).add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.laf.main.check.decoration;
 
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceSkinSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
@@ -133,7 +133,7 @@ public class DecorationTrees extends JFrame {
         this.add(treePanel, BorderLayout.CENTER);
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        controlPanel.add(new SubstanceSkinSelector());
+        controlPanel.add(new RadianceSkinSelector());
 
         this.add(controlPanel, BorderLayout.SOUTH);
 

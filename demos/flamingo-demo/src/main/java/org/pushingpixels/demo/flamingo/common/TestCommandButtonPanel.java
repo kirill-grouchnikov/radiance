@@ -30,7 +30,7 @@
 package org.pushingpixels.demo.flamingo.common;
 
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.SubstanceLocaleSelector;
+import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
@@ -95,7 +95,7 @@ public class TestCommandButtonPanel extends JFrame {
                                 : CommandPanelPresentationModel.LayoutKind.COLUMN_FILL));
         controlPanel.add(isRowFillLayout);
 
-        controlPanel.add(new SubstanceLocaleSelector(false, selected -> {
+        controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.demo.flamingo.resource.Resources", currLocale);
