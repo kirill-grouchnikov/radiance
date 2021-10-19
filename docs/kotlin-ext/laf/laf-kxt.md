@@ -2,7 +2,7 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember) `radiance-ember` for build instructions of the latest stable release.
 
-In your Java app, this is how you would mark a `BreadcrumbBarSelector` to use the `HEADER` [decoration area type](../substance/painters/decoration.md):
+In your Java app, this is how you would mark a `BreadcrumbBarSelector` to use the `HEADER` [decoration area type](../laf/painters/decoration.md):
 
 ```java
 BreadcrumbFileSelector bar = new BreadcrumbFileSelector();

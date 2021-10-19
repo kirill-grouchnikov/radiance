@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.tools.screenshot.laf.schemes
 import org.pushingpixels.radiance.laf.extras.api.colorschemepack.*
 
 /**
- * Screenshot robots for Substance extras color schemes.
+ * Screenshot robots for Radiance extras color schemes.
  *
  * @author Kirill Grouchnikov
  */

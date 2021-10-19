@@ -32,16 +32,16 @@ package org.pushingpixels.radiance.tools.screenshot.laf.skins
 import org.pushingpixels.radiance.laf.extras.api.skinpack.*
 
 /**
- * Screenshot robots for Substance extras skins.
+ * Screenshot robots for Radiance extras skins.
  *
  * @author Kirill Grouchnikov
  */
-class FieldOfWheat : SubstanceSkinRobot(FieldOfWheatSkin(), "laf-extras/skins/fieldofwheat")
-class FindingNemo : SubstanceSkinRobot(FindingNemoSkin(), "laf-extras/skins/findingnemo")
-class Harvest : SubstanceSkinRobot(HarvestSkin(), "laf-extras/skins/harvest")
-class Magma : SubstanceSkinRobot(MagmaSkin(), "laf-extras/skins/magma")
-class Mango : SubstanceSkinRobot(MangoSkin(), "laf-extras/skins/mango")
-class OfficeBlack2007 : SubstanceSkinRobot(OfficeBlack2007Skin(), "laf-extras/skins/officeblack2007")
-class OfficeBlue2007 : SubstanceSkinRobot(OfficeBlue2007Skin(), "laf-extras/skins/officeblue2007")
-class OfficeSilver2007 : SubstanceSkinRobot(OfficeSilver2007Skin(), "laf-extras/skins/officesilver2007")
-class Streetlights : SubstanceSkinRobot(StreetlightsSkin(), "laf-extras/skins/streetlights")
+class FieldOfWheat : RadianceSkinRobot(FieldOfWheatSkin(), "laf-extras/skins/fieldofwheat")
+class FindingNemo : RadianceSkinRobot(FindingNemoSkin(), "laf-extras/skins/findingnemo")
+class Harvest : RadianceSkinRobot(HarvestSkin(), "laf-extras/skins/harvest")
+class Magma : RadianceSkinRobot(MagmaSkin(), "laf-extras/skins/magma")
+class Mango : RadianceSkinRobot(MangoSkin(), "laf-extras/skins/mango")
+class OfficeBlack2007 : RadianceSkinRobot(OfficeBlack2007Skin(), "laf-extras/skins/officeblack2007")
+class OfficeBlue2007 : RadianceSkinRobot(OfficeBlue2007Skin(), "laf-extras/skins/officeblue2007")
+class OfficeSilver2007 : RadianceSkinRobot(OfficeSilver2007Skin(), "laf-extras/skins/officesilver2007")
+class Streetlights : RadianceSkinRobot(StreetlightsSkin(), "laf-extras/skins/streetlights")

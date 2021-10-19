@@ -161,7 +161,7 @@ public class DestinationsPanel extends PanelWithRightLine {
         protected void onPreRender(JList<? extends DestinationInfo> list, DestinationInfo value,
                 int index) {
             // Register the matching icon factory here without setting the actual icon. The
-            // icon will be created and colorized by Substance runtime based on the highlight
+            // icon will be created and colorized by Radiance runtime based on the highlight
             // state of the specific row at render time
             this.registerThemeAwareLabelWithIcon(this.iconLabel, value.iconFactory,
                     new Dimension(16, 16));
@@ -189,7 +189,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                 rows("p").
                 padding(new EmptyBorder(12, 8, 12, 8));
 
-        // Use Substance API to create a button that has consistent look with the
+        // Use Radiance API to create a button that has consistent look with the
         // title pane control buttons
         JButton refreshButton = RadianceLafCortex.WindowScope.createTitlePaneControlButton(window);
 

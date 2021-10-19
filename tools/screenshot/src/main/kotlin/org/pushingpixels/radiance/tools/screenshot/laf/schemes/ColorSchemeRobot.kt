@@ -124,7 +124,7 @@ abstract class BaseColorSchemeRobot(
 }
 
 /**
- * The base class for taking screenshots of color schemes for Substance documentation.
+ * The base class for taking screenshots of color schemes for Radiance documentation.
  *
  * @author Kirill Grouchnikov
  */

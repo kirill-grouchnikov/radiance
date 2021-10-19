@@ -50,11 +50,11 @@ import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 /**
- * The base class for taking screenshots of skins for Substance documentation.
+ * The base class for taking screenshots of skins for Radiance look-and-feel documentation.
  *
  * @author Kirill Grouchnikov
  */
-abstract class SubstanceSkinRobot(
+abstract class RadianceSkinRobot(
     private var skin: RadianceSkin,
     private val screenshotFilename: String
 ) : ZodiacRobot {

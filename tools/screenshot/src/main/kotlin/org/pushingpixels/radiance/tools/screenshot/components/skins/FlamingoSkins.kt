@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.tools.screenshot.components.skins
 import org.pushingpixels.radiance.laf.api.skin.*
 
 /**
- * Screenshot robots for Substance skins.
+ * Screenshot robots for Radiance skins.
  *
  * @author Kirill Grouchnikov
  */

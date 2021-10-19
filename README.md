@@ -28,7 +28,7 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ### Laf
 
-[Laf](docs/substance/laf.md) provides a comprehensive set of APIs for skinning Swing applications, addressing the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a flexible API surface for rendering third-party / application components.
+[Laf](docs/laf/laf.md) provides a comprehensive set of APIs for skinning Swing applications, addressing the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a flexible API surface for rendering third-party / application components.
 
 ### Flamingo
 

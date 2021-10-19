@@ -57,7 +57,7 @@ import javax.swing.JTextField
 import javax.swing.text.DefaultCaret
 
 /**
- * The base class for taking screenshots of text highlights for Substance documentation.
+ * The base class for taking screenshots of text highlights for Radiance documentation.
  *
  * @author Kirill Grouchnikov
  */

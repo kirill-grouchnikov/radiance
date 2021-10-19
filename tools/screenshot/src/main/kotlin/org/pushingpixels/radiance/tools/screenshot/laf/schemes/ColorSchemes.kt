@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.laf.api.colorscheme.*
 import java.awt.Color
 
 /**
- * Screenshot robots for Substance color schemes.
+ * Screenshot robots for Radiance color schemes.
  *
  * @author Kirill Grouchnikov
  */

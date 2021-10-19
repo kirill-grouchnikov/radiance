@@ -90,7 +90,7 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  * the custom background color will be used to colorize the check box itself, while the
  * custom foreground color will be applied to the check box text and the check mark.
  *
- * Value of 0.0 of colorization amount results in Substance completely
+ * Value of 0.0 of colorization amount results in Radiance completely
  * **ignoring** the custom application background and foreground colors set on
  * the components - no colorization. Values closer to 1.0 result in almost full usage of the
  * custom application background and foreground colors set on the components. Note that in

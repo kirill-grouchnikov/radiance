@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.tools.screenshot.laf.text
 import org.pushingpixels.radiance.laf.api.skin.*
 
 /**
- * Screenshot robots for Substance text highlights.
+ * Screenshot robots for Radiance text highlights.
  *
  * @author Kirill Grouchnikov
  */

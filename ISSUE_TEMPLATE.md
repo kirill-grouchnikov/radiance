@@ -1,6 +1,6 @@
-### Version of Radiance (latest release is 4.5.0)
+### Version of Radiance (latest development branch is 5.0-SNAPSHOT)
 
-### Sub-project (Common, Animation, Substance, Flamingo, ...)
+### Sub-project (Common, Animation, Laf, Flamingo, ...)
 
 ### Version of Java (current minimum is 9)
 

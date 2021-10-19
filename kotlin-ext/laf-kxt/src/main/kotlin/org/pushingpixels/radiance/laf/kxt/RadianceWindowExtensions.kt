@@ -43,13 +43,13 @@ import javax.swing.SwingUtilities
  * [SwingUtilities.invokeLater] or [GlobalScope.launch(Dispatchers.Swing)]
  *
  * @param visible          Visibility indication.
- * @param substanceWidgets Widget types.
+ * @param radianceWidgets Widget types.
  */
 @RadianceWindowScope
 public fun Window.setWidgetVisible(visible: Boolean,
-        vararg substanceWidgets: RadianceLafSlices.WidgetType
+        vararg radianceWidgets: RadianceLafSlices.WidgetType
 ) {
-    RadianceLafCortex.WindowScope.setWidgetVisible(this, visible, *substanceWidgets)
+    RadianceLafCortex.WindowScope.setWidgetVisible(this, visible, *radianceWidgets)
 }
 
 /**
