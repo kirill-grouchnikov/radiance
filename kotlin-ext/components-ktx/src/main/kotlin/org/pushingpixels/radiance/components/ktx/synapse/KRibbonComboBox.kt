@@ -27,20 +27,20 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.synapse
+package org.pushingpixels.radiance.components.ktx.synapse
 
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.RibbonComboBoxProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.plasma.PlasmaElementMarker
-import org.pushingpixels.plasma.KRichTooltip
-import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
-import org.pushingpixels.plasma.ribbon.KRibbonBand
-import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
-import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
+import org.pushingpixels.radiance.components.ktx.KRichTooltip
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.ribbon.KFlowRibbonBand
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonBand
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonBandGroup
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonTaskbar
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonComboBoxContentModel<T> {
     private val builder = RibbonDefaultComboBoxContentModel.builder<T>()
     private lateinit var javaContentModel: RibbonDefaultComboBoxContentModel<T>
@@ -99,7 +99,7 @@ public class KRibbonComboBoxContentModel<T> {
 
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonComboBox<T> {
     internal var content: KRibbonComboBoxContentModel<T> = KRibbonComboBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()

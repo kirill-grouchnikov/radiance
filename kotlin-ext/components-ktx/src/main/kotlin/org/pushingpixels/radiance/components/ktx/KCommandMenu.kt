@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import org.pushingpixels.radiance.components.api.common.model.Command
 import org.pushingpixels.radiance.components.api.common.model.CommandPanelContentModel
@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.components.api.common.model.CommandButtonPrese
 import org.pushingpixels.radiance.components.api.common.model.CommandMenuContentModel
 import org.pushingpixels.radiance.components.api.common.popup.model.CommandPopupMenuPresentationModel
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
     internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
@@ -68,7 +68,7 @@ public class KCommandPopupMenuButtonPanel {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandMenu {
     private var hasBeenConverted: Boolean = false
 
@@ -100,7 +100,16 @@ public class KCommandMenu {
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null, null))
+        defaultGroup.commands.add(
+            KCommandGroup.CommandConfig(
+                command,
+                actionKeyTip,
+                popupKeyTip,
+                null,
+                null,
+                null
+            )
+        )
         return command
     }
 

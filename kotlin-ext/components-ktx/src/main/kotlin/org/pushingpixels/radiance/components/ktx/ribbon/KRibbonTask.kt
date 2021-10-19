@@ -27,14 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.ribbon
+package org.pushingpixels.radiance.components.ktx.ribbon
 
 import org.pushingpixels.radiance.components.api.ribbon.RibbonTask
 import org.pushingpixels.radiance.components.api.ribbon.resize.RibbonBandResizeSequencingPolicy
-import org.pushingpixels.plasma.PlasmaElementMarker
-import org.pushingpixels.plasma.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonTaskBandContainer {
     internal val bands = arrayListOf<KBaseRibbonBand<*>>()
 
@@ -43,7 +43,7 @@ public class KRibbonTaskBandContainer {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonTask {
     private lateinit var ribbonTask: RibbonTask
     private var hasBeenConverted: Boolean = false

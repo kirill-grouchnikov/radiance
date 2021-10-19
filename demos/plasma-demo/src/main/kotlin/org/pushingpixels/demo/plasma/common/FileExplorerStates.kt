@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.ktx.setDecorationType
 import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
-import org.pushingpixels.plasma.bcb.addDelayedPathListener
+import org.pushingpixels.radiance.components.ktx.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices

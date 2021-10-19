@@ -27,14 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuGroupModel
 import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
 import java.awt.Color
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KColorSelectorPopupMenuColorSection(public val isDerived: Boolean) {
     public var title: String by NonNullDelegate { false }
     internal var colorContainer = ColorContainer()
@@ -44,7 +44,7 @@ public class KColorSelectorPopupMenuColorSection(public val isDerived: Boolean) 
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KColorSelectorPopupMenuRecentSection {
     public var title: String by NonNullDelegate { false }
 }
@@ -53,15 +53,28 @@ public class KColorSelectorPopupMenuGroup {
     internal val content = arrayListOf<Any>()
 
     public operator fun KCommand.unaryPlus() {
-        this@KColorSelectorPopupMenuGroup.content.add(KCommandGroup.CommandConfig(this, null, null,
-                false, false, null))
+        this@KColorSelectorPopupMenuGroup.content.add(
+            KCommandGroup.CommandConfig(
+                this, null, null,
+                false, false, null
+            )
+        )
     }
 
     public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, false, false, null))
+        content.add(
+            KCommandGroup.CommandConfig(
+                command,
+                actionKeyTip,
+                popupKeyTip,
+                false,
+                false,
+                null
+            )
+        )
         return command
     }
 
@@ -117,7 +130,7 @@ public class KColorSelectorPopupMenuGroup {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KColorSelectorPopupMenu {
     public var onColorActivated: ((Color) -> Unit)? by NullableDelegate { false }
     public var onColorPreviewActivated: ((Color) -> Unit)? by NullableDelegate { false }
@@ -132,14 +145,24 @@ public class KColorSelectorPopupMenu {
 
     public operator fun KCommand.unaryPlus() {
         this@KColorSelectorPopupMenu.defaultGroup.content.add(
-                KCommandGroup.CommandConfig(this, null, null, null, null, null))
+            KCommandGroup.CommandConfig(this, null, null, null, null, null)
+        )
     }
 
     public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.content.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, false, false, null))
+        defaultGroup.content.add(
+            KCommandGroup.CommandConfig(
+                command,
+                actionKeyTip,
+                popupKeyTip,
+                false,
+                false,
+                null
+            )
+        )
         return command
     }
 

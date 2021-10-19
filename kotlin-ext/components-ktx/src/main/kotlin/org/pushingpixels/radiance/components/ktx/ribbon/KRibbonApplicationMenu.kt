@@ -27,15 +27,18 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.ribbon
+package org.pushingpixels.radiance.components.ktx.ribbon
 
 import org.pushingpixels.radiance.components.api.common.RichTooltip
 import org.pushingpixels.radiance.components.api.common.model.Command
 import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.components.api.ribbon.RibbonApplicationMenu
-import org.pushingpixels.plasma.*
+import org.pushingpixels.radiance.components.ktx.*
+import org.pushingpixels.radiance.components.ktx.NonNullDelegate
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonApplicationMenu {
     private lateinit var ribbonApplicationMenu: RibbonApplicationMenu
     private var hasBeenConverted: Boolean = false

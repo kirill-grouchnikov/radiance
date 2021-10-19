@@ -27,11 +27,11 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import org.pushingpixels.radiance.components.api.common.JCommandButton
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandButton {
     internal val command: KCommand = KCommand()
     internal val presentation: KCommandButtonPresentation = KCommandButtonPresentation()
@@ -56,7 +56,7 @@ public fun commandButton(init: KCommandButton.() -> Unit): KCommandButton {
     return commandButton
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KColorSelectorCommandButton {
     internal val command: KColorSelectorCommand = KColorSelectorCommand()
     internal val presentation: KColorSelectorCommandPresentation = KColorSelectorCommandPresentation()

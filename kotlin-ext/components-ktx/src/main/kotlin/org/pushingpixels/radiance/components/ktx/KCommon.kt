@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import org.pushingpixels.radiance.components.api.common.RichTooltip
 import org.pushingpixels.radiance.components.api.common.model.CommandToggleGroupModel
@@ -71,11 +71,11 @@ internal class NonNullDelegate<T : Any>(private val shouldBlockUpdates: () -> Bo
     }
 }
 
-// Annotation to control the receiver scoping in the Plasma DSL
+// Annotation to control the receiver scoping in the Radiance DSL
 @DslMarker
-internal annotation class PlasmaElementMarker
+internal annotation class RadianceElementMarker
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class TextContainer {
     internal val strings = arrayListOf<String>()
 
@@ -84,7 +84,7 @@ public class TextContainer {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class ColorContainer {
     internal val colors = arrayListOf<Color>()
 
@@ -93,7 +93,7 @@ public class ColorContainer {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRichTooltip {
     public var title: String? = null
     public var mainIconFactory: Factory? = null

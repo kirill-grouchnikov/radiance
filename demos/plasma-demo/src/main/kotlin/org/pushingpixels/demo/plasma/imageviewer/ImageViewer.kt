@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.components.api.common.CommandButtonPresentatio
 import org.pushingpixels.radiance.components.api.common.StringValuePair
 import org.pushingpixels.radiance.demo.components.icon.ImageWrapperRadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.plasma.bcb.addDelayedPathListener
+import org.pushingpixels.radiance.components.ktx.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices

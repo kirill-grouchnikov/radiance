@@ -27,23 +27,23 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.synapse
+package org.pushingpixels.radiance.components.ktx.synapse
 
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonSpinnerDateContentModel
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.RibbonSpinnerProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.plasma.PlasmaElementMarker
-import org.pushingpixels.plasma.KRichTooltip
-import org.pushingpixels.plasma.NonNullDelegate
-import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
-import org.pushingpixels.plasma.ribbon.KRibbonBand
-import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
-import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
+import org.pushingpixels.radiance.components.ktx.KRichTooltip
+import org.pushingpixels.radiance.components.ktx.NonNullDelegate
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.ribbon.KFlowRibbonBand
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonBand
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonBandGroup
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonTaskbar
 import java.util.*
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonSpinnerNumberContentModel {
     private val builder = RibbonSpinnerNumberContentModel.builder()
     internal lateinit var javaContentModel: RibbonSpinnerNumberContentModel
@@ -106,7 +106,7 @@ public class KRibbonSpinnerNumberContentModel {
 
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonSpinnerNumber {
     internal var content: KRibbonSpinnerNumberContentModel = KRibbonSpinnerNumberContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
@@ -163,7 +163,7 @@ public fun KRibbonTaskbar.spinnerNumber(init: KRibbonSpinnerNumber.() -> Unit) {
     this.component(ribbonSpinner.toJavaProjection())
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonSpinnerDateContentModel {
     private val builder = RibbonSpinnerDateContentModel.builder()
     internal lateinit var javaContentModel: RibbonSpinnerDateContentModel
@@ -224,7 +224,7 @@ public class KRibbonSpinnerDateContentModel {
 
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonSpinnerDate {
     internal var content: KRibbonSpinnerDateContentModel = KRibbonSpinnerDateContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()

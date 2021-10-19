@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.ribbon
+package org.pushingpixels.radiance.components.ktx.ribbon
 
 import org.pushingpixels.radiance.components.api.common.model.Command
 import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
@@ -42,12 +42,15 @@ import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonTaskbar
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.plasma.*
+import org.pushingpixels.radiance.components.ktx.*
+import org.pushingpixels.radiance.components.ktx.NonNullDelegate
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
 import java.awt.Color
 import javax.swing.JComponent
 import javax.swing.KeyStroke
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonTaskContainer {
     internal val tasks = arrayListOf<KRibbonTask>()
 
@@ -56,7 +59,7 @@ public class KRibbonTaskContainer {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonTaskbar {
     internal val components = arrayListOf<Any>()
 
@@ -88,7 +91,7 @@ public class KRibbonTaskbar {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonContextualTaskContainer {
     public var title: String by NonNullDelegate { false }
     public var color: Color by NonNullDelegate { false }
@@ -99,7 +102,7 @@ public class KRibbonContextualTaskContainer {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonContextualTaskGroupContainer {
     internal val taskGroups = arrayListOf<KRibbonContextualTaskContainer>()
 
@@ -121,7 +124,7 @@ public data class RibbonKeyboardAction(
     val command: KCommand
 )
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonKeyboardActions {
     internal val keyboardActions = arrayListOf<RibbonKeyboardAction>()
 
@@ -130,7 +133,7 @@ public class KRibbonKeyboardActions {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonFrame {
     public var title: String? by NullableDelegate { hasBeenConverted }
     public var applicationIconFactory: Factory? by NullableDelegate { hasBeenConverted }

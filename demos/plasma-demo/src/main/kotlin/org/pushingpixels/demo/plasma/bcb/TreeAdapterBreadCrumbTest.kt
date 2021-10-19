@@ -36,7 +36,7 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.plasma.RadianceLogo
 import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbTreeAdapterSelector
-import org.pushingpixels.plasma.bcb.addDelayedPathListener
+import org.pushingpixels.radiance.components.ktx.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices

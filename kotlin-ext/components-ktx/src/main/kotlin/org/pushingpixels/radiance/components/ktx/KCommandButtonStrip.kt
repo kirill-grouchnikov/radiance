@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.components.api.common.model.CommandGroup
@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.components.api.common.projection.CommandStripP
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import javax.swing.JComponent
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandButtonStripPresentation {
     public var orientation: CommandStripPresentationModel.StripOrientation =
         CommandStripPresentationModel.StripOrientation.HORIZONTAL
@@ -66,7 +66,7 @@ public class KCommandButtonStripPresentation {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandStrip(private val isToggleGroup: Boolean) {
     private val commandConfigs = arrayListOf<KCommandGroup.CommandConfig>()
     internal val presentation: KCommandButtonStripPresentation = KCommandButtonStripPresentation()

@@ -27,26 +27,31 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.synapse
+package org.pushingpixels.radiance.components.ktx.bcb
 
-import org.pushingpixels.radiance.components.api.common.HorizontalAlignment
-import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentPresentationModel
-import org.pushingpixels.plasma.PlasmaElementMarker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
+import org.pushingpixels.radiance.components.api.bcb.BreadcrumbBarModel
+import org.pushingpixels.radiance.components.api.bcb.BreadcrumbPathEvent
+import org.pushingpixels.radiance.components.api.bcb.BreadcrumbPathListener
 
-@PlasmaElementMarker
-public open class KComponentPresentation {
-    public var isFlat: Boolean = true
-    public var horizontalAlignment: HorizontalAlignment = HorizontalAlignment.FILL
-    public var isResizingAware: Boolean = false
-    public var keyTip: String? = null
+public fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) -> Unit): BreadcrumbPathListener<T> {
+    return BreadcrumbPathListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
+    }
+}
 
-    internal fun toComponentPresentation(): ComponentPresentationModel {
-        val result = ComponentPresentationModel.builder()
-                .setFlat(isFlat)
-                .setHorizontalAlignment(horizontalAlignment)
-                .setResizingAware(isResizingAware)
-                .setKeyTip(keyTip)
-
-        return result.build()
+// Ideally this should be inline with crossinline listener parameter, but it crashes
+// with "kotlin.coroutines.intrinsics.CoroutineSingletons cannot be cast to java.base/java.util.List"
+// exception
+public fun <T> BreadcrumbBarModel<T>.addDelayedPathListener(listener: suspend (BreadcrumbPathEvent<T>) -> Unit) {
+    this.addPathListener { event ->
+        GlobalScope.launch(Dispatchers.Swing) {
+            listener.invoke(event)
+        }
     }
 }

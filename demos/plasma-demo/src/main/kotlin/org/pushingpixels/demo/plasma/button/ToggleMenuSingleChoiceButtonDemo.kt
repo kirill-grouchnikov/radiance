@@ -38,9 +38,9 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
 import org.pushingpixels.demo.plasma.svg.Format_justify_right
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
-import org.pushingpixels.plasma.commandButton
-import org.pushingpixels.plasma.commandPopupMenu
-import org.pushingpixels.plasma.commandToggleGroup
+import org.pushingpixels.radiance.components.ktx.commandButton
+import org.pushingpixels.radiance.components.ktx.commandPopupMenu
+import org.pushingpixels.radiance.components.ktx.commandToggleGroup
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension

@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.components.api.common.JCommandButton
@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.components.api.common.model.CommandButtonPrese
 import org.pushingpixels.radiance.components.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandButtonPanelPresentation {
     public var maxColumns: Int = -1
     public var maxRows: Int = -1
@@ -72,7 +72,7 @@ public class KCommandButtonPanelPresentation {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandButtonPanel {
     public class KCommandButtonPanelGroup {
         public var title: String by NonNullDelegate { false }

@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.ribbon
+package org.pushingpixels.radiance.components.ktx.ribbon
 
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.components.api.common.model.Command
@@ -35,13 +35,13 @@ import org.pushingpixels.radiance.components.api.common.model.CommandButtonPrese
 import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryContentModel
 import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryPresentationModel
-import org.pushingpixels.plasma.PlasmaElementMarker
-import org.pushingpixels.plasma.KCommand
-import org.pushingpixels.plasma.KCommandGroup
-import org.pushingpixels.plasma.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
+import org.pushingpixels.radiance.components.ktx.KCommand
+import org.pushingpixels.radiance.components.ktx.KCommandGroup
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class GalleryCommandVisibilityContainer {
     internal val policies = arrayListOf<Pair<Int, PresentationPriority>>()
 
@@ -50,7 +50,7 @@ public class GalleryCommandVisibilityContainer {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonGalleryPresentation {
     public var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
     public var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
@@ -76,7 +76,7 @@ public class KRibbonGalleryPresentation {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonGalleryContent {
     private var hasBeenConverted: Boolean = false
     private lateinit var javaRibbonGalleryContentModel: RibbonGalleryContentModel
@@ -107,7 +107,8 @@ public class KRibbonGalleryContent {
 
         val command = KCommand()
         command.init()
-        extraPopupDefaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
+        extraPopupDefaultGroup.commands.add(
+            KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip,
                 null, null, null))
         return command
     }
@@ -172,7 +173,7 @@ public class KRibbonGalleryContent {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonGallery {
     public var content: KRibbonGalleryContent = KRibbonGalleryContent()
     internal val presentation: KRibbonGalleryPresentation = KRibbonGalleryPresentation()

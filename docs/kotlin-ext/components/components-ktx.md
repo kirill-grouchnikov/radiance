@@ -1,4 +1,4 @@
-## Plasma - Kotlin DSL for Flamingo components
+## Kotlin DSL for Flamingo components
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for build instructions of the latest stable release.
 
@@ -26,7 +26,7 @@ styleStripProjection.setCommandOverlays(styleOverlays);
 JCommandButtonStrip buttonStrip = styleStripProjection.buildComponent();
 ```
 
-And here is how the same code would look like in Kotlin using the Plasma-provided DSL:
+And here is how the same code would look like in Kotlin using the Radiance-provided DSL:
 
 ```kotlin
 commandButtonStrip {
@@ -43,7 +43,7 @@ commandButtonStrip {
 }
 ```
 
-Plasma provides DSL constructs for the following Flamingo components:
+DSL constructs for the following Flamingo components are available:
 
 * `JCommandButton`
 * `JCommandButtonPanel`

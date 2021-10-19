@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.ribbon
+package org.pushingpixels.radiance.components.ktx.ribbon
 
 import org.pushingpixels.radiance.components.api.common.CommandAction
 import org.pushingpixels.radiance.components.api.common.CommandActionEvent
@@ -41,11 +41,13 @@ import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGallery
 import org.pushingpixels.radiance.components.api.ribbon.resize.RibbonBandResizePolicy
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection
-import org.pushingpixels.plasma.*
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
+import org.pushingpixels.radiance.components.ktx.*
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
 import javax.swing.JComponent
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonBandExpandCommand {
     public var action: ((event: CommandActionEvent) -> Unit)? by NullableDelegate { false }
     internal var richTooltip: KRichTooltip? by NullableDelegate { false }
@@ -81,7 +83,7 @@ public sealed class KBaseRibbonBand<T : AbstractRibbonBand> {
     internal abstract fun asJavaRibbonBand(): AbstractRibbonBand
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonBandGroup {
     public var title: String? by NullableDelegate { false }
 
@@ -101,7 +103,8 @@ public class KRibbonBandGroup {
     public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
                        isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
                        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-                       command: KCommand) {
+                       command: KCommand
+    ) {
         content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
                 isTextClickSecondary, popupHorizontalGravity)))
     }
@@ -118,7 +121,7 @@ public class KRibbonBandGroup {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     private val groups = arrayListOf<KRibbonBandGroup>()
     private val defaultGroup = KRibbonBandGroup()
@@ -158,7 +161,8 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
                        isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
                        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-                       command: KCommand) {
+                       command: KCommand
+    ) {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
@@ -279,7 +283,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
     private val components = arrayListOf<Any>()
 

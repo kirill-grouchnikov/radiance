@@ -40,7 +40,7 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_right
 import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.radiance.swing.ktx.swing.AlignType
 import org.pushingpixels.radiance.swing.ktx.swing.setAlignment
-import org.pushingpixels.plasma.commandToggleButtonStrip
+import org.pushingpixels.radiance.components.ktx.commandToggleButtonStrip
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin
 import java.awt.BorderLayout

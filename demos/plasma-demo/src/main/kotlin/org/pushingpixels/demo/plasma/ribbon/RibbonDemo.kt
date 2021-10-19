@@ -70,9 +70,9 @@ import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.plasma.*
-import org.pushingpixels.plasma.ribbon.*
-import org.pushingpixels.plasma.synapse.*
+import org.pushingpixels.radiance.components.ktx.*
+import org.pushingpixels.radiance.components.ktx.ribbon.*
+import org.pushingpixels.radiance.components.ktx.synapse.*
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*

@@ -38,9 +38,9 @@ dependencies {
     implementation project(':common')
     implementation project(':theming')
     implementation project(':components')
-    implementation project(':kotlin-ext:plasma')
-    implementation project(':kotlin-ext:theming-ktx')
     implementation project(':kotlin-ext:swing-ktx')
+    implementation project(':kotlin-ext:theming-ktx')
+    implementation project(':kotlin-ext:components-ktx')
     implementation project(':demos:components-demo')
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"

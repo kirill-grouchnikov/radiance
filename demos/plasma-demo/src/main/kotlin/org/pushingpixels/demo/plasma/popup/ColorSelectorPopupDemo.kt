@@ -41,10 +41,10 @@ import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.plasma.DelayedCommandListener
-import org.pushingpixels.plasma.KColorSelectorCommand
-import org.pushingpixels.plasma.colorSelectorCommandButton
-import org.pushingpixels.plasma.colorSelectorPopupMenu
+import org.pushingpixels.radiance.components.ktx.DelayedCommandListener
+import org.pushingpixels.radiance.components.ktx.KColorSelectorCommand
+import org.pushingpixels.radiance.components.ktx.colorSelectorCommandButton
+import org.pushingpixels.radiance.components.ktx.colorSelectorPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*

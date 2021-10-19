@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma
+package org.pushingpixels.radiance.components.ktx
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -47,7 +47,7 @@ import org.pushingpixels.radiance.components.api.common.projection.CommandButton
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public open class KCommand {
     private val builder = Command.builder()
     internal lateinit var javaCommand: Command
@@ -300,7 +300,7 @@ public fun command(init: KCommand.() -> Unit): KCommand {
     return command
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KColorSelectorCommand : KCommand() {
     public var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
     private val colorSelectorBuilder = ColorSelectorCommand.colorSelectorBuilder()
@@ -332,7 +332,7 @@ public fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorS
     return colorSelectorCommand
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public open class KCommandButtonPresentation {
     public var presentationState: CommandButtonPresentationState =
         CommandButtonPresentationState.FIT_TO_ICON
@@ -399,7 +399,7 @@ public open class KCommandButtonPresentation {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     public var colorColumns: Int = 10
     public var menuPresentationState: CommandButtonPresentationState =
@@ -427,7 +427,7 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     }
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KCommandGroup {
     public var title: String? by NullableDelegate { false }
     internal val commands = arrayListOf<CommandConfig>()

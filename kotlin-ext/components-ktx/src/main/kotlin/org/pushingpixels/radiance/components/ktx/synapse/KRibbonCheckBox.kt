@@ -27,21 +27,21 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.plasma.synapse
+package org.pushingpixels.radiance.components.ktx.synapse
 
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonCheckBoxContentModel
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.RibbonCheckBoxProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.plasma.PlasmaElementMarker
-import org.pushingpixels.plasma.KRichTooltip
-import org.pushingpixels.plasma.NullableDelegate
-import org.pushingpixels.plasma.ribbon.KFlowRibbonBand
-import org.pushingpixels.plasma.ribbon.KRibbonBand
-import org.pushingpixels.plasma.ribbon.KRibbonBandGroup
-import org.pushingpixels.plasma.ribbon.KRibbonTaskbar
+import org.pushingpixels.radiance.components.ktx.RadianceElementMarker
+import org.pushingpixels.radiance.components.ktx.KRichTooltip
+import org.pushingpixels.radiance.components.ktx.NullableDelegate
+import org.pushingpixels.radiance.components.ktx.ribbon.KFlowRibbonBand
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonBand
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonBandGroup
+import org.pushingpixels.radiance.components.ktx.ribbon.KRibbonTaskbar
 import java.awt.event.ActionEvent
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonCheckBoxContentModel {
     private val builder = RibbonCheckBoxContentModel.builder()
     internal lateinit var javaContentModel: RibbonCheckBoxContentModel
@@ -110,7 +110,7 @@ public class KRibbonCheckBoxContentModel {
 
 }
 
-@PlasmaElementMarker
+@RadianceElementMarker
 public class KRibbonCheckBox {
     internal var content: KRibbonCheckBoxContentModel = KRibbonCheckBoxContentModel()
     internal val presentation: KComponentPresentation = KComponentPresentation()
