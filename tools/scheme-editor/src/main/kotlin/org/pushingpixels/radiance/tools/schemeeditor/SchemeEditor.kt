@@ -34,7 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.theming.kxt.setContentsModified
+import org.pushingpixels.radiance.theming.ktx.setContentsModified
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedWindowListener
 import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener

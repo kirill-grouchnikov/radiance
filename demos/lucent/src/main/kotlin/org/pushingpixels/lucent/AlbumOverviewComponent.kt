@@ -38,8 +38,8 @@ import org.pushingpixels.meteor.addDelayedComponentListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.animation.kxt.componentTimeline
-import org.pushingpixels.radiance.animation.kxt.from
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
 import org.pushingpixels.radiance.animation.api.TimelineRunnable
 import org.pushingpixels.radiance.animation.api.TimelineScenario

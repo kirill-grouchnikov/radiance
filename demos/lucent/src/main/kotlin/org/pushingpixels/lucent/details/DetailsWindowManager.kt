@@ -32,8 +32,8 @@ package org.pushingpixels.lucent.details
 import org.pushingpixels.lucent.LucentUtils
 import org.pushingpixels.lucent.MainWindow
 import org.pushingpixels.lucent.data.SearchResultRelease
-import org.pushingpixels.radiance.animation.kxt.RadianceWindow
-import org.pushingpixels.radiance.animation.kxt.windowTimeline
+import org.pushingpixels.radiance.animation.ktx.RadianceWindow
+import org.pushingpixels.radiance.animation.ktx.windowTimeline
 import java.awt.Color
 
 /**

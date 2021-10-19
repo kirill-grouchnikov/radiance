@@ -36,7 +36,7 @@ To locally copy these dependencies (in case you do not want to pull them at buil
 For a more detailed tree of dependencies, run `./gradlew photon:dependencies` - substituting the relevant module name.
 
 Third-party dependencies of core Radiance libraries are kept to a minimum:
-* **Common**, **Animation**, **Laf** and **Flamingo** are self-contained within Radiance.
-* Kotlin libraries (**Laf-kxt**, **Meteor**, **Plasma**, **Torch**) require Kotlin [standard library](https://kotlinlang.org/api/latest/jvm/stdlib/) and [coroutines library](https://github.com/Kotlin/kotlinx.coroutines).
+* **Common**, **Animation**, **Theming** and **Flamingo** are self-contained within Radiance.
+* Kotlin libraries (**Animation-ktx**, **Meteor**, **Plasma**, **Theming-ktx**) require Kotlin [standard library](https://kotlinlang.org/api/latest/jvm/stdlib/) and [coroutines library](https://github.com/Kotlin/kotlinx.coroutines).
 
 Radiance demos and tools rely on a number of third-party libraries, mainly [FormLayout](http://www.jgoodies.com/freeware/libraries/forms/) from [JGoodies](http://www.jgoodies.com/), and [Retrofit2](https://square.github.io/retrofit/) from Square, as well as [Apache Batik](https://xmlgraphics.apache.org/batik/) for Photon. Those dependencies can be seen in the relevant `build.gradle` files.

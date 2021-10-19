@@ -36,8 +36,8 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.animation.kxt.RadianceComponent
-import org.pushingpixels.radiance.animation.kxt.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.RadianceComponent
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.api.Timeline
 import java.awt.Color
 import java.awt.Dimension

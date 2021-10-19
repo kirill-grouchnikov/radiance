@@ -35,9 +35,9 @@ import org.pushingpixels.meteor.addDelayedHierarchyListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.radiance.animation.kxt.RadianceComponent
-import org.pushingpixels.radiance.animation.kxt.componentTimeline
-import org.pushingpixels.radiance.animation.kxt.from
+import org.pushingpixels.radiance.animation.ktx.RadianceComponent
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import javax.swing.JButton

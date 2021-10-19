@@ -33,9 +33,9 @@ import org.pushingpixels.lucent.BackendConnector
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.data.Track
 import org.pushingpixels.meteor.awt.MeteorLayoutManager
-import org.pushingpixels.radiance.animation.kxt.componentTimeline
-import org.pushingpixels.radiance.animation.kxt.from
-import org.pushingpixels.radiance.animation.kxt.fromCurrentTo
+import org.pushingpixels.radiance.animation.ktx.componentTimeline
+import org.pushingpixels.radiance.animation.ktx.from
+import org.pushingpixels.radiance.animation.ktx.fromCurrentTo
 import org.pushingpixels.radiance.animation.api.TimelineRunnable
 import org.pushingpixels.radiance.animation.api.TimelineScenario
 import org.pushingpixels.radiance.animation.api.swing.TimelineSwingWorker

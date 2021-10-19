@@ -38,7 +38,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     implementation project(':animation')
-    implementation project(':kotlin-ext:animation-kxt')
+    implementation project(':kotlin-ext:animation-ktx')
     implementation project(':kotlin-ext:meteor')
     implementation project(':common')
 }

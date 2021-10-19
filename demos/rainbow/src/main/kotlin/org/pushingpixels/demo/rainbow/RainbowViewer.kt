@@ -42,7 +42,7 @@ import org.jdesktop.jxlayer.plaf.ext.SpotLightUI
 import org.pushingpixels.demo.rainbow.svg.ic_search_black_24px
 import org.pushingpixels.demo.rainbow.svg.ic_zoom_in_black_24px
 import org.pushingpixels.demo.rainbow.svg.ic_zoom_out_black_24px
-import org.pushingpixels.radiance.theming.kxt.setDecorationType
+import org.pushingpixels.radiance.theming.ktx.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.ProgressEvent
 import org.pushingpixels.flamingo.api.layout.TransitionLayout

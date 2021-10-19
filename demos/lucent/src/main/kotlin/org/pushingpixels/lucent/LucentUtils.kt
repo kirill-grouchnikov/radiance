@@ -30,8 +30,8 @@
 package org.pushingpixels.lucent
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.animation.kxt.RadianceWindow
-import org.pushingpixels.radiance.animation.kxt.windowTimeline
+import org.pushingpixels.radiance.animation.ktx.RadianceWindow
+import org.pushingpixels.radiance.animation.ktx.windowTimeline
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.Window
