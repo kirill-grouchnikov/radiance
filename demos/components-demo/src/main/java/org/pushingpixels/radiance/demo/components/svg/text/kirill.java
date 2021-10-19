@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.Base64;
 import java.util.Stack;
 import javax.imageio.ImageIO;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;

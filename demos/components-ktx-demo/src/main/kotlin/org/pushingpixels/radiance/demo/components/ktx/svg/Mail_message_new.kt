@@ -1,4 +1,4 @@
-package org.pushingpixels.radiance.demo.components.ktx.svg
+package org.pushingpixels.demo.demo.components.ktx.svg
 
 import java.awt.*
 import java.awt.geom.*
