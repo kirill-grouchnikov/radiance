@@ -1,10 +1,10 @@
-## Lightbeam - measuring performance of Swing look-and-feels
+## LAF Benchmark - measuring performance of Swing look-and-feels
 
 This Radiance module is targeted at Swing look-and-feel developers that wish to test the performance of their libraries.
 
-LightBeam has a collection of static and dynamic scenarios that are targeting different core Swing components and different interaction scenarios. The static scenarios create a number of components and then render the main frame onto an offscreen buffer. The dynamic scenarios run a number of typical interaction scenarios that involve changing the components or models.
+It is a collection of static and dynamic scenarios that are targeting different core Swing components and different interaction scenarios. The static scenarios create a number of components and then render the main frame onto an offscreen buffer. The dynamic scenarios run a number of typical interaction scenarios that involve changing the components or models.
 
-First, run the following Gradle commands locally to build Lightbeam as part of Radiance and collect the necessary jar files:
+First, run the following Gradle commands locally to build LAF Benchmark as part of Radiance and collect the necessary jar files:
 
 * `gradlew`
 * `gradlew copyJars`
