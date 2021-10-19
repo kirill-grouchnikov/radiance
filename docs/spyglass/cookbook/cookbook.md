@@ -8,7 +8,7 @@ The [Cookbook demo app](https://github.com/kirill-grouchnikov/radiance/tree/suns
 * [Step 4](04-skin.md) is to implement the full skin
 * [Step 5](05-polish.md) is to polish the visuals
 
-The customization layer of Radiance (especially the [painters](../../laf/painters/overview.md)) aims to create a customizable and powerful separation between painting layer and the rest of the application code (business logic such as persistence, authentication, communication and more). In this separation, Radiance allows working on the application visuals as a separate work flow (although the process of mapping the application areas to Swing and Radiance may require closer cooperation with implementing the actual UI container structure).
+The customization layer of Radiance (especially the [painters](../../theming/painters/overview.md)) aims to create a customizable and powerful separation between painting layer and the rest of the application code (business logic such as persistence, authentication, communication and more). In this separation, Radiance allows working on the application visuals as a separate work flow (although the process of mapping the application areas to Swing and Radiance may require closer cooperation with implementing the actual UI container structure).
 
 The ideal end result of this process is a self-contained implementation of the application skin that can be:
 
@@ -26,5 +26,5 @@ An important question that needs to be addressed is: why do you need to do it wi
 * Performance of Radiance is on par with the core look-and-feels. If your painting code is making heavy use of Java2D and images, you will need to provide a sophisticated caching layer to make sure that the UI remains responsive.
 * The same Radiance skin can be reused across multiple portfolio applications. Embedding custom painting code in your UI components may result in a code that is harder to refactor into reusable building blocks.
 * Radiance provides [animation effects](../../animation/animations.md) (rollover, selection, others) out of the box. These effects add a modern touch expected from visually rich applications.
-* Radiance provides a well-defined [plugin mechanism](../../laf/plugin.md) to support third-party components.
+* Radiance provides a well-defined [plugin mechanism](../../theming/plugin.md) to support third-party components.
 * Radiance makes your applications safer by [checking EDT violations](https://www.pushing-pixels.org/2008/07/15/stricter-checks-on-edt-violations-in-substance.html) during the UI construction.

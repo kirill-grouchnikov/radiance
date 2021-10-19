@@ -22,7 +22,7 @@ If the UI design is done in a pixel-based tool (such as Photoshop), the most obv
 
 This phase will take you further away from the pure design to the limitations of Radiance. If you are not familiar with the concept of decoration areas and painters in Radiance, please first read the following documentation:
 
-* [Decoration painters](../../laf/painters/decoration.md)
+* [Decoration painters](../../theming/painters/decoration.md)
 * `RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType()` API.
 * `RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType()` API.
 
@@ -32,7 +32,7 @@ As the documentation of `setDecorationType()` specifies, the passed decoration a
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/02-map/original-searchfield.png" width="450" border=0/>
 
-This screenshot shows a footer bar of the recipe list panel. As you can see, while the add / remove buttons are using the same colors as the footer bar itself, the text field is skinned with a different color scheme. In Radiance API, you would mark the footer bar with `FOOTER` and the search text field with `NONE`. All the buttons would get the `FOOTER` from their parent (footer bar), while the search text field will use the [color scheme bundle](../../laf/skins/colorschemebundles.md) of the `NONE` decoration area type.
+This screenshot shows a footer bar of the recipe list panel. As you can see, while the add / remove buttons are using the same colors as the footer bar itself, the text field is skinned with a different color scheme. In Radiance API, you would mark the footer bar with `FOOTER` and the search text field with `NONE`. All the buttons would get the `FOOTER` from their parent (footer bar), while the search text field will use the [color scheme bundle](../../theming/skins/colorschemebundles.md) of the `NONE` decoration area type.
 
 While not necessarily required, it is useful to remember that most core (and supported third-party) components are already marked to belong to a specific Radiance decoration area. This comes especially handy for the header application area. The header portion of Cookbook UI can be mapped to a decorated title pane (`PRIMARY_TITLE_PANE` type) and an unfloatable toolbar (`TOOLBAR` type). While not necessarily required, reusing existing Swing components will make the implementation part easier.
 
@@ -42,7 +42,7 @@ What is another usage of using different decoration area types on a parent compo
 
 There is a clear visual continuation between the category list and recipe list as far as the decoration areas go. The textures (dark mahogany and golden brush) flow seamlessly across the boundaries of the functional areas, and the top bar with evenly-spaced diffused lights further enforces this continuation. The final polish comes from the vertical separator that uses matching colors in the different decoration areas.
 
-If, for the reasons stated above, you have decided to build your Swing container hierarchy based on the application functional areas, you can use the matching Radiance decoration area types on the specific sub-panels (without mixing the different types in the same hierarchy path). However, using the `setDecorationType()` API is only one part of the implementation. The second part comes from your custom [decoration painter](../../laf/painters/decoration.md) that is implementing the painting itself. While this topic is subject of the next phase, the ease of implementation is going to dictate mixing different decoration area types as shown in the next section.
+If, for the reasons stated above, you have decided to build your Swing container hierarchy based on the application functional areas, you can use the matching Radiance decoration area types on the specific sub-panels (without mixing the different types in the same hierarchy path). However, using the `setDecorationType()` API is only one part of the implementation. The second part comes from your custom [decoration painter](../../theming/painters/decoration.md) that is implementing the painting itself. While this topic is subject of the next phase, the ease of implementation is going to dictate mixing different decoration area types as shown in the next section.
 
 ### Swing containers and Radiance decoration areas
 

@@ -26,7 +26,7 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Animation](docs/animation/animation.md) provides powerful and flexible animation APIs that scale from simple, single-property cases to complex scenarios that involve multiple animations. It powers all animations in the Radiance libraries.
 
-### Laf
+### Theming
 
 [Theming](docs/theming/overview.md) provides a comprehensive set of APIs for skinning Swing applications, addressing the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a flexible API surface for rendering third-party / application components.
 
@@ -58,7 +58,7 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 * [Laf Benchmark](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
-* [Laf Debugger](docs/tools/lafdebugger/lafdebugger.md) is a visual runtime debugger for Radiance Laf.
+* [Theming Debugger](docs/tools/theming-debugger/theming-debugger.md) is a visual runtime debugger for Radiance look-and-feel.
 
 * [Scheme Editor](docs/tools/schemeeditor/schemeeditor.md) is a tool for creating and editing color scheme lists.
 
@@ -96,7 +96,7 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 
 ### Tools artifacts
 
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/lafdebugger/lafdebugger.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/theming-debugger/theming-debugger.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/tools/svgtranscoder/svgtranscoder.md)
 
