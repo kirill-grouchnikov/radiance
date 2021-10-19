@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.lucent.content
 
-import org.pushingpixels.meteor.addDelayedHierarchyListener
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.addDelayedHierarchyListener
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.ktx.from

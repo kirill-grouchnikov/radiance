@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.tools.schemeeditor
 
-import org.pushingpixels.meteor.addDelayedMouseListener
-import org.pushingpixels.meteor.awt.MeteorLayoutManager
-import org.pushingpixels.meteor.awt.deriveByBrightness
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
+import org.pushingpixels.radiance.swing.ktx.awt.RadianceLayoutManager
+import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
@@ -68,23 +68,23 @@ class JColorComponent(name: String, color: Color?) : JComponent() {
         this.radio.isFocusable = false
         this.color = color
         this.visualizer = ColorVisualizer()
-        this.layout = MeteorLayoutManager(
-                getPreferredSize = { parent ->
-                    val colorComponent = parent as JColorComponent
-                    val colorVisualizer = colorComponent.visualizer
-                    val cvPref = colorVisualizer.preferredSize
-                    Dimension(100 + cvPref.width, cvPref.height)
-                },
-                onLayout = { parent ->
-                    val jColorComponent = parent as JColorComponent
-                    val width = jColorComponent.width
-                    val height = jColorComponent.height
+        this.layout = RadianceLayoutManager(
+            getPreferredSize = { parent ->
+                val colorComponent = parent as JColorComponent
+                val colorVisualizer = colorComponent.visualizer
+                val cvPref = colorVisualizer.preferredSize
+                Dimension(100 + cvPref.width, cvPref.height)
+            },
+            onLayout = { parent ->
+                val jColorComponent = parent as JColorComponent
+                val width = jColorComponent.width
+                val height = jColorComponent.height
 
-                    val colorVisualizer = jColorComponent.visualizer
-                    val cvPref = colorVisualizer.preferredSize
-                    colorVisualizer.setBounds(width - cvPref.width, 0, cvPref.width, height)
-                    jColorComponent.radio.setBounds(0, 0, width - cvPref.width, height)
-                })
+                val colorVisualizer = jColorComponent.visualizer
+                val cvPref = colorVisualizer.preferredSize
+                colorVisualizer.setBounds(width - cvPref.width, 0, cvPref.width, height)
+                jColorComponent.radio.setBounds(0, 0, width - cvPref.width, height)
+            })
 
         this.add(this.radio)
         this.add(this.visualizer)

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.tools.schemeeditor
 
-import org.pushingpixels.meteor.addDelayedActionListener
-import org.pushingpixels.meteor.awt.windowAncestor
-import org.pushingpixels.meteor.swing.*
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
+import org.pushingpixels.radiance.swing.ktx.awt.windowAncestor
+import org.pushingpixels.radiance.swing.ktx.swing.*
 import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceSkin.ColorSchemes
 import org.pushingpixels.radiance.theming.api.colorscheme.BaseDarkColorScheme

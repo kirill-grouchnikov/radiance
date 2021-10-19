@@ -32,9 +32,9 @@ package org.pushingpixels.lucent.content
 import org.pushingpixels.lucent.AlbumOverviewComponent
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.details.DetailsWindowManager
-import org.pushingpixels.meteor.addDelayedMouseListener
-import org.pushingpixels.meteor.swing.KeyboardActionScopeType
-import org.pushingpixels.meteor.swing.wireActionToKeyStrokes
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
+import org.pushingpixels.radiance.swing.ktx.swing.KeyboardActionScopeType
+import org.pushingpixels.radiance.swing.ktx.swing.wireActionToKeyStrokes
 import java.awt.Graphics
 import java.util.*
 import javax.swing.KeyStroke

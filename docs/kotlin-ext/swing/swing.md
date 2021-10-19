@@ -1,4 +1,4 @@
-## Meteor - Kotlin extensions for core Swing APIs
+## Kotlin extensions for core Swing APIs
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for build instructions of the latest stable release.
 
@@ -131,7 +131,7 @@ this.colorSchemeList.addTypedDelayedPropertyChangeListener<Boolean>(
 }
 ```
 
-Here we use Meteor's typed property change listener to introduce type safety into querying the property value. For type completeness and null safety we use Kotlin's elvis operator to fall back on `false`.
+Here we use Radiance's typed property change listener to introduce type safety into querying the property value. For type completeness and null safety we use Kotlin's elvis operator to fall back on `false`.
 
 In addition, note the use of `::isModified` to make sure that both sides of the property change processing use the same underlying property name that will play well with codebase renaming and refactoring.
 
@@ -162,7 +162,7 @@ popupMenu.add(object : AbstractAction("remove") {
 })
 ```
 
-And with Meteor it looks like this:
+And with Radiance it looks like this:
 
 ```kotlin
 val popupMenu = JPopupMenu()
@@ -195,7 +195,7 @@ am.put("escape", new AbstractAction() {
 });
 ```
 
-And with Meteor it becomes a streamlined, compact expression:
+And with Radiance it becomes a streamlined, compact expression:
 
 ```kotlin
 this.captionEditor = JTextField(25)
@@ -248,10 +248,10 @@ contentPane.setLayout(new LayoutManager() {
 
 There's a lot of boilerplate that is added to just implement the `LayoutManager` interface, even if you only have custom logic for the `layoutContainer` method.
 
-Here is how it looks like in Meteor:
+Here is how it looks like in Radiance:
 
 ```kotlin
-contentPane.layout = MeteorLayoutManager(
+contentPane.layout = RadianceLayoutManager(
         onLayout = {
             val closeButtonDim = 35
             closeButton.setBounds(width - closeButtonDim, 0,
@@ -263,7 +263,7 @@ contentPane.layout = MeteorLayoutManager(
 For a slightly more complex logic that needs to compute the preferred size:
 
 ```kotlin
-this.layout = MeteorLayoutManager(
+this.layout = RadianceLayoutManager(
         getPreferredSize = { parent ->
             ...  // compute preferred width and height
             Dimension(myPreferredWidth, myPreferredHeight)
@@ -292,7 +292,7 @@ public void paintIcon(Component c, Graphics g, int x, int y) {
 }
 ```
 
-And here is how the same code looks like with the Meteor-provided `Graphics.render` extension:
+And here is how the same code looks like with the Radiance-provided `Graphics.render` extension:
 
 ```kotlin
 override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {

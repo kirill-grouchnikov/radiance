@@ -29,87 +29,68 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.awt
+package org.pushingpixels.radiance.swing.ktx.awt
 
-import java.awt.Rectangle
-import java.awt.geom.Rectangle2D
+import java.awt.Point
+import java.awt.geom.Point2D
 
 /**
- * Returns the X component of the rectangle. This method enables the usage of destructuring
+ * Returns the X component of the point. This method enables the usage of destructuring
  * declarations such as:
  *
  * ```
- * val (x, y, width, height) = rectangle
+ * val (x, y) = point
  * ```
  */
-public inline operator fun Rectangle.component1(): Int = this.x
+public inline operator fun Point.component1(): Int = this.x
 
 /**
- * Returns the Y component of the rectangle. This method enables the usage of destructuring
+ * Returns the Y component of the point. This method enables the usage of destructuring
  * declarations such as:
  *
  * ```
- * val (x, y, width, height) = rectangle
+ * val (x, y) = point
  * ```
  */
-public inline operator fun Rectangle.component2(): Int = this.y
+public inline operator fun Point.component2(): Int = this.y
 
 /**
- * Returns the width component of the rectangle. This method enables the usage of destructuring
+ * Returns the X component of the point. This method enables the usage of destructuring
  * declarations such as:
  *
  * ```
- * val (x, y, width, height) = rectangle
+ * val (x, y) = point
  * ```
  */
-public inline operator fun Rectangle.component3(): Int = this.width
+public inline operator fun Point2D.component1(): Double = this.x
 
 /**
- * Returns the height component of the rectangle. This method enables the usage of destructuring
+ * Returns the Y component of the point. This method enables the usage of destructuring
  * declarations such as:
  *
  * ```
- * val (x, y, width, height) = rectangle
+ * val (x, y) = point
  * ```
  */
-public inline operator fun Rectangle.component4(): Int = this.height
+public inline operator fun Point2D.component2(): Double = this.y
 
 /**
- * Returns the X component of the rectangle. This method enables the usage of destructuring
+ * Returns the X component of the point. This method enables the usage of destructuring
  * declarations such as:
  *
  * ```
- * val (x, y, width, height) = rectangle
+ * val (x, y) = point
  * ```
  */
-public inline operator fun Rectangle2D.component1(): Double = this.x
+public inline operator fun Point2D.Float.component1(): Float = this.x
 
 /**
- * Returns the Y component of the rectangle. This method enables the usage of destructuring
+ * Returns the Y component of the point. This method enables the usage of destructuring
  * declarations such as:
  *
  * ```
- * val (x, y, width, height) = rectangle
+ * val (x, y) = point
  * ```
  */
-public inline operator fun Rectangle2D.component2(): Double = this.y
+public inline operator fun Point2D.Float.component2(): Float = this.y
 
-/**
- * Returns the width component of the rectangle. This method enables the usage of destructuring
- * declarations such as:
- *
- * ```
- * val (x, y, width, height) = rectangle
- * ```
- */
-public inline operator fun Rectangle2D.component3(): Double = this.width
-
-/**
- * Returns the height component of the rectangle. This method enables the usage of destructuring
- * declarations such as:
- *
- * ```
- * val (x, y, width, height) = rectangle
- * ```
- */
-public inline operator fun Rectangle2D.component4(): Double = this.height

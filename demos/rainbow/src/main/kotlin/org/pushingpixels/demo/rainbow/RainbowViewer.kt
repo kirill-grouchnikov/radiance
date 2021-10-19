@@ -47,7 +47,7 @@ import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.ProgressEvent
 import org.pushingpixels.flamingo.api.layout.TransitionLayout
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutEvent
-import org.pushingpixels.meteor.addDelayedChangeListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedChangeListener
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import java.awt.BorderLayout
 import java.awt.geom.RoundRectangle2D

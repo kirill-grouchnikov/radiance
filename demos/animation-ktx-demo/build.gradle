@@ -37,7 +37,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation project(':animation')
     implementation project(':kotlin-ext:animation-ktx')
-    implementation project(':kotlin-ext:meteor')
+    implementation project(':kotlin-ext:swing-ktx')
 }
 
 ext.designation = "demo"

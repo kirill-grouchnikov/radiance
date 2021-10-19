@@ -29,7 +29,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.swing
+package org.pushingpixels.radiance.swing.ktx.swing
 
 import java.awt.event.ActionEvent
 import javax.swing.*
@@ -91,8 +91,8 @@ public inline fun ActionMap.putAction(name: String, crossinline action: (ActionE
 }
 
 public inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKeyStroke: KeyStroke,
-        scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
-        crossinline action: (ActionEvent?) -> Unit) {
+                                                   scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
+                                                   crossinline action: (ActionEvent?) -> Unit) {
     val inputMap = this.getInputMap(scopeType.scopeTypeConstant)
     inputMap.put(actionKeyStroke, actionName)
     this.actionMap.put(actionName, object : AbstractAction(actionName) {
@@ -103,9 +103,9 @@ public inline fun JComponent.wireActionToKeyStroke(actionName: String, actionKey
 }
 
 public inline fun JComponent.wireActionToKeyStrokes(actionName: String,
-        actionKeyStrokes: Collection<KeyStroke>,
-        scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
-        crossinline action: (ActionEvent?) -> Unit) {
+                                                    actionKeyStrokes: Collection<KeyStroke>,
+                                                    scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE,
+                                                    crossinline action: (ActionEvent?) -> Unit) {
     // Make sure that we have at least one KeyStroke
     require(actionKeyStrokes.isNotEmpty()) { "Cannot pass an empty collection of KeyStroke objects" }
 
@@ -121,7 +121,8 @@ public inline fun JComponent.wireActionToKeyStrokes(actionName: String,
 }
 
 public inline fun JComponent.removeActionWiring(actionName: String, actionKeyStroke: KeyStroke,
-        scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE) {
+        scopeType: KeyboardActionScopeType = KeyboardActionScopeType.WHEN_FOCUSED_TYPE
+) {
     val currMap = SwingUtilities.getUIInputMap(this, scopeType.scopeTypeConstant)
     if (currMap != null) {
         // Filter out the UI input map entry that matches our action

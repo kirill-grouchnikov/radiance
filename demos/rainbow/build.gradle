@@ -42,7 +42,7 @@ dependencies {
     implementation project(':common')
     implementation project(':theming')
     implementation project(':kotlin-ext:theming-ktx')
-    implementation project(':kotlin-ext:meteor')
+    implementation project(':kotlin-ext:swing-ktx')
     implementation project(':flamingo')
     implementation project(':tools:svg-transcoder')
     implementation project(':demos:flamingo-demo')

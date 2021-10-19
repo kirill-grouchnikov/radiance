@@ -36,7 +36,7 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.*
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex

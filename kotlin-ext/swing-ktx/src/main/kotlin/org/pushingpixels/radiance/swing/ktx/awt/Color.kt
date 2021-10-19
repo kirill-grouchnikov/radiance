@@ -29,7 +29,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.awt
+package org.pushingpixels.radiance.swing.ktx.awt
 
 import java.awt.Color
 

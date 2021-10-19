@@ -29,7 +29,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.swing
+package org.pushingpixels.radiance.swing.ktx.swing
 
 import javax.swing.JTextPane
 import javax.swing.text.SimpleAttributeSet

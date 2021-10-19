@@ -29,17 +29,42 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.awt
+package org.pushingpixels.radiance.swing.ktx.awt
 
+import java.awt.Component
+import java.awt.Window
+import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+import javax.swing.ActionMap
+import javax.swing.JPopupMenu
+import javax.swing.JRootPane
 import javax.swing.SwingUtilities
 
-public inline operator fun MouseEvent.component1(): Int = this.x
-public inline operator fun MouseEvent.component2(): Int = this.y
+/**
+ * Wires the [popup] to this component, with the optional [popupMenuAction] to be invoked right before the popup
+ * is shown.
+ */
+public fun Component.wirePopup(popup: JPopupMenu, popupMenuAction: ((JPopupMenu) -> Unit)? = null) {
+    this.addMouseListener(object : MouseAdapter() {
+        override fun mousePressed(e: MouseEvent) {
+            maybeShowPopup(e)
+        }
 
-public val MouseEvent.isLeftMouseButton: Boolean
-    get() = SwingUtilities.isLeftMouseButton(this)
-public val MouseEvent.isMiddleMouseButton: Boolean
-    get() = SwingUtilities.isMiddleMouseButton(this)
-public val MouseEvent.isRightMouseButton: Boolean
-    get() = SwingUtilities.isRightMouseButton(this)
+        override fun mouseReleased(e: MouseEvent) {
+            maybeShowPopup(e)
+        }
+
+        private fun maybeShowPopup(e: MouseEvent) {
+            if (e.isPopupTrigger) {
+                popupMenuAction?.invoke(popup)
+                popup.show(e.component, e.x, e.y)
+            }
+        }
+    })
+}
+
+public val Component.windowAncestor: Window?
+    get() = SwingUtilities.getWindowAncestor(this)
+
+public val Component.rootPane: JRootPane?
+    get() = SwingUtilities.getRootPane(this)

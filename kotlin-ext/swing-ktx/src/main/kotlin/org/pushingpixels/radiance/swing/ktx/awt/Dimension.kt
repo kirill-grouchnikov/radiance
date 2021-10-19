@@ -29,35 +29,47 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.swing
+package org.pushingpixels.radiance.swing.ktx.awt
 
-import javax.swing.InputMap
-import javax.swing.KeyStroke
-
-/**
- * Returns a new input map containing all [KeyStroke]-value pairs matching the given [predicate].
- */
-public inline fun InputMap.filter(predicate: (KeyStroke, Any) -> Boolean): InputMap {
-    val result = InputMap()
-    for (stroke in this.allKeys()) {
-        if (predicate.invoke(stroke, this.get(stroke))) {
-            result.put(stroke, this.get(stroke))
-        }
-    }
-    return result
-}
+import java.awt.Dimension
+import java.awt.geom.Dimension2D
 
 /**
- * Returns a new input map containing all [KeyStroke]-value pairs not matching the given
- * [predicate].
+ * Returns the width component of the dimension. This method enables the usage of destructuring
+ * declarations such as:
+ *
+ * ```
+ * val (width, height) = dimension
+ * ```
  */
-public inline fun InputMap.filterNot(predicate: (KeyStroke, Any) -> Boolean): InputMap {
-    val result = InputMap()
-    for (stroke in this.allKeys()) {
-        if (!predicate.invoke(stroke, this.get(stroke))) {
-            result.put(stroke, this.get(stroke))
-        }
-    }
-    return result
-}
+public inline operator fun Dimension.component1(): Int = this.width
 
+/**
+ * Returns the height component of the dimension. This method enables the usage of destructuring
+ * declarations such as:
+ *
+ * ```
+ * val (width, height) = dimension
+ * ```
+ */
+public inline operator fun Dimension.component2(): Int = this.height
+
+/**
+ * Returns the width component of the dimension. This method enables the usage of destructuring
+ * declarations such as:
+ *
+ * ```
+ * val (width, height) = dimension
+ * ```
+ */
+public inline operator fun Dimension2D.component1(): Double = this.width
+
+/**
+ * Returns the height component of the dimension. This method enables the usage of destructuring
+ * declarations such as:
+ *
+ * ```
+ * val (width, height) = dimension
+ * ```
+ */
+public inline operator fun Dimension2D.component2(): Double = this.height

@@ -33,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.meteor.addDelayedMouseListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
 import org.pushingpixels.radiance.animation.ktx.RadianceComponent
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import java.awt.Color

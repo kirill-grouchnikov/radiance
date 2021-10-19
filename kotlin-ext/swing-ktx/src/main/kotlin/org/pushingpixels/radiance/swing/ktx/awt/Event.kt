@@ -29,47 +29,17 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.awt
+package org.pushingpixels.radiance.swing.ktx.awt
 
-import java.awt.Dimension
-import java.awt.geom.Dimension2D
+import java.awt.event.MouseEvent
+import javax.swing.SwingUtilities
 
-/**
- * Returns the width component of the dimension. This method enables the usage of destructuring
- * declarations such as:
- *
- * ```
- * val (width, height) = dimension
- * ```
- */
-public inline operator fun Dimension.component1(): Int = this.width
+public inline operator fun MouseEvent.component1(): Int = this.x
+public inline operator fun MouseEvent.component2(): Int = this.y
 
-/**
- * Returns the height component of the dimension. This method enables the usage of destructuring
- * declarations such as:
- *
- * ```
- * val (width, height) = dimension
- * ```
- */
-public inline operator fun Dimension.component2(): Int = this.height
-
-/**
- * Returns the width component of the dimension. This method enables the usage of destructuring
- * declarations such as:
- *
- * ```
- * val (width, height) = dimension
- * ```
- */
-public inline operator fun Dimension2D.component1(): Double = this.width
-
-/**
- * Returns the height component of the dimension. This method enables the usage of destructuring
- * declarations such as:
- *
- * ```
- * val (width, height) = dimension
- * ```
- */
-public inline operator fun Dimension2D.component2(): Double = this.height
+public val MouseEvent.isLeftMouseButton: Boolean
+    get() = SwingUtilities.isLeftMouseButton(this)
+public val MouseEvent.isMiddleMouseButton: Boolean
+    get() = SwingUtilities.isMiddleMouseButton(this)
+public val MouseEvent.isRightMouseButton: Boolean
+    get() = SwingUtilities.isRightMouseButton(this)

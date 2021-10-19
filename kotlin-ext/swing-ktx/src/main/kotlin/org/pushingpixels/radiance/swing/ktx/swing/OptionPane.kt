@@ -29,42 +29,41 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor.awt
+package org.pushingpixels.radiance.swing.ktx.swing
 
+import org.pushingpixels.radiance.swing.ktx.awt.windowAncestor
 import java.awt.Component
-import java.awt.Window
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import javax.swing.ActionMap
-import javax.swing.JPopupMenu
-import javax.swing.JRootPane
-import javax.swing.SwingUtilities
+import javax.swing.JOptionPane
 
-/**
- * Wires the [popup] to this component, with the optional [popupMenuAction] to be invoked right before the popup
- * is shown.
- */
-public fun Component.wirePopup(popup: JPopupMenu, popupMenuAction: ((JPopupMenu) -> Unit)? = null) {
-    this.addMouseListener(object : MouseAdapter() {
-        override fun mousePressed(e: MouseEvent) {
-            maybeShowPopup(e)
-        }
-
-        override fun mouseReleased(e: MouseEvent) {
-            maybeShowPopup(e)
-        }
-
-        private fun maybeShowPopup(e: MouseEvent) {
-            if (e.isPopupTrigger) {
-                popupMenuAction?.invoke(popup)
-                popup.show(e.component, e.x, e.y)
-            }
-        }
-    })
+public enum class OptionPaneMessageType(public val optionPaneConstant: Int) {
+    ERROR_MESSAGE_TYPE(JOptionPane.ERROR_MESSAGE),
+    INFORMATION_MESSAGE_TYPE(JOptionPane.INFORMATION_MESSAGE),
+    WARNING_MESSAGE_TYPE(JOptionPane.WARNING_MESSAGE),
+    QUESTION_MESSAGE_TYPE(JOptionPane.QUESTION_MESSAGE),
+    PLAIN_MESSAGE_TYPE(JOptionPane.PLAIN_MESSAGE)
 }
 
-public val Component.windowAncestor: Window?
-    get() = SwingUtilities.getWindowAncestor(this)
+public enum class OptionPaneConfirmType(public val optionPaneConstant: Int) {
+    DEFAULT_OPTION_TYPE(JOptionPane.DEFAULT_OPTION),
+    YES_NO_OPTION_TYPE(JOptionPane.YES_NO_OPTION),
+    YES_NO_CANCEL_OPTION_TYPE(JOptionPane.YES_NO_CANCEL_OPTION),
+    OK_CANCEL_OPTION_TYPE(JOptionPane.OK_CANCEL_OPTION)
+}
 
-public val Component.rootPane: JRootPane?
-    get() = SwingUtilities.getRootPane(this)
+public inline fun Component.showMessageDialogInWindow(message: Any,
+        title: String?, messageType: OptionPaneMessageType
+) {
+    JOptionPane.showMessageDialog(this.windowAncestor,
+            message, title, messageType.optionPaneConstant)
+}
+
+public inline fun Component.showConfirmDialogInWindow(message: Any,
+        title: String?, confirmType: OptionPaneConfirmType
+): Int {
+    return JOptionPane.showConfirmDialog(this.windowAncestor,
+            message, title, confirmType.optionPaneConstant)
+}
+
+public inline fun Component.showInputDialogInWindow(message: Any, title: String?): String? {
+    return JOptionPane.showInputDialog(this.windowAncestor, message, title)
+}

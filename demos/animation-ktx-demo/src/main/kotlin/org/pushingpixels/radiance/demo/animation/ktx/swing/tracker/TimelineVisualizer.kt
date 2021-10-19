@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing.tracker
 
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.ktx.timeline
 import java.awt.Color

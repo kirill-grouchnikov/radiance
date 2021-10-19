@@ -34,9 +34,9 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.lucent.content.AlbumOverviewPanel
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.details.DetailsWindowManager
-import org.pushingpixels.meteor.addDelayedMouseListener
-import org.pushingpixels.meteor.addDelayedWindowFocusListener
-import org.pushingpixels.meteor.awt.MeteorLayoutManager
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedWindowFocusListener
+import org.pushingpixels.radiance.swing.ktx.awt.RadianceLayoutManager
 import java.awt.*
 import javax.swing.JFrame
 
@@ -63,12 +63,14 @@ class MainWindow : JFrame("Lumen demo") {
         contentPane.setComponentZOrder(this.contentPanel, 1)
         contentPane.setComponentZOrder(this.closeButton, 0)
 
-        contentPane.layout = MeteorLayoutManager(
-                onLayout = {
-                    closeButton.setBounds(width - CLOSE_BUTTON_SIZE, 0,
-                            CLOSE_BUTTON_SIZE, CLOSE_BUTTON_SIZE)
-                    contentPanel.setBounds(0, 10, width - 10, height - 10)
-                })
+        contentPane.layout = RadianceLayoutManager(
+            onLayout = {
+                closeButton.setBounds(
+                    width - CLOSE_BUTTON_SIZE, 0,
+                    CLOSE_BUTTON_SIZE, CLOSE_BUTTON_SIZE
+                )
+                contentPanel.setBounds(0, 10, width - 10, height - 10)
+            })
 
         this.addDelayedWindowFocusListener(
                 onWindowLostFocus = { DetailsWindowManager.disposeCurrentlyShowing() })

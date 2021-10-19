@@ -36,8 +36,8 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.theming.ktx.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import org.pushingpixels.meteor.awt.deriveByBrightness
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory

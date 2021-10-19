@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing.tracker
 
-import org.pushingpixels.meteor.awt.deriveByBrightness
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.AlphaComposite
 import java.awt.Color
 import java.awt.Graphics2D

@@ -29,7 +29,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package org.pushingpixels.meteor
+package org.pushingpixels.radiance.swing.ktx
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -1104,16 +1104,20 @@ public class TypedPropertyChangeEvent<T>(public val source: Any, public val prop
 public inline fun <reified T> Component.addTypedDelayedPropertyChangeListener(propertyName: String,
         crossinline listener: suspend (TypedPropertyChangeEvent<T>) -> Unit) {
     this.addDelayedPropertyChangeListener(propertyName) { event ->
-        listener.invoke(TypedPropertyChangeEvent(event.source,
-                propertyName, event.oldValue as? T, event.newValue as? T))
+        listener.invoke(
+            TypedPropertyChangeEvent(event.source,
+                propertyName, event.oldValue as? T, event.newValue as? T)
+        )
     }
 }
 
 public inline fun <reified T> Component.addTypedDelayedPropertyChangeListener(propertyClass: KProperty<*>,
         noinline listener: suspend (TypedPropertyChangeEvent<T>) -> Unit) {
     this.addDelayedPropertyChangeListener(propertyClass.name) { event ->
-        listener.invoke(TypedPropertyChangeEvent(event.source,
-                propertyClass.name, event.oldValue as? T, event.newValue as? T))
+        listener.invoke(
+            TypedPropertyChangeEvent(event.source,
+                propertyClass.name, event.oldValue as? T, event.newValue as? T)
+        )
     }
 }
 

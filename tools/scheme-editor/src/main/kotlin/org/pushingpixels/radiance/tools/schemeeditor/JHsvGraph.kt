@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.tools.schemeeditor
 
-import org.pushingpixels.meteor.awt.brightness
-import org.pushingpixels.meteor.awt.hue
-import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.meteor.awt.saturation
+import org.pushingpixels.radiance.swing.ktx.awt.brightness
+import org.pushingpixels.radiance.swing.ktx.awt.hue
+import org.pushingpixels.radiance.swing.ktx.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.saturation
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import java.awt.Color

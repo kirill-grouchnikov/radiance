@@ -36,8 +36,8 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme
 import org.fife.ui.rtextarea.RTextScrollPane
-import org.pushingpixels.meteor.addDelayedActionListener
-import org.pushingpixels.meteor.swing.addChoosableFileFilter
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
+import org.pushingpixels.radiance.swing.ktx.swing.addChoosableFileFilter
 import org.pushingpixels.radiance.tools.svgtranscoder.api.SvgStreamTranscoder
 import org.pushingpixels.radiance.tools.svgtranscoder.api.java.JavaLanguageRenderer
 import java.awt.BorderLayout

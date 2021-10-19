@@ -32,7 +32,7 @@ package org.pushingpixels.lucent.details
 import org.pushingpixels.lucent.BackendConnector
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.data.Track
-import org.pushingpixels.meteor.awt.MeteorLayoutManager
+import org.pushingpixels.radiance.swing.ktx.awt.RadianceLayoutManager
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.ktx.fromCurrentTo
@@ -87,7 +87,7 @@ class DetailsWindow : JWindow() {
         this.trackListingScroller = TrackListingScroller()
 
         val contentPane = this.contentPane
-        contentPane.layout = MeteorLayoutManager(
+        contentPane.layout = RadianceLayoutManager(
                 onLayout = { parent ->
                     val w = parent.width
                     val h = parent.height

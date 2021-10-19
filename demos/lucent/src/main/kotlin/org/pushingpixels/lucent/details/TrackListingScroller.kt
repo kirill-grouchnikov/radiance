@@ -31,7 +31,7 @@ package org.pushingpixels.lucent.details
 
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.data.Track
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import java.awt.*
 import java.awt.geom.RoundRectangle2D
 import javax.swing.*

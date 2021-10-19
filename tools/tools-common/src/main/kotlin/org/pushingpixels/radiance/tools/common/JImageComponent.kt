@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.tools.common
 
-import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.meteor.swing.KeyboardActionScopeType
-import org.pushingpixels.meteor.swing.wireActionToKeyStroke
+import org.pushingpixels.radiance.swing.ktx.awt.render
+import org.pushingpixels.radiance.swing.ktx.swing.KeyboardActionScopeType
+import org.pushingpixels.radiance.swing.ktx.swing.wireActionToKeyStroke
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 

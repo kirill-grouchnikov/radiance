@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.lucent.content
 
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.ktx.from
 import org.pushingpixels.radiance.animation.api.Timeline

@@ -32,7 +32,7 @@ package org.pushingpixels.lucent.details
 import org.pushingpixels.lucent.LucentUtils
 import org.pushingpixels.lucent.data.SearchResultRelease
 import org.pushingpixels.lucent.data.Track
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import java.awt.*
 import java.awt.font.FontRenderContext

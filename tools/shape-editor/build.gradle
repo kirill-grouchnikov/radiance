@@ -37,7 +37,7 @@ dependencies {
     implementation project(':common')
     implementation project(':theming')
     implementation project(':theming-extras')
-    implementation project(':kotlin-ext:meteor')
+    implementation project(':kotlin-ext:swing-ktx')
     implementation project(':tools:tools-common')
 }
 

@@ -40,7 +40,7 @@ dependencies {
     implementation project(':flamingo')
     implementation project(':kotlin-ext:plasma')
     implementation project(':kotlin-ext:theming-ktx')
-    implementation project(':kotlin-ext:meteor')
+    implementation project(':kotlin-ext:swing-ktx')
     implementation project(':demos:flamingo-demo')
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"

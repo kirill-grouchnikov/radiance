@@ -28,27 +28,36 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @file:Suppress("NOTHING_TO_INLINE")
-package org.pushingpixels.meteor.awt
 
-import java.awt.Graphics
-import java.awt.Graphics2D
-import java.awt.image.BufferedImage
+package org.pushingpixels.radiance.swing.ktx.swing
 
-public inline fun Graphics.render(block: (Graphics2D) -> Unit) {
-    val g2d = this.create() as Graphics2D
-    try {
-        block(g2d)
-    } finally {
-        g2d.dispose()
+import javax.swing.InputMap
+import javax.swing.KeyStroke
+
+/**
+ * Returns a new input map containing all [KeyStroke]-value pairs matching the given [predicate].
+ */
+public inline fun InputMap.filter(predicate: (KeyStroke, Any) -> Boolean): InputMap {
+    val result = InputMap()
+    for (stroke in this.allKeys()) {
+        if (predicate.invoke(stroke, this.get(stroke))) {
+            result.put(stroke, this.get(stroke))
+        }
     }
+    return result
 }
 
-public inline fun BufferedImage.render(block: (Graphics2D) -> Unit) {
-    val g2d = this.createGraphics()
-    try {
-        block(g2d)
-    } finally {
-        g2d.dispose()
+/**
+ * Returns a new input map containing all [KeyStroke]-value pairs not matching the given
+ * [predicate].
+ */
+public inline fun InputMap.filterNot(predicate: (KeyStroke, Any) -> Boolean): InputMap {
+    val result = InputMap()
+    for (stroke in this.allKeys()) {
+        if (!predicate.invoke(stroke, this.get(stroke))) {
+            result.put(stroke, this.get(stroke))
+        }
     }
+    return result
 }
 

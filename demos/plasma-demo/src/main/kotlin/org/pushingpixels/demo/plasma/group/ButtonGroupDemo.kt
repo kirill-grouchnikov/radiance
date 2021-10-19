@@ -38,9 +38,9 @@ import org.pushingpixels.demo.plasma.svg.Format_text_italic
 import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
 import org.pushingpixels.demo.plasma.svg.Format_text_underline
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
-import org.pushingpixels.meteor.swing.CharacterStyleType
-import org.pushingpixels.meteor.swing.hasStyleInSelection
-import org.pushingpixels.meteor.swing.toggleStyleInSelection
+import org.pushingpixels.radiance.swing.ktx.swing.CharacterStyleType
+import org.pushingpixels.radiance.swing.ktx.swing.hasStyleInSelection
+import org.pushingpixels.radiance.swing.ktx.swing.toggleStyleInSelection
 import org.pushingpixels.plasma.command
 import org.pushingpixels.plasma.commandButtonStrip
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.plasma;
 
-import org.pushingpixels.meteor.addDelayedActionListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import java.util.*
 import javax.swing.JComboBox
 

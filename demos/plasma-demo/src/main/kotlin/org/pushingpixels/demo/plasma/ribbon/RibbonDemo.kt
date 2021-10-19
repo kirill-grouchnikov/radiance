@@ -62,11 +62,11 @@ import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
 import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
-import org.pushingpixels.meteor.addDelayedActionListener
-import org.pushingpixels.meteor.addDelayedItemListener
-import org.pushingpixels.meteor.awt.brightness
-import org.pushingpixels.meteor.awt.deriveByBrightness
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedItemListener
+import org.pushingpixels.radiance.swing.ktx.awt.brightness
+import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory

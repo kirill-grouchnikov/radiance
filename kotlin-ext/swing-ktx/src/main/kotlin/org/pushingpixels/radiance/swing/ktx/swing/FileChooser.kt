@@ -27,31 +27,23 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.meteor.awt
+@file:Suppress("NOTHING_TO_INLINE")
 
-import java.awt.Component
-import java.awt.Container
-import java.awt.Dimension
-import java.awt.LayoutManager
+package org.pushingpixels.radiance.swing.ktx.swing
 
-public class MeteorLayoutManager(
-        private val onLayout: (parent: Container) -> Unit = {},
-        private val getPreferredSize: (parent: Container) -> Dimension? = { null }) : LayoutManager {
-    override fun addLayoutComponent(name: String?, comp: Component?) {
-    }
+import java.io.File
+import javax.swing.JFileChooser
+import javax.swing.filechooser.FileFilter
 
-    override fun removeLayoutComponent(comp: Component?) {
-    }
+public inline fun JFileChooser.addChoosableFileFilter(description: String, crossinline filter: (File) -> Boolean) {
+    this.addChoosableFileFilter(object : FileFilter() {
+        override fun accept(pathname: File): Boolean {
+            return filter.invoke(pathname)
+        }
 
-    override fun preferredLayoutSize(parent: Container): Dimension? {
-        return getPreferredSize.invoke(parent)
-    }
-
-    override fun minimumLayoutSize(parent: Container): Dimension? {
-        return preferredLayoutSize(parent)
-    }
-
-    override fun layoutContainer(parent: Container) {
-        onLayout.invoke(parent)
-    }
+        override fun getDescription(): String {
+            return description
+        }
+    })
 }
+

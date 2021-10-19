@@ -30,11 +30,11 @@
 package org.pushingpixels.lucent
 
 import org.pushingpixels.lucent.details.DetailsWindowManager
-import org.pushingpixels.meteor.addDelayedActionListener
-import org.pushingpixels.meteor.addDelayedHierarchyListener
-import org.pushingpixels.meteor.addDelayedMouseListener
-import org.pushingpixels.meteor.awt.deriveByBrightness
-import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedHierarchyListener
+import org.pushingpixels.radiance.swing.ktx.addDelayedMouseListener
+import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
+import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.animation.ktx.RadianceComponent
 import org.pushingpixels.radiance.animation.ktx.componentTimeline
 import org.pushingpixels.radiance.animation.ktx.from

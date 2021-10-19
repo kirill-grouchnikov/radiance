@@ -38,8 +38,8 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
 import org.pushingpixels.demo.plasma.svg.Format_justify_right
 import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
-import org.pushingpixels.meteor.swing.AlignType
-import org.pushingpixels.meteor.swing.setAlignment
+import org.pushingpixels.radiance.swing.ktx.swing.AlignType
+import org.pushingpixels.radiance.swing.ktx.swing.setAlignment
 import org.pushingpixels.plasma.commandToggleButtonStrip
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin

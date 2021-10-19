@@ -38,9 +38,9 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ## Core Kotlin libraries
 
-* [Animation extensions](docs/kotlin-ext/animation/animation-ktx.md) exposes a subset of the API surface of Animation as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Animation APIs.
+* [Core Swing extensions](docs/kotlin-ext/swing/swing.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
 
-* [Meteor](docs/kotlin-ext/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
+* [Animation extensions](docs/kotlin-ext/animation/animation-ktx.md) exposes a subset of the API surface of Animation as a concise, focused and approachable Kotlin domain-specific language (DSL). It also provides a number of Kotlin extensions for Animation APIs.
 
 * [Theming extensions](docs/kotlin-ext/theming/theming-ktx.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Radiance theming APIs.
 
@@ -82,7 +82,7 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 
 ### Kotlin extension artifacts
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember) `radiance-ember` for [Ember](docs/kotlin-ext/theming/theming-ktx.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for [Meteor](docs/kotlin-ext/meteor/meteor.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for [Meteor](docs/kotlin-ext/swing/swing.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for [Plasma](docs/kotlin-ext/plasma/plasma.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch) `radiance-torch` for [Torch](docs/kotlin-ext/animation/animation-ktx.md)
 
