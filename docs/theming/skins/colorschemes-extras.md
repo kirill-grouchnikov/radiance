@@ -1,6 +1,6 @@
 ## Radiance look and feel - extra color schemes
 
-The following [color schemes](colorschemes.md) are available in the [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/laf-extras) under the `org.pushingpixels.radiance.theming.extras.api.colorschemepack` package:
+The following [color schemes](colorschemes.md) are available in the [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/theming-extras) under the `org.pushingpixels.radiance.theming.extras.api.colorschemepack` package:
 
 `Belize`, `Bloody Moon`
 <p>

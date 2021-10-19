@@ -1,4 +1,4 @@
-## Flamingo - breadcrumb bars
+## Components - breadcrumb bars
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/breadcrumb.png" width="620" border=0/>
 
@@ -98,7 +98,7 @@ Let's take a look at what we're doing here:
 
 ### Core breadcrumb bar integrations
 
-The `org.pushingpixels.flamingo.api.bcb.core` has helper classes to facilitate exposing existing hierarchical data sources as breadcrumb bar content.
+The `org.pushingpixels.radiance.components.api.bcb.core` has helper classes to facilitate exposing existing hierarchical data sources as breadcrumb bar content.
 
 - `BreadcrumbFileSelector` subclasses the `JBreadcrumbBar` class to expose the local file system.
 - `BreadcrumbTreeAdapterSelector` subclasses the `JBreadcrumbBar` class to wrap the core Swing `JTree` and `TreeModel` structures.

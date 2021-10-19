@@ -1,4 +1,4 @@
-## Flamingo - ribbon global contextual listener
+## Components - ribbon global contextual listener
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/taskbar/taskbar-contextualmenu-add.png" width="1181" border=0/>
 

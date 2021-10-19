@@ -1,4 +1,4 @@
-## Flamingo - ribbon application menu
+## Components - ribbon application menu
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/ribbon-appmenu-expanded.png" width="1181" border=0/>
 

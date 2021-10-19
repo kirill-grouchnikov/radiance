@@ -6,7 +6,7 @@ The goal of this project is to enable usage of vector-based icons in Swing appli
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for build instructions of the latest stable release.
 
-The original icon format supported by the transcoder is SVG, and you need the [matching version](#dependency-versions-for-photon) of [Apache Batik](https://xmlgraphics.apache.org/batik/) and its dependencies.
+The original icon format supported by the transcoder is SVG, and you need the [matching version](#dependency-versions-for-the-radiance-svg-transcoder) of [Apache Batik](https://xmlgraphics.apache.org/batik/) and its dependencies.
 
 ### Offline transcoding of SVG content
 
@@ -19,7 +19,7 @@ Radiance SVG transcoder allows you to convert an SVG source into a corresponding
 
 A couple of usages of transcoded resizable icons in Radiance itself are:
 
-* Flamingo ribbon resize that may involve a number of command buttons going between smaller and larger icon sizes. It is recommended to use the generated static `of(int, int)` method to obtain an instance of a generated class for the specific initial size.
+* Radiance ribbon resize that may involve a number of command buttons going between smaller and larger icon sizes. It is recommended to use the generated static `of(int, int)` method to obtain an instance of a generated class for the specific initial size.
 * Icons in Radiance icon packs configured with the `RadianceThemingCortex.GlobalScope.setIconPack` API.
 
 #### Batch transcoding all SVG files in a single folder
@@ -33,16 +33,16 @@ The `SvgBatchConverter` class is the entry point into the offline batch converte
 * [Optional] `outputFolder=xyz` The location of the transcoded classes. If not specified, output files will be placed in the `sourceFolder` alongside the original SVG files.
 * [Optional] `outputClassNamePrefix=` The prefix for the class names of the transcoded classes
 
-Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline for a single SVG source folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-photon)):
+Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline for a single SVG source folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-the-radiance-svg-transcoder)):
 
-<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar SvgBatchConverter <b>sourceFolder=</b>../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.demo.flamingo.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
+<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar SvgBatchConverter <b>sourceFolder=</b>../demos/components-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.radiance.demo.components.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
 
 The first part is enumerating all the jar files required for the converter - Radiance and Batik. In this sample script, the Radiance SVG transcoder jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
 The second part passes the mandatory parameters:
 
-* `../demos/flamingo-demo/src/main/java/org/pushingpixels/demo/flamingo/svg/tango/transcoded` as the location of the source SVG images - and the output transcoded classes
-* `org.pushingpixels.demo.flamingo.svg.tango.transcoded` as the package name for the transcoded classes
+* `../demos/components-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded` as the location of the source SVG images - and the output transcoded classes
+* `org.pushingpixels.radiance.demo.components.svg.tango.transcoded` as the package name for the transcoded classes
 * `/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ` as the path of the template file
 * `outputLanguage=java` to specify that the transcoded classes should be Java code
 
@@ -57,7 +57,7 @@ The `SvgDeepBatchConverter` class is the entry point into the offline recursive 
 * [Optional] `outputRootFolder=xyz` The root location of the transcoded classes. If not specified, output files will be placed under the `sourceRootFolder` alongside the original SVG files.
 * [Optional] `outputClassNamePrefix=` The prefix for the class names of the transcoded classes
 
-Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline recursively for all SVG files under a folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-photon)):
+Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline recursively for all SVG files under a folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-the-radiance-svg-transcoder)):
 
 <code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar SvgDeepBatchConverter <b>sourceRootFolder=</b>../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/ <b>outputRootPackageName=</b>org.pushingpixels.demo.spyglass <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
 

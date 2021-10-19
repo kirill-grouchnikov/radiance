@@ -1,4 +1,4 @@
-## Flamingo - command panels
+## Components - command panels
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-button-panel-rows.png" width="567" border=0/>
 

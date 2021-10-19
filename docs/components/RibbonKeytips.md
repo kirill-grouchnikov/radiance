@@ -1,4 +1,4 @@
-## Flamingo - ribbon keytips
+## Components - ribbon keytips
 
 Keytips are evolution of mnemonics - a way to quickly navigate to and activate a specific command or component without using the mouse. Keytips are only shown on projections added to the ribbon container.
 

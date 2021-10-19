@@ -1,4 +1,4 @@
-## Flamingo - command button presentation model
+## Components - command button presentation model
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-basics.png" width="780" border=0/>
 
@@ -27,7 +27,7 @@ Let's take a look at the attributes of command button presentation model.
 
 ### Attributes overview
 
-Command button presentation models are created with the builder pattern which is pervasive throughout Flamingo. Call `CommandButtonPresentationModel.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
+Command button presentation models are created with the builder pattern which is pervasive throughout Radiance Components. Call `CommandButtonPresentationModel.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
 
 |  | Attribute | Type |
 | --- | --- | --- |
@@ -181,7 +181,7 @@ JCommandButton multiChoice = Command.builder()
 
 First we create the four styling commands. Then we create a `CommandMenuContentModel` with those commands, and set it as `secondaryContentModel` for the top-level "multi" command.
 
-The default behavior for Flamingo popup content is to dismiss all popups immediately when the user activates an entry in a popup. In this particular case, however, we want to allow the user to make as many selections in this popup as necessary without dismissing the popup after every single selection. This is what `setToDismissOnCommandActivation(false)` call on the `CommandPopupMenuPresentationModel` is for.
+The default behavior for Radiance popup content is to dismiss all popups immediately when the user activates an entry in a popup. In this particular case, however, we want to allow the user to make as many selections in this popup as necessary without dismissing the popup after every single selection. This is what `setToDismissOnCommandActivation(false)` call on the `CommandPopupMenuPresentationModel` is for.
 
 The same API is available on `CommandButtonPresentationModel` to configure the same behavior at the level of an individual projected button. Going back to an earlier screenshot:
 

@@ -1,10 +1,10 @@
-## Flamingo - command synchronization
+## Components - command synchronization
 
 ### Introduction
 
 A `Command` object encapsulates the business logic of one piece of the application model realm. It can be a command to apply bold style on the current text selection. It can be a command to paste the current content of the clipboard. Or it can be a command to print the current document.
 
-Commands are [projected](CommandProjections.md) to create a visual representation of it - as a Swing component that can be placed into the application hierarchy. Flamingo takes care of two-way synchonization between a command and all of its projections:
+Commands are [projected](CommandProjections.md) to create a visual representation of it - as a Swing component that can be placed into the application hierarchy. Radiance takes care of two-way synchronization between a command and all of its projections:
 
 - When the command is updated based on the matching local or remote model changes, these updates are automatically propagated to all the projections of that command. For example, when the text selection changes, the "apply bold" command may change its toggle state based on the presence of the bold style in the new text selection.
 - When the user interacts with a specific projection of the command, that interaction is propagated to the command itself, and from there to all other projections of that command.

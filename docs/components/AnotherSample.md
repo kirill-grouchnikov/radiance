@@ -1,6 +1,6 @@
-## Flamingo - sample walkthrough, part 2
+## Components - sample walkthrough, part 2
 
-Let's take a look at another similar example of using Flamingo commands.
+Let's take a look at another similar example of using Radiance commands.
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling.png" width="696" border=0/>
 
@@ -87,7 +87,7 @@ private static void toggleStyleInSelection(JTextPane textPane, Object style) {
 
 ### Commands
 
-Now we get to the interesting part. How do we configure the Flamingo commands to toggle the matching content style in the current text selection?
+Now we get to the interesting part. How do we configure the Radiance commands to toggle the matching content style in the current text selection?
 
 ```java
 // Bold style command

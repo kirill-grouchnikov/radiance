@@ -1,4 +1,4 @@
-## Flamingo - ribbon overview
+## Components - ribbon overview
 
 The `JRibbon` component provides the functionality of Microsoft Office Command Bar:
 

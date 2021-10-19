@@ -1,4 +1,4 @@
-## Flamingo - command popup menus
+## Components - command popup menus
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/color-selector-command1.png" width="665" border=0/>
 

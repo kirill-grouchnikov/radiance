@@ -1,4 +1,4 @@
-## Flamingo - ribbon band command projections
+## Components - ribbon band command projections
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 

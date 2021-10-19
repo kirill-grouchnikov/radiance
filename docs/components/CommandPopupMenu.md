@@ -1,4 +1,4 @@
-## Flamingo - command popup menus
+## Components - command popup menus
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
@@ -14,7 +14,7 @@ The `highlightedCommand` attribute can be used to visually mark one command in t
 
 ### Presentation model
 
-`org.pushingpixels.flamingo.api.common.model.CommandPopupMenuPresentationModel` and its `Builder` are the presentation model for command popup menus.
+`org.pushingpixels.radiance.components.api.common.model.CommandPopupMenuPresentationModel` and its `Builder` are the presentation model for command popup menus.
 
 The `panelPresentationMode` attribute can be used to provide the presentation model for the optional leading command panel.
 

@@ -1,4 +1,4 @@
-## Flamingo - ribbon taskbar
+## Components - ribbon taskbar
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
 

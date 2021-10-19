@@ -1,4 +1,4 @@
-## Flamingo - command projections
+## Components - command projections
 
 Let's take another look at the example from the [command documentation](Command.md#base-attributes)
 
@@ -37,7 +37,7 @@ There are two important parts here - the presentation model and projecting the c
 
 ### Command button presentation model
 
-In Flamingo's terminology, a command (represented by the `Command` class and its builder pattern) is a **content model**. [It describes](Command.md) the basic elements of a command (such as text and icon), how the user interacts with it, and what happens when that interaction happens.
+In Radiance's terminology, a command (represented by the `Command` class and its builder pattern) is a **content model**. [It describes](Command.md) the basic elements of a command (such as text and icon), how the user interacts with it, and what happens when that interaction happens.
 
 The **presentation model** describes how to "convert" (or project) a content model into a Swing component that can be added to the application UI hierarchy to present the data backed by that content model and react to the user interaction.
 
@@ -132,7 +132,7 @@ Here, again, we update the `actionEnabled` and `toggleSelected` attributes of th
 
 Content model encapsulates the "business logic", if you will, of one piece of the application model realm. In our case, it is a piece of model realm that deals with applying bold styling on a selected text somewhere in the application UI. That piece of model realm is the one that should be tracking whether that bold styling is on or off (the `toggleSelected` attribute). It is the one that also should be tracking whether it is active or not (the `enabled` attribute).
 
-Flamingo then takes care of updating all the projections based on the changes in the content model - be it a single projection of each styling command in our last example, or more than one projection of the same content model as can be seen in the ribbon.
+Radiance then takes care of updating all the projections based on the changes in the content model - be it a single projection of each styling command in our last example, or more than one projection of the same content model as can be seen in the ribbon.
 
 It's worth noting that a particular command may not be projected in the current screen at all. In this case you would still want to continue updating the content model (which is that command) based on the specific application logic - as you would do with any other piece of your model realm that you keep in sync with the latest local or remote data changes.
 

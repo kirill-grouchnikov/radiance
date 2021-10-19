@@ -123,7 +123,7 @@ object RainbowUtils {
 
         transcoder.setPrintWriter(pw)
         transcoder.transcode(RainbowUtils::class.java.getResourceAsStream(
-                "/org/pushingpixels/photon/api/transcoder/java" +
+                "/org/pushingpixels/radiance/tools/svgtranscoder/api/java" +
                         "/SvgTranscoderTemplateRadiance.templ"))
 
         val javaEditorPane = RSyntaxTextArea(20, 60)

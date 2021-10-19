@@ -1,4 +1,4 @@
-## Flamingo - ribbon band component projections
+## Components - ribbon band component projections
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 
@@ -48,12 +48,12 @@ This component projection can be added to both flow and general ribbon bands wit
 
 In the screenshot above, both comboboxes in the "Font" flow ribbon band were added as wrapper projections. This is what allows associating the rich tooltip with these comboboxes - as shown in that screenshot right under the "Font" band.
 
-Wrapper projections follow the same overall approach of [Flamingo projections](Intro.md):
+Wrapper projections follow the same overall approach of [Radiance projections](Intro.md):
 
 - **content model + presentation model &#8594; projection**
 - **projection &#8594; one or more Swing components**
 
-The `org.pushingpixels.flamingo.api.ribbon.synapse` package and its `model` and `projection` sub-packages provide APIs to wrap a number of core Swing components and expose them via the Flamingo projection model. Here are a couple of examples.
+The `org.pushingpixels.radiance.components.api.ribbon.synapse` package and its `model` and `projection` sub-packages provide APIs to wrap a number of core Swing components and expose them via the Radiance projection model. Here are a couple of examples.
 
 #### Wrapping `JComboBox`
 

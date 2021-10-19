@@ -1,6 +1,6 @@
-## Flamingo - keyboard accelerators
+## Components - keyboard accelerators
 
-In addition to [keytips](RibbonKeytips.md) that are used to *navigate to* and activate a specific command in the larger context of the ribbon, Flamingo provides support for directly activating commands with the more traditional Swing keyboard accelerators.
+In addition to [keytips](RibbonKeytips.md) that are used to *navigate to* and activate a specific command in the larger context of the ribbon, Radiance provides support for directly activating commands with the more traditional Swing keyboard accelerators.
 
 Use the `JRibbonFrame.setKeyboardActions` API to pass a list of keyboard actions, each one providing a `KeyStroke` and the matching [command](Command.md) whose action will be activated when the user types that keystroke:
 

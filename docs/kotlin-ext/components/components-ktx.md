@@ -1,4 +1,4 @@
-## Kotlin DSL for Flamingo components
+## Kotlin DSL for Radiance components
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for build instructions of the latest stable release.
 
@@ -43,7 +43,7 @@ commandButtonStrip {
 }
 ```
 
-DSL constructs for the following Flamingo components are available:
+DSL constructs for the following Radiance components are available:
 
 * `JCommandButton`
 * `JCommandButtonPanel`

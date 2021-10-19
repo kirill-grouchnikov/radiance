@@ -1,13 +1,13 @@
-## Flamingo - projection customizations
+## Components - projection customizations
 
-Let's go back to Flamingo projections [in a nutshell](Intro.md):
+Let's go back to Radiance projections [in a nutshell](Intro.md):
 
 - **content model + presentation model &#8594; projection**
 - **projection &#8594; one or more Swing components**
 
-Instead of operating directly at the level of Swing components, Flamingo's way is to "separate" your user-facing application layer into two parts - **content models** and **presentation models**.
+Instead of operating directly at the level of Swing components, Radiance's way is to "separate" your user-facing application layer into two parts - **content models** and **presentation models**.
 
-A **projection** is the combination of two, and `Projection.buildComponent()` creates a Swing component that can be placed into the component hierarchy of your application. The intent is that for most cases, that is the only time your code is "aware" of the matching Flamingo Swing component. You do not explicitly configure any of that component's attributes, or wire any listeners to it. Everything is configured via the content and the presentation models, and any user interaction with the projected component automatically syncs back to the content model.
+A **projection** is the combination of two, and `Projection.buildComponent()` creates a Swing component that can be placed into the component hierarchy of your application. The intent is that for most cases, that is the only time your code is "aware" of the matching Radiance Swing component. You do not explicitly configure any of that component's attributes, or wire any listeners to it. Everything is configured via the content and the presentation models, and any user interaction with the projected component automatically syncs back to the content model.
 
 However, in some cases you might find yourself in need of a more specific configuration of that projected Swing component. Let's see how that is enabled at the level of the `Projection` class.
 
@@ -34,7 +34,7 @@ This interface uses the same generic class parameters as the `Projection` class 
 
 ```java
 @RadianceInternalButton
-private class RibbonBandExpandButton extends JCommandButton implements FlamingoInternalButton {
+private class RibbonBandExpandButton extends JCommandButton implements RadianceInternalButton {
     private RibbonBandExpandButton(Projection<JCommandButton, Command,
             CommandButtonPresentationModel> projection) {
         super(projection);

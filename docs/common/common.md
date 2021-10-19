@@ -68,9 +68,9 @@ What is happening under the hood? Going back to our 70x30 button which takes 140
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/common/resizable-icon.png" width="248" height="274" border=0 align="right">
 
-The `RadianceIcon` extends the core `Icon` interface to allow scaling and colorizing the icon visuals at runtime. Scaling is relevant for controls that can be dynamically resized. This class is used extensively in Flamingo for such controls as ribbon buttons or file viewer panel, but can be used in core and third-party components as well.
+The `RadianceIcon` extends the core `Icon` interface to allow scaling and colorizing the icon visuals at runtime. Scaling is relevant for controls that can be dynamically resized. This class is used extensively in Components for such controls as ribbon buttons or file viewer panel, but can be used in core and third-party components as well.
 
-The [Photon library](../tools/svg-transcoder/svg-transcoder.md) provides tools for using SVG content via the `RadianceIcon` interface. Photon can be used offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original visuals with no additional runtime dependencies.
+The [SVG Transcoder library](../tools/svg-transcoder/svg-transcoder.md) provides tools for using SVG content via the `RadianceIcon` interface. SVG Transcoder can be used offline to transcode the SVG content into standalone Java / Kotlin classes that use Java2D canvas draw calls to render the original visuals with no additional runtime dependencies.
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0 align="right">
 
@@ -96,15 +96,15 @@ editIcon.setColorFilter(color -> filterColor);
 RadianceIcon mailIcon = ic_refresh_black_24px.of(12, 12);
 mailIcon.setColorFilter(color -> mainSelectorIconColor);
 ```
-The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [Photon](../tools/svg-transcoder/svg-transcoder.md) from the [Material icon set](https://material.io/tools/icons/).
+The first block uses an alpha-derived filter color on a 14x14 icon. The second block does not use alpha (so that the icon's perceived darkness is consistent since it is displayed next to a visually heavier, bold label) on a 12x12 icon. Both icons were transcoded by [SVG Transcoder](../tools/svg-transcoder/svg-transcoder.md) from the [Material icon set](https://material.io/tools/icons/).
 
-The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your Photon-transcoded icon is a bit more colorful, you can use `RadianceIcon.setColorFilter` together with the `RadianceColorScheme.getColorFilter`.
+The code snippet above shows a color filter based on a single color. This works well for monochrome icons such as those from the Material icon set. In case your transcoded icon is a bit more colorful, you can use `RadianceIcon.setColorFilter` together with the `RadianceColorScheme.getColorFilter`.
 
 How does color filtering work? There is a "fast" way, and there is a "slow" way.
 
-The fast way is to apply the `RadianceIcon.ColorFilter` on every color used to draw the specific icon visuals. This is provided out of the box on all icons transcoded by Photon, with one exception - icons with raster (bitmap) content. If the original icons have regular vector content such as paths and simple shapes, the generated class will return `true` from its `supportsColorFilter`, and it will be enough to call `setColorFilter` to do color filtering.
+The fast way is to apply the `RadianceIcon.ColorFilter` on every color used to draw the specific icon visuals. This is provided out of the box on all icons transcoded by SVG Transcoder, with one exception - icons with raster (bitmap) content. If the original icons have regular vector content such as paths and simple shapes, the generated class will return `true` from its `supportsColorFilter`, and it will be enough to call `setColorFilter` to do color filtering.
 
-SVG supports using raster content in `<image>` and `<pattern>` elements. Photon supports transcoding such content. Such transcoded content does not support the "fast" color filter path. To colorize such icons, use the `ImageBackedFilterableRadianceIcon` wrapper.
+SVG supports using raster content in `<image>` and `<pattern>` elements. SVG Transcoder supports transcoding such content. Such transcoded content does not support the "fast" color filter path. To colorize such icons, use the `ImageBackedFilterableRadianceIcon` wrapper.
 
 This class implements color filtering by using offscreen images and a custom `BufferedImageOp` based on the configured `RadianceIcon.ColorFilter`. This is a "slow" path that consumes additional memory resources. It is also a more versatile one since it supports colorizing arbitrarily complex `RadianceIcon`s as in this example:
 
@@ -112,4 +112,4 @@ This class implements color filtering by using offscreen images and a custom `Bu
 
 Here, the colors of Sunfire, Lime Green and Steel Blue color schemes from Radiance are used to filter the original visuals of an icon from the Tango icon set (second row), preserving its overall visual feel, while at the same time making it blend more with the specific Radiance visuals.
 
-Note that in this particular example, the original SVG icon is not transcoded by Photon (which would have resulted in a `RadianceIcon` class that uses the fast path), but rather using Apache Batik at runtime to asynchronously load the original SVG, and then colorizing the icon visuals rendered by Batik.
+Note that in this particular example, the original SVG icon is not transcoded by SVG Transcoder (which would have resulted in a `RadianceIcon` class that uses the fast path), but rather using Apache Batik at runtime to asynchronously load the original SVG, and then colorizing the icon visuals rendered by Batik.

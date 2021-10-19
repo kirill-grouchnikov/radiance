@@ -1,4 +1,4 @@
-## Flamingo - command strips
+## Components - command strips
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
 

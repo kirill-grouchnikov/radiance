@@ -1,6 +1,6 @@
 ## Radiance look and feel - extra skins
 
-The following [skins](overview.md) are available in the [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/laf-extras) under the `org.pushingpixels.radiance.theming.extras.api.skinpack` package:
+The following [skins](overview.md) are available in the [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/theming-extras) under the `org.pushingpixels.radiance.theming.extras.api.skinpack` package:
 
 ### Field of Wheat
 

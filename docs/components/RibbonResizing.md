@@ -1,4 +1,4 @@
-## Flamingo - ribbon resizing
+## Components - ribbon resizing
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/bands/bands-resize0.png" width="1406" border=0/>
 

@@ -1,6 +1,6 @@
-## Flamingo - introduction
+## Components - introduction
 
-Most of Flamingo's components are created as projections. Projections are built from content models and presentation models.
+Most of Radiance's components are created as projections. Projections are built from content models and presentation models.
 
 A **content model** describes the basic elements of a piece of your model realm, how the user interacts with it, and what happens when that interaction happens.
 

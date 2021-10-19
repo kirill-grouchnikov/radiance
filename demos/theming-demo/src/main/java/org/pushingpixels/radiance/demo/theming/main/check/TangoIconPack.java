@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
 /**
  * Custom Radiance icon pack based on Tango icons (license in resources/TangoIcons.license).
  * Original SVG content from https://commons.wikimedia.org/wiki/Tango_icons transcoded offline
- * into Java2D resizable icons with Photon.
+ * into Java2D resizable icons with SVG Transcoder.
  */
 public class TangoIconPack implements RadianceIconPack {
 

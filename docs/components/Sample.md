@@ -1,6 +1,6 @@
-## Flamingo - sample walkthrough, part 1
+## Components - sample walkthrough, part 1
 
-Let's get right down to business of showing what Flamingo brings to the table.
+Let's get right down to business of showing what Radiance Components brings to the table.
 
 In the screenshot below we have a multiline `JTextPane` and a vertical strip of buttons on the right. Clicking one of the buttons should change the text alignment of the content. The current alignment should be represented by the visual indication on the matching button.
 
@@ -62,11 +62,11 @@ private static void setAlignment(JTextPane textPane, int alignment) {
 }
 ```
 
-So far, nothing special. This should all be familiar to a Swing developer. Let's take a look at what Flamingo brings to the table.
+So far, nothing special. This should all be familiar to a Swing developer. Let's take a look at what Radiance Components brings to the table.
 
 ### Commands
 
-The most basic building block of Flamingo components is a **command**. Instead of thinking in terms of buttons - where each button, when clicked, changes the content alignment on text pane - Flamingo separates the **content** aspects of such a unit of functionality from the **presentation** aspects of it.
+The most basic building block of Radiance components is a **command**. Instead of thinking in terms of buttons - where each button, when clicked, changes the content alignment on text pane - Radiance separates the **content** aspects of such a unit of functionality from the **presentation** aspects of it.
 
 Let's take a look at the four commands for changing the text pane content alignment:
 
@@ -108,7 +108,7 @@ Command commandAlignFill = Command.builder()
 
 Each command in this example is configured with the following three attributes:
 
-1. Factory for creating a resizable icon for the command's representation (or projection, in Flamingo's terms) on the screen. In this case, the classes for `Format_justify_*` icons were transcoded by [Photon](../tools/svg-transcoder/svg-transcoder.md).
+1. Factory for creating a resizable icon for the command's representation (or projection, in Radiance's terms) on the screen. In this case, the classes for `Format_justify_*` icons were transcoded by [SVG Transcoder](../tools/svg-transcoder/svg-transcoder.md).
 2. Action to be taken when the command's representation on the screen is activated. Here, each command's action is mapped to call our helper `setAlignment` method.
 3. Finally, each command is marked to belong to the same `CommandToggleGroupModel`, and the first command (align left) is marked also to be the selected one.
 

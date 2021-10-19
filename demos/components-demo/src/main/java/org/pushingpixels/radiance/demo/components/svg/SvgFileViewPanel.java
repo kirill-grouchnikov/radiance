@@ -138,7 +138,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
                             transcoder.setPrintWriter(pw);
                             transcoder.transcode(this.getClass().getResourceAsStream(
-                                    "/org/pushingpixels/photon/api/transcoder/java" +
+                                    "/org/pushingpixels/radiance/tools/svgtranscoder/api/java" +
                                             "/SvgTranscoderTemplateRadiance.templ"));
                             JOptionPane.showMessageDialog(
                                     SwingUtilities.getWindowAncestor(SvgFileViewPanel.this),

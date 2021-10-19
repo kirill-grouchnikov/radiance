@@ -1,4 +1,4 @@
-## Flamingo - in-ribbon galleries
+## Components - in-ribbon galleries
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 

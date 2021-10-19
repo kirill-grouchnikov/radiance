@@ -1,4 +1,4 @@
-## Flamingo - ribbon API skeleton
+## Components - ribbon API skeleton
 
 As the following sections will take a deep dive into how the ribbon is built bottom-up, here is a skeleton overview of how the ribbon is built top-down.
 
@@ -6,7 +6,7 @@ As the following sections will take a deep dive into how the ribbon is built bot
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/ribbon-start.png" width="1181" border=0/>
 
-The `JRibbonFrame` is the only officially supported way to use the Flamingo ribbon component. Its implementation enforces that the ribbon is always at the `BorderLayout.NORTH` location, throwing `IllegalArgumentException` on attempts to set a custom layout manager, add another component at `BorderLayout.NORTH`, remove the ribbon component, set a custom menu bar, content pane or any other operation that interferes with the intended hierarchy of this frame.
+The `JRibbonFrame` is the only officially supported way to use the Radiance ribbon component. Its implementation enforces that the ribbon is always at the `BorderLayout.NORTH` location, throwing `IllegalArgumentException` on attempts to set a custom layout manager, add another component at `BorderLayout.NORTH`, remove the ribbon component, set a custom menu bar, content pane or any other operation that interferes with the intended hierarchy of this frame.
 
 Call `JRibbonFrame.getRibbon()` to get a `JRibbon` object that represents the ribbon itself.
 

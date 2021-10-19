@@ -1,6 +1,6 @@
-## Flamingo - commands
+## Components - commands
 
-A command is the most basic building block of Flamingo components. Let's take a look at this screenshot of the main Flamingo ribbon demo application:
+A command is the most basic building block of Radiance components. Let's take a look at this screenshot of the main Radiance ribbon demo application:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
@@ -8,7 +8,7 @@ Apart from the two comboboxes in the main content area on the right, and another
 
 ### Attributes overview
 
-Commands are created with the builder pattern which is pervasive throughout Flamingo. Call `Command.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
+Commands are created with the builder pattern which is pervasive throughout Radiance Components. Call `Command.builder()` to get a new builder instance. Then, configure one or more of the following attributes on the builder:
 
 |  | Attribute | Type | Dynamic? |
 | --- | --- | --- | --- |
@@ -28,7 +28,7 @@ Commands are created with the builder pattern which is pervasive throughout Flam
 
 ### Base attributes
 
-Let's take a look at the following screenshot that shows how four commands (paste, cut, copy, and select all) might be rendered on the screen (or projected, in Flamingo terminology):
+Let's take a look at the following screenshot that shows how four commands (paste, cut, copy, and select all) might be rendered on the screen (or projected, in Radiance terminology):
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-basics.png" width="780" border=0/>
 
@@ -49,7 +49,7 @@ this.pasteActionCommand = Command.builder()
     .build();
 ```
 
-As with all code samples in Flamingo documentation, the classes for icons passed to `setIconFactory()` API calls were transcoded by [Photon](../tools/svg-transcoder/svg-transcoder.md).
+As with all code samples in Radiance documentation, the classes for icons passed to `setIconFactory()` API calls were transcoded by [SVG Transcoder](../tools/svg-transcoder/svg-transcoder.md).
 
 ### Action attributes
 
@@ -161,7 +161,7 @@ Or have a more complex structure, with an embedded, separately scrollable panel 
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-secondary-complex.png" width="734" border=0/>
 
-All these three examples would be called "popup buttons" in similar component suites. The power of secondary content in Flamingo commands can be seen in how easily it is to configure a projected button to be a "regular" action button - with just one action.
+All these three examples would be called "popup buttons" in similar component suites. The power of secondary content in Radiance commands can be seen in how easily it is to configure a projected button to be a "regular" action button - with just one action.
 
 Or, by calling `setSecondaryContentModel()` and `CommandButtonPresentationModel.Builder.setTextClickAction(true)` make it a split button with a popup menu shown when the down arrow is clicked:
 
@@ -171,7 +171,7 @@ Or instead, calling `CommandButtonPresentationModel.Builder.setTextClickPopup(tr
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-title-popup.png" width="764" border=0/>
 
-An important note is in order here. Even though all the examples so far have shown secondary content displayed as a popup menu, that is not necessarily the case. Flamingo's model of separating content from presentation (and combining the two in a projection) means that the **same exact command** projected as a split button can be projected into something that looks like this:
+An important note is in order here. Even though all the examples so far have shown secondary content displayed as a popup menu, that is not necessarily the case. Radiance's model of separating content from presentation (and combining the two in a projection) means that the **same exact command** projected as a split button can be projected into something that looks like this:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon-application-menu.png" width="754" border=0/>
 
