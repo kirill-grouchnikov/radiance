@@ -32,8 +32,8 @@ package org.pushingpixels.lucent.details
 import org.pushingpixels.lucent.LucentUtils
 import org.pushingpixels.lucent.MainWindow
 import org.pushingpixels.lucent.data.SearchResultRelease
-import org.pushingpixels.torch.TorchWindow
-import org.pushingpixels.torch.windowTimeline
+import org.pushingpixels.radiance.animation.kxt.RadianceWindow
+import org.pushingpixels.radiance.animation.kxt.windowTimeline
 import java.awt.Color
 
 /**
@@ -85,7 +85,7 @@ object DetailsWindowManager {
         currentlyShownWindow!!.setAlbum(album)
 
         currentlyShownWindow!!.windowTimeline {
-            property(TorchWindow.opacity from 0.0f to 1.0f)
+            property(RadianceWindow.opacity from 0.0f to 1.0f)
             duration = 500
         }.play()
     }

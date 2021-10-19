@@ -27,15 +27,42 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.animation.kxt
 
-apply plugin: 'kotlin'
+import org.pushingpixels.radiance.animation.kxt.from
+import org.pushingpixels.radiance.animation.kxt.timeline
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation project(':animation')
-    implementation project(':kotlin-ext:animation-kxt')
+var attr = 0.0f
+    set(value) {
+        println("ATTR1: $field -> $value")
+        field = value
+    }
+
+var attr2 = 5.0f
+    set(value) {
+        println("ATTR2: $field -> $value")
+        field = value
+    }
+
+class MyData {
+    var attrData = 0.0f
+        set(value) {
+            println("DATA: $field -> $value")
+            field = value
+        }
 }
 
-ext.designation = "demo"
+fun main() {
+    val myData = MyData()
+
+    timeline {
+        property(::attr from 0.0f to 1.0f)
+        property(::attr2 from 0.0f to 10.0f)
+        property(myData::attrData from 3.0f to 2.0f)
+    }.play()
+
+    try {
+        Thread.sleep(3000)
+    } catch (exc: Exception) {
+    }
+}

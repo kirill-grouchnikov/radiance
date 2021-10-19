@@ -27,15 +27,51 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.animation.kxt.swing.tracker
 
-apply plugin: 'kotlin'
+import org.pushingpixels.meteor.awt.render
+import org.pushingpixels.radiance.animation.kxt.from
+import org.pushingpixels.radiance.animation.kxt.timeline
+import java.awt.Color
+import java.awt.Graphics
+import java.awt.Point
+import java.awt.RenderingHints
+import javax.swing.JComponent
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation project(':animation')
-    implementation project(':kotlin-ext:animation-kxt')
+class TimelineVisualizer : JComponent() {
+    private val dots: MutableList<TimelineVisualizerDot> = ArrayList()
+
+    fun addDot(absoluteTimelinePosition: Float, perceivedTimelinePosition: Float) {
+        synchronized(this.dots) {
+            val dot = TimelineVisualizerDot()
+            dot.location = Point((absoluteTimelinePosition * width).toInt(),
+                    (perceivedTimelinePosition * height).toInt())
+            this.dots.add(dot)
+
+            dot.timeline {
+                property(dot::opacity from 1.0f to 0.0f)
+                onTimelineDone {
+                    synchronized(dots) {
+                        dots.remove(dot)
+                    }
+                }
+                duration = 10000
+            }.play()
+        }
+    }
+
+    override fun paintComponent(g: Graphics) {
+        g.render {
+            it.color = Color.black
+            it.fillRect(0, 0, width, height)
+
+            it.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+
+            synchronized(this.dots) {
+                for (dot in this.dots) {
+                    dot.paint(it)
+                }
+            }
+        }
+    }
 }
-
-ext.designation = "demo"

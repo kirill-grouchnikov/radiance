@@ -35,8 +35,8 @@ import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
-import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.torch.from
+import org.pushingpixels.radiance.animation.kxt.componentTimeline
+import org.pushingpixels.radiance.animation.kxt.from
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline
 import java.awt.*
 import javax.swing.JColorChooser

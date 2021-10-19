@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.lucent.content
 
-import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.torch.fromCurrentTo
+import org.pushingpixels.radiance.animation.kxt.componentTimeline
+import org.pushingpixels.radiance.animation.kxt.fromCurrentTo
 import org.pushingpixels.radiance.animation.api.Timeline
 
 /**

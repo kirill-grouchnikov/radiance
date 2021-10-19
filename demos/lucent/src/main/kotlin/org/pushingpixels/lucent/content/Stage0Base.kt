@@ -32,8 +32,8 @@ package org.pushingpixels.lucent.content
 import org.pushingpixels.meteor.addDelayedHierarchyListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.torch.from
+import org.pushingpixels.radiance.animation.kxt.componentTimeline
+import org.pushingpixels.radiance.animation.kxt.from
 import java.awt.*
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent

@@ -33,8 +33,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.torch.TorchComponent
-import org.pushingpixels.torch.componentTimeline
+import org.pushingpixels.radiance.animation.kxt.RadianceComponent
+import org.pushingpixels.radiance.animation.kxt.componentTimeline
 import org.pushingpixels.radiance.animation.api.Timeline
 import java.awt.Color
 import java.awt.Dimension
@@ -96,7 +96,7 @@ fun main() {
 
         button.foreground = Color.blue
         button.componentTimeline {
-            property(TorchComponent.foreground from Color.blue to Color.red)
+            property(RadianceComponent.foreground from Color.blue to Color.red)
             duration = 1000
         }.playLoop(Timeline.RepeatBehavior.REVERSE)
 

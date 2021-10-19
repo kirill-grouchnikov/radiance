@@ -30,8 +30,8 @@
 package org.pushingpixels.lucent
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.torch.TorchWindow
-import org.pushingpixels.torch.windowTimeline
+import org.pushingpixels.radiance.animation.kxt.RadianceWindow
+import org.pushingpixels.radiance.animation.kxt.windowTimeline
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.Window
@@ -106,7 +106,7 @@ object LucentUtils {
 
     fun fadeOutAndDispose(window: Window, fadeOutDuration: Long) {
         window.windowTimeline {
-            property(TorchWindow.opacity from 1.0f to 0.0f)
+            property(RadianceWindow.opacity from 1.0f to 0.0f)
             onTimelineDone { window.dispose() }
             duration = fadeOutDuration
         }.play()

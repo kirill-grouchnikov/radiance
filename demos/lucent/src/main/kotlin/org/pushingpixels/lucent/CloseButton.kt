@@ -35,9 +35,9 @@ import org.pushingpixels.meteor.addDelayedHierarchyListener
 import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.awt.deriveByBrightness
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.torch.TorchComponent
-import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.torch.from
+import org.pushingpixels.radiance.animation.kxt.RadianceComponent
+import org.pushingpixels.radiance.animation.kxt.componentTimeline
+import org.pushingpixels.radiance.animation.kxt.from
 import java.awt.*
 import java.awt.geom.Ellipse2D
 import javax.swing.JButton
@@ -74,7 +74,7 @@ class CloseButton : JButton() {
 
         // timeline for the rollover effect (interpolating the button's foreground color)
         val rolloverTimeline = this.componentTimeline {
-            property(TorchComponent.foreground from Color(158, 205, 255) to Color(64, 140, 255))
+            property(RadianceComponent.foreground from Color(158, 205, 255) to Color(64, 140, 255))
             duration = 200
         }
 

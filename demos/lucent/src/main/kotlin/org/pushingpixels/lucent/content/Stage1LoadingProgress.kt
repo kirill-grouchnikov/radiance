@@ -30,8 +30,8 @@
 package org.pushingpixels.lucent.content
 
 import org.pushingpixels.meteor.awt.render
-import org.pushingpixels.torch.componentTimeline
-import org.pushingpixels.torch.from
+import org.pushingpixels.radiance.animation.kxt.componentTimeline
+import org.pushingpixels.radiance.animation.kxt.from
 import org.pushingpixels.radiance.animation.api.Timeline
 import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState
