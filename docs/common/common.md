@@ -78,7 +78,7 @@ The [SVG Transcoder library](../tools/svg-transcoder/svg-transcoder.md) provides
 
 `RadianceIcon.setColorFilter` API provides support for colorizing Common icons.
 
-[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of colorized icons in [complex list renderers](../theming/renderers.md). Note the visuals of the selected elements in the destinations list on the left and the threads list in the middle - the icon is colorized with the same foreground color as the associated texts.
+[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/mail) demo app illustrates the usage of colorized icons in [complex list renderers](../theming/renderers.md). Note the visuals of the selected elements in the destinations list on the left and the threads list in the middle - the icon is colorized with the same foreground color as the associated texts.
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0 align="right">
 

@@ -67,8 +67,8 @@ java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchC
 
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/theming-demo/src/main/java/org/pushingpixels/radiance/demo/theming/main/check/svg/vaadin outputPackageName=org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
 
-# Use deep traversal for all Spyglass demo SVG files
-java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgDeepBatchConverter sourceRootFolder=../demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/ outputRootPackageName=org.pushingpixels.demo.spyglass templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
+# Use deep traversal for all theming apps SVG files
+java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgDeepBatchConverter sourceRootFolder=../demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/ outputRootPackageName=org.pushingpixels.radiance.demo.themingapps templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
 
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/rainbow/src/main/kotlin/org/pushingpixels/demo/rainbow/svg outputPackageName=org.pushingpixels.demo.rainbow.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
 

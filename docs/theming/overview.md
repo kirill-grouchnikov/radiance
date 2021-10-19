@@ -48,8 +48,8 @@ Radiance provides a powerful and flexible set of APIs that can be used to skin S
 ### Code samples
 
 * [Main Radiance demo](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-demo/src/main/java/org/pushingpixels/radiance/demo/theming/main)
-* [Additional sample apps](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass)
-* [Cookbook walkthrough](../spyglass/cookbook/cookbook.md)
+* [Additional sample apps](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps)
+* [Cookbook walkthrough](cookbook/cookbook.md)
 
 ### Have a question?
 

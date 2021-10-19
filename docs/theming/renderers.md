@@ -22,7 +22,7 @@ If you do not configure a custom renderer for one of your data containers, a mat
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0/>
 
-[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of `RadiancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
+[VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/mail) demo app illustrates the usage of `RadiancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
 
 In both cases the [highlights](painters/highlight.md) configured on the matching [decoration areas](painters/decoration.md) provide "special" visuals for highlighted rows - those that are in selected, rollover, armed or pressed state. In addition to configuring the background and foreground colors for the highlights at the skin level, the flow of layout and data binding when you use the `RadiancePanelListCellRenderer` base class is:
 
