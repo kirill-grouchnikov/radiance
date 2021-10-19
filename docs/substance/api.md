@@ -9,7 +9,7 @@ The `RadianceLafCortex` class in the `org.pushingpixels.radiance.laf.api` packag
 * **ComponentOrParentScope** - configuring and querying state at the level of individual application `Component`s or all immediate child components of a container.
 * **ComponentOrParentChainScope** - configuring and querying state at the level of individual application `Component`s or all nested child components of a container.
 
-Note that APIs in all scopes except for `GlobalScope` are also available as Kotlin extensions with the [Ember library](..\ember\ember.md).
+Note that APIs in all scopes except for `GlobalScope` are also available as Kotlin extensions with the [Laf kxt library](..\laf\laf-kxt.md).
 
 ### GlobalScope
 

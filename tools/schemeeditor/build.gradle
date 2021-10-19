@@ -42,7 +42,7 @@ dependencies {
     implementation project(':laf')
     implementation project(':kotlin-ext:torch')
     implementation project(':kotlin-ext:meteor')
-    implementation project(':kotlin-ext:ember')
+    implementation project(':kotlin-ext:laf-kxt')
     implementation project(':tools:tools-common')
 }
 

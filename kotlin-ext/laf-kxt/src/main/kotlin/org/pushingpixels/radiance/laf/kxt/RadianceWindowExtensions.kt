@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.ember
+package org.pushingpixels.radiance.laf.kxt
 
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import org.pushingpixels.radiance.laf.api.RadianceLafSlices
@@ -45,7 +45,7 @@ import javax.swing.SwingUtilities
  * @param visible          Visibility indication.
  * @param substanceWidgets Widget types.
  */
-@EmberWindowScope
+@RadianceWindowScope
 public fun Window.setWidgetVisible(visible: Boolean,
         vararg substanceWidgets: RadianceLafSlices.WidgetType
 ) {
@@ -75,7 +75,7 @@ public fun Window.setWidgetVisible(visible: Boolean,
  * @see Window.getTitleControlButtonGroupHorizontalGravity
  * @see Window.createTitlePaneControlButton
  */
-@EmberWindowScope
+@RadianceWindowScope
 public fun Window.extendContentIntoTitlePane(
     controlButtonGroupHorizontalGravity: RadianceLafSlices.HorizontalGravity,
     controlButtonGroupVerticalGravity: RadianceLafSlices.VerticalGravity?) {
@@ -96,7 +96,7 @@ public fun Window.extendContentIntoTitlePane(
  * @see Window.getTitlePaneControlInsets
  * @see Window.setPreferredTitlePaneHeight
  */
-@EmberWindowScope
+@RadianceWindowScope
 public fun Window.createTitlePaneControlButton(): JButton? {
     return RadianceLafCortex.WindowScope.createTitlePaneControlButton(this)
 }
@@ -116,7 +116,7 @@ public fun Window.createTitlePaneControlButton(): JButton? {
  * @see Window.createTitlePaneControlButton
  * @see Window.setPreferredTitlePaneHeight
  */
-@EmberWindowScope
+@RadianceWindowScope
 public fun Window.getTitlePaneControlInsets(): Insets? {
     return RadianceLafCortex.WindowScope.getTitlePaneControlInsets(this)
 }
@@ -132,7 +132,7 @@ public fun Window.getTitlePaneControlInsets(): Insets? {
  * @see Window.createTitlePaneControlButton
  * @see Window.getTitlePaneControlInsets
  */
-@EmberWindowScope
+@RadianceWindowScope
 public fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
     RadianceLafCortex.WindowScope.setPreferredTitlePaneHeight(this, preferredTitlePaneHeight)
 }
@@ -145,7 +145,7 @@ public fun Window.setPreferredTitlePaneHeight(preferredTitlePaneHeight: Int) {
  * window.
  * @see Window.extendContentIntoTitlePane
  */
-@EmberWindowScope
+@RadianceWindowScope
 public fun Window.getTitleControlButtonGroupHorizontalGravity(): RadianceLafSlices.HorizontalGravity {
     return RadianceLafCortex.WindowScope.getTitleControlButtonGroupHorizontalGravity(this)
 }

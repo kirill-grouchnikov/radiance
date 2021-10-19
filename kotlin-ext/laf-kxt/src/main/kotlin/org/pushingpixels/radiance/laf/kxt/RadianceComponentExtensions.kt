@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.ember
+package org.pushingpixels.radiance.laf.kxt
 
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import org.pushingpixels.radiance.laf.api.RadianceSkin
@@ -49,7 +49,7 @@ import javax.swing.text.JTextComponent
  *
  * @return Current skin for the specified component.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun Component.getCurrentSkin(): RadianceSkin? {
     return RadianceLafCortex.ComponentScope.getCurrentSkin(this)
 }
@@ -61,7 +61,7 @@ public fun Component.getCurrentSkin(): RadianceSkin? {
  * @see JTabbedPane.unregisterTabCloseChangeListener
  * @see JTabbedPane.getAllTabCloseListeners
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.registerTabCloseChangeListener(tabCloseListener: BaseTabCloseListener) {
     RadianceLafCortex.ComponentScope.registerTabCloseChangeListener(this, tabCloseListener)
 }
@@ -73,7 +73,7 @@ public fun JTabbedPane.registerTabCloseChangeListener(tabCloseListener: BaseTabC
  * @see JTabbedPane.registerTabCloseChangeListener
  * @see JTabbedPane.getAllTabCloseListeners
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.unregisterTabCloseChangeListener(tabCloseListener: BaseTabCloseListener) {
     RadianceLafCortex.ComponentScope.unregisterTabCloseChangeListener(this, tabCloseListener)
 }
@@ -85,7 +85,7 @@ public fun JTabbedPane.unregisterTabCloseChangeListener(tabCloseListener: BaseTa
  * @see JTabbedPane.registerTabCloseChangeListener
  * @see JTabbedPane.unregisterTabCloseChangeListener
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.getAllTabCloseListeners(): Set<BaseTabCloseListener> {
     return RadianceLafCortex.ComponentScope.getAllTabCloseListeners(this)
 }
@@ -97,7 +97,7 @@ public fun JTabbedPane.getAllTabCloseListeners(): Set<BaseTabCloseListener> {
  * @see Component.disallowAnimations
  * @see Component.isAnimationAllowed
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun Component.allowAnimations(animationFacet: RadianceLafSlices.AnimationFacet) {
     RadianceLafCortex.ComponentScope.allowAnimations(this, animationFacet)
 }
@@ -109,7 +109,7 @@ public fun Component.allowAnimations(animationFacet: RadianceLafSlices.Animation
  * @see Component.allowAnimations
  * @see Component.isAnimationAllowed
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun Component.disallowAnimations(animationFacet: RadianceLafSlices.AnimationFacet) {
     RadianceLafCortex.ComponentScope.disallowAnimations(this, animationFacet)
 }
@@ -123,7 +123,7 @@ public fun Component.disallowAnimations(animationFacet: RadianceLafSlices.Animat
  * @see Component.allowAnimations
  * @see Component.disallowAnimations
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun Component.isAnimationAllowed(animationFacet: RadianceLafSlices.AnimationFacet): Boolean {
     return RadianceLafCortex.ComponentScope.isAnimationAllowed(this, animationFacet)
 }
@@ -137,7 +137,7 @@ public fun Component.isAnimationAllowed(animationFacet: RadianceLafSlices.Animat
  * @see JComponent.setDecorationType
  * @see JComponent.getDecorationType
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun Component.getImmediateDecorationType(): RadianceLafSlices.DecorationAreaType? {
     return RadianceLafCortex.ComponentScope.getImmediateDecorationType(this)
 }
@@ -149,7 +149,7 @@ public fun Component.getImmediateDecorationType(): RadianceLafSlices.DecorationA
  * when it is in non-editable mode. Pass `null` to reset to the default
  * behavior.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setLockIconVisible(visible: Boolean?) {
     RadianceLafCortex.ComponentScope.setLockIconVisible(this, visible)
 }
@@ -161,7 +161,7 @@ public fun JComponent.setLockIconVisible(visible: Boolean?) {
  * when it is focused and caps lock is on. Pass `null` to reset to the default
  * behavior.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JPasswordField.setCapsLockIconVisible(visible: Boolean?) {
     RadianceLafCortex.ComponentScope.setCapsLockIconVisible(this, visible)
 }
@@ -171,7 +171,7 @@ public fun JPasswordField.setCapsLockIconVisible(visible: Boolean?) {
  *
  * @param passwordStrengthChecker Password strength checker
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JPasswordField.setPasswordStrengthChecker(passwordStrengthChecker: PasswordStrengthChecker) {
     RadianceLafCortex.ComponentScope.setPasswordStrengthChecker(this, passwordStrengthChecker)
 }
@@ -183,7 +183,7 @@ public fun JPasswordField.setPasswordStrengthChecker(passwordStrengthChecker: Pa
  * text component will flip selection on ESCAPE key press. Pass `null`
  * to reset to the default behavior.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTextComponent.setFlipTextSelectionOnEscape(flipTextSelectionOnEscape: Boolean?) {
     RadianceLafCortex.ComponentScope.setFlipTextSelectionOnEscape(this, flipTextSelectionOnEscape)
 }
@@ -196,7 +196,7 @@ public fun JTextComponent.setFlipTextSelectionOnEscape(flipTextSelectionOnEscape
  * context menu (with Cut / Copy / Paste / ... menu items). Pass `null`
  * to reset to the default behavior.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTextComponent.setTextEditContextMenuPresence(hasEditContextMenu: Boolean?) {
     RadianceLafCortex.ComponentScope.setTextEditContextMenuPresence(this, hasEditContextMenu)
 }
@@ -207,7 +207,7 @@ public fun JTextComponent.setTextEditContextMenuPresence(hasEditContextMenu: Boo
  * @param hasAutomaticDragAndDropSupport If `true`, this tree will have
  * automatic drag and drop support. Pass `null` to reset to the default behavior.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropSupport: Boolean?) {
     RadianceLafCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(
         this, hasAutomaticDragAndDropSupport
@@ -222,7 +222,7 @@ public fun JTree.setAutomaticDragAndDropSupportPresence(hasAutomaticDragAndDropS
  * auto-scroll support invoked on mouse button click that triggers popups. Pass
  * `null` to reset to the default behavior.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) {
     RadianceLafCortex.ComponentScope.setAutomaticScrollPresence(this, hasAutomaticScroll)
 }
@@ -236,7 +236,7 @@ public fun JScrollPane.setAutomaticScrollPresence(hasAutomaticScroll: Boolean?) 
  * @see JComponent.setButtonOpenSides
  * @see JComponent.setButtonStraightSide
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setButtonOpenSide(openSide: RadianceLafSlices.Side) {
     RadianceLafCortex.ComponentScope.setButtonOpenSide(this, openSide)
 }
@@ -250,7 +250,7 @@ public fun JComponent.setButtonOpenSide(openSide: RadianceLafSlices.Side) {
  * @see JComponent.setButtonOpenSide
  * @see JComponent.setButtonStraightSides
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setButtonOpenSides(openSides: Set<RadianceLafSlices.Side>) {
     RadianceLafCortex.ComponentScope.setButtonOpenSides(this, openSides)
 }
@@ -264,7 +264,7 @@ public fun JComponent.setButtonOpenSides(openSides: Set<RadianceLafSlices.Side>)
  * @see JComponent.setButtonOpenSide
  * @see JComponent.setButtonStraightSides
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setButtonStraightSide(straightSide: RadianceLafSlices.Side) {
     RadianceLafCortex.ComponentScope.setButtonStraightSide(this, straightSide)
 }
@@ -278,7 +278,7 @@ public fun JComponent.setButtonStraightSide(straightSide: RadianceLafSlices.Side
  * @see JComponent.setButtonStraightSide
  * @see JComponent.setButtonOpenSides
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setButtonStraightSides(straightSides: Set<RadianceLafSlices.Side>) {
     RadianceLafCortex.ComponentScope.setButtonStraightSides(this, straightSides)
 }
@@ -291,7 +291,7 @@ public fun JComponent.setButtonStraightSides(straightSides: Set<RadianceLafSlice
  * [JToolBar].
  * @see JToolBar.setToolbarButtonCornerRadius
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
     RadianceLafCortex.ComponentScope.setToolbarButtonCornerRadius(this, toolbarButtonCornerRadius)
 }
@@ -314,7 +314,7 @@ public fun AbstractButton.setToolbarButtonCornerRadius(toolbarButtonCornerRadius
  * tab of the matching frame / dialog will be animated.
  * @see JRootPane.setContentsModified
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setTabContentsModified(contentsModified: Boolean?) {
     RadianceLafCortex.ComponentScope.setTabContentsModified(this, contentsModified)
 }
@@ -326,7 +326,7 @@ public fun JComponent.setTabContentsModified(contentsModified: Boolean?) {
  * show close buttons.
  * @see JComponent.setTabComponentCloseButtonVisible
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.setTabCloseButtonsVisible(tabCloseButtonsVisible: Boolean?) {
     RadianceLafCortex.ComponentScope.setTabCloseButtonsVisible(this, tabCloseButtonsVisible)
 }
@@ -337,7 +337,7 @@ public fun JTabbedPane.setTabCloseButtonsVisible(tabCloseButtonsVisible: Boolean
  * @param tabCloseButtonVisible If `true`, the tab will show close button.
  * @see JTabbedPane.setTabCloseButtonsVisible
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setTabComponentCloseButtonVisible(tabCloseButtonVisible: Boolean?) {
     RadianceLafCortex.ComponentScope.setTabCloseButtonVisible(this, tabCloseButtonVisible)
 }
@@ -352,7 +352,7 @@ public fun JComponent.setTabComponentCloseButtonVisible(tabCloseButtonVisible: B
  * tabbed pane.
  * @see JComponent.setTabComponentCloseCallback
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.setTabCloseCallback(tabCloseCallback: TabCloseCallback) {
     RadianceLafCortex.ComponentScope.setTabCloseCallback(this, tabCloseCallback)
 }
@@ -366,7 +366,7 @@ public fun JTabbedPane.setTabCloseCallback(tabCloseCallback: TabCloseCallback) {
  * @param tabCloseCallback Callback for deciding on the tab close type on the tab component.
  * @see JTabbedPane.setTabCloseCallback
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setTabComponentCloseCallback(tabCloseCallback: TabCloseCallback) {
     RadianceLafCortex.ComponentScope.setTabCloseCallback(this, tabCloseCallback)
 }
@@ -382,7 +382,7 @@ public fun JComponent.setTabComponentCloseCallback(tabCloseCallback: TabCloseCal
  * on the tab close button.
  * @see JComponent.setRunModifiedAnimationOnTabComponentCloseButton
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
     runModifiedAnimationOnTabCloseButton: Boolean?
 ) {
@@ -402,7 +402,7 @@ public fun JTabbedPane.setRunModifiedAnimationOnTabCloseButton(
  * on the tab close button.
  * @see JTabbedPane.setRunModifiedAnimationOnTabCloseButton
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
     runModifiedAnimationOnTabCloseButton: Boolean?
 ) {
@@ -416,7 +416,7 @@ public fun JComponent.setRunModifiedAnimationOnTabComponentCloseButton(
  *
  * @param tabContentPaneBorderKind Content pane border kind for this tabbed pane.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JTabbedPane.setTabContentPaneBorderKind(
     tabContentPaneBorderKind: RadianceLafSlices.TabContentPaneBorderKind
 ) {
@@ -431,7 +431,7 @@ public fun JTabbedPane.setTabContentPaneBorderKind(
  *
  * @param buttonShaper Button shaper to be used for this component.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setButtonShaper(buttonShaper: RadianceButtonShaper) {
     RadianceLafCortex.ComponentScope.setButtonShaper(this, buttonShaper)
 }
@@ -443,7 +443,7 @@ public fun JComponent.setButtonShaper(buttonShaper: RadianceButtonShaper) {
  * @param echoCount Number of echo characters for each password character in this
  * password field.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) {
     RadianceLafCortex.ComponentScope.setNumberOfPasswordEchoesPerCharacter(this, echoCount)
 }
@@ -456,7 +456,7 @@ public fun JPasswordField.setNumberOfPasswordEchoesPerCharacter(echoCount: Int) 
  * the width of the popup at runtime.
  * @see JComboBox.setComboBoxPrototypeDisplayValue
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComboBox<*>.setComboBoxPrototypeCallback(
     comboPopupPrototypeCallback: ComboPopupPrototypeCallback<*>
 ) {
@@ -471,7 +471,7 @@ public fun JComboBox<*>.setComboBoxPrototypeCallback(
  * compute the width of the popup at runtime.
  * @see JComboBox.setComboBoxPrototypeCallback
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisplayValue: Any) {
     RadianceLafCortex.ComponentScope.setComboBoxPrototypeDisplayValue(
         this, comboPopupPrototypeDisplayValue
@@ -498,7 +498,7 @@ public fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisp
  *
  * @param comboPopupFlyoutOrientation Flyout orientation for combobox popup.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrientation: Int?) {
     RadianceLafCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(
         this, comboPopupFlyoutOrientation
@@ -512,7 +512,7 @@ public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrient
  * @param enabledIconFilterStrategy Icon filter strategy for enabled state.
  * @param disabledIconFilterStrategy Icon filter strategy for disabled states.
  */
-@EmberComponentScope
+@RadianceComponentScope
 public fun JComponent.setIconFilterStrategies(
     activeIconFilterStrategy: RadianceLafSlices.IconFilterStrategy,
     enabledIconFilterStrategy: RadianceLafSlices.IconFilterStrategy,

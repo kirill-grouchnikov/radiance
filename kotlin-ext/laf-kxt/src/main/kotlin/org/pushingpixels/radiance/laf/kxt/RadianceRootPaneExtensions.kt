@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.ember
+package org.pushingpixels.radiance.laf.kxt
 
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import org.pushingpixels.radiance.laf.api.RadianceSkin
@@ -43,7 +43,7 @@ import javax.swing.SwingUtilities
  *
  * @param skin     Skin to use on all the controls in the root pane.
  */
-@EmberRootPaneScope
+@RadianceRootPaneScope
 public fun JRootPane.setSkin(skin: RadianceSkin) {
     RadianceLafCortex.RootPaneScope.setSkin(this, skin)
 }
@@ -65,7 +65,7 @@ public fun JRootPane.setSkin(skin: RadianceSkin) {
  * pane of the matching frame / dialog will be animated.
  * @see JComponent.setTabContentsModified
  */
-@EmberRootPaneScope
+@RadianceRootPaneScope
 public fun JRootPane.setContentsModified(contentsModified: Boolean?) {
     RadianceLafCortex.RootPaneScope.setContentsModified(this, contentsModified)
 }

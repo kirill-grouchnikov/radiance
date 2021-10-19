@@ -86,7 +86,7 @@ Now, elsewhere in the app there's code that gets notified whenever this property
 // track modification changes on the scheme list and any scheme in it
 this.colorSchemeList.addPropertyChangeListener("modified", propertyChangeEvent -> {
     boolean isModified = (Boolean) propertyChangeEvent.getNewValue();
-    SubstanceCortex.RootPaneScope.setContentsModified(getRootPane(), isModified);
+    RadianceLafCortex.RootPaneScope.setContentsModified(getRootPane(), isModified);
 
     // update the main frame title
     updateMainWindowTitle(isModified);

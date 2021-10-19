@@ -39,7 +39,7 @@ dependencies {
     implementation project(':laf')
     implementation project(':flamingo')
     implementation project(':kotlin-ext:plasma')
-    implementation project(':kotlin-ext:ember')
+    implementation project(':kotlin-ext:laf-kxt')
     implementation project(':kotlin-ext:meteor')
     implementation project(':demos:flamingo-demo')
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"

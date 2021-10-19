@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.ember
+package org.pushingpixels.radiance.laf.kxt
 
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import org.pushingpixels.radiance.laf.api.RadianceLafSlices
@@ -45,7 +45,7 @@ import javax.swing.JComponent
  *
  * @param previewPainter Preview painter. Can be `null`.
  */
-@EmberComponentOrParentScope
+@RadianceComponentOrParentScope
 public fun JComponent.setComponentPreviewPainter(previewPainter: PreviewPainter) {
     RadianceLafCortex.ComponentOrParentScope.setComponentPreviewPainter(this, previewPainter)
 }

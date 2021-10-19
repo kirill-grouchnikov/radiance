@@ -1,0 +1,30 @@
+## Kotlin extensions for Radiance look-and-feel APIs
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember) `radiance-ember` for build instructions of the latest stable release.
+
+In your Java app, this is how you would mark a `BreadcrumbBarSelector` to use the `HEADER` [decoration area type](../substance/painters/decoration.md):
+
+```java
+BreadcrumbFileSelector bar = new BreadcrumbFileSelector();
+RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(bar,
+        RadianceLafSlices.DecorationAreaType.HEADER);
+```
+
+And here is how the same code would look like in Kotlin using a Radiance-provided extension on the `JComponent` class:
+
+```kotlin
+val bar = BreadcrumbFileSelector()
+bar.setDecorationType(RadianceLafSlices.DecorationAreaType.HEADER)
+```
+
+### Scopes
+
+Kotlin scopes mirror scopes defined in `RadianceLafCortex`:
+
+* `RadianceWindowScope` - configuring and querying state at the level of the application `Window`s.
+* `RadianceRootPaneScope` - configuring and querying state at the level of the application `JRootPane`s.
+* `RadianceComponentScope` - configuring and querying state at the level of the application `Component`s.
+* `RadianceComponentOrParentScope` - configuring and querying state at the level of individual application `Component`s or all immediate child components of a container.
+* `RadianceComponentOrParentChainScope` - configuring and querying state at the level of individual application `Component`s or all nested child components of a container.
+
+Note that these are Kotlin annotations marking the extension functions on the relevant Swing classes. There is no global scope annotation as none of the `RadianceLafCortex.GlobalScope` APIs are exposed via Radiance (yet).

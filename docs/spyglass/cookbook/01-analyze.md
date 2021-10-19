@@ -34,6 +34,6 @@ Note how the functional areas and decoration areas are not identical. In fact, e
 
 Note that while the lists and footers have different visuals (colors, textures, gradients), they belong to the same functional group. For example, the footer controls for the category list are located directly beneath it, and the footer panel itself has the same width as the category list. This is especially true for dynamic scenarios when the entire UI is resized or re-proportioned.
 
-This step may cross the line between the pure design and the implementation (Swing or other UI toolkits). As the developer, you will mostly be operating on the functional UI areas. It is important to understand that Substance supports the notion of different decoration and functional areas. However, in some cases the certain limitations of the Substance decoration layer will impose some restrictions on the way you structure the Swing hierarchy.
+This step may cross the line between the pure design and the implementation (Swing or other UI toolkits). As the developer, you will mostly be operating on the functional UI areas. It is important to understand that Radiance supports the notion of different decoration and functional areas. However, in some cases the certain limitations of the Radiance decoration layer will impose some restrictions on the way you structure the Swing hierarchy.
 
-[Continue on](02-map.md) to read about mapping application functional areas to Swing container hierarchy and mapping the application decoration areas to Substance decoration areas.
+[Continue on](02-map.md) to read about mapping application functional areas to Swing container hierarchy and mapping the application decoration areas to Radiance decoration areas.

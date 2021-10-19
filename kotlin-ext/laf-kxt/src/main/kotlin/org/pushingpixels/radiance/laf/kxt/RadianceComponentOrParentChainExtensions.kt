@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.ember
+package org.pushingpixels.radiance.laf.kxt
 
 import org.pushingpixels.radiance.laf.api.RadianceLafCortex
 import org.pushingpixels.radiance.laf.api.RadianceLafSlices
@@ -46,7 +46,7 @@ import javax.swing.plaf.UIResource
  * component or its nested children will be selected on focus gain. Pass
  * `null` to reset to the default behavior.
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
     RadianceLafCortex.ComponentOrParentChainScope.setSelectTextOnFocus(this, selectTextOnFocus)
 }
@@ -57,7 +57,7 @@ public fun JComponent.setSelectTextOnFocus(selectTextOnFocus: Boolean?) {
  * @param toolbarButtonCornerRadius Corner radius for all buttons in the toolbar.
  * @see AbstractButton.setToolbarButtonCornerRadius
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Float) {
     RadianceLafCortex.ComponentOrParentChainScope.setToolbarButtonCornerRadius(
             this, toolbarButtonCornerRadius)
@@ -71,7 +71,7 @@ public fun JToolBar.setToolbarButtonCornerRadius(toolbarButtonCornerRadius: Floa
  * items in system menu or lock borders) will be shown in this component. Pass
  * `null` to reset to the default behavior.
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
     RadianceLafCortex.ComponentOrParentChainScope.setExtraWidgetsPresence(this, extraWidgetsPresence)
 }
@@ -108,7 +108,7 @@ public fun JComponent.setExtraWidgetsPresence(extraWidgetsPresence: Boolean?) {
  * @param colorizationFactor Colorization factor to apply to this component and its nested
  * children.
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
     RadianceLafCortex.ComponentOrParentChainScope.setColorizationFactor(this, colorizationFactor)
 }
@@ -120,7 +120,7 @@ public fun JComponent.setColorizationFactor(colorizationFactor: Double) {
  * @param focusKind Kind of focus indication to be used on this component and its nested
  * children.
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun JComponent.setFocusKind(focusKind: RadianceLafSlices.FocusKind) {
     RadianceLafCortex.ComponentOrParentChainScope.setFocusKind(this, focusKind)
 }
@@ -132,7 +132,7 @@ public fun JComponent.setFocusKind(focusKind: RadianceLafSlices.FocusKind) {
  * @see JComponent.getDecorationType
  * @see JComponent.getImmediateDecorationType
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun JComponent.setDecorationType(type: DecorationAreaType) {
     RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this, type)
 }
@@ -151,7 +151,7 @@ public fun JComponent.setDecorationType(type: DecorationAreaType) {
  * @see JComponent.setDecorationType
  * @see JComponent.getImmediateDecorationType
  */
-@EmberComponentOrParentChainScope
+@RadianceComponentOrParentChainScope
 public fun Component.getDecorationType(): DecorationAreaType {
     return RadianceLafCortex.ComponentOrParentChainScope.getDecorationType(this)
 }

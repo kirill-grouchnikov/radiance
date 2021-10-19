@@ -8,7 +8,7 @@ Unless you are using the exact same images that the designer was using for creat
 
 While the first two phases ([analysis](01-analyze.md) and [mapping](02-map.md)) operated on more abstract layers (decoration areas, functional areas, container hierarchy), the implementation phases ([decoration](03-decorations.md) and [skin creation](04-skin.md)) must pay painstaking attention to all the minute details of the target design. Not closely following the design may seem insignificant to the developer, but it will in most cases result in deteriorated user experience.
 
-The following is an incomplete list of Cookbook UI minute visuals that have been pointed out before. Most of these can be easily addressed with Substance painters and skins.
+The following is an incomplete list of Cookbook UI minute visuals that have been pointed out before. Most of these can be easily addressed with Radiance painters and skins.
 
 * Seamless and continuous texturing of header, footer and sidebar areas.
 * Light-dark fill gradients for the buttons.
@@ -19,7 +19,7 @@ Here are two more examples of fine details that are easily missed at a cursory g
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/05-polish/zoom-footer-cookbook.png" width="207" border=0/>
 
-In the implementation, the vertical separators are painted as a custom border installed on the relevant panels. While this can be achieved with the decoration painter, in this specific case it is easier to use borders and supported Substance APIs (to fetch the color schemes). These borders are the only usage of Substance APIs outside the self-contained definition of the custom skin. This is an example of the tradeoff between containing the painting routines inside the skin definition and the limitations of the Substance skinning layer that impose greater complexity on implementing this specific feature.
+In the implementation, the vertical separators are painted as a custom border installed on the relevant panels. While this can be achieved with the decoration painter, in this specific case it is easier to use borders and supported Radiance APIs (to fetch the color schemes). These borders are the only usage of Radiance APIs outside the self-contained definition of the custom skin. This is an example of the tradeoff between containing the painting routines inside the skin definition and the limitations of the Radiance skinning layer that impose greater complexity on implementing this specific feature.
 
 The next screenshot shows a zoomed version of the buttons in one of the footers:
 
@@ -44,7 +44,7 @@ static BufferedImageOp iconShadowFilter;
     }
     blurFilter.setKernel(new Kernel(kernelSide, kernelSide, kernelData));
 
-    SubstanceColorScheme colorScheme = new GoldenBrownColorScheme();
+    RadianceColorScheme colorScheme = new GoldenBrownColorScheme();
     Gradient inverseGradient = new Gradient(
             new int[] { 0, 128, 255 },
             new int[] {
@@ -70,7 +70,7 @@ static BufferedImageOp iconShadowFilter;
 }
 ```
 
-Here, the `CompountFilter` wraps the 3x3 uniform `BlurFilter` and an extension of `PointFilter` that is using a `Gradient` based on the colors in our `Golden Brown` color scheme. Note that in this implementation, the halo is uniformly distributed around the icon visuals so that it remains consistent with the default look of Substance window icons. This is important since we are "pushing" the toolbar content into the title pane using the `SubstanceCortex.WindowScope.extendContentIntoTitlePane` API.
+Here, the `CompountFilter` wraps the 3x3 uniform `BlurFilter` and an extension of `PointFilter` that is using a `Gradient` based on the colors in our `Golden Brown` color scheme. Note that in this implementation, the halo is uniformly distributed around the icon visuals so that it remains consistent with the default look of Radiance window icons. This is important since we are "pushing" the toolbar content into the title pane using the `RadianceCortex.WindowScope.extendContentIntoTitlePane` API.
 
 ### Even when you think you’re done
 

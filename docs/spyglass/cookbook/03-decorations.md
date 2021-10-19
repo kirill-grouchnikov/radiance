@@ -1,12 +1,12 @@
 ## Cookbook - implementing decorations
 
-### Overview of the application and Substance decoration areas
+### Overview of the application and Radiance decoration areas
 
-In the [first step](01-analyze.md) we have identified the decoration areas of Cookbook UI, and in the [second step](02-map.md) we mapped these areas to Substance decoration areas. The screenshot below shows the application decoration areas:
+In the [first step](01-analyze.md) we have identified the decoration areas of Cookbook UI, and in the [second step](02-map.md) we mapped these areas to Radiance decoration areas. The screenshot below shows the application decoration areas:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/01-analysis/decoration-all.png" width="600" border=0/>
 
-And the screenshot below shows an overlay of the Swing container hierarchy and the tagging of relevant containers associating them with the matching Substance decoration areas:
+And the screenshot below shows an overlay of the Swing container hierarchy and the tagging of relevant containers associating them with the matching Radiance decoration areas:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/02-map/hierarchy-all.png" width="600" border=0/>
 
@@ -24,31 +24,31 @@ As far as the implementation is concerned, a valid and in most cases simpler opt
 
 Another option is to implement the target design programmatically. While it is harder to achieve the exact visuals using pure code (even with such an advanced API as Java2D), this approach may be suitable for the programmers who are at ease with the APIs presented by the relevant layers. While the exact visuals will be most probably impossible to achieve, with the right amount of tweaking and feedback from the designers it is possible to arrive at a solution that satisfies both sides.
 
-### Implementing Substance decorations
+### Implementing Radiance decorations
 
 To show my appreciation of the power of Java2D (and as a programmer myself), this specific implementation is going to use pure code to achieve visuals that are significantly close to the target UI. To speed up the development process i'm going to use the [excellent collection](http://www.jhlabs.com/ip/filters/index.html) of filters available from Jerry Huxtable under the Apache 2.0 license.
 
-The header and the footer portions of the Cookbook UI use a texture that looks like a cross between brushed metal and wood. To implement this texture, i'm using a combination of `BrushedMetalFilter` and `LookupFilter` to create a brushed texture that is mapped to the colors of the relevant Substance [color scheme](../../substance/skins/colorschemes.md) (more on the color scheme selection in the next phase).
+The header and the footer portions of the Cookbook UI use a texture that looks like a cross between brushed metal and wood. To implement this texture, i'm using a combination of `BrushedMetalFilter` and `LookupFilter` to create a brushed texture that is mapped to the colors of the relevant Radiance [color scheme](../../laf/skins/colorschemes.md) (more on the color scheme selection in the next phase).
 
 Here is the texture image that is going to be painted on top of the gradient fill:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/texture-brushed.png" width="400" border=0/>
 
-The screenshot on the left shows a portion of Cookbook UI header area, and right next to it is its implementation with a custom Substance decoration painter based on the above filters:
+The screenshot on the left shows a portion of Cookbook UI header area, and right next to it is its implementation with a custom Radiance decoration painter based on the above filters:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/headers.png" width="94" border=0/>
 
-The screenshot on the left shows a portion of Cookbook UI footer area, and right next to it is its implementation with a custom Substance decoration painter based on the above filters:
+The screenshot on the left shows a portion of Cookbook UI footer area, and right next to it is its implementation with a custom Radiance decoration painter based on the above filters:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/footers.png" width="132" border=0/>
 
-The sidebar of the Cookbook UI uses a fine-wood texture. To implement this texture, i'm using a combination of `WoodFilter` and `LookupFilter` to create a wood texture that is mapped to the colors of the relevant Substance color scheme.
+The sidebar of the Cookbook UI uses a fine-wood texture. To implement this texture, i'm using a combination of `WoodFilter` and `LookupFilter` to create a wood texture that is mapped to the colors of the relevant Radiance color scheme.
 
 Here is the texture image that is going to be painted on top of the gradient fill:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/texture-wood.png" width="400" border=0/>
 
-The screenshot on the left shows a portion of Cookbook UI sidebar area, and right next to it is its implementation with a custom Substance decoration painter based on the above filters:
+The screenshot on the left shows a portion of Cookbook UI sidebar area, and right next to it is its implementation with a custom Radiance decoration painter based on the above filters:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/sidebars.png" width="152" border=0/>
 
@@ -84,6 +84,6 @@ The next screenshot shows the light bar area of the Cookbook UI:
 
 And the Java2D-based implementation which is not as close as the other visuals presented in this step:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/lights-substance.png" width="207" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/03-decorations/lights-radiance.png" width="207" border=0/>
 
 [Continue on](04-skin.md) to read about the implementation of the full custom skin for Cookbook.

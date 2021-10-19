@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.ember
+package org.pushingpixels.radiance.laf.kxt
 
 import java.awt.*
 import javax.swing.*
@@ -35,26 +35,26 @@ import javax.swing.*
 /**
  * APIs in this scope apply to individual application [Component]s.
  */
-public annotation class EmberComponentScope
+public annotation class RadianceComponentScope
 
 /**
  * APIs in this scope apply to individual application [Component]s or all immediate child
  * components of a container.
  */
-public annotation class EmberComponentOrParentScope
+public annotation class RadianceComponentOrParentScope
 
 /**
  * APIs in this scope apply to individual application [Component]s or all nested child
  * components of a container.
  */
-public annotation class EmberComponentOrParentChainScope
+public annotation class RadianceComponentOrParentChainScope
 
 /**
  * APIs in this scope apply to individual application [JRootPane]s.
  */
-public annotation class EmberRootPaneScope
+public annotation class RadianceRootPaneScope
 
 /**
  * APIs in this scope apply to individual application [Window]s.
  */
-public annotation class EmberWindowScope
+public annotation class RadianceWindowScope

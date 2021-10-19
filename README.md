@@ -42,9 +42,9 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 [Meteor](docs/kotlin-ext/meteor/meteor.md) is a set of Kotlin extensions that expose selected core Swing APIs for idiomatic Kotlin usage.
 
-### Ember
+### Laf extensions
 
-[Ember](docs/kotlin-ext/ember/ember.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Substance APIs.
+[Laf extensions](docs/kotlin-ext/laf/laf-kxt.md) is a set of Kotlin extensions that provide a more elegant way of working with scoped Radiance look-and-feel APIs.
 
 ### Plasma
 
@@ -89,7 +89,7 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance-extras) `radiance-substance-extras` for [Substance extras](docs/substance/extras.md)
 
 ### Kotlin extension artifacts
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember) `radiance-ember` for [Ember](docs/kotlin-ext/ember/ember.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ember) `radiance-ember` for [Ember](docs/kotlin-ext/laf/laf-kxt.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for [Meteor](docs/kotlin-ext/meteor/meteor.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for [Plasma](docs/kotlin-ext/plasma/plasma.md)
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-torch) `radiance-torch` for [Torch](docs/kotlin-ext/torch/torch.md)

@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.plasma.RadianceLogo
-import org.pushingpixels.ember.setDecorationType
+import org.pushingpixels.radiance.laf.kxt.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.meteor.addDelayedActionListener

@@ -41,7 +41,7 @@ dependencies {
     implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':common')
     implementation project(':laf')
-    implementation project(':kotlin-ext:ember')
+    implementation project(':kotlin-ext:laf-kxt')
     implementation project(':kotlin-ext:meteor')
     implementation project(':flamingo')
     implementation project(':tools:svgtranscoder')
