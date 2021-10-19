@@ -27,21 +27,26 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.components.ktx
 
-rootProject.name = "radiance"
+import org.pushingpixels.radiance.demo.components.ktx.svg.radiance_menu
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
+import java.awt.Component
+import java.awt.image.BufferedImage
 
-include 'common', 'animation', 'theming',
-		'theming-extras', 'components',
-		'kotlin-ext:swing-ktx', 'kotlin-ext:animation-ktx',
-		'kotlin-ext:theming-ktx', 'kotlin-ext:components-ktx',
-		'demos:common-demo', 'demos:animation-demo',
-		'demos:theming-demo', 'demos:components-demo',
-		'demos:animation-ktx-demo', 'demos:components-ktx-demo',
-		'demos:ion', 'demos:lucent', 'demos:lumen',
-		'demos:rainbow', 'demos:spyglass',
-		'tools:tools-common',
-		'tools:laf-benchmark', 'tools:theming-debugger',
-		'tools:scheme-editor', 'tools:shape-editor',
-		'tools:svg-transcoder', 'tools:svg-transcoder-gradle-plugin',
-		'tools:screenshot',
-		'demos:theming-debugger-demo'
+object RadianceLogo {
+    fun getLogoIcon(scheme: RadianceColorScheme): RadianceIcon {
+        // Step 1 - create a 16x16 version of the transcoded Radiance logo
+        val base = radiance_menu.of(16, 16)
+        // Step 2 - apply color filter
+        base.setColorFilter { scheme.foregroundColor }
+        // Step 3 - good to go
+        return base
+    }
+
+    fun getLogoImage(comp: Component, scheme: RadianceColorScheme): BufferedImage {
+        return getLogoIcon(scheme).toImage(RadianceCommonCortex.getScaleFactor(comp))
+    }
+}

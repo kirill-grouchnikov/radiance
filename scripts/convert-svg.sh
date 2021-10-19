@@ -33,9 +33,9 @@ alias JAVA="java"
 RADIANCE_VERSION=5.0-SNAPSHOT
 CLASSPATH=../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar
 
-java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/plasma-demo/src/main/kotlin/org/pushingpixels/demo/plasma outputPackageName=org.pushingpixels.demo.plasma templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
+java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/components-ktx-demo/src/main/kotlin/org/pushingpixels/radiance/demo/components/ktx outputPackageName=org.pushingpixels.radiance.demo.components.ktx templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
 
-java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/plasma-demo/src/main/kotlin/org/pushingpixels/demo/plasma/svg outputPackageName=org.pushingpixels.demo.plasma.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
+java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/components-ktx-demo/src/main/kotlin/org/pushingpixels/radiance/demo/components/ktx/svg outputPackageName=org.pushingpixels.demo.demo.components.ktx.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
 
 # Don't convert the flamingo-demo transcoding to deep traversal since one of the
 # folders needs class name prefix while others don't

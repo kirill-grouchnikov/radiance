@@ -13,11 +13,11 @@
   * Breadcrumb demos in `org.pushingpixels.demo.flamingo.bcb` package
   * Command, popup and panel demos in `org.pushingpixels.demo.flamingo.common` package
   * Small image viewer demo using command panel in `org.pushingpixels.demo.flamingo.imageviewer` package
-* For **Plasma** - the `demos/plasma-demo` module
-  * The main ribbon demo is `org.pushingpixels.demo.plasma.ribbon.RibbonDemo` file
-  * Breadcrumb demos in `org.pushingpixels.demo.plasma.bcb` package
-  * Command, popup and panel demos in `org.pushingpixels.demo.plasma.common` package
-  * Small image viewer demo using command panel in `org.pushingpixels.demo.plasma.imageviewer.ImageViewer` file
+* For **Components Kotlin extensions** - the `demos/components-ktx-demo` module
+  * The main ribbon demo is `org.pushingpixels.radiance.demo.components.ktx.ribbon` file
+  * Breadcrumb demos in `org.pushingpixels.adiance.demo.components.ktx.bcb` package
+  * Command, popup and panel demos in `org.pushingpixels.adiance.demo.components.ktx.common` package
+  * Small image viewer demo using command panel in `org.pushingpixels.adiance.demo.components.ktx.imageviewer.ImageViewer` file
 * For **Animation** - the `demos/animation-demo` module
   * Simple API usage in `org.pushingpixels.radiance.demo.animation` package
   * More complex samples in `org.pushingpixels.radiance.demo.animation.swing` package

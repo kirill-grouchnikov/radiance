@@ -27,21 +27,27 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.components.ktx
 
-rootProject.name = "radiance"
+import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
+import java.util.*
+import javax.swing.JComboBox
 
-include 'common', 'animation', 'theming',
-		'theming-extras', 'components',
-		'kotlin-ext:swing-ktx', 'kotlin-ext:animation-ktx',
-		'kotlin-ext:theming-ktx', 'kotlin-ext:components-ktx',
-		'demos:common-demo', 'demos:animation-demo',
-		'demos:theming-demo', 'demos:components-demo',
-		'demos:animation-ktx-demo', 'demos:components-ktx-demo',
-		'demos:ion', 'demos:lucent', 'demos:lumen',
-		'demos:rainbow', 'demos:spyglass',
-		'tools:tools-common',
-		'tools:laf-benchmark', 'tools:theming-debugger',
-		'tools:scheme-editor', 'tools:shape-editor',
-		'tools:svg-transcoder', 'tools:svg-transcoder-gradle-plugin',
-		'tools:screenshot',
-		'demos:theming-debugger-demo'
+object LocaleSwitcher {
+    data class LocaleInfo(val locale: Locale, val displayName: String) {
+        override fun toString(): String {
+            return displayName
+        }
+    }
+
+    fun getLocaleSwitcher(callback: (Locale) -> Unit): JComboBox<LocaleInfo> {
+        val locales = arrayOf(LocaleInfo(Locale("en", "US"), "English"),
+                LocaleInfo(Locale("iw", "IL"), "Hebrew"))
+        val result = JComboBox<LocaleInfo>(locales)
+        result.selectedIndex = 0
+        result.addDelayedActionListener {
+            callback(result.model.getElementAt(result.selectedIndex).locale)
+        }
+        return result
+    }
+}

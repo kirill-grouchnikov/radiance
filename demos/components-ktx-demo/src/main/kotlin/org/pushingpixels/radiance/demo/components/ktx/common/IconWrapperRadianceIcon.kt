@@ -27,21 +27,34 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.components.ktx.common
 
-rootProject.name = "radiance"
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import java.awt.Component
+import java.awt.Dimension
+import java.awt.Graphics
+import javax.swing.Icon
 
-include 'common', 'animation', 'theming',
-		'theming-extras', 'components',
-		'kotlin-ext:swing-ktx', 'kotlin-ext:animation-ktx',
-		'kotlin-ext:theming-ktx', 'kotlin-ext:components-ktx',
-		'demos:common-demo', 'demos:animation-demo',
-		'demos:theming-demo', 'demos:components-demo',
-		'demos:animation-ktx-demo', 'demos:components-ktx-demo',
-		'demos:ion', 'demos:lucent', 'demos:lumen',
-		'demos:rainbow', 'demos:spyglass',
-		'tools:tools-common',
-		'tools:laf-benchmark', 'tools:theming-debugger',
-		'tools:scheme-editor', 'tools:shape-editor',
-		'tools:svg-transcoder', 'tools:svg-transcoder-gradle-plugin',
-		'tools:screenshot',
-		'demos:theming-debugger-demo'
+class IconWrapperRadianceIcon(private val delegate: Icon) : RadianceIcon {
+    override fun getIconHeight(): Int {
+        return delegate.iconHeight
+    }
+
+    override fun getIconWidth(): Int {
+        return delegate.iconHeight
+    }
+
+    override fun paintIcon(c: Component, g: Graphics, x: Int, y: Int) {
+        delegate.paintIcon(c, g, x, y)
+    }
+
+    override fun setDimension(dim: Dimension) {}
+
+    override fun supportsColorFilter(): Boolean {
+        return false
+    }
+
+    override fun setColorFilter(colorFilter: RadianceIcon.ColorFilter?) {
+        throw UnsupportedOperationException()
+    }
+}
