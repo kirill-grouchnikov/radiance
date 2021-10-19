@@ -1,4 +1,4 @@
-package org.pushingpixels.radiance.demo.laf.main.check.svg.flags;
+package org.pushingpixels.radiance.demo.theming.main.check.svg.flags;
 
 import java.awt.*;
 import java.awt.geom.*;

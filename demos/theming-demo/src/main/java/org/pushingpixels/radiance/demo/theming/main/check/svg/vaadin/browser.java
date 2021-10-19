@@ -1,4 +1,4 @@
-package org.pushingpixels.radiance.demo.laf.main.check.svg.vaadin;
+package org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin;
 
 import java.awt.*;
 import java.awt.geom.*;

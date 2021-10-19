@@ -1,4 +1,4 @@
-package org.pushingpixels.radiance.demo.laf.main.check.svg.tango;
+package org.pushingpixels.radiance.demo.theming.main.check.svg.tango;
 
 import java.awt.*;
 import java.awt.geom.*;

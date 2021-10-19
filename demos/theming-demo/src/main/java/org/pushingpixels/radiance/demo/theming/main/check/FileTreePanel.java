@@ -114,7 +114,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                 Icon icon = iconCache.get(ext);
                 if (icon == null) {
                     try {
-                        String className = "org.pushingpixels.radiance.demo.laf.main.check.svg.filetypes.ext_"
+                        String className = "org.pushingpixels.radiance.demo.theming.main.check.svg.filetypes.ext_"
                                 + ext;
                         Class<?> transcodedClass = Class.forName(className);
                         if (transcodedClass != null) {
