@@ -27,22 +27,17 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.tools.svgtranscoder.gradle;
 
-rootProject.name = "radiance"
+import org.gradle.api.Plugin;
+import org.gradle.api.Project;
 
-include 'common', 'animation', 'theming',
-		'theming-extras', 'flamingo',
-		'kotlin-ext:theming-kxt', 'kotlin-ext:meteor',
-		'kotlin-ext:plasma', 'kotlin-ext:torch',
-		'demos:flamingo-demo',
-		'demos:plasma-demo', 'demos:ion',
-		'demos:common-demo', 'demos:animation-demo',
-        'demos:theming-demo',
-		'demos:torch-demo', 'demos:lucent',
-		'demos:lumen', 'demos:rainbow', 'demos:spyglass',
-		'tools:tools-common',
-		'tools:lafbenchmark', 'tools:theming-debugger',
-		'tools:scheme-editor', 'tools:shape-editor',
-		'tools:svg-transcoder', 'tools:svg-transcoder-gradle-plugin',
-		'tools:screenshot',
-		'demos:theming-debugger-demo'
+@SuppressWarnings({"unused", "RedundantSuppression"})
+public class RadianceSvgTranscoderGradlePlugin implements Plugin<Project> {
+
+    public void apply(Project project) {
+        project.getTasks().create("transcode", TranscodeTask.class);
+        project.getTasks().create("transcodeDeep", TranscodeDeepTask.class);
+    }
+
+}

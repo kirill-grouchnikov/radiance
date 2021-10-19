@@ -56,19 +56,19 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 ## Tools
 
-* [Laf Benchmark](docs/tools/lightbeam/lightbeam.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
+* [Laf Benchmark](docs/tools/laf-benchmark/laf-benchmark.md) provides tools for Swing look-and-feel developers to measure the performance of their libraries.
 
 * [Theming Debugger](docs/tools/theming-debugger/theming-debugger.md) is a visual runtime debugger for Radiance look-and-feel.
 
-* [Scheme Editor](docs/tools/schemeeditor/schemeeditor.md) is a tool for creating and editing color scheme lists.
+* [Scheme Editor](docs/tools/scheme-editor/scheme-editor.md) is a tool for creating and editing color scheme lists.
 
 * [Screenshot](docs/tools/screenshot/screenshot.md) has utilities for taking screenshots for Radiance documentation.
 
-* [Shaper Editor](docs/tools/shapeeditor/shapeeditor.md) can be used creating and editing files that define custom button shapers.
+* [Shaper Editor](docs/tools/shape-editor/shape-editor.md) can be used creating and editing files that define custom button shapers.
 
-* [SVG Transcoder](docs/tools/svgtranscoder/svgtranscoder.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+* [SVG Transcoder](docs/tools/svg-transcoder/svg-transcoder.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
 
-* [SVG Transcoder Plugin](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md) is a Gradle plugin that wraps the SVG Transcoder library to allow build-time transcoding of SVG content into Java / Kotlin classes.
+* [SVG Transcoder Plugin](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md) is a Gradle plugin that wraps the SVG Transcoder library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
 
 ## Demos
@@ -97,8 +97,8 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 ### Tools artifacts
 
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-beacon) `radiance-beacon` for [Beacon](docs/tools/theming-debugger/theming-debugger.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/tools/svgtranscoder/svgtranscoder.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for [Ignite](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for [Photon](docs/tools/svg-transcoder/svg-transcoder.md)
 
 ### Snapshots
 

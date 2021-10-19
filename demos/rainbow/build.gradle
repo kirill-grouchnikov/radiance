@@ -44,7 +44,7 @@ dependencies {
     implementation project(':kotlin-ext:theming-kxt')
     implementation project(':kotlin-ext:meteor')
     implementation project(':flamingo')
-    implementation project(':tools:svgtranscoder')
+    implementation project(':tools:svg-transcoder')
     implementation project(':demos:flamingo-demo')
 }
 

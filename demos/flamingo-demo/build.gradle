@@ -38,7 +38,7 @@ dependencies {
     implementation project(':animation')
     implementation project(':theming')
     implementation project(':flamingo')
-    implementation project(':tools:svgtranscoder')
+    implementation project(':tools:svg-transcoder')
     implementation project(':demos:theming-demo')
 }
 

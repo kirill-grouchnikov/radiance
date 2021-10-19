@@ -27,7 +27,7 @@ The next screenshot shows a zoomed version of the buttons in one of the footers:
 
 In addition to the details on the gradient fill and the double border, there is one more important thing – the seamless appearance of the buttons as one joined group. In order to implement this, the Cookbook code is using the `JCommandButtonStrip` component from [Flamingo component suite](../../flamingo/flamingo.md). Buttons placed in the `JCommandButtonStrip` will have continuous background, a single separator line between them and correct rounded corners on the left / right buttons.
 
-The icons used for the header and footer buttons were created using the [Photon transcoder](../../tools/svgtranscoder/svgtranscoder.md). A few icons from the [Material icon set](https://material.io/tools/icons/) were transcoded offline to pure Java2D classes.
+The icons used for the header and footer buttons were created using the [Photon transcoder](../../tools/svg-transcoder/svg-transcoder.md). A few icons from the [Material icon set](https://material.io/tools/icons/) were transcoded offline to pure Java2D classes.
 
 If you take a closer look at the icon visuals in the design mockup, you will notice that all the icons have a dark brown "halo" around them that further reinforces the overall golden-brown color scheme of the app. On out side, this can be achieved by applying a combination of a [few filters](http://www.jhlabs.com/ip/filters/index.html) to create that darker halo shade. The full code is in `EchoRadianceIcon` class, and the most relevant snippet is:
 
