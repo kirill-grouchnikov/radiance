@@ -33,11 +33,11 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.cookbook.EchoRadianceIcon;
 import org.pushingpixels.demo.spyglass.cookbook.ScaledRadianceIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.*;
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
-import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.flamingo.api.common.RichTooltip;
-import org.pushingpixels.flamingo.api.common.model.Command;
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.components.api.common.JCommandButton;
+import org.pushingpixels.radiance.components.api.common.RichTooltip;
+import org.pushingpixels.radiance.components.api.common.model.Command;
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 

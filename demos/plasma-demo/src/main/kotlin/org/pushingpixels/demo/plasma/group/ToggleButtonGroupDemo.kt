@@ -37,7 +37,7 @@ import org.pushingpixels.demo.plasma.svg.Format_justify_center
 import org.pushingpixels.demo.plasma.svg.Format_justify_fill
 import org.pushingpixels.demo.plasma.svg.Format_justify_left
 import org.pushingpixels.demo.plasma.svg.Format_justify_right
-import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.radiance.swing.ktx.swing.AlignType
 import org.pushingpixels.radiance.swing.ktx.swing.setAlignment
 import org.pushingpixels.plasma.commandToggleButtonStrip

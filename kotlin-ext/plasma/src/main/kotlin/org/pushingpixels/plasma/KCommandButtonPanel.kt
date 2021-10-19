@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.model.CommandGroup
-import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
-import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.JCommandButton
+import org.pushingpixels.radiance.components.api.common.model.CommandGroup
+import org.pushingpixels.radiance.components.api.common.model.CommandPanelContentModel
+import org.pushingpixels.radiance.components.api.common.model.CommandPanelPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
 @PlasmaElementMarker
@@ -86,8 +86,9 @@ public class KCommandButtonPanel {
         }
 
         internal fun toJavaCommandGroupModel() : CommandGroup {
-            return CommandGroup(this.title,
-                    this.commands.map { it.asJavaCommand() })
+            return CommandGroup(
+                this.title,
+                this.commands.map { it.asJavaCommand() })
         }
     }
 
@@ -120,10 +121,15 @@ public class KCommandButtonPanel {
             throw IllegalStateException("No presentation state or dimension specified")
         }
 
-        val contentModel = CommandPanelContentModel(commandGroups.map { it.toJavaCommandGroupModel() })
+        val contentModel =
+            CommandPanelContentModel(
+                commandGroups.map { it.toJavaCommandGroupModel() })
         val presentationModel = presentation.toCommandPanelPresentationModel()
 
-        return CommandPanelProjection(contentModel, presentationModel).buildComponent()
+        return CommandPanelProjection(
+            contentModel,
+            presentationModel
+        ).buildComponent()
     }
 }
 

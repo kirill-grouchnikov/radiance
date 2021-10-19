@@ -33,9 +33,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbBarModel
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathEvent
-import org.pushingpixels.flamingo.api.bcb.BreadcrumbPathListener
+import org.pushingpixels.radiance.components.api.bcb.BreadcrumbBarModel
+import org.pushingpixels.radiance.components.api.bcb.BreadcrumbPathEvent
+import org.pushingpixels.radiance.components.api.bcb.BreadcrumbPathListener
 
 public fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) -> Unit): BreadcrumbPathListener<T> {
     return BreadcrumbPathListener { event ->

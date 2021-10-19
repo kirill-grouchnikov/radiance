@@ -29,18 +29,18 @@
  */
 package org.pushingpixels.plasma.ribbon
 
-import org.pushingpixels.flamingo.api.common.CommandAction
-import org.pushingpixels.flamingo.api.common.CommandActionEvent
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
-import org.pushingpixels.flamingo.api.ribbon.AbstractRibbonBand
-import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
+import org.pushingpixels.radiance.components.api.common.CommandAction
+import org.pushingpixels.radiance.components.api.common.CommandActionEvent
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.common.projection.ColorSelectorCommandButtonProjection
+import org.pushingpixels.radiance.components.api.ribbon.AbstractRibbonBand
+import org.pushingpixels.radiance.components.api.ribbon.JFlowRibbonBand
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand.PresentationPriority
+import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGalleryProjection
+import org.pushingpixels.radiance.components.api.ribbon.resize.RibbonBandResizePolicy
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.plasma.*
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import javax.swing.JComponent
@@ -88,9 +88,9 @@ public class KRibbonBandGroup {
     internal val content = arrayListOf<Pair<PresentationPriority?, Any>>()
 
     public fun command(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            init: KCommand.() -> Unit): KCommand {
+                       popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+                       popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+                       init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
@@ -99,9 +99,9 @@ public class KRibbonBandGroup {
     }
 
     public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            command: KCommand) {
+                       isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+                       popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+                       command: KCommand) {
         content.add(Pair(priority, KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, isTextClickAction,
                 isTextClickSecondary, popupHorizontalGravity)))
     }
@@ -128,9 +128,9 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     }
 
     public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            init: KCommand.() -> Unit): KCommand {
+                       isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+                       popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+                       init: KCommand.() -> Unit): KCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
@@ -142,9 +142,9 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     }
 
     public fun colorSelectorCommand(priority: PresentationPriority, actionKeyTip: String? = null,
-            popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
+                                    popupKeyTip: String? = null, isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+                                    popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+                                    init: KColorSelectorCommand.() -> Unit): KColorSelectorCommand {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
@@ -156,9 +156,9 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     }
 
     public fun command(priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-            isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
-            popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
-            command: KCommand) {
+                       isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+                       popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+                       command: KCommand) {
         if (groups.size > 1) {
             throw IllegalStateException("Can't add a command to default group after starting another group")
         }
@@ -194,10 +194,17 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        ribbonBand = JRibbonBand(title, iconFactory)
+        ribbonBand =
+            JRibbonBand(
+                title,
+                iconFactory
+            )
         if (expandCommand != null) {
             if (expandCommand!!.action != null) {
-                ribbonBand.expandCommandListener = CommandAction { e -> expandCommand!!.action!!.invoke(e) }
+                ribbonBand.expandCommandListener =
+                    CommandAction { e ->
+                        expandCommand!!.action!!.invoke(e)
+                    }
             }
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {
@@ -224,9 +231,11 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                                 buttonPresentationModel.setPopupMenuPresentationModel(
                                         content.command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
                             }
-                            ribbonBand.addRibbonCommand(ColorSelectorCommandButtonProjection(
+                            ribbonBand.addRibbonCommand(
+                                ColorSelectorCommandButtonProjection(
                                     content.command.asJavaColorSelectorCommand(),
-                                    buttonPresentationModel.build()), priority)
+                                    buttonPresentationModel.build()
+                                ), priority)
                         } else {
                             if (content.command.menu != null) {
                                 buttonPresentationModel.setPopupMenuPresentationModel(
@@ -247,7 +256,11 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                         val galleryContentModel = content.content.asJavaRibbonGalleryContentModel()
 
                         // Create gallery projection
-                        val galleryProjection = RibbonGalleryProjection(galleryContentModel, galleryPresentationModel)
+                        val galleryProjection =
+                            RibbonGalleryProjection(
+                                galleryContentModel,
+                                galleryPresentationModel
+                            )
 
                         // Configure with command overlays
                         galleryProjection.commandOverlays = content.content.toCommandOverlayMap()
@@ -290,10 +303,17 @@ public class KFlowRibbonBand : KBaseRibbonBand<JFlowRibbonBand>() {
         if (hasBeenConverted) {
             throw IllegalStateException("This method can only be called once")
         }
-        ribbonBand = JFlowRibbonBand(title, iconFactory)
+        ribbonBand =
+            JFlowRibbonBand(
+                title,
+                iconFactory
+            )
         if (expandCommand != null) {
             if (expandCommand!!.action != null) {
-                ribbonBand.expandCommandListener = CommandAction { e -> expandCommand!!.action!!.invoke(e) }
+                ribbonBand.expandCommandListener =
+                    CommandAction { e ->
+                        expandCommand!!.action!!.invoke(e)
+                    }
             }
             ribbonBand.expandButtonKeyTip = expandCommand!!.keyTip
             if (expandCommand!!.richTooltip != null) {

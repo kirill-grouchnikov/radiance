@@ -25,7 +25,7 @@ The next screenshot shows a zoomed version of the buttons in one of the footers:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/spyglass/cookbook/05-polish/zoom-buttons-cookbook.png" width="198" border=0/>
 
-In addition to the details on the gradient fill and the double border, there is one more important thing – the seamless appearance of the buttons as one joined group. In order to implement this, the Cookbook code is using the `JCommandButtonStrip` component from [Flamingo component suite](../../flamingo/flamingo.md). Buttons placed in the `JCommandButtonStrip` will have continuous background, a single separator line between them and correct rounded corners on the left / right buttons.
+In addition to the details on the gradient fill and the double border, there is one more important thing – the seamless appearance of the buttons as one joined group. In order to implement this, the Cookbook code is using the `JCommandButtonStrip` component from [Flamingo component suite](../../components/overview.md). Buttons placed in the `JCommandButtonStrip` will have continuous background, a single separator line between them and correct rounded corners on the left / right buttons.
 
 The icons used for the header and footer buttons were created using the [Photon transcoder](../../tools/svg-transcoder/svg-transcoder.md). A few icons from the [Material icon set](https://material.io/tools/icons/) were transcoded offline to pure Java2D classes.
 

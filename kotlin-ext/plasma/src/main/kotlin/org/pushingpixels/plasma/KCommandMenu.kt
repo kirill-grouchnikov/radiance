@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandPanelContentModel
-import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.CommandPanelContentModel
+import org.pushingpixels.radiance.components.api.common.model.CommandPanelPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandMenuContentModel
+import org.pushingpixels.radiance.components.api.common.popup.model.CommandPopupMenuPresentationModel
 
 @PlasmaElementMarker
 public class KCommandPopupMenuButtonPanel {
@@ -59,7 +59,8 @@ public class KCommandPopupMenuButtonPanel {
     }
 
     internal fun getContentModel(): CommandPanelContentModel {
-        return CommandPanelContentModel(this.commandGroups.map { it.toJavaCommandGroupModel() })
+        return CommandPanelContentModel(
+            this.commandGroups.map { it.toJavaCommandGroupModel() })
     }
 
     internal fun getPresentationModel(): CommandPanelPresentationModel {
@@ -132,7 +133,8 @@ public class KCommandMenu {
         val commandGroupModels = groups.map { it.toCommandGroupModel() }
 
         return CommandMenuContentModel(
-                commandPanel?.getContentModel(), commandGroupModels)
+            commandPanel?.getContentModel(), commandGroupModels
+        )
     }
 
     internal fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {

@@ -36,8 +36,8 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.plasma.RadianceLogo
 import org.pushingpixels.radiance.theming.ktx.setDecorationType
-import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.theming.api.ComponentState
@@ -56,7 +56,8 @@ fun main() {
         )
 
         val frame = JFrame("File explorer")
-        val bar = BreadcrumbFileSelector()
+        val bar =
+            BreadcrumbFileSelector()
         val filePanel = ExplorerFileViewPanel(bar, CommandButtonPresentationState.BIG)
 
         // Configure the breadcrumb bar to update the file panel every time

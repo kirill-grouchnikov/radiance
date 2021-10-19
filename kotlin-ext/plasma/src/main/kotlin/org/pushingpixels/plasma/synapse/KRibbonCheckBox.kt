@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonCheckBoxContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonCheckBoxProjection
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonCheckBoxContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.RibbonCheckBoxProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
@@ -130,7 +130,10 @@ public class KRibbonCheckBox {
     internal fun toJavaProjection(): RibbonCheckBoxProjection {
         val javaContent = content.asJavaCheckBoxContentModel()
         val javaPresentation = presentation.toComponentPresentation()
-        return RibbonCheckBoxProjection(javaContent, javaPresentation)
+        return RibbonCheckBoxProjection(
+            javaContent,
+            javaPresentation
+        )
     }
 }
 

@@ -303,7 +303,7 @@ Available in the `GreenMagicSkin`. In addition, the `RadianceGreenMagicLookAndFe
 
 ## Office 2007 skins
 
-Note that while these skins were originally designed for the [Flamingo ribbon component](../../flamingo/flamingo.md), they can be used in regular Swing applications as any other Radiance skin. Since version 2.0 of Radiance, these skins are part of the [extras pack](skins-extras.md).
+Note that while these skins were originally designed for the [Flamingo ribbon component](../../components/overview.md), they can be used in regular Swing applications as any other Radiance skin. Since version 2.0 of Radiance, these skins are part of the [extras pack](skins-extras.md).
 
 ### Office Silver 2007
 

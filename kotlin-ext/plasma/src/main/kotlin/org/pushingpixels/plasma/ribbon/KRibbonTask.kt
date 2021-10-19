@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.plasma.ribbon
 
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask
-import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizeSequencingPolicy
+import org.pushingpixels.radiance.components.api.ribbon.RibbonTask
+import org.pushingpixels.radiance.components.api.ribbon.resize.RibbonBandResizeSequencingPolicy
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.NullableDelegate
 
@@ -63,7 +63,10 @@ public class KRibbonTask {
             throw IllegalStateException("This method can only be called once")
         }
         val javaBands = bands.bands.map { it.asJavaRibbonBand() }
-        ribbonTask = RibbonTask(title, javaBands.asIterable())
+        ribbonTask = RibbonTask(
+            title,
+            javaBands.asIterable()
+        )
         ribbonTask.keyTip = keyTip
         if (bandResizeSequencingPolicySource != null) {
             ribbonTask.resizeSequencingPolicy =

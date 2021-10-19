@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerDateContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonSpinnerDateContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonSpinnerNumberContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.RibbonSpinnerProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
@@ -126,7 +126,10 @@ public class KRibbonSpinnerNumber {
     internal fun toJavaProjection(): RibbonSpinnerProjection {
         val javaContent = content.asJavaSpinnerNumberContentModel()
         val javaPresentation = presentation.toComponentPresentation()
-        return RibbonSpinnerProjection(javaContent, javaPresentation)
+        return RibbonSpinnerProjection(
+            javaContent,
+            javaPresentation
+        )
     }
 }
 
@@ -241,7 +244,10 @@ public class KRibbonSpinnerDate {
     internal fun toJavaProjection(): RibbonSpinnerProjection {
         val javaContent = content.asJavaSpinnerDateContentModel()
         val javaPresentation = presentation.toComponentPresentation()
-        return RibbonSpinnerProjection(javaContent, javaPresentation)
+        return RibbonSpinnerProjection(
+            javaContent,
+            javaPresentation
+        )
     }
 }
 

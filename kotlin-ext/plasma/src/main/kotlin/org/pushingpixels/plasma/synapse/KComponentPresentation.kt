@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.flamingo.api.common.HorizontalAlignment
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentPresentationModel
+import org.pushingpixels.radiance.components.api.common.HorizontalAlignment
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentPresentationModel
 import org.pushingpixels.plasma.PlasmaElementMarker
 
 @PlasmaElementMarker

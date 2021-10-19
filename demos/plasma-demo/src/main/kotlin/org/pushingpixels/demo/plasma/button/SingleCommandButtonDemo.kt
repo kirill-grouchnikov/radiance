@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.svg.Help_browser
 import org.pushingpixels.demo.plasma.svg.Image_x_generic
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin

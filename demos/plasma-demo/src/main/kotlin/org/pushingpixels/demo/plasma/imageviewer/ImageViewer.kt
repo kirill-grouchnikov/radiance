@@ -35,10 +35,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.plasma.RadianceLogo
-import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.StringValuePair
+import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector
+import org.pushingpixels.radiance.components.api.common.AbstractFileViewPanel
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.StringValuePair
 import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
@@ -68,7 +68,8 @@ fun main() {
         frame.layout = BorderLayout()
         val initialSize = 100
 
-        val bar = BreadcrumbFileSelector()
+        val bar =
+            BreadcrumbFileSelector()
         val fileViewPanel = object : AbstractFileViewPanel<File>(initialSize) {
             override fun getLeafContent(leaf: File): InputStream? {
                 return try {

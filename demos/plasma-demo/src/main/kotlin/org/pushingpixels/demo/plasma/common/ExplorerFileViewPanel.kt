@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.demo.plasma.common
 
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
-import org.pushingpixels.flamingo.api.common.AbstractFileViewPanel
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.StringValuePair
+import org.pushingpixels.radiance.components.api.bcb.JBreadcrumbBar
+import org.pushingpixels.radiance.components.api.common.AbstractFileViewPanel
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.StringValuePair
 import org.pushingpixels.demo.flamingo.icon.IcoWrapperRadianceIcon
 import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon
-import org.pushingpixels.flamingo.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.Command
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon

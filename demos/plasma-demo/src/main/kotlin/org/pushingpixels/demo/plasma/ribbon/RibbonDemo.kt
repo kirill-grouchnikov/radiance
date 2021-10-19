@@ -37,31 +37,31 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.plasma.LocaleSwitcher
 import org.pushingpixels.demo.plasma.popup.ColorIcon
 import org.pushingpixels.demo.plasma.svg.*
-import org.pushingpixels.flamingo.api.common.CommandActionEvent
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.HorizontalAlignment
-import org.pushingpixels.flamingo.api.common.icon.ColorRadianceIcon
-import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon
-import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandGroup
-import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel
-import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
-import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
-import org.pushingpixels.flamingo.api.ribbon.JRibbon
-import org.pushingpixels.flamingo.api.ribbon.JRibbon.OnShowContextualMenuListener
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies
-import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
+import org.pushingpixels.radiance.components.api.common.CommandActionEvent
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.HorizontalAlignment
+import org.pushingpixels.radiance.components.api.common.icon.ColorRadianceIcon
+import org.pushingpixels.radiance.components.api.common.icon.DecoratedRadianceIcon
+import org.pushingpixels.radiance.components.api.common.icon.EmptyRadianceIcon
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandGroup
+import org.pushingpixels.radiance.components.api.common.model.CommandMenuContentModel
+import org.pushingpixels.radiance.components.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.radiance.components.api.common.projection.CommandButtonProjection
+import org.pushingpixels.radiance.components.api.ribbon.JRibbon
+import org.pushingpixels.radiance.components.api.ribbon.JRibbon.OnShowContextualMenuListener
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand.PresentationPriority
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonFrame
+import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryPresentationModel
+import org.pushingpixels.radiance.components.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGalleryProjection
+import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
+import org.pushingpixels.radiance.components.api.ribbon.resize.CoreRibbonResizePolicies
+import org.pushingpixels.radiance.components.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import org.pushingpixels.radiance.swing.ktx.addDelayedItemListener
 import org.pushingpixels.radiance.swing.ktx.awt.brightness
@@ -1860,7 +1860,10 @@ fun main() {
 
             onShowContextualMenuListener = object : OnShowContextualMenuListener {
                 private fun build(ribbon: JRibbon, vararg commands: Command): CommandMenuContentModel {
-                    val commandGroup = CommandGroup(*commands)
+                    val commandGroup =
+                        CommandGroup(
+                            *commands
+                        )
                     if (ribbon.isMinimized) {
                         commandGroup.addCommand(
                             Command.builder()
@@ -1879,11 +1882,13 @@ fun main() {
                             .setText(builder.resourceBundle.getString("ContextMenu.configureRibbon"))
                             .setAction { JOptionPane.showMessageDialog(null, "Configure ribbon option selected") }
                             .build())
-                    return CommandMenuContentModel(commandGroup)
+                    return CommandMenuContentModel(
+                        commandGroup
+                    )
                 }
 
                 override fun getContextualMenuContentModel(ribbon: JRibbon,
-                    galleryProjection: RibbonGalleryProjection
+                                                           galleryProjection: RibbonGalleryProjection
                 ): CommandMenuContentModel {
                     val galleryCommand =
                         if (ribbon.isShowingInTaskbar(galleryProjection.contentModel)) {
@@ -1913,7 +1918,7 @@ fun main() {
                 }
 
                 override fun getContextualMenuContentModel(ribbon: JRibbon,
-                    componentProjection: ComponentProjection<out JComponent?, out ComponentContentModel?>
+                                                           componentProjection: ComponentProjection<out JComponent?, out ComponentContentModel?>
                 ): CommandMenuContentModel {
                     val componentCommand =
                         if (ribbon.isShowingInTaskbar(componentProjection.contentModel)) {
@@ -1931,7 +1936,7 @@ fun main() {
                 }
 
                 override fun getContextualMenuContentModel(ribbon: JRibbon,
-                    commandButtonProjection: CommandButtonProjection<out Command>
+                                                           commandButtonProjection: CommandButtonProjection<out Command>
                 ): CommandMenuContentModel {
                     val originalCommand = commandButtonProjection.contentModel
                     val commandCommand = if (ribbon.isShowingInTaskbar(originalCommand)) {

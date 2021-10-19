@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.plasma.ribbon
 
-import org.pushingpixels.flamingo.api.common.RichTooltip
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.ribbon.RibbonApplicationMenu
+import org.pushingpixels.radiance.components.api.common.RichTooltip
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.ribbon.RibbonApplicationMenu
 import org.pushingpixels.plasma.*
 
 @PlasmaElementMarker
@@ -78,7 +78,8 @@ public class KRibbonApplicationMenu {
             throw IllegalStateException("This method can only be called once")
         }
 
-        ribbonApplicationMenu = RibbonApplicationMenu()
+        ribbonApplicationMenu =
+            RibbonApplicationMenu()
         if (defaultGroup.commands.isEmpty()) {
             groups.remove(defaultGroup)
         }

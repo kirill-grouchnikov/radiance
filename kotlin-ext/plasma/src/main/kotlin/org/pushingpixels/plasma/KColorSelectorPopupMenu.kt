@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuContentModel
-import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuGroupModel
-import org.pushingpixels.flamingo.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
+import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuContentModel
+import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuGroupModel
+import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
 import java.awt.Color
 
 @PlasmaElementMarker
@@ -179,7 +179,10 @@ public class KColorSelectorPopupMenu {
 
         val menuGroups = groups.map { it.toJavaColorSelectorPopupMenuGroupModel() }
 
-        val menuContentModel = ColorSelectorPopupMenuContentModel(menuGroups)
+        val menuContentModel =
+            ColorSelectorPopupMenuContentModel(
+                menuGroups
+            )
         menuContentModel.colorActivationListener =
                 ColorSelectorPopupMenuContentModel.ColorActivationListener {
                     onColorActivated?.invoke(it)

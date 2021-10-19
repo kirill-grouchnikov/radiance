@@ -43,10 +43,10 @@ import org.pushingpixels.demo.rainbow.svg.ic_search_black_24px
 import org.pushingpixels.demo.rainbow.svg.ic_zoom_in_black_24px
 import org.pushingpixels.demo.rainbow.svg.ic_zoom_out_black_24px
 import org.pushingpixels.radiance.theming.ktx.setDecorationType
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
-import org.pushingpixels.flamingo.api.common.ProgressEvent
-import org.pushingpixels.flamingo.api.layout.TransitionLayout
-import org.pushingpixels.flamingo.api.layout.TransitionLayoutEvent
+import org.pushingpixels.radiance.components.api.bcb.JBreadcrumbBar
+import org.pushingpixels.radiance.components.api.common.ProgressEvent
+import org.pushingpixels.radiance.components.api.layout.TransitionLayout
+import org.pushingpixels.radiance.components.api.layout.TransitionLayoutEvent
 import org.pushingpixels.radiance.swing.ktx.addDelayedChangeListener
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import java.awt.BorderLayout

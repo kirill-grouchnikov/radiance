@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.JCommandButton
+import org.pushingpixels.radiance.components.api.common.JCommandButton
 
 @PlasmaElementMarker
 public class KCommandButton {

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.plasma.synapse
 
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxProjection
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.RibbonDefaultComboBoxContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.RibbonComboBoxProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KRichTooltip
@@ -119,7 +119,10 @@ public class KRibbonComboBox<T> {
     internal fun toJavaProjection(): RibbonComboBoxProjection<T> {
         val javaContent = content.asJavaComboBoxContentModel()
         val javaPresentation = presentation.toComponentPresentation()
-        return RibbonComboBoxProjection(javaContent, javaPresentation)
+        return RibbonComboBoxProjection(
+            javaContent,
+            javaPresentation
+        )
     }
 }
 

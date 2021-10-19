@@ -33,17 +33,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.flamingo.api.common.CommandAction
-import org.pushingpixels.flamingo.api.common.CommandActionEvent
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.JCommandButton
-import org.pushingpixels.flamingo.api.common.model.ColorSelectorCommand
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.common.model.CommandGroup
-import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.ColorSelectorCommandButtonProjection
-import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection
+import org.pushingpixels.radiance.components.api.common.CommandAction
+import org.pushingpixels.radiance.components.api.common.CommandActionEvent
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.JCommandButton
+import org.pushingpixels.radiance.components.api.common.model.ColorSelectorCommand
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandGroup
+import org.pushingpixels.radiance.components.api.common.popup.model.CommandPopupMenuPresentationModel
+import org.pushingpixels.radiance.components.api.common.projection.ColorSelectorCommandButtonProjection
+import org.pushingpixels.radiance.components.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 
@@ -115,7 +115,10 @@ public open class KCommand {
                 if (value == null) {
                     javaCommand.action = null
                 } else {
-                    javaCommand.action = CommandAction { e -> value.invoke(e) }
+                    javaCommand.action =
+                        CommandAction { e ->
+                            value.invoke(e)
+                        }
                 }
             }
         }
@@ -504,7 +507,9 @@ public class KCommandGroup {
     }
 
     internal fun toCommandGroupModel(): CommandGroup {
-        return CommandGroup(title, commands.map { it.toJavaCommand() })
+        return CommandGroup(
+            title,
+            commands.map { it.toJavaCommand() })
     }
 
     internal fun toPresentationOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {

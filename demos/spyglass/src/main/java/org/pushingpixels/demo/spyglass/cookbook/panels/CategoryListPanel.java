@@ -35,11 +35,11 @@ import org.pushingpixels.demo.spyglass.cookbook.ScaledRadianceIcon;
 import org.pushingpixels.demo.spyglass.cookbook.svg.ic_add_white_24px;
 import org.pushingpixels.demo.spyglass.cookbook.svg.ic_remove_white_24px;
 import org.pushingpixels.demo.spyglass.cookbook.svg.ic_settings_white_24px;
-import org.pushingpixels.flamingo.api.common.model.Command;
-import org.pushingpixels.flamingo.api.common.model.CommandGroup;
-import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel;
-import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.components.api.common.model.Command;
+import org.pushingpixels.radiance.components.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.components.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.radiance.components.api.common.projection.CommandStripProjection;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

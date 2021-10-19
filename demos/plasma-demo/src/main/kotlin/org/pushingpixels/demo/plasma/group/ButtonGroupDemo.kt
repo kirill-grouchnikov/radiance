@@ -37,7 +37,7 @@ import org.pushingpixels.demo.plasma.svg.Format_text_bold
 import org.pushingpixels.demo.plasma.svg.Format_text_italic
 import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
 import org.pushingpixels.demo.plasma.svg.Format_text_underline
-import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.radiance.swing.ktx.swing.CharacterStyleType
 import org.pushingpixels.radiance.swing.ktx.swing.hasStyleInSelection
 import org.pushingpixels.radiance.swing.ktx.swing.toggleStyleInSelection

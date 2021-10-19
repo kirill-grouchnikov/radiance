@@ -39,9 +39,9 @@ dependencies {
     implementation project(':common')
     implementation project(':theming')
     implementation project(':theming-extras')
-    implementation project(':flamingo')
+    implementation project(':components')
     implementation project(':demos:theming-demo')
-    implementation project(':demos:flamingo-demo')
+    implementation project(':demos:components-demo')
     implementation project(':tools:tools-common')
 }
 

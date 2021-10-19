@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.plasma.ribbon
 
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.ribbon.JRibbonBand.PresentationPriority
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryContentModel
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonGalleryPresentationModel
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand.PresentationPriority
+import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryContentModel
+import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryPresentationModel
 import org.pushingpixels.plasma.PlasmaElementMarker
 import org.pushingpixels.plasma.KCommand
 import org.pushingpixels.plasma.KCommandGroup
@@ -137,7 +137,9 @@ public class KRibbonGalleryContent {
         }
 
         // Map primary gallery commands to the command group models expected for the content model
-        javaRibbonGalleryContentModel = RibbonGalleryContentModel(this.iconFactory,
+        javaRibbonGalleryContentModel =
+            RibbonGalleryContentModel(
+                this.iconFactory,
                 commandGroups.map { it.toCommandGroupModel() })
 
         // Wire extra popup content if we have it

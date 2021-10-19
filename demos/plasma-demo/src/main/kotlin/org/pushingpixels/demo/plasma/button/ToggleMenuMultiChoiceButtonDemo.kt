@@ -37,7 +37,7 @@ import org.pushingpixels.demo.plasma.svg.Format_text_bold
 import org.pushingpixels.demo.plasma.svg.Format_text_italic
 import org.pushingpixels.demo.plasma.svg.Format_text_strikethrough
 import org.pushingpixels.demo.plasma.svg.Format_text_underline
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.plasma.commandButton
 import org.pushingpixels.plasma.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex

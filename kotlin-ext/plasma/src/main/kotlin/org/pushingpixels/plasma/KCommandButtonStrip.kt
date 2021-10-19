@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
-import org.pushingpixels.flamingo.api.common.model.CommandGroup
-import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
-import org.pushingpixels.flamingo.api.common.projection.CommandStripProjection
+import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.components.api.common.model.CommandGroup
+import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.radiance.components.api.common.projection.CommandStripProjection
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import javax.swing.JComponent
 
@@ -122,14 +122,19 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
     }
 
     public fun toJavaProjection(): CommandStripProjection {
-        val commandGroupModel = CommandGroup(commandConfigs.map { it.command.asJavaCommand() })
+        val commandGroupModel =
+            CommandGroup(
+                commandConfigs.map { it.command.asJavaCommand() })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
         val commandOverlays =
             commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }
                 .toMap()
 
         val commandStripProjection =
-            CommandStripProjection(commandGroupModel, commandStripPresentationModel)
+            CommandStripProjection(
+                commandGroupModel,
+                commandStripPresentationModel
+            )
         commandStripProjection.commandOverlays = commandOverlays
 
         return commandStripProjection

@@ -29,18 +29,18 @@
  */
 package org.pushingpixels.plasma.ribbon
 
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.ribbon.JRibbon
-import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame
-import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup
-import org.pushingpixels.flamingo.api.ribbon.RibbonTask
-import org.pushingpixels.flamingo.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonGalleryProjection
-import org.pushingpixels.flamingo.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
-import org.pushingpixels.flamingo.api.ribbon.synapse.model.ComponentContentModel
-import org.pushingpixels.flamingo.api.ribbon.synapse.projection.ComponentProjection
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.ribbon.JRibbon
+import org.pushingpixels.radiance.components.api.ribbon.JRibbonFrame
+import org.pushingpixels.radiance.components.api.ribbon.RibbonContextualTaskGroup
+import org.pushingpixels.radiance.components.api.ribbon.RibbonTask
+import org.pushingpixels.radiance.components.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
+import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
+import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGalleryProjection
+import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
+import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel
+import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.plasma.*
 import java.awt.Color
@@ -175,7 +175,8 @@ public class KRibbonFrame {
             throw IllegalStateException("This method can only be called once")
         }
 
-        ribbonFrame = JRibbonFrame(title)
+        ribbonFrame =
+            JRibbonFrame(title)
         ribbonFrame.setApplicationIcon(applicationIconFactory)
         for (task in tasks.tasks) {
             ribbonFrame.ribbon.addTask(task.asJavaRibbonTask())
@@ -190,7 +191,8 @@ public class KRibbonFrame {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
                     RibbonTaskbarCommandButtonProjection(
                         taskbarComponent.toJavaCommand(),
-                        RibbonTaskbarCommandButtonPresentationModel.builder().build()
+                        RibbonTaskbarCommandButtonPresentationModel.builder()
+                            .build()
                     )
                 )
                 is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
@@ -207,7 +209,8 @@ public class KRibbonFrame {
 
         for (contextualTaskGroup in contextualTaskGroups.taskGroups) {
             ribbonFrame.ribbon.addContextualTaskGroup(
-                RibbonContextualTaskGroup(contextualTaskGroup.title,
+                RibbonContextualTaskGroup(
+                    contextualTaskGroup.title,
                     contextualTaskGroup.color,
                     contextualTaskGroup.tasks.tasks.map { it.asJavaRibbonTask() })
             )

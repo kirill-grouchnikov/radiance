@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
-import org.pushingpixels.flamingo.api.common.JCommandButton;
+import org.pushingpixels.radiance.components.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;

@@ -36,7 +36,7 @@ dependencies {
     implementation "com.jhlabs:filters:$jhlabs_filters_version"
     implementation project(':common')
     implementation project(':theming')
-    implementation project(':flamingo')
+    implementation project(':components')
     implementation project(':demos:theming-demo')
 }
 

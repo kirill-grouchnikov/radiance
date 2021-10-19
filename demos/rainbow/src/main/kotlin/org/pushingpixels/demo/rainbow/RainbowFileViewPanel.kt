@@ -35,12 +35,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon
-import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
-import org.pushingpixels.flamingo.api.common.*
-import org.pushingpixels.flamingo.api.common.model.Command
-import org.pushingpixels.flamingo.api.layout.TransitionLayoutManager
+import org.pushingpixels.radiance.components.api.bcb.JBreadcrumbBar
+import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.components.api.layout.TransitionLayoutManager
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.components.api.common.*
 import java.awt.Dimension
 import java.io.InputStream
 
@@ -60,13 +60,14 @@ class RainbowFileViewPanel<T>(private val bar: JBreadcrumbBar<T>, startingDimens
                 .setTitle("Transcode")
                 .addDescriptionSection("Click to generate Java2D class")
                 .build()
-        command.action = CommandAction {
-            GlobalScope.launch(Dispatchers.Swing) {
-                // can't pass the stream contents since the input can be .svgz
-                val svgIcon = icon as SvgBatikRadianceIcon
-                RainbowUtils.processSvgButtonClick(svgIcon.svgBytes, leaf.leafName)
+        command.action =
+            CommandAction {
+                GlobalScope.launch(Dispatchers.Swing) {
+                    // can't pass the stream contents since the input can be .svgz
+                    val svgIcon = icon as SvgBatikRadianceIcon
+                    RainbowUtils.processSvgButtonClick(svgIcon.svgBytes, leaf.leafName)
+                }
             }
-        }
     }
 
     override fun toShowFile(pair: StringValuePair<T>): Boolean {

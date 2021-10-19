@@ -34,7 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
+import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
@@ -56,7 +56,9 @@ fun main() {
             BusinessSkin()
         )
 
-        val frame = RainbowViewer<File>("Local SVG File Viewer", BreadcrumbFileSelector())
+        val frame = RainbowViewer<File>("Local SVG File Viewer",
+            BreadcrumbFileSelector()
+        )
         frame.setSize(700, 400)
         frame.setLocationRelativeTo(null)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE

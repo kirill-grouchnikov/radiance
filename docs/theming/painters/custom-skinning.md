@@ -4,7 +4,7 @@ As mentioned in the [painter overview](overview.md), most of the Radiance painti
 
 This applies in two major cases:
 
-* Providing consistent painting for additional Radiance components in [Flamingo](../../flamingo/flamingo.md)
+* Providing consistent painting for additional Radiance components in [Flamingo](../../components/overview.md)
 * Providing consistent painting for custom components and visual areas of a specific application.
 
 Instead of trying to match the colors, gradients and animation sequences from the current Radiance skin (which might change between various releases), applications can use the Radiance painting APIs. Such code should be shorter and more maintainable, and will also produce better visual consistency across the entire UI.
@@ -35,7 +35,7 @@ Here is another example of this pattern, this time on a status bar component. As
 
 ### Border tracing
 
-Components that require consistent painting of borders or contours can use the border painter with the matching contour. Here is an example of border tracing in the `JRibbon` component from [Flamingo](../../flamingo/flamingo.md) component library:
+Components that require consistent painting of borders or contours can use the border painter with the matching contour. Here is an example of border tracing in the `JRibbon` component from [Flamingo](../../components/overview.md) component library:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jribbon.png" width="600" height="210"/>
 
@@ -47,7 +47,7 @@ Here is another example of this pattern, this time on the `JCommandButton` compo
 
 ### Inner fills
 
-This pattern is used to paint the inner fill of custom components (along with the border tracing pattern to paint the component contour). This pattern uses the fill painter with the matching contour. Here is an example of the `JRibbon` component from [Flamingo](../../flamingo/flamingo.md) component library:
+This pattern is used to paint the inner fill of custom components (along with the border tracing pattern to paint the component contour). This pattern uses the fill painter with the matching contour. Here is an example of the `JRibbon` component from [Flamingo](../../components/overview.md) component library:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/jtoggletabbutton.png" width="600" height="210"/>
 

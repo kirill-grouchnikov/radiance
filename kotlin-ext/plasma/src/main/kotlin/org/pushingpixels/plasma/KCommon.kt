@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.plasma
 
-import org.pushingpixels.flamingo.api.common.RichTooltip
-import org.pushingpixels.flamingo.api.common.model.CommandToggleGroupModel
+import org.pushingpixels.radiance.components.api.common.RichTooltip
+import org.pushingpixels.radiance.components.api.common.model.CommandToggleGroupModel
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import java.awt.Color
 import kotlin.properties.ReadWriteProperty
@@ -140,7 +140,8 @@ public class KRichTooltip {
 }
 
 public class KCommandToggleGroupModel {
-    internal val javaCommandToggleModel = CommandToggleGroupModel()
+    internal val javaCommandToggleModel =
+        CommandToggleGroupModel()
 }
 
 public fun commandToggleGroup(): KCommandToggleGroupModel {
