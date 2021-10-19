@@ -34,7 +34,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon
+import org.pushingpixels.radiance.demo.components.svg.SvgBatikRadianceIcon
 import org.pushingpixels.radiance.components.api.bcb.JBreadcrumbBar
 import org.pushingpixels.radiance.components.api.common.model.Command
 import org.pushingpixels.radiance.components.api.layout.TransitionLayoutManager

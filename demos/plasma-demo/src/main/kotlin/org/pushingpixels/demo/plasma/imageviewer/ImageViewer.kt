@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.radiance.components.api.common.AbstractFileViewPanel
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.components.api.common.StringValuePair
-import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon
+import org.pushingpixels.radiance.demo.components.icon.ImageWrapperRadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.theming.api.ComponentState

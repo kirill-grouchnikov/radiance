@@ -33,12 +33,12 @@ import org.pushingpixels.radiance.components.api.bcb.JBreadcrumbBar
 import org.pushingpixels.radiance.components.api.common.AbstractFileViewPanel
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.components.api.common.StringValuePair
-import org.pushingpixels.demo.flamingo.icon.IcoWrapperRadianceIcon
-import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon
+import org.pushingpixels.radiance.demo.components.icon.IcoWrapperRadianceIcon
+import org.pushingpixels.radiance.demo.components.icon.ImageWrapperRadianceIcon
 import org.pushingpixels.radiance.components.api.common.model.Command
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.demo.flamingo.svg.SvgBatikRadianceIcon
+import org.pushingpixels.radiance.demo.components.svg.SvgBatikRadianceIcon
 import java.awt.Dimension
 import java.io.File
 import java.io.InputStream

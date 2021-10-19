@@ -34,7 +34,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon
+import org.pushingpixels.radiance.demo.components.ribbon.BasicCheckRibbon
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
@@ -70,7 +70,8 @@ abstract class ComponentsSkinRobot(
         // create the frame and set the icon image
         val ribbonFrame: BasicCheckRibbon
         withContext(Dispatchers.Swing) {
-            ribbonFrame = BasicCheckRibbon()
+            ribbonFrame =
+                BasicCheckRibbon()
             ribbonFrame.configureRibbon()
             ribbonFrame.applyComponentOrientation(
                 ComponentOrientation.getOrientation(Locale.getDefault())

@@ -9,7 +9,7 @@
   * Custom skin in `org.pushingpixels.demo.spyglass.seaglass` package
   * Heavily integrated custom design in the [cookbook](spyglass/cookbook/cookbook.md) sample
 * For **Flamingo** - the `demos/flamingo-demo` module
-  * The main ribbon demo is `org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon` class
+  * The main ribbon demo is `BasicCheckRibbon` class
   * Breadcrumb demos in `org.pushingpixels.demo.flamingo.bcb` package
   * Command, popup and panel demos in `org.pushingpixels.demo.flamingo.common` package
   * Small image viewer demo using command panel in `org.pushingpixels.demo.flamingo.imageviewer` package
