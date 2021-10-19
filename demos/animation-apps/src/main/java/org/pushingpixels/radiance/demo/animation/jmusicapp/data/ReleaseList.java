@@ -27,20 +27,17 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.animation.jmusicapp.data;
 
-apply plugin: 'kotlin'
+import com.squareup.moshi.Json;
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation project(':animation')
-    implementation project(':kotlin-ext:animation-ktx')
-    implementation project(':kotlin-ext:swing-ktx')
-    implementation project(':common')
+import java.util.List;
+
+@Json(name = "release-list")
+public class ReleaseList {
+    public int count;
+
+    @Json(name = "releases")
+    public List<SearchResultRelease> releases;
 }
 
-ext.designation = "demo"

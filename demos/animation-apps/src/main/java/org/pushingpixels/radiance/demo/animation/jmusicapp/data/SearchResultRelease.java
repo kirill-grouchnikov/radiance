@@ -28,19 +28,23 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-apply plugin: 'kotlin'
+package org.pushingpixels.radiance.demo.animation.jmusicapp.data;
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation project(':animation')
-    implementation project(':kotlin-ext:animation-ktx')
-    implementation project(':kotlin-ext:swing-ktx')
-    implementation project(':common')
+import com.squareup.moshi.Json;
+
+import java.util.List;
+
+public class SearchResultRelease {
+    public String id;
+
+    public String title;
+
+    public String artist;
+
+    public String date;
+
+    @Json(name = "release-events")
+    public List<ReleaseEvent> releaseEvents;
+
+    public String asin;
 }
-
-ext.designation = "demo"

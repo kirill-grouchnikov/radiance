@@ -27,20 +27,18 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.animation.kmusicapp
 
-apply plugin: 'kotlin'
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.swing.Swing
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation project(':animation')
-    implementation project(':kotlin-ext:animation-ktx')
-    implementation project(':kotlin-ext:swing-ktx')
-    implementation project(':common')
+fun main() {
+    GlobalScope.launch(Dispatchers.Swing) {
+        val mainWindow = MainWindow()
+        mainWindow.isVisible = true
+
+        mainWindow.doLoad("Sarah McLachlan", "ce58d854-7430-4231-aa44-97f0144b3372")
+    }
 }
-
-ext.designation = "demo"
