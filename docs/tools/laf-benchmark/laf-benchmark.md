@@ -16,7 +16,7 @@ Now configure the specific version of Java runtime that you want to test under a
 
 `RADIANCE_VERSION=5.0-SNAPSHOT`
 
-`CLASSPATH=./drop/$RADIANCE_VERSION/tools/radiance-lafbenchmark-$RADIANCE_VERSION.jar:./build/libs-tools/jgoodies-forms-1.9.0.jar:./build/libs-tools/jgoodies-common-1.8.1.jar`
+`CLASSPATH=./drop/$RADIANCE_VERSION/tools/radiance-laf-benchmark-$RADIANCE_VERSION.jar:./build/libs-tools/jgoodies-forms-1.9.0.jar:./build/libs-tools/jgoodies-common-1.8.1.jar`
 
 To measure the performance of a specific core look-and-feel - in this case Nimbus - run the following command:
 
@@ -45,13 +45,13 @@ The numbers are milliseconds it takes to render a frame with a number of matchin
 
 With this, you can compare the performance of your look-and-feel with that of core / third-party libraries. You can also track performance improvements and regressions during the development cycle.
 
-[Here is the script](../../../scripts/lafbenchmark/auto-dynamic-radiance.sh) used for tracking performance numbers for Radiance:
+[Here is the script](../../../scripts/laf-benchmark/auto-dynamic-radiance.sh) used for tracking performance numbers for Radiance:
 
 ``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
 
 `RADIANCE_VERSION=5.0-SNAPSHOT`
 
-`CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lafbenchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
+`CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-laf-benchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
 
 `RADIANCE_CLASSPATH=../../drop/$RADIANCE_VERSION/core/radiance-theming-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-animation-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-common-$RADIANCE_VERSION.jar`
 

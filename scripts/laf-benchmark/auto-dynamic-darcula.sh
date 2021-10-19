@@ -31,7 +31,7 @@ export JAVA_HOME=`/usr/libexec/java_home -v 9`
 alias JAVA="java"
 
 RADIANCE_VERSION=5.0-SNAPSHOT
-CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lafbenchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar
-SYNTHETICA_CLASSPATH=../../../thirdparty/synthetica3.0/synthetica.jar:../../../thirdparty/synthetica3.0/syntheticaStandard.jar
+CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-laf-benchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar
+DARCULA_CLASSPATH=../../../thirdparty/darcula.jar
 
-java -Dswing.defaultlaf=de.javasoft.synthetica.standard.SyntheticaStandardLookAndFeel -cp $CLASSPATH:$SYNTHETICA_CLASSPATH org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
+java -Dswing.defaultlaf=com.bulenkov.darcula.DarculaLaf -cp $CLASSPATH:$DARCULA_CLASSPATH org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10

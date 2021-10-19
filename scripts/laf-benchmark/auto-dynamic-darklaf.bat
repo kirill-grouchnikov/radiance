@@ -28,7 +28,7 @@
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 set RADIANCE_VERSION=5.0-SNAPSHOT
-set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lafbenchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
+set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-laf-benchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
 set DARKLAF_CLASSPATH=../../../thirdparty/darklaf/*
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf -cp %CLASSPATH%;%DARKLAF_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10

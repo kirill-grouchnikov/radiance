@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.pushing-pixels:radiance-svgtranscoder-gradle-plugin:X.Y.Z'
+        classpath 'org.pushing-pixels:radiance-svg-transcoder-gradle-plugin:X.Y.Z'
     }
 }
 
@@ -31,7 +31,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.pushing-pixels:radiance-svgtranscoder-gradle-plugin:X.Y.Z-SNAPSHOT'
+        classpath 'org.pushing-pixels:radiance-svg-transcoder-gradle-plugin:X.Y.Z-SNAPSHOT'
     }
 }
 ```

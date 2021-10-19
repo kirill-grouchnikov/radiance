@@ -28,7 +28,7 @@
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 set RADIANCE_VERSION=5.0-SNAPSHOT
-set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-lafbenchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set DARCULA_CLASSPATH=../../../thirdparty/darcula.jar
+set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-laf-benchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
+set PLASTIC_CLASSPATH=../../../thirdparty/jgoodies/jgoodies-looks-2.5.3.jar
 
-"%JAVA_HOME%"\bin\java -Dswing.defaultlaf=com.bulenkov.darcula.DarculaLaf -cp %CLASSPATH%;%DARCULA_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
+"%JAVA_HOME%"\bin\java -Dswing.defaultlaf=com.jgoodies.looks.plastic.PlasticXPLookAndFeel -cp %CLASSPATH%;%PLASTIC_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
