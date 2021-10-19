@@ -40,10 +40,8 @@ buildscript {
 
         // Demo dependencies
         retrofit_version                     =    '2.9.0'
-        rsyntaxtextarea_version              =    '3.1.3'
         jgoodies_common_version              =    '1.8.1'
         jgoodies_forms_version               =    '1.9.0'
-        jxlayer_version                      =    '3.0.4'
         jhlabs_filters_version               =  '2.0.235'
 
         // Publish dependencies
