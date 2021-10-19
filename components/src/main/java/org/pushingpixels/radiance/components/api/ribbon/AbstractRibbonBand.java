@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.components.api.common.CommandAction;
 import org.pushingpixels.radiance.components.api.common.RichTooltip;
 import org.pushingpixels.radiance.components.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.components.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonBandUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonBandUI;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.RibbonBandUI;

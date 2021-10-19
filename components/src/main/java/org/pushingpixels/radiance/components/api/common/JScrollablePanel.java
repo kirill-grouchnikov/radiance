@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.components.api.common;
 
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceScrollablePanelUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceScrollablePanelUI;
 import org.pushingpixels.radiance.components.internal.ui.common.ScrollablePanelUI;
 
 import javax.swing.*;

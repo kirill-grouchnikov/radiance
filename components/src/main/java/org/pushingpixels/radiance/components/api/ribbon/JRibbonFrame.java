@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.components.api.common.projection.Projection;
 import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonFrameTitlePane;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
 import org.pushingpixels.radiance.components.internal.ui.common.RadianceInternalButton;
 import org.pushingpixels.radiance.components.internal.utils.ComponentsUtilities;
 import org.pushingpixels.radiance.components.internal.utils.KeyTipManager;

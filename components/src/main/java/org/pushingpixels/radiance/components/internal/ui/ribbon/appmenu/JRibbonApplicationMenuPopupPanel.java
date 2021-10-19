@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.components.api.common.popup.AbstractPopupMenu;
 import org.pushingpixels.radiance.components.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.components.api.common.projection.Projection;
 import org.pushingpixels.radiance.components.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonApplicationMenuPopupPanelUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.radiance.components.internal.ui.common.popup.ScrollableHost;
 import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 

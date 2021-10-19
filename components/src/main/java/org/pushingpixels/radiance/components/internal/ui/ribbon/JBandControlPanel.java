@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.components.internal.ui.ribbon;
 import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.components.api.common.JCommandButton;
 import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceBandControlPanelUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceBandControlPanelUI;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

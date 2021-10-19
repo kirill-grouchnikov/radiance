@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.components.internal.ui.common;
 
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceCircularProgressUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceCircularProgressUI;
 
 import javax.swing.*;
 

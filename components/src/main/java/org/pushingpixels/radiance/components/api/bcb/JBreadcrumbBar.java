@@ -32,7 +32,7 @@
  */
 package org.pushingpixels.radiance.components.api.bcb;
 
-import org.pushingpixels.radiance.components.internal.laf.bcb.ui.RadianceBreadcrumbBarUI;
+import org.pushingpixels.radiance.components.internal.theming.bcb.ui.RadianceBreadcrumbBarUI;
 import org.pushingpixels.radiance.components.internal.ui.bcb.BreadcrumbBarUI;
 
 import javax.swing.*;

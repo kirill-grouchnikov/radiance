@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.components.api.ribbon.model.RibbonGalleryPresentationModel;
 import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGalleryProjection;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonGalleryUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonGalleryUI;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

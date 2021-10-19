@@ -131,7 +131,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
      */
     private GhostingListener ghostModelChangeListener;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     protected AbstractButton button;
 
@@ -160,19 +160,19 @@ public class RadianceButtonUI extends BasicButtonUI implements
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -211,8 +211,8 @@ public class RadianceButtonUI extends BasicButtonUI implements
         if (Boolean.TRUE.equals(b.getClientProperty(RadianceSynapse.CONTENTS_MODIFIED))) {
             trackModificationFlag();
         }
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
@@ -228,8 +228,8 @@ public class RadianceButtonUI extends BasicButtonUI implements
         }
         b.putClientProperty(RadianceButtonUI.OPACITY_ORIGINAL, null);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
     }
 
@@ -276,8 +276,8 @@ public class RadianceButtonUI extends BasicButtonUI implements
         this.ghostModelChangeListener = new GhostingListener(b, b.getModel());
         this.ghostModelChangeListener.registerListeners();
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -292,8 +292,8 @@ public class RadianceButtonUI extends BasicButtonUI implements
         this.ghostModelChangeListener.unregisterListeners();
         this.ghostModelChangeListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners(b);

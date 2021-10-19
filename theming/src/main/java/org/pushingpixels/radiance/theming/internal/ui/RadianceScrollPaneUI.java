@@ -74,7 +74,7 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
      */
     private Timeline horizontalScrollTimeline;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     /**
      * Creates new UI delegate.
@@ -92,19 +92,19 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -115,8 +115,8 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
 
         SwingUtilities.invokeLater(() -> installTableHeaderCornerFiller(scrollpane));
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
@@ -131,8 +131,8 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
             c.setCorner(JScrollPane.UPPER_LEFT_CORNER, null);
         }
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
         super.uninstallDefaults(c);
     }
@@ -228,8 +228,8 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
         c.getVerticalScrollBar().getModel()
                 .addChangeListener(this.radianceVerticalScrollbarChangeListener);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -243,8 +243,8 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
                 .removeChangeListener(this.radianceVerticalScrollbarChangeListener);
         this.radianceVerticalScrollbarChangeListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners(c);

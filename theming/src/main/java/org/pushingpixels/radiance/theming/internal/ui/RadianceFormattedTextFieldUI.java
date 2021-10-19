@@ -80,7 +80,7 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
      */
     private ButtonModel transitionModel;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -112,19 +112,19 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -160,8 +160,8 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
             }
         };
         this.textField.addPropertyChangeListener(this.radiancePropertyChangeListener);
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -176,8 +176,8 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
         this.radianceRolloverListener.unregisterListeners();
         this.radianceRolloverListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners();
@@ -208,15 +208,15 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
                                         .getDecorationType(textField))));
             }
         });
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
     @Override
     protected void uninstallDefaults() {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
 
         super.uninstallDefaults();

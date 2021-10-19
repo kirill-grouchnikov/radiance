@@ -77,7 +77,7 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
      */
     private ButtonModel transitionModel;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -106,19 +106,19 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -154,8 +154,8 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
             }
         };
         this.textPane.addPropertyChangeListener(this.radiancePropertyChangeListener);
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -167,8 +167,8 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
         this.textPane.removePropertyChangeListener(this.radiancePropertyChangeListener);
         this.radiancePropertyChangeListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners();
@@ -190,15 +190,15 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
                                         .getDecorationType(textPane))));
             }
         });
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
     @Override
     protected void uninstallDefaults() {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
 
         super.uninstallDefaults();

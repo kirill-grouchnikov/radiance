@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.components.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.radiance.components.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonComponentUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonComponentUI;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.components.api.ribbon.JRibbon;
 

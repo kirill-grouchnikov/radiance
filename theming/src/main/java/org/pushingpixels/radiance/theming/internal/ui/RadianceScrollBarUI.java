@@ -101,7 +101,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
      */
     private AdjustmentListener radianceAdjustmentListener;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     private static int THUMB_DELTA = 2;
 
@@ -129,19 +129,19 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -475,15 +475,15 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         this.scrollBarWidth = RadianceSizeUtils
                 .getScrollBarWidth(RadianceSizeUtils.getComponentFontSize(this.scrollbar));
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
     @Override
     protected void uninstallDefaults() {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
 
         super.uninstallDefaults();
@@ -495,8 +495,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 this.thumbModel);
         this.compositeStateTransitionTracker.registerModelListeners();
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installComponents();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installComponents();
         }
     }
 
@@ -504,8 +504,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
     protected void uninstallComponents() {
         this.compositeStateTransitionTracker.unregisterModelListeners();
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallComponents();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallComponents();
         }
     }
 
@@ -547,8 +547,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         };
         this.scrollbar.addAdjustmentListener(this.radianceAdjustmentListener);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -564,8 +564,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         this.scrollbar.removeAdjustmentListener(this.radianceAdjustmentListener);
         this.radianceAdjustmentListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners();

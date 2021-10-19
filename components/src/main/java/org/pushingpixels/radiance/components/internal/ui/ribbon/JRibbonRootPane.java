@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.components.api.common.CommandActionEvent;
 import org.pushingpixels.radiance.components.api.common.model.Command;
 import org.pushingpixels.radiance.components.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.components.api.ribbon.JRibbonFrame;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonRootPaneUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonRootPaneUI;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 
 import javax.swing.*;

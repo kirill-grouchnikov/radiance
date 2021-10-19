@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.components.api.common;
 import org.pushingpixels.radiance.components.api.common.model.*;
 import org.pushingpixels.radiance.components.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.components.api.common.projection.Projection;
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceCommandButtonPanelUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceCommandButtonPanelUI;
 import org.pushingpixels.radiance.components.internal.ui.common.CommandButtonPanelUI;
 
 import javax.swing.*;

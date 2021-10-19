@@ -44,7 +44,7 @@ import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonGallery
 import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonTaskbarCommandButtonProjection;
 import org.pushingpixels.radiance.components.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.components.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonUI;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.JRibbonGallery;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.RibbonUI;

@@ -153,7 +153,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      */
     private static int rootPanesWithCustomSkin = 0;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     /**
      * Creates a UI for a <code>JRootPane</code>.
@@ -183,7 +183,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      */
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
@@ -201,8 +201,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
             rootPanesWithCustomSkin++;
         }
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
@@ -230,8 +230,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
         this.root = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
     }
 
@@ -274,15 +274,15 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
             }
         }
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
     @Override
     protected void uninstallDefaults(JRootPane root) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
 
         super.uninstallDefaults(root);
@@ -498,8 +498,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         };
         root.addPropertyChangeListener(this.radiancePropertyChangeListener);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -519,8 +519,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         root.removePropertyChangeListener(this.radiancePropertyChangeListener);
         this.radiancePropertyChangeListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners(root);
@@ -530,15 +530,15 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
     protected void installComponents(JRootPane root) {
         super.installComponents(root);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installComponents();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installComponents();
         }
     }
 
     @Override
     protected void uninstallComponents(JRootPane root) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallComponents();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallComponents();
         }
 
         super.uninstallComponents(root);

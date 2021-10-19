@@ -84,7 +84,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
      */
     private ButtonModel transitionModel;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     /**
      * Custom password view.
@@ -308,19 +308,19 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -361,8 +361,8 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
             }
         };
         this.passwordField.addPropertyChangeListener(this.radiancePropertyChangeListener);
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -378,8 +378,8 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
         this.passwordField.removeMouseMotionListener(this.radianceRolloverListener);
         this.radianceRolloverListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
 
         super.uninstallListeners();
@@ -409,15 +409,15 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
                                         .getDecorationType(passwordField))));
             }
         });
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
     @Override
     protected void uninstallDefaults() {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
 
         super.uninstallDefaults();

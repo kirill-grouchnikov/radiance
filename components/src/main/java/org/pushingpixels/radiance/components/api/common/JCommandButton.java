@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.components.api.common.projection.CommandPopupM
 import org.pushingpixels.radiance.components.api.common.projection.Projection;
 import org.pushingpixels.radiance.components.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.radiance.components.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceCommandButtonUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.radiance.components.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.components.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.components.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;

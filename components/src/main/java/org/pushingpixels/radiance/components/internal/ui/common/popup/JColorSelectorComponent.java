@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.components.internal.ui.common.popup;
 
 import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuContentModel;
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceColorSelectorComponentUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceColorSelectorComponentUI;
 
 import javax.swing.*;
 import java.awt.*;

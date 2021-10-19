@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.components.api.common.popup;
 
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadiancePopupPanelUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadiancePopupPanelUI;
 import org.pushingpixels.radiance.components.internal.ui.common.popup.PopupPanelUI;
 
 import javax.swing.*;

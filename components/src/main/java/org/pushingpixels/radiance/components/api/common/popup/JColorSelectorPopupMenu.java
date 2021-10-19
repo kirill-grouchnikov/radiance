@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelecto
 import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.radiance.components.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 import org.pushingpixels.radiance.components.api.common.projection.Projection;
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceColorSelectorPopupMenuUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceColorSelectorPopupMenuUI;
 import org.pushingpixels.radiance.components.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
 import org.pushingpixels.radiance.components.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
 import org.pushingpixels.radiance.components.internal.ui.common.popup.JColorSelectorPanel;

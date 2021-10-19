@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.components.api.common.model.Command;
 import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.components.api.common.projection.Projection;
 import org.pushingpixels.radiance.components.api.ribbon.RibbonTask;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRibbonTaskToggleButtonUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRibbonTaskToggleButtonUI;
 import org.pushingpixels.radiance.components.internal.ui.common.RadianceInternalButton;
 
 import java.awt.*;

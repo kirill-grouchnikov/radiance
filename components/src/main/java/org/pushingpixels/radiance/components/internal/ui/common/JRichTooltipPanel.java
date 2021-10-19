@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.components.internal.ui.common;
 
 import org.pushingpixels.radiance.components.api.common.RichTooltip;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceRichTooltipPanelUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceRichTooltipPanelUI;
 
 import javax.swing.*;
 

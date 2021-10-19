@@ -61,7 +61,7 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 	 */
 	private int width;
 
-	private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+	private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
 	public static ComponentUI createUI(JComponent comp) {
 		RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -84,15 +84,15 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 						RadianceCoreUtilities.getSkin(this.desktopIcon.getInternalFrame()),
 						RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE));
 
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.installDefaults();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.installDefaults();
 		}
 	}
 	
 	@Override
 	protected void uninstallDefaults() {
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.uninstallDefaults();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.uninstallDefaults();
 		}
 
 		super.uninstallDefaults();
@@ -107,8 +107,8 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 		this.desktopIcon.setLayout(new BorderLayout());
 		this.desktopIcon.add(this.iconPane, BorderLayout.CENTER);
 
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.installComponents();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.installComponents();
 		}
 	}
 
@@ -119,8 +119,8 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 		this.desktopIcon.setLayout(null);
 		this.desktopIcon.remove(this.iconPane);
 
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.uninstallComponents();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.uninstallComponents();
 		}
 
 		this.frame = null;
@@ -134,8 +134,8 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 				.addMouseMotionListener(this.radianceLabelMouseInputListener);
 		this.iconPane.addMouseListener(this.radianceLabelMouseInputListener);
 
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.installListeners();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.installListeners();
 		}
 	}
 
@@ -149,8 +149,8 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 				.removeMouseListener(this.radianceLabelMouseInputListener);
 		this.radianceLabelMouseInputListener = null;
 
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.uninstallListeners();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.uninstallListeners();
 		}
 
 		super.uninstallListeners();
@@ -181,20 +181,20 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 
 	@Override
 	public void installUI(JComponent c) {
-		this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+		this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
 		super.installUI(c);
 		c.setOpaque(false);
 		
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.installUI();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.installUI();
 		}
 	}
 
 	@Override
 	public void uninstallUI(JComponent c) {
-		for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-			lafWidget.uninstallUI();
+		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+			themingWidget.uninstallUI();
 		}
 
 		RadianceInternalFrameTitlePane thePane = (RadianceInternalFrameTitlePane) this.iconPane;

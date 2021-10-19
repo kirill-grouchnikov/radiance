@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.components.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.components.api.ribbon.JFlowRibbonBand;
-import org.pushingpixels.radiance.components.internal.laf.ribbon.ui.RadianceFlowBandControlPanelUI;
+import org.pushingpixels.radiance.components.internal.theming.ribbon.ui.RadianceFlowBandControlPanelUI;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;

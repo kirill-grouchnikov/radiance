@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.components.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.radiance.components.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.components.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.components.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.radiance.components.internal.laf.common.ui.RadianceCommandButtonUI;
+import org.pushingpixels.radiance.components.internal.theming.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.radiance.components.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.radiance.components.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;

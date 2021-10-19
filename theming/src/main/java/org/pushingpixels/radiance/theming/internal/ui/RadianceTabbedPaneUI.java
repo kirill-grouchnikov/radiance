@@ -107,7 +107,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     //
     // private JScrollablePanel<JPanel> scrollableTabStrip;
 
-    private Set<RadianceThemingWidget<JComponent>> lafWidgets;
+    private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -488,19 +488,19 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     public void installUI(JComponent c) {
-        this.lafWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
+        this.themingWidgets = RadianceThemingWidgetRepository.getRepository().getMatchingWidgets(c);
 
         super.installUI(c);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installUI();
         }
     }
 
     @Override
     public void uninstallUI(JComponent c) {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallUI();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallUI();
         }
         super.uninstallUI(c);
     }
@@ -553,8 +553,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         });
         this.tabPane.getModel().addChangeListener(this.radianceSelectionListener);
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installListeners();
         }
     }
 
@@ -584,8 +584,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         this.tabPane.getModel().removeChangeListener(this.radianceSelectionListener);
         this.radianceSelectionListener = null;
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallListeners();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallListeners();
         }
     }
 
@@ -598,8 +598,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         this.modifiedTimelines = new HashMap<>();
         this.currSelectedIndex = this.tabPane.getSelectedIndex();
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installDefaults();
         }
     }
 
@@ -609,8 +609,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             timeline.cancel();
         this.modifiedTimelines.clear();
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallDefaults();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallDefaults();
         }
 
         super.uninstallDefaults();
@@ -620,15 +620,15 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void installComponents() {
         super.installComponents();
 
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.installComponents();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.installComponents();
         }
     }
 
     @Override
     protected void uninstallComponents() {
-        for (RadianceThemingWidget lafWidget : this.lafWidgets) {
-            lafWidget.uninstallComponents();
+        for (RadianceThemingWidget themingWidget : this.themingWidgets) {
+            themingWidget.uninstallComponents();
         }
 
         super.uninstallComponents();
