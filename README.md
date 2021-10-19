@@ -66,9 +66,9 @@ Radiance is a collection of libraries for writing modern, elegant and fast Swing
 
 * [Shaper Editor](docs/tools/shapeeditor/shapeeditor.md) can be used creating and editing files that define custom button shapers.
 
-* [SVG Transcoder Plugin](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md) is a Gradle plugin that wraps the SVG Transcoder library to allow build-time transcoding of SVG content into Java / Kotlin classes.
-
 * [SVG Transcoder](docs/tools/svgtranscoder/svgtranscoder.md) enables usage of vector-based icons in Swing applications. SVG content is transcoded offline to Java / Kotlin classes that use pure Java2D canvas operations that do not require expensive runtime overhead of third-party dependencies.
+
+* [SVG Transcoder Plugin](docs/tools/svgtranscoderplugin/svgtranscoderplugin.md) is a Gradle plugin that wraps the SVG Transcoder library to allow build-time transcoding of SVG content into Java / Kotlin classes.
 
 
 ## Demos

@@ -20,7 +20,7 @@ If you do not configure a custom renderer for one of your data containers, a mat
 
 ### Complex Radiance list renderers
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0 align="right"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/complex-list-renderer.png" width="946" border=0/>
 
 [VisorMail](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/demos/spyglass/src/main/java/org/pushingpixels/demo/spyglass/mail) demo app illustrates the usage of `RadiancePanelListCellRenderer` base class for more complex `JList` content. It is used in the destinations list on the left to host three labels (icon, destination name, unread count) and in the threads list in the middle to host six labels across three rows.
 

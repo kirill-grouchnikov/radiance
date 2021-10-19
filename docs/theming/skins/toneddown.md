@@ -310,10 +310,10 @@ Note that while these skins were originally designed for the [Flamingo ribbon co
 Available in the `OfficeSilver2007Skin`. In addition, the `RadianceOfficeSilver2007LookAndFeel` can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeSilver2007Skin())`
-* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceOfficeSilver2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceOfficeSilver2007LookAndFeel`
+* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.RadianceOfficeSilver2007Skin")`
+* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeSilver2007LookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceOfficeSilver2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceOfficeSilver2007LookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.theming.theming.extras.api.skinpack.RadianceOfficeSilver2007LookAndFeel");`
 
 <p align="left">
 <img alt="Office Silver 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/officesilver20071.png" width="340" height="258">
@@ -325,10 +325,10 @@ Available in the `OfficeSilver2007Skin`. In addition, the `RadianceOfficeSilver2
 Available in the `OfficeBlue2007Skin`. In addition, the `RadianceOfficeBlue2007LookAndFeel` can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeBlue2007Skin())`
-* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceOfficeBlue2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceOfficeBlue2007LookAndFeel`
+* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeBlue2007Skin")`
+* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeBlue2007LookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceOfficeBlue2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceOfficeBlue2007LookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.theming.theming.extras.api.skinpack.RadianceOfficeBlue2007LookAndFeel");`
 
 <p align="left">
 <img alt="Office Blue 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/officeblue20071.png" width="340" height="258">
@@ -340,10 +340,10 @@ Available in the `OfficeBlue2007Skin`. In addition, the `RadianceOfficeBlue2007L
 Available in the `OfficeBlack2007Skin`. In addition, the `RadianceOfficeBlack2007LookAndFeel` can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeBlack2007Skin())`
-* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceOfficeBlack2007Skin")`
-* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceOfficeBlack2007LookAndFeel`
+* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeBlack2007Skin")`
+* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeBlack2007LookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceOfficeBlack2007LookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceOfficeBlack2007LookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.theming.theming.extras.api.skinpack.RadianceOfficeBlack2007LookAndFeel");`
 
 <p align="left">
 <img alt="Office Black 2007" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/officeblack20071.png" width="340" height="258">
