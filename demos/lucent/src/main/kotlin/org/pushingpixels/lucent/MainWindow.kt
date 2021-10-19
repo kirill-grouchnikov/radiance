@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.swing.ktx.awt.RadianceLayoutManager
 import java.awt.*
 import javax.swing.JFrame
 
-class MainWindow : JFrame("Lumen demo") {
+class MainWindow : JFrame("Music demo") {
     private val contentPanel: AlbumOverviewPanel
     private val closeButton: CloseButton
 

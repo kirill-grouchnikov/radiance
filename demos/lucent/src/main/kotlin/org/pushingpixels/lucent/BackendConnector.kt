@@ -127,7 +127,7 @@ object BackendConnector {
         val okHttpBuilder = OkHttpClient.Builder()
         okHttpBuilder.addInterceptor { chain ->
             val requestWithUserAgent = chain.request().newBuilder()
-                    .header("User-Agent", "Lucent test app. See https://github.com/kirill-grouchnikov/radiance/blob/sunshine/docs/lumen/lumen.md")
+                    .header("User-Agent", "Lucent test app. See https://github.com/kirill-grouchnikov/radiance/blob/sunshine/docs/animation/musicapp/overview.md")
                     .build()
             chain.proceed(requestWithUserAgent)
         }

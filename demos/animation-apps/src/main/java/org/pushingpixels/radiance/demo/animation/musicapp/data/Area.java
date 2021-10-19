@@ -28,20 +28,22 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "radiance"
+package org.pushingpixels.radiance.demo.animation.musicapp.data;
 
-include 'common', 'animation', 'theming',
-		'theming-extras', 'components',
-		'kotlin-ext:swing-ktx', 'kotlin-ext:animation-ktx',
-		'kotlin-ext:theming-ktx', 'kotlin-ext:components-ktx',
-		'demos:common-demo', 'demos:animation-demo',
-		'demos:theming-demo', 'demos:components-demo',
-		'demos:animation-ktx-demo', 'demos:components-ktx-demo',
-		'demos:ion', 'demos:lucent', 'demos:animation-apps',
-		'demos:rainbow', 'demos:theming-apps',
-		'tools:tools-common',
-		'tools:laf-benchmark', 'tools:theming-debugger',
-		'tools:scheme-editor', 'tools:shape-editor',
-		'tools:svg-transcoder', 'tools:svg-transcoder-gradle-plugin',
-		'tools:screenshot',
-		'demos:theming-debugger-demo'
+import com.squareup.moshi.Json;
+
+import java.util.List;
+
+public class Area {
+    public String disambiguation;
+
+    public String id;
+
+    public String name;
+
+    @Json(name = "sort-name")
+    public String sortName;
+
+    @Json(name = "iso-3166-1-codes")
+    public List<String> iso31661Codes;
+}

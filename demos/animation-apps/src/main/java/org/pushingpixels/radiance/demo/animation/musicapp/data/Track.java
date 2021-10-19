@@ -27,21 +27,10 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.demo.animation.musicapp.data;
 
-rootProject.name = "radiance"
+public class Track {
+    public String title;
 
-include 'common', 'animation', 'theming',
-		'theming-extras', 'components',
-		'kotlin-ext:swing-ktx', 'kotlin-ext:animation-ktx',
-		'kotlin-ext:theming-ktx', 'kotlin-ext:components-ktx',
-		'demos:common-demo', 'demos:animation-demo',
-		'demos:theming-demo', 'demos:components-demo',
-		'demos:animation-ktx-demo', 'demos:components-ktx-demo',
-		'demos:ion', 'demos:lucent', 'demos:animation-apps',
-		'demos:rainbow', 'demos:theming-apps',
-		'tools:tools-common',
-		'tools:laf-benchmark', 'tools:theming-debugger',
-		'tools:scheme-editor', 'tools:shape-editor',
-		'tools:svg-transcoder', 'tools:svg-transcoder-gradle-plugin',
-		'tools:screenshot',
-		'demos:theming-debugger-demo'
+    public int length;
+}

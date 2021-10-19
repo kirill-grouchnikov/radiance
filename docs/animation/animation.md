@@ -35,4 +35,4 @@ The goal of this project is to provide a powerful and extensible animation libra
 
 ### Advanced samples
 
-* [Lumen app](../lumen/lumen.md)
+* [Music app](musicapp/overview.md)
