@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
 import java.awt.*;

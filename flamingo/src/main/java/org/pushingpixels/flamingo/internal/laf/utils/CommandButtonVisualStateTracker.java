@@ -30,7 +30,7 @@
 package org.pushingpixels.flamingo.internal.laf.utils;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 
 import java.beans.PropertyChangeListener;
 

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.components.skins
 
-import org.pushingpixels.radiance.laf.api.skin.*
+import org.pushingpixels.radiance.theming.api.skin.*
 
 /**
  * Screenshot robots for Radiance skins.

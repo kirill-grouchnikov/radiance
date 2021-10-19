@@ -31,8 +31,8 @@ package org.pushingpixels.flamingo.internal.laf.ribbon.ui;
 
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicBandControlPanelUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JBandControlPanel;
-import org.pushingpixels.radiance.laf.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

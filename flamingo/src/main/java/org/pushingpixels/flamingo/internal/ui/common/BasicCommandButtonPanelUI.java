@@ -32,7 +32,7 @@ package org.pushingpixels.flamingo.internal.ui.common;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButtonPanel;
 import org.pushingpixels.flamingo.api.common.model.CommandPanelPresentationModel;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -94,7 +94,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.updateLayoutManager();
         Font currFont = this.buttonPanel.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            Font controlFont = RadianceLafCortex.GlobalScope.getFontPolicy()
+            Font controlFont = RadianceThemingCortex.GlobalScope.getFontPolicy()
                     .getFontSet().getControlFont();
             this.buttonPanel.setFont(controlFont.deriveFont(Font.BOLD, controlFont.getSize() + 1));
         }

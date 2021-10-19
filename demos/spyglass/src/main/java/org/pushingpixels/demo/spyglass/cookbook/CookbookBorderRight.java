@@ -30,10 +30,10 @@
 package org.pushingpixels.demo.spyglass.cookbook;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 import javax.swing.border.Border;
 import java.awt.*;
@@ -69,7 +69,7 @@ public class CookbookBorderRight implements Border {
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        RadianceColorScheme scheme = RadianceLafCortex.ComponentScope.getCurrentSkin(c)
+        RadianceColorScheme scheme = RadianceThemingCortex.ComponentScope.getCurrentSkin(c)
                 .getColorScheme(c, ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
 
         Graphics2D g2d = (Graphics2D) g.create();

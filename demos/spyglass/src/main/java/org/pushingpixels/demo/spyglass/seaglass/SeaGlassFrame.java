@@ -30,8 +30,8 @@
 package org.pushingpixels.demo.spyglass.seaglass;
 
 import org.pushingpixels.demo.spyglass.seaglass.skin.SeaGlassSkin;
-import org.pushingpixels.radiance.demo.laf.main.check.SampleFrame;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 
@@ -42,7 +42,7 @@ public class SeaGlassFrame extends SampleFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            RadianceLafCortex.GlobalScope.setSkin(new SeaGlassSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new SeaGlassSkin());
             JFrame.setDefaultLookAndFeelDecorated(true);
             SeaGlassFrame sf = new SeaGlassFrame();
             sf.setSize(340, 254);

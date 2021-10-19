@@ -31,14 +31,14 @@ package org.pushingpixels.flamingo.internal.laf.common.ui;
 
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorComponentUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorComponent;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.laf.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

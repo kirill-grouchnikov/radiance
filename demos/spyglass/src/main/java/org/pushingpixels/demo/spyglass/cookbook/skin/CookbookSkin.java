@@ -29,21 +29,21 @@
  */
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.laf.api.colorscheme.CremeColorScheme;
-import org.pushingpixels.radiance.laf.api.colorscheme.LightGrayColorScheme;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.*;
-import org.pushingpixels.radiance.laf.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.radiance.laf.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.laf.api.painter.overlay.BottomShadowOverlayPainter;
-import org.pushingpixels.radiance.laf.api.painter.overlay.TopBezelOverlayPainter;
-import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.CremeColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.LightGrayColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.*;
+import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 import java.awt.*;
 

@@ -34,16 +34,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.laf.kxt.setContentsModified
+import org.pushingpixels.radiance.theming.kxt.setContentsModified
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.meteor.addDelayedWindowListener
 import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.forEach
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.colorscheme.BaseDarkColorScheme
-import org.pushingpixels.radiance.laf.api.colorscheme.BaseLightColorScheme
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.colorscheme.BaseDarkColorScheme
+import org.pushingpixels.radiance.theming.api.colorscheme.BaseLightColorScheme
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import org.pushingpixels.radiance.tools.schemeeditor.svg.outline_save_24px
 import org.pushingpixels.radiance.tools.common.JImageComponent
 import org.pushingpixels.radiance.tools.common.RadianceLogo
@@ -327,7 +327,7 @@ fun main() {
     JDialog.setDefaultLookAndFeelDecorated(true)
     JFrame.setDefaultLookAndFeelDecorated(true)
     GlobalScope.launch(Dispatchers.Swing) {
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessSkin()
         )
 

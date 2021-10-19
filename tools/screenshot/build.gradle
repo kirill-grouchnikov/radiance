@@ -37,10 +37,10 @@ dependencies {
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
     implementation project(':common')
-    implementation project(':laf')
-    implementation project(':laf-extras')
+    implementation project(':theming')
+    implementation project(':theming-extras')
     implementation project(':flamingo')
-    implementation project(':demos:laf-demo')
+    implementation project(':demos:theming-demo')
     implementation project(':demos:flamingo-demo')
     implementation project(':tools:tools-common')
 }

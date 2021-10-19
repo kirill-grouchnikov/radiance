@@ -37,18 +37,18 @@ import org.pushingpixels.flamingo.api.common.model.PopupButtonModel;
 import org.pushingpixels.flamingo.internal.laf.common.GlowingRadianceIcon;
 import org.pushingpixels.flamingo.internal.laf.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.AnimationFacet;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.laf.internal.AnimationConfigurationManager;
-import org.pushingpixels.radiance.laf.internal.RadianceSynapse;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.laf.internal.utils.*;
-import org.pushingpixels.radiance.laf.internal.utils.icon.TransitionAware;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
+import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
 import java.awt.*;
@@ -110,7 +110,7 @@ public class CommandButtonBackgroundDelegate {
                 RadianceSizeUtils.getClassicButtonCornerRadius(
                         RadianceSizeUtils.getComponentFontSize(commandButton));
 
-        Set<RadianceLafSlices.Side> straightSides = RadianceCoreUtilities.getSides(commandButton,
+        Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(commandButton,
                 RadianceSynapse.BUTTON_STRAIGHT_SIDE);
 
         // special handling for location order
@@ -230,7 +230,7 @@ public class CommandButtonBackgroundDelegate {
     private static BufferedImage getSingleLayer(JCommandButton commandButton,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
             int height, RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
-            float radius, Set<RadianceLafSlices.Side> straightSides,
+            float radius, Set<RadianceThemingSlices.Side> straightSides,
             JCommandButton.CommandButtonLocationOrderKind locationOrderKind, int dx, int dy,
             int dw, int dh, boolean isVertical) {
         double scale = RadianceCommonCortex.getScaleFactor(commandButton);

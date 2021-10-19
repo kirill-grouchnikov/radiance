@@ -31,9 +31,9 @@ package org.pushingpixels.radiance.tools.common
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import java.awt.Component
 import java.awt.image.BufferedImage
 
@@ -52,7 +52,7 @@ object RadianceLogo {
     }
 
     fun getTitlePaneLogoImage(comp: Component): BufferedImage {
-        return getLogoImage(comp, RadianceLafCortex.GlobalScope.getCurrentSkin()!!
-                .getEnabledColorScheme(RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
+        return getLogoImage(comp, RadianceThemingCortex.GlobalScope.getCurrentSkin()!!
+                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE))
     }
 }

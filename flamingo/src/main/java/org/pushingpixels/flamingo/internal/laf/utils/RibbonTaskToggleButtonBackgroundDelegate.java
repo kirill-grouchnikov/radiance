@@ -35,19 +35,19 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.Side;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.laf.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.laf.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.radiance.laf.internal.utils.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -92,8 +92,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 modelStateInfo.getStateNoSelectionContributionMap();
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceLafSlices.DecorationAreaType buttonDecorationAreaType =
-                RadianceLafCortex.ComponentOrParentChainScope.getDecorationType(button);
+        RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
         RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
 
         // To create visual continuity between the background of the selected task
@@ -220,8 +220,8 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
         Graphics2D graphics = result.createGraphics();
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceLafSlices.DecorationAreaType buttonDecorationAreaType =
-                RadianceLafCortex.ComponentOrParentChainScope.getDecorationType(button);
+        RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
         if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
             DecorationPainterUtils.paintDecorationArea(graphics, button, contour,
                     buttonDecorationAreaType, fillScheme, false);

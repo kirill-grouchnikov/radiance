@@ -31,10 +31,10 @@ package org.pushingpixels.flamingo.internal.laf.common.ui;
 
 import org.pushingpixels.flamingo.internal.ui.common.BasicCircularProgressUI;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

@@ -34,8 +34,8 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -57,7 +57,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
         Font f = this.commandButton.getFont();
         if (f == null || f instanceof UIResource) {
             this.commandButton.setFont(
-                    RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
+                    RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
         }
 
         Border border = this.commandButton.getBorder();

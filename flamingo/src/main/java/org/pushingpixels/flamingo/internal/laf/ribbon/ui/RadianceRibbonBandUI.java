@@ -40,17 +40,17 @@ import org.pushingpixels.flamingo.internal.ui.common.FlamingoInternalButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.laf.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.radiance.laf.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.laf.internal.utils.*;
-import org.pushingpixels.radiance.laf.internal.widget.animation.effects.GhostPaintingUtils;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -107,7 +107,7 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
             return;
 
         Graphics2D g2d = (Graphics2D) graphics.create();
-        Font controlFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+        Font controlFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
         g2d.setFont(controlFont.deriveFont(controlFont.getSize2D() - 1.0f));
 
@@ -165,8 +165,8 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
             RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonBand);
             button.setIcon(getExpandButtonIcon(skin, button));
             // Mark the button as rectangular
-            RadianceLafCortex.ComponentScope.setButtonStraightSides(button,
-                    EnumSet.allOf(RadianceLafSlices.Side.class));
+            RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
+                    EnumSet.allOf(RadianceThemingSlices.Side.class));
         });
 
         return expandCommandProjection.buildComponent();

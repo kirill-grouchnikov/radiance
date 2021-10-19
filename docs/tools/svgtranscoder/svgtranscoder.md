@@ -20,7 +20,7 @@ Radiance SVG transcoder allows you to convert an SVG source into a corresponding
 A couple of usages of transcoded resizable icons in Radiance itself are:
 
 * Flamingo ribbon resize that may involve a number of command buttons going between smaller and larger icon sizes. It is recommended to use the generated static `of(int, int)` method to obtain an instance of a generated class for the specific initial size.
-* Icons in Radiance icon packs configured with the `RadianceLafCortex.GlobalScope.setIconPack` API.
+* Icons in Radiance icon packs configured with the `RadianceThemingCortex.GlobalScope.setIconPack` API.
 
 #### Batch transcoding all SVG files in a single folder
 

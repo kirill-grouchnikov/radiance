@@ -41,7 +41,7 @@ import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -159,7 +159,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.updateBorder();
         Font currFont = this.commandButton.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            this.commandButton.setFont(RadianceLafCortex.GlobalScope.getFontPolicy()
+            this.commandButton.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy()
                     .getFontSet().getControlFont());
         }
         this.syncIconDimension();
@@ -561,7 +561,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected int getLayoutGap() {
         Font font = this.commandButton.getFont();
         if (font == null) {
-            font = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+            font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
         }
         return (font.getSize() - 4) / 4;
     }

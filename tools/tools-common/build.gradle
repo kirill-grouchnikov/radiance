@@ -35,7 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation project(':common')
-    implementation project(':laf')
+    implementation project(':theming')
     implementation project(':kotlin-ext:meteor')
 }
 

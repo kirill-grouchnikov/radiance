@@ -31,10 +31,10 @@ package org.pushingpixels.flamingo.internal.laf.ribbon.ui;
 
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonComponentUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonComponent;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceTextUtilities;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

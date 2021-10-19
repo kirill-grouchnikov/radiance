@@ -35,9 +35,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.AnimationFacet
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.io.File
 import javax.swing.JFrame
 
@@ -50,9 +50,9 @@ import javax.swing.JFrame
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
-        RadianceLafCortex.GlobalScope.setTimelineDuration(1000)
-        RadianceLafCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER)
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setTimelineDuration(1000)
+        RadianceThemingCortex.GlobalScope.allowAnimations(AnimationFacet.GHOSTING_ICON_ROLLOVER)
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessSkin()
         )
 

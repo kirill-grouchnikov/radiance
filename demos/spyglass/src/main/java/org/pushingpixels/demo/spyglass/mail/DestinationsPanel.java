@@ -32,12 +32,12 @@ package org.pushingpixels.demo.spyglass.mail;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.spyglass.mail.svg.*;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.renderer.RadiancePanelListCellRenderer;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -84,7 +84,7 @@ public class DestinationsPanel extends PanelWithRightLine {
     }
 
     public DestinationsPanel(Window window) {
-        RadianceSkin currentSkin = RadianceLafCortex.GlobalScope.getCurrentSkin();
+        RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
 
         ComponentOrParentChainScope.setDecorationType(this, VisorMail.DESTINATIONS);
         this.setRightLineColor(currentSkin.getColorScheme(VisorMail.DESTINATIONS,
@@ -175,7 +175,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                 padding(new EmptyBorder(8, 8, 8, 8));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+        titleLabel.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         builder.add(titleLabel).xy(1, 1);
 
@@ -191,7 +191,7 @@ public class DestinationsPanel extends PanelWithRightLine {
 
         // Use Radiance API to create a button that has consistent look with the
         // title pane control buttons
-        JButton refreshButton = RadianceLafCortex.WindowScope.createTitlePaneControlButton(window);
+        JButton refreshButton = RadianceThemingCortex.WindowScope.createTitlePaneControlButton(window);
 
         refreshButton.setIcon(icon);
         refreshButton.setToolTipText("Refresh mail");

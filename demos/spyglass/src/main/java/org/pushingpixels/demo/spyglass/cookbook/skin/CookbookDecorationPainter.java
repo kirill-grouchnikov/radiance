@@ -31,12 +31,12 @@ package org.pushingpixels.demo.spyglass.cookbook.skin;
 
 import com.jhlabs.image.*;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -200,7 +200,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
 
     private static BufferedImage getLightImage() {
         double scale = RadianceCommonCortex.getScaleFactor(null);
-        BufferedImage lightConeImage = RadianceLafCortex.GlobalScope.getBlankImage(scale, 200, 100);
+        BufferedImage lightConeImage = RadianceThemingCortex.GlobalScope.getBlankImage(scale, 200, 100);
         Graphics2D lightConeGraphics = lightConeImage.createGraphics();
         lightConeGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -223,7 +223,7 @@ class CookbookDecorationPainter implements RadianceDecorationPainter {
         GaussianFilter gaussianFilter = new GaussianFilter(29.0f);
         lightConeImage = gaussianFilter.filter(lightConeImage, null);
 
-        BufferedImage finalImage = RadianceLafCortex.GlobalScope.getBlankImage(
+        BufferedImage finalImage = RadianceThemingCortex.GlobalScope.getBlankImage(
                 RadianceCommonCortex.getScaleFactor(null), 150, 100);
         Graphics2D finalGraphics = finalImage.createGraphics();
         finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

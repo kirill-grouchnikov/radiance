@@ -34,9 +34,9 @@ import org.pushingpixels.demo.flamingo.svg.material.transcoded.help_black_24dp;
 import org.pushingpixels.demo.flamingo.svg.material.transcoded.info_black_24dp;
 import org.pushingpixels.demo.flamingo.svg.material.transcoded.warning_black_24dp;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.skin.GraphiteGlassSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.skin.GraphiteGlassSkin;
 
 import javax.swing.*;
 
@@ -56,9 +56,9 @@ public class TestCommandButtonsThemedIcons extends TestCommandButtons {
         // configure the presentation builder to use THEMED_FOLLOW_TEXT icon filter strategy
         // under all states
         builder.setIconFilterStrategies(
-                RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
-                RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
         );
     }
 
@@ -70,7 +70,7 @@ public class TestCommandButtonsThemedIcons extends TestCommandButtons {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new GraphiteGlassSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new GraphiteGlassSkin());
 
             TestCommandButtonsThemedIcons frame = new TestCommandButtonsThemedIcons();
             frame.setSize(800, 400);

@@ -37,11 +37,11 @@ import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.plasma.RadianceLogo
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbTreeAdapterSelector
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
-import org.pushingpixels.radiance.laf.api.ComponentState
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices
-import org.pushingpixels.radiance.laf.api.renderer.RadianceDefaultListCellRenderer
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.api.ComponentState
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.Component
 import java.io.File
@@ -176,7 +176,7 @@ class FileListRenderer : RadianceDefaultListCellRenderer() {
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessSkin()
         )
 
@@ -246,9 +246,9 @@ fun main() {
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
-            RadianceLafCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+            RadianceThemingCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 ComponentState.ENABLED
             )
         )

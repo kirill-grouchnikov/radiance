@@ -23,8 +23,8 @@ If the UI design is done in a pixel-based tool (such as Photoshop), the most obv
 This phase will take you further away from the pure design to the limitations of Radiance. If you are not familiar with the concept of decoration areas and painters in Radiance, please first read the following documentation:
 
 * [Decoration painters](../../laf/painters/decoration.md)
-* `RadianceLafCortex.ComponentOrParentChainScope.setDecorationType()` API.
-* `RadianceLafCortex.ComponentOrParentChainScope.getDecorationType()` API.
+* `RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType()` API.
+* `RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType()` API.
 
 The list of available Radiance decoration areas is defined in the `DecorationAreaType` enum.
 

@@ -36,13 +36,13 @@ import org.pushingpixels.flamingo.internal.laf.common.TransitionAwareRadianceIco
 import org.pushingpixels.flamingo.internal.ui.common.BasicScrollablePanelUI;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.laf.internal.utils.ScaleAwareImageWrapperIcon;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceImageCreator;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.ScaleAwareImageWrapperIcon;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -99,10 +99,10 @@ public class RadianceScrollablePanelUI extends BasicScrollablePanelUI {
                     return doubleArrowIcon;
                 }, new Dimension(arrowIconHeight, arrowIconWidth));
         button.setIcon(arrowIcon);
-        RadianceLafCortex.ComponentScope.setButtonStraightSides(button,
+        RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
-                        ? EnumSet.of(RadianceLafSlices.Side.RIGHT)
-                        : EnumSet.of(RadianceLafSlices.Side.BOTTOM));
+                        ? EnumSet.of(RadianceThemingSlices.Side.RIGHT)
+                        : EnumSet.of(RadianceThemingSlices.Side.BOTTOM));
 
         button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -129,10 +129,10 @@ public class RadianceScrollablePanelUI extends BasicScrollablePanelUI {
                     return doubleArrowIcon;
                 }, new Dimension(arrowIconHeight, arrowIconWidth));
         button.setIcon(arrowIcon);
-        RadianceLafCortex.ComponentScope.setButtonStraightSides(button,
+        RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
-                        ? EnumSet.of(RadianceLafSlices.Side.LEFT)
-                        : EnumSet.of(RadianceLafSlices.Side.TOP));
+                        ? EnumSet.of(RadianceThemingSlices.Side.LEFT)
+                        : EnumSet.of(RadianceThemingSlices.Side.TOP));
 
         button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

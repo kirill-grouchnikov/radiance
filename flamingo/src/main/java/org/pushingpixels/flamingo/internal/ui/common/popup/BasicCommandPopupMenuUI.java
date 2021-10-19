@@ -40,10 +40,10 @@ import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager;
 import org.pushingpixels.flamingo.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonPanelUI;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -144,7 +144,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 public void paintBorder(Component c, Graphics g, int x, int y, int width,
                                         int height) {
                     g.setColor(RadianceColorSchemeUtilities.getColorScheme(c,
-                            RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED).getDarkColor());
                     g.drawLine(x, y + height - 1, x + width, y + height - 1);
                 }

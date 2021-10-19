@@ -53,6 +53,6 @@ With this, you can compare the performance of your look-and-feel with that of co
 
 `CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-lafbenchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar`
 
-`RADIANCE_CLASSPATH=../../drop/$RADIANCE_VERSION/core/radiance-laf-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-animation-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-common-$RADIANCE_VERSION.jar`
+`RADIANCE_CLASSPATH=../../drop/$RADIANCE_VERSION/core/radiance-theming-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-animation-$RADIANCE_VERSION.jar:../../drop/$RADIANCE_VERSION/core/radiance-common-$RADIANCE_VERSION.jar`
 
 `java -Dswing.defaultlaf=RadianceGeminiLookAndFeel -cp $CLASSPATH:$RADIANCE_CLASSPATH DynamicPerformanceSuite 10`

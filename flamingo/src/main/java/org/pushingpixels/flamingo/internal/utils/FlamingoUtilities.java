@@ -41,9 +41,9 @@ import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.flamingo.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -158,7 +158,7 @@ public class FlamingoUtilities {
     }
 
     public static int getTaskToggleButtonHeight(JRibbon ribbon) {
-        Font titleFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+        Font titleFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(ribbon), titleFont);

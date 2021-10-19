@@ -36,15 +36,15 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.plasma.RadianceLogo
 import org.pushingpixels.demo.plasma.common.ExplorerFileViewPanel
-import org.pushingpixels.radiance.laf.kxt.setDecorationType
+import org.pushingpixels.radiance.theming.kxt.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.meteor.addDelayedActionListener
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
-import org.pushingpixels.radiance.laf.api.ComponentState
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.api.ComponentState
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.swing.*
@@ -52,7 +52,7 @@ import javax.swing.*
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessSkin()
         )
 
@@ -80,7 +80,7 @@ fun main() {
         }
 
         frame.layout = BorderLayout()
-        bar.setDecorationType(RadianceLafSlices.DecorationAreaType.HEADER)
+        bar.setDecorationType(RadianceThemingSlices.DecorationAreaType.HEADER)
         frame.add(bar, BorderLayout.NORTH)
 
         frame.add(JScrollPane(filePanel), BorderLayout.CENTER)
@@ -101,9 +101,9 @@ fun main() {
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
-            RadianceLafCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+            RadianceThemingCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 ComponentState.ENABLED
             )
         )

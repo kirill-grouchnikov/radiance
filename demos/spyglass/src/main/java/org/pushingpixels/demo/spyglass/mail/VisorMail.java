@@ -29,18 +29,18 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.FocusKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.FocusKind;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VisorMail extends JFrame {
-    public static final RadianceLafSlices.DecorationAreaType DESTINATIONS =
-            new RadianceLafSlices.DecorationAreaType("Visor Destinations");
-    public static final RadianceLafSlices.DecorationAreaType THREADS =
-            new RadianceLafSlices.DecorationAreaType("Visor Threads");
+    public static final RadianceThemingSlices.DecorationAreaType DESTINATIONS =
+            new RadianceThemingSlices.DecorationAreaType("Visor Destinations");
+    public static final RadianceThemingSlices.DecorationAreaType THREADS =
+            new RadianceThemingSlices.DecorationAreaType("Visor Threads");
 
     public VisorMail() {
         BorderLayout mainLayout = new BorderLayout();
@@ -58,8 +58,8 @@ public class VisorMail extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Configure the main skin
-            RadianceLafCortex.GlobalScope.setSkin(new VisorSkin());
-            RadianceLafCortex.GlobalScope.setFocusKind(FocusKind.NONE);
+            RadianceThemingCortex.GlobalScope.setSkin(new VisorSkin());
+            RadianceThemingCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 
             // Create the main frame
@@ -68,13 +68,13 @@ public class VisorMail extends JFrame {
             // Extend our content into the title pane and configure the title control buttons to be
             // vertically centered and in the leading horizontal position (in our main selector
             // pane).
-            RadianceLafCortex.WindowScope.extendContentIntoTitlePane(visorMail,
-                    RadianceLafSlices.HorizontalGravity.LEADING,
-                    RadianceLafSlices.VerticalGravity.CENTERED);
+            RadianceThemingCortex.WindowScope.extendContentIntoTitlePane(visorMail,
+                    RadianceThemingSlices.HorizontalGravity.LEADING,
+                    RadianceThemingSlices.VerticalGravity.CENTERED);
 
             // And increase the height of the title pane to play nicer with additional
             // content that we are displaying in that area.
-            RadianceLafCortex.WindowScope.setPreferredTitlePaneHeight(visorMail, 40);
+            RadianceThemingCortex.WindowScope.setPreferredTitlePaneHeight(visorMail, 40);
 
             // Set initial size, center in screen, configure to exit the app on clicking the
             // close button

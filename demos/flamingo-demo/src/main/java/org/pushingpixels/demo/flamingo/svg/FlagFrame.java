@@ -32,8 +32,8 @@ package org.pushingpixels.demo.flamingo.svg;
 import org.pushingpixels.demo.flamingo.svg.bigflag.Flag_of_Bhutan;
 import org.pushingpixels.demo.flamingo.svg.bigflag.Flag_of_Spain;
 import org.pushingpixels.demo.flamingo.svg.bigflag.Flag_of_Turkmenistan;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +41,7 @@ import java.awt.*;
 public class FlagFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
 
             JFrame frame = new JFrame("Flags");
             JLabel spain = new JLabel(Flag_of_Spain.of(300, 200)) {

@@ -32,8 +32,8 @@ package org.pushingpixels.demo.flamingo.ribbon;
 import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.demo.flamingo.common.QuickStylesPanel;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.flamingo.api.common.*;
 import org.pushingpixels.flamingo.api.common.icon.ColorRadianceIcon;
 import org.pushingpixels.flamingo.api.common.icon.DecoratedRadianceIcon;
@@ -69,9 +69,9 @@ import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonComboBoxPr
 import org.pushingpixels.flamingo.api.ribbon.synapse.projection.RibbonSpinnerProjection;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.skin.GeminiSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -1045,7 +1045,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
-                        g2d.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+                        g2d.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
                         RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.setColor(Color.black);
@@ -1078,7 +1078,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     Appointment_new.factory(),
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
-                        g2d.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+                        g2d.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                                 .getControlFont().deriveFont(9.0f));
                         RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.setColor(Color.black);
@@ -1525,7 +1525,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     (Component c, Graphics g, int x, int y, int width, int height) -> {
                         Graphics2D g2d = (Graphics2D) g.create();
                         g2d.setColor(Color.black);
-                        g2d.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
+                        g2d.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                                 getControlFont());
                         RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                         g2d.drawString("" + index, x + 2, y + height - 2);
@@ -1853,7 +1853,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         "voluptate velit esse cillum dolore eu fugiat nulla pariatur. " +
                         "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui " +
                         "officia deserunt mollit anim id est laborum.");
-        Font baseFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+        Font baseFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont();
         this.rulerTextPane.setFont(baseFont.deriveFont(baseFont.getSize() + 3.0f));
         this.rulerTextPane.addCaretListener(caretEvent -> {
@@ -1871,8 +1871,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         this.rulerPanel.add(this.rulerTextPane, BorderLayout.CENTER);
         this.rulerPanel.content = this.rulerTextPane;
-        this.rulerPanel.selectBackgroundFill(RadianceLafCortex.GlobalScope.getCurrentSkin()
-                .getEnabledColorScheme(RadianceLafSlices.DecorationAreaType.NONE)
+        this.rulerPanel.selectBackgroundFill(RadianceThemingCortex.GlobalScope.getCurrentSkin()
+                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.NONE)
                 .getBackgroundFillColor());
 
         this.add(this.rulerPanel, BorderLayout.CENTER);
@@ -2262,10 +2262,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         builder.add("Group 2").xy(1, 3).add(group2Visible).xy(3, 3);
 
         builder.addLabel("Skin").xy(1, 5).add(new RadianceSkinSelector()).xy(3, 5);
-        RadianceLafCortex.GlobalScope.registerSkinChangeListener(() -> {
+        RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> {
             rulerPanel.selectBackgroundFill(
-                    RadianceLafCortex.GlobalScope.getCurrentSkin().getEnabledColorScheme(
-                            RadianceLafSlices.DecorationAreaType.NONE).getBackgroundFillColor());
+                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getEnabledColorScheme(
+                            RadianceThemingSlices.DecorationAreaType.NONE).getBackgroundFillColor());
         });
 
         final JCheckBox appMenuVisible = new JCheckBox("visible");
@@ -2342,7 +2342,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         (Component c, Graphics g, int x, int y, int width, int height) -> {
                             Graphics2D g2d = (Graphics2D) g.create();
                             g2d.setColor(Color.black);
-                            g2d.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
+                            g2d.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                                     getControlFont());
                             RadianceCommonCortex.installDesktopHints(g2d, g2d.getFont());
                             g2d.drawString("" + index, x + 2, y + height - 2);
@@ -2447,7 +2447,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new GeminiSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new GeminiSkin());
 
             final BasicCheckRibbon c = new BasicCheckRibbon();
             c.configureRibbon();
@@ -2633,8 +2633,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         statusBar = builder.build();
         statusBar.setOpaque(true);
-        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
-                RadianceLafSlices.DecorationAreaType.FOOTER);
+        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(statusBar,
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         this.add(statusBar, BorderLayout.SOUTH);
     }

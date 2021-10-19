@@ -42,10 +42,10 @@ import org.pushingpixels.flamingo.api.common.StringValuePair
 import org.pushingpixels.demo.flamingo.icon.ImageWrapperRadianceIcon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.plasma.bcb.addDelayedPathListener
-import org.pushingpixels.radiance.laf.api.ComponentState
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.api.ComponentState
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.io.File
@@ -59,7 +59,7 @@ import javax.swing.WindowConstants
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessSkin()
         )
 
@@ -145,9 +145,9 @@ fun main() {
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
-            RadianceLafCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
-                RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+            RadianceThemingCortex.GlobalScope.getCurrentSkin()!!.getColorScheme(
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 ComponentState.ENABLED
             )
         )

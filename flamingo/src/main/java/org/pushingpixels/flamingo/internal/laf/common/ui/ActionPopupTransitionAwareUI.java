@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.flamingo.internal.laf.common.ui;
 
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.laf.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 
 public interface ActionPopupTransitionAwareUI extends TransitionAwareUI {
 	StateTransitionTracker getActionTransitionTracker();

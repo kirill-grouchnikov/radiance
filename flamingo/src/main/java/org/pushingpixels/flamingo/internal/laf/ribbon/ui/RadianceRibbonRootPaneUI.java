@@ -30,8 +30,8 @@
 package org.pushingpixels.flamingo.internal.laf.ribbon.ui;
 
 import org.pushingpixels.flamingo.api.ribbon.JRibbonFrame;
-import org.pushingpixels.radiance.laf.internal.ui.RadianceRootPaneUI;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceTitlePane;
+import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTitlePane;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;

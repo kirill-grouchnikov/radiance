@@ -41,7 +41,7 @@ import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceColorSelectorPo
 import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
 import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
-import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
+import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

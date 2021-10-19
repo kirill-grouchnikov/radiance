@@ -29,20 +29,20 @@
  */
 package org.pushingpixels.demo.spyglass.seaglass.skin;
 
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.border.FractionBasedBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.decoration.MatteDecorationPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.laf.api.painter.highlight.ClassicHighlightPainter;
-import org.pushingpixels.radiance.laf.api.painter.overlay.BottomLineOverlayPainter;
-import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.FractionBasedBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class SeaGlassSkin extends RadianceSkin {
 	/**

@@ -31,12 +31,12 @@ package org.pushingpixels.flamingo.api.ribbon.model;
 
 import org.pushingpixels.flamingo.api.common.model.ImmutablePresentationModel;
 import org.pushingpixels.flamingo.api.common.popup.model.AbstractPopupMenuPresentationModel;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePresentationModel {
-    private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy;
-    private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy;
-    private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
 
     private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
@@ -47,15 +47,15 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
         return new Builder();
     }
 
-    public RadianceLafSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+    public RadianceThemingSlices.IconFilterStrategy getActiveIconFilterStrategy() {
         return this.activeIconFilterStrategy;
     }
 
-    public RadianceLafSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+    public RadianceThemingSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
         return this.enabledIconFilterStrategy;
     }
 
-    public RadianceLafSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+    public RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
         return this.disabledIconFilterStrategy;
     }
 
@@ -64,19 +64,19 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
     }
 
     public static class Builder {
-        private RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy =
-                RadianceLafSlices.IconFilterStrategy.ORIGINAL;
-        private RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy =
-                RadianceLafSlices.IconFilterStrategy.ORIGINAL;
-        private RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy =
-                RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
 
         private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
 
         public Builder setIconFilterStrategies(
-                RadianceLafSlices.IconFilterStrategy activeIconFilterStrategy,
-                RadianceLafSlices.IconFilterStrategy enabledIconFilterStrategy,
-                RadianceLafSlices.IconFilterStrategy disabledIconFilterStrategy) {
+                RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy) {
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;

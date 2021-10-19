@@ -31,15 +31,15 @@ package org.pushingpixels.flamingo.internal.laf.common.ui;
 
 import org.pushingpixels.flamingo.internal.ui.common.popup.BasicColorSelectorPanelUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.JColorSelectorPanel;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.laf.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -71,7 +71,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                 bgFillScheme, false);
 
         Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel).getOverlayColor(
-                RadianceLafSlices.ColorOverlayType.LINE,
+                RadianceThemingSlices.ColorOverlayType.LINE,
                 DecorationPainterUtils.getDecorationType(this.colorSelectorPanel), ComponentState.ENABLED);
         if (borderColor == null) {
             RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
@@ -93,7 +93,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
     @Override
     protected void paintBottomDivider(Graphics g, int x, int y, int width, int height) {
         Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel).getOverlayColor(
-                RadianceLafSlices.ColorOverlayType.LINE,
+                RadianceThemingSlices.ColorOverlayType.LINE,
                 DecorationPainterUtils.getDecorationType(this.colorSelectorPanel), ComponentState.ENABLED);
         if (borderColor == null) {
             RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(

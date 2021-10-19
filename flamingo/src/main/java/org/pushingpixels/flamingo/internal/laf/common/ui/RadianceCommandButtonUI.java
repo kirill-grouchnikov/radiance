@@ -51,24 +51,24 @@ import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.AnimationFacet;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.laf.api.shaper.RadianceButtonShaper;
-import org.pushingpixels.radiance.laf.internal.AnimationConfigurationManager;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker.ModelStateInfo;
-import org.pushingpixels.radiance.laf.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.laf.internal.utils.*;
-import org.pushingpixels.radiance.laf.internal.widget.animation.effects.GhostPaintingUtils;
-import org.pushingpixels.radiance.laf.internal.widget.animation.effects.GhostingListener;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
+import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostingListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -153,7 +153,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        RadianceLafCortex.ComponentScope.setButtonShaper(this.commandButton,
+        RadianceThemingCortex.ComponentScope.setButtonShaper(this.commandButton,
                 ClassicButtonShaper.INSTANCE);
 
         this.commandButton.setOpaque(false);
@@ -414,7 +414,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                     : ComponentState.DISABLED_SELECTED;
 
             RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+                    this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
             RadianceFillPainter fillPainter = RadianceCoreUtilities
                     .getFillPainter(this.commandButton);
             fillPainter.paintContourBackground(g2d, this.commandButton,
@@ -422,7 +422,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                     extended, false, fillScheme, false);
 
             RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
+                    this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
             RadianceBorderPainter borderPainter = RadianceCoreUtilities
                     .getBorderPainter(this.commandButton);
             borderPainter.paintBorder(g2d, this.commandButton,
@@ -445,7 +445,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                     ? ComponentState.SELECTED
                     : ComponentState.DISABLED_SELECTED;
             RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+                    this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
             g2d.setColor(fillScheme.getForegroundColor());
 
             int iw = iconRect.width;
@@ -612,7 +612,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
         if (layoutInfo.iconRect != null) {
             // Important - have the icon follow the foreground color of the action area
-            // if it is configured with RadianceLafSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
+            // if it is configured with RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
             this.paintButtonIcon(g2d, layoutInfo.iconRect,
                     getForegroundColor(this.getActionTransitionTracker().getModelStateInfo()));
         }
@@ -796,11 +796,11 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
                 .getStateNoSelectionContributionMap();
 
-        RadianceLafSlices.ColorSchemeAssociationKind currAssocKind = RadianceLafSlices.ColorSchemeAssociationKind.FILL;
+        RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
         // use HIGHLIGHT on active and non-rollover menu items
         if (!currState.isDisabled() && (currState != ComponentState.ENABLED)
-                && !currState.isFacetActive(RadianceLafSlices.ComponentStateFacet.ROLLOVER))
-            currAssocKind = RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+                && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
+            currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
         RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(menuButton,
                 currAssocKind, currState);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
@@ -814,11 +814,11 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
-            RadianceLafSlices.ColorSchemeAssociationKind assocKind = RadianceLafSlices.ColorSchemeAssociationKind.FILL;
+            RadianceThemingSlices.ColorSchemeAssociationKind assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
             // use HIGHLIGHT on active and non-rollover menu items
             if (!activeState.isDisabled() && (activeState != ComponentState.ENABLED)
-                    && !activeState.isFacetActive(RadianceLafSlices.ComponentStateFacet.ROLLOVER))
-                assocKind = RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+                    && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
+                assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
             RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities
                     .getColorScheme(menuButton, assocKind, activeState);
             Color activeForeground = activeColorScheme.getForegroundColor();

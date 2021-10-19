@@ -35,7 +35,7 @@ import com.jhlabs.image.Gradient;
 import com.jhlabs.image.PointFilter;
 import org.pushingpixels.demo.spyglass.cookbook.skin.GoldenBrownColorScheme;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 import java.awt.*;
 import java.awt.image.BufferedImageOp;

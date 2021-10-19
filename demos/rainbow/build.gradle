@@ -40,8 +40,8 @@ dependencies {
     implementation "org.swinglabs:jxlayer:$jxlayer_version"
     implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':common')
-    implementation project(':laf')
-    implementation project(':kotlin-ext:laf-kxt')
+    implementation project(':theming')
+    implementation project(':kotlin-ext:theming-kxt')
     implementation project(':kotlin-ext:meteor')
     implementation project(':flamingo')
     implementation project(':tools:svgtranscoder')

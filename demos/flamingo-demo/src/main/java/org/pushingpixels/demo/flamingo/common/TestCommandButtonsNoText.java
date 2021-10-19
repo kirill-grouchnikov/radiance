@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.demo.flamingo.common;
 
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
@@ -70,7 +70,7 @@ public class TestCommandButtonsNoText extends TestCommandButtons {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
 
             TestCommandButtonsNoText frame = new TestCommandButtonsNoText();
             frame.setSize(800, 400);

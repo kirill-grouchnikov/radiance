@@ -37,13 +37,13 @@ import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationMode
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.ImageBackedFilterableRadianceIcon;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.colorscheme.LimeGreenColorScheme;
-import org.pushingpixels.radiance.laf.api.colorscheme.SteelBlueColorScheme;
-import org.pushingpixels.radiance.laf.api.colorscheme.SunfireRedColorScheme;
-import org.pushingpixels.radiance.laf.api.skin.MarinerSkin;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.LimeGreenColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.SteelBlueColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.SunfireRedColorScheme;
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +51,7 @@ import java.awt.*;
 public class IconFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            RadianceLafCortex.GlobalScope.setSkin(new MarinerSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin());
             JFrame.setDefaultLookAndFeelDecorated(true);
 
             JFrame frame = new JFrame("Icons");
@@ -59,9 +59,9 @@ public class IconFrame {
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setIconImage(RadianceLogo.getLogoImage(frame,
-                    RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED)));
 
             frame.setLayout(new FlowLayout(FlowLayout.CENTER));

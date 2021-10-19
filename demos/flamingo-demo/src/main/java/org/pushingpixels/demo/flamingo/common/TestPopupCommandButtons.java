@@ -41,10 +41,10 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,9 +73,9 @@ public class TestPopupCommandButtons extends JFrame {
     private TestPopupCommandButtons() {
         super("Command button test");
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         this.setLayout(new BorderLayout());
@@ -269,7 +269,7 @@ public class TestPopupCommandButtons extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
             TestPopupCommandButtons frame = new TestPopupCommandButtons();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

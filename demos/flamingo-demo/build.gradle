@@ -36,10 +36,10 @@ dependencies {
     implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':common')
     implementation project(':animation')
-    implementation project(':laf')
+    implementation project(':theming')
     implementation project(':flamingo')
     implementation project(':tools:svgtranscoder')
-    implementation project(':demos:laf-demo')
+    implementation project(':demos:theming-demo')
 }
 
 ext.designation = "demo"

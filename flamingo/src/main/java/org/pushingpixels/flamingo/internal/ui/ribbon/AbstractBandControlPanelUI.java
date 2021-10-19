@@ -35,7 +35,7 @@ import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -122,7 +122,7 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
 
         Font font = this.controlPanel.getFont();
         if (font == null || font instanceof UIResource) {
-            Font toSet = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
+            Font toSet = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont();
             this.controlPanel.setFont(toSet);
         }

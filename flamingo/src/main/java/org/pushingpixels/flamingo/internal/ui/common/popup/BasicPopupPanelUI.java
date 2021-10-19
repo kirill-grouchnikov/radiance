@@ -38,9 +38,9 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.border.RadiancePopupMenuBorder;
-import org.pushingpixels.radiance.laf.internal.utils.combo.RadianceComboPopup;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.border.RadiancePopupMenuBorder;
+import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
 
 import javax.swing.*;
 import javax.swing.border.Border;

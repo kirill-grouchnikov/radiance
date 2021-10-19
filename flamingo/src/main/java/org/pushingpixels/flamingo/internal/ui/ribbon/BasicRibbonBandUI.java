@@ -42,12 +42,12 @@ import org.pushingpixels.flamingo.api.ribbon.JRibbon;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.flamingo.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -114,8 +114,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             // System.out.println("Popup dim is " + originalSize);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
-            RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this,
-                    RadianceLafSlices.DecorationAreaType.CONTROL_PANE);
+            RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
         }
 
         /**

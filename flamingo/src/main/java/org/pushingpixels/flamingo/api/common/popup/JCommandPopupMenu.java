@@ -38,7 +38,7 @@ import org.pushingpixels.flamingo.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.flamingo.api.common.projection.Projection;
 import org.pushingpixels.flamingo.internal.laf.common.ui.RadianceCommandPopupMenuUI;
 import org.pushingpixels.flamingo.internal.ui.common.popup.ScrollableHost;
-import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
+import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

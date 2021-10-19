@@ -51,14 +51,14 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.laf.internal.ui.RadianceRootPaneUI;
-import org.pushingpixels.radiance.laf.internal.utils.*;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
+import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -192,7 +192,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
 
             this.setPreferredSize(size);
             this.setSize(size);
-            RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this,
+            RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
                     DecorationAreaType.HEADER);
         }
     }
@@ -219,7 +219,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
         private TaskbarPanel() {
             super(new TaskbarLayout());
 
-            this.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
+            this.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                     getControlFont());
 
             this.overflowComponents = new ArrayList<>();
@@ -263,8 +263,8 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
 
                 button.setBorder(BorderFactory.createEmptyBorder(2, 6, 2, 6));
                 button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                RadianceLafCortex.ComponentScope.setButtonStraightSides(button,
-                        EnumSet.allOf(RadianceLafSlices.Side.class));
+                RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
+                        EnumSet.allOf(RadianceThemingSlices.Side.class));
             });
             overflowProjection.setComponentSupplier(projection -> TaskbarOverflowButton::new);
             this.overflowButton = (TaskbarOverflowButton) overflowProjection.buildComponent();

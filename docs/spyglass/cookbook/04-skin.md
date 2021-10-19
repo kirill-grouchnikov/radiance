@@ -2,13 +2,13 @@
 
 ### Anatomy of a skin
 
-While the concepts of decoration areas and decoration painters introduced in the [second phase](02-map.md) and implemented in the [third phase](03-decorations.md) are one of the most powerful features in Radiance, they are part of the more comprehensive package of settings designed to facilitate creation of consistent and configurable visuals for modern graphical user interfaces. In Radiance terminology it is called a [skin](../../laf/skins/overview.md).
+While the concepts of decoration areas and decoration painters introduced in the [second phase](02-map.md) and implemented in the [third phase](03-decorations.md) are one of the most powerful features in Radiance, they are part of the more comprehensive package of settings designed to facilitate creation of consistent and configurable visuals for modern graphical user interfaces. In Radiance terminology it is called a [skin](../../theming/skins/overview.md).
 
 This phase of Cookbook UI implementation will focus on creating the other parts of the skin, including color schemes, color scheme bundles, the fill painter and the border painter.
 
 ### Color schemes
 
-A [color scheme](../../laf/skins/colorschemes.md) is a set of information that allows painting a control in a specific visual state. In general, a color scheme defines a collection of colors that are used by the various Radiance painters to paint different control areas (such as background fill, border etc) under a specific visual state.
+A [color scheme](../../theming/skins/colorschemes.md) is a set of information that allows painting a control in a specific visual state. In general, a color scheme defines a collection of colors that are used by the various Radiance painters to paint different control areas (such as background fill, border etc) under a specific visual state.
 
 The color schemes were implicitly used in the [previous phase](03-decorations.md) to drive the colorization of the decoration area textures. At the most basic level a color scheme can be thought of as a palette that provides colors to the different painters. Each color scheme defines seven basic colors, six for background and one for foreground. In addition, a color scheme exposes derived colors that are used for painting text selections, focus rings and more. The derived colors are usually implemented as a combination of one or more basic colors and can be overriden by the custom skin.
 
@@ -73,7 +73,7 @@ Analyzing the visuals, we can see:
 * The outer border is a gradient that goes from dark at the top to very dark at the bottom.
 * The inner border is a gradient that goes from very light at the top to completely translucent at the bottom.
 
-The implementation has a custom [fill painter](../../laf/painters/fill.md) and a custom [border painter](../../laf/painters/border.md). Base Radiance painters provide extension points for computing the relevant stop point colors, handling all the rest of the logic (anti-aliasing, stroke widths, insets, scaling gaps, caching etc). All we need to do in our custom painter implementation is to emulate the colors of the target design.
+The implementation has a custom [fill painter](../../theming/painters/fill.md) and a custom [border painter](../../theming/painters/border.md). Base Radiance painters provide extension points for computing the relevant stop point colors, handling all the rest of the logic (anti-aliasing, stroke widths, insets, scaling gaps, caching etc). All we need to do in our custom painter implementation is to emulate the colors of the target design.
 
 Here are the original design and the custom Radiance implementation side-by-side:
 

@@ -42,13 +42,13 @@ import org.jdesktop.jxlayer.plaf.ext.SpotLightUI
 import org.pushingpixels.demo.rainbow.svg.ic_search_black_24px
 import org.pushingpixels.demo.rainbow.svg.ic_zoom_in_black_24px
 import org.pushingpixels.demo.rainbow.svg.ic_zoom_out_black_24px
-import org.pushingpixels.radiance.laf.kxt.setDecorationType
+import org.pushingpixels.radiance.theming.kxt.setDecorationType
 import org.pushingpixels.flamingo.api.bcb.JBreadcrumbBar
 import org.pushingpixels.flamingo.api.common.ProgressEvent
 import org.pushingpixels.flamingo.api.layout.TransitionLayout
 import org.pushingpixels.flamingo.api.layout.TransitionLayoutEvent
 import org.pushingpixels.meteor.addDelayedChangeListener
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import java.awt.BorderLayout
 import java.awt.geom.RoundRectangle2D
 import javax.swing.*

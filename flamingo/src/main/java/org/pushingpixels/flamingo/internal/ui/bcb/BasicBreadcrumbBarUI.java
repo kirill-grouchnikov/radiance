@@ -43,7 +43,7 @@ import org.pushingpixels.flamingo.api.common.model.*;
 import org.pushingpixels.flamingo.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.flamingo.internal.ui.common.JCircularProgress;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -161,7 +161,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     protected void installDefaults(JBreadcrumbBar<?> bar) {
         Font currFont = bar.getFont();
         if ((currFont == null) || (currFont instanceof UIResource)) {
-            bar.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
+            bar.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
         }
     }
 

@@ -34,13 +34,13 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.laf.internal.utils.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import java.awt.*;
 import java.awt.font.LineMetrics;
@@ -66,7 +66,7 @@ public class KeyTipRenderingUtilities {
         float alpha = RadianceColorSchemeUtilities.getAlpha(c, state);
         RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(c, state);
         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                c, RadianceLafSlices.ColorSchemeAssociationKind.BORDER, state);
+                c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
         float radius = RadianceSizeUtils.getClassicButtonCornerRadius(
                 RadianceSizeUtils.getComponentFontSize(c));
 
@@ -87,7 +87,7 @@ public class KeyTipRenderingUtilities {
                 contourInner, borderScheme);
 
         g2d.setColor(RadianceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
-        Font font = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().
+        Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);
         g2d.setFont(font);

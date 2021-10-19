@@ -40,9 +40,9 @@ That's not really a question. If you don't like it, you can either help improve 
 
 **Can I create my own look-and-feel on top of Radiance?**
 
-To create a custom look for your application, start by reading the [skinning documentation](laf/skins/overview.md) and the code of the core skins in the `org.pushingpixels.radiance.laf.api.skin` package.
+To create a custom look for your application, start by reading the [skinning documentation](theming/skins/overview.md) and the code of the core skins in the `org.pushingpixels.radiance.theming.api.skin` package.
 
-While you can extend the UI delegates in the `org.pushingpixels.radiance.laf.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line Radiance will use the Java module system to effectively hide the internal implementation details further.
+While you can extend the UI delegates in the `org.pushingpixels.radiance.theming.internal.ui` package, it is not recommended. In fact, anything in this package is subject to change at any point in time - and frequently does so between releases. At some point down the line Radiance will use the Java module system to effectively hide the internal implementation details further.
 
 **Can I control some aspects of Radiance via _UIManager_ or _UIDefaults_ key/value entries like I can with other look-and-feels?**
 
@@ -50,7 +50,7 @@ The official answer is no, even though it might work right now for some of those
 
 The main reason that it doesn't work under Radiance is that in many places it simply did not scale well to the world where individual top-level windows are skinned differently and / or use different font sizes. Using a single global data table when different parts of the UI need different treatment is simply not a good solution.
 
-To properly control the visual appearance of your app use [skins](laf/skins/overview.md). If that doesn't work for you, let's chat.
+To properly control the visual appearance of your app use [skins](theming/skins/overview.md). If that doesn't work for you, let's chat.
 
 **How can I use Radiance on Mac and still have the standard Mac application menu bar?**
 

@@ -36,18 +36,18 @@ import org.pushingpixels.flamingo.internal.laf.utils.RibbonTaskToggleButtonBackg
 import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.laf.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.laf.internal.painter.DecorationPainterUtils;
-import org.pushingpixels.radiance.laf.internal.utils.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -112,7 +112,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         });
         ComponentOrParentChainScope.setDecorationType(this.commandButton,
                 DecorationAreaType.CONTROL_PANE);
-        RadianceLafCortex.ComponentOrParentChainScope.setColorizationFactor(this.commandButton,
+        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this.commandButton,
                 RibbonContextualTaskGroup.HUE_ALPHA);
     }
 
@@ -229,7 +229,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
         float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                 RadianceSizeUtils.getComponentFontSize(this.commandButton));
         Shape contour = RadianceOutlineUtilities.getBaseOutline(this.commandButton.getWidth(),
-                this.commandButton.getHeight(), radius, EnumSet.of(RadianceLafSlices.Side.BOTTOM),
+                this.commandButton.getHeight(), radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
                 focusRingPadding);
 
         RadianceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
@@ -247,8 +247,8 @@ public class RadianceRibbonTaskToggleButtonUI extends
         RadianceColorScheme buttonFillScheme = RadianceColorSchemeUtilities.getColorScheme(
                 button, ColorSchemeAssociationKind.FILL, currStateIgnoreSelection);
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceLafSlices.DecorationAreaType parentDecorationAreaType =
-                RadianceLafCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
+        RadianceThemingSlices.DecorationAreaType parentDecorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button.getParent());
         RadianceColorScheme parentFillScheme = skin.getBackgroundColorScheme(parentDecorationAreaType);
 
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {

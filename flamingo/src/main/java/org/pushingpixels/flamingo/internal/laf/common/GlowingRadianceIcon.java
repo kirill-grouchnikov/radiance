@@ -32,9 +32,9 @@ package org.pushingpixels.flamingo.internal.laf.common;
 import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.internal.animation.IconGlowTracker;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.animation.IconGlowTracker;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

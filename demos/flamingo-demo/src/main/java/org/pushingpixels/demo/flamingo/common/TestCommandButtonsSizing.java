@@ -10,11 +10,11 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.renderer.RadianceDefaultListCellRenderer;
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -167,14 +167,14 @@ public class TestCommandButtonsSizing extends JPanel {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
 
             JFrame frame = new JFrame("Testing command button fonts");
             frame.setSize(800, 600);
             frame.setIconImage(RadianceLogo.getLogoImage(frame,
-                    RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                            RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                            RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED)));
 
             frame.add(new TestCommandButtonsSizing());

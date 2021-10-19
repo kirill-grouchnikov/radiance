@@ -36,8 +36,8 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.tools.screenshot.ZodiacRobot
 import java.awt.ComponentOrientation
 import java.awt.Dimension
@@ -63,7 +63,7 @@ abstract class FlamingoSkinRobot(
 
         // set skin
         withContext(Dispatchers.Swing) {
-            RadianceLafCortex.GlobalScope.setSkin(skin)
+            RadianceThemingCortex.GlobalScope.setSkin(skin)
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 

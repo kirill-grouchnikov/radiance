@@ -32,8 +32,8 @@ package org.pushingpixels.demo.flamingo.common;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_copy;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_cut;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.Edit_paste;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
@@ -73,7 +73,7 @@ public class TestCommandButtonsNoIcon extends TestCommandButtons {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
 
             TestCommandButtonsNoIcon frame = new TestCommandButtonsNoIcon();
             frame.setSize(800, 400);

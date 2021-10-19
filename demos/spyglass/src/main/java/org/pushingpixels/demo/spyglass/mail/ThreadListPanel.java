@@ -34,13 +34,13 @@ import org.pushingpixels.demo.spyglass.mail.svg.ic_mode_edit_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_person_outline_black_24px;
 import org.pushingpixels.demo.spyglass.mail.svg.ic_refresh_black_24px;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.renderer.RadiancePanelListCellRenderer;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -55,9 +55,9 @@ public class ThreadListPanel extends PanelWithRightLine {
     public ThreadListPanel() {
         this.setLayout(new VerticalStackLayout());
 
-        RadianceSkin currentSkin = RadianceLafCortex.GlobalScope.getCurrentSkin();
+        RadianceSkin currentSkin = RadianceThemingCortex.GlobalScope.getCurrentSkin();
 
-        RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
+        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this, VisorMail.THREADS);
         this.setRightLineColor(currentSkin.getColorScheme(VisorMail.THREADS,
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getDarkColor());
 
@@ -158,7 +158,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         private JSeparator separator;
 
         public ThreadRenderer() {
-            Font bold = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+            Font bold = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                     .getControlFont().deriveFont(Font.BOLD);
 
             FormBuilder firstRow = FormBuilder.create().
@@ -257,7 +257,7 @@ public class ThreadListPanel extends PanelWithRightLine {
 
         builder.add(new JLabel(icon)).xy(1, 1);
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet()
+        titleLabel.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getControlFont().deriveFont(Font.BOLD));
         builder.add(titleLabel).xy(3, 1);
         JPanel inside = builder.build();
@@ -278,10 +278,10 @@ public class ThreadListPanel extends PanelWithRightLine {
         builder.add(searchBox).xy(1, 1);
 
         JButton actionButton = new JButton(icon);
-        RadianceLafCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
+        RadianceThemingCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
                 Boolean.TRUE);
-        RadianceLafCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(actionButton,
-                RadianceLafSlices.BackgroundAppearanceStrategy.FLAT);
+        RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(actionButton,
+                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
         builder.add(actionButton).xy(3, 1);
         JPanel result = builder.build();
         return result;

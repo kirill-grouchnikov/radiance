@@ -18,10 +18,10 @@ When you're done with editing, click `Save contour` to save the serialized repre
 
 ### Runtime usage
 
-The [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/laf-extras) comes with three helper classes that you can use to load and display custom button shaper outlines:
+The [extras pack](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/theming-extras) comes with three helper classes that you can use to load and display custom button shaper outlines:
 
 * `ShaperRepository` has methods for reading and writing serialized `.shaper` files.
 * `CanonicalPath` is returned by `.read` and accepted by `.write` methods in the repository. After reading a serialized `.shaper` file, use `CanonicalPath.getPath` to get a Java2D `GeneralPath` that matches the size and insets of the relevant control.
 * `BasePolygonShaper` is the base abstract class that brings it all together, implementing the core `RadianceButtonShaper` interface.
 
-See `XYZShaper` classes in [`org.pushingpixels.radiance.laf.extras.api.shaperpack`](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/laf-extras/src/main/java/org/pushingpixels/radiance/laf/extras/api/shaperpack) package for examples of how extra button shapers are implemented with these helper classes.
+See `XYZShaper` classes in [`org.pushingpixels.radiance.theming.extras.api.shaperpack`](https://github.com/kirill-grouchnikov/radiance/tree/sunshine/theming-extras/src/main/java/org/pushingpixels/radiance/theming/extras/api/shaperpack) package for examples of how extra button shapers are implemented with these helper classes.

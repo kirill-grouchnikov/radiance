@@ -33,8 +33,8 @@ import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.demo.flamingo.svg.logo.RadianceLogo;
 import org.pushingpixels.demo.flamingo.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceLocaleSelector;
-import org.pushingpixels.radiance.demo.laf.main.check.selector.RadianceSkinSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.icon.EmptyRadianceIcon;
@@ -42,10 +42,10 @@ import org.pushingpixels.flamingo.api.common.model.Command;
 import org.pushingpixels.flamingo.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.flamingo.api.common.model.CommandGroup;
 import org.pushingpixels.flamingo.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,9 +69,9 @@ public class TestCommandButtons extends JFrame {
     TestCommandButtons() {
         super("Command button test");
         this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceLafCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceLafSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceLafSlices.ColorSchemeAssociationKind.FILL,
+                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                         ComponentState.ENABLED)));
 
         this.setLayout(new BorderLayout());
@@ -294,7 +294,7 @@ public class TestCommandButtons extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
-            RadianceLafCortex.GlobalScope.setSkin(new BusinessSkin());
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
             TestCommandButtons frame = new TestCommandButtons();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);

@@ -33,7 +33,7 @@ import com.jgoodies.forms.builder.FormBuilder
 import com.jgoodies.forms.factories.Paddings
 import org.pushingpixels.meteor.addTypedDelayedPropertyChangeListener
 import org.pushingpixels.meteor.awt.deepForEach
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Font

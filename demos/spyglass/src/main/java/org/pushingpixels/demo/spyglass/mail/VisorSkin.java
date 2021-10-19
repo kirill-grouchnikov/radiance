@@ -29,21 +29,21 @@
  */
 package org.pushingpixels.demo.spyglass.mail;
 
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.laf.api.RadianceSkin;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.colorscheme.SunGlareColorScheme;
-import org.pushingpixels.radiance.laf.api.colorscheme.TerracottaColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.border.ClassicBorderPainter;
-import org.pushingpixels.radiance.laf.api.painter.decoration.ArcDecorationPainter;
-import org.pushingpixels.radiance.laf.api.painter.decoration.BrushedMetalDecorationPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.laf.api.painter.highlight.FractionBasedHighlightPainter;
-import org.pushingpixels.radiance.laf.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.SunGlareColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.TerracottaColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.highlight.FractionBasedHighlightPainter;
+import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class VisorSkin extends RadianceSkin {
     /**
@@ -95,7 +95,7 @@ public class VisorSkin extends RadianceSkin {
                 ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
         // use Terracotta for borders of destinations highlights
         destinationsSchemeBundle.registerColorScheme(new TerracottaColorScheme(),
-                RadianceLafSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
                 ComponentState.getActiveStates());
 
         this.registerDecorationAreaSchemeBundle(destinationsSchemeBundle,

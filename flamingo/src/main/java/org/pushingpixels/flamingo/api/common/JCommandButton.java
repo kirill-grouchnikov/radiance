@@ -46,7 +46,7 @@ import org.pushingpixels.flamingo.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
@@ -521,7 +521,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.setIcon((command.getIconFactory() != null)
                 ? command.getIconFactory().createNewIcon()
                 : null);
-        RadianceLafCortex.ComponentScope.setIconFilterStrategies(this,
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(this,
                 commandPresentation.getActiveIconFilterStrategy(),
                 commandPresentation.getEnabledIconFilterStrategy(),
                 commandPresentation.getDisabledIconFilterStrategy());

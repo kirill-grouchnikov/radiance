@@ -33,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.laf.kxt.setColorizationFactor
+import org.pushingpixels.radiance.theming.kxt.setColorizationFactor
 import org.pushingpixels.flamingo.api.common.CommandButtonPresentationState
 import org.pushingpixels.flamingo.api.common.popup.JColorSelectorPopupMenu
 import org.pushingpixels.meteor.awt.deriveByBrightness
@@ -45,8 +45,8 @@ import org.pushingpixels.plasma.DelayedCommandListener
 import org.pushingpixels.plasma.KColorSelectorCommand
 import org.pushingpixels.plasma.colorSelectorCommandButton
 import org.pushingpixels.plasma.colorSelectorPopupMenu
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.skin.BusinessSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
@@ -108,7 +108,7 @@ class ColorIcon(private var color: Color) : RadianceIcon {
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessSkin()
         )
 

@@ -30,14 +30,14 @@
 package org.pushingpixels.demo.spyglass.cookbook.skin;
 
 import org.pushingpixels.flamingo.api.common.JCommandButton;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.DecorationAreaType;
-import org.pushingpixels.radiance.laf.api.colorscheme.ColorSchemeSingleColorQuery;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.api.painter.decoration.RadianceDecorationPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.laf.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,7 +81,7 @@ public class CookbookGradientPainter implements RadianceFillPainter {
                     && !commandButton.getActionModel().isPressed()) {
                 DecorationAreaType decorationAreaType = ComponentOrParentChainScope
                         .getDecorationType(comp);
-                RadianceDecorationPainter decoPainter = RadianceLafCortex.ComponentScope
+                RadianceDecorationPainter decoPainter = RadianceThemingCortex.ComponentScope
                         .getCurrentSkin(comp).getDecorationPainter();
                 if (decoPainter instanceof CookbookDecorationPainter) {
                     BufferedImage watermark = ((CookbookDecorationPainter) decoPainter)

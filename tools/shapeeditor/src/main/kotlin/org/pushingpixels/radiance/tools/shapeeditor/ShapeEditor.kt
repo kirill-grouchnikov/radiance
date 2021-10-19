@@ -37,10 +37,10 @@ import org.pushingpixels.meteor.addDelayedMouseListener
 import org.pushingpixels.meteor.addDelayedMouseMotionListener
 import org.pushingpixels.meteor.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.skin.BusinessBlackSteelSkin
-import org.pushingpixels.radiance.laf.extras.api.shaperpack.CanonicalPath
-import org.pushingpixels.radiance.laf.extras.api.shaperpack.ShaperRepository
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin
+import org.pushingpixels.radiance.theming.extras.api.shaperpack.CanonicalPath
+import org.pushingpixels.radiance.theming.extras.api.shaperpack.ShaperRepository
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import java.awt.*
 import java.awt.geom.Point2D
@@ -215,7 +215,7 @@ class ShapeEditor : JFrame() {
         override fun paint(g: Graphics) {
             g.render {
                 it.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-                val controlFont = RadianceLafCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
+                val controlFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().controlFont
                 it.font = controlFont.deriveFont(10f)
                 RadianceCommonCortex.installDesktopHints(it, it.font)
 
@@ -464,7 +464,7 @@ class ShapeEditor : JFrame() {
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             BusinessBlackSteelSkin()
         )
 

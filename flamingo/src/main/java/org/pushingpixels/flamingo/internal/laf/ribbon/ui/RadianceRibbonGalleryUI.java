@@ -36,16 +36,16 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.flamingo.internal.ui.ribbon.JRibbonGallery;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.laf.api.ComponentState;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.laf.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceImageCreator;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.laf.internal.widget.animation.effects.GhostPaintingUtils;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -98,10 +98,10 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                         SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
-        RadianceLafCortex.ComponentScope.setButtonStraightSide(button,
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
                 ribbonGallery.getComponentOrientation().isLeftToRight()
-                        ? RadianceLafSlices.Side.LEFT
-                        : RadianceLafSlices.Side.RIGHT);
+                        ? RadianceThemingSlices.Side.LEFT
+                        : RadianceThemingSlices.Side.RIGHT);
     }
 
     @Override
@@ -117,10 +117,10 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                         SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
-        RadianceLafCortex.ComponentScope.setButtonStraightSide(button,
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
                 ribbonGallery.getComponentOrientation().isLeftToRight()
-                        ? RadianceLafSlices.Side.LEFT
-                        : RadianceLafSlices.Side.RIGHT);
+                        ? RadianceThemingSlices.Side.LEFT
+                        : RadianceThemingSlices.Side.RIGHT);
     }
 
     @Override
@@ -136,10 +136,10 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                         SwingConstants.NORTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
-        RadianceLafCortex.ComponentScope.setButtonStraightSide(button,
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
                 ribbonGallery.getComponentOrientation().isLeftToRight()
-                        ? RadianceLafSlices.Side.LEFT
-                        : RadianceLafSlices.Side.RIGHT);
+                        ? RadianceThemingSlices.Side.LEFT
+                        : RadianceThemingSlices.Side.RIGHT);
     }
 
     @Override

@@ -44,10 +44,10 @@ import org.pushingpixels.flamingo.internal.ui.ribbon.appmenu.JRibbonApplicationM
 import org.pushingpixels.flamingo.internal.utils.FlamingoUtilities;
 import org.pushingpixels.flamingo.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex;
-import org.pushingpixels.radiance.laf.api.RadianceLafSlices;
-import org.pushingpixels.radiance.laf.internal.utils.RadianceMetricsUtilities;
-import org.pushingpixels.radiance.laf.internal.utils.RadiancePopupContainer;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -1367,8 +1367,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.add(component, BorderLayout.CENTER);
             this.setPreferredSize(originalSize);
             this.setSize(originalSize);
-            RadianceLafCortex.ComponentOrParentChainScope.setDecorationType(this,
-                    RadianceLafSlices.DecorationAreaType.CONTROL_PANE);
+            RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
+                    RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
         }
     }
 

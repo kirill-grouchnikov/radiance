@@ -41,8 +41,8 @@ import org.pushingpixels.flamingo.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.meteor.swing.AlignType
 import org.pushingpixels.meteor.swing.setAlignment
 import org.pushingpixels.plasma.commandToggleButtonStrip
-import org.pushingpixels.radiance.laf.api.RadianceLafCortex
-import org.pushingpixels.radiance.laf.api.skin.GeminiSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.skin.GeminiSkin
 import java.awt.BorderLayout
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -55,7 +55,7 @@ import javax.swing.border.EmptyBorder
 
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
-        RadianceLafCortex.GlobalScope.setSkin(
+        RadianceThemingCortex.GlobalScope.setSkin(
             GeminiSkin()
         )
 
