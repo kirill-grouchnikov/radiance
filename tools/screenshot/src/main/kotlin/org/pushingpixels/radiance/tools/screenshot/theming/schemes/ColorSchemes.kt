@@ -65,25 +65,25 @@ class DerivedDesaturatedScheme : ColorSchemeRobot(
         "theming/colorschemes/derived-desaturate.png")
 class DerivedHueShiftedScheme : ColorSchemeRobot(
     PurpleColorScheme().hueShift(0.4),
-        "laf/colorschemes/derived-hueshift.png")
+        "theming/colorschemes/derived-hueshift.png")
 class DerivedInvertedScheme : ColorSchemeRobot(
-    PurpleColorScheme().invert(), "laf/colorschemes/derived-invert.png")
+    PurpleColorScheme().invert(), "theming/colorschemes/derived-invert.png")
 class DerivedNegatedScheme : ColorSchemeRobot(
-    PurpleColorScheme().negate(), "laf/colorschemes/derived-negate.png")
+    PurpleColorScheme().negate(), "theming/colorschemes/derived-negate.png")
 class DerivedSaturatedScheme : ColorSchemeRobot(
     PurpleColorScheme().saturate(0.4),
-        "laf/colorschemes/derived-saturate.png")
+        "theming/colorschemes/derived-saturate.png")
 class DerivedShadedScheme : ColorSchemeRobot(
-    PurpleColorScheme().shade(0.4), "laf/colorschemes/derived-shaded.png")
+    PurpleColorScheme().shade(0.4), "theming/colorschemes/derived-shaded.png")
 class DerivedShiftedBackgroundScheme : ColorSchemeRobot(
     PurpleColorScheme()
         .shiftBackground(Color(255, 128, 128), 0.8),
-        "laf/colorschemes/derived-shiftedbackground.png")
+        "theming/colorschemes/derived-shiftedbackground.png")
 class DerivedShiftedScheme : ColorSchemeRobot(
     PurpleColorScheme()
         .shift(Color(128, 255, 128), 0.8,
-        Color(128, 0, 0), 0.7), "laf/colorschemes/derived-shifted.png")
+        Color(128, 0, 0), 0.7), "theming/colorschemes/derived-shifted.png")
 class DerivedTintedScheme : ColorSchemeRobot(
-    PurpleColorScheme().tint(0.4), "laf/colorschemes/derived-tinted.png")
+    PurpleColorScheme().tint(0.4), "theming/colorschemes/derived-tinted.png")
 class DerivedTonedScheme : ColorSchemeRobot(
-    PurpleColorScheme().tone(0.4), "laf/colorschemes/derived-toned.png")
+    PurpleColorScheme().tone(0.4), "theming/colorschemes/derived-toned.png")
