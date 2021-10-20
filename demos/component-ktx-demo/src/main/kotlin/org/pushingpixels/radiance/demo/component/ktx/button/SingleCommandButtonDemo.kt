@@ -33,13 +33,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_bold
-import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_italic
-import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_strikethrough
-import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_underline
+import org.pushingpixels.radiance.demo.component.ktx.svg.Help_browser
+import org.pushingpixels.radiance.demo.component.ktx.svg.Image_x_generic
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
-import org.pushingpixels.radiance.component.ktx.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension
@@ -55,71 +52,38 @@ fun main() {
             BusinessSkin()
         )
 
+        val resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
+
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
 
-        var isBold = false
-        var isItalic = false
-        var isUnderline = false
-        var isStrikeThrough = false
-
-        val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
-
-        val singleChoice = commandButton {
+        val commandButton = commandButton {
             command {
-                title = "multi"
-                menu = commandPopupMenu {
-                    command {
-                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                        iconFactory = Format_text_bold.factory()
-                        action = {
-                            println("Toggle bold")
-                            isBold = !isBold
-                        }
-                        isToggle = true
-                        isToggleSelected = isBold
+                title = resourceBundle.getString("Paste.text")
+                iconFactory = Help_browser.factory()
+                extraText = resourceBundle.getString("Paste.textExtra")
+                action = { println("Activated at " + System.currentTimeMillis() + "!") }
+                actionRichTooltip {
+                    title = resourceBundle.getString("Tooltip.textActionTitle")
+                    mainIconFactory = Image_x_generic.factory()
+                    description {
+                        +resourceBundle.getString("Tooltip.textParagraph1")
+                        +resourceBundle.getString("Tooltip.textParagraph2")
                     }
-                    command {
-                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                        iconFactory = Format_text_italic.factory()
-                        action = {
-                            println("Toggle italic")
-                            isItalic = !isItalic
-                        }
-                        isToggle = true
-                        isToggleSelected = isItalic
-                    }
-                    command {
-                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                        iconFactory = Format_text_underline.factory()
-                        action = {
-                            println("Toggle underline")
-                            isUnderline = !isUnderline
-                        }
-                        isToggle = true
-                        isToggleSelected = isUnderline
-                    }
-                    command {
-                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                        iconFactory = Format_text_strikethrough.factory()
-                        action = {
-                            println("Toggle strikethrough")
-                            isStrikeThrough = !isStrikeThrough
-                        }
-                        isToggle = true
-                        isToggleSelected = isStrikeThrough
-                    }
-                    toDismissOnCommandActivation = false
+                    footer = resourceBundle.getString("Tooltip.textFooterParagraph1")
                 }
             }
             presentation {
+                isAutoRepeatAction = true
+                autoRepeatInitialInterval = 500
+                autoRepeatSubsequentInterval = 1000
+                presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
-                presentationState = CommandButtonPresentationState.MEDIUM
             }
-        }
+        }.toButton()
 
-        frame.add(singleChoice.toButton())
+        frame.add(commandButton)
 
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)

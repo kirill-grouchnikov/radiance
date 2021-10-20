@@ -322,7 +322,7 @@ private class SimpleRadianceIcon(
 private class RibbonDemoBuilder {
     var currLocale = Locale.getDefault()
     var resourceBundle = ResourceBundle.getBundle(
-        "org.pushingpixels.radiance.demo.components.ktx.resources.Resources", currLocale
+        "org.pushingpixels.radiance.demo.component.ktx.resources.Resources", currLocale
     )
     lateinit var rulerPanel: RulerPanel
     val documentNewCommand: KCommand
@@ -539,7 +539,7 @@ private class RibbonDemoBuilder {
         val localeSwitcher = LocaleSwitcher.getLocaleSwitcher { selected ->
             currLocale = selected
             resourceBundle = ResourceBundle.getBundle(
-                "org.pushingpixels.radiance.demo.components.ktx.resources.Resources", currLocale
+                "org.pushingpixels.radiance.demo.component.ktx.resources.Resources", currLocale
             )
             Window.getWindows().forEach {
                 it.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale))
@@ -1757,7 +1757,7 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
     val appMenuButtonTooltipImage = ImageIO
         .read(
             RibbonDemoBuilder::class.java.classLoader.getResource(
-                "org.pushingpixels.radiance.demo.components.ktx.ribbon/appmenubutton-tooltip-main.png"
+                "org.pushingpixels.radiance.demo.component.ktx.ribbon/appmenubutton-tooltip-main.png"
             )
         )
     val appMenuButtonTooltipImageWidth = appMenuButtonTooltipImage.width

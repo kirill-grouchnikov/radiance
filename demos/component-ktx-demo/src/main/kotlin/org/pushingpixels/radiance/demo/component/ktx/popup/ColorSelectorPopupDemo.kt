@@ -115,7 +115,7 @@ fun main() {
         val defaultPanelColor = Color.lightGray
 
         val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
 
         val frame = JFrame("Test")
         frame.layout = BorderLayout()

@@ -27,21 +27,23 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.demo.component.ktx.button
+package org.pushingpixels.radiance.demo.component.ktx.popup
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.demo.component.ktx.svg.Help_browser
-import org.pushingpixels.radiance.demo.component.ktx.svg.Image_x_generic
+import org.pushingpixels.radiance.demo.component.ktx.svg.Text_x_generic
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
+import org.pushingpixels.radiance.component.ktx.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
+import java.text.MessageFormat
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.WindowConstants
@@ -53,7 +55,7 @@ fun main() {
         )
 
         val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
 
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
@@ -63,27 +65,25 @@ fun main() {
                 title = resourceBundle.getString("Paste.text")
                 iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
-                action = { println("Activated at " + System.currentTimeMillis() + "!") }
-                actionRichTooltip {
-                    title = resourceBundle.getString("Tooltip.textActionTitle")
-                    mainIconFactory = Image_x_generic.factory()
-                    description {
-                        +resourceBundle.getString("Tooltip.textParagraph1")
-                        +resourceBundle.getString("Tooltip.textParagraph2")
+                menu = commandPopupMenu {
+                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+                    for (i in 0 until 20) {
+                        command {
+                            title = mf.format(arrayOf<Any>(i))
+                            iconFactory = Text_x_generic.factory()
+                            action = { println("Invoked action on '$i'") }
+                        }
                     }
-                    footer = resourceBundle.getString("Tooltip.textFooterParagraph1")
+                    maxVisibleMenuCommands = 8
                 }
             }
             presentation {
-                isAutoRepeatAction = true
-                autoRepeatInitialInterval = 500
-                autoRepeatSubsequentInterval = 1000
                 presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
             }
-        }.toButton()
+        }
 
-        frame.add(commandButton)
+        frame.add(commandButton.toButton())
 
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)

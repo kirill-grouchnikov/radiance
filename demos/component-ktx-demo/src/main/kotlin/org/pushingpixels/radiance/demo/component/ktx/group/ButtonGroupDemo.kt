@@ -85,7 +85,7 @@ fun main() {
         frame.add(styleButtonPanel, BorderLayout.LINE_END)
 
         val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
 
         val commandBold = command {
             iconFactory = Format_text_bold.factory()

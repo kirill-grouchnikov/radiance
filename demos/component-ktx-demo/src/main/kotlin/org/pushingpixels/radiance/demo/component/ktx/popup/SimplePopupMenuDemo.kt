@@ -35,13 +35,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.demo.component.ktx.svg.*
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon
-import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
@@ -57,59 +54,18 @@ fun main() {
         )
 
         val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
 
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
 
-        val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
         val commandButton = commandButton {
             command {
                 title = resourceBundle.getString("Paste.text")
                 iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
                 menu = commandPopupMenu {
-                    commandPanel {
-                        presentation {
-                            commandIconDimension = 48
-                            maxColumns = 5
-                            maxRows = 3
-                            toShowGroupLabels = false
-                        }
-
-                        for (groupIndex in 0 until 4) {
-                            commandGroup {
-                                title = mf.format(arrayOf(groupIndex))
-
-                                for (i in 0 until 15) {
-                                    command {
-                                        val decoration = "$groupIndex/$i"
-                                        iconFactory = DecoratedRadianceIcon.factory(
-                                                Font_x_generic.factory(),
-                                                DecoratedRadianceIcon.IconDecorator { component, graphics, x, y, width, height ->
-                                                    graphics.render {
-                                                        it.color = Color.black
-                                                        if (component.componentOrientation.isLeftToRight) {
-                                                            it.drawString(decoration, x + 2, y + height - 2)
-                                                        } else {
-                                                            it.drawString(decoration,
-                                                                    x + width - it.fontMetrics.stringWidth(
-                                                                            decoration) - 2,
-                                                                    y + height - 2)
-                                                        }
-                                                    }
-                                                })
-
-                                        isToggle = true
-                                        action = { println("Invoked action on $decoration") }
-                                    }
-                                }
-                            }
-                        }
-
-                        isSingleSelectionMode = true
-                    }
-
+                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
                     group {
                         command {
                             title = mf.format(arrayOf("1"))
@@ -127,6 +83,7 @@ fun main() {
                             action = { println("Third!") }
                         }
                     }
+
                     group {
                         command {
                             title = mf.format(arrayOf("4"))

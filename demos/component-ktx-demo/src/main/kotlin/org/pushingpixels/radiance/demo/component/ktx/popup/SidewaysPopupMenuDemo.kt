@@ -35,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.demo.component.ktx.svg.*
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
@@ -54,7 +55,7 @@ fun main() {
         )
 
         val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
 
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
@@ -64,6 +65,15 @@ fun main() {
                 title = resourceBundle.getString("Paste.text")
                 iconFactory = Help_browser.factory()
                 extraText = resourceBundle.getString("Paste.textExtra")
+                secondaryRichTooltip {
+                    title = resourceBundle.getString("Tooltip.textActionTitle")
+                    mainIconFactory = Image_x_generic.factory()
+                    description {
+                        +resourceBundle.getString("Tooltip.textParagraph1")
+                        +resourceBundle.getString("Tooltip.textParagraph2")
+                    }
+                    footer = resourceBundle.getString("Tooltip.textFooterParagraph1")
+                }
                 menu = commandPopupMenu {
                     val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
                     group {
@@ -101,6 +111,7 @@ fun main() {
             presentation {
                 presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
+                popupOrientationKind = CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD
             }
         }
 

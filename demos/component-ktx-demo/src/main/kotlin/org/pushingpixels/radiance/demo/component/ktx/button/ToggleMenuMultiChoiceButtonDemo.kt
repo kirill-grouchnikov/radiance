@@ -27,14 +27,16 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.demo.component.ktx.popup
+package org.pushingpixels.radiance.demo.component.ktx.button
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.demo.component.ktx.svg.Help_browser
-import org.pushingpixels.radiance.demo.component.ktx.svg.Text_x_generic
+import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_bold
+import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_italic
+import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_strikethrough
+import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_underline
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
@@ -43,7 +45,6 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
 import java.awt.image.BufferedImage
-import java.text.MessageFormat
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.WindowConstants
@@ -54,36 +55,71 @@ fun main() {
             BusinessSkin()
         )
 
-        val resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.components.ktx.resources.Resources", Locale.getDefault())
-
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
 
-        val commandButton = commandButton {
+        var isBold = false
+        var isItalic = false
+        var isUnderline = false
+        var isStrikeThrough = false
+
+        val resourceBundle = ResourceBundle
+                .getBundle("org.pushingpixels.radiance.demo.component.ktx.resources.Resources", Locale.getDefault())
+
+        val singleChoice = commandButton {
             command {
-                title = resourceBundle.getString("Paste.text")
-                iconFactory = Help_browser.factory()
-                extraText = resourceBundle.getString("Paste.textExtra")
+                title = "multi"
                 menu = commandPopupMenu {
-                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
-                    for (i in 0 until 20) {
-                        command {
-                            title = mf.format(arrayOf<Any>(i))
-                            iconFactory = Text_x_generic.factory()
-                            action = { println("Invoked action on '$i'") }
+                    command {
+                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                        iconFactory = Format_text_bold.factory()
+                        action = {
+                            println("Toggle bold")
+                            isBold = !isBold
                         }
+                        isToggle = true
+                        isToggleSelected = isBold
                     }
-                    maxVisibleMenuCommands = 8
+                    command {
+                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                        iconFactory = Format_text_italic.factory()
+                        action = {
+                            println("Toggle italic")
+                            isItalic = !isItalic
+                        }
+                        isToggle = true
+                        isToggleSelected = isItalic
+                    }
+                    command {
+                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                        iconFactory = Format_text_underline.factory()
+                        action = {
+                            println("Toggle underline")
+                            isUnderline = !isUnderline
+                        }
+                        isToggle = true
+                        isToggleSelected = isUnderline
+                    }
+                    command {
+                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                        iconFactory = Format_text_strikethrough.factory()
+                        action = {
+                            println("Toggle strikethrough")
+                            isStrikeThrough = !isStrikeThrough
+                        }
+                        isToggle = true
+                        isToggleSelected = isStrikeThrough
+                    }
+                    toDismissOnCommandActivation = false
                 }
             }
             presentation {
-                presentationState = CommandButtonPresentationState.TILE
                 isFlat = false
+                presentationState = CommandButtonPresentationState.MEDIUM
             }
         }
 
-        frame.add(commandButton.toButton())
+        frame.add(singleChoice.toButton())
 
         frame.iconImage = BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR)
         frame.size = Dimension(250, 200)
