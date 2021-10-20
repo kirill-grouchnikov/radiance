@@ -2,7 +2,7 @@
 
 Let's take another look at the example from the [command documentation](Command.md#base-attributes)
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-basics.png" width="780" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-basics.png" width="780" border=0/>
 
 For the paste buttons (first column), the command that was used to project all four buttons looks like this:
 
@@ -52,7 +52,7 @@ CommandButtonPresentationModel.builder()
 
 Going back to our screenshot:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-basics.png" width="780" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-basics.png" width="780" border=0/>
 
 What is different between the four "Paste" buttons in the first column? The only thing is the presentation state passed to the `.setPresentationState()` call on the presentation model builder. The rest is identical - the command itself, as well as the `.setFlat(false)` to mark the projected button to always display background.
 
@@ -85,9 +85,9 @@ JCommandButton bigButton = this.pasteActionCommand.project(
 
 In an [earlier example](IntroMode.md) we have four buttons to change content styling (bold, italic, underline and strikethrough) of `JTextPane` content:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling.png" width="696" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
 
 Let's take a look at how the "bold" styling is done. First, we create the command (which is the content model):
 

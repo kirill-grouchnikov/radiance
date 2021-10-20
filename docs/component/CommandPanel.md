@@ -1,6 +1,6 @@
 ## Components - command panels
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-button-panel-rows.png" width="567" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-button-panel-rows.png" width="567" border=0/>
 
 Command panel is a two-dimensional grid of logically and visually grouped commands (and their projections). In the screenshot above the commands are separated into multiple groups, each with its own title. In each group the projected buttons are laid out in rows, never exceeding the available container width and kicking vertical scrolling as necessary.
 
@@ -16,11 +16,11 @@ The `singleSelectionMode` attribute can be used to mark all commands configured 
 
 The `layoutKind` attribute can be used to specify whether the button content of each group should be laid out horizontally or vertically. In the screenshot below the same content model is projected into a column-based layout:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-button-panel-columns.png" width="567" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-button-panel-columns.png" width="567" border=0/>
 
 The `toShowGroupLabels` attribute is only relevant when `layoutKind` is `ROW_FILL`. When set to `true`, button groups show titles:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-button-panel-rows-titles.png" width="567" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-button-panel-rows-titles.png" width="567" border=0/>
 
 The `commandPresentationState` attribute determines the visual presentation of the commands in the projected buttons. When the presentation state is set to `FIT_TO_ICON`, use `commandIconDimension` to control the icon size for the projected buttons.
 

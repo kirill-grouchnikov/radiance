@@ -2,15 +2,15 @@
 
 Let's take a look at another similar example of using Radiance commands.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling.png" width="696" border=0/>
 
 The setup has the same `JTextPane` and a vertical button strip with four buttons. When there's nothing selected in the text pane, the buttons are disabled. When there is selection, the buttons are enabled. In addition, each button corresponds to bold, italic, underline and strikethrough content style. Each button shows presence of the matching style in the selected content. When clicked, the presence of the matching style is toggled.
 
 For example, selecting some content and clicking the bold button shows this:
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling-bold.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling-bold.png" width="696" border=0/>
 
 And then selecting another, overlapping, part of content, and clicking the italic button shows this:
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
 
 Note how both bold and italic buttons show up as selected, since the currently selected content has both bold and italic presence (not necessarily on the entire selection).
 
@@ -190,7 +190,7 @@ Whenever the selection changes we update two things:
 * If there is no selection at all, we disable all four commands.
 * We update the toggle selection state of each command based on the presence of the matching style anywhere in the current selection of our text pane.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling-removed-bold.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling-removed-bold.png" width="696" border=0/>
 
 ### Command strip
 

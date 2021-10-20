@@ -2,7 +2,7 @@
 
 A command is the most basic building block of Radiance components. Let's take a look at this screenshot of the main Radiance ribbon demo application:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon-lego.jpg" width="767" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon-lego.jpg" width="767" border=0/>
 
 Apart from the two comboboxes in the main content area on the right, and another combobox in the title area, all the other components in this screen are built from commands. In fact, even those comboboxes could be replaced with commands, and the only reason to have them in this demo is to show that ribbon can host regular Swing components (such as comboboxes, spinners, etc). But more on that later.
 
@@ -30,7 +30,7 @@ Commands are created with the builder pattern which is pervasive throughout Radi
 
 Let's take a look at the following screenshot that shows how four commands (paste, cut, copy, and select all) might be rendered on the screen (or projected, in Radiance terminology):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-basics.png" width="780" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-basics.png" width="780" border=0/>
 
 In each column, all four buttons were projected from the same command. The only difference is the presentation model associated with each one of the projection:
 
@@ -95,7 +95,7 @@ Command preview is activated when the command's projection goes into the preview
 
 Rich tooltips are shown on hover, providing the opportunity to explain what the corresponding command does:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-tooltips.png" width="782" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-tooltips.png" width="782" border=0/>
 
 To configure the rich tooltip for the command's action, use `RichTooltip.Builder` and `setActionRichTooltip()` APIs:
 
@@ -151,29 +151,29 @@ Secondary content allows logical grouping of multiple commands that are only sho
 
 The simplest case of secondary content is additional commands shown in a popup menu:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-secondary-simple.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-secondary-simple.png" width="734" border=0/>
 
 Secondary content can be configured to display a certain maximum number of commands on the screen, kicking in vertical scrolling:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
 
 Or have a more complex structure, with an embedded, separately scrollable panel of commands:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-secondary-complex.png" width="734" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-secondary-complex.png" width="734" border=0/>
 
 All these three examples would be called "popup buttons" in similar component suites. The power of secondary content in Radiance commands can be seen in how easily it is to configure a projected button to be a "regular" action button - with just one action.
 
 Or, by calling `setSecondaryContentModel()` and `CommandButtonPresentationModel.Builder.setTextClickAction(true)` make it a split button with a popup menu shown when the down arrow is clicked:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-title-action.png" width="764" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-title-action.png" width="764" border=0/>
 
 Or instead, calling `CommandButtonPresentationModel.Builder.setTextClickPopup(true)` to make it a split button with a popup menu shown when either texts or down arrow are clicked:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-title-popup.png" width="764" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-title-popup.png" width="764" border=0/>
 
 An important note is in order here. Even though all the examples so far have shown secondary content displayed as a popup menu, that is not necessarily the case. Radiance's model of separating content from presentation (and combining the two in a projection) means that the **same exact command** projected as a split button can be projected into something that looks like this:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon-application-menu.png" width="754" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon-application-menu.png" width="754" border=0/>
 
 Here, the ribbon application menu is a two-panel layout. The main commands are projected in the left column. The secondary content associated with a command is displayed in the panel on the right - not as a separate popup menu, but as part of the same application menu container.
 

@@ -1,6 +1,6 @@
 ## Components - ribbon application menu
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/ribbon-appmenu-expanded.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-appmenu-expanded.png" width="1181" border=0/>
 
 Ribbon application menu is the optional part of the ribbon that hosts projected commands that are "global". For example, "Paste" command has local context - it operates on the specific current selection in the main content, be it text editor or a graphical editor. But "Save" operated at the global context - saving the entire document no matter which part of it is being viewed or edited.
 
@@ -8,23 +8,23 @@ Ribbon application menu is the optional part of the ribbon that hosts projected 
 
 When the application menu button is activated (with mouse or via [keytip traversal](RibbonKeytips.md)), it shows the primary level of application menu content:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-initial.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-initial.png" width="1119" border=0/>
 
 Activating one of these primary entries (with mouse rollover or keytip travesal) shows the matching secondary level commands:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-medium.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-medium.png" width="1119" border=0/>
 
 Secondary level commands can have different presentation states (size and internal layout) for different primary commands:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-large.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-large.png" width="1119" border=0/>
 
 If there is not enough vertical space to show all secondary command projections, vertical scrolling kicks in:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-scrollable.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-scrollable.png" width="1119" border=0/>
 
 If your application menu hierarchy requires more than two levels of cascading commands, the rest of those levels will be shown as regular popup content:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-cascade-popup.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-cascade-popup.png" width="1119" border=0/>
 
 ### Creating application menu
 
@@ -62,7 +62,7 @@ Here we have configured the "outer shell", so to speak of the application menu:
 
 The primary/secondary/additional content of the application menu itself is set here with `Command.Builder.setSecondaryContentModel()` call. Let's see how we construct that secondary content model.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-large.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-large.png" width="1119" border=0/>
 
 For the "Save As" primary command, we start by creating its secondary commands:
 
@@ -149,9 +149,9 @@ this.getRibbon().setApplicationMenuCommand(ribbonMenuCommandProjection);
 
 Let's go back to these two screenshots:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-medium.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-medium.png" width="1119" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/appmenu/app-menu-secondary-large.png" width="1119" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/appmenu/app-menu-secondary-large.png" width="1119" border=0/>
 
 How do we "tell" the ribbon that secondary content for "New" should be presented differently from secondary content for "Save As"? We use the `RibbonApplicationMenuCommandButtonProjection.setSecondaryLevelCommandPresentationState()` API:
 

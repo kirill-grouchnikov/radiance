@@ -1,6 +1,6 @@
 ## Components - command strips
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling-bold-italic.png" width="696" border=0/>
 
 Command strip is a logically and visually connected group of commands (and their projections). In the screenshot below the four styling commands - bold, italic, underline, strikethrough - are grouped together to reinforce the logical connection of the underlying functionality.
 
@@ -16,13 +16,13 @@ The `orientation` attribute can be used to specify whether the strip buttons sho
 
 The `commandPresentationState` attribute determines the visual presentation of the strip commands in the projected buttons. In the screenshot below, the same `CommandGroup` is projected using three different `CommandStripPresentationModel` instances - each one differing only in its command presentation state:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-sync1.png" width="437" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-sync1.png" width="437" border=0/>
 
 The `horizontalGapScaleFactor` and `verticalGapScaleFactor` can be used to control the space around the icons of the projected buttons:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-strip-horizontal.png" width="435" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-strip-horizontal.png" width="435" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/command-strip-vertical.png" width="512" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-strip-vertical.png" width="512" border=0/>
 
 The `flat` attribute controls the background presence of all projected buttons in default (non-active state).
 

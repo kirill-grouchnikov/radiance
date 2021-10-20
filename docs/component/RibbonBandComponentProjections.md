@@ -1,6 +1,6 @@
 ## Components - ribbon band component projections
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 
 Component projections are the second type of content that can be placed in a ribbon band. In the screenshot above these can be seen in the "Font" ribbon band in the middle of the ribbon. The top row has two comboboxes, and the bottom row has three [command button strips](CommandStrip.md). Let's take a look at the various moving pieces involved in configuring such component projections.
 
@@ -39,7 +39,7 @@ The steps are:
 
 ### Wrapper projections
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-combobox-tip.png" width="1325" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-combobox-tip.png" width="1325" border=0/>
 
 This component projection can be added to both flow and general ribbon bands with the following APIs:
 

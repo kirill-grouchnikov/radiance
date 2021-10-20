@@ -1,6 +1,6 @@
 ## Components - ribbon band command projections
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 
 [Command projections](CommandProjections.md) are the first type of content that can be placed in a ribbon band. Let's take a look at the various moving pieces involved in configuring a couple of command projections in the leftmost "Clipboard" band in the screenshot above.
 
@@ -77,7 +77,7 @@ this.popupMenuContentModel = new CommandMenuContentModel(
 
 and this is how that secondary content looks like when it is shown as a [popup menu](CommandPopupMenu.md):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-command-popup.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-command-popup.png" width="1433" border=0/>
 
 ### Command projection
 
@@ -120,7 +120,7 @@ clipboardBand.addRibbonCommand(pasteCommandProjection,
 
 Before we discuss the presentation priority parameter, let's take a look at how the action key tips for this secondary content look like when activated:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/bands/command-popup-keytips.png" width="1400" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/bands/command-popup-keytips.png" width="1400" border=0/>
 
 ### Presentation priority
 
@@ -152,7 +152,7 @@ clipboardBand.addRibbonCommand(
 
 Each one of these is added with `PresentationPriority.MEDIUM`. When there is enough horizontal space, each one is displayed at `MEDIUM` presentation state. But if the ribbon is resized to be more narrow, those projections will be in the `SMALL` presentation state instead (displaying only their icon):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/bands/bands-resize4.png" width="1020" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/bands/bands-resize4.png" width="1020" border=0/>
 
 This is controlled at the level of the band in this particular demo:
 
@@ -192,15 +192,15 @@ this.pasteCommand = Command.builder()
 
 Rich tooltips associated with action and secondary content of the original command are displayed under the parent ribbon band:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-command-actiontip.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-command-actiontip.png" width="1433" border=0/>
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-command-popuptip.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-command-popuptip.png" width="1433" border=0/>
 
 ### Complex popups
 
 As discussed in the [popup menu documentation](CommandPopupMenu.md), applications can configure more complex secondary content for any given command:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-command-complexpopup.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-command-complexpopup.png" width="1433" border=0/>
 
 ### Next
 

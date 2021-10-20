@@ -1,6 +1,6 @@
 ## Components - breadcrumb bars
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/breadcrumb.png" width="620" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/breadcrumb.png" width="620" border=0/>
 
 Breadcrumb bars facilitate quick navigation of multi-level hierarchies, such as file systems or XML documents. This functionality is commonly found in many web sites and is the main navigation tool in the Windows Explorer application.
 
@@ -17,7 +17,7 @@ The `BreadcrumbBarCallBack` is used by the breadcrumb component at runtime to qu
 
 What are these two used for? Let's take another look at the screenshot of a sample app that is using the breadcrumb bar for navigating the local file system:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/breadcrumb.png" width="620" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/breadcrumb.png" width="620" border=0/>
 
 The `getPathChoices()` should return the list of paths that can be "explored" from the specified path. In the screenshot above these are the subfolders of the currently activated "JavaVirtualMachines" path.
 
@@ -47,7 +47,7 @@ Here, we are using the `BreadcrumbFileSelector` that is a core extension of `JBr
 
 Let's go back to our app screenshot again:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/breadcrumb.png" width="620" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/breadcrumb.png" width="620" border=0/>
 
 The top part of the app is `BreadcrumbFileSelector` (which is a subclass of `JBreadcrumbBar`). The main content is the panel that shows the list of files in the currently selected path. This panel is an extension of `AbstractFileViewPanel` class.
 

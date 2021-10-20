@@ -1,10 +1,10 @@
 ## Components - in-ribbon galleries
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/content/content-intro.png" width="1433" border=0/>
 
 In-ribbon galleries are the third type of content that can be placed in a ribbon band. In the screenshot above the "Quick Styles" band shows an in-ribbon gallery. In-ribbon galleries are configured to display a certain (usually small) number of selections, with a vertical strip right next to them to scroll the selections inline up and down, and display the available selections in a larger popup:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
 
 Let's take a look at the various moving pieces involved in configuring an in-ribbon gallery.
 
@@ -135,7 +135,7 @@ formatMenuOverlays.put(this.applyStyles,
         CommandButtonPresentationModel.overlay().setActionKeyTip("SA"));
 ```    
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/ribbon/ribbon-gallery-expanded.png" width="1181" border=0/>
 
 Now it's time to configure our presentation model. We use the `RibbonGalleryPresentationModel` and its builder to configure:
 

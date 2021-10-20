@@ -4,7 +4,7 @@ Let's get right down to business of showing what Radiance Components brings to t
 
 In the screenshot below we have a multiline `JTextPane` and a vertical strip of buttons on the right. Clicking one of the buttons should change the text alignment of the content. The current alignment should be represented by the visual indication on the matching button.
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-alignment.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-alignment.png" width="696" border=0/>
 
 ### Content setup
 
@@ -114,11 +114,11 @@ Each command in this example is configured with the following three attributes:
 
 Let's take another look at how the visual representation of these four commands looks like:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-alignment.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-alignment.png" width="696" border=0/>
 
 Each command is represented by a single button. When a button is clicked, the corresponding command action is activated and our helper `setAlignment` method is called. In addition, the overall button strip is updated to reflect the currently "selected" command (the one whose visual representation was just clicked):
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/components/walkthrough/intro-text-alignment-changed.png" width="696" border=0/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-alignment-changed.png" width="696" border=0/>
 
 
 ### Command strip
