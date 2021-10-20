@@ -43,7 +43,7 @@ gradlePlugin {
     plugins {
         customPlugin {
             id = 'org.pushing-pixels.radiance.tools.svgtranscoder.gradle'
-            implementationClass = 'org.pushingpixels.radiance.tools.svgtranscoder.gradle.RadianceSvgTranscoderPlugin'
+            implementationClass = 'org.pushingpixels.radiance.tools.svgtranscoder.gradle.RadianceSvgTranscoderGradlePlugin'
         }
     }
 }
