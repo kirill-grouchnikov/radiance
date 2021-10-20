@@ -10,11 +10,11 @@
   * Heavily integrated custom design in the [cookbook](theming/cookbook/cookbook.md) sample
 * For **Components** - the `demos/components-demo` module
   * The main ribbon demo is `BasicCheckRibbon` class
-  * Breadcrumb demos in `org.pushingpixels.radiance.demo.components.bcb` package
-  * Command, popup and panel demos in `org.pushingpixels.radiance.demo.components.common` package
-  * Small image viewer demo using command panel in `org.pushingpixels.radiance.demo.components.imageviewer` package
+  * Breadcrumb demos in `org.pushingpixels.radiance.demo.component.bcb` package
+  * Command, popup and panel demos in `org.pushingpixels.radiance.demo.component.common` package
+  * Small image viewer demo using command panel in `org.pushingpixels.radiance.demo.component.imageviewer` package
 * For **Components Kotlin extensions** - the `demos/components-ktx-demo` module
-  * The main ribbon demo is `org.pushingpixels.radiance.demo.components.ktx.ribbon` file
+  * The main ribbon demo is `org.pushingpixels.radiance.demo.component.ktx.ribbon` file
   * Breadcrumb demos in `org.pushingpixels.adiance.demo.components.ktx.bcb` package
   * Command, popup and panel demos in `org.pushingpixels.adiance.demo.components.ktx.common` package
   * Small image viewer demo using command panel in `org.pushingpixels.adiance.demo.components.ktx.imageviewer.ImageViewer` file

@@ -34,7 +34,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.radiance.demo.components.ribbon.BasicCheckRibbon
+import org.pushingpixels.radiance.demo.component.ribbon.BasicCheckRibbon
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin

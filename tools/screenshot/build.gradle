@@ -41,7 +41,7 @@ dependencies {
     implementation project(':theming-extras')
     implementation project(':component')
     implementation project(':demos:theming-demo')
-    implementation project(':demos:components-demo')
+    implementation project(':demos:component-demo')
     implementation project(':tools:tools-common')
 }
 
