@@ -30,9 +30,9 @@
 package org.pushingpixels.radiance.demo.components.svg;
 
 import org.pushingpixels.radiance.demo.components.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.components.api.bcb.BreadcrumbItem;
-import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector;
-import org.pushingpixels.radiance.components.api.common.StringValuePair;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
+import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector;
+import org.pushingpixels.radiance.component.api.common.StringValuePair;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;

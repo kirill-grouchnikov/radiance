@@ -30,12 +30,12 @@
 package org.pushingpixels.radiance.demo.components.common;
 
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Font_x_generic;
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.components.api.common.icon.DecoratedRadianceIcon;
-import org.pushingpixels.radiance.components.api.common.model.Command;
-import org.pushingpixels.radiance.components.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.components.api.common.model.CommandPanelContentModel;
-import org.pushingpixels.radiance.components.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import java.awt.*;

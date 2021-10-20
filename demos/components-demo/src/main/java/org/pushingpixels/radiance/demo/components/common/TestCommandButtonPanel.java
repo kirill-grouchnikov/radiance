@@ -31,9 +31,9 @@ package org.pushingpixels.radiance.demo.components.common;
 
 import org.pushingpixels.radiance.demo.components.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
-import org.pushingpixels.radiance.components.api.common.model.CommandPanelContentModel;
-import org.pushingpixels.radiance.components.api.common.model.CommandPanelPresentationModel;
-import org.pushingpixels.radiance.components.api.common.projection.CommandPanelProjection;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;

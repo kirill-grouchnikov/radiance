@@ -35,8 +35,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.demo.components.ktx.svg.Help_browser
 import org.pushingpixels.radiance.demo.components.ktx.svg.Image_x_generic
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.components.ktx.commandButton
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension

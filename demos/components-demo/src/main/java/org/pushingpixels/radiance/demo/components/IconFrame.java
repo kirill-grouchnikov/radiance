@@ -31,9 +31,9 @@ package org.pushingpixels.radiance.demo.components;
 
 import org.pushingpixels.radiance.demo.components.svg.SvgBatikRadianceIcon;
 import org.pushingpixels.radiance.demo.components.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.components.api.common.model.Command;
-import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.ImageBackedFilterableRadianceIcon;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;

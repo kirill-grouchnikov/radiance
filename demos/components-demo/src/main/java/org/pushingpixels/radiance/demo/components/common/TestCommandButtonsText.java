@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.components.common;
 
-import org.pushingpixels.radiance.components.api.common.CommandAction;
-import org.pushingpixels.radiance.components.api.common.CommandActionEvent;
+import org.pushingpixels.radiance.component.api.common.CommandAction;
+import org.pushingpixels.radiance.component.api.common.CommandActionEvent;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 

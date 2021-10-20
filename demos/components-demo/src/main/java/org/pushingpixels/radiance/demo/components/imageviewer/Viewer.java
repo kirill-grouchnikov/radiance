@@ -1,11 +1,11 @@
 package org.pushingpixels.radiance.demo.components.imageviewer;
 
 import org.pushingpixels.radiance.demo.components.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.components.api.bcb.BreadcrumbItem;
-import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector;
-import org.pushingpixels.radiance.components.api.common.AbstractFileViewPanel;
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.components.api.common.StringValuePair;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
+import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector;
+import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.StringValuePair;
 import org.pushingpixels.radiance.demo.components.icon.ImageWrapperRadianceIcon;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;

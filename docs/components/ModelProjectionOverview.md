@@ -82,7 +82,7 @@ public class MyContentModel implements ContentModel {
 
 ### Presentation model
 
-All presentation models implement either `ImmutablePresentationModel` or `MutablePresentationModel` interfaces in the  `org.pushingpixels.radiance.components.api.common.model` package. The builder pattern is used to configure all attributes of the specific presentation model type.
+All presentation models implement either `ImmutablePresentationModel` or `MutablePresentationModel` interfaces in the  `org.pushingpixels.radiance.component.api.common.model` package. The builder pattern is used to configure all attributes of the specific presentation model type.
 
 A simplified skeleton of a custom presentation model class would look exactly the same as that in the previous section (on content models), and is omitted for the sake of brevity.
 

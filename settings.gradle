@@ -31,7 +31,7 @@
 rootProject.name = "radiance"
 
 include 'common', 'animation', 'theming',
-		'theming-extras', 'components',
+		'theming-extras', 'component',
 		'kotlin-ext:swing-ktx', 'kotlin-ext:animation-ktx',
 		'kotlin-ext:theming-ktx', 'kotlin-ext:components-ktx',
 		'demos:common-demo', 'demos:animation-demo',

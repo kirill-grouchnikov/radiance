@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.components.common;
 
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Help_browser;
-import org.pushingpixels.radiance.components.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 

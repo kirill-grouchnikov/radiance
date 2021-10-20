@@ -30,11 +30,11 @@
 package org.pushingpixels.radiance.demo.themingapps.cookbook.panels;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.radiance.components.api.common.model.Command;
-import org.pushingpixels.radiance.components.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel;
-import org.pushingpixels.radiance.components.api.common.model.CommandToggleGroupModel;
-import org.pushingpixels.radiance.components.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel;
+import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
 import org.pushingpixels.radiance.demo.themingapps.cookbook.EchoRadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.cookbook.ScaledRadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.cookbook.svg.*;

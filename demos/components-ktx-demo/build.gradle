@@ -37,7 +37,7 @@ dependencies {
     implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
     implementation project(':common')
     implementation project(':theming')
-    implementation project(':components')
+    implementation project(':component')
     implementation project(':kotlin-ext:swing-ktx')
     implementation project(':kotlin-ext:theming-ktx')
     implementation project(':kotlin-ext:components-ktx')

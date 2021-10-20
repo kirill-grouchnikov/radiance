@@ -36,7 +36,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation project(':common')
     implementation project(':theming')
-    implementation project(':components')
+    implementation project(':component')
 }
 
 ext.designation = "core"

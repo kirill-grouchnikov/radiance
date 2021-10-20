@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.components.common;
 
-import org.pushingpixels.radiance.components.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 

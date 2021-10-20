@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.components.common;
 
-import org.pushingpixels.radiance.components.api.common.icon.EmptyRadianceIcon;
-import org.pushingpixels.radiance.components.api.common.model.Command;
-import org.pushingpixels.radiance.components.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.components.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;

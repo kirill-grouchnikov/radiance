@@ -37,10 +37,10 @@ import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.demo.components.ktx.RadianceLogo
 import org.pushingpixels.radiance.demo.components.ktx.common.ExplorerFileViewPanel
 import org.pushingpixels.radiance.theming.ktx.setDecorationType
-import org.pushingpixels.radiance.components.api.bcb.core.BreadcrumbFileSelector
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
-import org.pushingpixels.radiance.components.ktx.bcb.addDelayedPathListener
+import org.pushingpixels.radiance.component.ktx.bcb.addDelayedPathListener
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices

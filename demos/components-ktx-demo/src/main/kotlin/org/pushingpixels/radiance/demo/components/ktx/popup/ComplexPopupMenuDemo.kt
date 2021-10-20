@@ -34,11 +34,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.demo.components.ktx.svg.*
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.components.api.common.icon.DecoratedRadianceIcon
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon
 import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.components.ktx.commandButton
-import org.pushingpixels.radiance.components.ktx.commandPopupMenu
+import org.pushingpixels.radiance.component.ktx.commandButton
+import org.pushingpixels.radiance.component.ktx.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Color

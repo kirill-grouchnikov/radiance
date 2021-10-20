@@ -37,12 +37,12 @@ import org.pushingpixels.radiance.demo.components.ktx.svg.Format_text_bold
 import org.pushingpixels.radiance.demo.components.ktx.svg.Format_text_italic
 import org.pushingpixels.radiance.demo.components.ktx.svg.Format_text_strikethrough
 import org.pushingpixels.radiance.demo.components.ktx.svg.Format_text_underline
-import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.radiance.swing.ktx.swing.CharacterStyleType
 import org.pushingpixels.radiance.swing.ktx.swing.hasStyleInSelection
 import org.pushingpixels.radiance.swing.ktx.swing.toggleStyleInSelection
-import org.pushingpixels.radiance.components.ktx.command
-import org.pushingpixels.radiance.components.ktx.commandButtonStrip
+import org.pushingpixels.radiance.component.ktx.command
+import org.pushingpixels.radiance.component.ktx.commandButtonStrip
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin
 import java.awt.BorderLayout

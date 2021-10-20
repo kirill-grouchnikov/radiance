@@ -33,12 +33,12 @@ import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Format_te
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Format_text_italic;
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Format_text_strikethrough;
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Format_text_underline;
-import org.pushingpixels.radiance.components.api.common.JCommandButtonStrip;
-import org.pushingpixels.radiance.components.api.common.RichTooltip;
-import org.pushingpixels.radiance.components.api.common.model.Command;
-import org.pushingpixels.radiance.components.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.components.api.common.model.CommandStripPresentationModel;
-import org.pushingpixels.radiance.components.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
+import org.pushingpixels.radiance.component.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 

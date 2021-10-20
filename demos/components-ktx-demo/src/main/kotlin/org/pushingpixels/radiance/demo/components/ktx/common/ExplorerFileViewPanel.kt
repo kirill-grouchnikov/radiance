@@ -29,13 +29,13 @@
  */
 package org.pushingpixels.radiance.demo.components.ktx.common
 
-import org.pushingpixels.radiance.components.api.bcb.JBreadcrumbBar
-import org.pushingpixels.radiance.components.api.common.AbstractFileViewPanel
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.components.api.common.StringValuePair
+import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar
+import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.StringValuePair
 import org.pushingpixels.radiance.demo.components.icon.IcoWrapperRadianceIcon
 import org.pushingpixels.radiance.demo.components.icon.ImageWrapperRadianceIcon
-import org.pushingpixels.radiance.components.api.common.model.Command
+import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.demo.components.svg.SvgBatikRadianceIcon

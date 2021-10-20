@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.radiance.demo.components.svg;
 
-import org.pushingpixels.radiance.components.api.bcb.BreadcrumbBarCallBack;
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.components.api.common.JCommandButtonPanel;
-import org.pushingpixels.radiance.components.api.common.RichTooltip;
-import org.pushingpixels.radiance.components.api.common.StringValuePair;
-import org.pushingpixels.radiance.components.api.common.icon.EmptyRadianceIcon;
-import org.pushingpixels.radiance.components.api.common.model.Command;
-import org.pushingpixels.radiance.components.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.components.api.common.model.CommandPanelContentModel;
-import org.pushingpixels.radiance.components.api.common.model.CommandPanelPresentationModel;
-import org.pushingpixels.radiance.components.api.common.projection.CommandPanelProjection;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
+import org.pushingpixels.radiance.component.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.StringValuePair;
+import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.SvgStreamTranscoder;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.java.JavaLanguageRenderer;

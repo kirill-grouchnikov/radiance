@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.themingapps.cookbook.skin;
 
-import org.pushingpixels.radiance.components.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;

@@ -36,11 +36,11 @@ import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Address_b
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.Text_x_generic;
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.X_office_document;
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.components.api.common.JCommandButton;
-import org.pushingpixels.radiance.components.api.common.icon.EmptyRadianceIcon;
-import org.pushingpixels.radiance.components.api.common.model.*;
-import org.pushingpixels.radiance.components.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;

@@ -30,12 +30,12 @@
 package org.pushingpixels.radiance.demo.components.common;
 
 import org.pushingpixels.radiance.demo.components.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.components.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.demo.components.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
-import org.pushingpixels.radiance.components.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.components.api.common.JCommandButton;
-import org.pushingpixels.radiance.components.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;

@@ -53,7 +53,7 @@ Wrapper projections follow the same overall approach of [Radiance projections](I
 - **content model + presentation model &#8594; projection**
 - **projection &#8594; one or more Swing components**
 
-The `org.pushingpixels.radiance.components.api.ribbon.synapse` package and its `model` and `projection` sub-packages provide APIs to wrap a number of core Swing components and expose them via the Radiance projection model. Here are a couple of examples.
+The `org.pushingpixels.radiance.component.api.ribbon.synapse` package and its `model` and `projection` sub-packages provide APIs to wrap a number of core Swing components and expose them via the Radiance projection model. Here are a couple of examples.
 
 #### Wrapping `JComboBox`
 
