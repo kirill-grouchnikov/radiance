@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.tools.screenshot.components.skins
+package org.pushingpixels.radiance.tools.screenshot.component.skins
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -54,7 +54,7 @@ import javax.swing.JFrame
  *
  * @author Kirill Grouchnikov
  */
-abstract class ComponentsSkinRobot(
+abstract class ComponentSkinRobot(
     private var skin: RadianceSkin,
     private val screenshotFilename: String
 ) : ZodiacRobot {
