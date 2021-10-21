@@ -4,7 +4,7 @@ Radiance Animation supports interpolation of primitive values - such as integers
 
 For both cases the application code needs to provide one or more implementations of the `PropertyInterpolator` interface. This interface has two methods.
 
-The `public Class getBasePropertyClass()` is used to choose the property interpolator in the `Timeline.addPropertyToInterpolate(String, Object, Object)`. Internally, all registered property interpolators are queried to check whether they support the specified *from* and *to* values using the `Class.isAssignableFrom(Class)`. The **first** property interpolator that has a match for both values will be used.
+The `public Class getBasePropertyClass()` is used to choose the property interpolator in the `Timeline.Builder.addPropertyToInterpolate(String, Object, Object)`. Internally, all registered property interpolators are queried to check whether they support the specified *from* and *to* values using the `Class.isAssignableFrom(Class)`. The **first** property interpolator that has a match for both values will be used.
 
 For example, the `PointInterpolator` in the core AWT property interpolator source (`AWTPropertyInterpolators` class) has the following implementation of this method:
 

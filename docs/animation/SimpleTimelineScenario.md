@@ -136,14 +136,14 @@ A quick walkthrough:
 * Lines 2-6 specify the fields that store the center and the color of the explosion.
 * Line 8 specifies the set that stores all the single explosions of this volley explosion.
 * Lines 17-59 return a timeline scenario that implements this volley explosion:
-** Line 18 creates a parallel timeline. **Each** single explosion is implemented as a separate timeline.
-** Line 20 computes a random duration for this scenario.
-** Lines 21 and 24 create 54 single explosions.
-** Lines 21, 27 and 28 create single explosions at almost evenly distributed angles (every 20 degrees).
-** Lines 22, 24 and 30-39 create single explosions at almost evenly distributed distance from the center (three for each angle).
-** Lines 41-42 create the `SingleExplosion` object.
-** Lines 43-49 create the timeline that interpolates the relevant properties of that object. Each timeline has a random duration.
-** Line 54 adds the created timeline to the scenario.
+  * Line 18 creates a parallel timeline. **Each** single explosion is implemented as a separate timeline.
+  * Line 20 computes a random duration for this scenario.
+  * Lines 21 and 24 create 54 single explosions.
+  * Lines 21, 27 and 28 create single explosions at almost evenly distributed angles (every 20 degrees).
+  * Lines 22, 24 and 30-39 create single explosions at almost evenly distributed distance from the center (three for each angle).
+  * Lines 41-42 create the `SingleExplosion` object.
+  * Lines 43-49 create the timeline that interpolates the relevant properties of that object. Each timeline has a random duration.
+  * Line 54 adds the created timeline to the scenario.
 * The scenario returned on line 58 has 54 different timelines, one for each single explosion.
 * Lines 61-67 paint all the single explosions of this volley explosion.
 

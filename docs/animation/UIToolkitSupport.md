@@ -26,7 +26,7 @@ The core Animation library provides special **repaint timelines** that are usual
 
 ### Respecting the threading rules
 
-If the main timeline object is an AWT `Component`, all fields registered with the `Timeline.addPropertyToInterpolate` methods will be changed on the event dispatch thread.
+If the main timeline object is an AWT `Component`, all fields registered with the `Timeline.Builder.addPropertyToInterpolate` methods will be changed on the event dispatch thread.
 
 In the [simple Swing example](SimpleSwingExample.md) that interpolates the foreground color of a button on mouse rollover, the timeline is configured as
 
