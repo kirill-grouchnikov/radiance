@@ -50,7 +50,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Client property to mark the the command button panel to not draw the background fill
      */
     public static final String SKIP_BACKGROUND_FILL =
-            "radiance.components.internal.commandButtonPanel.ui.skipBackgroundFill";
+            "radiance.component.internal.commandButtonPanel.ui.skipBackgroundFill";
 
     /**
      * The associated command button panel.

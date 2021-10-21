@@ -98,7 +98,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * @see #disposePopupsActionListener
      */
     public static final String DONT_DISPOSE_POPUPS =
-            "radiance.components.internal.commandButton.ui.dontDisposePopups";
+            "radiance.component.internal.commandButton.ui.dontDisposePopups";
 
     /**
      * This listener disposes all popup panels when button's action is activated. An example of

@@ -59,14 +59,14 @@ public class TransitionLayout implements LayoutManager {
      * are playing with calls to {@link Component#setVisible(boolean)}, this
      * property tracks the "real" visibility.
      */
-    private static final String SHOWING = "radiance.components.internal.layout.showing";
+    private static final String SHOWING = "radiance.component.internal.layout.showing";
 
     /**
      * Client property for storing the current bounds of a component. This is
      * used to perform animations on components that stay visible but change
      * location.
      */
-    private static final String BOUNDS = "radiance.components.internal.layout.bounds";
+    private static final String BOUNDS = "radiance.component.internal.layout.bounds";
 
     private WeakHashMap<Component, Timeline> boundsMap = new WeakHashMap<>();
 

@@ -54,11 +54,11 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
 
     protected JCommandButton forSizing;
 
-    public static final String TOP_ROW = "radiance.components.internal.ribbonBandControlPanel.topRow";
+    public static final String TOP_ROW = "radiance.component.internal.ribbonBandControlPanel.topRow";
 
-    public static final String MID_ROW = "radiance.components.internal.ribbonBandControlPanel.midRow";
+    public static final String MID_ROW = "radiance.component.internal.ribbonBandControlPanel.midRow";
 
-    public static final String BOTTOM_ROW = "radiance.components.internal.ribbonBandControlPanel.bottomRow";
+    public static final String BOTTOM_ROW = "radiance.component.internal.ribbonBandControlPanel.bottomRow";
 
     @Override
     public void installUI(JComponent c) {

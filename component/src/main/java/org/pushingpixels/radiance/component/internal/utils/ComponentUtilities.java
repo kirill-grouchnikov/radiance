@@ -56,10 +56,10 @@ import java.util.List;
  */
 public class ComponentUtilities {
     public static final String TASKBAR_PROJECTION =
-            "radiance.components.internal.ribbon.taskbarProjection";
+            "radiance.component.internal.ribbon.taskbarProjection";
 
     public static final String TASKBAR_COMMAND =
-            "radiance.components.internal.ribbon.taskbarCommand";
+            "radiance.component.internal.ribbon.taskbarCommand";
 
     public static int getHLayoutGap(JCommandButton commandButton) {
         Font font = commandButton.getFont();

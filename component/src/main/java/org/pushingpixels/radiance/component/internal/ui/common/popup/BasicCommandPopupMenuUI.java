@@ -65,7 +65,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     protected JScrollablePanel<JPanel> menuItemsPanel;
 
-    public static final String FORCE_ICON = "radiance.components.internal.commandPopupMenu.forceIcon";
+    public static final String FORCE_ICON = "radiance.component.internal.commandPopupMenu.forceIcon";
 
     /**
      * Popup panel that hosts groups of icons.

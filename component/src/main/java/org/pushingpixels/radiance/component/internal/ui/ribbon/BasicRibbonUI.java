@@ -828,7 +828,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     protected abstract class TaskToggleButtonsHostPanel extends JPanel {
         private static final String IS_SQUISHED =
-                "radiance.components.internal.ribbon.taskToggleButtonsHostPanel.isSquished";
+                "radiance.component.internal.ribbon.taskToggleButtonsHostPanel.isSquished";
 
         @Override
         protected void paintComponent(Graphics g) {

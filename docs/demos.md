@@ -15,9 +15,9 @@
   * Small image viewer demo using command panel in `org.pushingpixels.radiance.demo.component.imageviewer` package
 * For **Component Kotlin extensions** - the `demos/component-ktx-demo` module
   * The main ribbon demo is `org.pushingpixels.radiance.demo.component.ktx.ribbon` file
-  * Breadcrumb demos in `org.pushingpixels.adiance.demo.component.ktx.bcb` package
-  * Command, popup and panel demos in `org.pushingpixels.adiance.demo.components.ktx.common` package
-  * Small image viewer demo using command panel in `org.pushingpixels.adiance.demo.component.ktx.imageviewer.ImageViewer` file
+  * Breadcrumb demos in `org.pushingpixels.radiance.demo.component.ktx.bcb` package
+  * Command, popup and panel demos in `org.pushingpixels.radiance.demo.component.ktx.common` package
+  * Small image viewer demo using command panel in `org.pushingpixels.radiance.demo.component.ktx.imageviewer.ImageViewer` file
 * For **Animation** - the `demos/animation-demo` module
   * Simple API usage in `org.pushingpixels.radiance.demo.animation` package
   * More complex samples in `org.pushingpixels.radiance.demo.animation.swing` package

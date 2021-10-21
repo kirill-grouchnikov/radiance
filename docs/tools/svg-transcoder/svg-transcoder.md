@@ -35,13 +35,13 @@ The `SvgBatchConverter` class is the entry point into the offline batch converte
 
 Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline for a single SVG source folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-the-radiance-svg-transcoder)):
 
-<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar SvgBatchConverter <b>sourceFolder=</b>../demos/components-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.radiance.demo.component.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
+<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar SvgBatchConverter <b>sourceFolder=</b>../demos/component-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.radiance.demo.component.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
 
 The first part is enumerating all the jar files required for the converter - Radiance and Batik. In this sample script, the Radiance SVG transcoder jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
 The second part passes the mandatory parameters:
 
-* `../demos/components-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded` as the location of the source SVG images - and the output transcoded classes
+* `../demos/component-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded` as the location of the source SVG images - and the output transcoded classes
 * `org.pushingpixels.radiance.demo.component.svg.tango.transcoded` as the package name for the transcoded classes
 * `/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ` as the path of the template file
 * `outputLanguage=java` to specify that the transcoded classes should be Java code
