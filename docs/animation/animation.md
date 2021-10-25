@@ -2,7 +2,7 @@
 
 The goal of this project is to provide a powerful and extensible animation library for Java applications.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-trident) `radiance-trident` for [Trident](docs/trident/trident.md)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation) `radiance-animation` for [Trident](docs/trident/trident.md)
 
 ### Animation basic concepts
 

@@ -2,7 +2,7 @@
 
 ### Adding Radiance
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming) `radiance-theming` for build instructions of the latest stable release.
 
 In addition, snapshot artifacts of tip-of-tree [are available](https://oss.sonatype.org/content/repositories/snapshots/org/pushing-pixels/) on Sonatype for Maven and Gradle builds.
 

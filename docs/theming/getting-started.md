@@ -93,7 +93,7 @@ This means that the **RadianceBusinessLookAndFeel** class in not found in the cl
 
 The recommended way to add Radiance to your project is to declare dependency on its Maven artifact:
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance`
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming) `radiance-theming`
 
 Alternatively, for a more manual process:
 * Download a local copy of the latest Radiance.

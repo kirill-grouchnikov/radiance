@@ -1,6 +1,6 @@
 ## Kotlin extensions for core Swing APIs
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-meteor) `radiance-meteor` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx) `radiance-swing-ktx` for build instructions of the latest stable release.
 
 ### Working with listeners
 

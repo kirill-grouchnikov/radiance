@@ -2,7 +2,7 @@
 
 Radiance provides a powerful and flexible set of APIs that can be used to skin Swing applications to address the most demanding, modern design requirements. It comes with built-in support for all core Swing components, and a comprehensive API set for consistent rendering of third-party / application components.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-substance) `radiance-substance` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming) `radiance-theming` for build instructions of the latest stable release.
 
 ### Overview
 

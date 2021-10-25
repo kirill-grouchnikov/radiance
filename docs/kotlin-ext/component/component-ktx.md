@@ -1,6 +1,6 @@
 ## Kotlin DSL for Radiance components
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-plasma) `radiance-plasma` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx) `radiance-component-ktx` for build instructions of the latest stable release.
 
 In your Java app, this is how you would configure a toggle command, add it to a command group, and project the group to create a command button strip:
 

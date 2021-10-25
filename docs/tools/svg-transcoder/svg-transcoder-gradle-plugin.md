@@ -2,7 +2,7 @@
 
 The goal of this project is to allow build-time transcoding of SVG content into Java / Kotlin classes by wrapping [SVG transcoder APIs](svg-transcoder.md) and making them available for Gradle builds.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-ignite) `radiance-ignite` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin) `radiance-svg-transcoder-gradle-plugin` for build instructions of the latest stable release.
 
 ### Using the plugin in your Gradle script
 

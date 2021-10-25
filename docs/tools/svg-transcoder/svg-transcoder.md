@@ -4,7 +4,7 @@
 
 The goal of this project is to enable usage of vector-based icons in Swing applications.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-photon) `radiance-photon` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder) `radiance-svg-transcoder` for build instructions of the latest stable release.
 
 The original icon format supported by the transcoder is SVG, and you need the [matching version](#dependency-versions-for-the-radiance-svg-transcoder) of [Apache Batik](https://xmlgraphics.apache.org/batik/) and its dependencies.
 

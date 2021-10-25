@@ -2,7 +2,7 @@
 
 The Common library provides a core set of APIs to work with images and text that scale with the display resolution. Common icons scale to maintain crisp, pixel-perfect visuals for application icons. Font APIs can be used to render platform-consistent textual content across a variety of supported platforms.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-neon) `radiance-neon` for build instructions of the latest stable release.
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-common/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-common) `radiance-common` for build instructions of the latest stable release.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebulabrickwall1.png" width="340" height="258" border=0>
