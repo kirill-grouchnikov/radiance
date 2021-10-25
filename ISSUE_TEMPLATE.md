@@ -1,4 +1,4 @@
-### Version of Radiance (latest development branch is 5.0.0)
+### Version of Radiance (latest release is 5.0.0)
 
 ### Sub-project (Common, Animation, Laf, Flamingo, ...)
 

@@ -119,13 +119,13 @@ The library development was on hiatus from [August 2010](https://markmail.org/me
 
 The original commit history from java.net and kenai.com was lost when those repositories were deleted (see below). Historical snapshots of all the libraries were uploaded to Github in December 2010. The commit history from October 2016 until May 2018 can be accessed in the now-archived individual [library projects](https://github.com/kirill-grouchnikov?tab=repositories) on Github. In [May 2018](https://www.pushing-pixels.org/2018/05/23/hello-radiance.html) all the libraries have been brought under the Radiance umbrella, where all new development is taking place.
 
-In October 2021, Radiance underwent a major refactoring to move away from codenames for individual modules (Trident, Substance, Flamingo). Release 5.0 [refactored the names](../docs/migration-5.0.md) across the entire API surface to reflect the functionality provided by modules (animation, theming, components, etc).
+In October 2021, Radiance underwent a major refactoring to move away from codenames for individual modules (Trident, Substance, Flamingo, etc). Release 5.0 [refactored the names](../docs/migration-5.0.md) across the entire API surface to reflect the functionality provided by modules (animation, theming, components, etc).
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
 </p>
 
-If you're determined enough, the full commit history of some of the libraries can be reconstructed.
+If you're determined enough, the full commit history of some libraries can be reconstructed.
 
 For Substance:
 

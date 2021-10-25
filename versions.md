@@ -7,7 +7,7 @@
 * 3.5 - **Emerald** (October 4, 2020), Java 9+. Details in the [announcement post](https://www.pushing-pixels.org/2020/10/05/radiance-3-5-0.html).
 * 4.0 - **Feldspar** (June 17, 2021), Java 9+. Details in the [announcement post](https://www.pushing-pixels.org/2021/06/17/radiance-4-0-0.html).
 * 4.5 - **Garnet** (October 3, 2021), Java 9+. Details in the [announcement post](https://www.pushing-pixels.org/2021/10/04/radiance-4-5-0-and-whats-next.html).
-* 5.0 - **Heliotrope** (planned for October 25, 2021), Java 9+.
+* 5.0 - **Heliotrope** (October 25, 2021), Java 9+.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
