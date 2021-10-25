@@ -74,23 +74,23 @@ Radiance artifacts are available in the central Maven repository under `groupId=
 ### Core artifacts
 
 * [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-common/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-common)
-`radiance-common` for [Neon](docs/common/common.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation) `radiance-animation` for [Trident](docs/animation/animation.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming) `radiance-theming` for [Substance](docs/theming/overview.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component) `radiance-component` for [Flamingo](docs/component/overview.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras) `radiance-theming-extras` for [Substance extras](docs/theming/extras.md)
+`radiance-common` for [Common](docs/common/common.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation) `radiance-animation` for [Animation](docs/animation/animation.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming) `radiance-theming` for [Theming](docs/theming/overview.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component) `radiance-component` for [Component](docs/component/overview.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-extras) `radiance-theming-extras` for [Theming extras](docs/theming/extras.md)
 
 ### Kotlin extension artifacts
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-ktx) `radiance-theming-ktx` for [Ember](docs/kotlin-ext/theming/theming-ktx.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx) `radiance-swing-ktx` for [Meteor](docs/kotlin-ext/swing/swing.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx) `radiance-component-ktx` for [Plasma](docs/kotlin-ext/component/component-ktx.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation-ktx) `radiance-animation-ktx` for [Torch](docs/kotlin-ext/animation/animation-ktx.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-swing-ktx) `radiance-swing-ktx` for [Swing Kotlin extensions](docs/kotlin-ext/swing/swing.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-animation-ktx) `radiance-animation-ktx` for [Animation Kotlin extensions](docs/kotlin-ext/animation/animation-ktx.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-ktx) `radiance-theming-ktx` for [Theming Kotlin extensions](docs/kotlin-ext/theming/theming-ktx.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-component-ktx) `radiance-component-ktx` for [Component Kotlin extensions](docs/kotlin-ext/component/component-ktx.md)
 
 ### Tools artifacts
 
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger) `radiance-theming-debugger` for [Beacon](docs/tools/theming-debugger/theming-debugger.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin) `radiance-svg-transcoder-gradle-plugin` for [Ignite](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md)
-* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder) `radiance-svg-transcoder` for [Photon](docs/tools/svg-transcoder/svg-transcoder.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder) `radiance-svg-transcoder` for [SVG transcoder](docs/tools/svg-transcoder/svg-transcoder.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-svg-transcoder-gradle-plugin) `radiance-svg-transcoder-gradle-plugin` for [SVG transcoder Gradle plugin](docs/tools/svg-transcoder/svg-transcoder-gradle-plugin.md)
+* [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.pushing-pixels/radiance-theming-debugger) `radiance-theming-debugger` for [Theming debugger](docs/tools/theming-debugger/theming-debugger.md)
 
 ### Snapshots
 
