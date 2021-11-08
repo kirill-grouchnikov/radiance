@@ -154,7 +154,7 @@ apply plugin: "com.github.ben-manes.versions"
 
 // Copies the compiled jars from all the modules into the drop folder. The compiled
 // jars are grouped into three folders: 'core' for app-facing modules (such as Animation,
-// Common, Laf, Flamingo), 'demo' for modules that have demos and 'tools' for
+// Common, Theming, Component), 'demo' for modules that have demos and 'tools' for
 // modules with various tools.
 task copyJars(type: Copy) {
     delete "drop/${project.version}"

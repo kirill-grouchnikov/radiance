@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.tools.screenshot
 import javax.swing.JFrame
 import kotlin.system.exitProcess
 
-fun interface ZodiacRobot {
+fun interface ScreenshotRobot {
     fun run(screenshotDirectory: String)
 }
 
@@ -42,7 +42,7 @@ object RobotMain {
      *
      * @param args Should contain two strings:
      * 1. Fully qualified class name of a single screenshot robot which
-     *    implements the [ZodiacRobot] interface
+     *    implements the [ScreenshotRobot] interface
      * 2. Location of output screenshots
      */
     @JvmStatic
@@ -53,8 +53,8 @@ object RobotMain {
         val screenshotDirectory = args[1]
         val robotClass = Class.forName(mainClassName)
         val robotInstance = robotClass.getDeclaredConstructor().newInstance()
-        if (robotInstance !is ZodiacRobot) {
-            println("$robotClass is not a Zodiac robot")
+        if (robotInstance !is ScreenshotRobot) {
+            println("$robotClass is not a screenshot robot")
             exitProcess(0)
         }
         robotInstance.run(screenshotDirectory)

@@ -43,7 +43,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.radiance.tools.common.RadianceLogo
-import org.pushingpixels.radiance.tools.screenshot.ZodiacRobot
+import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
@@ -52,7 +52,7 @@ import javax.swing.JFrame
 abstract class BaseColorSchemeRobot(
     private var skin: RadianceSkin,
     private val screenshotFilename: String
-) : ZodiacRobot {
+) : ScreenshotRobot {
 
     private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()

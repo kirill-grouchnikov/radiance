@@ -45,7 +45,7 @@ import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayP
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 
 /**
- * The default light skin for the Zodiac skin scripts.
+ * The default light skin for the skin screenshot scripts.
  *
  * @author Kirill Grouchnikov
  */

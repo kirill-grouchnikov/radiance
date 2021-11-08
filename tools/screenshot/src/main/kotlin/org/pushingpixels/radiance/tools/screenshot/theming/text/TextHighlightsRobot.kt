@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.api.text.RadianceTextField
 import org.pushingpixels.radiance.tools.common.RadianceLogo
-import org.pushingpixels.radiance.tools.screenshot.ZodiacRobot
+import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.FlowLayout
 import java.awt.KeyboardFocusManager
 import java.awt.Robot
@@ -64,7 +64,7 @@ import javax.swing.text.DefaultCaret
 abstract class TextHighlightsRobot(
     private val skin: RadianceSkin,
     private val screenshotFilename: String
-) : ZodiacRobot {
+) : ScreenshotRobot {
     private fun makeTextField(text: String): JTextField {
         val result =
             RadianceTextField(text, 20)

@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.demo.component.ribbon.BasicCheckRibbon
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
-import org.pushingpixels.radiance.tools.screenshot.ZodiacRobot
+import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.ComponentOrientation
 import java.awt.Dimension
 import java.awt.GraphicsEnvironment
@@ -50,14 +50,14 @@ import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 /**
- * The base class for taking screenshots of skins for Flamingo documentation.
+ * The base class for taking screenshots of skins for Component documentation.
  *
  * @author Kirill Grouchnikov
  */
 abstract class ComponentSkinRobot(
     private var skin: RadianceSkin,
     private val screenshotFilename: String
-) : ZodiacRobot {
+) : ScreenshotRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         val start = System.currentTimeMillis()
 

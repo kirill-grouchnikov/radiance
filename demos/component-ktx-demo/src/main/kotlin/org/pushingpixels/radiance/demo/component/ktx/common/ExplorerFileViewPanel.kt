@@ -111,7 +111,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         var icon: RadianceIcon? = iconMapping[ext]
         if (icon == null) {
             try {
-                val className = "org.pushingpixels.demo.flamingo.svg.filetypes.transcoded.ext_$ext"
+                val className = "org.pushingpixels.radiance.demo.component.svg.filetypes.transcoded.ext_$ext"
                 val transcodedClass = Class.forName(className)
                 if (transcodedClass != null) {
                     val of = transcodedClass.getDeclaredMethod("of", Int::class.javaPrimitiveType,

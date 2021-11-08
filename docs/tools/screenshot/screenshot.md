@@ -36,7 +36,7 @@ For example, to run Screenshot to create screenshots for the Autumn skin:
 
 `RADIANCE_VERSION=6.0-SNAPSHOT`
 
-`KOTLIN_VERSION=1.5.30`
+`KOTLIN_VERSION=1.5.31`
 
 `KOTLIN_COROUTINES_VERSION=1.5.2`
 

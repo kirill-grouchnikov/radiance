@@ -783,7 +783,7 @@ public final class RadianceThemingSlices {
         public final static DecorationAreaType FOOTER = new DecorationAreaType("Footer");
 
         /**
-         * Control pane area, such as sidebars / task panes or ribbon bands in Flamingo.
+         * Control pane area, such as sidebars / task panes or ribbon bands in Component.
          */
         public final static DecorationAreaType CONTROL_PANE = new DecorationAreaType("Control pane");
 
