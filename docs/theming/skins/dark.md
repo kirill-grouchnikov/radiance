@@ -8,7 +8,7 @@ Available in the `TwilightSkin`. In addition, the `RadianceTwilightLookAndFeel` 
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceTwilightSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceTwilightLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceTwilightLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceTwilightLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceTwilightLookAndFeel");`
 
 <p align="left">
 <img alt="Twilight" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/twilight1.png" width="340" height="258">
@@ -23,7 +23,7 @@ Available in the `NightShadeSkin`. In addition, the `RadianceNightShadeLookAndFe
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceNightShadeLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceNightShadeLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeLookAndFeel");`
 
 <p align="left">
 <img alt="Night Shade" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nightshade1.png" width="340" height="258">
@@ -38,7 +38,7 @@ Available in the `MagellanSkin`. In addition, the `RadianceMagellanLookAndFeel` 
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceMagellanSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceMagellanLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceMagellanLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceMagellanLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceMagellanLookAndFeel");`
 
 <p align="left">
 <img alt="Magellan" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/magellan1.png" width="340" height="258">
@@ -53,7 +53,7 @@ Available in the `GraphiteSkin`. In addition, the `RadianceGraphiteLookAndFeel` 
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteLookAndFeel");`
 
 <p align="left">
 <img alt="Graphite" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphite1.png" width="340" height="258">
@@ -68,7 +68,7 @@ Available in the `GraphiteChalkSkin`. In addition, the `RadianceGraphiteChalkLoo
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteChalkSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteChalkLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteChalkLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteChalkLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteChalkLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphitechalk1.png" width="340" height="258">
@@ -83,7 +83,7 @@ Available in the `GraphiteAquaSkin`. In addition, the `RadianceGraphiteAquaLookA
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteAquaSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteAquaLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteAquaLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteAquaLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteAquaLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteAqua" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphiteaqua1.png" width="340" height="258">
@@ -98,7 +98,7 @@ Available in the `GraphiteElectricSkin`. In addition, the `RadianceGraphiteElect
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteElectricSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteElectricLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteElectricLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteElectricLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteElectricLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteElectric" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphiteelectric1.png" width="340" height="258">
@@ -113,7 +113,7 @@ Available in the `GraphiteGoldSkin`. In addition, the `RadianceGraphiteGoldLookA
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGoldSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGoldLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteGoldLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteGoldLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGoldLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteGold" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphitegold1.png" width="340" height="258">
@@ -128,7 +128,7 @@ Available in the `GraphiteSiennaSkin`. In addition, the `RadianceGraphiteSiennaL
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSiennaSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSiennaLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteSiennaLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteSiennaLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSiennaLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteSienna" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphitesienna1.png" width="340" height="258">
@@ -143,7 +143,7 @@ Available in the `GraphiteSunsetSkin`. In addition, the `RadianceGraphiteSunsetL
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSunsetSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSunsetLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteSunsetLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteSunsetLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSunsetLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteSunset" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphitesunset1.png" width="340" height="258">
@@ -158,7 +158,7 @@ Available in the `GraphiteGlassSkin`. In addition, the `RadianceGraphiteGlassLoo
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGlassSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGlassLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceGraphiteGlassLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceGraphiteGlassLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGlassLookAndFeel");`
 
 <p align="left">
 <img alt="GraphiteGlass" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphiteglass1.png" width="340" height="258">
@@ -173,7 +173,7 @@ Available in the `RavenSkin`. In addition, the `RadianceRavenLookAndFeel` can be
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceRavenSkin")`
 * `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.api.skin.RadianceRavenLookAndFeel`
 * `UIManager.setLookAndFeel(new RadianceRavenLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.theming.api.skin.RadianceRavenLookAndFeel");`
+* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.api.skin.RadianceRavenLookAndFeel");`
 
 <p align="left">
 <img alt="Raven" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/raven1.png" width="340" height="258">

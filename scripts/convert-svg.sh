@@ -70,8 +70,6 @@ java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchC
 # Use deep traversal for all theming apps SVG files
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgDeepBatchConverter sourceRootFolder=../demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/ outputRootPackageName=org.pushingpixels.radiance.demo.themingapps templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
 
-java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/rainbow/src/main/kotlin/org/pushingpixels/demo/rainbow/svg outputPackageName=org.pushingpixels.demo.rainbow.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
-
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../tools/tools-common/src/main/kotlin/org/pushingpixels/radiance/tools/common/ outputPackageName=org.pushingpixels.radiance.tools.common templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
 
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../tools/scheme-editor/src/main/kotlin/org/pushingpixels/radiance/tools/schemeeditor/svg/ outputPackageName=org.pushingpixels.radiance.tools.schemeeditor.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
