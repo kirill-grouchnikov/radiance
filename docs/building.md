@@ -23,7 +23,7 @@ Some Radiance libraries have third-party dependencies. To print the full depende
 ```
 -------------- svg-transcoder ---------------
 org.apache.xmlgraphics:batik-all:1.14
-org.pushing-pixels:common:5.0.0
+org.pushing-pixels:common:6.0-SNAPSHOT
 ```
 
 To locally copy these dependencies (in case you do not want to pull them at build time with Gradle, Maven or other similar build tools in your own environment), use the following:
