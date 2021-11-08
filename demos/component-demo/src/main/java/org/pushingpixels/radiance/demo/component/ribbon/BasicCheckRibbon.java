@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.ribbon.*;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.*;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.component.api.common.icon.ColorRadianceIcon;
@@ -2249,7 +2250,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
 
         final JCheckBox group1Visible = new JCheckBox("visible");
@@ -2362,6 +2363,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             this.styleGalleryContentModel.setSelectedCommand(this.styleGalleryCommandGroup1.getCommands().get(1));
         });
         builder.add("Update gallery").xy(1, 15).add(galleryUpdate).xy(3, 15);
+        builder.add(new RadianceFontScaleSelector()).xyw(1, 17, 3);
 
         return builder.build();
     }
@@ -2454,7 +2456,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             c.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
             Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
                     .getMaximumWindowBounds();
-            c.setPreferredSize(new Dimension(r.width, r.height / 2));
+            c.setPreferredSize(new Dimension(r.width, 2 * r.height / 3));
             c.setMinimumSize(new Dimension(r.width / 10, r.height / 4));
             c.pack();
             c.setLocation(r.x, r.y);
