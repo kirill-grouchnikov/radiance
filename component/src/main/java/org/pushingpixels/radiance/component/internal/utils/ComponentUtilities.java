@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.utils;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
@@ -40,7 +41,6 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePo
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.AbstractBandControlPanel;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -101,6 +101,7 @@ public class ComponentUtilities {
                 + ribbonBand.getUI().getBandTitleHeight() + ins.top + ins.bottom;
         List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
         checkResizePoliciesConsistencyBase(ribbonBand);
+        restrictIconifyPreferredWidthIfNecessary(ribbonBand, height, 4);
         for (int i = 0; i < (resizePolicies.size() - 1); i++) {
             RibbonBandResizePolicy policy1 = resizePolicies.get(i);
             RibbonBandResizePolicy policy2 = resizePolicies.get(i + 1);
@@ -144,6 +145,23 @@ public class ComponentUtilities {
                 throw new IllegalStateException("Icon resize policy must be the last in the list");
             }
         }
+    }
+
+    private static void restrictIconifyPreferredWidthIfNecessary(AbstractRibbonBand ribbonBand,
+            int availableHeight, int gap) {
+        List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
+        if (resizePolicies.size() < 2) {
+            return;
+        }
+        RibbonBandResizePolicy last = resizePolicies.get(resizePolicies.size() - 1);
+        if (!(last instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy)) {
+            return;
+        }
+        CoreRibbonResizePolicies.IconRibbonBandResizePolicy iconified =
+                (CoreRibbonResizePolicies.IconRibbonBandResizePolicy) last;
+        RibbonBandResizePolicy beforeLast = resizePolicies.get(resizePolicies.size() - 2);
+        int beforeLastPreferredWidth = beforeLast.getPreferredWidth(availableHeight, gap);
+        iconified.setMaxWidth((int) (beforeLastPreferredWidth * 0.8f));
     }
 
     public static int getScaledSize(int baseSize, int componentFontSize, double scaleFactor,

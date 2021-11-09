@@ -907,6 +907,7 @@ public class CoreRibbonResizePolicies {
      */
     public static class IconRibbonBandResizePolicy extends
             BaseRibbonBandResizePolicy<AbstractRibbonBand> {
+        private int maxWidth = -1;
         /**
          * Creates a new collapsed resize policy.
          *
@@ -919,11 +920,20 @@ public class CoreRibbonResizePolicies {
         @Override
         public int getPreferredWidth(int availableHeight, int gap) {
             RibbonBandUI ui = this.ribbonBand.getUI();
-            return ui.getPreferredCollapsedWidth();
+            int result = ui.getPreferredCollapsedWidth();
+            if (maxWidth > 0) {
+                return Math.min(maxWidth, result);
+            } else {
+                return result;
+            }
         }
 
         @Override
         public void install(int availableHeight, int gap) {
+        }
+
+        public void setMaxWidth(int maxWidth) {
+            this.maxWidth = maxWidth;
         }
     }
 }
