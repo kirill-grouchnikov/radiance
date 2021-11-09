@@ -40,7 +40,7 @@ The `SchemeDerivedColors` defines the following derived colors:
 
 The idea behind derived colors is to find the balance between consistent visuals across all surfaces painted by Radiance and allowing the app to customize specific colors to fit the particulars of its design language.
 
-Let's take a look at the following UI under the core Business skin:
+Let's take a look at the following UI under the core Dust Coffee skin:
 
 <img alt="Dust Coffee"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/dustcoffee1.png" width="340" height="258" />
 
@@ -57,42 +57,42 @@ Providing one or more of the derived colors in your [color schemes file](colorsc
 ### Core light color schemes
 The Radiance core library provides the following sixteen light color schemes:
 
-`Aqua`, `Barby Pink`
+Aqua, Barby Pink
 <p>
 <img alt="Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/aqua.png" width="340" height="258" />
 <img alt="Barby Pink"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/barby-pink.png" width="340" height="258" />
 </p>
-`Bottle Green`, `Brown`
+Bottle Green, Brown
 <p>
 <img alt="Bottle Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/bottle-green.png" width="340" height="258" />
 <img alt="Brown"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/brown.png" width="340" height="258" />
 </p>
-`Creme`, `Light Aqua`
+Creme, Light Aqua
 <p>
 <img alt="Creme"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/creme.png" width="340" height="258" />
 <img alt="Light Aqua"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/light-aqua.png" width="340" height="258" />
 </p>
-`Lime Green`, `Olive`
+Lime Green, Olive
 <p>
 <img alt="Lime Green"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/lime-green.png" width="340" height="258" />
 <img alt="Olive"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/olive.png" width="340" height="258" />
 </p>
-`Orange`, `Purple`
+Orange, Purple
 <p>
 <img alt="Orange"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/orange.png" width="340" height="258" />
 <img alt="Purple"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/purple.png" width="340" height="258" />
 </p>
-`Raspberry`, `Sepia`
+Raspberry, Sepia
 <p>
 <img alt="Raspberry"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/raspberry.png" width="340" height="258" />
 <img alt="Sepia"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/sepia.png" width="340" height="258" />
 </p>
-`Steel Blue`, `Sunset`
+Steel Blue, Sunset
 <p>
 <img alt="Steel Blue"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/steel-blue.png" width="340" height="258" />
 <img alt="Sunset"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/sunset.png" width="340" height="258" />
 </p>
-`Sun Glare`, `Terracotta`
+Sun Glare, Terracotta
 <p>
 <img alt="Sun Glare"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/sun-glare.png" width="340" height="258" />
 <img alt="Terracotta"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/terracotta.png" width="340" height="258" />
@@ -101,17 +101,17 @@ The Radiance core library provides the following sixteen light color schemes:
 ### Core dark color schemes
 The Radiance core library provides the following five dark color schemes:
 
-`Ebony`, `Dark Violet`
+Ebony, Dark Violet
 <p>
 <img alt="Ebony"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/ebony.png" width="340" height="258" />
 <img alt="Dark Violet"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/dark-violet.png" width="340" height="258" />
 </p>
-`Charcoal`, `Jade Forest`
+Charcoal, Jade Forest
 <p>
 <img alt="Charcoal"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/charcoal.png" width="340" height="258" />
 <img alt="Jade Forest"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/jade-forest.png" width="340" height="258" />
 </p>
-`Ultramarine`
+Ultramarine
 <p>
 <img alt="Ultramarine"  src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/colorschemes/ultramarine.png" width="340" height="258" />
 </p>
