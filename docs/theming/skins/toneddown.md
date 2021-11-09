@@ -2,7 +2,7 @@
 
 ### Business
 
-Available in the `BusinessSkin`. In addition, the `RadianceBusinessLookAndFeel` can be used with one of the following options:
+Available in the `BusinessSkin` and the `RadianceBusinessLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceBusinessSkin")`
@@ -17,7 +17,7 @@ Available in the `BusinessSkin`. In addition, the `RadianceBusinessLookAndFeel` 
 
 ### Business Blue Steel
 
-Available in the `BusinessBlueSteelSkin`. In addition, the `RadianceBusinessBlueSteelLookAndFeel` can be used with one of the following options:
+Available in the `BusinessBlueSteelSkin` and the `RadianceBusinessBlueSteelLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceBusinessBlueSteelSkin")`
@@ -32,7 +32,7 @@ Available in the `BusinessBlueSteelSkin`. In addition, the `RadianceBusinessBlue
 
 ### Business Black Steel
 
-Available in the `BusinessBlackSteelSkin`. In addition, the `RadianceBusinessBlackSteelLookAndFeel` can be used with one of the following options:
+Available in the `BusinessBlackSteelSkin` and the `RadianceBusinessBlackSteelLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceBusinessBlackSteelSkin")`
@@ -47,7 +47,7 @@ Available in the `BusinessBlackSteelSkin`. In addition, the `RadianceBusinessBla
 
 ### Creme
 
-Available in the `CremeSkin`. In addition, the `RadianceCremeLookAndFeel` can be used with one of the following options:
+Available in the `CremeSkin` and the `RadianceCremeLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new CremeSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceCremeSkin")`
@@ -62,7 +62,7 @@ Available in the `CremeSkin`. In addition, the `RadianceCremeLookAndFeel` can be
 
 ### Creme Coffee
 
-Available in the `CremeCoffeeSkin`. In addition, the `RadianceCremeCoffeeLookAndFeel` can be used with one of the following options:
+Available in the `CremeCoffeeSkin` and the `RadianceCremeCoffeeLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new CremeCoffeeSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceCremeCoffeeSkin")`
@@ -77,7 +77,7 @@ Available in the `CremeCoffeeSkin`. In addition, the `RadianceCremeCoffeeLookAnd
 
 ### Sahara
 
-Available in the `SaharaSkin`. In addition, the `RadianceSaharaLookAndFeel` can be used with one of the following options:
+Available in the `SaharaSkin` and the `RadianceSaharaLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new SaharaSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceSaharaSkin")`
@@ -92,7 +92,7 @@ Available in the `SaharaSkin`. In addition, the `RadianceSaharaLookAndFeel` can 
 
 ### Moderate
 
-Available in the `ModerateSkin`. In addition, the `RadianceModerateLookAndFeel` can be used with one of the following options:
+Available in the `ModerateSkin` and the `RadianceModerateLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new ModerateSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceModerateSkin")`
@@ -107,7 +107,7 @@ Available in the `ModerateSkin`. In addition, the `RadianceModerateLookAndFeel` 
 
 ### Nebula
 
-Available in the `NebulaSkin`. In addition, the `RadianceNebulaLookAndFeel` can be used with one of the following options:
+Available in the `NebulaSkin` and the `RadianceNebulaLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new NebulaSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceNebulaSkin")`
@@ -122,7 +122,7 @@ Available in the `NebulaSkin`. In addition, the `RadianceNebulaLookAndFeel` can 
 
 ### Nebula Amethyst
 
-Available in the `NebulaAmethystSkin`. In addition, the `RadianceNebulaAmethystLookAndFeel` can be used with one of the following options:
+Available in the `NebulaAmethystSkin` and the `RadianceNebulaAmethystLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new NebulaAmethystSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceNebulaAmethystSkin")`
@@ -137,7 +137,7 @@ Available in the `NebulaAmethystSkin`. In addition, the `RadianceNebulaAmethystL
 
 ### Nebula Brick Wall
 
-Available in the `NebulaBrickWallSkin`. In addition, the `RadianceNebulaBrickWallLookAndFeel` can be used with one of the following options:
+Available in the `NebulaBrickWallSkin` and the `RadianceNebulaBrickWallLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new NebulaBrickWallSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceNebulaBrickWallSkin")`
@@ -152,7 +152,7 @@ Available in the `NebulaBrickWallSkin`. In addition, the `RadianceNebulaBrickWal
 
 ### Autumn
 
-Available in the `AutumnSkin`. In addition, the `RadianceAutumnLookAndFeel` can be used with one of the following options:
+Available in the `AutumnSkin` and the `RadianceAutumnLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new AutumnSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceAutumnSkin")`
@@ -167,7 +167,7 @@ Available in the `AutumnSkin`. In addition, the `RadianceAutumnLookAndFeel` can 
 
 ### Mist Silver
 
-Available in the `MistSilverSkin`. In addition, the `RadianceMistSilverLookAndFeel` can be used with one of the following options:
+Available in the `MistSilverSkin` and the `RadianceMistSilverLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new MistSilverSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceMistSilverSkin")`
@@ -182,7 +182,7 @@ Available in the `MistSilverSkin`. In addition, the `RadianceMistSilverLookAndFe
 
 ### Mist Aqua
 
-Available in the `MistAquaSkin`. In addition, the `RadianceMistAquaLookAndFeel` can be used with one of the following options:
+Available in the `MistAquaSkin` and the `RadianceMistAquaLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new MistAquaSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceMistAquaSkin")`
@@ -197,7 +197,7 @@ Available in the `MistAquaSkin`. In addition, the `RadianceMistAquaLookAndFeel` 
 
 ### Dust
 
-Available in the `DustSkin`. In addition, the `RadianceDustLookAndFeel` can be used with one of the following options:
+Available in the `DustSkin` and the `RadianceDustLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new DustSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceDustSkin")`
@@ -212,7 +212,7 @@ Available in the `DustSkin`. In addition, the `RadianceDustLookAndFeel` can be u
 
 ### Dust Coffee
 
-Available in the `DustCoffeeSkin`. In addition, the `RadianceDustCoffeeLookAndFeel` can be used with one of the following options:
+Available in the `DustCoffeeSkin` and the `RadianceDustCoffeeLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new DustCoffeeSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceDustCoffeeSkin")`
@@ -227,7 +227,7 @@ Available in the `DustCoffeeSkin`. In addition, the `RadianceDustCoffeeLookAndFe
 
 ### Gemini
 
-Available in the `GeminiSkin`. In addition, the `RadianceGeminiLookAndFeel` can be used with one of the following options:
+Available in the `GeminiSkin` and the `RadianceGeminiLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GeminiSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGeminiSkin")`
@@ -242,7 +242,7 @@ Available in the `GeminiSkin`. In addition, the `RadianceGeminiLookAndFeel` can 
 
 ### Mariner
 
-Available in the `MarinerSkin`. In addition, the `RadianceMarinerLookAndFeel` can be used with one of the following options:
+Available in the `MarinerSkin` and the `RadianceMarinerLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new MarinerSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceMarinerSkin")`
@@ -257,7 +257,7 @@ Available in the `MarinerSkin`. In addition, the `RadianceMarinerLookAndFeel` ca
 
 ### Sentinel
 
-Available in the `SentinelSkin`. In addition, the `RadianceSentinelLookAndFeel` can be used with one of the following options:
+Available in the `SentinelSkin` and the `RadianceSentinelLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new SentinelSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceSentinelSkin")`
@@ -272,7 +272,7 @@ Available in the `SentinelSkin`. In addition, the `RadianceSentinelLookAndFeel` 
 
 ### Cerulean
 
-Available in the `CeruleanSkin`. In addition, the `RadianceCeruleanLookAndFeel` can be used with one of the following options:
+Available in the `CeruleanSkin` and the `RadianceCeruleanLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new CeruleanSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceCeruleanSkin")`
@@ -287,7 +287,7 @@ Available in the `CeruleanSkin`. In addition, the `RadianceCeruleanLookAndFeel` 
 
 ### Green Magic
 
-Available in the `GreenMagicSkin`. In addition, the `RadianceGreenMagicLookAndFeel` can be used with one of the following options:
+Available in the `GreenMagicSkin` and the `RadianceGreenMagicLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GreenMagicSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGreenMagicSkin")`
@@ -307,7 +307,7 @@ Note that while these skins were originally designed for the [Radiance ribbon co
 
 ### Office Silver 2007
 
-Available in the `OfficeSilver2007Skin`. In addition, the `RadianceOfficeSilver2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeSilver2007Skin` and the `RadianceOfficeSilver2007LookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeSilver2007Skin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.RadianceOfficeSilver2007Skin")`
@@ -322,7 +322,7 @@ Available in the `OfficeSilver2007Skin`. In addition, the `RadianceOfficeSilver2
 
 ### Office Blue 2007
 
-Available in the `OfficeBlue2007Skin`. In addition, the `RadianceOfficeBlue2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeBlue2007Skin` and the `RadianceOfficeBlue2007LookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeBlue2007Skin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeBlue2007Skin")`
@@ -337,7 +337,7 @@ Available in the `OfficeBlue2007Skin`. In addition, the `RadianceOfficeBlue2007L
 
 ### Office Black 2007
 
-Available in the `OfficeBlack2007Skin`. In addition, the `RadianceOfficeBlack2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeBlack2007Skin` and the `RadianceOfficeBlack2007LookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeBlack2007Skin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.theming.extras.api.skinpack.RadianceOfficeBlack2007Skin")`

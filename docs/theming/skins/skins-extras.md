@@ -4,7 +4,7 @@ The following [skins](overview.md) are available in the [extras pack](https://gi
 
 ### Field of Wheat
 
-Available in the `FieldOfWheatSkin`. In addition, the `RadianceFieldOfWheatLookAndFeel` can be used with one of the following options:
+Available in the `FieldOfWheatSkin` and the `RadianceFieldOfWheatLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new FieldOfWheatSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.FieldOfWheatSkin")`
@@ -19,7 +19,7 @@ Available in the `FieldOfWheatSkin`. In addition, the `RadianceFieldOfWheatLookA
 
 ### Finding Nemo
 
-Available in the `FindingNemoSkin`. In addition, the `RadianceFindingNemoLookAndFeel` can be used with one of the following options:
+Available in the `FindingNemoSkin` and the `RadianceFindingNemoLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new FindingNemoSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.FindingNemoSkin")`
@@ -35,7 +35,7 @@ Available in the `FindingNemoSkin`. In addition, the `RadianceFindingNemoLookAnd
 
 ### Harvest
 
-Available in the `HarvestSkin`. In addition, the `RadianceHarvestLookAndFeel` can be used with one of the following options:
+Available in the `HarvestSkin` and the `RadianceHarvestLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new HarvestSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.HarvestSkin")`
@@ -50,7 +50,7 @@ Available in the `HarvestSkin`. In addition, the `RadianceHarvestLookAndFeel` ca
 
 ### Magma
 
-Available in the `MagmaSkin`. In addition, the `RadianceMagmaLookAndFeel` can be used with one of the following options:
+Available in the `MagmaSkin` and the `RadianceMagmaLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new MagmaSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.MagmaSkin")`
@@ -65,7 +65,7 @@ Available in the `MagmaSkin`. In addition, the `RadianceMagmaLookAndFeel` can be
 
 ### Mango
 
-Available in the `MangoSkin`. In addition, the `RadianceMangoLookAndFeel` can be used with one of the following options:
+Available in the `MangoSkin` and the `RadianceMangoLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new MangoSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.MangoSkin")`
@@ -80,7 +80,7 @@ Available in the `MangoSkin`. In addition, the `RadianceMangoLookAndFeel` can be
 
 ### Office Black 2007
 
-Available in the `OfficeBlack2007Skin`. In addition, the `RadianceOfficeBlack2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeBlack2007Skin` and the `RadianceOfficeBlack2007LookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeBlack2007Skin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeBlack2007Skin")`
@@ -95,7 +95,7 @@ Available in the `OfficeBlack2007Skin`. In addition, the `RadianceOfficeBlack200
 
 ### Office Blue 2007
 
-Available in the `OfficeBlue2007Skin`. In addition, the `RadianceOfficeBlue2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeBlue2007Skin` and the `RadianceOfficeBlue2007LookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeBlue2007Skin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeBlue2007Skin")`
@@ -110,7 +110,7 @@ Available in the `OfficeBlue2007Skin`. In addition, the `RadianceOfficeBlue2007L
 
 ### Office Silver 2007
 
-Available in the `OfficeSilver2007Skin`. In addition, the `RadianceOfficeSilver2007LookAndFeel` can be used with one of the following options:
+Available in the `OfficeSilver2007Skin` and the `RadianceOfficeSilver2007LookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new OfficeSilver2007Skin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeSilver2007Skin")`
@@ -125,7 +125,7 @@ Available in the `OfficeSilver2007Skin`. In addition, the `RadianceOfficeSilver2
 
 ### Streetlights
 
-Available in the `StreetlightsSkin`. In addition, the `RadianceStreetlightsLookAndFeel` can be used with one of the following options:
+Available in the `StreetlightsSkin` and the `RadianceStreetlightsLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new StreetlightsSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.StreetlightsSkin")`

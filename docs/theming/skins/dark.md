@@ -2,7 +2,7 @@
 
 ### Twilight
 
-Available in the `TwilightSkin`. In addition, the `RadianceTwilightLookAndFeel` can be used with one of the following options:
+Available in the `TwilightSkin` and the `RadianceTwilightLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new TwilightSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceTwilightSkin")`
@@ -17,7 +17,7 @@ Available in the `TwilightSkin`. In addition, the `RadianceTwilightLookAndFeel` 
 
 ### Night Shade
 
-Available in the `NightShadeSkin`. In addition, the `RadianceNightShadeLookAndFeel` can be used with one of the following options:
+Available in the `NightShadeSkin` and the `RadianceNightShadeLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new NightShadeSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeSkin")`
@@ -32,7 +32,7 @@ Available in the `NightShadeSkin`. In addition, the `RadianceNightShadeLookAndFe
 
 ### Magellan
 
-Available in the `MagellanSkin`. In addition, the `RadianceMagellanLookAndFeel` can be used with one of the following options:
+Available in the `MagellanSkin` and the `RadianceMagellanLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new MagellanSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceMagellanSkin")`
@@ -47,7 +47,7 @@ Available in the `MagellanSkin`. In addition, the `RadianceMagellanLookAndFeel` 
 
 ### Graphite
 
-Available in the `GraphiteSkin`. In addition, the `RadianceGraphiteLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSkin` and the `RadianceGraphiteLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSkin")`
@@ -62,7 +62,7 @@ Available in the `GraphiteSkin`. In addition, the `RadianceGraphiteLookAndFeel` 
 
 ### Graphite Chalk
 
-Available in the `GraphiteChalkSkin`. In addition, the `RadianceGraphiteChalkLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteChalkSkin` and the `RadianceGraphiteChalkLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteChalkSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteChalkSkin")`
@@ -77,7 +77,7 @@ Available in the `GraphiteChalkSkin`. In addition, the `RadianceGraphiteChalkLoo
 
 ### Graphite Aqua
 
-Available in the `GraphiteAquaSkin`. In addition, the `RadianceGraphiteAquaLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteAquaSkin` and the `RadianceGraphiteAquaLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteAquaSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteAquaSkin")`
@@ -92,7 +92,7 @@ Available in the `GraphiteAquaSkin`. In addition, the `RadianceGraphiteAquaLookA
 
 ### Graphite Electric
 
-Available in the `GraphiteElectricSkin`. In addition, the `RadianceGraphiteElectricLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteElectricSkin` and the `RadianceGraphiteElectricLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteElectricSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteElectricSkin")`
@@ -107,7 +107,7 @@ Available in the `GraphiteElectricSkin`. In addition, the `RadianceGraphiteElect
 
 ### Graphite Gold
 
-Available in the `GraphiteGoldSkin`. In addition, the `RadianceGraphiteGoldLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteGoldSkin` and the `RadianceGraphiteGoldLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteGoldSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGoldSkin")`
@@ -122,7 +122,7 @@ Available in the `GraphiteGoldSkin`. In addition, the `RadianceGraphiteGoldLookA
 
 ### Graphite Sienna
 
-Available in the `GraphiteSiennaSkin`. In addition, the `RadianceGraphiteSiennaLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSiennaSkin` and the `RadianceGraphiteSiennaLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteSiennaSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSiennaSkin")`
@@ -137,7 +137,7 @@ Available in the `GraphiteSiennaSkin`. In addition, the `RadianceGraphiteSiennaL
 
 ### Graphite Sunset
 
-Available in the `GraphiteSunsetSkin`. In addition, the `RadianceGraphiteSunsetLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteSunsetSkin` and the `RadianceGraphiteSunsetLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteSunsetSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteSunsetSkin")`
@@ -152,7 +152,7 @@ Available in the `GraphiteSunsetSkin`. In addition, the `RadianceGraphiteSunsetL
 
 ### Graphite Glass
 
-Available in the `GraphiteGlassSkin`. In addition, the `RadianceGraphiteGlassLookAndFeel` can be used with one of the following options:
+Available in the `GraphiteGlassSkin` and the `RadianceGraphiteGlassLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new GraphiteGlassSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceGraphiteGlassSkin")`
@@ -167,7 +167,7 @@ Available in the `GraphiteGlassSkin`. In addition, the `RadianceGraphiteGlassLoo
 
 ### Raven
 
-Available in the `RavenSkin`. In addition, the `RadianceRavenLookAndFeel` can be used with one of the following options:
+Available in the `RavenSkin` and the `RadianceRavenLookAndFeel` APIs, can be used with one of the following options:
 
 * `RadianceThemingCortex.GlobalScope.setSkin(new RavenSkin())`
 * `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.api.skin.RadianceRavenSkin")`
