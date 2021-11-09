@@ -76,15 +76,4 @@ And the resulting visuals - note that the progress bars use brown color scheme, 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/component-states-custom.png"
 width="520" height="469"/>
 
-The second example is from the [Magellan](../skins/dark.md#magellan) skin that registers a specific color scheme to be used for painting uneditable text components:
-
-```java
-    ComponentState uneditable = new ComponentState("uneditable",
-        new ComponentStateFacet[] { ComponentStateFacet.ENABLE },
-        new ComponentStateFacet[] { ComponentStateFacet.EDITABLE });
-    RadianceColorScheme uneditableControls = colorSchemes
-        .get("Magellan Uneditable Controls");
-    defaultColorSchemeBundle.registerColorScheme(uneditableControls,
-        ColorSchemeAssociationKind.FILL, uneditable);
-```        
-Note that if your custom components use the `DETERMINATE` or `EDITABLE` facets in the computation of their states, they will get the matching visuals from the corresponding core Radiance skins.
+Note that if your custom components use the `DETERMINATE` facet in the computation of their states, they will get the matching visuals from the corresponding core Radiance skins.

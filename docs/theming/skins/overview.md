@@ -18,7 +18,7 @@ A **skin** is a set of visual settings that gives your application a polished an
 <img alt="GraphiteChalk" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/graphitechalk2.png" width="340" height="258">
 </p>
 
-The core Radiance skins are in the `org.pushingpixels.radiance.theming.api.skin` package, and `the RadianceSkin` class contains all the APIs officially supported by Radiance skins. It is possible to use different Radiance skins on different windows in the same application. Consult the documentation on the `RadianceLookAndFeel.SKIN_PROPERTY` client property.
+The core Radiance skins are in the `org.pushingpixels.radiance.theming.api.skin` package, and the `RadianceSkin` class contains all the APIs officially supported by Radiance skins. It is possible to use different Radiance skins on different windows in the same application. Consult the documentation on the `RadianceThemingCortex.RootPaneScope.setSkin` API.
 
 ### Skin definition
 
@@ -42,7 +42,7 @@ In order to define a valid skin, you need to specify all its mandatory parameter
 
 ### Decoration areas
 
-The documentation on decoration painters explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](toneddown.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](toneddown.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
+The documentation on [decoration painters](../painters/decoration.md) explains the notion of a decoration area type. While a valid skin must define a color scheme bundle for `DecorationAreaType.NONE`, all other decoration area types are optional. Different skins have different sets of decoration areas that are painted. For example, the [Moderate skin](toneddown.md#moderate) decorates `DecorationAreaType.PRIMARY_TITLE_PANE`, `DecorationAreaType.SECONDARY_TITLE_PANE` and `DecorationAreaType.HEADER`, while the [Nebula Amethyst skin](toneddown.md#nebula-amethyst) also decorates `DecorationAreaType.TOOLBAR`:
 
 <p>
 <img alt="Moderate" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/moderate1.png" width="340" height="258">
