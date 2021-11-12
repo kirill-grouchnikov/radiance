@@ -697,10 +697,10 @@ public class SkinUtilities {
 
                 "ScrollBar.minimumThumbSize",
                 new DimensionUIResource(
-                        RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-                                .getControlFontSize()) - 2,
-                        RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
-                                .getControlFontSize()) - 2),
+                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
+                                .getControlFontSize()),
+                        3 * RadianceSizeUtils.getScrollBarWidth(RadianceSizeUtils
+                                .getControlFontSize())),
 
                 "ScrollPane.background",
                 defaultBackgroundColor,
