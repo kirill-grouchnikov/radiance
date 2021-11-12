@@ -132,7 +132,7 @@ public final class LookUtils {
 	 */
 	public static final boolean IS_OS_MAC_CATALINA_OR_LATER = IS_OS_MAC
 			&& (startsWith(OS_VERSION, "10.15") || startsWith(OS_VERSION, "10.16")
-            || startsWith(OS_VERSION, "11."));
+            || startsWith(OS_VERSION, "11.") || startsWith(OS_VERSION, "12."));
 
 	// Other Properties *******************************************************
 
