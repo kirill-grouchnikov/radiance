@@ -19,8 +19,8 @@ this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    scheme -> RadianceColorUtilities.getAlphaColor(
-        scheme.getDarkColor(), 160));
+    ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
+        ColorTransform.alpha(160)));
 this.addOverlayPainter(this.bottomLineOverlayPainter,
     DecorationAreaType.PRIMARY_TITLE_PANE,
     DecorationAreaType.SECONDARY_TITLE_PANE,
@@ -46,10 +46,11 @@ this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOO
 // add two overlay painters to create a bezel line between
 // menu bar and toolbars
 this.menuOverlayPainter = new BottomLineOverlayPainter(
-    scheme -> scheme.getUltraDarkColor().darker());
+        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorTransform.brightness(-0.5f)));
 this.toolbarOverlayPainter = new TopLineOverlayPainter(
-    scheme -> RadianceColorUtilities.getAlphaColor(
-        scheme.getForegroundColor(), 32));
+        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                ColorTransform.alpha(32)));
 this.addOverlayPainter(this.menuOverlayPainter, DecorationAreaType.HEADER);
 this.addOverlayPainter(this.toolbarOverlayPainter, DecorationAreaType.TOOLBAR);
 
@@ -94,15 +95,17 @@ this.addOverlayPainter(this.toolbarBottomLineOverlayPainter, DecorationAreaType.
 // add an overlay painter to paint a dark line along the bottom
 // edge of toolbars
 this.toolbarTopLineOverlayPainter = new TopLineOverlayPainter(
-    scheme -> RadianceColorUtilities
-        .getAlphaColor(scheme.getForegroundColor(), 32));
+        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                ColorTransform.alpha(32)));
 this.addOverlayPainter(this.toolbarTopLineOverlayPainter, DecorationAreaType.TOOLBAR);
 
 // add an overlay painter to paint a bezel line along the top
 // edge of footer
 this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
-    scheme -> scheme.getUltraDarkColor().darker(),
-    scheme -> RadianceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 32));
+        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
+                ColorTransform.brightness(-0.5f)),
+        ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
+                ColorTransform.alpha(32)));
 this.addOverlayPainter(this.footerTopBezelOverlayPainter, DecorationAreaType.FOOTER);
 ```
 

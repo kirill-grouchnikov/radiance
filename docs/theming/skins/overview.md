@@ -178,8 +178,8 @@ this.addOverlayPainter(TopShadowOverlayPainter.getInstance(),
 // add an overlay painter to paint separator lines along the bottom
 // edges of title panes and menu bars
 this.bottomLineOverlayPainter = new BottomLineOverlayPainter(
-    scheme -> RadianceColorUtilities.getAlphaColor(
-        scheme.getDarkColor(), 160));
+    ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.DARK,
+        ColorTransform.alpha(160)));
 this.addOverlayPainter(this.bottomLineOverlayPainter,
     DecorationAreaType.PRIMARY_TITLE_PANE,
     DecorationAreaType.SECONDARY_TITLE_PANE,
