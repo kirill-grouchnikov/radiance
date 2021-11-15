@@ -22,7 +22,7 @@ The `ComponentState` is the base class for core and custom [component states](co
       RadianceColorScheme disabledColorScheme)
 ```
 
-Here is a screenshot of three buttons (active, default and disabled) under the core [Business Black Steel skin](toneddown.md#business-black-steel):
+Here is a screenshot of three buttons (active, enabled and disabled) under the core [Business Black Steel skin](toneddown.md#business-black-steel):
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/states/control-states.png" width="293" height="101" />
 
@@ -77,7 +77,7 @@ Here is the relevant code snippet:
         ComponentState.PRESSED_SELECTED);
 ```
 
-It is possible to specify a custom alpha value for controls in some states. This can be useful if you want to use the same color scheme for both default and disabled states, and have disabled controls painted with a custom alpha translucency (making them blend with the background). Use the following API:
+It is possible to specify a custom alpha value for controls in some states. This can be useful if you want to use the same color scheme for both enabled and disabled states, and have disabled controls painted with a custom alpha translucency (making them blend with the background). Use the following API:
 
 ```java
 /**
@@ -88,7 +88,7 @@ It is possible to specify a custom alpha value for controls in some states. This
  */
 public void registerAlpha(float alpha, ComponentState... states)
 ```      
-Here is sample code from the [Autumn skin](toneddown.md#autumn) that uses the same color scheme for default and disabled states, setting alpha channel to 60% for the disabled states:
+Here is sample code from the [Autumn skin](toneddown.md#autumn) that uses the same color scheme for enabled and disabled states, setting alpha channel to 60% for the disabled states:
 
 ```java
 RadianceSkin.ColorSchemes schemes = RadianceSkin

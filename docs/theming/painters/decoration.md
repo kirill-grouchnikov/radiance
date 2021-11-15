@@ -26,9 +26,9 @@ The next screenshot shows the `footer` decoration area, which in this example in
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/decoration/areas-footer.png" width="600" height="448"/>
 
-The next screenshot shows the `general` decoration area, which in this example includes the task pane container component:
+The next screenshot shows the `control pane` decoration area, which in this example includes the task pane container component:
 
-<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/decoration/areas-general.png" width="600" height="448"/>
+<img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/decoration/areas-control-pane.png" width="600" height="448"/>
 
 Let's go back to the original screenshot:
 
