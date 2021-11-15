@@ -6,7 +6,7 @@ Menu bars, tool bars, status bars - these are common examples of special contain
 
 The `RadianceThemingSlices.DecorationAreaType` class contains the available core decoration area types. As a picture is worth a thousand words, the following screenshots illustrate the different decoration area types.
 
-The following screenshot is the main Radiance test application under the Business Black Steel skin (click to see full size version):
+The following screenshot is the main Radiance test application under the Gemini skin (click to see full size version):
 
 <a href="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/decoration/full.png"><img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/painters/decoration/thumb.png" width="600" height="448"/></a>
 
