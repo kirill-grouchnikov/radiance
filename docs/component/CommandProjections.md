@@ -83,7 +83,7 @@ JCommandButton bigButton = this.pasteActionCommand.project(
 
 ### Two-way sync
 
-In an [earlier example](IntroMode.md) we have four buttons to change content styling (bold, italic, underline and strikethrough) of `JTextPane` content:
+In an [earlier example](AnotherSample.md) we have four buttons to change content styling (bold, italic, underline and strikethrough) of `JTextPane` content:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/intro-text-styling.png" width="696" border=0/>
 
