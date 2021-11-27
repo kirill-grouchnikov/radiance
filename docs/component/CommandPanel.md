@@ -26,7 +26,7 @@ The `commandPresentationState` attribute determines the visual presentation of t
 
 ### Projection
 
-`CommandPanelProjection` is the projection that combines `CommandGroup` content model and `CommandStripPresentationModel` presentation model. The result of `buildComponent` is a Swing component of the `JCommandButtonPanel` class.
+`CommandPanelProjection` is the projection that combines `CommandPanelContentModel` content model and `CommandPanelPresentationModel` presentation model. The result of `buildComponent` is a Swing component of the `JCommandButtonPanel` class.
 
 ### Sample code
 
