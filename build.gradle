@@ -46,7 +46,7 @@ buildscript {
 
         // Publish dependencies
         gradle_maven_publish_plugin_version  =   '0.18.0'
-        dokka_version                        =   '1.5.30'
+        dokka_version                        =    '1.6.0'
 
         // Misc dependencies
         gradle_versions_plugin_version       =   '0.39.0'
