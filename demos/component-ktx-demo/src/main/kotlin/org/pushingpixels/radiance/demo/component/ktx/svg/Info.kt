@@ -31,19 +31,12 @@ class Info private constructor(private var width: Int, private var height: Int)
     
 
 	private fun _paint0(g : Graphics2D,origAlpha : Float) {
-transformsStack.push(g.transform)
 // 
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -0.0f, -0.0f))
 // _0
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_0
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -60,14 +53,9 @@ shape = generalPath
 paint = colorFilter?.filter(Color(139, 183, 240, 255)) ?: Color(139, 183, 240, 255)
 g.paint = paint
 g.fill(shape)
-g.transform = transformsStack.pop()
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_1
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_0_1_0
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -90,25 +78,15 @@ shape = generalPath
 paint = colorFilter?.filter(Color(78, 122, 181, 255)) ?: Color(78, 122, 181, 255)
 g.paint = paint
 g.fill(shape)
-g.transform = transformsStack.pop()
-g.transform = transformsStack.pop()
-g.transform = transformsStack.pop()
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_1
 shape = Ellipse2D.Double(37.0, 21.0, 6.0, 6.0)
 paint = colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
-g.transform = transformsStack.pop()
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2
 g.composite = AlphaComposite.getInstance(3, 1.0f * origAlpha)
-transformsStack.push(g.transform)
-g.transform(AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f))
 // _0_2_0
 if (generalPath == null) {
    generalPath = GeneralPath()
@@ -130,10 +108,6 @@ shape = generalPath
 paint = colorFilter?.filter(Color(255, 255, 255, 255)) ?: Color(255, 255, 255, 255)
 g.paint = paint
 g.fill(shape)
-g.transform = transformsStack.pop()
-g.transform = transformsStack.pop()
-g.transform = transformsStack.pop()
-g.transform = transformsStack.pop()
 
 }
 

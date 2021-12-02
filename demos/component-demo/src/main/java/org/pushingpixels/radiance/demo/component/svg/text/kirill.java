@@ -179,7 +179,6 @@ private static BufferedImage getImage484482440f4da3ada2d5781785d20a7c() {
 
 
 	private void _paint0(Graphics2D g,float origAlpha) {
-transformsStack.push(g.getTransform());
 // 
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 transformsStack.push(g.getTransform());
@@ -196,7 +195,6 @@ BufferedImage image484482440f4da3ada2d5781785d20a7c=getImage484482440f4da3ada2d5
 if (image484482440f4da3ada2d5781785d20a7c != null) {
     g.drawImage(image484482440f4da3ada2d5781785d20a7c, 0, 0, null);
 }
-g.setTransform(transformsStack.pop());
 g.setTransform(transformsStack.pop());
 g.setTransform(transformsStack.pop());
 g.setTransform(transformsStack.pop());

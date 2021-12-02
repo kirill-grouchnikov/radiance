@@ -29,10 +29,12 @@
  */
 package org.pushingpixels.radiance.tools.svgtranscoder.api;
 
-import org.apache.batik.bridge.*;
+import org.apache.batik.bridge.SVGPatternElementBridge;
+import org.apache.batik.bridge.TextNode;
 import org.apache.batik.ext.awt.LinearGradientPaint;
 import org.apache.batik.ext.awt.MultipleGradientPaint;
-import org.apache.batik.ext.awt.MultipleGradientPaint.*;
+import org.apache.batik.ext.awt.MultipleGradientPaint.ColorSpaceEnum;
+import org.apache.batik.ext.awt.MultipleGradientPaint.CycleMethodEnum;
 import org.apache.batik.ext.awt.RadialGradientPaint;
 import org.apache.batik.ext.awt.geom.ExtendedGeneralPath;
 import org.apache.batik.gvt.*;
@@ -41,7 +43,8 @@ import org.pushingpixels.radiance.tools.svgtranscoder.internal.graphics.McCrashy
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.awt.image.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.RenderedImage;
 import java.io.*;
 import java.util.List;
 import java.util.*;
@@ -480,8 +483,8 @@ abstract class SvgBaseTranscoder {
                         + "(" + languageRenderer.getObjectCreation("Point2D.Double") + "("
                         + startPoint.getX() + ", " + startPoint.getY() + "), "
                         + languageRenderer.getObjectCreation("Point2D.Double") + "("
-                        + endPoint.getX() + ", " + endPoint.getY() + "), " + fractionsRep.toString()
-                        + ", " + colorsRep.toString() + ", " + cycleMethodRep + ", " + colorSpaceRep
+                        + endPoint.getX() + ", " + endPoint.getY() + "), " + fractionsRep
+                        + ", " + colorsRep + ", " + cycleMethodRep + ", " + colorSpaceRep
                         + ", " + languageRenderer.getObjectCreation("AffineTransform") + "("
                         + transfMatrix[0] + "f, " + transfMatrix[1] + "f, " + transfMatrix[2]
                         + "f, " + transfMatrix[3] + "f, " + transfMatrix[4] + "f, "
@@ -881,8 +884,8 @@ abstract class SvgBaseTranscoder {
                 + languageRenderer.getObjectCreation("Point2D.Double") + "(" + centerPoint.getX()
                 + ", " + centerPoint.getY() + "), " + radius + "f, "
                 + languageRenderer.getObjectCreation("Point2D.Double") + "(" + focusPoint.getX()
-                + ", " + focusPoint.getY() + "), " + fractionsRep.toString() + ", "
-                + colorsRep.toString() + ", " + cycleMethodRep + ", " + colorSpaceRep + ", "
+                + ", " + focusPoint.getY() + "), " + fractionsRep + ", "
+                + colorsRep + ", " + cycleMethodRep + ", " + colorSpaceRep + ", "
                 + languageRenderer.getObjectCreation("AffineTransform") + "(" + transfMatrix[0]
                 + "f, " + transfMatrix[1] + "f, " + transfMatrix[2] + "f, " + transfMatrix[3]
                 + "f, " + transfMatrix[4] + "f, " + transfMatrix[5] + "f))"
@@ -1444,10 +1447,10 @@ abstract class SvgBaseTranscoder {
                     + languageRenderer.endSetterAssignment() + languageRenderer.getStatementEnd());
         }
         AffineTransform transform = node.getTransform();
-        printWriterManager.println("transformsStack.push(g"
-                + languageRenderer.getGetter("transform") + ")"
-                + languageRenderer.getStatementEnd());
-        if (transform != null) {
+        if (isNonIdentityTransform(transform)) {
+            printWriterManager.println("transformsStack.push(g"
+                    + languageRenderer.getGetter("transform") + ")"
+                    + languageRenderer.getStatementEnd());
             double[] transfMatrix = new double[6];
             transform.getMatrix(transfMatrix);
             printWriterManager
@@ -1476,10 +1479,19 @@ abstract class SvgBaseTranscoder {
             }
             throw new UnsupportedOperationException(node.getClass().getCanonicalName());
         } finally {
-            printWriterManager.println("g" + languageRenderer.startSetterAssignment("transform")
-                    + "transformsStack.pop()" + languageRenderer.endSetterAssignment()
-                    + languageRenderer.getStatementEnd());
+            if (isNonIdentityTransform(transform)) {
+                printWriterManager.println("g" + languageRenderer.startSetterAssignment("transform")
+                        + "transformsStack.pop()" + languageRenderer.endSetterAssignment()
+                        + languageRenderer.getStatementEnd());
+            }
         }
+    }
+
+    private boolean isNonIdentityTransform(AffineTransform transform) {
+        if (transform == null) {
+            return false;
+        }
+        return !transform.isIdentity();
     }
 }
 
