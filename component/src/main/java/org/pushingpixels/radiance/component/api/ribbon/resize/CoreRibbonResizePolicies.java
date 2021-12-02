@@ -752,6 +752,40 @@ public class CoreRibbonResizePolicies {
 
     /**
      * Core resize policy for {@link JFlowRibbonBand} that places the content in
+     * a single row.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public static class FlowOneRow extends BaseRibbonBandResizePolicy<JFlowRibbonBand> {
+        /**
+         * Creates a new single-row resize policy for {@link JFlowRibbonBand}s.
+         *
+         * @param flowRibbonBand The associated flow ribbon band.
+         */
+        public FlowOneRow(JFlowRibbonBand flowRibbonBand) {
+            super(flowRibbonBand);
+        }
+
+        @Override
+        public int getPreferredWidth(int availableHeight, int gap) {
+            JFlowBandControlPanel flowBandControlPanel =
+                    (JFlowBandControlPanel) this.controlPanel;
+            int result = 0;
+            for (JComponent flowComp : flowBandControlPanel.getFlowComponents()) {
+                int pref = flowComp.getPreferredSize().width;
+                result += (pref + gap);
+            }
+            return result;
+        }
+
+        @Override
+        public void install(int availableHeight, int gap) {
+        }
+    }
+
+
+    /**
+     * Core resize policy for {@link JFlowRibbonBand} that places the content in
      * two rows.
      *
      * @author Kirill Grouchnikov
