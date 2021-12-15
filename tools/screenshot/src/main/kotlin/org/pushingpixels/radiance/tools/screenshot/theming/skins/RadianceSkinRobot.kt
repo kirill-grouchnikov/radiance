@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.Robot
@@ -50,22 +51,19 @@ import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 
-
 /**
  * The base class for taking screenshots of skins for Radiance look-and-feel documentation.
  *
  * @author Kirill Grouchnikov
  */
 abstract class RadianceSkinRobot(
-    private var skin: RadianceSkin,
-    private val screenshotFilename: String
+    private val skins: List<RadianceSkin>,
+    private val screenshotSubfolder: String
 ) : ScreenshotRobot {
     private suspend fun runInner(screenshotDirectory: String) {
-        val start = System.currentTimeMillis()
-
-        // set skin
         withContext(Dispatchers.Swing) {
-            RadianceThemingCortex.GlobalScope.setSkin(skin)
+            // Initial skin
+            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin())
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
@@ -106,39 +104,66 @@ abstract class RadianceSkinRobot(
         // get the default button
         val defaultButton = withContext(Dispatchers.Swing) { frame.rootPane.defaultButton }
 
-        // and move the mouse to it
-        withContext(Dispatchers.Swing) {
-            defaultButton.isFocusable = false
-            val locOnScreen = defaultButton.locationOnScreen
-            robot.mouseMove(
-                locOnScreen.x + defaultButton.width / 2,
-                locOnScreen.y + defaultButton.height / 2
-            )
+        for (skin in skins) {
+            // set skin and update the frame logo
+            withContext(Dispatchers.Swing) {
+                RadianceThemingCortex.GlobalScope.setSkin(skin)
+                frame.iconImage = RadianceLogo.getLogoImage(
+                    frame,
+                    skin.getColorScheme(
+                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED
+                    )
+                )
+            }
+
+            // switch to the middle tab
+            withContext(Dispatchers.Swing) { frame.switchToMiddleTab() }
+
+            // move the mouse to the default button
+            withContext(Dispatchers.Swing) {
+                defaultButton.isFocusable = false
+                val locOnScreen = defaultButton.locationOnScreen
+                robot.mouseMove(
+                    locOnScreen.x + defaultButton.width / 2,
+                    locOnScreen.y + defaultButton.height / 2
+                )
+            }
+
+            // wait for a bit
+            withContext(Dispatchers.Main) { delay(500) }
+
+            // make the first screenshot
+            withContext(Dispatchers.Swing) {
+                makeScreenshot(
+                    frame, screenshotDirectory,
+                    "$screenshotSubfolder/" +
+                            skin.displayName.lowercase().replace(" ", "") + "1.png"
+                )
+            }
+
+            // switch to the last tab
+            withContext(Dispatchers.Swing) { frame.switchToLastTab() }
+
+            // move the mouse away from the frame
+            withContext(Dispatchers.Swing) { robot.mouseMove(0, 0) }
+
+            // wait for a bit
+            withContext(Dispatchers.Main) { delay(500) }
+
+            // make the second screenshot
+            withContext(Dispatchers.Swing) {
+                makeScreenshot(
+                    frame, screenshotDirectory,
+                    "$screenshotSubfolder/" +
+                            skin.displayName.lowercase().replace(" ", "") + "2.png"
+                )
+            }
         }
-
-        // wait for a second
-        withContext(Dispatchers.Main) { delay(1000) }
-
-        // make the first screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory, 1) }
-
-        // switch to the last tab
-        withContext(Dispatchers.Swing) { frame.switchToLastTab() }
-
-        // move the mouse away from the frame
-        withContext(Dispatchers.Swing) { robot.mouseMove(0, 0) }
-
-        // wait for a second
-        withContext(Dispatchers.Main) { delay(1000) }
-
-        // make the second screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory, 2) }
 
         // dispose the frame
         withContext(Dispatchers.Swing) { frame.dispose() }
-
-        val end = System.currentTimeMillis()
-        println(this.javaClass.simpleName + " : " + (end - start) + "ms")
     }
 
     /**
@@ -153,7 +178,11 @@ abstract class RadianceSkinRobot(
      *
      * @param count Sequence number for the screenshot.
      */
-    private fun makeScreenshot(frame: SampleFrame, screenshotDirectory: String, count: Int) {
+    private fun makeScreenshot(
+        frame: SampleFrame,
+        screenshotDirectory: String,
+        screenshotFilename: String
+    ) {
         val bi = RadianceCommonCortex.getBlankScaledImage(
             RadianceCommonCortex.getScaleFactor(frame),
             frame.width,
@@ -162,7 +191,7 @@ abstract class RadianceSkinRobot(
         val g = bi.graphics
         frame.paint(g)
         try {
-            val output = File(screenshotDirectory + this.screenshotFilename + count + ".png")
+            val output = File(screenshotDirectory + screenshotFilename)
             output.parentFile.mkdirs()
             ImageIO.write(bi, "png", output)
         } catch (ioe: IOException) {

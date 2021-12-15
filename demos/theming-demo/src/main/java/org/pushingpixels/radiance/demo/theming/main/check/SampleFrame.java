@@ -357,6 +357,10 @@ public class SampleFrame extends JFrame {
         }
     }
 
+    public void switchToMiddleTab() {
+        this.tabbed.setSelectedIndex(1);
+    }
+
     public void switchToLastTab() {
         this.tabbed.setSelectedIndex(2);
         this.list.setSelectedIndices(new int[] {1, 4});

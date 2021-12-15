@@ -62,7 +62,7 @@ import javax.swing.text.DefaultCaret
  */
 abstract class TextHighlightsRobot(
     private val skins: List<RadianceSkin>,
-    val screenshotSubfolder: String
+    private val screenshotSubfolder: String
 ) : ScreenshotRobot {
 
     private class TextHighlightsFrame(title: String) : JFrame(title) {

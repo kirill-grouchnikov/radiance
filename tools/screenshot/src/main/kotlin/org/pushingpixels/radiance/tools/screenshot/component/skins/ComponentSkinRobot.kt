@@ -58,7 +58,7 @@ import javax.swing.JFrame
  */
 abstract class ComponentSkinRobot(
     private val skins: List<RadianceSkin>,
-    val screenshotSubfolder: String
+    private val screenshotSubfolder: String
 ) : ScreenshotRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         withContext(Dispatchers.Swing) {

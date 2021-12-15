@@ -36,12 +36,18 @@ import org.pushingpixels.radiance.theming.extras.api.skinpack.*
  *
  * @author Kirill Grouchnikov
  */
-class FieldOfWheat : RadianceSkinRobot(FieldOfWheatSkin(), "theming-extras/skins/fieldofwheat")
-class FindingNemo : RadianceSkinRobot(FindingNemoSkin(), "theming-extras/skins/findingnemo")
-class Harvest : RadianceSkinRobot(HarvestSkin(), "theming-extras/skins/harvest")
-class Magma : RadianceSkinRobot(MagmaSkin(), "theming-extras/skins/magma")
-class Mango : RadianceSkinRobot(MangoSkin(), "theming-extras/skins/mango")
-class OfficeBlack2007 : RadianceSkinRobot(OfficeBlack2007Skin(), "theming-extras/skins/officeblack2007")
-class OfficeBlue2007 : RadianceSkinRobot(OfficeBlue2007Skin(), "theming-extras/skins/officeblue2007")
-class OfficeSilver2007 : RadianceSkinRobot(OfficeSilver2007Skin(), "theming-extras/skins/officesilver2007")
-class Streetlights : RadianceSkinRobot(StreetlightsSkin(), "theming-extras/skins/streetlights")
+
+class AllExtras : RadianceSkinRobot(
+    listOf(
+        FieldOfWheatSkin(),
+        FindingNemoSkin(),
+        HarvestSkin(),
+        MagmaSkin(),
+        MangoSkin(),
+        OfficeBlack2007Skin(),
+        OfficeBlue2007Skin(),
+        OfficeSilver2007Skin(),
+        StreetlightsSkin()
+    ),
+    "theming-extras/skins"
+)
