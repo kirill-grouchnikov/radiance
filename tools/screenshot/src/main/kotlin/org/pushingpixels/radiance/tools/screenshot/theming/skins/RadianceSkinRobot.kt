@@ -34,20 +34,22 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
 import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.Robot
+import java.awt.event.InputEvent
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.JFrame
+
 
 /**
  * The base class for taking screenshots of skins for Radiance look-and-feel documentation.
@@ -83,15 +85,30 @@ abstract class RadianceSkinRobot(
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
+            frame.isFocusable = false
             frame.isVisible = true
+        }
+
+        val robot = Robot()
+
+        // move the mouse to the frame's title bar and click on it. This is to bring that
+        // Java window to the front of the desktop
+        withContext(Dispatchers.Swing) {
+            val locOnScreen = frame.locationOnScreen
+            robot.mouseMove(
+                locOnScreen.x + frame.width / 2,
+                locOnScreen.y + 10
+            )
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
         }
 
         // get the default button
         val defaultButton = withContext(Dispatchers.Swing) { frame.rootPane.defaultButton }
 
-        val robot = Robot()
         // and move the mouse to it
         withContext(Dispatchers.Swing) {
+            defaultButton.isFocusable = false
             val locOnScreen = defaultButton.locationOnScreen
             robot.mouseMove(
                 locOnScreen.x + defaultButton.width / 2,

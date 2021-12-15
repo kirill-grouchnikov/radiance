@@ -44,6 +44,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAr
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
+import java.awt.Robot
+import java.awt.event.InputEvent
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
@@ -78,7 +80,35 @@ abstract class BaseColorSchemeRobot(
             frame.setLocationRelativeTo(null)
             frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
+            frame.isFocusable = false
             frame.isVisible = true
+        }
+
+        val robot = Robot()
+
+        // move the mouse to the frame's title bar and click on it. This is to bring that
+        // Java window to the front of the desktop
+        withContext(Dispatchers.Swing) {
+            val locOnScreen = frame.locationOnScreen
+            robot.mouseMove(
+                locOnScreen.x + frame.width / 2,
+                locOnScreen.y + 10
+            )
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+        }
+
+        // get the default button
+        val defaultButton = withContext(Dispatchers.Swing) { frame.rootPane.defaultButton }
+
+        // and move the mouse to it
+        withContext(Dispatchers.Swing) {
+            defaultButton.isFocusable = false
+            val locOnScreen = defaultButton.locationOnScreen
+            robot.mouseMove(
+                locOnScreen.x + defaultButton.width / 2,
+                locOnScreen.y + defaultButton.height / 2
+            )
         }
 
         // wait for one second

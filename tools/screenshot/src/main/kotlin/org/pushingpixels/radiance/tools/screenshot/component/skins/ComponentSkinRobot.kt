@@ -34,15 +34,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.radiance.demo.component.ribbon.BasicCheckRibbon
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.demo.component.ribbon.BasicCheckRibbon
 import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.ComponentOrientation
 import java.awt.Dimension
 import java.awt.GraphicsEnvironment
 import java.awt.Robot
+import java.awt.event.InputEvent
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -55,15 +57,13 @@ import javax.swing.JFrame
  * @author Kirill Grouchnikov
  */
 abstract class ComponentSkinRobot(
-    private var skin: RadianceSkin,
-    private val screenshotFilename: String
+    private val skins: List<RadianceSkin>,
+    val screenshotSubfolder: String
 ) : ScreenshotRobot {
     private suspend fun runInner(screenshotDirectory: String) {
-        val start = System.currentTimeMillis()
-
-        // set skin
         withContext(Dispatchers.Swing) {
-            RadianceThemingCortex.GlobalScope.setSkin(skin)
+            // Initial skin
+            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin())
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
@@ -83,22 +83,50 @@ abstract class ComponentSkinRobot(
             ribbonFrame.setLocation(r.x, r.y)
             ribbonFrame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
 
+            ribbonFrame.isFocusable = true
             ribbonFrame.isVisible = true
         }
 
-        withContext(Dispatchers.Swing) { Robot().mouseMove(0, 0) }
+        val robot = Robot()
+
+        // move the mouse to the frame's title bar and click on it. This is to bring that
+        // Java window to the front of the desktop
+        withContext(Dispatchers.Swing) {
+            val locOnScreen = ribbonFrame.locationOnScreen
+            robot.mouseMove(
+                locOnScreen.x + ribbonFrame.width / 2,
+                locOnScreen.y + 10
+            )
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+        }
+
+        withContext(Dispatchers.Swing) { robot.mouseMove(0, 0) }
 
         // wait for a second
         withContext(Dispatchers.Main) { delay(1000) }
 
-        // make the first screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(ribbonFrame, screenshotDirectory) }
+        for (skin in skins) {
+            // set skin and update the frame logo
+            withContext(Dispatchers.Swing) {
+                RadianceThemingCortex.GlobalScope.setSkin(skin)
+            }
+            // wait for a bit
+            withContext(Dispatchers.Main) { delay(100) }
+
+            // make the screenshot
+            withContext(Dispatchers.Swing) {
+                makeScreenshot(
+                    ribbonFrame,
+                    screenshotDirectory,
+                    "$screenshotSubfolder/" +
+                            skin.displayName.lowercase().replace(" ", "") + ".png"
+                )
+            }
+        }
 
         // dispose the frame
         withContext(Dispatchers.Swing) { ribbonFrame.dispose() }
-
-        val end = System.currentTimeMillis()
-        println(this.javaClass.simpleName + " : " + (end - start) + "ms")
     }
 
     /**
@@ -111,7 +139,11 @@ abstract class ComponentSkinRobot(
     /**
      * Creates the screenshot and saves it on the disk.
      */
-    private fun makeScreenshot(ribbonFrame: JFrame, screenshotDirectory: String) {
+    private fun makeScreenshot(
+        ribbonFrame: JFrame,
+        screenshotDirectory: String,
+        screenshotFilename: String
+    ) {
         val bi = RadianceCommonCortex.getBlankScaledImage(
             RadianceCommonCortex.getScaleFactor(ribbonFrame),
             ribbonFrame.width, ribbonFrame.height
@@ -125,7 +157,7 @@ abstract class ComponentSkinRobot(
         finalIm.graphics.drawImage(bi, 0, 0, null)
 
         try {
-            val output = File(screenshotDirectory + this.screenshotFilename + ".png")
+            val output = File(screenshotDirectory + screenshotFilename)
             output.parentFile.mkdirs()
             ImageIO.write(finalIm, "png", output)
         } catch (ioe: IOException) {

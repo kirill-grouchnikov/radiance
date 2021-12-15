@@ -29,42 +29,17 @@
  */
 package org.pushingpixels.radiance.tools.screenshot.component.skins
 
-import org.pushingpixels.radiance.theming.api.skin.*
+import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 
 /**
  * Screenshot robots for Radiance skins.
  *
  * @author Kirill Grouchnikov
  */
-class Autumn : ComponentSkinRobot(AutumnSkin(), "component/ribbon/autumn")
-class Business : ComponentSkinRobot(BusinessSkin(), "component/ribbon/business")
-class BusinessBlackSteel : ComponentSkinRobot(BusinessBlackSteelSkin(), "component/ribbon/businessblacksteel")
-class BusinessBlueSteel : ComponentSkinRobot(BusinessBlueSteelSkin(), "component/ribbon/businessbluesteel")
-class Cerulean : ComponentSkinRobot(CeruleanSkin(), "component/ribbon/cerulean")
-class Creme : ComponentSkinRobot(CremeSkin(), "component/ribbon/creme")
-class CremeCoffee : ComponentSkinRobot(CremeCoffeeSkin(), "component/ribbon/cremecoffee")
-class Dust : ComponentSkinRobot(DustSkin(), "component/ribbon/dust")
-class DustCoffee : ComponentSkinRobot(DustCoffeeSkin(), "component/ribbon/dustcoffee")
-class Gemini : ComponentSkinRobot(GeminiSkin(), "component/ribbon/gemini")
-class Graphite : ComponentSkinRobot(GraphiteSkin(), "component/ribbon/graphite")
-class GraphiteAqua : ComponentSkinRobot(GraphiteAquaSkin(), "component/ribbon/graphiteaqua")
-class GraphiteChalk : ComponentSkinRobot(GraphiteChalkSkin(), "component/ribbon/graphitechalk")
-class GraphiteElectric : ComponentSkinRobot(GraphiteElectricSkin(), "component/ribbon/graphiteelectric")
-class GraphiteGlass : ComponentSkinRobot(GraphiteGlassSkin(), "component/ribbon/graphiteglass")
-class GraphiteGold : ComponentSkinRobot(GraphiteGoldSkin(), "component/ribbon/graphitegold")
-class GraphiteSienna : ComponentSkinRobot(GraphiteSiennaSkin(), "component/ribbon/graphitesienna")
-class GraphiteSunset : ComponentSkinRobot(GraphiteSunsetSkin(), "component/ribbon/graphitesunset")
-class GreenMagic : ComponentSkinRobot(GreenMagicSkin(), "component/ribbon/greenmagic")
-class Magellan : ComponentSkinRobot(MagellanSkin(), "component/ribbon/magellan")
-class Mariner : ComponentSkinRobot(MarinerSkin(), "component/ribbon/mariner")
-class MistAqua : ComponentSkinRobot(MistAquaSkin(), "component/ribbon/mistaqua")
-class MistSilver : ComponentSkinRobot(MistSilverSkin(), "component/ribbon/mistsilver")
-class Moderate : ComponentSkinRobot(ModerateSkin(), "component/ribbon/moderate")
-class Nebula : ComponentSkinRobot(NebulaSkin(), "component/ribbon/nebula")
-class NebulaAmethyst : ComponentSkinRobot(NebulaAmethystSkin(), "component/ribbon/nebulaamethyst")
-class NebulaBrickWall : ComponentSkinRobot(NebulaBrickWallSkin(), "component/ribbon/nebulabrickwall")
-class NightShade : ComponentSkinRobot(NightShadeSkin(), "component/ribbon/nightshade")
-class Raven : ComponentSkinRobot(RavenSkin(), "component/ribbon/raven")
-class Sahara : ComponentSkinRobot(SaharaSkin(), "component/ribbon/sahara")
-class Sentinel : ComponentSkinRobot(SentinelSkin(), "component/ribbon/sentinel")
-class Twilight : ComponentSkinRobot(TwilightSkin(), "component/ribbon/twilight")
+class All : ComponentSkinRobot(
+    RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
+        Class.forName(it.value.className).getDeclaredConstructor().newInstance() as RadianceSkin
+    },
+    "component/ribbon"
+)

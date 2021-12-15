@@ -36,24 +36,23 @@ import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
 import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.theming.api.text.RadianceTextField
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.FlowLayout
-import java.awt.KeyboardFocusManager
 import java.awt.Robot
-import java.awt.event.KeyEvent
+import java.awt.event.InputEvent
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
 import javax.swing.BoxLayout
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.JTextField
 import javax.swing.text.DefaultCaret
 
 /**
@@ -62,24 +61,28 @@ import javax.swing.text.DefaultCaret
  * @author Kirill Grouchnikov
  */
 abstract class TextHighlightsRobot(
-    private val skin: RadianceSkin,
-    private val screenshotFilename: String
+    private val skins: List<RadianceSkin>,
+    val screenshotSubfolder: String
 ) : ScreenshotRobot {
-    private fun makeTextField(text: String): JTextField {
-        val result =
-            RadianceTextField(text, 20)
-        // force the display of text selection even when the focus has been lost
-        result.caret = object : DefaultCaret() {
-            override fun setSelectionVisible(visible: Boolean) {
-                super.setSelectionVisible(true)
+
+    private class TextHighlightsFrame(title: String) : JFrame(title) {
+        val textFields = arrayListOf<RadianceTextField>()
+
+        fun makeTextField(text: String): RadianceTextField {
+            val result = RadianceTextField(text, 20)
+            // force the display of text selection even when the focus has been lost
+            result.caret = object : DefaultCaret() {
+                override fun setSelectionVisible(visible: Boolean) {
+                    super.setSelectionVisible(true)
+                }
             }
+            textFields.add(result)
+            return result
         }
-        result.selectAll()
-        return result
     }
 
-    private fun makeFrame(): JFrame {
-        val frame = JFrame("Text highlights")
+    private fun makeFrame(): TextHighlightsFrame {
+        val frame = TextHighlightsFrame("Text highlights")
 
         frame.iconImage = RadianceLogo.getLogoImage(
             frame,
@@ -113,11 +116,11 @@ abstract class TextHighlightsRobot(
             panelFooter, DecorationAreaType.FOOTER
         )
 
-        panelTitlePane.add(makeTextField("sample title pane"))
-        panelToolbar.add(makeTextField("sample toolbar"))
-        panelGeneral.add(makeTextField("sample general"))
-        panelNone.add(makeTextField("sample none"))
-        panelFooter.add(makeTextField("sample footer"))
+        panelTitlePane.add(frame.makeTextField("sample title pane"))
+        panelToolbar.add(frame.makeTextField("sample toolbar"))
+        panelGeneral.add(frame.makeTextField("sample general"))
+        panelNone.add(frame.makeTextField("sample none"))
+        panelFooter.add(frame.makeTextField("sample footer"))
 
         frame.contentPane.add(panelTitlePane)
         frame.contentPane.add(panelToolbar)
@@ -129,16 +132,14 @@ abstract class TextHighlightsRobot(
     }
 
     private suspend fun runInner(screenshotDirectory: String) {
-        val start = System.currentTimeMillis()
-
-        // set skin
         withContext(Dispatchers.Swing) {
-            RadianceThemingCortex.GlobalScope.setSkin(skin)
+            // Initial skin
+            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin())
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
         // create the frame
-        val frame: JFrame
+        val frame: TextHighlightsFrame
         withContext(Dispatchers.Swing) {
             frame = makeFrame()
             frame.setSize(300, 300)
@@ -150,31 +151,70 @@ abstract class TextHighlightsRobot(
 
         val robot = Robot()
 
-        // Some black magic (not really, but this is ugly) to focus-traverse all our text components
-        // to actually kick in the selection highlights
-        for (i in 1..4) {
-            withContext(Dispatchers.Swing) {
-                robot.keyPress(KeyEvent.VK_TAB)
-                robot.keyRelease(KeyEvent.VK_TAB)
-            }
-
-            withContext(Dispatchers.Main) { delay(100) }
-
-            KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent()
-            KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent()
+        // move the mouse to the frame's title bar and click on it. This is to bring that
+        // Java window to the front of the desktop
+        withContext(Dispatchers.Swing) {
+            val locOnScreen = frame.locationOnScreen
+            robot.mouseMove(
+                locOnScreen.x + frame.width / 2,
+                locOnScreen.y + 10
+            )
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+            frame.requestFocusInWindow()
+            frame.requestFocus()
         }
 
-        // wait for one second
-        withContext(Dispatchers.Main) { delay(1000) }
+        for (skin in skins) {
+            // set skin and update the frame logo
+            withContext(Dispatchers.Swing) {
+                RadianceThemingCortex.GlobalScope.setSkin(skin)
+                frame.iconImage = RadianceLogo.getLogoImage(
+                    frame,
+                    skin.getColorScheme(
+                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED
+                    )
+                )
+            }
 
-        // make the screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory) }
+            // Go over all the text fields and emulate text selection by pressing the mouse
+            // at the left edge of the field, moving it to the right edge and then releasing it
+            for (textField in frame.textFields) {
+                withContext(Dispatchers.Swing) {
+                    val locOnScreen = textField.locationOnScreen
+                    robot.mouseMove(
+                        locOnScreen.x,
+                        locOnScreen.y + textField.height / 2
+                    )
+                    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)
+                    robot.mouseMove(
+                        locOnScreen.x + textField.width,
+                        locOnScreen.y + textField.height / 2
+                    )
+                    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)
+                }
+
+                withContext(Dispatchers.Main) { delay(100) }
+            }
+
+            // wait for a bit
+            withContext(Dispatchers.Main) { delay(100) }
+
+            // make the screenshot
+            withContext(Dispatchers.Swing) {
+                makeScreenshot(
+                    frame,
+                    screenshotDirectory,
+                    "$screenshotSubfolder/" +
+                            skin.displayName.lowercase().replace(" ", "") + ".png"
+                )
+            }
+        }
 
         // dispose the frame
         withContext(Dispatchers.Swing) { frame.dispose() }
-
-        val end = System.currentTimeMillis()
-        println(this.javaClass.simpleName + " : " + (end - start) + "ms")
     }
 
     /**
@@ -187,7 +227,11 @@ abstract class TextHighlightsRobot(
     /**
      * Creates the screenshot and saves it on the disk.
      */
-    private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
+    private fun makeScreenshot(
+        frame: JFrame,
+        screenshotDirectory: String,
+        screenshotFilename: String
+    ) {
         val bi = RadianceCommonCortex.getBlankScaledImage(
             RadianceCommonCortex.getScaleFactor(frame),
             frame.width, frame.height
@@ -195,7 +239,7 @@ abstract class TextHighlightsRobot(
         val g = bi.graphics
         frame.paint(g)
         try {
-            val target = File(screenshotDirectory + this.screenshotFilename)
+            val target = File(screenshotDirectory + screenshotFilename)
             target.parentFile.mkdirs()
             ImageIO.write(bi, "png", target)
         } catch (ioe: IOException) {
