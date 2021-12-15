@@ -34,14 +34,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.demo.theming.main.check.SampleFrame
 import org.pushingpixels.radiance.theming.api.ComponentState
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme
+import org.pushingpixels.radiance.theming.api.skin.MarinerSkin
 import org.pushingpixels.radiance.tools.common.RadianceLogo
 import org.pushingpixels.radiance.tools.screenshot.ScreenshotRobot
 import java.awt.Robot
@@ -52,24 +53,23 @@ import javax.imageio.ImageIO
 import javax.swing.JFrame
 
 abstract class BaseColorSchemeRobot(
-    private var skin: RadianceSkin,
-    private val screenshotFilename: String
+    private val skins: List<RadianceSkin>,
+    private val screenshotSubfolder: String
 ) : ScreenshotRobot {
 
     private suspend fun runInner(screenshotDirectory: String) {
-        val start = System.currentTimeMillis()
-
-        // set skin
         withContext(Dispatchers.Swing) {
-            RadianceThemingCortex.GlobalScope.setSkin(skin)
+            // Initial skin
+            RadianceThemingCortex.GlobalScope.setSkin(MarinerSkin())
             JFrame.setDefaultLookAndFeelDecorated(true)
         }
 
         // create the frame and set the icon image
-        val frame: JFrame
+        val frame: SampleFrame
         withContext(Dispatchers.Swing) {
             frame = SampleFrame()
-            frame.iconImage = RadianceLogo.getLogoImage(frame,
+            frame.iconImage = RadianceLogo.getLogoImage(
+                frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
                     DecorationAreaType.PRIMARY_TITLE_PANE,
                     RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
@@ -101,27 +101,45 @@ abstract class BaseColorSchemeRobot(
         // get the default button
         val defaultButton = withContext(Dispatchers.Swing) { frame.rootPane.defaultButton }
 
-        // and move the mouse to it
-        withContext(Dispatchers.Swing) {
-            defaultButton.isFocusable = false
-            val locOnScreen = defaultButton.locationOnScreen
-            robot.mouseMove(
-                locOnScreen.x + defaultButton.width / 2,
-                locOnScreen.y + defaultButton.height / 2
-            )
+        for (skin in skins) {
+            // set skin and update the frame logo
+            withContext(Dispatchers.Swing) {
+                RadianceThemingCortex.GlobalScope.setSkin(skin)
+                frame.iconImage = RadianceLogo.getLogoImage(
+                    frame,
+                    skin.getColorScheme(
+                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED
+                    )
+                )
+            }
+
+            // move the mouse to the default button
+            withContext(Dispatchers.Swing) {
+                defaultButton.isFocusable = false
+                val locOnScreen = defaultButton.locationOnScreen
+                robot.mouseMove(
+                    locOnScreen.x + defaultButton.width / 2,
+                    locOnScreen.y + defaultButton.height / 2
+                )
+            }
+
+            // wait for a bit
+            withContext(Dispatchers.Main) { delay(500) }
+
+            // make the screenshot
+            withContext(Dispatchers.Swing) {
+                makeScreenshot(
+                    frame, screenshotDirectory,
+                    "$screenshotSubfolder/" +
+                            skin.displayName.lowercase().replace(" ", "-") + ".png"
+                )
+            }
         }
-
-        // wait for one second
-        withContext(Dispatchers.Main) { delay(1000) }
-
-        // make the screenshot
-        withContext(Dispatchers.Swing) { makeScreenshot(frame, screenshotDirectory) }
 
         // dispose the frame
         withContext(Dispatchers.Swing) { frame.dispose() }
-
-        val end = System.currentTimeMillis()
-        println(this.javaClass.simpleName + " : " + (end - start) + "ms")
     }
 
     /**
@@ -134,7 +152,11 @@ abstract class BaseColorSchemeRobot(
     /**
      * Creates the screenshot and saves it on the disk.
      */
-    private fun makeScreenshot(frame: JFrame, screenshotDirectory: String) {
+    private fun makeScreenshot(
+        frame: SampleFrame,
+        screenshotDirectory: String,
+        screenshotFilename: String
+    ) {
         val bi = RadianceCommonCortex.getBlankScaledImage(
             RadianceCommonCortex.getScaleFactor(frame),
             frame.width,
@@ -143,7 +165,7 @@ abstract class BaseColorSchemeRobot(
         val g = bi.graphics
         frame.paint(g)
         try {
-            val target = File(screenshotDirectory + this.screenshotFilename)
+            val target = File(screenshotDirectory + screenshotFilename)
             target.parentFile.mkdirs()
             ImageIO.write(bi, "png", target)
         } catch (ioe: IOException) {
@@ -158,8 +180,13 @@ abstract class BaseColorSchemeRobot(
  *
  * @author Kirill Grouchnikov
  */
-abstract class ColorSchemeRobot(colorScheme: RadianceColorScheme, screenshotFilename: String) :
+abstract class ColorSchemeRobot(
+    colorSchemes: List<RadianceColorScheme>,
+    screenshotSubfolder: String
+) :
     BaseColorSchemeRobot(
-        if (colorScheme.isDark) RobotDefaultDarkSkin(colorScheme) else
-            RobotDefaultSkin(colorScheme), screenshotFilename
+        colorSchemes.map {
+            if (it.isDark) RobotDefaultDarkSkin(it) else
+                RobotDefaultSkin(it)
+        }, screenshotSubfolder
     )

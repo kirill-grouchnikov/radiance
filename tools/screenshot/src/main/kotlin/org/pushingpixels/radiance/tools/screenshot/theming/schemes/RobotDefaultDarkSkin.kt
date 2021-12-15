@@ -104,13 +104,6 @@ class RobotDefaultDarkSkin(accentColorScheme: RadianceColorScheme) :
     }
 
     override fun getDisplayName(): String {
-        return NAME + " accent " + this.activeControlsAccent.displayName
-    }
-
-    companion object {
-        /**
-         * Display name for `this` skin.
-         */
-        var NAME = "Robot Default Dark"
+        return this.activeControlsAccent.displayName
     }
 }
