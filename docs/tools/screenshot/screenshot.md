@@ -30,7 +30,7 @@ Screenshot scripts are in `scripts/screenshot` folder. The structure of each scr
 
 For example, to run Screenshot to create screenshots for all Aurora core skins:
 
-``` export JAVA_HOME=`/usr/libexec/java_home -v 9` ```
+``` export JAVA_HOME=`/usr/libexec/java_home -v 16` ```
 
 `alias JAVA="java"`
 
