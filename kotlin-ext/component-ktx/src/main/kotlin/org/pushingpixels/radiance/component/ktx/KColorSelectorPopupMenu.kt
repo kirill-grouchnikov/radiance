@@ -55,8 +55,7 @@ public class KColorSelectorPopupMenuGroup {
     public operator fun KCommand.unaryPlus() {
         this@KColorSelectorPopupMenuGroup.content.add(
             KCommandGroup.CommandConfig(
-                this, null, null,
-                false, false, null
+                this, null, null, null, null
             )
         )
     }
@@ -70,8 +69,7 @@ public class KColorSelectorPopupMenuGroup {
                 command,
                 actionKeyTip,
                 popupKeyTip,
-                false,
-                false,
+                null,
                 null
             )
         )
@@ -145,7 +143,7 @@ public class KColorSelectorPopupMenu {
 
     public operator fun KCommand.unaryPlus() {
         this@KColorSelectorPopupMenu.defaultGroup.content.add(
-            KCommandGroup.CommandConfig(this, null, null, null, null, null)
+            KCommandGroup.CommandConfig(this, null, null, null, null)
         )
     }
 
@@ -158,8 +156,7 @@ public class KColorSelectorPopupMenu {
                 command,
                 actionKeyTip,
                 popupKeyTip,
-                false,
-                false,
+                null,
                 null
             )
         )

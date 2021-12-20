@@ -218,7 +218,7 @@ public class TestCommandButtons extends JFrame {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setTextClickPopup()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.POPUP)
                         .setFlat(false);
         configurePresentationBuilder(presentationBuilder);
 
@@ -230,7 +230,7 @@ public class TestCommandButtons extends JFrame {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .setFlat(false);
         configurePresentationBuilder(presentationBuilder);
 

@@ -163,11 +163,11 @@ Or have a more complex structure, with an embedded, separately scrollable panel 
 
 All these three examples would be called "popup buttons" in similar component suites. The power of secondary content in Radiance commands can be seen in how easily it is to configure a projected button to be a "regular" action button - with just one action.
 
-Or, by calling `setSecondaryContentModel()` and `CommandButtonPresentationModel.Builder.setTextClickAction(true)` make it a split button with a popup menu shown when the down arrow is clicked:
+Or, by calling `setSecondaryContentModel()` and `CommandButtonPresentationModel.Builder.setTextClick(TextClick.ACTION)` make it a split button with a popup menu shown when the down arrow is clicked:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-title-action.png" width="764" border=0/>
 
-Or instead, calling `CommandButtonPresentationModel.Builder.setTextClickPopup(true)` to make it a split button with a popup menu shown when either texts or down arrow are clicked:
+Or instead, calling `CommandButtonPresentationModel.Builder.setTextClick(TextClick.POPUP)` to make it a split button with a popup menu shown when either texts or down arrow are clicked:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-title-popup.png" width="764" border=0/>
 

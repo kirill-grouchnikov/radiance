@@ -82,7 +82,7 @@ clipboardBand.addRibbonCommand(
                 .build()
                 .project(CommandButtonPresentationModel.builder()
                         .setPopupKeyTip("X")
-                        .setTextClickAction()
+                        .setTextClick(TextClick.ACTION)
                         .build()),
         JRibbonBand.PresentationPriority.MEDIUM);
 ```

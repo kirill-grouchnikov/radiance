@@ -70,8 +70,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
     private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
-    private boolean isTextClickAction;
-    private boolean isTextClickPopup;
+    private TextClick textClick;
     private boolean isAutoRepeatAction;
     private boolean hasAutoRepeatIntervalsSet;
     private int autoRepeatInitialInterval;
@@ -115,10 +114,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.actionKeyTip : this.actionKeyTip;
         result.popupKeyTip = (overlay.popupKeyTip != null)
                 ? overlay.popupKeyTip : this.popupKeyTip;
-        result.isTextClickAction = (overlay.isTextClickAction != null)
-                ? overlay.isTextClickAction : this.isTextClickAction;
-        result.isTextClickPopup = (overlay.isTextClickPopup != null)
-                ? overlay.isTextClickPopup : this.isTextClickPopup;
+        result.textClick = (overlay.textClick != null)
+                ? overlay.textClick : this.textClick;
         result.isAutoRepeatAction = (overlay.isAutoRepeatAction != null)
                 ? overlay.isAutoRepeatAction : this.isAutoRepeatAction;
         result.hasAutoRepeatIntervalsSet = (overlay.hasAutoRepeatIntervalsSet != null)
@@ -213,12 +210,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.popupKeyTip;
     }
 
-    public boolean isTextClickAction() {
-        return this.isTextClickAction;
-    }
-
-    public boolean isTextClickPopup() {
-        return this.isTextClickPopup;
+    public TextClick getTextClick() {
+        return this.textClick;
     }
 
     public FireActionTrigger getFireActionTrigger() {
@@ -292,6 +285,18 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         ON_PRESS_RELEASED
     }
 
+    public enum TextClick {
+        /**
+         * Clicking command text will activate the command action.
+         */
+        ACTION,
+
+        /**
+         * Clicking command text will activate the secondary content of the command.
+         */
+        POPUP
+    }
+
     public static class Overlay {
         private CommandButtonPresentationState presentationState;
         private Boolean isFlat;
@@ -310,8 +315,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private String actionKeyTip;
         private String popupKeyTip;
         private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
-        private Boolean isTextClickAction;
-        private Boolean isTextClickPopup;
+        private TextClick textClick;
         private Boolean isAutoRepeatAction;
         private Boolean hasAutoRepeatIntervalsSet;
         private Integer autoRepeatInitialInterval;
@@ -399,13 +403,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setTextClickAction() {
-            this.isTextClickAction = true;
-            return this;
-        }
-
-        public Overlay setTextClickPopup() {
-            this.isTextClickPopup = true;
+        public Overlay setTextClick(TextClick textClick) {
+            this.textClick = textClick;
             return this;
         }
 
@@ -449,8 +448,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
         private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
-        private boolean isTextClickAction;
-        private boolean isTextClickPopup;
+        private TextClick textClick = TextClick.ACTION;
         private boolean isAutoRepeatAction;
         private boolean hasAutoRepeatIntervalsSet;
         private int autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
@@ -539,13 +537,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setTextClickAction() {
-            this.isTextClickAction = true;
-            return this;
-        }
-
-        public Builder setTextClickPopup() {
-            this.isTextClickPopup = true;
+        public Builder setTextClick(TextClick textClick) {
+            this.textClick = textClick;
             return this;
         }
 
@@ -587,8 +580,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.popupKeyTip = this.popupKeyTip;
             commandPresentation.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
             commandPresentation.popupMenuPresentationModel = this.popupMenuPresentationModel;
-            commandPresentation.isTextClickAction = this.isTextClickAction;
-            commandPresentation.isTextClickPopup = this.isTextClickPopup;
+            commandPresentation.textClick = this.textClick;
             commandPresentation.isAutoRepeatAction = this.isAutoRepeatAction;
             commandPresentation.hasAutoRepeatIntervalsSet = this.hasAutoRepeatIntervalsSet;
             commandPresentation.autoRepeatInitialInterval = this.autoRepeatInitialInterval;

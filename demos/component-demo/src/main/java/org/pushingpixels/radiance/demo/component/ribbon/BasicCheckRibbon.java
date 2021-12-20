@@ -30,18 +30,13 @@
 package org.pushingpixels.radiance.demo.component.ribbon;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.radiance.demo.component.common.QuickStylesPanel;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.*;
-import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.ribbon.*;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.model.*;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
-import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
-import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
-import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.component.api.common.icon.ColorRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -54,6 +49,7 @@ import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorC
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.component.api.ribbon.*;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel;
@@ -64,12 +60,16 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePo
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.JRibbonComboBox;
+import org.pushingpixels.radiance.component.api.ribbon.synapse.model.*;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonCheckBoxProjection;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonComboBoxProjection;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonSpinnerProjection;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.demo.component.common.QuickStylesPanel;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin;
@@ -556,7 +556,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         CommandButtonProjection<Command> pasteCommandProjection = this.pasteCommand.project(
                 CommandButtonPresentationModel.builder()
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .setActionKeyTip("Y")
                         .setPopupKeyTip("V")
                         .build());
@@ -579,14 +579,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
         clipboardBand.addRibbonCommand(
                 this.cutCommand.project(CommandButtonPresentationModel.builder()
                         .setPopupKeyTip("X")
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
         clipboardBand.addRibbonCommand(
                 this.copyCommand.project(CommandButtonPresentationModel.builder()
                         .setPopupKeyTip("C")
-                        .setTextClickPopup()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.POPUP)
                         .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
 
@@ -1962,7 +1962,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         applicationMenuSecondaryStates.put(amEntryNew, CommandButtonPresentationState.MEDIUM);
         applicationMenuOverlays.put(amEntryNew,
                 CommandButtonPresentationModel.overlay()
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .setActionKeyTip("N"));
 
         // "Open" primary
@@ -1994,7 +1994,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandButtonPresentationState.MEDIUM);
         applicationMenuOverlays.put(amEntryOpen,
                 CommandButtonPresentationModel.overlay()
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .setActionKeyTip("O"));
 
         // "Save" primary
@@ -2016,7 +2016,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 CommandButtonPresentationModel.overlay().setActionKeyTip("O"));
         applicationMenuOverlays.put(this.amEntrySaveAs,
                 CommandButtonPresentationModel.overlay()
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .setActionKeyTip("A")
                         .setPopupKeyTip("F"));
         applicationMenuSecondaryStates.put(this.amEntrySaveAs,
@@ -2071,7 +2071,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
         applicationMenuOverlays.put(amEntryPrint,
                 CommandButtonPresentationModel.overlay()
-                        .setTextClickAction()
+                        .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
                         .setActionKeyTip("P")
                         .setPopupKeyTip("W"));
 

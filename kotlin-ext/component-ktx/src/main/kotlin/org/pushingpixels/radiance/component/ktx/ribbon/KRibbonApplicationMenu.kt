@@ -61,7 +61,7 @@ public class KRibbonApplicationMenu {
             init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null, null))
+        defaultGroup.commands.add(KCommandGroup.CommandConfig(command, actionKeyTip, popupKeyTip, null, null))
         return command
     }
 

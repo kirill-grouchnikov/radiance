@@ -86,7 +86,7 @@ Now, we combine this command with a [command button presentation](CommandButtonP
 ```java
 CommandButtonProjection pasteCommandProjection = this.pasteCommand.project(
         CommandButtonPresentationModel.builder()
-                .setTextClickAction()
+                .setTextClick(TextClick.ACTION)
                 .setActionKeyTip("Y")
                 .setPopupKeyTip("V")
                 .build());
@@ -145,7 +145,7 @@ clipboardBand.addRibbonCommand(
                 .build()
                 .project(CommandButtonPresentationModel.builder()
                         .setPopupKeyTip("X")
-                        .setTextClickAction()
+                        .setTextClick(TextClick.ACTION)
                         .build()),
         JRibbonBand.PresentationPriority.MEDIUM);
 ```

@@ -619,7 +619,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         }
 
         if (hasAction && hasPopup) {
-            this.setCommandButtonKind(commandPresentation.isTextClickAction()
+            this.setCommandButtonKind(commandPresentation.getTextClick() == CommandButtonPresentationModel.TextClick.ACTION
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else if (hasPopup) {
@@ -1328,7 +1328,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
             }
 
             if (hasAction && hasPopup) {
-                this.setCommandButtonKind(commandPresentation.isTextClickAction()
+                this.setCommandButtonKind(commandPresentation.getTextClick() == CommandButtonPresentationModel.TextClick.ACTION
                         ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                         : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
             } else if (hasPopup) {

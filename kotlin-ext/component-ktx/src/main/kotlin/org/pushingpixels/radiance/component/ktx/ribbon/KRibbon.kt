@@ -70,12 +70,12 @@ public class KRibbonTaskbar {
     public fun command(init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
-        components.add(KCommandGroup.CommandConfig(command, null, null, null, null, null))
+        components.add(KCommandGroup.CommandConfig(command, null, null, null, null))
         return command
     }
 
     public fun command(command: KCommand): KCommand {
-        components.add(KCommandGroup.CommandConfig(command, null, null, null, null, null))
+        components.add(KCommandGroup.CommandConfig(command, null, null, null, null))
         return command
     }
 

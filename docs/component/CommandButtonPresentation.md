@@ -90,11 +90,11 @@ In the first row the `horizontalGapScaleFactor` is combined with `CommandButtonP
 
 #### Text click area
 
-Let's take a look at two screenshots. In the first one, the mouse cursor is over the text area of the "Cut" button in tile state. Note that different strength of yellow rollover highlight indication. The area of the button that contains the icon and the two texts has a stronger yellow highlight, while the area with the down arrow has a weaker highlight. This projection is configured with `CommandButtonPresentationState.Builder.setTextClickAction()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the main command action:
+Let's take a look at two screenshots. In the first one, the mouse cursor is over the text area of the "Cut" button in tile state. Note that different strength of yellow rollover highlight indication. The area of the button that contains the icon and the two texts has a stronger yellow highlight, while the area with the down arrow has a weaker highlight. This projection is configured with `CommandButtonPresentationState.Builder.setTextClick(TextClick.ACTION)` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the main command action:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-title-action.png" width="764" border=0/>
 
-In the second one, the mouse cursor is over the same text area, this time of the "Copy" button in tile state. Here, the area of the button with the icon has a weaker highlight, while the area with the two texts and the down arrow has a stronger highlight.  This projection is configured with `CommandButtonPresentationState.Builder.setTextClickPopup()` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the secondary command content - in this case, showing a popup menu:
+In the second one, the mouse cursor is over the same text area, this time of the "Copy" button in tile state. Here, the area of the button with the icon has a weaker highlight, while the area with the two texts and the down arrow has a stronger highlight.  This projection is configured with `CommandButtonPresentationState.Builder.setTextClick(TextClick.POPUP)` API to indicate that clicking anywhere in the area that shows the command text (and extra text, if relevant) will activate the secondary command content - in this case, showing a popup menu:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-title-popup.png" width="764" border=0/>
 
@@ -217,7 +217,7 @@ this.pasteCommand = Command.builder()
 
 CommandButtonProjection pasteCommandProjection = this.pasteCommand.project(
     CommandButtonPresentationModel.builder()
-        .setTextClickAction()
+        .setTextClick(TextClick.ACTION)
         .setActionKeyTip("Y")
         .setPopupKeyTip("V")
         .build());
@@ -225,7 +225,7 @@ CommandButtonProjection pasteCommandProjection = this.pasteCommand.project(
 
 Here the "paste" command has the main action, as well as additional secondary content that is displayed as popup when the arrow area of the projected button is clicked.
 
-The presentation model is configured with `setTextClickAction()`, marking the text area to activate the main command action. In addition, `setActionKeyTip()` and `setPopupKeyTip()` APIs are used to associate specific keytips with the action and popup areas of the projected button. These keytips are shown when the user activates the sequence of keystrokes that shows all keytips for the "Page Layout" ribbon band.
+The presentation model is configured with `setTextClick(TextClick.ACTION)`, marking the text area to activate the main command action. In addition, `setActionKeyTip()` and `setPopupKeyTip()` APIs are used to associate specific keytips with the action and popup areas of the projected button. These keytips are shown when the user activates the sequence of keystrokes that shows all keytips for the "Page Layout" ribbon band.
 
 ### Next
 

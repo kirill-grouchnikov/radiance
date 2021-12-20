@@ -79,7 +79,6 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
                 null,
                 null,
                 null,
-                null,
                 null
             )
         )
@@ -104,7 +103,6 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
             KCommandGroup.CommandConfig(
                 command,
                 actionKeyTip,
-                null,
                 null,
                 null,
                 null

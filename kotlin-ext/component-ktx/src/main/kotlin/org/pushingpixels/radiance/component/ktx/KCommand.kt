@@ -33,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandAction
 import org.pushingpixels.radiance.component.api.common.CommandActionEvent
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
@@ -44,7 +45,6 @@ import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 
 @RadianceElementMarker
@@ -354,8 +354,8 @@ public open class KCommandButtonPresentation {
     public var isMenu: Boolean = false
     public var actionKeyTip: String? = null
     public var popupKeyTip: String? = null
-    public var isTextClickAction: Boolean = true
-    public var isTextClickPopup: Boolean = false
+    public var textClick: CommandButtonPresentationModel.TextClick =
+        CommandButtonPresentationModel.TextClick.ACTION
     public var fireActionTrigger: CommandButtonPresentationModel.FireActionTrigger =
         CommandButtonPresentationModel.FireActionTrigger.ON_PRESS_RELEASED
     public var isAutoRepeatAction: Boolean = false
@@ -386,13 +386,7 @@ public open class KCommandButtonPresentation {
             .setFireActionTrigger(fireActionTrigger)
             .setAutoRepeatAction(isAutoRepeatAction)
             .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
-
-        if (isTextClickAction) {
-            result.setTextClickAction()
-        }
-        if (isTextClickPopup) {
-            result.setTextClickPopup()
-        }
+            .setTextClick(textClick)
 
         return result.build()
     }
@@ -433,7 +427,7 @@ public class KCommandGroup {
 
     internal data class CommandConfig(
         val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
-        val isTextClickAction: Boolean?, val isTextClickSecondary: Boolean?,
+        val textClick: CommandButtonPresentationModel.TextClick?,
         val popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity?
     ) {
         fun toJavaCommand(): Command {
@@ -444,11 +438,8 @@ public class KCommandGroup {
             val presentationBuilder = CommandButtonPresentationModel.builder()
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(secondaryKeyTip)
-            if ((isTextClickAction != null) && isTextClickAction) {
-                presentationBuilder.setTextClickAction()
-            }
-            if ((isTextClickSecondary != null) && isTextClickSecondary) {
-                presentationBuilder.setTextClickPopup()
+            if (textClick != null) {
+                presentationBuilder.setTextClick(textClick)
             }
             if (popupHorizontalGravity != null) {
                 presentationBuilder.setPopupHorizontalGravity(popupHorizontalGravity)
@@ -460,48 +451,39 @@ public class KCommandGroup {
             val overlay = CommandButtonPresentationModel.overlay()
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(secondaryKeyTip)
-            if ((isTextClickAction != null) && isTextClickAction) {
-                overlay.setTextClickAction()
-            }
-            if ((isTextClickSecondary != null) && isTextClickSecondary) {
-                overlay.setTextClickPopup()
+            if (textClick != null) {
+                overlay.setTextClick(textClick)
             }
             return overlay
         }
     }
 
     public operator fun KCommand.unaryPlus() {
-        this@KCommandGroup.commands.add(CommandConfig(this, null, null, false, false, null))
+        this@KCommandGroup.commands.add(CommandConfig(this, null, null, null, null))
     }
 
     public fun command(
         actionKeyTip: String? = null, popupKeyTip: String? = null,
-        isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+        textClick: CommandButtonPresentationModel.TextClick? = null,
         popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
         init: KCommand.() -> Unit
     ): KCommand {
         val command = KCommand()
         command.init()
         commands.add(
-            CommandConfig(
-                command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
-                popupHorizontalGravity
-            )
+            CommandConfig(command, actionKeyTip, popupKeyTip, textClick, popupHorizontalGravity)
         )
         return command
     }
 
     public fun command(
         actionKeyTip: String? = null, popupKeyTip: String? = null,
-        isTextClickAction: Boolean? = false, isTextClickSecondary: Boolean? = false,
+        textClick: CommandButtonPresentationModel.TextClick? = null,
         popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
         command: KCommand
     ) {
         commands.add(
-            CommandConfig(
-                command, actionKeyTip, popupKeyTip, isTextClickAction, isTextClickSecondary,
-                popupHorizontalGravity
-            )
+            CommandConfig(command, actionKeyTip, popupKeyTip, textClick, popupHorizontalGravity)
         )
     }
 

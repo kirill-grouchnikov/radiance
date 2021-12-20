@@ -34,9 +34,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
-import org.pushingpixels.radiance.demo.component.ktx.LocaleSwitcher
-import org.pushingpixels.radiance.demo.component.ktx.popup.ColorIcon
-import org.pushingpixels.radiance.demo.component.ktx.svg.*
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandActionEvent
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment
@@ -62,21 +62,20 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePo
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection
+import org.pushingpixels.radiance.component.ktx.*
+import org.pushingpixels.radiance.component.ktx.ribbon.*
+import org.pushingpixels.radiance.component.ktx.synapse.*
+import org.pushingpixels.radiance.demo.component.ktx.LocaleSwitcher
+import org.pushingpixels.radiance.demo.component.ktx.popup.ColorIcon
+import org.pushingpixels.radiance.demo.component.ktx.svg.*
 import org.pushingpixels.radiance.swing.ktx.addDelayedActionListener
 import org.pushingpixels.radiance.swing.ktx.addDelayedItemListener
 import org.pushingpixels.radiance.swing.ktx.awt.brightness
 import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
 import org.pushingpixels.radiance.swing.ktx.awt.render
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.radiance.component.ktx.*
-import org.pushingpixels.radiance.component.ktx.ribbon.*
-import org.pushingpixels.radiance.component.ktx.synapse.*
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*
-import java.lang.UnsupportedOperationException
 import java.text.MessageFormat
 import java.util.*
 import javax.imageio.ImageIO
@@ -604,21 +603,21 @@ private class RibbonDemoBuilder {
             command(
                 priority = PresentationPriority.TOP,
                 popupKeyTip = "V",
-                isTextClickAction = true,
+                textClick = CommandButtonPresentationModel.TextClick.ACTION,
                 command = pasteCommand
             )
 
             command(
                 priority = PresentationPriority.MEDIUM,
                 popupKeyTip = "X",
-                isTextClickAction = true,
+                textClick = CommandButtonPresentationModel.TextClick.ACTION,
                 command = cutCommand
             )
 
             command(
                 priority = PresentationPriority.MEDIUM,
                 popupKeyTip = "C",
-                isTextClickSecondary = true,
+                textClick = CommandButtonPresentationModel.TextClick.POPUP,
                 command = copyCommand
             )
 
@@ -659,7 +658,10 @@ private class RibbonDemoBuilder {
                                                     it.font =
                                                         RadianceThemingCortex.GlobalScope.getFontPolicy()
                                                             .fontSet.controlFont
-                                                    RadianceCommonCortex.installDesktopHints(it, it.font)
+                                                    RadianceCommonCortex.installDesktopHints(
+                                                        it,
+                                                        it.font
+                                                    )
                                                     it.drawString("" + i, x + 2, y + height - 2)
                                                 }
                                             })
@@ -1465,8 +1467,9 @@ private class RibbonDemoBuilder {
                                     Appointment_new.factory(),
                                     DecoratedRadianceIcon.IconDecorator { _, g, x, y, _, height ->
                                         g.render {
-                                            it.font = RadianceThemingCortex.GlobalScope.getFontPolicy()
-                                                .fontSet.controlFont.deriveFont(9.0f)
+                                            it.font =
+                                                RadianceThemingCortex.GlobalScope.getFontPolicy()
+                                                    .fontSet.controlFont.deriveFont(9.0f)
                                             RadianceCommonCortex.installDesktopHints(it, it.font)
                                             it.color = Color.black
                                             it.drawString("" + i, x + 1, y + height - 2)
@@ -1491,8 +1494,9 @@ private class RibbonDemoBuilder {
                                     Appointment_new.factory(),
                                     DecoratedRadianceIcon.IconDecorator { _, g, x, y, _, height ->
                                         g.render {
-                                            it.font = RadianceThemingCortex.GlobalScope.getFontPolicy()
-                                                .fontSet.controlFont.deriveFont(9.0f)
+                                            it.font =
+                                                RadianceThemingCortex.GlobalScope.getFontPolicy()
+                                                    .fontSet.controlFont.deriveFont(9.0f)
                                             RadianceCommonCortex.installDesktopHints(it, it.font)
                                             it.color = Color.black
                                             it.drawString("" + i, x + 1, y + height - 2)
@@ -1859,7 +1863,10 @@ fun main() {
             onTaskSelectionChange = { task -> println("Task [${task.title}] selected") }
 
             onShowContextualMenuListener = object : OnShowContextualMenuListener {
-                private fun build(ribbon: JRibbon, vararg commands: Command): CommandMenuContentModel {
+                private fun build(
+                    ribbon: JRibbon,
+                    vararg commands: Command
+                ): CommandMenuContentModel {
                     val commandGroup =
                         CommandGroup(
                             *commands
@@ -1880,15 +1887,21 @@ fun main() {
                     commandGroup.addCommand(
                         Command.builder()
                             .setText(builder.resourceBundle.getString("ContextMenu.configureRibbon"))
-                            .setAction { JOptionPane.showMessageDialog(null, "Configure ribbon option selected") }
+                            .setAction {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    "Configure ribbon option selected"
+                                )
+                            }
                             .build())
                     return CommandMenuContentModel(
                         commandGroup
                     )
                 }
 
-                override fun getContextualMenuContentModel(ribbon: JRibbon,
-                                                           galleryProjection: RibbonGalleryProjection
+                override fun getContextualMenuContentModel(
+                    ribbon: JRibbon,
+                    galleryProjection: RibbonGalleryProjection
                 ): CommandMenuContentModel {
                     val galleryCommand =
                         if (ribbon.isShowingInTaskbar(galleryProjection.contentModel)) {
@@ -1917,8 +1930,9 @@ fun main() {
                     return build(ribbon, galleryCommand)
                 }
 
-                override fun getContextualMenuContentModel(ribbon: JRibbon,
-                                                           componentProjection: ComponentProjection<out JComponent?, out ComponentContentModel?>
+                override fun getContextualMenuContentModel(
+                    ribbon: JRibbon,
+                    componentProjection: ComponentProjection<out JComponent?, out ComponentContentModel?>
                 ): CommandMenuContentModel {
                     val componentCommand =
                         if (ribbon.isShowingInTaskbar(componentProjection.contentModel)) {
@@ -1935,8 +1949,9 @@ fun main() {
                     return build(ribbon, componentCommand)
                 }
 
-                override fun getContextualMenuContentModel(ribbon: JRibbon,
-                                                           commandButtonProjection: CommandButtonProjection<out Command>
+                override fun getContextualMenuContentModel(
+                    ribbon: JRibbon,
+                    commandButtonProjection: CommandButtonProjection<out Command>
                 ): CommandMenuContentModel {
                     val originalCommand = commandButtonProjection.contentModel
                     val commandCommand = if (ribbon.isShowingInTaskbar(originalCommand)) {
@@ -2131,7 +2146,11 @@ fun main() {
                     }
 
                     // "Save as" primary + secondaries
-                    command(actionKeyTip = "A", popupKeyTip = "F", isTextClickAction = true) {
+                    command(
+                        actionKeyTip = "A",
+                        popupKeyTip = "F",
+                        textClick = CommandButtonPresentationModel.TextClick.ACTION
+                    ) {
                         title = builder.resourceBundle.getString("AppMenuSaveAs.text")
                         iconFactory = Document_save_as.factory()
                         action = { println("Invoked saving document as") }
@@ -2175,7 +2194,11 @@ fun main() {
 
                 group {
                     // "Print" primary + secondaries
-                    command(actionKeyTip = "P", popupKeyTip = "W", isTextClickAction = true) {
+                    command(
+                        actionKeyTip = "P",
+                        popupKeyTip = "W",
+                        textClick = CommandButtonPresentationModel.TextClick.ACTION
+                    ) {
                         title = builder.resourceBundle.getString("AppMenuPrint.text")
                         iconFactory = Document_print.factory()
                         action = { println("Invoked printing as") }

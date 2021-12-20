@@ -106,7 +106,6 @@ public class KCommandMenu {
                 actionKeyTip,
                 popupKeyTip,
                 null,
-                null,
                 null
             )
         )

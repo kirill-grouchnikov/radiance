@@ -2,14 +2,14 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -144,10 +144,10 @@ public class TestCommandButtonsSizing extends JPanel {
                         .setFlat(false);
         switch (commandButtonKind) {
             case ACTION_AND_POPUP_MAIN_ACTION:
-                commandButtonPresentationBuilder.setTextClickAction();
+                commandButtonPresentationBuilder.setTextClick(CommandButtonPresentationModel.TextClick.ACTION);
                 break;
             case ACTION_AND_POPUP_MAIN_POPUP:
-                commandButtonPresentationBuilder.setTextClickPopup();
+                commandButtonPresentationBuilder.setTextClick(CommandButtonPresentationModel.TextClick.POPUP);
                 break;
         }
 
