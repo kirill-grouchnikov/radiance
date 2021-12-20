@@ -637,8 +637,10 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
             }
         }
 
-        this.setFireActionOnRollover(commandPresentation.isFireActionOnRollover());
-        this.getActionModel().setFireActionOnPress(commandPresentation.isFireActionOnPress());
+        this.setFireActionOnRollover(commandPresentation.getFireActionTrigger() ==
+                CommandButtonPresentationModel.FireActionTrigger.ON_ROLLOVER);
+        this.getActionModel().setFireActionOnPress(commandPresentation.getFireActionTrigger() ==
+                CommandButtonPresentationModel.FireActionTrigger.ON_PRESSED);
 
         this.setPopupOrientationKind(commandPresentation.getPopupOrientationKind());
         this.setPopupHorizontalGravity(commandPresentation.getPopupHorizontalGravity());

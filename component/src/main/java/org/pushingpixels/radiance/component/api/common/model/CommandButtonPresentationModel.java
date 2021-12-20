@@ -76,8 +76,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private boolean hasAutoRepeatIntervalsSet;
     private int autoRepeatInitialInterval;
     private int autoRepeatSubsequentInterval;
-    private boolean isFireActionOnRollover;
-    private boolean isFireActionOnPress;
+    private FireActionTrigger fireActionTrigger;
 
     private CommandButtonPresentationModel() {
     }
@@ -128,10 +127,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.autoRepeatInitialInterval : this.autoRepeatInitialInterval;
         result.autoRepeatSubsequentInterval = (overlay.autoRepeatSubsequentInterval != null)
                 ? overlay.autoRepeatSubsequentInterval : this.autoRepeatSubsequentInterval;
-        result.isFireActionOnRollover = (overlay.isFireActionOnRollover != null)
-                ? overlay.isFireActionOnRollover : this.isFireActionOnRollover;
-        result.isFireActionOnPress = (overlay.isFireActionOnPress != null)
-                ? overlay.isFireActionOnPress : this.isFireActionOnPress;
+        result.fireActionTrigger = (overlay.fireActionTrigger != null)
+                ? overlay.fireActionTrigger : this.fireActionTrigger;
 
         return result;
     }
@@ -224,12 +221,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.isTextClickPopup;
     }
 
-    public boolean isFireActionOnRollover() {
-        return this.isFireActionOnRollover;
-    }
-
-    public boolean isFireActionOnPress() {
-        return this.isFireActionOnPress;
+    public FireActionTrigger getFireActionTrigger() {
+        return this.fireActionTrigger;
     }
 
     public boolean isAutoRepeatAction() {
@@ -282,6 +275,23 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         END
     }
 
+    public enum FireActionTrigger {
+        /**
+         * Fire action on rollover.
+         */
+        ON_ROLLOVER,
+
+        /**
+         * Fire action on press.
+         */
+        ON_PRESSED,
+
+        /**
+         * Fire action on press release.
+         */
+        ON_PRESS_RELEASED
+    }
+
     public static class Overlay {
         private CommandButtonPresentationState presentationState;
         private Boolean isFlat;
@@ -306,8 +316,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Boolean hasAutoRepeatIntervalsSet;
         private Integer autoRepeatInitialInterval;
         private Integer autoRepeatSubsequentInterval;
-        private Boolean isFireActionOnRollover;
-        private Boolean isFireActionOnPress;
+        private FireActionTrigger fireActionTrigger;
 
         public Overlay setFlat(boolean flat) {
             this.isFlat = flat;
@@ -412,13 +421,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setFireActionOnRollover(boolean isFireActionOnRollover) {
-            this.isFireActionOnRollover = isFireActionOnRollover;
-            return this;
-        }
-
-        public Overlay setFireActionOnPress(boolean isFireActionOnPress) {
-            this.isFireActionOnPress = isFireActionOnPress;
+        public Overlay setFireActionTrigger(FireActionTrigger fireActionTrigger) {
+            this.fireActionTrigger = fireActionTrigger;
             return this;
         }
     }
@@ -451,8 +455,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private boolean hasAutoRepeatIntervalsSet;
         private int autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
         private int autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
-        private boolean isFireActionOnRollover;
-        private boolean isFireActionOnPress;
+        private FireActionTrigger fireActionTrigger = FireActionTrigger.ON_PRESS_RELEASED;
 
         public Builder setFlat(boolean flat) {
             this.isFlat = flat;
@@ -558,13 +561,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setFireActionOnRollover(boolean isFireActionOnRollover) {
-            this.isFireActionOnRollover = isFireActionOnRollover;
-            return this;
-        }
-
-        public Builder setFireActionOnPress(boolean isFireActionOnPress) {
-            this.isFireActionOnPress = isFireActionOnPress;
+        public Builder setFireActionTrigger(FireActionTrigger fireActionTrigger) {
+            this.fireActionTrigger = fireActionTrigger;
             return this;
         }
 
@@ -595,8 +593,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.hasAutoRepeatIntervalsSet = this.hasAutoRepeatIntervalsSet;
             commandPresentation.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
             commandPresentation.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
-            commandPresentation.isFireActionOnRollover = this.isFireActionOnRollover;
-            commandPresentation.isFireActionOnPress = this.isFireActionOnPress;
+            commandPresentation.fireActionTrigger = this.fireActionTrigger;
 
             return commandPresentation;
         }

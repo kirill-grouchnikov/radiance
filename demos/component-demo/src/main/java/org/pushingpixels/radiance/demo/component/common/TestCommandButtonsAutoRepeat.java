@@ -39,7 +39,8 @@ public class TestCommandButtonsAutoRepeat extends TestCommandButtons {
     @Override
     protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
         builder.setAutoRepeatAction(true);
-        builder.setFireActionOnRollover(true);
+        builder.setAutoRepeatActionIntervals(200, 50);
+        builder.setFireActionTrigger(CommandButtonPresentationModel.FireActionTrigger.ON_ROLLOVER);
     }
 
     /**

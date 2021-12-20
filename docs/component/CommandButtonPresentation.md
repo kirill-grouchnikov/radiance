@@ -49,8 +49,7 @@ Command button presentation models are created with the builder pattern which is
 |  | autoRepeatAction | boolean |
 |  | autoRepeatInitialInterval | int |
 |  | autoRepeatSubsequentInterval | int |
-|  | fireActionOnRollover | boolean |
-|  | fireActionOnPress | boolean |
+|  | fireActionTrigger | FireActionTrigger |
 
 ### Visual attributes
 
@@ -103,11 +102,11 @@ In the second one, the mouse cursor is over the same text area, this time of the
 
 In some cases, the design calls for facilitating repeated activation of the command action. For example, it would be quite tedious to scroll down a large list of items by repeatedly clicking the down button (or area below the scrollbar thumb). The usability of such actions can be improved if, pressed once, the action is repeated continuously until the mouse button is released.
 
-Command button presentation models come with five attributes that aim to address such scenarios.
+Command button presentation models come with four attributes that aim to address such scenarios.
 
 * `setAutoRepeatAction(true)` will result in a repeated, continuous activation of the command action as long as the projected button is activated.
-* `setFireActionOnRollover(true)` will result in command action activation when the mouse is moved over the projected button - without the need to press the mouse button itself.
-* Alternatively, `setFireActionOnPress(true)` will result in command action activation when the mouse button is pressed - as opposed to the usual click which is a combination of pressing the button and then releasing it.
+* `setFireActionTrigger(FireActionTrigger.ON_ROLLOVER)` will result in command action activation when the mouse is moved over the projected button - without the need to press the mouse button itself.
+* Alternatively, `setFireActionTrigger(FireActionTrigger.ON_PRESSED)` will result in command action activation when the mouse button is pressed - as opposed to the usual click which is a combination of pressing the button and then releasing it.
 * Finally, `setAutoRepeatActionIntervals()` can be used to configure the command-specific initial and subsequent intervals between action activation. The static `Command.DEFAULT_AUTO_REPEAT_*` constants can be used to check for the default values of these two intervals.
 
 #### Working with popups

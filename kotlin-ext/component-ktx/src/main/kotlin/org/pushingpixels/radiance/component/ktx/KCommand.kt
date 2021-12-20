@@ -356,8 +356,8 @@ public open class KCommandButtonPresentation {
     public var popupKeyTip: String? = null
     public var isTextClickAction: Boolean = true
     public var isTextClickPopup: Boolean = false
-    public var isFireActionOnRollover: Boolean = false
-    public var isFireActionOnPress: Boolean = false
+    public var fireActionTrigger: CommandButtonPresentationModel.FireActionTrigger =
+        CommandButtonPresentationModel.FireActionTrigger.ON_PRESS_RELEASED
     public var isAutoRepeatAction: Boolean = false
     public var autoRepeatInitialInterval: Int =
         CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
@@ -383,8 +383,7 @@ public open class KCommandButtonPresentation {
             .setPopupKeyTip(popupKeyTip)
             .setMenu(isMenu)
             .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
-            .setFireActionOnRollover(isFireActionOnRollover)
-            .setFireActionOnPress(isFireActionOnPress)
+            .setFireActionTrigger(fireActionTrigger)
             .setAutoRepeatAction(isAutoRepeatAction)
             .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
 

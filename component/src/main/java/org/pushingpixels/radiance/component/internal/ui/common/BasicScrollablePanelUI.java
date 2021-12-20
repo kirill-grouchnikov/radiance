@@ -175,7 +175,9 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 .setToDismissPopupsOnActivation(false)
                 .setHorizontalAlignment(SwingConstants.CENTER)
                 .setFlat(true)
-                .setFireActionOnRollover(this.scrollablePanel.isScrollOnRollover())
+                .setFireActionTrigger(this.scrollablePanel.isScrollOnRollover() ?
+                        CommandButtonPresentationModel.FireActionTrigger.ON_ROLLOVER :
+                        CommandButtonPresentationModel.FireActionTrigger.ON_PRESS_RELEASED)
                 .setAutoRepeatAction(true)
                 .setAutoRepeatActionIntervals(200, 50)
                 .build();
