@@ -39,8 +39,7 @@ Command button presentation models are created with the builder pattern which is
 |  | verticalGapScaleFactor | int |
 | **Interaction** | focusable | boolean |
 |  | menu | boolean |
-|  | textClickAction | boolean |
-|  | textClickPopup | boolean |
+|  | textClick | TextClick |
 |  | actionKeyTip | String |
 |  | popupKeyTip | String |
 |  | popupMenuPresentationModel | AbstractPopupMenuPresentationModel |
