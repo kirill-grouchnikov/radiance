@@ -31,11 +31,11 @@
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =    '7.3.2'
+        gradle_version                       =    '7.3.3'
 
         // Core dependencies
         kotlin_version                       =   '1.6.10'
-        kotlinx_coroutines_version           =    '1.5.2'
+        kotlinx_coroutines_version           =    '1.6.0'
         batik_version                        =     '1.14'
 
         // Demo dependencies
