@@ -30,11 +30,15 @@ Additional [skins](skins/overview.md) are available under the `org.pushingpixels
 
 The `org.pushingpixels.radiance.theming.extras.api.tabbed` package provides three widgets that can be enabled for on `JTabbedPane`s in your application.
 
+* `TabHoverPreviewWidget` - will display a small thumbnail preview of tab contents when the mouse is hovering over the tab
+* `TabOverviewDialogWidget` - will display a button that brings an overview dialog with all the tab previews
+* `TabPagerWidget` - will display a floating 3-pane tab pager on Ctrl+Right and Ctrl+Left keystrokes
+
 To enable a specific widget, use `RadianceThemingCortex.GlobalScope.registerWidget` API:
 
 ```java
 RadianceThemingCortex.GlobalScope.registerWidget(
-     "TabHoverPreviewWidget",
+     "org.pushingpixels.radiance.theming.extras.api.tabbed.TabHoverPreviewWidget",
      JTabbedPane.class, false)
 ```
 
