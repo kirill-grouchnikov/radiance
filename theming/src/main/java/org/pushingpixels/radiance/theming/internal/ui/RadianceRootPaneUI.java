@@ -1,38 +1,38 @@
 /*
  * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -47,14 +47,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.security.AccessController;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.util.Set;
 
 /**
  * UI for root panes in <b>Radiance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  * @author Larry Salibra (fix for defect 198)
  */
@@ -157,9 +154,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Creates a UI for a <code>JRootPane</code>.
-     * 
-     * @param comp
-     *            the JRootPane the RootPaneUI will be created for
+     *
+     * @param comp the JRootPane the RootPaneUI will be created for
      * @return the RootPaneUI implementation for the passed in JRootPane
      */
     public static ComponentUI createUI(JComponent comp) {
@@ -177,9 +173,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * <code>JRootPane</code> is other than <code>JRootPane.NONE</code>, this will add a custom
      * <code>Component</code> to render the widgets to <code>JRootPane</code>, as well as installing
      * a custom <code>Border</code> and <code>LayoutManager</code> on the <code>JRootPane</code>.
-     * 
-     * @param c
-     *            the JRootPane to install state onto
+     *
+     * @param c the JRootPane to install state onto
      */
     @Override
     public void installUI(JComponent c) {
@@ -212,9 +207,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * been added to the <code>JRootPane</code> to render the window decoration style, this method
      * will remove it. Similarly, this will revert the Border and LayoutManager of the
      * <code>JRootPane</code> to what it was before <code>installUI</code> was invoked.
-     * 
-     * @param c
-     *            the JRootPane to uninstall state from
+     *
+     * @param c the JRootPane to uninstall state from
      */
     @Override
     public void uninstallUI(JComponent c) {
@@ -237,9 +231,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Installs the appropriate <code>Border</code> onto the <code>JRootPane</code>.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     public void installBorder(JRootPane root) {
         int style = root.getWindowDecorationStyle();
@@ -253,9 +246,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Removes any border that may have been installed.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     private void uninstallBorder(JRootPane root) {
         LookAndFeel.uninstallBorder(root);
@@ -304,12 +296,9 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * <p>
      * This takes the parent so that cleanup can be done from <code>removeNotify</code>, at which
      * point the parent hasn't been reset yet.
-     * 
-     * 
-     * @param root
-     *            Root pane.
-     * @param parent
-     *            The parent of the JRootPane
+     *
+     * @param root   Root pane.
+     * @param parent The parent of the JRootPane
      */
     private void installWindowListeners(JRootPane root, Component parent) {
         if (parent instanceof Window) {
@@ -338,9 +327,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
     /**
      * Uninstalls the necessary Listeners on the <code>Window</code> the Listeners were last
      * installed on.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     private void uninstallWindowListeners(JRootPane root) {
         if ((this.window != null) && (this.radianceMouseInputListener != null)) {
@@ -356,9 +344,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
     /**
      * Installs the appropriate LayoutManager on the <code>JRootPane</code> to render the window
      * decorations.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     private void installLayout(JRootPane root) {
         if (this.layoutManager == null) {
@@ -546,9 +533,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Uninstalls the previously installed <code>LayoutManager</code>.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     private void uninstallLayout(JRootPane root) {
         if (this.savedOldLayout != null) {
@@ -561,9 +547,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * Installs the necessary state onto the JRootPane to render client decorations. This is ONLY
      * invoked if the <code>JRootPane</code> has a decoration style other than
      * <code>JRootPane.NONE</code>.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     private void installClientDecorations(JRootPane root) {
         this.installBorder(root);
@@ -593,9 +578,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * <p>
      * NOTE: This may be called if you haven't installed client decorations yet (ie before
      * <code>installClientDecorations</code> has been invoked).
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      */
     private void uninstallClientDecorations(JRootPane root) {
         this.uninstallBorder(root);
@@ -621,9 +605,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Returns the <code>JComponent</code> to render the window decoration style.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      * @return The title pane component.
      */
     protected RadianceTitlePane createTitlePane(JRootPane root) {
@@ -633,9 +616,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
     /**
      * Returns a <code>MouseListener</code> that will be added to the <code>Window</code> containing
      * the <code>JRootPane</code>.
-     * 
-     * @param root
-     *            Root pane.
+     *
+     * @param root Root pane.
      * @return Window mouse listener.
      */
     private MouseInputListener createWindowMouseInputListener(JRootPane root) {
@@ -644,7 +626,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Returns a <code>LayoutManager</code> that will be set on the <code>JRootPane</code>.
-     * 
+     *
      * @return Layout manager.
      */
     protected LayoutManager createLayoutManager() {
@@ -656,11 +638,9 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * native operating system's window title pane with one whose look and feel are controlled by
      * the plaf. The plaf creates and sets this value; the default is null, implying a native
      * operating system window title pane.
-     * 
-     * @param root
-     *            Root pane
-     * @param titlePane
-     *            The <code>JComponent</code> to use for the window title pane.
+     *
+     * @param root      Root pane
+     * @param titlePane The <code>JComponent</code> to use for the window title pane.
      */
     private void setTitlePane(JRootPane root, RadianceTitlePane titlePane) {
         JLayeredPane layeredPane = root.getLayeredPane();
@@ -681,9 +661,9 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * Returns the <code>JComponent</code> rendering the title pane. If this returns null, it
      * implies there is no need to render window decorations. This method is <b>for internal use
      * only</b>.
-     * 
-     * @see #setTitlePane
+     *
      * @return Title pane.
+     * @see #setTitlePane
      */
     public JComponent getTitlePane() {
         return this.titlePane;
@@ -725,7 +705,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Returns the <code>JRootPane</code> we're providing the look and feel for.
-     * 
+     *
      * @return The associated root pane.
      */
     protected JRootPane getRootPane() {
@@ -780,10 +760,10 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
     protected class RadianceRootLayout implements LayoutManager2 {
         /**
          * Returns the amount of space the layout would like to have.
-         * 
-         * 
+         * <p>
+         * <p>
          * aram the Container for which this layout manager is being used
-         * 
+         *
          * @return a Dimension object containing the layout's preferred size
          */
         @Override
@@ -834,10 +814,10 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
         /**
          * Returns the minimum amount of space the layout needs.
-         * 
-         * 
+         * <p>
+         * <p>
          * aram the Container for which this layout manager is being used
-         * 
+         *
          * @return a Dimension object containing the layout's minimum size
          */
         @Override
@@ -887,10 +867,10 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
         /**
          * Returns the maximum amount of space the layout can use.
-         * 
-         * 
+         * <p>
+         * <p>
          * aram the Container for which this layout manager is being used
-         * 
+         *
          * @return a Dimension object containing the layout's maximum size
          */
         @Override
@@ -953,8 +933,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
         /**
          * Instructs the layout manager to perform the layout for the specified container.
-         * 
-         * 
+         * <p>
+         * <p>
          * aram the Container for which this layout manager is being used
          */
         @Override
@@ -1037,13 +1017,13 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * Maps from positions to cursor type. Refer to calculateCorner and calculatePosition for
      * details of this.
      */
-    private static final int[] cursorMapping = new int[] { Cursor.NW_RESIZE_CURSOR,
-                    Cursor.NW_RESIZE_CURSOR, Cursor.N_RESIZE_CURSOR, Cursor.NE_RESIZE_CURSOR,
-                    Cursor.NE_RESIZE_CURSOR, Cursor.NW_RESIZE_CURSOR, 0, 0, 0,
-                    Cursor.NE_RESIZE_CURSOR, Cursor.W_RESIZE_CURSOR, 0, 0, 0,
-                    Cursor.E_RESIZE_CURSOR, Cursor.SW_RESIZE_CURSOR, 0, 0, 0,
-                    Cursor.SE_RESIZE_CURSOR, Cursor.SW_RESIZE_CURSOR, Cursor.SW_RESIZE_CURSOR,
-                    Cursor.S_RESIZE_CURSOR, Cursor.SE_RESIZE_CURSOR, Cursor.SE_RESIZE_CURSOR };
+    private static final int[] cursorMapping = new int[] {Cursor.NW_RESIZE_CURSOR,
+            Cursor.NW_RESIZE_CURSOR, Cursor.N_RESIZE_CURSOR, Cursor.NE_RESIZE_CURSOR,
+            Cursor.NE_RESIZE_CURSOR, Cursor.NW_RESIZE_CURSOR, 0, 0, 0,
+            Cursor.NE_RESIZE_CURSOR, Cursor.W_RESIZE_CURSOR, 0, 0, 0,
+            Cursor.E_RESIZE_CURSOR, Cursor.SW_RESIZE_CURSOR, 0, 0, 0,
+            Cursor.SE_RESIZE_CURSOR, Cursor.SW_RESIZE_CURSOR, Cursor.SW_RESIZE_CURSOR,
+            Cursor.S_RESIZE_CURSOR, Cursor.SE_RESIZE_CURSOR, Cursor.SE_RESIZE_CURSOR};
 
     /**
      * MouseInputHandler is responsible for handling resize/moving of the Window. It sets the cursor
@@ -1082,12 +1062,6 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
          */
         private int dragHeight;
 
-        /**
-         * PrivilegedExceptionAction needed by mouseDragged method to obtain new location of window
-         * on screen during the drag.
-         */
-        private final PrivilegedExceptionAction<Point> getLocationAction = () -> MouseInfo.getPointerInfo().getLocation();
-
         @Override
         public void mousePressed(MouseEvent ev) {
             JRootPane rootPane = RadianceRootPaneUI.this.getRootPane();
@@ -1119,7 +1093,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
                         && (dragWindowOffset.y >= RadianceRootPaneUI.BORDER_DRAG_THICKNESS)
                         && (dragWindowOffset.x >= RadianceRootPaneUI.BORDER_DRAG_THICKNESS)
                         && (dragWindowOffset.x < w.getWidth()
-                                - RadianceRootPaneUI.BORDER_DRAG_THICKNESS)) {
+                        - RadianceRootPaneUI.BORDER_DRAG_THICKNESS)) {
                     this.isMovingWindow = true;
                     this.dragOffsetX = dragWindowOffset.x;
                     this.dragOffsetY = dragWindowOffset.y;
@@ -1185,19 +1159,13 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
         /**
          * Adjusts the bounds.
-         * 
-         * @param bounds
-         *            Original bounds.
-         * @param min
-         *            Minimum dimension.
-         * @param deltaX
-         *            Delta X.
-         * @param deltaY
-         *            Delta Y.
-         * @param deltaWidth
-         *            Delta width.
-         * @param deltaHeight
-         *            Delta height.
+         *
+         * @param bounds      Original bounds.
+         * @param min         Minimum dimension.
+         * @param deltaX      Delta X.
+         * @param deltaY      Delta Y.
+         * @param deltaWidth  Delta width.
+         * @param deltaHeight Delta height.
          */
         private void adjust(Rectangle bounds, Dimension min, int deltaX, int deltaY, int deltaWidth,
                 int deltaHeight) {
@@ -1229,14 +1197,10 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
             Point pt = ev.getPoint();
 
             if (this.isMovingWindow) {
-                Point windowPt;
-                try {
-                    windowPt = AccessController.doPrivileged(this.getLocationAction);
-                    windowPt.x = windowPt.x - this.dragOffsetX;
-                    windowPt.y = windowPt.y - this.dragOffsetY;
-                    w.setLocation(windowPt);
-                } catch (PrivilegedActionException e) {
-                }
+                Point windowPt = MouseInfo.getPointerInfo().getLocation();
+                windowPt.x = windowPt.x - this.dragOffsetX;
+                windowPt.y = windowPt.y - this.dragOffsetY;
+                w.setLocation(windowPt);
             } else if (this.dragCursor != 0) {
                 Rectangle r = w.getBounds();
                 Rectangle startBounds = new Rectangle(r);
@@ -1357,13 +1321,10 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         /**
          * Returns the corner that contains the point <code>x</code>, <code>y</code>, or -1 if the
          * position doesn't match a corner.
-         * 
-         * @param w
-         *            Window.
-         * @param x
-         *            X coordinate.
-         * @param y
-         *            Y coordinate.
+         *
+         * @param w Window.
+         * @param x X coordinate.
+         * @param y Y coordinate.
          * @return Corner that contains the specified point.
          */
         private int calculateCorner(Window w, int x, int y) {
@@ -1382,9 +1343,8 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         /**
          * Returns the Cursor to render for the specified corner. This returns 0 if the corner
          * doesn't map to a valid Cursor
-         * 
-         * @param corner
-         *            Corner
+         *
+         * @param corner Corner
          * @return Cursor to render for the specified corner.
          */
         private int getCursor(int corner) {
@@ -1399,11 +1359,9 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
          * The return value will be: 0 if < BORDER_DRAG_THICKNESS 1 if < CORNER_DRAG_WIDTH 2 if >=
          * CORNER_DRAG_WIDTH && < width - BORDER_DRAG_THICKNESS 3 if >= width - CORNER_DRAG_WIDTH 4
          * if >= width - BORDER_DRAG_THICKNESS 5 otherwise
-         * 
-         * @param spot
-         *            Spot.
-         * @param width
-         *            Width.
+         *
+         * @param spot  Spot.
+         * @param width Width.
          * @return The position of spot in width.
          */
         private int calculatePosition(int spot, int width) {
@@ -1425,7 +1383,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
     /**
      * Mouse handler on the title pane.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class TitleMouseInputHandler extends MouseInputAdapter {
@@ -1554,7 +1512,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
             Point convertedPoint = SwingUtilities.convertPoint(source, point, layeredPane);
             convertedPoint.x += layeredPaneInsets.left;
             convertedPoint.y += layeredPaneInsets.top;
-            Rectangle titlePaneRect = new Rectangle(0, 0, layeredPane.getWidth() - 
+            Rectangle titlePaneRect = new Rectangle(0, 0, layeredPane.getWidth() -
                     layeredPaneInsets.left - layeredPaneInsets.right,
                     this.titlePane.getHeight());
             return titlePaneRect.contains(convertedPoint);

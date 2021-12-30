@@ -26,7 +26,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
-import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -254,8 +253,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
     public Component add(Action action, int width, int height){
         URL url = (URL) action.getValue(AbstractCarouselMenuAction.ACTION_IMAGE_URL);
         if (url==null){
-            throw new InvalidParameterException("Supplied action does not have Image URL key (AbstractCarouselMenuAction.ACTION_IMAGE_URL)"
-                    );
+            throw new IllegalArgumentException("Supplied action does not have Image URL key (AbstractCarouselMenuAction.ACTION_IMAGE_URL)");
         }
         Component comp = carousel.add(url.toString());
         MenuItem item = new MenuItem(comp, (String) action.getValue(Action.SHORT_DESCRIPTION), action);
@@ -274,8 +272,7 @@ public class JCarouselMenu extends GradientPanel implements ListSelectionListene
     public Component add(Action action){
         URL url = (URL) action.getValue(AbstractCarouselMenuAction.ACTION_IMAGE_URL);
         if (url==null){
-            throw new InvalidParameterException("Supplied action does not have Image URL key (AbstractCarouselMenuAction.ACTION_IMAGE_URL)"
-                    );
+            throw new IllegalArgumentException("Supplied action does not have Image URL key (AbstractCarouselMenuAction.ACTION_IMAGE_URL)");
         }
         Component comp = carousel.add(url.toString());
         MenuItem item = new MenuItem(comp, (String) action.getValue(Action.SHORT_DESCRIPTION), action);

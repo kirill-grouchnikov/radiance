@@ -37,7 +37,6 @@ import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.plaf.ComponentUI;
 import java.lang.reflect.Method;
-import java.security.AccessControlException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -79,10 +78,8 @@ public class RadianceColorChooserUI extends Quaqua14ColorChooserUI {
 				AbstractColorChooserPanel panel = (AbstractColorChooserPanel) Class
 						.forName(defaultChoosers[i]).getDeclaredConstructor().newInstance();
 				panelList.add(panel);
-			} catch (AccessControlException e) {
-				// ignore - happens on unsigned apps in WebStart environment
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Throwable t) {
+				t.printStackTrace();
 				throw new InternalError("Unable to instantiate " + defaultChoosers[i]);
 			}
 		}

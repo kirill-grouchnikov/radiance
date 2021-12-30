@@ -29,7 +29,6 @@ import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.security.AccessControlException;
 import java.util.ArrayList;
 /**
  * QuaquaColorChooserUI.
@@ -75,11 +74,7 @@ public class Quaqua13ColorChooserUI extends ColorChooserUI {
             try {
                 panels.add((AbstractColorChooserPanel)
                         Class.forName(defaultChooser).getDeclaredConstructor().newInstance());
-            } catch (AccessControlException | UnsupportedClassVersionError e) {
-                // suppress
-                System.err.println("Quaqua13ColorChooserUI warning: unable to instantiate "
-                        + defaultChooser);
-            } catch (Exception e) {
+            } catch (Throwable t) {
                 throw new InternalError("Unable to instantiate " + defaultChooser);
             }
         }

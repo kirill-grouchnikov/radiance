@@ -41,8 +41,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.print.PrinterGraphics;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,8 +83,7 @@ public class RadianceCommonCortex {
             // security access - too bad for KDE desktops.
         }
         try {
-            PrivilegedAction<String> desktopAction = () -> System.getProperty("sun.desktop");
-            String desktop = AccessController.doPrivileged(desktopAction);
+            String desktop = System.getProperty("sun.desktop");
             if ("gnome".equals(desktop)) {
                 return (platform = Platform.GNOME);
             }
