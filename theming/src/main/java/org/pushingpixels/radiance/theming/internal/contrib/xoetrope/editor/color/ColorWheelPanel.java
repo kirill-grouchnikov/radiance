@@ -1,9 +1,11 @@
 package org.pushingpixels.radiance.theming.internal.contrib.xoetrope.editor.color;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.RadianceColorChooserPanel;
@@ -310,7 +312,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Set the reference to the selected colours for the colour scheme
-	 * 
+	 *
 	 * @param clrs
 	 *            the colors
 	 */
@@ -320,7 +322,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Add a listener for changes in the selected color
-	 * 
+	 *
 	 * @param l
 	 *            the change listener to add
 	 */
@@ -330,7 +332,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Remove a change listener
-	 * 
+	 *
 	 * @param l
 	 *            the change listener to remove
 	 */
@@ -340,7 +342,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Has the user selected the use decimal rgb checkbox?
-	 * 
+	 *
 	 * @return true if decimal rgb values are to be shown
 	 */
 	public boolean useDecimalRGB() {
@@ -349,7 +351,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Has the user selected the use web safe colors checkbox?
-	 * 
+	 *
 	 * @return true if only web safe colors are to be shown
 	 */
 	public boolean useWebColors() {
@@ -358,7 +360,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Set the display of the color scheme markers.
-	 * 
+	 *
 	 * @param disp
 	 *            true to display the color scheme markers.
 	 */
@@ -368,7 +370,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the selected colors hue
-	 * 
+	 *
 	 * @return the selected hue in the range 0-255
 	 */
 	public int getHue() {
@@ -382,7 +384,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Set the selected hue
-	 * 
+	 *
 	 * @param h
 	 *            the selected hue in the range 0-255
 	 */
@@ -400,7 +402,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the selected colors saturation
-	 * 
+	 *
 	 * @return the selected saturation in the range 0-255
 	 */
 	public int getSaturation() {
@@ -414,7 +416,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the selected colors brightness
-	 * 
+	 *
 	 * @return the selected brightness in the range 0-255
 	 */
 	public int getBrightness() {
@@ -428,7 +430,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Set the Itten color scheme to use
-	 * 
+	 *
 	 * @param scheme
 	 *            <ul>
 	 *            <li>-1 for no scheme display</li>
@@ -448,7 +450,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 	/**
 	 * Change the hue to match the angle identified by the point (in the inner
 	 * circle).
-	 * 
+	 *
 	 * @param pt
 	 *            the point within the inner circle
 	 */
@@ -554,7 +556,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the selected color
-	 * 
+	 *
 	 * @return the color
 	 */
 	public Color getColor() {
@@ -563,7 +565,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the chooser color
-	 * 
+	 *
 	 * @return the chooser color
 	 */
 	public ModelColor getChooserColour() {
@@ -873,7 +875,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Invoked when the target of the listener has changed its state.
-	 * 
+	 *
 	 * @param e
 	 *            a ChangeEvent object
 	 */
@@ -1152,12 +1154,16 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 				double sin = Math.sin(angle2);
 				double cos = Math.cos(angle2);
 
+				boolean isDark = RadianceCoreUtilities.getSkin(this).
+						getColorScheme(this, ComponentState.ENABLED).isDark();
+
 				AttributedString as = new AttributedString(getLabel(
 						"Xoetrope.warm", "WARM"));
 				as.addAttribute(TextAttribute.FAMILY, fontFamily);
 				as.addAttribute(TextAttribute.SIZE,
 						(float) (ringThickness / 1.5));
-				as.addAttribute(TextAttribute.FOREGROUND, new Color(92, 0, 0));
+				as.addAttribute(TextAttribute.FOREGROUND,
+						isDark? new Color(240, 164, 164) : new Color(128, 16, 16));
 				at = ((AffineTransform) identityTransform.clone());
 				at.translate((center + fontHeight / 5.0 + r4 * cos),
 						(center + r4 * sin));
@@ -1172,7 +1178,8 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 				as.addAttribute(TextAttribute.FAMILY, fontFamily);
 				as.addAttribute(TextAttribute.SIZE,
 						(float) (ringThickness / 1.5));
-				as.addAttribute(TextAttribute.FOREGROUND, new Color(0, 0, 92));
+				as.addAttribute(TextAttribute.FOREGROUND,
+						isDark? new Color(164, 164, 240) : new Color(16, 16, 128));
 				at = ((AffineTransform) identityTransform.clone());
 				at.translate((center + fontHeight / 5.0 + r4 * cos),
 						(center + r4 * sin));
@@ -1319,7 +1326,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Show a popup menu with the list of system colors
-	 * 
+	 *
 	 * @param p
 	 *            the location to display the popup
 	 */
@@ -1363,7 +1370,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the named system color
-	 * 
+	 *
 	 * @param temp
 	 *            the color name
 	 * @return the color value or null if the name is not recognized
@@ -1455,7 +1462,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Should the color wheel's colors be adjusted
-	 * 
+	 *
 	 * @return true if the colors should change to match the brightness and
 	 *         saturation
 	 */
@@ -1472,7 +1479,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the adjust color wheel flag.
-	 * 
+	 *
 	 * @return the adjustment mode
 	 */
 	public int getAdjustWheel() {
@@ -1481,7 +1488,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Set the adjust color wheel flag.
-	 * 
+	 *
 	 * @param state
 	 *            the color wheel's new adjustment mode ( CTRL_ADJUST |
 	 *            ALWAYS_ADJUST | NEVER_ADJUST );
@@ -1492,7 +1499,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Get the adjust rollover color flag.
-	 * 
+	 *
 	 * @return the adjustment mode
 	 */
 	public boolean getRollover() {
@@ -1501,7 +1508,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
 	/**
 	 * Set the adjust rollover color flag.
-	 * 
+	 *
 	 * @param state
 	 *            the rollover's new adjustment mode ( true | false );
 	 */
