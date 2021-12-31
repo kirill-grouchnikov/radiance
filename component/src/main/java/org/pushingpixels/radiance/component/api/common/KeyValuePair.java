@@ -29,32 +29,23 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Generic key-value pair with optional property map.
+ * Generic key-value pair.
  *
  * @param <K> Key class.
  * @param <V> Value class.
  * @author Kirill Grouchnikov
  */
-public class KeyValuePair<K, V> {
+public final class KeyValuePair<K, V> {
     /**
      * Pair key.
      */
-    protected K key;
+    private K key;
 
     /**
      * Pair value.
      */
-    protected V value;
-
-    /**
-     * Property map.
-     */
-    protected Map<String, Object> propMap;
+    private V value;
 
     /**
      * Creates a new pair.
@@ -65,7 +56,6 @@ public class KeyValuePair<K, V> {
     public KeyValuePair(K key, V value) {
         this.key = key;
         this.value = value;
-        this.propMap = new HashMap<>();
     }
 
     /**
@@ -84,34 +74,5 @@ public class KeyValuePair<K, V> {
      */
     public K getKey() {
         return key;
-    }
-
-    /**
-     * Returns the property attached to the specified key.
-     *
-     * @param propKey Property key.
-     * @return Attached property.
-     */
-    public Object get(String propKey) {
-        return this.propMap.get(propKey);
-    }
-
-    /**
-     * Sets the property specified by the key and value.
-     *
-     * @param propKey   Property key.
-     * @param propValue Property value.
-     */
-    public void set(String propKey, Object propValue) {
-        this.propMap.put(propKey, propValue);
-    }
-
-    /**
-     * Returns all attached properties.
-     *
-     * @return All attached properties.
-     */
-    public Map<String, Object> getProps() {
-        return Collections.unmodifiableMap(this.propMap);
     }
 }
