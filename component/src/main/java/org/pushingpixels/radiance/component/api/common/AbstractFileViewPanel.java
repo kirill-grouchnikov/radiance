@@ -174,9 +174,9 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      * {@link #getRadianceIcon(Leaf, InputStream, CommandButtonPresentationState, Dimension)} is
      * added to the panel.
      *
-     * @param leafs Information on the entries to show in the panel.
+     * @param leaves Information on the entries to show in the panel.
      */
-    public void setFolder(final List<BreadcrumbItem<T>> leafs) {
+    public void setFolder(final List<BreadcrumbItem<T>> leaves) {
         final CommandPanelContentModel contentModel = this.getProjection().getContentModel();
         contentModel.removeAllCommandGroups();
 
@@ -184,8 +184,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         contentModel.addCommandGroup(commandGroup);
 
         int fileCount = 0;
-        for (BreadcrumbItem<T> leaf : leafs) {
-            String name = leaf.getKey();
+        for (BreadcrumbItem<T> leaf : leaves) {
             if (!toShowFile(leaf)) {
                 continue;
             }
@@ -193,7 +192,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
             // Create a command with empty icon factory. The icons will be loaded off the EDT / UI thread
             // a bit later in this method
             Command command = Command.builder()
-                    .setText(name)
+                    .setText(leaf.getDisplayName())
                     .setIconFactory(EmptyRadianceIcon.factory())
                     .build();
 
@@ -213,16 +212,15 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     progressListener.onProgress(
                             new ProgressEvent(AbstractFileViewPanel.this, 0, totalCount, 0));
                 }
-                for (final BreadcrumbItem<T> leafPair : leafs) {
+                for (final BreadcrumbItem<T> leafItem : leaves) {
                     if (isCancelled()) {
                         break;
                     }
-                    final String name = leafPair.getKey();
-                    if (!toShowFile(leafPair)) {
+                    if (!toShowFile(leafItem)) {
                         continue;
                     }
-                    InputStream stream = getLeafContent(leafPair.getData());
-                    Leaf leaf = new Leaf(name, stream);
+                    InputStream stream = getLeafContent(leafItem.getData());
+                    Leaf leaf = new Leaf(leafItem.getDisplayName(), stream);
                     publish(leaf);
                 }
                 return null;

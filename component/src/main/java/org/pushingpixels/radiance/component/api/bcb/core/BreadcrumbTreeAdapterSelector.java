@@ -128,23 +128,23 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
             this.isRootVisible = isRootVisible;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public List<BreadcrumbItem<T>> getPathChoices(List<BreadcrumbItem<T>> path) {
             if (path == null) {
                 T root = (T) this.treeModel.getRoot();
                 List<BreadcrumbItem<T>> bRoots = new LinkedList<>();
                 if (isRootVisible) {
-                    BreadcrumbItem<T> rootPair = new BreadcrumbItem<>(
-                            this.treeAdapter.toString(root), root);
-                    rootPair.setIcon(this.treeAdapter.getIcon(root));
-                    bRoots.add(rootPair);
+                    BreadcrumbItem<T> rootItem = new BreadcrumbItem<>(
+                            this.treeAdapter.toString(root), this.treeAdapter.getIcon(root), root);
+                    bRoots.add(rootItem);
                 } else {
                     for (int i = 0; i < this.treeModel.getChildCount(root); i++) {
                         T rootChild = (T) this.treeModel.getChild(root, i);
-                        BreadcrumbItem<T> rootPair = new BreadcrumbItem<>(
-                                this.treeAdapter.toString(rootChild), rootChild);
-                        rootPair.setIcon(this.treeAdapter.getIcon(rootChild));
-                        bRoots.add(rootPair);
+                        BreadcrumbItem<T> rootItem = new BreadcrumbItem<>(
+                                this.treeAdapter.toString(rootChild),
+                                this.treeAdapter.getIcon(rootChild), rootChild);
+                        bRoots.add(rootItem);
                     }
                 }
                 return bRoots;
@@ -165,13 +165,13 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                     continue;
                 }
                 BreadcrumbItem<T> item = new BreadcrumbItem<>(
-                        this.treeAdapter.toString(child), child);
-                item.setIcon(this.treeAdapter.getIcon(child));
+                        this.treeAdapter.toString(child), this.treeAdapter.getIcon(child), child);
                 lResult.add(item);
             }
             return lResult;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public List<BreadcrumbItem<T>> getLeaves(List<BreadcrumbItem<T>> path) {
             T lastInPath = path.get(path.size() - 1).getData();
@@ -186,8 +186,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                     continue;
                 }
                 BreadcrumbItem<T> item = new BreadcrumbItem<>(
-                        this.treeAdapter.toString(child), child);
-                item.setIcon(this.treeAdapter.getIcon(child));
+                        this.treeAdapter.toString(child), this.treeAdapter.getIcon(child), child);
                 lResult.add(item);
             }
             return lResult;

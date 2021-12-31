@@ -70,25 +70,6 @@ final class BreadcrumbItemChoices<T> {
 		this.selectedIndex = -1;
 	}
 
-	/**
-	 * Returns the 0-based index of the first {@link BreadcrumbItem} whose
-	 * display name matches the specified string.
-	 * 
-	 * @param s
-	 *            String.
-	 * @return The 0-based index of the first {@link BreadcrumbItem} whose
-	 *         display name matches the specified string.
-	 */
-	public int getPosition(String s) {
-		assert (s != null && s.length() > 0);
-		for (int i = 0; i < choices.size(); i++) {
-			BreadcrumbItem<T> it = choices.get(i);
-			if (s.equals(it.getKey()))
-				return i;
-		}
-		return -1;
-	}
-
 	public void setSelectedIndex(int index) {
 		this.selectedIndex = index;
 	}

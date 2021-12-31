@@ -94,11 +94,9 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                         if (systemName.length() == 0) {
                             systemName = root.getAbsolutePath();
                         }
-                        BreadcrumbItem<File> rootPair = new BreadcrumbItem<>(systemName, root);
-                        if (useNativeIcons) {
-                            rootPair.setIcon(fsv.getSystemIcon(root));
-                        }
-                        bRoots.add(rootPair);
+                        BreadcrumbItem<File> rootItem = new BreadcrumbItem<>(systemName,
+                                useNativeIcons ? fsv.getSystemIcon(root) : null, root);
+                        bRoots.add(rootItem);
                     }
                     return bRoots;
                 }
@@ -126,19 +124,17 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     if ((childFileName == null) || childFileName.isEmpty()) {
                         childFileName = child.getName();
                     }
-                    BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName, child);
-                    if (useNativeIcons) {
-                        item.setIcon(fsv.getSystemIcon(child));
-                    }
+                    BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName,
+                            useNativeIcons ? fsv.getSystemIcon(child) : null, child);
                     lResult.add(item);
                 }
                 lResult.sort(new Comparator<>() {
                     @Override
                     public int compare(BreadcrumbItem<File> o1, BreadcrumbItem<File> o2) {
                         String key1 = fsv.isFileSystemRoot(o1.getData()) ?
-                                o1.getData().getAbsolutePath() : o1.getKey();
+                                o1.getData().getAbsolutePath() : o1.getData().getName();
                         String key2 = fsv.isFileSystemRoot(o2.getData()) ?
-                                o2.getData().getAbsolutePath() : o2.getKey();
+                                o2.getData().getAbsolutePath() : o2.getData().getName();
                         return key1.toLowerCase().compareTo(key2.toLowerCase());
                     }
 
@@ -177,10 +173,8 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     if ((childFileName == null) || childFileName.isEmpty()) {
                         childFileName = child.getName();
                     }
-                    BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName, child);
-                    if (useNativeIcons) {
-                        item.setIcon(fsv.getSystemIcon(child));
-                    }
+                    BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName,
+                            useNativeIcons ? fsv.getSystemIcon(child) : null, child);
                     lResult.add(item);
                 }
                 lResult.sort(new Comparator<>() {
@@ -188,9 +182,9 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     public int compare(BreadcrumbItem<File> o1,
                             BreadcrumbItem<File> o2) {
                         String key1 = fsv.isFileSystemRoot(o1.getData()) ?
-                                o1.getData().getAbsolutePath() : o1.getKey();
+                                o1.getData().getAbsolutePath() : o1.getData().getName();
                         String key2 = fsv.isFileSystemRoot(o2.getData()) ?
-                                o2.getData().getAbsolutePath() : o2.getKey();
+                                o2.getData().getAbsolutePath() : o2.getData().getName();
                         return key1.toLowerCase().compareTo(key2.toLowerCase());
                     }
 
@@ -275,16 +269,16 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
 
         ArrayList<BreadcrumbItem<File>> path = new ArrayList<>();
         File parent = dir;
-        BreadcrumbItem<File> bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(dir), dir);
-        bci.setIcon(fsv.getSystemIcon(dir));
+        BreadcrumbItem<File> bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(dir),
+                fsv.getSystemIcon(dir), dir);
         path.add(bci);
         while (true) {
             parent = fsv.getParentDirectory(parent);
             if (parent == null) {
                 break;
             }
-            bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(parent), parent);
-            bci.setIcon(fsv.getSystemIcon(parent));
+            bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(parent),
+                    fsv.getSystemIcon(parent), parent);
             path.add(bci);
         }
         Collections.reverse(path);

@@ -94,9 +94,10 @@ fun main() {
             }
 
             override fun toShowFile(item: BreadcrumbItem<File>): Boolean {
-                val name = item.key.lowercase()
-                return name.endsWith(".jpeg") || name.endsWith(".jpg") || name.endsWith(".gif")
-                        || name.endsWith(".png") || name.endsWith(".bmp")
+                val fileName = item.data.name.lowercase()
+                return fileName.endsWith(".jpeg") || fileName.endsWith(".jpg")
+                        || fileName.endsWith(".gif") || fileName.endsWith(".png")
+                        || fileName.endsWith(".bmp")
             }
         }
 

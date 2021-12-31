@@ -106,13 +106,13 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
         final Map<String, Command> newCommands = new HashMap<>();
         for (BreadcrumbItem<File> leaf : leafs) {
-            String name = leaf.getKey();
-            if (!name.endsWith(".svg") && !name.endsWith(".svgz")) {
+            String fileName = leaf.getData().getName();
+            if (!fileName.endsWith(".svg") && !fileName.endsWith(".svgz")) {
                 continue;
             }
 
             Command svgCommand = Command.builder()
-                    .setText(name.replace('-', ' '))
+                    .setText(fileName.replace('-', ' '))
                     .setIconFactory(EmptyRadianceIcon.factory())
                     .setAction(commandActionEvent -> {
                         try {
@@ -123,8 +123,8 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
                             SvgBatikRadianceIcon svgIcon = (SvgBatikRadianceIcon) icon;
 
-                            System.out.println(name);
-                            String svgClassName = name.substring(0, name.lastIndexOf('.'));
+                            System.out.println(fileName);
+                            String svgClassName = fileName.substring(0, fileName.lastIndexOf('.'));
                             svgClassName = svgClassName.replace('-', '_');
                             svgClassName = svgClassName.replace(' ', '_');
 
@@ -154,7 +154,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
             commands.add(svgCommand);
 
-            newCommands.put(name, svgCommand);
+            newCommands.put(fileName, svgCommand);
         }
 
         this.getProjection().getContentModel().addCommandGroup(new CommandGroup(commands));
@@ -162,16 +162,17 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
         mainWorker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
-                for (final BreadcrumbItem<File> leafPair : leafs) {
+                for (final BreadcrumbItem<File> leaf : leafs) {
                     if (isCancelled()) {
                         break;
                     }
-                    final String name = leafPair.getKey();
-                    if (!name.endsWith(".svg") && !name.endsWith(".svgz")) {
+                    final String fileName = leaf.getData().getName();
+                    if (!fileName.endsWith(".svg") && !fileName.endsWith(".svgz")) {
                         continue;
                     }
-                    InputStream stream = callback.getLeafContent(leafPair.getData());
-                    KeyValuePair<String, InputStream> pair = new KeyValuePair<>(name, stream);
+                    InputStream stream = callback.getLeafContent(leaf.getData());
+                    KeyValuePair<String, InputStream> pair =
+                            new KeyValuePair<>(leaf.getDisplayName(), stream);
                     publish(pair);
                 }
                 return null;

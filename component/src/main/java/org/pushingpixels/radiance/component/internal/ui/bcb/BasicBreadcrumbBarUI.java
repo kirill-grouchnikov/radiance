@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>.
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b>
- * in January 2006. in All Rights Reserved.
+ * in January 2006.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -441,12 +441,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 BreadcrumbItem<Object> bi = (BreadcrumbItem<Object>) element;
 
                 Command command = Command.builder()
-                        .setText(bi.getKey())
+                        .setText(bi.getDisplayName())
                         .setSecondaryContentModel(new CommandMenuContentModel(
                                 new CommandGroup()))
                         .build();
-                JCommandButton button = (JCommandButton) command.project(commandPresentation)
-                        .buildComponent();
+                JCommandButton button = command.project(commandPresentation).buildComponent();
                 configureBreadcrumbButton(button);
 
                 configureMainAction(command, bi);
@@ -496,7 +495,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     List<BreadcrumbItem<Object>> choices = lastBic.getChoices();
                     if (choices != null) {
                         for (int j = 0; j < choices.size(); j++) {
-                            if (bi.getKey().equals(choices.get(j).getKey())) {
+                            if (bi.getDisplayName().equals(choices.get(j).getDisplayName())) {
                                 lastBic.setSelectedIndex(j);
                                 break;
                             }
@@ -551,7 +550,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
             Command.Builder commandBuilder = Command.builder();
 
-            commandBuilder.setText(bi.getKey());
+            commandBuilder.setText(bi.getDisplayName());
 
             final Icon icon = bi.getIcon();
             if (icon != null) {

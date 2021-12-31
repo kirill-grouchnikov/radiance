@@ -97,9 +97,7 @@ public class IcoViewer extends JFrame {
 
             @Override
             protected boolean toShowFile(BreadcrumbItem<File> item) {
-                String name = item.getKey().toLowerCase();
-                return name.endsWith(".ico");
-
+                return item.getData().getName().endsWith(".ico");
             }
         };
 

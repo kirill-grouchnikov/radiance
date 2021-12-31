@@ -92,9 +92,10 @@ public class Viewer extends JFrame {
 
             @Override
             protected boolean toShowFile(BreadcrumbItem<File> item) {
-                String name = item.getKey().toLowerCase();
-                return name.endsWith(".jpeg") || name.endsWith(".jpg") || name.endsWith(".gif")
-                        || name.endsWith(".png") || name.endsWith(".bmp");
+                String fileName = item.getData().getName().toLowerCase();
+                return fileName.endsWith(".jpeg") || fileName.endsWith(".jpg")
+                        || fileName.endsWith(".gif") || fileName.endsWith(".png")
+                        || fileName.endsWith(".bmp");
 
             }
         };
