@@ -12,8 +12,8 @@ Unlike [command](Command.md) and other related content models (command strips, c
 
 The `BreadcrumbBarCallBack` is used by the breadcrumb component at runtime to query the application code for the structure of the hierarchy being navigated. The two main methods are:
 
-- `List<StringValuePair<T>> getPathChoices(List<BreadcrumbItem<T>> path)`
-- `List<StringValuePair<T>> getLeafs(List<BreadcrumbItem<T>> path)`
+- `List<BreadcrumbItem<T>> getPathChoices(List<BreadcrumbItem<T>> path)`
+- `List<BreadcrumbItem<T>> getLeaves(List<BreadcrumbItem<T>> path)`
 
 What are these two used for? Let's take another look at the screenshot of a sample app that is using the breadcrumb bar for navigating the local file system:
 
@@ -21,7 +21,7 @@ What are these two used for? Let's take another look at the screenshot of a samp
 
 The `getPathChoices()` should return the list of paths that can be "explored" from the specified path. In the screenshot above these are the subfolders of the currently activated "JavaVirtualMachines" path.
 
-The `getLeafs()` should return the list of leaf elements that correspond to the specified path. In the screenshot above these are the individual files (not subfolders) of the currently selected "bin" path.
+The `getLeaves()` should return the list of leaf elements that correspond to the specified path. In the screenshot above these are the individual files (not subfolders) of the currently selected "bin" path.
 
 ### Working with breadcrumb bar
 
@@ -67,17 +67,17 @@ this.bar.getModel().addPathListener(
             }
 
             if (newPath.size() > 0) {
-                SwingWorker<List<StringValuePair<File>>, Void> worker = new SwingWorker<>() {
+                SwingWorker<List<BreadcrumbItem<File>>, Void> worker = new SwingWorker<>() {
                     @Override
-                    protected List<StringValuePair<File>> doInBackground() throws Exception {
-                        return bar.getCallback().getLeafs(newPath);
+                    protected List<BreadcrumbItem<File>> doInBackground() throws Exception {
+                        return bar.getCallback().getLeaves(newPath);
                     }
 
                     @Override
                     protected void done() {
                         try {
-                            List<StringValuePair<File>> leafs = get();
-                            filePanel.setFolder(leafs);
+                            List<BreadcrumbItem<File>> leaves = get();
+                            filePanel.setFolder(leaves);
                         } catch (Exception exc) {
                         }
                     }
@@ -93,7 +93,7 @@ Let's take a look at what we're doing here:
 - Use `BreadcrumbBarModel.addPathListener()` to add a `BreadcrumbPathListener`.
 - The listener's only method (elided `breadcrumbPathEvent`) gets a `BreadcrumbPathEvent` object.
 - Use `BreadcrumbPathEvent.getSource()` to obtain the model (or use the same `bar.getModel()` above) and then `BreadcrumbBarModel.getItems()` to get the currently selected path.
-- Create a `SwingWorker` to load the list of files in the selected path in the background using `BreadcrumbBarCallBack.getLeafs()`. We want to run this off the UI thread so that the UI remains responsive during this potentially blocking I/O operation.
+- Create a `SwingWorker` to load the list of files in the selected path in the background using `BreadcrumbBarCallBack.getLeaves()`. We want to run this off the UI thread so that the UI remains responsive during this potentially blocking I/O operation.
 - When the list of files is loaded, call `AbstractFileViewPanel.setFolder()` API to update the panel to show the files from the currently selected path. As that content is loaded, `AbstractFileViewPanel` calls into its abstract `configureCommand()` and `getRadianceIcon` (which are implemented in our subclass) to get the application-specific visual representation of each file.
 
 ### Core breadcrumb bar integrations
