@@ -29,10 +29,9 @@
  */
 package org.pushingpixels.radiance.demo.component.bcb;
 
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -95,21 +94,21 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
                 }
 
                 if (newPath.size() > 0) {
-                    SwingWorker<List<StringValuePair<FileTreeNode>>, Void> worker = new
-                            SwingWorker<List<StringValuePair<FileTreeNode>>, Void>() {
+                    SwingWorker<List<BreadcrumbItem<FileTreeNode>>, Void> worker = new
+                            SwingWorker<>() {
                                 @Override
-                                protected List<StringValuePair<FileTreeNode>> doInBackground() throws
+                                protected List<BreadcrumbItem<FileTreeNode>> doInBackground() throws
                                         Exception {
-                                    return bar.getCallback().getLeafs(newPath);
+                                    return bar.getCallback().getLeaves(newPath);
                                 }
 
                                 @Override
                                 protected void done() {
                                     try {
                                         FileListModel model = new FileListModel();
-                                        List<StringValuePair<FileTreeNode>> leafs = get();
-                                        for (StringValuePair<FileTreeNode> leaf : leafs) {
-                                            FileTreeNode node = leaf.getValue();
+                                        List<BreadcrumbItem<FileTreeNode>> leaves = get();
+                                        for (BreadcrumbItem<FileTreeNode> leaf : leaves) {
+                                            FileTreeNode node = leaf.getData();
                                             model.add(node.file);
                                         }
                                         model.sort();

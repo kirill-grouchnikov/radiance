@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.component.bcb;
 
-import org.pushingpixels.radiance.demo.component.ExplorerFileViewPanel;
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
+import org.pushingpixels.radiance.demo.component.ExplorerFileViewPanel;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -63,17 +62,17 @@ public class BreadCrumbTest extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new SwingWorker<>() {
+                        SwingWorker<List<BreadcrumbItem<File>>, Void> worker = new SwingWorker<>() {
                             @Override
-                            protected List<StringValuePair<File>> doInBackground() {
-                                return bar.getCallback().getLeafs(newPath);
+                            protected List<BreadcrumbItem<File>> doInBackground() {
+                                return bar.getCallback().getLeaves(newPath);
                             }
 
                             @Override
                             protected void done() {
                                 try {
-                                    List<StringValuePair<File>> leafs = get();
-                                    filePanel.setFolder(leafs);
+                                    List<BreadcrumbItem<File>> leaves = get();
+                                    filePanel.setFolder(leaves);
                                 } catch (Exception exc) {
                                 }
                             }

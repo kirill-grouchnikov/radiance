@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
 
 import javax.swing.*;
 import javax.swing.tree.TreeModel;
@@ -129,23 +128,22 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
             this.isRootVisible = isRootVisible;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        public List<StringValuePair<T>> getPathChoices(List<BreadcrumbItem<T>> path) {
+        public List<BreadcrumbItem<T>> getPathChoices(List<BreadcrumbItem<T>> path) {
             if (path == null) {
                 T root = (T) this.treeModel.getRoot();
-                List<StringValuePair<T>> bRoots = new LinkedList<>();
+                List<BreadcrumbItem<T>> bRoots = new LinkedList<>();
                 if (isRootVisible) {
-                    StringValuePair<T> rootPair = new StringValuePair<>(
+                    BreadcrumbItem<T> rootPair = new BreadcrumbItem<>(
                             this.treeAdapter.toString(root), root);
-                    rootPair.set("icon", this.treeAdapter.getIcon(root));
+                    rootPair.setIcon(this.treeAdapter.getIcon(root));
                     bRoots.add(rootPair);
                 } else {
                     for (int i = 0; i < this.treeModel.getChildCount(root); i++) {
                         T rootChild = (T) this.treeModel.getChild(root, i);
-                        StringValuePair<T> rootPair = new StringValuePair<>(
+                        BreadcrumbItem<T> rootPair = new BreadcrumbItem<>(
                                 this.treeAdapter.toString(rootChild), rootChild);
-                        rootPair.set("icon", this.treeAdapter.getIcon(rootChild));
+                        rootPair.setIcon(this.treeAdapter.getIcon(rootChild));
                         bRoots.add(rootPair);
                     }
                 }
@@ -160,38 +158,37 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                 return null;
             }
 
-            LinkedList<StringValuePair<T>> lResult = new LinkedList<>();
+            LinkedList<BreadcrumbItem<T>> lResult = new LinkedList<>();
             for (int i = 0; i < this.treeModel.getChildCount(lastInPath); i++) {
                 T child = (T) this.treeModel.getChild(lastInPath, i);
                 if (this.treeModel.isLeaf(child)) {
                     continue;
                 }
-                StringValuePair<T> pair = new StringValuePair<>(
+                BreadcrumbItem<T> item = new BreadcrumbItem<>(
                         this.treeAdapter.toString(child), child);
-                pair.set("icon", this.treeAdapter.getIcon(child));
-                lResult.add(pair);
+                item.setIcon(this.treeAdapter.getIcon(child));
+                lResult.add(item);
             }
             return lResult;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
-        public List<StringValuePair<T>> getLeafs(List<BreadcrumbItem<T>> path) {
+        public List<BreadcrumbItem<T>> getLeaves(List<BreadcrumbItem<T>> path) {
             T lastInPath = path.get(path.size() - 1).getData();
             if (this.treeModel.isLeaf(lastInPath)) {
                 return null;
             }
 
-            LinkedList<StringValuePair<T>> lResult = new LinkedList<>();
+            LinkedList<BreadcrumbItem<T>> lResult = new LinkedList<>();
             for (int i = 0; i < this.treeModel.getChildCount(lastInPath); i++) {
                 T child = (T) this.treeModel.getChild(lastInPath, i);
                 if (!this.treeModel.isLeaf(child)) {
                     continue;
                 }
-                StringValuePair<T> pair = new StringValuePair<>(
+                BreadcrumbItem<T> item = new BreadcrumbItem<>(
                         this.treeAdapter.toString(child), child);
-                pair.set("icon", this.treeAdapter.getIcon(child));
-                lResult.add(pair);
+                item.setIcon(this.treeAdapter.getIcon(child));
+                lResult.add(item);
             }
             return lResult;
         }
@@ -217,7 +214,6 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
 
         this.model = new BreadcrumbBarModel<>();
         this.callback = new TreeCallback(treeModel, treeAdapter, isRootVisible);
-        this.callback.setup();
 
         this.updateUI();
     }

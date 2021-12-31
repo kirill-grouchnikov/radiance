@@ -227,11 +227,11 @@ fun main() {
                 val model = FileListModel()
 
                 val leafs = withContext(Dispatchers.Default) {
-                    bar.callback.getLeafs(newPath)
+                    bar.callback.getLeaves(newPath)
                 }
 
                 for (leaf in leafs) {
-                    model.add(leaf.value.file!!)
+                    model.add(leaf.data.file!!)
                 }
                 model.sort()
                 fileList.model = model

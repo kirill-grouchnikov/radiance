@@ -75,7 +75,7 @@ fun main() {
                 // Kick the loading of the path leaf content off the UI thread and then
                 // pipe it back to the UI thread in setFolder call.
                 filePanel.setFolder(withContext(Dispatchers.Default) {
-                    bar.callback.getLeafs(newPath)
+                    bar.callback.getLeaves(newPath)
                 })
             }
         }

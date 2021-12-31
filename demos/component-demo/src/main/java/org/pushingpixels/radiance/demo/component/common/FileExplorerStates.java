@@ -29,12 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.demo.component.ExplorerFileViewPanel;
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
+import org.pushingpixels.radiance.demo.component.ExplorerFileViewPanel;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -65,12 +64,12 @@ public class FileExplorerStates extends JFrame {
                 event -> SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker =
+                        SwingWorker<List<BreadcrumbItem<File>>, Void> worker =
                                 new SwingWorker<>() {
                                     @Override
-                                    protected List<StringValuePair<File>> doInBackground()
+                                    protected List<BreadcrumbItem<File>> doInBackground()
                                             throws Exception {
-                                        return bar.getCallback().getLeafs(newPath);
+                                        return bar.getCallback().getLeaves(newPath);
                                     }
 
                                     @Override

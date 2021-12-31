@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -83,14 +82,10 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         }
 
         @Override
-        public void setup() {
-        }
-
-        @Override
-        public List<StringValuePair<File>> getPathChoices(List<BreadcrumbItem<File>> path) {
+        public List<BreadcrumbItem<File>> getPathChoices(List<BreadcrumbItem<File>> path) {
             synchronized (fsv) {
                 if (path == null) {
-                    LinkedList<StringValuePair<File>> bRoots = new LinkedList<>();
+                    LinkedList<BreadcrumbItem<File>> bRoots = new LinkedList<>();
                     for (File root : fsv.getRoots()) {
                         if (fsv.isHiddenFile(root)) {
                             continue;
@@ -99,9 +94,9 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                         if (systemName.length() == 0) {
                             systemName = root.getAbsolutePath();
                         }
-                        StringValuePair<File> rootPair = new StringValuePair<>(systemName, root);
+                        BreadcrumbItem<File> rootPair = new BreadcrumbItem<>(systemName, root);
                         if (useNativeIcons) {
-                            rootPair.set("icon", fsv.getSystemIcon(root));
+                            rootPair.setIcon(fsv.getSystemIcon(root));
                         }
                         bRoots.add(rootPair);
                     }
@@ -118,7 +113,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                 if (!lastInPath.isDirectory()) {
                     return null;
                 }
-                LinkedList<StringValuePair<File>> lResult = new LinkedList<>();
+                LinkedList<BreadcrumbItem<File>> lResult = new LinkedList<>();
                 for (File child : lastInPath.listFiles()) {
                     // ignore regular files and hidden directories
                     if (!child.isDirectory()) {
@@ -131,19 +126,19 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     if ((childFileName == null) || childFileName.isEmpty()) {
                         childFileName = child.getName();
                     }
-                    StringValuePair<File> pair = new StringValuePair<>(childFileName, child);
+                    BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName, child);
                     if (useNativeIcons) {
-                        pair.set("icon", fsv.getSystemIcon(child));
+                        item.setIcon(fsv.getSystemIcon(child));
                     }
-                    lResult.add(pair);
+                    lResult.add(item);
                 }
                 lResult.sort(new Comparator<>() {
                     @Override
-                    public int compare(StringValuePair<File> o1, StringValuePair<File> o2) {
-                        String key1 = fsv.isFileSystemRoot(o1.getValue()) ?
-                                o1.getValue().getAbsolutePath() : o1.getKey();
-                        String key2 = fsv.isFileSystemRoot(o2.getValue()) ?
-                                o2.getValue().getAbsolutePath() : o2.getKey();
+                    public int compare(BreadcrumbItem<File> o1, BreadcrumbItem<File> o2) {
+                        String key1 = fsv.isFileSystemRoot(o1.getData()) ?
+                                o1.getData().getAbsolutePath() : o1.getKey();
+                        String key2 = fsv.isFileSystemRoot(o2.getData()) ?
+                                o2.getData().getAbsolutePath() : o2.getKey();
                         return key1.toLowerCase().compareTo(key2.toLowerCase());
                     }
 
@@ -157,7 +152,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         }
 
         @Override
-        public List<StringValuePair<File>> getLeafs(List<BreadcrumbItem<File>> path) {
+        public List<BreadcrumbItem<File>> getLeaves(List<BreadcrumbItem<File>> path) {
             synchronized (fsv) {
                 if ((path == null) || (path.size() == 0)) {
                     return null;
@@ -169,7 +164,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                 if (!lastInPath.isDirectory()) {
                     return null;
                 }
-                LinkedList<StringValuePair<File>> lResult = new LinkedList<>();
+                LinkedList<BreadcrumbItem<File>> lResult = new LinkedList<>();
                 for (File child : lastInPath.listFiles()) {
                     // ignore directories and hidden directories
                     if (child.isDirectory()) {
@@ -182,18 +177,21 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     if ((childFileName == null) || childFileName.isEmpty()) {
                         childFileName = child.getName();
                     }
-                    StringValuePair<File> pair = new StringValuePair<>(childFileName, child);
+                    BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName, child);
                     if (useNativeIcons) {
-                        pair.set("icon", fsv.getSystemIcon(child));
+                        item.setIcon(fsv.getSystemIcon(child));
                     }
-                    lResult.add(pair);
+                    lResult.add(item);
                 }
                 lResult.sort(new Comparator<>() {
                     @Override
-                    public int compare(StringValuePair<File> o1,
-                            StringValuePair<File> o2) {
-                        return o1.getKey().toLowerCase().compareTo(
-                                o2.getKey().toLowerCase());
+                    public int compare(BreadcrumbItem<File> o1,
+                            BreadcrumbItem<File> o2) {
+                        String key1 = fsv.isFileSystemRoot(o1.getData()) ?
+                                o1.getData().getAbsolutePath() : o1.getKey();
+                        String key2 = fsv.isFileSystemRoot(o2.getData()) ?
+                                o2.getData().getAbsolutePath() : o2.getKey();
+                        return key1.toLowerCase().compareTo(key2.toLowerCase());
                     }
 
                     @Override
@@ -247,7 +245,6 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         this.model = new BreadcrumbBarModel<>();
         this.useNativeIcons = useNativeIcons;
         this.callback = new DirCallback(fileSystemView);
-        this.callback.setup();
 
         this.updateUI();
     }

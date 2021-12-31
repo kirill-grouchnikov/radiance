@@ -1,13 +1,12 @@
 package org.pushingpixels.radiance.demo.component.imageviewer;
 
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
 import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -47,11 +46,11 @@ public class Viewer extends JFrame {
                     }
 
                     if (newPath.size() > 0) {
-                        SwingWorker<List<StringValuePair<File>>, Void> worker = new
+                        SwingWorker<List<BreadcrumbItem<File>>, Void> worker = new
                                 SwingWorker<>() {
                                     @Override
-                                    protected List<StringValuePair<File>> doInBackground() {
-                                        return bar.getCallback().getLeafs(newPath);
+                                    protected List<BreadcrumbItem<File>> doInBackground() {
+                                        return bar.getCallback().getLeaves(newPath);
                                     }
 
                                     @Override
@@ -92,8 +91,8 @@ public class Viewer extends JFrame {
             }
 
             @Override
-            protected boolean toShowFile(StringValuePair<File> pair) {
-                String name = pair.getKey().toLowerCase();
+            protected boolean toShowFile(BreadcrumbItem<File> item) {
+                String name = item.getKey().toLowerCase();
                 return name.endsWith(".jpeg") || name.endsWith(".jpg") || name.endsWith(".gif")
                         || name.endsWith(".png") || name.endsWith(".bmp");
 

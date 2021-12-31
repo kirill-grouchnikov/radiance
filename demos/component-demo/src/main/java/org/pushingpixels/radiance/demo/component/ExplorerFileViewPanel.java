@@ -29,17 +29,17 @@
  */
 package org.pushingpixels.radiance.demo.component;
 
-import org.pushingpixels.radiance.demo.component.icon.IconWrapperRadianceIcon;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
-import org.pushingpixels.radiance.demo.component.icon.IcoWrapperRadianceIcon;
-import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.demo.component.icon.IcoWrapperRadianceIcon;
+import org.pushingpixels.radiance.demo.component.icon.IconWrapperRadianceIcon;
+import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon;
 import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -81,7 +81,7 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
     }
 
     @Override
-    protected boolean toShowFile(StringValuePair<T> pair) {
+    protected boolean toShowFile(BreadcrumbItem<T> item) {
         return true;
     }
 

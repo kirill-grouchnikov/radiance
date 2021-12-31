@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2021 Radiance Kirill Grouchnikov
+ * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>.
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b>
  * in January 2006. in All Rights Reserved.
@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.component.api.bcb.*;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
@@ -113,10 +112,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         c.setLayout(createLayoutManager());
 
         if (this.breadcrumbBar.getCallback() != null) {
-            SwingWorker<List<StringValuePair<Object>>, Void> worker =
+            SwingWorker<List<BreadcrumbItem<Object>>, Void> worker =
                     new SwingWorker<>() {
                         @Override
-                        protected List<StringValuePair<Object>> doInBackground() throws Exception {
+                        protected List<BreadcrumbItem<Object>> doInBackground() throws Exception {
                             startLoadingTimer();
                             return breadcrumbBar.getCallback().getPathChoices(null);
                         }
@@ -218,7 +217,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         SwingUtilities.invokeLater(BasicBreadcrumbBarUI.this::updateComponents);
 
                         if (indexOfFirstChange == 0) {
-                            List<StringValuePair<Object>> rootChoices = breadcrumbBar.getCallback()
+                            List<BreadcrumbItem<Object>> rootChoices = breadcrumbBar.getCallback()
                                     .getPathChoices(null);
                             BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(null,
                                     rootChoices);
@@ -242,8 +241,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                 for (int j = 0; j <= itemIndex; j++) {
                                     subPath.add(items.get(j));
                                 }
-                                BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(item,
-                                        breadcrumbBar.getCallback().getPathChoices(subPath));
+                                BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(
+                                        item, breadcrumbBar.getCallback().getPathChoices(subPath));
                                 if ((bic.getChoices() != null) && (bic.getChoices().size() > 0)) {
                                     // add the selector - the current item has
                                     // children
@@ -266,7 +265,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                     pushChoices((BreadcrumbItemChoices<Object>) chunk, false);
                                 }
                                 if (chunk instanceof BreadcrumbItem) {
-                                    pushChoice((BreadcrumbItem<?>) chunk, false);
+                                    pushChoice((BreadcrumbItem<?>) chunk);
                                 }
                             }
                         }
@@ -713,15 +712,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
      * {@link BreadcrumbItemChoices}, replace it.
      *
      * @param bi         The item to push.
-     * @param toUpdateUI Indication whether the bar should be repainted.
      * @return The item that has been pushed.
      */
-    protected synchronized Object pushChoice(BreadcrumbItem bi, boolean toUpdateUI) {
+    protected synchronized Object pushChoice(BreadcrumbItem bi) {
         assert (bi != null);
         if (!modelStack.isEmpty() && modelStack.size() % 2 == 0) {
             modelStack.pop();
         }
-        bi.setIndex(modelStack.size());
         modelStack.addLast(bi);
         return bi;
     }

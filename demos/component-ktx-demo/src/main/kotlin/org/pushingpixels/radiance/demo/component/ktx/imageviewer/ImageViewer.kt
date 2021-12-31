@@ -34,14 +34,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector
 import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.StringValuePair
-import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.component.ktx.bcb.addDelayedPathListener
+import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon
+import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
@@ -93,8 +93,8 @@ fun main() {
                 return ImageWrapperRadianceIcon.getIcon(stream, dimensionForIcon)
             }
 
-            override fun toShowFile(pair: StringValuePair<File>): Boolean {
-                val name = pair.key.lowercase()
+            override fun toShowFile(item: BreadcrumbItem<File>): Boolean {
+                val name = item.key.lowercase()
                 return name.endsWith(".jpeg") || name.endsWith(".jpg") || name.endsWith(".gif")
                         || name.endsWith(".png") || name.endsWith(".bmp")
             }
@@ -109,7 +109,7 @@ fun main() {
 
             if (newPath.size > 0) {
                 fileViewPanel.setFolder(withContext(Dispatchers.Default) {
-                    bar.callback.getLeafs(newPath)
+                    bar.callback.getLeaves(newPath)
                 })
             }
         }

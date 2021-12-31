@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2021 Radiance Kirill Grouchnikov
+ * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>. 
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b> 
  * in January 2006. 
@@ -33,9 +33,7 @@
 package org.pushingpixels.radiance.component.internal.ui.bcb;
 
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,14 +59,12 @@ final class BreadcrumbItemChoices<T> {
 	private int selectedIndex = 0;
 
 	public BreadcrumbItemChoices(BreadcrumbItem<T> ancestor,
-			List<StringValuePair<T>> entries) {
+			List<BreadcrumbItem<T>> entries) {
 		this.ancestor = ancestor;
 		this.choices = new ArrayList<>(entries.size());
 		int index = 0;
-		for (StringValuePair<T> pair : entries) {
-			BreadcrumbItem<T> li = new BreadcrumbItem<>(pair.getKey(), pair.getValue());
-			li.setIcon((Icon) pair.get("icon"));
-			this.choices.add(index, li);
+		for (BreadcrumbItem<T> item : entries) {
+			this.choices.add(index, item);
 			index++;
 		}
 		this.selectedIndex = -1;

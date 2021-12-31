@@ -29,21 +29,22 @@
  */
 package org.pushingpixels.radiance.demo.component.svg;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
+import org.pushingpixels.radiance.component.api.common.KeyValuePair;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.SvgStreamTranscoder;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.java.JavaLanguageRenderer;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +71,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
     /**
      * The main worker that loads the SVG images off EDT.
      */
-    private SwingWorker<Void, StringValuePair<InputStream>> mainWorker;
+    private SwingWorker<Void, KeyValuePair<String, InputStream>> mainWorker;
 
     /**
      * Creates a new panel.
@@ -98,13 +99,13 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      *
      * @param leafs Information on the files to show in the panel.
      */
-    public void setFolder(final java.util.List<StringValuePair<File>> leafs) {
+    public void setFolder(final java.util.List<BreadcrumbItem<File>> leafs) {
         this.getProjection().getContentModel().removeAllCommandGroups();
 
         List<Command> commands = new ArrayList<>();
 
         final Map<String, Command> newCommands = new HashMap<>();
-        for (StringValuePair<File> leaf : leafs) {
+        for (BreadcrumbItem<File> leaf : leafs) {
             String name = leaf.getKey();
             if (!name.endsWith(".svg") && !name.endsWith(".svgz")) {
                 continue;
@@ -158,10 +159,10 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
         this.getProjection().getContentModel().addCommandGroup(new CommandGroup(commands));
 
-        mainWorker = new SwingWorker<Void, StringValuePair<InputStream>>() {
+        mainWorker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
-                for (final StringValuePair<File> leafPair : leafs) {
+                for (final BreadcrumbItem<File> leafPair : leafs) {
                     if (isCancelled()) {
                         break;
                     }
@@ -169,16 +170,16 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                     if (!name.endsWith(".svg") && !name.endsWith(".svgz")) {
                         continue;
                     }
-                    InputStream stream = callback.getLeafContent(leafPair.getValue());
-                    StringValuePair<InputStream> pair = new StringValuePair<>(name, stream);
+                    InputStream stream = callback.getLeafContent(leafPair.getData());
+                    KeyValuePair<String, InputStream> pair = new KeyValuePair<>(name, stream);
                     publish(pair);
                 }
                 return null;
             }
 
             @Override
-            protected void process(List<StringValuePair<InputStream>> pairs) {
-                for (final StringValuePair<InputStream> pair : pairs) {
+            protected void process(List<KeyValuePair<String, InputStream>> pairs) {
+                for (final KeyValuePair<String, InputStream> pair : pairs) {
                     final String name = pair.getKey();
                     InputStream svgStream = pair.getValue();
                     int iconDimension = getProjection().getPresentationModel()

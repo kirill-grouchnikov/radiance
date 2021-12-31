@@ -29,20 +29,19 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.common
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar
 import org.pushingpixels.radiance.component.api.common.AbstractFileViewPanel
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.StringValuePair
+import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.demo.component.icon.IcoWrapperRadianceIcon
 import org.pushingpixels.radiance.demo.component.icon.ImageWrapperRadianceIcon
-import org.pushingpixels.radiance.component.api.common.model.Command
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon
 import java.awt.Dimension
 import java.io.File
 import java.io.InputStream
-import java.util.*
 import javax.swing.filechooser.FileSystemView
 
 /**
@@ -59,7 +58,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         this.useNativeIcons = useNativeIcons
     }
 
-    override fun toShowFile(pair: StringValuePair<T>): Boolean {
+    override fun toShowFile(item: BreadcrumbItem<T>): Boolean {
         return true
     }
 

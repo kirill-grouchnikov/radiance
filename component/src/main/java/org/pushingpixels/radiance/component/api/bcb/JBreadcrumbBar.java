@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2021 Radiance Kirill Grouchnikov
+ * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>.
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b>
  * in January 2006.
@@ -36,8 +36,6 @@ import org.pushingpixels.radiance.component.internal.theming.bcb.ui.RadianceBrea
 import org.pushingpixels.radiance.component.internal.ui.bcb.BreadcrumbBarUI;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,11 +58,6 @@ public class JBreadcrumbBar<T> extends JComponent {
     protected BreadcrumbBarCallBack<T> callback;
 
     /**
-     * List of registered exception handlers.
-     */
-    private List<BreadcrumbBarExceptionHandler> exceptionHandlers;
-
-    /**
      * The UI class ID string.
      */
     public static final String uiClassID = "BreadcrumbBarUI";
@@ -78,12 +71,6 @@ public class JBreadcrumbBar<T> extends JComponent {
         super();
         this.model = new BreadcrumbBarModel<T>();
         this.callback = callback;
-
-        if (this.callback != null) {
-            this.callback.setup();
-        }
-
-        this.exceptionHandlers = new ArrayList<>();
 
         this.updateUI();
     }
@@ -140,46 +127,6 @@ public class JBreadcrumbBar<T> extends JComponent {
     @Override
     public String getUIClassID() {
         return uiClassID;
-    }
-
-    /**
-     * Registers the specified exception handler.
-     *
-     * @param handler Exception handler.
-     */
-    public void addExceptionHandler(BreadcrumbBarExceptionHandler handler) {
-        this.exceptionHandlers.add(handler);
-    }
-
-    /**
-     * Unregisters the specified exception handler.
-     *
-     * @param handler Exception handler.
-     */
-    public void removeExceptionHandler(BreadcrumbBarExceptionHandler handler) {
-        this.exceptionHandlers.remove(handler);
-    }
-
-    /**
-     * Returns the list of currently registered exception handlers.
-     *
-     * @return List of currently registered exception handlers.
-     */
-    public List<BreadcrumbBarExceptionHandler> getExceptionHandlers() {
-        return Collections.unmodifiableList(this.exceptionHandlers);
-    }
-
-    /**
-     * Sets the indication whether the operations of this breadcrumb bar will
-     * throw {@link BreadcrumbBarException}.
-     *
-     * @param throwsExceptions If <code>true</code>, the operations of this breadcrumb bar
-     *                         will throw {@link BreadcrumbBarException}.
-     */
-    public void setThrowsExceptions(boolean throwsExceptions) {
-        if (this.callback != null) {
-            this.callback.setThrowsExceptions(throwsExceptions);
-        }
     }
 
     /**

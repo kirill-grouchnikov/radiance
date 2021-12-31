@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
@@ -128,25 +129,6 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         public Object getLeafProp(String propName) {
             return this.leafProps.get(propName);
         }
-
-        /**
-         * Sets the leaf property with the specified name.
-         *
-         * @param propName  Property name.
-         * @param propValue Property value.
-         */
-        public void setLeafProp(String propName, Object propValue) {
-            this.leafProps.put(propName, propValue);
-        }
-
-        /**
-         * Returns the map of all the properties of this leaf.
-         *
-         * @return Unmodifiable view of the map of all the properties of this leaf.
-         */
-        public Map<String, Object> getLeafProps() {
-            return Collections.unmodifiableMap(this.leafProps);
-        }
     }
 
     /**
@@ -187,14 +169,14 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
 
     /**
      * Sets the current entries to show. The current contents of the panel are discarded. For each
-     * matching entry determined by the {@link #toShowFile(StringValuePair)} call, a new
+     * matching entry determined by the {@link #toShowFile(BreadcrumbItem)} call, a new
      * {@link JCommandButton} with matching implementation of {@link RadianceIcon} from
      * {@link #getRadianceIcon(Leaf, InputStream, CommandButtonPresentationState, Dimension)} is
      * added to the panel.
      *
      * @param leafs Information on the entries to show in the panel.
      */
-    public void setFolder(final List<StringValuePair<T>> leafs) {
+    public void setFolder(final List<BreadcrumbItem<T>> leafs) {
         final CommandPanelContentModel contentModel = this.getProjection().getContentModel();
         contentModel.removeAllCommandGroups();
 
@@ -202,7 +184,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
         contentModel.addCommandGroup(commandGroup);
 
         int fileCount = 0;
-        for (StringValuePair<T> leaf : leafs) {
+        for (BreadcrumbItem<T> leaf : leafs) {
             String name = leaf.getKey();
             if (!toShowFile(leaf)) {
                 continue;
@@ -231,7 +213,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     progressListener.onProgress(
                             new ProgressEvent(AbstractFileViewPanel.this, 0, totalCount, 0));
                 }
-                for (final StringValuePair<T> leafPair : leafs) {
+                for (final BreadcrumbItem<T> leafPair : leafs) {
                     if (isCancelled()) {
                         break;
                     }
@@ -239,12 +221,8 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                     if (!toShowFile(leafPair)) {
                         continue;
                     }
-                    InputStream stream = getLeafContent(leafPair.getValue());
+                    InputStream stream = getLeafContent(leafPair.getData());
                     Leaf leaf = new Leaf(name, stream);
-                    leaf.setLeafProp("source", leafPair.getValue());
-                    for (Map.Entry<String, Object> propEntry : leafPair.getProps().entrySet()) {
-                        leaf.setLeafProp(propEntry.getKey(), propEntry.getValue());
-                    }
                     publish(leaf);
                 }
                 return null;
@@ -320,11 +298,11 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     /**
      * Returns indication whether the specified file should be shown on this panel.
      *
-     * @param pair Information on the file.
+     * @param item Information on the file.
      * @return <code>true</code> if the specified file should be shown on this panel,
      * <code>false</code> otherwise.
      */
-    protected abstract boolean toShowFile(StringValuePair<T> pair);
+    protected abstract boolean toShowFile(BreadcrumbItem<T> item);
 
     /**
      * Returns the icon for the specified parameters.

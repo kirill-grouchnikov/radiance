@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2021 Radiance Kirill Grouchnikov
+ * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>.
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b>
  * in January 2006.
@@ -32,8 +32,6 @@
  */
 package org.pushingpixels.radiance.component.api.bcb;
 
-import org.pushingpixels.radiance.component.api.common.StringValuePair;
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -44,42 +42,14 @@ import java.util.List;
  */
 public abstract class BreadcrumbBarCallBack<T> {
     /**
-     * Sets up the callback.
-     *
-     * @throws BreadcrumbBarException Runtime exception that wraps the cause. Is thrown only when
-     *                                {@link #setThrowsExceptions(boolean)} has been called with
-     *                                <code>true</code> parameter.
-     */
-    public void setup() throws BreadcrumbBarException {
-    }
-
-    /**
-     * Sets the indication whether the operations of this breadcrumb bar will
-     * throw {@link BreadcrumbBarException}.
-     *
-     * @param throwsExceptions If <code>true</code>, the operations of this breadcrumb bar
-     *                         will throw {@link BreadcrumbBarException}.
-     */
-    public void setThrowsExceptions(boolean throwsExceptions) {
-        /**
-         * If <code>true</code>, some of the operations will throw
-         * {@link BreadcrumbBarException}.
-         */
-    }
-
-    /**
      * Returns the choice elements that correspond to the specified path. If the
      * path is empty, <code>null</code> should be returned. If path is
      * <code>null</code>, the "root" elements should be returned
      *
      * @param path Breadcrumb bar path.
      * @return The choice elements that correspond to the specified path
-     * @throws BreadcrumbBarException Runtime exception that wraps the cause. Is thrown only when
-     *                                {@link #setThrowsExceptions(boolean)} has been called with
-     *                                <code>true</code> parameter.
      */
-    public List<StringValuePair<T>> getPathChoices(List<BreadcrumbItem<T>> path)
-            throws BreadcrumbBarException {
+    public List<BreadcrumbItem<T>> getPathChoices(List<BreadcrumbItem<T>> path) {
         return null;
     }
 
@@ -91,12 +61,8 @@ public abstract class BreadcrumbBarCallBack<T> {
      *
      * @param path Breadcrumb bar path.
      * @return The leaf elements that correspond to the specified path
-     * @throws BreadcrumbBarException Runtime exception that wraps the cause. Is thrown only when
-     *                                {@link #setThrowsExceptions(boolean)} has been called with
-     *                                <code>true</code> parameter.
      */
-    public List<StringValuePair<T>> getLeafs(List<BreadcrumbItem<T>> path)
-            throws BreadcrumbBarException {
+    public List<BreadcrumbItem<T>> getLeaves(List<BreadcrumbItem<T>> path) {
         return null;
     }
 
@@ -107,11 +73,8 @@ public abstract class BreadcrumbBarCallBack<T> {
      * @param leaf Leaf.
      * @return Input stream with the leaf content. May be <code>null</code> if
      * this is not applicable.
-     * @throws BreadcrumbBarException Runtime exception that wraps the cause. Is thrown only when
-     *                                {@link #setThrowsExceptions(boolean)} has been called with
-     *                                <code>true</code> parameter.
      */
-    public InputStream getLeafContent(T leaf) throws BreadcrumbBarException {
+    public InputStream getLeafContent(T leaf) {
         return null;
     }
 }

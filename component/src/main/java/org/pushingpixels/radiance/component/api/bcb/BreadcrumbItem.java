@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2021 Radiance Kirill Grouchnikov
+ * Copyright (c) 2005-2021 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>. 
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b> 
  * in January 2006. in All Rights Reserved.
@@ -44,17 +44,12 @@ public final class BreadcrumbItem<T> {
 	/**
 	 * Display key for this item.
 	 */
-	protected String key;
+	private String key;
 
 	/**
 	 * Data value for this item.
 	 */
-	protected T data;
-
-	/**
-	 * The index of <code>this</code> item.
-	 */
-	private int index = 0;
+	private T data;
 
 	/**
 	 * The optional icon.
@@ -94,25 +89,6 @@ public final class BreadcrumbItem<T> {
 
 	public void setKey(String key) {
 		this.key = key;
-	}
-
-	/**
-	 * Returns the index of <code>this</code> item.
-	 * 
-	 * @return The index of <code>this</code> item.
-	 */
-	public int getIndex() {
-		return this.index;
-	}
-
-	/**
-	 * Sets the index of <code>this</code> item.
-	 * 
-	 * @param index
-	 *            The new index of <code>this</code> item.
-	 */
-	public void setIndex(int index) {
-		this.index = index;
 	}
 
 	@Override
