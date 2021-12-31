@@ -15,6 +15,8 @@
 package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,7 +100,6 @@ public class Crayons extends javax.swing.JPanel {
     public Crayons() {
         initComponents();
 
-        setForeground(new Color(0x808080));
         setPreferredSize(new Dimension(195, 208));
         setFont(UIManager.getFont("ColorChooser.crayonsFont"));
 
@@ -170,7 +171,9 @@ public class Crayons extends javax.swing.JPanel {
         RadianceCommonCortex.drawImageWithScale(g2d, scaleFactor, crayonsImage, 0, 0);
 
         if (selectedCrayon != null) {
-            g2d.setColor(getForeground());
+            Color selectedTextColor = RadianceColorSchemeUtilities.getColorScheme(
+                    this, ComponentState.ENABLED).getForegroundColor();
+            g2d.setColor(selectedTextColor);
             FontMetrics fm = g2d.getFontMetrics();
             int nameWidth = fm.stringWidth(selectedCrayon.name);
             g2d.drawString(selectedCrayon.name,
