@@ -32,7 +32,11 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.bcb;
 
-import org.pushingpixels.radiance.component.api.bcb.*;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbPathListener;
+import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
@@ -40,7 +44,6 @@ import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.internal.ui.common.JCircularProgress;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
@@ -96,6 +99,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private boolean isShowingProgress;
 
+    private SwingWorker<Void, Object> pathChangeWorker;
+
     @SuppressWarnings("unchecked")
     @Override
     public void installUI(JComponent c) {
@@ -111,7 +116,15 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         c.setLayout(createLayoutManager());
 
-        if (this.breadcrumbBar.getContentProvider() != null) {
+        if (this.breadcrumbBar.getModel().getItemCount() > 0) {
+            // Already have some items in the model
+            startLoadingTimer();
+
+            if ((pathChangeWorker != null) && !pathChangeWorker.isDone()) {
+                pathChangeWorker.cancel(true);
+            }
+            initAndRunPathChangeWorker(0);
+        } else if (this.breadcrumbBar.getContentProvider() != null) {
             SwingWorker<List<BreadcrumbItem<Object>>, Void> worker =
                     new SwingWorker<>() {
                         @Override
@@ -136,7 +149,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.forSizing = Command.builder()
                 .setText("Text")
                 .setIconFactory(EmptyRadianceIcon.factory())
-                .setAction(commandActionEvent -> {})
+                .setAction(commandActionEvent -> {
+                })
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL).build())
                 .buildComponent();
@@ -187,101 +201,100 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         };
         bar.addComponentListener(this.componentListener);
 
-        this.pathListener = new BreadcrumbPathListener<>() {
-            private SwingWorker<Void, Object> pathChangeWorker;
+        this.pathListener = event -> {
+            startLoadingTimer();
 
-            @Override
-            public void breadcrumbPathEvent(BreadcrumbPathEvent<Object> event) {
-                startLoadingTimer();
-                final int indexOfFirstChange = event.getIndexOfFirstChange();
-
-                if ((this.pathChangeWorker != null) && !this.pathChangeWorker.isDone()) {
-                    this.pathChangeWorker.cancel(true);
-                }
-                this.pathChangeWorker = new SwingWorker<>() {
-                    @Override
-                    protected Void doInBackground() throws Exception {
-                        atomicCounter.incrementAndGet();
-
-                        synchronized (BasicBreadcrumbBarUI.this) {
-                            // remove stack elements after the first change
-                            if (indexOfFirstChange == 0) {
-                                modelStack.clear();
-                            } else {
-                                int toLeave = indexOfFirstChange * 2 + 1;
-                                while (modelStack.size() > toLeave)
-                                    modelStack.removeLast();
-                            }
-                        }
-
-                        SwingUtilities.invokeLater(BasicBreadcrumbBarUI.this::updateComponents);
-
-                        if (indexOfFirstChange == 0) {
-                            List<BreadcrumbItem<Object>> rootChoices = breadcrumbBar.getContentProvider()
-                                    .getPathChoices(null);
-                            BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(null,
-                                    rootChoices);
-                            if (!this.isCancelled()) {
-                                publish(bic);
-                            }
-                        }
-
-                        List<BreadcrumbItem<Object>> items = breadcrumbBar.getModel().getItems();
-                        if (items != null) {
-                            for (int itemIndex = indexOfFirstChange; itemIndex < items
-                                    .size(); itemIndex++) {
-                                if (this.isCancelled())
-                                    break;
-
-                                BreadcrumbItem<Object> item = items.get(itemIndex);
-                                publish(item);
-
-                                // now check if it has any children
-                                List<BreadcrumbItem<Object>> subPath = new ArrayList<>();
-                                for (int j = 0; j <= itemIndex; j++) {
-                                    subPath.add(items.get(j));
-                                }
-                                BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(
-                                        item, breadcrumbBar.getContentProvider().getPathChoices(subPath));
-                                if ((bic.getChoices() != null) && (bic.getChoices().size() > 0)) {
-                                    // add the selector - the current item has
-                                    // children
-                                    publish(bic);
-                                }
-                            }
-                        }
-                        return null;
-                    }
-
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    protected void process(List<Object> chunks) {
-                        if (chunks != null) {
-                            for (Object chunk : chunks) {
-                                if (this.isCancelled() || atomicCounter.get() > 1)
-                                    break;
-
-                                if (chunk instanceof BreadcrumbItemChoices) {
-                                    pushChoices((BreadcrumbItemChoices<Object>) chunk, false);
-                                }
-                                if (chunk instanceof BreadcrumbItem) {
-                                    pushChoice((BreadcrumbItem<?>) chunk);
-                                }
-                            }
-                        }
-                        updateComponents();
-                    }
-
-                    @Override
-                    protected void done() {
-                        atomicCounter.decrementAndGet();
-                        stopLoadingTimer();
-                    }
-                };
-                pathChangeWorker.execute();
+            if ((pathChangeWorker != null) && !pathChangeWorker.isDone()) {
+                pathChangeWorker.cancel(true);
             }
+            initAndRunPathChangeWorker(event.getIndexOfFirstChange());
         };
         this.breadcrumbBar.getModel().addPathListener(this.pathListener);
+    }
+
+    private void initAndRunPathChangeWorker(int indexOfFirstChange) {
+        this.pathChangeWorker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                atomicCounter.incrementAndGet();
+
+                synchronized (BasicBreadcrumbBarUI.this) {
+                    // remove stack elements after the first change
+                    if (indexOfFirstChange == 0) {
+                        modelStack.clear();
+                    } else {
+                        int toLeave = indexOfFirstChange * 2 + 1;
+                        while (modelStack.size() > toLeave)
+                            modelStack.removeLast();
+                    }
+                }
+
+                SwingUtilities.invokeLater(BasicBreadcrumbBarUI.this::updateComponents);
+
+                if (indexOfFirstChange == 0) {
+                    List<BreadcrumbItem<Object>> rootChoices = breadcrumbBar.getContentProvider()
+                            .getPathChoices(null);
+                    BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(null,
+                            rootChoices);
+                    if (!this.isCancelled()) {
+                        publish(bic);
+                    }
+                }
+
+                List<BreadcrumbItem<Object>> items = breadcrumbBar.getModel().getItems();
+                if (items != null) {
+                    for (int itemIndex = indexOfFirstChange; itemIndex < items.size();
+                            itemIndex++) {
+                        if (this.isCancelled()) {
+                            break;
+                        }
+
+                        BreadcrumbItem<Object> item = items.get(itemIndex);
+                        publish(item);
+
+                        // now check if it has any children
+                        List<BreadcrumbItem<Object>> subPath = new ArrayList<>();
+                        for (int j = 0; j <= itemIndex; j++) {
+                            subPath.add(items.get(j));
+                        }
+                        BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(
+                                item, breadcrumbBar.getContentProvider().getPathChoices(subPath));
+                        if ((bic.getChoices() != null) && (bic.getChoices().size() > 0)) {
+                            // add the selector - the current item has
+                            // children
+                            publish(bic);
+                        }
+                    }
+                }
+                return null;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void process(List<Object> chunks) {
+                if (chunks != null) {
+                    for (Object chunk : chunks) {
+                        if (this.isCancelled() || atomicCounter.get() > 1)
+                            break;
+
+                        if (chunk instanceof BreadcrumbItemChoices) {
+                            pushChoices((BreadcrumbItemChoices<Object>) chunk, false);
+                        }
+                        if (chunk instanceof BreadcrumbItem) {
+                            pushChoice((BreadcrumbItem<?>) chunk);
+                        }
+                    }
+                }
+                updateComponents();
+            }
+
+            @Override
+            protected void done() {
+                atomicCounter.decrementAndGet();
+                stopLoadingTimer();
+            }
+        };
+        pathChangeWorker.execute();
     }
 
     protected void uninstallDefaults(JBreadcrumbBar<?> bar) {
@@ -404,13 +417,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         CommandButtonPresentationModel commandPresentation =
                 CommandButtonPresentationModel.builder()
-                .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                .setPopupOrientationKind(
-                        CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
-                .setHorizontalGapScaleFactor(0.75)
-                .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
-                        .setMaxVisibleMenuCommands(10).build())
-                .build();
+                        .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .setPopupOrientationKind(
+                                CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
+                        .setHorizontalGapScaleFactor(0.75)
+                        .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
+                                .setMaxVisibleMenuCommands(10).build())
+                        .build();
 
         // update the ui
         for (int i = 0; i < modelStack.size(); i++) {
@@ -422,8 +435,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                             .setSecondaryContentModel(new CommandMenuContentModel(
                                     new CommandGroup()))
                             .build();
-                    JCommandButton button = (JCommandButton) command.project(commandPresentation)
-                            .buildComponent();
+                    JCommandButton button = command.project(commandPresentation).buildComponent();
                     button.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
                     configureBreadcrumbButton(button);
                     configurePopupAction(command, bic);
@@ -710,7 +722,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
      * Pushes an item to the top position of the stack. If the current top is already a
      * {@link BreadcrumbItemChoices}, replace it.
      *
-     * @param bi         The item to push.
+     * @param bi The item to push.
      * @return The item that has been pushed.
      */
     protected synchronized Object pushChoice(BreadcrumbItem bi) {
