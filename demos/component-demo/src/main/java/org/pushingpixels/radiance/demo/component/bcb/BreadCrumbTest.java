@@ -34,10 +34,13 @@ import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.demo.component.ExplorerFileViewPanel;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,6 +94,17 @@ public class BreadCrumbTest extends JFrame {
         this.add(fileListScrollPane, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(controls,
+                RadianceThemingSlices.DecorationAreaType.FOOTER);
+
+        RadianceSkinSelector skinSelector = new RadianceSkinSelector();
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
+                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
+                new WidestComboPopupPrototype<SkinInfo>());
+        skinSelector.setToolTipText("Radiance skin");
+        controls.add(skinSelector);
+
         JButton setPath = new JButton("Select and set path...");
         setPath.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
             JFileChooser folderChooser = new JFileChooser();
@@ -120,6 +134,11 @@ public class BreadCrumbTest extends JFrame {
                             RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
                             RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                             ComponentState.ENABLED)));
+            RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
+                    () -> test.setIconImage(RadianceLogo.getLogoImage(test,
+                            RadianceThemingCortex.ComponentScope.getCurrentSkin(test.getRootPane())
+                                    .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
             test.setSize(550, 385);
             test.setLocationRelativeTo(null);
             test.setVisible(true);
