@@ -25,7 +25,10 @@ The `getLeaves()` should return the list of leaf elements that correspond to the
 
 ### Working with breadcrumb bar
 
-The `JBreadcrumbBar` is a Swing component. It is initialized with a `BreadcrumbBarContentProvider` object.
+The `JBreadcrumbBar` is a Swing component. It is initialized with:
+
+* a `BreadcrumbBarContentProvider` that is used to dynamically populate the breadcrumb bar content as the user interacts with it
+* a `BreadcrumbBarPresentationModel` that is used to configure the visual appearance of the content
 
 Use `JBreadcrumbBar.setPath()` to set the specified path to be the currently selected one - like the "Select and set path..." in the screenshot above that does this:
 
@@ -89,8 +92,8 @@ this.bar.getContentModel().addPathListener(
 
 Let's take a look at what we're doing here:
 
-- Use `JBreadcrumbBar.getContentModel()` to get an instance of `BreadcrumbBarModel`.
-- Use `BreadcrumbBarModel.addPathListener()` to add a `BreadcrumbPathListener`.
+- Use `JBreadcrumbBar.getContentModel()` to get an instance of `BreadcrumbBarContentModel`.
+- Use `BreadcrumbBarContentModel.addPathListener()` to add a `BreadcrumbPathListener`.
 - The listener's only method (elided `breadcrumbPathEvent`) gets a `BreadcrumbPathEvent` object.
 - Use `BreadcrumbPathEvent.getSource()` to obtain the model (or use the same `bar.getContentModel()` above) and then `BreadcrumbBarContentModel.getItems()` to get the currently selected path.
 - Create a `SwingWorker` to load the list of files in the selected path in the background using `BreadcrumbBarContentProvider.getLeaves()`. We want to run this off the UI thread so that the UI remains responsive during this potentially blocking I/O operation.
