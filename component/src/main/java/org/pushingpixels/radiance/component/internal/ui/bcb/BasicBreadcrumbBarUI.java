@@ -111,13 +111,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         c.setLayout(createLayoutManager());
 
-        if (this.breadcrumbBar.getCallback() != null) {
+        if (this.breadcrumbBar.getContentProvider() != null) {
             SwingWorker<List<BreadcrumbItem<Object>>, Void> worker =
                     new SwingWorker<>() {
                         @Override
                         protected List<BreadcrumbItem<Object>> doInBackground() throws Exception {
                             startLoadingTimer();
-                            return breadcrumbBar.getCallback().getPathChoices(null);
+                            return breadcrumbBar.getContentProvider().getPathChoices(null);
                         }
 
                         @Override
@@ -217,7 +217,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         SwingUtilities.invokeLater(BasicBreadcrumbBarUI.this::updateComponents);
 
                         if (indexOfFirstChange == 0) {
-                            List<BreadcrumbItem<Object>> rootChoices = breadcrumbBar.getCallback()
+                            List<BreadcrumbItem<Object>> rootChoices = breadcrumbBar.getContentProvider()
                                     .getPathChoices(null);
                             BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(null,
                                     rootChoices);
@@ -242,7 +242,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                     subPath.add(items.get(j));
                                 }
                                 BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(
-                                        item, breadcrumbBar.getCallback().getPathChoices(subPath));
+                                        item, breadcrumbBar.getContentProvider().getPathChoices(subPath));
                                 if ((bic.getChoices() != null) && (bic.getChoices().size() > 0)) {
                                     // add the selector - the current item has
                                     // children

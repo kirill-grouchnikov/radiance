@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.bcb.core;
 
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarContentProvider;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
@@ -55,11 +55,11 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
 
     /**
      * Local file system specific implementation of the
-     * {@link BreadcrumbBarCallBack}.
+     * {@link BreadcrumbBarContentProvider}.
      *
      * @author Kirill Grouchnikov
      */
-    private class DirCallback extends BreadcrumbBarCallBack<File> {
+    private class FileSystemContentProvider extends BreadcrumbBarContentProvider<File> {
         /**
          * File system view.
          */
@@ -68,7 +68,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         /**
          * Creates a new callback.
          */
-        public DirCallback() {
+        public FileSystemContentProvider() {
             this(FileSystemView.getFileSystemView());
         }
 
@@ -77,7 +77,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
          *
          * @param fileSystemView File system view to use.
          */
-        public DirCallback(FileSystemView fileSystemView) {
+        public FileSystemContentProvider(FileSystemView fileSystemView) {
             this.fsv = fileSystemView;
         }
 
@@ -238,7 +238,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
 
         this.model = new BreadcrumbBarModel<>();
         this.useNativeIcons = useNativeIcons;
-        this.callback = new DirCallback(fileSystemView);
+        this.contentProvider = new FileSystemContentProvider(fileSystemView);
 
         this.updateUI();
     }

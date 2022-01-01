@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.component.svg;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarContentProvider;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
@@ -66,7 +66,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
     /**
      * Callback into the underlying breadcrumb bar.
      */
-    private BreadcrumbBarCallBack<File> callback;
+    private BreadcrumbBarContentProvider<File> callback;
 
     /**
      * The main worker that loads the SVG images off EDT.
@@ -79,7 +79,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * @param callback          Callback into the underlying breadcrumb bar.
      * @param startingDimension Initial dimension for SVG icons.
      */
-    public SvgFileViewPanel(BreadcrumbBarCallBack<File> callback, int startingDimension) {
+    public SvgFileViewPanel(BreadcrumbBarContentProvider<File> callback, int startingDimension) {
         super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setToShowGroupLabels(false)

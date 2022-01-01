@@ -52,10 +52,9 @@ public class JBreadcrumbBar<T> extends JComponent {
     protected BreadcrumbBarModel<T> model;
 
     /**
-     * Application callback. Used to retrieve choices for the activated
-     * selector.
+     * Content provider. Supplies the data behind this breadcrumb bar.
      */
-    protected BreadcrumbBarCallBack<T> callback;
+    protected BreadcrumbBarContentProvider<T> contentProvider;
 
     /**
      * The UI class ID string.
@@ -65,12 +64,12 @@ public class JBreadcrumbBar<T> extends JComponent {
     /**
      * Creates a new breadcrumb bar.
      *
-     * @param callback The application callback.
+     * @param contentProvider Content provider for this breadcrumb bar.
      */
-    public JBreadcrumbBar(final BreadcrumbBarCallBack<T> callback) {
+    public JBreadcrumbBar(final BreadcrumbBarContentProvider<T> contentProvider) {
         super();
-        this.model = new BreadcrumbBarModel<T>();
-        this.callback = callback;
+        this.model = new BreadcrumbBarModel<>();
+        this.contentProvider = contentProvider;
 
         this.updateUI();
     }
@@ -85,12 +84,12 @@ public class JBreadcrumbBar<T> extends JComponent {
     }
 
     /**
-     * Returns the application callback.
+     * Returns the content provider for this breadcrumb bar.
      *
-     * @return The application callback.
+     * @return The content provider for this breadcrumb bar.
      */
-    public BreadcrumbBarCallBack<T> getCallback() {
-        return this.callback;
+    public BreadcrumbBarContentProvider<T> getContentProvider() {
+        return this.contentProvider;
     }
 
     /**

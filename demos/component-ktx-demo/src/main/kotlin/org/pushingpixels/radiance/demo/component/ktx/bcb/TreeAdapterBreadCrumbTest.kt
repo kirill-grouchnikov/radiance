@@ -227,7 +227,7 @@ fun main() {
                 val model = FileListModel()
 
                 val leafs = withContext(Dispatchers.Default) {
-                    bar.callback.getLeaves(newPath)
+                    bar.contentProvider.getLeaves(newPath)
                 }
 
                 for (leaf in leafs) {

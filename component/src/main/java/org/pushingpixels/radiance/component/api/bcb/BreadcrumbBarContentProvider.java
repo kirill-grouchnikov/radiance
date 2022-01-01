@@ -36,11 +36,11 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * The application callback that can be set on {@link JBreadcrumbBar}.
+ * Content provider for a {@link JBreadcrumbBar}.
  *
  * @param <T> Type of data associated with each breadcrumb bar item.
  */
-public abstract class BreadcrumbBarCallBack<T> {
+public abstract class BreadcrumbBarContentProvider<T> {
     /**
      * Returns the choice elements that correspond to the specified path. If the
      * path is empty, <code>null</code> should be returned. If path is

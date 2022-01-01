@@ -160,6 +160,6 @@ public class ExplorerFileViewPanel<T> extends AbstractFileViewPanel<T> {
 
     @Override
     protected InputStream getLeafContent(T leaf) {
-        return bar.getCallback().getLeafContent(leaf);
+        return bar.getContentProvider().getLeafContent(leaf);
     }
 }

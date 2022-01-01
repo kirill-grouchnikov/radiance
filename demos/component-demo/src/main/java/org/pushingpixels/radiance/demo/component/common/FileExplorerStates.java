@@ -69,7 +69,7 @@ public class FileExplorerStates extends JFrame {
                                     @Override
                                     protected List<BreadcrumbItem<File>> doInBackground()
                                             throws Exception {
-                                        return bar.getCallback().getLeaves(newPath);
+                                        return bar.getContentProvider().getLeaves(newPath);
                                     }
 
                                     @Override

@@ -133,7 +133,7 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
     }
 
     override fun getLeafContent(leaf: T): InputStream? {
-        return bar.callback.getLeafContent(leaf)
+        return bar.contentProvider.getLeafContent(leaf)
     }
 
     companion object {

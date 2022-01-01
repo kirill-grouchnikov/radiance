@@ -110,7 +110,7 @@ fun main() {
 
             if (newPath.size > 0) {
                 fileViewPanel.setFolder(withContext(Dispatchers.Default) {
-                    bar.callback.getLeaves(newPath)
+                    bar.contentProvider.getLeaves(newPath)
                 })
             }
         }

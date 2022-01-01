@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.bcb.core;
 
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarCallBack;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarContentProvider;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
@@ -88,12 +88,11 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
     }
 
     /**
-     * Tree-adapter specific implementation of the {@link BreadcrumbBarCallBack}
-     * .
+     * Tree-adapter specific implementation of the {@link BreadcrumbBarContentProvider}.
      *
      * @author Kirill Grouchnikov
      */
-    private class TreeCallback extends BreadcrumbBarCallBack<T> {
+    private class TreeContentProvider extends BreadcrumbBarContentProvider<T> {
         /**
          * The corresponding tree model.
          */
@@ -121,7 +120,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
          *                      root node. If <code>false</code>, the first selector shows
          *                      the tree root child nodes.
          */
-        private TreeCallback(TreeModel treeModel, TreeAdapter<T> treeAdapter,
+        private TreeContentProvider(TreeModel treeModel, TreeAdapter<T> treeAdapter,
                 boolean isRootVisible) {
             this.treeModel = treeModel;
             this.treeAdapter = treeAdapter;
@@ -212,7 +211,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
         super(null);
 
         this.model = new BreadcrumbBarModel<>();
-        this.callback = new TreeCallback(treeModel, treeAdapter, isRootVisible);
+        this.contentProvider = new TreeContentProvider(treeModel, treeAdapter, isRootVisible);
 
         this.updateUI();
     }

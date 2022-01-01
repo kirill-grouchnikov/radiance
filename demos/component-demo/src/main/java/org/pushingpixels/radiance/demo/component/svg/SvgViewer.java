@@ -97,7 +97,7 @@ public class SvgViewer extends JFrame {
                                 SwingWorker<>() {
                             @Override
                             protected List<BreadcrumbItem<File>> doInBackground() {
-                                return bar.getCallback().getLeaves(newPath);
+                                return bar.getContentProvider().getLeaves(newPath);
                             }
 
                             @Override
@@ -118,7 +118,7 @@ public class SvgViewer extends JFrame {
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 32;
-        this.svgFileViewPanel = new SvgFileViewPanel(bar.getCallback(), initialSize);
+        this.svgFileViewPanel = new SvgFileViewPanel(bar.getContentProvider(), initialSize);
         JScrollPane jsp = new JScrollPane(this.svgFileViewPanel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.add(jsp, BorderLayout.CENTER);

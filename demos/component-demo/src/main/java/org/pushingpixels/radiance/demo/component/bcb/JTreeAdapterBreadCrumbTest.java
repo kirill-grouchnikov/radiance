@@ -83,7 +83,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
                                     @Override
                                     protected List<BreadcrumbItem<FileTreeNode>> doInBackground() throws
                                             Exception {
-                                        return bar.getCallback().getLeaves(newPath);
+                                        return bar.getContentProvider().getLeaves(newPath);
                                     }
 
                                     @Override

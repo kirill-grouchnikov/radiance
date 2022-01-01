@@ -65,7 +65,7 @@ public class BreadCrumbTest extends JFrame {
                         SwingWorker<List<BreadcrumbItem<File>>, Void> worker = new SwingWorker<>() {
                             @Override
                             protected List<BreadcrumbItem<File>> doInBackground() {
-                                return bar.getCallback().getLeaves(newPath);
+                                return bar.getContentProvider().getLeaves(newPath);
                             }
 
                             @Override

@@ -50,7 +50,7 @@ public class Viewer extends JFrame {
                                 SwingWorker<>() {
                                     @Override
                                     protected List<BreadcrumbItem<File>> doInBackground() {
-                                        return bar.getCallback().getLeaves(newPath);
+                                        return bar.getContentProvider().getLeaves(newPath);
                                     }
 
                                     @Override
