@@ -34,9 +34,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import kotlinx.coroutines.withContext
-import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarPresentationModel
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector
 import org.pushingpixels.radiance.component.ktx.bcb.addDelayedPathListener
+import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
 import org.pushingpixels.radiance.theming.api.ComponentState
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
@@ -186,8 +188,7 @@ fun main() {
         val bar: BreadcrumbTreeAdapterSelector<FileTreeNode> =
             BreadcrumbTreeAdapterSelector(
                 DefaultTreeModel(rootTreeNode),
-                object :
-                    BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode> {
+                object : BreadcrumbTreeAdapterSelector.TreeAdapter<FileTreeNode> {
                     override fun toString(node: FileTreeNode): String {
                         if (node.file == null) {
                             return "Computer"
@@ -200,20 +201,17 @@ fun main() {
                         return result
                     }
 
-                    override fun getIcon(node: FileTreeNode): Icon? {
-                        return if (node.file == null) null else FileSystemView.getFileSystemView()
-                            .getSystemIcon(
-                                node.file
-                            )
+                    override fun getIconFactory(node: FileTreeNode?): RadianceIcon.Factory? {
+                        return null
                     }
-                }, false
+                }, false, BreadcrumbBarPresentationModel.withDefaults()
             )
 
 
         val fileList = JList<File>()
         fileList.cellRenderer = FileListRenderer()
 
-        bar.model.addDelayedPathListener { event ->
+        bar.contentModel.addDelayedPathListener { event ->
             val newPath = event.source.items
             println("New path is ")
             for (item in newPath) {

@@ -39,7 +39,7 @@ public class IcoViewer extends JFrame {
 
         this.bar = new BreadcrumbFileSelector();
 
-        this.bar.getModel()
+        this.bar.getContentModel()
                 .addPathListener(
                         event -> SwingUtilities.invokeLater(() -> {
                             final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();

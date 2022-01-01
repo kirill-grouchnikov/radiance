@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.component.bcb;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarPresentationModel;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
@@ -75,51 +77,48 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
                     }
 
                     @Override
-                    public Icon getIcon(FileTreeNode node) {
-                        if (node.file == null)
-                            return null;
-                        Icon result = FileSystemView.getFileSystemView().getSystemIcon(node.file);
-                        return result;
+                    public RadianceIcon.Factory getIconFactory(FileTreeNode node) {
+                        return null;
                     }
-                }, true);
-        this.bar.getModel().addPathListener(event ->
-            SwingUtilities.invokeLater(() -> {
-                final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
-                System.out.println("New path is ");
-                for (BreadcrumbItem<FileTreeNode> item : newPath) {
-                    FileTreeNode node = item.getData();
-                    if (node.file == null)
-                        continue;
-                    System.out.println("\t" + node.file.getName());
-                }
+                }, true, BreadcrumbBarPresentationModel.withDefaults());
+        this.bar.getContentModel().addPathListener(event ->
+                SwingUtilities.invokeLater(() -> {
+                    final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
+                    System.out.println("New path is ");
+                    for (BreadcrumbItem<FileTreeNode> item : newPath) {
+                        FileTreeNode node = item.getData();
+                        if (node.file == null)
+                            continue;
+                        System.out.println("\t" + node.file.getName());
+                    }
 
-                if (newPath.size() > 0) {
-                    SwingWorker<List<BreadcrumbItem<FileTreeNode>>, Void> worker = new
-                            SwingWorker<>() {
-                                @Override
-                                protected List<BreadcrumbItem<FileTreeNode>> doInBackground() throws
-                                        Exception {
-                                    return bar.getContentProvider().getLeaves(newPath);
-                                }
-
-                                @Override
-                                protected void done() {
-                                    try {
-                                        FileListModel model = new FileListModel();
-                                        List<BreadcrumbItem<FileTreeNode>> leafs = get();
-                                        for (BreadcrumbItem<FileTreeNode> leaf : leafs) {
-                                            FileTreeNode node = leaf.getData();
-                                            model.add(node.file);
-                                        }
-                                        model.sort();
-                                        fileList.setModel(model);
-                                    } catch (Exception exc) {
+                    if (newPath.size() > 0) {
+                        SwingWorker<List<BreadcrumbItem<FileTreeNode>>, Void> worker = new
+                                SwingWorker<>() {
+                                    @Override
+                                    protected List<BreadcrumbItem<FileTreeNode>> doInBackground() throws
+                                            Exception {
+                                        return bar.getContentProvider().getLeaves(newPath);
                                     }
-                                }
-                            };
-                    worker.execute();
-                }
-            })
+
+                                    @Override
+                                    protected void done() {
+                                        try {
+                                            FileListModel model = new FileListModel();
+                                            List<BreadcrumbItem<FileTreeNode>> leafs = get();
+                                            for (BreadcrumbItem<FileTreeNode> leaf : leafs) {
+                                                FileTreeNode node = leaf.getData();
+                                                model.add(node.file);
+                                            }
+                                            model.sort();
+                                            fileList.setModel(model);
+                                        } catch (Exception exc) {
+                                        }
+                                    }
+                                };
+                        worker.execute();
+                    }
+                })
         );
 
         this.setLayout(new BorderLayout());

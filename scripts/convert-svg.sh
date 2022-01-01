@@ -51,6 +51,8 @@ java -Djava.awt.headless=true -cp $CLASSPATH org.pushingpixels.radiance.tools.sv
 
 java -Djava.awt.headless=true -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/component-demo/src/main/java/org/pushingpixels/radiance/demo/component/svg/filetypes/transcoded outputPackageName=org.pushingpixels.radiance.demo.component.svg.filetypes.transcoded templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputClassNamePrefix=ext_ outputLanguage=java
 
+java -Djava.awt.headless=true -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../component/src/main/java/org/pushingpixels/radiance/component/internal/svg outputPackageName=org.pushingpixels.radiance.component.internal.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
+
 java -Djava.awt.headless=true -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../theming/src/main/java/org/pushingpixels/radiance/theming/internal/svg outputPackageName=org.pushingpixels.radiance.theming.internal.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
 
 java -Djava.awt.headless=true -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/common-demo/src/main/kotlin/org/pushingpixels/radiance/demo/common outputPackageName=org.pushingpixels.radiance.demo.common templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java

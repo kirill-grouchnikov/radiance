@@ -43,7 +43,7 @@ import java.util.List;
  * @param <T> Type of data associated with each breadcrumb bar item.
  * @author Kirill Grouchnikov
  */
-public class BreadcrumbBarModel<T> {
+public class BreadcrumbBarContentModel<T> {
     /**
      * The list of breadcrumb items.
      */
@@ -70,7 +70,7 @@ public class BreadcrumbBarModel<T> {
     /**
      * Creates a new empty model.
      */
-    public BreadcrumbBarModel() {
+    public BreadcrumbBarContentModel() {
         this.items = new LinkedList<>();
         this.listenerList = new ArrayList<>();
         this.isCumulative = false;

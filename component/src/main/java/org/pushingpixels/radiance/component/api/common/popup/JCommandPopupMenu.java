@@ -104,6 +104,10 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         CommandButtonPresentationModel presentation =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(this.popupMenuPresentationModel.getMenuPresentationState())
+                        .setIconFilterStrategies(
+                                this.popupMenuPresentationModel.getMenuActiveIconFilterStrategy(),
+                                this.popupMenuPresentationModel.getMenuEnabledIconFilterStrategy(),
+                                this.popupMenuPresentationModel.getMenuDisabledIconFilterStrategy())
                         .setMenu(true)
                         .build();
 

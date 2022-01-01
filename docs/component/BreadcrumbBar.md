@@ -58,7 +58,7 @@ But how does a selection change in the breadcrumb bar (clicking any element of t
 It is achieved by adding a path listener to the `JBreadcrumbBar`'s model:
 
 ```java
-this.bar.getModel().addPathListener(
+this.bar.getContentModel().addPathListener(
         event -> SwingUtilities.invokeLater(() -> {
             final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
             System.out.println("New path is ");
@@ -89,10 +89,10 @@ this.bar.getModel().addPathListener(
 
 Let's take a look at what we're doing here:
 
-- Use `JBreadcrumbBar.getModel()` to get an instance of `BreadcrumbBarModel`.
+- Use `JBreadcrumbBar.getContentModel()` to get an instance of `BreadcrumbBarModel`.
 - Use `BreadcrumbBarModel.addPathListener()` to add a `BreadcrumbPathListener`.
 - The listener's only method (elided `breadcrumbPathEvent`) gets a `BreadcrumbPathEvent` object.
-- Use `BreadcrumbPathEvent.getSource()` to obtain the model (or use the same `bar.getModel()` above) and then `BreadcrumbBarModel.getItems()` to get the currently selected path.
+- Use `BreadcrumbPathEvent.getSource()` to obtain the model (or use the same `bar.getContentModel()` above) and then `BreadcrumbBarContentModel.getItems()` to get the currently selected path.
 - Create a `SwingWorker` to load the list of files in the selected path in the background using `BreadcrumbBarContentProvider.getLeaves()`. We want to run this off the UI thread so that the UI remains responsive during this potentially blocking I/O operation.
 - When the list of files is loaded, call `AbstractFileViewPanel.setFolder()` API to update the panel to show the files from the currently selected path. As that content is loaded, `AbstractFileViewPanel` calls into its abstract `configureCommand()` and `getRadianceIcon` (which are implemented in our subclass) to get the application-specific visual representation of each file.
 

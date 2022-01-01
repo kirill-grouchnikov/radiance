@@ -29,10 +29,11 @@
  */
 package org.pushingpixels.radiance.component.api.bcb.core;
 
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarContentProvider;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
-import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.*;
+import org.pushingpixels.radiance.component.internal.svg.ic_folder_open_black_24px;
+import org.pushingpixels.radiance.component.internal.svg.ic_insert_drive_file_black_24px;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -48,10 +49,29 @@ import java.util.*;
  * @author Brian Young
  */
 public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
-    /**
-     * If <code>true</code>, the path selectors will use native icons.
-     */
-    private boolean useNativeIcons;
+    private IconProvider iconProvider;
+
+    public interface IconProvider {
+        RadianceIcon.Factory getIconFactory(File file);
+    }
+
+    public static class FixedIconProvider implements IconProvider {
+        @Override
+        public RadianceIcon.Factory getIconFactory(File file) {
+            if (file.isDirectory()) {
+                return ic_folder_open_black_24px.factory();
+            } else {
+                return ic_insert_drive_file_black_24px.factory();
+            }
+        }
+    }
+
+    public static class EmptyIconProvider implements IconProvider {
+        @Override
+        public RadianceIcon.Factory getIconFactory(File file) {
+            return null;
+        }
+    }
 
     /**
      * Local file system specific implementation of the
@@ -95,7 +115,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                             systemName = root.getAbsolutePath();
                         }
                         BreadcrumbItem<File> rootItem = new BreadcrumbItem<>(systemName,
-                                useNativeIcons ? fsv.getSystemIcon(root) : null, root);
+                                iconProvider.getIconFactory(root), root);
                         bRoots.add(rootItem);
                     }
                     return bRoots;
@@ -125,7 +145,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                         childFileName = child.getName();
                     }
                     BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName,
-                            useNativeIcons ? fsv.getSystemIcon(child) : null, child);
+                            iconProvider.getIconFactory(child), child);
                     lResult.add(item);
                 }
                 lResult.sort(new Comparator<>() {
@@ -174,7 +194,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                         childFileName = child.getName();
                     }
                     BreadcrumbItem<File> item = new BreadcrumbItem<>(childFileName,
-                            useNativeIcons ? fsv.getSystemIcon(child) : null, child);
+                            iconProvider.getIconFactory(child), child);
                     lResult.add(item);
                 }
                 lResult.sort(new Comparator<>() {
@@ -212,45 +232,29 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
      * default file system view.
      */
     public BreadcrumbFileSelector() {
-        this(true);
-    }
-
-    /**
-     * Creates a new breadcrumb bar file selector that uses the default file
-     * system view.
-     *
-     * @param useNativeIcons If <code>true</code>, the path selectors will use native
-     *                       icons.
-     */
-    public BreadcrumbFileSelector(boolean useNativeIcons) {
-        this(FileSystemView.getFileSystemView(), useNativeIcons);
+        this(FileSystemView.getFileSystemView(), new FixedIconProvider(),
+                BreadcrumbBarPresentationModel.builder().setIconFilterStrategies(
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT
+                ).build());
     }
 
     /**
      * Creates a new breadcrumb bar file selector.
      *
      * @param fileSystemView File system view.
-     * @param useNativeIcons If <code>true</code>, the path selectors will use native
-     *                       icons.
+     * @param iconProvider Icon provider.
      */
-    public BreadcrumbFileSelector(FileSystemView fileSystemView, boolean useNativeIcons) {
-        super(null);
+    public BreadcrumbFileSelector(FileSystemView fileSystemView, IconProvider iconProvider,
+            BreadcrumbBarPresentationModel presentationModel) {
+        super(null, presentationModel);
 
-        this.model = new BreadcrumbBarModel<>();
-        this.useNativeIcons = useNativeIcons;
+        this.contentModel = new BreadcrumbBarContentModel<>();
+        this.iconProvider = iconProvider;
         this.contentProvider = new FileSystemContentProvider(fileSystemView);
 
         this.updateUI();
-    }
-
-    /**
-     * Sets indication whether the path selectors should use native icons.
-     *
-     * @param useNativeIcons If <code>true</code>, the path selectors will use native
-     *                       icons.
-     */
-    public void setUseNativeIcons(boolean useNativeIcons) {
-        this.useNativeIcons = useNativeIcons;
     }
 
     /**
@@ -270,7 +274,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         ArrayList<BreadcrumbItem<File>> path = new ArrayList<>();
         File parent = dir;
         BreadcrumbItem<File> bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(dir),
-                fsv.getSystemIcon(dir), dir);
+                this.iconProvider.getIconFactory(dir), dir);
         path.add(bci);
         while (true) {
             parent = fsv.getParentDirectory(parent);
@@ -278,7 +282,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                 break;
             }
             bci = new BreadcrumbItem<>(fsv.getSystemDisplayName(parent),
-                    fsv.getSystemIcon(parent), parent);
+                    this.iconProvider.getIconFactory(parent), parent);
             path.add(bci);
         }
         Collections.reverse(path);

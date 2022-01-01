@@ -39,7 +39,7 @@ public class BreadcrumbPathEvent<T> {
     /**
      * The model that fired <code>this</code> event.
      */
-    private BreadcrumbBarModel<T> src;
+    private BreadcrumbBarContentModel<T> src;
 
     /**
      * The index of the first path item that has changed.
@@ -52,7 +52,7 @@ public class BreadcrumbPathEvent<T> {
      * @param src                Event source.
      * @param indexOfFirstChange The index of the first path item that has changed.
      */
-    public BreadcrumbPathEvent(BreadcrumbBarModel<T> src, int indexOfFirstChange) {
+    public BreadcrumbPathEvent(BreadcrumbBarContentModel<T> src, int indexOfFirstChange) {
         this.src = src;
         this.indexOfFirstChange = indexOfFirstChange;
     }
@@ -71,7 +71,7 @@ public class BreadcrumbPathEvent<T> {
      *
      * @return The source model of <code>this</code> event.
      */
-    public BreadcrumbBarModel<T> getSource() {
+    public BreadcrumbBarContentModel<T> getSource() {
         return this.src;
     }
 }

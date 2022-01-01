@@ -49,12 +49,14 @@ public class JBreadcrumbBar<T> extends JComponent {
     /**
      * The breadcrumb bar model.
      */
-    protected BreadcrumbBarModel<T> model;
+    protected BreadcrumbBarContentModel<T> contentModel;
 
     /**
      * Content provider. Supplies the data behind this breadcrumb bar.
      */
     protected BreadcrumbBarContentProvider<T> contentProvider;
+
+    private BreadcrumbBarPresentationModel presentationModel;
 
     /**
      * The UI class ID string.
@@ -66,10 +68,12 @@ public class JBreadcrumbBar<T> extends JComponent {
      *
      * @param contentProvider Content provider for this breadcrumb bar.
      */
-    public JBreadcrumbBar(final BreadcrumbBarContentProvider<T> contentProvider) {
+    public JBreadcrumbBar(BreadcrumbBarContentProvider<T> contentProvider,
+            BreadcrumbBarPresentationModel presentationModel) {
         super();
-        this.model = new BreadcrumbBarModel<>();
+        this.contentModel = new BreadcrumbBarContentModel<>();
         this.contentProvider = contentProvider;
+        this.presentationModel = presentationModel;
 
         this.updateUI();
     }
@@ -80,7 +84,7 @@ public class JBreadcrumbBar<T> extends JComponent {
      * @param newPath New path for <code>this</code> breadcrumb bar.
      */
     public void setPath(List<BreadcrumbItem<T>> newPath) {
-        this.getModel().replace(newPath);
+        this.getContentModel().replace(newPath);
     }
 
     /**
@@ -129,11 +133,20 @@ public class JBreadcrumbBar<T> extends JComponent {
     }
 
     /**
-     * Returns the model of this breadcrumb bar.
+     * Returns the content model of this breadcrumb bar.
      *
-     * @return The model of this breadcrumb bar.
+     * @return The content model of this breadcrumb bar.
      */
-    public BreadcrumbBarModel<T> getModel() {
-        return this.model;
+    public BreadcrumbBarContentModel<T> getContentModel() {
+        return this.contentModel;
+    }
+
+    /**
+     * Returns the presentation model of this breadcrumb bar.
+     *
+     * @return The presentation model of this breadcrumb bar.
+     */
+    public BreadcrumbBarPresentationModel getPresentationModel() {
+        return this.presentationModel;
     }
 }

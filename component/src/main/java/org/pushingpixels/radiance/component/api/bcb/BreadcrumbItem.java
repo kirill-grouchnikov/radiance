@@ -32,6 +32,8 @@
  */
 package org.pushingpixels.radiance.component.api.bcb;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+
 import javax.swing.*;
 
 /**
@@ -46,18 +48,18 @@ public final class BreadcrumbItem<T> {
     private String displayName;
 
     /**
-     * The optional icon.
+     * Icon factory for this item.
      */
-    private Icon icon;
+    private RadianceIcon.Factory iconFactory;
 
     /**
      * Data value for this item.
      */
     private T data;
 
-    public BreadcrumbItem(String displayName, Icon icon, T data) {
+    public BreadcrumbItem(String displayName, RadianceIcon.Factory iconFactory, T data) {
         this.displayName = displayName;
-        this.icon = icon;
+        this.iconFactory = iconFactory;
         this.data = data;
     }
 
@@ -65,12 +67,12 @@ public final class BreadcrumbItem<T> {
         return this.displayName;
     }
 
-    public Icon getIcon() {
-        return icon;
+    public RadianceIcon.Factory getIconFactory() {
+        return this.iconFactory;
     }
 
     public T getData() {
-        return data;
+        return this.data;
     }
 
     @Override

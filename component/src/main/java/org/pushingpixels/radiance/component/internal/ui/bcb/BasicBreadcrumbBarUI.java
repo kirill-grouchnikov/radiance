@@ -32,11 +32,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.bcb;
 
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbPathListener;
-import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
+import org.pushingpixels.radiance.component.api.bcb.*;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
@@ -116,7 +112,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         c.setLayout(createLayoutManager());
 
-        if (this.breadcrumbBar.getModel().getItemCount() > 0) {
+        if (this.breadcrumbBar.getContentModel().getItemCount() > 0) {
             // Already have some items in the model
             startLoadingTimer();
 
@@ -209,7 +205,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             }
             initAndRunPathChangeWorker(event.getIndexOfFirstChange());
         };
-        this.breadcrumbBar.getModel().addPathListener(this.pathListener);
+        this.breadcrumbBar.getContentModel().addPathListener(this.pathListener);
     }
 
     private void initAndRunPathChangeWorker(int indexOfFirstChange) {
@@ -241,7 +237,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                     }
                 }
 
-                List<BreadcrumbItem<Object>> items = breadcrumbBar.getModel().getItems();
+                List<BreadcrumbItem<Object>> items = breadcrumbBar.getContentModel().getItems();
                 if (items != null) {
                     for (int itemIndex = indexOfFirstChange; itemIndex < items.size();
                             itemIndex++) {
@@ -313,7 +309,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         bar.removeComponentListener(this.componentListener);
         this.componentListener = null;
 
-        this.breadcrumbBar.getModel().removePathListener(this.pathListener);
+        this.breadcrumbBar.getContentModel().removePathListener(this.pathListener);
         this.pathListener = null;
     }
 
@@ -415,14 +411,28 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.buttonStack.clear();
         this.commandStack.clear();
 
+        BreadcrumbBarPresentationModel breadcrumbBarPresentationModel =
+                this.breadcrumbBar.getPresentationModel();
         CommandButtonPresentationModel commandPresentation =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .setIconFilterStrategies(
+                                breadcrumbBarPresentationModel.getActiveIconFilterStrategy(),
+                                breadcrumbBarPresentationModel.getEnabledIconFilterStrategy(),
+                                breadcrumbBarPresentationModel.getDisabledIconFilterStrategy()
+                        )
                         .setPopupOrientationKind(
                                 CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
                         .setHorizontalGapScaleFactor(0.75)
-                        .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
-                                .setMaxVisibleMenuCommands(10).build())
+                        .setPopupMenuPresentationModel(
+                                CommandPopupMenuPresentationModel.builder()
+                                        .setMaxVisibleMenuCommands(10)
+                                        .setMenuIconFilterStrategies(
+                                                breadcrumbBarPresentationModel.getActiveIconFilterStrategy(),
+                                                breadcrumbBarPresentationModel.getEnabledIconFilterStrategy(),
+                                                breadcrumbBarPresentationModel.getDisabledIconFilterStrategy()
+                                        )
+                                        .build())
                         .build();
 
         // update the ui
@@ -454,6 +464,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
                 Command command = Command.builder()
                         .setText(bi.getDisplayName())
+                        .setIconFactory(bi.getIconFactory())
                         .setSecondaryContentModel(new CommandMenuContentModel(
                                 new CommandGroup()))
                         .build();
@@ -461,46 +472,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 configureBreadcrumbButton(button);
 
                 configureMainAction(command, bi);
-                final Icon icon = bi.getIcon();
-                if (icon != null) {
-                    button.setIcon(new RadianceIcon() {
-                        int iw = icon.getIconWidth();
-                        int ih = icon.getIconHeight();
-
-                        @Override
-                        public void paintIcon(Component c, Graphics g, int x, int y) {
-                            int dx = (iw - icon.getIconWidth()) / 2;
-                            int dy = (ih - icon.getIconHeight()) / 2;
-                            icon.paintIcon(c, g, x + dx, y + dy);
-                        }
-
-                        @Override
-                        public int getIconWidth() {
-                            return iw;
-                        }
-
-                        @Override
-                        public int getIconHeight() {
-                            return ih;
-                        }
-
-                        @Override
-                        public void setDimension(Dimension newDimension) {
-                            iw = newDimension.width;
-                            ih = newDimension.height;
-                        }
-
-                        @Override
-                        public boolean supportsColorFilter() {
-                            return false;
-                        }
-
-                        @Override
-                        public void setColorFilter(ColorFilter colorFilter) {
-                            throw new UnsupportedOperationException();
-                        }
-                    });
-                }
 
                 if (i > 0) {
                     BreadcrumbItemChoices<Object> lastBic = (BreadcrumbItemChoices<Object>) modelStack.get(i - 1);
@@ -539,14 +510,15 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     private void configureMainAction(Command command, final BreadcrumbItem<Object> bi) {
         command.setAction(commandActionEvent ->
                 SwingUtilities.invokeLater(() -> {
-                    BreadcrumbBarModel<Object> barModel = breadcrumbBar.getModel();
-                    int itemIndex = barModel.indexOf(bi);
+                    BreadcrumbBarContentModel<Object> barContentModel =
+                            breadcrumbBar.getContentModel();
+                    int itemIndex = barContentModel.indexOf(bi);
                     int toLeave = (itemIndex < 0) ? 0 : itemIndex + 1;
-                    barModel.setCumulative(true);
-                    while (barModel.getItemCount() > toLeave) {
-                        barModel.removeLast();
+                    barContentModel.setCumulative(true);
+                    while (barContentModel.getItemCount() > toLeave) {
+                        barContentModel.removeLast();
                     }
-                    barModel.setCumulative(false);
+                    barContentModel.setCumulative(false);
                 })
         );
     }
@@ -554,8 +526,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     private void configurePopupAction(Command command, final BreadcrumbItemChoices<Object> bic) {
         List<Command> menuCommands = new ArrayList<>();
 
-        CommandPopupMenuPresentationModel.Builder menuPresentationModel =
-                CommandPopupMenuPresentationModel.builder();
         List<BreadcrumbItem<Object>> items = bic.getChoices();
         for (int i = 0; i < items.size(); i++) {
             final BreadcrumbItem<Object> bi = items.get(i);
@@ -563,71 +533,30 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             Command.Builder commandBuilder = Command.builder();
 
             commandBuilder.setText(bi.getDisplayName());
-
-            final Icon icon = bi.getIcon();
-            if (icon != null) {
-                commandBuilder.setIconFactory(() -> new RadianceIcon() {
-                    int iw = icon.getIconWidth();
-                    int ih = icon.getIconHeight();
-
-                    @Override
-                    public void paintIcon(Component c, Graphics g, int x, int y) {
-                        int dx = (iw - icon.getIconWidth()) / 2;
-                        int dy = (ih - icon.getIconHeight()) / 2;
-                        icon.paintIcon(c, g, x + dx, y + dy);
-                    }
-
-                    @Override
-                    public int getIconWidth() {
-                        return iw;
-                    }
-
-                    @Override
-                    public int getIconHeight() {
-                        return ih;
-                    }
-
-                    @Override
-                    public void setDimension(Dimension newDimension) {
-                        iw = newDimension.width;
-                        ih = newDimension.height;
-                    }
-
-                    @Override
-                    public boolean supportsColorFilter() {
-                        return false;
-                    }
-
-                    @Override
-                    public void setColorFilter(ColorFilter colorFilter) {
-                        throw new UnsupportedOperationException();
-                    }
-                });
-            }
+            commandBuilder.setIconFactory(bi.getIconFactory());
 
             final int biIndex = i;
 
             commandBuilder.setAction(commandActionEvent -> SwingUtilities.invokeLater(() -> {
-                BreadcrumbBarModel<Object> barModel = breadcrumbBar.getModel();
-                barModel.setCumulative(true);
-                int itemIndex = barModel.indexOf(bic.getAncestor());
+                BreadcrumbBarContentModel<Object> barContentModel =
+                        breadcrumbBar.getContentModel();
+                barContentModel.setCumulative(true);
+                int itemIndex = barContentModel.indexOf(bic.getAncestor());
                 int toLeave = ((bic.getAncestor() == null) || (itemIndex < 0)) ? 0
                         : itemIndex + 1;
-                while (barModel.getItemCount() > toLeave) {
-                    barModel.removeLast();
+                while (barContentModel.getItemCount() > toLeave) {
+                    barContentModel.removeLast();
                 }
-                barModel.addLast(bi);
+                barContentModel.addLast(bi);
 
                 bic.setSelectedIndex(biIndex);
 
-                barModel.setCumulative(false);
+                barContentModel.setCumulative(false);
             }));
 
             Command menuCommand = commandBuilder.build();
             menuCommands.add(menuCommand);
         }
-
-        menuPresentationModel.setMaxVisibleMenuCommands(10);
 
         CommandMenuContentModel popupMenuContentModel =
                 new CommandMenuContentModel(new CommandGroup(menuCommands));

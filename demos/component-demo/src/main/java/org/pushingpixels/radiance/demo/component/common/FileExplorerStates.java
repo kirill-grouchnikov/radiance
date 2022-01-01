@@ -60,7 +60,7 @@ public class FileExplorerStates extends JFrame {
         this.filePanel = new ExplorerFileViewPanel<>(bar, CommandButtonPresentationState.BIG);
         JScrollPane fileListScrollPane = new JScrollPane(this.filePanel);
 
-        this.bar.getModel().addPathListener(
+        this.bar.getContentModel().addPathListener(
                 event -> SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
                     if (newPath.size() > 0) {

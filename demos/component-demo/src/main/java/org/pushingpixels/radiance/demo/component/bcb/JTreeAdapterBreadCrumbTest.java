@@ -66,7 +66,7 @@ public class JTreeAdapterBreadCrumbTest extends JFrame {
         tree.setCellRenderer(new FileTreeCellRenderer());
 
         this.bar = new BreadcrumbTreeAdapterSelector<>(tree);
-        this.bar.getModel().addPathListener(event ->
+        this.bar.getContentModel().addPathListener(event ->
                 SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
                     System.out.println("New path is ");

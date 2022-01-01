@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.radiance.component.api.bcb.core;
 
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarContentProvider;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarModel;
-import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
-import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.*;
 
 import javax.swing.*;
 import javax.swing.tree.TreeModel;
@@ -53,7 +51,7 @@ import java.util.List;
  * {@link BreadcrumbTreeAdapterSelector#BreadcrumbTreeAdapterSelector(JTree, TreeAdapter)}
  * to wrap an existing tree and provide a custom breadcrumb bar path renderer.</li>
  * <li>Use
- * {@link BreadcrumbTreeAdapterSelector#BreadcrumbTreeAdapterSelector(TreeModel, TreeAdapter, boolean)}
+ * {@link BreadcrumbTreeAdapterSelector#BreadcrumbTreeAdapterSelector(TreeModel, TreeAdapter, boolean, BreadcrumbBarPresentationModel)}
  * to wrap an existing tree model.</li>
  * </ul>
  *
@@ -77,12 +75,12 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
         String toString(final T node);
 
         /**
-         * Returns the icon for the specified tree node.
+         * Returns the icon factory for the specified tree node.
          *
          * @param node Tree node.
-         * @return The icon for the specified tree node.
+         * @return The icon factory for the specified tree node.
          */
-        default Icon getIcon(T node) {
+        default RadianceIcon.Factory getIconFactory(T node) {
             return null;
         }
     }
@@ -135,14 +133,15 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                 List<BreadcrumbItem<T>> bRoots = new LinkedList<>();
                 if (isRootVisible) {
                     BreadcrumbItem<T> rootItem = new BreadcrumbItem<>(
-                            this.treeAdapter.toString(root), this.treeAdapter.getIcon(root), root);
+                            this.treeAdapter.toString(root), this.treeAdapter.getIconFactory(root),
+                            root);
                     bRoots.add(rootItem);
                 } else {
                     for (int i = 0; i < this.treeModel.getChildCount(root); i++) {
                         T rootChild = (T) this.treeModel.getChild(root, i);
                         BreadcrumbItem<T> rootItem = new BreadcrumbItem<>(
                                 this.treeAdapter.toString(rootChild),
-                                this.treeAdapter.getIcon(rootChild), rootChild);
+                                this.treeAdapter.getIconFactory(rootChild), rootChild);
                         bRoots.add(rootItem);
                     }
                 }
@@ -164,7 +163,8 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                     continue;
                 }
                 BreadcrumbItem<T> item = new BreadcrumbItem<>(
-                        this.treeAdapter.toString(child), this.treeAdapter.getIcon(child), child);
+                        this.treeAdapter.toString(child), this.treeAdapter.getIconFactory(child),
+                        child);
                 lResult.add(item);
             }
             return lResult;
@@ -185,7 +185,8 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                     continue;
                 }
                 BreadcrumbItem<T> item = new BreadcrumbItem<>(
-                        this.treeAdapter.toString(child), this.treeAdapter.getIcon(child), child);
+                        this.treeAdapter.toString(child), this.treeAdapter.getIconFactory(child),
+                        child);
                 lResult.add(item);
             }
             return lResult;
@@ -207,10 +208,11 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
      *                      root child nodes.
      */
     public BreadcrumbTreeAdapterSelector(TreeModel treeModel,
-            TreeAdapter<T> treeAdapter, boolean isRootVisible) {
-        super(null);
+            TreeAdapter<T> treeAdapter, boolean isRootVisible,
+            BreadcrumbBarPresentationModel presentationModel) {
+        super(null, presentationModel);
 
-        this.model = new BreadcrumbBarModel<>();
+        this.contentModel = new BreadcrumbBarContentModel<>();
         this.contentProvider = new TreeContentProvider(treeModel, treeAdapter, isRootVisible);
 
         this.updateUI();
@@ -223,7 +225,8 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
      * @param treeAdapter Tree adapter. Can not be <code>null</code>.
      */
     public BreadcrumbTreeAdapterSelector(JTree tree, TreeAdapter<T> treeAdapter) {
-        this(tree.getModel(), treeAdapter, tree.isRootVisible());
+        this(tree.getModel(), treeAdapter, tree.isRootVisible(),
+                BreadcrumbBarPresentationModel.withDefaults());
     }
 
     /**
@@ -254,11 +257,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
             }
 
             @Override
-            public Icon getIcon(Object node) {
-                JLabel label = getRenderer(node);
-                if (label != null) {
-                    return label.getIcon();
-                }
+            public RadianceIcon.Factory getIconFactory(T node) {
                 return null;
             }
         });

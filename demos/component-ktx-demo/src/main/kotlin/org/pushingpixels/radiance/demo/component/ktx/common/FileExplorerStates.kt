@@ -62,7 +62,7 @@ fun main() {
 
         // Configure the breadcrumb bar to update the file panel every time
         // the path changes
-        bar.model.addDelayedPathListener { ev ->
+        bar.contentModel.addDelayedPathListener { ev ->
             val newPath = ev.source.items
             if (newPath.size > 0) {
                 // Kick the loading of the path leaf content off the UI thread and then

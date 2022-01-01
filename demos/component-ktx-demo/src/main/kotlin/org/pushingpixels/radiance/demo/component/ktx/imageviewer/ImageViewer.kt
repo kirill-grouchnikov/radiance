@@ -101,7 +101,7 @@ fun main() {
             }
         }
 
-        bar.model.addDelayedPathListener { event ->
+        bar.contentModel.addDelayedPathListener { event ->
             val newPath = event.source.items
             println("New path is ")
             for (item in newPath) {

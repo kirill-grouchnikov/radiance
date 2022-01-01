@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerMedium;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresentationModel {
     public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
@@ -53,6 +54,9 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
     private CommandPanelPresentationModel panelPresentationModel;
 
     private CommandButtonPresentationState menuPresentationState;
+    private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy;
 
     /**
      * Maximum number of menu items visible in this model. If more commands are
@@ -84,6 +88,18 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         return this.menuPresentationState;
     }
 
+    public RadianceThemingSlices.IconFilterStrategy getMenuActiveIconFilterStrategy() {
+        return this.menuActiveIconFilterStrategy;
+    }
+
+    public RadianceThemingSlices.IconFilterStrategy getMenuEnabledIconFilterStrategy() {
+        return this.menuEnabledIconFilterStrategy;
+    }
+
+    public RadianceThemingSlices.IconFilterStrategy getMenuDisabledIconFilterStrategy() {
+        return this.menuDisabledIconFilterStrategy;
+    }
+
     public int getMaxVisibleMenuCommands() {
         return this.maxVisibleMenuCommands;
     }
@@ -100,6 +116,12 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         private CommandPanelPresentationModel panelPresentationModel;
         private CommandButtonPresentationState menuPresentationState =
                 DEFAULT_POPUP_MENU_PRESENTATION_STATE;
+        private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
         private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
@@ -114,6 +136,16 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         public Builder setMenuPresentationState(
                 CommandButtonPresentationState menuPresentationState) {
             this.menuPresentationState = menuPresentationState;
+            return this;
+        }
+
+        public Builder setMenuIconFilterStrategies(
+                RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy) {
+            this.menuActiveIconFilterStrategy = menuActiveIconFilterStrategy;
+            this.menuEnabledIconFilterStrategy = menuEnabledIconFilterStrategy;
+            this.menuDisabledIconFilterStrategy = menuDisabledIconFilterStrategy;
             return this;
         }
 
@@ -138,6 +170,9 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                     new CommandPopupMenuPresentationModel();
             presentationModel.panelPresentationModel = this.panelPresentationModel;
             presentationModel.menuPresentationState = this.menuPresentationState;
+            presentationModel.menuActiveIconFilterStrategy = this.menuActiveIconFilterStrategy;
+            presentationModel.menuEnabledIconFilterStrategy = this.menuEnabledIconFilterStrategy;
+            presentationModel.menuDisabledIconFilterStrategy = this.menuDisabledIconFilterStrategy;
             presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
             presentationModel.popupOrientationKind = this.popupOrientationKind;

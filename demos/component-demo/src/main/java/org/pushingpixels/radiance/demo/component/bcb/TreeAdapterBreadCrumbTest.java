@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.component.bcb;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarPresentationModel;
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbItem;
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
@@ -75,14 +77,11 @@ public class TreeAdapterBreadCrumbTest extends JFrame {
                     }
 
                     @Override
-                    public Icon getIcon(FileTreeNode node) {
-                        if (node.file == null)
-                            return null;
-                        Icon result = FileSystemView.getFileSystemView().getSystemIcon(node.file);
-                        return result;
+                    public RadianceIcon.Factory getIconFactory(FileTreeNode node) {
+                        return null;
                     }
-                }, false);
-        this.bar.getModel().addPathListener(event ->
+                }, false, BreadcrumbBarPresentationModel.withDefaults());
+        this.bar.getContentModel().addPathListener(event ->
             SwingUtilities.invokeLater(() -> {
                 final List<BreadcrumbItem<FileTreeNode>> newPath = event.getSource().getItems();
                 System.out.println("New path is ");

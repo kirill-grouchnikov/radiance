@@ -52,12 +52,6 @@ import javax.swing.filechooser.FileSystemView
  */
 class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: CommandButtonPresentationState) :
         AbstractFileViewPanel<T>(startingState) {
-    private var useNativeIcons: Boolean = false
-
-    fun setUseNativeIcons(useNativeIcons: Boolean) {
-        this.useNativeIcons = useNativeIcons
-    }
-
     override fun toShowFile(item: BreadcrumbItem<T>): Boolean {
         return true
     }
@@ -68,17 +62,6 @@ class ExplorerFileViewPanel<T>(val bar: JBreadcrumbBar<T>, startingState: Comman
         val prefSize = state.preferredIconSize
         if (prefSize > 0) {
             dimensionToUse = Dimension(prefSize, prefSize)
-        }
-
-        if (this.useNativeIcons) {
-            val sourceProp = leaf.getLeafProp("source")
-            if (sourceProp is File) {
-                val delegate = FileSystemView.getFileSystemView().getSystemIcon(sourceProp)
-                if (delegate != null) {
-                    return IconWrapperRadianceIcon(delegate)
-                }
-            }
-            return null
         }
 
         val name = leaf.leafName
