@@ -118,7 +118,7 @@ Ultramarine
 
 ### Deriving color schemes
 
-The `RadianceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one the these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
+The `RadianceColorScheme` contains a number of APIs to create derived color schemes. Note that a color scheme is a delicate balance between the foreground color and the background colors, providing visually appealing selection of colors that are designed to work together on various painters. In some cases, creating a derived color scheme with one of these APIs (especially negated and inverted color schemes) will not result in visually pleasing appearance.
 
 The following API allows shifting both the background and the foreground colors:
 

@@ -1239,7 +1239,7 @@ public class RadianceCoreUtilities {
      * @param g            Graphics context.
      * @param mainComp     The main component for the focus painting.
      * @param focusedComp  The actual component that has the focus. For example, the main component can be a
-     *                     {@link JSpinner}, while the focused component is a text field inside the the
+     *                     {@link JSpinner}, while the focused component is a text field inside the
      *                     spinner editor.
      * @param focusShape   Focus shape. May be <code>null</code> - in this case, the bounds of
      *                     <code>mainComp</code> will be used.

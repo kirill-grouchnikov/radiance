@@ -142,7 +142,7 @@ import java.util.*;
  * including the core facets defined in the {@link RadianceThemingSlices.ComponentStateFacet} class.
  * When this (perhaps elaborate) state is passed to
  * {@link RadianceColorSchemeBundle#getColorScheme(RadianceThemingSlices.ColorSchemeAssociationKind, ComponentState, boolean)}
- * API, the the procedure described above will match the this state to one of
+ * API, the procedure described above will match the this state to one of
  * the "base" states defined in your skin, and use the matching color scheme.</li>
  * </ul>
  * 
