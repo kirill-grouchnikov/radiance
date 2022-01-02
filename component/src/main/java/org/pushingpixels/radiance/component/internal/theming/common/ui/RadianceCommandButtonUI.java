@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
@@ -49,8 +51,6 @@ import org.pushingpixels.radiance.component.internal.theming.utils.CommandButton
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -561,6 +561,11 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             this.paintButtonBackground(g2d);
         }
 
+//        g2d.setColor(new Color(255, 255, 220));
+//        g2d.fill(layoutInfo.actionClickArea);
+//        g2d.setColor(new Color(255, 220, 220));
+//        g2d.fill(layoutInfo.popupClickArea);
+
         // decide which command button model should be used to
         // compute the foreground color of the command button's text
         boolean useActionAreaForFg = layoutInfo.isTextInActionArea;
@@ -640,28 +645,28 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         RadianceCoreUtilities.paintFocus(g2d, this.commandButton, this.commandButton, this,
                 insetFocusArea, innerFocusArea, 1.0f, 0);
 
-        // g2d.setColor(Color.red);
-        // g2d.draw(layoutInfo.iconRect);
-        // g2d.setColor(Color.blue);
-        // if (layoutInfo.textLayoutInfoList != null) {
-        // for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
-        // layoutInfo.textLayoutInfoList) {
-        // if (mainTextLayoutInfo.text != null) {
-        // g2d.draw(mainTextLayoutInfo.textRect);
-        // }
-        // }
-        // }
-        // g2d.setColor(Color.magenta);
-        // if (layoutInfo.extraTextLayoutInfoList != null) {
-        // for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
-        // layoutInfo.extraTextLayoutInfoList) {
-        // if (extraTextLayoutInfo.text != null) {
-        // g2d.draw(extraTextLayoutInfo.textRect);
-        // }
-        // }
-        // }
-        // g2d.setColor(Color.green);
-        // g2d.draw(layoutInfo.popupActionRect);
+//        g2d.setColor(Color.red);
+//        g2d.draw(layoutInfo.iconRect);
+//        g2d.setColor(Color.blue);
+//        if (layoutInfo.textLayoutInfoList != null) {
+//            for (CommandButtonLayoutManager.TextLayoutInfo mainTextLayoutInfo :
+//                    layoutInfo.textLayoutInfoList) {
+//                if (mainTextLayoutInfo.text != null) {
+//                    g2d.draw(mainTextLayoutInfo.textRect);
+//                }
+//            }
+//        }
+//        g2d.setColor(Color.magenta);
+//        if (layoutInfo.extraTextLayoutInfoList != null) {
+//            for (CommandButtonLayoutManager.TextLayoutInfo extraTextLayoutInfo :
+//                    layoutInfo.extraTextLayoutInfoList) {
+//                if (extraTextLayoutInfo.text != null) {
+//                    g2d.draw(extraTextLayoutInfo.textRect);
+//                }
+//            }
+//        }
+//        g2d.setColor(Color.green);
+//        g2d.draw(layoutInfo.popupActionRect);
 
         g2d.dispose();
     }

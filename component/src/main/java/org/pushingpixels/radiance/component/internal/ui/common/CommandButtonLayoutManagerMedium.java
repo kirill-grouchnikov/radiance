@@ -103,7 +103,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         // popup icon?
         if (hasPopupIcon) {
             // padding before the popup icon
-            if (hasText && hasIcon) {
+            if (hasText || hasIcon) {
                 width += 2 * layoutHGap;
             }
             // text width
@@ -261,7 +261,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
             }
 
             if (hasPopupIcon) {
-                if (hasText && hasIcon) {
+                if (hasText || hasIcon) {
                     x += 2 * layoutHGap;
                 }
 
@@ -417,7 +417,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
             }
 
             if (hasPopupIcon) {
-                if (hasText && hasIcon) {
+                if (hasText || hasIcon) {
                     x -= 2 * layoutHGap;
                 }
 

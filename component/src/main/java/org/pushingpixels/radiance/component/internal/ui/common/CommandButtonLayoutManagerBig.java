@@ -278,9 +278,9 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             y += (iconHeight + layoutVGap);
         }
 
-        // separator?
-        // horizontal separator is always after the icon
-        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
+        // add separator if it's a split button with texts in the popup area and we have
+        // an icon
+        if (hasIcon && (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP)) {
             result.separatorOrientation =
                     CommandButtonLayoutManager.CommandButtonSeparatorOrientation.HORIZONTAL;
 
@@ -337,9 +337,26 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             line2LayoutInfo.textRect.width = lastTextLineWidth;
             line2LayoutInfo.textRect.height = labelHeight;
 
-            result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+            result.textLayoutInfoList = new ArrayList<>();
             result.textLayoutInfoList.add(line1LayoutInfo);
             result.textLayoutInfoList.add(line2LayoutInfo);
+        }
+
+        // add separator if it's a split button with texts in the action area and we have
+        // an icon or texts
+        if ((hasIcon || hasText)
+                && (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION)) {
+            result.separatorOrientation =
+                    CommandButtonLayoutManager.CommandButtonSeparatorOrientation.HORIZONTAL;
+
+            result.separatorArea = new Rectangle(0, 0, 0, 0);
+            result.separatorArea.x = 0;
+            result.separatorArea.y = y;
+            result.separatorArea.width = width;
+            result.separatorArea.height = new JSeparator(JSeparator.HORIZONTAL)
+                    .getPreferredSize().height;
+
+            y += result.separatorArea.height;
         }
 
         if (hasPopupIcon) {
@@ -378,11 +395,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 break;
             case ACTION_AND_POPUP_MAIN_ACTION:
             case ACTION_AND_POPUP_MAIN_POPUP:
-                // 1. break after icon if button has icon
-                // 2. no break (all popup) if button has no icon
-                if (hasIcon) {
-                    int yBorderBetweenActionAndPopupAreas = result.iconRect.y + result.iconRect.height
-                            + layoutVGap;
+                if (result.separatorArea != null) {
+                    int yBorderBetweenActionAndPopupAreas = result.separatorArea.y;
 
                     result.actionClickArea.x = 0;
                     result.actionClickArea.y = 0;
@@ -393,16 +407,13 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                     result.popupClickArea.y = yBorderBetweenActionAndPopupAreas;
                     result.popupClickArea.width = width;
                     result.popupClickArea.height = height - yBorderBetweenActionAndPopupAreas;
-
-                    result.isTextInActionArea = false;
                 } else {
                     result.popupClickArea.x = 0;
                     result.popupClickArea.y = 0;
                     result.popupClickArea.width = width;
                     result.popupClickArea.height = height;
-
-                    result.isTextInActionArea = false;
                 }
+                result.isTextInActionArea = (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
         }
 
         return result;

@@ -47,7 +47,7 @@ import java.awt.*;
  */
 public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     /**
-     * Client property to mark the the command button panel to not draw the background fill
+     * Client property to mark the command button panel to not draw the background fill
      */
     public static final String SKIP_BACKGROUND_FILL =
             "radiance.component.internal.commandButtonPanel.ui.skipBackgroundFill";
