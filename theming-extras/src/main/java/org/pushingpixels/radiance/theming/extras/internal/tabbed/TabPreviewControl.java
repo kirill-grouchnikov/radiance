@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Control to display the a single tab preview.
+ * Control to display a single tab preview.
  * 
  * @author Kirill Grouchnikov
  */
