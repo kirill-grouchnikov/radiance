@@ -34,8 +34,6 @@ package org.pushingpixels.radiance.component.api.bcb;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
-import javax.swing.*;
-
 /**
  * A single item in the {@link JBreadcrumbBar} model.
  *
