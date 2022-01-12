@@ -10,7 +10,7 @@ The core library provides helper classes to expose a variety of navigation sourc
 
 Unlike [command](Command.md) and other related content models (command strips, command panels, command popup menus), breadcrumb bar does not force ahead-of-time, exhaustive construction of the entire content at initialization time.
 
-The `BreadcrumbBargetContentProvider` is used by the breadcrumb component at runtime to ask the application code for the structure of the hierarchy being navigated. The two main methods are:
+The `BreadcrumbBarContentProvider` is used by the breadcrumb component at runtime to ask the application code for the structure of the hierarchy being navigated. The two main methods are:
 
 - `List<BreadcrumbItem<T>> getPathChoices(List<BreadcrumbItem<T>> path)`
 - `List<BreadcrumbItem<T>> getLeaves(List<BreadcrumbItem<T>> path)`
