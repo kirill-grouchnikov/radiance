@@ -30,8 +30,6 @@
 
 package org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks;
 
-import java.awt.*;
-
 /**
  * Provides convenience behavior used by the JGoodies Looks.
  *
@@ -136,13 +134,6 @@ public final class LookUtils {
 
 	// Other Properties *******************************************************
 
-    /**
-     * True if if the screen resolution is smaller than 120 dpi.
-     *
-     * @see Toolkit#getScreenResolution()
-     */
-    public static final boolean IS_LOW_RESOLUTION = isLowResolution();
-
     private LookUtils() {
         // Override default constructor; prevents instantiation.
     }
@@ -167,36 +158,7 @@ public final class LookUtils {
         }
     }
 
-    /**
-     * Tries to look up the System property for the given key. In untrusted
-     * environments this may throw a SecurityException. In this case, we catch
-     * the exception and answer the default value.
-     *
-     * @param key          the name of the system property
-     * @param defaultValue the default value if no property exists.
-     * @return the system property's String value, or the defaultValue if
-     * there's no such value, or a SecurityException has been caught
-     */
-    public static String getSystemProperty(String key, String defaultValue) {
-        try {
-            return System.getProperty(key, defaultValue);
-        } catch (SecurityException e) {
-            // log("Can't read the System property " + key + ".");
-            return defaultValue;
-        }
-    }
-
     // Private Helper Methods ***********************************************
-
-    /**
-     * Checks and answers whether the screen resolution is low or high.
-     * Resolutions below 120 dpi are considere low, all others are high.
-     *
-     * @return true if the screen resolution is smaller than 120 dpi
-     */
-    private static boolean isLowResolution() {
-        return Toolkit.getDefaultToolkit().getScreenResolution() < 120;
-    }
 
     private static boolean startsWith(String str, String prefix) {
         return str != null && str.startsWith(prefix);
