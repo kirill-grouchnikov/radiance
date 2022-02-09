@@ -49,7 +49,7 @@ buildscript {
         dokka_version                        =   '1.6.10'
 
         // Misc dependencies
-        gradle_versions_plugin_version       =   '0.41.0'
+        gradle_versions_plugin_version       =   '0.42.0'
     }
     repositories {
         mavenCentral()
