@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.animation.api;
 import org.pushingpixels.radiance.animation.api.interpolator.PropertyInterpolator;
 import org.pushingpixels.radiance.animation.api.interpolator.PropertyInterpolatorSource;
 import org.pushingpixels.radiance.animation.internal.interpolator.CorePropertyInterpolators;
+import org.pushingpixels.radiance.animation.internal.swing.AWTDefaultPulseSource;
 import org.pushingpixels.radiance.animation.internal.swing.AWTPropertyInterpolators;
 
 import java.util.Collection;
@@ -47,7 +48,7 @@ import java.util.Set;
 public class RadianceAnimationCortex {
     private static Set<PropertyInterpolator<?>> propertyInterpolators = new HashSet<>();
 
-    private static RadianceAnimationCortex.PulseSource currPulseSource = new DefaultPulseSource();
+    private static RadianceAnimationCortex.PulseSource currPulseSource = new AWTDefaultPulseSource();
 
     static {
         propertyInterpolators.addAll(new CorePropertyInterpolators().getPropertyInterpolators());
@@ -72,12 +73,6 @@ public class RadianceAnimationCortex {
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }
-        }
-    }
-
-    private static class DefaultPulseSource extends FixedRatePulseSource {
-        DefaultPulseSource() {
-            super(40);
         }
     }
 
