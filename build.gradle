@@ -31,7 +31,7 @@
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =    '7.3.3'
+        gradle_version                       =    '7.4.1'
 
         // Core dependencies
         kotlin_version                       =   '1.6.10'
