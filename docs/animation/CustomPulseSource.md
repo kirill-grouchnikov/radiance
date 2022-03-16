@@ -1,7 +1,7 @@
 ## Timeline pulse source
-By default, Radiance timelines are driven by a dedicated thread that wakes up every 40ms and updates all the timelines. When the CPU is not heavily used this results in 25 frames-per-second refresh rate for Radiance-driven UI animations - consistent with the frame rate of theatrical films and non-interlaced PAL television standard.
+By default, Radiance timelines are driven by a dedicated thread. This thread is synced with the display refresh rate.
 
-Applications that require custom pulse behavior - higher frame rate, lower frame rate or dynamic frame rate - should use the `RadianceAnimationCortex.setPulseSource(PulseSource)` API. The `PulseSource` interface is:
+Applications that require custom pulse behavior - higher, lower or variable frame rate - should use the `RadianceAnimationCortex.setPulseSource(PulseSource)` API. The `PulseSource` interface is:
 
 ```java
 public interface PulseSource {
