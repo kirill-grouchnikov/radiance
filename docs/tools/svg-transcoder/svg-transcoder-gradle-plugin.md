@@ -134,7 +134,7 @@ apply(plugin = "org.pushing-pixels.radiance.tools.svgtranscoder.gradle")
 
 In case you want to use the latest snapshot version of the plugin, use the Sonatype repository:
 
-```groovy
+```kotlin
 buildscript {
     repositories {
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
@@ -199,7 +199,6 @@ tasks.compileJava {
 
 For a Kotlin project, generate Kotlin classes with the plugin (add multiple `tasks.create<TranscodeDeepTask>` if you have more than one SVG content root folder):
 
-```groovy
 ```kotlin
 tasks.create<TranscodeDeepTask>("transcodeMyDeep") {
     inputRootDirectory = file("src/main/resources/scalable")
