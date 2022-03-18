@@ -12,10 +12,9 @@ The original icon format supported by the transcoder is SVG, and you need the [m
 
 SVG has a wide feature surface which, depending on the complexity of your SVG sources, can lead to significant initial parsing and rendering time of the icon content.
 
-Radiance SVG transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Radiance SVG transcoder ships with two sets of built-in template files (one for Java and one for Kotlin) that create slightly different wrappers around the Java2D draw calls:
+Radiance SVG transcoder allows you to convert an SVG source into a corresponding Java / Kotlin class that contains a sequence of matching Java2D canvas draw calls to render the original content. Radiance SVG transcoder ships with a set of template files (one for Java and one for Kotlin) that generates a class that implements [common](../../common/common.md)'s `RadianceIcon` interface. An instance of the generated class can be passed to any relevant Radiance API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
 
-* `SvgTranscoderTemplatePlain.templ` - generates a class with a static method to paint the icon content onto the passed `Graphics2D` object. The generated class also has methods to query the bounding box of the original SVG content.
-* `SvgTranscoderTemplateRadiance.templ` - generates a class that implements [common](../../common/common.md)'s `RadianceIcon` interface. An instance of the generated class can be passed to any relevant Radiance API, including the matching command button and ribbon calls. At runtime, the content will be automatically reconfigured based on the new display size of the icon.
+The template file itself is `SvgTranscoderTemplateRadiance.templ`, one variant for Java and one for Kotlin. See further instruction in this document on the full path to these template files to pass to the transcoder.
 
 A couple of usages of transcoded resizable icons in Radiance itself are:
 

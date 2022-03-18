@@ -47,8 +47,6 @@ public class TranscodeDeepTask extends TranscodeBaseTask {
 
     private String outputClassNamePrefix = "";
 
-    private boolean useRadianceTemplate;
-
     private File inputRootDirectory;
 
     private File outputRootDirectory;
@@ -81,16 +79,6 @@ public class TranscodeDeepTask extends TranscodeBaseTask {
     @Option(option = "outputClassNamePrefix", description = "Configures the output class name prefix.")
     public void setOutputClassNamePrefix(String outputClassNamePrefix) {
         this.outputClassNamePrefix = outputClassNamePrefix;
-    }
-
-    @Input
-    public boolean isUseRadianceTemplate() {
-        return useRadianceTemplate;
-    }
-
-    @Option(option = "useRadianceTemplate", description = "Configures the usage of Radiance template.")
-    public void setUseRadianceTemplate(boolean useRadianceTemplate) {
-        this.useRadianceTemplate = useRadianceTemplate;
     }
 
     @InputDirectory
@@ -136,9 +124,7 @@ public class TranscodeDeepTask extends TranscodeBaseTask {
                 " in " + outputLanguage);
 
         String templateFileName = "/org/pushingpixels/radiance/tools/svgtranscoder/api/"
-                + outputLanguage + "/" + "SvgTranscoderTemplate";
-        templateFileName += (useRadianceTemplate ? "Radiance" : "Plain");
-        templateFileName += ".templ";
+                + outputLanguage + "/" + "SvgTranscoderTemplateRadiance.templ";
 
         processFolder(inputRootDirectory, outputRootDirectory, outputClassNamePrefix, outputFileNameExtension,
                 outputRootPackageName, languageRenderer, templateFileName);
