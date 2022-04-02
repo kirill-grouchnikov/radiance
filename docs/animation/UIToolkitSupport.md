@@ -7,7 +7,7 @@ Smooth transitions and subdued animations are integral part of many modern graph
 
 ### UI threading rules
 
-Most modern UI toolkits have **threading rules** that the applications must respect in order to prevent application freeze and visual artifacts. The threading rules for [Swing](http://www.javaworld.com/javaworld/jw-08-2007/jw-08-swingthreading.html) and specify that the UI-related operations must be done on the special UI thread.
+Most modern UI toolkits have **threading rules** that the applications must respect in order to prevent application freeze and visual artifacts. The threading rules for [Swing](https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html) and specify that the UI-related operations must be done on the special UI thread.
 
 The strictness of the rules is different for different operations. For example, Swing allows calling `Component.repaint()` off the UI thread - internally the repaint request is scheduled to run on that thread.
 
