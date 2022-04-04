@@ -542,8 +542,13 @@ public class SampleMenuFactory {
         officeMenu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Visual Studio 2005",
                 "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel"));
 
-        customLafMenus.add(
-                RadianceLookAndFeelChanger.getMenuItem(frame, "A03", "a03.swing.plaf.A03LookAndFeel"));
+        JMenu a03Menu = new JMenu("A03 family");
+        customLafMenus.add(a03Menu);
+        a03Menu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "A03 Basic",
+                "a03.swing.plaf.basic.A03BasicLookAndFeel"));
+        a03Menu.add(RadianceLookAndFeelChanger.getMenuItem(frame, "A03 Aphrodite",
+                "a03.swing.plaf.aphrodite.A03AphroditeLookAndFeel"));
+
         customLafMenus.add(RadianceLookAndFeelChanger.getMenuItem(frame, "Alloy",
                 "com.incors.plaf.alloy.AlloyLookAndFeel"));
         customLafMenus.add(RadianceLookAndFeelChanger.getMenuItem(frame, "BeautyEye Cross",
