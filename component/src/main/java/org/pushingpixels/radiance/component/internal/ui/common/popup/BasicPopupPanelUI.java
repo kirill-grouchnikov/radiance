@@ -29,11 +29,13 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
+import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
@@ -104,6 +106,20 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
                 MouseEvent me = (MouseEvent) event;
                 if (me.getID() == MouseEvent.MOUSE_PRESSED) {
                     Component src = me.getComponent();
+                    if (src instanceof JCommandButton) {
+                        JCommandButton commandButton = (JCommandButton) src;
+                        CommandButtonUI commandButtonUI = commandButton.getUI();
+                        CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo =
+                                commandButtonUI.getLayoutInfo();
+                        if ((layoutInfo != null) && (layoutInfo.popupClickArea != null) &&
+                            layoutInfo.popupClickArea.contains(me.getPoint()) &&
+                            commandButton.getPopupModel().isPopupShowing()) {
+                            // The click is in a popup area of a command button, and that
+                            // button is showing a popup. Return (do nothing), as the command
+                            // button will process this event to close its popup.
+                            return;
+                        }
+                    }
                     for (Component c = src; c != null; c = c.getParent()) {
                         if (c instanceof Window) {
                             break;

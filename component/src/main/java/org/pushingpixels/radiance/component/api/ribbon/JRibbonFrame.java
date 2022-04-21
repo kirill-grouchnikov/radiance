@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon;
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
@@ -44,6 +45,7 @@ import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryP
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
+import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
@@ -483,6 +485,20 @@ public class JRibbonFrame extends JFrame {
                                     } else if (mouseEvent.getID() == MouseEvent.MOUSE_PRESSED) {
                                         if (SwingUtilities.getAncestorOfClass(JPopupPanel.class, c)
                                                 == null) {
+                                            if (src instanceof JCommandButton) {
+                                                JCommandButton commandButton = (JCommandButton) src;
+                                                CommandButtonUI commandButtonUI = commandButton.getUI();
+                                                CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo =
+                                                        commandButtonUI.getLayoutInfo();
+                                                if ((layoutInfo != null) && (layoutInfo.popupClickArea != null) &&
+                                                        layoutInfo.popupClickArea.contains(mouseEvent.getPoint()) &&
+                                                        commandButton.getPopupModel().isPopupShowing()) {
+                                                    // The click is in a popup area of a command button, and that
+                                                    // button is showing a popup. Return (do nothing), as the command
+                                                    // button will process this event to close its popup.
+                                                    return;
+                                                }
+                                            }
                                             PopupPanelManager.defaultManager().hidePopups(null);
                                         }
                                     }

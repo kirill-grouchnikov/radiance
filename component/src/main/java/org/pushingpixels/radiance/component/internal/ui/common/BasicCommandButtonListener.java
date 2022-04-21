@@ -100,8 +100,7 @@ public class BasicCommandButtonListener implements MouseListener,
                     }
                 } else {
                     if ((popupRect != null) && popupRect.contains(e.getPoint())) {
-                        PopupButtonModel popupModel = ((JCommandButton) b)
-                                .getPopupModel();
+                        PopupButtonModel popupModel = b.getPopupModel();
                         if (popupModel.isEnabled()) {
                             popupModel.setArmed(true);
                             popupModel.setPressed(true);
