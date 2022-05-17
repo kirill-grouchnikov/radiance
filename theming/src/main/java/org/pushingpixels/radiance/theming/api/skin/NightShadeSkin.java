@@ -162,9 +162,6 @@ public class NightShadeSkin extends RadianceSkin {
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        setTabFadeStart(0.2);
-        setTabFadeEnd(0.9);
-
         // Add overlay painters to paint drop shadows along the bottom
         // edges of toolbars and footers
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100),

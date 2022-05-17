@@ -182,9 +182,6 @@ public class SentinelSkin extends RadianceSkin {
                 RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER);
 
-        setTabFadeStart(0.2);
-        setTabFadeEnd(0.9);
-
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of toolbars
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.TOOLBAR);
