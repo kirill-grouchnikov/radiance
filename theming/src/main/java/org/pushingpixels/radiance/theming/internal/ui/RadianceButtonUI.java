@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeButtonBackgroundDelegate;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceButtonBorder;
 import org.pushingpixels.radiance.theming.internal.utils.icon.GlowingIcon;
@@ -107,7 +108,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
     /**
      * Painting delegate.
      */
-    private ButtonBackgroundDelegate delegate;
+    private BladeButtonBackgroundDelegate delegate;
 
     /**
      * The matching glowing icon. Is used only when
@@ -155,7 +156,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
      */
     private RadianceButtonUI(AbstractButton button) {
         this.button = button;
-        this.delegate = new ButtonBackgroundDelegate();
+        this.delegate = new BladeButtonBackgroundDelegate();
     }
 
     @Override
@@ -382,7 +383,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
 
     @Override
     public boolean contains(JComponent c, int x, int y) {
-        return ButtonBackgroundDelegate.contains((JButton) c, x, y);
+        return BladeButtonBackgroundDelegate.contains((JButton) c, x, y);
     }
 
     @Override
