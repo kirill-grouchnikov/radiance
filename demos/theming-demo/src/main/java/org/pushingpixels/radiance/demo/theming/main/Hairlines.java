@@ -64,34 +64,11 @@ class Version1 extends Base {
 }
 
 class Version2 extends Base {
-    /**
-     * Scales a rectangle in the same way as the JRE does in
-     * sun.java2d.pipe.PixelToParallelogramConverter.fillRectangle(),
-     * which is used by Graphics.fillRect().
-     */
-    private static Rectangle2D.Double scale(AffineTransform transform, int x, int y, int width, int height) {
-        double dx1 = transform.getScaleX();
-        double dy2 = transform.getScaleY();
-        double px = x * dx1 + transform.getTranslateX();
-        double py = y * dy2 + transform.getTranslateY();
-        dx1 *= width;
-        dy2 *= height;
-
-        double newx = normalize(px);
-        double newy = normalize(py);
-        dx1 = normalize(px + dx1) - newx;
-        dy2 = normalize(py + dy2) - newy;
-
-        return new Rectangle2D.Double(newx, newy, dx1, dy2);
-    }
-
-    private static double normalize(double value) {
-        return Math.floor(value + 0.001) + 0.499;
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         HiDPIUtils.paintAtScale1x( g2d, this, this::paintImpl );
         g2d.dispose();
     }
@@ -107,6 +84,30 @@ class Version2 extends Base {
     }
 }
 
+
+class Version3 extends Base {
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x( g2d, this, this::paintImpl );
+        g2d.dispose();
+    }
+
+    private void paintImpl( Graphics2D g, int x, int y, int width, int height, double scaleFactor ) {
+        int arcSize = 10;
+        g.setColor(Color.BLACK);
+        g.drawRoundRect(x, y, width - 1, height - 1, arcSize, arcSize);
+
+        for (int i = 1; i < 5; i++) {
+            int inset = 2 * i;
+            g.drawRoundRect(x + inset, y + inset, width - (inset * 2) - 1, height - (inset * 2) - 1,
+                    arcSize - 2, arcSize - 2);
+        }
+    }
+}
+
 public class Hairlines {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -115,6 +116,7 @@ public class Hairlines {
             frame.setLayout(new FlowLayout());
             frame.add(new Version1());
             frame.add(new Version2());
+            frame.add(new Version3());
 
             frame.setVisible(true);
             frame.pack();
