@@ -63,15 +63,58 @@ class Version1 extends Base {
     }
 }
 
+class Version2 extends Base {
+    /**
+     * Scales a rectangle in the same way as the JRE does in
+     * sun.java2d.pipe.PixelToParallelogramConverter.fillRectangle(),
+     * which is used by Graphics.fillRect().
+     */
+    private static Rectangle2D.Double scale(AffineTransform transform, int x, int y, int width, int height) {
+        double dx1 = transform.getScaleX();
+        double dy2 = transform.getScaleY();
+        double px = x * dx1 + transform.getTranslateX();
+        double py = y * dy2 + transform.getTranslateY();
+        dx1 *= width;
+        dy2 *= height;
+
+        double newx = normalize(px);
+        double newy = normalize(py);
+        dx1 = normalize(px + dx1) - newx;
+        dy2 = normalize(py + dy2) - newy;
+
+        return new Rectangle2D.Double(newx, newy, dx1, dy2);
+    }
+
+    private static double normalize(double value) {
+        return Math.floor(value + 0.001) + 0.499;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        HiDPIUtils.paintAtScale1x( g2d, this, this::paintImpl );
+        g2d.dispose();
+    }
+
+    private void paintImpl( Graphics2D g, int x, int y, int width, int height, double scaleFactor ) {
+        g.setColor(Color.BLACK);
+        g.drawRect(x, y, width - 1, height - 1);
+
+        for (int i = 1; i < 5; i++) {
+            int inset = 2 * i;
+            g.drawRect(x + inset, y + inset, width - (inset * 2) - 1, height - (inset * 2) - 1);
+        }
+    }
+}
+
 public class Hairlines {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Hairlines");
 
             frame.setLayout(new FlowLayout());
-            JComponent version1 = new Version1();
-
-            frame.add(version1);
+            frame.add(new Version1());
+            frame.add(new Version2());
 
             frame.setVisible(true);
             frame.pack();
