@@ -131,6 +131,9 @@ public class BladeButtonBackgroundDelegate {
         int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
         Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
@@ -190,7 +193,6 @@ public class BladeButtonBackgroundDelegate {
 
         int width = button.getWidth();
         int height = button.getHeight();
-        int y = 0;
         if (RadianceCoreUtilities.isScrollButton(button)
                 || RadianceCoreUtilities.isSpinnerButton(button)) {
             BladePairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,

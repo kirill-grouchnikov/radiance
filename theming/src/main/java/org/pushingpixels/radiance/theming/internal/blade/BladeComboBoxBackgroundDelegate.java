@@ -27,10 +27,12 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.internal.utils.combo;
+package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -41,23 +43,20 @@ import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Map;
 
 /**
  * Delegate class for painting backgrounds of buttons in <b>Radiance</b> look and feel. This class
  * is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  */
-public class ComboBoxBackgroundDelegate {
-    /**
-     * Cache for background images.
-     */
-    private static LazyResettableHashMap<BufferedImage> regularBackgrounds = new LazyResettableHashMap<>(
-            "ComboBoxBackgroundDelegate");
+public class BladeComboBoxBackgroundDelegate {
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
-    public static BufferedImage getFullAlphaBackground(JComboBox combo,
+    public void drawFullAlphaBackground(
+            Graphics2D graphics, JComboBox combo,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
             int height) {
         double scale = RadianceCommonCortex.getScaleFactor(combo);
@@ -67,101 +66,56 @@ public class ComboBoxBackgroundDelegate {
                 .getTransitionTracker().getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
-
         int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
         float radius = RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
 
-        RadianceColorScheme baseFillScheme = RadianceColorSchemeUtilities.getColorScheme(combo,
-                currState);
-        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(combo,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
+        // Populate fill and border color schemes based on the current transition state of the button.
+        // Important - don't do it on pulsating buttons (such as close button of modified frames).
+        BladeUtils.populateColorScheme(mutableFillColorScheme, combo,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(combo),
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                false);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme, combo,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(combo),
+                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                false);
 
-        ImageHashMapKey keyBase = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height,
-                baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
-                fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                combo.getClass().getName(), radius, comboFontSize);
-        BufferedImage layerBase = regularBackgrounds.get(keyBase);
-        if (layerBase == null) {
-            layerBase = createBackgroundImage(combo, fillPainter, borderPainter, width,
-                    height, baseFillScheme, baseBorderScheme, radius);
-            regularBackgrounds.put(keyBase, layerBase);
-        }
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return layerBase;
-        }
-
-        BufferedImage result = RadianceCoreUtilities.getBlankUnscaledImage(layerBase);
-        Graphics2D g2d = result.createGraphics();
-        // draw the base layer
-        g2d.drawImage(layerBase, 0, 0, layerBase.getWidth(), layerBase.getHeight(), null);
-        // System.out.println("\nPainting base state " + currState);
-
-        // draw the other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            // System.out.println("Painting state " + activeState + "[curr is "
-            // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState)
-                continue;
-
-            float stateContribution = activeEntry.getValue().getContribution();
-            if (stateContribution > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
-
-                RadianceColorScheme fillScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(combo, activeState);
-                RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(combo, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, activeState);
-                ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                        scale, width, height,
-                        fillScheme.getDisplayName(), borderScheme.getDisplayName(),
-                        fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                        combo.getClass().getName(), radius, comboFontSize);
-                BufferedImage layer = regularBackgrounds.get(key);
-                if (layer == null) {
-                    layer = createBackgroundImage(combo, fillPainter, borderPainter, width,
-                            height, fillScheme, borderScheme, radius);
-                    regularBackgrounds.put(key, layer);
-                }
-                g2d.drawImage(layer, 0, 0, layer.getWidth(), layer.getHeight(), null);
-            }
-        }
-        g2d.dispose();
-        return result;
+        drawBackgroundImage(graphics, combo, fillPainter, borderPainter, width,
+                height, mutableFillColorScheme, mutableBorderColorScheme, radius);
     }
 
-    private static BufferedImage createBackgroundImage(JComboBox combo,
+    private void drawBackgroundImage(Graphics2D g, JComboBox combo,
             RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
             RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, float radius) {
-        double scale = RadianceCommonCortex.getScaleFactor(combo);
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(combo) / 2.0f;
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height, radius, null,
-                borderDelta);
 
-        BufferedImage newBackground = RadianceCoreUtilities.getBlankImage(scale, width, height);
-        Graphics2D finalGraphics = (Graphics2D) newBackground.getGraphics();
-        fillPainter.paintContourBackground(finalGraphics, combo, width, height, contour, false,
-                fillScheme, true);
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(combo);
-        Shape contourInner = borderPainter.isPaintingInnerContour()
-                ? RadianceOutlineUtilities.getBaseOutline(width, height, radius - borderThickness,
-                        null, borderDelta + borderThickness)
-                : null;
-        borderPainter.paintBorder(finalGraphics, combo, width, height, contour, contourInner,
-                borderScheme);
-        return newBackground;
-    }
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            scaledWidth - 1, scaledHeight - 1, radius, null, 0);
+                    // Clip by contour so the anti-aliased pixels don't "spill" outside
+                    // the contour. Those pixels will be drawn by the border painter.
+                    Graphics2D clipped = (Graphics2D) graphics1X.create();
+                    clipped.clip(contour);
+                    fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
+                            contour, false, fillScheme, true);
+                    clipped.dispose();
 
-    /**
-     * Simple constructor.
-     */
-    public ComboBoxBackgroundDelegate() {
-        super();
+                    Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                            RadianceOutlineUtilities.getBaseOutline(
+                                    scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
+                            : null;
+                    borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,
+                            contour, contourInner, borderScheme);
+                });
     }
 
     public void updateBackground(Graphics g, JComboBox combo) {
@@ -171,12 +125,6 @@ public class ComboBoxBackgroundDelegate {
 
         int width = combo.getWidth();
         int height = combo.getHeight();
-        int y = 0;
-
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(combo);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(combo);
-
-        BufferedImage bgImage = getFullAlphaBackground(combo, fillPainter, borderPainter, width, height);
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -217,8 +165,13 @@ public class ComboBoxBackgroundDelegate {
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
             graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            RadianceCommonCortex.drawImageWithScale(graphics, RadianceCommonCortex.getScaleFactor(combo),
-                    bgImage, 0, y);
+
+            RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(combo);
+            RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(combo);
+
+            drawFullAlphaBackground(graphics, combo,
+                    fillPainter, borderPainter, width, height);
+
             graphics.dispose();
         }
     }
