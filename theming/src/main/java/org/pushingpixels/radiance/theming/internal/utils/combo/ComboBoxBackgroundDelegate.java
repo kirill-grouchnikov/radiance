@@ -27,9 +27,8 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.internal.blade;
+package org.pushingpixels.radiance.theming.internal.utils.combo;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -39,6 +38,8 @@ import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPaint
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -51,7 +52,7 @@ import java.util.Map;
  *
  * @author Kirill Grouchnikov
  */
-public class BladeComboBoxBackgroundDelegate {
+public class ComboBoxBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
@@ -59,8 +60,6 @@ public class BladeComboBoxBackgroundDelegate {
             Graphics2D graphics, JComboBox combo,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
             int height) {
-        double scale = RadianceCommonCortex.getScaleFactor(combo);
-
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) combo.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
                 .getTransitionTracker().getModelStateInfo();
@@ -90,7 +89,6 @@ public class BladeComboBoxBackgroundDelegate {
             RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
             RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, float radius) {
-
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry

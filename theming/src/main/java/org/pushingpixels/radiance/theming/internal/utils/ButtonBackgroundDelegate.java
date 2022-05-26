@@ -27,11 +27,10 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.internal.blade;
+package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -44,7 +43,8 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +57,7 @@ import java.util.Set;
  *
  * @author Kirill Grouchnikov
  */
-public class BladeButtonBackgroundDelegate {
+public class ButtonBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
@@ -68,8 +68,6 @@ public class BladeButtonBackgroundDelegate {
             Graphics2D graphics, AbstractButton button,
             RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height) {
-        double scale = RadianceCommonCortex.getScaleFactor(button);
-
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
                 .getTransitionTracker().getModelStateInfo();
@@ -92,7 +90,7 @@ public class BladeButtonBackgroundDelegate {
                     RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(button,
                             RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
 
-                    drawBackgroundImage(graphics, button, scale, shaper, fillPainter, borderPainter, width,
+                    drawBackgroundImage(graphics, button, shaper, fillPainter, borderPainter, width,
                             height, mutableFillColorScheme, baseBorderScheme, openSides, isContentAreaFilled,
                             isBorderPainted);
                     return;
@@ -113,22 +111,17 @@ public class BladeButtonBackgroundDelegate {
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 
-        drawBackgroundImage(graphics, button, scale, shaper, fillPainter, borderPainter, width,
+        drawBackgroundImage(graphics, button, shaper, fillPainter, borderPainter, width,
                 height, mutableFillColorScheme, mutableBorderColorScheme, openSides, isContentAreaFilled,
                 isBorderPainted);
 
     }
 
     private void drawBackgroundImage(Graphics2D g, AbstractButton button,
-            double scale, RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
+            RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
             RadianceColorScheme colorScheme, RadianceColorScheme borderScheme,
             Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
-        int openDelta = (int) (3 * scale);
-        int deltaLeft = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.LEFT)) ? openDelta : 0;
-        int deltaRight = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.RIGHT)) ? openDelta : 0;
-        int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
-        int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -138,6 +131,12 @@ public class BladeButtonBackgroundDelegate {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    int openDelta = (int) (3 * scaleFactor);
+                    int deltaLeft = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.LEFT)) ? openDelta : 0;
+                    int deltaRight = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.RIGHT)) ? openDelta : 0;
+                    int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
+                    int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
+
                     Shape contour = shaper.getBladeButtonOutline(button, 0.0f,
                             scaledWidth + deltaLeft + deltaRight,
                             scaledHeight + deltaTop + deltaBottom,
@@ -195,7 +194,7 @@ public class BladeButtonBackgroundDelegate {
         int height = button.getHeight();
         if (RadianceCoreUtilities.isScrollButton(button)
                 || RadianceCoreUtilities.isSpinnerButton(button)) {
-            BladePairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,
+            PairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,
                     false);
             return;
         }

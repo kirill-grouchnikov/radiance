@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRe
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeComboBoxBackgroundDelegate;
+import org.pushingpixels.radiance.theming.internal.utils.combo.ComboBoxBackgroundDelegate;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboBoxEditor;
@@ -81,7 +81,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
     /**
      * Painting delegate.
      */
-    private BladeComboBoxBackgroundDelegate delegate;
+    private ComboBoxBackgroundDelegate delegate;
 
     private Icon uneditableArrowIcon;
 
@@ -138,7 +138,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         this.stateTransitionTracker = new StateTransitionTracker(this.comboBox,
                 this.transitionModel);
 
-        this.delegate = new BladeComboBoxBackgroundDelegate();
+        this.delegate = new ComboBoxBackgroundDelegate();
     }
 
     @Override
