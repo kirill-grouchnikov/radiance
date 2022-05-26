@@ -61,6 +61,11 @@ public interface RadianceButtonShaper extends RadianceTrait {
     Shape getButtonOutline(AbstractButton button, float extraInsets,
             float width, float height, boolean isInner);
 
+	default Shape getBladeButtonOutline(AbstractButton button, float extraInsets,
+			float width, float height, double scaleFactor, boolean isInner) {
+		return getButtonOutline(button, extraInsets, width, height, isInner);
+	}
+
 	/**
 	 * Returns the border for the specified button.
 	 * 

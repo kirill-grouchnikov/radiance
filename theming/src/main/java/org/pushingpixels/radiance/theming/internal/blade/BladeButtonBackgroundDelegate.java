@@ -32,23 +32,19 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
-import org.pushingpixels.radiance.theming.api.shaper.RectangularButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,7 +81,7 @@ public class BladeButtonBackgroundDelegate {
         boolean isContentAreaFilled = button.isContentAreaFilled();
         boolean isBorderPainted = button.isBorderPainted();
 
-        // see if need to use attention-drawing animation
+        // Do we need to use attention-drawing animation?
         if (button.getUI() instanceof ModificationAwareUI) {
             ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
             Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
@@ -104,10 +100,8 @@ public class BladeButtonBackgroundDelegate {
             }
         }
 
-        // see if need to use transition animation. Important - don't do it
-        // on pulsating buttons (such as default or close buttons
-        // of modified frames).
-
+        // Populate fill and border color schemes based on the current transition state of the button.
+        // Important - don't do it on pulsating buttons (such as close button of modified frames).
         BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                 modelStateInfo, currState,
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
@@ -125,40 +119,57 @@ public class BladeButtonBackgroundDelegate {
 
     }
 
-    private void drawBackgroundImage(Graphics2D graphics, AbstractButton button,
+    private void drawBackgroundImage(Graphics2D g, AbstractButton button,
             double scale, RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
             RadianceColorScheme colorScheme, RadianceColorScheme borderScheme,
             Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled, boolean isBorderPainted) {
-        int openDelta = (int) (Math.ceil(3.0 * RadianceSizeUtils.getBorderStrokeWidth(button)));
-        openDelta *= scale;
+        int openDelta = (int) (3 * scale);
         int deltaLeft = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.LEFT)) ? openDelta : 0;
         int deltaRight = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.RIGHT)) ? openDelta : 0;
         int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
         int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
-        // System.err.println(key);
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(button) / 2.0f;
-        Shape contour = shaper.getButtonOutline(button, borderDelta, width + deltaLeft + deltaRight,
-                height + deltaTop + deltaBottom, false);
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    Shape contour = shaper.getBladeButtonOutline(button, 0.0f,
+                            scaledWidth + deltaLeft + deltaRight,
+                            scaledHeight + deltaTop + deltaBottom,
+                            scaleFactor, false);
 
-        graphics.translate(-deltaLeft, -deltaTop);
-        if (isContentAreaFilled) {
-            fillPainter.paintContourBackground(graphics, button,
-                    width + deltaLeft + deltaRight, height + deltaTop + deltaBottom, contour, false,
-                    colorScheme, true);
-        }
-        graphics.translate(deltaLeft, deltaTop);
+                    graphics1X.translate(-deltaLeft, -deltaTop);
+                    if (isContentAreaFilled) {
+                        // Clip by contour so the anti-aliased pixels don't "spill" outside
+                        // the contour. Those pixels will be drawn by the border painter.
+                        Graphics2D clipped = (Graphics2D) graphics1X.create();
+                        if (isBorderPainted) {
+                            clipped.clip(contour);
+                        }
+                        fillPainter.paintContourBackground(clipped, button,
+                                scaledWidth + deltaLeft + deltaRight,
+                                scaledHeight + deltaTop + deltaBottom,
+                                contour, false,
+                                colorScheme, true);
+                        clipped.dispose();
+                    }
+                    graphics1X.translate(deltaLeft, deltaTop);
 
-        if (isBorderPainted) {
-            float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(button);
-            Shape contourInner = borderPainter.isPaintingInnerContour()
-                    ? shaper.getButtonOutline(button, borderDelta + borderThickness,
-                    width + deltaLeft + deltaRight, height + deltaTop + deltaBottom, true)
-                    : null;
-            borderPainter.paintBorder(graphics, button, width + deltaLeft + deltaRight,
-                    height + deltaTop + deltaBottom, contour, contourInner, borderScheme);
-        }
+                    if (isBorderPainted) {
+                        Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                                shaper.getBladeButtonOutline(button, 1.0f,
+                                        scaledWidth + deltaLeft + deltaRight,
+                                        scaledHeight + deltaTop + deltaBottom,
+                                        scaleFactor, true)
+                                : null;
+                        borderPainter.paintBorder(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
+                                scaledHeight + deltaTop + deltaBottom, contour, contourInner, borderScheme);
+                    }
+                });
+
+        graphics.dispose();
     }
 
     /**
