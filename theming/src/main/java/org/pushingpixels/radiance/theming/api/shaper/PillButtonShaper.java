@@ -196,8 +196,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
      *         corners, <code>false</code> otherwise.
      */
     public static boolean isRoundButton(AbstractButton button) {
-        return (!RadianceCoreUtilities.isComboBoxButton(button))
-                && (!RadianceCoreUtilities.isScrollButton(button))
+        return !RadianceCoreUtilities.isComboBoxButton(button)
                 && RadianceCoreUtilities.hasText(button);
     }
 

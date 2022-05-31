@@ -246,11 +246,6 @@ public class PairwiseButtonBackgroundDelegate {
                         width + deltaLeft + deltaRight, radius, null, borderDelta);
 
                 int translateY = finalBackground.getHeight();
-                if (RadianceCoreUtilities.isScrollButton(button)) {
-                    if ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) {
-                        translateY += 4;
-                    }
-                }
                 AffineTransform at = AffineTransform.getTranslateInstance(0, translateY);
                 at.rotate(-Math.PI / 2);
 
@@ -271,10 +266,6 @@ public class PairwiseButtonBackgroundDelegate {
             } else {
                 contour = RadianceOutlineUtilities.getBaseOutline(width + deltaLeft + deltaRight,
                         height + deltaTop + deltaBottom, radius, straightSides, borderDelta);
-                if (RadianceCoreUtilities.isScrollButton(button)) {
-                    if ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.LEFT))
-                        finalGraphics.translate(1, 0);
-                }
 
                 if (isContentAreaFilled) {
                     fillPainter.paintContourBackground(finalGraphics, button,

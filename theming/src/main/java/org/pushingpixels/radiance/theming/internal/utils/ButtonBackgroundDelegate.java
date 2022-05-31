@@ -192,8 +192,7 @@ public class ButtonBackgroundDelegate {
 
         int width = button.getWidth();
         int height = button.getHeight();
-        if (RadianceCoreUtilities.isScrollButton(button)
-                || RadianceCoreUtilities.isSpinnerButton(button)) {
+        if (RadianceCoreUtilities.isSpinnerButton(button)) {
             PairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,
                     false);
             return;

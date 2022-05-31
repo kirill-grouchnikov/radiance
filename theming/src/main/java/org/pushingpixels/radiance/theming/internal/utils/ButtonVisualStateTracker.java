@@ -29,13 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
-import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.utils.scroll.RadianceScrollButton;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
-import java.util.Objects;
 
 /**
  * Utility class to track transitions in visual state of buttons.
@@ -65,13 +62,6 @@ public class ButtonVisualStateTracker {
 	 */
 	public void installListeners(final AbstractButton b, boolean toInstallRolloverListener) {
 		this.stateTransitionTracker = new StateTransitionTracker(b, b.getModel());
-		if (b instanceof RadianceScrollButton) {
-			this.stateTransitionTracker.setRepaintCallback(() -> {
-					JScrollBar scrollBar = (JScrollBar) SwingUtilities
-							.getAncestorOfClass(JScrollBar.class, b);
-				return new SwingRepaintCallback(Objects.requireNonNullElse(scrollBar, b));
-			});
-		}
 		this.stateTransitionTracker.registerModelListeners();
 		this.stateTransitionTracker.registerFocusListeners();
 		if (toInstallRolloverListener) {

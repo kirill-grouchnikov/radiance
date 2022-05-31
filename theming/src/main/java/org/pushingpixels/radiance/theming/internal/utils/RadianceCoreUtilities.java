@@ -34,9 +34,9 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
 import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -53,7 +53,6 @@ import org.pushingpixels.radiance.theming.internal.utils.icon.ArrowButtonTransit
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.menu.RadianceMenu;
-import org.pushingpixels.radiance.theming.internal.utils.scroll.RadianceScrollButton;
 
 import javax.swing.*;
 import javax.swing.plaf.ButtonUI;
@@ -211,18 +210,6 @@ public class RadianceCoreUtilities {
             return false;
         }
         return SwingUtilities.getAncestorOfClass(JToolBar.class, component) != null;
-    }
-
-    /**
-     * Checks answers if the specified component is a button in a scroll control, such as scroll bar
-     * or tabbed pane (as tab scroller).
-     *
-     * @param comp The component to check
-     * @return <code>true</code> if the specified component is a button in a scroll control,
-     * <code>false</code> otherwise
-     */
-    public static boolean isScrollButton(JComponent comp) {
-        return (comp instanceof RadianceScrollButton);
     }
 
     /**
