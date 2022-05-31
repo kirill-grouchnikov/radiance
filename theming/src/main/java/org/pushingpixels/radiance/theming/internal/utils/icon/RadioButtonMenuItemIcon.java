@@ -29,22 +29,22 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * Icon for the {@link JRadioButtonMenuItem}s.
@@ -62,11 +62,9 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
      */
     private JMenuItem menuItem;
 
-    /**
-     * Icon cache to speed up the painting.
-     */
-    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> iconMap =
-            new LazyResettableHashMap<>("RadioButtonMenuItemIcon");
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
     /**
      * Creates a new icon.
@@ -79,124 +77,55 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         this.size = size;
     }
 
-    /**
-     * Returns the current icon to paint.
-     *
-     * @return Icon to paint.
-     */
-    private ScaleAwareImageWrapperIcon getIconToPaint() {
-        if (this.menuItem == null) {
-            return null;
-        }
-
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) this.menuItem.getUI();
-        StateTransitionTracker stateTransitionTracker =
-                transitionAwareUI.getTransitionTracker();
-
+        StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
         StateTransitionTracker.ModelStateInfo modelStateInfo =
                 stateTransitionTracker.getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateContributionMap();
-
-        double scale = RadianceCommonCortex.getScaleFactor(this.menuItem);
-        int fontSize = RadianceSizeUtils.getComponentFontSize(this.menuItem);
-        int checkMarkSize = this.size;
 
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.menuItem);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.menuItem);
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        RadianceColorScheme baseFillColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK_BOX, currState);
-        RadianceColorScheme baseMarkColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK, currState);
-        RadianceColorScheme baseBorderColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, currState);
-        float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
+        float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
         float alpha = RadianceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
-        ImageHashMapKey keyBase = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, fontSize, checkMarkSize,
-                fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
-                baseBorderColorScheme.getDisplayName(), visibility, alpha);
-        ScaleAwareImageWrapperIcon iconBase = iconMap.get(keyBase);
-        if (iconBase == null) {
-            iconBase = new ScaleAwareImageWrapperIcon(RadianceImageCreator.getRadioButton(
-                    this.menuItem, fillPainter, borderPainter, checkMarkSize,
-                    currState, 0, baseFillColorScheme, baseMarkColorScheme,
-                    baseBorderColorScheme, visibility, alpha), scale);
-            iconMap.put(keyBase, iconBase);
-        }
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return iconBase;
-        }
+        // Populate fill and border color schemes based on the current transition state of the button.
+        // Important - don't do it on pulsating buttons (such as close button of modified frames).
+        BladeUtils.populateColorScheme(mutableFillColorScheme, this.menuItem,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                false);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme, this.menuItem,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),
+                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                false);
+        BladeUtils.populateColorScheme(mutableMarkColorScheme, this.menuItem,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),
+                RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
+                false);
 
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(
-                scale, iconBase.getIconWidth(), iconBase.getIconHeight());
-        Graphics2D g2d = result.createGraphics();
-        // draw the base layer
-        iconBase.paintIcon(this.menuItem, g2d, 0, 0);
-
-        // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            // System.out.println("Painting state " + activeState + "[curr is "
-            // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState) {
-                continue;
-            }
-
-            float stateContribution = activeEntry.getValue().getContribution();
-            if (stateContribution > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
-                RadianceColorScheme fillColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK_BOX, activeState);
-                RadianceColorScheme markColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(this.menuItem, ColorSchemeAssociationKind.MARK, activeState);
-                RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(this.menuItem, ColorSchemeAssociationKind.BORDER, activeState);
-
-                ImageHashMapKey keyLayer = RadianceCoreUtilities.getScaleAwareHashKey(
-                        scale, fontSize, checkMarkSize, fillPainter.getDisplayName(),
-                        borderPainter.getDisplayName(), fillColorScheme.getDisplayName(),
-                        markColorScheme.getDisplayName(), borderColorScheme.getDisplayName(),
-                        visibility, alpha);
-                ScaleAwareImageWrapperIcon iconLayer = iconMap.get(keyLayer);
-                if (iconLayer == null) {
-                    iconLayer = new ScaleAwareImageWrapperIcon(RadianceImageCreator.getRadioButton(
-                            this.menuItem, fillPainter,
-                            borderPainter, checkMarkSize, currState, 0,
-                            fillColorScheme, markColorScheme,
-                            borderColorScheme, visibility, alpha), scale);
-                    iconMap.put(keyLayer, iconLayer);
-                }
-
-                iconLayer.paintIcon(this.menuItem, g2d, 0, 0);
-            }
-        }
-
-        g2d.dispose();
-        return new ScaleAwareImageWrapperIcon(result, scale);
-    }
-
-    @Override
-    public void paintIcon(Component c, Graphics g, int x, int y) {
-        Icon iconToDraw = this.getIconToPaint();
-        if (iconToDraw != null)
-            iconToDraw.paintIcon(c, g, x, y);
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
+        BladeIconUtils.drawRadioButton(
+                graphics, this.menuItem, fillPainter, borderPainter,
+                this.size, currState,
+                mutableFillColorScheme, mutableMarkColorScheme, mutableBorderColorScheme,
+                visibility, alpha);
+        graphics.dispose();
     }
 
     @Override
     public int getIconWidth() {
-        Icon iconToDraw = this.getIconToPaint();
-        return (iconToDraw == null) ? 0 : iconToDraw.getIconWidth();
+        return this.size;
     }
 
     @Override
     public int getIconHeight() {
-        Icon iconToDraw = this.getIconToPaint();
-        return (iconToDraw == null) ? 0 : iconToDraw.getIconHeight();
+        return this.size;
     }
 }

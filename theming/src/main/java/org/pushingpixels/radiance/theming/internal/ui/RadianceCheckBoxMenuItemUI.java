@@ -140,7 +140,7 @@ public class RadianceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
     public void updateCheckIconIfNeeded() {
         if (this.checkIcon == null || this.checkIcon instanceof UIResource) {
             this.checkIcon = new CheckBoxMenuItemIcon(this.menuItem,
-                    1 + RadianceSizeUtils.getMenuCheckMarkSize(RadianceSizeUtils
+                    RadianceSizeUtils.getMenuCheckMarkSize(RadianceSizeUtils
                             .getComponentFontSize(this.menuItem)));
         }
     }

@@ -479,7 +479,7 @@ public class RadianceSizeUtils {
 	 *         items under the specified font size.
 	 */
 	public static int getMenuCheckMarkSize(int fontSize) {
-		int result = fontSize - 2;
+		int result = fontSize;
 		if (result % 2 == 0) {
             result--;
         }
