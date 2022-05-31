@@ -31,12 +31,15 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -50,9 +53,7 @@ import javax.swing.plaf.basic.BasicRadioButtonUI;
 import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
-import java.util.Map;
 
 /**
  * UI for radio buttons in <b>Radiance</b> look and feel.
@@ -84,6 +85,11 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     private Rectangle iconRect = new Rectangle();
 
     private Rectangle textRect = new Rectangle();
+
+    protected Icon radianceIcon;
+    protected BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    protected BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    protected BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
     @Override
     protected void installListeners(final AbstractButton b) {
@@ -117,6 +123,64 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
         LookAndFeel.installProperty(b, "iconTextGap",
                 RadianceSizeUtils.getTextIconGap(RadianceSizeUtils.getComponentFontSize(b)));
+
+        this.updateIcon();
+    }
+
+    protected void updateIcon() {
+        int fontSize = RadianceSizeUtils.getComponentFontSize(button);
+        int checkMarkSize = RadianceSizeUtils.getRadioButtonMarkSize(fontSize);
+        this.radianceIcon = new Icon() {
+            @Override
+            public void paintIcon(Component c, Graphics g, int x, int y) {
+                StateTransitionTracker.ModelStateInfo modelStateInfo =
+                        stateTransitionTracker.getModelStateInfo();
+
+                RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
+                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
+                ComponentState currState = modelStateInfo.getCurrModelState();
+
+                float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
+                float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
+
+                // Populate fill and border color schemes based on the current transition state of the button.
+                // Important - don't do it on pulsating buttons (such as close button of modified frames).
+                BladeUtils.populateColorScheme(mutableFillColorScheme, button,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        false);
+                BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
+                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                        false);
+                BladeUtils.populateColorScheme(mutableMarkColorScheme, button,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
+                        RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
+                        false);
+
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.translate(x, y);
+                BladeIconUtils.drawRadioButton(
+                        graphics, button, fillPainter, borderPainter,
+                        checkMarkSize, currState,
+                        mutableFillColorScheme, mutableMarkColorScheme, mutableBorderColorScheme,
+                        visibility, alpha);
+                graphics.dispose();
+            }
+
+            @Override
+            public int getIconWidth() {
+                return checkMarkSize;
+            }
+
+            @Override
+            public int getIconHeight() {
+                return checkMarkSize;
+            }
+        };
     }
 
     @Override
@@ -128,103 +192,6 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
         this.stateTransitionTracker.unregisterFocusListeners();
 
         super.uninstallListeners(b);
-    }
-
-    /**
-     * Returns the icon that matches the current and previous states of the radio button.
-     * 
-     * @param button
-     *            Button (should be {@link JRadioButton}).
-     * @param stateTransitionTracker
-     *            State transition tracker for the radio button.
-     * @return Matching icon.
-     */
-    private static ScaleAwareImageWrapperIcon getIcon(JToggleButton button,
-            StateTransitionTracker stateTransitionTracker) {
-        double scale = RadianceCommonCortex.getScaleFactor(button);
-        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
-
-        int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-        int checkMarkSize = RadianceSizeUtils.getRadioButtonMarkSize(fontSize);
-
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
-        ComponentState currState = modelStateInfo.getCurrModelState();
-
-        RadianceColorScheme baseFillColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(button, RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX, currState);
-        RadianceColorScheme baseMarkColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(button, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, currState);
-        RadianceColorScheme baseBorderColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(button, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
-        float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
-        float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
-
-        ImageHashMapKey keyBase = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, fontSize, checkMarkSize,
-                fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
-                baseBorderColorScheme.getDisplayName(), visibility, alpha);
-        ScaleAwareImageWrapperIcon iconBase = icons.get(keyBase);
-        if (iconBase == null) {
-            iconBase = new ScaleAwareImageWrapperIcon(RadianceImageCreator.getRadioButton(button, fillPainter,
-                    borderPainter, checkMarkSize, currState, 0, baseFillColorScheme,
-                    baseMarkColorScheme, baseBorderColorScheme, visibility, alpha), scale);
-            icons.put(keyBase, iconBase);
-        }
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return iconBase;
-        }
-
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(
-                scale, iconBase.getIconWidth(), iconBase.getIconHeight());
-        Graphics2D g2d = result.createGraphics();
-        // draw the base layer
-        iconBase.paintIcon(button, g2d, 0, 0);
-
-        // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            // System.out.println("Painting state " + activeState + "[curr is "
-            // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState) {
-                continue;
-            }
-
-            float stateContribution = activeEntry.getValue().getContribution();
-            if (stateContribution > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
-                RadianceColorScheme fillColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(button, RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX, activeState);
-                RadianceColorScheme markColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(button, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, activeState);
-                RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(button, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, activeState);
-
-                ImageHashMapKey keyLayer = RadianceCoreUtilities.getScaleAwareHashKey(
-                        scale, fontSize, checkMarkSize,
-                        fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                        fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
-                        borderColorScheme.getDisplayName(), visibility, alpha);
-                ScaleAwareImageWrapperIcon iconLayer = icons.get(keyLayer);
-                if (iconLayer == null) {
-                    iconLayer = new ScaleAwareImageWrapperIcon(
-                            RadianceImageCreator.getRadioButton(button, fillPainter, borderPainter,
-                                    checkMarkSize, currState, 0, fillColorScheme, markColorScheme,
-                                    borderColorScheme, visibility, alpha), scale);
-                    icons.put(keyLayer, iconLayer);
-                }
-
-                iconLayer.paintIcon(button, g2d, 0, 0);
-            }
-        }
-
-        g2d.dispose();
-        return new ScaleAwareImageWrapperIcon(result, scale);
     }
 
     public static ComponentUI createUI(JComponent comp) {
@@ -255,7 +222,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
         if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return null;
         }
-        return RadianceRadioButtonUI.getIcon(button, this.stateTransitionTracker);
+        return this.radianceIcon;
     }
 
     @Override

@@ -137,7 +137,7 @@ public final class RadianceImageCreator {
      *            Checkmark visibility in 0.0-1.0 range.
      * @return Check mark image.
      */
-    private static BufferedImage getCheckMark(double scale, int dimension,
+    public static BufferedImage getCheckMark(double scale, int dimension,
             RadianceColorScheme scheme, float checkMarkVisibility) {
         BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, dimension, dimension);
 

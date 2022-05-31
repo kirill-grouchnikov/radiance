@@ -31,12 +31,15 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -45,8 +48,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * UI for check boxes in <b>Radiance</b> look and feel.
@@ -63,12 +64,6 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new RadianceCheckBoxUI((JToggleButton) comp);
     }
-
-    /**
-     * Hash map for storing icons.
-     */
-    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons =
-            new LazyResettableHashMap<>("RadianceCheckBoxUI");
 
     /**
      * Simple constructor.
@@ -98,118 +93,67 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
         }
     }
 
-    /**
-     * Returns the icon that matches the current and previous states of the checkbox.
-     *
-     * @param button                 Button (should be {@link JCheckBox}).
-     * @param stateTransitionTracker State transition tracker for the checkbox.
-     * @return Matching icon.
-     */
-    private static Icon getIcon(JToggleButton button,
-            StateTransitionTracker stateTransitionTracker) {
-        double scale = RadianceCommonCortex.getScaleFactor(button);
-
-        StateTransitionTracker.ModelStateInfo modelStateInfo =
-                stateTransitionTracker.getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateContributionMap();
-
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
-        ComponentState currState = modelStateInfo.getCurrModelState();
-
-        RadianceColorScheme baseFillColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(button, ColorSchemeAssociationKind.MARK_BOX, currState);
-        RadianceColorScheme baseMarkColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(button, ColorSchemeAssociationKind.MARK, currState);
-        RadianceColorScheme baseBorderColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(button, ColorSchemeAssociationKind.BORDER, currState);
-        float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
-        boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
-        float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
-
+    @Override
+    protected void updateIcon() {
         int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int checkMarkSize = RadianceSizeUtils.getCheckBoxMarkSize(fontSize);
+        this.radianceIcon = new Icon() {
+            @Override
+            public void paintIcon(Component c, Graphics g, int x, int y) {
+                StateTransitionTracker.ModelStateInfo modelStateInfo =
+                        stateTransitionTracker.getModelStateInfo();
 
-        ImageHashMapKey keyBase = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, fontSize, checkMarkSize,
-                fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                baseFillColorScheme.getDisplayName(), baseMarkColorScheme.getDisplayName(),
-                baseBorderColorScheme.getDisplayName(), visibility, isCheckMarkFadingOut,
-                alpha);
-        ScaleAwareImageWrapperIcon iconBase = icons.get(keyBase);
-        if (iconBase == null) {
-            iconBase = new ScaleAwareImageWrapperIcon(
-                    RadianceImageCreator.getCheckBox(button, fillPainter, borderPainter,
-                            checkMarkSize, currState, baseFillColorScheme, baseMarkColorScheme,
-                            baseBorderColorScheme, visibility, isCheckMarkFadingOut,
-                            alpha), scale);
-            icons.put(keyBase, iconBase);
-        }
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return iconBase;
-        }
+                RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
+                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
+                ComponentState currState = modelStateInfo.getCurrModelState();
 
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale,
-                iconBase.getIconWidth(), iconBase.getIconHeight());
-        Graphics2D g2d = result.createGraphics();
-        // draw the base layer
-        iconBase.paintIcon(button, g2d, 0, 0);
+                float visibility = stateTransitionTracker.getFacetStrength(ComponentStateFacet.SELECTION);
+                boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
+                float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
-        // draw other active layers
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
-                : activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            // System.out.println("Painting state " + activeState + "[curr is "
-            // + currState + "] with " + activeEntry.getValue());
-            if (activeState == currState) {
-                continue;
+                // Populate fill and border color schemes based on the current transition state of the button.
+                // Important - don't do it on pulsating buttons (such as close button of modified frames).
+                BladeUtils.populateColorScheme(mutableFillColorScheme, button,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        false);
+                BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
+                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                        false);
+                BladeUtils.populateColorScheme(mutableMarkColorScheme, button,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
+                        ColorSchemeAssociationKind.MARK,
+                        false);
+
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.translate(x, y);
+                BladeIconUtils.drawCheckBox(
+                        graphics, button, fillPainter, borderPainter,
+                        checkMarkSize, currState,
+                        mutableFillColorScheme, mutableMarkColorScheme, mutableBorderColorScheme,
+                        visibility, isCheckMarkFadingOut, alpha);
+                graphics.dispose();
             }
 
-            float stateContribution = activeEntry.getValue().getContribution();
-            if (stateContribution > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
-                RadianceColorScheme fillColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(button, ColorSchemeAssociationKind.MARK_BOX, activeState);
-                RadianceColorScheme markColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(button, ColorSchemeAssociationKind.MARK, activeState);
-                RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(button, ColorSchemeAssociationKind.BORDER, activeState);
-
-                ImageHashMapKey keyLayer = RadianceCoreUtilities.getScaleAwareHashKey(
-                        scale, fontSize, checkMarkSize,
-                        fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                        fillColorScheme.getDisplayName(), markColorScheme.getDisplayName(),
-                        borderColorScheme.getDisplayName(), visibility);
-                ScaleAwareImageWrapperIcon iconLayer = icons.get(keyLayer);
-                if (iconLayer == null) {
-                    iconLayer = new ScaleAwareImageWrapperIcon(
-                            RadianceImageCreator.getCheckBox(button, fillPainter, borderPainter,
-                                    checkMarkSize, currState, fillColorScheme, markColorScheme,
-                                    borderColorScheme, visibility, isCheckMarkFadingOut, alpha),
-                            scale);
-                    icons.put(keyLayer, iconLayer);
-                }
-
-                iconLayer.paintIcon(button, g2d, 0, 0);
+            @Override
+            public int getIconWidth() {
+                return checkMarkSize;
             }
-        }
 
-        g2d.dispose();
-        return new ScaleAwareImageWrapperIcon(result, scale);
+            @Override
+            public int getIconHeight() {
+                return checkMarkSize;
+            }
+        };
     }
 
     @Override
     protected BasicButtonListener createButtonListener(AbstractButton b) {
         return new RolloverButtonListener(b, this.stateTransitionTracker);
-    }
-
-    @Override
-    public Icon getDefaultIcon() {
-        if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
-            return null;
-        }
-        return RadianceCheckBoxUI.getIcon(this.button, this.stateTransitionTracker);
     }
 
     @Override

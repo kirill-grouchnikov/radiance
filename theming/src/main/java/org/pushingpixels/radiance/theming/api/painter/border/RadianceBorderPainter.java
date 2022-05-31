@@ -39,9 +39,8 @@ import java.awt.*;
  * part of officially supported API.<br>
  * <br>
  * 
- * The borders of some controls (buttons, check boxes, tabs, scroll bars etc) are painted by
- * border painters. Note that a custom gradient painter may continue painting the borders,
- * but these will be overlaid by the current border painter.
+ * A border painter is responsible for painting borders of controls such as
+ * buttons, check boxes, tabs, scroll bars, etc.
  * 
  * @author Kirill Grouchnikov
  */
