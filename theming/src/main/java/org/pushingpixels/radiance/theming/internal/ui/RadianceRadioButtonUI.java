@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -277,8 +278,21 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
             // make sure that the focus ring is not clipped
             float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(
                     button, RadianceSizeUtils.getComponentFontSize(button)) / 2;
-            RadianceCoreUtilities.paintFocus(g2d, button, button, this, null, textRect, 1.0f,
-                    focusRingPadding);
+
+            Graphics2D graphicsFocus = (Graphics2D) g2d.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            graphicsFocus.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            HiDPIUtils.paintAtScale1x(graphicsFocus, 0, 0, button.getWidth(), button.getHeight(),
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        RadianceCoreUtilities.paintBladeFocus(graphics1X, button, button, this, scaleFactor,
+                                null, textRect, 1.0f,
+                                (float) scaleFactor * focusRingPadding);
+                    }
+            );
+            graphicsFocus.dispose();
         }
         // g2d.setColor(Color.red);
         // g2d.draw(iconRect);

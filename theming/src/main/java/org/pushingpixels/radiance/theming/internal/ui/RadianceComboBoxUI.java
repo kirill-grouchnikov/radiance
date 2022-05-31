@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -469,16 +470,27 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
      * @param bounds Bounds for text.
      */
     private void paintFocus(Graphics g, Rectangle bounds) {
-        int fontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
-        int x = bounds.x;
-        int y = bounds.y;
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.translate(x, y);
 
-        RadianceCoreUtilities.paintFocus(g2d, this.comboBox, this.comboBox, this,
-                RadianceOutlineUtilities.getBaseOutline(bounds.width, bounds.height,
-                        RadianceSizeUtils.getClassicButtonCornerRadius(fontSize), null, 0),
-                bounds, 1.0f, 0.0f);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(g2d, 0, 0, bounds.width, bounds.height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.translate(bounds.x, bounds.y);
+                    int comboFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);
+                    float radius = (float) scaleFactor *
+                            RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            scaledWidth - 1, scaledHeight - 1, radius, null, 0);
+                    RadianceCoreUtilities.paintBladeFocus(graphics1X, this.comboBox, this.comboBox,
+                            this, scaleFactor, contour, bounds, 1.0f,
+                            (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
+                                    this.comboBox, RadianceSizeUtils.getComponentFontSize(this.comboBox)));
+                }
+        );
 
         g2d.dispose();
     }

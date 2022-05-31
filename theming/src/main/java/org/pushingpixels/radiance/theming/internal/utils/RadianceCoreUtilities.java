@@ -1237,8 +1237,8 @@ public class RadianceCoreUtilities {
      * @param extraPadding Extra padding between the component bounds and the focus ring painting.
      */
     public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
-                                  TransitionAwareUI transitionAwareUI, Shape focusShape, Rectangle textRect,
-                                  float maxAlphaCoef, float extraPadding) {
+            TransitionAwareUI transitionAwareUI, Shape focusShape, Rectangle textRect,
+            float maxAlphaCoef, float extraPadding) {
         float focusStrength = transitionAwareUI.getTransitionTracker()
                 .getFocusStrength(focusedComp.hasFocus());
         if (focusStrength == 0.0f) {
@@ -1261,6 +1261,34 @@ public class RadianceCoreUtilities {
         graphics.setColor(color);
         focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, focusShape,
                 textRect, extraPadding);
+        graphics.dispose();
+    }
+
+    public static void paintBladeFocus(Graphics g, Component mainComp, Component focusedComp,
+            TransitionAwareUI transitionAwareUI, double scaleFactor, Shape focusShape,
+            Rectangle textRect, float maxAlphaCoef, float extraPadding) {
+        float focusStrength = transitionAwareUI.getTransitionTracker()
+                .getFocusStrength(focusedComp.hasFocus());
+        if (focusStrength == 0.0f) {
+            return;
+        }
+
+        RadianceThemingSlices.FocusKind focusKind = RadianceCoreUtilities.getFocusKind(mainComp);
+        if (focusKind == RadianceThemingSlices.FocusKind.NONE) {
+            return;
+        }
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        float alpha = maxAlphaCoef * focusStrength;
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(mainComp, alpha, g));
+
+        Color color = RadianceColorUtilities.getFocusColor(mainComp, transitionAwareUI);
+        graphics.setColor(color);
+        focusKind.paintBladeFocus(mainComp, focusedComp, transitionAwareUI, graphics, scaleFactor,
+                focusShape, textRect, extraPadding);
         graphics.dispose();
     }
 

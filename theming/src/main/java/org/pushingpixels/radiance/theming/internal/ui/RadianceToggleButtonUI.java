@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
@@ -252,9 +253,21 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
         }
 
         if (b.isFocusPainted()) {
-            RadianceCoreUtilities.paintFocus(g, b, b, this, null, textRect,
-                    1.0f, RadianceSizeUtils.getFocusRingPadding(
-                            b, RadianceSizeUtils.getComponentFontSize(b)));
+            Graphics2D graphicsFocus = (Graphics2D) g2d.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            graphicsFocus.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            HiDPIUtils.paintAtScale1x(graphicsFocus, 0, 0, b.getWidth(), b.getHeight(),
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        RadianceCoreUtilities.paintBladeFocus(graphics1X, b, b, this, scaleFactor,
+                                null, textRect, 1.0f,
+                                (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
+                                        b, RadianceSizeUtils.getComponentFontSize(b)));
+                    }
+            );
+            graphicsFocus.dispose();
         }
     }
 
