@@ -287,7 +287,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                     RenderingHints.VALUE_ANTIALIAS_ON);
             HiDPIUtils.paintAtScale1x(graphicsFocus, 0, 0, button.getWidth(), button.getHeight(),
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        RadianceCoreUtilities.paintBladeFocus(graphics1X, button, button, this, scaleFactor,
+                        RadianceCoreUtilities.paintFocus(graphics1X, button, button, this, scaleFactor,
                                 null, textRect, 1.0f,
                                 (float) scaleFactor * focusRingPadding);
                     }

@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -554,8 +555,22 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
     @Override
     public void paintFocus(Graphics g) {
-        RadianceCoreUtilities.paintFocus(g, this.slider, this.slider, this, null, null, 1.0f,
-                RadianceSizeUtils.getFocusStrokeWidth(this.slider));
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(g2d, 0, 0, this.slider.getWidth(), this.slider.getWidth(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    RadianceCoreUtilities.paintFocus(graphics1X, this.slider, this.slider, this,
+                            scaleFactor, null, null, 1.0f,
+                            (float) scaleFactor * RadianceSizeUtils.getFocusStrokeWidth(this.slider));
+                }
+        );
+
+        g2d.dispose();
     }
 
     /**

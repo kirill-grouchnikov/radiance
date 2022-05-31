@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
@@ -633,17 +634,32 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             }
         }
 
-        float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(this.commandButton,
-                RadianceSizeUtils.getComponentFontSize(this.commandButton));
-        Rectangle innerFocusArea = this.isInnerFocusOnAction ? layoutInfo.actionClickArea
-                : layoutInfo.popupClickArea;
-        Shape insetFocusArea = new Rectangle2D.Float(
-                innerFocusArea.x + focusRingPadding,
-                innerFocusArea.y + focusRingPadding,
-                innerFocusArea.width - 2 * focusRingPadding,
-                innerFocusArea.height - 2 * focusRingPadding);
-        RadianceCoreUtilities.paintFocus(g2d, this.commandButton, this.commandButton, this,
-                insetFocusArea, innerFocusArea, 1.0f, 0);
+        Graphics2D focusGraphics = (Graphics2D) g2d.create();
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        focusGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(focusGraphics, 0, 0, this.commandButton.getWidth(),
+                this.commandButton.getHeight(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    float focusRingPadding = (float) scaleFactor *
+                            RadianceSizeUtils.getFocusRingPadding(this.commandButton,
+                            RadianceSizeUtils.getComponentFontSize(this.commandButton));
+                    Rectangle innerFocusArea = this.isInnerFocusOnAction ? layoutInfo.actionClickArea
+                            : layoutInfo.popupClickArea;
+                    Shape insetFocusArea = new Rectangle2D.Float(
+                            (float) scaleFactor * innerFocusArea.x + focusRingPadding,
+                            (float) scaleFactor * innerFocusArea.y + focusRingPadding,
+                            (float) scaleFactor * innerFocusArea.width - 2 * focusRingPadding,
+                            (float) scaleFactor * innerFocusArea.height - 2 * focusRingPadding);
+                    RadianceCoreUtilities.paintFocus(g2d, this.commandButton, this.commandButton,
+                            this, scaleFactor, insetFocusArea, innerFocusArea, 1.0f, 0);
+                });
+
+        g2d.dispose();
+
 
 //        g2d.setColor(Color.red);
 //        g2d.draw(layoutInfo.iconRect);

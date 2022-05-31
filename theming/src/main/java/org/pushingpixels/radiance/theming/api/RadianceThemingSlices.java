@@ -104,13 +104,7 @@ public final class RadianceThemingSlices {
          */
         NONE {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
             }
         },
 
@@ -119,36 +113,7 @@ public final class RadianceThemingSlices {
          */
         TEXT {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-                if (textRect == null)
-                    return;
-                if ((textRect.width == 0) || (textRect.height == 0))
-                    return;
-
-                int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                float dashLength = getDashLength(fontSize);
-                float dashGap = getDashGap(fontSize);
-                float dashPhase = (dashLength + dashGap)
-                        * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-
-                graphics.setStroke(new BasicStroke(RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                        BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[] {dashLength, dashGap}, dashPhase));
-
-                int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
-                        : 1;
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                        textRect.width + 2 * delta, textRect.height,
-                        RadianceSizeUtils.getClassicButtonCornerRadius(fontSize), null);
-
-                graphics.translate(textRect.x - delta, textRect.y);
-                graphics.draw(contour);
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
                 if (textRect == null)
                     return;
                 if ((textRect.width == 0) || (textRect.height == 0))
@@ -189,54 +154,6 @@ public final class RadianceThemingSlices {
         ALL {
             @Override
             public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-                if ((focusShape == null)
-                        && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                        && !(mainComp instanceof JRadioButton))) {
-                    RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
-                    if (shaper == null)
-                        return;
-
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                    float dashLength = getDashLength(fontSize);
-                    float dashGap = getDashGap(fontSize);
-                    float dashPhase = (dashLength + dashGap) * (1.0f
-                            - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-                    graphics.setStroke(new BasicStroke(
-                            RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                            BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] {dashLength, dashGap}, dashPhase));
-
-                    Shape contour = shaper.getButtonOutline((AbstractButton) mainComp,
-                            2 * RadianceSizeUtils.getBorderStrokeWidth(mainComp),
-                            mainComp.getWidth(), mainComp.getHeight(), false);
-                    graphics.draw(contour);
-                } else {
-                    float delta = RadianceSizeUtils.getBorderStrokeWidth(mainComp);
-                    Shape contour = (focusShape != null) ? focusShape
-                            : RadianceOutlineUtilities.getBaseOutline(
-                            mainComp.getWidth() - 2 * delta,
-                            mainComp.getHeight() - 2 * delta,
-                            RadianceSizeUtils.getClassicButtonCornerRadius(
-                                    RadianceSizeUtils.getComponentFontSize(mainComp)),
-                            null);
-
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                    float dashLength = getDashLength(fontSize);
-                    float dashGap = getDashGap(fontSize);
-                    float dashPhase = (dashLength + dashGap) * (1.0f
-                            - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-                    graphics.setStroke(new BasicStroke(
-                            RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                            BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] {dashLength, dashGap}, dashPhase));
-                    graphics.draw(contour);
-                }
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp,
                     TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor,
                     Shape focusShape, Rectangle textRect, float extraPadding) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
@@ -289,59 +206,7 @@ public final class RadianceThemingSlices {
          */
         ALL_INNER {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-
-                if ((focusShape == null)
-                        && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                        && !(mainComp instanceof JRadioButton))) {
-                    RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
-                    if (shaper == null)
-                        return;
-
-                    if (shaper.isProportionate()) {
-                        int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                        float dashLength = getDashLength(fontSize);
-                        float dashGap = getDashGap(fontSize);
-                        float dashPhase = (dashLength + dashGap) * (1.0f
-                                - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-                        graphics.setStroke(new BasicStroke(
-                                RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                                BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                                new float[] {dashLength, dashGap}, dashPhase));
-                        float insetsPix = extraPadding;
-
-                        Shape contour = shaper.getButtonOutline((AbstractButton) mainComp,
-                                insetsPix, mainComp.getWidth(), mainComp.getHeight(), true);
-                        graphics.draw(contour);
-                    }
-                } else {
-                    graphics.translate(extraPadding / 2, extraPadding / 2);
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                    Shape contour = (focusShape != null) ? focusShape
-                            : RadianceOutlineUtilities.getBaseOutline(
-                            mainComp.getWidth() - extraPadding,
-                            mainComp.getHeight() - extraPadding,
-                            RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                    - extraPadding,
-                            null);
-
-                    float dashLength = getDashLength(fontSize);
-                    float dashGap = getDashGap(fontSize);
-                    float dashPhase = (dashLength + dashGap) * (1.0f
-                            - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-
-                    graphics.setStroke(new BasicStroke(
-                            RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                            BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] {dashLength, dashGap}, dashPhase));
-                    graphics.draw(contour);
-                }
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI,
+            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI,
                     Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect,
                     float extraPadding) {
 
@@ -397,41 +262,7 @@ public final class RadianceThemingSlices {
          */
         ALL_STRONG_INNER {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-                int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                graphics.setStroke(new BasicStroke(
-                        1.5f * RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                        BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
-                if ((focusShape == null)
-                        && ((mainComp instanceof AbstractButton) && !(mainComp instanceof JCheckBox)
-                        && !(mainComp instanceof JRadioButton))) {
-                    RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(mainComp);
-                    if (shaper == null)
-                        return;
-
-                    if (shaper.isProportionate()) {
-                        Shape contour = shaper.getButtonOutline((AbstractButton) mainComp,
-                                extraPadding, mainComp.getWidth(), mainComp.getHeight(), true);
-                        graphics.draw(contour);
-                    }
-                } else {
-                    graphics.translate(extraPadding / 2, extraPadding / 2);
-                    Shape contour = (focusShape != null) ? focusShape
-                            : RadianceOutlineUtilities.getBaseOutline(
-                            mainComp.getWidth() - extraPadding,
-                            mainComp.getHeight() - extraPadding,
-                            RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)
-                                    - extraPadding,
-                            null);
-
-                    graphics.draw(contour);
-                }
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
                 graphics.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
                 if ((focusShape == null)
@@ -468,30 +299,7 @@ public final class RadianceThemingSlices {
          */
         UNDERLINE {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-                if (textRect == null)
-                    return;
-
-                int fontSize = RadianceSizeUtils.getComponentFontSize(mainComp);
-                float dashLength = getDashLength(fontSize);
-                float dashGap = getDashGap(fontSize);
-                float dashPhase = (dashLength + dashGap)
-                        * (1.0f - transitionAwareUI.getTransitionTracker().getFocusLoopPosition());
-
-                graphics.setStroke(new BasicStroke(
-                        RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                        BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[] {dashLength, dashGap}, dashPhase));
-
-                graphics.translate(textRect.x - 1, textRect.y);
-                graphics.drawLine(0, textRect.height - 1, textRect.width, textRect.height - 1);
-                graphics.dispose();
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
                 if (textRect == null)
                     return;
 
@@ -522,21 +330,7 @@ public final class RadianceThemingSlices {
          */
         STRONG_UNDERLINE {
             @Override
-            public void paintFocus(Component mainComp, Component focusedComp,
-                    TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                    Rectangle textRect, float extraPadding) {
-                if (textRect == null)
-                    return;
-
-                graphics.setStroke(new BasicStroke(
-                        1.5f * RadianceSizeUtils.getFocusStrokeWidth(mainComp),
-                        BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
-                graphics.translate(textRect.x - 1, textRect.y);
-                graphics.drawLine(0, textRect.height - 1, textRect.width, textRect.height - 1);
-            }
-
-            @Override
-            public void paintBladeFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
+            public void paintFocus(Component mainComp, Component focusedComp, TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor, Shape focusShape, Rectangle textRect, float extraPadding) {
                 if (textRect == null)
                     return;
 
@@ -549,32 +343,9 @@ public final class RadianceThemingSlices {
             }
         };
 
-        /**
-         * Paints the focus ring on the specified component.
-         *
-         * @param mainComp          The main component for the focus painting.
-         * @param focusedComp       The actual component that has the focus. For example, the main
-         *                          component can be a {@link JSpinner}, while the focused component
-         *                          is a text field inside the spinner editor.
-         * @param transitionAwareUI Transition-aware UI implementation.
-         * @param graphics          Graphics context.
-         * @param focusShape        Focus shape. May be <code>null</code> - in this case, the
-         *                          bounds of
-         *                          <code>mainComp</code> will be used.
-         * @param textRect          Text rectangle (if relevant).
-         * @param extraPadding      Extra padding between the component bounds and the focus ring
-         *                          painting.
-         */
         public abstract void paintFocus(Component mainComp, Component focusedComp,
-                TransitionAwareUI transitionAwareUI, Graphics2D graphics, Shape focusShape,
-                Rectangle textRect, float extraPadding);
-
-        public void paintBladeFocus(Component mainComp, Component focusedComp,
                 TransitionAwareUI transitionAwareUI, Graphics2D graphics, double scaleFactor,
-                Shape focusShape, Rectangle textRect, float extraPadding) {
-            this.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, focusShape,
-                    textRect, extraPadding);
-        }
+                Shape focusShape, Rectangle textRect, float extraPadding);
 
         /**
          * Returns DPI-aware dash length for dash-based focus painting.

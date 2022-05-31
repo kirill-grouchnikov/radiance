@@ -355,7 +355,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
                     RenderingHints.VALUE_ANTIALIAS_ON);
             HiDPIUtils.paintAtScale1x(graphicsFocus, 0, 0, b.getWidth(), b.getHeight(),
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                        RadianceCoreUtilities.paintBladeFocus(graphics1X, b, b, this, scaleFactor,
+                        RadianceCoreUtilities.paintFocus(graphics1X, b, b, this, scaleFactor,
                                 null, textRect, 1.0f,
                                 (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
                                         b, RadianceSizeUtils.getComponentFontSize(b)));

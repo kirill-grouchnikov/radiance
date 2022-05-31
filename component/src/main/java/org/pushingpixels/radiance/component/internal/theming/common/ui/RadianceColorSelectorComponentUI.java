@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -114,13 +115,27 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
 
     @Override
     protected void paintFocus(Graphics g) {
-        float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(
-                this.colorSelectorComponent,
-                RadianceSizeUtils.getComponentFontSize(this.colorSelectorComponent));
-        Shape insetFocusArea = new Rectangle2D.Float(focusRingPadding, focusRingPadding,
-                this.colorSelectorComponent.getWidth() - 2 * focusRingPadding,
-                this.colorSelectorComponent.getHeight() - 2 * focusRingPadding);
-        RadianceCoreUtilities.paintFocus(g, this.colorSelectorComponent,
-                this.colorSelectorComponent, this, insetFocusArea, null, 1.0f, 0);
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(g2d, 0, 0, this.colorSelectorComponent.getWidth(),
+                this.colorSelectorComponent.getHeight(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(
+                            this.colorSelectorComponent,
+                            RadianceSizeUtils.getComponentFontSize(this.colorSelectorComponent));
+                    Shape insetFocusArea = new Rectangle2D.Float(focusRingPadding, focusRingPadding,
+                            scaledWidth - 2 * focusRingPadding,
+                            scaledHeight - 2 * focusRingPadding);
+                    RadianceCoreUtilities.paintFocus(g, this.colorSelectorComponent,
+                            this.colorSelectorComponent, this, scaleFactor,
+                            insetFocusArea, null, 1.0f, 0);
+                });
+
+        g2d.dispose();
     }
 }

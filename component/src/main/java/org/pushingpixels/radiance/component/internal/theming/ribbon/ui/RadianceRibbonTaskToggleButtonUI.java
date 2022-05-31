@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
@@ -222,18 +223,34 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
         RadianceTextUtilities.paintText(g, textRect, toPaint, -1, this.commandButton.getFont(), fgColor, null);
 
-        // Use foreground color for consistency - since non-active task toggle buttons use parent's
-        // decoration background fill.
-        float radius = RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
-                (JRibbonTaskToggleButton) this.commandButton);
-        float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(this.commandButton,
-                RadianceSizeUtils.getComponentFontSize(this.commandButton));
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(this.commandButton.getWidth(),
-                this.commandButton.getHeight(), radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
-                focusRingPadding);
+        Color focusColor = RadianceColorUtilities.getAlphaColor(fgColor, 192);
+        Graphics2D g2d = (Graphics2D) g.create();
 
-        RadianceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
-                contour, textRect, RadianceColorUtilities.getAlphaColor(fgColor, 192), 1.0f, 0);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(g2d, 0, 0, this.commandButton.getWidth(), this.commandButton.getWidth(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    // Use foreground color for consistency - since non-active task toggle buttons use parent's
+                    // decoration background fill.
+                    float radius = (float) scaleFactor * RibbonTaskToggleButtonBackgroundDelegate.getTaskToggleButtonCornerRadius(
+                            (JRibbonTaskToggleButton) this.commandButton);
+                    float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
+                            RadianceSizeUtils.getComponentFontSize(this.commandButton));
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            (float) scaleFactor * this.commandButton.getWidth(),
+                            (float) scaleFactor * this.commandButton.getHeight(),
+                            radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
+                            focusRingPadding);
+
+                    RadianceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
+                            scaleFactor, contour, textRect, focusColor, 1.0f, 0);
+                }
+        );
+
+        g2d.dispose();
     }
 
     private static Color getForegroundColor(JCommandButton button,

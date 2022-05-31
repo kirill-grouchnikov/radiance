@@ -1220,81 +1220,17 @@ public class RadianceCoreUtilities {
         return result;
     }
 
-    /**
-     * Paints the focus ring on the specified component.
-     *
-     * @param g            Graphics context.
-     * @param mainComp     The main component for the focus painting.
-     * @param focusedComp  The actual component that has the focus. For example, the main component can be a
-     *                     {@link JSpinner}, while the focused component is a text field inside the
-     *                     spinner editor.
-     * @param focusShape   Focus shape. May be <code>null</code> - in this case, the bounds of
-     *                     <code>mainComp</code> will be used.
-     * @param textRect     Text rectangle (if relevant).
-     * @param maxAlphaCoef Maximum alpha coefficient for painting the focus. Values lower than 1.0 will
-     *                     result in a translucent focus ring (can be used to paint a focus ring that doesn't
-     *                     draw too much attention away from the content, for example on text components).
-     * @param extraPadding Extra padding between the component bounds and the focus ring painting.
-     */
     public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
-            TransitionAwareUI transitionAwareUI, Shape focusShape, Rectangle textRect,
-            float maxAlphaCoef, float extraPadding) {
-        float focusStrength = transitionAwareUI.getTransitionTracker()
-                .getFocusStrength(focusedComp.hasFocus());
-        if (focusStrength == 0.0f) {
-            return;
-        }
-
-        RadianceThemingSlices.FocusKind focusKind = RadianceCoreUtilities.getFocusKind(mainComp);
-        if (focusKind == RadianceThemingSlices.FocusKind.NONE) {
-            return;
-        }
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        float alpha = maxAlphaCoef * focusStrength;
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(mainComp, alpha, g));
-
-        Color color = RadianceColorUtilities.getFocusColor(mainComp, transitionAwareUI);
-        graphics.setColor(color);
-        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, focusShape,
-                textRect, extraPadding);
-        graphics.dispose();
-    }
-
-    public static void paintBladeFocus(Graphics g, Component mainComp, Component focusedComp,
             TransitionAwareUI transitionAwareUI, double scaleFactor, Shape focusShape,
             Rectangle textRect, float maxAlphaCoef, float extraPadding) {
-        float focusStrength = transitionAwareUI.getTransitionTracker()
-                .getFocusStrength(focusedComp.hasFocus());
-        if (focusStrength == 0.0f) {
-            return;
-        }
-
-        RadianceThemingSlices.FocusKind focusKind = RadianceCoreUtilities.getFocusKind(mainComp);
-        if (focusKind == RadianceThemingSlices.FocusKind.NONE) {
-            return;
-        }
-
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        float alpha = maxAlphaCoef * focusStrength;
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(mainComp, alpha, g));
-
         Color color = RadianceColorUtilities.getFocusColor(mainComp, transitionAwareUI);
-        graphics.setColor(color);
-        focusKind.paintBladeFocus(mainComp, focusedComp, transitionAwareUI, graphics, scaleFactor,
-                focusShape, textRect, extraPadding);
-        graphics.dispose();
+        paintFocus(g, mainComp, focusedComp, transitionAwareUI,
+                scaleFactor, focusShape, textRect, color, maxAlphaCoef, extraPadding);
     }
 
     public static void paintFocus(Graphics g, Component mainComp, Component focusedComp,
-            TransitionAwareUI transitionAwareUI, Shape focusShape, Rectangle textRect,
-            Color focusColor, float maxAlphaCoef, float extraPadding) {
+            TransitionAwareUI transitionAwareUI, double scaleFactor, Shape focusShape,
+            Rectangle textRect, Color focusColor, float maxAlphaCoef, float extraPadding) {
         float focusStrength = transitionAwareUI.getTransitionTracker()
                 .getFocusStrength(focusedComp.hasFocus());
         if (focusStrength == 0.0f) {
@@ -1314,8 +1250,8 @@ public class RadianceCoreUtilities {
         graphics.setComposite(WidgetUtilities.getAlphaComposite(mainComp, alpha, g));
 
         graphics.setColor(focusColor);
-        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, focusShape,
-                textRect, extraPadding);
+        focusKind.paintFocus(mainComp, focusedComp, transitionAwareUI, graphics, scaleFactor,
+                focusShape, textRect, extraPadding);
         graphics.dispose();
     }
 
