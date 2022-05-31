@@ -65,9 +65,6 @@ public class ComboBoxBackgroundDelegate {
                 .getTransitionTracker().getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
-        float radius = RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
-
         // Populate fill and border color schemes based on the current transition state of the button.
         // Important - don't do it on pulsating buttons (such as close button of modified frames).
         BladeUtils.populateColorScheme(mutableFillColorScheme, combo,
@@ -82,13 +79,13 @@ public class ComboBoxBackgroundDelegate {
                 false);
 
         drawBackgroundImage(graphics, combo, fillPainter, borderPainter, width,
-                height, mutableFillColorScheme, mutableBorderColorScheme, radius);
+                height, mutableFillColorScheme, mutableBorderColorScheme);
     }
 
     private void drawBackgroundImage(Graphics2D g, JComboBox combo,
             RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
-            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, float radius) {
+            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -97,6 +94,10 @@ public class ComboBoxBackgroundDelegate {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
+                    float radius = (float) scaleFactor *
+                            RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
+
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
                             scaledWidth - 1, scaledHeight - 1, radius, null, 0);
                     // Clip by contour so the anti-aliased pixels don't "spill" outside
