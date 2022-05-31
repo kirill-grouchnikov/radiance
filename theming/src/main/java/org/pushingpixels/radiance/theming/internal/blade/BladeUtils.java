@@ -114,16 +114,11 @@ public class BladeUtils {
             uiThreadingViolationError.printStackTrace(System.err);
             throw uiThreadingViolationError;
         }
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin == null) {
-            RadianceCoreUtilities.traceRadianceApiUsage(component,
-                    "Radiance delegate used when Radiance is not the current LAF");
-        }
 
         StringBuilder nameBuilder = new StringBuilder();
         RadianceColorScheme currStateScheme = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
-                ? skin.getActiveColorScheme(decorationAreaType)
-                : skin.getColorScheme(decorationAreaType, associationKind, currState);
+                ? RadianceColorSchemeUtilities.getActiveColorScheme(component, currState)
+                : RadianceColorSchemeUtilities.getColorScheme(component, associationKind, currState);
 
         Color ultraLight = currStateScheme.getUltraLightColor();
         Color extraLight = currStateScheme.getExtraLightColor();
@@ -161,8 +156,8 @@ public class BladeUtils {
                 }
                 // Get the color scheme that matches the contribution state
                 RadianceColorScheme contributionScheme = (treatEnabledAsActive && (activeEntry.getKey() == ComponentState.ENABLED))
-                        ? skin.getActiveColorScheme(decorationAreaType)
-                        : skin.getColorScheme(decorationAreaType, associationKind, activeEntry.getKey());
+                        ? RadianceColorSchemeUtilities.getActiveColorScheme(component, activeEntry.getKey())
+                        : RadianceColorSchemeUtilities.getColorScheme(component, associationKind, activeEntry.getKey());
 
                 // And interpolate the colors
                 ultraLight = RadianceColorUtilities.getInterpolatedColor(ultraLight,
@@ -238,14 +233,8 @@ public class BladeUtils {
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
             ColorSchemeSingleColorQuery colorQuery
     ) {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        if (skin == null) {
-            RadianceCoreUtilities.traceRadianceApiUsage(component,
-                    "Radiance delegate used when Radiance is not the current LAF");
-        }
-
         RadianceColorScheme currStateScheme =
-                skin.getColorScheme(decorationAreaType, associationKind, currState);
+                RadianceColorSchemeUtilities.getColorScheme(component, associationKind, currState);
 
         Color result = colorQuery.query(currStateScheme);
 
@@ -268,7 +257,7 @@ public class BladeUtils {
             }
             // Get the color scheme that matches the contribution state
             RadianceColorScheme contributionScheme =
-                    skin.getColorScheme(decorationAreaType, associationKind, activeEntry.getKey());
+                    RadianceColorSchemeUtilities.getColorScheme(component, associationKind, activeEntry.getKey());
 
             // Interpolate the color based on the scheme and contribution amount
             result = RadianceColorUtilities.getInterpolatedColor(result,

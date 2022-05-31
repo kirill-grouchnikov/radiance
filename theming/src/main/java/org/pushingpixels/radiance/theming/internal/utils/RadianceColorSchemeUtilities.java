@@ -124,7 +124,7 @@ public class RadianceColorSchemeUtilities {
      * @return The color scheme of the specified tabbed pane tab.
      */
     public static RadianceColorScheme getColorScheme(final JTabbedPane jtp, final int tabIndex,
-                                                     RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
+            RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(jtp);
         if (skin == null) {
             RadianceCoreUtilities.traceRadianceApiUsage(jtp,
@@ -183,7 +183,8 @@ public class RadianceColorSchemeUtilities {
      * @return Component color scheme.
      */
     public static RadianceColorScheme getColorScheme(Component component,
-                                                     RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
+            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
+            ComponentState componentState) {
         // special case - if the component is marked as flat and
         // it is in the default state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
@@ -212,7 +213,7 @@ public class RadianceColorSchemeUtilities {
      * @return Component color scheme.
      */
     public static RadianceColorScheme getDirectColorScheme(Component component,
-                                                           RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
+            RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
         // special case - if the component is marked as flat and
         // it is in the default state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
@@ -625,9 +626,9 @@ public class RadianceColorSchemeUtilities {
                         }
                     }
                     Color[] colors = (background != null)
-                            ? new Color[] {background, background, background, background, background, background,
+                            ? new Color[]{background, background, background, background, background, background,
                             foreground}
-                            : new Color[] {ultraLight, extraLight, light, mid, dark, ultraDark, foreground};
+                            : new Color[]{ultraLight, extraLight, light, mid, dark, ultraDark, foreground};
 
                     if (kind == ColorSchemeKind.LIGHT) {
                         schemes.add(getLightColorScheme(name, colors, new HashMap<>(additionalColors)));
