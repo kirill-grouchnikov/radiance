@@ -104,9 +104,9 @@ public class BladeIconUtils {
             RadianceColorScheme scheme, float checkMarkVisibility) {
         // create straight checkbox path
         GeneralPath path = new GeneralPath();
-        path.moveTo(0.27f * dimension, 0.47f * dimension);
-        path.lineTo(0.5f * dimension, 0.72f * dimension);
-        path.lineTo(0.78f * dimension, 0.27f * dimension);
+        path.moveTo(0.25f * dimension, 0.47f * dimension);
+        path.lineTo(0.48f * dimension, 0.72f * dimension);
+        path.lineTo(0.76f * dimension, 0.27f * dimension);
 
         // compute the x-based clip for the visibility
         float xClipStart = 0.15f * dimension;

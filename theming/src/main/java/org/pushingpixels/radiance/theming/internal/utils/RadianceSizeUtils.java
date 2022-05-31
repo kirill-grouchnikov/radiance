@@ -275,7 +275,7 @@ public class RadianceSizeUtils {
 	 * @return Check mark size for check boxes under the specified font size.
 	 */
 	public static int getCheckBoxMarkSize(int fontSize) {
-		return 3 + fontSize;
+		return 2 + fontSize;
 	}
 
 	/**
