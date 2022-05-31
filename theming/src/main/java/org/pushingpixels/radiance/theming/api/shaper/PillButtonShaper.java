@@ -86,6 +86,32 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
     }
 
     @Override
+    public Shape getBladeButtonOutline(AbstractButton button, float extraInsets, float width, float height, double scaleFactor, boolean isInner) {
+        Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
+                RadianceSynapse.BUTTON_STRAIGHT_SIDE);
+
+        float radius = (float) scaleFactor * this.getCornerRadius(button, extraInsets);
+        if (isInner) {
+            radius -= RadianceSizeUtils.getBorderStrokeWidth(button);
+            if (radius < 0.0f)
+                radius = 0.0f;
+        }
+
+        HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius,
+                extraInsets);
+
+        Shape result = contours.get(key);
+        if (result != null) {
+            return result;
+        }
+
+        result = RadianceOutlineUtilities.getBaseOutline(width - 1, height - 1, radius, straightSides,
+                extraInsets);
+        contours.put(key, result);
+        return result;
+    }
+
+    @Override
     public Border getButtonBorder(final AbstractButton button) {
         return new RadianceButtonBorder(PillButtonShaper.class) {
             public Insets getBorderInsets(Component c) {

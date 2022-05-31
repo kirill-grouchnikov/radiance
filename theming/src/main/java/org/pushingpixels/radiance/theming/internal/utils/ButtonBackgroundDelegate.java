@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -192,11 +193,11 @@ public class ButtonBackgroundDelegate {
 
         int width = button.getWidth();
         int height = button.getHeight();
-        if (RadianceCoreUtilities.isSpinnerButton(button)) {
-            PairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,
-                    false);
-            return;
-        }
+//        if (RadianceCoreUtilities.isSpinnerButton(button)) {
+//            PairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,
+//                    false);
+//            return;
+//        }
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
@@ -269,8 +270,8 @@ public class ButtonBackgroundDelegate {
         if (shaper == null) {
             return false;
         }
-        Shape contour = shaper.getButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
-                false);
+        Shape contour = shaper.getBladeButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
+                RadianceCommonCortex.getScaleFactor(button), false);
         return contour.contains(x, y);
     }
 }
