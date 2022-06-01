@@ -111,8 +111,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 boolean isCheckMarkFadingOut = !currState.isFacetActive(ComponentStateFacet.SELECTION);
                 float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
-                // Populate fill and border color schemes based on the current transition state of the button.
-                // Important - don't do it on pulsating buttons (such as close button of modified frames).
+                // Populate color schemes based on the current transition state of the check box.
                 BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                         modelStateInfo, currState,
                         RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),

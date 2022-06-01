@@ -144,8 +144,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                 float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
                 float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
-                // Populate fill and border color schemes based on the current transition state of the button.
-                // Important - don't do it on pulsating buttons (such as close button of modified frames).
+                // Populate color schemes based on the current transition state of the radio button.
                 BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                         modelStateInfo, currState,
                         RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),

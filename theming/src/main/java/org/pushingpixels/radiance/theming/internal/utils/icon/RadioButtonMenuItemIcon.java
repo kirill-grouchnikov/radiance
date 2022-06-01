@@ -91,8 +91,7 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
         float alpha = RadianceColorSchemeUtilities.getAlpha(this.menuItem, currState);
 
-        // Populate fill and border color schemes based on the current transition state of the button.
-        // Important - don't do it on pulsating buttons (such as close button of modified frames).
+        // Populate color schemes based on the current transition state of the menu item.
         BladeUtils.populateColorScheme(mutableFillColorScheme, this.menuItem,
                 modelStateInfo, currState,
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),

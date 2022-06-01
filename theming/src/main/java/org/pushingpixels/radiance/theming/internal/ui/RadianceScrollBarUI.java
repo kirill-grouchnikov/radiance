@@ -29,17 +29,18 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
@@ -50,14 +51,13 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
 import java.beans.PropertyChangeListener;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * UI for scroll bars in <b>Radiance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionAwareUI {
@@ -66,17 +66,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
      */
     private ButtonModel thumbModel;
 
-    /**
-     * Stores computed images for vertical thumbs.
-     */
-    private static LazyResettableHashMap<BufferedImage> thumbVerticalMap = new LazyResettableHashMap<>(
-            "RadianceScrollBarUI.thumbVertical");
-
-    /**
-     * Stores computed images for horizontal thumbs.
-     */
-    private static LazyResettableHashMap<BufferedImage> thumbHorizontalMap = new LazyResettableHashMap<>(
-            "RadianceScrollBarUI.thumbHorizontal");
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
     /**
      * Listener for thumb transition animations.
@@ -87,7 +78,6 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     /**
      * Property change listener.
-     * 
      */
     private PropertyChangeListener radiancePropertyListener;
 
@@ -112,9 +102,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     /**
      * Simple constructor.
-     * 
-     * @param b
-     *            Associated component.
+     *
+     * @param b Associated component.
      */
     private RadianceScrollBarUI(JComponent b) {
         super();
@@ -156,135 +145,65 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         return null;
     }
 
-    /**
-     * Retrieves image for vertical thumb.
-     * 
-     * @param thumbBounds
-     *            Thumb bounding rectangle.
-     * @return Image for vertical thumb.
-     */
-    private BufferedImage getThumbVertical(Rectangle thumbBounds) {
-        double scale = RadianceCommonCortex.getScaleFactor(this.scrollbar);
-
+    private void drawThumbVertical(Graphics2D g, Rectangle thumbBounds) {
         int width = Math.max(1, thumbBounds.width);
         int delta = Math.max(0, (int) (0.4 * width));
         if (delta % 2 == 1) {
             delta--;
         }
         width -= delta;
-
         int height = Math.max(1, thumbBounds.height);
+
+        int hoffset = thumbBounds.width - width;
 
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.compositeStateTransitionTracker
                 .getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // enabled scroll bar is always painted as active
-        RadianceColorScheme baseFillScheme = (currState != ComponentState.ENABLED)
-                ? RadianceColorSchemeUtilities.getColorScheme(this.scrollbar, currState)
-                : RadianceColorSchemeUtilities.getActiveColorScheme(this.scrollbar, currState);
-        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities
-                .getColorScheme(this.scrollbar, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
-        BufferedImage baseLayer = getThumbVertical(this.scrollbar, width, height, baseFillScheme,
-                baseBorderScheme);
+        // Populate color schemes based on the current transition state of the scrollbar.
+        // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
+        // parameter to "populateColorScheme").
+        BladeUtils.populateColorScheme(mutableFillColorScheme, this.scrollbar,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                true);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme, this.scrollbar,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
+                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                true);
 
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return baseLayer;
-        }
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics,
+                thumbBounds.x, thumbBounds.y, height, width,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
+                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
 
-        BufferedImage result = RadianceCoreUtilities.getBlankUnscaledImage(baseLayer);
-        Graphics2D g2d = result.createGraphics();
-        g2d.drawImage(baseLayer, 0, 0, baseLayer.getWidth(), baseLayer.getHeight(), null);
+                    float radius = scaledHeight / 2;
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
+                            radius, null, 1.0f);
 
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            if (activeState == modelStateInfo.getCurrModelState())
-                continue;
+                    // Rotate the graphics context for correct "orientation" of the visuals
+                    AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
+                    at.translate(x - scaledWidth, y + hoffset / scaleFactor);
+                    graphics1X.transform(at);
 
-            float contribution = activeEntry.getValue().getContribution();
-            if (contribution == 0.0f)
-                continue;
-
-            g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-
-            RadianceColorScheme fillScheme = (activeState != ComponentState.ENABLED)
-                    ? RadianceColorSchemeUtilities.getColorScheme(this.scrollbar, activeState)
-                    : RadianceColorSchemeUtilities.getActiveColorScheme(this.scrollbar,
-                            activeState);
-            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(this.scrollbar, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, activeState);
-            BufferedImage layer = getThumbVertical(this.scrollbar, width, height, fillScheme,
-                    borderScheme);
-            g2d.drawImage(layer, 0, 0, layer.getWidth(), layer.getHeight(), null);
-        }
-
-        g2d.dispose();
-        return result;
+                    painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                            contour, false, mutableFillColorScheme, true);
+                    borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                            contour, null, mutableBorderColorScheme);
+                });
+        graphics.dispose();
     }
 
-    /**
-     * Retrieves image for vertical thumb.
-     * 
-     * @param scrollBar
-     *            Scroll bar.
-     * @param width
-     *            Thumb width.
-     * @param height
-     *            Thumb height.
-     * @param scheme
-     *            The first color scheme.
-     * @param borderScheme
-     *            The first border color scheme.
-     * @return Image for vertical thumb.
-     */
-    private static BufferedImage getThumbVertical(JScrollBar scrollBar, int width, int height,
-            RadianceColorScheme scheme, RadianceColorScheme borderScheme) {
-        double scale = RadianceCommonCortex.getScaleFactor(scrollBar);
-
-        RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(scrollBar);
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(scrollBar);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(scrollBar);
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height, scheme.getDisplayName(),
-                borderScheme.getDisplayName(), painter.getDisplayName(), shaper.getDisplayName(),
-                borderPainter.getDisplayName());
-        BufferedImage result = RadianceScrollBarUI.thumbVerticalMap.get(key);
-        if (result == null) {
-            // System.out.println("Cache miss - computing");
-            // System.out.println("New image for vertical thumb");
-            float radius = width / 2;
-
-            float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(scrollBar) / 2.0f;
-            Shape contour = RadianceOutlineUtilities.getBaseOutline(height, width, radius,
-                    null, borderDelta);
-
-            result = RadianceCoreUtilities.getBlankImage(scale, height, width);
-            painter.paintContourBackground(result.createGraphics(), scrollBar, height, width,
-                    contour, false, scheme, true);
-
-            borderPainter.paintBorder(result.getGraphics(), scrollBar, height, width, contour, null,
-                    borderScheme);
-            result = RadianceImageCreator.getRotated(scale, result, 3);
-            // System.out.println(key);
-            RadianceScrollBarUI.thumbVerticalMap.put(key, result);
-        }
-
-        return result;
-    }
-
-    /**
-     * Retrieves image for horizontal thumb.
-     * 
-     * @param thumbBounds
-     *            Thumb bounding rectangle.
-     * @return Image for horizontal thumb.
-     */
-    private BufferedImage getThumbHorizontal(Rectangle thumbBounds) {
-        double scale = RadianceCommonCortex.getScaleFactor(this.scrollbar);
-
+    private void drawThumbHorizontal(Graphics2D g, Rectangle thumbBounds) {
         int width = Math.max(1, thumbBounds.width);
         int height = Math.max(1, thumbBounds.height);
         int delta = Math.max(0, (int) (0.4 * height));
@@ -293,125 +212,48 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         }
         height -= delta;
 
+        int voffset = thumbBounds.height - height;
+
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.compositeStateTransitionTracker
                 .getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        RadianceColorScheme baseFillScheme = (currState != ComponentState.ENABLED)
-                ? RadianceColorSchemeUtilities.getColorScheme(this.scrollbar, currState)
-                : RadianceColorSchemeUtilities.getActiveColorScheme(this.scrollbar, currState);
-        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities
-                .getColorScheme(this.scrollbar, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
-        BufferedImage baseLayer = getThumbHorizontal(this.scrollbar, width, height, baseFillScheme,
-                baseBorderScheme);
+        // Populate color schemes based on the current transition state of the scrollbar.
+        // Note that enabled scroll bar is always painted as active (the "treatEnabledAsActive"
+        // parameter to "populateColorScheme").
+        BladeUtils.populateColorScheme(mutableFillColorScheme, this.scrollbar,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                true);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme, this.scrollbar,
+                modelStateInfo, currState,
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
+                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                true);
 
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return baseLayer;
-        }
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics,
+                thumbBounds.x, thumbBounds.y, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
+                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
 
-        BufferedImage result = RadianceCoreUtilities.getBlankUnscaledImage(baseLayer);
-        Graphics2D g2d = result.createGraphics();
-        g2d.drawImage(baseLayer, 0, 0, baseLayer.getWidth(), baseLayer.getHeight(), null);
-
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            if (activeState == modelStateInfo.getCurrModelState())
-                continue;
-            // if (activeState == ComponentState.ENABLED)
-            // activeState = ComponentState.SELECTED;
-
-            float contribution = activeEntry.getValue().getContribution();
-            if (contribution == 0.0f)
-                continue;
-
-            g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-
-            RadianceColorScheme fillScheme = (activeState != ComponentState.ENABLED)
-                    ? RadianceColorSchemeUtilities.getColorScheme(this.scrollbar, activeState)
-                    : RadianceColorSchemeUtilities.getActiveColorScheme(this.scrollbar,
-                            activeState);
-            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(this.scrollbar, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, activeState);
-            BufferedImage layer = getThumbHorizontal(this.scrollbar, width, height, fillScheme,
-                    borderScheme);
-            g2d.drawImage(layer, 0, 0, layer.getWidth(), layer.getHeight(), null);
-        }
-
-        g2d.dispose();
-        return result;
-    }
-
-    /**
-     * Retrieves image for horizontal thumb.
-     * 
-     * @param scrollBar
-     *            Scroll bar.
-     * @param width
-     *            Thumb width.
-     * @param height
-     *            Thumb height.
-     * @param scheme
-     *            The first color scheme.
-     * @param borderScheme
-     *            The first border color scheme.
-     * @return Image for horizontal thumb.
-     */
-    private static BufferedImage getThumbHorizontal(JScrollBar scrollBar, int width, int height,
-            RadianceColorScheme scheme, RadianceColorScheme borderScheme) {
-        double scale = RadianceCommonCortex.getScaleFactor(scrollBar);
-
-        RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(scrollBar);
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(scrollBar);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(scrollBar);
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height, scheme.getDisplayName(),
-                borderScheme.getDisplayName(), painter.getDisplayName(), shaper.getDisplayName(),
-                borderPainter.getDisplayName());
-
-        float radius = height / 2;
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(scrollBar) / 2.0f;
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height, radius, null,
-                borderDelta);
-        BufferedImage opaque = RadianceScrollBarUI.thumbHorizontalMap.get(key);
-        if (opaque == null) {
-            // System.out.println("New image for horizontal thumb");
-
-            opaque = RadianceCoreUtilities.getBlankImage(scale, width, height);
-            painter.paintContourBackground(opaque.createGraphics(), scrollBar, width, height,
-                    contour, false, scheme, true);
-
-            borderPainter.paintBorder(opaque.getGraphics(), scrollBar, width, height, contour, null,
-                    borderScheme);
-            RadianceScrollBarUI.thumbHorizontalMap.put(key, opaque);
-        }
-
-        return opaque;
-    }
-
-    /**
-     * Returns the scroll button state.
-     * 
-     * @param scrollButton
-     *            Scroll button.
-     * @return Scroll button state.
-     */
-    protected ComponentState getState(JButton scrollButton) {
-        if (scrollButton == null)
-            return null;
-
-        ComponentState result = ((TransitionAwareUI) scrollButton.getUI()).getTransitionTracker()
-                .getModelStateInfo().getCurrModelState();
-        if ((result == ComponentState.ENABLED)
-                && RadianceCoreUtilities.hasFlatAppearance(this.scrollbar, false)) {
-            result = null;
-        }
-        if (RadianceCoreUtilities.isButtonNeverPainted(scrollButton)) {
-            result = null;
-        }
-        return result;
+                    float radius = scaledHeight / 2;
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
+                            radius, null, 1.0f);
+                    graphics1X.translate(x, y + voffset / scaleFactor);
+                    painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                            contour, false, mutableFillColorScheme, true);
+                    borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
+                            contour, null, mutableBorderColorScheme);
+                });
+        graphics.dispose();
     }
 
     @Override
@@ -438,22 +280,15 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
-        double scale = RadianceCommonCortex.getScaleFactor(c);
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
         if (isVertical) {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
-            BufferedImage thumbImage = this.getThumbVertical(adjustedBounds);
-            int xdelta = (thumbBounds.width - (int) (thumbImage.getWidth() / scale)) / 2;
-            RadianceCommonCortex.drawImageWithScale(graphics, scale, thumbImage,
-                    adjustedBounds.x + xdelta, adjustedBounds.y);
+            drawThumbVertical(graphics, adjustedBounds);
         } else {
             Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
                     thumbBounds.width, thumbBounds.height);
-            BufferedImage thumbImage = this.getThumbHorizontal(adjustedBounds);
-            int ydelta = (thumbBounds.height - (int) (thumbImage.getHeight() / scale)) / 2;
-            RadianceCommonCortex.drawImageWithScale(graphics, scale, thumbImage,
-                    adjustedBounds.x, adjustedBounds.y + ydelta);
+            drawThumbHorizontal(graphics, adjustedBounds);
         }
         graphics.dispose();
     }
@@ -604,11 +439,9 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     /**
      * Scrolls the associated scroll bar.
-     * 
-     * @param direction
-     *            Direction.
-     * @param units
-     *            Scroll units.
+     *
+     * @param direction Direction.
+     * @param units     Scroll units.
      */
     public void scrollByUnits(int direction, int units) {
         // This method is called from RadianceScrollPaneUI to implement wheel
@@ -834,7 +667,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             }
             if (SwingUtilities.isRightMouseButton(e)
                     || (!RadianceScrollBarUI.this.getSupportsAbsolutePositioning()
-                            && SwingUtilities.isMiddleMouseButton(e)))
+                    && SwingUtilities.isMiddleMouseButton(e)))
                 return;
             if (!RadianceScrollBarUI.this.scrollbar.isEnabled())
                 return;
@@ -857,7 +690,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             // in the upper half of the track.
             if (SwingUtilities.isRightMouseButton(e)
                     || (!RadianceScrollBarUI.this.getSupportsAbsolutePositioning()
-                            && SwingUtilities.isMiddleMouseButton(e)))
+                    && SwingUtilities.isMiddleMouseButton(e)))
                 return;
             if (!RadianceScrollBarUI.this.scrollbar.isEnabled())
                 return;
@@ -946,7 +779,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             // the track.
             if (SwingUtilities.isRightMouseButton(e)
                     || (!RadianceScrollBarUI.this.getSupportsAbsolutePositioning()
-                            && SwingUtilities.isMiddleMouseButton(e)))
+                    && SwingUtilities.isMiddleMouseButton(e)))
                 return;
             if (!RadianceScrollBarUI.this.scrollbar.isEnabled()
                     || RadianceScrollBarUI.this.getThumbBounds().isEmpty()) {
@@ -964,9 +797,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
         /**
          * Sets the scrollbar value based on the specified mouse event.
-         * 
-         * @param e
-         *            Mouse event.
+         *
+         * @param e Mouse event.
          */
         private void setValueFrom(MouseEvent e) {
             boolean active = RadianceScrollBarUI.this.isThumbRollover();
@@ -1003,7 +835,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             if (thumbPos == thumbMax) {
                 if (RadianceScrollBarUI.this.scrollbar.getOrientation() == JScrollBar.VERTICAL
                         || RadianceScrollBarUI.this.scrollbar.getComponentOrientation()
-                                .isLeftToRight()) {
+                        .isLeftToRight()) {
                     RadianceScrollBarUI.this.scrollbar
                             .setValue(model.getMaximum() - model.getExtent());
                 } else {
@@ -1017,7 +849,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 int value;
                 if (RadianceScrollBarUI.this.scrollbar.getOrientation() == JScrollBar.VERTICAL
                         || RadianceScrollBarUI.this.scrollbar.getComponentOrientation()
-                                .isLeftToRight()) {
+                        .isLeftToRight()) {
                     value = (int) (0.5 + ((thumbValue / thumbRange) * valueRange));
                 } else {
                     value = (int) (0.5 + (((thumbMax - thumbPos) / thumbRange) * valueRange));
@@ -1083,11 +915,9 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
     /**
      * Updates the thumb state based on the coordinates.
-     * 
-     * @param x
-     *            X coordinate.
-     * @param y
-     *            Y coordinate.
+     *
+     * @param x X coordinate.
+     * @param y Y coordinate.
      */
     private void updateThumbState(int x, int y) {
         Rectangle rect = this.getThumbBounds();
