@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
@@ -721,117 +720,6 @@ public final class RadianceImageCreator {
         g2d.setStroke(new BasicStroke(borderThickness, capKind, joinKind));
         g2d.draw(new Rectangle2D.Float(borderThickness / 2.0f, borderThickness / 2.0f,
                 width - borderThickness, height - borderThickness));
-    }
-
-    /**
-     * Paints rectangular gradient background with spots and optional replicated stripe image.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param startX
-     *            X start coordinate.
-     * @param startY
-     *            Y start coordinate.
-     * @param width
-     *            Background width.
-     * @param height
-     *            Background height.
-     * @param colorScheme
-     *            Color scheme for the background.
-     * @param stripeImage
-     *            Stripe image to replicate.
-     * @param stripeOffset
-     *            Offset of the first stripe replication.
-     * @param borderAlpha
-     *            Border alpha.
-     * @param isVertical
-     *            Indication of horizontal / vertical orientation.
-     */
-    public static void paintRectangularStripedBackground(Component c, Graphics g, double scaleFactor,
-            int startX, int startY, int width, int height, RadianceColorScheme colorScheme,
-            BufferedImage stripeImage, int stripeOffset, float borderAlpha, boolean isVertical) {
-        Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
-        if (!isVertical) {
-            LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
-                    new float[] { 0.0f, 0.2f, 0.5f, 0.8f, 1.0f },
-                    new Color[] { colorScheme.getDarkColor(), colorScheme.getLightColor(),
-                                    colorScheme.getMidColor(), colorScheme.getLightColor(),
-                                    colorScheme.getDarkColor() },
-                    CycleMethod.REPEAT);
-            graphics.setPaint(paint);
-            graphics.fillRect(0, 0, width, height);
-
-            if (stripeImage != null) {
-                int stripeSize = stripeImage.getHeight();
-                int stripeCount = (int) (scaleFactor * width / stripeSize);
-                stripeOffset = (int) (stripeOffset % (2 * stripeSize * scaleFactor));
-                for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
-                    int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
-
-                    RadianceCommonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, stripePos, 0);
-                }
-            }
-        } else {
-            LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
-                    new float[] { 0.0f, 0.2f, 0.5f, 0.8f, 1.0f },
-                    new Color[] { colorScheme.getDarkColor(), colorScheme.getLightColor(),
-                                    colorScheme.getMidColor(), colorScheme.getLightColor(),
-                                    colorScheme.getDarkColor() },
-                    CycleMethod.REPEAT);
-            graphics.setPaint(paint);
-            graphics.fillRect(0, 0, width, height);
-
-            if (stripeImage != null) {
-                int stripeSize = stripeImage.getWidth();
-                int stripeCount = (int) (scaleFactor * height / stripeSize);
-                stripeOffset = (int) (stripeOffset % (2 * stripeSize * scaleFactor));
-                for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
-                    int stripePos = (int) (stripe * stripeSize / scaleFactor + stripeOffset);
-
-                    RadianceCommonCortex.drawImageWithScale(graphics, scaleFactor, stripeImage, 0, stripePos);
-                }
-            }
-        }
-
-        if (borderAlpha > 0.0f) {
-            Graphics2D g2d = (Graphics2D) graphics.create();
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
-
-            paintSimpleBorderAliased(c, g2d, width, height, colorScheme);
-            g2d.dispose();
-        }
-        graphics.dispose();
-    }
-
-    /**
-     * Returns diagonal stripe image.
-     * 
-     * @param baseSize
-     *            Stripe base in pixels.
-     * @param color
-     *            Stripe color.
-     * @return Diagonal stripe image.
-     */
-    public static BufferedImage getStripe(double scale, int baseSize, Color color) {
-        int width = (int) (1.8 * baseSize);
-        int height = baseSize;
-        BufferedImage intermediate = RadianceCoreUtilities.getBlankImage(scale, width, height);
-        Graphics2D graphics = (Graphics2D) intermediate.getGraphics();
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        Polygon polygon = new Polygon();
-        polygon.addPoint(0, 0);
-        polygon.addPoint(width - 1 - baseSize, 0);
-        polygon.addPoint(width - 1, height - 1);
-        polygon.addPoint(baseSize, height - 1);
-
-        graphics.setColor(color);
-        graphics.fillPolygon(polygon);
-        graphics.drawPolygon(polygon);
-
-        return intermediate;
     }
 
     /**

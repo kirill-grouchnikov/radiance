@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
 import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
@@ -51,8 +52,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.util.EnumSet;
 import java.util.Set;
@@ -64,29 +65,29 @@ import java.util.Set;
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
     private static final ComponentState DETERMINATE_SELECTED = new ComponentState(
-            "determinate enabled", new RadianceThemingSlices.ComponentStateFacet[] {RadianceThemingSlices.ComponentStateFacet.ENABLE,
+            "determinate enabled", new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE,
             RadianceThemingSlices.ComponentStateFacet.DETERMINATE, RadianceThemingSlices.ComponentStateFacet.SELECTION},
             null);
 
     private static final ComponentState DETERMINATE_SELECTED_DISABLED = new ComponentState(
             "determinate disabled",
-            new RadianceThemingSlices.ComponentStateFacet[] {RadianceThemingSlices.ComponentStateFacet.DETERMINATE,
+            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE,
                     RadianceThemingSlices.ComponentStateFacet.SELECTION},
-            new RadianceThemingSlices.ComponentStateFacet[] {RadianceThemingSlices.ComponentStateFacet.ENABLE});
+            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
 
     private static final ComponentState INDETERMINATE_SELECTED = new ComponentState(
             "indeterminate enabled",
-            new RadianceThemingSlices.ComponentStateFacet[] {RadianceThemingSlices.ComponentStateFacet.ENABLE, RadianceThemingSlices.ComponentStateFacet.SELECTION},
-            new RadianceThemingSlices.ComponentStateFacet[] {RadianceThemingSlices.ComponentStateFacet.DETERMINATE});
+            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE, RadianceThemingSlices.ComponentStateFacet.SELECTION},
+            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE});
 
     private static final ComponentState INDETERMINATE_SELECTED_DISABLED = new ComponentState(
             "indeterminate disabled", null,
-            new RadianceThemingSlices.ComponentStateFacet[] {RadianceThemingSlices.ComponentStateFacet.DETERMINATE, RadianceThemingSlices.ComponentStateFacet.ENABLE,
+            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE, RadianceThemingSlices.ComponentStateFacet.ENABLE,
                     RadianceThemingSlices.ComponentStateFacet.SELECTION});
 
     private static final RadianceFillPainter progressFillPainter = new FractionBasedFillPainter(
-            "Progress fill (internal)", new float[] {0.0f, 0.5f, 1.0f},
-            new ColorSchemeSingleColorQuery[] {ColorSchemeSingleColorQuery.EXTRALIGHT,
+            "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
+            new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.EXTRALIGHT,
                     ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID});
 
     private final class RadianceChangeListener implements ChangeListener {
@@ -138,24 +139,6 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             }
         }
     }
-
-    /**
-     * Hash for computed stripe images.
-     */
-    private static LazyResettableHashMap<BufferedImage> stripeMap = new
-            LazyResettableHashMap<>("RadianceProgressBarUI.stripeMap");
-
-    /**
-     * Hash for computed background images.
-     */
-    private static LazyResettableHashMap<BufferedImage> backgroundMap = new
-            LazyResettableHashMap<>("RadianceProgressBarUI.backgroundMap");
-
-    /**
-     * Hash for computed progress images.
-     */
-    private static LazyResettableHashMap<BufferedImage> progressMap = new
-            LazyResettableHashMap<>("RadianceProgressBarUI.progressMap");
 
     /**
      * The current position of the indeterminate animation's cycle. 0, the initial value, means
@@ -233,108 +216,102 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         super.uninstallListeners();
     }
 
-    /**
-     * Retrieves stripe image.
-     *
-     * @param baseSize    Stripe base in pixels.
-     * @param isRotated   if <code>true</code>, the resulting stripe image will be rotated.
-     * @param colorScheme Color scheme to paint the stripe image.
-     * @return Stripe image.
-     */
-    private static BufferedImage getStripe(double scale, int baseSize, boolean isRotated,
-            RadianceColorScheme colorScheme) {
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(scale,
-                baseSize, isRotated, colorScheme.getDisplayName());
-        BufferedImage result = RadianceProgressBarUI.stripeMap.get(key);
-        if (result == null) {
-            result = RadianceImageCreator.getStripe(scale, baseSize,
-                    colorScheme.getUltraLightColor());
-            if (isRotated) {
-                result = RadianceImageCreator.getRotated(scale, result, 1);
-            }
-            RadianceProgressBarUI.stripeMap.put(key, result);
-        }
-        return result;
+    private void drawStripe1X(Graphics2D g, int baseSize, Color color) {
+        int width = (int) (1.8 * baseSize);
+        int height = baseSize;
+
+        Polygon polygon = new Polygon();
+        polygon.addPoint(0, 0);
+        polygon.addPoint(width - 1 - baseSize, 0);
+        polygon.addPoint(width - 1, height - 1);
+        polygon.addPoint(baseSize, height - 1);
+
+        g.setColor(color);
+        g.fillPolygon(polygon);
+        g.drawPolygon(polygon);
     }
 
-    /**
-     * Returns the background of a determinate progress bar.
-     *
-     * @param bar                  Progress bar.
-     * @param width                Progress bar width.
-     * @param height               Progress bar height.
-     * @param scheme               Color scheme for the background.
-     * @param fillPainter          Fill painter.
-     * @param orientation          Progress bar orientation (vertical / horizontal).
-     * @param componentOrientation Progress bar LTR / RTL orientation.
-     * @return Background image.
-     */
-    private static BufferedImage getDeterminateBackground(JProgressBar bar, int width, int height,
-            RadianceColorScheme scheme, RadianceFillPainter fillPainter, int orientation,
-            ComponentOrientation componentOrientation) {
-        double scale = RadianceCommonCortex.getScaleFactor(bar);
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(scale, width, height,
-                scheme.getDisplayName(), fillPainter.getDisplayName(),
-                orientation, componentOrientation);
-        BufferedImage result = RadianceProgressBarUI.backgroundMap.get(key);
-        if (result == null) {
-            result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-            Graphics2D g2d = result.createGraphics();
-            float radius = 0.5f * RadianceSizeUtils
-                    .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-            Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height, radius, null);
-            fillPainter.paintContourBackground(g2d, bar, width, height, contour, false, scheme,
-                    true);
-            g2d.dispose();
+    private void drawDeterminateBackground(Graphics2D g, JProgressBar bar, int width, int height,
+            RadianceColorScheme scheme, RadianceFillPainter fillPainter, int orientation) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        if (orientation == SwingConstants.HORIZONTAL) {
+            HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                scaledWidth, scaledHeight, radius, null);
+                        fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                                contour, false, scheme, true);
+                    });
+        } else {
+            // Flip width and height, and then apply a rotation transformation
+            HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        // Rotate the graphics context for correct "orientation" of the visuals
+                        AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
+                        at.translate(x - scaledWidth, y);
+                        graphics1X.transform(at);
 
-            if (orientation == SwingConstants.VERTICAL) {
-                result = RadianceImageCreator.getRotated(scale, result, 3);
-            }
-            RadianceProgressBarUI.backgroundMap.put(key, result);
+                        float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                scaledWidth, scaledHeight, radius, null);
+                        fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                                contour, false, scheme, true);
+                    });
         }
-        return result;
+        graphics.dispose();
     }
 
-    /**
-     * Returns the background of a determinate progress bar.
-     *
-     * @param bar                  Progress bar.
-     * @param width                Progress bar width.
-     * @param height               Progress bar height.
-     * @param scheme               Color scheme for the background.
-     * @param fillPainter          Fill painter.
-     * @param orientation          Progress bar orientation (vertical / horizontal).
-     * @param componentOrientation Progress bar LTR / RTL orientation.
-     * @return Background image.
-     */
-    private static BufferedImage getDeterminateProgress(JProgressBar bar, int width, int height,
+    private void drawDeterminateProgress(Graphics2D g, JProgressBar bar, int width, int height,
             boolean isFull, RadianceColorScheme scheme, RadianceFillPainter fillPainter,
             int orientation, ComponentOrientation componentOrientation) {
-        double scale = RadianceCommonCortex.getScaleFactor(bar);
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(scale, width, height,
-                scheme.getDisplayName(), fillPainter.getDisplayName(),
-                orientation, componentOrientation);
-        BufferedImage result = RadianceProgressBarUI.progressMap.get(key);
-        if (result == null) {
-            result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-            Graphics2D g2d = result.createGraphics();
-            float radius = 0.5f * RadianceSizeUtils
-                    .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-            RadianceThemingSlices.Side straightSide = (orientation == SwingConstants.VERTICAL) ? RadianceThemingSlices.Side.RIGHT
-                    : (componentOrientation.isLeftToRight() ? RadianceThemingSlices.Side.RIGHT : RadianceThemingSlices.Side.LEFT);
-            Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
-            Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height, radius,
-                    straightSides);
-            fillPainter.paintContourBackground(g2d, bar, width, height, contour, false, scheme,
-                    true);
-            g2d.dispose();
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        if (orientation == SwingConstants.HORIZONTAL) {
+            HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                        RadianceThemingSlices.Side straightSide = componentOrientation.isLeftToRight()
+                                ? RadianceThemingSlices.Side.RIGHT : RadianceThemingSlices.Side.LEFT;
+                        Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
+                        Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
+                                radius, straightSides);
+                        fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                                contour, false, scheme, true);
+                    });
+        } else {
+            // Flip width and height, and then apply a rotation transformation
+            HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        // Rotate the graphics context for correct "orientation" of the visuals
+                        AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
+                        at.translate(x - scaledWidth, y);
+                        graphics1X.transform(at);
 
-            if (orientation == SwingConstants.VERTICAL) {
-                result = RadianceImageCreator.getRotated(scale, result, 3);
-            }
-            RadianceProgressBarUI.progressMap.put(key, result);
+                        float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
+                                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
+                        RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.RIGHT;
+                        Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
+
+                        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                scaledWidth, scaledHeight, radius, straightSides);
+                        fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
+                                contour, false, scheme, true);
+                    });
         }
-        return result;
+        graphics.dispose();
     }
 
     @Override
@@ -342,8 +319,6 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         if (!(g instanceof Graphics2D)) {
             return;
         }
-
-        double scale = RadianceCommonCortex.getScaleFactor(progressBar);
 
         ComponentState fillState = getFillState();
         ComponentState progressState = getProgressState();
@@ -365,17 +340,10 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                 fillState);
 
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(progressBar);
-        if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-            BufferedImage back = getDeterminateBackground(progressBar, barRectWidth, barRectHeight,
-                    fillScheme, fillPainter, progressBar.getOrientation(),
-                    this.progressBar.getComponentOrientation());
-            RadianceCommonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
-        } else {
-            BufferedImage back = getDeterminateBackground(progressBar, barRectHeight, barRectWidth,
-                    fillScheme, fillPainter, progressBar.getOrientation(),
-                    this.progressBar.getComponentOrientation());
-            RadianceCommonCortex.drawImageWithScale(g2d, scale, back, margin, margin);
-        }
+        g2d.translate(margin, margin);
+        drawDeterminateBackground(g2d, progressBar, barRectWidth, barRectHeight,
+                fillScheme, fillPainter, progressBar.getOrientation());
+        g2d.translate(-margin, -margin);
 
         if (amountFull > 0) {
             boolean isFull = (this.progressBar.getModel().getValue() == this.progressBar
@@ -383,34 +351,25 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             RadianceColorScheme progressColorScheme = RadianceColorSchemeUtilities
                     .getColorScheme(progressBar, progressState);
             if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-                int progressWidth = amountFull;
-                int progressHeight = barRectHeight;
-                if ((progressWidth > 0) && (progressHeight > 0)) {
-                    BufferedImage progress = getDeterminateProgress(progressBar, progressWidth,
-                            progressHeight, isFull, progressColorScheme, progressFillPainter,
+                if (barRectHeight > 0) {
+                    int dx = progressBar.getComponentOrientation().isLeftToRight() ? margin
+                            : margin + barRectWidth - amountFull;
+                    g2d.translate(dx, margin);
+                    drawDeterminateProgress(g2d, progressBar, amountFull, barRectHeight,
+                            isFull, progressColorScheme, progressFillPainter,
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
-                    if (progressBar.getComponentOrientation().isLeftToRight()) {
-                        RadianceCommonCortex.drawImageWithScale(g2d, scale, progress, margin, margin);
-                    } else {
-                        // fix for RTL determinate horizontal progress
-                        // bar in 2.3
-                        RadianceCommonCortex.drawImageWithScale(g2d, scale, progress,
-                                margin + barRectWidth - amountFull, margin);
-                    }
+                    g2d.translate(-dx, -margin);
                 }
             } else { // VERTICAL
-                int progressWidth = barRectWidth;
-                int progressHeight = amountFull;
-                if ((amountFull > 0) && (progressHeight > 0)) {
-                    // fix for issue 95. Vertical bar is growing from
-                    // the bottom
-                    BufferedImage progress = getDeterminateProgress(progressBar, progressHeight,
-                            progressWidth, isFull, progressColorScheme, progressFillPainter,
+                if (barRectWidth > 0) {
+                    g2d.translate(margin, margin + barRectHeight - amountFull);
+                    // Vertical progress is "growing" from the bottom
+                    drawDeterminateProgress(g2d, progressBar, barRectWidth, amountFull,
+                            isFull, progressColorScheme, progressFillPainter,
                             progressBar.getOrientation(),
                             this.progressBar.getComponentOrientation());
-                    RadianceCommonCortex.drawImageWithScale(g2d, scale, progress, margin,
-                            margin + barRectHeight - progressHeight);
+                    g2d.translate(-margin, -(margin + barRectHeight - amountFull));
                 }
             }
         }
@@ -442,13 +401,77 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         return RadianceColorUtilities.getForegroundColor(scheme);
     }
 
+    private void paintRectangularStripedBackground(Graphics g,
+            int startX, int startY, int width, int height, RadianceColorScheme colorScheme,
+            final int stripeOffset, float borderAlpha, boolean isVertical) {
+        Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
+        if (!isVertical) {
+            HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
+                                new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
+                                new Color[]{colorScheme.getDarkColor(), colorScheme.getLightColor(),
+                                        colorScheme.getMidColor(), colorScheme.getLightColor(),
+                                        colorScheme.getDarkColor()},
+                                MultipleGradientPaint.CycleMethod.REPEAT);
+                        graphics1X.setPaint(paint);
+                        graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+
+                        int stripeSize = scaledHeight;
+                        int stripeCount = scaledWidth / stripeSize;
+                        int finalStripeOffset = (int) (scaleFactor * stripeOffset % (2 * stripeSize));
+                        for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
+                            int stripePos = stripe * stripeSize + finalStripeOffset;
+                            graphics1X.translate(stripePos, 0);
+                            drawStripe1X(graphics1X, stripeSize, colorScheme.getUltraLightColor());
+                            graphics1X.translate(-stripePos, 0);
+                        }
+                    });
+        } else {
+            HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        // Rotate the graphics context for correct "orientation" of the visuals
+                        AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 2);
+                        at.translate(x, y - scaledHeight);
+                        graphics1X.transform(at);
+
+                        LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
+                                new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
+                                new Color[]{colorScheme.getDarkColor(), colorScheme.getLightColor(),
+                                        colorScheme.getMidColor(), colorScheme.getLightColor(),
+                                        colorScheme.getDarkColor()},
+                                MultipleGradientPaint.CycleMethod.REPEAT);
+                        graphics1X.setPaint(paint);
+                        graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+
+                        int stripeSize = scaledHeight;
+                        int stripeCount = scaledWidth / stripeSize;
+                        int finalStripeOffset = (int) (scaleFactor * stripeOffset % (2 * stripeSize));
+                        for (int stripe = -2; stripe <= stripeCount; stripe += 2) {
+                            int stripePos = stripe * stripeSize + finalStripeOffset;
+                            graphics1X.translate(stripePos, 0);
+                            drawStripe1X(graphics1X, stripeSize, colorScheme.getUltraLightColor());
+                            graphics1X.translate(-stripePos, 0);
+                        }
+                    });
+        }
+
+        if (borderAlpha > 0.0f) {
+            Graphics2D g2d = (Graphics2D) graphics.create();
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
+
+            RadianceImageCreator.paintSimpleBorderAliased(this.progressBar, g2d, width, height, colorScheme);
+            g2d.dispose();
+        }
+        graphics.dispose();
+    }
+
     @Override
     public void paintIndeterminate(Graphics g, JComponent c) {
         if (!(g instanceof Graphics2D)) {
             return;
         }
 
-        double scale = RadianceCommonCortex.getScaleFactor(c);
         ComponentState progressState = getProgressState();
 
         final int barRectWidth = progressBar.getWidth() - 2 * margin;
@@ -474,16 +497,14 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(progressBar,
                 progressState);
         if (progressBar.getOrientation() == SwingConstants.HORIZONTAL) {
-            RadianceImageCreator.paintRectangularStripedBackground(c, g2d, scale, margin,
+            paintRectangularStripedBackground(g2d, margin,
                     margin, barRectWidth, barRectHeight, scheme,
-                    RadianceProgressBarUI.getStripe(scale, barRectHeight, false, scheme),
                     valComplete, 0.6f, false);
         } else {
             // fix for issue 95. Vertical progress bar grows from the
             // bottom.
-            RadianceImageCreator.paintRectangularStripedBackground(c, g2d, scale, margin,
+            paintRectangularStripedBackground(g2d, margin,
                     margin, barRectWidth, barRectHeight, scheme,
-                    RadianceProgressBarUI.getStripe(scale, barRectWidth, true, scheme),
                     2 * barRectWidth - valComplete, 0.6f, true);
         }
 
