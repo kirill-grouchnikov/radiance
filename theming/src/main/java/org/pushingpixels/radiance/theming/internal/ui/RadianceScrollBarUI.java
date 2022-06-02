@@ -172,7 +172,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 modelStateInfo, currState,
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                true);
+                false);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -230,7 +230,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                 modelStateInfo, currState,
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                true);
+                false);
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
