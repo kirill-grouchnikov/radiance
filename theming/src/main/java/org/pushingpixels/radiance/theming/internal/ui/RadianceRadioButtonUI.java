@@ -73,12 +73,6 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
      */
     JToggleButton button;
 
-    /**
-     * Icons for all component states
-     */
-    private static LazyResettableHashMap<ScaleAwareImageWrapperIcon> icons = new LazyResettableHashMap<>(
-            "RadianceRadioButtonUI");
-
     StateTransitionTracker stateTransitionTracker;
 
     private Rectangle viewRect = new Rectangle();

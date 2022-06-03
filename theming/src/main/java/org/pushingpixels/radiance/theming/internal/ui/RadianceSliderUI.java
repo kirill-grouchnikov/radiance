@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -40,10 +39,14 @@ import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
-import org.pushingpixels.radiance.theming.internal.utils.icon.RadianceIconFactory;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderHorizontalIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderRoundIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderVerticalIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -53,10 +56,8 @@ import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * UI for sliders in <b>Radiance</b> look and feel.
@@ -96,11 +97,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
      */
     private Icon verticalIcon;
 
-    /**
-     * Cache of track images.
-     */
-    private static final LazyResettableHashMap<BufferedImage> trackCache =
-            new LazyResettableHashMap<>("RadianceSliderUI.track");
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -149,7 +147,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             int thumbOffset = 0;
             if (this.slider.getPaintLabels() || this.slider.getPaintTicks()) {
                 trackTop = this.insetCache.top + 2 * this.focusInsets.top;
-				thumbOffset = (this.getIcon().getIconHeight() - (trackWidth - 1)) / 2;
+                thumbOffset = (this.getIcon().getIconHeight() - (trackWidth - 1)) / 2;
             } else {
                 // vertically center the track
                 int topInset = this.insetCache.top + this.focusInsets.top;
@@ -161,17 +159,17 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             return new Rectangle(this.trackRect.x + trackLeft, trackTop + thumbOffset, trackRight - trackLeft,
                     trackBottom - trackTop);
         } else {
-			int thumbOffset = 0;
+            int thumbOffset = 0;
             if (this.slider.getPaintLabels() || this.slider.getPaintTicks()) {
                 if (this.slider.getComponentOrientation().isLeftToRight()) {
                     trackLeft = trackRect.x + this.insetCache.left + this.focusInsets.left;
                     trackRight = trackLeft + trackWidth - 1;
-					thumbOffset = (this.getIcon().getIconWidth() - (trackWidth - 1)) / 2;
+                    thumbOffset = (this.getIcon().getIconWidth() - (trackWidth - 1)) / 2;
                 } else {
                     trackRight = trackRect.x + trackRect.width - this.insetCache.right
                             - this.focusInsets.right;
                     trackLeft = trackRight - trackWidth - 1;
-					thumbOffset = -(this.getIcon().getIconWidth() - (trackWidth - 1)) / 2;
+                    thumbOffset = -(this.getIcon().getIconWidth() - (trackWidth - 1)) / 2;
                 }
             } else {
                 // horizontally center the track
@@ -189,127 +187,90 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
     @Override
     public void paintTrack(Graphics g) {
-        Graphics2D graphics = (Graphics2D) g.create();
-
         boolean drawInverted = this.drawInverted();
-
         Rectangle paintRect = this.getPaintTrackRect();
 
-        // Width and height of the painting rectangle.
-        int width = paintRect.width;
-        int height = paintRect.height;
+        Graphics2D g2d = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(g2d, paintRect.x, paintRect.y,
+                paintRect.width + 1, paintRect.height + 1,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    if (this.slider.getOrientation() == JSlider.VERTICAL) {
+                        // apply rotation / translate transformation on vertical
+                        // slider tracks
+                        int temp = scaledWidth;
+                        scaledWidth = scaledHeight;
+                        scaledHeight = temp;
+                        AffineTransform at = graphics1X.getTransform();
+                        at.translate(x, scaledWidth + y);
+                        at.rotate(-Math.PI / 2);
+                        graphics1X.setTransform(at);
+                    } else {
+                        graphics1X.translate(x, y);
+                    }
 
-        if (this.slider.getOrientation() == JSlider.VERTICAL) {
-            // apply rotation / translate transformation on vertical
-            // slider tracks
-            int temp = width;
-            width = height;
-            height = temp;
-            AffineTransform at = graphics.getTransform();
-            at.translate(paintRect.x, width + paintRect.y);
-            at.rotate(-Math.PI / 2);
-            graphics.setTransform(at);
-        } else {
-            graphics.translate(paintRect.x, paintRect.y);
-        }
+                    StateTransitionTracker.ModelStateInfo modelStateInfo = this.stateTransitionTracker
+                            .getModelStateInfo();
+                    ComponentState currState = modelStateInfo.getCurrModelState();
 
-        StateTransitionTracker.ModelStateInfo modelStateInfo = this.stateTransitionTracker
-                .getModelStateInfo();
+                    RadianceColorScheme trackSchemeUnselected = RadianceColorSchemeUtilities
+                            .getColorScheme(this.slider, this.slider.isEnabled() ? ComponentState.ENABLED
+                                    : ComponentState.DISABLED_UNSELECTED);
+                    RadianceColorScheme trackBorderSchemeUnselected = RadianceColorSchemeUtilities
+                            .getColorScheme(this.slider, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                                    this.slider.isEnabled() ? ComponentState.ENABLED
+                                            : ComponentState.DISABLED_UNSELECTED);
+                    this.paintSliderTrack1X(graphics1X, drawInverted, trackSchemeUnselected,
+                            trackBorderSchemeUnselected, scaledWidth, scaledHeight, scaleFactor);
 
-        RadianceColorScheme trackSchemeUnselected = RadianceColorSchemeUtilities
-                .getColorScheme(this.slider, this.slider.isEnabled() ? ComponentState.ENABLED
-                        : ComponentState.DISABLED_UNSELECTED);
-        RadianceColorScheme trackBorderSchemeUnselected = RadianceColorSchemeUtilities
-                .getColorScheme(this.slider, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                        this.slider.isEnabled() ? ComponentState.ENABLED
-                                : ComponentState.DISABLED_UNSELECTED);
-        this.paintSliderTrack(graphics, drawInverted, trackSchemeUnselected,
-                trackBorderSchemeUnselected, width, height);
-
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                .entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            if (!activeState.isActive())
-                continue;
-
-            float contribution = activeEntry.getValue().getContribution();
-            if (contribution == 0.0f)
-                continue;
-
-            graphics.setComposite(
-                    WidgetUtilities.getAlphaComposite(this.slider, contribution, g));
-
-            RadianceColorScheme activeFillScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(this.slider, activeState);
-            RadianceColorScheme activeBorderScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(this.slider, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, activeState);
-            this.paintSliderTrackSelected(graphics, drawInverted, paintRect, activeFillScheme,
-                    activeBorderScheme, width, height);
-        }
-
-        graphics.dispose();
+                    // Populate color schemes based on the current transition state of the slider.
+                    BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider,
+                            modelStateInfo, currState,
+                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.slider),
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                            false);
+                    BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider,
+                            modelStateInfo, currState,
+                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.slider),
+                            RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                            false);
+                    this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,
+                            mutableFillColorScheme, mutableBorderColorScheme,
+                            scaledWidth, scaledHeight, scaleFactor);
+                });
+        g2d.dispose();
     }
 
-    /**
-     * Paints the slider track.
-     *
-     * @param graphics        Graphics.
-     * @param drawInverted    Indicates whether the value-range shown for the slider is
-     *                        reversed.
-     * @param fillColorScheme Fill color scheme.
-     * @param borderScheme    Border color scheme.
-     * @param width           Track width.
-     * @param height          Track height.
-     */
-    private void paintSliderTrack(Graphics2D graphics, boolean drawInverted,
-            RadianceColorScheme fillColorScheme, RadianceColorScheme borderScheme, int width,
-            int height) {
-        Graphics2D g2d = (Graphics2D) graphics.create();
-
-        double scale = RadianceCommonCortex.getScaleFactor(this.slider);
+    private void paintSliderTrack1X(Graphics2D graphics1X, boolean drawInverted,
+            RadianceColorScheme fillColorScheme, RadianceColorScheme borderScheme,
+            int width, int height, double scaleFactor) {
         RadianceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
 
         int componentFontSize = RadianceSizeUtils.getComponentFontSize(this.slider);
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(this.slider) / 2.0f;
-        float radius = RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
-        float borderThickness = (int) RadianceSizeUtils.getBorderStrokeWidth(this.slider);
+        float radius = (float) scaleFactor *
+                RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
 
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height, radius, borderDelta,
-                borderThickness, fillColorScheme.getDisplayName(), borderScheme.getDisplayName());
+        Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height,
+                radius, null, 1.0f);
 
-        BufferedImage trackImage = trackCache.get(key);
-        if (trackImage == null) {
-            trackImage = RadianceCoreUtilities.getBlankImage(scale, width + 1, height + 1);
-            Graphics2D cacheGraphics = trackImage.createGraphics();
+        fillPainter.paintContourBackground(graphics1X, slider, width, height,
+                contour, false, fillColorScheme, false);
 
-            Shape contour = RadianceOutlineUtilities.getBaseOutline(width + 1, height + 1, radius,
-                    null, borderDelta);
-
-            fillPainter.paintContourBackground(cacheGraphics, slider, width, height, contour, false,
-                    fillColorScheme, false);
-
-            Shape contourInner = RadianceOutlineUtilities.getBaseOutline(width + 1,
-                    height + 1, radius - borderThickness, null, borderThickness + borderDelta);
-            borderPainter.paintBorder(cacheGraphics, slider, width + 1, height + 1, contour,
-                    contourInner, borderScheme);
-
-            trackCache.put(key, trackImage);
-            cacheGraphics.dispose();
-        }
-
-        RadianceCommonCortex.drawImageWithScale(g2d, scale, trackImage, 0, 0);
-
-        g2d.dispose();
+        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(width, height,
+                radius - 1.0f, null, 2.0f);
+        borderPainter.paintBorder(graphics1X, slider, width, height,
+                contour, contourInner, borderScheme);
     }
 
     /**
      * Paints the selected part of the slider track.
      *
-     * @param graphics     Graphics.
+     * @param graphics1X   Graphics.
      * @param drawInverted Indicates whether the value-range shown for the slider is
      *                     reversed.
      * @param paintRect    Selected portion.
@@ -318,11 +279,11 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
      * @param width        Track width.
      * @param height       Track height.
      */
-    private void paintSliderTrackSelected(Graphics2D graphics, boolean drawInverted,
+    private void paintSliderTrackSelected1X(Graphics2D graphics1X, boolean drawInverted,
             Rectangle paintRect, RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
-            int width, int height) {
+            int width, int height, double scaleFactor) {
 
-        Graphics2D g2d = (Graphics2D) graphics.create();
+        Graphics2D g2d = (Graphics2D) graphics1X.create();
         Insets insets = this.slider.getInsets();
         insets.top /= 2;
         insets.left /= 2;
@@ -331,14 +292,13 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
 
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(this.slider);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.slider);
-        float radius = RadianceSizeUtils.getClassicButtonCornerRadius(
+        float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                 RadianceSizeUtils.getComponentFontSize(slider)) / 2.0f;
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(slider) / 2.0f;
 
         // fill selected portion
         if (this.slider.isEnabled()) {
             if (this.slider.getOrientation() == SwingConstants.HORIZONTAL) {
-                int middleOfThumb = this.thumbRect.x + (this.thumbRect.width / 2) - paintRect.x;
+                int middleOfThumb = (int) (scaleFactor * (this.thumbRect.x + (this.thumbRect.width / 2) - paintRect.x));
                 int fillMinX;
                 int fillMaxX;
 
@@ -351,10 +311,10 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 }
 
                 int fillWidth = fillMaxX - fillMinX;
-                int fillHeight = height + 1;
+                int fillHeight = height;
                 if ((fillWidth > 0) && (fillHeight > 0)) {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(fillWidth, fillHeight,
-                            radius, null, borderDelta);
+                            radius, null, 1.0f);
                     g2d.translate(fillMinX, 0);
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
                             contour, false, fillScheme, false);
@@ -362,7 +322,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                             null, borderScheme);
                 }
             } else {
-                int middleOfThumb = this.thumbRect.y + (this.thumbRect.height / 2) - paintRect.y;
+                int middleOfThumb = (int) (scaleFactor * (this.thumbRect.y + (this.thumbRect.height / 2) - paintRect.y));
                 int fillMin;
                 int fillMax;
 
@@ -373,14 +333,14 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     g2d.translate(width + 2 - middleOfThumb, 0);
                 } else {
                     fillMin = middleOfThumb;
-                    fillMax = width + 1;
+                    fillMax = width;
                 }
 
                 int fillWidth = fillMax - fillMin;
-                int fillHeight = height + 1;
+                int fillHeight = height;
                 if ((fillWidth > 0) && (fillHeight > 0)) {
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(fillWidth, fillHeight,
-                            radius, null, borderDelta);
+                            radius, null, 1.0f);
 
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
                             contour, false, fillScheme, false);
@@ -505,10 +465,9 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         }
         int size = RadianceSizeUtils
                 .getSliderIconSize(RadianceSizeUtils.getComponentFontSize(slider));
-        // System.out.println("Slider size : " + size);
-        this.horizontalIcon = RadianceIconFactory.getSliderHorizontalIcon(slider, size, false);
-        this.roundIcon = RadianceIconFactory.getSliderRoundIcon(slider, size);
-        this.verticalIcon = RadianceIconFactory.getSliderVerticalIcon(slider, size, false);
+        this.horizontalIcon = new SliderHorizontalIcon(slider, size, false);
+        this.roundIcon = new SliderRoundIcon(slider, size);
+        this.verticalIcon = new SliderVerticalIcon(slider, size, false);
 
         int focusIns = (int) Math.ceil(2.0 * RadianceSizeUtils.getFocusStrokeWidth(slider));
         this.focusInsets = new Insets(focusIns, focusIns, focusIns, focusIns);

@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 
@@ -176,6 +177,130 @@ public class BladeIconUtils {
                     }
                     graphicsForCheckMark.fill(markOval);
                     graphicsForCheckMark.dispose();
+                });
+    }
+
+    public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
+            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+            int width, int height, boolean isMirrored,
+            RadianceColorScheme fillColorScheme,
+            RadianceColorScheme borderColorScheme, float alpha) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    if (isMirrored) {
+                        AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
+                        mirror.rotate(Math.PI);
+                        graphics1X.transform(mirror);
+                    }
+
+                    Shape contour = RadianceOutlineUtilities.getTriangleButtonOutline(
+                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
+
+                    graphics1X.setComposite(getAlphaComposite(alpha));
+                    Graphics2D clipped = (Graphics2D) graphics1X.create();
+                    clipped.clip(contour);
+                    fillPainter.paintContourBackground(clipped, slider,
+                            scaledWidth, scaledHeight,
+                            contour, false,
+                            fillColorScheme, true);
+                    clipped.dispose();
+
+                    Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
+                    borderPainter.paintBorder(graphics1X, slider,
+                            scaledWidth, scaledHeight,
+                            contour, contourInner, borderColorScheme);
+                });
+    }
+
+
+    public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
+            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+            int width, int height, boolean isMirrored,
+            RadianceColorScheme fillColorScheme,
+            RadianceColorScheme borderColorScheme, float alpha) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    AffineTransform at;
+                    if (isMirrored) {
+                        at = AffineTransform.getTranslateInstance(scaledWidth, 0);
+                        at.rotate(Math.PI / 2);
+                    } else {
+                        at = AffineTransform.getTranslateInstance(0, scaledHeight);
+                        at.rotate(-Math.PI / 2);
+                    }
+                    graphics1X.transform(at);
+                    if (!slider.getComponentOrientation().isLeftToRight()) {
+                        AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
+                        mirror.rotate(Math.PI);
+                        graphics1X.transform(mirror);
+                    }
+
+                    Shape contour = RadianceOutlineUtilities.getTriangleButtonOutline(
+                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
+
+                    graphics1X.setComposite(getAlphaComposite(alpha));
+                    Graphics2D clipped = (Graphics2D) graphics1X.create();
+                    clipped.clip(contour);
+                    fillPainter.paintContourBackground(clipped, slider,
+                            scaledWidth, scaledHeight,
+                            contour, false,
+                            fillColorScheme, true);
+                    clipped.dispose();
+
+                    Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
+                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
+                    borderPainter.paintBorder(graphics1X, slider,
+                            scaledWidth, scaledHeight,
+                            contour, contourInner, borderColorScheme);
+                });
+    }
+
+    public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
+            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
+            int dimension,
+            RadianceColorScheme fillColorScheme,
+            RadianceColorScheme borderColorScheme, float alpha) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    Shape contour = new Ellipse2D.Float(0.0f, 0.0f,
+                            scaledWidth - 1.0f, scaledHeight - 1.0f);
+
+                    graphics1X.setComposite(getAlphaComposite(alpha));
+                    Graphics2D clipped = (Graphics2D) graphics1X.create();
+                    clipped.clip(contour);
+                    fillPainter.paintContourBackground(clipped, slider,
+                            scaledWidth, scaledHeight,
+                            contour, false,
+                            fillColorScheme, true);
+                    clipped.dispose();
+
+                    Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
+                            scaledWidth - 3.0f, scaledHeight - 3.0f);
+                    borderPainter.paintBorder(graphics1X, slider,
+                            scaledWidth, scaledHeight,
+                            contour, contourInner, borderColorScheme);
                 });
     }
 

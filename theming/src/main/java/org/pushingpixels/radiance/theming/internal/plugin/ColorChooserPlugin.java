@@ -41,6 +41,8 @@ import org.pushingpixels.radiance.theming.internal.ui.RadianceColorChooserUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderHorizontalIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.SliderVerticalIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -79,23 +81,19 @@ public class ColorChooserPlugin implements RadianceThemingComponentPlugin {
             Object[] mainDefaults = new Object[]{
                     // quaqua
                     "Slider.upThumbSmall",
-                    (UIDefaults.LazyValue) ((UIDefaults table) -> RadianceIconFactory
-                                    .getSliderHorizontalIcon(
-                                            null,
-                                            RadianceSizeUtils
-                                                    .getSliderIconSize(RadianceSizeUtils
-                                                            .getControlFontSize()) - 2,
-                                            true)),
+                    (UIDefaults.LazyValue) ((UIDefaults table) ->
+                            new SliderHorizontalIcon(null, RadianceSizeUtils
+                                    .getSliderIconSize(RadianceSizeUtils
+                                            .getControlFontSize()) - 2,
+                                    true)),
 
                     // quaqua
                     "Slider.leftThumbSmall",
-                    (UIDefaults.LazyValue) ((UIDefaults table) -> RadianceIconFactory
-                                    .getSliderVerticalIcon(
-                                            null,
-                                            RadianceSizeUtils
-                                                    .getSliderIconSize(RadianceSizeUtils
-                                                            .getControlFontSize()) - 2,
-                                            true)),
+                    (UIDefaults.LazyValue) ((UIDefaults table) ->
+                            new SliderVerticalIcon(null, RadianceSizeUtils
+                                    .getSliderIconSize(RadianceSizeUtils
+                                            .getControlFontSize()) - 2,
+                                    true)),
 
                     // quaqua
                     "Component.visualMargin",
