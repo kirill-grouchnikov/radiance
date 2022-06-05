@@ -50,9 +50,6 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
     /** Cache of already computed contours. */
     private final static LazyResettableHashMap<Shape> contours = new LazyResettableHashMap<>(
             "ClassicButtonShaper");
-    /** Cache of already computed contours. */
-    private final static LazyResettableHashMap<Shape> bladeContours = new LazyResettableHashMap<>(
-            "ClassicButtonShaper.blade");
 
     /**
      * Reusable instance of this shaper.
@@ -62,40 +59,6 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
     @Override
     public String getDisplayName() {
         return "Classic";
-    }
-
-    @Override
-    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width,
-            float height, boolean isInner) {
-        Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
-                RadianceSynapse.BUTTON_STRAIGHT_SIDE);
-
-        float radius = this.getCornerRadius(button, extraInsets);
-        if (isInner) {
-            radius -= RadianceSizeUtils.getBorderStrokeWidth(button);
-            if (radius < 0.0f)
-                radius = 0.0f;
-        }
-
-        HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius,
-                extraInsets);
-
-        Shape result = contours.get(key);
-        if (result != null) {
-            return result;
-        }
-
-//        System.out.println("Getting button outline for " + width + "x" + height + " and " + extraInsets);
-        result = RadianceOutlineUtilities.getBaseOutline(width, height, radius, straightSides,
-                extraInsets);
-//        System.out.println("\t-->" + result.getBounds2D());
-//        try {
-//            throw new Exception();
-//        } catch (Throwable t) {
-//            t.printStackTrace(System.out);
-//        }
-        contours.put(key, result);
-        return result;
     }
 
     @Override
@@ -114,14 +77,14 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
         HashMapKey key = RadianceCoreUtilities.getHashKey(width, height, straightSides, radius,
                 extraInsets);
 
-        Shape result = bladeContours.get(key);
+        Shape result = contours.get(key);
         if (result != null) {
             return result;
         }
 
         result = RadianceOutlineUtilities.getBaseOutline(width - 1, height - 1, radius, straightSides,
                 extraInsets);
-        bladeContours.put(key, result);
+        contours.put(key, result);
         return result;
     }
 
