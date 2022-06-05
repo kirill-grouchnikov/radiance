@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -460,7 +461,9 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            RadianceImageCreator.paintSimpleBorderAliased(this.progressBar, g2d, width, height, colorScheme);
+            BladeDrawingUtils.paintBladeSimpleBorder(g2d, width, height,
+                    RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(this.progressBar)),
+                    colorScheme);
             g2d.dispose();
         }
         graphics.dispose();

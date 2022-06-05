@@ -98,7 +98,6 @@ public class BladeUtils {
                 + "], [" + colorScheme.getDisplayName() + ":" + (1.0f - modificationCyclePosition) + "]";
     }
 
-
     public static void populateColorScheme(
             BladeColorScheme bladeColorScheme,
             Component component,

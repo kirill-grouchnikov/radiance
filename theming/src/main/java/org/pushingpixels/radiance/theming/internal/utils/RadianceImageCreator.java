@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
@@ -674,7 +675,7 @@ public final class RadianceImageCreator {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            paintSimpleBorderAliased(c, g2d, width, height, colorScheme);
+            BladeDrawingUtils.paintBladeSimpleBorder(g2d, width, height, 0.0f, colorScheme);
 
             g2d.dispose();
         }
@@ -703,20 +704,6 @@ public final class RadianceImageCreator {
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         int joinKind = BasicStroke.JOIN_ROUND;
         int capKind = BasicStroke.CAP_BUTT;
-        g2d.setStroke(new BasicStroke(borderThickness, capKind, joinKind));
-        g2d.draw(new Rectangle2D.Float(borderThickness / 2.0f, borderThickness / 2.0f,
-                width - borderThickness, height - borderThickness));
-    }
-
-    public static void paintSimpleBorderAliased(Component c, Graphics2D g2d, int width, int height,
-            RadianceColorScheme colorScheme) {
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
-
-        g2d.setColor(RadianceColorUtilities.getMidBorderColor(colorScheme));
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-        int joinKind = BasicStroke.JOIN_MITER;
-        int capKind = BasicStroke.CAP_SQUARE;
         g2d.setStroke(new BasicStroke(borderThickness, capKind, joinKind));
         g2d.draw(new Rectangle2D.Float(borderThickness / 2.0f, borderThickness / 2.0f,
                 width - borderThickness, height - borderThickness));

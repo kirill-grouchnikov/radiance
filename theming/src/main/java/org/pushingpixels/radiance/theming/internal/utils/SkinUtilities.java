@@ -140,7 +140,7 @@ public class SkinUtilities {
                 (UIDefaults table) -> new BasicBorders.MarginBorder();
 
         UIDefaults.LazyValue tooltipBorder = (UIDefaults table) ->
-                new RadianceBorder(RadianceSizeUtils.getToolTipBorderInsets(
+                new RadianceBorder(0.0f, RadianceSizeUtils.getToolTipBorderInsets(
                         RadianceSizeUtils.getControlFontSize()));
 
         UIDefaults.LazyValue comboBorder = (UIDefaults table) ->

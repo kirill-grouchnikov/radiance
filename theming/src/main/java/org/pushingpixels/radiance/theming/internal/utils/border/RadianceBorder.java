@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.border.Border;
@@ -62,12 +63,6 @@ public class RadianceBorder implements Border, UIResource {
 	 * factor.
 	 */
 	protected float radiusScaleFactor;
-
-	/**
-	 * Cache of small border images.
-	 */
-	private static LazyResettableHashMap<BufferedImage> smallImageCache =
-			new LazyResettableHashMap<>("RadianceBorder");
 
 	/**
 	 * Creates a new border with dynamic insets (computed at the invocation time
@@ -143,45 +138,17 @@ public class RadianceBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		double scale = RadianceCommonCortex.getScaleFactor(c);
-		float radius = this.radiusScaleFactor
-				* RadianceSizeUtils
-						.getClassicButtonCornerRadius(RadianceSizeUtils
-								.getComponentFontSize(c));
-
-		ComponentState state = isEnabled ? ComponentState.ENABLED
-				: ComponentState.DISABLED_UNSELECTED;
+		ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
 		RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities
 				.getColorScheme(c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
-		float finalAlpha = alpha
-				* RadianceColorSchemeUtilities.getAlpha(c, state);
 
-		graphics.setComposite(WidgetUtilities.getAlphaComposite(c,
-				finalAlpha, g));
+		float finalAlpha = alpha * RadianceColorSchemeUtilities.getAlpha(c, state);
+		graphics.setComposite(WidgetUtilities.getAlphaComposite(c, finalAlpha, g));
 
-		if (width * height < 100000) {
-			ImageHashMapKey hashKey = RadianceCoreUtilities.getScaleAwareHashKey(
-					scale, width, height, radius,
-					RadianceCoreUtilities.getBorderPainter(c).getDisplayName(),
-					RadianceSizeUtils.getComponentFontSize(c),
-					borderColorScheme.getDisplayName());
-			BufferedImage result = smallImageCache.get(hashKey);
-			if (result == null) {
-				result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-				Graphics2D g2d = result.createGraphics();
-				RadianceImageCreator.paintBorder(c, g2d, 0, 0, width, height,
-						radius, borderColorScheme);
-				g2d.dispose();
-				smallImageCache.put(hashKey, result);
-			}
-			RadianceCommonCortex.drawImageWithScale(graphics, scale, result, x, y);
-		} else {
-			// for borders larger than 100000 pixels, use simple
-			// painting
-			graphics.translate(x, y);
-			RadianceImageCreator.paintSimpleBorder(c, graphics, width, height,
-					borderColorScheme);
-		}
+		float baseRadius = this.radiusScaleFactor *
+				RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(c));
+		BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, baseRadius,
+				borderColorScheme);
 
 		graphics.dispose();
 	}
