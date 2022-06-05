@@ -138,7 +138,7 @@ public class ButtonBackgroundDelegate {
                     int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
                     int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
-                    Shape contour = shaper.getBladeButtonOutline(button, 0.0f,
+                    Shape contour = shaper.getButtonOutline(button, 0.0f,
                             scaledWidth + deltaLeft + deltaRight,
                             scaledHeight + deltaTop + deltaBottom,
                             scaleFactor, false);
@@ -162,7 +162,7 @@ public class ButtonBackgroundDelegate {
 
                     if (isBorderPainted) {
                         Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                                shaper.getBladeButtonOutline(button, 1.0f,
+                                shaper.getButtonOutline(button, 1.0f,
                                         scaledWidth + deltaLeft + deltaRight,
                                         scaledHeight + deltaTop + deltaBottom,
                                         scaleFactor, true)
@@ -270,7 +270,7 @@ public class ButtonBackgroundDelegate {
         if (shaper == null) {
             return false;
         }
-        Shape contour = shaper.getBladeButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
+        Shape contour = shaper.getButtonOutline(button, 0.0f, button.getWidth(), button.getHeight(),
                 RadianceCommonCortex.getScaleFactor(button), false);
         return contour.contains(x, y);
     }

@@ -86,7 +86,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
     }
 
     @Override
-    public Shape getBladeButtonOutline(AbstractButton button, float extraInsets, float width, float height, double scaleFactor, boolean isInner) {
+    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width, float height, double scaleFactor, boolean isInner) {
         Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(button,
                 RadianceSynapse.BUTTON_STRAIGHT_SIDE);
 

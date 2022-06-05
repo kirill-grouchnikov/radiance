@@ -173,7 +173,7 @@ public final class RadianceThemingSlices {
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
                             new float[] {dashLength, dashGap}, dashPhase));
 
-                    Shape contour = shaper.getBladeButtonOutline((AbstractButton) mainComp, 1.0f,
+                    Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, 1.0f,
                             (float) scaleFactor * mainComp.getWidth(),
                             (float) scaleFactor * mainComp.getHeight(),
                             scaleFactor, false);
@@ -229,7 +229,7 @@ public final class RadianceThemingSlices {
                                 new float[] {dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
 
-                        Shape contour = shaper.getBladeButtonOutline((AbstractButton) mainComp, insetsPix,
+                        Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, insetsPix,
                                 (float) scaleFactor * mainComp.getWidth(),
                                 (float) scaleFactor * mainComp.getHeight(), scaleFactor, true);
                         graphics.draw(contour);
@@ -273,7 +273,7 @@ public final class RadianceThemingSlices {
                         return;
 
                     if (shaper.isProportionate()) {
-                        Shape contour = shaper.getBladeButtonOutline((AbstractButton) mainComp, extraPadding,
+                        Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, extraPadding,
                                 (float) scaleFactor * mainComp.getWidth(),
                                 (float) scaleFactor * mainComp.getHeight(),
                                 scaleFactor, true);
