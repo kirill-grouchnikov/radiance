@@ -46,11 +46,13 @@ import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUti
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.RadianceIconFactory;
+import org.pushingpixels.radiance.theming.internal.utils.icon.TreeIcon;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.plaf.ComponentUI;
+import javax.swing.plaf.IconUIResource;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
@@ -162,10 +164,12 @@ public class RadianceTreeUI extends BasicTreeUI {
 			}
 		}
 
-		RadianceIcon expandedIcon = RadianceIconFactory.getTreeIcon(this.tree, false);
-		RadianceIcon collapsedIcon = RadianceIconFactory.getTreeIcon(this.tree, true);
-		setExpandedIcon(new RadianceIconUIResource(expandedIcon));
-		setCollapsedIcon(new RadianceIconUIResource(collapsedIcon));
+		int fontSize = RadianceSizeUtils.getComponentFontSize(this.tree);
+		int size = RadianceSizeUtils.getTreeIconSize(fontSize);
+		Icon expandedIcon = new TreeIcon(this.tree, size, false);
+		Icon collapsedIcon = new TreeIcon(this.tree, size, true);
+		setExpandedIcon(new IconUIResource(expandedIcon));
+		setCollapsedIcon(new IconUIResource(collapsedIcon));
 
 		// instead of computing the cell renderer insets on
 		// every cell rendering, compute it once and expose to the

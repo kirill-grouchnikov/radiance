@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
@@ -43,6 +44,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
 
 public class BladeIconUtils {
     public static void drawCheckBox(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
@@ -220,7 +222,6 @@ public class BladeIconUtils {
                 });
     }
 
-
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
             int width, int height, boolean isMirrored,
@@ -301,6 +302,45 @@ public class BladeIconUtils {
                     borderPainter.paintBorder(graphics1X, slider,
                             scaledWidth, scaledHeight,
                             contour, contourInner, borderColorScheme);
+                });
+    }
+
+    public static void drawTreeIcon(Graphics2D g, JTree tree, int size, RadianceColorScheme fillScheme,
+            RadianceColorScheme borderScheme, RadianceColorScheme markScheme,
+            boolean isCollapsed) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, size, size,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    RadianceFillPainter fillPainter = RadianceImageCreator.SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                    RadianceBorderPainter borderPainter = new FlatBorderPainter();
+
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
+                            (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                                    RadianceSizeUtils.getComponentFontSize(tree)) / 1.5f, null,
+                            1.0f);
+
+                    fillPainter.paintContourBackground(graphics1X, tree, scaledWidth, scaledHeight,
+                            contour, false, fillScheme, false);
+                    borderPainter.paintBorder(graphics1X, tree, scaledWidth, scaledHeight, contour,
+                            null, borderScheme);
+
+                    Color signColor = markScheme.getForegroundColor();
+                    graphics1X.setColor(signColor);
+                    float mid = scaledWidth / 2;
+                    float length = 7 * scaledWidth / 12;
+                    // Horizontal stroke
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
+                    graphics1X.draw(new Line2D.Float(mid - length / 2, mid, mid + length / 2, mid));
+                    if (isCollapsed) {
+                        // Vertical stroke
+                        graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
+                    }
                 });
     }
 

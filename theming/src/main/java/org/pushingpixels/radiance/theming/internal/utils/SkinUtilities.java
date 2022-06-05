@@ -40,10 +40,7 @@ import org.pushingpixels.radiance.theming.api.inputmap.InputMapSet;
 import org.pushingpixels.radiance.theming.api.inputmap.RadianceInputMapUtilities;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.internal.utils.border.*;
-import org.pushingpixels.radiance.theming.internal.utils.icon.CheckBoxMenuItemIcon;
-import org.pushingpixels.radiance.theming.internal.utils.icon.MenuArrowIcon;
-import org.pushingpixels.radiance.theming.internal.utils.icon.RadianceIconFactory;
-import org.pushingpixels.radiance.theming.internal.utils.icon.RadioButtonMenuItemIcon;
+import org.pushingpixels.radiance.theming.internal.utils.icon.*;
 import org.pushingpixels.radiance.theming.internal.utils.scroll.RadianceScrollPaneBorder;
 
 import javax.swing.*;
@@ -1023,11 +1020,13 @@ public class SkinUtilities {
 
                 "Tree.collapsedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new RadianceIconUIResource(RadianceIconFactory.getTreeIcon(null, true))),
+                        new IconUIResource(new TreeIcon(null, RadianceSizeUtils.getTreeIconSize(
+                                RadianceSizeUtils.getComponentFontSize(null)), true))),
 
                 "Tree.expandedIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        new RadianceIconUIResource(RadianceIconFactory.getTreeIcon(null, false))),
+                        new IconUIResource(new TreeIcon(null, RadianceSizeUtils.getTreeIconSize(
+                                RadianceSizeUtils.getComponentFontSize(null)), false))),
 
                 "Tree.leftChildIndent", RadianceSizeUtils.getTreeLeftIndent(
                 RadianceSizeUtils.getControlFontSize()),
