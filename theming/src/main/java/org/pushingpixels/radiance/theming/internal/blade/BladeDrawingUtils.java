@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPaint
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
