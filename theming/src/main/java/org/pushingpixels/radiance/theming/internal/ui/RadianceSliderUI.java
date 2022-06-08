@@ -224,7 +224,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                             .getColorScheme(this.slider, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                                     this.slider.isEnabled() ? ComponentState.ENABLED
                                             : ComponentState.DISABLED_UNSELECTED);
-                    this.paintSliderTrack1X(graphics1X, drawInverted, trackSchemeUnselected,
+                    this.paintSliderTrack1X(graphics1X, trackSchemeUnselected,
                             trackBorderSchemeUnselected, scaledWidth, scaledHeight, scaleFactor);
 
                     // Populate color schemes based on the current transition state of the slider.
@@ -245,7 +245,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         g2d.dispose();
     }
 
-    private void paintSliderTrack1X(Graphics2D graphics1X, boolean drawInverted,
+    private void paintSliderTrack1X(Graphics2D graphics1X,
             RadianceColorScheme fillColorScheme, RadianceColorScheme borderScheme,
             int width, int height, double scaleFactor) {
         RadianceFillPainter fillPainter = ClassicFillPainter.INSTANCE;
@@ -673,12 +673,6 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         if (this.slider.getOrientation() == JSlider.VERTICAL) {
             this.labelRect.width = getHeightOfTallestLabel();
         }
-    }
-
-    @Override
-    protected int getHeightOfTallestLabel() {
-        int result = super.getHeightOfTallestLabel();
-        return result;
     }
 
     @Override
