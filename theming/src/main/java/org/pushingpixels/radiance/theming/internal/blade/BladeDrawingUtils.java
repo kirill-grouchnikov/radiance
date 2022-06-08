@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
@@ -72,7 +70,7 @@ public class BladeDrawingUtils {
         graphics.dispose();
     }
 
-    public static void paintBladeSimpleBorder(Graphics2D g, int width, int height,
+    public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
             float baseRadius, RadianceColorScheme colorScheme) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -82,7 +80,9 @@ public class BladeDrawingUtils {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    graphics1X.setColor(RadianceColorUtilities.getMidBorderColor(colorScheme));
+                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
+                    Color borderColor = borderPainter.getRepresentativeColor(colorScheme);
+                    graphics1X.setColor(borderColor);
                     if (baseRadius == 0.0f) {
                         graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
                         graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f));
@@ -144,7 +144,7 @@ public class BladeDrawingUtils {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            paintBladeSimpleBorder(g2d, width, height, 0.0f, colorScheme);
+            paintBladeSimpleBorder(c, g2d, width, height, 0.0f, colorScheme);
 
             g2d.dispose();
         }

@@ -120,7 +120,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                         RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                         false);
 
-                BladeDrawingUtils.paintBladeSimpleBorder(graphics, width, height, 0.0f,
+                BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f,
                         mutableBorderColorScheme);
                 graphics.dispose();
 
@@ -134,7 +134,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
 
         graphics.translate(x, y);
-        BladeDrawingUtils.paintBladeSimpleBorder(graphics, width, height, 0.0f, borderColorScheme);
+        BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, borderColorScheme);
         graphics.dispose();
     }
 

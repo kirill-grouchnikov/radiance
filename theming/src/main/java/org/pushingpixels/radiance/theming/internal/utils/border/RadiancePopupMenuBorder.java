@@ -32,15 +32,12 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class RadiancePopupMenuBorder implements Border, UIResource {
 	@Override
@@ -48,20 +45,10 @@ public class RadiancePopupMenuBorder implements Border, UIResource {
 		RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(c,
 				ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
 
-		Graphics2D g2d = (Graphics2D) g.create();
-		float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
-		float borderDelta = borderThickness / 2.0f;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-		g2d.setStroke(
-				new BasicStroke(borderThickness, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
-		g2d.translate(x, y);
-		RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
-		Color outline = borderPainter.getRepresentativeColor(borderScheme);
-		g2d.setColor(outline);
-		g2d.draw(new Rectangle2D.Float(borderDelta, borderDelta, width - borderThickness,
-				height - borderThickness));
-		g2d.dispose();
+		Graphics2D graphics = (Graphics2D) g.create();
+		graphics.translate(x, y);
+		BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, borderScheme);
+		graphics.dispose();
 	}
 
 	@Override

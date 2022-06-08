@@ -461,7 +461,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
 
-            BladeDrawingUtils.paintBladeSimpleBorder(g2d, width, height,
+            BladeDrawingUtils.paintBladeSimpleBorder(this.progressBar, g2d, width, height,
                     RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(this.progressBar)),
                     colorScheme);
             g2d.dispose();
