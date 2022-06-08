@@ -29,24 +29,20 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * Table cell border for the <b>Radiance</b> look and feel.

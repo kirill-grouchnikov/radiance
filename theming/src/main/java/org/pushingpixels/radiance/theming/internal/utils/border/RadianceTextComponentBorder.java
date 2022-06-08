@@ -29,18 +29,17 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -48,8 +47,6 @@ import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * Text component border for the <b>Radiance</b> look and feel.
@@ -103,16 +100,13 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = RadianceCoreUtilities
                 .getTextComponentForTransitions(c);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
         if (componentForTransitions != null) {
             ComponentUI ui = componentForTransitions.getUI();
             if (ui instanceof TransitionAwareUI) {
                 TransitionAwareUI trackable = (TransitionAwareUI) ui;
                 StateTransitionTracker stateTransitionTracker = trackable.getTransitionTracker();
-                StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                        .getModelStateInfo();
-                Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                        .getStateContributionMap();
+                StateTransitionTracker.ModelStateInfo modelStateInfo =
+                        stateTransitionTracker.getModelStateInfo();
                 ComponentState currState = modelStateInfo.getCurrModelState();
                 if (currState.isDisabled()) {
                     currState = ComponentState.DISABLED_SELECTED;
