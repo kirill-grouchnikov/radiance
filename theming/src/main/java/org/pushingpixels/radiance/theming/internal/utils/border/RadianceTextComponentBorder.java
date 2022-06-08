@@ -31,11 +31,15 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -57,12 +61,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
      * Insets of <code>this</code> border.
      */
     protected Insets myInsets;
-
-    /**
-     * Cache of small border images.
-     */
-    private static LazyResettableHashMap<BufferedImage> smallImageCache =
-            new LazyResettableHashMap<>("RadianceTextComponentBorder");
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
     /**
      * Creates a new border with the specified insets.
@@ -104,8 +103,6 @@ public class RadianceTextComponentBorder implements Border, UIResource {
         Graphics2D graphics = (Graphics2D) g.create();
         JTextComponent componentForTransitions = RadianceCoreUtilities
                 .getTextComponentForTransitions(c);
-        double scale = RadianceCommonCortex.getScaleFactor(c);
-        boolean useCache = (width * height < 100000);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
         if (componentForTransitions != null) {
             ComponentUI ui = componentForTransitions.getUI();
@@ -123,76 +120,16 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
                 graphics.translate(x, y);
 
-                RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities
-                        .getColorScheme(componentForTransitions, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                                currState);
-                float baseAlpha = RadianceColorSchemeUtilities.getAlpha(c, currState);
-                graphics.setComposite(AlphaComposite.SrcOver.derive(baseAlpha));
-                if (useCache) {
-                    ImageHashMapKey baseHashKey = RadianceCoreUtilities.getScaleAwareHashKey(
-                            scale, width, height,
-                            borderPainter.getDisplayName(),
-                            baseBorderScheme.getDisplayName());
-                    BufferedImage baseLayer = smallImageCache.get(baseHashKey);
-                    if (baseLayer == null) {
-                        baseLayer = RadianceCoreUtilities.getBlankImage(scale, width, height);
-                        Graphics2D g2base = baseLayer.createGraphics();
-                        RadianceImageCreator.paintSimpleBorder(c, g2base, width, height,
-                                baseBorderScheme);
-                        g2base.dispose();
-                        smallImageCache.put(baseHashKey, baseLayer);
-                    }
-                    RadianceCommonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
-                } else {
-                    RadianceImageCreator.paintSimpleBorder(c, graphics, width, height,
-                            baseBorderScheme);
-                }
+                BladeUtils.populateColorScheme(mutableBorderColorScheme, c,
+                        modelStateInfo, currState,
+                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c),
+                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                        false);
 
-                if (!currState.isDisabled() && (activeStates.size() > 1)) {
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                            .entrySet()) {
-                        ComponentState activeState = activeEntry.getKey();
-                        if (activeState == currState) {
-                            continue;
-                        }
+                BladeDrawingUtils.paintBladeSimpleBorder(graphics, width, height, 0.0f,
+                        mutableBorderColorScheme);
+                graphics.dispose();
 
-                        float contribution = activeEntry.getValue().getContribution();
-                        if (contribution == 0.0f) {
-                            continue;
-                        }
-
-                        float alpha = RadianceColorSchemeUtilities.getAlpha(c, activeState);
-                        if (alpha == 0.0f) {
-                            continue;
-                        }
-
-                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                                .getColorScheme(componentForTransitions,
-                                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, activeState);
-                        graphics.setComposite(AlphaComposite.SrcOver.derive(alpha * contribution));
-
-                        if (useCache) {
-                            ImageHashMapKey extraHashKey = RadianceCoreUtilities.getScaleAwareHashKey(
-                                    scale, width, height,
-                                    borderPainter.getDisplayName(),
-                                    borderScheme.getDisplayName());
-                            BufferedImage extraLayer = smallImageCache.get(extraHashKey);
-                            if (extraLayer == null) {
-                                extraLayer = RadianceCoreUtilities.getBlankImage(scale, width, height);
-                                Graphics2D g2extra = extraLayer.createGraphics();
-                                RadianceImageCreator.paintSimpleBorder(c, g2extra, width, height,
-                                        baseBorderScheme);
-                                g2extra.dispose();
-                                smallImageCache.put(extraHashKey, extraLayer);
-                            }
-
-                            RadianceCommonCortex.drawImageWithScale(graphics, scale, extraLayer, 0, 0);
-                        } else {
-                            RadianceImageCreator.paintSimpleBorder(c, graphics, width, height,
-                                    borderScheme);
-                        }
-                    }
-                }
                 return;
             }
         }
@@ -201,28 +138,9 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 : ComponentState.DISABLED_UNSELECTED;
         RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities.getColorScheme(c,
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
+
         graphics.translate(x, y);
-
-        if (useCache) {
-            ImageHashMapKey baseHashKey = RadianceCoreUtilities.getScaleAwareHashKey(
-                    scale, width, height,
-                    borderPainter.getDisplayName(),
-                    borderColorScheme.getDisplayName());
-            BufferedImage baseLayer = smallImageCache.get(baseHashKey);
-            if (baseLayer == null) {
-                baseLayer = RadianceCoreUtilities.getBlankImage(scale, width, height);
-                Graphics2D g2base = baseLayer.createGraphics();
-                RadianceImageCreator.paintSimpleBorder(c, g2base, width, height,
-                        borderColorScheme);
-                g2base.dispose();
-                smallImageCache.put(baseHashKey, baseLayer);
-            }
-
-            RadianceCommonCortex.drawImageWithScale(graphics, scale, baseLayer, 0, 0);
-        } else {
-            RadianceImageCreator.paintSimpleBorder(c, graphics, width, height, borderColorScheme);
-        }
-
+        BladeDrawingUtils.paintBladeSimpleBorder(graphics, width, height, 0.0f, borderColorScheme);
         graphics.dispose();
     }
 

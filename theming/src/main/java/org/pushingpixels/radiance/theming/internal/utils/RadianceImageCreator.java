@@ -44,7 +44,6 @@ import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -585,33 +584,6 @@ public final class RadianceImageCreator {
 
         return new ScaleAwareImageWrapperIcon(RadianceImageCreator.overlayEcho(scale, image,
                 noEcho ? 0 : RadianceColorUtilities.getColorStrength(color), echoColor), scale);
-    }
-
-    /**
-     * Paints simple border.
-     * 
-     * @param g2d
-     *            Graphics context.
-     * @param width
-     *            Border width.
-     * @param height
-     *            Border height.
-     * @param borderColorScheme
-     *            Border color scheme.
-     */
-    public static void paintSimpleBorder(Component c, Graphics2D g2d, float width, float height,
-            RadianceColorScheme borderColorScheme) {
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
-
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
-        g2d.setColor(borderPainter.getRepresentativeColor(borderColorScheme));
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-        int joinKind = BasicStroke.JOIN_ROUND;
-        int capKind = BasicStroke.CAP_BUTT;
-        g2d.setStroke(new BasicStroke(borderThickness, capKind, joinKind));
-        g2d.draw(new Rectangle2D.Float(borderThickness / 2.0f, borderThickness / 2.0f,
-                width - borderThickness, height - borderThickness));
     }
 
     /**
