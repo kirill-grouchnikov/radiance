@@ -31,9 +31,13 @@ package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -63,12 +67,7 @@ public class RadianceTableCellBorder implements Border, UIResource {
 	 * Border alpha.
 	 */
 	protected float alpha;
-
-	/**
-	 * Cache of small border images.
-	 */
-	private static LazyResettableHashMap<BufferedImage> smallImageCache =
-			new LazyResettableHashMap<>("RadianceTableCellBorder");
+	private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
 	/**
 	 * Creates a new border with the specified insets.
@@ -78,8 +77,7 @@ public class RadianceTableCellBorder implements Border, UIResource {
 	 */
 	public RadianceTableCellBorder(Insets insets, RadianceTableUI ui,
 			RadianceTableUI.TableCellId cellId) {
-		this.myInsets = new Insets(insets.top, insets.left, insets.bottom,
-				insets.right);
+		this.myInsets = new Insets(insets.top, insets.left, insets.bottom, insets.right);
 		this.ui = ui;
 		this.cellId = cellId;
 		this.alpha = 1.0f;
@@ -112,80 +110,23 @@ public class RadianceTableCellBorder implements Border, UIResource {
 
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		double scale = RadianceCommonCortex.getScaleFactor(c);
-
 		float radius = 0.0f;
-		StateTransitionTracker stateTransitionTracker = ui
-				.getStateTransitionTracker(cellId);
-		StateTransitionTracker.ModelStateInfo modelStateInfo = (stateTransitionTracker == null) ? null
-				: stateTransitionTracker.getModelStateInfo();
-		Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = (modelStateInfo == null) ? null
-				: modelStateInfo.getStateContributionMap();
-		ComponentState currState = (modelStateInfo == null) ? ui
-				.getCellState(cellId) : modelStateInfo.getCurrModelState();
-		if (currState.isDisabled())
+		StateTransitionTracker stateTransitionTracker = ui.getStateTransitionTracker(cellId);
+		StateTransitionTracker.ModelStateInfo modelStateInfo =
+				(stateTransitionTracker == null) ? null : stateTransitionTracker.getModelStateInfo();
+		ComponentState currState =
+				(modelStateInfo == null) ? ui.getCellState(cellId) : modelStateInfo.getCurrModelState();
+		if (currState.isDisabled()) {
 			currState = ComponentState.DISABLED_SELECTED;
-
-		RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities
-				.getColorScheme(c, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-						currState);
-
-		ImageHashMapKey baseKey = RadianceCoreUtilities.getScaleAwareHashKey(
-				scale, width, height, radius,
-				RadianceSizeUtils.getComponentFontSize(c), baseBorderScheme.getDisplayName());
-		BufferedImage baseLayer = smallImageCache.get(baseKey);
-		float baseAlpha = RadianceColorSchemeUtilities.getAlpha(c, currState);
-
-		if (baseLayer == null) {
-			baseLayer = RadianceCoreUtilities.getBlankImage(scale, width, height);
-			Graphics2D g2d = baseLayer.createGraphics();
-			RadianceImageCreator.paintBorder(c, g2d, 0, 0, width, height,
-					radius, baseBorderScheme);
-			g2d.dispose();
-			smallImageCache.put(baseKey, baseLayer);
 		}
 
-		graphics.setComposite(AlphaComposite.SrcOver.derive(baseAlpha
-				* this.alpha));
-		graphics.drawImage(baseLayer, x, y, null);
-
-		if (!currState.isDisabled() && (activeStates != null)
-				&& (activeStates.size() > 1)) {
-			for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-					.entrySet()) {
-				ComponentState activeState = activeEntry.getKey();
-				if (activeState == currState)
-					continue;
-
-				float contribution = activeEntry.getValue().getContribution();
-				if (contribution == 0.0f)
-					continue;
-
-				RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-						.getColorScheme(c,
-								RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-								activeState);
-
-				ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-						scale, width, height, radius,
-						RadianceSizeUtils.getComponentFontSize(c), borderScheme.getDisplayName());
-				BufferedImage layer = smallImageCache.get(key);
-				float activeAlpha = RadianceColorSchemeUtilities.getAlpha(c, activeState);
-
-				if (layer == null) {
-					layer = RadianceCoreUtilities.getBlankImage(scale, width, height);
-					Graphics2D g2d = layer.createGraphics();
-					RadianceImageCreator.paintBorder(c, g2d, 0, 0, width,
-							height, radius, borderScheme);
-					g2d.dispose();
-					smallImageCache.put(key, layer);
-				}
-
-				graphics.setComposite(AlphaComposite.SrcOver.derive(activeAlpha
-						* this.alpha * contribution));
-				graphics.drawImage(layer, x, y, null);
-			}
-		}
+		BladeUtils.populateColorScheme(mutableBorderColorScheme, c,
+				modelStateInfo, currState,
+				RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c),
+				RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+				false);
+		BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, radius,
+				mutableBorderColorScheme);
 		graphics.dispose();
 	}
 

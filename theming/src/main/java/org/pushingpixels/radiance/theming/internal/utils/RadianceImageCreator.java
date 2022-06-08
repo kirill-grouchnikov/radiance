@@ -32,19 +32,19 @@ package org.pushingpixels.radiance.theming.internal.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.geom.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -85,45 +85,6 @@ public final class RadianceImageCreator {
         public Color getBottomFillColor(RadianceColorScheme fillScheme) {
             return super.getTopFillColor(fillScheme);
         }
-    }
-
-    /**
-     * Paints border instance of specified dimensions and status.
-     * 
-     * @param c
-     *            Component.
-     * @param graphics
-     *            Graphics context.
-     * @param x
-     *            Component left X (in graphics context).
-     * @param y
-     *            Component top Y (in graphics context).
-     * @param width
-     *            Border width.
-     * @param height
-     *            Border height.
-     * @param radius
-     *            Border radius.
-     * @param borderScheme
-     *            Border color scheme.
-     */
-    public static void paintBorder(Component c, Graphics2D graphics, int x, float y, float width,
-            float height, float radius, RadianceColorScheme borderScheme) {
-
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
-        graphics.translate(x, y);
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height, radius, null,
-                borderDelta);
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
-        boolean skipInnerBorder = (c instanceof JTextComponent)
-                || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
-                        && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
-        Shape contourInner = skipInnerBorder ? null
-                : RadianceOutlineUtilities.getBaseOutline(width, height, radius - borderThickness,
-                        null, borderThickness + borderDelta);
-        borderPainter.paintBorder(graphics, c, width, height, contour, contourInner, borderScheme);
-        graphics.translate(-x, -y);
     }
 
     /**
@@ -627,62 +588,6 @@ public final class RadianceImageCreator {
     }
 
     /**
-     * Paints rectangular gradient background.
-     * 
-     * @param g
-     *            Graphic context.
-     * @param startX
-     *            Background starting X coord.
-     * @param startY
-     *            Background starting Y coord.
-     * @param width
-     *            Background width.
-     * @param height
-     *            Background height.
-     * @param colorScheme
-     *            Color scheme for the background.
-     * @param borderAlpha
-     *            Border alpha.
-     * @param isVertical
-     *            if <code>true</code>, the gradient will be vertical, if <code>false</code>, the
-     *            gradient will be horizontal.
-     */
-    public static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
-            int width, int height, RadianceColorScheme colorScheme, float borderAlpha,
-            boolean isVertical) {
-        Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(startX, startY);
-
-        if (!isVertical) {
-            LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
-                    new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
-                    new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
-                                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
-                    CycleMethod.REPEAT);
-            graphics.setPaint(paint);
-            graphics.fillRect(0, 0, width, height);
-        } else {
-            LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
-                    new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
-                    new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
-                                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
-                    CycleMethod.REPEAT);
-            graphics.setPaint(paint);
-            graphics.fillRect(0, 0, width, height);
-        }
-
-        if (borderAlpha > 0.0f) {
-            Graphics2D g2d = (Graphics2D) graphics.create();
-            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
-
-            BladeDrawingUtils.paintBladeSimpleBorder(g2d, width, height, 0.0f, colorScheme);
-
-            g2d.dispose();
-        }
-        graphics.dispose();
-    }
-
-    /**
      * Paints simple border.
      * 
      * @param g2d
@@ -830,59 +735,6 @@ public final class RadianceImageCreator {
             }
         }
         graphics.dispose();
-    }
-
-    /**
-     * Retrieves tree icon.
-     * 
-     * @param tree
-     *            Tree.
-     * @param fillScheme
-     *            Icon fill color scheme.
-     * @param borderScheme
-     *            Icon border color scheme.
-     * @param isCollapsed
-     *            Collapsed state.
-     * @return Tree icon.
-     */
-    public static BufferedImage getTreeIcon(JTree tree, RadianceColorScheme fillScheme,
-            RadianceColorScheme borderScheme, RadianceColorScheme markScheme,
-            boolean isCollapsed) {
-        double scale = RadianceCommonCortex.getScaleFactor(tree);
-        int fontSize = RadianceSizeUtils.getComponentFontSize(tree);
-        int dim = RadianceSizeUtils.getTreeIconSize(fontSize);
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, dim, dim);
-        Graphics2D graphics = (Graphics2D) result.getGraphics();
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_OFF);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-        RadianceFillPainter fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
-        RadianceBorderPainter fbp = new FlatBorderPainter();
-
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(tree) / 2.0f;
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(dim, dim,
-                RadianceSizeUtils.getClassicButtonCornerRadius(dim) / 1.5f, null, borderDelta);
-
-        fillPainter.paintContourBackground(graphics, tree, dim, dim, contour, false, fillScheme,
-                false);
-        fbp.paintBorder(graphics, tree, dim, dim, contour, null, borderScheme);
-
-        Color signColor = markScheme.getForegroundColor();
-        graphics.setColor(signColor);
-        float mid = dim / 2;
-        float length = 7 * dim / 12;
-        // Horizontal stroke
-        graphics.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND));
-        graphics.draw(new Line2D.Float(mid - length / 2, mid, mid + length / 2, mid));
-        if (isCollapsed) {
-            // Vertical stroke
-            graphics.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
-        }
-
-        return result;
     }
 
     /**

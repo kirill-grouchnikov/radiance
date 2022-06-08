@@ -31,14 +31,11 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -105,8 +102,7 @@ public class BladeUtils {
             ComponentState currState,
             RadianceThemingSlices.DecorationAreaType decorationAreaType,
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-            boolean treatEnabledAsActive
-    ) {
+            boolean treatEnabledAsActive) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
                     "Color scheme population must be done on Event Dispatch Thread");
@@ -140,9 +136,9 @@ public class BladeUtils {
         nameBuilder.append(currStateScheme.getDisplayName());
 
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateContributionMap();
+                (modelStateInfo == null) ? null : modelStateInfo.getStateContributionMap();
 
-        if (!currState.isDisabled() && (activeStates.size() > 1)) {
+        if (!currState.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
             for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates.entrySet()) {
                 if (activeEntry.getKey() == currState) {
                     // Already accounted for the currently active state
@@ -222,47 +218,5 @@ public class BladeUtils {
         bladeColorScheme.echo = echo;
 
         bladeColorScheme.displayName = nameBuilder.toString();
-    }
-
-    public static Color getStateAwareColor(
-            Component component,
-            StateTransitionTracker.ModelStateInfo modelStateInfo,
-            ComponentState currState,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-            ColorSchemeSingleColorQuery colorQuery
-    ) {
-        RadianceColorScheme currStateScheme =
-                RadianceColorSchemeUtilities.getColorScheme(component, associationKind, currState);
-
-        Color result = colorQuery.query(currStateScheme);
-
-        if (currState.isDisabled() || modelStateInfo.getStateContributionMap().size() == 1) {
-            // Disabled state or only one active state being tracked
-            return result;
-        }
-
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateContributionMap();
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates.entrySet()) {
-            if (activeEntry.getKey() == currState) {
-                // Already accounted for the currently active state
-                continue;
-            }
-            float amount = activeEntry.getValue().getContribution();
-            if (amount == 0.0f) {
-                // Skip a zero-amount contribution
-                continue;
-            }
-            // Get the color scheme that matches the contribution state
-            RadianceColorScheme contributionScheme =
-                    RadianceColorSchemeUtilities.getColorScheme(component, associationKind, activeEntry.getKey());
-
-            // Interpolate the color based on the scheme and contribution amount
-            result = RadianceColorUtilities.getInterpolatedColor(result,
-                    colorQuery.query(contributionScheme), 1.0f - amount);
-        }
-
-        return result;
     }
 }

@@ -29,18 +29,19 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonGallery;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
@@ -73,7 +74,7 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
         Graphics2D g2d = (Graphics2D) graphics;
         RadianceColorScheme borderColorScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.ribbonGallery, ColorSchemeAssociationKind.BORDER, ComponentState.ENABLED);
-        RadianceImageCreator.paintBorder(this.ribbonGallery, g2d, this.margin.left,
+        BladeDrawingUtils.paintBladeBorder(this.ribbonGallery, g2d, this.margin.left,
                 this.margin.top,
                 this.ribbonGallery.getWidth() - this.margin.left - this.margin.right,
                 this.ribbonGallery.getHeight() - this.margin.top - this.margin.bottom,

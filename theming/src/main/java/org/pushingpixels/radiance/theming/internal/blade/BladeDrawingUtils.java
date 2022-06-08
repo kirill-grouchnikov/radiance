@@ -31,10 +31,12 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.SunfireRedColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -91,5 +93,61 @@ public class BladeDrawingUtils {
                                 0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, scaledRadius));
                     }
                 });
+    }
+
+    /**
+     * Paints rectangular gradient background.
+     *
+     * @param g
+     *            Graphic context.
+     * @param startX
+     *            Background starting X coord.
+     * @param startY
+     *            Background starting Y coord.
+     * @param width
+     *            Background width.
+     * @param height
+     *            Background height.
+     * @param colorScheme
+     *            Color scheme for the background.
+     * @param borderAlpha
+     *            Border alpha.
+     * @param isVertical
+     *            if <code>true</code>, the gradient will be vertical, if <code>false</code>, the
+     *            gradient will be horizontal.
+     */
+    public static void paintRectangularBackground(Component c, Graphics g, int startX, int startY,
+            int width, int height, RadianceColorScheme colorScheme, float borderAlpha,
+            boolean isVertical) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(startX, startY);
+
+        if (!isVertical) {
+            LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, height,
+                    new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                    new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
+                                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
+                    MultipleGradientPaint.CycleMethod.REPEAT);
+            graphics.setPaint(paint);
+            graphics.fillRect(0, 0, width, height);
+        } else {
+            LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
+                    new float[] { 0.0f, 0.4f, 0.5f, 1.0f },
+                    new Color[] { colorScheme.getUltraLightColor(), colorScheme.getLightColor(),
+                                    colorScheme.getMidColor(), colorScheme.getUltraLightColor() },
+                    MultipleGradientPaint.CycleMethod.REPEAT);
+            graphics.setPaint(paint);
+            graphics.fillRect(0, 0, width, height);
+        }
+
+        if (borderAlpha > 0.0f) {
+            Graphics2D g2d = (Graphics2D) graphics.create();
+            g2d.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
+
+            paintBladeSimpleBorder(g2d, width, height, 0.0f, colorScheme);
+
+            g2d.dispose();
+        }
+        graphics.dispose();
     }
 }

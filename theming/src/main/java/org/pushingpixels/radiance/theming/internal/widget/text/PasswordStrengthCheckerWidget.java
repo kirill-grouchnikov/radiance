@@ -34,8 +34,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.BorderWrapper;
 
@@ -132,7 +132,7 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
                 colorScheme = RadianceColorSchemeUtilities.GREEN;
 
             if (colorScheme != null) {
-                RadianceImageCreator.paintRectangularBackground(c, g, x, y, width, height,
+                BladeDrawingUtils.paintRectangularBackground(c, g, x, y, width, height,
                         colorScheme, 0.5f, false);
             }
 

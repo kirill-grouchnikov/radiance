@@ -124,8 +124,8 @@ public class HighlightPainterUtils {
                             scaledWidth + deltaLeft + deltaRight - 1.0f,
                             scaledHeight + deltaTop + deltaBottom - 1.0f);
 
-                    graphics1X.translate(-scaleFactor * deltaLeft, -scaleFactor * deltaTop);
-                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics));
+                    graphics1X.translate(-deltaLeft, -deltaTop);
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics1X));
                     Shape contourInner = new Rectangle2D.Float(
                             1.0f, 1.0f,
                             scaledWidth + deltaLeft + deltaRight - 3.0f,
@@ -135,7 +135,7 @@ public class HighlightPainterUtils {
                             scaledWidth + deltaLeft + deltaRight,
                             scaledHeight + deltaTop + deltaBottom,
                             contour, contourInner, borderColorScheme);
-                    graphics1X.translate(scaleFactor * deltaLeft, scaleFactor * deltaTop);
+                    graphics1X.translate(deltaLeft, deltaTop);
                 });
         graphics.dispose();
     }
