@@ -30,105 +30,90 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 /**
  * Custom implementation of etched border.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class RadianceEtchedBorder implements Border {
-	/**
-	 * Returns the highlight color for the specified component.
-	 * 
-	 * @param c
-	 *            Component.
-	 * @return Matching highlight color.
-	 */
-	public Color getHighlightColor(Component c) {
-		RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-				c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-		return colorScheme.getSeparatorPrimaryColor();
-	}
+    /**
+     * Returns the highlight color for the specified component.
+     *
+     * @param c Component.
+     * @return Matching highlight color.
+     */
+    private Color getHighlightColor(Component c) {
+        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+        return colorScheme.getSeparatorPrimaryColor();
+    }
 
-	/**
-	 * Returns the shadow color for the specified component.
-	 * 
-	 * @param c
-	 *            Component.
-	 * @return Matching shadow color.
-	 */
-	public Color getShadowColor(Component c) {
-		RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-				c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-		return colorScheme.getSeparatorSecondaryColor();
-	}
+    /**
+     * Returns the shadow color for the specified component.
+     *
+     * @param c Component.
+     * @return Matching shadow color.
+     */
+    private Color getShadowColor(Component c) {
+        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                c, RadianceThemingSlices.ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+        return colorScheme.getSeparatorSecondaryColor();
+    }
 
-	public boolean isBorderOpaque() {
-		return false;
-	}
+    public boolean isBorderOpaque() {
+        return false;
+    }
 
-	public void paintBorder(Component c, Graphics g, int x, int y, int width,
-			int height) {
-		int w = width;
-		int h = height;
+    public void paintBorder(Component c, Graphics g, int x, int y, int width,
+            int height) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(x, y);
 
-		Graphics2D g2d = (Graphics2D) g.create();
-		float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(c);
-		g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_BUTT,
-				BasicStroke.JOIN_ROUND));
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-				RenderingHints.VALUE_STROKE_PURE);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_OFF);
+        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+                            BasicStroke.JOIN_ROUND));
 
-		g2d.translate(x, y);
+                    graphics1X.setColor(getShadowColor(c));
+                    graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f,
+                            scaledWidth - 2.0f, scaledHeight - 2.0f));
 
-		g2d.setColor(getShadowColor(c));
+                    graphics1X.setColor(getHighlightColor(c));
+                    // left
+                    graphics1X.drawLine(1, 1, 1, scaledHeight - 3);
+                    // top
+                    graphics1X.drawLine(1, 1, scaledWidth - 3, 1);
+                    // right
+                    graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight - 1);
+                    // bottom
+                    graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 2, scaledHeight - 1);
+                });
 
-		// this is to prevent clipping of thick outer borders.
-		float delta = strokeWidth / 2.0f;
+        graphics.dispose();
 
-		g2d.draw(new Rectangle2D.Float(delta, delta, w - delta - 2
-				* strokeWidth, h - delta - 2 * strokeWidth));
-		// g2d.drawRect(0, 0, w - 2, h - 2);
-
-		g2d.setColor(getHighlightColor(c));
-		g2d.draw(new Line2D.Float(strokeWidth, h - 3 * strokeWidth,
-				strokeWidth, strokeWidth));
-		// g2d.drawLine(1, h - 3, 1, 1);
-		g2d.draw(new Line2D.Float(delta + strokeWidth, delta + strokeWidth, w
-				- delta - 3 * strokeWidth, delta + strokeWidth));
-		// g2d.drawLine(1, 1, w - 3, 1);
-
-		g2d.draw(new Line2D.Float(delta, h - delta - strokeWidth, w - delta
-				- strokeWidth, h - delta - strokeWidth));
-		// g2d.drawLine(0, h - 1, w - 1, h - 1);
-		g2d.draw(new Line2D.Float(w - delta - strokeWidth, h - delta
-				- strokeWidth, w - delta - strokeWidth, delta));
-		// g2d.drawLine(w - 1, h - 1, w - 1, 0);
-
-		g2d.dispose();
-
-		// this is a fix for defect 248 - in order to paint the TitledBorder
-		// text respecting the AA settings of the display, we have to
-		// set rendering hints on the passed Graphics object.
+        // this is a fix for defect 248 - in order to paint the TitledBorder
+        // text respecting the AA settings of the display, we have to
+        // set rendering hints on the passed Graphics object.
         RadianceCommonCortex.installDesktopHints((Graphics2D) g, c.getFont());
-	}
+    }
 
-	@Override
-	public Insets getBorderInsets(Component c) {
-		float borderStrokeWidth = RadianceSizeUtils.getBorderStrokeWidth(c);
-		int prefSize = (int) (Math.ceil(2.0 * borderStrokeWidth));
-		return new Insets(prefSize, prefSize, prefSize, prefSize);
-	}
+    @Override
+    public Insets getBorderInsets(Component c) {
+        return new Insets(2, 2, 2, 2);
+    }
 }
