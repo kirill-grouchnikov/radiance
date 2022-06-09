@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -47,6 +48,39 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 
 public class BladeIconUtils {
+    /**
+     * Custom fill painter for the checkmarks of checkboxes and radio buttons.
+     *
+     * @author Kirill Grouchnikov
+     */
+    private static class SimplisticSoftBorderReverseFillPainter extends SimplisticFillPainter {
+        /**
+         * Singleton instance.
+         */
+        public static final RadianceFillPainter INSTANCE = new SimplisticSoftBorderReverseFillPainter();
+
+        /**
+         * Private constructor.
+         */
+        private SimplisticSoftBorderReverseFillPainter() {
+        }
+
+        @Override
+        public String getDisplayName() {
+            return "Simplistic Soft Border Reverse";
+        }
+
+        @Override
+        public Color getTopFillColor(RadianceColorScheme fillScheme) {
+            return super.getBottomFillColor(fillScheme);
+        }
+
+        @Override
+        public Color getBottomFillColor(RadianceColorScheme fillScheme) {
+            return super.getTopFillColor(fillScheme);
+        }
+    }
+
     public static void drawCheckBox(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
             RadianceColorScheme fillColorScheme, RadianceColorScheme markColorScheme,
@@ -70,7 +104,7 @@ public class BladeIconUtils {
                             cornerRadius, null, 0.0f);
 
                     RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                            : RadianceImageCreator.SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                            : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     Graphics2D clipped = (Graphics2D) graphics1X.create();
                     clipped.clip(contour);
@@ -145,7 +179,7 @@ public class BladeIconUtils {
                     Shape contour = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
 
                     RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                            : RadianceImageCreator.SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                            : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     Graphics2D clipped = (Graphics2D) graphics1X.create();
                     clipped.clip(contour);
@@ -317,7 +351,7 @@ public class BladeIconUtils {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         HiDPIUtils.paintAtScale1x(graphics, 0, 0, size, size,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceFillPainter fillPainter = RadianceImageCreator.SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                    RadianceFillPainter fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     RadianceBorderPainter borderPainter = new FlatBorderPainter();
 
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,

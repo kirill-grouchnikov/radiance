@@ -54,39 +54,6 @@ import java.awt.image.BufferedImage;
  */
 public final class RadianceImageCreator {
     /**
-     * Custom fill painter for filling the checkmarks of checkboxes and radio buttons.
-     * 
-     * @author Kirill Grouchnikov
-     */
-    public static class SimplisticSoftBorderReverseFillPainter extends SimplisticFillPainter {
-        /**
-         * Singleton instance.
-         */
-        public static final RadianceFillPainter INSTANCE = new SimplisticSoftBorderReverseFillPainter();
-
-        /**
-         * Private constructor.
-         */
-        private SimplisticSoftBorderReverseFillPainter() {
-        }
-
-        @Override
-        public String getDisplayName() {
-            return "Simplistic Soft Border Reverse";
-        }
-
-        @Override
-        public Color getTopFillColor(RadianceColorScheme fillScheme) {
-            return super.getBottomFillColor(fillScheme);
-        }
-
-        @Override
-        public Color getBottomFillColor(RadianceColorScheme fillScheme) {
-            return super.getTopFillColor(fillScheme);
-        }
-    }
-
-    /**
      * Returns arrow icon for the specified parameters.
      *
      * @param fontSize
@@ -584,63 +551,6 @@ public final class RadianceImageCreator {
 
         return new ScaleAwareImageWrapperIcon(RadianceImageCreator.overlayEcho(scale, image,
                 noEcho ? 0 : RadianceColorUtilities.getColorStrength(color), echoColor), scale);
-    }
-
-    /**
-     * Returns drag bumps image.
-     * 
-     * @param c
-     *            Component.
-     * @param colorScheme
-     *            Color scheme.
-     * @param width
-     *            Drag bumps width.
-     * @param height
-     *            Drag bumps height.
-     * @param maxNumberOfStripes
-     *            The maximum number of bump stripes (rows or columns).
-     * @return Drag bumps image.
-     */
-    public static BufferedImage getDragImage(Component c, RadianceColorScheme colorScheme,
-            int width, int height, int maxNumberOfStripes) {
-        double scale = RadianceCommonCortex.getScaleFactor(c);
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-        Graphics2D graphics = (Graphics2D) result.getGraphics();
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        Color primary = colorScheme.getSeparatorPrimaryColor();
-        Color secondary = colorScheme.getSeparatorSecondaryColor();
-
-        int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
-        int bumpDotDiameter = RadianceSizeUtils.getDragBumpDiameter(componentFontSize);
-        int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
-        int bumpRows = Math.max(1, height / bumpCellSize - 1);
-        int bumpColumns = Math.max(1, (width - 2) / bumpCellSize);
-        if (maxNumberOfStripes > 0) {
-            if (height > width)
-                bumpColumns = Math.min(bumpColumns, maxNumberOfStripes);
-            else
-                bumpRows = Math.min(bumpRows, maxNumberOfStripes);
-        }
-
-        int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
-        int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
-
-        for (int col = 0; col < bumpColumns; col++) {
-            int cx = bumpColOffset + col * bumpCellSize;
-            boolean isEvenCol = (col % 2 == 0);
-            int offsetY = isEvenCol ? 0 : bumpDotDiameter;
-            for (int row = 0; row < bumpRows; row++) {
-                int cy = offsetY + bumpRowOffset + row * bumpCellSize;
-                graphics.setColor(secondary);
-                graphics.fillOval(cx + 1, cy + 1, bumpDotDiameter, bumpDotDiameter);
-                graphics.setColor(primary);
-                graphics.fillOval(cx, cy, bumpDotDiameter, bumpDotDiameter);
-            }
-        }
-        return result;
     }
 
     /**

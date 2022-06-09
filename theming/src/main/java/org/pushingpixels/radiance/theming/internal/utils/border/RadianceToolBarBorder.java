@@ -58,8 +58,6 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 
 		Graphics2D graphics = (Graphics2D) g.create();
 		graphics.translate(x, y);
-		double scaleFactor = RadianceCommonCortex.getScaleFactor(c);
-		graphics.scale(1.0f / scaleFactor, 1.0f / scaleFactor);
 
 		if (((JToolBar) c).isFloatable()) {
 			RadianceColorScheme scheme = RadianceColorSchemeUtilities
@@ -72,13 +70,12 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 				// fix for defect 3 on NB module
 				int height = c.getHeight() - 4;
 				if (height > 0) {
-					BufferedImage dragImage = RadianceImageCreator.getDragImage(
-							c, scheme, dragBumpsWidth, height, 2);
 					if (c.getComponentOrientation().isLeftToRight()) {
-						graphics.drawImage(dragImage, 2, 1, null);
+						drawDragImage(graphics, c, scheme, 2, 1, dragBumpsWidth, height, 2);
 					} else {
-						graphics.drawImage(dragImage, 
-								c.getBounds().width - dragBumpsWidth - 2, 1, null);
+						drawDragImage(graphics, c, scheme,
+								c.getBounds().width - dragBumpsWidth - 2, 1,
+								dragBumpsWidth, height, 2);
 					}
 				}
 			} else {
@@ -86,10 +83,49 @@ public class RadianceToolBarBorder extends AbstractBorder implements UIResource 
 				// fix for defect 3 on NB module
 				int width = c.getWidth() - 4;
 				if (width > 0) {
-					BufferedImage dragImage = RadianceImageCreator.getDragImage(
-							c, scheme, width, dragBumpsWidth, 2);
-					graphics.drawImage(dragImage, 2, 2, null);
+					drawDragImage(graphics, c, scheme, 2, 2, width, dragBumpsWidth, 2);
 				}
+			}
+		}
+		graphics.dispose();
+	}
+
+	private void drawDragImage(Graphics2D g, Component c, RadianceColorScheme colorScheme,
+			int x, int y, int width, int height, int maxNumberOfStripes) {
+		Graphics2D graphics = (Graphics2D) g.create();
+
+		graphics.translate(x, y);
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+
+		Color primary = colorScheme.getSeparatorPrimaryColor();
+		Color secondary = colorScheme.getSeparatorSecondaryColor();
+
+		int componentFontSize = RadianceSizeUtils.getComponentFontSize(c);
+		int bumpDotDiameter = RadianceSizeUtils.getDragBumpDiameter(componentFontSize);
+		int bumpCellSize = (int) (1.5 * bumpDotDiameter + 1);
+		int bumpRows = Math.max(1, height / bumpCellSize - 1);
+		int bumpColumns = Math.max(1, (width - 2) / bumpCellSize);
+		if (maxNumberOfStripes > 0) {
+			if (height > width)
+				bumpColumns = Math.min(bumpColumns, maxNumberOfStripes);
+			else
+				bumpRows = Math.min(bumpRows, maxNumberOfStripes);
+		}
+
+		int bumpRowOffset = (height - bumpCellSize * bumpRows) / 2;
+		int bumpColOffset = 1 + (width - bumpCellSize * bumpColumns) / 2;
+
+		for (int col = 0; col < bumpColumns; col++) {
+			int cx = bumpColOffset + col * bumpCellSize;
+			boolean isEvenCol = (col % 2 == 0);
+			int offsetY = isEvenCol ? 0 : bumpDotDiameter;
+			for (int row = 0; row < bumpRows; row++) {
+				int cy = offsetY + bumpRowOffset + row * bumpCellSize;
+				graphics.setColor(secondary);
+				graphics.fillOval(cx + 1, cy + 1, bumpDotDiameter, bumpDotDiameter);
+				graphics.setColor(primary);
+				graphics.fillOval(cx, cy, bumpDotDiameter, bumpDotDiameter);
 			}
 		}
 		graphics.dispose();
