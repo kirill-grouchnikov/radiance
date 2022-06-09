@@ -165,8 +165,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     public RadianceIcon getLockIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
         RadianceIcon result = ic_lock_outline_black_24px.uiResourceOf(preferredSize, preferredSize);
-        result.setColorFilter(preferredIconColorScheme.getColorFilter(
-                preferredIconColorScheme.isDark() ? 0.6f : -0.1f, 1.0f));
+        result.setColorFilter(color -> preferredIconColorScheme.getDarkColor());
         return result;
     }
 
