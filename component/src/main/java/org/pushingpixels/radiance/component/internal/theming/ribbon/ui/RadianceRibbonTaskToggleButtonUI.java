@@ -29,18 +29,17 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.radiance.component.internal.theming.utils.RibbonTaskToggleButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonTaskToggleButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
@@ -231,7 +230,8 @@ public class RadianceRibbonTaskToggleButtonUI extends
         // outlines.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(g2d, 0, 0, this.commandButton.getWidth(), this.commandButton.getWidth(),
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0,
+                this.commandButton.getWidth(), this.commandButton.getWidth(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     // Use foreground color for consistency - since non-active task toggle buttons use parent's
                     // decoration background fill.

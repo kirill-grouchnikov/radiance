@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
@@ -38,7 +37,6 @@ import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.ButtonBackgroundDelegate;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceButtonBorder;
 import org.pushingpixels.radiance.theming.internal.utils.icon.GlowingIcon;
@@ -259,7 +257,7 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
             // outlines.
             graphicsFocus.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            HiDPIUtils.paintAtScale1x(graphicsFocus, 0, 0, b.getWidth(), b.getHeight(),
+            RadianceCommonCortex.paintAtScale1x(graphicsFocus, 0, 0, b.getWidth(), b.getHeight(),
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         RadianceCoreUtilities.paintFocus(graphics1X, b, b, this, scaleFactor,
                                 null, textRect, 1.0f,

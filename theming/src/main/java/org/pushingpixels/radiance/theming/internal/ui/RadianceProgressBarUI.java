@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.animation.api.callback.TimelineCallback;
 import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
@@ -241,7 +240,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         if (orientation == SwingConstants.HORIZONTAL) {
-            HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
@@ -252,7 +251,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     });
         } else {
             // Flip width and height, and then apply a rotation transformation
-            HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         // Rotate the graphics context for correct "orientation" of the visuals
                         AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
@@ -280,7 +279,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         if (orientation == SwingConstants.HORIZONTAL) {
-            HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
@@ -294,7 +293,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     });
         } else {
             // Flip width and height, and then apply a rotation transformation
-            HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         // Rotate the graphics context for correct "orientation" of the visuals
                         AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
@@ -407,7 +406,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
             final int stripeOffset, float borderAlpha, boolean isVertical) {
         Graphics2D graphics = (Graphics2D) g.create(startX, startY, width, height);
         if (!isVertical) {
-            HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         LinearGradientPaint paint = new LinearGradientPaint(0, 0, 0, scaledHeight,
                                 new float[]{0.0f, 0.2f, 0.5f, 0.8f, 1.0f},
@@ -429,7 +428,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         }
                     });
         } else {
-            HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         // Rotate the graphics context for correct "orientation" of the visuals
                         AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 2);

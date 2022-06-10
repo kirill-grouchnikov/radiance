@@ -131,36 +131,38 @@ public class FakeAccordion extends JPanel {
                     if (!(UIManager.getLookAndFeel() instanceof RadianceLookAndFeel)) {
                         return;
                     }
+
                     // Use the border visuals from the current skin.
                     // Note the usage of ColorSchemeAssociationKind.BORDER to retrieve
                     // the matching color scheme, and subsequent usage of
                     // RadianceBorderPainter.paintBorder with our custom curving paths
 
-                    RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(contentWrapper);
-                    RadianceBorderPainter borderPainter = skin.getBorderPainter();
-                    RadianceColorScheme borderScheme = skin.getColorScheme(contentWrapper,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                            ComponentState.ENABLED);
-
-                    float borderThicknessOuter = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
-                    float radiusOuter = 5.0f;
-
-                    Graphics2D g2d = (Graphics2D) g.create();
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    Graphics2D graphics = (Graphics2D) g.create();
+                    // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                    // to not normalize coordinates to paint at full pixels, and will result in blurry
+                    // outlines.
+                    graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                            RenderingHints.VALUE_STROKE_PURE);
+                    RadianceCommonCortex.paintAtScale1x(graphics, x, y, width, height,
+                            (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                                RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(contentWrapper);
+                                RadianceBorderPainter borderPainter = skin.getBorderPainter();
+                                RadianceColorScheme borderScheme = skin.getColorScheme(contentWrapper,
+                                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                                        ComponentState.ENABLED);
 
-                    GeneralPath inner = getOutline(x, y, width, height, borderThicknessOuter,
-                            borderThicknessOuter, radiusOuter - borderThicknessOuter);
-                    GeneralPath outer = getOutline(x, y, width, height, borderThicknessOuter,
-                            0, radiusOuter);
+                                float radiusOuter = (float) scaleFactor * 5.0f;
 
-                    g2d.translate(x, y);
-                    borderPainter.paintBorder(g2d, contentWrapper, width, height,
-                            outer, inner, borderScheme);
+                                GeneralPath inner = getOutline(0, 0, scaledWidth, scaledHeight,
+                                        1.0f, 1.0f, radiusOuter - 1.0f);
+                                GeneralPath outer = getOutline(0, 0, scaledWidth, scaledHeight,
+                                        1.0f, 0, radiusOuter);
+                                borderPainter.paintBorder(graphics1X, contentWrapper,
+                                        scaledWidth, scaledHeight,
+                                        outer, inner, borderScheme);
 
-                    g2d.dispose();
+                            });
+                    graphics.dispose();
                 }
 
                 @Override

@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -52,7 +52,7 @@ public class BladeDrawingUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
                     float scaledRadius = (float) scaleFactor * baseRadius;
@@ -78,7 +78,7 @@ public class BladeDrawingUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
                     Color borderColor = borderPainter.getRepresentativeColor(colorScheme);

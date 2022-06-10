@@ -15,20 +15,17 @@
  */
 package org.pushingpixels.radiance.common.internal.contrib.flatlaf;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 
 // Taken from https://github.com/JFormDesigner/FlatLaf/blob/main/flatlaf-core/src/main/java/com/formdev/flatlaf/util/HiDPIUtils.java
-public class HiDPIUtils
-{
-	public interface Painter {
-		void paint( Graphics2D g, int x, int y, int width, int height, double scaleFactor );
-	}
-
-	public static void paintAtScale1x( Graphics2D g, JComponent c, Painter painter ) {
-		paintAtScale1x( g, 0, 0, c.getWidth(), c.getHeight(), painter );
+public class HiDPIUtils {
+	public static void paintAtScale1x( Graphics2D g, JComponent c, RadianceCommonCortex.PainterScale1X painterScale1X ) {
+		paintAtScale1x( g, 0, 0, c.getWidth(), c.getHeight(), painterScale1X );
 	}
 
 	/**
@@ -39,13 +36,13 @@ public class HiDPIUtils
 	 * <p>
 	 * Uses the same scaling calculation as the JRE uses.
 	 */
-	public static void paintAtScale1x( Graphics2D g, int x, int y, int width, int height, Painter painter ) {
+	public static void paintAtScale1x( Graphics2D g, int x, int y, int width, int height, RadianceCommonCortex.PainterScale1X painterScale1X ) {
 		// save original transform
 		AffineTransform transform = g.getTransform();
 
 		// check whether scaled
 		if( transform.getScaleX() == 1 && transform.getScaleY() == 1 ) {
-			painter.paint( g, x, y, width, height, 1 );
+			painterScale1X.paint( g, x, y, width, height, 1 );
 			return;
 		}
 
@@ -61,7 +58,7 @@ public class HiDPIUtils
 			int sheight = (int) scaledRect.height;
 
 			// paint
-			painter.paint( g, 0, 0, swidth, sheight, transform.getScaleX() );
+			painterScale1X.paint( g, 0, 0, swidth, sheight, transform.getScaleX() );
 		} finally {
 			// restore original transform
 			g.setTransform( transform );

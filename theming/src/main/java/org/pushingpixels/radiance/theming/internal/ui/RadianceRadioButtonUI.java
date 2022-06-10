@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -278,7 +277,8 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
             // outlines.
             graphicsFocus.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
-            HiDPIUtils.paintAtScale1x(graphicsFocus, 0, 0, button.getWidth(), button.getHeight(),
+            RadianceCommonCortex.paintAtScale1x(graphicsFocus, 0, 0,
+                    button.getWidth(), button.getHeight(),
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         RadianceCoreUtilities.paintFocus(graphics1X, button, button, this, scaleFactor,
                                 null, textRect, 1.0f,

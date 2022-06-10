@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
@@ -84,7 +83,7 @@ public class RadianceEtchedBorder implements Border {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_OFF);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
                             BasicStroke.JOIN_ROUND));

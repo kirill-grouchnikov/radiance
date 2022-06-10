@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
@@ -641,8 +640,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         // outlines.
         focusGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(focusGraphics, 0, 0, this.commandButton.getWidth(),
-                this.commandButton.getHeight(),
+        RadianceCommonCortex.paintAtScale1x(focusGraphics, 0, 0,
+                this.commandButton.getWidth(), this.commandButton.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     float focusRingPadding = (float) scaleFactor *
                             RadianceSizeUtils.getFocusRingPadding(this.commandButton,

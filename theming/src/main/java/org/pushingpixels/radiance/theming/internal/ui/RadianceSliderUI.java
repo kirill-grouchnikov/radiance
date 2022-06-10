@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -196,7 +196,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         // outlines.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(g2d, paintRect.x, paintRect.y,
+        RadianceCommonCortex.paintAtScale1x(g2d, paintRect.x, paintRect.y,
                 paintRect.width + 1, paintRect.height + 1,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     if (this.slider.getOrientation() == JSlider.VERTICAL) {
@@ -521,7 +521,8 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         // outlines.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(g2d, 0, 0, this.slider.getWidth(), this.slider.getWidth(),
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0,
+                this.slider.getWidth(), this.slider.getWidth(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceCoreUtilities.paintFocus(graphics1X, this.slider, this.slider, this,
                             scaleFactor, null, null, 1.0f,

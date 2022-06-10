@@ -29,14 +29,13 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -93,7 +92,7 @@ public class BladeIconUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     float cornerRadius = (float) scaleFactor *
                             RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
@@ -173,7 +172,7 @@ public class BladeIconUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     int contourDim = scaledWidth;
                     Shape contour = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
@@ -228,7 +227,7 @@ public class BladeIconUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     if (isMirrored) {
                         AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
@@ -268,7 +267,7 @@ public class BladeIconUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, height, width,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     AffineTransform at;
                     if (isMirrored) {
@@ -317,7 +316,7 @@ public class BladeIconUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     Shape contour = new Ellipse2D.Float(0.0f, 0.0f,
                             scaledWidth - 1.0f, scaledHeight - 1.0f);
@@ -349,7 +348,7 @@ public class BladeIconUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, size, size,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, size, size,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceFillPainter fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     RadianceBorderPainter borderPainter = new FlatBorderPainter();

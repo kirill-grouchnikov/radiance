@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -122,7 +122,8 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
         // outlines.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(g2d, 0, 0, this.colorSelectorComponent.getWidth(),
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0,
+                this.colorSelectorComponent.getWidth(),
                 this.colorSelectorComponent.getHeight(),
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(

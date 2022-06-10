@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.painter;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -206,7 +206,7 @@ public class SeparatorPainterUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, height,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceThemingSlices.DecorationAreaType decorationAreaType =
                             RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
@@ -412,7 +412,7 @@ public class SeparatorPainterUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, maxX - minX + 1, height,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, maxX - minX + 1, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);
                     Color primary = scheme.getSeparatorPrimaryColor();
@@ -478,7 +478,7 @@ public class SeparatorPainterUtils {
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics, 0, 0, width, maxY - minY + 1,
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, maxY - minY + 1,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
                     Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);
                     Color primary = scheme.getSeparatorPrimaryColor();

@@ -30,14 +30,13 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultComboBoxRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.combo.ComboBoxBackgroundDelegate;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
+import org.pushingpixels.radiance.theming.internal.utils.combo.ComboBoxBackgroundDelegate;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboBoxEditor;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
 
@@ -477,7 +476,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         // outlines.
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(g2d, 0, 0, bounds.width, bounds.height,
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, bounds.width, bounds.height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     graphics1X.translate(bounds.x, bounds.y);
                     int comboFontSize = RadianceSizeUtils.getComponentFontSize(this.comboBox);

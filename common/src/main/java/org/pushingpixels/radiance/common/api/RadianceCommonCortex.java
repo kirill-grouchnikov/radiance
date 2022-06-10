@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.common.api;
 import org.pushingpixels.radiance.common.api.filter.RadianceAbstractFilter;
 import org.pushingpixels.radiance.common.api.font.FontPolicy;
 import org.pushingpixels.radiance.common.api.font.FontSet;
+import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
 import org.pushingpixels.radiance.common.internal.contrib.intellij.JBHiDPIScaledImage;
 import org.pushingpixels.radiance.common.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
@@ -310,5 +311,13 @@ public class RadianceCommonCortex {
                     x + offsetX, y + offsetY,
                     x + offsetX + width, y + offsetY + height, null);
         }
+    }
+
+    public static void paintAtScale1x(Graphics2D g, int x, int y, int width, int height, RadianceCommonCortex.PainterScale1X painterScale1X) {
+        HiDPIUtils.paintAtScale1x(g, x, y, width, height, painterScale1X);
+    }
+
+    public interface PainterScale1X {
+        void paint(Graphics2D g, int x, int y, int scaledWidth, int scaledHeight, double scaleFactor);
     }
 }

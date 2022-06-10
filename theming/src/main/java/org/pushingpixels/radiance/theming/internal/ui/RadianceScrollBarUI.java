@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.ui;
 
-import org.pushingpixels.radiance.common.internal.contrib.flatlaf.HiDPIUtils;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -180,7 +180,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics,
+        RadianceCommonCortex.paintAtScale1x(graphics,
                 thumbBounds.x, thumbBounds.y, height, width,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
@@ -238,7 +238,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x(graphics,
+        RadianceCommonCortex.paintAtScale1x(graphics,
                 thumbBounds.x, thumbBounds.y, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     RadianceFillPainter painter = RadianceCoreUtilities.getFillPainter(this.scrollbar);
