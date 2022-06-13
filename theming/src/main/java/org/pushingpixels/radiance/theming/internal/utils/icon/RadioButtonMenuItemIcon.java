@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -94,17 +93,14 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         // Populate color schemes based on the current transition state of the menu item.
         BladeUtils.populateColorScheme(mutableFillColorScheme, this.menuItem,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),
                 RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 false);
         BladeUtils.populateColorScheme(mutableBorderColorScheme, this.menuItem,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
         BladeUtils.populateColorScheme(mutableMarkColorScheme, this.menuItem,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.menuItem),
                 RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
                 false);
 

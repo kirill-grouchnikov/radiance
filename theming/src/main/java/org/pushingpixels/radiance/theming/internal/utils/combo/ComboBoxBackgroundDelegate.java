@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.utils.combo;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -69,12 +68,10 @@ public class ComboBoxBackgroundDelegate {
         // Important - don't do it on pulsating buttons (such as close button of modified frames).
         BladeUtils.populateColorScheme(mutableFillColorScheme, combo,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(combo),
                 RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 false);
         BladeUtils.populateColorScheme(mutableBorderColorScheme, combo,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(combo),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 

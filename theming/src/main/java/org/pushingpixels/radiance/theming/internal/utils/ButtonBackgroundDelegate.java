@@ -102,12 +102,10 @@ public class ButtonBackgroundDelegate {
         // Important - don't do it on pulsating buttons (such as close button of modified frames).
         BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
                 RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 false);
         BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 

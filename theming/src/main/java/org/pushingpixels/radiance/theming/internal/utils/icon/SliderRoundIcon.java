@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -82,12 +81,10 @@ public class SliderRoundIcon implements Icon, UIResource {
         // Populate color schemes based on the current transition state of the slider.
         BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.slider),
                 RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 false);
         BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.slider),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 

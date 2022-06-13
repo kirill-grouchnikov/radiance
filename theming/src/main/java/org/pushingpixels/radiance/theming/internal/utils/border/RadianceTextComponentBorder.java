@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -116,7 +115,6 @@ public class RadianceTextComponentBorder implements Border, UIResource {
 
                 BladeUtils.populateColorScheme(mutableBorderColorScheme, c,
                         modelStateInfo, currState,
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c),
                         RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                         false);
 

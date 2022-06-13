@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
@@ -118,7 +117,6 @@ public class RadianceTableCellBorder implements Border, UIResource {
 
 		BladeUtils.populateColorScheme(mutableBorderColorScheme, c,
 				modelStateInfo, currState,
-				RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c),
 				RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 				false);
 		BladeDrawingUtils.paintBladeBorder(c, graphics, x, y, width, height, radius,

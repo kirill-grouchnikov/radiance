@@ -230,12 +230,10 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                     // Populate color schemes based on the current transition state of the slider.
                     BladeUtils.populateColorScheme(mutableFillColorScheme, this.slider,
                             modelStateInfo, currState,
-                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.slider),
                             RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                             false);
                     BladeUtils.populateColorScheme(mutableBorderColorScheme, this.slider,
                             modelStateInfo, currState,
-                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.slider),
                             RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                             false);
                     this.paintSliderTrackSelected1X(graphics1X, drawInverted, paintRect,

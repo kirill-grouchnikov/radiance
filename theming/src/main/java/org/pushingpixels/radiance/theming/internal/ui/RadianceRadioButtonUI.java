@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -140,17 +139,14 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                 // Populate color schemes based on the current transition state of the radio button.
                 BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                         modelStateInfo, currState,
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
                         RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                         false);
                 BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
                         modelStateInfo, currState,
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
                         RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                         false);
                 BladeUtils.populateColorScheme(mutableMarkColorScheme, button,
                         modelStateInfo, currState,
-                        RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button),
                         RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
                         false);
 

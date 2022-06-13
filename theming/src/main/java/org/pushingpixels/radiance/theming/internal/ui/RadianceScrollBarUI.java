@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -165,12 +164,10 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // parameter to "populateColorScheme").
         BladeUtils.populateColorScheme(mutableFillColorScheme, this.scrollbar,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
                 RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 true);
         BladeUtils.populateColorScheme(mutableBorderColorScheme, this.scrollbar,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 
@@ -223,12 +220,10 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // parameter to "populateColorScheme").
         BladeUtils.populateColorScheme(mutableFillColorScheme, this.scrollbar,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
                 RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 true);
         BladeUtils.populateColorScheme(mutableBorderColorScheme, this.scrollbar,
                 modelStateInfo, currState,
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.scrollbar),
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 

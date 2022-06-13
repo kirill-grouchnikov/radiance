@@ -100,7 +100,6 @@ public class BladeUtils {
             Component component,
             StateTransitionTracker.ModelStateInfo modelStateInfo,
             ComponentState currState,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType,
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
             boolean treatEnabledAsActive) {
         if (!SwingUtilities.isEventDispatchThread()) {
