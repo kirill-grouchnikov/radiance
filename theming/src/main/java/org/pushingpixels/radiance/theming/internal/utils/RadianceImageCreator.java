@@ -33,8 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
 

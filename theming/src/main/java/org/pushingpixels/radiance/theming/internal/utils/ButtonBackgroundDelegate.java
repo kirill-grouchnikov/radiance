@@ -192,11 +192,6 @@ public class ButtonBackgroundDelegate {
 
         int width = button.getWidth();
         int height = button.getHeight();
-//        if (RadianceCoreUtilities.isSpinnerButton(button)) {
-//            PairwiseButtonBackgroundDelegate.updatePairwiseBackground(g, button, width, height,
-//                    false);
-//            return;
-//        }
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();

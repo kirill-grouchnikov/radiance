@@ -187,19 +187,6 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Checks and answers if the specified button is in a spinner.
-     *
-     * @param button the button to check
-     * @return <code>true</code> if in spinner, <code>false</code> otherwise
-     */
-    public static boolean isSpinnerButton(AbstractButton button) {
-        if (!(button instanceof RadianceSpinnerButton)) {
-            return false;
-        }
-        return SwingUtilities.getAncestorOfClass(JSpinner.class, button) != null;
-    }
-
-    /**
      * Checks and answers if the specified button is in a toolbar.
      *
      * @param component the button to check
