@@ -109,4 +109,9 @@ public class WaveFillPainter implements RadianceFillPainter {
         graphics.drawImage(rectangular, 0, 0, null);
         graphics.dispose();
     }
+
+    @Override
+    public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
+        return fillScheme.getLightColor();
+    }
 }

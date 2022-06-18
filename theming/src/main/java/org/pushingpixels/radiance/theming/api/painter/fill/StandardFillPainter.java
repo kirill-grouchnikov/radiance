@@ -226,4 +226,9 @@ public class StandardFillPainter implements RadianceFillPainter {
     public Color getBottomShineColor(RadianceColorScheme fillScheme) {
         return RadianceColorUtilities.getBottomShineColor(fillScheme);
     }
+
+    @Override
+    public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
+        return this.getMidFillColorTop(fillScheme);
+    }
 }

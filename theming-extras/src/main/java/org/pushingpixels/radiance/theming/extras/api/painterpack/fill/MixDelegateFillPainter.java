@@ -110,4 +110,8 @@ public class MixDelegateFillPainter implements RadianceFillPainter {
 				isFocused, fillScheme, hasShine);
 	}
 
+	@Override
+	public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
+		return this.delegate.getRepresentativeColor(fillScheme);
+	}
 }

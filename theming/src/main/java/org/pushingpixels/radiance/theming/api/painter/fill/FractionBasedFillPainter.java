@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.api.painter.fill;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.FractionBasedPainter;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
@@ -80,5 +81,29 @@ public class FractionBasedFillPainter extends FractionBasedPainter implements
 		graphics.setPaint(gradient);
 		graphics.fill(contour);
 		graphics.dispose();
+	}
+
+	@Override
+	public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
+		for (int i = 0; i < this.fractions.length - 1; i++) {
+			float fractionLow = this.fractions[i];
+			float fractionHigh = this.fractions[i + 1];
+			if (fractionLow == 0.5f) {
+				return this.colorQueries[i].query(fillScheme);
+			}
+			if (fractionHigh == 0.5f) {
+				return this.colorQueries[i + 1].query(fillScheme);
+			}
+			if ((fractionLow < 0.5f) || (fractionHigh > 0.5f)) {
+				continue;
+			}
+			// current range contains 0.5f
+			Color colorLow = this.colorQueries[i].query(fillScheme);
+			Color colorHigh = this.colorQueries[i + 1].query(fillScheme);
+			float colorLowLikeness = (0.5f - fractionLow) / (fractionHigh - fractionLow);
+			return RadianceColorUtilities.getInterpolatedColor(colorLow, colorHigh,
+					colorLowLikeness);
+		}
+		throw new IllegalStateException("Could not find representative color");
 	}
 }

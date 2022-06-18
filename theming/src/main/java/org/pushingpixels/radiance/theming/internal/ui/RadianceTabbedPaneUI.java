@@ -34,7 +34,10 @@ import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
@@ -637,8 +640,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
      * Retrieves tab background.
      */
     private static BufferedImage getTabBackground(JTabbedPane tabPane, int width, int height,
-            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
-            boolean paintOnlyBorder) {
+            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, Color tabColor) {
         double scale = RadianceCommonCortex.getScaleFactor(tabPane);
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
@@ -659,10 +661,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, width, height);
         Graphics2D resGraphics = result.createGraphics();
 
-        if (!paintOnlyBorder) {
-            fillPainter.paintContourBackground(resGraphics, tabPane, width, height + dy, contour,
-                    false, fillScheme, true);
-        }
+        resGraphics.setColor(tabColor);
+        resGraphics.fill(contour);
+        Graphics2D clipped = (Graphics2D) resGraphics.create();
+        clipped.clipRect(0, 0, width, (int) (0.2f * height));
+        clipped.setColor(fillPainter.getRepresentativeColor(fillScheme));
+        clipped.fill(contour);
+        clipped.dispose();
 
         float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(tabPane);
         Shape contourInner = borderPainter.isPaintingInnerContour()
@@ -707,7 +712,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 shaper.getDisplayName(), tabPlacement == SwingConstants.BOTTOM, side.name(),
                 colorScheme.getDisplayName(), borderScheme.getDisplayName(), tabColor);
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(tabPane);
         BufferedImage result = RadianceTabbedPaneUI.backgroundMap.get(key);
         if (result == null) {
             BufferedImage backgroundImage = null;
@@ -721,21 +725,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 case LEFT:
                 case RIGHT:
                     backgroundImage = RadianceTabbedPaneUI.getTabBackground(tabPane, width, height,
-                            colorScheme, borderScheme, false);
-                    int fw = backgroundImage.getWidth();
-                    int fh = backgroundImage.getHeight();
-                    BufferedImage fade = RadianceCoreUtilities.getBlankUnscaledImage(
-                            backgroundImage);
-                    Graphics2D fadeGraphics = fade.createGraphics();
-                    fadeGraphics.setColor(tabColor);
-                    fadeGraphics.fillRect(0, 0, fw, fh);
-                    BufferedImage background = RadianceTabbedPaneUI.getTabBackground(tabPane,
-                            width, height, colorScheme, borderScheme, true);
-                    fadeGraphics.drawImage(background, 0, 0, background.getWidth(),
-                            background.getHeight(), null);
-
-                    backgroundImage = RadianceCoreUtilities.blendImagesVertical(backgroundImage,
-                            fade, skin.getTabFadeStart(), skin.getTabFadeEnd());
+                            colorScheme, borderScheme, tabColor);
             }
             RadianceTabbedPaneUI.backgroundMap.put(key, backgroundImage);
         }
@@ -887,21 +877,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         // at this point the 'fillOpacity' has all the relevant layers for the
         // fill + border
 
-        // Special handling of selected tabs under skins that show partial visuals
-        boolean isCloseMarkOnParentBackground = (RadianceCoreUtilities.getSkin(tabPane)
-                .getTabFadeEnd() <= 0.5);
-        ComponentState markState = currState;
-
-        if (isCloseMarkOnParentBackground) {
-            // Ignore all other "aspects" of tab's state
-            markState = this.getTabState(tabIndex, true);
-            // this.tabPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
-            // : ComponentState.DISABLED_UNSELECTED;
-        }
+        ComponentState markState = this.getTabState(tabIndex, true);
         RadianceColorScheme baseMarkScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.tabPane, tabIndex,
-                isCloseMarkOnParentBackground ? RadianceThemingSlices.ColorSchemeAssociationKind.FILL
-                        : RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                 markState);
 
         // fix for defect 138
@@ -996,9 +975,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                                 layerBase.getHeight(), null);
 
                         // draw the other active layers
-                        Map<ComponentState, StateTransitionTracker.StateContributionInfo> contributionInfoMap = isCloseMarkOnParentBackground
-                                ? modelStateInfo.getStateNoSelectionContributionMap()
-                                : modelStateInfo.getStateContributionMap();
+                        Map<ComponentState, StateTransitionTracker.StateContributionInfo> contributionInfoMap =
+                                modelStateInfo.getStateNoSelectionContributionMap();
                         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : contributionInfoMap
                                 .entrySet()) {
                             ComponentState activeState = activeEntry.getKey();
@@ -1013,9 +991,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                                                 RadianceThemingSlices.ColorSchemeAssociationKind.TAB, activeState);
                                 RadianceColorScheme markScheme = RadianceColorSchemeUtilities
                                         .getColorScheme(this.tabPane, tabIndex,
-                                                isCloseMarkOnParentBackground
-                                                        ? RadianceThemingSlices.ColorSchemeAssociationKind.FILL
-                                                        : RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
+                                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
                                                 activeState);
                                 BufferedImage layer = RadianceTabbedPaneUI.getCloseButtonImage(
                                         this.tabPane, orig.width, orig.height, toPaintCloseBorder,
@@ -2054,8 +2030,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected ComponentState getTabState(int tabIndex, boolean toAllowIgnoringSelectedState) {
         boolean isEnabled = this.tabPane.isEnabledAt(tabIndex);
         StateTransitionTracker tracker = this.stateTransitionMultiTracker.getTracker(tabIndex);
-        boolean ignoreSelectedState = toAllowIgnoringSelectedState
-                && (RadianceCoreUtilities.getSkin(tabPane).getTabFadeEnd() <= 0.5);
+        boolean ignoreSelectedState = toAllowIgnoringSelectedState;
         if (tracker == null) {
             boolean isRollover = this.getRolloverTabIndex() == tabIndex;
             boolean isSelected = ignoreSelectedState ? false
@@ -2086,54 +2061,14 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             // plain text
             int mnemIndex = this.tabPane.getDisplayedMnemonicIndexAt(tabIndex);
             // Special handling of tabs under skins that show partial visuals
-            boolean isTextOnParentBackground = (RadianceCoreUtilities.getSkin(tabPane)
-                    .getTabFadeEnd() <= 0.5);
-            ComponentState currState = this.getTabState(tabIndex, true);
-            if (isTextOnParentBackground) {
-                // Ignore all other "aspects" of tab's state
-                currState = this.tabPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
-                        : ComponentState.DISABLED_UNSELECTED;
-            }
-            StateTransitionTracker.ModelStateInfo modelStateInfo = isTextOnParentBackground ? null
-                    : this.getModelStateInfo(tabIndex);
+            ComponentState currState = this.tabPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
+                    : ComponentState.DISABLED_UNSELECTED;
+            StateTransitionTracker.ModelStateInfo modelStateInfo = null;
 
             // System.out.println("Tab " + title + ":" + currState);
-            Color fg = null;
-            if (modelStateInfo != null) {
-                Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                        .getStateContributionMap();
-                RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                        tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, currState);
-                if (currState.isDisabled() || (activeStates == null)
-                        || (activeStates.size() == 1)) {
-                    fg = colorScheme.getForegroundColor();
-                } else {
-                    float aggrRed = 0;
-                    float aggrGreen = 0;
-                    float aggrBlue = 0;
-
-                    for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                            .entrySet()) {
-                        ComponentState activeState = activeEntry.getKey();
-                        RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-                                tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, activeState);
-                        Color schemeFg = scheme.getForegroundColor();
-                        float contribution = activeEntry.getValue().getContribution();
-                        // System.out.println("\t" + activeState + ":"
-                        // + contribution + ":" + scheme.getDisplayName()
-                        // + ":" + schemeFg);
-                        aggrRed += schemeFg.getRed() * contribution;
-                        aggrGreen += schemeFg.getGreen() * contribution;
-                        aggrBlue += schemeFg.getBlue() * contribution;
-                    }
-                    // System.out.println("");
-                    fg = new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
-                }
-            } else {
-                RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(tabPane,
-                        tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, currState);
-                fg = scheme.getForegroundColor();
-            }
+            RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(tabPane,
+                    tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, currState);
+            Color fg = scheme.getForegroundColor();
 
             Graphics2D graphics = (Graphics2D) g.create();
             if (currState.isDisabled()) {

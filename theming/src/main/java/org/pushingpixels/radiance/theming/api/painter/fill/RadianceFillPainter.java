@@ -65,4 +65,6 @@ public interface RadianceFillPainter extends RadianceTrait {
 	void paintContourBackground(Graphics g, Component comp, float width,
 			float height, Shape contour, boolean isFocused,
 			RadianceColorScheme fillScheme, boolean hasShine);
+
+	Color getRepresentativeColor(RadianceColorScheme fillScheme);
 }

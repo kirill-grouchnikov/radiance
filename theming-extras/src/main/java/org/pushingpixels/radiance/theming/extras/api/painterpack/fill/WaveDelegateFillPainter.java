@@ -153,4 +153,9 @@ public abstract class WaveDelegateFillPainter implements RadianceFillPainter {
 
 		graphics.setClip(null);
 	}
+
+	@Override
+	public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
+		return this.delegate.getRepresentativeColor(fillScheme);
+	}
 }

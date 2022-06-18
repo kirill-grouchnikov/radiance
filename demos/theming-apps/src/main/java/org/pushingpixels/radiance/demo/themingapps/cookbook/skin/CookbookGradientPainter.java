@@ -102,4 +102,8 @@ public class CookbookGradientPainter implements RadianceFillPainter {
         return "Cookbook";
     }
 
+    @Override
+    public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
+        return this.delegate.getRepresentativeColor(fillScheme);
+    }
 }
