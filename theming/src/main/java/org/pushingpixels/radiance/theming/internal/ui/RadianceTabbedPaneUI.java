@@ -642,19 +642,16 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         double scale = RadianceCommonCortex.getScaleFactor(tabPane);
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(tabPane);
 
         float borderDelta = 2.0f * RadianceSizeUtils.getBorderStrokeWidth(tabPane);
         float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(tabPane) / 2.0f;
         int dy = (int) (2 + borderDelta);
         Set<RadianceThemingSlices.Side> straightSides = EnumSet.of(RadianceThemingSlices.Side.BOTTOM);
 
-        float cornerRadius = height / 3.0f;
-        if (shaper instanceof ClassicButtonShaper) {
-            cornerRadius = RadianceSizeUtils
-                    .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
-            width -= 1;
-        }
+        // Always use slightly rounded corners on tabs
+        float cornerRadius = RadianceSizeUtils
+                .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
+        width -= 1;
 
         Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height + dy,
                 cornerRadius, straightSides, borderInsets);
