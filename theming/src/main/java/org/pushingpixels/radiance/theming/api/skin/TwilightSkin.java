@@ -208,9 +208,6 @@ public class TwilightSkin extends RadianceSkin {
                         ColorTransform.alpha(32)));
         this.addOverlayPainter(this.footerTopBezelOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.setTabFadeStart(0.18);
-        this.setTabFadeEnd(0.18);
-
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new FractionBasedFillPainter("Twilight",
                 new float[] {0.0f, 0.5f, 1.0f},

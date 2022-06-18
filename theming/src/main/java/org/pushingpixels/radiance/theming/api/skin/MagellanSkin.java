@@ -270,9 +270,6 @@ public class MagellanSkin extends RadianceSkin {
         this.footerTopShadowOverlayPainter = TopShadowOverlayPainter.getInstance(100);
         this.addOverlayPainter(this.footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.setTabFadeStart(0.18);
-        this.setTabFadeEnd(0.18);
-
         RadianceBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
                 "Magellan Outer", new float[] {0.0f, 0.5f, 1.0f},
                 new ColorSchemeSingleColorQuery[] {

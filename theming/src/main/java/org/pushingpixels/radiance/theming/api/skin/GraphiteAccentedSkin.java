@@ -89,9 +89,6 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle, backgroundScheme,
                 RadianceThemingSlices.DecorationAreaType.NONE);
 
-        this.setTabFadeStart(0.18);
-        this.setTabFadeEnd(0.18);
-
         this.buttonShaper = new ClassicButtonShaper();
         this.borderPainter = new CompositeBorderPainter("Graphite",
                 new DelegateBorderPainter("Graphite Outer", new ClassicBorderPainter(), 0xFFFFFFFF,

@@ -270,9 +270,6 @@ public class OfficeBlack2007Skin extends RadianceSkin {
         this.registerAsDecorationArea(colorSchemes.get("Office Black Background"),
                 DecorationAreaType.CONTROL_PANE);
 
-        setTabFadeStart(0.6);
-        setTabFadeEnd(0.9);
-
         this.addOverlayPainter(new BottomLineOverlayPainter(
                         ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
                                 ColorTransform.alpha(192))),

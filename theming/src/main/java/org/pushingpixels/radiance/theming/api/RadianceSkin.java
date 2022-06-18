@@ -55,9 +55,6 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public abstract class RadianceSkin implements RadianceTrait {
-    public static final double DEFAULT_TAB_FADE_START = 0.1;
-    public static final double DEFAULT_TAB_FADE_END = 0.3;
-
     /**
      * Base class for skins that can be configured with accent color schemes. Accented skins can
      * be extended to apply those color schemes in a way that highlights certain parts of
@@ -248,22 +245,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     private Set<RadianceThemingSlices.DecorationAreaType> decoratedAreaSet;
 
     /**
-     * The start of fade effect on tabs in {@link JTabbedPane}s.
-     *
-     * @see #tabFadeEnd
-     * @see #DEFAULT_TAB_FADE_START
-     */
-    protected double tabFadeStart;
-
-    /**
-     * The end of fade effect on tabs in {@link JTabbedPane}s.
-     *
-     * @see #tabFadeStart
-     * @see #DEFAULT_TAB_FADE_END
-     */
-    protected double tabFadeEnd;
-
-    /**
      * All component states that have associated non-trivial alpha values.
      */
     private Set<ComponentState> statesWithAlpha;
@@ -284,9 +265,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.decoratedAreaSet = new HashSet<>();
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
         this.decoratedAreaSet.add(RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE);
-
-        this.tabFadeStart = DEFAULT_TAB_FADE_START;
-        this.tabFadeEnd = DEFAULT_TAB_FADE_END;
 
         this.optionPaneIconColorSchemeMap = new HashMap<>();
         RadianceColorScheme sunset = new SunsetColorScheme();
@@ -683,60 +661,6 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     /**
-     * Returns the start of fade effect on tabs in
-     * {@link JTabbedPane}s. This value can be used to create XP-like "headers"
-     * on the selected tabs.
-     *
-     * @return The start of fade effect on the selected tabs in {@link JTabbedPane}s.
-     * @see #getTabFadeEnd()
-     * @see #DEFAULT_TAB_FADE_START
-     */
-    public final double getTabFadeStart() {
-        return this.tabFadeStart;
-    }
-
-    /**
-     * Returns the end of fade effect on tabs in
-     * {@link JTabbedPane}s. This value can be used to create XP-like "headers"
-     * on the selected tabs.
-     *
-     * @return The end of fade effect on the selected tabs in {@link JTabbedPane}s.
-     * @see #getTabFadeStart()
-     * @see #DEFAULT_TAB_FADE_END
-     */
-    public final double getTabFadeEnd() {
-        return this.tabFadeEnd;
-    }
-
-    /**
-     * Sets the end of fade effect on tabs in {@link JTabbedPane}s. The value should be in 0.0-1.0 range.
-     *
-     * @param tabFadeEnd The end of fade effect on tabs in {@link JTabbedPane}s. Should be in 0.0-1.0 range.
-     * @see #DEFAULT_TAB_FADE_END
-     */
-    public void setTabFadeEnd(double tabFadeEnd) {
-        if ((tabFadeEnd < 0.0) || (tabFadeEnd > 1.0)) {
-            throw new IllegalArgumentException(
-                    "Value for tab fade end should be in 0.0-1.0 range");
-        }
-        this.tabFadeEnd = tabFadeEnd;
-    }
-
-    /**
-     * Sets the start of fade effect on selected tabs in {@link JTabbedPane}s. The value should be in 0.0-1.0 range.
-     *
-     * @param tabFadeStart The start of fade effect on tabs in {@link JTabbedPane} s. Should be in 0.0-1.0 range.
-     * @see #DEFAULT_TAB_FADE_START
-     */
-    public void setTabFadeStart(double tabFadeStart) {
-        if ((tabFadeStart < 0.0) || (tabFadeStart > 1.0)) {
-            throw new IllegalArgumentException(
-                    "Value for tab fade start should be in 0.0-1.0 range");
-        }
-        this.tabFadeStart = tabFadeStart;
-    }
-
-    /**
      * Adds the specified overlay painter to the end of the list of overlay
      * painters associated with the specified decoration area types.
      *
@@ -906,10 +830,6 @@ public abstract class RadianceSkin implements RadianceTrait {
         result.fillPainter = this.fillPainter;
         result.highlightPainter = this.highlightPainter;
         result.highlightBorderPainter = this.highlightBorderPainter;
-
-        // same misc settings
-        result.tabFadeEnd = this.tabFadeEnd;
-        result.tabFadeStart = this.tabFadeStart;
 
         // transform the scheme bundles
         if (this.colorSchemeBundleMap != null) {

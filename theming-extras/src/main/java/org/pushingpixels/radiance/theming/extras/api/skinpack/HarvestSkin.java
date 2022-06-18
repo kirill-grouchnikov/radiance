@@ -149,9 +149,6 @@ public class HarvestSkin extends RadianceSkin {
                 DecorationAreaType.PRIMARY_TITLE_PANE, DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER, DecorationAreaType.TOOLBAR, DecorationAreaType.FOOTER);
 
-        setTabFadeStart(0.2);
-        setTabFadeEnd(0.9);
-
         // Add overlay painters to paint drop shadow and a dark line along the bottom
         // edges of toolbars
         this.addOverlayPainter(BottomShadowOverlayPainter.getInstance(100), DecorationAreaType.TOOLBAR);
@@ -167,9 +164,6 @@ public class HarvestSkin extends RadianceSkin {
                         ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,
                                 ColorTransform.brightness(-0.1f))),
                 DecorationAreaType.FOOTER);
-
-        this.setTabFadeStart(0.18);
-        this.setTabFadeEnd(0.18);
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new ClassicFillPainter();

@@ -216,9 +216,6 @@ public class OfficeSilver2007Skin extends RadianceSkin {
                 DecorationAreaType.PRIMARY_TITLE_PANE,
                 DecorationAreaType.SECONDARY_TITLE_PANE);
 
-        setTabFadeStart(0.6);
-        setTabFadeEnd(0.9);
-
         this.addOverlayPainter(new BottomLineOverlayPainter(
                         ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.FOREGROUND,
                                 ColorTransform.alpha(72))),

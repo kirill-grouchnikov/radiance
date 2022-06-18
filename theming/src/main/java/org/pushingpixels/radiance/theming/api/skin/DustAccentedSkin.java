@@ -131,9 +131,6 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 				RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE, RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
 				RadianceThemingSlices.DecorationAreaType.HEADER, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-		setTabFadeStart(0.1);
-		setTabFadeEnd(0.3);
-
 		// add two overlay painters to create a bezel line between menu bar and toolbars
 		BottomLineOverlayPainter menuOverlayPainter = new BottomLineOverlayPainter(
 				ColorSchemeSingleColorQuery.composite(ColorSchemeSingleColorQuery.ULTRADARK,

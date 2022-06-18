@@ -97,9 +97,6 @@ public class MagmaSkin extends RadianceSkin {
                 DecorationAreaType.HEADER, DecorationAreaType.FOOTER,
                 DecorationAreaType.CONTROL_PANE, DecorationAreaType.TOOLBAR);
 
-        this.setTabFadeStart(1.0);
-        this.setTabFadeEnd(1.0);
-
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new GlassFillPainter();
         this.decorationPainter = new ArcDecorationPainter();

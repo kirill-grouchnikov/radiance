@@ -85,9 +85,6 @@ public class StreetlightsSkin extends RadianceSkin {
                 DecorationAreaType.SECONDARY_TITLE_PANE,
                 DecorationAreaType.HEADER);
 
-        this.setTabFadeStart(1.0);
-        this.setTabFadeEnd(1.0);
-
         // additional skin settings
         this.buttonShaper = new ClassicButtonShaper();
         this.borderPainter = new GlassBorderPainter();

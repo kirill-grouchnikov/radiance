@@ -187,9 +187,6 @@ public class MarinerSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(footerSchemeBundle, footerBackgroundColorScheme,
                 RadianceThemingSlices.DecorationAreaType.FOOTER, RadianceThemingSlices.DecorationAreaType.TOOLBAR, RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
 
-        this.setTabFadeStart(0.15);
-        this.setTabFadeEnd(0.25);
-
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(

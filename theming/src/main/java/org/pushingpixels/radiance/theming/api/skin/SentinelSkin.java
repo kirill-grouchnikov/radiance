@@ -198,9 +198,6 @@ public class SentinelSkin extends RadianceSkin {
                                 ColorTransform.brightness(-0.1f))),
                 RadianceThemingSlices.DecorationAreaType.FOOTER);
 
-        this.setTabFadeStart(0.18);
-        this.setTabFadeEnd(0.18);
-
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new ClassicFillPainter();
         this.decorationPainter = new MatteDecorationPainter();

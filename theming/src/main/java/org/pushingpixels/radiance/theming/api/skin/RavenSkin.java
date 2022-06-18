@@ -136,9 +136,6 @@ public class RavenSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.HEADER, RadianceThemingSlices.DecorationAreaType.FOOTER,
 				RadianceThemingSlices.DecorationAreaType.CONTROL_PANE, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.setTabFadeStart(0.18);
-		this.setTabFadeEnd(0.18);
-
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new GlassFillPainter();
 		this.decorationPainter = new ArcDecorationPainter();

@@ -183,9 +183,6 @@ public class GeminiSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(toolbarSchemeBundle, darkBlueBackgroundColorScheme,
                 RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-        this.setTabFadeStart(0.15);
-        this.setTabFadeEnd(0.25);
-
         // add an overlay painter to paint a bezel line along the top
         // edge of footer
         this.footerTopBezelOverlayPainter = new TopBezelOverlayPainter(
