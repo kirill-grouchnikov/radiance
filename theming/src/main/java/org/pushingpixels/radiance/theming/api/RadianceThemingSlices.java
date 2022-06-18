@@ -414,17 +414,6 @@ public final class RadianceThemingSlices {
      */
     public enum TabContentPaneBorderKind {
         /**
-         * The content pane has full border on all sides plus an additional line along the tab
-         * placement side (as in Firefox 2.0, Internet Explorer 7.0 and Nimbus).
-         */
-        DOUBLE_FULL,
-
-        /**
-         * The content pane has full single border on all sides.
-         */
-        SINGLE_FULL,
-
-        /**
          * The content pane has double border along the tab placement side. This is the default.
          */
         DOUBLE_PLACEMENT,

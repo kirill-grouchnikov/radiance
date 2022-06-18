@@ -191,10 +191,9 @@ public class TabControlPanel extends JPanel {
         builder.add(useScrollLayout).xyw(3, row, 3);
 
         final JComboBox<TabContentPaneBorderKind> contentBorderCombo = new JComboBox<>(new TabContentPaneBorderKind[] {
-                        TabContentPaneBorderKind.DOUBLE_FULL, TabContentPaneBorderKind.SINGLE_FULL,
                         TabContentPaneBorderKind.DOUBLE_PLACEMENT,
                         TabContentPaneBorderKind.SINGLE_PLACEMENT });
-        contentBorderCombo.setSelectedItem(TabContentPaneBorderKind.DOUBLE_FULL);
+        contentBorderCombo.setSelectedItem(TabContentPaneBorderKind.DOUBLE_PLACEMENT);
         contentBorderCombo.addActionListener(actionEvent -> {
             TabContentPaneBorderKind contentBorderKind = (TabContentPaneBorderKind) contentBorderCombo
                     .getSelectedItem();

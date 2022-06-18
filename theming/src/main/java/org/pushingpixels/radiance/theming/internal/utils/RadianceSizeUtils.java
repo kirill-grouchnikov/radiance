@@ -772,7 +772,7 @@ public class RadianceSizeUtils {
 
 	/**
 	 * Returns the tabbed pane content insets. The
-	 * {@link RadianceThemingSlices.TabContentPaneBorderKind#SINGLE_FULL} is
+	 * {@link RadianceThemingSlices.TabContentPaneBorderKind#SINGLE_PLACEMENT} is
 	 * assumed.
 	 * 
 	 * @return Tabbed pane content insets.

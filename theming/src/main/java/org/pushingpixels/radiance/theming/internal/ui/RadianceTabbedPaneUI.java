@@ -68,7 +68,7 @@ import java.util.*;
 
 /**
  * UI for tabbed panes in <b>Radiance</b> look and feel.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
@@ -136,7 +136,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
      * {@link RadianceSynapse#CONTENTS_MODIFIED} property.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private final class TabbedContainerListener extends ContainerAdapter {
@@ -165,9 +165,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         /**
          * Tracks changes in a single tab component.
-         * 
+         *
          * @param tabComponent
-         *            Tab component.
+         *         Tab component.
          */
         private void trackTab(final Component tabComponent) {
             if (tabComponent == null) {
@@ -262,7 +262,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Listener for rollover animation effects.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class MouseRolloverHandler implements MouseListener, MouseMotionListener {
@@ -348,9 +348,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         /**
          * Handles the move and drag mouse events.
-         * 
+         *
          * @param e
-         *            Mouse event to handle.
+         *         Mouse event to handle.
          */
         private void handleMouseMoveDrag(MouseEvent e) {
             if (e.getSource() != tabPane)
@@ -464,7 +464,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
                             RadianceThemingSlices.TabCloseKind tabCloseKind = (closeCallback == null) ? RadianceThemingSlices.TabCloseKind.THIS
                                     : closeCallback.onCloseButtonClick(
-                                            RadianceTabbedPaneUI.this.tabPane, tabIndex, e);
+                                    RadianceTabbedPaneUI.this.tabPane, tabIndex, e);
 
                             RadianceTabbedPaneUI.this.tryCloseTabs(tabIndex, tabCloseKind);
                         }
@@ -670,8 +670,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(tabPane);
         Shape contourInner = borderPainter.isPaintingInnerContour()
                 ? RadianceOutlineUtilities.getBaseOutline(width, height + dy,
-                        cornerRadius - borderThickness, straightSides,
-                        borderThickness + borderInsets)
+                cornerRadius - borderThickness, straightSides,
+                borderThickness + borderInsets)
                 : null;
 
         borderPainter.paintBorder(resGraphics, tabPane, width, height + dy, contour, contourInner,
@@ -683,8 +683,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Retrieves tab background that will be shown on the screen. Unlike
-     * {@link #getTabBackground(JTabbedPane, int, int, RadianceColorScheme, RadianceColorScheme, boolean)}
-     * , the result is rotated as necessary (for {@link SwingConstants#LEFT} and
+     * {@link #getTabBackground(JTabbedPane, int, int, RadianceColorScheme, RadianceColorScheme,
+     * boolean)} , the result is rotated as necessary (for {@link SwingConstants#LEFT} and
      * {@link SwingConstants#RIGHT} placement) and blended for selected tabs.
      */
     private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
@@ -1226,17 +1226,17 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Retrieves the close button rectangle for drawing purposes.
-     * 
+     *
      * @param tabIndex
-     *            Tab index.
+     *         Tab index.
      * @param x
-     *            X coordinate of the tab.
+     *         X coordinate of the tab.
      * @param y
-     *            Y coordinate of the tab.
+     *         Y coordinate of the tab.
      * @param width
-     *            The tab width.
+     *         The tab width.
      * @param height
-     *            The tab height.
+     *         The tab height.
      * @return The close button rectangle.
      */
     protected Rectangle getCloseButtonRectangleForDraw(int tabIndex, int x, int y, int width,
@@ -1257,17 +1257,17 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Retrieves the close button rectangle for event handling.
-     * 
+     *
      * @param tabIndex
-     *            Tab index.
+     *         Tab index.
      * @param x
-     *            X coordinate of the tab.
+     *         X coordinate of the tab.
      * @param y
-     *            Y coordinate of the tab.
+     *         Y coordinate of the tab.
      * @param w
-     *            The tab width.
+     *         The tab width.
      * @param h
-     *            The tab height.
+     *         The tab height.
      * @return The close button rectangle.
      */
     protected Rectangle getCloseButtonRectangleForEvents(int tabIndex, int x, int y, int w, int h) {
@@ -1301,7 +1301,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Implementation of the fade tracker callback that repaints a single tab.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     protected class TabRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
@@ -1317,11 +1317,11 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         /**
          * Creates new tab repaint callback.
-         * 
+         *
          * @param tabPane
-         *            The associated tabbed pane.
+         *         The associated tabbed pane.
          * @param tabIndex
-         *            The associated tab index.
+         *         The associated tab index.
          */
         public TabRepaintCallback(JTabbedPane tabPane, int tabIndex) {
             this.tabbedPane = tabPane;
@@ -1386,11 +1386,11 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Tries closing tabs based on the specified tab index and tab close kind.
-     * 
+     *
      * @param tabIndex
-     *            Tab index.
+     *         Tab index.
      * @param tabCloseKind
-     *            Tab close kind.
+     *         Tab close kind.
      */
     protected void tryCloseTabs(int tabIndex, RadianceThemingSlices.TabCloseKind tabCloseKind) {
         if (tabCloseKind == null)
@@ -1420,9 +1420,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Tries closing a single tab.
-     * 
+     *
      * @param tabIndex
-     *            Tab index.
+     *         Tab index.
      */
     protected void tryCloseTab(int tabIndex) {
         Component component = this.tabPane.getComponentAt(tabIndex);
@@ -1472,9 +1472,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Tries closing the specified tabs.
-     * 
+     *
      * @param tabIndexes
-     *            Tab indexes.
+     *         Tab indexes.
      */
     protected void tryCloseTabs(Set<Integer> tabIndexes) {
         Set<Component> componentSet = new HashSet<>();
@@ -1538,11 +1538,11 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Returns extra width for the specified tab.
-     * 
+     *
      * @param tabPlacement
-     *            Tab placement.
+     *         Tab placement.
      * @param tabIndex
-     *            Tab index.
+     *         Tab index.
      * @return Extra width for the specified tab.
      */
     protected int getTabExtraWidth(int tabPlacement, int tabIndex) {
@@ -1566,7 +1566,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Returns the index of the tab currently being rolled-over.
-     * 
+     *
      * @return Index of the tab currently being rolled-over.
      */
     public int getRolloverTabIndex() {
@@ -1575,9 +1575,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Sets new value for tab area insets.
-     * 
+     *
      * @param insets
-     *            Tab area insets.
+     *         Tab area insets.
      */
     public void setTabAreaInsets(Insets insets) {
         Insets old = this.tabAreaInsets;
@@ -1589,7 +1589,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Returns tab area insets.
-     * 
+     *
      * @return Tab area insets.
      */
     public Insets getTabAreaInsets() {
@@ -1598,9 +1598,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Returns the tab rectangle for the specified tab.
-     * 
+     *
      * @param tabIndex
-     *            Index of a tab.
+     *         Index of a tab.
      * @return The tab rectangle for the specified parameters.
      */
     public Rectangle getTabRectangle(int tabIndex) {
@@ -1623,7 +1623,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Layout for the tabbed pane.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     public class TabbedPaneLayout extends BasicTabbedPaneUI.TabbedPaneLayout {
@@ -1662,36 +1662,20 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         Insets insets = RadianceSizeUtils.getTabbedPaneContentInsets(this.tabPane);
 
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
-        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_FULL)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        boolean isPlacement = (kind == RadianceThemingSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
+        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
         int delta = isDouble
                 ? (int) Math.ceil(RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) + 1.5f)
                 : 0;
 
-        if (isPlacement) {
-            switch (tabPlacement) {
-                case TOP:
-                    return new Insets(insets.top + delta, 0, 0, 0);
-                case LEFT:
-                    return new Insets(0, insets.left + delta, 0, 0);
-                case RIGHT:
-                    return new Insets(0, 0, 0, insets.right + delta);
-                case BOTTOM:
-                    return new Insets(0, 0, insets.bottom + delta, 0);
-            }
-        } else {
-            switch (tabPlacement) {
-                case TOP:
-                    return new Insets(insets.top + delta, insets.left, insets.bottom, insets.right);
-                case LEFT:
-                    return new Insets(insets.top, insets.left + delta, insets.bottom, insets.right);
-                case RIGHT:
-                    return new Insets(insets.top, insets.left, insets.bottom, insets.right + delta);
-                case BOTTOM:
-                    return new Insets(insets.top, insets.left, insets.bottom + delta, insets.right);
-            }
+        switch (tabPlacement) {
+            case TOP:
+                return new Insets(insets.top + delta, 0, 0, 0);
+            case LEFT:
+                return new Insets(0, insets.left + delta, 0, 0);
+            case RIGHT:
+                return new Insets(0, 0, 0, insets.right + delta);
+            case BOTTOM:
+                return new Insets(0, 0, insets.bottom + delta, 0);
         }
         return insets;
     }
@@ -1708,14 +1692,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void paintContentBorderBottomEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
-        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_FULL)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        boolean isPlacement = (kind == RadianceThemingSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (isPlacement) {
-            if (tabPlacement != SwingConstants.BOTTOM)
-                return;
-        }
+        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
+        if (tabPlacement != SwingConstants.BOTTOM)
+            return;
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
@@ -1796,14 +1775,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void paintContentBorderLeftEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
-        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_FULL)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        boolean isPlacement = (kind == RadianceThemingSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (isPlacement) {
-            if (tabPlacement != SwingConstants.LEFT)
-                return;
-        }
+        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
+        if (tabPlacement != SwingConstants.LEFT)
+            return;
         int ribbonDelta = (int) (RadianceSizeUtils.getBorderStrokeWidth(tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
@@ -1887,14 +1861,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void paintContentBorderRightEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
-        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_FULL)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        boolean isPlacement = (kind == RadianceThemingSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (isPlacement) {
-            if (tabPlacement != SwingConstants.RIGHT)
-                return;
-        }
+        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
+        if (tabPlacement != SwingConstants.RIGHT)
+            return;
         int ribbonDelta = (int) (RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
@@ -1977,14 +1946,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected void paintContentBorderTopEdge(Graphics g, int tabPlacement, int selectedIndex, int x,
             int y, int w, int h) {
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
-        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_FULL)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        boolean isPlacement = (kind == RadianceThemingSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT)
-                || (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (isPlacement) {
-            if (tabPlacement != SwingConstants.TOP)
-                return;
-        }
+        boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
+        if (tabPlacement != SwingConstants.TOP)
+            return;
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
@@ -2081,9 +2045,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Returns the current state for the specified tab.
-     * 
+     *
      * @param tabIndex
-     *            Tab index.
+     *         Tab index.
      * @return The current state for the specified tab.
      */
     protected ComponentState getTabState(int tabIndex, boolean toAllowIgnoringSelectedState) {
@@ -2239,9 +2203,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     /**
      * Extension point to allow horizontal orientation of left / right placed tabs.
-     * 
+     *
      * @param tabPlacement
-     *            Tab placement.
+     *         Tab placement.
      * @return Indication whether the tabs in the specified placement should be rotated.
      */
     protected boolean toRotateTabsOnPlacement(int tabPlacement) {
