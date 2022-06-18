@@ -1721,9 +1721,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
                 ComponentState.SELECTED);
-        Color darkShadowColor = RadianceColorUtilities.getMidBorderColor(borderScheme);
+        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                .getRepresentativeColor(borderScheme);
         if (isUnbroken) {
-            g2d.setColor(this.highlight);
+            g2d.setColor(lineColor);
             g2d.drawLine(x, y + h - 1, x + w, y + h - 1);
         } else {
             // Break line to show visual connection to selected tab
@@ -1742,25 +1743,25 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 bottomOutline.lineTo(selectionEndX, y + h - 1);
                 bottomOutline.lineTo(x + w, y + h - 1);
             }
-            g2d.setPaint(new GradientPaint(x, y + h - 1, darkShadowColor, x, y + h - 1 + bumpHeight,
-                    RadianceColorUtilities.getAlphaColor(darkShadowColor, 0)));
+            g2d.setPaint(new GradientPaint(x, y + h - 1, lineColor, x, y + h - 1 + bumpHeight,
+                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
             g2d.draw(bottomOutline);
         }
 
         if (isDouble) {
             if (tabPlacement == BOTTOM) {
                 g2d.setColor(this.highlight);
-                g2d.setColor(darkShadowColor);
+                g2d.setColor(lineColor);
                 g2d.drawLine(x, y + h - 1 - ribbonDelta, x + w, y + h - 1 - ribbonDelta);
             }
             if (tabPlacement == LEFT) {
-                g2d.setPaint(new GradientPaint(x, y + h - 1, darkShadowColor, x + 4 * ribbonDelta,
+                g2d.setPaint(new GradientPaint(x, y + h - 1, lineColor, x + 4 * ribbonDelta,
                         y + h - 1, this.highlight));
                 g2d.drawLine(x, y + h - 1, x + 4 * ribbonDelta, y + h - 1);
             }
             if (tabPlacement == RIGHT) {
                 g2d.setPaint(new GradientPaint(x + w - 1 - 4 * ribbonDelta, y + h - 1,
-                        this.highlight, x + w - 1, y + h - 1, darkShadowColor));
+                        this.highlight, x + w - 1, y + h - 1, lineColor));
                 g2d.drawLine(x + w - 1 - 4 * ribbonDelta, y + h - 1, x + w - 1, y + h - 1);
             }
         }
@@ -1804,9 +1805,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
                 ComponentState.SELECTED);
-        Color darkShadowColor = RadianceColorUtilities.getMidBorderColor(borderScheme);
+        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                .getRepresentativeColor(borderScheme);
         if (isUnbroken) {
-            g2d.setColor(this.highlight);
+            g2d.setColor(lineColor);
             g2d.drawLine(x, y, x, y + h);
         } else {
             // Break line to show visual connection to selected tab
@@ -1826,14 +1828,14 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 leftOutline.lineTo(x, selectionEndY);
                 leftOutline.lineTo(x, y + h);
             }
-            g2d.setPaint(new GradientPaint(x, y, darkShadowColor, x - bumpWidth, y,
-                    RadianceColorUtilities.getAlphaColor(darkShadowColor, 0)));
+            g2d.setPaint(new GradientPaint(x, y, lineColor, x - bumpWidth, y,
+                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
             g2d.draw(leftOutline);
         }
 
         if (isDouble) {
             if (tabPlacement == LEFT) {
-                g2d.setColor(darkShadowColor);
+                g2d.setColor(lineColor);
                 g2d.drawLine(x + ribbonDelta, y, x + ribbonDelta, y + h);
                 // g2d.setColor(this.highlight);
                 // g2d.drawLine(x + 1 + ribbonDelta, y + 1, x + 1 + ribbonDelta,
@@ -1841,13 +1843,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 // h - 1);
             }
             if (tabPlacement == TOP) {
-                g2d.setPaint(new GradientPaint(x, y, darkShadowColor, x, y + 4 * ribbonDelta,
+                g2d.setPaint(new GradientPaint(x, y, lineColor, x, y + 4 * ribbonDelta,
                         this.highlight));
                 g2d.drawLine(x, y, x, y + 4 * ribbonDelta);
             }
             if (tabPlacement == BOTTOM) {
                 g2d.setPaint(new GradientPaint(x, y + h - 1 - 4 * ribbonDelta, this.highlight, x,
-                        y + h - 1, darkShadowColor));
+                        y + h - 1, lineColor));
                 g2d.drawLine(x, y + h - 1 - 4 * ribbonDelta, x, y + h - 1);
             }
         }
@@ -1890,9 +1892,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
                 ComponentState.SELECTED);
-        Color darkShadowColor = RadianceColorUtilities.getMidBorderColor(borderScheme);
+        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                .getRepresentativeColor(borderScheme);
         if (isUnbroken) {
-            g2d.setColor(this.highlight);
+            g2d.setColor(lineColor);
             g2d.drawLine(x + w - 1, y, x + w - 1, y + h);
         } else {
             // Break line to show visual connection to selected tab
@@ -1912,8 +1915,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 rightOutline.lineTo(x + w - 1, selectionEndY);
                 rightOutline.lineTo(x + w - 1, y + h);
             }
-            g2d.setPaint(new GradientPaint(x + w - 1, y, darkShadowColor, x + w - 1 + bumpWidth, y,
-                    RadianceColorUtilities.getAlphaColor(darkShadowColor, 0)));
+            g2d.setPaint(new GradientPaint(x + w - 1, y, lineColor, x + w - 1 + bumpWidth, y,
+                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
             g2d.draw(rightOutline);
         }
 
@@ -1922,17 +1925,17 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 g2d.setColor(this.highlight);
                 // g2d.drawLine(x + w - 2 - ribbonDelta, y + 1, x + w - 2 -
                 // ribbonDelta, y + h - 1);
-                g2d.setColor(darkShadowColor);
+                g2d.setColor(lineColor);
                 g2d.drawLine(x + w - 1 - ribbonDelta, y, x + w - 1 - ribbonDelta, y + h);
             }
             if (tabPlacement == TOP) {
-                g2d.setPaint(new GradientPaint(x + w - 1, y, darkShadowColor, x + w - 1,
+                g2d.setPaint(new GradientPaint(x + w - 1, y, lineColor, x + w - 1,
                         y + 4 * ribbonDelta, this.highlight));
                 g2d.drawLine(x + w - 1, y, x + w - 1, y + 4 * ribbonDelta);
             }
             if (tabPlacement == BOTTOM) {
                 g2d.setPaint(new GradientPaint(x + w - 1, y + h - 1 - 4 * ribbonDelta,
-                        this.highlight, x + w - 1, y + h - 1, darkShadowColor));
+                        this.highlight, x + w - 1, y + h - 1, lineColor));
                 g2d.drawLine(x + w - 1, y + h - 1 - 4 * ribbonDelta, x + w - 1, y + h - 1);
             }
         }
@@ -1976,9 +1979,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                 this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
                 ComponentState.SELECTED);
-        Color darkShadowColor = RadianceColorUtilities.getMidBorderColor(borderScheme);
+        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                .getRepresentativeColor(borderScheme);
         if (isUnbroken) {
-            g2d.setColor(this.highlight);
+            g2d.setColor(lineColor);
             g2d.drawLine(x, y, x + w, y);
         } else {
             // Break line to show visual connection to selected tab
@@ -1997,24 +2001,24 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 topOutline.lineTo(selectionEndX, y);
                 topOutline.lineTo(x + w, y);
             }
-            g2d.setPaint(new GradientPaint(x, y, darkShadowColor, x, y - bumpHeight,
-                    RadianceColorUtilities.getAlphaColor(darkShadowColor, 0)));
+            g2d.setPaint(new GradientPaint(x, y, lineColor, x, y - bumpHeight,
+                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
             g2d.draw(topOutline);
         }
 
         if (isDouble) {
             if (tabPlacement == TOP) {
-                g2d.setColor(darkShadowColor);
+                g2d.setColor(lineColor);
                 g2d.drawLine(x, y + ribbonDelta, x + w, y + ribbonDelta);
             }
             if (tabPlacement == LEFT) {
-                g2d.setPaint(new GradientPaint(x, y, darkShadowColor, x + 4 * ribbonDelta, y,
+                g2d.setPaint(new GradientPaint(x, y, lineColor, x + 4 * ribbonDelta, y,
                         this.highlight));
                 g2d.drawLine(x, y, x + 4 * ribbonDelta, y);
             }
             if (tabPlacement == RIGHT) {
                 g2d.setPaint(new GradientPaint(x + w - 1 - 4 * ribbonDelta, y, this.highlight,
-                        x + w - 1, y, darkShadowColor));
+                        x + w - 1, y, lineColor));
                 g2d.drawLine(x + w - 1 - 4 * ribbonDelta, y, x + w - 1, y);
             }
         }
