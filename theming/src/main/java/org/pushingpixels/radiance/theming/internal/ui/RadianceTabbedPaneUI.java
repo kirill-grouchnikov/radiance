@@ -639,7 +639,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
-            JTabbedPane tabPane, double scaleFactor, int width, int height,
+            JTabbedPane tabPane, int tabIndex, double scaleFactor, int width, int height,
             RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, Color tabColor) {
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
@@ -670,6 +670,16 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         borderPainter.paintBorder(graphics1X, tabPane, width, height + dy, contour, contourInner,
                 borderScheme);
+
+        RadianceColorScheme blendedBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
+                ComponentState.SELECTED);
+        Color lineColor = borderPainter.getRepresentativeColor(blendedBorderScheme);
+        Color lineColorFullTransparency = RadianceColorUtilities.getAlphaColor(lineColor, 0);
+        graphics1X.setPaint(new LinearGradientPaint(0.0f, 0.0f, 0.0f, height,
+                new float[]{0.0f, 0.5f, 1.0f},
+                new Color[]{lineColorFullTransparency, lineColorFullTransparency, lineColor}));
+        graphics1X.draw(contour);
     }
 
     private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
@@ -724,7 +734,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                             break;
                     }
 
-                    paintTabBackgroundAt1X(graphics1X, tabPane, scaleFactor,
+                    paintTabBackgroundAt1X(graphics1X, tabPane, tabIndex, scaleFactor,
                             scaledWidth, scaledHeight,
                             colorScheme, borderScheme, tabColor);
                 });
@@ -1629,64 +1639,57 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane);
-        int joinKind = BasicStroke.JOIN_ROUND;
-        int capKind = BasicStroke.CAP_BUTT;
-        g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
-        int offset = (int) (strokeWidth / 2.0);
-        int ribbonDelta = (int) Math.ceil(strokeWidth + 1.5f);
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.translate(x, y);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.translate(1, 1);
+                    int joinKind = BasicStroke.JOIN_ROUND;
+                    int capKind = BasicStroke.CAP_BUTT;
+                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-        boolean isUnbroken = (selectedIndex < 0 || (selRect.y - 1 > h)
-                || (selRect.x < x || selRect.x > x + w));
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
 
-        x += offset;
-        y += offset;
-        w -= 2 * offset;
-        h -= 2 * offset;
+                    boolean isUnbroken = (selectedIndex < 0 || (selRect.y - 1 > h)
+                            || (selRect.x < x || selRect.x > x + w));
 
-        // Draw unbroken line if tabs are not on BOTTOM, OR
-        // selected tab is not in run adjacent to content, OR
-        // selected tab is not visible (SCROLL_TAB_LAYOUT)
-        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
-                ComponentState.SELECTED);
-        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
-                .getRepresentativeColor(borderScheme);
-        if (isUnbroken) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x, y + h - 1, x + w, y + h - 1);
-        } else {
-            // Break line to show visual connection to selected tab
-            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
-            int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
-            float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
-            GeneralPath bottomOutline = new GeneralPath();
-            bottomOutline.moveTo(x, y + h - 1);
-            bottomOutline.lineTo(selRect.x + borderInsets, y + h - 1);
-            int bumpHeight = super.calculateTabHeight(tabPlacement, 0,
-                    RadianceSizeUtils.getComponentFontSize(this.tabPane)) / 2;
-            bottomOutline.lineTo(selRect.x + borderInsets, y + h + bumpHeight);
-            if (selRect.x + selRect.width < x + w) {
-                float selectionEndX = selRect.x + selRect.width - delta - 1 - borderInsets;
-                bottomOutline.lineTo(selectionEndX, y + h - 1 + bumpHeight);
-                bottomOutline.lineTo(selectionEndX, y + h - 1);
-                bottomOutline.lineTo(x + w, y + h - 1);
-            }
-            g2d.setPaint(new GradientPaint(x, y + h - 1, lineColor, x, y + h - 1 + bumpHeight,
-                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
-            g2d.draw(bottomOutline);
-        }
+                    // Draw unbroken line if tabs are not on BOTTOM, OR
+                    // selected tab is not in run adjacent to content, OR
+                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
+                            ComponentState.SELECTED);
+                    Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                            .getRepresentativeColor(borderScheme);
+                    graphics1X.setColor(lineColor);
+                    if (isUnbroken) {
+                        graphics1X.drawLine(0, scaledHeight - 1, scaledWidth - 1, scaledHeight - 1);
+                    } else {
+                        // Break line to show visual connection to selected tab
+                        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
+                        int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
+                        GeneralPath bottomOutline = new GeneralPath();
+                        bottomOutline.moveTo(0, scaledHeight - 1);
+                        bottomOutline.lineTo((float) scaleFactor * selRect.x + 2.0f, scaledHeight - 1);
+                        if (selRect.x + selRect.width < x + w) {
+                            float selectionEndX = (float) scaleFactor * (selRect.x + selRect.width - delta) - 1.0f;
+                            bottomOutline.moveTo(selectionEndX, scaledHeight - 1);
+                            bottomOutline.lineTo(scaledWidth - 1, scaledHeight - 1);
+                        }
+                        graphics1X.draw(bottomOutline);
+                    }
 
-        if (isDouble) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x, y + h - 1 - ribbonDelta, x + w, y + h - 1 - ribbonDelta);
-        }
-
-        g2d.dispose();
+                    if (isDouble) {
+                        graphics1X.drawLine(0, scaledHeight - 1 - ribbonDelta, scaledWidth - 1,
+                                scaledHeight - 1 - ribbonDelta);
+                    }
+                });
+        graphics.dispose();
     }
 
     @Override
@@ -1698,67 +1701,62 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        int ribbonDelta = (int) (RadianceSizeUtils.getBorderStrokeWidth(tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane);
-        int joinKind = BasicStroke.JOIN_ROUND;
-        int capKind = BasicStroke.CAP_BUTT;
-        g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
-        int offset = (int) (strokeWidth / 2.0);
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.translate(x, y);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.translate(0, 1);
 
-        boolean isUnbroken = (selectedIndex < 0
-                || (selRect.x + selRect.width + 1 < x) || (selRect.y < y || selRect.y > y + h));
+                    int joinKind = BasicStroke.JOIN_ROUND;
+                    int capKind = BasicStroke.CAP_BUTT;
+                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-        x += offset;
-        y += offset;
-        h -= 2 * offset;
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
 
-        // Draw unbroken line if tabs are not on LEFT, OR
-        // selected tab is not in run adjacent to content, OR
-        // selected tab is not visible (SCROLL_TAB_LAYOUT)
-        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
-                ComponentState.SELECTED);
-        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
-                .getRepresentativeColor(borderScheme);
-        if (isUnbroken) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x, y, x, y + h);
-        } else {
-            // Break line to show visual connection to selected tab
-            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
-            int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
+                    boolean isUnbroken = (selectedIndex < 0
+                            || (selRect.x + selRect.width + 1 < x) || (selRect.y < y || selRect.y > y + h));
 
-            float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
-            GeneralPath leftOutline = new GeneralPath();
-            leftOutline.moveTo(x, y);
-            leftOutline.lineTo(x, selRect.y + borderInsets + delta + 1);
-            int bumpWidth = super.calculateTabHeight(tabPlacement, 0,
-                    RadianceSizeUtils.getComponentFontSize(this.tabPane)) / 2;
-            leftOutline.lineTo(x - bumpWidth, selRect.y + borderInsets + delta + 1);
-            if (selRect.y + selRect.height < y + h) {
-                float selectionEndY = selRect.y + selRect.height - borderInsets;
-                leftOutline.lineTo(x - bumpWidth, selectionEndY);
-                leftOutline.lineTo(x, selectionEndY);
-                leftOutline.lineTo(x, y + h);
-            }
-            g2d.setPaint(new GradientPaint(x, y, lineColor, x - bumpWidth, y,
-                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
-            g2d.draw(leftOutline);
-        }
+                    // Draw unbroken line if tabs are not on LEFT, OR
+                    // selected tab is not in run adjacent to content, OR
+                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
+                            ComponentState.SELECTED);
+                    Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                            .getRepresentativeColor(borderScheme);
+                    graphics1X.setColor(lineColor);
+                    if (isUnbroken) {
+                        graphics1X.drawLine(0, 0, 0, scaledHeight);
+                    } else {
+                        // Break line to show visual connection to selected tab
+                        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
+                        int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
 
-        if (isDouble) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x + ribbonDelta, y, x + ribbonDelta, y + h);
-        }
-        g2d.dispose();
+                        GeneralPath leftOutline = new GeneralPath();
+                        leftOutline.moveTo(0, 0);
+                        leftOutline.lineTo(0, (float) scaleFactor * selRect.y + delta + 2.0f);
+                        if (selRect.y + selRect.height < y + h) {
+                            float selectionEndY = (float) scaleFactor * (selRect.y + selRect.height) - 2.0f;
+                            leftOutline.moveTo(0, selectionEndY);
+                            leftOutline.lineTo(0, scaledHeight);
+                        }
+                        graphics1X.draw(leftOutline);
+                    }
+
+                    if (isDouble) {
+                        graphics1X.drawLine(ribbonDelta, 0, ribbonDelta, scaledHeight);
+                    }
+                });
+        graphics.dispose();
     }
 
     @Override
@@ -1770,68 +1768,61 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        int ribbonDelta = (int) (RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane);
-        int joinKind = BasicStroke.JOIN_ROUND;
-        int capKind = BasicStroke.CAP_BUTT;
-        g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
-        int offset = (int) (strokeWidth / 2.0);
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.translate(x, y);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    int joinKind = BasicStroke.JOIN_ROUND;
+                    int capKind = BasicStroke.CAP_BUTT;
+                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-        boolean isUnbroken = (selectedIndex < 0 || (selRect.x - 1 > w)
-                || (selRect.y < y || selRect.y > y + h));
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
 
-        x += offset;
-        y += offset;
-        w -= 2 * offset;
-        h -= 2 * offset;
+                    boolean isUnbroken = (selectedIndex < 0 || (selRect.x - 1 > w)
+                            || (selRect.y < y || selRect.y > y + h));
 
-        // Draw unbroken line if tabs are not on RIGHT, OR
-        // selected tab is not in run adjacent to content, OR
-        // selected tab is not visible (SCROLL_TAB_LAYOUT)
-        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
-                ComponentState.SELECTED);
-        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
-                .getRepresentativeColor(borderScheme);
-        if (isUnbroken) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x + w - 1, y, x + w - 1, y + h);
-        } else {
-            // Break line to show visual connection to selected tab
-            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
-            int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
+                    // Draw unbroken line if tabs are not on RIGHT, OR
+                    // selected tab is not in run adjacent to content, OR
+                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
+                            ComponentState.SELECTED);
+                    Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                            .getRepresentativeColor(borderScheme);
+                    graphics1X.setColor(lineColor);
+                    if (isUnbroken) {
+                        graphics1X.drawLine(scaledWidth - 1, 0, scaledWidth - 1, scaledHeight);
+                    } else {
+                        // Break line to show visual connection to selected tab
+                        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
+                        int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
 
-            float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
-            GeneralPath rightOutline = new GeneralPath();
-            rightOutline.moveTo(x + w - 1, y);
-            rightOutline.lineTo(x + w - 1, selRect.y + borderInsets);
-            int bumpWidth = super.calculateTabHeight(tabPlacement, 0,
-                    RadianceSizeUtils.getComponentFontSize(this.tabPane)) / 2;
-            rightOutline.lineTo(x + w - 1 + bumpWidth, selRect.y + borderInsets);
-            if (selRect.y + selRect.height < y + h) {
-                float selectionEndY = selRect.y + selRect.height - delta - 1 - borderInsets;
-                rightOutline.lineTo(x + w - 1 + bumpWidth, selectionEndY);
-                rightOutline.lineTo(x + w - 1, selectionEndY);
-                rightOutline.lineTo(x + w - 1, y + h);
-            }
-            g2d.setPaint(new GradientPaint(x + w - 1, y, lineColor, x + w - 1 + bumpWidth, y,
-                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
-            g2d.draw(rightOutline);
-        }
+                        GeneralPath rightOutline = new GeneralPath();
+                        rightOutline.moveTo(scaledWidth - 1, 0);
+                        rightOutline.lineTo(scaledWidth - 1, (float) scaleFactor * selRect.y + 1.0f);
+                        if (selRect.y + selRect.height < y + h) {
+                            float selectionEndY = (float) scaleFactor * (selRect.y + selRect.height) - delta - 3.0f;
+                            rightOutline.moveTo(scaledWidth - 1, selectionEndY);
+                            rightOutline.lineTo(scaledWidth - 1, scaledHeight);
+                        }
+                        graphics1X.draw(rightOutline);
+                    }
 
-        if (isDouble) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x + w - 1 - ribbonDelta, y, x + w - 1 - ribbonDelta, y + h);
-        }
-        g2d.dispose();
+                    if (isDouble) {
+                        graphics1X.drawLine(scaledWidth - 1 - ribbonDelta, 0,
+                                scaledWidth - 1 - ribbonDelta, scaledHeight);
+                    }
+                });
+        graphics.dispose();
     }
 
     @Override
@@ -1847,65 +1838,56 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                RenderingHints.VALUE_STROKE_NORMALIZE);
-        float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane);
-        int joinKind = BasicStroke.JOIN_ROUND;
-        int capKind = BasicStroke.CAP_BUTT;
-        g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
-        int offset = (int) (strokeWidth / 2.0);
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.translate(x, y);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        int ribbonDelta = (int) Math.ceil(strokeWidth + 1.5f);
+                    int joinKind = BasicStroke.JOIN_ROUND;
+                    int capKind = BasicStroke.CAP_BUTT;
+                    graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-        boolean isUnbroken = (selectedIndex < 0
-                || (selRect.y + selRect.height + 1 < y) || (selRect.x < x || selRect.x > x + w));
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
 
-        x += offset;
-        y += offset;
-        w -= 2 * offset;
-        // h -= 2 * offset;
+                    boolean isUnbroken = (selectedIndex < 0
+                            || (selRect.y + selRect.height + 1 < y) || (selRect.x < x || selRect.x > x + w));
 
-        // Draw unbroken line if tabs are not on TOP, OR
-        // selected tab is not in run adjacent to content, OR
-        // selected tab is not visible (SCROLL_TAB_LAYOUT)
-        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
-                ComponentState.SELECTED);
-        Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
-                .getRepresentativeColor(borderScheme);
-        if (isUnbroken) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x, y, x + w, y);
-        } else {
-            // Break line to show visual connection to selected tab
-            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
-            int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
-            float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) / 2.0f;
-            GeneralPath topOutline = new GeneralPath();
-            topOutline.moveTo(x, y);
-            topOutline.lineTo(selRect.x + borderInsets, y);
-            int bumpHeight = super.calculateTabHeight(tabPlacement, 0,
-                    RadianceSizeUtils.getComponentFontSize(this.tabPane)) / 2;
-            topOutline.lineTo(selRect.x + borderInsets, y - bumpHeight);
-            if (selRect.x + selRect.width < x + w) {
-                float selectionEndX = selRect.x + selRect.width - delta - 1 - borderInsets;
-                topOutline.lineTo(selectionEndX, y - bumpHeight);
-                topOutline.lineTo(selectionEndX, y);
-                topOutline.lineTo(x + w, y);
-            }
-            g2d.setPaint(new GradientPaint(x, y, lineColor, x, y - bumpHeight,
-                    RadianceColorUtilities.getAlphaColor(lineColor, 0)));
-            g2d.draw(topOutline);
-        }
+                    // Draw unbroken line if tabs are not on TOP, OR
+                    // selected tab is not in run adjacent to content, OR
+                    // selected tab is not visible (SCROLL_TAB_LAYOUT)
+                    RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.tabPane, selectedIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
+                            ComponentState.SELECTED);
+                    Color lineColor = RadianceCoreUtilities.getBorderPainter(this.tabPane)
+                            .getRepresentativeColor(borderScheme);
+                    graphics1X.setColor(lineColor);
+                    if (isUnbroken) {
+                        graphics1X.drawLine(0, 0, scaledWidth, 0);
+                    } else {
+                        // Break line to show visual connection to selected tab
+                        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.tabPane);
+                        int delta = (shaper instanceof ClassicButtonShaper) ? 1 : 0;
+                        GeneralPath topOutline = new GeneralPath();
+                        topOutline.moveTo(0, 0);
+                        topOutline.lineTo((float) scaleFactor * selRect.x + 1.0f, 0);
+                        if (selRect.x + selRect.width < x + w) {
+                            float selectionEndX = (float) scaleFactor * (selRect.x + selRect.width - delta) - 2.0f;
+                            topOutline.moveTo(selectionEndX, 0);
+                            topOutline.lineTo(scaledWidth, 0);
+                        }
+                        graphics1X.draw(topOutline);
+                    }
 
-        if (isDouble) {
-            g2d.setColor(lineColor);
-            g2d.drawLine(x, y + ribbonDelta, x + w, y + ribbonDelta);
-        }
-
-        g2d.dispose();
+                    if (isDouble) {
+                        graphics1X.drawLine(0, ribbonDelta, scaledWidth, ribbonDelta);
+                    }
+                });
+        graphics.dispose();
     }
 
     @Override
