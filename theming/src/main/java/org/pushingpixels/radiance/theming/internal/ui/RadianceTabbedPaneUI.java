@@ -49,6 +49,8 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
@@ -105,10 +107,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private StateTransitionMultiTracker<Integer> stateTransitionMultiTracker;
 
-    // private JPanel tabStrip;
-    //
-    // private JScrollablePanel<JPanel> scrollableTabStrip;
-
     private Set<RadianceThemingWidget<JComponent>> themingWidgets;
 
     public static ComponentUI createUI(JComponent comp) {
@@ -135,6 +133,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     private boolean radianceContentOpaque;
 
     private Map<Integer, Color> tabTextColorMap;
+
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+
 
     /**
      * Tracks changes to the tabbed pane contents. Each tab component is tracked for changes on the
@@ -636,100 +638,96 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         super.uninstallComponents();
     }
 
-    /**
-     * Retrieves tab background.
-     */
-    private static BufferedImage getTabBackground(JTabbedPane tabPane, int width, int height,
+    private static void paintTabBackgroundAt1X(Graphics2D graphics1X,
+            JTabbedPane tabPane, double scaleFactor, int width, int height,
             RadianceColorScheme fillScheme, RadianceColorScheme borderScheme, Color tabColor) {
-        double scale = RadianceCommonCortex.getScaleFactor(tabPane);
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
         RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
 
-        float borderDelta = 2.0f * RadianceSizeUtils.getBorderStrokeWidth(tabPane);
-        float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(tabPane) / 2.0f;
-        int dy = (int) (2 + borderDelta);
+        int dy = 3;
         Set<RadianceThemingSlices.Side> straightSides = EnumSet.of(RadianceThemingSlices.Side.BOTTOM);
 
         // Always use slightly rounded corners on tabs
-        float cornerRadius = RadianceSizeUtils
+        float cornerRadius = (float) scaleFactor * RadianceSizeUtils
                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
         width -= 1;
 
         Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height + dy,
-                cornerRadius, straightSides, borderInsets);
+                cornerRadius, straightSides, 1.0f);
 
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-        Graphics2D resGraphics = result.createGraphics();
-
-        resGraphics.setColor(tabColor);
-        resGraphics.fill(contour);
-        Graphics2D clipped = (Graphics2D) resGraphics.create();
+        graphics1X.setColor(tabColor);
+        graphics1X.fill(contour);
+        Graphics2D clipped = (Graphics2D) graphics1X.create();
         clipped.clipRect(0, 0, width, (int) (0.2f * height));
         clipped.setColor(fillPainter.getRepresentativeColor(fillScheme));
         clipped.fill(contour);
         clipped.dispose();
 
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(tabPane);
-        Shape contourInner = borderPainter.isPaintingInnerContour()
-                ? RadianceOutlineUtilities.getBaseOutline(width, height + dy,
-                cornerRadius - borderThickness, straightSides,
-                borderThickness + borderInsets)
+        Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                RadianceOutlineUtilities.getBaseOutline(width, height + dy,
+                        cornerRadius - 1.0f, straightSides, 2.0f)
                 : null;
 
-        borderPainter.paintBorder(resGraphics, tabPane, width, height + dy, contour, contourInner,
+        borderPainter.paintBorder(graphics1X, tabPane, width, height + dy, contour, contourInner,
                 borderScheme);
-
-        resGraphics.dispose();
-        return result;
     }
 
-    /**
-     * Retrieves tab background that will be shown on the screen. Unlike
-     * {@link #getTabBackground(JTabbedPane, int, int, RadianceColorScheme, RadianceColorScheme,
-     * boolean)} , the result is rotated as necessary (for {@link SwingConstants#LEFT} and
-     * {@link SwingConstants#RIGHT} placement) and blended for selected tabs.
-     */
-    private static BufferedImage getFinalTabBackgroundImage(JTabbedPane tabPane, int tabIndex,
-            int width, int height, int tabPlacement, RadianceThemingSlices.Side side,
+    private void paintRotationAwareTabBackground(Graphics2D g, JTabbedPane tabPane, int tabIndex,
+            int width, int height, int tabPlacement,
             RadianceColorScheme colorScheme, RadianceColorScheme borderScheme) {
-        double scale = RadianceCommonCortex.getScaleFactor(tabPane);
-        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
-        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(tabPane);
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(tabPane);
-        Component compForBackground = tabPane.getTabComponentAt(tabIndex);
-        if (compForBackground == null)
-            compForBackground = tabPane.getComponentAt(tabIndex);
-        if (compForBackground == null)
-            compForBackground = tabPane;
-        Color tabColor = compForBackground.getBackground();
-        if (tabColor instanceof UIResource) {
-            // special handling of tabs placed in decoration areas
-            tabColor = RadianceColorUtilities.getBackgroundFillColor(compForBackground);
+
+        // (Temporary?) workaround for https://github.com/JFormDesigner/FlatLaf/issues/557
+        switch (tabPlacement) {
+            case LEFT:
+                g.transform(AffineTransform.getRotateInstance(Math.PI / 2));
+                break;
+            case RIGHT:
+                g.transform(AffineTransform.getRotateInstance(-Math.PI / 2));
+                break;
         }
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height, tabPlacement,
-                fillPainter.getDisplayName(), borderPainter.getDisplayName(),
-                shaper.getDisplayName(), tabPlacement == SwingConstants.BOTTOM, side.name(),
-                colorScheme.getDisplayName(), borderScheme.getDisplayName(), tabColor);
 
-        BufferedImage result = RadianceTabbedPaneUI.backgroundMap.get(key);
-        if (result == null) {
-            BufferedImage backgroundImage = null;
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    Component compForBackground = tabPane.getTabComponentAt(tabIndex);
+                    if (compForBackground == null)
+                        compForBackground = tabPane.getComponentAt(tabIndex);
+                    if (compForBackground == null)
+                        compForBackground = tabPane;
+                    Color tabColor = compForBackground.getBackground();
+                    if (tabColor instanceof UIResource) {
+                        // special handling of tabs placed in decoration areas
+                        tabColor = RadianceColorUtilities.getBackgroundFillColor(compForBackground);
+                    }
 
-            switch (tabPlacement) {
-                case BOTTOM:
-                    BufferedImage unrotated = getFinalTabBackgroundImage(tabPane, tabIndex,
-                            width, height, SwingConstants.TOP, side, colorScheme, borderScheme);
-                    return RadianceImageCreator.getRotated(scale, unrotated, 2);
-                case TOP:
-                case LEFT:
-                case RIGHT:
-                    backgroundImage = RadianceTabbedPaneUI.getTabBackground(tabPane, width, height,
+                    AffineTransform transform;
+                    switch (tabPlacement) {
+                        case BOTTOM:
+                            transform = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
+                            transform.rotate(Math.PI);
+                            graphics1X.transform(transform);
+                            break;
+                        case LEFT:
+                            // (Temporary?) workaround for https://github.com/JFormDesigner/FlatLaf/issues/557
+                            transform = AffineTransform.getRotateInstance(-Math.PI / 2);
+                            graphics1X.transform(transform);
+                            break;
+                        case RIGHT:
+                            // (Temporary?) workaround for https://github.com/JFormDesigner/FlatLaf/issues/557
+                            transform = AffineTransform.getRotateInstance(Math.PI / 2);
+                            graphics1X.transform(transform);
+                            break;
+                    }
+
+                    paintTabBackgroundAt1X(graphics1X, tabPane, scaleFactor,
+                            scaledWidth, scaledHeight,
                             colorScheme, borderScheme, tabColor);
-            }
-            RadianceTabbedPaneUI.backgroundMap.put(key, backgroundImage);
-        }
-        return backgroundMap.get(key);
+                });
     }
 
     /**
@@ -799,89 +797,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             return;
         }
 
-        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER, currState);
-        RadianceColorScheme baseColorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(this.tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, currState);
-        BufferedImage fullOpacity;
-        // double scaleFactor = UIUtil.getScaleFactor();
         // Slightly reduce the tab width to create "gaps" between tab visuals
         w -= 1;
-
-        // check if have windowModified property
-        Component comp = this.tabPane.getComponentAt(tabIndex);
-        boolean isWindowModified = RadianceCoreUtilities.isTabModified(comp);
-        boolean toMarkModifiedCloseButton = RadianceCoreUtilities
-                .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
-        if (isWindowModified && isEnabled && !toMarkModifiedCloseButton) {
-            RadianceColorScheme colorScheme2 = RadianceColorSchemeUtilities.YELLOW;
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.ORANGE;
-
-            float cyclePos = this.modifiedTimelines.get(comp).getTimelinePosition();
-
-            BufferedImage layer1 = RadianceTabbedPaneUI.getFinalTabBackgroundImage(this.tabPane,
-                    tabIndex, w, h, tabPlacement, RadianceThemingSlices.Side.BOTTOM, colorScheme,
-                    baseBorderScheme);
-            BufferedImage layer2 = RadianceTabbedPaneUI.getFinalTabBackgroundImage(this.tabPane,
-                    tabIndex, w, h, tabPlacement, RadianceThemingSlices.Side.BOTTOM, colorScheme2,
-                    baseBorderScheme);
-
-            fullOpacity = RadianceCoreUtilities.getBlankUnscaledImage(layer1);
-            Graphics2D g2d = fullOpacity.createGraphics();
-            if (cyclePos < 1.0f)
-                g2d.drawImage(layer1, 0, 0, layer1.getWidth(), layer1.getHeight(), null);
-            if (cyclePos > 0.0f) {
-                g2d.setComposite(AlphaComposite.SrcOver.derive(cyclePos));
-                g2d.drawImage(layer2, 0, 0, layer2.getWidth(), layer2.getHeight(), null);
-            }
-            g2d.dispose();
-        } else {
-            BufferedImage layerBase = RadianceTabbedPaneUI.getFinalTabBackgroundImage(this.tabPane,
-                    tabIndex, w, h, tabPlacement, RadianceThemingSlices.Side.BOTTOM,
-                    baseColorScheme, baseBorderScheme);
-
-            if ((modelStateInfo == null) || currState.isDisabled()
-                    || (modelStateInfo.getStateContributionMap().size() == 1)) {
-                fullOpacity = layerBase;
-            } else {
-                fullOpacity = RadianceCoreUtilities.getBlankUnscaledImage(layerBase);
-                Graphics2D g2d = fullOpacity.createGraphics();
-                // draw the base layer
-                g2d.drawImage(layerBase, 0, 0, layerBase.getWidth(), layerBase.getHeight(), null);
-
-                // draw the other active layers
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : modelStateInfo
-                        .getStateContributionMap().entrySet()) {
-                    ComponentState activeState = activeEntry.getKey();
-                    if (activeState == currState)
-                        continue;
-
-                    float stateContribution = activeEntry.getValue().getContribution();
-                    if (stateContribution > 0.0f) {
-                        g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
-                        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities
-                                .getColorScheme(this.tabPane, tabIndex,
-                                        RadianceThemingSlices.ColorSchemeAssociationKind.TAB, activeState);
-                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities
-                                .getColorScheme(this.tabPane, tabIndex,
-                                        RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER, activeState);
-                        BufferedImage layer = RadianceTabbedPaneUI.getFinalTabBackgroundImage(
-                                this.tabPane, tabIndex, w, h, tabPlacement,
-                                RadianceThemingSlices.Side.BOTTOM, fillScheme, borderScheme);
-                        g2d.drawImage(layer, 0, 0, layer.getWidth(), layer.getHeight(), null);
-                    }
-                }
-            }
-        }
-
-        // at this point the 'fillOpacity' has all the relevant layers for the
-        // fill + border
-
-        ComponentState markState = this.getTabState(tabIndex, true);
-        RadianceColorScheme baseMarkScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, tabIndex,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                markState);
 
         // fix for defect 138
         graphics.clip(new Rectangle(x, y, w, h));
@@ -899,8 +816,45 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         finalAlpha *= RadianceColorSchemeUtilities.getAlpha(this.tabPane.getComponentAt(tabIndex),
                 currState);
 
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane, finalAlpha, g));
-        RadianceCommonCortex.drawImageWithScale(graphics, scale, fullOpacity, x, y);
+        // check if tab has its content marked as modified
+        Component comp = this.tabPane.getComponentAt(tabIndex);
+        boolean isTabModified = RadianceCoreUtilities.isTabModified(comp);
+        boolean toMarkModifiedCloseButton = RadianceCoreUtilities
+                .toAnimateCloseIconOfModifiedTab(this.tabPane, tabIndex);
+
+        graphics.translate(x, y);
+        if (isTabModified && isEnabled && !toMarkModifiedCloseButton) {
+            BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
+                    this.modifiedTimelines.get(comp).getTimelinePosition());
+            RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                    this.tabPane, tabIndex,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER, currState);
+
+            paintRotationAwareTabBackground(graphics, this.tabPane,
+                    tabIndex, w, h, tabPlacement,
+                    mutableFillColorScheme, baseBorderScheme);
+        } else {
+            // Populate fill and border color schemes based on the current transition state of the button.
+            // Important - don't do it on pulsating buttons (such as close button of modified frames).
+            BladeUtils.populateColorScheme(mutableFillColorScheme, this.tabPane, tabIndex,
+                    modelStateInfo, currState,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.TAB,
+                    false);
+            BladeUtils.populateColorScheme(mutableBorderColorScheme, this.tabPane, tabIndex,
+                    modelStateInfo, currState,
+                    RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER,
+                    false);
+
+            paintRotationAwareTabBackground(graphics, this.tabPane,
+                    tabIndex, w, h, tabPlacement,
+                    mutableFillColorScheme, mutableBorderColorScheme);
+        }
+
+        ComponentState markState = this.getTabState(tabIndex, true);
+        RadianceColorScheme baseMarkScheme = RadianceColorSchemeUtilities.getColorScheme(
+                this.tabPane, tabIndex,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                markState);
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
@@ -939,7 +893,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     }
                 }
 
-                if (isWindowModified && isEnabled && toMarkModifiedCloseButton) {
+                if (isTabModified && isEnabled && toMarkModifiedCloseButton) {
                     RadianceColorScheme colorScheme2 = RadianceColorSchemeUtilities.YELLOW;
                     RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.ORANGE;
 
@@ -960,6 +914,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         RadianceCommonCortex.drawImageWithScale(graphics, scale, layer2, orig.x, orig.y);
                     }
                 } else {
+                    RadianceColorScheme baseColorScheme = RadianceColorSchemeUtilities
+                            .getColorScheme(this.tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, currState);
                     BufferedImage layerBase = RadianceTabbedPaneUI.getCloseButtonImage(
                             this.tabPane, orig.width, orig.height, toPaintCloseBorder,
                             baseColorScheme, baseMarkScheme);
