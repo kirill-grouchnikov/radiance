@@ -226,7 +226,7 @@ public class BladeUtils {
             StateTransitionTracker.ModelStateInfo modelStateInfo,
             ComponentState currState,
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
-            boolean treatEnabledAsActive) {
+            boolean useNoSelectionStateContributionMap) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
                     "Color scheme population must be done on Event Dispatch Thread");
@@ -259,7 +259,9 @@ public class BladeUtils {
         nameBuilder.append(currStateScheme.getDisplayName());
 
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                (modelStateInfo == null) ? null : modelStateInfo.getStateContributionMap();
+                (modelStateInfo == null) ? null :
+                        (useNoSelectionStateContributionMap ? modelStateInfo.getStateNoSelectionContributionMap()
+                                : modelStateInfo.getStateContributionMap());
 
         if (!currState.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
             for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates.entrySet()) {

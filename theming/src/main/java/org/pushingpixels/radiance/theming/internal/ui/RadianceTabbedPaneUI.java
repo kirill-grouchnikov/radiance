@@ -66,7 +66,6 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.*;
@@ -81,18 +80,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
      * Current mouse location.
      */
     private Point radianceMouseLocation;
-
-    /**
-     * Hash map for storing already computed backgrounds.
-     */
-    private static LazyResettableHashMap<BufferedImage> backgroundMap =
-            new LazyResettableHashMap<>("RadianceTabbedPaneUI.background");
-
-    /**
-     * Hash map for storing already computed backgrounds.
-     */
-    private static LazyResettableHashMap<BufferedImage> closeButtonMap =
-            new LazyResettableHashMap<>("RadianceTabbedPaneUI.closeButton");
 
     /**
      * Key - tab component. Value - the looping timeline that animates the tab component when it's
@@ -136,6 +123,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
 
     /**
@@ -743,52 +731,41 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Retrieves the image of the close button.
      */
-    private static BufferedImage getCloseButtonImage(JTabbedPane tabPane, int width, int height,
+    private void paintCloseButtonImage(Graphics2D g, JTabbedPane tabPane, int width, int height,
             boolean toPaintBorder, RadianceColorScheme fillScheme,
             RadianceColorScheme markScheme) {
         RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(tabPane);
-        if (fillPainter == null)
-            return null;
-
-        double scale = RadianceCommonCortex.getScaleFactor(tabPane);
-        ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height, toPaintBorder,
-                fillPainter.getDisplayName(), fillScheme.getDisplayName(),
-                markScheme.getDisplayName());
-        BufferedImage result = RadianceTabbedPaneUI.closeButtonMap.get(key);
-        if (result == null) {
-            result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-            Graphics2D finalGraphics = (Graphics2D) result.getGraphics().create();
-
-            if (toPaintBorder) {
-                Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height, 1, null);
-                fillPainter.paintContourBackground(finalGraphics, tabPane, width, height, contour,
-                        false, fillScheme, true);
-                // finalGraphics.drawImage(background, 0, 0, null);
-                RadianceBorderPainter borderPainter =
-                        RadianceCoreUtilities.getBorderPainter(tabPane);
-                finalGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                        RenderingHints.VALUE_ANTIALIAS_ON);
-                borderPainter.paintBorder(finalGraphics, tabPane, width, height, contour, null,
-                        markScheme);
-            }
-
-            finalGraphics.setStroke(new BasicStroke(
-                    RadianceSizeUtils.getTabCloseButtonStrokeWidth(tabPane)));
-
-            int delta = (int) (Math.floor(RadianceSizeUtils.getBorderStrokeWidth(tabPane)));
-            if (delta % 2 != 0)
-                delta--;
-            int iconSize = width - delta;
-
-            Icon closeIcon = RadianceImageCreator.getCloseIcon(tabPane, iconSize, markScheme);
-            finalGraphics.translate(delta / 2, delta / 2);
-            closeIcon.paintIcon(tabPane, finalGraphics, 0, 0);
-
-            finalGraphics.dispose();
-            RadianceTabbedPaneUI.closeButtonMap.put(key, result);
+        if (fillPainter == null) {
+            return;
         }
-        return result;
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    if (toPaintBorder) {
+                        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                scaledWidth, scaledHeight, 1, null);
+                        fillPainter.paintContourBackground(graphics1X, tabPane,
+                                scaledWidth, scaledHeight, contour,
+                                false, fillScheme, true);
+                        RadianceBorderPainter borderPainter =
+                                RadianceCoreUtilities.getBorderPainter(tabPane);
+                        borderPainter.paintBorder(graphics1X, tabPane, scaledWidth, scaledHeight,
+                                contour, null, markScheme);
+                    }
+
+                    graphics1X.setStroke(new BasicStroke(
+                            RadianceSizeUtils.getTabCloseButtonStrokeWidth(tabPane)));
+
+                    Icon closeIcon = RadianceImageCreator.getCloseIcon(
+                            tabPane, scaledWidth, markScheme);
+                    closeIcon.paintIcon(tabPane, graphics1X, 0, 0);
+                });
     }
 
     @Override
@@ -859,18 +836,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     tabIndex, w, h, tabPlacement,
                     mutableFillColorScheme, mutableBorderColorScheme);
         }
-
-        ComponentState markState = this.getTabState(tabIndex, true);
-        RadianceColorScheme baseMarkScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.tabPane, tabIndex,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                markState);
+        graphics.translate(-x, -y);
 
         // Check if requested to paint close buttons.
         if (RadianceCoreUtilities.hasCloseButton(this.tabPane, tabIndex) && isEnabled) {
-            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
             float alpha = (isSelected || isRollover) ? 1.0f : 0.0f;
             if (!isSelected) {
                 if (tabTracker != null) {
@@ -903,72 +872,31 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     }
                 }
 
+                graphics.translate(orig.x, orig.y);
                 if (isTabModified && isEnabled && toMarkModifiedCloseButton) {
-                    RadianceColorScheme colorScheme2 = RadianceColorSchemeUtilities.YELLOW;
-                    RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.ORANGE;
+                    BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
+                            this.modifiedTimelines.get(comp).getTimelinePosition());
+                    RadianceColorScheme baseMarkScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.tabPane, tabIndex,
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                            this.getTabState(tabIndex, true));
 
-                    float cyclePos = this.modifiedTimelines.get(comp).getTimelinePosition();
-
-                    BufferedImage layer1 = RadianceTabbedPaneUI.getCloseButtonImage(this.tabPane,
-                            orig.width, orig.height, toPaintCloseBorder, colorScheme,
-                            baseMarkScheme);
-                    BufferedImage layer2 = RadianceTabbedPaneUI.getCloseButtonImage(this.tabPane,
-                            orig.width, orig.height, toPaintCloseBorder, colorScheme2,
-                            baseMarkScheme);
-
-                    if (cyclePos < 1.0f) {
-                        RadianceCommonCortex.drawImageWithScale(graphics, scale, layer1, orig.x, orig.y);
-                    }
-                    if (cyclePos > 0.0f) {
-                        graphics.setComposite(AlphaComposite.SrcOver.derive(cyclePos));
-                        RadianceCommonCortex.drawImageWithScale(graphics, scale, layer2, orig.x, orig.y);
-                    }
-                } else {
-                    RadianceColorScheme baseColorScheme = RadianceColorSchemeUtilities
-                            .getColorScheme(this.tabPane, tabIndex, RadianceThemingSlices.ColorSchemeAssociationKind.TAB, currState);
-                    BufferedImage layerBase = RadianceTabbedPaneUI.getCloseButtonImage(
+                    paintCloseButtonImage(graphics,
                             this.tabPane, orig.width, orig.height, toPaintCloseBorder,
-                            baseColorScheme, baseMarkScheme);
+                            mutableFillColorScheme, baseMarkScheme);
+                } else {
+                    BladeUtils.populateColorScheme(mutableFillColorScheme, this.tabPane, tabIndex,
+                            modelStateInfo, this.getTabState(tabIndex, true),
+                            RadianceThemingSlices.ColorSchemeAssociationKind.TAB,
+                            true);
+                    BladeUtils.populateColorScheme(mutableMarkColorScheme, this.tabPane, tabIndex,
+                            modelStateInfo, this.getTabState(tabIndex, true),
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                            true);
 
-                    if ((modelStateInfo == null) || currState.isDisabled()
-                            || (modelStateInfo.getStateContributionMap().size() == 1)) {
-                        RadianceCommonCortex.drawImageWithScale(graphics, scale, layerBase, orig.x, orig.y);
-                    } else {
-                        BufferedImage complete = RadianceCoreUtilities.getBlankUnscaledImage(layerBase);
-                        Graphics2D g2d = complete.createGraphics();
-                        // draw the base layer
-                        g2d.drawImage(layerBase, 0, 0, layerBase.getWidth(),
-                                layerBase.getHeight(), null);
-
-                        // draw the other active layers
-                        Map<ComponentState, StateTransitionTracker.StateContributionInfo> contributionInfoMap =
-                                modelStateInfo.getStateNoSelectionContributionMap();
-                        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : contributionInfoMap
-                                .entrySet()) {
-                            ComponentState activeState = activeEntry.getKey();
-                            if (activeState == currState)
-                                continue;
-
-                            float stateContribution = activeEntry.getValue().getContribution();
-                            if (stateContribution > 0.0f) {
-                                g2d.setComposite(AlphaComposite.SrcOver.derive(stateContribution));
-                                RadianceColorScheme fillScheme = RadianceColorSchemeUtilities
-                                        .getColorScheme(this.tabPane, tabIndex,
-                                                RadianceThemingSlices.ColorSchemeAssociationKind.TAB, activeState);
-                                RadianceColorScheme markScheme = RadianceColorSchemeUtilities
-                                        .getColorScheme(this.tabPane, tabIndex,
-                                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                                                activeState);
-                                BufferedImage layer = RadianceTabbedPaneUI.getCloseButtonImage(
-                                        this.tabPane, orig.width, orig.height, toPaintCloseBorder,
-                                        fillScheme, markScheme);
-                                g2d.drawImage(layer, 0, 0, layer.getWidth(),
-                                        layer.getHeight(), null);
-                            }
-                        }
-                        g2d.dispose();
-                        RadianceCommonCortex.drawImageWithScale(graphics, scale, complete, orig.x, orig.y);
-                    }
+                    paintCloseButtonImage(graphics,
+                            this.tabPane, orig.width, orig.height, toPaintCloseBorder,
+                            mutableFillColorScheme, mutableMarkColorScheme);
                 }
             }
         }
@@ -1594,6 +1522,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         protected void padSelectedTab(int tabPlacement, int selectedIndex) {
             // Don't pad selected tab
         }
+
     }
 
     @Override
