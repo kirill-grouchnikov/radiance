@@ -1620,11 +1620,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintContentBorderBottomEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
+        if (tabPlacement != SwingConstants.BOTTOM) {
+            return;
+        }
+
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (tabPlacement != SwingConstants.BOTTOM)
-            return;
-
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
 
@@ -1639,7 +1640,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         int offset = (int) (strokeWidth / 2.0);
         int ribbonDelta = (int) Math.ceil(strokeWidth + 1.5f);
 
-        boolean isUnbroken = (tabPlacement != BOTTOM || selectedIndex < 0 || (selRect.y - 1 > h)
+        boolean isUnbroken = (selectedIndex < 0 || (selRect.y - 1 > h)
                 || (selRect.x < x || selRect.x > x + w));
 
         x += offset;
@@ -1681,21 +1682,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         }
 
         if (isDouble) {
-            if (tabPlacement == BOTTOM) {
-                g2d.setColor(this.highlight);
-                g2d.setColor(lineColor);
-                g2d.drawLine(x, y + h - 1 - ribbonDelta, x + w, y + h - 1 - ribbonDelta);
-            }
-            if (tabPlacement == LEFT) {
-                g2d.setPaint(new GradientPaint(x, y + h - 1, lineColor, x + 4 * ribbonDelta,
-                        y + h - 1, this.highlight));
-                g2d.drawLine(x, y + h - 1, x + 4 * ribbonDelta, y + h - 1);
-            }
-            if (tabPlacement == RIGHT) {
-                g2d.setPaint(new GradientPaint(x + w - 1 - 4 * ribbonDelta, y + h - 1,
-                        this.highlight, x + w - 1, y + h - 1, lineColor));
-                g2d.drawLine(x + w - 1 - 4 * ribbonDelta, y + h - 1, x + w - 1, y + h - 1);
-            }
+            g2d.setColor(lineColor);
+            g2d.drawLine(x, y + h - 1 - ribbonDelta, x + w, y + h - 1 - ribbonDelta);
         }
 
         g2d.dispose();
@@ -1704,10 +1692,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintContentBorderLeftEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
+        if (tabPlacement != SwingConstants.LEFT) {
+            return;
+        }
+
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (tabPlacement != SwingConstants.LEFT)
-            return;
         int ribbonDelta = (int) (RadianceSizeUtils.getBorderStrokeWidth(tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
@@ -1723,12 +1713,11 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
         int offset = (int) (strokeWidth / 2.0);
 
-        boolean isUnbroken = (tabPlacement != LEFT || selectedIndex < 0
+        boolean isUnbroken = (selectedIndex < 0
                 || (selRect.x + selRect.width + 1 < x) || (selRect.y < y || selRect.y > y + h));
 
         x += offset;
         y += offset;
-        // w -= 2 * offset;
         h -= 2 * offset;
 
         // Draw unbroken line if tabs are not on LEFT, OR
@@ -1766,24 +1755,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         }
 
         if (isDouble) {
-            if (tabPlacement == LEFT) {
-                g2d.setColor(lineColor);
-                g2d.drawLine(x + ribbonDelta, y, x + ribbonDelta, y + h);
-                // g2d.setColor(this.highlight);
-                // g2d.drawLine(x + 1 + ribbonDelta, y + 1, x + 1 + ribbonDelta,
-                // y +
-                // h - 1);
-            }
-            if (tabPlacement == TOP) {
-                g2d.setPaint(new GradientPaint(x, y, lineColor, x, y + 4 * ribbonDelta,
-                        this.highlight));
-                g2d.drawLine(x, y, x, y + 4 * ribbonDelta);
-            }
-            if (tabPlacement == BOTTOM) {
-                g2d.setPaint(new GradientPaint(x, y + h - 1 - 4 * ribbonDelta, this.highlight, x,
-                        y + h - 1, lineColor));
-                g2d.drawLine(x, y + h - 1 - 4 * ribbonDelta, x, y + h - 1);
-            }
+            g2d.setColor(lineColor);
+            g2d.drawLine(x + ribbonDelta, y, x + ribbonDelta, y + h);
         }
         g2d.dispose();
     }
@@ -1791,10 +1764,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintContentBorderRightEdge(Graphics g, int tabPlacement, int selectedIndex,
             int x, int y, int w, int h) {
+        if (tabPlacement != SwingConstants.RIGHT) {
+            return;
+        }
+
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (tabPlacement != SwingConstants.RIGHT)
-            return;
         int ribbonDelta = (int) (RadianceSizeUtils.getBorderStrokeWidth(this.tabPane) + 1.5f);
 
         Rectangle selRect = selectedIndex < 0 ? null
@@ -1810,7 +1785,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         g2d.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
         int offset = (int) (strokeWidth / 2.0);
 
-        boolean isUnbroken = (tabPlacement != RIGHT || selectedIndex < 0 || (selRect.x - 1 > w)
+        boolean isUnbroken = (selectedIndex < 0 || (selRect.x - 1 > w)
                 || (selRect.y < y || selRect.y > y + h));
 
         x += offset;
@@ -1853,23 +1828,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         }
 
         if (isDouble) {
-            if (tabPlacement == RIGHT) {
-                g2d.setColor(this.highlight);
-                // g2d.drawLine(x + w - 2 - ribbonDelta, y + 1, x + w - 2 -
-                // ribbonDelta, y + h - 1);
-                g2d.setColor(lineColor);
-                g2d.drawLine(x + w - 1 - ribbonDelta, y, x + w - 1 - ribbonDelta, y + h);
-            }
-            if (tabPlacement == TOP) {
-                g2d.setPaint(new GradientPaint(x + w - 1, y, lineColor, x + w - 1,
-                        y + 4 * ribbonDelta, this.highlight));
-                g2d.drawLine(x + w - 1, y, x + w - 1, y + 4 * ribbonDelta);
-            }
-            if (tabPlacement == BOTTOM) {
-                g2d.setPaint(new GradientPaint(x + w - 1, y + h - 1 - 4 * ribbonDelta,
-                        this.highlight, x + w - 1, y + h - 1, lineColor));
-                g2d.drawLine(x + w - 1, y + h - 1 - 4 * ribbonDelta, x + w - 1, y + h - 1);
-            }
+            g2d.setColor(lineColor);
+            g2d.drawLine(x + w - 1 - ribbonDelta, y, x + w - 1 - ribbonDelta, y + h);
         }
         g2d.dispose();
     }
@@ -1877,10 +1837,12 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     @Override
     protected void paintContentBorderTopEdge(Graphics g, int tabPlacement, int selectedIndex, int x,
             int y, int w, int h) {
+        if (tabPlacement != SwingConstants.TOP) {
+            return;
+        }
+
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        if (tabPlacement != SwingConstants.TOP)
-            return;
 
         Rectangle selRect = selectedIndex < 0 ? null
                 : this.getTabBounds(selectedIndex, this.calcRect);
@@ -1897,7 +1859,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         int ribbonDelta = (int) Math.ceil(strokeWidth + 1.5f);
 
-        boolean isUnbroken = (tabPlacement != TOP || selectedIndex < 0
+        boolean isUnbroken = (selectedIndex < 0
                 || (selRect.y + selRect.height + 1 < y) || (selRect.x < x || selRect.x > x + w));
 
         x += offset;
@@ -1939,20 +1901,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         }
 
         if (isDouble) {
-            if (tabPlacement == TOP) {
-                g2d.setColor(lineColor);
-                g2d.drawLine(x, y + ribbonDelta, x + w, y + ribbonDelta);
-            }
-            if (tabPlacement == LEFT) {
-                g2d.setPaint(new GradientPaint(x, y, lineColor, x + 4 * ribbonDelta, y,
-                        this.highlight));
-                g2d.drawLine(x, y, x + 4 * ribbonDelta, y);
-            }
-            if (tabPlacement == RIGHT) {
-                g2d.setPaint(new GradientPaint(x + w - 1 - 4 * ribbonDelta, y, this.highlight,
-                        x + w - 1, y, lineColor));
-                g2d.drawLine(x + w - 1 - 4 * ribbonDelta, y, x + w - 1, y);
-            }
+            g2d.setColor(lineColor);
+            g2d.drawLine(x, y + ribbonDelta, x + w, y + ribbonDelta);
         }
 
         g2d.dispose();
