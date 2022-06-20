@@ -55,9 +55,6 @@ class RobotDefaultDarkSkin(accentColorScheme: RadianceColorScheme) :
                 .withWindowChromeAccent(accentColorScheme)) {
 
     init {
-        this.tabFadeStart = 1.0
-        this.tabFadeEnd = 1.0
-
         val bottomLineOverlayPainter =
             BottomLineOverlayPainter(
                 ColorSchemeSingleColorQuery.MID
