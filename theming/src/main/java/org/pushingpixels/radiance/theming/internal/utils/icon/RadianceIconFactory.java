@@ -112,8 +112,7 @@ public class RadianceIconFactory {
 
         switch (iconKind) {
             case CLOSE:
-                result = RadianceImageCreator.getCloseIcon(titlePane, scheme);
-                break;
+                throw new UnsupportedOperationException();
             case MINIMIZE:
                 result = RadianceImageCreator.getMinimizeIcon(titlePane, scheme);
                 break;

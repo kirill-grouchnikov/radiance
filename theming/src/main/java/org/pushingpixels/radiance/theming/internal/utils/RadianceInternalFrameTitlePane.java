@@ -34,6 +34,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceButtonUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceMenuBarUI;
@@ -311,10 +313,21 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 scheme -> RadianceIconFactory.getTitlePaneIcon(this,
                         RadianceIconFactory.IconKind.MINIMIZE, scheme),
                 "radiance.theming.internal.internalFrame.minIcon");
-        Icon closeIcon = new TransitionAwareIcon(this.closeButton,
-                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                        RadianceIconFactory.IconKind.CLOSE, scheme),
-                "radiance.theming.internal.internalFrame.closeIcon");
+        Icon closeIcon = new BladeTransitionAwareIcon(closeButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawCloseIcon(g, iconSize,
+                                RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                        return new Dimension(size, size);
+                    }
+                });
         if (this.frame.isIcon()) {
             this.iconButton.setIcon(restoreIcon);
             this.iconButton.setToolTipText(

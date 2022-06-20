@@ -50,6 +50,7 @@ import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetReposito
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -759,12 +760,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                                 contour, null, markScheme);
                     }
 
-                    graphics1X.setStroke(new BasicStroke(
-                            RadianceSizeUtils.getTabCloseButtonStrokeWidth(tabPane)));
-
-                    Icon closeIcon = RadianceImageCreator.getCloseIcon(
-                            tabPane, scaledWidth, markScheme);
-                    closeIcon.paintIcon(tabPane, graphics1X, 0, 0);
+                    BladeIconUtils.drawCloseIcon(graphics1X, scaledWidth,
+                            RadianceSizeUtils.getTabCloseButtonStrokeWidth(tabPane),
+                            markScheme);
                 });
     }
 

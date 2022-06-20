@@ -38,6 +38,8 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.inputmap.InputMapSet;
 import org.pushingpixels.radiance.theming.api.inputmap.RadianceInputMapUtilities;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.border.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.CheckBoxMenuItemIcon;
 import org.pushingpixels.radiance.theming.internal.utils.icon.MenuArrowIcon;
@@ -415,7 +417,30 @@ public class SkinUtilities {
 
                 "InternalFrame.closeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceImageCreator.getCloseIcon(null, titlePaneScheme)),
+                        new IconUIResource(new Icon() {
+                            @Override
+                            public void paintIcon(Component c, Graphics g, int x, int y) {
+                                Graphics2D graphics = (Graphics2D) g.create();
+                                graphics.translate(x, y);
+
+                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                BladeIconUtils.drawCloseIcon(graphics, iconSize,
+                                        RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
+                                        titlePaneScheme);
+
+                                graphics.dispose();
+                            }
+
+                            @Override
+                            public int getIconWidth() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+
+                            @Override
+                            public int getIconHeight() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+                        })),
 
                 "InternalFrame.iconifyIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
@@ -431,7 +456,30 @@ public class SkinUtilities {
 
                 "InternalFrame.paletteCloseIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceImageCreator.getCloseIcon(null, titlePaneScheme)),
+                        new IconUIResource(new Icon() {
+                            @Override
+                            public void paintIcon(Component c, Graphics g, int x, int y) {
+                                Graphics2D graphics = (Graphics2D) g.create();
+                                graphics.translate(x, y);
+
+                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                BladeIconUtils.drawCloseIcon(graphics, iconSize,
+                                        RadianceSizeUtils.getCloseIconStrokeWidth(iconSize),
+                                        titlePaneScheme);
+
+                                graphics.dispose();
+                            }
+
+                            @Override
+                            public int getIconWidth() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+
+                            @Override
+                            public int getIconHeight() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+                        })),
 
                 "Label.background",
                 defaultBackgroundColor,

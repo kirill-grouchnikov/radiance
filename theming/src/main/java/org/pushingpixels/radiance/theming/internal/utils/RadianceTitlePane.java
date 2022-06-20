@@ -456,8 +456,9 @@ public class RadianceTitlePane extends JComponent {
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        BladeIconUtils.drawCloseIcon(g, RadianceTitlePane.this,
-                                RadianceSizeUtils.getTitlePaneIconSize(), scheme);
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawCloseIcon(g, iconSize,
+                                RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), scheme);
                     }
 
                     @Override
@@ -778,9 +779,21 @@ public class RadianceTitlePane extends JComponent {
          */
         public CloseAction(Component titlePane) {
             super(RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close"),
-                    RadianceImageCreator.getCloseIcon(titlePane,
-                            RadianceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    new BladeTransitionAwareIcon(closeButton,
+                            new BladeTransitionAwareIcon.Delegate() {
+                                @Override
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                    int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                    BladeIconUtils.drawCloseIcon(g, iconSize,
+                                            RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), scheme);
+                                }
+
+                                @Override
+                                public Dimension getIconDimension() {
+                                    int size = RadianceSizeUtils.getTitlePaneIconSize();
+                                    return new Dimension(size, size);
+                                }
+                            }));
         }
 
         @Override
@@ -792,7 +805,7 @@ public class RadianceTitlePane extends JComponent {
     }
 
     /**
-     * Actions used to <code>iconfiy</code> the <code>Frame</code>.
+     * Actions used to <code>iconify</code> the <code>Frame</code>.
      */
     private class IconifyAction extends AbstractAction {
         /**

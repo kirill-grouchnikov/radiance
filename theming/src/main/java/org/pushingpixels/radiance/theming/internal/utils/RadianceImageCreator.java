@@ -495,63 +495,6 @@ public final class RadianceImageCreator {
     }
 
     /**
-     * Returns <code>close</code> icon.
-     *
-     * @param scheme
-     *            Color scheme for the icon.
-     * @return <code>Close</code> icon.
-     */
-    public static ScaleAwareImageWrapperIcon getCloseIcon(Component titlePane,
-            RadianceColorScheme scheme) {
-        return RadianceImageCreator.getCloseIcon(titlePane,
-                RadianceSizeUtils.getTitlePaneIconSize(), scheme);
-    }
-
-    /**
-     * Returns <code>close</code> icon.
-     *
-     * @param iSize
-     *            Icon dimension.
-     * @param scheme
-     *            Color scheme for the icon.
-     * @return <code>Close</code> icon.
-     */
-    public static ScaleAwareImageWrapperIcon getCloseIcon(Component titlePane, int iSize,
-            RadianceColorScheme scheme) {
-        double scale = RadianceCommonCortex.getScaleFactor(titlePane);
-
-        BufferedImage image = RadianceCoreUtilities.getBlankImage(scale, iSize, iSize);
-        Graphics2D graphics = image.createGraphics();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        int start = iSize / 4;
-        int end = iSize - start;
-
-        // System.out.println(iSize + ":" + start + ":" + end);
-
-        Stroke stroke = new BasicStroke(RadianceSizeUtils.getCloseIconStrokeWidth(iSize),
-                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-
-        graphics.setStroke(stroke);
-        Color color = scheme.getMarkColor();
-        graphics.setColor(color);
-        graphics.drawLine(start, start, end, end);
-        graphics.drawLine(start, end, end, start);
-        graphics.dispose();
-
-        Color echoColor = scheme.getEchoColor();
-
-        int fgStrength = RadianceColorUtilities.getColorBrightness(color.getRGB());
-        int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
-        boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-
-        return new ScaleAwareImageWrapperIcon(RadianceImageCreator.overlayEcho(scale, image,
-                noEcho ? 0 : RadianceColorUtilities.getColorStrength(color), echoColor), scale);
-    }
-
-    /**
      * Paints the bump dots on the split pane dividers.
      * 
      * @param g

@@ -377,23 +377,21 @@ public class BladeIconUtils {
                 });
     }
 
-    public static void drawCloseIcon(Graphics2D g, Component titlePane, int iSize,
-            RadianceColorScheme scheme) {
+    public static void drawCloseIcon(Graphics2D g, int iconSize,
+            float primaryStrokeWidth, RadianceColorScheme scheme) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        int start = iSize / 4;
-        int end = iSize - start;
+        int start = iconSize / 4;
+        int end = iconSize - start;
 
         // System.out.println(iSize + ":" + start + ":" + end);
 
         Color primaryColor = scheme.getMarkColor();
         Color echoColor = scheme.getEchoColor();
-
-        float primaryStrokeWidth = RadianceSizeUtils.getCloseIconStrokeWidth(iSize);
 
         int fgStrength = RadianceColorUtilities.getColorBrightness(primaryColor.getRGB());
         int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
