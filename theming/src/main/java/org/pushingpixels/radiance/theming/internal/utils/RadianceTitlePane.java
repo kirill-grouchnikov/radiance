@@ -37,6 +37,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceButtonUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
@@ -450,10 +452,21 @@ public class RadianceTitlePane extends JComponent {
         this.closeButton.setText(null);
         this.closeButton.setBorder(null);
 
-        Icon closeIcon = new TransitionAwareIcon(closeButton,
-                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                        RadianceIconFactory.IconKind.CLOSE, scheme),
-                "radiance.theming.internal.titlePane.closeIcon");
+        Icon closeIcon = new BladeTransitionAwareIcon(closeButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        BladeIconUtils.drawCloseIcon(g, RadianceTitlePane.this,
+                                RadianceSizeUtils.getTitlePaneIconSize(), scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                        return new Dimension(size, size);
+                    }
+                });
+
         this.closeButton.setIcon(closeIcon);
 
         this.closeButton.setFocusable(false);

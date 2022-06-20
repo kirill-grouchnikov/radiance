@@ -36,8 +36,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,6 +44,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 
 public class BladeIconUtils {
     /**
@@ -375,6 +375,52 @@ public class BladeIconUtils {
                         graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
                     }
                 });
+    }
+
+    public static void drawCloseIcon(Graphics2D g, Component titlePane, int iSize,
+            RadianceColorScheme scheme) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+        int start = iSize / 4;
+        int end = iSize - start;
+
+        // System.out.println(iSize + ":" + start + ":" + end);
+
+        Color primaryColor = scheme.getMarkColor();
+        Color echoColor = scheme.getEchoColor();
+
+        float primaryStrokeWidth = RadianceSizeUtils.getCloseIconStrokeWidth(iSize);
+
+        int fgStrength = RadianceColorUtilities.getColorBrightness(primaryColor.getRGB());
+        int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
+        boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
+
+        if (!noEcho) {
+            // Thicker, translucent stroke
+            Stroke echoStroke = new BasicStroke(primaryStrokeWidth * 1.5f,
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+            graphics.setStroke(echoStroke);
+            graphics.setColor(echoColor);
+            graphics.drawLine(start, start, end, end);
+            graphics.drawLine(start, end, end, start);
+            graphics.setComposite(AlphaComposite.SrcOver);
+        }
+
+        Stroke primaryStroke = new BasicStroke(primaryStrokeWidth,
+                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+        graphics.setStroke(primaryStroke);
+        graphics.setColor(primaryColor);
+        graphics.drawLine(start, start, end, end);
+        graphics.drawLine(start, end, end, start);
+
+        graphics.dispose();
     }
 
     private static AlphaComposite getAlphaComposite(float alpha) {
