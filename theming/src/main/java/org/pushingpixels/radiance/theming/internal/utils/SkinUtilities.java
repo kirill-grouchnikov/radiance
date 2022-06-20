@@ -444,15 +444,81 @@ public class SkinUtilities {
 
                 "InternalFrame.iconifyIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceImageCreator.getMinimizeIcon(null, titlePaneScheme)),
+                        new IconUIResource(new Icon() {
+                            @Override
+                            public void paintIcon(Component c, Graphics g, int x, int y) {
+                                Graphics2D graphics = (Graphics2D) g.create();
+                                graphics.translate(x, y);
+
+                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                BladeIconUtils.drawMinimizeIcon(graphics, iconSize,
+                                        titlePaneScheme);
+
+                                graphics.dispose();
+                            }
+
+                            @Override
+                            public int getIconWidth() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+
+                            @Override
+                            public int getIconHeight() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+                        })),
 
                 "InternalFrame.maximizeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceImageCreator.getMaximizeIcon(null, titlePaneScheme)),
+                        new IconUIResource(new Icon() {
+                            @Override
+                            public void paintIcon(Component c, Graphics g, int x, int y) {
+                                Graphics2D graphics = (Graphics2D) g.create();
+                                graphics.translate(x, y);
+
+                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                BladeIconUtils.drawMaximizeIcon(graphics, iconSize,
+                                        titlePaneScheme);
+
+                                graphics.dispose();
+                            }
+
+                            @Override
+                            public int getIconWidth() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+
+                            @Override
+                            public int getIconHeight() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+                        })),
 
                 "InternalFrame.minimizeIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->
-                        RadianceImageCreator.getRestoreIcon(null, titlePaneScheme)),
+                        new IconUIResource(new Icon() {
+                            @Override
+                            public void paintIcon(Component c, Graphics g, int x, int y) {
+                                Graphics2D graphics = (Graphics2D) g.create();
+                                graphics.translate(x, y);
+
+                                int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                BladeIconUtils.drawRestoreIcon(graphics, iconSize,
+                                        titlePaneScheme);
+
+                                graphics.dispose();
+                            }
+
+                            @Override
+                            public int getIconWidth() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+
+                            @Override
+                            public int getIconHeight() {
+                                return RadianceSizeUtils.getTitlePaneIconSize();
+                            }
+                        })),
 
                 "InternalFrame.paletteCloseIcon",
                 (UIDefaults.LazyValue) ((UIDefaults table) ->

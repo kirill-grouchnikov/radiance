@@ -32,8 +32,6 @@ package org.pushingpixels.radiance.theming.internal.ui;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
@@ -45,7 +43,6 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
-import org.pushingpixels.radiance.theming.internal.utils.icon.RadianceIconFactory;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TreeIcon;
 
 import javax.swing.*;

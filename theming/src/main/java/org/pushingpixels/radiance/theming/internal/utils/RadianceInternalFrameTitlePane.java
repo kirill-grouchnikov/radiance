@@ -39,8 +39,6 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIco
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceButtonUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceMenuBarUI;
-import org.pushingpixels.radiance.theming.internal.utils.icon.RadianceIconFactory;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.JInternalFrame.JDesktopIcon;
@@ -301,18 +299,48 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         if (!RadianceCoreUtilities.isCurrentLookAndFeel())
             return;
 
-        Icon restoreIcon = new TransitionAwareIcon(this.maxButton,
-                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                        RadianceIconFactory.IconKind.RESTORE, scheme),
-                "radiance.theming.internal.internalFrame.restoreIcon");
-        Icon maximizeIcon = new TransitionAwareIcon(this.maxButton,
-                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                        RadianceIconFactory.IconKind.MAXIMIZE, scheme),
-                "radiance.theming.internal.internalFrame.maxIcon");
-        Icon minimizeIcon = new TransitionAwareIcon(this.iconButton,
-                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                        RadianceIconFactory.IconKind.MINIMIZE, scheme),
-                "radiance.theming.internal.internalFrame.minIcon");
+        Icon restoreIcon = new BladeTransitionAwareIcon(closeButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawRestoreIcon(g, iconSize, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                        return new Dimension(size, size);
+                    }
+                });
+        Icon maximizeIcon = new BladeTransitionAwareIcon(closeButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                        return new Dimension(size, size);
+                    }
+                });
+        Icon minimizeIcon = new BladeTransitionAwareIcon(closeButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                        BladeIconUtils.drawMinimizeIcon(g, iconSize, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                        return new Dimension(size, size);
+                    }
+                });
         Icon closeIcon = new BladeTransitionAwareIcon(closeButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override

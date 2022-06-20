@@ -42,8 +42,6 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIco
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceButtonUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
-import org.pushingpixels.radiance.theming.internal.utils.icon.RadianceIconFactory;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
@@ -152,8 +150,10 @@ public class RadianceTitlePane extends JComponent {
     /**
      * Creates a new title pane.
      *
-     * @param root Root pane.
-     * @param ui   Root pane UI.
+     * @param root
+     *         Root pane.
+     * @param ui
+     *         Root pane UI.
      */
     public RadianceTitlePane(JRootPane root, RadianceRootPaneUI ui) {
         this.rootPane = root;
@@ -366,11 +366,11 @@ public class RadianceTitlePane extends JComponent {
      * Create the <code>Action</code>s that get associated with the buttons and menu items.
      */
     private void createActions() {
-        this.closeAction = new CloseAction(this);
+        this.closeAction = new CloseAction();
         if (this.getWindowDecorationStyle() == JRootPane.FRAME) {
-            this.iconifyAction = new IconifyAction(this);
-            this.restoreAction = new RestoreAction(this);
-            this.maximizeAction = new MaximizeAction(this);
+            this.iconifyAction = new IconifyAction();
+            this.restoreAction = new RestoreAction();
+            this.maximizeAction = new MaximizeAction();
         }
     }
 
@@ -393,7 +393,8 @@ public class RadianceTitlePane extends JComponent {
     /**
      * Adds the necessary <code>JMenuItem</code>s to the specified menu.
      *
-     * @param menu Menu.
+     * @param menu
+     *         Menu.
      */
     private void addMenuItems(JMenu menu) {
         menu.add(this.restoreAction);
@@ -482,10 +483,20 @@ public class RadianceTitlePane extends JComponent {
             this.minimizeButton.setText(null);
             this.minimizeButton.setBorder(null);
 
-            Icon minIcon = new TransitionAwareIcon(this.minimizeButton,
-                    scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                            RadianceIconFactory.IconKind.MINIMIZE, scheme),
-                    "radiance.theming.internal.titlePane.minIcon");
+            Icon minIcon = new BladeTransitionAwareIcon(minimizeButton,
+                    new BladeTransitionAwareIcon.Delegate() {
+                        @Override
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                            int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                            BladeIconUtils.drawMinimizeIcon(g, iconSize, scheme);
+                        }
+
+                        @Override
+                        public Dimension getIconDimension() {
+                            int size = RadianceSizeUtils.getTitlePaneIconSize();
+                            return new Dimension(size, size);
+                        }
+                    });
             this.minimizeButton.setIcon(minIcon);
 
             this.minimizeButton.setFocusable(false);
@@ -499,10 +510,20 @@ public class RadianceTitlePane extends JComponent {
             this.toggleButton.setText(null);
             this.toggleButton.setBorder(null);
 
-            Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                    scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                            RadianceIconFactory.IconKind.MAXIMIZE, scheme),
-                    "radiance.theming.internal.titlePane.maxIcon");
+            Icon maxIcon = new BladeTransitionAwareIcon(toggleButton,
+                    new BladeTransitionAwareIcon.Delegate() {
+                        @Override
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                            int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                            BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
+                        }
+
+                        @Override
+                        public Dimension getIconDimension() {
+                            int size = RadianceSizeUtils.getTitlePaneIconSize();
+                            return new Dimension(size, size);
+                        }
+                    });
             this.toggleButton.setIcon(maxIcon);
 
             this.toggleButton.setToolTipText(
@@ -528,7 +549,8 @@ public class RadianceTitlePane extends JComponent {
     /**
      * Updates state dependant upon the Window's active state.
      *
-     * @param isActive if <code>true</code>, the window is in active state.
+     * @param isActive
+     *         if <code>true</code>, the window is in active state.
      */
     private void setActive(boolean isActive) {
         this.getRootPane().repaint();
@@ -537,7 +559,8 @@ public class RadianceTitlePane extends JComponent {
     /**
      * Sets the state of the Window.
      *
-     * @param state Window state.
+     * @param state
+     *         Window state.
      */
     private void setState(int state) {
         this.setState(state, false);
@@ -547,8 +570,10 @@ public class RadianceTitlePane extends JComponent {
      * Sets the state of the window. If <code>updateRegardless</code> is true and the state has not
      * changed, this will update anyway.
      *
-     * @param state            Window state.
-     * @param updateRegardless if <code>true</code>, the update is done in any case.
+     * @param state
+     *         Window state.
+     * @param updateRegardless
+     *         if <code>true</code>, the update is done in any case.
      */
     private void setState(int state, boolean updateRegardless) {
         if ((this.window != null) && (this.getWindowDecorationStyle() == JRootPane.FRAME)) {
@@ -574,20 +599,40 @@ public class RadianceTitlePane extends JComponent {
                 }
                 if (frame.isResizable()) {
                     if ((state & Frame.MAXIMIZED_BOTH) != 0) {
-                        Icon restoreIcon = new TransitionAwareIcon(this.toggleButton,
-                                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                                        RadianceIconFactory.IconKind.RESTORE, scheme),
-                                "radiance.theming.internal.titlePane.restoreIcon");
+                        Icon restoreIcon = new BladeTransitionAwareIcon(toggleButton,
+                                new BladeTransitionAwareIcon.Delegate() {
+                                    @Override
+                                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                        BladeIconUtils.drawRestoreIcon(g, iconSize, scheme);
+                                    }
+
+                                    @Override
+                                    public Dimension getIconDimension() {
+                                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                                        return new Dimension(size, size);
+                                    }
+                                });
                         this.updateToggleButton(this.restoreAction, restoreIcon);
                         this.toggleButton.setToolTipText(RadianceThemingCortex.GlobalScope
                                 .getLabelBundle().getString("SystemMenu.restore"));
                         this.maximizeAction.setEnabled(false);
                         this.restoreAction.setEnabled(true);
                     } else {
-                        Icon maxIcon = new TransitionAwareIcon(this.toggleButton,
-                                scheme -> RadianceIconFactory.getTitlePaneIcon(this,
-                                        RadianceIconFactory.IconKind.MAXIMIZE, scheme),
-                                "radiance.theming.internal.titlePane.maxIcon");
+                        Icon maxIcon = new BladeTransitionAwareIcon(toggleButton,
+                                new BladeTransitionAwareIcon.Delegate() {
+                                    @Override
+                                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                        BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
+                                    }
+
+                                    @Override
+                                    public Dimension getIconDimension() {
+                                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                                        return new Dimension(size, size);
+                                    }
+                                });
                         this.updateToggleButton(this.maximizeAction, maxIcon);
                         this.toggleButton.setToolTipText(RadianceThemingCortex.GlobalScope
                                 .getLabelBundle().getString("SystemMenu.maximize"));
@@ -630,8 +675,10 @@ public class RadianceTitlePane extends JComponent {
      * Updates the toggle button to contain the Icon <code>icon</code>, and Action
      * <code>action</code>.
      *
-     * @param action Action.
-     * @param icon   Icon.
+     * @param action
+     *         Action.
+     * @param icon
+     *         Icon.
      */
     private void updateToggleButton(Action action, Icon icon) {
         this.toggleButton.setAction(action);
@@ -777,7 +824,7 @@ public class RadianceTitlePane extends JComponent {
         /**
          * Creates a new close action.
          */
-        public CloseAction(Component titlePane) {
+        public CloseAction() {
             super(RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close"),
                     new BladeTransitionAwareIcon(closeButton,
                             new BladeTransitionAwareIcon.Delegate() {
@@ -811,11 +858,22 @@ public class RadianceTitlePane extends JComponent {
         /**
          * Creates a new iconify action.
          */
-        private IconifyAction(Component titlePane) {
+        private IconifyAction() {
             super(RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify"),
-                    RadianceImageCreator.getMinimizeIcon(titlePane,
-                            RadianceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    new BladeTransitionAwareIcon(minimizeButton,
+                            new BladeTransitionAwareIcon.Delegate() {
+                                @Override
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                    int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                    BladeIconUtils.drawMinimizeIcon(g, iconSize, scheme);
+                                }
+
+                                @Override
+                                public Dimension getIconDimension() {
+                                    int size = RadianceSizeUtils.getTitlePaneIconSize();
+                                    return new Dimension(size, size);
+                                }
+                            }));
         }
 
         @Override
@@ -834,11 +892,22 @@ public class RadianceTitlePane extends JComponent {
         /**
          * Creates a new restore action.
          */
-        private RestoreAction(Component titlePane) {
+        private RestoreAction() {
             super(RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore"),
-                    RadianceImageCreator.getRestoreIcon(titlePane,
-                            RadianceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    new BladeTransitionAwareIcon(toggleButton,
+                            new BladeTransitionAwareIcon.Delegate() {
+                                @Override
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                    int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                    BladeIconUtils.drawRestoreIcon(g, iconSize, scheme);
+                                }
+
+                                @Override
+                                public Dimension getIconDimension() {
+                                    int size = RadianceSizeUtils.getTitlePaneIconSize();
+                                    return new Dimension(size, size);
+                                }
+                            }));
         }
 
         @Override
@@ -864,11 +933,22 @@ public class RadianceTitlePane extends JComponent {
         /**
          * Creates a new maximize action.
          */
-        private MaximizeAction(Component titlePane) {
+        private MaximizeAction() {
             super(RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize"),
-                    RadianceImageCreator.getMaximizeIcon(titlePane,
-                            RadianceCoreUtilities.getSkin(rootPane)
-                                    .getActiveColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE)));
+                    new BladeTransitionAwareIcon(toggleButton,
+                            new BladeTransitionAwareIcon.Delegate() {
+                                @Override
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                    int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
+                                    BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
+                                }
+
+                                @Override
+                                public Dimension getIconDimension() {
+                                    int size = RadianceSizeUtils.getTitlePaneIconSize();
+                                    return new Dimension(size, size);
+                                }
+                            }));
         }
 
         @Override
