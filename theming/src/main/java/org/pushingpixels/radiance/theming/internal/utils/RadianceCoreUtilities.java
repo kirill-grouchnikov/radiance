@@ -202,28 +202,28 @@ public class RadianceCoreUtilities {
     /**
      * Checks whether the specified button never paints its background.
      *
-     * @param button Button.
+     * @param component Button.
      * @return <code>true</code> if the specified button never paints its background,
      * <code>false</code> otherwise.
      * @see RadianceThemingCortex.GlobalScope#setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
      */
-    public static boolean isButtonNeverPainted(JComponent button) {
+    public static boolean isComponentNeverPainted(JComponent component) {
         // small optimizations for checkboxes and radio buttons
-        if (button instanceof JCheckBox) {
+        if (component instanceof JCheckBox) {
             return false;
         }
-        if (button instanceof JRadioButton) {
+        if (component instanceof JRadioButton) {
             return false;
         }
 
-        Object backgroundAppearanceStrategy = button.getClientProperty(RadianceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+        Object backgroundAppearanceStrategy = component.getClientProperty(RadianceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
         if (backgroundAppearanceStrategy != null) {
             if (RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER.equals(backgroundAppearanceStrategy)) {
                 return true;
             }
         }
 
-        Container parent = button.getParent();
+        Container parent = component.getParent();
         if (parent instanceof JComponent) {
             JComponent jparent = (JComponent) parent;
             backgroundAppearanceStrategy = jparent

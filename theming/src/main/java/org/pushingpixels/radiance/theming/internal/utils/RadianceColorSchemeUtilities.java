@@ -157,7 +157,7 @@ public class RadianceColorSchemeUtilities {
         // that is never painting its background - get the color scheme of the
         // parent
         boolean isButtonThatIsNeverPainted = ((component instanceof AbstractButton)
-                && RadianceCoreUtilities.isButtonNeverPainted((AbstractButton) component));
+                && RadianceCoreUtilities.isComponentNeverPainted((AbstractButton) component));
         if (isButtonThatIsNeverPainted
                 || (RadianceCoreUtilities.hasFlatAppearance(component, false)
                 && (componentState == ComponentState.ENABLED))) {

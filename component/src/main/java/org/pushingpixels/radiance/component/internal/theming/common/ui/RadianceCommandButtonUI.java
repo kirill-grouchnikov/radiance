@@ -303,7 +303,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     }
 
     private void paintButtonBackground(Graphics graphics) {
-        if (RadianceCoreUtilities.isButtonNeverPainted(this.commandButton)) {
+        if (RadianceCoreUtilities.isComponentNeverPainted(this.commandButton)) {
             return;
         }
 

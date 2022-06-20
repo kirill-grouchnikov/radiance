@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
@@ -184,7 +183,7 @@ public class ButtonBackgroundDelegate {
             return;
         }
 
-        if (RadianceCoreUtilities.isButtonNeverPainted(button)) {
+        if (RadianceCoreUtilities.isComponentNeverPainted(button)) {
             return;
         }
 

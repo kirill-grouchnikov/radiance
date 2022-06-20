@@ -154,8 +154,8 @@ public class TransitionAwareIcon implements Icon {
                 modelStateInfo.getStateContributionMap();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        boolean buttonNeverPainted = RadianceCoreUtilities.isButtonNeverPainted(this.comp);
-        if (buttonNeverPainted) {
+        boolean isComponentNeverPainted = RadianceCoreUtilities.isComponentNeverPainted(this.comp);
+        if (isComponentNeverPainted) {
             if (currState.isFacetActive(ComponentStateFacet.ENABLE))
                 currState = ComponentState.ENABLED;
         }
@@ -188,7 +188,7 @@ public class TransitionAwareIcon implements Icon {
                 iconMap.put(keyBase, layerBase);
             }
         }
-        if (currState.isDisabled() || (activeStates.size() == 1) || buttonNeverPainted) {
+        if (currState.isDisabled() || (activeStates.size() == 1) || isComponentNeverPainted) {
             return layerBase;
         }
 

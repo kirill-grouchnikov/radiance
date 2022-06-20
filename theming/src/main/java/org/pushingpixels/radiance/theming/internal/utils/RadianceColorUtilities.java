@@ -480,7 +480,7 @@ public class RadianceColorUtilities {
         // always use the color scheme for the default state.
         if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
-            if (RadianceCoreUtilities.isButtonNeverPainted(button)
+            if (RadianceCoreUtilities.isComponentNeverPainted(button)
                     || !button.isContentAreaFilled()
                     || (button instanceof JRadioButton)
                     || (button instanceof JCheckBox)) {

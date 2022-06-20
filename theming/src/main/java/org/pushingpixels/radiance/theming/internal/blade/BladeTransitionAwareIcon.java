@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.blade;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
@@ -42,8 +40,6 @@ import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Map;
 
 /**
  * Icon with transition-aware capabilities. Has a delegate that does the actual painting based on
@@ -137,8 +133,8 @@ public class BladeTransitionAwareIcon implements Icon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        boolean buttonNeverPainted = RadianceCoreUtilities.isButtonNeverPainted(this.comp);
-        if (buttonNeverPainted) {
+        boolean isComponentNeverPainted = RadianceCoreUtilities.isComponentNeverPainted(this.comp);
+        if (isComponentNeverPainted) {
             if (currState.isFacetActive(ComponentStateFacet.ENABLE))
                 currState = ComponentState.ENABLED;
         }
