@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.extras.api.RadianceExtrasSlices.TabOverviewKind;
@@ -42,9 +41,8 @@ import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swin
 import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swing.components.JCarouselMenu;
 import org.pushingpixels.radiance.theming.extras.internal.contrib.blogofbug.swing.components.ReflectedImageLabel;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -503,14 +501,12 @@ public class TabOverviewDialog extends JDialog {
             this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
 
-            int controlFontSize = RadianceSizeUtils.getControlFontSize();
-            double scale = RadianceCommonCortex.getScaleFactor(this);
             RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
                     .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
             this.caroselMenu.setUpDownIcons(
-                    RadianceImageCreator.getArrowIcon(scale, controlFontSize,
+                    BladeArrowIconUtils.getArrowIcon(caroselMenu,
                             SwingConstants.NORTH, colorScheme),
-                    RadianceImageCreator.getArrowIcon(scale, controlFontSize,
+                    BladeArrowIconUtils.getArrowIcon(caroselMenu,
                             SwingConstants.SOUTH, colorScheme));
 
             this.setLayout(new BorderLayout());
@@ -538,14 +534,12 @@ public class TabOverviewDialog extends JDialog {
                 this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
                 this.caroselMenu.setBackground(UIManager.getColor("Panel.background"));
 
-                double scale = RadianceCommonCortex.getScaleFactor(this.caroselMenu);
-                int controlFontSize = RadianceSizeUtils.getControlFontSize();
                 RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
                         .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
                 this.caroselMenu.setUpDownIcons(
-                        RadianceImageCreator.getArrowIcon(scale, controlFontSize,
+                        BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
                                 SwingConstants.NORTH, colorScheme),
-                        RadianceImageCreator.getArrowIcon(scale, controlFontSize,
+                        BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
                                 SwingConstants.SOUTH, colorScheme));
             }
         }
