@@ -35,12 +35,15 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableHeaderUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -52,6 +55,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Map;
 
 /**
@@ -157,7 +161,7 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                 setHorizontalTextPosition(JLabel.LEADING);
                 java.util.List<? extends RowSorter.SortKey> sortKeys = rowSorter.getSortKeys();
                 Icon sortIcon = null;
-                RadianceColorScheme scheme = null;
+                final RadianceColorScheme scheme;
                 if (tableHeaderUI instanceof RadianceTableHeaderUI) {
                     RadianceTableHeaderUI ui = (RadianceTableHeaderUI) tableHeaderUI;
                     ComponentState state = ui.getColumnState(column);
@@ -174,17 +178,55 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                 if (sortKeys.size() > 0
                         && (sortKeys.get(0).getColumn() ==
                         table.convertColumnIndexToModel(column))) {
-                    double scale = RadianceCommonCortex.getScaleFactor(table);
+                    int fontSize = RadianceSizeUtils.getComponentFontSize(this);
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:
-                            sortIcon = RadianceImageCreator.getArrowIcon(scale,
-                                    RadianceSizeUtils.getComponentFontSize(tableHeader),
-                                    SwingConstants.NORTH, scheme);
+                            Dimension ascendingIconSize = BladeIconUtils.getArrowIconDimension(
+                                    fontSize, SwingConstants.NORTH);
+                            sortIcon = new Icon() {
+                                @Override
+                                public int getIconWidth() {
+                                    return ascendingIconSize.width;
+                                }
+
+                                @Override
+                                public int getIconHeight() {
+                                    return ascendingIconSize.height;
+                                }
+
+                                @Override
+                                public void paintIcon(Component c, Graphics g, int x, int y) {
+                                    Graphics2D graphics = (Graphics2D) g.create();
+                                    graphics.translate(x, y);
+                                    BladeIconUtils.drawArrow(graphics, fontSize, ascendingIconSize,
+                                            SwingConstants.NORTH, scheme);
+                                    graphics.dispose();
+                                }
+                            };
                             break;
                         case DESCENDING:
-                            sortIcon = RadianceImageCreator.getArrowIcon(scale,
-                                    RadianceSizeUtils.getComponentFontSize(tableHeader),
-                                    SwingConstants.SOUTH, scheme);
+                            Dimension descendingIconSize = BladeIconUtils.getArrowIconDimension(
+                                    fontSize, SwingConstants.SOUTH);
+                            sortIcon = new Icon() {
+                                @Override
+                                public int getIconWidth() {
+                                    return descendingIconSize.width;
+                                }
+
+                                @Override
+                                public int getIconHeight() {
+                                    return descendingIconSize.height;
+                                }
+
+                                @Override
+                                public void paintIcon(Component c, Graphics g, int x, int y) {
+                                    Graphics2D graphics = (Graphics2D) g.create();
+                                    graphics.translate(x, y);
+                                    BladeIconUtils.drawArrow(graphics, fontSize, descendingIconSize,
+                                            SwingConstants.SOUTH, scheme);
+                                    graphics.dispose();
+                                }
+                            };
                             break;
                         case UNSORTED:
                             sortIcon = null;
