@@ -46,10 +46,11 @@ import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowButtonTransitionAwareIcon;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
-import org.pushingpixels.radiance.theming.internal.utils.icon.ArrowButtonTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.menu.RadianceMenu;
@@ -1429,8 +1430,10 @@ public class RadianceCoreUtilities {
      * @return Arrow icon.
      */
     public static Icon getArrowIcon(AbstractButton button, int orientation) {
-        Icon result = new ArrowButtonTransitionAwareIcon(button, orientation);
-        return result;
+        int fontSize = RadianceSizeUtils.getComponentFontSize(button);
+        return new BladeArrowButtonTransitionAwareIcon(button,
+                BladeIconUtils.getArrowIconDimension(fontSize, orientation),
+                orientation);
     }
 
     /**
@@ -1443,9 +1446,10 @@ public class RadianceCoreUtilities {
     public static Icon getArrowIcon(JComponent comp,
             TransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
             int orientation) {
-        Icon result = new ArrowButtonTransitionAwareIcon(comp, transitionAwareUIDelegate,
+        int fontSize = RadianceSizeUtils.getComponentFontSize(comp);
+        return new BladeArrowButtonTransitionAwareIcon(comp, transitionAwareUIDelegate,
+                BladeIconUtils.getArrowIconDimension(fontSize, orientation),
                 orientation);
-        return result;
     }
 
     /**

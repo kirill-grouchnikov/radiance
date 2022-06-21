@@ -363,8 +363,8 @@ public class RadianceButtonUI extends BasicButtonUI implements
         }
         g2d.dispose();
 
-        // g2d.setColor(Color.red);
-        // g2d.draw(iconRect);
+         g2d.setColor(Color.red);
+         g2d.draw(iconRect);
         // g2d.draw(viewRect);
         // g2d.draw(textRect);
 

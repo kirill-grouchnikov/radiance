@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.icon;
 
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
@@ -56,8 +58,8 @@ public class MenuArrowIcon implements Icon, UIResource {
 	 *            Menu.
 	 */
 	public MenuArrowIcon(JMenu menu) {
-		this.ltrIcon = new ArrowButtonTransitionAwareIcon(menu, SwingConstants.EAST);
-		this.rtlIcon = new ArrowButtonTransitionAwareIcon(menu, SwingConstants.WEST);
+		this.ltrIcon = RadianceCoreUtilities.getArrowIcon(menu, SwingConstants.EAST);
+		this.rtlIcon = RadianceCoreUtilities.getArrowIcon(menu, SwingConstants.WEST);
 	}
 
 	@Override

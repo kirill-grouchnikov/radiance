@@ -607,6 +607,97 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
+    public static void drawArrow(Graphics2D g, int fontSize, Dimension boundingBox,
+            int direction, RadianceColorScheme colorScheme) {
+        float origWidth = RadianceSizeUtils.getArrowIconWidth(fontSize);
+        float origHeight = RadianceSizeUtils.getArrowIconHeight(fontSize);
+        float width = origWidth;
+        float height = origHeight;
+        if (direction == SwingConstants.CENTER)
+            height *= 2;
+        float strokeWidth = RadianceSizeUtils.getArrowStrokeWidth(fontSize);
+
+        int dx = (int) (boundingBox.width - width) / 2;
+        int dy = (int) (boundingBox.height - height) / 2;
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.translate(dx, dy);
+        drawArrow(graphics, width, height, strokeWidth, direction, colorScheme);
+        graphics.dispose();
+    }
+
+    public static void drawArrow(Graphics2D g, float width, float height,
+            float strokeWidth, int direction, RadianceColorScheme scheme) {
+        if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
+            float tmp = width;
+            width = height;
+            height = tmp;
+        }
+
+        // get graphics and set hints
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                RenderingHints.VALUE_STROKE_PURE);
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+        Color arrowColor = scheme.getMarkColor();
+
+        graphics.setColor(arrowColor);
+        Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
+        graphics.setStroke(stroke);
+
+        if (direction == SwingConstants.CENTER) {
+            float smallHeight = (height - strokeWidth) / 2;
+            drawArrow(graphics, width, smallHeight, strokeWidth,
+                    SwingConstants.NORTH, scheme);
+            graphics.translate(0, (int) (height / 2.0));
+            drawArrow(graphics, width, smallHeight, strokeWidth,
+                    SwingConstants.SOUTH, scheme);
+        } else {
+            float cushion = strokeWidth / 2.0f;
+            GeneralPath gp = new GeneralPath();
+            switch (direction) {
+                case SwingConstants.SOUTH:
+                    gp.moveTo(cushion, cushion);
+                    gp.lineTo(0.5f * (width), height - cushion - 1);
+                    gp.lineTo(width - cushion, cushion);
+                    break;
+                case SwingConstants.NORTH:
+                    gp.moveTo(cushion, height - cushion - 1);
+                    gp.lineTo(0.5f * (width), cushion);
+                    gp.lineTo(width - cushion, height - cushion - 1);
+                    break;
+                case SwingConstants.EAST:
+                    gp.moveTo(cushion, cushion);
+                    gp.lineTo(width - 1 - cushion, 0.5f * (height));
+                    gp.lineTo(cushion, height - cushion);
+                    break;
+                case SwingConstants.WEST:
+                    gp.moveTo(width - 1 - cushion, cushion);
+                    gp.lineTo(cushion, 0.5f * (height));
+                    gp.lineTo(width - 1 - cushion, height - cushion);
+                    break;
+            }
+            graphics.draw(gp);
+        }
+        graphics.dispose();
+    }
+
+    public static Dimension getArrowIconDimension(int fontSize, int direction) {
+        float origWidth = RadianceSizeUtils.getArrowIconWidth(fontSize);
+        float origHeight = RadianceSizeUtils.getArrowIconHeight(fontSize);
+        float height = origHeight;
+        if (direction == SwingConstants.CENTER) {
+            height *= 2;
+        }
+        int finalWidth = (int) (Math.max(origWidth, origHeight) + 2);
+        int finalHeight = (int) (Math.max(origWidth, height) + 2);
+        return new Dimension(finalWidth, finalHeight);
+    }
+
     private static AlphaComposite getAlphaComposite(float alpha) {
         // Fix for "alpha value out of range"
         float finalAlpha = alpha;

@@ -41,8 +41,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
-import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.*;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -51,10 +49,10 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMult
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -913,7 +911,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected JButton createScrollButton(final int direction) {
-        double scale = RadianceCommonCortex.getScaleFactor(this.tabPane);
         JButton ssb = new JButton() {
             @Override
             public Insets getInsets() {
@@ -937,12 +934,22 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(
                 ssb, EnumSet.allOf(RadianceThemingSlices.Side.class));
 
-        Icon icon = new TransitionAwareIcon(ssb, scheme -> {
-            // fix for defect 279 - tab pane might not yet have the font installed.
-            int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
-            return RadianceImageCreator.getArrowIcon(scale, fontSize, direction, scheme);
-        }, "radiance.theming.internal.tabbedpane.scroll." + direction);
+        Icon icon = new BladeTransitionAwareIcon(ssb, new BladeTransitionAwareIcon.Delegate() {
+            @Override
+            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
+                BladeIconUtils.drawArrow(g, fontSize, getIconDimension(),
+                        direction, scheme);
+            }
+
+            @Override
+            public Dimension getIconDimension() {
+                int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
+                return BladeIconUtils.getArrowIconDimension(fontSize, direction);
+            }
+        });
         ssb.setIcon(icon);
+
         return ssb;
     }
 
