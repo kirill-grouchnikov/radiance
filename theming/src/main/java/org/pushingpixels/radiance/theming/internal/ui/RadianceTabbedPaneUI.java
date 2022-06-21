@@ -1500,7 +1500,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         RadianceThemingSlices.TabContentPaneBorderKind kind = RadianceCoreUtilities.getContentBorderKind(this.tabPane);
         boolean isDouble = (kind == RadianceThemingSlices.TabContentPaneBorderKind.DOUBLE_PLACEMENT);
-        int delta = isDouble ? 3 : 0;
+        int delta = isDouble ? 2 : 0;
 
         switch (tabPlacement) {
             case TOP:
@@ -1549,7 +1549,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     int capKind = BasicStroke.CAP_BUTT;
                     graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
                     boolean isUnbroken = (selectedIndex < 0 || (selRect.y - 1 > h)
                             || (selRect.x < x || selRect.x > x + w));
@@ -1615,7 +1615,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     int capKind = BasicStroke.CAP_BUTT;
                     graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
                     boolean isUnbroken = (selectedIndex < 0
                             || (selRect.x + selRect.width + 1 < x) || (selRect.y < y || selRect.y > y + h));
@@ -1679,7 +1679,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     int capKind = BasicStroke.CAP_BUTT;
                     graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
                     boolean isUnbroken = (selectedIndex < 0 || (selRect.x - 1 > w)
                             || (selRect.y < y || selRect.y > y + h));
@@ -1745,7 +1745,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     int capKind = BasicStroke.CAP_BUTT;
                     graphics1X.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
-                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f);
+                    int ribbonDelta = (int) ((float) scaleFactor * 3.0f) - 1;
 
                     boolean isUnbroken = (selectedIndex < 0
                             || (selRect.y + selRect.height + 1 < y) || (selRect.x < x || selRect.x > x + w));
