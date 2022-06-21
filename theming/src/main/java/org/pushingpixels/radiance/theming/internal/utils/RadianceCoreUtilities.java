@@ -47,7 +47,7 @@ import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowButtonTransitionAwareIcon;
-import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
@@ -1432,7 +1432,7 @@ public class RadianceCoreUtilities {
     public static Icon getArrowIcon(AbstractButton button, int orientation) {
         int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         return new BladeArrowButtonTransitionAwareIcon(button,
-                BladeIconUtils.getArrowIconDimension(fontSize, orientation),
+                BladeArrowIconUtils.getArrowIconDimension(fontSize, orientation),
                 orientation);
     }
 
@@ -1448,7 +1448,7 @@ public class RadianceCoreUtilities {
             int orientation) {
         int fontSize = RadianceSizeUtils.getComponentFontSize(comp);
         return new BladeArrowButtonTransitionAwareIcon(comp, transitionAwareUIDelegate,
-                BladeIconUtils.getArrowIconDimension(fontSize, orientation),
+                BladeArrowIconUtils.getArrowIconDimension(fontSize, orientation),
                 orientation);
     }
 

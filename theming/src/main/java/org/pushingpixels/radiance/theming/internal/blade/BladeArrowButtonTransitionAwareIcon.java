@@ -103,7 +103,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
             @Override
             public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(component);
-                BladeIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation, scheme);
+                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation, scheme);
             }
 
             @Override

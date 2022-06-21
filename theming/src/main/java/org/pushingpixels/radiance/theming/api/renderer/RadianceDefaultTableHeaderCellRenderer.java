@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableHeaderUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
@@ -175,61 +176,19 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                             tableHeader, ComponentState.ENABLED);
                 }
 
-                if (sortKeys.size() > 0
-                        && (sortKeys.get(0).getColumn() ==
-                        table.convertColumnIndexToModel(column))) {
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(this);
+                if ((sortKeys.size() > 0) &&
+                        (sortKeys.get(0).getColumn() == table.convertColumnIndexToModel(column))) {
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:
-                            Dimension ascendingIconSize = BladeIconUtils.getArrowIconDimension(
-                                    fontSize, SwingConstants.NORTH);
-                            sortIcon = new Icon() {
-                                @Override
-                                public int getIconWidth() {
-                                    return ascendingIconSize.width;
-                                }
-
-                                @Override
-                                public int getIconHeight() {
-                                    return ascendingIconSize.height;
-                                }
-
-                                @Override
-                                public void paintIcon(Component c, Graphics g, int x, int y) {
-                                    Graphics2D graphics = (Graphics2D) g.create();
-                                    graphics.translate(x, y);
-                                    BladeIconUtils.drawArrow(graphics, fontSize, ascendingIconSize,
-                                            SwingConstants.NORTH, scheme);
-                                    graphics.dispose();
-                                }
-                            };
+                            sortIcon = BladeArrowIconUtils.getArrowIcon(
+                                    this, SwingConstants.NORTH, scheme);
                             break;
                         case DESCENDING:
-                            Dimension descendingIconSize = BladeIconUtils.getArrowIconDimension(
-                                    fontSize, SwingConstants.SOUTH);
-                            sortIcon = new Icon() {
-                                @Override
-                                public int getIconWidth() {
-                                    return descendingIconSize.width;
-                                }
-
-                                @Override
-                                public int getIconHeight() {
-                                    return descendingIconSize.height;
-                                }
-
-                                @Override
-                                public void paintIcon(Component c, Graphics g, int x, int y) {
-                                    Graphics2D graphics = (Graphics2D) g.create();
-                                    graphics.translate(x, y);
-                                    BladeIconUtils.drawArrow(graphics, fontSize, descendingIconSize,
-                                            SwingConstants.SOUTH, scheme);
-                                    graphics.dispose();
-                                }
-                            };
+                            sortIcon = BladeArrowIconUtils.getArrowIcon(
+                                    this, SwingConstants.SOUTH, scheme);
                             break;
                         case UNSORTED:
-                            sortIcon = null;
+                            // No sort, the icon remains null
                     }
                     this.setIcon(sortIcon);
                 }

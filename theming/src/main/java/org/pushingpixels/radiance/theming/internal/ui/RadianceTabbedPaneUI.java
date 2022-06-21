@@ -47,10 +47,7 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
-import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
-import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.blade.*;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -938,14 +935,14 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             @Override
             public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
-                BladeIconUtils.drawArrow(g, fontSize, getIconDimension(),
+                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(),
                         direction, scheme);
             }
 
             @Override
             public Dimension getIconDimension() {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
-                return BladeIconUtils.getArrowIconDimension(fontSize, direction);
+                return BladeArrowIconUtils.getArrowIconDimension(fontSize, direction);
             }
         });
         ssb.setIcon(icon);
