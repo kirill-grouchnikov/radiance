@@ -30,31 +30,21 @@
 package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Transition aware implementation of arrow button icons. Used for implementing
- * icons of combobox buttons, menus and more.
+ * Transition aware implementation of highlightable icons.
  *
  * @author Kirill Grouchnikov
  */
 @TransitionAware
-public class BladeArrowButtonTransitionAwareIcon implements Icon {
-    /**
-     * Arrow icon orientation. Must be one of {@link SwingConstants#NORTH},
-     * {@link SwingConstants#SOUTH}, {@link SwingConstants#EAST} or
-     * {@link SwingConstants#WEST}.
-     */
-    private int orientation;
-
+public class BladeHighlightableTransitionAwareIcon implements Icon {
     /**
      * Icon width.
      */
@@ -72,55 +62,28 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
     private JComponent component;
 
-    private BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
+    private ComponentStateFacet facetForHighlights;
 
-    private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
+    private BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
-    public BladeArrowButtonTransitionAwareIcon(final AbstractButton button,
-            final Dimension iconDimension,
-            final int orientation) {
-        this(button, () -> (TransitionAwareUI) button.getUI(), iconDimension, orientation);
-    }
+    private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
 
-    /**
-     * Creates an arrow icon.
-     *
-     * @param component   Arrow button.
-     * @param orientation Arrow icon orientation.
-     */
-    public BladeArrowButtonTransitionAwareIcon(
-            final JComponent component,
+    public BladeHighlightableTransitionAwareIcon(final JComponent component,
             BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
-            final Dimension iconDimension,
-            final int orientation) {
+            BladeTransitionAwareIcon.Delegate delegate, ComponentStateFacet facetForHighlights) {
         this.component = component;
+        this.facetForHighlights = facetForHighlights;
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
-        this.orientation = orientation;
-        this.delegate = new BladeTransitionAwareIcon.Delegate() {
-            @Override
-            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                int fontSize = RadianceSizeUtils.getComponentFontSize(component);
-                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation, scheme);
-            }
+        this.delegate = delegate;
+        this.colorSchemeAssociationKindDelegate = state -> state.isFacetActive(facetForHighlights)
+                ? ColorSchemeAssociationKind.HIGHLIGHT
+                : ColorSchemeAssociationKind.MARK;
 
-            @Override
-            public Dimension getIconDimension() {
-                return iconDimension;
-            }
-        };
-
-        this.iconWidth = iconDimension.width;
-        this.iconHeight = iconDimension.height;
-
-        this.colorSchemeAssociationKindDelegate = state -> {
-            // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
-            return (component instanceof JMenu) &&
-                    state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
-                    ? RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT
-                    : RadianceThemingSlices.ColorSchemeAssociationKind.MARK;
-        };
+        Dimension dimension = this.delegate.getIconDimension();
+        this.iconWidth = dimension.width;
+        this.iconHeight = dimension.height;
     }
 
     @Override
@@ -132,6 +95,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
         ComponentState currState = modelStateInfo.getCurrModelState();
 
+        // Use HIGHLIGHT when necessary and MARK for the rest
         BladeUtils.populateColorScheme(mutableColorScheme, this.component, modelStateInfo,
                 currState, this.colorSchemeAssociationKindDelegate, false);
 

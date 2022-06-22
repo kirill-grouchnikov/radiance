@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +73,7 @@ public class BladeTransitionAwareIcon implements Icon {
 
     private JComponent comp;
 
-    private TransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
+    private TransitionAwareUIDelegate transitionAwareUIDelegate;
 
     // Delegate to draw the icons visuals that match the current model state.
     private Delegate delegate;
@@ -96,7 +95,7 @@ public class BladeTransitionAwareIcon implements Icon {
      * Creates a new transition-aware icon.
      */
     public BladeTransitionAwareIcon(JComponent comp,
-            TransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
+            TransitionAwareUIDelegate transitionAwareUIDelegate,
             Delegate delegate,
             ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
         this.comp = comp;
@@ -142,5 +141,10 @@ public class BladeTransitionAwareIcon implements Icon {
         graphics.translate(x, y);
         this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme);
         graphics.dispose();
+    }
+
+    @FunctionalInterface
+    public interface TransitionAwareUIDelegate {
+        TransitionAwareUI getTransitionAwareUI();
     }
 }

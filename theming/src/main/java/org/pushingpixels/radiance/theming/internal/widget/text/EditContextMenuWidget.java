@@ -29,12 +29,14 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.text;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeHighlightableTransitionAwareIcon;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.icon.HighlightableTransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -47,7 +49,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Adds edit context menu on text components.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent> {
@@ -114,10 +116,22 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
         result.setEnabled(
                 jcomp.isEditable() && jcomp.isEnabled() && (jcomp.getSelectedText() != null));
 
-        HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
+        Icon icon = new BladeHighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getTextCutActionIcon(ICON_SIZE, scheme),
-                ComponentStateFacet.ARM, "radiance.theming.internal.widget.editcontext.cut");
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getTextCutActionIcon(ICON_SIZE, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(ICON_SIZE, ICON_SIZE);
+                    }
+                },
+                ComponentStateFacet.ARM);
         result.setIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.cut());
@@ -129,10 +143,22 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 RadianceThemingCortex.GlobalScope.getLabelBundle().getString("EditMenu.copy"));
         result.setEnabled(jcomp.isEnabled() && (jcomp.getSelectedText() != null));
 
-        HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
+        Icon icon = new BladeHighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getTextCopyActionIcon(ICON_SIZE, scheme),
-                ComponentStateFacet.ARM, "radiance.theming.internal.widget.editcontext.copy");
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getTextCopyActionIcon(ICON_SIZE, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(ICON_SIZE, ICON_SIZE);
+                    }
+                },
+                ComponentStateFacet.ARM);
         result.setIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.copy());
@@ -150,10 +176,22 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
         }
         result.setEnabled(isEnabled);
 
-        HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
+        Icon icon = new BladeHighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getTextPasteActionIcon(ICON_SIZE, scheme),
-                ComponentStateFacet.ARM, "radiance.theming.internal.widget.editcontext.paste");
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getTextPasteActionIcon(ICON_SIZE, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(ICON_SIZE, ICON_SIZE);
+                    }
+                },
+                ComponentStateFacet.ARM);
         result.setIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.paste());
@@ -166,10 +204,22 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
         result.setEnabled(
                 jcomp.isEditable() && jcomp.isEnabled() && (jcomp.getSelectedText() != null));
 
-        HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
+        Icon icon = new BladeHighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getTextDeleteActionIcon(ICON_SIZE, scheme),
-                ComponentStateFacet.ARM, "radiance.theming.internal.widget.editcontext.delete");
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getTextDeleteActionIcon(ICON_SIZE, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(ICON_SIZE, ICON_SIZE);
+                    }
+                },
+                ComponentStateFacet.ARM);
         result.setIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.replaceSelection(null));
@@ -181,10 +231,22 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                 RadianceThemingCortex.GlobalScope.getLabelBundle().getString("EditMenu.selectAll"));
         result.setEnabled(jcomp.isEnabled() && (jcomp.getDocument().getLength() > 0));
 
-        HighlightableTransitionAwareIcon icon = new HighlightableTransitionAwareIcon(result,
+        Icon icon = new BladeHighlightableTransitionAwareIcon(result,
                 () -> (TransitionAwareUI) result.getUI(),
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getTextSelectAllActionIcon(ICON_SIZE, scheme),
-                ComponentStateFacet.ARM, "radiance.theming.internal.widget.editcontext.selectall");
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getTextDeleteActionIcon(ICON_SIZE, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(ICON_SIZE, ICON_SIZE);
+                    }
+                },
+                ComponentStateFacet.ARM);
         result.setIcon(icon);
 
         result.addActionListener(actionEvent -> jcomp.selectAll());

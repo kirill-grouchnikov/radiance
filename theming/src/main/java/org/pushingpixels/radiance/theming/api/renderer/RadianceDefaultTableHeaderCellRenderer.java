@@ -29,22 +29,16 @@
  */
 package org.pushingpixels.radiance.theming.api.renderer;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
-import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableHeaderUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceTableUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -56,7 +50,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.Map;
 
 /**

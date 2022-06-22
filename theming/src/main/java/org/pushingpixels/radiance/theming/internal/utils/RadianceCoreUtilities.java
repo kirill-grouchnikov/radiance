@@ -48,11 +48,11 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowButtonTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.combo.RadianceComboPopup;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.menu.RadianceMenu;
 
 import javax.swing.*;
@@ -1444,7 +1444,7 @@ public class RadianceCoreUtilities {
      * @return Arrow icon.
      */
     public static Icon getArrowIcon(JComponent comp,
-            TransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
+            BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
             int orientation) {
         int fontSize = RadianceSizeUtils.getComponentFontSize(comp);
         return new BladeArrowButtonTransitionAwareIcon(comp, transitionAwareUIDelegate,
