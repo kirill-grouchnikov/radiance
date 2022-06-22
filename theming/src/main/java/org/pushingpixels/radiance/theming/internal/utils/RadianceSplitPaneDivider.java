@@ -33,11 +33,13 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceSplitPaneUI;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
@@ -265,29 +267,43 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
     @Override
     protected JButton createLeftOneTouchButton() {
-        double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
-
         JButton oneTouchButton = new RadianceSplitPaneDividerButton();
-        Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
-                scheme -> {
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                    return RadianceImageCreator.getArrowIcon(
-                            RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                            RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                            scale,
-                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                            SwingConstants.NORTH, scheme);
-                }, "radiance.theming.internal.splitPane.left.vertical");
-        Icon horizontalSplit = new TransitionAwareIcon(oneTouchButton,
-                scheme -> {
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                    return RadianceImageCreator.getArrowIcon(
-                            RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                            RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                            scale,
-                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                            SwingConstants.WEST, scheme);
-                }, "radiance.theming.internal.splitPane.left.horizontal");
+
+        int fontSize = RadianceSizeUtils.getComponentFontSize(oneTouchButton);
+        float iconWidth = RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize);
+        float iconHeight = RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize);
+
+        Icon verticalSplit = new BladeTransitionAwareIcon(oneTouchButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                SwingConstants.NORTH, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                    }
+                }
+        );
+
+        Icon horizontalSplit = new BladeTransitionAwareIcon(oneTouchButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                SwingConstants.WEST, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                    }
+                }
+        );
         oneTouchButton.setIcon(
                 this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT ? verticalSplit
                         : horizontalSplit);
@@ -304,29 +320,42 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
 
     @Override
     protected JButton createRightOneTouchButton() {
-        double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
-
         JButton oneTouchButton = new RadianceSplitPaneDividerButton();
-        Icon verticalSplit = new TransitionAwareIcon(oneTouchButton,
-                scheme -> {
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                    return RadianceImageCreator.getArrowIcon(
-                            RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                            RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                            scale,
-                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                            SwingConstants.SOUTH, scheme);
-                }, "radiance.theming.internal.splitPane.right.vertical");
-        Icon horizontalSplit = new TransitionAwareIcon(oneTouchButton,
-                scheme -> {
-                    int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                    return RadianceImageCreator.getArrowIcon(
-                            RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                            RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                            scale,
-                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                            SwingConstants.EAST, scheme);
-                }, "radiance.theming.internal.splitPane.right.horizontal");
+
+        int fontSize = RadianceSizeUtils.getComponentFontSize(oneTouchButton);
+        float iconWidth = RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize);
+        float iconHeight = RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize);
+
+        Icon verticalSplit = new BladeTransitionAwareIcon(oneTouchButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                SwingConstants.SOUTH, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                    }
+                }
+        );
+        Icon horizontalSplit = new BladeTransitionAwareIcon(oneTouchButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                SwingConstants.EAST, scheme);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                    }
+                }
+        );
         oneTouchButton.setIcon(
                 this.splitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT ? verticalSplit
                         : horizontalSplit);
@@ -351,53 +380,89 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
         double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
         if (orientation == JSplitPane.VERTICAL_SPLIT) {
             if (this.leftButton != null) {
-                this.leftButton.setIcon(
-                        new TransitionAwareIcon(this.leftButton, scheme -> {
-                            int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                            return RadianceImageCreator.getArrowIcon(
-                                    RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                                    RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                                    scale,
-                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                    SwingConstants.NORTH, scheme);
-                        }, "radiance.theming.internal.splitPane.left.vertical"));
+                int fontSize = RadianceSizeUtils.getComponentFontSize(this.leftButton);
+                float iconWidth = RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize);
+                float iconHeight = RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize);
+
+                this.leftButton.setIcon(new BladeTransitionAwareIcon(this.leftButton,
+                        new BladeTransitionAwareIcon.Delegate() {
+                            @Override
+                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                        SwingConstants.NORTH, scheme);
+                            }
+
+                            @Override
+                            public Dimension getIconDimension() {
+                                return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                            }
+                        }
+                ));
             }
             if (this.rightButton != null) {
-                this.rightButton.setIcon(
-                        new TransitionAwareIcon(this.rightButton, scheme -> {
-                            int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                            return RadianceImageCreator.getArrowIcon(
-                                    RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                                    RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                                    scale,
-                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                    SwingConstants.SOUTH, scheme);
-                        }, "radiance.theming.internal.splitPane.right.vertical"));
+                int fontSize = RadianceSizeUtils.getComponentFontSize(this.rightButton);
+                float iconWidth = RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize);
+                float iconHeight = RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize);
+
+                this.rightButton.setIcon(new BladeTransitionAwareIcon(this.rightButton,
+                        new BladeTransitionAwareIcon.Delegate() {
+                            @Override
+                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                        SwingConstants.SOUTH, scheme);
+                            }
+
+                            @Override
+                            public Dimension getIconDimension() {
+                                return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                            }
+                        }
+                ));
             }
         } else {
             if (this.leftButton != null) {
-                this.leftButton.setIcon(
-                        new TransitionAwareIcon(this.leftButton, scheme -> {
-                            int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                            return RadianceImageCreator.getArrowIcon(
-                                    RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                                    RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                                    scale,
-                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                    SwingConstants.WEST, scheme);
-                        }, "radiance.theming.internal.splitPane.left.horizontal"));
+                int fontSize = RadianceSizeUtils.getComponentFontSize(this.leftButton);
+                float iconWidth = RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize);
+                float iconHeight = RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize);
+
+                this.leftButton.setIcon(new BladeTransitionAwareIcon(this.leftButton,
+                        new BladeTransitionAwareIcon.Delegate() {
+                            @Override
+                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                        SwingConstants.WEST, scheme);
+                            }
+
+                            @Override
+                            public Dimension getIconDimension() {
+                                return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                            }
+                        }
+                ));
             }
             if (this.rightButton != null) {
-                this.rightButton.setIcon(
-                        new TransitionAwareIcon(this.rightButton, scheme -> {
-                            int fontSize = RadianceSizeUtils.getComponentFontSize(splitPane);
-                            return RadianceImageCreator.getArrowIcon(
-                                    RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize),
-                                    RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize),
-                                    scale,
-                                    RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
-                                    SwingConstants.EAST, scheme);
-                        }, "radiance.theming.internal.splitPane.right.horizontal"));
+                int fontSize = RadianceSizeUtils.getComponentFontSize(this.rightButton);
+                float iconWidth = RadianceSizeUtils.getSplitPaneArrowIconWidth(fontSize);
+                float iconHeight = RadianceSizeUtils.getSplitPaneArrowIconHeight(fontSize);
+
+                this.rightButton.setIcon(new BladeTransitionAwareIcon(this.rightButton,
+                        new BladeTransitionAwareIcon.Delegate() {
+                            @Override
+                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                BladeArrowIconUtils.drawArrow(g, iconWidth, iconHeight,
+                                        RadianceSizeUtils.getArrowStrokeWidth(fontSize) / 1.5f,
+                                        SwingConstants.EAST, scheme);
+                            }
+
+                            @Override
+                            public Dimension getIconDimension() {
+                                return new Dimension((int) Math.ceil(iconWidth), (int) Math.ceil(iconHeight));
+                            }
+                        }
+                ));
             }
         }
     }
