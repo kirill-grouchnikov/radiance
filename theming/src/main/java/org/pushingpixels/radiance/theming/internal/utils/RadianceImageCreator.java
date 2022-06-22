@@ -335,56 +335,6 @@ public final class RadianceImageCreator {
     }
 
     /**
-     * Returns small icon representation of the specified integer value. The remainder of dividing
-     * the integer by 16 is translated to four circles arranged in 2*2 grid.
-     * 
-     * @param value
-     *            Integer value to represent.
-     * @param colorScheme
-     *            Icon color scheme.
-     * @return Icon representation of the specified integer value.
-     */
-    public static ScaleAwareImageWrapperIcon getHexaMarker(double scale, int value,
-            RadianceColorScheme colorScheme) {
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, 9, 9);
-        if (colorScheme == null) {
-            return new ScaleAwareImageWrapperIcon(result, scale);
-        }
-
-        value %= 16;
-        boolean isDark = colorScheme.isDark();
-        Color offColor = isDark
-                ? RadianceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
-                        Color.white, 0.7)
-                : RadianceColorUtilities.deriveByBrightness(colorScheme.getMidColor(), -0.6f);
-        Color onColor = isDark
-                ? RadianceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
-                        Color.white, 0.2)
-                : colorScheme.getForegroundColor();
-
-        boolean bit1 = ((value & 0x1) != 0);
-        boolean bit2 = ((value & 0x2) != 0);
-        boolean bit3 = ((value & 0x4) != 0);
-        boolean bit4 = ((value & 0x8) != 0);
-
-        Graphics2D graphics = (Graphics2D) result.getGraphics().create();
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-
-        graphics.setColor(bit1 ? onColor : offColor);
-        graphics.fillOval(5, 5, 4, 4);
-        graphics.setColor(bit2 ? onColor : offColor);
-        graphics.fillOval(5, 0, 4, 4);
-        graphics.setColor(bit3 ? onColor : offColor);
-        graphics.fillOval(0, 5, 4, 4);
-        graphics.setColor(bit4 ? onColor : offColor);
-        graphics.fillOval(0, 0, 4, 4);
-
-        graphics.dispose();
-        return new ScaleAwareImageWrapperIcon(result, scale);
-    }
-
-    /**
      * Returns a lock icon that matches the specified scheme.
      *
      * @param scheme

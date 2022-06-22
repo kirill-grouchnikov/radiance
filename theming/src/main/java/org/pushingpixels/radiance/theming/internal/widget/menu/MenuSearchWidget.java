@@ -30,14 +30,19 @@
 package org.pushingpixels.radiance.theming.internal.widget.menu;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.WidgetType;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.*;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
+import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTitlePane;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceWidgetManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -166,13 +171,22 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                     // create new button with binary icon
                     JButton resultButton = new JButton();
                     final int finalCount = count;
-                    resultButton.setIcon(new TransitionAwareIcon(resultButton,
+                    resultButton.setIcon(new BladeTransitionAwareIcon(resultButton,
                             () -> (TransitionAwareUI) resultButton.getUI(),
-                            scheme -> RadianceImageCreator.getHexaMarker(scale, finalCount, scheme),
+                            new BladeTransitionAwareIcon.Delegate() {
+                                @Override
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                    BladeIconUtils.drawHexaMarker(g, finalCount, scheme);
+                                }
+
+                                @Override
+                                public Dimension getIconDimension() {
+                                    return new Dimension(9, 9);
+                                }
+                            },
                             state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
                                     ? ColorSchemeAssociationKind.HIGHLIGHT
-                                    : ColorSchemeAssociationKind.MARK,
-                            "radiance.theming.internal.widget.menusearch." + (finalCount + 1)));
+                                    : ColorSchemeAssociationKind.MARK));
 
                     // set action listener (to show the menu).
                     resultButton.addActionListener(new SearchResultListener(searchResult));
@@ -258,9 +272,20 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
 
         private void updateSearchIcon() {
             int dimension = RadianceSizeUtils.getControlFontSize();
-            this.searchButton.setIcon(new TransitionAwareIcon(this.searchButton,
-                    scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
-                    "radiance.theming.internal.widget.menusearch"));
+            this.searchButton.setIcon(new BladeTransitionAwareIcon(this.searchButton,
+                    new BladeTransitionAwareIcon.Delegate() {
+                        @Override
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                            RadianceThemingCortex.GlobalScope.getIconPack()
+                                    .getInspectIcon(dimension, scheme)
+                                    .paintIcon(null, g, 0, 0);
+                        }
+
+                        @Override
+                        public Dimension getIconDimension() {
+                            return new Dimension(dimension, dimension);
+                        }
+                    }));
         }
     }
 
@@ -503,17 +528,25 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
         if (searchPanel == null) {
             return;
         }
-        final double scale = RadianceCommonCortex.getScaleFactor(searchPanel);
         for (Map.Entry<Integer, JButton> entry : searchPanel.resultButtons.entrySet()) {
             int index = entry.getKey();
             JButton button = entry.getValue();
-            button.setIcon(new TransitionAwareIcon(button,
+            button.setIcon(new BladeTransitionAwareIcon(button,
                     () -> (TransitionAwareUI) button.getUI(),
-                    scheme -> RadianceImageCreator.getHexaMarker(scale, index, scheme),
+                    new BladeTransitionAwareIcon.Delegate() {
+                        @Override
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                            BladeIconUtils.drawHexaMarker(g, index, scheme);
+                        }
+
+                        @Override
+                        public Dimension getIconDimension() {
+                            return new Dimension(9, 9);
+                        }
+                    },
                     state -> state.isFacetActive(ComponentStateFacet.ROLLOVER)
                             ? ColorSchemeAssociationKind.HIGHLIGHT
-                            : ColorSchemeAssociationKind.MARK,
-                    "radiance.theming.internal.widget.menusearch." + index));
+                            : ColorSchemeAssociationKind.MARK));
         }
         searchPanel.updateSearchIcon();
         ResourceBundle bundle = RadianceThemingCortex.GlobalScope.getLabelBundle();

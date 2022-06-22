@@ -29,16 +29,17 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.scroll;
 
+import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
+import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.preview.PreviewPainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
-import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
-import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -246,9 +247,20 @@ public class ScrollPaneSelector extends JComponent {
         theComponent = (comp instanceof JComponent) ? (JComponent) comp : null;
 
         int dimension = UIManager.getInt("ScrollBar.width") - 4;
-        this.theButton.setIcon(new TransitionAwareIcon(this.theButton,
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
-                "radiance.theming.internal.widget.scroll.selector"));
+        this.theButton.setIcon(new BladeTransitionAwareIcon(this.theButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getInspectIcon(dimension, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(dimension, dimension);
+                    }
+                }));
 
         theScrollPane.doLayout();
     }

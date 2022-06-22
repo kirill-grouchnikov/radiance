@@ -30,9 +30,10 @@
 package org.pushingpixels.radiance.theming.extras.internal.tabbed;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -58,9 +59,20 @@ public class TabOverviewButton extends JButton implements UIResource {
         this.setFocusable(false);
 
         int dimension = RadianceSizeUtils.getControlFontSize();
-        this.setIcon(new TransitionAwareIcon(this,
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getInspectIcon(dimension, scheme),
-                "radiance.theming.internal.widget.extras.taboverview"));
+        this.setIcon(new BladeTransitionAwareIcon(this,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        RadianceThemingCortex.GlobalScope.getIconPack()
+                                .getInspectIcon(dimension, scheme)
+                                .paintIcon(null, g, 0, 0);
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        return new Dimension(dimension, dimension);
+                    }
+                }));
         RadianceCoreUtilities.markButtonAsFlat(this);
         this.setToolTipText(
                 TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewButtonTooltip"));

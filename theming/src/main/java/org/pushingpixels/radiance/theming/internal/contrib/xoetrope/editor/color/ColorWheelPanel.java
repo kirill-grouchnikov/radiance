@@ -4,11 +4,11 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
+import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.RadianceColorChooserPanel;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAwareIcon;
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.RadianceColorChooserPanel;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
@@ -195,9 +195,18 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 
         // Create a transition-aware wrapper around our icon so that it is colorized
         // based on the color scheme that matches the current state of our toggle button
-        resetBtn.setIcon(new TransitionAwareIcon(resetBtn,
-                scheme -> RadianceThemingCortex.GlobalScope.getIconPack().getRefreshIcon(10, scheme),
-                "Color wheel reset"));
+        resetBtn.setIcon(new BladeTransitionAwareIcon(resetBtn, new BladeTransitionAwareIcon.Delegate() {
+			@Override
+			public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+				RadianceThemingCortex.GlobalScope.getIconPack().getRefreshIcon(10, scheme)
+						.paintIcon(null, g, 0, 0);
+			}
+
+			@Override
+			public Dimension getIconDimension() {
+				return new Dimension(10, 10);
+			}
+		}));
 
 		resetBtn.setToolTipText(getLabel("Xoetrope.reset",
 				"Reset the color wheel saturation and brightness"));

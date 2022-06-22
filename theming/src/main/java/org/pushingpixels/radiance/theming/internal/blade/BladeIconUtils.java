@@ -607,6 +607,39 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
+    public static void drawHexaMarker(Graphics2D g, int value, RadianceColorScheme colorScheme) {
+        value %= 16;
+        boolean isDark = colorScheme.isDark();
+        Color offColor = isDark
+                ? RadianceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
+                Color.white, 0.7)
+                : RadianceColorUtilities.deriveByBrightness(colorScheme.getMidColor(), -0.6f);
+        Color onColor = isDark
+                ? RadianceColorUtilities.getInterpolatedColor(colorScheme.getUltraLightColor(),
+                Color.white, 0.2)
+                : colorScheme.getForegroundColor();
+
+        boolean bit1 = ((value & 0x1) != 0);
+        boolean bit2 = ((value & 0x2) != 0);
+        boolean bit3 = ((value & 0x4) != 0);
+        boolean bit4 = ((value & 0x8) != 0);
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        graphics.setColor(bit1 ? onColor : offColor);
+        graphics.fillOval(5, 5, 4, 4);
+        graphics.setColor(bit2 ? onColor : offColor);
+        graphics.fillOval(5, 0, 4, 4);
+        graphics.setColor(bit3 ? onColor : offColor);
+        graphics.fillOval(0, 5, 4, 4);
+        graphics.setColor(bit4 ? onColor : offColor);
+        graphics.fillOval(0, 0, 4, 4);
+
+        graphics.dispose();
+    }
+
     private static AlphaComposite getAlphaComposite(float alpha) {
         // Fix for "alpha value out of range"
         float finalAlpha = alpha;
