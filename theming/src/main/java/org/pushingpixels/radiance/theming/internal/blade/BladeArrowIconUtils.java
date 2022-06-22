@@ -36,9 +36,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +44,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 
 public class BladeArrowIconUtils {
     public static void drawArrow(Graphics2D g, int fontSize, Dimension boundingBox,
@@ -162,5 +161,31 @@ public class BladeArrowIconUtils {
                 graphics.dispose();
             }
         };
+    }
+
+    public static void drawDoubleArrow(Graphics2D g, float fullWidth,
+            float fullHeight, float arrowGap, float strokeWidth, int direction,
+            RadianceColorScheme colorScheme) {
+        boolean toggle = (direction == SwingConstants.WEST) || (direction == SwingConstants.EAST);
+        int singleArrowWidth = toggle ? (int) fullHeight : (int) fullWidth;
+        int singleArrowHeight = toggle ? (int) (fullWidth - arrowGap) : (int) (fullHeight - arrowGap);
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+        if (!toggle) {
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+            graphics.translate(0, (int) arrowGap);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+        } else {
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+            graphics.translate((int) arrowGap, 0);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+        }
+
+        graphics.dispose();
     }
 }

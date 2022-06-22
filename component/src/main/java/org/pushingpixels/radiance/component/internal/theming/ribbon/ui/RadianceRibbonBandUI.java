@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
+import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
@@ -46,6 +47,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
@@ -181,16 +183,14 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
 
     private RadianceIcon getExpandButtonIcon(final RadianceSkin skin,
             final JCommandButton button) {
-        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> {
+                (g, scheme, width, height) -> {
                     Color bgFillColor = RadianceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);
-                    return RadianceImageCreator.getDoubleArrowIcon(
-                            scale, width, height,
+                    BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                             RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
                             RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                             ribbonBand.getComponentOrientation().isLeftToRight()
@@ -220,7 +220,7 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
     @org.pushingpixels.radiance.theming.internal.utils.RadianceInternalButton
     private static class RibbonBandExpandButton extends JCommandButton implements RadianceInternalButton {
         private RibbonBandExpandButton(Projection<JCommandButton, Command,
-                        CommandButtonPresentationModel> projection) {
+                CommandButtonPresentationModel> projection) {
             super(projection);
 
             this.setBorder(new EmptyBorder(3, 2, 3, 2));

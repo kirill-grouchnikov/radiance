@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
-import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonGallery;
@@ -46,7 +45,6 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
@@ -88,17 +86,16 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureExpandButton(JCommandButton button) {
-        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> RadianceImageCreator.getDoubleArrowIcon(
-                        scale, width, height,
-                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                        SwingConstants.SOUTH, scheme),
+                (g, scheme, width, height) ->
+                        BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,

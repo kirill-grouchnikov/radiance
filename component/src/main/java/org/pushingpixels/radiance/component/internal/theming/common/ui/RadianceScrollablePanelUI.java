@@ -29,18 +29,16 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
-import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
+import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicScrollablePanelUI;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.ScaleAwareImageWrapperIcon;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
@@ -79,24 +77,19 @@ public class RadianceScrollablePanelUI extends BasicScrollablePanelUI {
 
     @Override
     protected void configureLeadingScrollerButton(JCommandButton button) {
-        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+        RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> {
-                    ScaleAwareImageWrapperIcon doubleArrowIcon = RadianceImageCreator
-                            .getDoubleArrowIcon(
-                                    scale, width, height,
-                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                    (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
-                                            ? SwingUtilities.WEST
-                                            : SwingUtilities.NORTH,
-                                    scheme);
-                    return doubleArrowIcon;
-                }, new Dimension(arrowIconHeight, arrowIconWidth));
+                (g, scheme, width, height) -> BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                        (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
+                                ? SwingUtilities.WEST
+                                : SwingUtilities.NORTH,
+                        scheme),
+                new Dimension(arrowIconHeight, arrowIconWidth));
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
@@ -109,24 +102,19 @@ public class RadianceScrollablePanelUI extends BasicScrollablePanelUI {
 
     @Override
     protected void configureTrailingScrollerButton(JCommandButton button) {
-        final double scale = RadianceCommonCortex.getScaleFactor(button);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+        RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> {
-                    ScaleAwareImageWrapperIcon doubleArrowIcon = RadianceImageCreator
-                            .getDoubleArrowIcon(
-                                    scale, width, height,
-                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                    (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
-                                            ? SwingUtilities.EAST
-                                            : SwingUtilities.SOUTH,
-                                    scheme);
-                    return doubleArrowIcon;
-                }, new Dimension(arrowIconHeight, arrowIconWidth));
+                (g, scheme, width, height) -> BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                        (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
+                                ? SwingUtilities.EAST
+                                : SwingUtilities.SOUTH,
+                        scheme),
+                new Dimension(arrowIconHeight, arrowIconWidth));
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)

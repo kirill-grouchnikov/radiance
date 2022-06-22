@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
@@ -43,19 +45,18 @@ import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTaskbarKeyTipPolicy;
-import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
+import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerSmall;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.utils.*;
@@ -199,7 +200,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
 
     public static class TaskbarOverflowButton extends JCommandButton {
         public TaskbarOverflowButton(Projection<JCommandButton, ? extends Command,
-                        CommandButtonPresentationModel> projection) {
+                CommandButtonPresentationModel> projection) {
             super(projection);
         }
     }
@@ -244,20 +245,19 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                             })
                             .build());
             overflowProjection.setComponentCustomizer(button -> {
-                final double scale = RadianceCommonCortex.getScaleFactor(button);
                 final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
                 int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
                 int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-                RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+                RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                         () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                        (scheme, width, height) -> RadianceImageCreator.getDoubleArrowIcon(
-                                        scale, arrowIconWidth, arrowIconHeight,
-                                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                        getComponentOrientation().isLeftToRight()
-                                                ? SwingUtilities.EAST
-                                                : SwingUtilities.WEST,
-                                        scheme),
+                        (g, scheme, width, height) -> BladeArrowIconUtils.drawDoubleArrow(
+                                g, arrowIconWidth, arrowIconHeight,
+                                RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                getComponentOrientation().isLeftToRight()
+                                        ? SwingUtilities.EAST
+                                        : SwingUtilities.WEST,
+                                scheme),
                         new Dimension(arrowIconWidth, arrowIconHeight));
                 button.setIcon(arrowIcon);
 
