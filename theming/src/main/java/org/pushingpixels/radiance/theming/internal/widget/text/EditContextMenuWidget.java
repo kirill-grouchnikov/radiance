@@ -237,7 +237,7 @@ public class EditContextMenuWidget extends RadianceThemingWidget<JTextComponent>
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
-                                .getTextDeleteActionIcon(ICON_SIZE, scheme)
+                                .getTextSelectAllActionIcon(ICON_SIZE, scheme)
                                 .paintIcon(null, g, 0, 0);
                     }
 
