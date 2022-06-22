@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGalleryUI;
@@ -41,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -107,13 +109,12 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollDownButton(JCommandButton button) {
-        final double scale = RadianceCommonCortex.getScaleFactor(this.ribbonGallery);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> RadianceImageCreator.getArrowIcon(width, height, scale,
+                (g, scheme, width, height) -> BladeArrowIconUtils.drawArrow(g, width, height,
                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                         SwingConstants.SOUTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));
@@ -130,9 +131,9 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final RadianceIcon arrowIcon = new TransitionAwareRadianceIcon(button,
+        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
                 () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (scheme, width, height) -> RadianceImageCreator.getArrowIcon(width, height, scale,
+                (g, scheme, width, height) -> BladeArrowIconUtils.drawArrow(g, width, height,
                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                         SwingConstants.NORTH, scheme),
                 new Dimension(arrowIconWidth, arrowIconHeight));

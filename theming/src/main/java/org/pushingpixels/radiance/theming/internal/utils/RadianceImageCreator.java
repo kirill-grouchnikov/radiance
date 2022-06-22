@@ -51,32 +51,6 @@ import java.awt.image.BufferedImage;
  */
 public final class RadianceImageCreator {
     /**
-     * Retrieves arrow icon.
-     *
-     * @param width
-     *            Arrow width.
-     * @param height
-     *            Arrow height.
-     * @param strokeWidth
-     *            Stroke width.
-     * @param direction
-     *            Arrow direction.
-     * @param scheme
-     *            Color scheme for the arrow.
-     * @return Arrow image.
-     * @see SwingConstants#NORTH
-     * @see SwingConstants#WEST
-     * @see SwingConstants#SOUTH
-     * @see SwingConstants#EAST
-     */
-    public static ScaleAwareImageWrapperIcon getArrowIcon(float width, float height, double scale,
-            float strokeWidth, int direction, RadianceColorScheme scheme) {
-        return new ScaleAwareImageWrapperIcon(
-                getArrow(width, height, scale, strokeWidth, direction, scheme),
-                scale);
-    }
-
-    /**
      * Retrieves arrow image.
      *
      * @param width

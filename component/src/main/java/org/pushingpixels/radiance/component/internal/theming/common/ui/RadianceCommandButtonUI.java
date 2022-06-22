@@ -44,8 +44,8 @@ import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
+import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadianceIcon;
-import org.pushingpixels.radiance.component.internal.theming.common.TransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
@@ -65,6 +65,7 @@ import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
@@ -525,13 +526,12 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected RadianceIcon createPopupActionIcon() {
-        final double scale = RadianceCommonCortex.getScaleFactor(this.commandButton);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(this.commandButton);
         int arrowIconHeight = (int) RadianceSizeUtils.getArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getArrowIconWidth(fontSize);
-        return new TransitionAwareRadianceIcon(this.commandButton,
+        return new BladeTransitionAwareRadianceIcon(this.commandButton,
                 this::getPopupTransitionTracker,
-                (scheme, width, height) -> {
+                (g, scheme, width, height) -> {
                     CommandButtonPresentationModel.PopupOrientationKind orientation =
                             commandButton.getPopupOrientationKind();
                     int direction =
@@ -539,13 +539,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                                     ? SwingConstants.SOUTH
                                     : (commandButton.getComponentOrientation().isLeftToRight()
                                     ? SwingConstants.EAST : SwingConstants.WEST);
-                    // System.out.println(direction + ":" + width + ":"
-                    // + height);
-                    return RadianceImageCreator.getArrowIcon(width, height, scale,
+                    BladeArrowIconUtils.drawArrow(g, width, height,
                             RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
                             direction, scheme);
-                    // System.out.println(" --> " + result.getIconWidth()
-                    // + "*" + result.getIconHeight());
                 }, new Dimension(arrowIconWidth, arrowIconHeight));
     }
 
@@ -645,7 +641,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     float focusRingPadding = (float) scaleFactor *
                             RadianceSizeUtils.getFocusRingPadding(this.commandButton,
-                            RadianceSizeUtils.getComponentFontSize(this.commandButton));
+                                    RadianceSizeUtils.getComponentFontSize(this.commandButton));
                     Rectangle innerFocusArea = this.isInnerFocusOnAction ? layoutInfo.actionClickArea
                             : layoutInfo.popupClickArea;
                     Shape insetFocusArea = new Rectangle2D.Float(
