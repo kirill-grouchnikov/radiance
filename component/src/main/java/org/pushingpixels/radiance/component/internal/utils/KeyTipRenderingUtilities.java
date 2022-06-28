@@ -66,39 +66,49 @@ public class KeyTipRenderingUtilities {
         RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(c, state);
         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                 c, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
-        float radius = RadianceSizeUtils.getClassicButtonCornerRadius(
-                RadianceSizeUtils.getComponentFontSize(c));
 
-        float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
-        g2d.translate(rect.x, rect.y);
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(rect.width, rect.height, radius,
-                null, borderDelta);
-        fillPainter.paintContourBackground(g2d, c, rect.width, rect.height,
-                contour, false, fillScheme, true);
+        graphics.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
+        graphics.translate(rect.x, rect.y);
 
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
-        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(rect.width, rect.height,
-                radius, null, borderDelta + borderThickness);
-        borderPainter.paintBorder(g2d, c, rect.width, rect.height, contour,
-                contourInner, borderScheme);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, rect.width, rect.height,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    float radius = (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
+                            RadianceSizeUtils.getComponentFontSize(c));
 
-        g2d.setColor(RadianceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            scaledWidth, scaledHeight, radius,
+                            null, 1.0f);
+                    fillPainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
+                            contour, false, fillScheme, true);
+
+                    Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                            scaledWidth, scaledHeight,
+                            radius, null, 2.0f);
+                    borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
+                            contourInner, borderScheme);
+                });
+
+        graphics.setColor(RadianceColorSchemeUtilities.getColorScheme(c, state).getForegroundColor());
         Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
                 getControlFont();
         font = font.deriveFont(font.getSize() + 1.0f);
-        g2d.setFont(font);
-        int strWidth = g2d.getFontMetrics().stringWidth(keyTip);
+        graphics.setFont(font);
+        int strWidth = graphics.getFontMetrics().stringWidth(keyTip);
 
-        LineMetrics lineMetrics = g2d.getFontMetrics().getLineMetrics(keyTip, g2d);
+        LineMetrics lineMetrics = graphics.getFontMetrics().getLineMetrics(keyTip, graphics);
         int strHeight = (int) lineMetrics.getHeight();
-        RadianceCommonCortex.installDesktopHints(g2d, font);
-        g2d.drawString(keyTip, (rect.width - strWidth) / 2,
-                (rect.height + strHeight) / 2 - g2d.getFontMetrics().getDescent());
+        RadianceCommonCortex.installDesktopHints(graphics, font);
+        graphics.drawString(keyTip, (rect.width - strWidth) / 2,
+                (rect.height + strHeight) / 2 - graphics.getFontMetrics().getDescent());
 
-        g2d.dispose();
+        graphics.dispose();
     }
 
     public static void renderButtonKeyTips(Graphics g, JCommandButton button,

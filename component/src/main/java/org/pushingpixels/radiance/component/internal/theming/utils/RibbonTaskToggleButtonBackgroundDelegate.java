@@ -156,5 +156,6 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     borderPainter.paintBorder(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
                             contour, contourInner, borderScheme);
                 });
+        graphics.dispose();
     }
 }
