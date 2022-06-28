@@ -160,8 +160,10 @@ public class RadianceRibbonTaskToggleButtonUI extends
     public void paint(Graphics g, JComponent c) {
         this.layoutInfo = this.layoutManager.getLayoutInfo(this.commandButton);
 
-        this.delegate.updateTaskToggleButtonBackground(g, (JRibbonTaskToggleButton) this.commandButton);
-        this.paintTextAndFocus(g);
+        Graphics2D g2d = (Graphics2D) g.create();
+        this.delegate.updateTaskToggleButtonBackground(g2d, (JRibbonTaskToggleButton) this.commandButton);
+        this.paintTextAndFocus(g2d);
+        g2d.dispose();
     }
 
     @Override
@@ -240,12 +242,12 @@ public class RadianceRibbonTaskToggleButtonUI extends
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
-                            (float) scaleFactor * this.commandButton.getWidth(),
-                            (float) scaleFactor * this.commandButton.getHeight(),
+                            scaledWidth, scaledHeight,
                             radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
                             focusRingPadding);
 
-                    RadianceCoreUtilities.paintFocus(g, this.commandButton, this.commandButton, this,
+                    RadianceCoreUtilities.paintFocus(graphics1X,
+                            this.commandButton, this.commandButton, this,
                             scaleFactor, contour, textRect, focusColor, 1.0f, 0);
                 }
         );

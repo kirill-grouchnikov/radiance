@@ -29,29 +29,24 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.utils;
 
-import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
-import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
@@ -62,203 +57,35 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RibbonTaskToggleButtonBackgroundDelegate {
-    /**
-     * Cache for background images of ribbon buttons. Each time
-     * {@link #getTaskToggleButtonBackground(JRibbonTaskToggleButton, int, int)} is called, it
-     * checks <code>this</code> map to see if it already contains such background. If so, the
-     * background from the map is returned.
-     */
-    private static LazyResettableHashMap<BufferedImage> imageCache = new
-            LazyResettableHashMap<>("RibbonTaskToggleButtonBackgroundDelegate");
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
-    /**
-     * Retrieves background image for the specified ribbon button.
-     *
-     * @param button Button.
-     * @param width  Button width.
-     * @param height Button height.
-     * @return Button background image.
-     */
-    private static synchronized BufferedImage getTaskToggleButtonBackground(
-            JRibbonTaskToggleButton button, int width, int height) {
-        double scale = RadianceCommonCortex.getScaleFactor(button);
-        JRibbon ribbon = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
+    public void updateTaskToggleButtonBackground(Graphics2D g, JRibbonTaskToggleButton button) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
         ComponentState currState = ComponentState.getState(button.getActionModel(), button, true);
         StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
                 .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateNoSelectionContributionMap();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-        RadianceDecorationPainter decorationPainter = skin.getDecorationPainter();
+        // Populate fill and border color schemes based on the current transition state of the button.
+        BladeUtils.populateColorScheme(mutableFillColorScheme, button,
+                modelStateInfo, currState,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                false);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
+                modelStateInfo, currState,
+                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                false);
 
-        // To create visual continuity between the background of the selected task
-        // and its toggle button, we use the decoration painter and not fill painter.
-        // We also ignore the selected state of the toggle button to compute the
-        // color scheme to use.
-        // If we have one active state which is *not* enabled, this means that we have
-        // fully transitioned / animated to a state like rollover or pressed (no selection
-        // as mentioned before). For such a state, we use the matching FILL color scheme.
-        // Otherwise, we use the background color scheme as the base fill for the visual
-        // continuity, and let the other active states (if any) paint the additional
-        // transition visuals.
-        RadianceColorScheme baseFillScheme =
-                ((activeStates.size() == 1) && (currState != ComponentState.ENABLED)) ?
-                        RadianceColorSchemeUtilities.getColorScheme(button,
-                                ColorSchemeAssociationKind.FILL, currState) :
-                        skin.getBackgroundColorScheme(buttonDecorationAreaType);
-        RadianceColorScheme baseBorderScheme = skin.getColorScheme(ribbon,
-                ColorSchemeAssociationKind.BORDER, currState);
-
-        RadianceBorderPainter borderPainter = skin.getBorderPainter();
-
-        JRibbon parent = (JRibbon) SwingUtilities.getAncestorOfClass(JRibbon.class, button);
-        RibbonTask selectedTask = parent.getSelectedTask();
-        AbstractRibbonBand band = (selectedTask.getBandCount() == 0) ? null
-                : selectedTask.getBand(0);
-        Color bgColor = (band != null) ? band.getBackground() : parent.getBackground();
-
-        ImageHashMapKey baseKey = RadianceCoreUtilities.getScaleAwareHashKey(
-                scale, width, height,
-                baseFillScheme.getDisplayName(), baseBorderScheme.getDisplayName(),
-                borderPainter.getDisplayName(), decorationPainter.getDisplayName(),
-                button.getParent().getBackground().getRGB(), button.getActionModel(),
-                button.getContextualGroupHueColor(), button.getActionModel(),
-                ribbon.isMinimized(), bgColor);
-        BufferedImage baseLayer = imageCache.get(baseKey);
-        if (baseLayer == null) {
-            baseLayer = getSingleLayer(button, width, height, baseFillScheme,
-                    baseBorderScheme, borderPainter);
-
-            imageCache.put(baseKey, baseLayer);
-        }
-
-       // System.out.println("\tbase layer at " + baseFillScheme.getDisplayName());
-
-        if (currState.isDisabled() || (activeStates.size() == 1)) {
-            return baseLayer;
-        }
-
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, width, height);
-        Graphics2D g2d = result.createGraphics();
-
-        RadianceCommonCortex.drawImageWithScale(g2d, scale, baseLayer, 0, 0);
-
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
-                : activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            if (activeState == ComponentState.ENABLED) {
-                // See comment above on why we're skipping the contribution of the default
-                // enabled no-selection state.
-                continue;
-            }
-
-            float contribution = activeEntry.getValue().getContribution();
-            if (contribution == 0.0f) {
-                continue;
-            }
-
-            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(button,
-                    ColorSchemeAssociationKind.FILL, activeState);
-            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(ribbon,
-                    ColorSchemeAssociationKind.BORDER, activeState);
-
-            ImageHashMapKey key = RadianceCoreUtilities.getScaleAwareHashKey(
-                    scale, width, height,
-                    fillScheme.getDisplayName(), borderScheme.getDisplayName(),
-                    borderPainter.getDisplayName(), decorationPainter.getDisplayName(),
-                    button.getParent().getBackground().getRGB(),
-                    button.getActionModel(), button.getContextualGroupHueColor(),
-                    button.getActionModel(), ribbon.isMinimized(),
-                    bgColor);
-
-            BufferedImage layer = imageCache.get(key);
-            if (layer == null) {
-                layer = getSingleLayer(button, width, height, fillScheme, borderScheme,
-                        borderPainter);
-
-                imageCache.put(key, layer);
-            }
-
-            g2d.setComposite(AlphaComposite.SrcOver.derive(contribution));
-            RadianceCommonCortex.drawImageWithScale(g2d, scale, layer, 0, 0);
-        }
-
-        g2d.dispose();
-        return result;
-    }
-
-    public static float getTaskToggleButtonCornerRadius(JRibbonTaskToggleButton button) {
-        return RadianceSizeUtils.getAdjustedSize(
-                RadianceSizeUtils.getComponentFontSize(button), 3.0f, 6, 1.0f);
-    }
-
-    private static BufferedImage getSingleLayer(JRibbonTaskToggleButton button, int width,
-            int height, RadianceColorScheme fillScheme,
-            RadianceColorScheme borderScheme,
-            RadianceBorderPainter borderPainter) {
-        double scale = RadianceCommonCortex.getScaleFactor(button);
-        Set<Side> bottom = EnumSet.of(Side.BOTTOM);
-
+        // Account for contextual hue color associated with the button's group
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
-        if (contextualGroupHueColor != null) {
-            fillScheme = RadianceColorSchemeUtilities.getShiftedScheme(fillScheme,
-                    contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f);
-        }
+        RadianceColorScheme finalFillColorScheme = (contextualGroupHueColor != null) ?
+                RadianceColorSchemeUtilities.getShiftedScheme(mutableFillColorScheme,
+                        contextualGroupHueColor, RibbonContextualTaskGroup.HUE_ALPHA, null, 0.0f) :
+                mutableFillColorScheme;
 
-        float radius = getTaskToggleButtonCornerRadius(button);
-        float borderDelta = 2.0f * RadianceSizeUtils.getBorderStrokeWidth(button);
-        float borderInsets = RadianceSizeUtils.getBorderStrokeWidth(button) / 2.0f;
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(width,
-                height + 2 + borderDelta, radius, bottom, borderInsets);
 
-        BufferedImage result = RadianceCoreUtilities.getBlankImage(scale, width, height + 2);
-        Graphics2D graphics = result.createGraphics();
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
-        RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
-        if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
-            DecorationPainterUtils.paintDecorationArea(graphics, button, contour,
-                    buttonDecorationAreaType, fillScheme, false);
-        } else {
-            graphics.setColor(fillScheme.getBackgroundFillColor());
-            graphics.fill(contour);
-        }
-
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(button);
-        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(width,
-                height + 2 + borderDelta, radius, bottom, borderThickness + borderInsets);
-
-        borderPainter.paintBorder(graphics, button, width, height + 2, contour, contourInner,
-                borderScheme);
-        graphics.dispose();
-
-        return result;
-    }
-
-    /**
-     * Updates background of the specified button.
-     *
-     * @param g      Graphic context.
-     * @param button Button to update.
-     */
-    public void updateTaskToggleButtonBackground(Graphics g, JRibbonTaskToggleButton button) {
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        int width = button.getWidth();
-        int height = button.getHeight();
-
-        BufferedImage ribbonBackground = getTaskToggleButtonBackground(button, width, height);
-
-        TransitionAwareUI ui = (TransitionAwareUI) button.getUI();
-        StateTransitionTracker stateTransitionTracker = ui.getTransitionTracker();
-
-        float extraActionAlpha = 0.0f;
+        float alpha = 0.0f;
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry
                 : stateTransitionTracker.getModelStateInfo().getStateContributionMap().entrySet()) {
             ComponentState activeState = activeEntry.getKey();
@@ -268,13 +95,66 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
             if (activeState == ComponentState.ENABLED) {
                 continue;
             }
-            extraActionAlpha += activeEntry.getValue().getContribution();
+            alpha += activeEntry.getValue().getContribution();
         }
 
-        g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraActionAlpha, g));
-        RadianceCommonCortex.drawImageWithScale(g2d, RadianceCommonCortex.getScaleFactor(button),
-                ribbonBackground, 0, 0);
+        if (alpha > 0.0f) {
+            Graphics2D graphics = (Graphics2D) g.create();
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(button, alpha, g));
+            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        g2d.dispose();
+            RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
+
+            drawFullAlphaBackgroundImage(graphics, button,
+                    finalFillColorScheme, mutableBorderColorScheme, borderPainter);
+
+            graphics.dispose();
+        }
+    }
+
+    public static float getTaskToggleButtonCornerRadius(JRibbonTaskToggleButton button) {
+        return RadianceSizeUtils.getAdjustedSize(
+                RadianceSizeUtils.getComponentFontSize(button), 3.0f, 6, 1.0f);
+    }
+
+    private static void drawFullAlphaBackgroundImage(Graphics2D g,
+            JRibbonTaskToggleButton button,
+            RadianceColorScheme fillScheme,
+            RadianceColorScheme borderScheme,
+            RadianceBorderPainter borderPainter) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics,
+                0, 0, button.getWidth(), button.getHeight(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+
+                    Set<Side> bottom = EnumSet.of(Side.BOTTOM);
+
+                    float radius = (float) scaleFactor * getTaskToggleButtonCornerRadius(button);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            scaledWidth, scaledHeight + 3.0f, radius, bottom, 1.0f);
+
+                    RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+                    RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
+                            RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
+                    if (skin.isRegisteredAsDecorationArea(buttonDecorationAreaType)) {
+                        DecorationPainterUtils.paintDecorationArea(graphics1X, button, contour,
+                                buttonDecorationAreaType, fillScheme, false);
+                    } else {
+                        graphics1X.setColor(fillScheme.getBackgroundFillColor());
+                        graphics1X.fill(contour);
+                    }
+
+                    Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                            scaledWidth, scaledHeight + 4.0f, radius, bottom, 2.0f);
+
+                    borderPainter.paintBorder(graphics1X, button, scaledWidth, scaledHeight + 2.0f,
+                            contour, contourInner, borderScheme);
+                });
     }
 }
