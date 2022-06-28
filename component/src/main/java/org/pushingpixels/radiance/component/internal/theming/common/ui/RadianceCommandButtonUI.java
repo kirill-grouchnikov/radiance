@@ -649,7 +649,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                             (float) scaleFactor * innerFocusArea.y + focusRingPadding,
                             (float) scaleFactor * innerFocusArea.width - 2 * focusRingPadding,
                             (float) scaleFactor * innerFocusArea.height - 2 * focusRingPadding);
-                    RadianceCoreUtilities.paintFocus(g2d, this.commandButton, this.commandButton,
+                    RadianceCoreUtilities.paintFocus(graphics1X,
+                            this.commandButton, this.commandButton,
                             this, scaleFactor, insetFocusArea, innerFocusArea, 1.0f, 0);
                 });
 
