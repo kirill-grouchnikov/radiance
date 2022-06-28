@@ -35,7 +35,7 @@ buildscript {
 
         // Core dependencies
         kotlin_version                       =   '1.6.21'
-        kotlinx_coroutines_version           =    '1.6.2'
+        kotlinx_coroutines_version           =    '1.6.3'
         batik_version                        =     '1.14'
 
         // Demo dependencies
