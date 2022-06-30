@@ -98,27 +98,27 @@ public class BladeIconUtils {
                             RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
 
                     int contourDim = scaledWidth - 1;
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                    Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
                             contourDim, contourDim,
                             cornerRadius, null, 0.0f);
 
                     RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
                             : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     graphics1X.setComposite(getAlphaComposite(alpha));
-                    Graphics2D clipped = (Graphics2D) graphics1X.create();
-                    clipped.clip(contour);
-                    finalFillPainter.paintContourBackground(clipped, button,
+                    Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                             contourDim, contourDim,
-                            contour, false,
+                            cornerRadius, null, 0.5f);
+                    finalFillPainter.paintContourBackground(graphics1X, button,
+                            contourDim, contourDim,
+                            contourFill, false,
                             fillColorScheme, true);
-                    clipped.dispose();
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             RadianceOutlineUtilities.getBaseOutline(
                                     contourDim, contourDim, cornerRadius, null, 1.0f)
                             : null;
                     borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
-                            contour, contourInner, borderColorScheme);
+                            contourOuter, contourInner, borderColorScheme);
 
                     float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
                             1.0f : checkMarkVisibility;
@@ -134,6 +134,7 @@ public class BladeIconUtils {
                         graphicsForCheckMark.dispose();
                     }
                 });
+        graphics.dispose();
     }
 
     private static void drawCheckMarkAtScale1X(Graphics2D graphics1X, int dimension,
@@ -175,24 +176,21 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     int contourDim = scaledWidth;
-                    Shape contour = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
+                    Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
 
                     RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
                             : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     graphics1X.setComposite(getAlphaComposite(alpha));
-                    Graphics2D clipped = (Graphics2D) graphics1X.create();
-                    clipped.clip(contour);
-                    finalFillPainter.paintContourBackground(clipped, button,
+                    finalFillPainter.paintContourBackground(graphics1X, button,
                             contourDim, contourDim,
-                            contour, false,
-                            fillColorScheme, true);
-                    clipped.dispose();
+                            new Ellipse2D.Float(0.5f, 0.5f, contourDim - 1.0f, contourDim - 1.0f),
+                            false, fillColorScheme, true);
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
                             : null;
                     borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
-                            contour, contourInner, borderColorScheme);
+                            contourOuter, contourInner, borderColorScheme);
 
                     float rc = contourDim / 2.0f + 0.5f;
                     float radius = contourDim / 4.5f;
@@ -213,6 +211,7 @@ public class BladeIconUtils {
                     graphicsForCheckMark.fill(markOval);
                     graphicsForCheckMark.dispose();
                 });
+        graphics.dispose();
     }
 
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
@@ -235,24 +234,23 @@ public class BladeIconUtils {
                         graphics1X.transform(mirror);
                     }
 
-                    Shape contour = RadianceOutlineUtilities.getTriangleButtonOutline(
-                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
 
                     graphics1X.setComposite(getAlphaComposite(alpha));
-                    Graphics2D clipped = (Graphics2D) graphics1X.create();
-                    clipped.clip(contour);
-                    fillPainter.paintContourBackground(clipped, slider,
+                    fillPainter.paintContourBackground(graphics1X, slider,
                             scaledWidth, scaledHeight,
-                            contour, false,
-                            fillColorScheme, true);
-                    clipped.dispose();
+                            RadianceOutlineUtilities.getTriangleButtonOutline(
+                                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                            false, fillColorScheme, true);
 
+                    Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
                     Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
                             scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
                     borderPainter.paintBorder(graphics1X, slider,
                             scaledWidth, scaledHeight,
-                            contour, contourInner, borderColorScheme);
+                            contourOuter, contourInner, borderColorScheme);
                 });
+        graphics.dispose();
     }
 
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
@@ -284,24 +282,23 @@ public class BladeIconUtils {
                         graphics1X.transform(mirror);
                     }
 
-                    Shape contour = RadianceOutlineUtilities.getTriangleButtonOutline(
-                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
 
                     graphics1X.setComposite(getAlphaComposite(alpha));
-                    Graphics2D clipped = (Graphics2D) graphics1X.create();
-                    clipped.clip(contour);
-                    fillPainter.paintContourBackground(clipped, slider,
+                    fillPainter.paintContourBackground(graphics1X, slider,
                             scaledWidth, scaledHeight,
-                            contour, false,
-                            fillColorScheme, true);
-                    clipped.dispose();
+                            RadianceOutlineUtilities.getTriangleButtonOutline(
+                                    scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
+                            false, fillColorScheme, true);
 
+                    Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
+                            scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
                     Shape contourInner = RadianceOutlineUtilities.getTriangleButtonOutline(
                             scaledWidth, scaledHeight, 2 * (float) scaleFactor, 2.0f);
                     borderPainter.paintBorder(graphics1X, slider,
                             scaledWidth, scaledHeight,
-                            contour, contourInner, borderColorScheme);
+                            contourOuter, contourInner, borderColorScheme);
                 });
+        graphics.dispose();
     }
 
     public static void drawSliderThumbRound(Graphics2D g, JSlider slider,
@@ -318,24 +315,23 @@ public class BladeIconUtils {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    Shape contour = new Ellipse2D.Float(0.0f, 0.0f,
-                            scaledWidth - 1.0f, scaledHeight - 1.0f);
 
                     graphics1X.setComposite(getAlphaComposite(alpha));
-                    Graphics2D clipped = (Graphics2D) graphics1X.create();
-                    clipped.clip(contour);
-                    fillPainter.paintContourBackground(clipped, slider,
+                    fillPainter.paintContourBackground(graphics1X, slider,
                             scaledWidth, scaledHeight,
-                            contour, false,
+                            new Ellipse2D.Float(0.5f, 0.5f,
+                                    scaledWidth - 2.0f, scaledHeight - 2.0f), false,
                             fillColorScheme, true);
-                    clipped.dispose();
 
+                    Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
+                            scaledWidth - 1.0f, scaledHeight - 1.0f);
                     Shape contourInner = new Ellipse2D.Float(1.0f, 1.0f,
                             scaledWidth - 3.0f, scaledHeight - 3.0f);
                     borderPainter.paintBorder(graphics1X, slider,
                             scaledWidth, scaledHeight,
-                            contour, contourInner, borderColorScheme);
+                            contourOuter, contourInner, borderColorScheme);
                 });
+        graphics.dispose();
     }
 
     public static void drawTreeIcon(Graphics2D g, JTree tree, int size, RadianceColorScheme fillScheme,
@@ -375,6 +371,7 @@ public class BladeIconUtils {
                         graphics1X.draw(new Line2D.Float(mid, mid - length / 2, mid, mid + length / 2));
                     }
                 });
+        graphics.dispose();
     }
 
     public static void drawCloseIcon(Graphics2D g, int iconSize,

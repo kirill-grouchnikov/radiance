@@ -134,25 +134,25 @@ public class ButtonBackgroundDelegate {
                     int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
                     int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
-                    Shape contour = shaper.getButtonOutline(button, 0.0f,
+                    Shape contourOuter = shaper.getButtonOutline(button, 0.0f,
                             scaledWidth + deltaLeft + deltaRight,
                             scaledHeight + deltaTop + deltaBottom,
                             scaleFactor, false);
 
                     graphics1X.translate(-deltaLeft, -deltaTop);
                     if (isContentAreaFilled) {
-                        // Clip by contour so the anti-aliased pixels don't "spill" outside
+                        // If the border is painted, compute a separate contour for the fill.
+                        // Otherwise pixels on the edge can "spill" outside
                         // the contour. Those pixels will be drawn by the border painter.
-                        Graphics2D clipped = (Graphics2D) graphics1X.create();
-                        if (isBorderPainted) {
-                            clipped.clip(contour);
-                        }
-                        fillPainter.paintContourBackground(clipped, button,
+                        Shape contourFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
                                 scaledWidth + deltaLeft + deltaRight,
                                 scaledHeight + deltaTop + deltaBottom,
-                                contour, false,
+                                scaleFactor, false) : contourOuter;
+                        fillPainter.paintContourBackground(graphics1X, button,
+                                scaledWidth + deltaLeft + deltaRight,
+                                scaledHeight + deltaTop + deltaBottom,
+                                contourFill, false,
                                 colorScheme, true);
-                        clipped.dispose();
                     }
                     graphics1X.translate(deltaLeft, deltaTop);
 
@@ -164,7 +164,7 @@ public class ButtonBackgroundDelegate {
                                         scaleFactor, true)
                                 : null;
                         borderPainter.paintBorder(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
-                                scaledHeight + deltaTop + deltaBottom, contour, contourInner, borderScheme);
+                                scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner, borderScheme);
                     }
                 });
 
