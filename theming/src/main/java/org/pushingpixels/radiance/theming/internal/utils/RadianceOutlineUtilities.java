@@ -34,6 +34,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.Set;
 
 /**
@@ -121,6 +123,17 @@ public class RadianceOutlineUtilities {
 		width -= 2 * insets;
 		height -= 2 * insets;
 
+		// Simple (and more common) cases
+		if (isTopLeftCorner && isTopRightCorner && isBottomLeftCorner && isBottomRightCorner) {
+			// Rectangle
+			return new Rectangle2D.Float(xs, ys, width, height);
+		}
+		if (!isTopLeftCorner && !isTopRightCorner && !isBottomLeftCorner && !isBottomRightCorner) {
+			// Rounded rectangle
+			return new RoundRectangle2D.Float(xs, ys, width, height, 2 * radius, 2 * radius);
+		}
+
+		// Some corners are rounded and some are square.
 		GeneralPath result = new GeneralPath();
 
 		if (isTopLeftCorner || (radius <= 0.0f)) {
