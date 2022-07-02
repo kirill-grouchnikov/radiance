@@ -401,6 +401,9 @@ public class SeparatorPainterUtils {
      */
     public static void paintVerticalLines(Graphics g, Component c, RadianceColorScheme scheme,
             int y, Collection<Integer> x, int height, float fadeStartFraction) {
+        if (x.isEmpty()) {
+            return;
+        }
 
         int minX = Collections.min(x);
         int maxX = Collections.max(x);
@@ -467,6 +470,9 @@ public class SeparatorPainterUtils {
      */
     public static void paintHorizontalLines(Graphics g, Component c, RadianceColorScheme scheme,
             int x, Collection<Integer> y, int width, float fadeStartFraction, boolean isLtr) {
+        if (y.isEmpty()) {
+            return;
+        }
 
         int minY = Collections.min(y);
         int maxY = Collections.max(y);
