@@ -60,10 +60,7 @@ public class ButtonBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
-    /**
-     * Draws the background for the specified button at full alpha.
-     */
-    private void drawFullAlphaBackground(
+    private void drawBackground(
             Graphics2D graphics, AbstractButton button,
             RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height) {
@@ -89,7 +86,7 @@ public class ButtonBackgroundDelegate {
                     RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(button,
                             RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
 
-                    drawBackgroundImage(graphics, button, shaper, fillPainter, borderPainter, width,
+                    drawBackground(graphics, button, shaper, fillPainter, borderPainter, width,
                             height, mutableFillColorScheme, baseBorderScheme, openSides, isContentAreaFilled,
                             isBorderPainted);
                     return;
@@ -108,13 +105,13 @@ public class ButtonBackgroundDelegate {
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 
-        drawBackgroundImage(graphics, button, shaper, fillPainter, borderPainter, width,
+        drawBackground(graphics, button, shaper, fillPainter, borderPainter, width,
                 height, mutableFillColorScheme, mutableBorderColorScheme, openSides, isContentAreaFilled,
                 isBorderPainted);
 
     }
 
-    private void drawBackgroundImage(Graphics2D g, AbstractButton button,
+    private void drawBackground(Graphics2D g, AbstractButton button,
             RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
             RadianceColorScheme colorScheme, RadianceColorScheme borderScheme,
@@ -234,7 +231,7 @@ public class ButtonBackgroundDelegate {
             RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
             RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
 
-            drawFullAlphaBackground(graphics, button, shaper,
+            drawBackground(graphics, button, shaper,
                     fillPainter, borderPainter, width, height);
 
             graphics.dispose();

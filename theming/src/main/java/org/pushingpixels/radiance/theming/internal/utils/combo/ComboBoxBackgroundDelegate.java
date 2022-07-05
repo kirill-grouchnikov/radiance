@@ -55,7 +55,7 @@ public class ComboBoxBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
-    public void drawFullAlphaBackground(
+    public void drawBackground(
             Graphics2D graphics, JComboBox combo,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
             int height) {
@@ -75,11 +75,11 @@ public class ComboBoxBackgroundDelegate {
                 RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
                 false);
 
-        drawBackgroundImage(graphics, combo, fillPainter, borderPainter, width,
+        drawBackground(graphics, combo, fillPainter, borderPainter, width,
                 height, mutableFillColorScheme, mutableBorderColorScheme);
     }
 
-    private void drawBackgroundImage(Graphics2D g, JComboBox combo,
+    private void drawBackground(Graphics2D g, JComboBox combo,
             RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int width, int height,
             RadianceColorScheme fillScheme, RadianceColorScheme borderScheme) {
@@ -165,7 +165,7 @@ public class ComboBoxBackgroundDelegate {
             RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(combo);
             RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(combo);
 
-            drawFullAlphaBackground(graphics, combo,
+            drawBackground(graphics, combo,
                     fillPainter, borderPainter, width, height);
 
             graphics.dispose();
