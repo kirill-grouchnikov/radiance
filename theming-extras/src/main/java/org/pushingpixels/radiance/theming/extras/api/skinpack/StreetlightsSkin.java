@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -73,6 +74,9 @@ public class StreetlightsSkin extends RadianceSkin {
                 ColorSchemeAssociationKind.BORDER, ComponentState.getActiveStates());
         // and 60% alpha on disabled controls
         defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED, ComponentState.DISABLED_SELECTED);
+        // and dark green on tab borders
+        defaultSchemeBundle.registerColorScheme(schemes.get("Streetlights Tab Border"),
+                RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER, ComponentState.getActiveStates());
         defaultSchemeBundle.registerColorScheme(disabledScheme,
                 ComponentState.DISABLED_UNSELECTED,
                 ComponentState.DISABLED_SELECTED);

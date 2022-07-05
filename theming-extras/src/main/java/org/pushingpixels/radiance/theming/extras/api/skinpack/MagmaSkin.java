@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -87,6 +88,9 @@ public class MagmaSkin extends RadianceSkin {
                 ComponentState.SELECTED, ComponentState.ROLLOVER_SELECTED);
         defaultSchemeBundle.registerHighlightColorScheme(activeScheme.saturate(-0.2),
                 ComponentState.ROLLOVER_UNSELECTED, ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
+
+        defaultSchemeBundle.registerColorScheme(schemes.get("Magma Tab Border"),
+                RadianceThemingSlices.ColorSchemeAssociationKind.TAB_BORDER, ComponentState.getActiveStates());
 
         this.registerDecorationAreaSchemeBundle(defaultSchemeBundle,
                 DecorationAreaType.NONE);

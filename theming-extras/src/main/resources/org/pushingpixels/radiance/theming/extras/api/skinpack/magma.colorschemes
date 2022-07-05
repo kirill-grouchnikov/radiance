@@ -19,3 +19,9 @@ Magma Disabled {
     colorUltraDark=#070402
     colorForeground=#685D5A
 }
+
+Magma Tab Border {
+    kind=Light
+    colorBackground=#D90828
+    colorForeground=#D90828
+}

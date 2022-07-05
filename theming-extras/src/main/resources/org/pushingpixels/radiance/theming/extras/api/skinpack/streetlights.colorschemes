@@ -30,3 +30,9 @@ Streetlights Disabled {
     colorUltraDark=#020805
     colorForeground=#E7E7E7
 }
+
+Streetlights Tab Border {
+    kind=Light
+    colorBackground=#0E5611
+    colorForeground=#0E5611
+}
