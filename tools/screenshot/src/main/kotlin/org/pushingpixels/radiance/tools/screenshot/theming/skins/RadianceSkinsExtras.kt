@@ -40,10 +40,8 @@ import org.pushingpixels.radiance.theming.extras.api.skinpack.*
 class AllExtras : RadianceSkinRobot(
     listOf(
         FieldOfWheatSkin(),
-        FindingNemoSkin(),
         HarvestSkin(),
         MagmaSkin(),
-        MangoSkin(),
         OfficeBlack2007Skin(),
         OfficeBlue2007Skin(),
         OfficeSilver2007Skin(),

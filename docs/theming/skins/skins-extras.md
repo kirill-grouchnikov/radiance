@@ -17,22 +17,6 @@ Available in the `FieldOfWheatSkin` and the `RadianceFieldOfWheatLookAndFeel` AP
 <img alt="Field of Wheat" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/fieldofwheat2.png" width="340" height="258">
 </p>
 
-### Finding Nemo
-
-Available in the `FindingNemoSkin` and the `RadianceFindingNemoLookAndFeel` APIs, can be used with one of the following options:
-
-* `RadianceThemingCortex.GlobalScope.setSkin(new FindingNemoSkin())`
-* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.FindingNemoSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.extras.api.skinpack.RadianceFindingNemoLookAndFeel`
-* `UIManager.setLookAndFeel(new RadianceFindingNemoLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.extras.api.skinpack.RadianceFindingNemoLookAndFeel");`
-
-<p align="left">
-<img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/findingnemo1.png" width="340" height="258">
-<img alt="Finding Nemo" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/findingnemo2.png" width="340" height="258">
-</p>
-
-
 ### Harvest
 
 Available in the `HarvestSkin` and the `RadianceHarvestLookAndFeel` APIs, can be used with one of the following options:
@@ -61,21 +45,6 @@ Available in the `MagmaSkin` and the `RadianceMagmaLookAndFeel` APIs, can be use
 <p align="left">
 <img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/magma1.png" width="340" height="258">
 <img alt="Magma" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/magma2.png" width="340" height="258">
-</p>
-
-### Mango
-
-Available in the `MangoSkin` and the `RadianceMangoLookAndFeel` APIs, can be used with one of the following options:
-
-* `RadianceThemingCortex.GlobalScope.setSkin(new MangoSkin())`
-* `RadianceThemingCortex.GlobalScope.setSkin("org.pushingpixels.radiance.theming.extras.api.skinpack.MangoSkin")`
-* `-Dswing.defaultlaf=org.pushingpixels.radiance.theming.extras.api.skinpack.RadianceMangoLookAndFeel`
-* `UIManager.setLookAndFeel(new RadianceMangoLookAndFeel())`
-* `UIManager.setLookAndFeel("org.pushingpixels.radiance.theming.extras.api.skinpack.RadianceMangoLookAndFeel");`
-
-<p align="left">
-<img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/mango1.png" width="340" height="258">
-<img alt="Mango" src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming-extras/skins/mango2.png" width="340" height="258">
 </p>
 
 ### Office Black 2007

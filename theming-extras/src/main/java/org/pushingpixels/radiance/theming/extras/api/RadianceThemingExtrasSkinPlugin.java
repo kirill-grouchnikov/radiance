@@ -47,12 +47,8 @@ public class RadianceThemingExtrasSkinPlugin implements RadianceThemingSkinPlugi
         Set<SkinInfo> result = new HashSet<>();
         result.add(new SkinInfo(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class::getName,
                 RadianceFieldOfWheatLookAndFeel.class::getName));
-        result.add(new SkinInfo(FindingNemoSkin.NAME, FindingNemoSkin.class::getName,
-                RadianceFindingNemoLookAndFeel.class::getName));
         result.add(new SkinInfo(HarvestSkin.NAME, HarvestSkin.class::getName,
                 RadianceHarvestLookAndFeel.class::getName));
-        result.add(new SkinInfo(MangoSkin.NAME, MangoSkin.class::getName,
-                RadianceMangoLookAndFeel.class::getName));
         result.add(new SkinInfo(MagmaSkin.NAME, MagmaSkin.class::getName,
                 RadianceMagmaLookAndFeel.class::getName));
         result.add(new SkinInfo(StreetlightsSkin.NAME, StreetlightsSkin.class::getName,
