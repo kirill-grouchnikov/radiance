@@ -65,7 +65,7 @@ public class PillButtonShaper implements RadianceButtonShaper, RectangularButton
 
         float radius = (float) scaleFactor * this.getCornerRadius(button, extraInsets);
         if (isInner) {
-            radius -= RadianceSizeUtils.getBorderStrokeWidth(button);
+            radius -= 1.0f;
             if (radius < 0.0f)
                 radius = 0.0f;
         }
