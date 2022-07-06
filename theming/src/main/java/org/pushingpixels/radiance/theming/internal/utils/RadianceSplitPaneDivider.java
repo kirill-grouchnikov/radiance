@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -377,7 +376,6 @@ public class RadianceSplitPaneDivider extends BasicSplitPaneDivider implements T
      * @param orientation Split pane orientation.
      */
     public void updateOneTouchButtons(int orientation) {
-        double scale = RadianceCommonCortex.getScaleFactor(this.splitPane);
         if (orientation == JSplitPane.VERTICAL_SPLIT) {
             if (this.leftButton != null) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(this.leftButton);
