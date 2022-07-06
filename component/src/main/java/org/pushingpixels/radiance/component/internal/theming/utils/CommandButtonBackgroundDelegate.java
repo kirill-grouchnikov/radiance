@@ -264,9 +264,12 @@ public class CommandButtonBackgroundDelegate {
                                     dh = scaledHeight;
                                     break;
                                 case MIDDLE:
-                                case LAST:
-                                    dy = -scaledHeight;
+                                    dy = -scaledHeight / 2;
                                     dh = scaledHeight;
+                                    break;
+                                case LAST:
+                                    dy = -scaledHeight / 2;
+                                    dh = scaledHeight / 2;
                             }
                         } else {
                             boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
