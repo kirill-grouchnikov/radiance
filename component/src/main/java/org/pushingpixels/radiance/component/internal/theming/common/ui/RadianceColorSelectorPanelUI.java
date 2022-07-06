@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -44,7 +45,6 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.awt.geom.Line2D;
 
 /**
  * UI for {@link JColorSelectorPanel} components in <b>Radiance</b> look and
@@ -63,51 +63,67 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
 
     @Override
     protected void paintCaptionBackground(Graphics g, int x, int y, int width, int height) {
-        RadianceColorScheme bgFillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT,
-                ComponentState.ENABLED);
-        RadianceCoreUtilities.getFillPainter(this.colorSelectorPanel).paintContourBackground(g,
-                this.colorSelectorPanel, width, height, new Rectangle(x, y, width, height), false,
-                bgFillScheme, false);
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    RadianceColorScheme bgFillScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT,
+                            ComponentState.ENABLED);
+                    RadianceCoreUtilities.getFillPainter(this.colorSelectorPanel)
+                            .paintContourBackground(g, this.colorSelectorPanel, width, height,
+                                    new Rectangle(x, y, width, height), false,
+                                    bgFillScheme, false);
 
-        Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel).getOverlayColor(
-                RadianceThemingSlices.ColorOverlayType.LINE,
-                DecorationPainterUtils.getDecorationType(this.colorSelectorPanel), ComponentState.ENABLED);
-        if (borderColor == null) {
-            RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                    ComponentState.ENABLED);
-            borderColor = bgBorderScheme.getLineColor();
-        }
-        float lineThickness = RadianceSizeUtils.getBorderStrokeWidth(this.colorSelectorPanel);
+                    Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel)
+                            .getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,
+                                    DecorationPainterUtils.getDecorationType(this.colorSelectorPanel),
+                                    ComponentState.ENABLED);
+                    if (borderColor == null) {
+                        RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                                this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                                ComponentState.ENABLED);
+                        borderColor = bgBorderScheme.getLineColor();
+                    }
 
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setStroke(new BasicStroke(lineThickness));
-        g2d.setColor(borderColor);
-        g2d.draw(new Line2D.Float(x, y, x + width, y));
-        float bottomLineY = y + height - lineThickness;
-        g2d.draw(new Line2D.Float(x, bottomLineY, x + width, bottomLineY));
-        g2d.dispose();
+                    graphics1X.setColor(borderColor);
+                    graphics1X.drawLine(scaledX, scaledY, scaledX + scaledWidth, scaledY);
+                    int bottomLineY = scaledY + scaledHeight - 1;
+                    graphics1X.drawLine(scaledX, bottomLineY, scaledX + scaledWidth, bottomLineY);
+                });
+        graphics.dispose();
     }
 
     @Override
     protected void paintBottomDivider(Graphics g, int x, int y, int width, int height) {
-        Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel).getOverlayColor(
-                RadianceThemingSlices.ColorOverlayType.LINE,
-                DecorationPainterUtils.getDecorationType(this.colorSelectorPanel), ComponentState.ENABLED);
-        if (borderColor == null) {
-            RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                    ComponentState.ENABLED);
-            borderColor = bgBorderScheme.getLineColor();
-        }
-        float lineThickness = RadianceSizeUtils.getBorderStrokeWidth(this.colorSelectorPanel);
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setStroke(new BasicStroke(lineThickness));
-        g2d.setColor(borderColor);
-        float lineY = y + height - lineThickness;
-        g2d.draw(new Line2D.Float(x, lineY, x + width, lineY));
-        g2d.dispose();
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel)
+                            .getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,
+                                    DecorationPainterUtils.getDecorationType(this.colorSelectorPanel),
+                                    ComponentState.ENABLED);
+                    if (borderColor == null) {
+                        RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                                this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                                ComponentState.ENABLED);
+                        borderColor = bgBorderScheme.getLineColor();
+                    }
+
+                    graphics1X.setColor(borderColor);
+                    int lineY = scaledY + scaledHeight - 1;
+                    graphics1X.drawLine(scaledX, lineY, scaledX + scaledWidth, lineY);
+                });
+        graphics.dispose();
     }
 
     @Override

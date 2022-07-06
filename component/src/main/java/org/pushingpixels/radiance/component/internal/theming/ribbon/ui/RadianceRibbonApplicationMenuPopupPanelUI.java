@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.BasicRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -39,7 +40,6 @@ import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUti
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
 
 import javax.swing.*;
@@ -48,7 +48,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.awt.geom.Line2D;
 
 /**
  * UI for {@link JRibbonApplicationMenuPopupPanel} components in
@@ -111,27 +110,23 @@ public class RadianceRibbonApplicationMenuPopupPanelUI
 
             @Override
             public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(c) / 2.0f;
-                float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(c);
-
-                Graphics2D g2d = (Graphics2D) g.create();
-                RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
-                        applicationMenuPopupPanel, ColorSchemeAssociationKind.BORDER,
-                        ComponentState.ENABLED);
-                g2d.setColor(scheme.getMidColor());
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                Graphics2D graphics = (Graphics2D) g.create();
+                // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+                // to not normalize coordinates to paint at full pixels, and will result in blurry
+                // outlines.
+                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-                        RenderingHints.VALUE_STROKE_NORMALIZE);
-                g2d.setStroke(new BasicStroke(borderThickness, BasicStroke.CAP_BUTT,
-                        BasicStroke.JOIN_ROUND));
-
-                boolean ltr = applicationMenuPopupPanel.getComponentOrientation().isLeftToRight();
-                float lineX = ltr ? borderDelta : c.getWidth() - borderDelta - borderThickness;
-                g2d.draw(new Line2D.Float(lineX, borderDelta, lineX,
-                        height - borderThickness - 2 * borderDelta));
-
-                g2d.dispose();
+                RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, c.getWidth(), c.getHeight(),
+                        (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                            RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
+                                    applicationMenuPopupPanel, ColorSchemeAssociationKind.BORDER,
+                                    ComponentState.ENABLED);
+                            graphics1X.setColor(scheme.getMidColor());
+                            boolean ltr = applicationMenuPopupPanel.getComponentOrientation().isLeftToRight();
+                            int lineX = ltr ? 1 : scaledWidth - 2;
+                            graphics1X.drawLine(lineX, 1, lineX, scaledHeight - 2);
+                        });
+                graphics.dispose();
             }
         }));
         this.panelLevel2.setBorder(new EmptyBorder(0, 0, 0, 0));

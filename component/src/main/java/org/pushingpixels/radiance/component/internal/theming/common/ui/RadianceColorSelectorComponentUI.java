@@ -95,22 +95,28 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
     protected void paintRolloverIndication(Graphics g) {
         int w = this.colorSelectorComponent.getWidth();
         int h = this.colorSelectorComponent.getHeight();
-        Graphics2D g2d = (Graphics2D) g.create();
 
-        float borderThickness = RadianceSizeUtils.getBorderStrokeWidth(
-                this.colorSelectorComponent);
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.setComposite(AlphaComposite.SrcOver.derive(this.rollover));
 
-        g2d.setComposite(AlphaComposite.SrcOver.derive(this.rollover));
-        RadianceColorScheme highlightBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.colorSelectorComponent, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                ComponentState.ROLLOVER_UNSELECTED);
-        g2d.setColor(highlightBorderScheme.getMidColor());
-        g2d.draw(new Rectangle2D.Double(0, 0, w - borderThickness, h - borderThickness));
-        g2d.setColor(highlightBorderScheme.getUltraDarkColor());
-        g2d.draw(new Rectangle2D.Double(borderThickness, borderThickness, w - 3 * borderThickness,
-                h - 3 * borderThickness));
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
 
-        g2d.dispose();
+                    RadianceColorScheme highlightBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.colorSelectorComponent, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                            ComponentState.ROLLOVER_UNSELECTED);
+                    graphics1X.setColor(highlightBorderScheme.getMidColor());
+                    graphics1X.drawRect(0, 0, scaledWidth - 1, scaledHeight - 1);
+                    graphics1X.setColor(highlightBorderScheme.getUltraDarkColor());
+                    graphics1X.drawRect(1, 1, scaledWidth - 3, scaledHeight - 3);
+                });
+
+        graphics.dispose();
     }
 
     @Override

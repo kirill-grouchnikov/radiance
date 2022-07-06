@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
@@ -51,7 +52,6 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -124,16 +124,21 @@ public class RadianceRibbonUI extends BasicRibbonUI {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D) g.create();
-            RadianceColorScheme compScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-            g2d.setColor(compScheme.getSeparatorPrimaryColor());
-            float separatorThickness = RadianceSizeUtils.getBorderStrokeWidth(this);
-            float separatorY = this.getHeight() - separatorThickness;
-            g2d.setStroke(new BasicStroke(separatorThickness, BasicStroke.CAP_BUTT,
-                    BasicStroke.JOIN_ROUND));
-            g2d.draw(new Line2D.Double(0, separatorY, this.getWidth(), separatorY));
-            g2d.dispose();
+            Graphics2D graphics = (Graphics2D) g.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, this.getWidth(), this.getHeight(),
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        RadianceColorScheme compScheme = RadianceColorSchemeUtilities.getColorScheme(
+                                this, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+                        graphics1X.setColor(compScheme.getSeparatorPrimaryColor());
+                        int separatorY = scaledHeight - 1;
+                        graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
+                    });
+            graphics.dispose();
         }
     }
 
@@ -173,17 +178,24 @@ public class RadianceRibbonUI extends BasicRibbonUI {
     @Override
     protected void paintBackground(Graphics g) {
         BackgroundPaintingUtils.update(g, this.ribbon, false);
-        Graphics2D g2d = (Graphics2D) g.create();
-        RadianceColorScheme compScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.ribbon, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
-        g2d.setColor(compScheme.getSeparatorPrimaryColor());
-        float separatorThickness = RadianceSizeUtils.getBorderStrokeWidth(this.ribbon);
-        float separatorY = this.taskToggleButtonsScrollablePanel.getY() +
-                this.taskToggleButtonsScrollablePanel.getHeight() - separatorThickness;
-        g2d.setStroke(new BasicStroke(separatorThickness, BasicStroke.CAP_BUTT,
-                BasicStroke.JOIN_ROUND));
-        g2d.draw(new Line2D.Double(0, separatorY, this.ribbon.getWidth(), separatorY));
-        g2d.dispose();
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0,
+                this.ribbon.getWidth(), this.ribbon.getHeight(),
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    RadianceColorScheme compScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            this.ribbon, ColorSchemeAssociationKind.SEPARATOR, ComponentState.ENABLED);
+                    graphics1X.setColor(compScheme.getSeparatorPrimaryColor());
+                    int separatorY = (int) (scaleFactor * (this.taskToggleButtonsScrollablePanel.getY() +
+                            this.taskToggleButtonsScrollablePanel.getHeight())) - 1;
+                    graphics1X.drawLine(0, separatorY, scaledWidth, separatorY);
+                });
+        graphics.dispose();
     }
 
     @Override

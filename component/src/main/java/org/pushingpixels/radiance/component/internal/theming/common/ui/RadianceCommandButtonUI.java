@@ -80,7 +80,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
@@ -351,33 +350,41 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         boolean isSelectedMenu = this.commandButton.getActionModel().isSelected() &&
                 this.commandButton.getProjection().getPresentationModel().isMenu();
         if (isSelectedMenu) {
-            Graphics2D g2d = (Graphics2D) g.create();
-            float borderDelta = RadianceSizeUtils.getBorderStrokeWidth(this.commandButton);
-            Rectangle2D.Float extended = new Rectangle2D.Float(iconRect.x - borderDelta / 2.0f,
-                    iconRect.y - borderDelta / 2.0f, iconRect.width + borderDelta,
-                    iconRect.height + borderDelta);
+            Graphics2D graphics = (Graphics2D) g.create();
+            // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+            // to not normalize coordinates to paint at full pixels, and will result in blurry
+            // outlines.
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            graphics.translate(iconRect.x, iconRect.y);
+            RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, iconRect.width, iconRect.height,
+                    (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                        Rectangle2D.Float extended = new Rectangle2D.Float(-1.0f, -1.0f,
+                                scaledWidth + 2.0f, scaledHeight + 2.0f);
 
-            ComponentState currState = this.commandButton.getActionModel().isEnabled()
-                    ? ComponentState.SELECTED
-                    : ComponentState.DISABLED_SELECTED;
+                        ComponentState currState = this.commandButton.getActionModel().isEnabled()
+                                ? ComponentState.SELECTED
+                                : ComponentState.DISABLED_SELECTED;
 
-            RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
-            RadianceFillPainter fillPainter = RadianceCoreUtilities
-                    .getFillPainter(this.commandButton);
-            fillPainter.paintContourBackground(g2d, this.commandButton,
-                    extended.x + extended.width, extended.y + extended.height,
-                    extended, false, fillScheme, false);
+                        RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
+                                this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, currState);
+                        RadianceFillPainter fillPainter = RadianceCoreUtilities
+                                .getFillPainter(this.commandButton);
+                        fillPainter.paintContourBackground(graphics1X, this.commandButton,
+                                extended.x + extended.width, extended.y + extended.height,
+                                extended, false, fillScheme, false);
 
-            RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    this.commandButton, RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER, currState);
-            RadianceBorderPainter borderPainter = RadianceCoreUtilities
-                    .getBorderPainter(this.commandButton);
-            borderPainter.paintBorder(g2d, this.commandButton,
-                    extended.x + extended.width, extended.y + extended.height,
-                    extended, null, borderScheme);
-
-            g2d.dispose();
+                        RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                                this.commandButton,
+                                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
+                                currState);
+                        RadianceBorderPainter borderPainter = RadianceCoreUtilities
+                                .getBorderPainter(this.commandButton);
+                        borderPainter.paintBorder(graphics1X, this.commandButton,
+                                extended.x + extended.width, extended.y + extended.height,
+                                extended, null, borderScheme);
+                    });
+            graphics.dispose();
         }
         this.paintButtonIconRegular(g, iconRect, textColor);
         // does it actually have an icon?
