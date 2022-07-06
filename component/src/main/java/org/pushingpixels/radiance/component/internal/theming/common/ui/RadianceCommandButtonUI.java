@@ -118,6 +118,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     private StateTransitionTracker overallStateTransitionTracker;
 
+    private CommandButtonBackgroundDelegate commandButtonBackgroundDelegate;
+
     /**
      * The matching glowing icon. Is used only when
      * {@link AnimationConfigurationManager#isAnimationAllowed(AnimationFacet, Component)} returns
@@ -149,6 +151,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 this.overallRolloverModel);
 
         this.radianceVisualStateTracker = new CommandButtonVisualStateTracker();
+        this.commandButtonBackgroundDelegate = new CommandButtonBackgroundDelegate();
     }
 
     @Override
@@ -313,67 +316,11 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         Rectangle actionArea = this.getLayoutInfo().actionClickArea;
         Rectangle popupArea = this.getLayoutInfo().popupClickArea;
 
-        BufferedImage fullAlphaBackground = CommandButtonBackgroundDelegate
-                .getCombinedCommandButtonBackground(this.commandButton, actionModel, actionArea,
-                        popupModel, popupArea);
-
-        // Two special cases here:
-        // 1. Button has flat appearance, doesn't have focus and doesn't show the popup
-        // 2. Button is disabled.
-        // For both cases, we need to set custom translucency.
-        boolean isFlat = this.commandButton.isFlat()
-                && !this.commandButton.hasFocus()
-                && !this.commandButton.getPopupModel().isPopupShowing();
-        boolean isSpecial = isFlat || !this.commandButton.isEnabled();
-        float extraAlpha = 1.0f;
-        if (isSpecial) {
-            if (isFlat) {
-                float extraActionAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                        getActionTransitionTracker().getModelStateInfo().getStateContributionMap().entrySet()) {
-                    ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled()) {
-                        continue;
-                    }
-                    if (activeState == ComponentState.ENABLED) {
-                        continue;
-                    }
-                    extraActionAlpha += activeEntry.getValue().getContribution();
-                }
-                float extraPopupAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                        getPopupTransitionTracker().getModelStateInfo().getStateContributionMap().entrySet()) {
-                    ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled()) {
-                        continue;
-                    }
-                    if (activeState == ComponentState.ENABLED) {
-                        continue;
-                    }
-                    extraPopupAlpha += activeEntry.getValue().getContribution();
-                }
-                extraAlpha = Math.max(extraActionAlpha, extraPopupAlpha);
-            } else {
-                ComponentState actionAreaState = ComponentState.getState(actionModel,
-                        this.commandButton);
-                if (actionAreaState.isDisabled()) {
-                    extraAlpha = RadianceColorSchemeUtilities.getAlpha(this.commandButton,
-                            actionAreaState);
-                }
-            }
-        }
-        // System.out.println(extraAlpha);
-        extraAlpha = Math.min(1.0f, extraAlpha);
-        if (extraAlpha > 0.0f) {
-            Graphics2D g2d = (Graphics2D) graphics.create();
-            g2d.setComposite(
-                    WidgetUtilities.getAlphaComposite(this.commandButton, extraAlpha, graphics));
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            RadianceCommonCortex.drawImageWithScale(g2d, RadianceCommonCortex.getScaleFactor(commandButton),
-                    fullAlphaBackground, 0, 0);
-            g2d.dispose();
-        }
+        Graphics2D g2d = (Graphics2D) graphics.create();
+        this.commandButtonBackgroundDelegate.updateBackground(g2d, this.commandButton,
+                getActionTransitionTracker(), actionArea,
+                getPopupTransitionTracker(), popupArea);
+        g2d.dispose();
     }
 
     private void paintButtonIconRegular(Graphics g, Rectangle iconRect, Color textColor) {
@@ -395,8 +342,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             tracker = this.radianceVisualStateTracker.getPopupStateTransitionTracker();
             model = this.commandButton.getPopupModel();
         }
-        CommandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect, this.commandButton,
-                icon, this.glowingIcon, model, tracker, textColor);
+        this.commandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect,
+                this.commandButton, icon, this.glowingIcon, model, tracker, textColor);
         g2d.dispose();
     }
 

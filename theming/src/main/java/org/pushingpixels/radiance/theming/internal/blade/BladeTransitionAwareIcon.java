@@ -135,7 +135,7 @@ public class BladeTransitionAwareIcon implements Icon {
         }
 
         BladeUtils.populateColorScheme(mutableColorScheme, comp, modelStateInfo, currState,
-                this.colorSchemeAssociationKindDelegate, false);
+                this.colorSchemeAssociationKindDelegate, false, false);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);

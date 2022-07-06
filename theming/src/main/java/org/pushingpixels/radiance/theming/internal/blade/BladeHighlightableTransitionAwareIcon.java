@@ -97,7 +97,7 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
         // Use HIGHLIGHT when necessary and MARK for the rest
         BladeUtils.populateColorScheme(mutableColorScheme, this.component, modelStateInfo,
-                currState, this.colorSchemeAssociationKindDelegate, false);
+                currState, this.colorSchemeAssociationKindDelegate, false, false);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
