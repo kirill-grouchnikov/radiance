@@ -1546,10 +1546,6 @@ public class RadianceCoreUtilities {
         return new HashMapKey(objects);
     }
 
-    public static ImageHashMapKey getScaleAwareHashKey(double scale, Object... objects) {
-        return new ImageHashMapKey(scale, objects);
-    }
-
     /**
      * Stops all Radiance threads. Improper use may result in UI artifacts and runtime exceptions.
      */
