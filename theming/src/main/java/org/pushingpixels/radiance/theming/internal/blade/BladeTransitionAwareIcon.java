@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentSta
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
@@ -134,8 +134,10 @@ public class BladeTransitionAwareIcon implements Icon {
                 currState = ComponentState.ENABLED;
         }
 
-        BladeUtils.populateColorScheme(mutableColorScheme, comp, modelStateInfo, currState,
-                this.colorSchemeAssociationKindDelegate, false, false);
+        BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo, currState,
+                BladeUtils.getDefaultColorSchemeDelegate(comp,
+                        this.colorSchemeAssociationKindDelegate),
+                false);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);

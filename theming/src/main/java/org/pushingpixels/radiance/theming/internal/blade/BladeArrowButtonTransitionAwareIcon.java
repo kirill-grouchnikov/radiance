@@ -132,8 +132,11 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        BladeUtils.populateColorScheme(mutableColorScheme, this.component, modelStateInfo,
-                currState, this.colorSchemeAssociationKindDelegate, false, false);
+        BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
+                currState,
+                BladeUtils.getDefaultColorSchemeDelegate(this.component,
+                        this.colorSchemeAssociationKindDelegate),
+                false);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);

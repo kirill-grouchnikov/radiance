@@ -219,13 +219,56 @@ public class BladeUtils {
         bladeColorScheme.displayName = nameBuilder.toString();
     }
 
+    public interface ColorSchemeDelegate {
+        RadianceColorScheme getColorSchemeForCurrentState(ComponentState state);
+        RadianceColorScheme getColorSchemeForActiveState(ComponentState state);
+    }
+
+    public static ColorSchemeDelegate getDefaultColorSchemeDelegate(Component component,
+            BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
+        return new ColorSchemeDelegate() {
+            @Override
+            public RadianceColorScheme getColorSchemeForCurrentState(ComponentState state) {
+                return RadianceColorSchemeUtilities.getColorScheme(component,
+                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
+            }
+
+            @Override
+            public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
+                return RadianceColorSchemeUtilities.getColorScheme(component,
+                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
+            }
+        };
+    }
+
+    public static ColorSchemeDelegate getEnabledAsActiveColorSchemeDelegate(Component component,
+            BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
+        return new ColorSchemeDelegate() {
+            @Override
+            public RadianceColorScheme getColorSchemeForCurrentState(ComponentState state) {
+                if (state == ComponentState.ENABLED) {
+                    return RadianceColorSchemeUtilities.getActiveColorScheme(component, state);
+                }
+                return RadianceColorSchemeUtilities.getColorScheme(component,
+                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
+            }
+
+            @Override
+            public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
+                if (state == ComponentState.ENABLED) {
+                    return RadianceColorSchemeUtilities.getActiveColorScheme(component, state);
+                }
+                return RadianceColorSchemeUtilities.getColorScheme(component,
+                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
+            }
+        };
+    }
+
     public static void populateColorScheme(
             BladeColorScheme bladeColorScheme,
-            Component component,
             StateTransitionTracker.ModelStateInfo modelStateInfo,
             ComponentState currState,
-            BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate,
-            boolean treatEnabledAsActive,
+            ColorSchemeDelegate colorSchemeDelegate,
             boolean useNoSelectionStateContributionMap) {
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
@@ -235,10 +278,7 @@ public class BladeUtils {
         }
 
         StringBuilder nameBuilder = new StringBuilder();
-        RadianceColorScheme currStateScheme = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
-                ? RadianceColorSchemeUtilities.getActiveColorScheme(component, currState)
-                : RadianceColorSchemeUtilities.getColorScheme(component,
-                colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(currState), currState);
+        RadianceColorScheme currStateScheme = colorSchemeDelegate.getColorSchemeForCurrentState(currState);
 
         Color ultraLight = currStateScheme.getUltraLightColor();
         Color extraLight = currStateScheme.getExtraLightColor();
@@ -277,10 +317,7 @@ public class BladeUtils {
                     continue;
                 }
                 // Get the color scheme that matches the contribution state
-                RadianceColorScheme contributionScheme = (treatEnabledAsActive && (activeEntry.getKey() == ComponentState.ENABLED))
-                        ? RadianceColorSchemeUtilities.getActiveColorScheme(component, activeEntry.getKey())
-                        : RadianceColorSchemeUtilities.getColorScheme(component,
-                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(activeEntry.getKey()), activeEntry.getKey());
+                RadianceColorScheme contributionScheme = colorSchemeDelegate.getColorSchemeForActiveState(activeEntry.getKey());
 
                 // And interpolate the colors
                 ultraLight = RadianceColorUtilities.getInterpolatedColor(ultraLight,

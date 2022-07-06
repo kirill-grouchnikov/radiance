@@ -134,14 +134,18 @@ public class CommandButtonBackgroundDelegate {
                 ? actionTransitionTracker.getModelStateInfo().getCurrModelStateNoSelection()
                 : actionTransitionTracker.getModelStateInfo().getCurrModelState();
 
-        BladeUtils.populateColorScheme(mutableFillColorScheme, commandButton,
+        BladeUtils.populateColorScheme(mutableFillColorScheme,
                 actionTransitionTracker.getModelStateInfo(),
-                currActionState, state -> ColorSchemeAssociationKind.FILL,
-                false, isActionToggleMenu);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, commandButton,
+                currActionState,
+                BladeUtils.getDefaultColorSchemeDelegate(commandButton,
+                        state -> ColorSchemeAssociationKind.FILL),
+                isActionToggleMenu);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme,
                 actionTransitionTracker.getModelStateInfo(),
-                currActionState, state -> ColorSchemeAssociationKind.BORDER,
-                false, isActionToggleMenu);
+                currActionState,
+                BladeUtils.getDefaultColorSchemeDelegate(commandButton,
+                        state -> ColorSchemeAssociationKind.BORDER),
+                isActionToggleMenu);
 
         float actionAlpha;
         if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
@@ -181,14 +185,18 @@ public class CommandButtonBackgroundDelegate {
         // Draw popup area second
         ComponentState currPopupState = popupTransitionTracker.getModelStateInfo().getCurrModelState();
 
-        BladeUtils.populateColorScheme(mutableFillColorScheme, commandButton,
+        BladeUtils.populateColorScheme(mutableFillColorScheme,
                 popupTransitionTracker.getModelStateInfo(),
-                currPopupState, state -> ColorSchemeAssociationKind.FILL,
-                false, false);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, commandButton,
+                currPopupState,
+                BladeUtils.getDefaultColorSchemeDelegate(commandButton,
+                        state -> ColorSchemeAssociationKind.FILL),
+                false);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme,
                 popupTransitionTracker.getModelStateInfo(),
-                currPopupState, state -> ColorSchemeAssociationKind.BORDER,
-                false, false);
+                currPopupState,
+                BladeUtils.getDefaultColorSchemeDelegate(commandButton,
+                        state -> ColorSchemeAssociationKind.BORDER),
+                false);
 
         float popupAlpha;
         if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {

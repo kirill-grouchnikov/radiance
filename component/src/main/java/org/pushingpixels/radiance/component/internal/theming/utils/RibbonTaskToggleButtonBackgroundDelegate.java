@@ -68,14 +68,43 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                 .getModelStateInfo();
 
         // Populate fill and border color schemes based on the current transition state of the button.
-        BladeUtils.populateColorScheme(mutableFillColorScheme, button,
+        // To create visual continuity between the background of the selected task
+        // and its toggle button, we use the decoration painter and not fill painter.
+        // We also ignore the selected state of the toggle button to compute the
+        // color scheme to use.
+        // If we have one active state which is *not* enabled, this means that we have
+        // fully transitioned / animated to a state like rollover or pressed (no selection
+        // as mentioned before). For such a state, we use the matching FILL color scheme.
+        // Otherwise, we use the background color scheme as the base fill for the visual
+        // continuity, and let the other active states (if any) paint the additional
+        // transition visuals.
+        BladeUtils.populateColorScheme(mutableFillColorScheme,
                 modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                false);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
+                new BladeUtils.ColorSchemeDelegate() {
+                    @Override
+                    public RadianceColorScheme getColorSchemeForCurrentState(ComponentState state) {
+                        if (state == ComponentState.ENABLED) {
+                            RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+                            RadianceThemingSlices.DecorationAreaType buttonDecorationAreaType =
+                                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(button);
+                            return skin.getBackgroundColorScheme(buttonDecorationAreaType);
+                        }
+                        return RadianceColorSchemeUtilities.getColorScheme(button,
+                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, state);
+                    }
+
+                    @Override
+                    public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
+                        return RadianceColorSchemeUtilities.getColorScheme(button,
+                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, state);
+                    }
+                },
+                true);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme,
                 modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                false);
+                BladeUtils.getDefaultColorSchemeDelegate(button,
+                        state -> RadianceThemingSlices.ColorSchemeAssociationKind.BORDER),
+                true);
 
         // Account for contextual hue color associated with the button's group
         Color contextualGroupHueColor = button.getContextualGroupHueColor();
