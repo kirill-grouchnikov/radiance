@@ -28,7 +28,7 @@ JCommandButton bigButton =
       this.pasteActionCommand.project(
             CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.BIG)
-                    .setFlat(false)
+                    .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                     .build())
             .buildComponent();
 ```
@@ -46,7 +46,7 @@ In this particular case, we are projecting our [command as a button](CommandButt
 ```java
 CommandButtonPresentationModel.builder()
         .setPresentationState(CommandButtonPresentationState.BIG)
-        .setFlat(false)
+        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
         .build())
 ```
 
@@ -54,7 +54,7 @@ Going back to our screenshot:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-basics.png" width="780" border=0/>
 
-What is different between the four "Paste" buttons in the first column? The only thing is the presentation state passed to the `.setPresentationState()` call on the presentation model builder. The rest is identical - the command itself, as well as the `.setFlat(false)` to mark the projected button to always display background.
+What is different between the four "Paste" buttons in the first column? The only thing is the presentation state passed to the `.setPresentationState()` call on the presentation model builder. The rest is identical - the command itself, as well as the `setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)` to mark the projected button to always display background.
 
 Now let's talk about the projection is.
 
@@ -76,7 +76,7 @@ this.pasteActionCommand = Command.builder()
 JCommandButton bigButton = this.pasteActionCommand.project(
     CommandButtonPresentationModel.builder()
           .setPresentationState(CommandButtonPresentationState.BIG)
-          .setFlat(false)
+          .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
           .build())
     .buildComponent();
 ```

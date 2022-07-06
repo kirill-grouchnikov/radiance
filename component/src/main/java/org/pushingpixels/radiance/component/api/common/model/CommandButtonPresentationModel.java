@@ -58,7 +58,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
-    private boolean isFlat;
+    private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     private boolean isFocusable;
     private int horizontalAlignment;
     private double horizontalGapScaleFactor;
@@ -85,7 +85,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         result.presentationState = (overlay.presentationState != null)
                 ? overlay.presentationState : this.presentationState;
-        result.isFlat = (overlay.isFlat != null) ? overlay.isFlat : this.isFlat;
+        result.backgroundAppearanceStrategy = (overlay.backgroundAppearanceStrategy != null)
+                ? overlay.backgroundAppearanceStrategy : this.backgroundAppearanceStrategy;
         result.isFocusable = (overlay.isFocusable != null) ? overlay.isFocusable : this.isFocusable;
         result.horizontalAlignment = (overlay.horizontalAlignment != null)
                 ? overlay.horizontalAlignment : this.horizontalAlignment;
@@ -146,8 +147,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.presentationState;
     }
 
-    public boolean isFlat() {
-        return this.isFlat;
+    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
+        return this.backgroundAppearanceStrategy;
     }
 
     public boolean isFocusable() {
@@ -299,7 +300,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     public static class Overlay {
         private CommandButtonPresentationState presentationState;
-        private Boolean isFlat;
+        private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
         private Boolean isFocusable;
         private Integer horizontalAlignment;
         private Double horizontalGapScaleFactor;
@@ -322,8 +323,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Integer autoRepeatSubsequentInterval;
         private FireActionTrigger fireActionTrigger;
 
-        public Overlay setFlat(boolean flat) {
-            this.isFlat = flat;
+        public Overlay setBackgroundAppearanceStrategy(
+                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return this;
         }
 
@@ -429,7 +431,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     public static class Builder {
         private CommandButtonPresentationState presentationState =
                 CommandButtonPresentationState.FIT_TO_ICON;
-        private boolean isFlat = true;
+        private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
+                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private boolean isFocusable = true;
         private int horizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private double horizontalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
@@ -455,8 +458,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private int autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
         private FireActionTrigger fireActionTrigger = FireActionTrigger.ON_PRESS_RELEASED;
 
-        public Builder setFlat(boolean flat) {
-            this.isFlat = flat;
+        public Builder setBackgroundAppearanceStrategy(
+                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return this;
         }
 
@@ -567,7 +571,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.horizontalAlignment = this.horizontalAlignment;
             commandPresentation.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
             commandPresentation.verticalGapScaleFactor = this.verticalGapScaleFactor;
-            commandPresentation.isFlat = this.isFlat;
+            commandPresentation.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
             commandPresentation.isFocusable = this.isFocusable;
             commandPresentation.iconDimension = this.iconDimension;
             commandPresentation.activeIconFilterStrategy = this.activeIconFilterStrategy;

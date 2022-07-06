@@ -188,7 +188,7 @@ public class TestCommandToggleButtons extends JFrame {
                 this.toggleCommandShort.project(
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                         .buildComponent();
         builder.add(buttonWithShortText).xy(3, row);
@@ -197,7 +197,7 @@ public class TestCommandToggleButtons extends JFrame {
                 this.toggleCommandLong.project(
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                         .buildComponent();
         builder.add(buttonWithLongText).xy(5, row);
@@ -206,7 +206,7 @@ public class TestCommandToggleButtons extends JFrame {
                 this.toggleCommandLongWithSecondary.project(
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(state)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                         .buildComponent();
         builder.add(buttonWithLongTextAndSecondary).xy(7, row);

@@ -46,6 +46,7 @@ import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupM
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.BackgroundAppearanceStrategy
 
 @RadianceElementMarker
 public open class KCommand {
@@ -336,7 +337,8 @@ public fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorS
 public open class KCommandButtonPresentation {
     public var presentationState: CommandButtonPresentationState =
         CommandButtonPresentationState.FIT_TO_ICON
-    public var isFlat: Boolean = true
+    public var backgroundAppearanceStrategy: BackgroundAppearanceStrategy =
+        BackgroundAppearanceStrategy.FLAT
     public var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     public var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
     public var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
@@ -367,7 +369,7 @@ public open class KCommandButtonPresentation {
     internal fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
         val result = CommandButtonPresentationModel.builder()
             .setPresentationState(presentationState)
-            .setFlat(isFlat)
+            .setBackgroundAppearanceStrategy(backgroundAppearanceStrategy)
             .setHorizontalAlignment(horizontalAlignment)
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
@@ -401,7 +403,7 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
     internal fun toColorSelectorCommandPresentation(command: KColorSelectorCommand): CommandButtonPresentationModel {
         return CommandButtonPresentationModel.builder()
             .setPresentationState(presentationState)
-            .setFlat(isFlat)
+            .setBackgroundAppearanceStrategy(backgroundAppearanceStrategy)
             .setHorizontalAlignment(horizontalAlignment)
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)

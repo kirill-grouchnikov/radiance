@@ -85,7 +85,7 @@ public class TestButtonStripMultiple extends JFrame {
                 .setIconFactory(Format_justify_left.factory())
                 .build().project(CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent();
         this.add(standalone);

@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.demo.component.ktx.svg.Image_x_generic
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
@@ -79,7 +80,7 @@ fun main() {
                 autoRepeatInitialInterval = 500
                 autoRepeatSubsequentInterval = 1000
                 presentationState = CommandButtonPresentationState.TILE
-                isFlat = false
+                backgroundAppearanceStrategy = RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS
             }
         }.toButton()
 

@@ -207,7 +207,7 @@ public class TestCommandButtons extends JFrame {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false);
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS);
         configurePresentationBuilder(presentationBuilder);
 
         return this.pastePopupCommand.project(presentationBuilder.build())
@@ -219,7 +219,7 @@ public class TestCommandButtons extends JFrame {
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
                         .setTextClick(CommandButtonPresentationModel.TextClick.POPUP)
-                        .setFlat(false);
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS);
         configurePresentationBuilder(presentationBuilder);
 
         return this.copyCommand.project(presentationBuilder.build())
@@ -231,7 +231,7 @@ public class TestCommandButtons extends JFrame {
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
                         .setTextClick(CommandButtonPresentationModel.TextClick.ACTION)
-                        .setFlat(false);
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS);
         configurePresentationBuilder(presentationBuilder);
 
         return this.cutCommand.project(presentationBuilder.build())
@@ -242,7 +242,7 @@ public class TestCommandButtons extends JFrame {
         CommandButtonPresentationModel.Builder presentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false);
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS);
         configurePresentationBuilder(presentationBuilder);
 
         return this.pasteActionCommand.project(presentationBuilder.build())

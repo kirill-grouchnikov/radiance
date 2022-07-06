@@ -47,6 +47,7 @@ import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButto
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.*;
@@ -132,12 +133,12 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     private int iconDimension;
 
     /**
-     * Indication whether this button is flat.
+     * Background appearance strategy for this button
      *
-     * @see #setFlat(boolean)
-     * @see #isFlat()
+     * @see #setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
+     * @see #getBackgroundAppearanceStrategy()
      */
-    private boolean isFlat;
+    private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
 
     /**
      * Horizontal alignment of the content.
@@ -542,7 +543,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
         this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
         this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
-        this.setFlat(commandPresentation.isFlat());
+        this.setBackgroundAppearanceStrategy(commandPresentation.getBackgroundAppearanceStrategy());
         this.setFocusable(commandPresentation.isFocusable());
         if (commandPresentation.getIconDimension() != null) {
             this.setIconDimension(commandPresentation.getIconDimension());
@@ -831,35 +832,37 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     }
 
     /**
-     * Returns indication whether this button has flat appearance.
+     * Returns the background appearance strategy for this button.
      *
-     * @return <code>true</code> if this button has flat appearance,
-     * <code>false</code> otherwise.
-     * @see #setFlat(boolean)
+     * @return the background appearance strategy for this button.
+     * @see #setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
      */
-    public boolean isFlat() {
-        return this.isFlat;
+    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
+        return this.backgroundAppearanceStrategy;
     }
 
     /**
-     * Sets the flat appearance of this button. Fires a <code>flat</code>
-     * property change event.
+     * Sets the background appearance strategy for this button. Fires a
+     * <code>backgroundAppearanceStrategy</code> property change event.
      *
-     * @param isFlat If <code>true</code>, this button will have flat appearance,
-     *               otherwise this button will not have flat appearance.
-     * @see #isFlat()
+     * @param backgroundAppearanceStrategy The new background appearance strategy for this button.
+     * @see #getBackgroundAppearanceStrategy()
      */
-    public void setFlat(boolean isFlat) {
-        boolean old = this.isFlat;
-        this.isFlat = isFlat;
-        if (old != this.isFlat) {
-            this.firePropertyChange("flat", old, this.isFlat);
+    public void setBackgroundAppearanceStrategy(
+            RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+        RadianceThemingSlices.BackgroundAppearanceStrategy old = this.backgroundAppearanceStrategy;
+        this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
+        if (old != this.backgroundAppearanceStrategy) {
+            this.firePropertyChange("backgroundAppearanceStrategy",
+                    old, this.backgroundAppearanceStrategy);
         }
 
-        if (old != isFlat) {
+        if (old != backgroundAppearanceStrategy) {
             repaint();
         }
     }
+
+
 
     /**
      * Returns the action model for this button.

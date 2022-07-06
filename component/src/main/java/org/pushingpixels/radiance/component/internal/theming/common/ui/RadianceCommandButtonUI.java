@@ -450,7 +450,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     @Override
     protected boolean isPaintingBackground() {
         if (this.commandButton.getProjection().getPresentationModel().isMenu() &&
-                (this.commandButton.getActionModel().isRollover() || !this.commandButton.isFlat())) {
+                (this.commandButton.getActionModel().isRollover() ||
+                        (this.commandButton.getBackgroundAppearanceStrategy() != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER))) {
             return true;
         }
 

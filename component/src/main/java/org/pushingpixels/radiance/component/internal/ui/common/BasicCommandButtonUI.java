@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -594,7 +595,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         boolean isPopupArmed = (popupModel != null) && (popupModel.isArmed());
 
         return (isActionSelected || isPopupSelected || isActionRollover || isPopupRollover
-                || isPopupShowing || isActionArmed || isPopupArmed || !this.commandButton.isFlat());
+                || isPopupShowing || isActionArmed || isPopupArmed ||
+                (this.commandButton.getBackgroundAppearanceStrategy() != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER));
     }
 
     /**

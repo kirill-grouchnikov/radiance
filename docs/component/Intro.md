@@ -32,7 +32,7 @@ CommandButtonProjection bigPasteProjection =
       pasteActionCommand.project(
             CommandButtonPresentationModel.builder()
                     .setPresentationState(CommandButtonPresentationState.BIG)
-                    .setFlat(false)
+                    .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                     .build());
 
 JCommandButton bigButton = bigPasteProjection.buildComponent();

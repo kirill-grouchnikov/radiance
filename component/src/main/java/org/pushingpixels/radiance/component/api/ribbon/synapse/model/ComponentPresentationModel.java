@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.api.ribbon.synapse.model;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.model.ImmutablePresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 /**
  * Encapsulates presentation metadata for displaying arbitrary components in the ribbon.
@@ -42,7 +43,7 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.Compon
  * @see ComponentProjection
  */
 public class ComponentPresentationModel implements ImmutablePresentationModel {
-    private boolean isFlat;
+    private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     private HorizontalAlignment horizontalAlignment;
     private String keyTip;
     private boolean isResizingAware;
@@ -58,8 +59,8 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
         return new Builder();
     }
 
-    public boolean isFlat() {
-        return this.isFlat;
+    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
+        return this.backgroundAppearanceStrategy;
     }
 
     public HorizontalAlignment getHorizontalAlignment() {
@@ -75,13 +76,15 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
     }
 
     public static class Builder {
-        private boolean isFlat = true;
+        private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
+                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.FILL;
         private String keyTip;
         private boolean isResizingAware;
 
-        public Builder setFlat(boolean flat) {
-            this.isFlat = flat;
+        public Builder setBackgroundAppearanceStrategy(
+                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return this;
         }
 
@@ -103,7 +106,7 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
         public ComponentPresentationModel build() {
             ComponentPresentationModel commandPresentation = new ComponentPresentationModel();
             commandPresentation.horizontalAlignment = this.horizontalAlignment;
-            commandPresentation.isFlat = this.isFlat;
+            commandPresentation.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
             commandPresentation.keyTip = this.keyTip;
             commandPresentation.isResizingAware = this.isResizingAware;
             return commandPresentation;

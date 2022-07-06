@@ -88,21 +88,21 @@ public class TestCommandButtonsAlignment extends JFrame {
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setHorizontalAlignment(SwingUtilities.LEADING)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(3, 3);
         builder.add(pasteActionCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setHorizontalAlignment(SwingUtilities.LEADING)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(5, 3);
         builder.add(pasteActionCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.TILE)
                         .setHorizontalAlignment(SwingUtilities.LEADING)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(7, 3);
 
@@ -111,21 +111,21 @@ public class TestCommandButtonsAlignment extends JFrame {
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setHorizontalAlignment(SwingUtilities.CENTER)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(3, 5);
         builder.add(pasteActionCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setHorizontalAlignment(SwingUtilities.CENTER)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(5, 5);
         builder.add(pasteActionCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.TILE)
                         .setHorizontalAlignment(SwingUtilities.CENTER)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(7, 5);
 
@@ -134,21 +134,21 @@ public class TestCommandButtonsAlignment extends JFrame {
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setHorizontalAlignment(SwingUtilities.TRAILING)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(3, 7);
         builder.add(pasteActionCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setHorizontalAlignment(SwingUtilities.TRAILING)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(5, 7);
         builder.add(pasteActionCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.TILE)
                         .setHorizontalAlignment(SwingUtilities.TRAILING)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent()).xy(7, 7);
 

@@ -78,7 +78,7 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
      */
     private StripOrientation orientation;
 
-    private boolean isFlat;
+    private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     private boolean isFocusable;
     private boolean toDismissPopupsOnActivation;
 
@@ -121,8 +121,8 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         return this.orientation;
     }
 
-    public boolean isFlat() {
-        return this.isFlat;
+    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
+        return this.backgroundAppearanceStrategy;
     }
 
     public boolean isFocusable() {
@@ -145,7 +145,8 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         private double hgapScaleFactor = -1;
         private double vgapScaleFactor = -1;
         private StripOrientation orientation = StripOrientation.HORIZONTAL;
-        private boolean isFlat = false;
+        private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
+                RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS;
         private boolean isFocusable = true;
         private boolean toDismissPopupsOnActivation = true;
 
@@ -180,8 +181,9 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
             return this;
         }
 
-        public Builder setFlat(boolean flat) {
-            this.isFlat = flat;
+        public Builder setBackgroundAppearanceStrategy(
+                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
             return this;
         }
 
@@ -218,7 +220,7 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
             } else {
                 presentationModel.vgapScaleFactor = this.vgapScaleFactor;
             }
-            presentationModel.isFlat = this.isFlat;
+            presentationModel.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
             presentationModel.isFocusable = this.isFocusable;
             presentationModel.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;
             return presentationModel;

@@ -109,7 +109,7 @@ public class MultiLevelMenu extends JFrame {
         CommandButtonProjection mainCommandProjection = mainCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                                 .setPopupOrientationKind(
                                         CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)

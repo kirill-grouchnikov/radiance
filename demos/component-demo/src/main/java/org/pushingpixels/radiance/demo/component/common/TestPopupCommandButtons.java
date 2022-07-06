@@ -232,7 +232,7 @@ public class TestPopupCommandButtons extends JFrame {
         return this.popupSimpleCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(
                                 getPopupMenuPresentationModel(PopupKind.SIMPLE))
                         .build())
@@ -243,7 +243,7 @@ public class TestPopupCommandButtons extends JFrame {
         return this.popupScrollableCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(
                                 getPopupMenuPresentationModel(PopupKind.SCROLLABLE))
                         .build())
@@ -254,7 +254,7 @@ public class TestPopupCommandButtons extends JFrame {
         return this.popupComplexCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(
                                 getPopupMenuPresentationModel(PopupKind.COMPLEX))
                         .build())

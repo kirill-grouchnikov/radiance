@@ -143,10 +143,8 @@ public class CommandButtonBackgroundDelegate {
                 currActionState, state -> ColorSchemeAssociationKind.BORDER,
                 false, isActionToggleMenu);
 
-        float actionAlpha = Math.max(
-                actionTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.ROLLOVER),
-                actionTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.ROLLOVER));
-        if (commandButton.isFlat()) {
+        float actionAlpha;
+        if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currActionState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
                 actionAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton, currActionState);
@@ -193,7 +191,7 @@ public class CommandButtonBackgroundDelegate {
                 false, false);
 
         float popupAlpha;
-        if (commandButton.isFlat()) {
+        if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currPopupState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
                 popupAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton, currPopupState);

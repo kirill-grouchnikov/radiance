@@ -89,7 +89,7 @@ public class TileMenu extends JFrame {
         CommandButtonProjection mainCommandProjection = mainCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                                 .setMenuPresentationState(CommandButtonPresentationState.TILE)
                                 .setPopupOrientationKind(

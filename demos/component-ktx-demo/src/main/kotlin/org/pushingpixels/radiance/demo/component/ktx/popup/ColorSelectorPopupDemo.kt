@@ -46,6 +46,7 @@ import org.pushingpixels.radiance.component.ktx.KColorSelectorCommand
 import org.pushingpixels.radiance.component.ktx.colorSelectorCommandButton
 import org.pushingpixels.radiance.component.ktx.colorSelectorPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*
 import java.awt.geom.Rectangle2D
@@ -223,7 +224,7 @@ fun main() {
             }
             presentation {
                 presentationState = CommandButtonPresentationState.SMALL
-                isFlat = false
+                backgroundAppearanceStrategy = RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS
             }
         }
 

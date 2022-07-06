@@ -14,7 +14,7 @@ this.pasteActionCommand = Command.builder()
 JCommandButton bigButton = this.pasteActionCommand.project(
     CommandButtonPresentationModel.builder()
       .setPresentationState(CommandButtonPresentationState.BIG)
-      .setFlat(false)
+      .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
       .build())
     .buildComponent();
 ```
@@ -62,7 +62,7 @@ Here's the relevant code snippet that creates a command button presentation mode
 JCommandButton bigButton = this.pasteActionCommand.project(
     CommandButtonPresentationModel.builder()
       .setPresentationState(CommandButtonPresentationState.BIG)
-      .setFlat(false)
+      .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
       .build())
     .buildComponent();
 ```
@@ -169,7 +169,7 @@ JCommandButton multiChoice = Command.builder()
     .build()
     .project(CommandButtonPresentationModel.builder()
     .setPresentationState(CommandButtonPresentationState.MEDIUM)
-    .setFlat(false)
+    .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
     .setPopupMenuPresentationModel(
         CommandPopupMenuPresentationModel.builder()
         .setToDismissOnCommandActivation(false).build())

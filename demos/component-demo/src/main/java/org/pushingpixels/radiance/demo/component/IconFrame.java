@@ -29,14 +29,14 @@
  */
 package org.pushingpixels.radiance.demo.component;
 
-import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon;
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.ImageBackedFilterableRadianceIcon;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.demo.component.svg.SvgBatikRadianceIcon;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -67,9 +67,10 @@ public class IconFrame {
             frame.setLayout(new FlowLayout(FlowLayout.CENTER));
 
             CommandButtonPresentationModel presentationModel =
-                    CommandButtonPresentationModel.builder().setPresentationState(
-                            CommandButtonPresentationState.MEDIUM
-                    ).setFlat(false).build();
+                    CommandButtonPresentationModel.builder()
+                            .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                            .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                            .build();
 
             RadianceIcon.Factory radianceFactory = () -> SvgBatikRadianceIcon.getSvgIcon(
                     IconFrame.class.getResourceAsStream("svg/radiance_menu.svg"),

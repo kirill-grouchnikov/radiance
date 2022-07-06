@@ -182,7 +182,8 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                                 stripPresentationModel.getHorizontalGapScaleFactor())
                         .setVerticalGapScaleFactor(
                                 stripPresentationModel.getVerticalGapScaleFactor())
-                        .setFlat(stripPresentationModel.isFlat())
+                        .setBackgroundAppearanceStrategy(
+                                stripPresentationModel.getBackgroundAppearanceStrategy())
                         .setFocusable(stripPresentationModel.isFocusable())
                         .setToDismissPopupsOnActivation(
                                 stripPresentationModel.isToDismissPopupsOnActivation()));

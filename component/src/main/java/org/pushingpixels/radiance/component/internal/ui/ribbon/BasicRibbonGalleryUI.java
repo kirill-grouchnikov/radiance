@@ -45,6 +45,7 @@ import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryConten
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -214,7 +215,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setToDismissPopupsOnActivation(false)
                         .build());
         projection.setCommandComponentSuppliers(galleryScrollerSuppliers);

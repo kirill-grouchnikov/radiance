@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceC
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicPopupPanelUI;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -278,7 +279,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 CommandButtonPresentationModel commandPresentation =
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build();
                 if (commandOverlays.containsKey(footerCommand)) {
                     commandPresentation = commandPresentation.overlayWith(
@@ -326,7 +327,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     private boolean getCommandPath(CommandMenuContentModel commandMenuContentModel,
-                                   Command command, List<Command> pathTo) {
+            Command command, List<Command> pathTo) {
         // Is the command in this menu?
         for (CommandGroup group : commandMenuContentModel.getCommandGroups()) {
             if (group.getCommands().contains(command)) {

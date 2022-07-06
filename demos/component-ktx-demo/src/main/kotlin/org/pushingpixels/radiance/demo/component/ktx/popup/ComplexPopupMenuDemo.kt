@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Color
 import java.awt.Dimension
@@ -143,7 +144,7 @@ fun main() {
             }
             presentation {
                 presentationState = CommandButtonPresentationState.TILE
-                isFlat = false
+                backgroundAppearanceStrategy = RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS
             }
         }
 

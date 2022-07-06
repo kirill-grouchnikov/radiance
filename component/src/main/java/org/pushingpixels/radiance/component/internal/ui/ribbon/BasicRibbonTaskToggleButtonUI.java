@@ -29,12 +29,13 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
@@ -66,7 +67,8 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
             this.commandButton.setBorder(toInstall);
         }
 
-        this.commandButton.setFlat(true);
+        this.commandButton.setBackgroundAppearanceStrategy(
+                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
         this.commandButton.setOpaque(false);
     }
 

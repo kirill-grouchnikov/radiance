@@ -32,17 +32,19 @@ package org.pushingpixels.radiance.component.ktx.synapse
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPresentationModel
 import org.pushingpixels.radiance.component.ktx.RadianceElementMarker
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.BackgroundAppearanceStrategy
 
 @RadianceElementMarker
 public open class KComponentPresentation {
-    public var isFlat: Boolean = true
+    public var backgroundAppearanceStrategy: BackgroundAppearanceStrategy =
+        BackgroundAppearanceStrategy.FLAT
     public var horizontalAlignment: HorizontalAlignment = HorizontalAlignment.FILL
     public var isResizingAware: Boolean = false
     public var keyTip: String? = null
 
     internal fun toComponentPresentation(): ComponentPresentationModel {
         val result = ComponentPresentationModel.builder()
-                .setFlat(isFlat)
+                .setBackgroundAppearanceStrategy(backgroundAppearanceStrategy)
                 .setHorizontalAlignment(horizontalAlignment)
                 .setResizingAware(isResizingAware)
                 .setKeyTip(keyTip)

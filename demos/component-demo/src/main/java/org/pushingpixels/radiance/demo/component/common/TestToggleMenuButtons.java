@@ -85,7 +85,7 @@ public class TestToggleMenuButtons extends JFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                         .buildComponent();
 
@@ -121,7 +121,7 @@ public class TestToggleMenuButtons extends JFrame {
                         .build()
                         .project(CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .setPopupMenuPresentationModel(
                                         CommandPopupMenuPresentationModel.builder()
                                                 .setToDismissOnCommandActivation(false).build())

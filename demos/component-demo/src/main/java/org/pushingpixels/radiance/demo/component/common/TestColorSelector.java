@@ -185,7 +185,7 @@ public class TestColorSelector extends JFrame {
                 this.colorSelectorCommand,
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setFlat(false)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .build())
                 .buildComponent();
 

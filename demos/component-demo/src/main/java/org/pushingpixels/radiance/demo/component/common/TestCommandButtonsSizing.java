@@ -141,7 +141,7 @@ public class TestCommandButtonsSizing extends JPanel {
         CommandButtonPresentationModel.Builder commandButtonPresentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setFlat(false);
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS);
         switch (commandButtonKind) {
             case ACTION_AND_POPUP_MAIN_ACTION:
                 commandButtonPresentationBuilder.setTextClick(CommandButtonPresentationModel.TextClick.ACTION);

@@ -264,7 +264,7 @@ JCommandButton colorButton = new ColorSelectorCommandButtonProjection(
         this.colorSelectorCommand,
         CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL)
-                .setFlat(false)
+                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                 .build())
         .buildComponent();
 ```

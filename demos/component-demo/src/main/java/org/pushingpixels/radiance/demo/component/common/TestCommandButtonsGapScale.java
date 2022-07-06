@@ -79,7 +79,7 @@ public class TestCommandButtonsGapScale extends JFrame {
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setHorizontalGapScaleFactor(1.0f)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                 .buildComponent()).xy(1, 1);
         builder.add(Command.builder()
@@ -89,7 +89,7 @@ public class TestCommandButtonsGapScale extends JFrame {
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setHorizontalGapScaleFactor(2.0f)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                 .buildComponent()).xy(3, 1);
         builder.add(Command.builder()
@@ -99,7 +99,7 @@ public class TestCommandButtonsGapScale extends JFrame {
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setHorizontalGapScaleFactor(3.0f)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                 .buildComponent()).xy(5, 1);
 
@@ -110,7 +110,7 @@ public class TestCommandButtonsGapScale extends JFrame {
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.BIG)
                                 .setVerticalGapScaleFactor(1.0f)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                 .buildComponent()).xy(1, 3);
         builder.add(Command.builder()
@@ -120,7 +120,7 @@ public class TestCommandButtonsGapScale extends JFrame {
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.BIG)
                                 .setVerticalGapScaleFactor(2.0f)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                 .buildComponent()).xy(3, 3);
         builder.add(Command.builder()
@@ -130,7 +130,7 @@ public class TestCommandButtonsGapScale extends JFrame {
                         CommandButtonPresentationModel.builder()
                                 .setPresentationState(CommandButtonPresentationState.BIG)
                                 .setVerticalGapScaleFactor(3.0f)
-                                .setFlat(false)
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                                 .build())
                 .buildComponent()).xy(5, 3);
 
