@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
@@ -124,7 +123,6 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
 
     @Override
     protected void configureScrollUpButton(JCommandButton button) {
-        final double scale = RadianceCommonCortex.getScaleFactor(this.ribbonGallery);
         final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallArrowIconHeight(fontSize);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
