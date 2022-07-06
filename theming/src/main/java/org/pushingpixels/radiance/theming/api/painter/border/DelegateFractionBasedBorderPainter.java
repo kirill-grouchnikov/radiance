@@ -106,10 +106,6 @@ public class DelegateFractionBasedBorderPainter implements RadianceBorderPainter
 	public void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
 			Shape innerContour, RadianceColorScheme borderScheme) {
 		Graphics2D graphics = (Graphics2D) g.create();
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
-				RenderingHints.VALUE_STROKE_PURE);
 
 		// shift schemes
 		RadianceColorScheme scheme = getShiftScheme(borderScheme);
@@ -125,7 +121,6 @@ public class DelegateFractionBasedBorderPainter implements RadianceBorderPainter
 			fillColors[i] = color;
 		}
 
-		float strokeWidth = RadianceSizeUtils.getBorderStrokeWidth(c);
 		// issue 433 - the "c" can be null when painting
 		// the border of a tree icon used outside the
 		// JTree context.
@@ -133,7 +128,7 @@ public class DelegateFractionBasedBorderPainter implements RadianceBorderPainter
 				.isAnnotationPresent(RadianceInternalArrowButton.class);
 		int joinKind = isSpecialButton ? BasicStroke.JOIN_MITER : BasicStroke.JOIN_ROUND;
 		int capKind = isSpecialButton ? BasicStroke.CAP_SQUARE : BasicStroke.CAP_BUTT;
-		graphics.setStroke(new BasicStroke(strokeWidth, capKind, joinKind));
+		graphics.setStroke(new BasicStroke(1.0f, capKind, joinKind));
 
 		MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height, fractions,
 				fillColors, CycleMethod.REPEAT);
