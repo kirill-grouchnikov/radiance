@@ -34,7 +34,7 @@ buildscript {
         gradle_version                       =    '7.4.1'
 
         // Core dependencies
-        kotlin_version                       =   '1.6.21'
+        kotlin_version                       =    '1.7.0'
         kotlinx_coroutines_version           =    '1.6.3'
         batik_version                        =     '1.14'
 
@@ -116,7 +116,6 @@ allprojects {
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
-            useIR = true
             jvmTarget = "9"
         }
     }
