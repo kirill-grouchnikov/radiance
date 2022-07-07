@@ -98,7 +98,7 @@ public class CookbookSkin extends RadianceSkin {
         this.registerDecorationAreaSchemeBundle(controlPaneSchemeBundle, DecorationAreaType.CONTROL_PANE);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new CookbookGradientPainter();
+        this.fillPainter = new CookbookFillPainter();
 
         RadianceBorderPainter outerBorderPainter = new FractionBasedBorderPainter("Cookbook Outer",
                 new float[] { 0.0f, 0.5f, 1.0f },

@@ -43,12 +43,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CookbookGradientPainter implements RadianceFillPainter {
+public class CookbookFillPainter implements RadianceFillPainter {
     private RadianceFillPainter delegate;
 
     private RadianceFillPainter flatDelegate;
 
-    public CookbookGradientPainter() {
+    public CookbookFillPainter() {
         this.delegate = new FractionBasedFillPainter("Cookbook Regular",
                 new float[] { 0.0f, 0.5f, 1.0f },
                 new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
