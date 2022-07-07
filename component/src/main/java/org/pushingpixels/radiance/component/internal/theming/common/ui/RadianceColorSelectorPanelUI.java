@@ -76,8 +76,7 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                             ComponentState.ENABLED);
                     RadianceCoreUtilities.getFillPainter(this.colorSelectorPanel)
                             .paintContourBackground(g, this.colorSelectorPanel, width, height,
-                                    new Rectangle(x, y, width, height), false,
-                                    bgFillScheme, false);
+                                    new Rectangle(x, y, width, height), bgFillScheme);
 
                     Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel)
                             .getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,

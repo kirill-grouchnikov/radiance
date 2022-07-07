@@ -193,7 +193,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     graphics1X.transform(at);
 
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                            contour, false, mutableFillColorScheme, true);
+                            contour, mutableFillColorScheme);
                     borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
                             contour, null, mutableBorderColorScheme);
                 });
@@ -244,7 +244,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                             radius, null, 1.0f);
                     graphics1X.translate(x, y + voffset / scaleFactor);
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
-                            contour, false, mutableFillColorScheme, true);
+                            contour, mutableFillColorScheme);
                     borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
                             contour, null, mutableBorderColorScheme);
                 });

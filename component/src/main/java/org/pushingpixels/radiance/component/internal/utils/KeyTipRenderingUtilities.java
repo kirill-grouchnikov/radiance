@@ -86,7 +86,7 @@ public class KeyTipRenderingUtilities {
                             scaledWidth, scaledHeight, radius,
                             null, 1.0f);
                     fillPainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
-                            contour, false, fillScheme, true);
+                            contour, fillScheme);
 
                     Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
                             scaledWidth, scaledHeight,

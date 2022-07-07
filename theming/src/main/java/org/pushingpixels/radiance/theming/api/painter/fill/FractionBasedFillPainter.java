@@ -66,8 +66,7 @@ public class FractionBasedFillPainter extends FractionBasedPainter implements
 
 	@Override
 	public void paintContourBackground(Graphics g, Component comp, float width,
-			float height, Shape contour, boolean isFocused,
-			RadianceColorScheme fillScheme, boolean hasShine) {
+			float height, Shape contour, RadianceColorScheme fillScheme) {
 		Graphics2D graphics = (Graphics2D) g.create();
 
 		Color[] fillColors = new Color[this.fractions.length];

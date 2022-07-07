@@ -103,7 +103,7 @@ public class ComboBoxBackgroundDelegate {
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                             scaledWidth - 1, scaledHeight - 1, radius, null, 0.5f);
                     fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
-                            contourFill, false, fillScheme, true);
+                            contourFill, fillScheme);
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             RadianceOutlineUtilities.getBaseOutline(

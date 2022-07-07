@@ -110,8 +110,7 @@ public class BladeIconUtils {
                             cornerRadius, null, 0.5f);
                     finalFillPainter.paintContourBackground(graphics1X, button,
                             contourDim, contourDim,
-                            contourFill, false,
-                            fillColorScheme, true);
+                            contourFill, fillColorScheme);
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             RadianceOutlineUtilities.getBaseOutline(
@@ -184,7 +183,7 @@ public class BladeIconUtils {
                     finalFillPainter.paintContourBackground(graphics1X, button,
                             contourDim, contourDim,
                             new Ellipse2D.Float(0.5f, 0.5f, contourDim - 1.0f, contourDim - 1.0f),
-                            false, fillColorScheme, true);
+                            fillColorScheme);
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
@@ -240,7 +239,7 @@ public class BladeIconUtils {
                             scaledWidth, scaledHeight,
                             RadianceOutlineUtilities.getTriangleButtonOutline(
                                     scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
-                            false, fillColorScheme, true);
+                            fillColorScheme);
 
                     Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
                             scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
@@ -288,7 +287,7 @@ public class BladeIconUtils {
                             scaledWidth, scaledHeight,
                             RadianceOutlineUtilities.getTriangleButtonOutline(
                                     scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.5f),
-                            false, fillColorScheme, true);
+                            fillColorScheme);
 
                     Shape contourOuter = RadianceOutlineUtilities.getTriangleButtonOutline(
                             scaledWidth, scaledHeight, 2 * (float) scaleFactor, 1.0f);
@@ -320,8 +319,8 @@ public class BladeIconUtils {
                     fillPainter.paintContourBackground(graphics1X, slider,
                             scaledWidth, scaledHeight,
                             new Ellipse2D.Float(0.5f, 0.5f,
-                                    scaledWidth - 2.0f, scaledHeight - 2.0f), false,
-                            fillColorScheme, true);
+                                    scaledWidth - 2.0f, scaledHeight - 2.0f),
+                            fillColorScheme);
 
                     Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f,
                             scaledWidth - 1.0f, scaledHeight - 1.0f);
@@ -355,7 +354,7 @@ public class BladeIconUtils {
                             1.0f);
 
                     fillPainter.paintContourBackground(graphics1X, tree, scaledWidth, scaledHeight,
-                            contour, false, fillScheme, false);
+                            contour, fillScheme);
                     borderPainter.paintBorder(graphics1X, tree, scaledWidth, scaledHeight, contour,
                             null, borderScheme);
 

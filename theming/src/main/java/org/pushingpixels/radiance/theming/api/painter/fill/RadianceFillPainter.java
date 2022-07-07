@@ -54,17 +54,11 @@ public interface RadianceFillPainter extends RadianceTrait {
 	 *            Height of a UI component.
 	 * @param contour
 	 *            Contour of a UI component.
-	 * @param isFocused
-	 *            Indication whether component owns the focus.
 	 * @param fillScheme
 	 *            The fill color scheme.
-	 * @param hasShine
-	 *            Indication whether the returned image should have a 3D shine
-	 *            spot in its top half.
 	 */
 	void paintContourBackground(Graphics g, Component comp, float width,
-			float height, Shape contour, boolean isFocused,
-			RadianceColorScheme fillScheme, boolean hasShine);
+			float height, Shape contour, RadianceColorScheme fillScheme);
 
 	Color getRepresentativeColor(RadianceColorScheme fillScheme);
 }

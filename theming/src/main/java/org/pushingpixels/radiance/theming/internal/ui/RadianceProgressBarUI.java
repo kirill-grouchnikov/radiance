@@ -247,7 +247,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
                                 scaledWidth, scaledHeight, radius, null);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                                contour, false, scheme, true);
+                                contour, scheme);
                     });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -263,7 +263,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
                                 scaledWidth, scaledHeight, radius, null);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                                contour, false, scheme, true);
+                                contour, scheme);
                     });
         }
         graphics.dispose();
@@ -289,7 +289,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
                                 radius, straightSides);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                                contour, false, scheme, true);
+                                contour, scheme);
                     });
         } else {
             // Flip width and height, and then apply a rotation transformation
@@ -308,7 +308,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
                                 scaledWidth, scaledHeight, radius, straightSides);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
-                                contour, false, scheme, true);
+                                contour, scheme);
                     });
         }
         graphics.dispose();

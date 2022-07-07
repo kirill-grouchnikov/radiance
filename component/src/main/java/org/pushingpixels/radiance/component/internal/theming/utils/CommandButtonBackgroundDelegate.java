@@ -315,8 +315,8 @@ public class CommandButtonBackgroundDelegate {
                     fillPainter.paintContourBackground(graphics1X, commandButton,
                             scaledWidth + dw,
                             scaledHeight + dh,
-                            contourFill, false,
-                            mutableFillColorScheme, true);
+                            contourFill,
+                            mutableFillColorScheme);
 
                     // Border
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(

@@ -79,7 +79,7 @@ public class ClassicDecorationPainter implements RadianceDecorationPainter {
         Graphics2D g2d = (Graphics2D) graphics.create();
         g2d.translate(-3, -3);
         this.painter.paintContourBackground(g2d, comp, contour.getBounds().width,
-                contour.getBounds().height, contour, false, colorScheme, false);
+                contour.getBounds().height, contour, colorScheme);
         g2d.dispose();
     }
 
@@ -102,7 +102,7 @@ public class ClassicDecorationPainter implements RadianceDecorationPainter {
 		Graphics2D g2d = (Graphics2D) graphics.create();
 		g2d.translate(-3, -3);
 		this.painter.paintContourBackground(g2d, comp, width + 6, height + 6,
-				new Rectangle(width + 6, height + 6), false, scheme, false);
+				new Rectangle(width + 6, height + 6), scheme);
 		g2d.dispose();
 	}
 }

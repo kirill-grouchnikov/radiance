@@ -52,7 +52,7 @@ public class StandardFillPainter implements RadianceFillPainter {
 
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, boolean isFocused, RadianceColorScheme fillScheme, boolean hasShine) {
+            Shape contour, RadianceColorScheme fillScheme) {
 
         int iWidth = (int) Math.ceil(width);
         int iHeight = (int) Math.ceil(height);
@@ -80,7 +80,7 @@ public class StandardFillPainter implements RadianceFillPainter {
         graphics.fill(contour);
 
         // long millis003 = 0, millis004 = 0, millis005 = 0;
-        if (hasShine && (topShineColor != null) && (bottomShineColor != null)) {
+        if ((topShineColor != null) && (bottomShineColor != null)) {
             graphics.clip(contour);
             int shineHeight = (int) (height / 1.8);
             int kernelSize = (int) Math.min(12, Math.pow(Math.min(width, height), 0.8) / 4);

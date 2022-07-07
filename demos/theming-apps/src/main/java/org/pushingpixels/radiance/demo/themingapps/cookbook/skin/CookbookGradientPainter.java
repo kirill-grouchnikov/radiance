@@ -63,15 +63,13 @@ public class CookbookGradientPainter implements RadianceFillPainter {
 
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, boolean isFocused, RadianceColorScheme fillScheme, boolean hasShine) {
+            Shape contour, RadianceColorScheme fillScheme) {
         if (comp instanceof JScrollBar) {
-            this.flatDelegate.paintContourBackground(g, comp, width, height, contour, isFocused,
-                    fillScheme, hasShine);
+            this.flatDelegate.paintContourBackground(g, comp, width, height, contour, fillScheme);
             return;
         }
 
-        this.delegate.paintContourBackground(g, comp, width, height, contour, isFocused, fillScheme,
-                hasShine);
+        this.delegate.paintContourBackground(g, comp, width, height, contour, fillScheme);
 
         if (comp instanceof JCommandButton) {
             // special case - overlay the buttons with the watermark image

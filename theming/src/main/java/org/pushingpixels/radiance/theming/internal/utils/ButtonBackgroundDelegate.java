@@ -148,8 +148,7 @@ public class ButtonBackgroundDelegate {
                         fillPainter.paintContourBackground(graphics1X, button,
                                 scaledWidth + deltaLeft + deltaRight,
                                 scaledHeight + deltaTop + deltaBottom,
-                                contourFill, false,
-                                colorScheme, true);
+                                contourFill, colorScheme);
                     }
                     graphics1X.translate(deltaLeft, deltaTop);
 

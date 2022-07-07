@@ -746,7 +746,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                                 scaledWidth, scaledHeight, 1, null);
                         fillPainter.paintContourBackground(graphics1X, tabPane,
                                 scaledWidth, scaledHeight, contour,
-                                false, fillScheme, true);
+                                fillScheme);
                         RadianceBorderPainter borderPainter =
                                 RadianceCoreUtilities.getBorderPainter(tabPane);
                         borderPainter.paintBorder(graphics1X, tabPane, scaledWidth, scaledHeight,

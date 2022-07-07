@@ -372,7 +372,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                                 .getFillPainter(this.commandButton);
                         fillPainter.paintContourBackground(graphics1X, this.commandButton,
                                 extended.x + extended.width, extended.y + extended.height,
-                                extended, false, fillScheme, false);
+                                extended, fillScheme);
 
                         RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
                                 this.commandButton,

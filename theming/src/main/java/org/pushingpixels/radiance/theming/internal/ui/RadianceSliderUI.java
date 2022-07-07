@@ -257,7 +257,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 radius, null, 1.0f);
 
         fillPainter.paintContourBackground(graphics1X, slider, width, height,
-                contour, false, fillColorScheme, false);
+                contour, fillColorScheme);
 
         Shape contourInner = RadianceOutlineUtilities.getBaseOutline(width, height,
                 radius - 1.0f, null, 2.0f);
@@ -315,7 +315,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                             radius, null, 1.0f);
                     g2d.translate(fillMinX, 0);
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
-                            contour, false, fillScheme, false);
+                            contour, fillScheme);
                     borderPainter.paintBorder(g2d, this.slider, fillWidth, fillHeight, contour,
                             null, borderScheme);
                 }
@@ -341,7 +341,7 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                             radius, null, 1.0f);
 
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
-                            contour, false, fillScheme, false);
+                            contour, fillScheme);
                     borderPainter.paintBorder(g2d, this.slider, fillWidth, fillHeight, contour,
                             null, borderScheme);
                 }
