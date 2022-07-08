@@ -31,12 +31,19 @@ package org.pushingpixels.radiance.theming.api.painter.fill;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.utils.HashMapKey;
+import org.pushingpixels.radiance.theming.internal.utils.LazyResettableHashMap;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
-import java.awt.image.BufferedImage;
+import java.awt.color.ColorSpace;
+import java.awt.color.ICC_ColorSpace;
+import java.awt.color.ICC_Profile;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.*;
 
 /**
  * Fill painter that returns images with subtle 3D gradient appearance. This class is part of
@@ -45,17 +52,26 @@ import java.awt.image.BufferedImage;
  * @author Kirill Grouchnikov
  */
 public class StandardFillPainter implements RadianceFillPainter {
+    // Scale factor for the emulated shine. We compute a smaller, "shrunk down" version of the
+    // shine and then draw it back by stretching it along both axes. The visuals don't have to
+    // be pixel perfect, and this helps with the runtime performance.
+    private static int SCALE = 2;
+
     @Override
     public String getDisplayName() {
         return "Standard";
     }
 
+    private double spline(double startY, double control1Y, double control2Y, double endY, double t) {
+        // https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+        double invT = 1.0 - t;
+        return startY * invT * invT * invT + control1Y * 3.0 * t * invT * invT +
+                control2Y * 3.0 * t * t * invT + endY * t * t * t;
+    }
+
     @Override
     public void paintContourBackground(Graphics g, Component comp, float width, float height,
             Shape contour, RadianceColorScheme fillScheme) {
-
-        int iWidth = (int) Math.ceil(width);
-        int iHeight = (int) Math.ceil(height);
 
         // long millis = System.nanoTime();
 
@@ -71,10 +87,9 @@ public class StandardFillPainter implements RadianceFillPainter {
         // Fill background
         // long millis000 = System.nanoTime();
 
-        // graphics.clip(contour);
         MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height,
-                new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
-                new Color[] {topFillColor, midFillColorTop, midFillColorBottom, bottomFillColor},
+                new float[]{0.0f, 0.4999999f, 0.5f, 1.0f},
+                new Color[]{topFillColor, midFillColorTop, midFillColorBottom, bottomFillColor},
                 CycleMethod.REPEAT);
         graphics.setPaint(gradient);
         graphics.fill(contour);
@@ -82,87 +97,117 @@ public class StandardFillPainter implements RadianceFillPainter {
         // long millis003 = 0, millis004 = 0, millis005 = 0;
         if ((topShineColor != null) && (bottomShineColor != null)) {
             graphics.clip(contour);
-            int shineHeight = (int) (height / 1.8);
-            int kernelSize = (int) Math.min(12, Math.pow(Math.min(width, height), 0.8) / 4);
-            if (kernelSize < 3)
-                kernelSize = 3;
 
-            double scale = RadianceCommonCortex.getScaleFactor(comp);
-            BufferedImage blurredGhostContour = RadianceCoreUtilities.getBlankImage(scale,
-                    iWidth + 2 * kernelSize, iHeight + 2 * kernelSize);
-            Graphics2D blurredGhostGraphics = (Graphics2D) blurredGhostContour.getGraphics()
-                    .create();
-            blurredGhostGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+            int iw = (int) width;
+            int ih = (int) height;
 
-            blurredGhostGraphics.setColor(Color.black);
-            blurredGhostGraphics.translate(kernelSize, kernelSize);
-            int step = kernelSize > 5 ? 2 : 1;
-            for (int strokeSize = 2 * kernelSize - 1; strokeSize > 0; strokeSize -= step) {
-                float transp = 1.0f - strokeSize / (2.0f * kernelSize);
-                blurredGhostGraphics
-                        .setComposite(AlphaComposite.getInstance(AlphaComposite.SRC, transp));
-                blurredGhostGraphics.setStroke(new BasicStroke(strokeSize));
-                blurredGhostGraphics.draw(contour);
+            int shineWidth = iw / SCALE;
+            int shineHeight = ih / (2 * SCALE);
+            BufferedImage shineImage = RadianceCoreUtilities.getBlankUnscaledImage(shineWidth, shineHeight);
+            double gap = 1.5 * RadianceCommonCortex.getScaleFactor(comp) / SCALE;
+
+            double topLeftCornerRadius = 0;
+            double topRightCornerRadius = 0;
+            if (contour instanceof RoundRectangle2D) {
+                // This matches the logic in RadianceOutlineUtilities.getBaseOutline
+                RoundRectangle2D rrContour = (RoundRectangle2D) contour;
+                topLeftCornerRadius = rrContour.getArcWidth() / (2.0 * SCALE);
+                topRightCornerRadius = rrContour.getArcWidth() / (2.0 * SCALE);
+            } else if (contour instanceof Ellipse2D) {
+                // This matches the logic in BladeIconUtils.drawRadioButton
+                Ellipse2D ellContour = (Ellipse2D) contour;
+                topLeftCornerRadius = ellContour.getWidth() / (2.0 * SCALE);
+                topRightCornerRadius = ellContour.getWidth() / (2.0 * SCALE);
             }
-            blurredGhostGraphics.dispose();
 
-            // millis003 = System.nanoTime();
+            WritableRaster shineRaster = shineImage.getRaster();
 
-            BufferedImage reverseGhostContour = RadianceCoreUtilities.getBlankImage(scale,
-                    iWidth + 2 * kernelSize, iHeight + 2 * kernelSize);
-            Graphics2D reverseGraphics = reverseGhostContour.createGraphics();
-            reverseGraphics.scale(1.0f / scale, 1.0f / scale);
-            Color bottomShineColorTransp = new Color(bottomShineColor.getRed(),
-                    bottomShineColor.getGreen(), bottomShineColor.getBlue(), 64);
-            GradientPaint gradientShine = new GradientPaint(0, kernelSize, topShineColor, 0,
-                    kernelSize + shineHeight, bottomShineColorTransp, true);
-            reverseGraphics.setPaint(gradientShine);
-            reverseGraphics.fillRect(0, kernelSize, iWidth + 2 * kernelSize,
-                    kernelSize + shineHeight);
-            reverseGraphics.setComposite(AlphaComposite.DstOut);
-            reverseGraphics.drawImage(blurredGhostContour, 0, 0,
-                    (int) (blurredGhostContour.getWidth() / scale),
-                    (int) (blurredGhostContour.getHeight() / scale), null);
-            // millis004 = System.nanoTime();
-            reverseGraphics.dispose();
+            int[] inPixels = new int[shineWidth];
+            for (int row = 0; row < shineHeight; row++) {
+                if (row <= gap) {
+                    // Leading vertical gap
+                    for (int col = 0; col < shineWidth; col++) {
+                        inPixels[col] = 0x00000000;
+                    }
+                } else {
+                    // Get the interpolated shine color for this row
+                    int rowColor = RadianceColorUtilities.getInterpolatedRGB(
+                            topShineColor, bottomShineColor, 1.0 - (double) row / (double) shineHeight);
+                    int rowAlpha = (rowColor >>> 24) & 0xFF;
+                    int rowRed = (rowColor >>> 16) & 0xFF;
+                    int rowGreen = (rowColor >>> 8) & 0xFF;
+                    int rowBlue = (rowColor >>> 0) & 0xFF;
 
-            // graphics.scale(1.0f / scaleFactor, 1.0f / scaleFactor);
+                    // Compute the y-based alpha for all the pixels in this row
+                    double yalpha;
+                    if (row <= 2 * gap) {
+                        // Quick ramp-up
+                        double cfraction = (row - gap) / gap;
+                        yalpha = spline(0.0, 0.1, 0.9, 1.0, cfraction);
+                    } else {
+                        // slower ramp-down
+                        double cfraction = (row - 2 * gap) / (shineHeight - 2 * gap);
+                        yalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                    }
 
-            graphics.drawImage(reverseGhostContour, 0, 0, iWidth - 1, shineHeight, kernelSize,
-                    kernelSize, kernelSize + iWidth - 1, kernelSize + shineHeight, null);
+                    // For each column in this row, compute its x-based alpha
+                    for (int col = 0; col < shineWidth; col++) {
+                        // x-alpha is based on the distance from left / right edges
+                        double xalpha = 1.0;
+                        if (col <= shineWidth / 2) {
+                            // closer to the left edge
+                            double overlayXStart = gap;
+                            if ((topLeftCornerRadius > 0.0) && (row <= (gap + topLeftCornerRadius))) {
+                                // We are within the vertical span of the top-left corner
+                                double dy = gap + topLeftCornerRadius - row;
+                                double dx = Math.sqrt(topLeftCornerRadius * topLeftCornerRadius - dy * dy);
+                                overlayXStart = gap + topLeftCornerRadius - dx;
+                            }
+                            if (col <= overlayXStart) {
+                                // leading horizontal gap
+                                xalpha = 0.0;
+                            } else if (col <= (overlayXStart + gap)) {
+                                // ramp-up to full alpha horizontally
+                                double cfraction = (overlayXStart + gap - col) / gap;
+                                xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                            }
+                        } else {
+                            // closer to the right edge
+                            double overlayXEnd = shineWidth - gap;
+                            if ((topRightCornerRadius > 0.0) && (row <= (gap + topRightCornerRadius))) {
+                                // We are within the vertical span of the top-right corner
+                                double dy = gap + topRightCornerRadius - row;
+                                double dx = Math.sqrt(topRightCornerRadius * topRightCornerRadius - dy * dy);
+                                overlayXEnd = shineWidth - gap - topRightCornerRadius + dx;
+                            }
+                            if (col >= overlayXEnd) {
+                                // trailing horizontal gap
+                                xalpha = 0.0;
+                            } else if (col >= (overlayXEnd - gap)) {
+                                // ramp-down to zero alpha horizontally
+                                double cfraction = (col - (overlayXEnd - gap)) / gap;
+                                xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                            }
+                        }
 
-            BufferedImage overGhostContour = RadianceCoreUtilities.getBlankImage(scale,
-                    iWidth + 2 * kernelSize, iHeight + 2 * kernelSize);
-            Graphics2D overGraphics = overGhostContour.createGraphics();
-            overGraphics.scale(1.0f / scale, 1.0f / scale);
-            overGraphics.setPaint(new GradientPaint(0, kernelSize, topFillColor, 0,
-                    kernelSize + height / 2, midFillColorTop, true));
-            overGraphics.fillRect(kernelSize, kernelSize, kernelSize + iWidth,
-                    kernelSize + shineHeight);
-            overGraphics.setComposite(AlphaComposite.DstIn);
-            overGraphics.drawImage(blurredGhostContour, 0, 0,
-                    (int) (blurredGhostContour.getWidth() / scale),
-                    (int) (blurredGhostContour.getHeight() / scale), null);
-            // millis005 = System.nanoTime();
+                        int falpha = (int) (rowAlpha * xalpha * yalpha);
+                        inPixels[col] = (falpha << 24) | rowRed << 16 | rowGreen << 8 | rowBlue;
+                    }
+                }
+                shineRaster.setDataElements(0, row, shineWidth, 1, inPixels);
+            }
 
-            graphics.drawImage(overGhostContour, 0, 0, iWidth - 1, shineHeight, kernelSize,
-                    kernelSize, kernelSize + iWidth - 1, kernelSize + shineHeight, null);
+            // Set rendering hints to favor speed over quality, since the visuals of the emulated
+            // shine spot are subtle and don't have to be pixel perfect
+            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+            graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+
+           graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0, shineWidth, shineHeight, null);
         }
 
         graphics.dispose();
-        // long millis006 = System.nanoTime();
-
-        // long millis2 = System.nanoTime();
-        // if (width * height > 5000) {
-        // System.out.println("new - " + width + "*" + height + " = "
-        // + format(millis2 - millis));
-        // System.out.println("\tfill : " + format(millis001 - millis000));
-        // System.out.println("\tcontour : " + format(millis003 - millis001));
-        // System.out.println("\trevert : " + format(millis004 - millis003));
-        // System.out.println("\toverlay : " + format(millis005 - millis004));
-        // System.out.println("\tborder : " + format(millis006 - millis005));
-        // }
     }
 
     /**
