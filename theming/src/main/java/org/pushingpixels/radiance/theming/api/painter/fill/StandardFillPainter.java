@@ -104,7 +104,8 @@ public class StandardFillPainter implements RadianceFillPainter {
             int shineWidth = iw / SCALE;
             int shineHeight = ih / (2 * SCALE);
             BufferedImage shineImage = RadianceCoreUtilities.getBlankUnscaledImage(shineWidth, shineHeight);
-            double gap = 1.5 * RadianceCommonCortex.getScaleFactor(comp) / SCALE;
+            double gap = RadianceCommonCortex.getScaleFactor(comp) / SCALE;
+            double ramp = 2 * gap;
 
             double topLeftCornerRadius = 0;
             double topRightCornerRadius = 0;
@@ -140,13 +141,13 @@ public class StandardFillPainter implements RadianceFillPainter {
 
                     // Compute the y-based alpha for all the pixels in this row
                     double yalpha;
-                    if (row <= 2 * gap) {
+                    if (row <= (gap + ramp)) {
                         // Quick ramp-up
-                        double cfraction = (row - gap) / gap;
+                        double cfraction = (row - gap) / ramp;
                         yalpha = spline(0.0, 0.1, 0.9, 1.0, cfraction);
                     } else {
                         // slower ramp-down
-                        double cfraction = (row - 2 * gap) / (shineHeight - 2 * gap);
+                        double cfraction = (row - gap - ramp) / (shineHeight - gap - ramp);
                         yalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
                     }
 
@@ -166,26 +167,26 @@ public class StandardFillPainter implements RadianceFillPainter {
                             if (col <= overlayXStart) {
                                 // leading horizontal gap
                                 xalpha = 0.0;
-                            } else if (col <= (overlayXStart + gap)) {
+                            } else if (col <= (overlayXStart + ramp)) {
                                 // ramp-up to full alpha horizontally
-                                double cfraction = (overlayXStart + gap - col) / gap;
+                                double cfraction = (overlayXStart + ramp - col) / ramp;
                                 xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
                             }
                         } else {
                             // closer to the right edge
-                            double overlayXEnd = shineWidth - gap;
+                            double overlayXEnd = shineWidth - gap - 1;
                             if ((topRightCornerRadius > 0.0) && (row <= (gap + topRightCornerRadius))) {
                                 // We are within the vertical span of the top-right corner
                                 double dy = gap + topRightCornerRadius - row;
                                 double dx = Math.sqrt(topRightCornerRadius * topRightCornerRadius - dy * dy);
-                                overlayXEnd = shineWidth - gap - topRightCornerRadius + dx;
+                                overlayXEnd = shineWidth - gap - 1 - topRightCornerRadius + dx;
                             }
-                            if (col >= overlayXEnd) {
+                            if (col > overlayXEnd) {
                                 // trailing horizontal gap
                                 xalpha = 0.0;
-                            } else if (col >= (overlayXEnd - gap)) {
+                            } else if (col > (overlayXEnd - ramp)) {
                                 // ramp-down to zero alpha horizontally
-                                double cfraction = (col - (overlayXEnd - gap)) / gap;
+                                double cfraction = (col - (overlayXEnd - ramp)) / ramp;
                                 xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
                             }
                         }
