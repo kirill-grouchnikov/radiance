@@ -104,8 +104,8 @@ public class StandardFillPainter implements RadianceFillPainter {
             int shineWidth = iw / SCALE;
             int shineHeight = ih / (2 * SCALE);
             BufferedImage shineImage = RadianceCoreUtilities.getBlankUnscaledImage(shineWidth, shineHeight);
-            double gap = RadianceCommonCortex.getScaleFactor(comp) / SCALE;
-            double ramp = 2 * gap;
+            double gap = 0.5 * RadianceCommonCortex.getScaleFactor(comp) / SCALE;
+            double ramp = 2 * RadianceCommonCortex.getScaleFactor(comp) / SCALE;
 
             double topLeftCornerRadius = 0;
             double topRightCornerRadius = 0;
@@ -191,7 +191,7 @@ public class StandardFillPainter implements RadianceFillPainter {
                             }
                         }
 
-                        int falpha = (int) (rowAlpha * xalpha * yalpha);
+                        int falpha = (int) (0.9 * rowAlpha * xalpha * yalpha);
                         inPixels[col] = (falpha << 24) | rowRed << 16 | rowGreen << 8 | rowBlue;
                     }
                 }
