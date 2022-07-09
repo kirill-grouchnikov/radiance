@@ -155,7 +155,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         /**
          * Tracks changes in a single tab component.
          *
-         * @param tabComponent Tab component.
+         * @param tabComponent
+         *         Tab component.
          */
         private void trackTab(final Component tabComponent) {
             if (tabComponent == null) {
@@ -337,7 +338,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         /**
          * Handles the move and drag mouse events.
          *
-         * @param e Mouse event to handle.
+         * @param e
+         *         Mouse event to handle.
          */
         private void handleMouseMoveDrag(MouseEvent e) {
             if (e.getSource() != tabPane)
@@ -668,16 +670,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             int width, int height, int tabPlacement,
             RadianceColorScheme colorScheme, RadianceColorScheme borderScheme) {
 
-        // (Temporary?) workaround for https://github.com/JFormDesigner/FlatLaf/issues/557
-        switch (tabPlacement) {
-            case LEFT:
-                g.transform(AffineTransform.getRotateInstance(Math.PI / 2));
-                break;
-            case RIGHT:
-                g.transform(AffineTransform.getRotateInstance(-Math.PI / 2));
-                break;
-        }
-
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -697,23 +689,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                         tabColor = RadianceColorUtilities.getBackgroundFillColor(compForBackground);
                     }
 
-                    AffineTransform transform;
-                    switch (tabPlacement) {
-                        case BOTTOM:
-                            transform = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
-                            transform.rotate(Math.PI);
-                            graphics1X.transform(transform);
-                            break;
-                        case LEFT:
-                            // (Temporary?) workaround for https://github.com/JFormDesigner/FlatLaf/issues/557
-                            transform = AffineTransform.getRotateInstance(-Math.PI / 2);
-                            graphics1X.transform(transform);
-                            break;
-                        case RIGHT:
-                            // (Temporary?) workaround for https://github.com/JFormDesigner/FlatLaf/issues/557
-                            transform = AffineTransform.getRotateInstance(Math.PI / 2);
-                            graphics1X.transform(transform);
-                            break;
+                    if (tabPlacement == BOTTOM) {
+                        AffineTransform transform = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
+                        transform.rotate(Math.PI);
+                        graphics1X.transform(transform);
                     }
 
                     paintTabBackgroundAt1X(graphics1X, tabPane, tabIndex, scaleFactor,
@@ -1093,11 +1072,16 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Retrieves the close button rectangle for drawing purposes.
      *
-     * @param tabIndex Tab index.
-     * @param x        X coordinate of the tab.
-     * @param y        Y coordinate of the tab.
-     * @param width    The tab width.
-     * @param height   The tab height.
+     * @param tabIndex
+     *         Tab index.
+     * @param x
+     *         X coordinate of the tab.
+     * @param y
+     *         Y coordinate of the tab.
+     * @param width
+     *         The tab width.
+     * @param height
+     *         The tab height.
      * @return The close button rectangle.
      */
     protected Rectangle getCloseButtonRectangleForDraw(int tabIndex, int x, int y, int width,
@@ -1119,11 +1103,16 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Retrieves the close button rectangle for event handling.
      *
-     * @param tabIndex Tab index.
-     * @param x        X coordinate of the tab.
-     * @param y        Y coordinate of the tab.
-     * @param w        The tab width.
-     * @param h        The tab height.
+     * @param tabIndex
+     *         Tab index.
+     * @param x
+     *         X coordinate of the tab.
+     * @param y
+     *         Y coordinate of the tab.
+     * @param w
+     *         The tab width.
+     * @param h
+     *         The tab height.
      * @return The close button rectangle.
      */
     protected Rectangle getCloseButtonRectangleForEvents(int tabIndex, int x, int y, int w, int h) {
@@ -1174,8 +1163,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         /**
          * Creates new tab repaint callback.
          *
-         * @param tabPane  The associated tabbed pane.
-         * @param tabIndex The associated tab index.
+         * @param tabPane
+         *         The associated tabbed pane.
+         * @param tabIndex
+         *         The associated tab index.
          */
         public TabRepaintCallback(JTabbedPane tabPane, int tabIndex) {
             this.tabbedPane = tabPane;
@@ -1241,8 +1232,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Tries closing tabs based on the specified tab index and tab close kind.
      *
-     * @param tabIndex     Tab index.
-     * @param tabCloseKind Tab close kind.
+     * @param tabIndex
+     *         Tab index.
+     * @param tabCloseKind
+     *         Tab close kind.
      */
     protected void tryCloseTabs(int tabIndex, RadianceThemingSlices.TabCloseKind tabCloseKind) {
         if (tabCloseKind == null)
@@ -1273,7 +1266,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Tries closing a single tab.
      *
-     * @param tabIndex Tab index.
+     * @param tabIndex
+     *         Tab index.
      */
     protected void tryCloseTab(int tabIndex) {
         Component component = this.tabPane.getComponentAt(tabIndex);
@@ -1324,7 +1318,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Tries closing the specified tabs.
      *
-     * @param tabIndexes Tab indexes.
+     * @param tabIndexes
+     *         Tab indexes.
      */
     protected void tryCloseTabs(Set<Integer> tabIndexes) {
         Set<Component> componentSet = new HashSet<>();
@@ -1389,8 +1384,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Returns extra width for the specified tab.
      *
-     * @param tabPlacement Tab placement.
-     * @param tabIndex     Tab index.
+     * @param tabPlacement
+     *         Tab placement.
+     * @param tabIndex
+     *         Tab index.
      * @return Extra width for the specified tab.
      */
     protected int getTabExtraWidth(int tabPlacement, int tabIndex) {
@@ -1418,7 +1415,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Sets new value for tab area insets.
      *
-     * @param insets Tab area insets.
+     * @param insets
+     *         Tab area insets.
      */
     public void setTabAreaInsets(Insets insets) {
         Insets old = this.tabAreaInsets;
@@ -1440,7 +1438,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Returns the tab rectangle for the specified tab.
      *
-     * @param tabIndex Index of a tab.
+     * @param tabIndex
+     *         Index of a tab.
      * @return The tab rectangle for the specified parameters.
      */
     public Rectangle getTabRectangle(int tabIndex) {
@@ -1807,7 +1806,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Returns the current state for the specified tab.
      *
-     * @param tabIndex Tab index.
+     * @param tabIndex
+     *         Tab index.
      * @return The current state for the specified tab.
      */
     protected ComponentState getTabState(int tabIndex, boolean toAllowIgnoringSelectedState) {
@@ -1923,7 +1923,8 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Extension point to allow horizontal orientation of left / right placed tabs.
      *
-     * @param tabPlacement Tab placement.
+     * @param tabPlacement
+     *         Tab placement.
      * @return Indication whether the tabs in the specified placement should be rotated.
      */
     protected boolean toRotateTabsOnPlacement(int tabPlacement) {
