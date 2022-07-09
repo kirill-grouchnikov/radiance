@@ -153,7 +153,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         width -= delta;
         int height = Math.max(1, thumbBounds.height);
 
-        int hoffset = thumbBounds.width - width;
+        int hoffset = (thumbBounds.width - width) / 2;
 
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.compositeStateTransitionTracker
                 .getModelStateInfo();
@@ -189,7 +189,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
                     // Rotate the graphics context for correct "orientation" of the visuals
                     AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
-                    at.translate(x - scaledWidth, y + hoffset / scaleFactor);
+                    at.translate(x - scaledWidth, y + hoffset * scaleFactor);
                     graphics1X.transform(at);
 
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
@@ -209,7 +209,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         }
         height -= delta;
 
-        int voffset = thumbBounds.height - height;
+        int voffset = (thumbBounds.height - height) / 2;
 
         StateTransitionTracker.ModelStateInfo modelStateInfo = this.compositeStateTransitionTracker
                 .getModelStateInfo();
@@ -242,7 +242,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     float radius = scaledHeight / 2;
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
                             radius, null, 1.0f);
-                    graphics1X.translate(x, y + voffset / scaleFactor);
+                    graphics1X.translate(x, y + voffset * scaleFactor);
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
                             contour, mutableFillColorScheme);
                     borderPainter.paintBorder(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
