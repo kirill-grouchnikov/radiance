@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import java.awt.*;
 
 /**
- * Fill painter that returns images with classic appearance. This class is part
+ * Fill painter that draws visuals with classic appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov

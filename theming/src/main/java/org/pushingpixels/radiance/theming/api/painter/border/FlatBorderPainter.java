@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import java.awt.*;
 
 /**
- * Border painter that returns images with flat appearance. This class is part
+ * Border painter that draws visuals with flat appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov

@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import java.awt.*;
 
 /**
- * Border painter that returns images with classic appearance. This class is
+ * Border painter that draws visuals with classic appearance. This class is
  * part of officially supported API.
  * 
  * @author Kirill Grouchnikov

@@ -46,7 +46,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.*;
 
 /**
- * Fill painter that returns images with subtle 3D gradient appearance. This class is part of
+ * Fill painter that draws visuals with subtle 3D gradient appearance. This class is part of
  * officially supported API.
  *
  * @author Kirill Grouchnikov

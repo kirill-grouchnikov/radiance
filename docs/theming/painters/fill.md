@@ -23,11 +23,14 @@ The only painting method in `RadianceFillPainter` is
       int height, Shape contour, RadianceColorScheme fillScheme);
 ```
 
-The `contour` parameter specifies the actual shape to fill and the `fillScheme` specifies the Radiance color scheme to be used to compute the colors. Specific implementations may maintain an internal cache of computed images if the computation is CPU-heavy.
+The `contour` parameter specifies the actual shape to fill and the `fillScheme` specifies the Radiance color scheme to be used to compute the colors. Specific implementations may choose to use offscreen images if the target visuals are not achievable with direct rendering APIs on the passed graphics context.
 
-Important thing to note - a fill painter **should not** paint the focus ring or the border; these are painted by separate painters. 
+Important thing to note - a fill painter **must not** paint the focus ring or the border; these are painted separately.
 
-Applications that wish to provide a custom (branding) fill painter may utilize the existing `StandardFillPainter` base class. The subclass can override any one of the six base methods that compute fill colors at four fill and two shine vertical locations (see `get*FillColor` and `get*ShineColor` methods). Most core Radiance fill painters extend this class. Note that if your fill painter does not paint the shine spot, return `null` from the `get*ShineColor` methods.
+Radiance provides a number of fill painters that can be used as a starting point for your custom application visuals.
+
+* `StandardFillPainter` provides six base methods that compute fill colors at four fill and two shine vertical locations (see `get*FillColor` and `get*ShineColor` methods). Most core Radiance fill painters extend this class. Note that if your fill painter does not paint the shine spot, return `null` from the `get*ShineColor` methods.
+* `FractionBasedFillPainter` enables vertical gradients with arbitrary multi-stop colors.
 
 ### Management API
 

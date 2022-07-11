@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import java.awt.*;
 
 /**
- * Border painter that returns images with glass appearance. This class is part
+ * Border painter that draws visuals with glass appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov

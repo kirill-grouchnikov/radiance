@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import java.awt.*;
 
 /**
- * Fill painter that returns images with subdued 3D gradient appearance. This
+ * Fill painter that draws visuals with subdued 3D gradient appearance. This
  * class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
