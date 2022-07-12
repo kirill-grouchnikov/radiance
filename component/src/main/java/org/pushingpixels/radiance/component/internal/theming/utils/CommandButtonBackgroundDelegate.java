@@ -170,6 +170,11 @@ public class CommandButtonBackgroundDelegate {
                     }
                     actionAlpha += activeEntry.getValue().getContribution();
                 }
+                // For better visuals, when the mouse is over the popup area of a flat button,
+                // display the action area in enabled state so that we "light up" the whole
+                // button and not just the popup part.
+                actionAlpha = Math.max(actionAlpha, popupTransitionTracker.getFacetStrength(
+                        RadianceThemingSlices.ComponentStateFacet.ROLLOVER));
             }
         } else {
             if (currActionState.isDisabled()) {
@@ -220,6 +225,11 @@ public class CommandButtonBackgroundDelegate {
                     }
                     popupAlpha += activeEntry.getValue().getContribution();
                 }
+                // For better visuals, when the mouse is over the action area of a flat button,
+                // display the popup area in enabled state so that we "light up" the whole
+                // button and not just the action part.
+                popupAlpha = Math.max(popupAlpha, actionTransitionTracker.getFacetStrength(
+                        RadianceThemingSlices.ComponentStateFacet.ROLLOVER));
             }
         } else {
             if (currPopupState.isDisabled()) {
