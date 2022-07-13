@@ -57,16 +57,12 @@ public class SliderHorizontalIcon implements Icon, UIResource {
     /** The associated slider. */
     private JSlider slider;
 
-    /** Indication whether the icon is mirrored. */
-    private boolean isMirrored;
-
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
-    public SliderHorizontalIcon(JSlider slider, int size, boolean isMirrored) {
+    public SliderHorizontalIcon(JSlider slider, int size) {
         this.slider = slider;
         this.size = size;
-        this.isMirrored = isMirrored;
     }
 
     @Override
@@ -99,7 +95,7 @@ public class SliderHorizontalIcon implements Icon, UIResource {
         graphics.translate(x + (this.size - width) / 2.0, y);
         BladeIconUtils.drawSliderThumbHorizontal(
                 graphics, this.slider, fillPainter, borderPainter,
-                width, this.size, this.isMirrored,
+                width, this.size,
                 mutableFillColorScheme, mutableBorderColorScheme,
                 alpha);
         graphics.dispose();

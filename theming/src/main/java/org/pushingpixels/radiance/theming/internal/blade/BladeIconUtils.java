@@ -215,7 +215,7 @@ public class BladeIconUtils {
 
     public static void drawSliderThumbHorizontal(Graphics2D g, JSlider slider,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-            int width, int height, boolean isMirrored,
+            int width, int height,
             RadianceColorScheme fillColorScheme,
             RadianceColorScheme borderColorScheme, float alpha) {
 
@@ -227,13 +227,6 @@ public class BladeIconUtils {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    if (isMirrored) {
-                        AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
-                        mirror.rotate(Math.PI);
-                        graphics1X.transform(mirror);
-                    }
-
-
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     fillPainter.paintContourBackground(graphics1X, slider,
                             scaledWidth, scaledHeight,
@@ -254,7 +247,7 @@ public class BladeIconUtils {
 
     public static void drawSliderThumbVertical(Graphics2D g, JSlider slider,
             RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter,
-            int width, int height, boolean isMirrored,
+            int width, int height,
             RadianceColorScheme fillColorScheme,
             RadianceColorScheme borderColorScheme, float alpha) {
 
@@ -266,21 +259,15 @@ public class BladeIconUtils {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, height, width,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    AffineTransform at;
-                    if (isMirrored) {
-                        at = AffineTransform.getTranslateInstance(scaledWidth, 0);
-                        at.rotate(Math.PI / 2);
-                    } else {
-                        at = AffineTransform.getTranslateInstance(0, scaledHeight);
-                        at.rotate(-Math.PI / 2);
-                    }
+                    AffineTransform at = AffineTransform.getTranslateInstance(0, scaledHeight);
+                    at.rotate(-Math.PI / 2);
                     graphics1X.transform(at);
+
                     if (!slider.getComponentOrientation().isLeftToRight()) {
                         AffineTransform mirror = AffineTransform.getTranslateInstance(scaledWidth, scaledHeight);
                         mirror.rotate(Math.PI);
                         graphics1X.transform(mirror);
                     }
-
 
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     fillPainter.paintContourBackground(graphics1X, slider,

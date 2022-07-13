@@ -461,11 +461,11 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
             slider.setFont(new FontUIResource(RadianceThemingCortex.GlobalScope.getFontPolicy()
                     .getFontSet().getControlFont()));
         }
-        int size = RadianceSizeUtils
-                .getSliderIconSize(RadianceSizeUtils.getComponentFontSize(slider));
-        this.horizontalIcon = new SliderHorizontalIcon(slider, size, false);
+        int size = RadianceSizeUtils.getSliderIconSize(
+                RadianceSizeUtils.getComponentFontSize(slider));
+        this.horizontalIcon = new SliderHorizontalIcon(slider, size);
         this.roundIcon = new SliderRoundIcon(slider, size);
-        this.verticalIcon = new SliderVerticalIcon(slider, size, false);
+        this.verticalIcon = new SliderVerticalIcon(slider, size);
 
         int focusIns = (int) Math.ceil(2.0 * RadianceSizeUtils.getFocusStrokeWidth(slider));
         this.focusInsets = new Insets(focusIns, focusIns, focusIns, focusIns);

@@ -79,22 +79,6 @@ public class ColorChooserPlugin implements RadianceThemingComponentPlugin {
                     .getForegroundColor());
             Object[] mainDefaults = new Object[]{
                     // quaqua
-                    "Slider.upThumbSmall",
-                    (UIDefaults.LazyValue) ((UIDefaults table) ->
-                            new SliderHorizontalIcon(null, RadianceSizeUtils
-                                    .getSliderIconSize(RadianceSizeUtils
-                                            .getControlFontSize()) - 2,
-                                    true)),
-
-                    // quaqua
-                    "Slider.leftThumbSmall",
-                    (UIDefaults.LazyValue) ((UIDefaults table) ->
-                            new SliderVerticalIcon(null, RadianceSizeUtils
-                                    .getSliderIconSize(RadianceSizeUtils
-                                            .getControlFontSize()) - 2,
-                                    true)),
-
-                    // quaqua
                     "Component.visualMargin",
                     visualMargin,
 

@@ -57,16 +57,12 @@ public class SliderVerticalIcon implements Icon, UIResource {
     /** The associated slider. */
     private JSlider slider;
 
-    /** Indication whether the icon is mirrored. */
-    private boolean isMirrored;
-
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
 
-    public SliderVerticalIcon(JSlider slider, int size, boolean isMirrored) {
+    public SliderVerticalIcon(JSlider slider, int size) {
         this.slider = slider;
         this.size = size;
-        this.isMirrored = isMirrored;
     }
 
     @Override
@@ -99,7 +95,7 @@ public class SliderVerticalIcon implements Icon, UIResource {
         graphics.translate(x, y - (this.size - height) / 2.0);
         BladeIconUtils.drawSliderThumbVertical(
                 graphics, this.slider, fillPainter, borderPainter,
-                this.size, height, this.isMirrored,
+                this.size, height,
                 mutableFillColorScheme, mutableBorderColorScheme,
                 alpha);
         graphics.dispose();
