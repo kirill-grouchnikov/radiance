@@ -14,8 +14,13 @@
 
 package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceStripingUtils;
 
 import javax.swing.*;
@@ -48,10 +53,26 @@ public class PaletteEntryCellRenderer extends RadianceDefaultListCellRenderer {
 		}
 
 		public void paintIcon(Component c, Graphics g, int x, int y) {
-			g.setColor(getColor());
-			g.fillRect(x, y, getIconWidth() - 1, getIconHeight() - 1);
-			g.setColor(RadianceColorUtilities.deriveByBrightness(getColor(), -0.5f));
-			g.drawRect(x, y, getIconWidth() - 1, getIconHeight() - 1);
+			Color border = RadianceCoreUtilities.getBorderPainter(c).getRepresentativeColor(
+					RadianceColorSchemeUtilities.getColorScheme(c,
+							RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+							ComponentState.ENABLED));
+			// Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+			// to not normalize coordinates to paint at full pixels, and will result in blurry
+			// outlines.
+			Graphics2D graphics = (Graphics2D) g.create();
+			graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			graphics.translate(x, y);
+
+			RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, getIconWidth(), getIconHeight(),
+					(graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+						graphics1X.setColor(getColor());
+						graphics1X.fillRect(x, y, scaledWidth - 1, scaledHeight - 1);
+						graphics1X.setColor(border);
+						graphics1X.drawRect(x, y, scaledWidth - 1, scaledHeight - 1);
+					});
+			graphics.dispose();
 		}
 	}
 

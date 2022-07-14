@@ -14,7 +14,12 @@
 
 package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
@@ -104,34 +109,55 @@ public class SwatchPanel extends javax.swing.JPanel {
 
     public void paintComponent(Graphics g) {
         Dimension preferredSize = getSwatchesSize();
-        int xoffset = (getWidth() - preferredSize.width) / 2;
-        int yoffset = 0;// (getHeight() - preferredSize.height) / 2;
 
-        Graphics2D g2d = (Graphics2D) g.create();
+        Color border = RadianceCoreUtilities.getBorderPainter(this).getRepresentativeColor(
+                RadianceColorSchemeUtilities.getColorScheme(this,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+                        ComponentState.ENABLED));
 
-        for (int row = 0; row < numSwatches.height; row++) {
-            for (int column = 0; column < numSwatches.width; column++) {
-                Color cellColor = getColorForCell(column, row);
-                g2d.setColor(cellColor);
-                //int x = (numSwatches.width - column - 1) * (swatchSize.width + gap.width);
-                int x = xoffset + column * (swatchSize.width + gap.width) + 1;
-                int y = yoffset + row * (swatchSize.height + gap.height) + 1;
-                g2d.fillRect(x, y, swatchSize.width + 1, swatchSize.height + 1);
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, getWidth(), getHeight(),
+                (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
+                    int xoffset = (int) (scaledWidth - scaleFactor * preferredSize.width) / 2;
+                    int swatchWidth = (int) (scaleFactor * swatchSize.width);
+                    int swatchHeight = (int) (scaleFactor * swatchSize.height);
+                    int gapWidth = (int) (scaleFactor * gap.width);
+                    int gapHeight = (int) (scaleFactor * gap.height);
 
-                float borderStrokeWidth = RadianceSizeUtils.getBorderStrokeWidth(this);
-                g2d.setStroke(new BasicStroke(borderStrokeWidth));
+                    for (int row = 0; row < numSwatches.height; row++) {
+                        for (int column = 0; column < numSwatches.width; column++) {
+                            int x = xoffset + column * (swatchWidth + gapWidth) + 1;
+                            int y = row * (swatchHeight + gapHeight) + 1;
 
-                g2d.setColor(RadianceColorUtilities.deriveByBrightness(cellColor, -0.5f));
-                g2d.draw(new Line2D.Float(x - borderStrokeWidth, y - borderStrokeWidth,
-                        x + swatchSize.width, y - borderStrokeWidth));
-                //x - 1, y - 1, swatchSize.width+1, 1);
-                g2d.draw(new Line2D.Float(x - borderStrokeWidth, y,
-                        x - borderStrokeWidth, y + swatchSize.height));
-                //g2d.fillRect(x - 1, y, 1, swatchSize.height);
-            }
-        }
+                            Color cellColor = getColorForCell(column, row);
+                            graphics1X.setColor(cellColor);
+                            graphics1X.fillRect(x, y, swatchWidth + 1, swatchHeight + 1);
 
-        g2d.dispose();
+                            graphics1X.setColor(border);
+                            // top horizontal
+                            graphics1X.drawLine(x - 1, y - 1, x + swatchWidth, y - 1);
+                            // left vertical
+                            graphics1X.drawLine(x - 1, y, x - 1, y + swatchHeight);
+                        }
+                    }
+
+                    int lastVerticalX = xoffset + (numSwatches.width - 1) * (swatchWidth + gapWidth)
+                            + swatchWidth + 1;
+                    int lastHorizontalY = (numSwatches.height - 1) * (swatchHeight + gapHeight) +
+                            swatchHeight + 1;
+
+                    graphics1X.setColor(border);
+                    // bottom horizontal
+                    graphics1X.drawLine(xoffset, lastHorizontalY, lastVerticalX, lastHorizontalY);
+                    // right vertical
+                    graphics1X.drawLine(lastVerticalX, 0, lastVerticalX, lastHorizontalY);
+                });
+        graphics.dispose();
     }
 
     public Dimension getSwatchesSize() {
@@ -154,7 +180,7 @@ public class SwatchPanel extends javax.swing.JPanel {
     public String getToolTipText(MouseEvent e) {
         Color color = getColorForLocation(e.getX(), e.getY());
         return (color == null) ? null :
-               color.getRed() + ", " + color.getGreen() + ", " + color.getBlue();
+                color.getRed() + ", " + color.getGreen() + ", " + color.getBlue();
     }
 
     public Color getColorForLocation(int x, int y) {
