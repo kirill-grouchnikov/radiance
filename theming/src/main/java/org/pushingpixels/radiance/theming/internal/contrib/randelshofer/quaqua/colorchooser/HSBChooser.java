@@ -34,11 +34,7 @@ import java.awt.*;
  * <br>1.1.1 2005-04-23 Localized form.
  * <br>1.0  29 March 2005  Created.
  */
-public class HSBChooser
-extends AbstractColorChooserPanel
-implements UIResource {
-    private ColorSliderModel ccModel = new HSBColorSliderModel();
-    
+public class HSBChooser extends SliderBasedChooser implements UIResource {
     /** Creates new form. */
     public HSBChooser() {
         initComponents();
@@ -65,7 +61,8 @@ implements UIResource {
             saturationFieldPanel.setBorder(fieldBorder);
             brightnessFieldPanel.setBorder(fieldBorder);
         }
-        
+
+        ccModel = new HSBColorSliderModel();
         ccModel.configureColorSlider(0, hueSlider);
         ccModel.configureColorSlider(1, saturationSlider);
         ccModel.configureColorSlider(2, brightnessSlider);
@@ -83,11 +80,13 @@ implements UIResource {
         new ColorSliderTextFieldHandler(brightnessField, ccModel, 2);
 
         ccModel.addChangeListener(changeEvent -> {
-            setColorToModel(ccModel.getColor());
-            // Force repaint all the sliders
-            hueSlider.repaint();
-            saturationSlider.repaint();
-            brightnessSlider.repaint();
+            if (updateRecursion == 0) {
+                setColorToModel(ccModel.getColor());
+                // Force repaint all the sliders
+                hueSlider.repaint();
+                saturationSlider.repaint();
+                brightnessSlider.repaint();
+            }
         });
         hueField.setMinimumSize(hueField.getPreferredSize());
         saturationField.setMinimumSize(saturationField.getPreferredSize());
@@ -111,13 +110,6 @@ implements UIResource {
     
     public Icon getSmallDisplayIcon() {
         return getLargeDisplayIcon();
-    }
-    
-    public void updateChooser() {
-        ccModel.setColor(getColorFromModel());
-    }
-    public void setColorToModel(Color color) {
-        getColorSelectionModel().setSelectedColor(color);
     }
     
     /** This method is called from within the constructor to

@@ -36,13 +36,7 @@ import java.awt.*;
  * <br>1.1.1 2005-05-23 Localized form.
  * <br>1.0  29 March 2005  Created.
  */
-public class CMYKChooser
-extends AbstractColorChooserPanel
-implements UIResource {
-    private ColorSliderModel ccModel;
-    private int updateRecursion = 0;
-    
-    
+public class CMYKChooser extends SliderBasedChooser implements UIResource {
     /** Creates new form. */
     public CMYKChooser() {
         initComponents();
@@ -113,7 +107,11 @@ implements UIResource {
         new ColorSliderTextFieldHandler(yellowField, ccModel, 2);
         new ColorSliderTextFieldHandler(blackField, ccModel, 3);
         
-        ccModel.addChangeListener(changeEvent -> setColorToModel(ccModel.getColor()));
+        ccModel.addChangeListener(changeEvent -> {
+            if (updateRecursion == 0) {
+                setColorToModel(ccModel.getColor());
+            }
+        });
         cyanField.setMinimumSize(cyanField.getPreferredSize());
         magentaField.setMinimumSize(magentaField.getPreferredSize());
         yellowField.setMinimumSize(yellowField.getPreferredSize());
@@ -139,21 +137,6 @@ implements UIResource {
     
     public Icon getSmallDisplayIcon() {
         return getLargeDisplayIcon();
-    }
-    
-    public void updateChooser() {
-        if (updateRecursion == 0) {
-            updateRecursion++;
-            ccModel.setColor(getColorFromModel());
-            updateRecursion--;
-        }
-    }
-    public void setColorToModel(Color color) {
-        if (updateRecursion == 0) {
-            updateRecursion++;
-            getColorSelectionModel().setSelectedColor(color);
-            updateRecursion--;
-        }
     }
     
     /** This method is called from within the constructor to

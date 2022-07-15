@@ -37,21 +37,14 @@ import java.util.HashMap;
  * <br>1.0  29 March 2005  Created.
  */
 @SuppressWarnings("unchecked")
-public class HTMLChooser extends AbstractColorChooserPanel implements UIResource {
-    private HTMLColorSliderModel ccModel = new HTMLColorSliderModel();
+public class HTMLChooser extends SliderBasedChooser implements UIResource {
     private ChangeListener htmlListener;
     
     /**
      * This is used to remember the last selection state of the "webSaveCheckBox".
      */
     private static boolean lastWebSaveSelectionState = false;
-    
-    /**
-     * We have to prevent us from constantly updating the color model, because
-     * the gray chooser is not able to preserve all color components.
-     */
-    private int updateRecursion;
-    
+
     /**
      * W3C HTML 4.1 well known color names.
      */
@@ -121,30 +114,32 @@ public class HTMLChooser extends AbstractColorChooserPanel implements UIResource
         greenSlider.setSnapToTicks(lastWebSaveSelectionState);
         blueSlider.setSnapToTicks(lastWebSaveSelectionState);
         
-
+        ccModel = new HTMLColorSliderModel();
         htmlListener = changeEvent -> {
-            Color c = ccModel.getColor();
-            setColorToModel(c);
-            if (!c.equals(nameToColorMap.get(htmlField.getText().toLowerCase()))) {
-                if (!htmlField.hasFocus()) {
-                    String hex = Integer.toHexString(0xffffff & c.getRGB());
-                    StringBuffer buf = new StringBuffer(7);
-                    buf.append('#');
-                    for (int i = hex.length(); i < 6; i++) {
-                        buf.append('0');
-                    }
-                    buf.append(hex.toUpperCase());
-                    if (!htmlField.getText().equals(buf.toString())) {
-                        htmlField.setText(buf.toString());
+            if (updateRecursion == 0) {
+                Color c = ccModel.getColor();
+                setColorToModel(c);
+                if (!c.equals(nameToColorMap.get(htmlField.getText().toLowerCase()))) {
+                    if (!htmlField.hasFocus()) {
+                        String hex = Integer.toHexString(0xffffff & c.getRGB());
+                        StringBuffer buf = new StringBuffer(7);
+                        buf.append('#');
+                        for (int i = hex.length(); i < 6; i++) {
+                            buf.append('0');
+                        }
+                        buf.append(hex.toUpperCase());
+                        if (!htmlField.getText().equals(buf.toString())) {
+                            htmlField.setText(buf.toString());
+                        }
                     }
                 }
             }
         };
         
         updateRecursion++;
-        
+
         ccModel = new HTMLColorSliderModel();
-        ccModel.setWebSaveOnly(lastWebSaveSelectionState);
+        ((HTMLColorSliderModel) ccModel).setWebSaveOnly(lastWebSaveSelectionState);
         ccModel.configureColorSlider(0, redSlider);
         ccModel.configureColorSlider(1, greenSlider);
         ccModel.configureColorSlider(2, blueSlider);
@@ -185,7 +180,7 @@ public class HTMLChooser extends AbstractColorChooserPanel implements UIResource
     public void updateChooser() {
         if (updateRecursion == 0) {
             updateRecursion++;
-            if (ccModel.isWebSaveOnly()) {
+            if (((HTMLColorSliderModel) ccModel).isWebSaveOnly()) {
                 Color c = getColorFromModel();
                 if (! HTMLColorSliderModel.isWebSave(c.getRGB())) {
                     webSaveCheckBox.setSelected(false);
@@ -196,15 +191,6 @@ public class HTMLChooser extends AbstractColorChooserPanel implements UIResource
             updateRecursion--;
         }
     }
-    
-    public void setColorToModel(Color color) {
-        if (updateRecursion == 0) {
-            updateRecursion++;
-            getColorSelectionModel().setSelectedColor(color);
-            updateRecursion--;
-        }
-    }
-    
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -426,7 +412,7 @@ public class HTMLChooser extends AbstractColorChooserPanel implements UIResource
         greenSlider.repaint();
         blueSlider.repaint();
          */
-        ccModel.setWebSaveOnly(b);
+        ((HTMLColorSliderModel) ccModel).setWebSaveOnly(b);
         
     }//GEN-LAST:event_webSaveChanged
     

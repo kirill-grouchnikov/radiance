@@ -14,6 +14,7 @@
 
 package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua;
 
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.ColorChooserMainPanel;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.QuaquaColorPreviewPanel;
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.colorchooser.RadianceColorChooserPanel;
@@ -147,6 +148,7 @@ public class Quaqua13ColorChooserUI extends ColorChooserUI {
             previewPanel = new QuaquaColorPreviewPanel();
             chooser.setPreviewPanel(previewPanel);
         }
+        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(previewPanel, 1.0);
         previewPanel.setForeground(chooser.getColor());
         mainPanel.setPreviewPanel(previewPanel);
     }
@@ -157,6 +159,13 @@ public class Quaqua13ColorChooserUI extends ColorChooserUI {
             if (previewPanel != null) {
                 previewPanel.setForeground(model.getSelectedColor());
                 previewPanel.repaint();
+            }
+            if (model.getSelectedColor() != null) {
+                for (int i = 0; i < defaultChoosers.length; i++) {
+                    if (defaultChoosers[i].getColorSelectionModel() != null) {
+                        defaultChoosers[i].updateChooser();
+                    }
+                }
             }
         }
     }

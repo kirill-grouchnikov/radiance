@@ -129,6 +129,13 @@ public class ColorSlidersChooser extends RadianceColorChooserPanel implements UI
     }
     
     public void updateChooser() {
+        Component[] components = slidersHolder.getComponents();
+        for (int i=0; i < components.length; i++) {
+            AbstractColorChooserPanel ccp = (AbstractColorChooserPanel) components[i];
+            if (ccp.getColorSelectionModel() != null) {
+                ccp.updateChooser();
+            }
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

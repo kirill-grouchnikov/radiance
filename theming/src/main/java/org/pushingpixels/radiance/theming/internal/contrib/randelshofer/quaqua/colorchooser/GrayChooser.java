@@ -36,9 +36,7 @@ import java.awt.*;
  * 75% and 100% brightness.
  * <br>1.0  29 March 2005  Created.
  */
-public class GrayChooser extends AbstractColorChooserPanel implements UIResource {
-    private ColorSliderModel ccModel = new GrayColorSliderModel();
-    
+public class GrayChooser extends SliderBasedChooser implements UIResource {
     /** Creates new form. */
     public GrayChooser() {
         initComponents();
@@ -59,7 +57,7 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
             brightnessFieldPanel.setBorder(fieldBorder);
         }
         
-        
+        ccModel = new GrayColorSliderModel();
         ccModel.configureColorSlider(0, brightnessSlider);
         brightnessField.setText(Integer.toString(brightnessSlider.getValue()));
         Insets borderMargin = (Insets) UIManager.getInsets("Component.visualMargin").clone();
@@ -105,23 +103,6 @@ public class GrayChooser extends AbstractColorChooserPanel implements UIResource
     
     public Icon getSmallDisplayIcon() {
         return getLargeDisplayIcon();
-    }
-    
-    /**
-     * We have to prevent us from constantly updating the color model, because
-     * the gray chooser is not able to preserve all color components.
-     */
-    private int updateRecursion;
-    
-    public void updateChooser() {
-        updateRecursion++;
-        Color cfm = getColorFromModel();
-            ccModel.setColor(cfm);
-        updateRecursion--;
-    }
-    public void setColorToModel(Color color) {
-        getColorSelectionModel().setSelectedColor(color);
-        
     }
     
     /** This method is called from within the constructor to

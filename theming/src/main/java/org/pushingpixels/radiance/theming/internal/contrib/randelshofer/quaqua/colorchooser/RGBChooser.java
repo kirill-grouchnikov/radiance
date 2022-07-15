@@ -31,9 +31,7 @@ import java.awt.*;
  * <br>1.1 2005-09-05 Get font, spacing and icon from UIManager.
  * <br>1.0  29 March 2005  Created.
  */
-public class RGBChooser extends AbstractColorChooserPanel implements UIResource {
-    private ColorSliderModel ccModel = new RGBColorSliderModel();
-    
+public class RGBChooser extends SliderBasedChooser implements UIResource {
     /** Creates new form. */
     public RGBChooser() {
         initComponents();
@@ -65,7 +63,8 @@ public class RGBChooser extends AbstractColorChooserPanel implements UIResource 
             gbc.insets = fieldInsets;
             layout.setConstraints(blueField, gbc);
         }
-        
+
+        ccModel = new RGBColorSliderModel();
         ccModel.configureColorSlider(0, redSlider);
         ccModel.configureColorSlider(1, greenSlider);
         ccModel.configureColorSlider(2, blueSlider);
@@ -78,7 +77,11 @@ public class RGBChooser extends AbstractColorChooserPanel implements UIResource 
         new ColorSliderTextFieldHandler(greenField, ccModel, 1);
         new ColorSliderTextFieldHandler(blueField, ccModel, 2);
 
-        ccModel.addChangeListener(changeEvent -> setColorToModel(ccModel.getColor()));
+        ccModel.addChangeListener(changeEvent -> {
+            if (updateRecursion == 0) {
+                setColorToModel(ccModel.getColor());
+            }
+        });
         redField.setMinimumSize(redField.getPreferredSize());
         greenField.setMinimumSize(greenField.getPreferredSize());
         blueField.setMinimumSize(blueField.getPreferredSize());
@@ -101,14 +104,6 @@ public class RGBChooser extends AbstractColorChooserPanel implements UIResource 
     public Icon getSmallDisplayIcon() {
         return getLargeDisplayIcon();
     }
-    
-    public void updateChooser() {
-        ccModel.setColor(getColorFromModel());
-    }
-    public void setColorToModel(Color color) {
-        getColorSelectionModel().setSelectedColor(color);
-    }
-    
     
     /** This method is called from within the constructor to
      * initialize the form.
