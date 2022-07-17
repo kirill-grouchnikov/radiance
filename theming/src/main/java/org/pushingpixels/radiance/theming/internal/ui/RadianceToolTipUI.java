@@ -59,7 +59,7 @@ public class RadianceToolTipUI extends BasicToolTipUI {
 		return new RadianceToolTipUI();
 	}
 
-	private RadianceToolTipUI() {
+	protected RadianceToolTipUI() {
 	}
 
 	@Override

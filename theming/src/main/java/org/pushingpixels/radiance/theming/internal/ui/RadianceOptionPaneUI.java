@@ -88,7 +88,7 @@ public class RadianceOptionPaneUI extends BasicOptionPaneUI {
         return new RadianceOptionPaneUI();
     }
 
-    private RadianceOptionPaneUI() {
+    protected RadianceOptionPaneUI() {
     }
 
     @Override

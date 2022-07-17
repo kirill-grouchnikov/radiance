@@ -104,7 +104,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
      *
      * @param b Associated component.
      */
-    private RadianceScrollBarUI(JComponent b) {
+    protected RadianceScrollBarUI(JComponent b) {
         super();
         this.thumbModel = new DefaultButtonModel();
         this.thumbModel.setArmed(false);

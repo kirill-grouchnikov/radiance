@@ -71,7 +71,7 @@ public class RadianceMenuItemUI extends BasicMenuItemUI implements
 		return new RadianceMenuItemUI((JMenuItem) comp);
 	}
 
-	private RadianceMenuItemUI(JMenuItem menuItem) {
+	protected RadianceMenuItemUI(JMenuItem menuItem) {
 		this.stateTransitionTracker = new StateTransitionTracker(menuItem,
 				menuItem.getModel());
 	}

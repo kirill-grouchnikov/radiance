@@ -51,7 +51,7 @@ public class RadianceViewportUI extends BasicViewportUI {
 		return new RadianceViewportUI();
 	}
 
-	private RadianceViewportUI() {
+	protected RadianceViewportUI() {
 	}
 
 	@Override

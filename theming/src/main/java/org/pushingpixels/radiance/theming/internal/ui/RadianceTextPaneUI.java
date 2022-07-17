@@ -89,7 +89,7 @@ public class RadianceTextPaneUI extends BasicTextPaneUI implements TransitionAwa
      *
      * @param c Component (text pane).
      */
-    private RadianceTextPaneUI(JComponent c) {
+    protected RadianceTextPaneUI(JComponent c) {
         super();
         this.textPane = (JTextPane) c;
 

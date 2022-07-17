@@ -91,7 +91,7 @@ public class RadianceTextFieldUI extends BasicTextFieldUI implements TransitionA
      * @param c
      *            Component (text field).
      */
-    private RadianceTextFieldUI(JComponent c) {
+    protected RadianceTextFieldUI(JComponent c) {
         super();
         this.textField = (JTextField) c;
 

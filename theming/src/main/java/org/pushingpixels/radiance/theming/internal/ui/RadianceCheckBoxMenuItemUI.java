@@ -76,7 +76,7 @@ public class RadianceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
         return new RadianceCheckBoxMenuItemUI((JCheckBoxMenuItem) comp);
     }
 
-    private RadianceCheckBoxMenuItemUI(JCheckBoxMenuItem menuItem) {
+    protected RadianceCheckBoxMenuItemUI(JCheckBoxMenuItem menuItem) {
         this.stateTransitionTracker = new StateTransitionTracker(menuItem,
                 menuItem.getModel());
     }

@@ -53,7 +53,7 @@ public class RadianceColorChooserUI extends Quaqua14ColorChooserUI {
 		return new RadianceColorChooserUI();
 	}
 
-	private RadianceColorChooserUI() {
+	protected RadianceColorChooserUI() {
 	}
 
 	@Override

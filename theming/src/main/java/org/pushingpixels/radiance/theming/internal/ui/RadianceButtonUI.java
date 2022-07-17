@@ -153,7 +153,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
     /**
      * Simple constructor.
      */
-    private RadianceButtonUI(AbstractButton button) {
+    protected RadianceButtonUI(AbstractButton button) {
         this.button = button;
         this.delegate = new ButtonBackgroundDelegate();
     }

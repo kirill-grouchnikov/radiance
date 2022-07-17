@@ -467,7 +467,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Creates the new UI delegate.
      */
-    private RadianceTabbedPaneUI() {
+    protected RadianceTabbedPaneUI() {
         super();
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         this.currSelectedIndex = -1;

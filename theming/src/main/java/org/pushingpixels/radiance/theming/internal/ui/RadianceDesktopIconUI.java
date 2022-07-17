@@ -68,7 +68,7 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 		return new RadianceDesktopIconUI();
 	}
 
-	private RadianceDesktopIconUI() {
+	protected RadianceDesktopIconUI() {
 	}
 
 	@Override

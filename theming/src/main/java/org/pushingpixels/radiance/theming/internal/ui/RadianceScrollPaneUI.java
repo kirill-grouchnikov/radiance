@@ -87,7 +87,7 @@ public class RadianceScrollPaneUI extends BasicScrollPaneUI {
         return new RadianceScrollPaneUI();
     }
 
-    private RadianceScrollPaneUI() {
+    protected RadianceScrollPaneUI() {
     }
 
     @Override

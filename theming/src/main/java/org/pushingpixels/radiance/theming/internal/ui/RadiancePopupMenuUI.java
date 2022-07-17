@@ -60,7 +60,7 @@ public class RadiancePopupMenuUI extends BasicPopupMenuUI {
 		return new RadiancePopupMenuUI();
 	}
 
-	private RadiancePopupMenuUI() {
+	protected RadiancePopupMenuUI() {
 	}
 
 	@Override

@@ -90,7 +90,7 @@ public class RadianceTextAreaUI extends BasicTextAreaUI implements TransitionAwa
      * @param c
      *            Component (text area).
      */
-    private RadianceTextAreaUI(JComponent c) {
+    protected RadianceTextAreaUI(JComponent c) {
         super();
         this.textArea = (JTextArea) c;
 

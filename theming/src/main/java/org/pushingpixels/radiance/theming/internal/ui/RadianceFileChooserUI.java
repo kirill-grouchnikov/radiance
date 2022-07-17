@@ -157,7 +157,7 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
      * @param filechooser
      *            File chooser.
      */
-    private RadianceFileChooserUI(JFileChooser filechooser) {
+    protected RadianceFileChooserUI(JFileChooser filechooser) {
         super(filechooser);
     }
 

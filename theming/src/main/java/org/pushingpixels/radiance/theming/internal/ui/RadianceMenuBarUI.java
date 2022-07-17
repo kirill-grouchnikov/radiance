@@ -57,7 +57,7 @@ public class RadianceMenuBarUI extends BasicMenuBarUI {
         return new RadianceMenuBarUI();
     }
 
-    private RadianceMenuBarUI() {
+    protected RadianceMenuBarUI() {
     }
 
     @Override

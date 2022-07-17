@@ -70,7 +70,7 @@ public class RadianceSpinnerUI extends BasicSpinnerUI {
         return new RadianceSpinnerUI();
     }
 
-    private RadianceSpinnerUI() {
+    protected RadianceSpinnerUI() {
     }
 
     @Override

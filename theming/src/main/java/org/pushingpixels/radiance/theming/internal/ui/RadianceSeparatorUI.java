@@ -52,7 +52,7 @@ public class RadianceSeparatorUI extends BasicSeparatorUI {
 		return new RadianceSeparatorUI();
 	}
 
-	private RadianceSeparatorUI() {
+	protected RadianceSeparatorUI() {
 	}
 
 	@Override

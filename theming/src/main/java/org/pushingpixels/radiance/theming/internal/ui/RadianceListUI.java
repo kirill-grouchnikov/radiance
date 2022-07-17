@@ -299,7 +299,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
     /**
      * Creates a UI delegate for list.
      */
-    private RadianceListUI() {
+    protected RadianceListUI() {
         super();
         rolledOverIndex = -1;
         selectedIndices = new HashMap<>();

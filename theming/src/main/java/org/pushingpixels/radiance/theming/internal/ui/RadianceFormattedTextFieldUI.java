@@ -93,7 +93,7 @@ public class RadianceFormattedTextFieldUI extends BasicFormattedTextFieldUI
      * @param c
      *            Component (formatted text field).
      */
-    private RadianceFormattedTextFieldUI(JComponent c) {
+    protected RadianceFormattedTextFieldUI(JComponent c) {
         super();
         this.textField = (JFormattedTextField) c;
 

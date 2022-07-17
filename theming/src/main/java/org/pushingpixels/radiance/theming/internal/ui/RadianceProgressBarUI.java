@@ -173,7 +173,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
         return new RadianceProgressBarUI();
     }
 
-    private RadianceProgressBarUI() {
+    protected RadianceProgressBarUI() {
     }
 
     @Override

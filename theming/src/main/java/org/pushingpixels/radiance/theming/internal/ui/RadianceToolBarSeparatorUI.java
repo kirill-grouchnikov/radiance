@@ -48,7 +48,7 @@ public class RadianceToolBarSeparatorUI extends BasicToolBarSeparatorUI {
 		return new RadianceToolBarSeparatorUI();
 	}
 
-	private RadianceToolBarSeparatorUI() {
+	protected RadianceToolBarSeparatorUI() {
 	}
 
 	@Override

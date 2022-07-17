@@ -67,7 +67,7 @@ public class RadianceLabelUI extends BasicLabelUI {
         return new RadianceLabelUI();
     }
 
-    private RadianceLabelUI() {
+    protected RadianceLabelUI() {
     }
 
     @Override

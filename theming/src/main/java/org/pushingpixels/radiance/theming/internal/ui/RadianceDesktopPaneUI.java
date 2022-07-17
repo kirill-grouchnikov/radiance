@@ -54,7 +54,7 @@ public class RadianceDesktopPaneUI extends BasicDesktopPaneUI {
 		return new RadianceDesktopPaneUI();
 	}
 
-	private RadianceDesktopPaneUI() {
+	protected RadianceDesktopPaneUI() {
 	}
 
 	@Override

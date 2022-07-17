@@ -52,7 +52,7 @@ public class RadiancePopupMenuSeparatorUI extends BasicPopupMenuSeparatorUI {
 		return new RadiancePopupMenuSeparatorUI();
 	}
 
-	private RadiancePopupMenuSeparatorUI() {
+	protected RadiancePopupMenuSeparatorUI() {
 	}
 
 	@Override

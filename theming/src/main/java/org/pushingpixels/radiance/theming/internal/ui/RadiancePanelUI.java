@@ -52,7 +52,7 @@ public class RadiancePanelUI extends BasicPanelUI {
 		return new RadiancePanelUI();
 	}
 
-	private RadiancePanelUI() {
+	protected RadiancePanelUI() {
 	}
 
 	@Override

@@ -291,7 +291,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
      *
      * @param c Component.
      */
-    private RadiancePasswordFieldUI(JComponent c) {
+    protected RadiancePasswordFieldUI(JComponent c) {
         super();
         this.passwordField = (JPasswordField) c;
 

@@ -125,7 +125,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         super.uninstallUI(c);
     }
 
-    private RadianceComboBoxUI(JComboBox<Object> combo) {
+    protected RadianceComboBoxUI(JComboBox<Object> combo) {
         this.comboBox = combo;
 
         this.transitionModel = new DefaultButtonModel();

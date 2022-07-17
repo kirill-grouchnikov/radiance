@@ -136,7 +136,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
     /**
      * Creates a new UI delegate.
      */
-    private RadianceTableHeaderUI() {
+    protected RadianceTableHeaderUI() {
         this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();
         selectedIndices = new HashMap<>();
     }

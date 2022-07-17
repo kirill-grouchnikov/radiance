@@ -91,7 +91,7 @@ public class RadianceEditorPaneUI extends BasicEditorPaneUI implements Transitio
      * @param c
      *            Component (editor pane).
      */
-    private RadianceEditorPaneUI(JComponent c) {
+    protected RadianceEditorPaneUI(JComponent c) {
         super();
         this.editorPane = (JEditorPane) c;
 

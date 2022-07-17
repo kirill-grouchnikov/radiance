@@ -55,7 +55,7 @@ public class RadianceSplitPaneUI extends BasicSplitPaneUI {
         return new RadianceSplitPaneUI();
     }
 
-    private RadianceSplitPaneUI() {
+    protected RadianceSplitPaneUI() {
     }
 
     @Override

@@ -63,7 +63,7 @@ public class RadianceInternalFrameUI extends BasicInternalFrameUI {
      * @param b
      *            Associated internal frame.
      */
-    private RadianceInternalFrameUI(JInternalFrame b) {
+    protected RadianceInternalFrameUI(JInternalFrame b) {
         super(b);
     }
 

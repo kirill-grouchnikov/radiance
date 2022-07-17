@@ -132,7 +132,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
     /**
      * Creates a UI delegate for table.
      */
-    private RadianceTableUI() {
+    protected RadianceTableUI() {
         super();
         this.selectedIndices = new HashMap<>();
         this.rolledOverIndices = new HashSet<>();

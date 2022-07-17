@@ -80,7 +80,7 @@ public class RadianceRadioButtonMenuItemUI extends BasicRadioButtonMenuItemUI
         return new RadianceRadioButtonMenuItemUI((JRadioButtonMenuItem) comp);
     }
 
-    private RadianceRadioButtonMenuItemUI(JRadioButtonMenuItem menuItem) {
+    protected RadianceRadioButtonMenuItemUI(JRadioButtonMenuItem menuItem) {
         this.stateTransitionTracker = new StateTransitionTracker(menuItem, menuItem.getModel());
     }
 

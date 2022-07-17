@@ -69,7 +69,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
      *
      * @param button The associated button.
      */
-    private RadianceCheckBoxUI(JToggleButton button) {
+    protected RadianceCheckBoxUI(JToggleButton button) {
         super(button);
     }
 

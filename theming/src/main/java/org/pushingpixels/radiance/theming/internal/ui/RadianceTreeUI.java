@@ -125,7 +125,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 	/**
 	 * Creates a UI delegate for tree.
 	 */
-	private RadianceTreeUI() {
+	protected RadianceTreeUI() {
 		super();
 		this.selectedPaths = new HashMap<>();
 		this.stateTransitionMultiTracker = new StateTransitionMultiTracker<>();

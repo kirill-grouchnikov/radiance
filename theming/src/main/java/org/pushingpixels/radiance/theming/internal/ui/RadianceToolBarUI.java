@@ -52,7 +52,7 @@ public class RadianceToolBarUI extends BasicToolBarUI {
         return new RadianceToolBarUI();
     }
 
-    private RadianceToolBarUI() {
+    protected RadianceToolBarUI() {
     }
 
     @Override

@@ -109,7 +109,7 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
     /**
      * Simple constructor.
      */
-    private RadianceToggleButtonUI(JToggleButton toggleButton) {
+    protected RadianceToggleButtonUI(JToggleButton toggleButton) {
         this.toggleButton = toggleButton;
         this.delegate = new ButtonBackgroundDelegate();
     }
