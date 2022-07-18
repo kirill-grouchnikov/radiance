@@ -36,7 +36,8 @@ import java.awt.*;
  * 75% and 100% brightness.
  * <br>1.0  29 March 2005  Created.
  */
-public class GrayChooser extends SliderBasedChooser implements UIResource {
+public class GrayChooser extends SliderBasedChooser<GrayColorSliderModel>
+        implements UIResource {
     /** Creates new form. */
     public GrayChooser() {
         initComponents();

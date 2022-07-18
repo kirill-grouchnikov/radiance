@@ -31,7 +31,7 @@ import java.awt.*;
  * <br>1.1 2005-09-05 Get font, spacing and icon from UIManager.
  * <br>1.0  29 March 2005  Created.
  */
-public class RGBChooser extends SliderBasedChooser implements UIResource {
+public class RGBChooser extends SliderBasedChooser<RGBColorSliderModel> implements UIResource {
     /** Creates new form. */
     public RGBChooser() {
         initComponents();

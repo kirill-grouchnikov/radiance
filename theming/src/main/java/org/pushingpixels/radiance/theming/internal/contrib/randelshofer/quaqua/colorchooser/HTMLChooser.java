@@ -37,7 +37,7 @@ import java.util.HashMap;
  * <br>1.0  29 March 2005  Created.
  */
 @SuppressWarnings("unchecked")
-public class HTMLChooser extends SliderBasedChooser implements UIResource {
+public class HTMLChooser extends SliderBasedChooser<HTMLColorSliderModel> implements UIResource {
     private ChangeListener htmlListener;
     
     /**
@@ -139,7 +139,7 @@ public class HTMLChooser extends SliderBasedChooser implements UIResource {
         updateRecursion++;
 
         ccModel = new HTMLColorSliderModel();
-        ((HTMLColorSliderModel) ccModel).setWebSaveOnly(lastWebSaveSelectionState);
+        ccModel.setWebSaveOnly(lastWebSaveSelectionState);
         ccModel.configureColorSlider(0, redSlider);
         ccModel.configureColorSlider(1, greenSlider);
         ccModel.configureColorSlider(2, blueSlider);
@@ -180,7 +180,7 @@ public class HTMLChooser extends SliderBasedChooser implements UIResource {
     public void updateChooser() {
         if (updateRecursion == 0) {
             updateRecursion++;
-            if (((HTMLColorSliderModel) ccModel).isWebSaveOnly()) {
+            if (ccModel.isWebSaveOnly()) {
                 Color c = getColorFromModel();
                 if (! HTMLColorSliderModel.isWebSave(c.getRGB())) {
                     webSaveCheckBox.setSelected(false);
@@ -412,7 +412,7 @@ public class HTMLChooser extends SliderBasedChooser implements UIResource {
         greenSlider.repaint();
         blueSlider.repaint();
          */
-        ((HTMLColorSliderModel) ccModel).setWebSaveOnly(b);
+        ccModel.setWebSaveOnly(b);
         
     }//GEN-LAST:event_webSaveChanged
     

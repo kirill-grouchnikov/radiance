@@ -33,8 +33,9 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 
-public abstract class SliderBasedChooser extends AbstractColorChooserPanel implements UIResource {
-    protected ColorSliderModel ccModel;
+public abstract class SliderBasedChooser<T extends ColorSliderModel>
+        extends AbstractColorChooserPanel implements UIResource {
+    protected T ccModel;
 
     protected int updateRecursion;
 

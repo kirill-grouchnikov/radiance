@@ -34,7 +34,7 @@ import java.awt.*;
  * <br>1.1.1 2005-04-23 Localized form.
  * <br>1.0  29 March 2005  Created.
  */
-public class HSBChooser extends SliderBasedChooser implements UIResource {
+public class HSBChooser extends SliderBasedChooser<HSBColorSliderModel> implements UIResource {
     /** Creates new form. */
     public HSBChooser() {
         initComponents();

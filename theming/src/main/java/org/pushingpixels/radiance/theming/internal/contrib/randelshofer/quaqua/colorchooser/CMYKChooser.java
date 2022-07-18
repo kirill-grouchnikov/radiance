@@ -36,7 +36,8 @@ import java.awt.*;
  * <br>1.1.1 2005-05-23 Localized form.
  * <br>1.0  29 March 2005  Created.
  */
-public class CMYKChooser extends SliderBasedChooser implements UIResource {
+public class CMYKChooser extends SliderBasedChooser<NominalCMYKColorSliderModel>
+        implements UIResource {
     /** Creates new form. */
     public CMYKChooser() {
         initComponents();
