@@ -198,28 +198,24 @@ public class ButtonBackgroundDelegate {
         // 2. Button is disabled.
         // For both cases, we need to set custom translucency.
         boolean isFlat = RadianceCoreUtilities.hasFlatAppearance(button);
-        boolean isSpecial = isFlat || !button.isEnabled();
         float extraAlpha = 1.0f;
-        if (isSpecial) {
-            if (isFlat) {
-                // Special handling of flat buttons
-                extraAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                        .entrySet()) {
-                    ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled())
-                        continue;
-                    if (activeState == ComponentState.ENABLED)
-                        continue;
-                    extraAlpha += activeEntry.getValue().getContribution();
-                }
-            } else {
-                if (!button.isEnabled()) {
-                    extraAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                            modelStateInfo.getCurrModelState());
-                }
+        if (isFlat) {
+            // Special handling of flat buttons
+            extraAlpha = 0.0f;
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
+                    .entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState.isDisabled())
+                    continue;
+                if (activeState == ComponentState.ENABLED)
+                    continue;
+                extraAlpha += activeEntry.getValue().getContribution();
             }
+        } else if (!button.isEnabled()) {
+            extraAlpha = RadianceColorSchemeUtilities.getAlpha(button,
+                    modelStateInfo.getCurrModelState());
         }
+
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));

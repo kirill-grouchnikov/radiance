@@ -134,28 +134,24 @@ public class ComboBoxBackgroundDelegate {
         // 2. Combobox is disabled.
         // For both cases, we need to set custom translucency.
         boolean isFlat = RadianceCoreUtilities.hasFlatAppearance(combo, false);
-        boolean isSpecial = isFlat || !combo.isEnabled();
         float extraAlpha = 1.0f;
-        if (isSpecial) {
-            if (isFlat) {
-                // Special handling of flat combos
-                extraAlpha = 0.0f;
-                for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                        .entrySet()) {
-                    ComponentState activeState = activeEntry.getKey();
-                    if (activeState.isDisabled())
-                        continue;
-                    if (activeState == ComponentState.ENABLED)
-                        continue;
-                    extraAlpha += activeEntry.getValue().getContribution();
-                }
-            } else {
-                if (!combo.isEnabled()) {
-                    extraAlpha = RadianceColorSchemeUtilities.getAlpha(combo,
-                            modelStateInfo.getCurrModelState());
-                }
+        if (isFlat) {
+            // Special handling of flat combos
+            extraAlpha = 0.0f;
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
+                    .entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState.isDisabled())
+                    continue;
+                if (activeState == ComponentState.ENABLED)
+                    continue;
+                extraAlpha += activeEntry.getValue().getContribution();
             }
+        } else if (!combo.isEnabled()) {
+            extraAlpha = RadianceColorSchemeUtilities.getAlpha(combo,
+                    modelStateInfo.getCurrModelState());
         }
+
         if (extraAlpha > 0.0f) {
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.setComposite(WidgetUtilities.getAlphaComposite(combo, extraAlpha, g));
