@@ -32,10 +32,10 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
@@ -335,7 +335,7 @@ public class JRibbonGallery extends JComponent {
         }
     }
 
-    public static CommandPopupMenuProjection getExpandPopupMenu(
+    public static CommandPopupMenuPanelProjection getExpandPopupMenuPanelProjection(
             RibbonGalleryProjection galleryProjection,
             ComponentOrientation componentOrientation) {
 
@@ -397,20 +397,20 @@ public class JRibbonGallery extends JComponent {
                                         .build())
                         .build();
 
-        CommandPopupMenuProjection commandPopupMenuProjection = new CommandPopupMenuProjection(
+        CommandPopupMenuPanelProjection commandPopupMenuPanelProjection = new CommandPopupMenuPanelProjection(
                 galleryPopupMenuContentModel, galleryPopupMenuPresentationModel);
         if (galleryProjection.getCommandOverlays() != null) {
-            commandPopupMenuProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
+            commandPopupMenuPanelProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
         }
 
-        commandPopupMenuProjection.setComponentCustomizer(
+        commandPopupMenuPanelProjection.setComponentCustomizer(
                 new RibbonGalleryCommandPopupMenuCustomizer(galleryProjection, componentOrientation));
 
-        return commandPopupMenuProjection;
+        return commandPopupMenuPanelProjection;
     }
 
     private static class RibbonGalleryCommandPopupMenuCustomizer
-            implements Projection.ComponentCustomizer<JCommandPopupMenu> {
+            implements Projection.ComponentCustomizer<JCommandPopupMenuPanel> {
         private RibbonGalleryProjection galleryProjection;
         private ComponentOrientation componentOrientation;
 
@@ -429,7 +429,7 @@ public class JRibbonGallery extends JComponent {
         }
 
         @Override
-        public void customizeComponent(JCommandPopupMenu galleryPopupMenu) {
+        public void customizeComponent(JCommandPopupMenuPanel galleryPopupMenu) {
             galleryPopupMenu.applyComponentOrientation(componentOrientation);
 
             // Configure a popup listener for the two-way sync between the gallery model and

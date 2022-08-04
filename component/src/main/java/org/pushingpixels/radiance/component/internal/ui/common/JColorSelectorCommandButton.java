@@ -6,7 +6,7 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorPopupMenuProjection;
+import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 
 public class JColorSelectorCommandButton extends JCommandButton {
@@ -24,11 +24,11 @@ public class JColorSelectorCommandButton extends JCommandButton {
         if (popupMenuPresentationModel == null) {
             popupMenuPresentationModel = ColorSelectorPopupMenuPresentationModel.builder().build();
         }
-        ColorSelectorPopupMenuProjection colorSelectorPopupMenuProjection =
-                new ColorSelectorPopupMenuProjection(popupMenuContentModel,
+        ColorSelectorPopupMenuPanelProjection colorSelectorPopupMenuPanelProjection =
+                new ColorSelectorPopupMenuPanelProjection(popupMenuContentModel,
                         (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
-        colorSelectorPopupMenuProjection.setCommandOverlays(this.getProjection().getCommandOverlays());
-        this.setPopupCallback(commandButton -> colorSelectorPopupMenuProjection.buildComponent());
+        colorSelectorPopupMenuPanelProjection.setCommandOverlays(this.getProjection().getCommandOverlays());
+        this.setPopupCallback(commandButton -> colorSelectorPopupMenuPanelProjection.buildComponent());
 
         this.setPopupRichTooltip(command.getSecondaryRichTooltip());
         this.setPopupKeyTip(commandButtonPresentationModel.getPopupKeyTip());

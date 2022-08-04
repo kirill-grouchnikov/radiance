@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.theming.ktx.setColorizationFactor
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
 import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
 import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex
@@ -158,7 +158,7 @@ fun main() {
                         iconFactory = ColorIcon.factory(defaultPanelColor)
                         action = {
                             onColorActivatedListener.invoke(defaultPanelColor)
-                            JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor)
+                            JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(defaultPanelColor)
                         }
 
                         onActionPreviewActivated = {
@@ -216,7 +216,7 @@ fun main() {
                                     "Color chooser", backgroundColor)
                             if (color != null) {
                                 onColorActivatedListener(color)
-                                JColorSelectorPopupMenu.addColorToRecentlyUsed(color)
+                                JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(color)
                             }
                         }
                     }

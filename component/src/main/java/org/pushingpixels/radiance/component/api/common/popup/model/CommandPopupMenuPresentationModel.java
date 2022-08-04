@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManage
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerMedium;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -66,7 +66,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
      * part will show scroller buttons above the first and below the last menu command. If
      * the value is negative, there is no limitation on how many menu commands
      * are shown, and the entire
-     * {@link JCommandPopupMenu} can overflow the
+     * {@link JCommandPopupMenuPanel} can overflow the
      * monitor edges.
      */
     private int maxVisibleMenuCommands;

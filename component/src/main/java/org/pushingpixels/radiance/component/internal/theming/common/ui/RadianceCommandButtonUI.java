@@ -40,7 +40,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandBut
 import org.pushingpixels.radiance.component.api.common.RolloverActionListener;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
@@ -234,7 +234,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                     int popupInfoListSize = popupInfoList.size();
                     if ((popupInfoListSize >= 1) &&
                             (popupInfoList.get(popupInfoListSize - 1).getPopupPanel()
-                                    instanceof JRibbonFrame.GlobalPopupMenu) &&
+                                    instanceof JRibbonFrame.GlobalPopupMenuPanel) &&
                             (popupInfoList.get(popupInfoListSize - 1).getPopupOriginator()
                                     == commandButton)) {
                         return;
@@ -705,7 +705,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if ((button.getPresentationState() == CommandButtonPresentationState.MEDIUM)
                 && (SwingUtilities.getAncestorOfClass(JRibbon.class, button) == null)
                 && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, button) == null)
-                && (SwingUtilities.getAncestorOfClass(JCommandPopupMenu.class, button) == null)) {
+                && (SwingUtilities.getAncestorOfClass(JCommandPopupMenuPanel.class, button) == null)) {
             JButton forSizing = new JButton(button.getText(), button.getIcon());
             Dimension result = shaper.getPreferredSize(forSizing, superPref);
             if (ComponentUtilities.hasPopupAction(button)) {

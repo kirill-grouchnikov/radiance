@@ -30,10 +30,10 @@
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenu;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerMedium;
-import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuUI;
+import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -48,38 +48,38 @@ import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 
 /**
- * UI for {@link JCommandPopupMenu} components in <b>Radiance</b> look and
+ * UI for {@link JCommandPopupMenuPanel} components in <b>Radiance</b> look and
  * feel.
  *
  * @author Kirill Grouchnikov
  */
-public class RadianceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
+public class RadianceCommandPopupMenuPanelUI extends BasicCommandPopupMenuPanelUI {
     public static ComponentUI createUI(JComponent c) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(c);
-        return new RadianceCommandPopupMenuUI();
+        return new RadianceCommandPopupMenuPanelUI();
     }
 
-    private RadianceCommandPopupMenuUI() {
+    private RadianceCommandPopupMenuPanelUI() {
     }
 
     private DecorationPainterUtils.PopupInvokerLink popupInvokerLink;
 
     @Override
     public void installUI(JComponent c) {
-        this.popupInvokerLink = ((AbstractPopupMenu) c)::getInvoker;
+        this.popupInvokerLink = ((AbstractPopupMenuPanel) c)::getInvoker;
         super.installUI(c);
     }
 
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        this.popupMenu.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK,
+        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK,
                 this.popupInvokerLink);
     }
 
     @Override
     protected void uninstallDefaults() {
-        this.popupMenu.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK, null);
+        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK, null);
         super.uninstallDefaults();
     }
 
@@ -97,7 +97,7 @@ public class RadianceCommandPopupMenuUI extends BasicCommandPopupMenuUI {
             // Only paint the gutter background when the layout manager for the menu command
             // buttons is CommandButtonLayoutManagerMedium. Otherwise there's no guarantee where
             // the icons are, and what the overall layout is
-            java.util.List<Component> menuComponents = popupMenu.getMenuComponents();
+            java.util.List<Component> menuComponents = popupMenuPanel.getMenuComponents();
             if (menuComponents != null) {
                 for (Component menuComponent : menuComponents) {
                     if (menuComponent instanceof JCommandButton) {

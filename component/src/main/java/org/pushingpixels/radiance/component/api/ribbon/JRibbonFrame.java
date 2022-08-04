@@ -34,12 +34,12 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonPresentation
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
@@ -601,7 +601,7 @@ public class JRibbonFrame extends JFrame {
     }
 
     private boolean isValidPopupTriggerSource(Component c) {
-        if (SwingUtilities.getAncestorOfClass(GlobalPopupMenu.class, c) != null) {
+        if (SwingUtilities.getAncestorOfClass(GlobalPopupMenuPanel.class, c) != null) {
             // Don't display context menu on context menu entries
             return false;
         }
@@ -673,8 +673,8 @@ public class JRibbonFrame extends JFrame {
     }
 
     @RadiancePopupContainer
-    public static class GlobalPopupMenu extends JCommandPopupMenu {
-        public GlobalPopupMenu(Projection<JCommandPopupMenu, CommandMenuContentModel,
+    public static class GlobalPopupMenuPanel extends JCommandPopupMenuPanel {
+        public GlobalPopupMenuPanel(Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> projection) {
             super(projection);
         }
@@ -752,13 +752,13 @@ public class JRibbonFrame extends JFrame {
             menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(ribbon);
         }
 
-        CommandPopupMenuProjection globalContextMenuProjection = new CommandPopupMenuProjection(
+        CommandPopupMenuPanelProjection globalContextMenuProjection = new CommandPopupMenuPanelProjection(
                 menuContentModel,
                 CommandPopupMenuPresentationModel.builder()
                         .setMenuPresentationState(CommandButtonPresentationState.MEDIUM)
                         .build());
-        globalContextMenuProjection.setComponentSupplier(projection -> GlobalPopupMenu::new);
-        final JCommandPopupMenu menu = globalContextMenuProjection.buildComponent();
+        globalContextMenuProjection.setComponentSupplier(projection -> GlobalPopupMenuPanel::new);
+        final JCommandPopupMenuPanel menu = globalContextMenuProjection.buildComponent();
 
         int x = event.getXOnScreen();
         int y = event.getYOnScreen();

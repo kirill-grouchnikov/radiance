@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 
 import javax.swing.*;
@@ -37,7 +37,7 @@ import java.awt.*;
 
 public class ColorSelectorPopupMenuSingleRowSelector extends JPanel {
     public ColorSelectorPopupMenuSingleRowSelector(
-            final JColorSelectorPopupMenu colorSelectorPopupMenu,
+            final JColorSelectorPopupMenuPanel colorSelectorPopupMenu,
             final Color... colors) {
         ColorSelectorPopupMenuContentModel contentModel =
                 colorSelectorPopupMenu.getProjection().getContentModel();
@@ -46,7 +46,7 @@ public class ColorSelectorPopupMenuSingleRowSelector extends JPanel {
             comps[i] = new JColorSelectorComponent(colors[i],
                     contentModel.getColorPreviewListener(),
                     contentModel.getColorActivationListener());
-            comps[i].addColorActivationListener(JColorSelectorPopupMenu::addColorToRecentlyUsed);
+            comps[i].addColorActivationListener(JColorSelectorPopupMenuPanel::addColorToRecentlyUsed);
             this.add(comps[i]);
         }
 
@@ -66,8 +66,8 @@ public class ColorSelectorPopupMenuSingleRowSelector extends JPanel {
 
             @Override
             public Dimension preferredLayoutSize(Container parent) {
-                BasicColorSelectorPopupMenuUI ui =
-                        (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
+                BasicColorSelectorPopupMenuPanelUI ui =
+                        (BasicColorSelectorPopupMenuPanelUI) colorSelectorPopupMenu.getUI();
                 int gap = ui.getColorSelectorCellGap();
                 int size = ui.getColorSelectorCellSize();
                 return new Dimension(colors.length * size
@@ -76,8 +76,8 @@ public class ColorSelectorPopupMenuSingleRowSelector extends JPanel {
 
             @Override
             public void layoutContainer(Container parent) {
-                BasicColorSelectorPopupMenuUI ui =
-                        (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
+                BasicColorSelectorPopupMenuPanelUI ui =
+                        (BasicColorSelectorPopupMenuPanelUI) colorSelectorPopupMenu.getUI();
                 int gap = ui.getColorSelectorCellGap();
                 int size = ui.getColorSelectorCellSize();
 

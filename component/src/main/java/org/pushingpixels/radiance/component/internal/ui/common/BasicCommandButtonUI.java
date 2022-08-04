@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManage
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -372,10 +372,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             boolean toDismiss = !Boolean.TRUE
                     .equals(commandButton.getClientProperty(DONT_DISPOSE_POPUPS));
             if (toDismiss) {
-                JCommandPopupMenu menu = (JCommandPopupMenu) SwingUtilities
-                        .getAncestorOfClass(JCommandPopupMenu.class, commandButton);
-                if (menu != null) {
-                    toDismiss = menu.getProjection().getPresentationModel()
+                JCommandPopupMenuPanel menuPanel = (JCommandPopupMenuPanel) SwingUtilities
+                        .getAncestorOfClass(JCommandPopupMenuPanel.class, commandButton);
+                if (menuPanel != null) {
+                    toDismiss = menuPanel.getProjection().getPresentationModel()
                             .isToDismissOnCommandActivation();
                 }
             }

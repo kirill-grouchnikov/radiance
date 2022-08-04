@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupM
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandPopupMenuUI;
+import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ScrollableHost;
 import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
@@ -53,13 +53,13 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 @RadiancePopupContainer
-public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHost {
+public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements ScrollableHost {
     /**
      * @see #getUIClassID
      */
     public static final String uiClassID = "CommandPopupMenuUI";
 
-    private Projection<JCommandPopupMenu, CommandMenuContentModel,
+    private Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> projection;
 
     private CommandMenuContentModel popupMenuContentModel;
@@ -77,7 +77,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
      */
     private JCommandButtonPanel mainButtonPanel;
 
-    public JCommandPopupMenu(Projection<JCommandPopupMenu, CommandMenuContentModel,
+    public JCommandPopupMenuPanel(Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> projection) {
         this.projection = projection;
         this.popupMenuContentModel = projection.getContentModel();
@@ -142,7 +142,7 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
         }
     }
 
-    public Projection<JCommandPopupMenu, CommandMenuContentModel, CommandPopupMenuPresentationModel> getProjection() {
+    public Projection<JCommandPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> getProjection() {
         return this.projection;
     }
 
@@ -175,6 +175,6 @@ public class JCommandPopupMenu extends AbstractPopupMenu implements ScrollableHo
 
     @Override
     public void updateUI() {
-        setUI(RadianceCommandPopupMenuUI.createUI(this));
+        setUI(RadianceCommandPopupMenuPanelUI.createUI(this));
     }
 }

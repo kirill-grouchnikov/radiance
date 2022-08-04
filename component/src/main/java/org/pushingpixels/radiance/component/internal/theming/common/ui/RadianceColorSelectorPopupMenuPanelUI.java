@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenu;
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
-import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorPopupMenuUI;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
+import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorPopupMenuPanelUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -46,38 +46,38 @@ import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 
 /**
- * UI for {@link JColorSelectorPopupMenu} components in <b>Radiance</b> look and
+ * UI for {@link JColorSelectorPopupMenuPanel} components in <b>Radiance</b> look and
  * feel.
  * 
  * @author Kirill Grouchnikov
  */
-public class RadianceColorSelectorPopupMenuUI extends BasicColorSelectorPopupMenuUI {
+public class RadianceColorSelectorPopupMenuPanelUI extends BasicColorSelectorPopupMenuPanelUI {
     public static ComponentUI createUI(JComponent c) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(c);
-        return new RadianceColorSelectorPopupMenuUI();
+        return new RadianceColorSelectorPopupMenuPanelUI();
     }
 
-    private RadianceColorSelectorPopupMenuUI() {
+    private RadianceColorSelectorPopupMenuPanelUI() {
     }
 
     private DecorationPainterUtils.PopupInvokerLink popupInvokerLink;
 
     @Override
     public void installUI(JComponent c) {
-        this.popupInvokerLink = ((AbstractPopupMenu) c)::getInvoker;
+        this.popupInvokerLink = ((AbstractPopupMenuPanel) c)::getInvoker;
         super.installUI(c);
     }
 
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        this.popupMenu.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK,
+        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK,
                 this.popupInvokerLink);
     }
 
     @Override
     protected void uninstallDefaults() {
-        this.popupMenu.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK, null);
+        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK, null);
         super.uninstallDefaults();
     }
 

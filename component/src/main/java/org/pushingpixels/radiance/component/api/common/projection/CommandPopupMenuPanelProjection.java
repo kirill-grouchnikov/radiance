@@ -27,36 +27,21 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
+package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.AbstractPopupMenuProjection;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
 
-import java.util.Map;
+public class CommandPopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
+        JCommandPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> {
 
-public class RibbonApplicationMenuPanelProjection extends AbstractPopupMenuProjection<
-        JRibbonApplicationMenuPopupPanel, RibbonApplicationMenu,
-        CommandPopupMenuPresentationModel> {
-    private Map<Command, CommandButtonPresentationState> secondaryLevelCommandPresentationState;
-
-    public RibbonApplicationMenuPanelProjection(RibbonApplicationMenu contentModel,
+    public CommandPopupMenuPanelProjection(CommandMenuContentModel contentModel,
             CommandPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel, projection -> JRibbonApplicationMenuPopupPanel::new);
+        super(contentModel, presentationModel, projection -> JCommandPopupMenuPanel::new);
     }
 
     @Override
-    protected void configureComponent(JRibbonApplicationMenuPopupPanel component) {
-    }
-
-    public void setSecondaryLevelCommandPresentationState(Map<Command,
-            CommandButtonPresentationState> secondaryLevelCommandPresentationState) {
-        this.secondaryLevelCommandPresentationState = secondaryLevelCommandPresentationState;
-    }
-
-    public Map<Command, CommandButtonPresentationState> getSecondaryLevelCommandPresentationState() {
-        return this.secondaryLevelCommandPresentationState;
+    protected void configureComponent(JCommandPopupMenuPanel component) {
     }
 }

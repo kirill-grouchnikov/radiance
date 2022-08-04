@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
@@ -155,8 +155,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             }
         });
 
-        final RibbonApplicationMenuPanelProjection ribbonAppMenuProjection =
-                (RibbonApplicationMenuPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
+        final RibbonApplicationMenuPanelPanelProjection ribbonAppMenuProjection =
+                (RibbonApplicationMenuPanelPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
         final RibbonApplicationMenu ribbonAppMenu = (ribbonAppMenuProjection != null)
                 ? ribbonAppMenuProjection.getContentModel() : null;
 
@@ -399,11 +399,11 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
             JPopupPanel popupPanel = last.getPopupPanel();
             // Should be command popup menu
-            if (!(popupPanel instanceof JCommandPopupMenu)) {
+            if (!(popupPanel instanceof JCommandPopupMenuPanel)) {
                 return null;
             }
 
-            JCommandPopupMenu popupMenu = (JCommandPopupMenu) popupPanel;
+            JCommandPopupMenuPanel popupMenu = (JCommandPopupMenuPanel) popupPanel;
             for (Component child : popupMenu.getMenuComponents()) {
                 if (child instanceof JCommandButton) {
                     JCommandButton button = (JCommandButton) child;
@@ -417,8 +417,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     public Runnable getPathToSequence(Command command) {
-        final RibbonApplicationMenuPanelProjection ribbonAppMenuProjection =
-                (RibbonApplicationMenuPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
+        final RibbonApplicationMenuPanelPanelProjection ribbonAppMenuProjection =
+                (RibbonApplicationMenuPanelPanelProjection) this.applicationMenuPopupPanel.getRibbonAppMenuProjection();
         final RibbonApplicationMenu ribbonAppMenu = (ribbonAppMenuProjection != null)
                 ? ribbonAppMenuProjection.getContentModel() : null;
         if (ribbonAppMenu == null) {

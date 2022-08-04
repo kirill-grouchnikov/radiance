@@ -29,19 +29,23 @@
  */
 package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.ContentModel;
+import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 
-public class CommandPopupMenuProjection extends AbstractPopupMenuProjection<
-        JCommandPopupMenu, CommandMenuContentModel, CommandPopupMenuPresentationModel> {
+public abstract class AbstractPopupMenuPanelProjection<M extends AbstractPopupMenuPanel,
+        C extends ContentModel, P extends PresentationModel> extends Projection<M, C, P> {
 
-    public CommandPopupMenuProjection(CommandMenuContentModel contentModel,
-            CommandPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel, projection -> JCommandPopupMenu::new);
+    protected AbstractPopupMenuPanelProjection(C contentModel, P presentationModel,
+            ComponentSupplier<M, C, P> componentSupplier2) {
+        super(contentModel, presentationModel, componentSupplier2);
     }
 
     @Override
-    protected void configureComponent(JCommandPopupMenu component) {
+    protected abstract void configureComponent(M component);
+
+    @Override
+    public M buildComponent() {
+        return super.buildComponent();
     }
 }

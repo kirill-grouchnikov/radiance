@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel.StripOrientation;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
@@ -136,17 +136,18 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     SwingUtilities.invokeLater(() -> {
                         PopupFactory popupFactory = PopupFactory.getSharedInstance();
 
-                        JCommandPopupMenu popupMenu = JRibbonGallery.getExpandPopupMenu(
-                                ribbonGallery.getProjection(),
-                                ribbonGallery.getComponentOrientation()).buildComponent();
+                        JCommandPopupMenuPanel popupMenuPanel =
+                                JRibbonGallery.getExpandPopupMenuPanelProjection(
+                                        ribbonGallery.getProjection(),
+                                        ribbonGallery.getComponentOrientation()).buildComponent();
                         final Point loc = ribbonGallery.getLocationOnScreen();
-                        popupMenu.setCustomizer(() -> {
+                        popupMenuPanel.setCustomizer(() -> {
                             Rectangle scrBounds =
                                     ribbonGallery.getGraphicsConfiguration().getBounds();
 
-                            boolean ltr = popupMenu.getComponentOrientation().isLeftToRight();
+                            boolean ltr = popupMenuPanel.getComponentOrientation().isLeftToRight();
 
-                            Dimension pref = popupMenu.getPreferredSize();
+                            Dimension pref = popupMenuPanel.getPreferredSize();
                             int width = Math.max(pref.width, ribbonGallery.getWidth());
                             int height = pref.height;
 
@@ -165,14 +166,14 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         });
 
                         // get the popup and show it
-                        Dimension pref = popupMenu.getPreferredSize();
+                        Dimension pref = popupMenuPanel.getPreferredSize();
                         int width = Math.max(pref.width, ribbonGallery.getWidth());
 
                         boolean ltr = ribbonGallery.getComponentOrientation().isLeftToRight();
                         int x = ltr ? loc.x : loc.x + ribbonGallery.getWidth() - width;
-                        Popup popup = popupFactory.getPopup(ribbonGallery, popupMenu, x, loc.y);
+                        Popup popup = popupFactory.getPopup(ribbonGallery, popupMenuPanel, x, loc.y);
                         PopupPanelManager.defaultManager().addPopup(ribbonGallery, popup,
-                                popupMenu);
+                                popupMenuPanel);
                     });
                 })
                 .build();

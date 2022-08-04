@@ -50,13 +50,13 @@ import java.util.List;
  *
  * @author Kirill Grouchnikov
  */
-public abstract class AbstractPopupMenu extends JPopupPanel implements ScrollableHost {
+public abstract class AbstractPopupMenuPanel extends JPopupPanel implements ScrollableHost {
     /**
      * Menu components.
      */
     private List<Component> menuComponents;
 
-    protected AbstractPopupMenu() {
+    protected AbstractPopupMenuPanel() {
         this.menuComponents = new ArrayList<>();
     }
 

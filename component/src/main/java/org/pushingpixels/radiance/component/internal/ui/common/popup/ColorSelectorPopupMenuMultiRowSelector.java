@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 
 import javax.swing.*;
@@ -40,7 +40,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
 
     private final int columnCount;
 
-    public ColorSelectorPopupMenuMultiRowSelector(final JColorSelectorPopupMenu colorSelectorPopupMenu,
+    public ColorSelectorPopupMenuMultiRowSelector(final JColorSelectorPopupMenuPanel colorSelectorPopupMenu,
             final Color... colors) {
         this.columnCount = colors.length;
         ColorSelectorPopupMenuContentModel contentModel =
@@ -53,7 +53,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
             comps[i][0] = new JColorSelectorComponent(primary,
                     contentModel.getColorPreviewListener(),
                     contentModel.getColorActivationListener());
-            comps[i][0].addColorActivationListener(JColorSelectorPopupMenu::addColorToRecentlyUsed);
+            comps[i][0].addColorActivationListener(JColorSelectorPopupMenuPanel::addColorToRecentlyUsed);
             this.add(comps[i][0]);
 
             float[] primaryHsb = new float[3];
@@ -78,7 +78,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
                         contentModel.getColorActivationListener());
                 comps[i][row].setTopOpen(row > 1);
                 comps[i][row].setBottomOpen(row < SECONDARY_ROWS);
-                comps[i][row].addColorActivationListener(JColorSelectorPopupMenu::addColorToRecentlyUsed);
+                comps[i][row].addColorActivationListener(JColorSelectorPopupMenuPanel::addColorToRecentlyUsed);
                 this.add(comps[i][row]);
             }
         }
@@ -99,8 +99,8 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
 
             @Override
             public Dimension preferredLayoutSize(Container parent) {
-                BasicColorSelectorPopupMenuUI ui =
-                        (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
+                BasicColorSelectorPopupMenuPanelUI ui =
+                        (BasicColorSelectorPopupMenuPanelUI) colorSelectorPopupMenu.getUI();
                 int gap = ui.getColorSelectorCellGap();
                 int size = ui.getColorSelectorCellSize();
                 return new Dimension(colors.length * size + (colors.length + 1) * gap,
@@ -109,8 +109,8 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
 
             @Override
             public void layoutContainer(Container parent) {
-                BasicColorSelectorPopupMenuUI ui =
-                        (BasicColorSelectorPopupMenuUI) colorSelectorPopupMenu.getUI();
+                BasicColorSelectorPopupMenuPanelUI ui =
+                        (BasicColorSelectorPopupMenuPanelUI) colorSelectorPopupMenu.getUI();
                 int gap = ui.getColorSelectorCellGap();
                 int size = ui.getColorSelectorCellSize();
 

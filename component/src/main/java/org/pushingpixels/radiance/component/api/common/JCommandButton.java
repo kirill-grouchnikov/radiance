@@ -31,21 +31,21 @@ package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelProjection;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelPanelProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -578,8 +578,8 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
                     }
-                    RibbonApplicationMenuPanelProjection menuPanelProjection =
-                            new RibbonApplicationMenuPanelProjection(
+                    RibbonApplicationMenuPanelPanelProjection menuPanelProjection =
+                            new RibbonApplicationMenuPanelPanelProjection(
                                     (RibbonApplicationMenu) popupMenuContentModel,
                                     (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
                     menuPanelProjection.setCommandOverlays(
@@ -593,23 +593,23 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
                     }
-                    CommandPopupMenuProjection commandPopupMenuProjection =
-                            new CommandPopupMenuProjection(popupMenuContentModel,
+                    CommandPopupMenuPanelProjection commandPopupMenuPanelProjection =
+                            new CommandPopupMenuPanelProjection(popupMenuContentModel,
                                     (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
-                    commandPopupMenuProjection.setCommandOverlays(
+                    commandPopupMenuPanelProjection.setCommandOverlays(
                             this.projection.getCommandOverlays());
                     if (commandProjection.getPopupMenuSupplier() != null) {
-                        commandPopupMenuProjection.setComponentSupplier(
-                                (Projection.ComponentSupplier<JCommandPopupMenu,
+                        commandPopupMenuPanelProjection.setComponentSupplier(
+                                (Projection.ComponentSupplier<JCommandPopupMenuPanel,
                                         CommandMenuContentModel,
                                         CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
                     }
                     if (commandProjection.getPopupMenuCustomizer() != null) {
-                        commandPopupMenuProjection.setComponentCustomizer(
-                                (Projection.ComponentCustomizer<JCommandPopupMenu>) commandProjection.getPopupMenuCustomizer());
+                        commandPopupMenuPanelProjection.setComponentCustomizer(
+                                (Projection.ComponentCustomizer<JCommandPopupMenuPanel>) commandProjection.getPopupMenuCustomizer());
                     }
                     this.setPopupCallback(commandButton -> {
-                        JPopupPanel result = commandPopupMenuProjection.buildComponent();
+                        JPopupPanel result = commandPopupMenuPanelProjection.buildComponent();
                         result.applyComponentOrientation(JCommandButton.this.getComponentOrientation());
                         return result;
                     });

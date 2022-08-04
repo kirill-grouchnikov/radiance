@@ -34,9 +34,9 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenu;
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonPanelUI;
@@ -51,13 +51,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
+public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
     /**
-     * The associated popup menu
+     * The associated popup menu panel
      */
-    protected AbstractPopupMenu popupMenu;
+    protected AbstractPopupMenuPanel popupMenuPanel;
 
-    private ChangeListener popupMenuChangeListener;
+    private ChangeListener popupMenuPanelChangeListener;
 
     private PopupPanelManager.PopupListener popupListener;
 
@@ -65,7 +65,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     protected JScrollablePanel<JPanel> menuItemsPanel;
 
-    public static final String FORCE_ICON = "radiance.component.internal.commandPopupMenu.forceIcon";
+    public static final String FORCE_ICON = "radiance.component.internal.commandPopupMenuPanel.forceIcon";
 
     /**
      * Popup panel that hosts groups of icons.
@@ -223,10 +223,10 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     @Override
     public void installUI(JComponent c) {
-        this.popupMenu = (AbstractPopupMenu) c;
-        super.installUI(this.popupMenu);
+        this.popupMenuPanel = (AbstractPopupMenuPanel) c;
+        super.installUI(this.popupMenuPanel);
 
-        this.popupMenu.setLayout(this.createLayoutManager());
+        this.popupMenuPanel.setLayout(this.createLayoutManager());
     }
 
     @Override
@@ -237,18 +237,18 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
     }
 
     protected boolean hasLeadingButtonPanel() {
-        return ((JCommandPopupMenu) this.popupMenu).hasCommandButtonPanel();
+        return ((JCommandPopupMenuPanel) this.popupMenuPanel).hasCommandButtonPanel();
     }
 
     protected int getMaxVisibleMenuCommands() {
-        return ((JCommandPopupMenu) popupMenu).getProjection().getPresentationModel()
+        return ((JCommandPopupMenuPanel) popupMenuPanel).getProjection().getPresentationModel()
                 .getMaxVisibleMenuCommands();
     }
 
     protected void syncComponents() {
         if (this.hasLeadingButtonPanel()) {
             this.commandButtonPanel = createScrollableButtonPanel();
-            this.popupMenu.add(this.commandButtonPanel);
+            this.popupMenuPanel.add(this.commandButtonPanel);
         }
 
         final JPanel menuPanel = this.createMenuPanel();
@@ -295,8 +295,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             }
         });
 
-        this.popupMenu.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON, null);
-        java.util.List<Component> menuComponents = this.popupMenu.getMenuComponents();
+        this.popupMenuPanel.putClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON, null);
+        java.util.List<Component> menuComponents = this.popupMenuPanel.getMenuComponents();
         if (menuComponents != null) {
             for (Component menuComponent : menuComponents) {
                 menuPanel.add(menuComponent);
@@ -315,12 +315,12 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 }
             }
 
-            this.popupMenu.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
+            this.popupMenuPanel.putClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON,
                     atLeastOneButtonHasIcon ? Boolean.TRUE : null);
             for (Component menuComponent : menuComponents) {
                 if (menuComponent instanceof JCommandButton) {
                     JCommandButton menuButton = (JCommandButton) menuComponent;
-                    menuButton.putClientProperty(BasicCommandPopupMenuUI.FORCE_ICON,
+                    menuButton.putClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON,
                             atLeastOneButtonHasIcon ? Boolean.TRUE : null);
                 }
             }
@@ -370,21 +370,21 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 scrollableLm.layoutContainer(parent);
             }
         });
-        this.popupMenu.add(this.menuItemsPanel);
+        this.popupMenuPanel.add(this.menuItemsPanel);
     }
 
     protected ScrollableCommandButtonPanel createScrollableButtonPanel() {
         CommandPanelPresentationModel panelPresentationModel =
-                ((JCommandPopupMenu) this.popupMenu).getProjection().getPresentationModel()
+                ((JCommandPopupMenuPanel) this.popupMenuPanel).getProjection().getPresentationModel()
                         .getPanelPresentationModel();
         return new ScrollableCommandButtonPanel(
-                ((JCommandPopupMenu) this.popupMenu).getMainButtonPanel(),
+                ((JCommandPopupMenuPanel) this.popupMenuPanel).getMainButtonPanel(),
                 panelPresentationModel.getMaxColumns(), panelPresentationModel.getMaxRows());
     }
 
     @Override
     protected void uninstallComponents() {
-        this.popupMenu.removeAll();
+        this.popupMenuPanel.removeAll();
         super.uninstallComponents();
     }
 
@@ -392,11 +392,11 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
     protected void installListeners() {
         super.installListeners();
 
-        this.popupMenuChangeListener = changeEvent -> {
-            popupMenu.removeAll();
+        this.popupMenuPanelChangeListener = changeEvent -> {
+            popupMenuPanel.removeAll();
             syncComponents();
         };
-        this.popupMenu.addChangeListener(this.popupMenuChangeListener);
+        this.popupMenuPanel.addChangeListener(this.popupMenuPanelChangeListener);
 
         this.popupListener = new PopupPanelManager.PopupListener() {
             @Override
@@ -405,8 +405,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
             @Override
             public void popupHidden(PopupEvent event) {
-                if (event.getSource() instanceof JColorSelectorPopupMenu) {
-                    ((JColorSelectorPopupMenu) event.getSource())
+                if (event.getSource() instanceof JColorSelectorPopupMenuPanel) {
+                    ((JColorSelectorPopupMenuPanel) event.getSource())
                             .getProjection().getContentModel().getColorPreviewListener()
                             .onColorPreviewCanceled();
                 }
@@ -417,8 +417,8 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     @Override
     protected void uninstallListeners() {
-        this.popupMenu.removeChangeListener(this.popupMenuChangeListener);
-        this.popupMenuChangeListener = null;
+        this.popupMenuPanel.removeChangeListener(this.popupMenuPanelChangeListener);
+        this.popupMenuPanelChangeListener = null;
 
         PopupPanelManager.defaultManager().removePopupListener(this.popupListener);
         this.popupListener = null;
@@ -492,16 +492,16 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            AbstractPopupMenu menu = (AbstractPopupMenu) SwingUtilities
-                    .getAncestorOfClass(AbstractPopupMenu.class, this);
+            AbstractPopupMenuPanel menu = (AbstractPopupMenuPanel) SwingUtilities
+                    .getAncestorOfClass(AbstractPopupMenuPanel.class, this);
             if (Boolean.TRUE.equals(menu.getClientProperty(FORCE_ICON))) {
                 this.paintIconGutterBackground(g);
             }
         }
 
         protected int getSeparatorX() {
-            AbstractPopupMenu menu = (AbstractPopupMenu) SwingUtilities
-                    .getAncestorOfClass(AbstractPopupMenu.class, this);
+            AbstractPopupMenuPanel menu = (AbstractPopupMenuPanel) SwingUtilities
+                    .getAncestorOfClass(AbstractPopupMenuPanel.class, this);
             if (!Boolean.TRUE.equals(menu.getClientProperty(FORCE_ICON))) {
                 return -1;
             }
@@ -557,7 +557,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             }
         }
 
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
         if (!popupMenuComponents.isEmpty()) {
             focusAndScrollToMenuItem(popupMenuComponents.get(0));
         }
@@ -565,7 +565,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     @Override
     public void focusLast() {
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
         if (!popupMenuComponents.isEmpty()) {
             focusAndScrollToMenuItem(popupMenuComponents.get(popupMenuComponents.size() - 1));
         }
@@ -620,7 +620,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
             }
         }
 
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
         int focusedIndex = getFocusedIndex(popupMenuComponents);
         if (focusedIndex < 0) {
             if (this.commandButtonPanel != null) {
@@ -652,7 +652,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
                 return;
             }
         }
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
         int focusedIndex = getFocusedIndex(popupMenuComponents);
         if (focusedIndex < 0) {
             this.focusLast();
@@ -670,7 +670,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
 
     private boolean maybeMoveFocusToAnotherPopup() {
         // Who has the focus now?
-        for (Component popupMenuComponent : this.popupMenu.getMenuComponents()) {
+        for (Component popupMenuComponent : this.popupMenuPanel.getMenuComponents()) {
             if (popupMenuComponent.hasFocus()) {
                 java.util.List<PopupPanelManager.PopupInfo> popups =
                         PopupPanelManager.defaultManager().getShownPath();
@@ -692,7 +692,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         if (this.commandButtonPanel != null) {
             this.commandButtonPanel.buttonPanel.getUI().focusRight();
         } else {
-            if (this.popupMenu.getComponentOrientation().isLeftToRight()) {
+            if (this.popupMenuPanel.getComponentOrientation().isLeftToRight()) {
                 maybeMoveFocusToAnotherPopup();
             }
         }
@@ -703,7 +703,7 @@ public abstract class BasicCommandPopupMenuUI extends BasicPopupPanelUI {
         if (this.commandButtonPanel != null) {
             this.commandButtonPanel.buttonPanel.getUI().focusLeft();
         } else {
-            if (!this.popupMenu.getComponentOrientation().isLeftToRight()) {
+            if (!this.popupMenuPanel.getComponentOrientation().isLeftToRight()) {
                 maybeMoveFocusToAnotherPopup();
             }
         }

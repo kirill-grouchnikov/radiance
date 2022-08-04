@@ -37,8 +37,8 @@ import org.pushingpixels.radiance.component.api.common.icon.ColorRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupListener;
@@ -47,7 +47,7 @@ import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelector
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
 import org.pushingpixels.radiance.component.api.ribbon.*;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
@@ -789,7 +789,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setIconFactory(ColorRadianceIcon.factory(defaultColor))
                 .setAction(commandActionEvent -> {
                     colorActivationListener.onColorActivated(defaultColor);
-                    JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor);
+                    JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(defaultColor);
                 })
                 .setActionPreview(new Command.CommandActionPreview() {
                     @Override
@@ -833,7 +833,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             "Color chooser", defaultColor);
                     if (color != null) {
                         colorActivationListener.onColorActivated(color);
-                        JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
+                        JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(color);
                     }
                 }))
                 .build());
@@ -2604,7 +2604,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .setToDismissOnCommandActivation(false)
                                 .build();
 
-                final JCommandPopupMenu menu = new CommandPopupMenuProjection(popupMenuContentModel,
+                final JCommandPopupMenuPanel menu = new CommandPopupMenuPanelProjection(popupMenuContentModel,
                         popupMenuPresentationModel).buildComponent();
                 menu.applyComponentOrientation(statusBar.getComponentOrientation());
 

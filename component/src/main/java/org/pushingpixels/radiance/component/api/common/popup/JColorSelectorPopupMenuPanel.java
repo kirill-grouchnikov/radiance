@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelector
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceColorSelectorPopupMenuUI;
+import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceColorSelectorPopupMenuPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorPanel;
@@ -52,13 +52,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RadiancePopupContainer
-public class JColorSelectorPopupMenu extends AbstractPopupMenu {
+public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     /**
      * @see #getUIClassID
      */
     public static final String uiClassID = "ColorSelectorPopupMenuUI";
 
-    private Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+    private Projection<JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel> projection;
     private ColorSelectorPopupMenuContentModel contentModel;
     private ColorSelectorPopupMenuPresentationModel presentationModel;
@@ -69,7 +69,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
 
     private static LinkedList<Color> recentlySelected = new LinkedList<>();
 
-    public JColorSelectorPopupMenu(Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+    public JColorSelectorPopupMenuPanel(Projection<JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel> projection) {
         this.projection = projection;
         this.contentModel = projection.getContentModel();
@@ -83,7 +83,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
         this.updateUI();
     }
 
-    public Projection<JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+    public Projection<JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel> getProjection() {
         return this.projection;
     }
@@ -137,7 +137,7 @@ public class JColorSelectorPopupMenu extends AbstractPopupMenu {
 
     @Override
     public void updateUI() {
-        setUI(RadianceColorSelectorPopupMenuUI.createUI(this));
+        setUI(RadianceColorSelectorPopupMenuPanelUI.createUI(this));
     }
 
     private void addColorSectionWithDerived(String label, Color[] primaryColors) {

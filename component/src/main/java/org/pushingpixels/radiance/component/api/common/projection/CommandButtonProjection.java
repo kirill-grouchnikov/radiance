@@ -33,15 +33,15 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
         extends Projection<JCommandButton, M, CommandButtonPresentationModel> {
 
-    private ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandMenuContentModel,
+    private ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
-    private ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer;
+    private ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer;
 
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
         this(command, commandPresentation, projection ->  JCommandButton::new);
@@ -62,21 +62,21 @@ public class CommandButtonProjection<M extends Command>
         return result;
     }
 
-    public void setPopupMenuCustomizer(ComponentCustomizer<? extends AbstractPopupMenu> popupMenuCustomizer) {
+    public void setPopupMenuCustomizer(ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer) {
         this.popupMenuCustomizer = popupMenuCustomizer;
     }
 
-    public ComponentCustomizer<? extends AbstractPopupMenu> getPopupMenuCustomizer() {
+    public ComponentCustomizer<? extends AbstractPopupMenuPanel> getPopupMenuCustomizer() {
         return this.popupMenuCustomizer;
     }
 
-    public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenu,
+    public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenuPanel,
             ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier) {
         this.popupMenuSupplier = popupMenuSupplier;
     }
 
-    public ComponentSupplier<? extends AbstractPopupMenu, ? extends CommandMenuContentModel,
+    public ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
             ? extends AbstractPopupMenuPresentationModel> getPopupMenuSupplier() {
         return this.popupMenuSupplier;
     }

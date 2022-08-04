@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
@@ -118,7 +118,7 @@ public class TestColorSelector extends JFrame {
                 .setIconFactory(ColorIcon.factory(defaultPanelColor))
                 .setAction(commandActionEvent -> {
                     colorActivationListener.onColorActivated(defaultPanelColor);
-                    JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultPanelColor);
+                    JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(defaultPanelColor);
                 })
                 .setActionPreview(new Command.CommandActionPreview() {
                     @Override
@@ -166,7 +166,7 @@ public class TestColorSelector extends JFrame {
                             "Color chooser", backgroundColor);
                     if (color != null) {
                         colorActivationListener.onColorActivated(color);
-                        JColorSelectorPopupMenu.addColorToRecentlyUsed(color);
+                        JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(color);
                     }
                 }))
                 .build());

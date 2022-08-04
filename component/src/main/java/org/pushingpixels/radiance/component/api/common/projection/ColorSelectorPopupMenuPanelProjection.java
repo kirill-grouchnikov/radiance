@@ -29,20 +29,20 @@
  */
 package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
-public class ColorSelectorPopupMenuProjection extends AbstractPopupMenuProjection<
-        JColorSelectorPopupMenu, ColorSelectorPopupMenuContentModel,
+public class ColorSelectorPopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
+        JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
         ColorSelectorPopupMenuPresentationModel> {
 
-    public ColorSelectorPopupMenuProjection(ColorSelectorPopupMenuContentModel contentModel,
+    public ColorSelectorPopupMenuPanelProjection(ColorSelectorPopupMenuContentModel contentModel,
             ColorSelectorPopupMenuPresentationModel presentationModel) {
-        super(contentModel, presentationModel, projection -> JColorSelectorPopupMenu::new);
+        super(contentModel, presentationModel, projection -> JColorSelectorPopupMenuPanel::new);
     }
 
     @Override
-    protected void configureComponent(JColorSelectorPopupMenu component) {
+    protected void configureComponent(JColorSelectorPopupMenuPanel component) {
     }
 }

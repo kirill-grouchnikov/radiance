@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentM
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuProjection;
+import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection;
@@ -408,23 +408,23 @@ public class JRibbon extends JComponent {
     }
 
     public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
-        CommandPopupMenuProjection popupMenuProjection =
-                JRibbonGallery.getExpandPopupMenu(galleryProjection,
+        CommandPopupMenuPanelProjection popupMenuPanelProjection =
+                JRibbonGallery.getExpandPopupMenuPanelProjection(galleryProjection,
                         this.getComponentOrientation());
         // The popup callback displays the expanded popup menu for the gallery
         Command galleryDropdownCommand = Command.builder()
                 .setIconFactory(galleryProjection.getContentModel().getIconFactory())
-                .setSecondaryContentModel(popupMenuProjection.getContentModel())
+                .setSecondaryContentModel(popupMenuPanelProjection.getContentModel())
                 .build();
 
         CommandButtonProjection<Command> galleryDropdownProjection = galleryDropdownCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setPopupMenuPresentationModel(popupMenuProjection.getPresentationModel())
+                        .setPopupMenuPresentationModel(popupMenuPanelProjection.getPresentationModel())
                         .build());
         galleryDropdownProjection.setPopupMenuCustomizer(
-                popupMenuProjection.getComponentCustomizer());
-        galleryDropdownProjection.setCommandOverlays(popupMenuProjection.getCommandOverlays());
+                popupMenuPanelProjection.getComponentCustomizer());
+        galleryDropdownProjection.setCommandOverlays(popupMenuPanelProjection.getCommandOverlays());
 
         JCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();
         galleryDropdown.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION,

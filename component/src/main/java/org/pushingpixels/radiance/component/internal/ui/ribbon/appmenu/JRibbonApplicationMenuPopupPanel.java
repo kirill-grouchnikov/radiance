@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
@@ -41,7 +41,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 import javax.swing.*;
 
 @RadiancePopupContainer
-public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenu implements ScrollableHost {
+public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenuPanel implements ScrollableHost {
     /**
      * The UI class ID string.
      */

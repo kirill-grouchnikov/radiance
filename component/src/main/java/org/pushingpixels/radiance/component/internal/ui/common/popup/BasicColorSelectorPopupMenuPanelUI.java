@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMenuUI {
+public abstract class BasicColorSelectorPopupMenuPanelUI extends BasicCommandPopupMenuPanelUI {
     public abstract int getColorSelectorCellSize();
 
     public abstract int getColorSelectorCellGap();
@@ -59,7 +59,7 @@ public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMen
 
     @Override
     public void focusFirst() {
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
         if (!popupMenuComponents.isEmpty()) {
             Component first = popupMenuComponents.get(0);
             if (first instanceof JColorSelectorPanel) {
@@ -92,7 +92,7 @@ public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMen
             return;
         }
 
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
 
         Component currMenuComponentWithFocus =
                 popupMenuComponents.get(this.indexOfMenuComponentWithFocus);
@@ -154,7 +154,7 @@ public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMen
             return;
         }
 
-        java.util.List<Component> popupMenuComponents = this.popupMenu.getMenuComponents();
+        java.util.List<Component> popupMenuComponents = this.popupMenuPanel.getMenuComponents();
 
         Component currMenuComponentWithFocus =
                 popupMenuComponents.get(this.indexOfMenuComponentWithFocus);
@@ -214,7 +214,7 @@ public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMen
     @Override
     public void focusLeft() {
         if (this.indexOfMenuComponentWithFocus >= 0) {
-            Component menuComponentWithFocus = this.popupMenu.getMenuComponents().get(
+            Component menuComponentWithFocus = this.popupMenuPanel.getMenuComponents().get(
                     this.indexOfMenuComponentWithFocus);
             if (menuComponentWithFocus instanceof JColorSelectorPanel) {
                 this.columnOfFocusedColorSelector = Math.max(this.columnOfFocusedColorSelector - 1,
@@ -240,10 +240,10 @@ public abstract class BasicColorSelectorPopupMenuUI extends BasicCommandPopupMen
     @Override
     public void focusRight() {
         if (this.indexOfMenuComponentWithFocus >= 0) {
-            Component menuComponentWithFocus = this.popupMenu.getMenuComponents().get(
+            Component menuComponentWithFocus = this.popupMenuPanel.getMenuComponents().get(
                     this.indexOfMenuComponentWithFocus);
             if (menuComponentWithFocus instanceof JColorSelectorPanel) {
-                int columnCount = ((JColorSelectorPopupMenu) this.popupMenu).getProjection().
+                int columnCount = ((JColorSelectorPopupMenuPanel) this.popupMenuPanel).getProjection().
                         getPresentationModel().getColorColumns();
                 this.columnOfFocusedColorSelector = Math.min(this.columnOfFocusedColorSelector + 1,
                         columnCount - 1);

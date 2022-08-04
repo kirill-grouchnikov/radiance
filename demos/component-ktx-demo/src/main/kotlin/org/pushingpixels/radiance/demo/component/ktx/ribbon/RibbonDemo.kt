@@ -47,7 +47,7 @@ import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenu
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon.OnShowContextualMenuListener
@@ -774,7 +774,7 @@ private class RibbonDemoBuilder {
                         iconFactory = ColorIcon.factory(defaultColor)
                         action = {
                             onColorActivatedListener.invoke(defaultColor)
-                            JColorSelectorPopupMenu.addColorToRecentlyUsed(defaultColor)
+                            JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(defaultColor)
                         }
 
                         onActionPreviewActivated = {
@@ -833,7 +833,7 @@ private class RibbonDemoBuilder {
                             )
                             if (newColor != null) {
                                 onColorActivatedListener.invoke(newColor)
-                                JColorSelectorPopupMenu.addColorToRecentlyUsed(newColor)
+                                JColorSelectorPopupMenuPanel.addColorToRecentlyUsed(newColor)
                             }
                         }
                     }

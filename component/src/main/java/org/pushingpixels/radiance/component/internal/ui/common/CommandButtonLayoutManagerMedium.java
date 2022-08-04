@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuUI;
+import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
@@ -54,7 +54,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         if (button.getIcon() != null) {
             return true;
         }
-        if (Boolean.TRUE.equals(button.getClientProperty(BasicCommandPopupMenuUI.FORCE_ICON))) {
+        if (Boolean.TRUE.equals(button.getClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON))) {
             return true;
         }
         return false;
