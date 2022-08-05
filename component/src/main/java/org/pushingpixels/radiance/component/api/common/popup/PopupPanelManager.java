@@ -213,23 +213,32 @@ public class PopupPanelManager {
     }
 
     /**
+     * Private constructor to prevent initialization outside of {@link #defaultManager()} calls.
+     */
+    private PopupPanelManager() {
+    }
+
+    /**
      * All currently shown popup panels.
      */
-    protected LinkedList<PopupInfo> shownPath = new LinkedList<>();
+    private LinkedList<PopupInfo> shownPath = new LinkedList<>();
 
     /**
      * Maps every shown popup panel to its {@link Popup} host.
      */
-    protected Map<JPopupPanel, Popup> popupHosts = new HashMap<>();
+    private Map<JPopupPanel, Popup> popupHosts = new HashMap<>();
 
     /**
-     * Adds new popup to the tracking structures.
+     * Displays the specified content in a new popup and starts tracking it.
      *
      * @param popupOriginator The originator component.
-     * @param popup           The new popup.
      * @param popupContent    The content of the popup.
      */
-    public void addPopup(JComponent popupOriginator, Popup popup, JPopupPanel popupContent) {
+    public void displayPopup(JComponent popupOriginator, JPopupPanel popupContent,
+            int xOnScreen, int yOnScreen) {
+        Popup popup = PopupFactory.getSharedInstance().getPopup(popupOriginator, popupContent,
+                xOnScreen, yOnScreen);
+
         popupContent.setOriginator(popupOriginator);
         popupHosts.put(popupContent, popup);
         shownPath.addLast(new PopupInfo(popupOriginator, popupContent));

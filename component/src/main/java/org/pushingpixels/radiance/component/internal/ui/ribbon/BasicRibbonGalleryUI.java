@@ -171,9 +171,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
 
                         boolean ltr = ribbonGallery.getComponentOrientation().isLeftToRight();
                         int x = ltr ? loc.x : loc.x + ribbonGallery.getWidth() - width;
-                        Popup popup = popupFactory.getPopup(ribbonGallery, popupMenuPanel, x, loc.y);
-                        PopupPanelManager.defaultManager().addPopup(ribbonGallery, popup,
-                                popupMenuPanel);
+                        PopupPanelManager.defaultManager().displayPopup(ribbonGallery,
+                                popupMenuPanel, x, loc.y);
                     });
                 })
                 .build();

@@ -29,6 +29,10 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon;
 
+import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
+import org.pushingpixels.radiance.common.api.AsynchronousLoading;
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
@@ -47,15 +51,11 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.Compon
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.*;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
-import org.pushingpixels.radiance.common.api.AsynchronousLoadListener;
-import org.pushingpixels.radiance.common.api.AsynchronousLoading;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.*;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
@@ -773,8 +773,7 @@ public class JRibbonFrame extends JFrame {
         }
 
         PopupPanelManager.defaultManager().hidePopups(c);
-        Popup popup = PopupFactory.getSharedInstance().getPopup(ribbon, menu, x, y);
-        PopupPanelManager.defaultManager().addPopup((JComponent) c, popup, menu);
+        PopupPanelManager.defaultManager().displayPopup((JComponent) c, menu, x, y);
     }
 
     /**

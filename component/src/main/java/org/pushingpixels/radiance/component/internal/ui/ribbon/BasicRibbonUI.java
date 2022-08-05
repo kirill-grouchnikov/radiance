@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
@@ -43,7 +44,6 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizeSe
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
@@ -1285,8 +1285,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             // get the popup and show it
             popupPanel.setPreferredSize(new Dimension(ribbon.getWidth(), prefHeight));
-            Popup popup = PopupFactory.getSharedInstance().getPopup(
-                    taskToggleButton, popupPanel, x, y);
             PopupPanelManager.PopupListener tracker = new PopupPanelManager.PopupListener() {
                 @Override
                 public void popupShown(PopupEvent event) {
@@ -1310,7 +1308,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 }
             };
             PopupPanelManager.defaultManager().addPopupListener(tracker);
-            PopupPanelManager.defaultManager().addPopup(taskToggleButton, popup, popupPanel);
+            PopupPanelManager.defaultManager().displayPopup(taskToggleButton, popupPanel, x, y);
         }
     }
 

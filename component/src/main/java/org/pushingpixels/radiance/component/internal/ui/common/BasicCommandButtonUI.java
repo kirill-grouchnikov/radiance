@@ -690,9 +690,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     popupPanel.setPreferredSize(
                             new Dimension(placementRect.width, placementRect.height));
                 }
-                Popup popup = PopupFactory.getSharedInstance().getPopup(commandButton, popupPanel, x, y);
-                // System.out.println("Showing the popup panel");
-                PopupPanelManager.defaultManager().addPopup(commandButton, popup, popupPanel);
+                PopupPanelManager.defaultManager().displayPopup(commandButton, popupPanel, x, y);
             });
         }
     }

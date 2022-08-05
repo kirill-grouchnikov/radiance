@@ -2604,13 +2604,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .setToDismissOnCommandActivation(false)
                                 .build();
 
-                final JCommandPopupMenuPanel menu = new CommandPopupMenuPanelProjection(popupMenuContentModel,
+                JCommandPopupMenuPanel menu = new CommandPopupMenuPanelProjection(popupMenuContentModel,
                         popupMenuPresentationModel).buildComponent();
                 menu.applyComponentOrientation(statusBar.getComponentOrientation());
 
-                Popup popup = PopupFactory.getSharedInstance().getPopup(statusBar, menu, pt.x,
+                PopupPanelManager.defaultManager().displayPopup(statusBar, menu, pt.x,
                         pt.y - menu.getPreferredSize().height);
-                PopupPanelManager.defaultManager().addPopup(statusBar, popup, menu);
 
                 PopupListener tracker = new PopupListener() {
                     @Override
