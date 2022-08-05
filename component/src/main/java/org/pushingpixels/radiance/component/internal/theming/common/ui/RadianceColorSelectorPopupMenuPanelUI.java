@@ -60,31 +60,31 @@ public class RadianceColorSelectorPopupMenuPanelUI extends BasicColorSelectorPop
     private RadianceColorSelectorPopupMenuPanelUI() {
     }
 
-    private DecorationPainterUtils.PopupInvokerLink popupInvokerLink;
+    private DecorationPainterUtils.PopupOriginatorLink popupOriginatorLink;
 
     @Override
     public void installUI(JComponent c) {
-        this.popupInvokerLink = ((AbstractPopupMenuPanel) c)::getInvoker;
+        this.popupOriginatorLink = ((AbstractPopupMenuPanel) c)::getOriginator;
         super.installUI(c);
     }
 
     @Override
     protected void installDefaults() {
         super.installDefaults();
-        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK,
-                this.popupInvokerLink);
+        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_ORIGINATOR_LINK,
+                this.popupOriginatorLink);
     }
 
     @Override
     protected void uninstallDefaults() {
-        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK, null);
+        this.popupMenuPanel.putClientProperty(DecorationPainterUtils.POPUP_ORIGINATOR_LINK, null);
         super.uninstallDefaults();
     }
 
     @Override
     protected JPanel createMenuPanel() {
         JPanel result = new RadianceMenuPanel();
-        result.putClientProperty(DecorationPainterUtils.POPUP_INVOKER_LINK, this.popupInvokerLink);
+        result.putClientProperty(DecorationPainterUtils.POPUP_ORIGINATOR_LINK, this.popupOriginatorLink);
         return result;
     }
 

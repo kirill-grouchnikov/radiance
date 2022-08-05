@@ -218,26 +218,26 @@ public class PopupPanelManager {
     protected LinkedList<PopupInfo> shownPath = new LinkedList<>();
 
     /**
-     * Map of all popup panels and associated {@link Popup} objects.
+     * Maps every shown popup panel to its {@link Popup} host.
      */
-    protected Map<JPopupPanel, Popup> popupPanels = new HashMap<>();
+    protected Map<JPopupPanel, Popup> popupHosts = new HashMap<>();
 
     /**
      * Adds new popup to the tracking structures.
      *
-     * @param popupOriginator The originating component.
+     * @param popupOriginator The originator component.
      * @param popup           The new popup.
-     * @param popupInitiator  The initiator of the popup.
+     * @param popupContent    The content of the popup.
      */
-    public void addPopup(JComponent popupOriginator, Popup popup, JPopupPanel popupInitiator) {
-        popupInitiator.setInvoker(popupOriginator);
-        popupPanels.put(popupInitiator, popup);
-        shownPath.addLast(new PopupInfo(popupOriginator, popupInitiator));
+    public void addPopup(JComponent popupOriginator, Popup popup, JPopupPanel popupContent) {
+        popupContent.setOriginator(popupOriginator);
+        popupHosts.put(popupContent, popup);
+        shownPath.addLast(new PopupInfo(popupOriginator, popupContent));
         popup.show();
         if (popupOriginator instanceof JCommandButton) {
             ((JCommandButton) popupOriginator).getPopupModel().setPopupShowing(true);
         }
-        this.firePopupShown(popupInitiator, popupOriginator);
+        this.firePopupShown(popupContent, popupOriginator);
     }
 
     /**
@@ -248,22 +248,22 @@ public class PopupPanelManager {
             return;
         }
         PopupInfo last = shownPath.removeLast();
-        Popup popup = popupPanels.get(last.popupPanel);
+        Popup popup = popupHosts.get(last.popupPanel);
         popup.hide();
-        popupPanels.remove(last.popupPanel);
+        popupHosts.remove(last.popupPanel);
         if (last.popupOriginator instanceof JCommandButton) {
             ((JCommandButton) last.popupOriginator).getPopupModel().setPopupShowing(false);
         }
 
         // KeyTipManager.defaultManager().showChainBefore(last.popupPanel);
-        last.popupPanel.setInvoker(null);
+        last.popupPanel.setOriginator(null);
         this.firePopupHidden(last.popupPanel, last.popupOriginator);
     }
 
     /**
      * Hides all popup panels based on the specified component. We find the
-     * first ancestor of the specified component that is popup panel, and close
-     * all popup panels that were open from that popup panel. If the specified
+     * first ancestor of the specified component that is a popup panel, and close
+     * all popups that were open from that popup panel. If the specified
      * component is <code>null</code>, all popup panels are closed.
      *
      * @param comp Component.
@@ -284,15 +284,15 @@ public class PopupPanelManager {
                         }
 
                         PopupInfo last = shownPath.removeLast();
-                        Popup popup = popupPanels.get(last.popupPanel);
+                        Popup popup = popupHosts.get(last.popupPanel);
                         popup.hide();
                         if (last.popupOriginator instanceof JCommandButton) {
                             ((JCommandButton) last.popupOriginator)
                                     .getPopupModel().setPopupShowing(false);
                         }
-                        last.popupPanel.setInvoker(null);
+                        last.popupPanel.setOriginator(null);
                         this.firePopupHidden(last.popupPanel, last.popupOriginator);
-                        popupPanels.remove(last.popupPanel);
+                        popupHosts.remove(last.popupPanel);
                     }
                 }
                 c = c.getParent();
@@ -303,15 +303,15 @@ public class PopupPanelManager {
             while (shownPath.size() > 0) {
                 PopupInfo last = shownPath.removeLast();
                 lastOriginator = last.popupOriginator;
-                Popup popup = popupPanels.get(last.popupPanel);
+                Popup popup = popupHosts.get(last.popupPanel);
                 popup.hide();
                 if (last.popupOriginator instanceof JCommandButton) {
                     ((JCommandButton) last.popupOriginator).getPopupModel()
                             .setPopupShowing(false);
                 }
-                last.popupPanel.setInvoker(null);
+                last.popupPanel.setOriginator(null);
                 this.firePopupHidden(last.popupPanel, last.popupOriginator);
-                popupPanels.remove(last.popupPanel);
+                popupHosts.remove(last.popupPanel);
             }
             if ((lastOriginator != null) && lastOriginator.isFocusable()) {
                 lastOriginator.requestFocus();

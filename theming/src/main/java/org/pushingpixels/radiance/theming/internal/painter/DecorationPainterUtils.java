@@ -51,10 +51,10 @@ public class DecorationPainterUtils {
      */
     private static final String DECORATION_AREA_TYPE = "radiance.theming.internal.painter.decorationAreaType";
 
-    public static final String POPUP_INVOKER_LINK = "radiance.theming.internal.popupInvokerLink";
+    public static final String POPUP_ORIGINATOR_LINK = "radiance.theming.internal.popupOriginatorLink";
 
-    public interface PopupInvokerLink {
-        JComponent getPopupInvoker();
+    public interface PopupOriginatorLink {
+        JComponent getPopupOriginator();
     }
 
     /**
@@ -97,7 +97,7 @@ public class DecorationPainterUtils {
      */
     public static RadianceThemingSlices.DecorationAreaType getDecorationType(Component comp) {
         JPopupMenu popupMenu = null;
-        JComponent popupInvoker = null;
+        JComponent popupOriginator = null;
         Component c = comp;
         while (c != null) {
             if (c instanceof JComponent) {
@@ -106,9 +106,9 @@ public class DecorationPainterUtils {
                 if (prop instanceof RadianceThemingSlices.DecorationAreaType) {
                     return (RadianceThemingSlices.DecorationAreaType) prop;
                 }
-                Object invokerProp = jc.getClientProperty(POPUP_INVOKER_LINK);
-                if (invokerProp instanceof PopupInvokerLink) {
-                    popupInvoker = ((PopupInvokerLink) invokerProp).getPopupInvoker();
+                Object invokerProp = jc.getClientProperty(POPUP_ORIGINATOR_LINK);
+                if (invokerProp instanceof PopupOriginatorLink) {
+                    popupOriginator = ((PopupOriginatorLink) invokerProp).getPopupOriginator();
                 }
             }
             if (c instanceof JPopupMenu) {
@@ -122,8 +122,8 @@ public class DecorationPainterUtils {
                 return getDecorationType(popupMenu.getInvoker());
             }
         }
-        if (popupInvoker != null) {
-            return getDecorationType(popupInvoker);
+        if (popupOriginator != null) {
+            return getDecorationType(popupOriginator);
         }
         return RadianceThemingSlices.DecorationAreaType.NONE;
     }

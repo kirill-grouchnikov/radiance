@@ -621,13 +621,13 @@ public class JRibbonFrame extends JFrame {
         }
 
         while (true) {
-            JComponent popupInvoker = popupPanel.getInvoker();
-            if (popupInvoker == null) {
+            JComponent popupOriginator = popupPanel.getOriginator();
+            if (popupOriginator == null) {
                 return false;
             }
             // Are we in a multi-cascade popup chain?
             popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
-                    JPopupPanel.class, popupInvoker);
+                    JPopupPanel.class, popupOriginator);
             if (popupPanel != null) {
                 continue;
             }
@@ -635,9 +635,9 @@ public class JRibbonFrame extends JFrame {
             // At the "top" level of the popup chain
             // If the component is in the ribbon or in the ribbon frame title pane, it's valid
             boolean isValidChainRoot =
-                    (SwingUtilities.getAncestorOfClass(JRibbon.class, popupInvoker) != null) ||
+                    (SwingUtilities.getAncestorOfClass(JRibbon.class, popupOriginator) != null) ||
                             (SwingUtilities.getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
-                                    popupInvoker) != null);
+                                    popupOriginator) != null);
             return isValidChainRoot;
         }
     }
@@ -655,20 +655,20 @@ public class JRibbonFrame extends JFrame {
         }
 
         while (true) {
-            JComponent popupInvoker = popupPanel.getInvoker();
-            if (popupInvoker == null) {
+            JComponent popupOriginator = popupPanel.getOriginator();
+            if (popupOriginator == null) {
                 return false;
             }
             // Are we in a multi-cascade popup chain?
             popupPanel = (JPopupPanel) SwingUtilities.getAncestorOfClass(
-                    JPopupPanel.class, popupInvoker);
+                    JPopupPanel.class, popupOriginator);
             if (popupPanel != null) {
                 continue;
             }
 
             // At the "top" level of the popup chain
             return (SwingUtilities.getAncestorOfClass(RadianceRibbonFrameTitlePane.class,
-                    popupInvoker) != null);
+                    popupOriginator) != null);
         }
     }
 

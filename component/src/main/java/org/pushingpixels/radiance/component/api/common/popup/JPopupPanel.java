@@ -55,7 +55,7 @@ public abstract class JPopupPanel extends JPanel {
 	 */
 	private PopupPanelCustomizer customizer;
 	
-	private JComponent invoker;
+	private JComponent originator;
 
 	/**
 	 * Allows providing custom application logic for computing the screen bounds
@@ -125,23 +125,23 @@ public abstract class JPopupPanel extends JPanel {
 	}
 	
 	/**
-	 * Sets the invoker of this popup panel.
+	 * Sets the originator of this popup panel.
      *
-     * @param invoker
-     *            The invoker for this popup panel.
-     * @see #getInvoker()
+     * @param originator
+     *            The originator for this popup panel.
+     * @see #getOriginator()
 	 */
-	public void setInvoker(JComponent invoker) {
-		this.invoker = invoker;
+	public void setOriginator(JComponent originator) {
+		this.originator = originator;
 	}
 
 	/**
 	 * Returns the invoker of this popup panel.
      *
      * @return The invoker of this popup panel.
-     * @see #setInvoker(JComponent)
+     * @see #setOriginator(JComponent)
 	 */
-	public JComponent getInvoker() {
-		return invoker;
+	public JComponent getOriginator() {
+		return originator;
 	}
 }

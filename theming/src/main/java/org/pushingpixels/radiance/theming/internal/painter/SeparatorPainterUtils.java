@@ -130,7 +130,7 @@ public class SeparatorPainterUtils {
         Component parent = c.getParent();
         boolean isParentAPopup = (parent instanceof JPopupMenu) ||
                 ((parent instanceof JComponent) && ((JComponent) parent).getClientProperty(
-                        DecorationPainterUtils.POPUP_INVOKER_LINK) != null);
+                        DecorationPainterUtils.POPUP_ORIGINATOR_LINK) != null);
         if (isParentAPopup) {
             // For separators in popups, first see if we have a color
             // scheme explicitly registered for the SEPARATOR association kind.
