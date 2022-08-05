@@ -66,7 +66,7 @@ public class PopupPanelManager {
     }
 
     // Implementation of PopupListener that holds a weak reference to the original
-    // listener and unregisters it if gets reclaimed even without being explicitly
+    // listener and unregisters it if it gets reclaimed even without being explicitly
     // unregistered
     private static class WeakPopupListener implements PopupListener {
         private WeakReference<PopupListener> listenerRef;
@@ -97,7 +97,6 @@ public class PopupPanelManager {
                 originalListener.popupHidden(event);
             } else {
                 // the original is reclaimed - unregister explicitly
-                System.out.println("Removing " + this.listenerRef + " as weak");
                 PopupPanelManager.defaultManager().listenerList.remove(this);
                 this.listenerRef = null;
             }
