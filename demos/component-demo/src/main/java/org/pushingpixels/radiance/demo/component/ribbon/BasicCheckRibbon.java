@@ -2608,7 +2608,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         popupMenuPresentationModel).buildComponent();
                 menu.applyComponentOrientation(statusBar.getComponentOrientation());
 
-                PopupPanelManager.defaultManager().displayPopup(statusBar, menu, pt.x,
+                PopupPanelManager.defaultManager().showPopup(statusBar, menu, pt.x,
                         pt.y - menu.getPreferredSize().height);
 
                 PopupListener tracker = new PopupListener() {

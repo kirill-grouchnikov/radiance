@@ -773,7 +773,7 @@ public class JRibbonFrame extends JFrame {
         }
 
         PopupPanelManager.defaultManager().hidePopups(c);
-        PopupPanelManager.defaultManager().displayPopup((JComponent) c, menu, x, y);
+        PopupPanelManager.defaultManager().showPopup((JComponent) c, menu, x, y);
     }
 
     /**

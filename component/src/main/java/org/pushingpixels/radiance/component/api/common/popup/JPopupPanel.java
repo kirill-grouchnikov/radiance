@@ -39,7 +39,7 @@ import java.awt.*;
  * Base class for popup panels.
  * 
  * @author Kirill Grouchnikov
- * @see PopupPanelManager#displayPopup(JComponent, JPopupPanel, int, int)
+ * @see PopupPanelManager#showPopup(JComponent, JPopupPanel, int, int)
  */
 public abstract class JPopupPanel extends JPanel {
 	/**

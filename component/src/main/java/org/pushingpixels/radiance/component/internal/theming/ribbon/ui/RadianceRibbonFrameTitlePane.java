@@ -340,7 +340,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             overflowPopupPanel.applyComponentOrientation(this.getComponentOrientation());
 
             // Show the popup
-            PopupPanelManager.defaultManager().displayPopup(overflowButton, overflowPopupPanel,
+            PopupPanelManager.defaultManager().showPopup(overflowButton, overflowPopupPanel,
                     popupX, titlePaneY + titlePaneHeight);
         }
 

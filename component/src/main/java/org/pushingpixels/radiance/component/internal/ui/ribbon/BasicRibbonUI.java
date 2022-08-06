@@ -1308,7 +1308,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 }
             };
             PopupPanelManager.defaultManager().addPopupListener(tracker);
-            PopupPanelManager.defaultManager().displayPopup(taskToggleButton, popupPanel, x, y);
+            PopupPanelManager.defaultManager().showPopup(taskToggleButton, popupPanel, x, y);
         }
     }
 

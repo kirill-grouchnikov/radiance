@@ -228,12 +228,12 @@ public class PopupPanelManager {
     private Map<JPopupPanel, Popup> popupHosts = new HashMap<>();
 
     /**
-     * Displays the specified content in a new popup and starts tracking it.
+     * Shows the specified content in a new popup and starts tracking it.
      *
      * @param popupOriginator The originator component.
      * @param popupContent    The content of the popup.
      */
-    public void displayPopup(JComponent popupOriginator, JPopupPanel popupContent,
+    public void showPopup(JComponent popupOriginator, JPopupPanel popupContent,
             int xOnScreen, int yOnScreen) {
         Popup popup = PopupFactory.getSharedInstance().getPopup(popupOriginator, popupContent,
                 xOnScreen, yOnScreen);
