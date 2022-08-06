@@ -134,8 +134,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 .setAction(commandActionEvent -> {
                     PopupPanelManager.defaultManager().hidePopups(ribbonGallery);
                     SwingUtilities.invokeLater(() -> {
-                        PopupFactory popupFactory = PopupFactory.getSharedInstance();
-
                         JCommandPopupMenuPanel popupMenuPanel =
                                 JRibbonGallery.getExpandPopupMenuPanelProjection(
                                         ribbonGallery.getProjection(),

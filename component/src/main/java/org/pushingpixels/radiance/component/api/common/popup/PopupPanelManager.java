@@ -32,8 +32,11 @@ package org.pushingpixels.radiance.component.api.common.popup;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.*;
@@ -202,6 +205,30 @@ public class PopupPanelManager {
         }
     }
 
+    private static class RadiancePopupMenu extends JPopupMenu {
+        public RadiancePopupMenu() {
+            this.setLayout(new BorderLayout());
+            this.setBorder(new EmptyBorder(1, 1, 1, 1));
+            this.addPropertyChangeListener(evt -> {
+                // BasicPopupMenuUI has a comment in cancelPopupMenu that instead of notifying
+                // the menu's listener that the menu is about to be canceled, it sends the
+                // following property change. Not ideal, but then this whole setup is like that.
+                if ("JPopupMenu.firePopupMenuCanceled".equals(evt.getPropertyName()) &&
+                        (evt.getNewValue() instanceof Boolean)) {
+                    // Handle this as a signal to hide all the popups
+                    PopupPanelManager.defaultManager().hidePopups(null);
+                }
+            });
+        }
+
+        @Override
+        public void menuSelectionChanged(boolean isIncluded) {
+            // Do nothing, overriding the logic in JPopupMenu that hides a popup that does not
+            // originate in Swing's JMenu. We do our own implementation of possibly cascading
+            // popups.
+        }
+    }
+
     /**
      * Returns the default popup panel manager.
      *
@@ -223,9 +250,9 @@ public class PopupPanelManager {
     private LinkedList<PopupInfo> shownPath = new LinkedList<>();
 
     /**
-     * Maps every shown popup panel to its {@link Popup} host.
+     * Maps every shown popup panel to its popup menu host.
      */
-    private Map<JPopupPanel, Popup> popupHosts = new HashMap<>();
+    private Map<JPopupPanel, RadiancePopupMenu> popupHosts = new HashMap<>();
 
     /**
      * Shows the specified content in a new popup and starts tracking it.
@@ -235,13 +262,19 @@ public class PopupPanelManager {
      */
     public void showPopup(JComponent popupOriginator, JPopupPanel popupContent,
             int xOnScreen, int yOnScreen) {
-        Popup popup = PopupFactory.getSharedInstance().getPopup(popupOriginator, popupContent,
-                xOnScreen, yOnScreen);
+        RadiancePopupMenu popupMenu = new RadiancePopupMenu();
+        popupMenu.add(popupContent);
 
         popupContent.setOriginator(popupOriginator);
-        popupHosts.put(popupContent, popup);
+        popupHosts.put(popupContent, popupMenu);
         shownPath.addLast(new PopupInfo(popupOriginator, popupContent));
-        popup.show();
+
+        popupContent.invalidate();
+        popupContent.revalidate();
+
+        Point invokerLocOnScreen = popupOriginator.getLocationOnScreen();
+        popupMenu.show(popupOriginator, xOnScreen - invokerLocOnScreen.x,
+                yOnScreen - invokerLocOnScreen.y);
         if (popupOriginator instanceof JCommandButton) {
             ((JCommandButton) popupOriginator).getPopupModel().setPopupShowing(true);
         }
@@ -256,8 +289,8 @@ public class PopupPanelManager {
             return;
         }
         PopupInfo last = shownPath.removeLast();
-        Popup popup = popupHosts.get(last.popupPanel);
-        popup.hide();
+        RadiancePopupMenu popup = popupHosts.get(last.popupPanel);
+        popup.setVisible(false);
         popupHosts.remove(last.popupPanel);
         if (last.popupOriginator instanceof JCommandButton) {
             ((JCommandButton) last.popupOriginator).getPopupModel().setPopupShowing(false);
@@ -292,8 +325,8 @@ public class PopupPanelManager {
                         }
 
                         PopupInfo last = shownPath.removeLast();
-                        Popup popup = popupHosts.get(last.popupPanel);
-                        popup.hide();
+                        RadiancePopupMenu popup = popupHosts.get(last.popupPanel);
+                        popup.setVisible(false);
                         if (last.popupOriginator instanceof JCommandButton) {
                             ((JCommandButton) last.popupOriginator)
                                     .getPopupModel().setPopupShowing(false);
@@ -311,8 +344,8 @@ public class PopupPanelManager {
             while (shownPath.size() > 0) {
                 PopupInfo last = shownPath.removeLast();
                 lastOriginator = last.popupOriginator;
-                Popup popup = popupHosts.get(last.popupPanel);
-                popup.hide();
+                RadiancePopupMenu popup = popupHosts.get(last.popupPanel);
+                popup.setVisible(false);
                 if (last.popupOriginator instanceof JCommandButton) {
                     ((JCommandButton) last.popupOriginator).getPopupModel()
                             .setPopupShowing(false);
