@@ -196,6 +196,7 @@ task getDemoDependencies(type: Copy) {
 
 // Collects all the dependencies of the demo modules in build/libs-demo
 task getToolsDependencies(type: Copy) {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     into 'build/libs-tools'
     from {
         subprojects.findAll { it.designation == "tools" && it.name != "tools" }.collect { it.configurations.compileClasspath }
