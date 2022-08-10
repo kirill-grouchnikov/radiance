@@ -121,6 +121,13 @@ The original commit history from java.net and kenai.com was lost when those repo
 
 In October 2021, Radiance underwent a major refactoring to move away from codenames for individual modules (Trident, Substance, Flamingo, etc). Release 5.0 [refactored the names](../docs/migration-5.0.md) across the entire API surface to reflect the functionality provided by modules (animation, theming, components, etc).
 
+Some larger projects over the last few years to reorganize the codebase:
+
+* **Cerebrum** - a unified API surface across Substance, 2018
+* **Corpora** - folding the previously separate laf-plugin and laf-widget into Substance, 2018
+* **Visor** - configurable title pane content in Substance, 2018
+* **Blade** - direct rendering of most Radiance visuals (instead of to offscreen images), 2022
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
 </p>
