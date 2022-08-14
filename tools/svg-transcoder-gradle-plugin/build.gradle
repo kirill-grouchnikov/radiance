@@ -29,7 +29,7 @@
  */
 
 apply plugin: 'java-gradle-plugin'
-apply plugin: 'com.gradle.plugin-publish'
+apply plugin: 'maven-publish'
 
 dependencies {
     implementation gradleApi()
@@ -39,19 +39,13 @@ dependencies {
 
 ext.designation = "tools"
 
-pluginBundle {
-    website = 'https://github.com/kirill-grouchnikov/radiance/'
-    vcsUrl = 'https://github.com/kirill-grouchnikov/radiance/'
-    tags = ['radiance', 'swing', 'svg']
-}
-
 gradlePlugin {
     plugins {
         customPlugin {
             id = 'org.pushing-pixels.radiance.tools.svgtranscoder.gradle'
-            displayName = 'SVG transcoder for Radiance'
-            description = 'Transcodes SVG files into Java / Kotlin classes'
             implementationClass = 'org.pushingpixels.radiance.tools.svgtranscoder.gradle.RadianceSvgTranscoderGradlePlugin'
         }
     }
 }
+
+apply plugin: 'com.vanniktech.maven.publish'

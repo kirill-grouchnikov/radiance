@@ -50,7 +50,6 @@ buildscript {
 
         // Misc dependencies
         gradle_versions_plugin_version       =   '0.42.0'
-        gradle_publish_plugin_version        =   '1.0.0-rc-1'
     }
     repositories {
         mavenCentral()
@@ -69,7 +68,6 @@ buildscript {
         classpath "com.vanniktech:gradle-maven-publish-plugin:${rootProject.ext.gradle_maven_publish_plugin_version}"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:${rootProject.ext.dokka_version}"
         classpath "com.github.ben-manes:gradle-versions-plugin:${rootProject.ext.gradle_versions_plugin_version}"
-        classpath "com.gradle.plugin-publish:com.gradle.plugin-publish.gradle.plugin:${rootProject.ext.gradle_publish_plugin_version}"
     }
 }
 
