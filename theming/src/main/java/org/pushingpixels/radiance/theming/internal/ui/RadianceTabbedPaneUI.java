@@ -246,7 +246,39 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 modifiedTimelines.remove(tabComponent);
             }
         }
+    }
 
+    @RadianceInternalButton
+    @RadianceInternalArrowButton
+    private static class TabbedPaneScrollButton extends JButton implements UIResource {
+        /**
+         * Simple constructor.
+         */
+        public TabbedPaneScrollButton() {
+            super();
+            this.setRequestFocusEnabled(false);
+            this.setIconTextGap(0);
+        }
+
+        @Override
+        public boolean isFocusable() {
+            return false;
+        }
+
+        @Override
+        public Insets getInsets() {
+            return new Insets(0, 0, 0, 0);
+        }
+
+        @Override
+        public Insets getInsets(Insets insets) {
+            if (insets == null) {
+                insets = new Insets(0, 0, 0, 0);
+            } else {
+                insets.set(0, 0, 0, 0);
+            }
+            return insets;
+        }
     }
 
     /**
@@ -887,25 +919,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected JButton createScrollButton(final int direction) {
-        JButton ssb = new JButton() {
-            @Override
-            public Insets getInsets() {
-                return new Insets(0, 0, 0, 0);
-            }
-
-            @Override
-            public Insets getInsets(Insets insets) {
-                if (insets == null) {
-                    insets = new Insets(0, 0, 0, 0);
-                } else {
-                    insets.set(0, 0, 0, 0);
-                }
-                return insets;
-            }
-        };
-
-        ssb.setRequestFocusEnabled(false);
-        ssb.setIconTextGap(0);
+        JButton ssb = new TabbedPaneScrollButton();
         RadianceThemingCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(ssb, Boolean.TRUE);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(
                 ssb, EnumSet.allOf(RadianceThemingSlices.Side.class));
