@@ -945,10 +945,10 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Checks whether the specified component has extra Radiance-specific UI elements.
+     * Checks whether the specified component can show extra Radiance-specific UI elements.
      *
      * @param component Component.
-     * @return <code>true</code> if the specified component has extra Radiance-specific UI
+     * @return <code>true</code> if the specified component can show extra Radiance-specific UI
      * elements, <code>false</code> otherwise.
      * @see RadianceThemingCortex.ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
      * @see RadianceThemingCortex.GlobalScope#setExtraWidgetsPresence(Boolean)
@@ -960,10 +960,12 @@ public class RadianceCoreUtilities {
                 JComponent jcomp = (JComponent) c;
                 Object componentProp = jcomp.getClientProperty(RadianceSynapse.SHOW_EXTRA_WIDGETS);
                 if (componentProp != null) {
-                    if (Boolean.TRUE.equals(componentProp))
-                        return false;
-                    if (Boolean.FALSE.equals(componentProp))
+                    if (Boolean.TRUE.equals(componentProp)) {
                         return true;
+                    }
+                    if (Boolean.FALSE.equals(componentProp)) {
+                        return false;
+                    }
                 }
             }
             c = c.getParent();
@@ -972,7 +974,7 @@ public class RadianceCoreUtilities {
     }
 
     public static RadianceThemingSlices.IconFilterStrategy getIconFilterStrategy(JComponent component,
-                                                                                 ComponentState componentState) {
+            ComponentState componentState) {
         if (componentState.isDisabled()) {
             return RadianceCoreUtilities.getDisabledIconFilterStrategy(component);
         }

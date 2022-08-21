@@ -1112,12 +1112,13 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies that extra UI elements (such as menu items in system menu or lock borders)
-         * should be shown.
+         * Specifies that extra UI elements (such as menu items in system menu or lock borders) can
+         * be shown.
          *
-         * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu
-         *                             items in system menu or lock borders) will be shown. Pass <code>null</code> to
-         *                             reset to the default behavior.
+         * @param extraWidgetsPresence
+         *         If <code>true</code>, extra UI elements (such as menu items in system menu or
+         *         lock borders) can be shown. Pass <code>null</code> to reset to the default
+         *         behavior.
          * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setExtraWidgetsPresence(Boolean extraWidgetsPresence) {
@@ -2091,11 +2092,11 @@ public class RadianceThemingCortex {
 
         /**
          * Specifies that extra UI elements (such as menu items in system menu or lock borders)
-         * should be shown in the specified component.
+         * can be shown in the specified component.
          *
          * @param comp                 Component.
          * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu
-         *                             items in system menu or lock borders) will be shown in the
+         *                             items in system menu or lock borders) can be shown in the
          *                             component. Pass <code>null</code> to reset to the default
          *                             behavior.
          * @see GlobalScope#setExtraWidgetsPresence(Boolean)
