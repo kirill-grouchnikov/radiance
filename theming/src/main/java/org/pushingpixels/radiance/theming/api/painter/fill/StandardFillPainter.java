@@ -192,6 +192,12 @@ public class StandardFillPainter implements RadianceFillPainter {
                         }
 
                         int falpha = (int) (0.9 * rowAlpha * xalpha * yalpha);
+                        if (falpha < 0) {
+                            falpha = 0;
+                        }
+                        if (falpha > 255) {
+                            falpha = 255;
+                        }
                         inPixels[col] = (falpha << 24) | rowRed << 16 | rowGreen << 8 | rowBlue;
                     }
                 }
