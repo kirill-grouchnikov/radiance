@@ -1691,7 +1691,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
             // be changing the rollover indication if the mouse is still
             // over the table
             PointerInfo pi = MouseInfo.getPointerInfo();
-            Point mouseLoc = pi != null ? pi.getLocation() : null;
+            Point mouseLoc = (pi != null) ? pi.getLocation() : null;
             Window windowAncestor = SwingUtilities.getWindowAncestor(table);
             if ((mouseLoc != null) && (windowAncestor != null)) {
                 SwingUtilities.convertPointFromScreen(mouseLoc, windowAncestor);

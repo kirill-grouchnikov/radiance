@@ -78,9 +78,12 @@ public class AutoScrollActivator {
         autoScrollProperties = new AutoScrollProperties();
         autoScrollProperties.isDragMode = false;
         JViewport viewport = scrollPane.getViewport();
-        autoScrollProperties.currentLocation = MouseInfo.getPointerInfo().getLocation();
-        SwingUtilities.convertPointFromScreen(autoScrollProperties.currentLocation, viewport);
-        autoScrollProperties.startLocation = autoScrollProperties.currentLocation;
+        PointerInfo pi = MouseInfo.getPointerInfo();
+        if (pi != null) {
+            autoScrollProperties.currentLocation = pi.getLocation();
+            SwingUtilities.convertPointFromScreen(autoScrollProperties.currentLocation, viewport);
+            autoScrollProperties.startLocation = autoScrollProperties.currentLocation;
+        }
         // We use a popup menu so that it can be heavyweight or lightweight
         // depending on the context.
         // By default it is probably lightweight and thus uses alpha
