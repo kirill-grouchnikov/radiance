@@ -96,7 +96,7 @@ public class StandardFillPainter implements RadianceFillPainter {
 
             int shineWidth = iw / SCALE;
             int shineHeight = ih / (2 * SCALE);
-            BufferedImage shineImage = getShineImage(comp, contour, topShineColor, bottomShineColor,
+            BufferedImage shineImage = getShineImageAlt(comp, contour, topShineColor, bottomShineColor,
                     shineWidth, shineHeight);
 
             // Set rendering hints to favor speed over quality, since the visuals of the emulated
@@ -107,7 +107,7 @@ public class StandardFillPainter implements RadianceFillPainter {
             graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
 
             graphics.clip(contour);
-            graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0, shineWidth, shineHeight, null);
+            graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0, shineImage.getWidth(), shineImage.getHeight(), null);
         }
 
         graphics.dispose();
@@ -215,6 +215,167 @@ public class StandardFillPainter implements RadianceFillPainter {
             }
             shineRaster.setDataElements(0, row, shineWidth, 1, inPixels);
         }
+        return shineImage;
+    }
+
+    /**
+     * This class is based on Romain Guy's work from
+     * http://www.jroller.com/gfx/entry/new_blendings_modes_for_java2d available
+     * under BSD license.
+     */
+    private final class ShineContext implements CompositeContext {
+        private Shine shine;
+
+        public ShineContext(Shine shine) {
+            this.shine = shine;
+        }
+
+        @Override
+        public void dispose() {
+        }
+
+        public void compose(Raster src, Raster dstIn, WritableRaster dstOut) {
+            if (src.getSampleModel().getDataType() != DataBuffer.TYPE_INT
+                    || dstIn.getSampleModel().getDataType() != DataBuffer.TYPE_INT
+                    || dstOut.getSampleModel().getDataType() != DataBuffer.TYPE_INT) {
+                throw new IllegalStateException("Source and destination must store pixels as INT.");
+            }
+
+            int shineWidth = Math.min(src.getWidth(), dstIn.getWidth());
+            int shineHeight = Math.min(src.getHeight(), dstIn.getHeight());
+
+            double gap = 0.5 * RadianceCommonCortex.getScaleFactor(this.shine.comp) / SCALE;
+            double ramp = 2 * RadianceCommonCortex.getScaleFactor(this.shine.comp) / SCALE;
+
+            double topLeftCornerRadius = 0;
+            double topRightCornerRadius = 0;
+            if (this.shine.contour instanceof RoundRectangle2D) {
+                // This matches the logic in RadianceOutlineUtilities.getBaseOutline
+                RoundRectangle2D rrContour = (RoundRectangle2D) this.shine.contour;
+                topLeftCornerRadius = rrContour.getArcWidth() / (2.0 * SCALE);
+                topRightCornerRadius = rrContour.getArcWidth() / (2.0 * SCALE);
+            } else if (this.shine.contour instanceof Ellipse2D) {
+                // This matches the logic in BladeIconUtils.drawRadioButton
+                Ellipse2D ellContour = (Ellipse2D) this.shine.contour;
+                topLeftCornerRadius = ellContour.getWidth() / (2.0 * SCALE);
+                topRightCornerRadius = ellContour.getWidth() / (2.0 * SCALE);
+            }
+
+            int[] dstPixels = new int[shineWidth];
+            for (int row = 0; row < shineHeight; row++) {
+                if (row <= gap) {
+                    // Leading vertical gap
+                    for (int col = 0; col < shineWidth; col++) {
+                        dstPixels[col] = 0x00000000;
+                    }
+                } else {
+                    // Get the interpolated shine color for this row
+                    int rowColor = RadianceColorUtilities.getInterpolatedRGB(
+                            this.shine.topShineColor, this.shine.bottomShineColor,
+                            1.0 - (double) row / (double) shineHeight);
+                    int rowAlpha = (rowColor >>> 24) & 0xFF;
+                    int rowRed = (rowColor >>> 16) & 0xFF;
+                    int rowGreen = (rowColor >>> 8) & 0xFF;
+                    int rowBlue = (rowColor >>> 0) & 0xFF;
+
+                    // Compute the y-based alpha for all the pixels in this row
+                    double yalpha;
+                    if (row <= (gap + ramp)) {
+                        // Quick ramp-up
+                        double cfraction = (row - gap) / ramp;
+                        yalpha = spline(0.0, 0.1, 0.9, 1.0, cfraction);
+                    } else {
+                        // slower ramp-down
+                        double cfraction = (row - gap - ramp) / (shineHeight - gap - ramp);
+                        yalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                    }
+
+                    // For each column in this row, compute its x-based alpha
+                    for (int col = 0; col < shineWidth; col++) {
+                        // x-alpha is based on the distance from left / right edges
+                        double xalpha = 1.0;
+                        if (col <= shineWidth / 2) {
+                            // closer to the left edge
+                            double overlayXStart = gap;
+                            if ((topLeftCornerRadius > 0.0) && (row <= (gap + topLeftCornerRadius))) {
+                                // We are within the vertical span of the top-left corner
+                                double dy = gap + topLeftCornerRadius - row;
+                                double dx = Math.sqrt(topLeftCornerRadius * topLeftCornerRadius - dy * dy);
+                                overlayXStart = gap + topLeftCornerRadius - dx;
+                            }
+                            if (col <= overlayXStart) {
+                                // leading horizontal gap
+                                xalpha = 0.0;
+                            } else if (col <= (overlayXStart + ramp)) {
+                                // ramp-up to full alpha horizontally
+                                double cfraction = (overlayXStart + ramp - col) / ramp;
+                                xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                            }
+                        } else {
+                            // closer to the right edge
+                            double overlayXEnd = shineWidth - gap - 1;
+                            if ((topRightCornerRadius > 0.0) && (row <= (gap + topRightCornerRadius))) {
+                                // We are within the vertical span of the top-right corner
+                                double dy = gap + topRightCornerRadius - row;
+                                double dx = Math.sqrt(topRightCornerRadius * topRightCornerRadius - dy * dy);
+                                overlayXEnd = shineWidth - gap - 1 - topRightCornerRadius + dx;
+                            }
+                            if (col > overlayXEnd) {
+                                // trailing horizontal gap
+                                xalpha = 0.0;
+                            } else if (col > (overlayXEnd - ramp)) {
+                                // ramp-down to zero alpha horizontally
+                                double cfraction = (col - (overlayXEnd - ramp)) / ramp;
+                                xalpha = spline(0.0, 0.1, 0.9, 1.0, 1.0 - cfraction);
+                            }
+                        }
+
+                        int falpha = (int) (0.9 * rowAlpha * xalpha * yalpha);
+                        if (falpha < 0) {
+                            falpha = 0;
+                        }
+                        if (falpha > 255) {
+                            falpha = 255;
+                        }
+                        dstPixels[col] = (falpha << 24) | rowRed << 16 | rowGreen << 8 | rowBlue;
+                    }
+                }
+
+                dstOut.setDataElements(0, row, shineWidth, 1, dstPixels);
+            }
+        }
+    }
+
+    private class Shine implements Composite {
+        private Component comp;
+        private Shape contour;
+        private Color topShineColor;
+        private Color bottomShineColor;
+
+        public Shine(Component comp, Shape contour, Color topShineColor, Color bottomShineColor) {
+            this.comp = comp;
+            this.contour = contour;
+            this.topShineColor = topShineColor;
+            this.bottomShineColor = bottomShineColor;
+        }
+
+        @Override
+        public CompositeContext createContext(ColorModel srcColorModel, ColorModel dstColorModel,
+                RenderingHints hints) {
+            return new ShineContext(this);
+        }
+    }
+
+    private BufferedImage getShineImageAlt(Component comp, Shape contour,
+            Color topShineColor, Color bottomShineColor, int shineWidth, int shineHeight) {
+        BufferedImage shineImage = new BufferedImage(shineWidth, shineHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = shineImage.createGraphics();
+
+        g2d.setComposite(new Shine(comp, contour, topShineColor, bottomShineColor));
+
+        g2d.fillRect(0, 0, shineWidth, shineHeight);
+        g2d.dispose();
+
         return shineImage;
     }
 
