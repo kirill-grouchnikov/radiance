@@ -31,10 +31,10 @@
 buildscript {
     ext {
         // Build dependencies
-        gradle_version                       =      '7.5'
+        gradle_version                       =    '7.5.1'
 
         // Core dependencies
-        kotlin_version                       =    '1.7.0'
+        kotlin_version                       =   '1.7.10'
         kotlinx_coroutines_version           =    '1.6.4'
         batik_version                        =     '1.14'
 
@@ -46,7 +46,7 @@ buildscript {
 
         // Publish dependencies
         gradle_maven_publish_plugin_version  =   '0.21.0'
-        dokka_version                        =   '1.6.21'
+        dokka_version                        =   '1.7.10'
 
         // Misc dependencies
         gradle_versions_plugin_version       =   '0.42.0'
