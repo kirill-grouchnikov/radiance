@@ -30,7 +30,7 @@
 export JAVA_HOME=`/usr/libexec/java_home -v 9`
 alias JAVA="java"
 
-RADIANCE_VERSION=6.0-SNAPSHOT
+RADIANCE_VERSION=6.0.0
 CLASSPATH=../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-tools/batik-all-1.14.jar:../build/libs-tools/xml-apis-1.4.01.jar:../build/libs-tools/xml-apis-ext-1.3.04.jar:../build/libs-tools/xmlgraphics-commons-2.6.jar
 
 java -Djava.awt.headless=true -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/component-ktx-demo/src/main/kotlin/org/pushingpixels/radiance/demo/component/ktx outputPackageName=org.pushingpixels.radiance.demo.component.ktx templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
