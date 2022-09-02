@@ -129,10 +129,6 @@ abstract class SvgBaseTranscoder {
             this.currentWriter.format(format, args);
         }
 
-        public void format(Locale l, String format, Object... args) {
-            this.currentWriter.format(l, format, args);
-        }
-
         public void checkin() {
             if (this.lines >= ROTATION_THRESHOLD) {
                 this.currentWriter.close();
@@ -380,8 +376,8 @@ abstract class SvgBaseTranscoder {
             Line2D l2df = (Line2D) shape;
             printWriterManager.print("shape" + suffix + " = "
                     + languageRenderer.getObjectCreation("Line2D.Float"));
-            printWriterManager.format("(%ff,%ff,%ff,%ff)", (float) l2df.getX1(), (float) l2df.getY1(),
-                    (float) l2df.getX2(), (float) l2df.getY2());
+            printWriterManager.print("(" + (float) l2df.getX1() + "f," + (float) l2df.getY1() + "f,"
+                    + (float) l2df.getX2() + "f," + (float) l2df.getY2() + "f)");
             printWriterManager.println(languageRenderer.getStatementEnd());
             return;
         }
