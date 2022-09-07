@@ -40,8 +40,40 @@ import java.awt.image.BufferedImage;
  * resizing and color filtering.
  * 
  * @author Kirill Grouchnikov
+ * @author EUG https://github.com/homebeaver (rotation)
  */
-public interface RadianceIcon extends Icon {
+public interface RadianceIcon extends Icon, SwingConstants  {
+	
+	/**
+	 * A hint to rotate the icon when painting
+	 * 
+	 * @param theta the angle of rotation in radians, zero means no rotation
+	 */
+	// a default is necessary for icons generated before this feature was active
+	default void setRotation(double theta) {}
+	default double getRotation() {
+		return 0d; // no rotation
+	}
+	/**
+	 * A hint to rotate the icon to a direction.
+	 * <p> The icon is aligned to {@code NORTH} per default, 
+	 * so rotate direction {@code NORTH_EAST} means rotating 45° right
+	 * and {@code WEST} means rotating 90° left.
+	 * 
+	 * @param direction Compass-direction, use {@code SwingConstants} {@code NORTH}, {@code NORTH_EAST} etc
+	 * 
+	 * @see #setRotation(double)
+	 */
+	default void setRotation(int direction) {
+        if(direction>=NORTH && direction<=SOUTH) {
+        	this.setRotation(Math.PI*(direction-1)/4); // rotation to right, includes NORTH (no rotation)
+        } else if(direction>=SOUTH_WEST && direction<=NORTH_WEST) {
+        	this.setRotation(Math.PI*(direction-9)/4); // rotation to left
+        } else {
+            setRotation(0d); // no rotation for invalid directions
+        }
+	}
+
 	/**
 	 * Changes the dimension of <code>this</code> icon.
 	 * 

@@ -27,6 +27,14 @@ public class TOKEN_CLASSNAME implements RadianceIcon {
     private RadianceIcon.ColorFilter colorFilter = null;
     private Stack<AffineTransform> transformsStack = new Stack<>();
 
+    private double theta = 0;
+    public void setRotation(double theta) {
+    	this.theta = theta;
+    }    
+    public double getRotation() {
+		return theta;
+	}
+
     TOKEN_RASTER_CODE
 
 	TOKEN_PAINTING_CODE
@@ -137,6 +145,9 @@ public class TOKEN_CLASSNAME implements RadianceIcon {
 				RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        if(getRotation()!=0) {
+            g2d.rotate(getRotation(), x+width/2, y+height/2);
+        }
 		g2d.translate(x, y);
 
         double coef1 = (double) this.width / getOrigWidth();
