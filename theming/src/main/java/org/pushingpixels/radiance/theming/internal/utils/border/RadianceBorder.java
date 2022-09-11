@@ -29,17 +29,18 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.border;
 
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.border.Border;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Gradient border for the <b>Radiance</b> look and feel. This class is <b>for

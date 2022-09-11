@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.theming.api.painter.border;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;

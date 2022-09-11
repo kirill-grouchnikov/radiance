@@ -19,7 +19,6 @@ import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.V
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
 

@@ -39,9 +39,6 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceColorChooserUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.icon.SliderHorizontalIcon;
-import org.pushingpixels.radiance.theming.internal.utils.icon.SliderVerticalIcon;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;

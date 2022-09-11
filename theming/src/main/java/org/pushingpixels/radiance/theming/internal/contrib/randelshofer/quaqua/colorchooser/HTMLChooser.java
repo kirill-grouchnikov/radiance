@@ -17,7 +17,6 @@ package org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.
 import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.VisualMargin;
 
 import javax.swing.*;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.UIResource;
 import java.awt.*;

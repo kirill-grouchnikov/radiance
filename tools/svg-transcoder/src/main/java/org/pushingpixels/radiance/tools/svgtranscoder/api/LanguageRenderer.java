@@ -29,8 +29,6 @@
  */
 package org.pushingpixels.radiance.tools.svgtranscoder.api;
 
-import java.util.List;
-
 public interface LanguageRenderer {
     public class MethodArgument {
         public String name;

@@ -10,7 +10,6 @@ import org.pushingpixels.radiance.theming.internal.contrib.randelshofer.quaqua.c
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceTextComponentBorder;
 
 import javax.swing.*;
