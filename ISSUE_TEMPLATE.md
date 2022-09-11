@@ -1,4 +1,4 @@
-### Version of Radiance (latest release is 6.0.1)
+### Version of Radiance (latest development is 6.5-SNAPSHOT)
 
 ### Sub-project (Common, Animation, Theming, Component, ...)
 
