@@ -475,8 +475,6 @@ public class RadianceTitlePane extends JComponent {
         RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this.closeButton,
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
 
-        this.closeButton.putClientProperty(RadianceButtonUI.IS_TITLE_CLOSE_BUTTON, Boolean.TRUE);
-
         if (this.getWindowDecorationStyle() == JRootPane.FRAME) {
             this.minimizeButton = this.createTitleButton();
             this.minimizeButton.setAction(this.iconifyAction);

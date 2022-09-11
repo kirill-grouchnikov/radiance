@@ -440,8 +440,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         RadianceCoreUtilities.markButtonAsFlat(this.maxButton);
         RadianceCoreUtilities.markButtonAsFlat(this.closeButton);
 
-        this.closeButton.putClientProperty(RadianceButtonUI.IS_TITLE_CLOSE_BUTTON, Boolean.TRUE);
-
         this.enableActions();
     }
 

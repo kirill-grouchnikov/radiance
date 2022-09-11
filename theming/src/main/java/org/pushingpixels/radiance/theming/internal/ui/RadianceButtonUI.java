@@ -100,11 +100,6 @@ public class RadianceButtonUI extends BasicButtonUI implements
     static final String LOCK_OPACITY = "radiance.theming.internal.lockopacity";
 
     /**
-     * Internal property used to mark close buttons on title panes.
-     */
-    public static final String IS_TITLE_CLOSE_BUTTON = "radiance.theming.internal.isTitleCloseButton";
-
-    /**
      * Painting delegate.
      */
     private ButtonBackgroundDelegate delegate;
