@@ -253,7 +253,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
 		baseColorLabel.setBackground(Color.red);
 		baseColorLabel.setOpaque(true);
 		baseColorLabel.setToolTipText(getLabel("Xoetrope.systemColorsTooltip",  "Right click for system colours"));
-		baseColorLabel.putClientProperty(RadianceTextUtilities.ENFORCE_FG_COLOR, Boolean.TRUE);
+		RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(baseColorLabel, 1.0f);
 		fixedPanel.add(baseColorLabel);
 		baseColorLabel.addMouseListener(new MouseAdapter() {
 			@Override

@@ -138,7 +138,7 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
             float labelAlpha = RadianceColorSchemeUtilities.getAlpha(fileChooser,
                     ComponentState.ENABLED);
             Color textColor = RadianceTextUtilities.getForegroundColor(
-                    fileChooser, "", ComponentState.ENABLED, labelAlpha);
+                    fileChooser, ComponentState.ENABLED, labelAlpha);
             icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
                     icon, ComponentState.ENABLED, textColor);
 

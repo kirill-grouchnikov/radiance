@@ -59,8 +59,6 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 public class RadianceTextUtilities {
-    public static final String ENFORCE_FG_COLOR = "radiance.theming.internal.textUtilities.enforceFgColor";
-
     /**
      * Paints text with drop shadow.
      *
@@ -241,7 +239,7 @@ public class RadianceTextUtilities {
      */
     public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
             int mnemonicIndex, ComponentState state, float textAlpha) {
-        Color fgColor = getForegroundColor(component, text, state, textAlpha);
+        Color fgColor = getForegroundColor(component, state, textAlpha);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
 
@@ -271,7 +269,6 @@ public class RadianceTextUtilities {
      * Returns the foreground color for the specified component.
      *
      * @param component Component.
-     * @param text      Text. If empty or <code>null</code>, the result is <code>null</code>.
      * @param state     Component state.
      * @param textAlpha Alpha channel for painting the text. If value is less than 1.0, the result is an
      *                  opaque color which is an interpolation between the "real" foreground color and the
@@ -279,9 +276,8 @@ public class RadianceTextUtilities {
      *                  rasterization will be performed on Windows.
      * @return The foreground color for the specified component.
      */
-    public static Color getForegroundColor(JComponent component, String text, ComponentState state, float textAlpha) {
-        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
-                || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
+    public static Color getForegroundColor(JComponent component, ComponentState state, float textAlpha) {
+        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
                 : RadianceColorSchemeUtilities.getColorScheme(component, state).getForegroundColor();
@@ -310,16 +306,10 @@ public class RadianceTextUtilities {
             return null;
         }
 
-        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null)
-                || Boolean.TRUE.equals(component.getClientProperty(ENFORCE_FG_COLOR));
+        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
-        Color fgColor = null;
-        if (toEnforceFgColor) {
-            fgColor = component.getForeground();
-        } else {
-            fgColor = RadianceColorUtilities.getForegroundColor(component, modelStateInfo);
-        }
-
+        Color fgColor = toEnforceFgColor ? component.getForeground()
+                : RadianceColorUtilities.getForegroundColor(component, modelStateInfo);
         if (textAlpha < 1.0f) {
             Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
             fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);

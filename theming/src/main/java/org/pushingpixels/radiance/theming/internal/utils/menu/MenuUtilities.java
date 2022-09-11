@@ -626,8 +626,7 @@ public class MenuUtilities {
             v.paint(graphics, mli.textRect);
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
-            textColor = RadianceTextUtilities.getForegroundColor(menuItem, mli.text, currentState,
-                    textAlpha);
+            textColor = RadianceTextUtilities.getForegroundColor(menuItem, currentState, textAlpha);
         } else {
             textColor = RadianceTextUtilities.paintText(graphics, menuItem, mli.textRect,
                     mli.text, menuItem.getDisplayedMnemonicIndex());

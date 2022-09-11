@@ -134,7 +134,7 @@ public class RadianceLabelUI extends BasicLabelUI {
             v.paint(g2d, paintTextR);
             // This text color may not correspond to the text of the HTML-based rendering, but we
             // still need "something" for filtered icons
-            textColor = RadianceTextUtilities.getForegroundColor(label, text, labelState, labelAlpha);
+            textColor = RadianceTextUtilities.getForegroundColor(label, labelState, labelAlpha);
         } else {
             if (label.getClientProperty(RadianceSynapse.IS_TITLE_PANE_LABEL) == Boolean.TRUE) {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(label.getRootPane());
