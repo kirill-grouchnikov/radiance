@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.ui.RadianceButtonUI;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceRootPaneUI;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 

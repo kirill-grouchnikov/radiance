@@ -462,65 +462,6 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Retrieves transparent image of specified dimension.
-     *
-     * @param width  Image width.
-     * @param height Image height.
-     * @return Transparent image of specified dimension.
-     */
-    public static BufferedImage getBlankUnscaledImage(int width, int height) {
-        if (MemoryAnalyzer.isRunning()) {
-            // see if the request is unusual
-            if ((width >= 100) || (height >= 100)) {
-                StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-                StringBuffer sb = new StringBuffer();
-                int count = 0;
-                for (StackTraceElement stackEntry : stack) {
-                    if (count++ > 8)
-                        break;
-                    sb.append(stackEntry.getClassName() + ".");
-                    sb.append(stackEntry.getMethodName() + " [");
-                    sb.append(stackEntry.getLineNumber() + "]");
-                    sb.append("\n");
-                }
-                MemoryAnalyzer.enqueueUsage("Blank " + width + "*" + height + "\n" + sb.toString());
-            }
-        }
-
-        return RadianceCommonCortex.getBlankUnscaledImage(width, height);
-    }
-
-    /**
-     * Retrieves transparent image of specified dimension.
-     *
-     * @return Transparent image of specified dimension.
-     */
-    public static BufferedImage getBlankUnscaledImage(BufferedImage image) {
-        int imageWidth = image.getWidth();
-        int imageHeight = image.getHeight();
-        if (MemoryAnalyzer.isRunning()) {
-            // see if the request is unusual
-            if ((imageWidth >= 100) || (imageHeight >= 100)) {
-                StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-                StringBuffer sb = new StringBuffer();
-                int count = 0;
-                for (StackTraceElement stackEntry : stack) {
-                    if (count++ > 8)
-                        break;
-                    sb.append(stackEntry.getClassName() + ".");
-                    sb.append(stackEntry.getMethodName() + " [");
-                    sb.append(stackEntry.getLineNumber() + "]");
-                    sb.append("\n");
-                }
-                MemoryAnalyzer.enqueueUsage(
-                        "Blank " + imageWidth + "*" + imageHeight + "\n" + sb.toString());
-            }
-        }
-
-        return RadianceCommonCortex.getBlankUnscaledImage(imageWidth, imageHeight);
-    }
-
-    /**
      * Checks whether the specified button should have minimal size.
      *
      * @param button Button.
@@ -903,48 +844,6 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Creates a soft-clipped image. Code taken from
-     * <a href= "https://community.oracle.com/blogs/campbell/2006/07/27/java-2d-trickery-light-and-shadow"
-     * >here</a>.
-     *
-     * @author Chris Campbell.
-     */
-    public static BufferedImage softClip(double scale, int width, int height,
-            BufferedImage source, Shape clipShape) {
-        // Create a translucent intermediate image in which we can perform
-        // the soft clipping
-        BufferedImage img = RadianceCoreUtilities.getBlankImage(scale, width, height);
-        Graphics2D g2 = img.createGraphics();
-
-        // Clear the image so all pixels have zero alpha
-        g2.setComposite(AlphaComposite.Clear);
-        g2.fillRect(0, 0, width, height);
-
-        // Render our clip shape into the image. Note that we enable
-        // antialiasing to achieve the soft clipping effect. Try
-        // commenting out the line that enables antialiasing, and
-        // you will see that you end up with the usual hard clipping.
-        g2.setComposite(AlphaComposite.Src);
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(Color.WHITE);
-        g2.fill(clipShape);
-
-        // Here's the trick... We use SrcAtop, which effectively uses the
-        // alpha value as a coverage value for each pixel stored in the
-        // destination. For the areas outside our clip shape, the destination
-        // alpha will be zero, so nothing is rendered in those areas. For
-        // the areas inside our clip shape, the destination alpha will be fully
-        // opaque, so the full color is rendered. At the edges, the original
-        // antialiasing is carried over to give us the desired soft clipping
-        // effect.
-        g2.setComposite(AlphaComposite.SrcAtop);
-        g2.drawImage(source, 0, 0, null);
-        g2.dispose();
-
-        return img;
-    }
-
-    /**
      * Checks whether the specified component can show extra Radiance-specific UI elements.
      *
      * @param component Component.
@@ -1090,15 +989,15 @@ public class RadianceCoreUtilities {
      * @return The parent for computing the {@link RadianceDecorationPainter}.
      */
     public static Container getHeaderParent(Component c) {
-        Component comp = c.getParent();
+        Container comp = c.getParent();
         Container result = null;
         while (comp != null) {
             // the second part fixes the incorrect alignments on
             // internal frames.
             if ((comp instanceof JLayeredPane) && (result == null))
-                result = (Container) comp;
+                result = comp;
             if ((result == null) && (comp instanceof Window))
-                result = (Container) comp;
+                result = comp;
             comp = comp.getParent();
         }
         return result;
@@ -1522,14 +1421,13 @@ public class RadianceCoreUtilities {
         int bestWidth = 0;
         int bestHeight = 0;
         double bestSimilarity = 3; // Impossibly high value
-        for (Iterator<Image> i = imageList.iterator(); i.hasNext(); ) {
+        for (Image im : imageList) {
             // Iterate imageList looking for best matching image.
             // 'Similarity' measure is defined as good scale factor and small
             // insets.
             // Best possible similarity is 0 (no scale, no insets).
             // It's found while the experiments that good-looking result is
             // achieved with scale factors x1, x3/4, x2/3, xN, x1/N.
-            Image im = i.next();
             if (im == null) {
                 continue;
             }
