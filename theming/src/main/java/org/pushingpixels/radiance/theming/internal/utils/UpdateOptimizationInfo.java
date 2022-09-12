@@ -46,10 +46,6 @@ public class UpdateOptimizationInfo {
 
     private Map<ComponentState, RadianceColorScheme> highlightBorderSchemeMap;
 
-    private Map<ComponentState, RadianceColorScheme> borderSchemeMap;
-
-    private Map<ComponentState, RadianceColorScheme> fillSchemeMap;
-
     private Map<ComponentState, Float> highlightAlphaMap;
 
     private RadianceColorScheme defaultScheme;
@@ -80,35 +76,6 @@ public class UpdateOptimizationInfo {
             result = RadianceColorSchemeUtilities.getColorScheme(this.component,
                     RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, state);
             this.highlightSchemeMap.put(state, result);
-        }
-        return result;
-    }
-
-    public RadianceColorScheme getBorderColorScheme(ComponentState state) {
-        if (this.borderSchemeMap == null) {
-            this.borderSchemeMap = new HashMap<>();
-        }
-        RadianceColorScheme result = this.borderSchemeMap.get(state);
-        if (result == null) {
-            result = RadianceColorSchemeUtilities.getColorScheme(
-                    this.component, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, state);
-            this.borderSchemeMap.put(state, result);
-        }
-        return result;
-    }
-
-    public RadianceColorScheme getFillColorScheme(ComponentState state) {
-        if (state == ComponentState.ENABLED) {
-            return this.defaultScheme;
-        }
-        if (this.fillSchemeMap == null) {
-            this.fillSchemeMap = new HashMap<>();
-        }
-        RadianceColorScheme result = this.fillSchemeMap.get(state);
-        if (result == null) {
-            result = RadianceColorSchemeUtilities.getColorScheme(
-                    this.component, state);
-            this.fillSchemeMap.put(state, result);
         }
         return result;
     }

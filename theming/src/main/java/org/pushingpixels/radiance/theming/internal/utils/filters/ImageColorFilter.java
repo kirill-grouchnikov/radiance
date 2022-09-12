@@ -41,10 +41,6 @@ public class ImageColorFilter extends RadianceAbstractFilter {
 	private int color;
 	private float alpha;
 
-	public ImageColorFilter(Color color) {
-		this(color, 1.0f);
-	}
-
 	public ImageColorFilter(Color color, float alpha) {
 		this.color = color.getRGB();
 		this.alpha = alpha;

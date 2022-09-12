@@ -432,40 +432,6 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         this.scrollbar.setValue(newValue);
     }
 
-    /**
-     * Scrolls the associated scroll bar.
-     *
-     * @param direction Direction.
-     * @param units     Scroll units.
-     */
-    public void scrollByUnits(int direction, int units) {
-        // This method is called from RadianceScrollPaneUI to implement wheel
-        // scrolling.
-        int delta;
-
-        for (int i = 0; i < units; i++) {
-            if (direction > 0) {
-                delta = this.scrollbar.getUnitIncrement(direction);
-            } else {
-                delta = -this.scrollbar.getUnitIncrement(direction);
-            }
-
-            int oldValue = this.scrollbar.getValue();
-            int newValue = oldValue + delta;
-
-            // Check for overflow.
-            if ((delta > 0) && (newValue < oldValue)) {
-                newValue = this.scrollbar.getMaximum();
-            } else if ((delta < 0) && (newValue > oldValue)) {
-                newValue = this.scrollbar.getMinimum();
-            }
-            if (oldValue == newValue) {
-                break;
-            }
-            this.scrollbar.setValue(newValue);
-        }
-    }
-
     @Override
     protected void layoutVScrollbar(JScrollBar sb) {
         this.layoutVScrollbarNone(sb);

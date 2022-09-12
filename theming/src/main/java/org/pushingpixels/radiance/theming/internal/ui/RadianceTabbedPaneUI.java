@@ -947,7 +947,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     protected int calculateTabHeight(int tabPlacement, int tabIndex, int fontHeight) {
         boolean toSwap = toRotateTabsOnPlacement(tabPlacement);
         if (toSwap)
-            return this.getTabExtraWidth(tabPlacement, tabIndex)
+            return this.getTabExtraWidth(tabIndex)
                     + super.calculateTabWidth(tabPlacement, tabIndex, this.getFontMetrics());
         return super.calculateTabHeight(tabPlacement, tabIndex, fontHeight);
     }
@@ -958,7 +958,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         if (toSwap) {
             return super.calculateTabHeight(tabPlacement, tabIndex, metrics.getHeight());
         }
-        return this.getTabExtraWidth(tabPlacement, tabIndex)
+        return this.getTabExtraWidth(tabIndex)
                 + super.calculateTabWidth(tabPlacement, tabIndex, metrics);
     }
 
@@ -1165,11 +1165,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
      */
     protected class TabRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
         /**
-         * The associated tabbed pane.
-         */
-        protected JTabbedPane tabbedPane;
-
-        /**
          * The associated tab index.
          */
         protected int tabIndex;
@@ -1177,13 +1172,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         /**
          * Creates new tab repaint callback.
          *
-         * @param tabPane
-         *         The associated tabbed pane.
          * @param tabIndex
          *         The associated tab index.
          */
-        public TabRepaintCallback(JTabbedPane tabPane, int tabIndex) {
-            this.tabbedPane = tabPane;
+        public TabRepaintCallback(int tabIndex) {
             this.tabIndex = tabIndex;
         }
 
@@ -1404,7 +1396,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
      *         Tab index.
      * @return Extra width for the specified tab.
      */
-    protected int getTabExtraWidth(int tabPlacement, int tabIndex) {
+    protected int getTabExtraWidth(int tabIndex) {
         int extraWidth = (int) (2.0 * RadianceSizeUtils.getClassicButtonCornerRadius(
                 RadianceSizeUtils.getComponentFontSize(this.tabPane)));
 
@@ -1860,7 +1852,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             // Special handling of tabs under skins that show partial visuals
             ComponentState currState = this.tabPane.isEnabledAt(tabIndex) ? ComponentState.ENABLED
                     : ComponentState.DISABLED_UNSELECTED;
-            StateTransitionTracker.ModelStateInfo modelStateInfo = null;
 
             // System.out.println("Tab " + title + ":" + currState);
             RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(tabPane,
@@ -1898,13 +1889,13 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         if (currentState.isDisabled()) {
             // No support yet for transitions between disabled and enabled / active
             // states
-            Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane, tabIndex,
+            Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane,
                     icon, currentState, this.tabTextColorMap.get(tabIndex));
             disabledIcon.paintIcon(this.tabPane, g2d, 0, 0);
         } else {
             // Active states are painted on top of the icon that corresponds to the
             // enabled state
-            Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane, tabIndex,
+            Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane,
                     icon, ComponentState.ENABLED, this.tabTextColorMap.get(tabIndex));
             enabledIcon.paintIcon(this.tabPane, g2d, 0, 0);
             if ((tabTracker != null) && (tabTracker.getActiveStrength() > 0.0f)) {
@@ -1915,7 +1906,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                     }
                     float contribution = entry.getValue().getContribution();
                     if (contribution > 0.0f) {
-                        Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane, tabIndex,
+                        Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(this.tabPane,
                                 icon, entry.getKey(), this.tabTextColorMap.get(tabIndex));
                         if (activeIcon != enabledIcon) {
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(this.tabPane,
@@ -1954,7 +1945,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
             model.setRollover(initialRollover);
             tracker = new StateTransitionTracker(tabPane, model);
             tracker.registerModelListeners();
-            tracker.setRepaintCallback(() -> new TabRepaintCallback(tabPane, tabIndex));
+            tracker.setRepaintCallback(() -> new TabRepaintCallback(tabIndex));
             stateTransitionMultiTracker.addTracker(tabIndex, tracker);
         }
         return tracker;
@@ -1963,7 +1954,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     private void trackTabModification(int tabIndex, Component tabComponent) {
         Timeline modifiedTimeline =
                 AnimationConfigurationManager.getInstance().modifiedTimelineBuilder(this.tabPane)
-                        .addCallback(new TabRepaintCallback(tabPane, tabIndex))
+                        .addCallback(new TabRepaintCallback(tabIndex))
                         .build();
         modifiedTimeline.playLoop(RepeatBehavior.REVERSE);
         modifiedTimelines.put(tabComponent, modifiedTimeline);

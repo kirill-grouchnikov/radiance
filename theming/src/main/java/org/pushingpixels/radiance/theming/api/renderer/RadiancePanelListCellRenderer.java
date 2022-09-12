@@ -135,8 +135,7 @@ public abstract class RadiancePanelListCellRenderer<T> extends JPanel
         if (listUI instanceof RadianceListUI) {
             RadianceListUI ui = (RadianceListUI) listUI;
 
-            StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(index,
-                    this);
+            StateTransitionTracker.ModelStateInfo modelStateInfo = ui.getModelStateInfo(index);
             ComponentState currState = ui.getCellState(index, this);
 
             // special case for drop location

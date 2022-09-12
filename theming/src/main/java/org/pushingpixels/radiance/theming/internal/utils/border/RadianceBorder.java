@@ -92,16 +92,6 @@ public class RadianceBorder implements Border, UIResource {
 		this.radiusScaleFactor = radiusScaleFactor;
 		this.myInsets = new Insets(insets.top, insets.left, insets.bottom, insets.right);
 	}
-	
-	/**
-	 * Sets the alpha for this border.
-	 * 
-	 * @param alpha
-	 *            Alpha factor.
-	 */
-	public void setAlpha(float alpha) {
-		this.alpha = alpha;
-	}
 
 	/**
 	 * Paints border instance for the specified component.

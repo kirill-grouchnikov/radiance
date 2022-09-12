@@ -525,8 +525,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
             tracker.getModel().setEnabled(this.list.isEnabled() && rendererComponent.isEnabled());
         }
 
-        StateTransitionTracker.ModelStateInfo modelStateInfo = getModelStateInfo(row,
-                rendererComponent);
+        StateTransitionTracker.ModelStateInfo modelStateInfo = getModelStateInfo(row);
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 ((modelStateInfo == null) ? null
                         : modelStateInfo.getStateContributionMap());
@@ -625,8 +624,7 @@ public class RadianceListUI extends BasicListUI implements UpdateOptimizationAwa
         }
     }
 
-    public StateTransitionTracker.ModelStateInfo getModelStateInfo(int row,
-            Component rendererComponent) {
+    public StateTransitionTracker.ModelStateInfo getModelStateInfo(int row) {
         if (this.stateTransitionMultiTracker.size() == 0)
             return null;
         StateTransitionTracker tracker = this.stateTransitionMultiTracker.getTracker(row);

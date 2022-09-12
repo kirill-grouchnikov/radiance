@@ -62,8 +62,6 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
     private JComponent component;
 
-    private ComponentStateFacet facetForHighlights;
-
     private BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate;
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
@@ -74,7 +72,6 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
             BladeTransitionAwareIcon.TransitionAwareUIDelegate transitionAwareUIDelegate,
             BladeTransitionAwareIcon.Delegate delegate, ComponentStateFacet facetForHighlights) {
         this.component = component;
-        this.facetForHighlights = facetForHighlights;
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = delegate;
         this.colorSchemeAssociationKindDelegate = state -> state.isFacetActive(facetForHighlights)

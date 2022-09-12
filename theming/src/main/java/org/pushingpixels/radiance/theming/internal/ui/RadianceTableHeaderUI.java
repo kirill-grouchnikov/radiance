@@ -352,7 +352,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 columnWidth = aColumn.getWidth();
                 cellRect.width = columnWidth;
                 if (aColumn != draggedColumn) {
-                    this.paintCell(g, cellRect, column, selected.contains(column));
+                    this.paintCell(g, cellRect, column);
                 }
                 cellRect.x += columnWidth;
             }
@@ -362,13 +362,13 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 columnWidth = aColumn.getWidth();
                 cellRect.width = columnWidth;
                 if (aColumn != draggedColumn) {
-                    this.paintCell(g, cellRect, column, selected.contains(column));
+                    this.paintCell(g, cellRect, column);
                 }
                 cellRect.x += columnWidth;
             }
         }
 
-        this.paintGrid(g, c);
+        this.paintGrid(g);
 
         // Paint the dragged column if we are dragging.
         if (draggedColumn != null) {
@@ -390,8 +390,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
             // Don't paint the dragged cell if dragged column index is negative (otherwise
             // it will crash in ColumnModel.getColumn)
             if (draggedColumnIndex >= 0) {
-                this.paintCell(g, draggedCellRect, draggedColumnIndex,
-                        selected.contains(draggedColumnIndex));
+                this.paintCell(g, draggedCellRect, draggedColumnIndex);
             }
         }
 
@@ -416,13 +415,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 false, false, -1, columnIndex);
     }
 
-    /**
-     * 
-     * 
-     * @param g
-     * @param c
-     */
-    protected void paintGrid(Graphics g, JComponent c) {
+    protected void paintGrid(Graphics g) {
         boolean ltr = header.getComponentOrientation().isLeftToRight();
 
         Graphics2D g2d = (Graphics2D) g.create();
@@ -476,7 +469,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 cellRect.width = columnWidth;
 
                 if (aColumn != draggedColumn) {
-                    if (hasLeadingVerticalGridLine(header, cellRect, column)) {
+                    if (hasLeadingVerticalGridLine(header, column)) {
                         g2d.drawLine(cellRect.x, cellRect.y, cellRect.x, bottom);
                     }
                     if (hasTrailingVerticalGridLine(header, cellRect, column)) {
@@ -494,7 +487,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
                 cellRect.width = columnWidth;
 
                 if (aColumn != draggedColumn) {
-                    if (hasLeadingVerticalGridLine(header, cellRect, column)) {
+                    if (hasLeadingVerticalGridLine(header, column)) {
                         g2d.drawLine(cellRect.x + cellRect.width - 1, cellRect.y,
                                 cellRect.x + cellRect.width - 1, bottom);
                     }
@@ -524,8 +517,7 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         return toDrawLine;
     }
 
-    private boolean hasLeadingVerticalGridLine(JTableHeader tableHeader, Rectangle cellRect,
-            int column) {
+    private boolean hasLeadingVerticalGridLine(JTableHeader tableHeader, int column) {
         if (column != 0) {
             return false;
         }
@@ -573,10 +565,8 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
      *            Cell rectangle.
      * @param columnIndex
      *            Column index.
-     * @param isSelected
-     *            Selection indication.
      */
-    private void paintCell(Graphics g, Rectangle cellRect, int columnIndex, boolean isSelected) {
+    private void paintCell(Graphics g, Rectangle cellRect, int columnIndex) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(header, g));
 
@@ -767,10 +757,6 @@ public class RadianceTableHeaderUI extends BasicTableHeaderUI {
         } else {
             return tracker.getModelStateInfo();
         }
-    }
-
-    public StateTransitionTracker getStateTransitionTracker(int columnIndex) {
-        return this.stateTransitionMultiTracker.getTracker(columnIndex);
     }
 
     /**

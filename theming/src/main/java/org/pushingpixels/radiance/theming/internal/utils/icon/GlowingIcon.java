@@ -59,10 +59,6 @@ public class GlowingIcon implements Icon {
 	public void setDampeningFactor(float dampeningFactor) {
 	    glowDampeningFactor = dampeningFactor;
 	}
-	
-	public Icon getDelegate() {
-		return this.delegate;
-	}
 
 	@Override
 	public int getIconHeight() {

@@ -233,7 +233,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Installs listeners on the associated command button.
      */
     protected void installListeners() {
-        this.basicPopupButtonListener = createButtonListener(this.commandButton);
+        this.basicPopupButtonListener = createButtonListener();
         if (this.basicPopupButtonListener != null) {
             this.commandButton.addMouseListener(this.basicPopupButtonListener);
             this.commandButton.addMouseMotionListener(this.basicPopupButtonListener);
@@ -429,7 +429,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * @param b Command button.
      * @return The button listener for the specified command button.
      */
-    protected BasicCommandButtonListener createButtonListener(JCommandButton b) {
+    protected BasicCommandButtonListener createButtonListener() {
         return new BasicCommandButtonListener();
     }
 

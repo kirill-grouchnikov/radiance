@@ -696,7 +696,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                 x = damagedArea.x;
                 for (int column = cMin; column <= cMax; column++) {
                     int w = cm.getColumn(column).getWidth();
-                    if (hasLeadingVerticalGridLine(cm, column)) {
+                    if (hasLeadingVerticalGridLine(column)) {
                         g2d.drawLine(x, 0, x, tableHeight - 1);
                     }
                     x += w;
@@ -709,7 +709,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                 // fix for defect 196 - proper grid painting on RTL tables
                 for (int column = cMin; column <= cMax; column++) {
                     int w = cm.getColumn(column).getWidth();
-                    if (hasLeadingVerticalGridLine(cm, column)) {
+                    if (hasLeadingVerticalGridLine(column)) {
                         g2d.drawLine(x - 1, 0, x - 1, tableHeight - 1);
                     }
                     x -= w;
@@ -731,7 +731,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         return toDrawLine;
     }
 
-    private boolean hasLeadingVerticalGridLine(TableColumnModel cm, int column) {
+    private boolean hasLeadingVerticalGridLine(int column) {
         if (column != 0)
             return false;
         Container parent = this.table.getParent();
@@ -1375,146 +1375,6 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                     // ":"
                     // + columnIndex + ":" + rect);
                     CellRepaintCallback.this.table.repaint(rect);
-                }
-            });
-        }
-    }
-
-    /**
-     * Repaints a single row during the fade animation cycle.
-     *
-     * @author Kirill Grouchnikov
-     */
-    protected class RowRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
-        /**
-         * Associated table.
-         */
-        protected JTable table;
-
-        /**
-         * Associated (animated) row index.
-         */
-        protected int rowIndex;
-
-        /**
-         * Creates a new animation repaint callback.
-         *
-         * @param table    Associated table.
-         * @param rowIndex Associated (animated) row index.
-         */
-        public RowRepaintCallback(JTable table, int rowIndex) {
-            super();
-            this.table = table;
-            this.rowIndex = rowIndex;
-        }
-
-        @Override
-        public void onTimelinePulse(float durationFraction, float timelinePosition) {
-            this.repaintRow();
-        }
-
-        @Override
-        public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                float durationFraction, float timelinePosition) {
-            this.repaintRow();
-        }
-
-        /**
-         * Repaints the associated row.
-         */
-        private void repaintRow() {
-            SwingUtilities.invokeLater(() -> {
-                if (RadianceTableUI.this.table == null) {
-                    // may happen if the LAF was switched in the meantime
-                    return;
-                }
-                int rowCount = RowRepaintCallback.this.table.getRowCount();
-                if ((rowCount > 0) && (RowRepaintCallback.this.rowIndex < rowCount)) {
-                    // need to retrieve the cell rectangle since the cells
-                    // can be moved while animating
-                    Rectangle rect = RowRepaintCallback.this.table
-                            .getCellRect(RowRepaintCallback.this.rowIndex, 0, true);
-                    for (int i = 1; i < RowRepaintCallback.this.table.getColumnCount(); i++) {
-                        rect = rect.union(RowRepaintCallback.this.table
-                                .getCellRect(RowRepaintCallback.this.rowIndex, i, true));
-                    }
-                    if (!table.getShowHorizontalLines() && !table.getShowVerticalLines()) {
-                        float extra = RadianceSizeUtils.getBorderStrokeWidth(this.table);
-                        rect.y -= (int) extra;
-                        rect.height += 2 * (int) extra;
-                    }
-                    // System.out.println("Repainting row " + rowIndex
-                    // + " at " + rect);
-                    RowRepaintCallback.this.table.repaint(rect);
-                }
-            });
-        }
-    }
-
-    /**
-     * Repaints a single column during the fade animation cycle.
-     *
-     * @author Kirill Grouchnikov
-     */
-    protected class ColumnRepaintCallback extends EventDispatchThreadTimelineCallbackAdapter {
-        /**
-         * Associated table.
-         */
-        protected JTable table;
-
-        /**
-         * Associated (animated) column index.
-         */
-        protected int columnIndex;
-
-        /**
-         * Creates a new animation repaint callback.
-         *
-         * @param table       Associated table.
-         * @param columnIndex Associated (animated) column index.
-         */
-        public ColumnRepaintCallback(JTable table, int columnIndex) {
-            super();
-            this.table = table;
-            this.columnIndex = columnIndex;
-        }
-
-        @Override
-        public void onTimelinePulse(float durationFraction, float timelinePosition) {
-            this.repaintColumn();
-        }
-
-        @Override
-        public void onTimelineStateChanged(TimelineState oldState, TimelineState newState,
-                float durationFraction, float timelinePosition) {
-            this.repaintColumn();
-        }
-
-        /**
-         * Repaints the associated row.
-         */
-        private void repaintColumn() {
-            SwingUtilities.invokeLater(() -> {
-                if (RadianceTableUI.this.table == null) {
-                    // may happen if the LAF was switched in the meantime
-                    return;
-                }
-                int columnCount = ColumnRepaintCallback.this.table.getColumnCount();
-                if ((columnCount > 0) && (ColumnRepaintCallback.this.columnIndex < columnCount)) {
-                    // need to retrieve the cell rectangle since the cells
-                    // can be moved while animating
-                    Rectangle rect = ColumnRepaintCallback.this.table.getCellRect(0,
-                            ColumnRepaintCallback.this.columnIndex, true);
-                    for (int i = 1; i < ColumnRepaintCallback.this.table.getRowCount(); i++) {
-                        rect = rect.union(ColumnRepaintCallback.this.table.getCellRect(i,
-                                ColumnRepaintCallback.this.columnIndex, true));
-                    }
-                    if (!table.getShowHorizontalLines() && !table.getShowVerticalLines()) {
-                        float extra = RadianceSizeUtils.getBorderStrokeWidth(this.table);
-                        rect.x -= (int) extra;
-                        rect.width += 2 * (int) extra;
-                    }
-                    ColumnRepaintCallback.this.table.repaint(rect);
                 }
             });
         }

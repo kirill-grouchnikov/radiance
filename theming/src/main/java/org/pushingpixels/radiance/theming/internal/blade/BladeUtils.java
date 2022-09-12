@@ -241,29 +241,6 @@ public class BladeUtils {
         };
     }
 
-    public static ColorSchemeDelegate getEnabledAsActiveColorSchemeDelegate(Component component,
-            BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
-        return new ColorSchemeDelegate() {
-            @Override
-            public RadianceColorScheme getColorSchemeForCurrentState(ComponentState state) {
-                if (state == ComponentState.ENABLED) {
-                    return RadianceColorSchemeUtilities.getActiveColorScheme(component, state);
-                }
-                return RadianceColorSchemeUtilities.getColorScheme(component,
-                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
-            }
-
-            @Override
-            public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
-                if (state == ComponentState.ENABLED) {
-                    return RadianceColorSchemeUtilities.getActiveColorScheme(component, state);
-                }
-                return RadianceColorSchemeUtilities.getColorScheme(component,
-                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
-            }
-        };
-    }
-
     public static void populateColorScheme(
             BladeColorScheme bladeColorScheme,
             StateTransitionTracker.ModelStateInfo modelStateInfo,

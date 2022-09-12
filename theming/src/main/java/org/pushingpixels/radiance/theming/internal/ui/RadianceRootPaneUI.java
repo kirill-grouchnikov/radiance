@@ -309,7 +309,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
 
         if (this.window != null) {
             if (this.radianceMouseInputListener == null) {
-                this.radianceMouseInputListener = this.createWindowMouseInputListener(root);
+                this.radianceMouseInputListener = this.createWindowMouseInputListener();
             }
             this.window.addMouseListener(this.radianceMouseInputListener);
             this.window.addMouseMotionListener(this.radianceMouseInputListener);
@@ -330,7 +330,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      *
      * @param root Root pane.
      */
-    private void uninstallWindowListeners(JRootPane root) {
+    private void uninstallWindowListeners() {
         if ((this.window != null) && (this.radianceMouseInputListener != null)) {
             this.window.removeMouseListener(this.radianceMouseInputListener);
             this.window.removeMouseMotionListener(this.radianceMouseInputListener);
@@ -583,7 +583,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      */
     private void uninstallClientDecorations(JRootPane root) {
         this.uninstallBorder(root);
-        this.uninstallWindowListeners(root);
+        this.uninstallWindowListeners();
         this.setTitlePane(root, null);
         this.uninstallLayout(root);
         // We have to revalidate/repaint root if the style is JRootPane.NONE
@@ -617,10 +617,9 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
      * Returns a <code>MouseListener</code> that will be added to the <code>Window</code> containing
      * the <code>JRootPane</code>.
      *
-     * @param root Root pane.
      * @return Window mouse listener.
      */
-    private MouseInputListener createWindowMouseInputListener(JRootPane root) {
+    private MouseInputListener createWindowMouseInputListener() {
         return new MouseInputHandler();
     }
 
@@ -731,7 +730,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
             }
         }
         if (propertyName.equals("ancestor")) {
-            this.uninstallWindowListeners(this.root);
+            this.uninstallWindowListeners();
             if (((JRootPane) e.getSource()).getWindowDecorationStyle() != JRootPane.NONE) {
                 this.installWindowListeners(this.root, this.root.getParent());
             }

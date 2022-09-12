@@ -49,13 +49,6 @@ import java.awt.*;
 @TransitionAware
 public class BladeArrowButtonTransitionAwareIcon implements Icon {
     /**
-     * Arrow icon orientation. Must be one of {@link SwingConstants#NORTH},
-     * {@link SwingConstants#SOUTH}, {@link SwingConstants#EAST} or
-     * {@link SwingConstants#WEST}.
-     */
-    private int orientation;
-
-    /**
      * Icon width.
      */
     private int iconWidth;
@@ -97,7 +90,6 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
             final int orientation) {
         this.component = component;
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
-        this.orientation = orientation;
         this.delegate = new BladeTransitionAwareIcon.Delegate() {
             @Override
             public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {

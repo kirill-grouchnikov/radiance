@@ -171,50 +171,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             this.galleryCount++;
         }
 
-        /**
-         * Sets new priority of a ribbon button in <code>this</code> control
-         * panel.
-         *
-         * @param ribbonButton Gallery button.
-         * @param newPriority  New priority for the specified ribbon button.
-         */
-        public synchronized void setPriority(JCommandButton ribbonButton,
-                JRibbonBand.PresentationPriority newPriority) {
-            JRibbonBand.PresentationPriority oldPriority = this.ribbonButtonsPriorities
-                    .get(ribbonButton);
-            if (newPriority == oldPriority)
-                return;
-
-            this.ribbonButtons.get(oldPriority).remove(ribbonButton);
-
-            if (!this.ribbonButtons.containsKey(newPriority)) {
-                this.ribbonButtons.put(newPriority, new ArrayList<>());
-            }
-            this.ribbonButtons.get(newPriority).add(ribbonButton);
-        }
-
-        /**
-         * Sets new priority of an in-ribbon gallery in <code>this</code>
-         * control panel.
-         *
-         * @param ribbonGallery In-ribbon gallery.
-         * @param newPriority   New priority for the specified in-ribbon gallery.
-         */
-        public synchronized void setPriority(JRibbonGallery ribbonGallery,
-                JRibbonBand.PresentationPriority newPriority) {
-            JRibbonBand.PresentationPriority oldPriority = this.ribbonGalleriesPriorities
-                    .get(ribbonGallery);
-            if (newPriority == oldPriority)
-                return;
-
-            this.ribbonGalleries.get(oldPriority).remove(ribbonGallery);
-
-            if (!this.ribbonGalleries.containsKey(newPriority)) {
-                this.ribbonGalleries.put(newPriority, new ArrayList<>());
-            }
-            this.ribbonGalleries.get(newPriority).add(ribbonGallery);
-        }
-
         public void addRibbonComponent(JRibbonComponent comp) {
             if (!this.ribbonButtonsPriorities.isEmpty()
                     || !this.ribbonGalleries.isEmpty()) {
@@ -257,28 +213,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
                 return EMPTY_RIBBON_GALLERIES_LIST;
             }
             return result;
-        }
-
-        /**
-         * Returns indication whether <code>this</code> control panel has
-         * in-ribbon galleries.
-         *
-         * @return <code>true</code> if <code>this</code> control panel has
-         * in-ribbon galleries, <code>false</code> otherwise.
-         */
-        public boolean hasRibbonGalleries() {
-            return this.hasGalleries;
-        }
-
-        /**
-         * Returns the number of in-ribbon galleries in <code>this</code>
-         * control panel.
-         *
-         * @return Number of in-ribbon galleries in <code>this</code> control
-         * panel.
-         */
-        public int getRibbonGalleriesCount() {
-            return this.galleryCount;
         }
 
         public List<JRibbonComponent> getRibbonComps() {
@@ -432,10 +366,5 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
                 ((ChangeListener) listeners[i + 1]).stateChanged(ce);
             }
         }
-    }
-
-    public List<JRibbonComponent> getRibbonComponents(int groupIndex) {
-        return Collections.unmodifiableList(this.controlPanelGroups.get(groupIndex)
-                .getRibbonComps());
     }
 }

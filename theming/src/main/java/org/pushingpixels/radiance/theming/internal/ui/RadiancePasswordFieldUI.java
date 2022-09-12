@@ -117,12 +117,11 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
          * @param g          Graphics context
          * @param x          X coordinate of the first echo character to draw.
          * @param y          Y coordinate of the first echo character to draw.
-         * @param c          Password field.
          * @param isSelected Indicates whether the password field character is selected.
          * @return The X location of the next echo character.
          * @see RadianceSynapse#PASSWORD_ECHO_PER_CHAR
          */
-        private float drawEchoCharacter(Graphics g, float x, float y, char c, boolean isSelected) {
+        private float drawEchoCharacter(Graphics g, float x, float y, boolean isSelected) {
             Container container = this.getContainer();
 
             Graphics2D graphics = (Graphics2D) g;
@@ -182,7 +181,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
                 char echoChar = f.getEchoChar();
                 float currPos = x;
                 for (int i = 0; i < n; i++) {
-                    currPos = drawEchoCharacter(g, currPos, y, echoChar, true);
+                    currPos = drawEchoCharacter(g, currPos, y, true);
                 }
                 return x + n * getEchoCharAdvance();
             }
@@ -202,7 +201,7 @@ public class RadiancePasswordFieldUI extends BasicPasswordFieldUI implements Tra
                 char echoChar = f.getEchoChar();
                 float currPos = x;
                 for (int i = 0; i < n; i++) {
-                    currPos = drawEchoCharacter(g, currPos, y, echoChar, false);
+                    currPos = drawEchoCharacter(g, currPos, y, false);
                 }
                 return x + n * getEchoCharAdvance();
             }

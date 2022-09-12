@@ -58,8 +58,6 @@ public class JRibbonTaskToggleButton extends JCommandButton
      */
     private Color contextualGroupHueColor;
 
-    private String keyTip;
-
     private RibbonTask ribbonTask;
 
     public JRibbonTaskToggleButton(Projection<JCommandButton, Command, CommandButtonPresentationModel> projection) {
@@ -106,13 +104,5 @@ public class JRibbonTaskToggleButton extends JCommandButton
 
         this.firePropertyChange("contextualGroupHueColor", old,
                 this.contextualGroupHueColor);
-    }
-
-    public void setKeyTip(String keyTip) {
-        this.keyTip = keyTip;
-    }
-
-    public String getKeyTip() {
-        return keyTip;
     }
 }

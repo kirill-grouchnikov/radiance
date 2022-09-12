@@ -310,8 +310,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             return;
         }
 
-        ButtonModel actionModel = this.commandButton.getActionModel();
-        PopupButtonModel popupModel = this.commandButton.getPopupModel();
         Rectangle actionArea = this.getLayoutInfo().actionClickArea;
         Rectangle popupArea = this.getLayoutInfo().popupClickArea;
 

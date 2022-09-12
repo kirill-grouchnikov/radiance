@@ -906,7 +906,7 @@ public class RadianceCoreUtilities {
         return null;
     }
 
-    public static Icon getFilteredIcon(JTabbedPane tab, int tabIndex, Icon orig,
+    public static Icon getFilteredIcon(JTabbedPane tab, Icon orig,
             ComponentState componentState, Color textColor) {
         double scale = RadianceCommonCortex.getScaleFactor(tab);
 

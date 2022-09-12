@@ -29,15 +29,14 @@
  */
 package org.pushingpixels.radiance.theming.internal.widget.text;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.border.BorderWrapper;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -57,14 +56,9 @@ public class PasswordStrengthCheckerWidget extends RadianceThemingWidget<JPasswo
      */
     private PropertyChangeListener strengthCheckerListener;
 
-    private static class WrappedBorder extends CompoundBorderUIResource implements BorderWrapper {
+    private static class WrappedBorder extends CompoundBorderUIResource {
         public WrappedBorder(Border outsideBorder, Border insideBorder) {
             super(outsideBorder, insideBorder);
-        }
-
-        @Override
-        public Border getOriginalBorder() {
-            return this.getOutsideBorder();
         }
     }
 

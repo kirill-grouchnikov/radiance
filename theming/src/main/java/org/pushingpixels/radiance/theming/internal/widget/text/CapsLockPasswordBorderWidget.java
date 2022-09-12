@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceImageCreator;
-import org.pushingpixels.radiance.theming.internal.utils.border.BorderWrapper;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -207,7 +206,7 @@ public class CapsLockPasswordBorderWidget extends RadianceThemingWidget<JPasswor
      *
      * @author Kirill Grouchnikov
      */
-    private static class CapsLockBorder implements Border, UIResource, BorderWrapper {
+    private static class CapsLockBorder implements Border, UIResource {
         /**
          * The original (decorated) border.
          */
@@ -247,11 +246,6 @@ public class CapsLockPasswordBorderWidget extends RadianceThemingWidget<JPasswor
         @Override
         public boolean isBorderOpaque() {
             return this.originalBorder.isBorderOpaque();
-        }
-
-        @Override
-        public Border getOriginalBorder() {
-            return originalBorder;
         }
 
         @Override
