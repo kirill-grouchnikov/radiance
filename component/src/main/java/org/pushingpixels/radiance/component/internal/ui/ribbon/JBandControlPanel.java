@@ -50,16 +50,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
         private String groupTitle;
 
         /**
-         * Indication whether <code>this</code> control panel has galleries.
-         */
-        private boolean hasGalleries;
-
-        /**
-         * Number of galleries in <code>this</code> control panel.
-         */
-        private int galleryCount;
-
-        /**
          * Mapping from priority to galleries.
          */
         private Map<JRibbonBand.PresentationPriority, List<JRibbonGallery>> ribbonGalleries;
@@ -87,8 +77,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             this.ribbonButtonsPriorities = new HashMap<>();
             this.ribbonGalleries = new HashMap<>();
             this.ribbonGalleriesPriorities = new HashMap<>();
-            this.hasGalleries = false;
-            this.galleryCount = 0;
             this.coreComps = new ArrayList<>();
         }
 
@@ -166,9 +154,6 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
             this.ribbonGalleriesPriorities.put(ribbonGallery, priority);
 
             ribbonGallery.setPresentationPriority(JRibbonBand.PresentationPriority.TOP);
-
-            this.hasGalleries = true;
-            this.galleryCount++;
         }
 
         public void addRibbonComponent(JRibbonComponent comp) {

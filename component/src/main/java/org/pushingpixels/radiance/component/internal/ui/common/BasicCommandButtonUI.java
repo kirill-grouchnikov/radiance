@@ -555,19 +555,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     /**
-     * Returns the layout gap for the visuals of the associated command button.
-     *
-     * @return The layout gap for the visuals of the associated command button.
-     */
-    protected int getLayoutGap() {
-        Font font = this.commandButton.getFont();
-        if (font == null) {
-            font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
-        }
-        return (font.getSize() - 4) / 4;
-    }
-
-    /**
      * Returns indication whether the action-popup areas separator is painted.
      *
      * @return <code>true</code> if the action-popup areas separator is painted.
