@@ -33,6 +33,8 @@ import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -42,6 +44,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
     private String caption;
     private RichTooltip richTooltip;
     private ActionListener actionListener;
+    private ItemListener itemListener;
 
     private String text;
     private boolean isSelected;
@@ -113,6 +116,10 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
         return this.actionListener;
     }
 
+    public ItemListener getItemListener() {
+        return this.itemListener;
+    }
+
     public static class Builder {
         private boolean isEnabled = true;
         private RadianceIcon.Factory iconFactory;
@@ -121,6 +128,7 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
         private String text;
         private boolean isSelected;
         private ActionListener actionListener;
+        private ItemListener itemListener;
 
         public Builder setText(String text) {
             this.text = text;
@@ -157,11 +165,34 @@ public class RibbonCheckBoxContentModel implements ComponentContentModel {
             return this;
         }
 
+        public Builder setItemListener(ItemListener itemListener) {
+            this.itemListener = itemListener;
+            return this;
+        }
+
         public RibbonCheckBoxContentModel build() {
             RibbonCheckBoxContentModel model = new RibbonCheckBoxContentModel();
             model.text = this.text;
             model.isSelected = this.isSelected;
             model.actionListener = this.actionListener;
+            if (this.itemListener != null) {
+                // Wrap the original application-provided item listener
+                model.itemListener = new ItemListener() {
+                    private boolean lastIsSelected = isSelected;
+
+                    @Override
+                    public void itemStateChanged(ItemEvent e) {
+                        boolean newIsSelected = (e.getStateChange() == ItemEvent.SELECTED);
+                        if (lastIsSelected == newIsSelected) {
+                            // de-dupe changes from multiple checkboxes created from this
+                            // content model
+                            return;
+                        }
+                        itemListener.itemStateChanged(e);
+                        lastIsSelected = newIsSelected;
+                    }
+                };
+            }
             model.isEnabled = this.isEnabled;
             model.iconFactory = this.iconFactory;
             model.caption = this.caption;

@@ -34,6 +34,8 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPr
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class JRibbonCheckBox extends JCheckBox {
     public JRibbonCheckBox(Projection<JRibbonCheckBox,
@@ -45,9 +47,24 @@ public class JRibbonCheckBox extends JCheckBox {
         this.setEnabled(contentModel.isEnabled());
 
         this.addActionListener(actionEvent -> {
-            contentModel.setSelected(!contentModel.isSelected());
             if (contentModel.getActionListener() != null) {
                 contentModel.getActionListener().actionPerformed(actionEvent);
+            }
+        });
+
+        this.addItemListener(new ItemListener() {
+            boolean isSelected = contentModel.isSelected();
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                boolean newSelected = (e.getStateChange() == ItemEvent.SELECTED);
+                if (this.isSelected != newSelected) {
+                    this.isSelected = newSelected;
+                    contentModel.setSelected(newSelected);
+                    if (contentModel.getItemListener() != null) {
+                        contentModel.getItemListener().itemStateChanged(e);
+                    }
+                }
             }
         });
 

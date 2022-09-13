@@ -1492,7 +1492,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
                 .setText(resourceBundle.getString("Ruler.text"))
                 .setSelected(true)
-                .setActionListener(actionEvent ->
+                .setItemListener(itemEvent ->
                         System.out.println("Ruler selection --> " + rulerCheckBoxModel.isSelected()))
                 .build();
 
