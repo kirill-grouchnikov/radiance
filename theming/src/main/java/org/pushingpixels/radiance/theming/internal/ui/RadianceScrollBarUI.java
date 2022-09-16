@@ -189,7 +189,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
 
                     // Rotate the graphics context for correct "orientation" of the visuals
                     AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
-                    at.translate(x - scaledWidth, y + hoffset * scaleFactor);
+                    at.translate(-y - scaledWidth, x + hoffset * scaleFactor);
                     graphics1X.transform(at);
 
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
