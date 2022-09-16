@@ -177,6 +177,8 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+        // Note that we're switching width and height here since vertical thumb will be drawn
+        // with a 90 degree rotation transformation
         RadianceCommonCortex.paintAtScale1x(graphics,
                 thumbBounds.x, thumbBounds.y, height, width,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
@@ -276,13 +278,11 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         this.thumbModel.setSelected(this.thumbModel.isSelected() || this.isDragging);
         this.thumbModel.setEnabled(c.isEnabled());
         boolean isVertical = (this.scrollbar.getOrientation() == Adjustable.VERTICAL);
+        Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
+                thumbBounds.width, thumbBounds.height);
         if (isVertical) {
-            Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
-                    thumbBounds.width, thumbBounds.height);
             drawThumbVertical(graphics, adjustedBounds);
         } else {
-            Rectangle adjustedBounds = new Rectangle(thumbBounds.x, thumbBounds.y,
-                    thumbBounds.width, thumbBounds.height);
             drawThumbHorizontal(graphics, adjustedBounds);
         }
         graphics.dispose();
@@ -495,7 +495,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         this.trackRect.setBounds(itemX, itrackY, itemW, itrackH);
 
         /*
-         * If the thumb isn't going to fit, zero it's bounds. Otherwise make sure it fits between
+         * If the thumb isn't going to fit, zero its bounds. Otherwise make sure it fits between
          * the buttons. Note that setting the thumbs bounds will cause a repaint.
          */
         if (thumbH >= (int) trackH) {
@@ -619,7 +619,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         /**
          * Current scroll direction.
          */
-        private transient int direction = +1;
+        private transient int direction = 1;
 
         @Override
         public void mouseReleased(MouseEvent e) {
@@ -698,7 +698,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             RadianceScrollBarUI.this.isDragging = false;
 
             Dimension sbSize = RadianceScrollBarUI.this.scrollbar.getSize();
-            this.direction = +1;
+            this.direction = 1;
 
             switch (RadianceScrollBarUI.this.scrollbar.getOrientation()) {
                 case JScrollBar.VERTICAL:
@@ -765,7 +765,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
             boolean active = RadianceScrollBarUI.this.isThumbRollover();
             BoundedRangeModel model = RadianceScrollBarUI.this.scrollbar.getModel();
             Rectangle thumbR = RadianceScrollBarUI.this.getThumbBounds();
-            int thumbMin = 0, thumbMax = 0, thumbPos;
+            int thumbMin, thumbMax, thumbPos;
 
             if (RadianceScrollBarUI.this.scrollbar.getOrientation() == JScrollBar.VERTICAL) {
                 thumbMin = THUMB_DELTA;
@@ -886,6 +886,7 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
         this.setThumbRollover(rect.contains(x, y));
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public Dimension getPreferredSize(JComponent c) {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
