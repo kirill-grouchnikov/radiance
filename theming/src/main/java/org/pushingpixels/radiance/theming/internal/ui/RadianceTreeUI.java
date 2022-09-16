@@ -174,6 +174,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 		this.cellRendererInsets = RadianceSizeUtils.getTreeCellRendererInsets(
 				tree, RadianceSizeUtils.getComponentFontSize(tree));
 
+		// Update indents so that the expand / collapse icons are not cut off
+		setLeftChildIndent(RadianceSizeUtils.getTreeLeftIndent(fontSize));
+		setRightChildIndent(RadianceSizeUtils.getTreeRightIndent(fontSize));
+
 		for (RadianceThemingWidget themingWidget : this.themingWidgets) {
 			themingWidget.installDefaults();
 		}
@@ -427,10 +431,6 @@ public class RadianceTreeUI extends BasicTreeUI {
 			if ("font".equals(propertyChangeEvent.getPropertyName())) {
 				SwingUtilities.invokeLater(() -> {
 					tree.updateUI();
-					// Update indents so that the expand / collapse icons are not cut off
-					int fontSize = RadianceSizeUtils.getComponentFontSize(tree);
-					setLeftChildIndent(RadianceSizeUtils.getTreeLeftIndent(fontSize));
-					setRightChildIndent(RadianceSizeUtils.getTreeRightIndent(fontSize));
 				});
 			}
 			if ("dropLocation".equals(propertyChangeEvent.getPropertyName())) {
