@@ -95,18 +95,25 @@ public class StandardFillPainter implements RadianceFillPainter {
 
             int shineWidth = iw / SCALE;
             int shineHeight = ih / (2 * SCALE);
-            BufferedImage shineImage = getShineImage(comp, contour, topShineColor, bottomShineColor,
-                    shineWidth, shineHeight);
 
-            // Set rendering hints to favor speed over quality, since the visuals of the emulated
-            // shine spot are subtle and don't have to be pixel perfect
-            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-            graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
-            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-            graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
+            if ((shineWidth > 0) && (shineHeight > 0)) {
+                BufferedImage shineImage = getShineImage(comp, contour, topShineColor, bottomShineColor,
+                        shineWidth, shineHeight);
 
-            graphics.clip(contour);
-            graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0, shineImage.getWidth(), shineImage.getHeight(), null);
+                // Set rendering hints to favor speed over quality, since the visuals of the emulated
+                // shine spot are subtle and don't have to be pixel perfect
+                graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+                graphics.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+                        RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                        RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+                graphics.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                        RenderingHints.VALUE_COLOR_RENDER_SPEED);
+
+                graphics.clip(contour);
+                graphics.drawImage(shineImage, 0, 0, iw, ih / 2, 0, 0,
+                        shineImage.getWidth(), shineImage.getHeight(), null);
+            }
         }
 
         graphics.dispose();
