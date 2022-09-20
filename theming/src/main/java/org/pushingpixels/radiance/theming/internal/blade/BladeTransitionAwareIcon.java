@@ -122,20 +122,34 @@ public class BladeTransitionAwareIcon implements Icon {
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
-        StateTransitionTracker stateTransitionTracker = this.transitionAwareUIDelegate
-                .getTransitionAwareUI().getTransitionTracker();
-        StateTransitionTracker.ModelStateInfo modelStateInfo =
-                stateTransitionTracker.getModelStateInfo();
+        StateTransitionTracker stateTransitionTracker;
+        StateTransitionTracker.ModelStateInfo modelStateInfo;
+
+        if (this.transitionAwareUIDelegate != null) {
+            stateTransitionTracker = this.transitionAwareUIDelegate.getTransitionAwareUI().
+                    getTransitionTracker();
+            modelStateInfo = stateTransitionTracker.getModelStateInfo();
+        } else if (c instanceof AbstractButton) {
+            // This is for icons set on buttons via actions, such as the menu bar on
+            // undecorated title panes
+            AbstractButton ab = (AbstractButton) c;
+            TransitionAwareUI transitionAwareUI = (TransitionAwareUI) ab.getUI();
+            stateTransitionTracker = transitionAwareUI.getTransitionTracker();
+            modelStateInfo = stateTransitionTracker.getModelStateInfo();
+        } else {
+            // No support for this icon set on a non-button component
+            return;
+        }
 
         ComponentState currState = modelStateInfo.getCurrModelState();
-        boolean isComponentNeverPainted = RadianceCoreUtilities.isComponentNeverPainted(this.comp);
+        boolean isComponentNeverPainted = RadianceCoreUtilities.isComponentNeverPainted(c);
         if (isComponentNeverPainted) {
             if (currState.isFacetActive(ComponentStateFacet.ENABLE))
                 currState = ComponentState.ENABLED;
         }
 
         BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo, currState,
-                BladeUtils.getDefaultColorSchemeDelegate(comp,
+                BladeUtils.getDefaultColorSchemeDelegate(c,
                         this.colorSchemeAssociationKindDelegate),
                 false);
 

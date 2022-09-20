@@ -208,7 +208,7 @@ public class RadianceCoreUtilities {
      * <code>false</code> otherwise.
      * @see RadianceThemingCortex.GlobalScope#setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
      */
-    public static boolean isComponentNeverPainted(JComponent component) {
+    public static boolean isComponentNeverPainted(Component component) {
         // small optimizations for checkboxes and radio buttons
         if (component instanceof JCheckBox) {
             return false;
@@ -217,17 +217,21 @@ public class RadianceCoreUtilities {
             return false;
         }
 
-        Object backgroundAppearanceStrategy = component.getClientProperty(RadianceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
-        if (backgroundAppearanceStrategy != null) {
-            if (RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER.equals(backgroundAppearanceStrategy)) {
-                return true;
+        if (component instanceof JComponent) {
+            JComponent jcomp = (JComponent) component;
+            Object backgroundAppearanceStrategy =
+                    jcomp.getClientProperty(RadianceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
+            if (backgroundAppearanceStrategy != null) {
+                if (RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER.equals(backgroundAppearanceStrategy)) {
+                    return true;
+                }
             }
         }
 
         Container parent = component.getParent();
         if (parent instanceof JComponent) {
             JComponent jparent = (JComponent) parent;
-            backgroundAppearanceStrategy = jparent
+            Object backgroundAppearanceStrategy = jparent
                     .getClientProperty(RadianceSynapse.BACKGROUND_APPEARANCE_STRATEGY);
             if (backgroundAppearanceStrategy != null) {
                 if (RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER.equals(backgroundAppearanceStrategy)) {
