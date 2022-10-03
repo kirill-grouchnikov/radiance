@@ -36,7 +36,7 @@ buildscript {
         // Core dependencies
         kotlin_version                       =   '1.7.10'
         kotlinx_coroutines_version           =    '1.6.4'
-        batik_version                        =     '1.14'
+        batik_version                        =     '1.15'
 
         // Demo dependencies
         retrofit_version                     =    '2.9.0'

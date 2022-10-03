@@ -29,6 +29,6 @@
 
 set RADIANCE_VERSION=6.5-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-laf-benchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
-set FLATLAF_CLASSPATH=../../../thirdparty/flatlaf-1.6.5.jar
+set FLATLAF_CLASSPATH=../../../thirdparty/flatlaf-2.5.jar
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=com.formdev.flatlaf.FlatLightLaf -cp %CLASSPATH%;%FLATLAF_CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10

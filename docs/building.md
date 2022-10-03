@@ -22,7 +22,7 @@ Some Radiance libraries have third-party dependencies. To print the full depende
 
 ```
 -------------- svg-transcoder ---------------
-org.apache.xmlgraphics:batik-all:1.14
+org.apache.xmlgraphics:batik-all:1.15
 org.pushing-pixels:common:6.5-SNAPSHOT
 ```
 

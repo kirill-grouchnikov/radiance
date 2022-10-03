@@ -34,7 +34,7 @@ The `SvgBatchConverter` class is the entry point into the offline batch converte
 
 Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline for a single SVG source folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-the-radiance-svg-transcoder)):
 
-<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-tools/batik-all-1.14.jar:../build/libs-tools/xml-apis-1.4.01.jar:../build/libs-tools/xml-apis-ext-1.3.04.jar:../build/libs-tools/xmlgraphics-commons-2.6.jar SvgBatchConverter <b>sourceFolder=</b>../demos/component-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.radiance.demo.component.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
+<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-tools/batik-all-1.15.jar:../build/libs-tools/xml-apis-1.4.01.jar:../build/libs-tools/xml-apis-ext-1.3.04.jar:../build/libs-tools/xmlgraphics-commons-2.7.jar SvgBatchConverter <b>sourceFolder=</b>../demos/component-demo/src/main/java/org/pushingpixels/radiance/demo/components/svg/tango/transcoded <b>outputPackageName=</b>org.pushingpixels.radiance.demo.component.svg.tango.transcoded <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
 
 The first part is enumerating all the jar files required for the converter - Radiance and Batik. In this sample script, the Radiance SVG transcoder jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
@@ -58,7 +58,7 @@ The `SvgDeepBatchConverter` class is the entry point into the offline recursive 
 
 Assuming your `RADIANCE_VERSION` variable points to the latest version of the Radiance libraries, here is how you would run the converter pipeline recursively for all SVG files under a folder (note that the dependencies versions need to match the Radiance version, see [the list below](#dependency-versions-for-the-radiance-svg-transcoder)):
 
-<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-tools/batik-all-1.14.jar:../build/libs-tools/xml-apis-1.4.01.jar:../build/libs-tools/xml-apis-ext-1.3.04.jar:../build/libs-tools/xmlgraphics-commons-2.6.jar SvgDeepBatchConverter <b>sourceRootFolder=</b>../demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/ <b>outputRootPackageName=</b>org.pushingpixels.radiance.demo.themingapps <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
+<code>java <b>-cp</b> ../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-tools/batik-all-1.15.jar:../build/libs-tools/xml-apis-1.4.01.jar:../build/libs-tools/xml-apis-ext-1.3.04.jar:../build/libs-tools/xmlgraphics-commons-2.7.jar SvgDeepBatchConverter <b>sourceRootFolder=</b>../demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/ <b>outputRootPackageName=</b>org.pushingpixels.radiance.demo.themingapps <b>templateFile=</b>/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ <b>outputLanguage=</b>java</code>
 
 The first part is enumerating all the jar files required for the converter - Radiance and Batik. In this sample script, the Radiance SVG transcoder jar is under `drop` folder after running the `gradlew copyJars` command. The Batik dependencies are under `build/libs-core` after running the `gradlew getCoreDependencies` command.
 
@@ -105,6 +105,21 @@ The following table summarizes the level of support for different SVG elements.
 
 ### Dependency versions for the Radiance SVG transcoder
 
+* For **6.5-SNAPSHOT**, use
+  * `batik-all-1.15.jar`
+  * `xml-apis-1.4.01.jar`
+  * `xml-apis-ext-1.3.04.jar`
+  * `xmlgraphics-commons-2.7.jar`
+* For **6.0.1**, use
+  * `batik-all-1.14.jar`
+  * `xml-apis-1.4.01.jar`
+  * `xml-apis-ext-1.3.04.jar`
+  * `xmlgraphics-commons-2.6.jar`
+* For **5.0.0**, use
+  * `batik-all-1.14.jar`
+  * `xml-apis-1.4.01.jar`
+  * `xml-apis-ext-1.3.04.jar`
+  * `xmlgraphics-commons-2.6.jar`
 * For **4.5.0**, use
   * `batik-all-1.14.jar`
   * `xml-apis-1.4.01.jar`
