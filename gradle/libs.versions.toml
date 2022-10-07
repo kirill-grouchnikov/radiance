@@ -1,0 +1,36 @@
+[versions]
+kotlin = "1.7.20"
+coroutines = "1.6.4"
+dokka = "1.7.10"
+
+batik = "1.15"
+retrofit = "2.9.0"
+jgoodies_common = "1.8.1"
+jgoodies_forms = "1.9.0"
+jhlabs = "2.0.235"
+
+versionchecker = "0.42.0"
+mavenpublish = "0.22.0"
+
+[libraries]
+
+# Core dependencies
+kotlin-core-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-core-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
+batik = { module = "org.apache.xmlgraphics:batik-all", version.ref = "batik" }
+
+# Demo dependencies
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+jgoodies-common = { module = "com.jgoodies:jgoodies-common", version.ref = "jgoodies_common" }
+jgoodies-forms = { module = "com.jgoodies:jgoodies-forms", version.ref = "jgoodies_forms" }
+jhlabs = { module = "com.jhlabs:filters", version.ref = "jhlabs" }
+
+# Gradle plugins
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+versionchecker-gradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionchecker" }
+mavenpublish-gradlePlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenpublish" }
+dokka-gradlePlugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka"}
+

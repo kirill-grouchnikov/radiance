@@ -31,7 +31,7 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
+    implementation libs.batik
     implementation project(':common')
 }
 

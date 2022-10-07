@@ -31,12 +31,12 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation libs.kotlin.core.stdlib
+    implementation libs.kotlin.core.reflect
+    implementation libs.kotlin.coroutines.core
+    implementation libs.kotlin.coroutines.swing
+    implementation libs.retrofit.core
+    implementation libs.retrofit.moshi
     implementation project(':animation')
     implementation project(':kotlin-ext:animation-ktx')
     implementation project(':kotlin-ext:swing-ktx')

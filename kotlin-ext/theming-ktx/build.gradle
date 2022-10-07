@@ -31,7 +31,7 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation libs.kotlin.core.stdlib
     implementation project(':theming')
 }
 

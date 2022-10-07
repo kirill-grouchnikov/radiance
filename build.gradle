@@ -29,28 +29,6 @@
  */
 
 buildscript {
-    ext {
-        // Build dependencies
-        gradle_version                       =    '7.5.1'
-
-        // Core dependencies
-        kotlin_version                       =   '1.7.10'
-        kotlinx_coroutines_version           =    '1.6.4'
-        batik_version                        =     '1.15'
-
-        // Demo dependencies
-        retrofit_version                     =    '2.9.0'
-        jgoodies_common_version              =    '1.8.1'
-        jgoodies_forms_version               =    '1.9.0'
-        jhlabs_filters_version               =  '2.0.235'
-
-        // Publish dependencies
-        gradle_maven_publish_plugin_version  =   '0.22.0'
-        dokka_version                        =   '1.7.10'
-
-        // Misc dependencies
-        gradle_versions_plugin_version       =   '0.42.0'
-    }
     repositories {
         mavenCentral()
         maven {
@@ -64,15 +42,11 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.ext.kotlin_version}"
-        classpath "com.vanniktech:gradle-maven-publish-plugin:${rootProject.ext.gradle_maven_publish_plugin_version}"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${rootProject.ext.dokka_version}"
-        classpath "com.github.ben-manes:gradle-versions-plugin:${rootProject.ext.gradle_versions_plugin_version}"
+        classpath libs.kotlin.gradlePlugin
+        classpath libs.mavenpublish.gradlePlugin
+        classpath libs.versionchecker.gradlePlugin
+        classpath libs.dokka.gradlePlugin
     }
-}
-
-wrapper {
-    gradleVersion = "${rootProject.ext.gradle_version}"
 }
 
 allprojects {

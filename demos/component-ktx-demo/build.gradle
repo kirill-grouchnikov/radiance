@@ -31,10 +31,10 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-swing:$kotlinx_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
+    implementation libs.kotlin.core.stdlib
+    implementation libs.kotlin.coroutines.core
+    implementation libs.kotlin.coroutines.swing
+    implementation libs.batik
     implementation project(':common')
     implementation project(':theming')
     implementation project(':component')
@@ -42,8 +42,8 @@ dependencies {
     implementation project(':kotlin-ext:theming-ktx')
     implementation project(':kotlin-ext:component-ktx')
     implementation project(':demos:component-demo')
-    implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
-    implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
+    implementation libs.jgoodies.common
+    implementation libs.jgoodies.forms
 }
 
 ext.designation = "demo"
