@@ -332,6 +332,9 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                     titleAtributedDescription.getIterator(), frc);
             int titleCurrOffset = 0;
             while (true) {
+                if(titleLabelWidth<0) { // avoid ArrayIndexOutOfBoundsException
+                    break;
+                }
                 TextLayout tl = titleLineBreakMeasurer.nextLayout(titleLabelWidth);
                 if (tl == null) {
                     break;
@@ -391,6 +394,9 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                         attributedDescription.getIterator(), frc);
                 int currOffset = 0;
                 while (true) {
+                    if(descLabelWidth<0) { // avoid ArrayIndexOutOfBoundsException
+                        break;
+                    }
                     TextLayout tl = lineBreakMeasurer.nextLayout(descLabelWidth);
                     if (tl == null) {
                         break;
