@@ -308,6 +308,11 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 
         @Override
         public void layoutContainer(Container parent) {
+            if(parent.getWidth()==1 && parent.getHeight()==1) { 
+            	// see https://github.com/kirill-grouchnikov/radiance/issues/413
+                return;
+            }
+            
             removeExistingComponents();
 
             Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
@@ -332,9 +337,6 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                     titleAtributedDescription.getIterator(), frc);
             int titleCurrOffset = 0;
             while (true) {
-                if(titleLabelWidth<0) { // avoid ArrayIndexOutOfBoundsException
-                    break;
-                }
                 TextLayout tl = titleLineBreakMeasurer.nextLayout(titleLabelWidth);
                 if (tl == null) {
                     break;
@@ -394,9 +396,6 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                         attributedDescription.getIterator(), frc);
                 int currOffset = 0;
                 while (true) {
-                    if(descLabelWidth<0) { // avoid ArrayIndexOutOfBoundsException
-                        break;
-                    }
                     TextLayout tl = lineBreakMeasurer.nextLayout(descLabelWidth);
                     if (tl == null) {
                         break;
