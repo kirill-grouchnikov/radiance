@@ -496,10 +496,11 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                 // fix for issue 481 - rollovers on cell editing
                 TableCellEditor newEditor = (TableCellEditor) propertyChangeEvent.getNewValue();
                 TableCellEditor oldEditor = (TableCellEditor) propertyChangeEvent.getOldValue();
-                if (oldEditor != null) {
+                Component currentEditorComponent = table.getEditorComponent();
+                if ((oldEditor != null) && (currentEditorComponent != null)) {
                     table.getEditorComponent().removeMouseListener(radianceFadeRolloverListener);
                 }
-                if (newEditor != null) {
+                if ((newEditor != null) && (currentEditorComponent != null)) {
                     table.getEditorComponent().addMouseListener(radianceFadeRolloverListener);
                 }
             }
