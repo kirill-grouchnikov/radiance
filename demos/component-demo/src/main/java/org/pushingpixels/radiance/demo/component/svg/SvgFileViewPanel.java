@@ -56,13 +56,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Panel that hosts SVG-based gallery buttons.
  *
  * @author Kirill Grouchnikov
+ * @author EUG https://github.com/homebeaver (to reproduce issue 413)
  */
+@SuppressWarnings("serial")
 public class SvgFileViewPanel extends JCommandButtonPanel {
+	
+	private static final Logger LOG = Logger.getLogger(SvgFileViewPanel.class.getName());
+
     /**
      * Callback into the underlying breadcrumb bar.
      */
@@ -100,6 +106,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      * @param leafs Information on the files to show in the panel.
      */
     public void setFolder(final java.util.List<BreadcrumbItem<File>> leafs) {
+    	LOG.info("List<BreadcrumbItem<File>> leafs:"+leafs + ", size="+leafs.size());
         this.getProjection().getContentModel().removeAllCommandGroups();
 
         List<Command> commands = new ArrayList<>();
@@ -110,7 +117,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
             if (!fileName.endsWith(".svg") && !fileName.endsWith(".svgz")) {
                 continue;
             }
-
+            System.out.println("fileName="+fileName);
             Command svgCommand = Command.builder()
                     .setText(fileName.replace('-', ' '))
                     .setIconFactory(EmptyRadianceIcon.factory())
@@ -159,7 +166,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
 
         this.getProjection().getContentModel().addCommandGroup(new CommandGroup(commands));
 
-        mainWorker = new SwingWorker<>() {
+        mainWorker = new SwingWorker<Void, KeyValuePair<String, InputStream>>() {
             @Override
             protected Void doInBackground() throws Exception {
                 for (final BreadcrumbItem<File> leaf : leafs) {
