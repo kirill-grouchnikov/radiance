@@ -310,6 +310,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
         public void layoutContainer(Container parent) {
             if(parent.getWidth()==1 && parent.getHeight()==1) { 
             	// see https://github.com/kirill-grouchnikov/radiance/issues/413
+            	System.out.println("issues/413 ________  parent Container is 1x1");
                 return;
             }
             
