@@ -308,6 +308,14 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 
         @Override
         public void layoutContainer(Container parent) {
+            if ((parent.getWidth() == 1) || (parent.getHeight() == 1)) {
+                // Work around for the JDK commit at
+                // https://github.com/openjdk/jdk/commit/f3ef97263fe7d99696aa3fe1845e6f19eafe3f45
+                // that sets the popup window size at 1x1 to prevent flicker of old content.
+                // Nothing to do here but bail early and wait for the next real layout pass
+                return;
+            }
+
             removeExistingComponents();
 
             Font font = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().
