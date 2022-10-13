@@ -112,7 +112,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
             }
 
             Command svgCommand = Command.builder()
-                    .setText(fileName.replace('-', ' '))
+                    .setText(fileName)
                     .setIconFactory(EmptyRadianceIcon.factory())
                     .setAction(commandActionEvent -> {
                         try {

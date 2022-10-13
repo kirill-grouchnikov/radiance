@@ -177,10 +177,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 this.titlePart1 = title;
                 this.titlePart2 = null;
             } else {
-                int currMaxLength = fm.stringWidth(this.commandButton.getText());
                 int actionIconWidth = ComponentUtilities.hasPopupAction(this.commandButton) ? 0
                         : 2 * ComponentUtilities.getHLayoutGap(commandButton)
                         + (fm.getAscent() + fm.getDescent()) / 2;
+                int currMaxLength = fm.stringWidth(this.commandButton.getText()) + actionIconWidth;
 
                 StringBuilder currLeading = new StringBuilder();
                 while (tokenizer.hasMoreTokens()) {
