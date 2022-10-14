@@ -60,5 +60,5 @@ class AllExtras :
             TurquoiseLakeColorScheme(),
             WildPineColorScheme(),
             YellowMarineColorScheme()
-        ), "theming-extras/colorschemes"
+        ), "theming-extras/colorschemes", "Radiance"
     )

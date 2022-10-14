@@ -36,15 +36,15 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import javax.swing.*;
 
 public class SeaGlassFrame extends SampleFrame {
-    public SeaGlassFrame() {
-        super();
+    public SeaGlassFrame(String frameTitle) {
+        super(frameTitle);
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             RadianceThemingCortex.GlobalScope.setSkin(new SeaGlassSkin());
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SeaGlassFrame sf = new SeaGlassFrame();
+            SeaGlassFrame sf = new SeaGlassFrame("Radiance");
             sf.setSize(340, 254);
             sf.setLocationRelativeTo(null);
             sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

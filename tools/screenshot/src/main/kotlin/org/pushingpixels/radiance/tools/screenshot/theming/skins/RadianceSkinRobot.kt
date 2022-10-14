@@ -58,7 +58,8 @@ import javax.swing.JFrame
  */
 abstract class RadianceSkinRobot(
     private val skins: List<RadianceSkin>,
-    private val screenshotSubfolder: String
+    private val screenshotSubfolder: String,
+    private val frameTitle: String
 ) : ScreenshotRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         withContext(Dispatchers.Swing) {
@@ -70,7 +71,7 @@ abstract class RadianceSkinRobot(
         // create the frame and set the icon image
         val frame: SampleFrame
         withContext(Dispatchers.Swing) {
-            frame = SampleFrame()
+            frame = SampleFrame(frameTitle)
             frame.iconImage = RadianceLogo.getLogoImage(
                 frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(

@@ -47,5 +47,6 @@ class AllExtras : RadianceSkinRobot(
         OfficeSilver2007Skin(),
         StreetlightsSkin()
     ),
-    "theming-extras/skins"
+    "theming-extras/skins",
+    "Radiance"
 )

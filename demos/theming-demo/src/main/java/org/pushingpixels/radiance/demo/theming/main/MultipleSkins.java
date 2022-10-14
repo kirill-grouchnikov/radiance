@@ -71,7 +71,7 @@ public class MultipleSkins {
             for (int i = 0; i < 4; i++) {
                 int y = maxBounds.y;
                 for (int j = 0; j < 3; j++) {
-                    SampleFrame skinFrame = new SampleFrame();
+                    SampleFrame skinFrame = new SampleFrame("Radiance");
                     RadianceThemingCortex.RootPaneScope.setSkin(skinFrame.getRootPane(), skinGrid[i][j]);
                     SwingUtilities.updateComponentTreeUI(skinFrame);
                     skinFrame.setBounds(x, y, maxBounds.width / 4, maxBounds.height / 3);

@@ -42,5 +42,6 @@ class All : RadianceSkinRobot(
     RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
         Class.forName(it.value.className).getDeclaredConstructor().newInstance() as RadianceSkin
     },
-    "theming/skins"
+    "theming/skins",
+    "Radiance"
 )

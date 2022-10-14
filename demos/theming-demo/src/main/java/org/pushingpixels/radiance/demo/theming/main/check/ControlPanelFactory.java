@@ -651,7 +651,7 @@ public class ControlPanelFactory {
 
         JButton customSkinFrame = new JButton("Show");
         customSkinFrame.addActionListener(actionEvent -> SwingUtilities.invokeLater(() -> {
-            JFrame testFrame = new SampleFrame();
+            JFrame testFrame = new SampleFrame("Radiance");
             RadianceThemingCortex.RootPaneScope.setSkin(testFrame.getRootPane(),
                     new NebulaBrickWallSkin());
             SwingUtilities.updateComponentTreeUI(testFrame.getRootPane());

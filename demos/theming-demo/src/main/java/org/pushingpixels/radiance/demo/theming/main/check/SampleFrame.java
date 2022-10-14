@@ -88,8 +88,8 @@ public class SampleFrame extends JFrame {
         }
     }
 
-    public SampleFrame() {
-        super("Test application");
+    public SampleFrame(String title) {
+        super(title);
         this.setLayout(new BorderLayout());
         this.tabbed = new JTabbedPane();
 
@@ -335,7 +335,7 @@ public class SampleFrame extends JFrame {
                 RadianceThemingCortex.GlobalScope.setSkin(new CremeCoffeeSkin());
             }
             JFrame.setDefaultLookAndFeelDecorated(true);
-            SampleFrame sf = new SampleFrame();
+            SampleFrame sf = new SampleFrame("Radiance");
             sf.setSize(340, 258);
             sf.setLocationRelativeTo(null);
             sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

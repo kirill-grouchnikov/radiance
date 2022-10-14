@@ -74,5 +74,5 @@ class All :
                 .shiftBackground(Color(255, 128, 128), 0.8).named("Derived ShiftedBackground"),
             PurpleColorScheme()
                 .shift(Color(128, 255, 128), 0.8, Color(128, 0, 0), 0.7).named("Derived Shifted")
-        ), "theming/colorschemes"
+        ), "theming/colorschemes", "Radiance"
     )
