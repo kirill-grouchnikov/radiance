@@ -32,47 +32,48 @@ package org.pushingpixels.radiance.tools.screenshot.theming.schemes
 import org.pushingpixels.radiance.theming.api.colorscheme.*
 import java.awt.Color
 
+private val radianceColorSchemes = listOf(
+    AquaColorScheme(),
+    BarbyPinkColorScheme(),
+    BottleGreenColorScheme(),
+    BrownColorScheme(),
+    CharcoalColorScheme(),
+    CremeColorScheme(),
+    DarkVioletColorScheme(),
+    DesertSandColorScheme(),
+    EbonyColorScheme(),
+    JadeForestColorScheme(),
+    LightAquaColorScheme(),
+    LimeGreenColorScheme(),
+    OliveColorScheme(),
+    OrangeColorScheme(),
+    PurpleColorScheme(),
+    RaspberryColorScheme(),
+    SepiaColorScheme(),
+    SteelBlueColorScheme(),
+    SunGlareColorScheme(),
+    SunsetColorScheme(),
+    TerracottaColorScheme(),
+    UltramarineColorScheme(),
+    PurpleColorScheme().saturate(-0.4).named("Derived Desaturate"),
+    PurpleColorScheme().saturate(0.4).named("Derived Saturate"),
+    PurpleColorScheme().hueShift(0.4).named("Derived HueShift"),
+    PurpleColorScheme().shade(0.4).named("Derived Shaded"),
+    PurpleColorScheme().tint(0.4).named("Derived Tinted"),
+    PurpleColorScheme().tone(0.4).named("Derived Toned"),
+    PurpleColorScheme().invert().named("Derived Invert"),
+    PurpleColorScheme().negate().named("Derived Negate"),
+    PurpleColorScheme()
+        .shiftBackground(Color(255, 128, 128), 0.8).named("Derived ShiftedBackground"),
+    PurpleColorScheme()
+        .shift(Color(128, 255, 128), 0.8, Color(128, 0, 0), 0.7).named("Derived Shifted")
+)
+
 /**
  * Screenshot robots for Radiance color schemes.
  *
  * @author Kirill Grouchnikov
  */
-class All :
-    ColorSchemeRobot(
-        listOf(
-            AquaColorScheme(),
-            BarbyPinkColorScheme(),
-            BottleGreenColorScheme(),
-            BrownColorScheme(),
-            CharcoalColorScheme(),
-            CremeColorScheme(),
-            DarkVioletColorScheme(),
-            DesertSandColorScheme(),
-            EbonyColorScheme(),
-            JadeForestColorScheme(),
-            LightAquaColorScheme(),
-            LimeGreenColorScheme(),
-            OliveColorScheme(),
-            OrangeColorScheme(),
-            PurpleColorScheme(),
-            RaspberryColorScheme(),
-            SepiaColorScheme(),
-            SteelBlueColorScheme(),
-            SunGlareColorScheme(),
-            SunsetColorScheme(),
-            TerracottaColorScheme(),
-            UltramarineColorScheme(),
-            PurpleColorScheme().saturate(-0.4).named("Derived Desaturate"),
-            PurpleColorScheme().saturate(0.4).named("Derived Saturate"),
-            PurpleColorScheme().hueShift(0.4).named("Derived HueShift"),
-            PurpleColorScheme().shade(0.4).named("Derived Shaded"),
-            PurpleColorScheme().tint(0.4).named("Derived Tinted"),
-            PurpleColorScheme().tone(0.4).named("Derived Toned"),
-            PurpleColorScheme().invert().named("Derived Invert"),
-            PurpleColorScheme().negate().named("Derived Negate"),
-            PurpleColorScheme()
-                .shiftBackground(Color(255, 128, 128), 0.8).named("Derived ShiftedBackground"),
-            PurpleColorScheme()
-                .shift(Color(128, 255, 128), 0.8, Color(128, 0, 0), 0.7).named("Derived Shifted")
-        ), "theming/colorschemes", "Radiance"
-    )
+class All : ColorSchemeRobot(radianceColorSchemes, "theming/colorschemes", "Radiance")
+
+class EphemeralAll : ColorSchemeRobot(radianceColorSchemes, "theming/colorschemes", "Ephemeral")

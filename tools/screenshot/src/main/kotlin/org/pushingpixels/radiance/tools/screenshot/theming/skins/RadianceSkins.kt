@@ -45,3 +45,11 @@ class All : RadianceSkinRobot(
     "theming/skins",
     "Radiance"
 )
+
+class EphemeralAll : RadianceSkinRobot(
+    RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
+        Class.forName(it.value.className).getDeclaredConstructor().newInstance() as RadianceSkin
+    },
+    "theming/skins",
+    "Ephemeral"
+)
