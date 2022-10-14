@@ -33,9 +33,9 @@ import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTableCellRenderer;
 
 import javax.swing.*;

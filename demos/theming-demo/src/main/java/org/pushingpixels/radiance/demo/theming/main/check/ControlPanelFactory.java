@@ -39,10 +39,10 @@ import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_info_black_24px
 import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_warning_black_24px;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.folder_open;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.*;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.icon.RadianceDefaultIconPack;
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.radiance.theming.api.skin.NebulaBrickWallSkin;

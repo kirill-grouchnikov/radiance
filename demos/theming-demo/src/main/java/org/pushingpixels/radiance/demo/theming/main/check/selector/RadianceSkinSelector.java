@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.demo.theming.main.check.selector;
 
 import org.pushingpixels.radiance.demo.theming.main.check.FlexiComboBox;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 
 import javax.swing.*;

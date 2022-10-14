@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 
 import javax.swing.*;

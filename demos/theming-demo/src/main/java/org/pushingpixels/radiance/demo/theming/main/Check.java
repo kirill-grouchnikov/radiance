@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.selector.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.*;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -42,10 +43,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeA
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.Side;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.TabCloseKind;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.radiance.theming.api.skin.RadianceGeminiLookAndFeel;
-import org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeLookAndFeel;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseListener;

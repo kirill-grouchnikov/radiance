@@ -33,10 +33,10 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.demo.theming.main.Check;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.skin.CremeCoffeeSkin;
 
 import javax.swing.*;

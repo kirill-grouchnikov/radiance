@@ -31,11 +31,11 @@ package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

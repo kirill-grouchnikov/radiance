@@ -30,10 +30,10 @@
 package org.pushingpixels.radiance.demo.theming.main;
 
 import org.pushingpixels.radiance.demo.theming.main.check.SampleInternalFrame;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeSilver2007Skin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.*;
+import org.pushingpixels.radiance.theming.extras.api.skinpack.OfficeSilver2007Skin;
 
 import javax.swing.*;
 import java.awt.*;

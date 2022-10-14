@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.check;
 
+import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;

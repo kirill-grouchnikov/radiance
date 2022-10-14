@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.samples.theming.api;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.AutumnSkin;
 import org.pushingpixels.radiance.theming.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.radiance.theming.api.skin.GraphiteSkin;
