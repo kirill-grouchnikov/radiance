@@ -420,8 +420,7 @@ public class Check extends JFrame {
         /**
          * Creates a wrapper font set.
          *
-         * @param delegate
-         *            The base Radiance font set.
+         * @param delegate The base Radiance font set.
          */
         public DialogFontSet(FontSet delegate) {
             super();
@@ -431,8 +430,7 @@ public class Check extends JFrame {
         /**
          * Returns the wrapped font.
          *
-         * @param systemFont
-         *            Original font.
+         * @param systemFont Original font.
          * @return Wrapped font.
          */
         private FontUIResource getWrappedFont(FontUIResource systemFont) {
@@ -595,17 +593,36 @@ public class Check extends JFrame {
         });
     }
 
+    private static void configureToolbarButton(AbstractButton button, boolean useMutedIcons) {
+        if (useMutedIcons) {
+            RadianceThemingCortex.ComponentScope.setIconFilterStrategies(
+                    button,
+                    RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
+                    RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME);
+        }
+    }
+
     public static JToolBar getToolbar(int size, boolean hasStrings) {
+        return getToolbar(size, hasStrings, false);
+    }
+
+    public static JToolBar getToolbar(int size, boolean hasStrings, boolean useMutedIcons) {
         JToolBar toolBar = new JToolBar();
 
         JButton buttonCut = new JButton(hasStrings ? "cut" : null, edit_cut.of(size, size));
         RadianceThemingCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(buttonCut, true);
+        configureToolbarButton(buttonCut, useMutedIcons);
         toolBar.add(buttonCut);
+
         JButton buttonCopy = new JButton(hasStrings ? "copy" : null, edit_copy.of(size, size));
         RadianceThemingCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(buttonCopy, true);
+        configureToolbarButton(buttonCopy, useMutedIcons);
         buttonCopy.setEnabled(false);
         toolBar.add(buttonCopy);
-        JButton buttonPaste = new JButton(edit_paste.of(size, size));
+
+        JToggleButton buttonPaste = new JToggleButton(edit_paste.of(size, size));
+        buttonPaste.setSelected(true);
         buttonPaste.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 JPopupMenu pastePopup = new JPopupMenu();
@@ -615,26 +632,40 @@ public class Check extends JFrame {
                 pastePopup.show(buttonPaste, 0, buttonPaste.getHeight());
             }
         });
+        configureToolbarButton(buttonPaste, useMutedIcons);
         toolBar.add(buttonPaste);
+
         JButton buttonSelectAll = new JButton(edit_select_all.of(size, size));
+        configureToolbarButton(buttonSelectAll, useMutedIcons);
         toolBar.add(buttonSelectAll);
+
         JButton buttonDelete = new JButton(edit_delete.of(size, size));
+        configureToolbarButton(buttonDelete, useMutedIcons);
         toolBar.add(buttonDelete);
+
         toolBar.addSeparator();
 
         // add an inner toolbar to check the painting of toolbar
         // gradient and drop shadows under different skins.
         JToolBar innerToolbar = new JToolBar(JToolBar.HORIZONTAL);
         innerToolbar.setFloatable(false);
+
         JToggleButton buttonFormatCenter = new JToggleButton(format_justify_center.of(size, size));
         RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonFormatCenter, 5.0f);
+        configureToolbarButton(buttonFormatCenter, useMutedIcons);
         innerToolbar.add(buttonFormatCenter);
+
         JToggleButton buttonFormatLeft = new JToggleButton(format_justify_left.of(size, size));
+        configureToolbarButton(buttonFormatLeft, useMutedIcons);
         innerToolbar.add(buttonFormatLeft);
+
         JToggleButton buttonFormatRight = new JToggleButton(format_justify_right.of(size, size));
+        configureToolbarButton(buttonFormatRight, useMutedIcons);
         innerToolbar.add(buttonFormatRight);
+
         JToggleButton buttonFormatFill = new JToggleButton(format_justify_fill.of(size, size));
         RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonFormatFill, 0.0f);
+        configureToolbarButton(buttonFormatFill, useMutedIcons);
         innerToolbar.add(buttonFormatFill);
 
         toolBar.add(innerToolbar);
@@ -652,16 +683,19 @@ public class Check extends JFrame {
             Set<Side> rightSide = EnumSet.of(Side.RIGHT);
             RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleBold, rightSide);
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleBold, 3.0f);
+            configureToolbarButton(buttonStyleBold, useMutedIcons);
 
             final JToggleButton buttonStyleItalic = new JToggleButton(
                     format_text_italic.of(size, size));
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleItalic, 0.0f);
             RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleItalic, rightSide);
+            configureToolbarButton(buttonStyleItalic, useMutedIcons);
 
             final JToggleButton buttonStyleUnderline = new JToggleButton(
                     format_text_underline.of(size, size));
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleUnderline, 0.0f);
             RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleUnderline, rightSide);
+            configureToolbarButton(buttonStyleUnderline, useMutedIcons);
 
             final JToggleButton buttonStyleStrikethrough = new JToggleButton(
                     format_text_strikethrough.of(size, size));
@@ -669,6 +703,8 @@ public class Check extends JFrame {
                     EnumSet.of(Side.LEFT));
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleStrikethrough,
                     3.0f);
+            configureToolbarButton(buttonStyleStrikethrough, useMutedIcons);
+
             buttonStyleBold.setSelected(true);
 
             innerPanel.add(buttonStyleBold);
@@ -680,9 +716,11 @@ public class Check extends JFrame {
         }
 
         toolBar.add(Box.createGlue());
+
         JButton buttonExit = new JButton(process_stop.of(size, size));
         buttonExit.setToolTipText("Closes the test application");
         buttonExit.addActionListener(actionEvent -> System.exit(0));
+        configureToolbarButton(buttonExit, useMutedIcons);
         toolBar.add(buttonExit);
 
         return toolBar;

@@ -59,7 +59,8 @@ import javax.swing.JFrame
 abstract class RadianceSkinRobot(
     private val skins: List<RadianceSkin>,
     private val screenshotSubfolder: String,
-    private val frameTitle: String
+    private val frameTitle: String,
+    private val useMutedToolbarIcons: Boolean
 ) : ScreenshotRobot {
     private suspend fun runInner(screenshotDirectory: String) {
         withContext(Dispatchers.Swing) {
@@ -71,7 +72,7 @@ abstract class RadianceSkinRobot(
         // create the frame and set the icon image
         val frame: SampleFrame
         withContext(Dispatchers.Swing) {
-            frame = SampleFrame(frameTitle)
+            frame = SampleFrame(frameTitle, useMutedToolbarIcons)
             frame.iconImage = RadianceLogo.getLogoImage(
                 frame,
                 RadianceThemingCortex.ComponentScope.getCurrentSkin(frame.rootPane).getColorScheme(
@@ -137,11 +138,13 @@ abstract class RadianceSkinRobot(
 
             // make the first screenshot
             withContext(Dispatchers.Swing) {
-                makeScreenshot(
-                    frame, screenshotDirectory,
-                    "$screenshotSubfolder/" +
-                            skin.displayName.lowercase().replace(" ", "") + "1.png"
-                )
+                var screenshotFileName = "$screenshotSubfolder/" +
+                        skin.displayName.lowercase().replace(" ", "")
+                if (useMutedToolbarIcons) {
+                    screenshotFileName += "_filtered"
+                }
+                screenshotFileName += "1.png"
+                makeScreenshot(frame, screenshotDirectory, screenshotFileName)
             }
 
             // switch to the last tab
@@ -155,11 +158,13 @@ abstract class RadianceSkinRobot(
 
             // make the second screenshot
             withContext(Dispatchers.Swing) {
-                makeScreenshot(
-                    frame, screenshotDirectory,
-                    "$screenshotSubfolder/" +
-                            skin.displayName.lowercase().replace(" ", "") + "2.png"
-                )
+                var screenshotFileName = "$screenshotSubfolder/" +
+                        skin.displayName.lowercase().replace(" ", "")
+                if (useMutedToolbarIcons) {
+                    screenshotFileName += "_filtered"
+                }
+                screenshotFileName += "2.png"
+                makeScreenshot(frame, screenshotDirectory, screenshotFileName)
             }
         }
 

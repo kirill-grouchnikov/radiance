@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.extras.api.skinpack.*
  */
 
 class AllExtras : RadianceSkinRobot(
-    listOf(
+    skins = listOf(
         FieldOfWheatSkin(),
         HarvestSkin(),
         MagmaSkin(),
@@ -47,6 +47,7 @@ class AllExtras : RadianceSkinRobot(
         OfficeSilver2007Skin(),
         StreetlightsSkin()
     ),
-    "theming-extras/skins",
-    "Radiance"
+    screenshotSubfolder = "theming-extras/skins",
+    frameTitle = "Radiance",
+    useMutedToolbarIcons = false
 )

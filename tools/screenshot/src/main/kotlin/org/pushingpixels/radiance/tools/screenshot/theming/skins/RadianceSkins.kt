@@ -39,17 +39,28 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
  */
 
 class All : RadianceSkinRobot(
-    RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
+    skins = RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
         Class.forName(it.value.className).getDeclaredConstructor().newInstance() as RadianceSkin
     },
-    "theming/skins",
-    "Radiance"
+    screenshotSubfolder = "theming/skins",
+    frameTitle = "Radiance",
+    useMutedToolbarIcons = false
 )
 
 class EphemeralAll : RadianceSkinRobot(
-    RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
+    skins = RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
         Class.forName(it.value.className).getDeclaredConstructor().newInstance() as RadianceSkin
     },
-    "theming/skins",
-    "Ephemeral"
+    screenshotSubfolder = "theming/skins",
+    frameTitle = "Ephemeral",
+    useMutedToolbarIcons = false
+)
+
+class EphemeralAllMuted : RadianceSkinRobot(
+    skins = RadianceThemingCortex.GlobalScope.getAllSkins().entries.map {
+        Class.forName(it.value.className).getDeclaredConstructor().newInstance() as RadianceSkin
+    },
+    screenshotSubfolder = "theming/skins",
+    frameTitle = "Ephemeral",
+    useMutedToolbarIcons = true
 )

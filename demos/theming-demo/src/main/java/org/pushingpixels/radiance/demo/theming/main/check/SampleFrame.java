@@ -89,11 +89,15 @@ public class SampleFrame extends JFrame {
     }
 
     public SampleFrame(String title) {
+        this(title, false);
+    }
+
+    public SampleFrame(String title, boolean useMutedToolbarIcons) {
         super(title);
         this.setLayout(new BorderLayout());
         this.tabbed = new JTabbedPane();
 
-        this.add(Check.getToolbar(22, false), BorderLayout.NORTH);
+        this.add(Check.getToolbar(22, false, useMutedToolbarIcons), BorderLayout.NORTH);
         this.add(this.tabbed, BorderLayout.CENTER);
 
         JPanel transPanel = new JPanel();
