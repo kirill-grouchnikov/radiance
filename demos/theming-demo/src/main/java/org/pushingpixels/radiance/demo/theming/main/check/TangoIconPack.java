@@ -170,7 +170,7 @@ public class TangoIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextCopyActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_copy.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_copy.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
@@ -179,7 +179,7 @@ public class TangoIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextCutActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_cut.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_cut.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
@@ -188,7 +188,7 @@ public class TangoIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextPasteActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_paste.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_paste.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
@@ -197,7 +197,7 @@ public class TangoIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextDeleteActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_delete.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_delete.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
@@ -206,7 +206,7 @@ public class TangoIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextSelectAllActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = edit_select_all.of(preferredSize, preferredSize);
+        RadianceIcon result = edit_select_all.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(preferredIconColorScheme.getColorFilter(
                 preferredIconColorScheme.isDark() ? 0.6f : 0.8f, 1.0f));
         return result;
@@ -215,37 +215,37 @@ public class TangoIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        return face_angel.of(preferredSize, preferredSize);
+        return face_angel.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
     public RadianceIcon getColorChooserColorSlidersIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        return face_glasses.of(preferredSize, preferredSize);
+        return face_glasses.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
     public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        return face_grin.of(preferredSize, preferredSize);
+        return face_grin.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
     public RadianceIcon getColorChooserColorWheelIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        return face_plain.of(preferredSize, preferredSize);
+        return face_plain.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
     public RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        return face_sad.of(preferredSize, preferredSize);
+        return face_sad.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
     public RadianceIcon getColorChooserImagePalettesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        return face_smile.of(preferredSize, preferredSize);
+        return face_smile.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
