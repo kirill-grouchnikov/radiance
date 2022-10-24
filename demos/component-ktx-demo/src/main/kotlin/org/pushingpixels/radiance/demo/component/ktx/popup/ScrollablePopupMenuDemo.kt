@@ -68,7 +68,7 @@ fun main() {
                 iconFactory = Help_browser.factory()
                 extraText = resourceBundle["Paste.textExtra"]
                 menu = commandPopupMenu {
-                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+                    val mf = MessageFormat(resourceBundle["TestMenuItem.text"])
                     for (i in 0 until 20) {
                         command {
                             title = mf.format(arrayOf<Any>(i))

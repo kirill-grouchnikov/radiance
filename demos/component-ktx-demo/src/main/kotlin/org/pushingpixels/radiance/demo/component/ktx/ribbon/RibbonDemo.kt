@@ -401,7 +401,7 @@ private class RibbonDemoBuilder {
 
 
         val mfButtonText = MessageFormat(
-           resourceBundle["StylesGallery.textButton"]
+            resourceBundle["StylesGallery.textButton"]
         )
         mfButtonText.locale = currLocale
 
@@ -501,8 +501,8 @@ private class RibbonDemoBuilder {
             richTooltip {
                 title = resourceBundle["IndentLeft.tooltip.title"]
                 description {
-                    +resourceBundle.getString("IndentLeft.tooltip.actionParagraph1")
-                    +resourceBundle.getString("IndentLeft.tooltip.actionParagraph2")
+                    +resourceBundle["IndentLeft.tooltip.actionParagraph1"]
+                    +resourceBundle["IndentLeft.tooltip.actionParagraph2"]
                 }
             }
         }
@@ -553,7 +553,7 @@ private class RibbonDemoBuilder {
 
     fun getSimplePopupMenu(): KCommandMenu {
         return commandPopupMenu {
-            val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+            val mf = MessageFormat(resourceBundle["TestMenuItem.text"])
             group {
                 command(actionKeyTip = "1") {
                     title = mf.format(arrayOf("1"))
@@ -626,14 +626,14 @@ private class RibbonDemoBuilder {
                 title = resourceBundle["Format.text"]
                 iconFactory = Edit_paste.factory()
                 menu = commandPopupMenu {
-                    val mfGroupTitle = MessageFormat(resourceBundle.getString("PanelStyles.text"))
+                    val mfGroupTitle = MessageFormat(resourceBundle["PanelStyles.text"])
                     mfGroupTitle.locale = currLocale
                     val mfTooltipTitle = MessageFormat(
-                       resourceBundle["PanelStyles.tooltip.textActionTitle"]
+                        resourceBundle["PanelStyles.tooltip.textActionTitle"]
                     )
                     mfTooltipTitle.locale = currLocale
                     val mfTooltipParagraph = MessageFormat(
-                       resourceBundle["PanelStyles.tooltip.textActionParagraph1"]
+                        resourceBundle["PanelStyles.tooltip.textActionParagraph1"]
                     )
                     mfTooltipParagraph.locale = currLocale
 
@@ -892,7 +892,7 @@ private class RibbonDemoBuilder {
                     actionRichTooltip {
                         title = resourceBundle["FontBold.tooltip.textActionTitle"]
                         description =
-                           resourceBundle["FontBold.tooltip.textActionParagraph1"]
+                            resourceBundle["FontBold.tooltip.textActionParagraph1"]
                     }
                 }
 
@@ -903,7 +903,7 @@ private class RibbonDemoBuilder {
                     actionRichTooltip {
                         title = resourceBundle["FontItalic.tooltip.textActionTitle"]
                         description =
-                           resourceBundle["FontItalic.tooltip.textActionParagraph1"]
+                            resourceBundle["FontItalic.tooltip.textActionParagraph1"]
                     }
                 }
 
@@ -914,7 +914,7 @@ private class RibbonDemoBuilder {
                     actionRichTooltip {
                         title = resourceBundle["FontUnderline.tooltip.textActionTitle"]
                         description =
-                           resourceBundle["FontUnderline.tooltip.textActionParagraph1"]
+                            resourceBundle["FontUnderline.tooltip.textActionParagraph1"]
                     }
                 }
 
@@ -924,9 +924,9 @@ private class RibbonDemoBuilder {
                     action = { println("Strikethrough toggled") }
                     actionRichTooltip {
                         title =
-                           resourceBundle["FontStrikethrough.tooltip.textActionTitle"]
+                            resourceBundle["FontStrikethrough.tooltip.textActionTitle"]
                         description =
-                           resourceBundle["FontStrikethrough.tooltip.textActionParagraph1"]
+                            resourceBundle["FontStrikethrough.tooltip.textActionParagraph1"]
                     }
                 }
             }
@@ -1242,9 +1242,9 @@ private class RibbonDemoBuilder {
             comboBox<String> {
                 content {
                     items(
-                       resourceBundle["Pictures.text"],
-                       resourceBundle["Video.text"],
-                       resourceBundle["Audio.text"]
+                        resourceBundle["Pictures.text"],
+                        resourceBundle["Video.text"],
+                        resourceBundle["Audio.text"]
                     )
                     caption = resourceBundle["Multimedia.text"]
                 }
@@ -1283,8 +1283,8 @@ private class RibbonDemoBuilder {
                         richTooltip {
                             title = resourceBundle["IndentRight.tooltip.title"]
                             description {
-                                +resourceBundle.getString("IndentRight.tooltip.actionParagraph1")
-                                +resourceBundle.getString("IndentRight.tooltip.actionParagraph2")
+                                +resourceBundle["IndentRight.tooltip.actionParagraph1"]
+                                +resourceBundle["IndentRight.tooltip.actionParagraph2"]
                             }
                         }
                     }
@@ -1588,7 +1588,7 @@ private class RibbonDemoBuilder {
             group {
                 comboBox<String> {
                     content {
-                        items(resourceBundle.getString("VeryLong.text"))
+                        items(resourceBundle["VeryLong.text"])
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.FILL
@@ -1623,7 +1623,7 @@ private class RibbonDemoBuilder {
 
                 comboBox<String> {
                     content {
-                        items(resourceBundle.getString("VeryLong.text"))
+                        items(resourceBundle["VeryLong.text"])
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.FILL
@@ -1660,7 +1660,7 @@ private class RibbonDemoBuilder {
             group {
                 comboBox<String> {
                     content {
-                        items(resourceBundle.getString("Long.text"))
+                        items(resourceBundle["Long.text"])
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.FILL
@@ -1695,7 +1695,7 @@ private class RibbonDemoBuilder {
 
                 comboBox<String> {
                     content {
-                        items(resourceBundle.getString("Long.text"))
+                        items(resourceBundle["Long.text"])
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.FILL
@@ -1824,7 +1824,7 @@ fun main() {
         val builder = RibbonDemoBuilder()
 
         val ribbonFrame = ribbonFrame {
-            title = builder.resourceBundle.getString("Frame.title")
+            title = builder.resourceBundle["Frame.title"]
             applicationIconFactory = Applications_internet.factory()
 
             tasks {
@@ -1836,26 +1836,26 @@ fun main() {
 
             contextualTaskGroups {
                 taskGroup {
-                    title = builder.resourceBundle.getString("Group1.textTaskGroupTitle")
+                    title = builder.resourceBundle["Group1.textTaskGroupTitle"]
                     color = Color.red
 
                     tasks {
                         +builder.getContextualRibbonTask(
-                            builder.resourceBundle.getString("Task11.textTaskTitle"), "XA"
+                            builder.resourceBundle["Task11.textTaskTitle"], "XA"
                         )
                         +builder.getContextualRibbonTask(
-                            builder.resourceBundle.getString("Task12.textTaskTitle"), "XB"
+                            builder.resourceBundle["Task12.textTaskTitle"], "XB"
                         )
                     }
                 }
 
                 taskGroup {
-                    title = builder.resourceBundle.getString("Group2.textTaskGroupTitle")
+                    title = builder.resourceBundle["Group2.textTaskGroupTitle"]
                     color = Color.green
 
                     tasks {
                         +builder.getContextualRibbonTask(
-                            builder.resourceBundle.getString("Task21.textTaskTitle"), "YA"
+                            builder.resourceBundle["Task21.textTaskTitle"], "YA"
                         )
                     }
                 }
@@ -1875,19 +1875,19 @@ fun main() {
                     if (ribbon.isMinimized) {
                         commandGroup.addCommand(
                             Command.builder()
-                                .setText(builder.resourceBundle.getString("ContextMenu.showRibbon"))
+                                .setText(builder.resourceBundle["ContextMenu.showRibbon"])
                                 .setAction { ribbon.isMinimized = false }
                                 .build())
                     } else {
                         commandGroup.addCommand(
                             Command.builder()
-                                .setText(builder.resourceBundle.getString("ContextMenu.hideRibbon"))
+                                .setText(builder.resourceBundle["ContextMenu.hideRibbon"])
                                 .setAction { ribbon.isMinimized = true }
                                 .build())
                     }
                     commandGroup.addCommand(
                         Command.builder()
-                            .setText(builder.resourceBundle.getString("ContextMenu.configureRibbon"))
+                            .setText(builder.resourceBundle["ContextMenu.configureRibbon"])
                             .setAction {
                                 JOptionPane.showMessageDialog(
                                     null,
@@ -1907,7 +1907,7 @@ fun main() {
                     val galleryCommand =
                         if (ribbon.isShowingInTaskbar(galleryProjection.contentModel)) {
                             Command.builder()
-                                .setText(builder.resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                                .setText(builder.resourceBundle["ContextMenu.removeFromTaskbar"])
                                 .setAction { ribbon.removeTaskbarGallery(galleryProjection.contentModel) }
                                 .build()
                         } else {
@@ -1917,7 +1917,7 @@ fun main() {
                                 .setCommandPresentationState(JRibbonBand.BIG_FIXED)
                                 .build()
                             Command.builder()
-                                .setText(builder.resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                .setText(builder.resourceBundle["ContextMenu.addToTaskbar"])
                                 .setAction {
                                     ribbon.addTaskbarGalleryDropdown(
                                         RibbonGalleryProjection(
@@ -1938,12 +1938,12 @@ fun main() {
                     val componentCommand =
                         if (ribbon.isShowingInTaskbar(componentProjection.contentModel)) {
                             Command.builder()
-                                .setText(builder.resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                                .setText(builder.resourceBundle["ContextMenu.removeFromTaskbar"])
                                 .setAction { ribbon.removeTaskbarComponent(componentProjection.contentModel) }
                                 .build()
                         } else {
                             Command.builder()
-                                .setText(builder.resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                .setText(builder.resourceBundle["ContextMenu.addToTaskbar"])
                                 .setAction { ribbon.addTaskbarComponent(componentProjection) }
                                 .build()
                         }
@@ -1957,12 +1957,12 @@ fun main() {
                     val originalCommand = commandButtonProjection.contentModel
                     val commandCommand = if (ribbon.isShowingInTaskbar(originalCommand)) {
                         Command.builder()
-                            .setText(builder.resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                            .setText(builder.resourceBundle["ContextMenu.removeFromTaskbar"])
                             .setAction { ribbon.removeTaskbarCommand(originalCommand) }
                             .build()
                     } else {
                         Command.builder()
-                            .setText(builder.resourceBundle.getString("ContextMenu.addToTaskbar"))
+                            .setText(builder.resourceBundle["ContextMenu.addToTaskbar"])
                             .setAction {
                                 ribbon.addTaskbarCommand(
                                     RibbonTaskbarCommandButtonProjection(
@@ -1990,22 +1990,22 @@ fun main() {
                     popupKeyTip = "GS",
                     popupHorizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.END
                 ) {
-                    title = builder.resourceBundle.getString("Share.title")
+                    title = builder.resourceBundle["Share.title"]
                     iconFactory = Internet_mail.factory()
 
                     menu = commandPopupMenu {
                         command(actionKeyTip = "E") {
-                            title = builder.resourceBundle.getString("AppMenuSend.email.text")
+                            title = builder.resourceBundle["AppMenuSend.email.text"]
                             action = { println("Shared to email") }
                         }
 
                         command(actionKeyTip = "H") {
-                            title = builder.resourceBundle.getString("AppMenuSend.html.text")
+                            title = builder.resourceBundle["AppMenuSend.html.text"]
                             action = { println("Shared to browser") }
                         }
 
                         command(actionKeyTip = "W") {
-                            title = builder.resourceBundle.getString("AppMenuSend.word.text")
+                            title = builder.resourceBundle["AppMenuSend.word.text"]
                             action = { println("Shared to Word") }
                         }
                     }
@@ -2022,9 +2022,9 @@ fun main() {
                     action = { JOptionPane.showMessageDialog(null, "Help button clicked") }
 
                     actionRichTooltip {
-                        title = builder.resourceBundle.getString("Help.tooltip.title")
+                        title = builder.resourceBundle["Help.tooltip.title"]
                         description =
-                            builder.resourceBundle.getString("Help.tooltip.actionParagraph")
+                            builder.resourceBundle["Help.tooltip.actionParagraph"]
                     }
                 }
             }
@@ -2075,12 +2075,12 @@ fun main() {
             }
 
             applicationMenu {
-                title = builder.resourceBundle.getString("AppMenu.title")
+                title = builder.resourceBundle["AppMenu.title"]
                 richTooltip {
-                    title = builder.resourceBundle.getString("AppMenu.tooltip.title")
-                    description = builder.resourceBundle.getString("AppMenu.tooltip.paragraph1")
+                    title = builder.resourceBundle["AppMenu.tooltip.title"]
+                    description = builder.resourceBundle["AppMenu.tooltip.paragraph1"]
                     mainIconFactory = getApplicationMenuRichTooltipIcon()
-                    footer = builder.resourceBundle.getString("AppMenu.tooltip.footer1")
+                    footer = builder.resourceBundle["AppMenu.tooltip.footer1"]
                     footerIconFactory = Help_browser.factory()
                 }
                 keyTip = "F"
@@ -2088,17 +2088,17 @@ fun main() {
                 group {
                     // "Create new" primary
                     command(actionKeyTip = "N") {
-                        title = builder.resourceBundle.getString("AppMenuNew.text")
+                        title = builder.resourceBundle["AppMenuNew.text"]
                         iconFactory = Document_new.factory()
                         action = { println("Invoked creating new document") }
 
                         commandPopupMenu {
                             group {
                                 title =
-                                    builder.resourceBundle.getString("AppMenu.default.textGroupTitle1")
+                                    builder.resourceBundle["AppMenu.default.textGroupTitle1"]
 
                                 val mf = MessageFormat(
-                                    builder.resourceBundle.getString("AppMenu.default.textButton")
+                                    builder.resourceBundle["AppMenu.default.textButton"]
                                 )
                                 mf.locale = builder.currLocale
                                 for (i in 0..4) {
@@ -2114,17 +2114,17 @@ fun main() {
 
                     // "Open" primary
                     command(actionKeyTip = "O") {
-                        title = builder.resourceBundle.getString("AppMenuOpen.text")
+                        title = builder.resourceBundle["AppMenuOpen.text"]
                         iconFactory = Document_open.factory()
                         action = { println("Invoked opening document") }
 
                         commandPopupMenu {
                             group {
                                 title =
-                                    builder.resourceBundle.getString("AppMenuOpen.secondary.textGroupTitle1")
+                                    builder.resourceBundle["AppMenuOpen.secondary.textGroupTitle1"]
 
                                 val mf = MessageFormat(
-                                    builder.resourceBundle.getString("AppMenuOpen.secondary.textButton")
+                                    builder.resourceBundle["AppMenuOpen.secondary.textButton"]
                                 )
                                 mf.locale = builder.currLocale
                                 for (i in 0..4) {
@@ -2140,7 +2140,7 @@ fun main() {
 
                     // "Save" primary
                     command(actionKeyTip = "S") {
-                        title = builder.resourceBundle.getString("AppMenuSave.text")
+                        title = builder.resourceBundle["AppMenuSave.text"]
                         iconFactory = Document_save.factory()
                         action = { println("Invoked saving document") }
                         isActionEnabled = false
@@ -2152,40 +2152,40 @@ fun main() {
                         popupKeyTip = "F",
                         textClick = CommandButtonPresentationModel.TextClick.ACTION
                     ) {
-                        title = builder.resourceBundle.getString("AppMenuSaveAs.text")
+                        title = builder.resourceBundle["AppMenuSaveAs.text"]
                         iconFactory = Document_save_as.factory()
                         action = { println("Invoked saving document as") }
 
                         commandPopupMenu {
                             group {
                                 title =
-                                    builder.resourceBundle.getString("AppMenuSaveAs.secondary.textGroupTitle1")
+                                    builder.resourceBundle["AppMenuSaveAs.secondary.textGroupTitle1"]
 
                                 command(actionKeyTip = "W") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSaveAs.word.text")
+                                        builder.resourceBundle["AppMenuSaveAs.word.text"]
                                     iconFactory = X_office_document.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSaveAs.word.description")
+                                        builder.resourceBundle["AppMenuSaveAs.word.description"]
                                     action = { println("Invoked saved as Word") }
                                 }
 
                                 command(actionKeyTip = "H") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSaveAs.html.text")
+                                        builder.resourceBundle["AppMenuSaveAs.html.text"]
                                     iconFactory = Text_html.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSaveAs.html.description")
+                                        builder.resourceBundle["AppMenuSaveAs.html.description"]
                                     action = { println("Invoked saved as HTML") }
                                     isActionEnabled = false
                                 }
 
                                 command(actionKeyTip = "O") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSaveAs.other.text")
+                                        builder.resourceBundle["AppMenuSaveAs.other.text"]
                                     iconFactory = Document_save_as.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSaveAs.other.description")
+                                        builder.resourceBundle["AppMenuSaveAs.other.description"]
                                     action = { println("Invoked saved as other") }
                                 }
                             }
@@ -2200,57 +2200,57 @@ fun main() {
                         popupKeyTip = "W",
                         textClick = CommandButtonPresentationModel.TextClick.ACTION
                     ) {
-                        title = builder.resourceBundle.getString("AppMenuPrint.text")
+                        title = builder.resourceBundle["AppMenuPrint.text"]
                         iconFactory = Document_print.factory()
                         action = { println("Invoked printing as") }
 
                         commandPopupMenu {
                             group {
                                 title =
-                                    builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle1")
+                                    builder.resourceBundle["AppMenuPrint.secondary.textGroupTitle1"]
 
                                 command(actionKeyTip = "P") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuPrint.print.text")
+                                        builder.resourceBundle["AppMenuPrint.print.text"]
                                     iconFactory = Printer.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuPrint.print.description")
+                                        builder.resourceBundle["AppMenuPrint.print.description"]
                                     action = { println("Invoked print") }
                                 }
 
                                 command(actionKeyTip = "Q") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuPrint.quick.text")
+                                        builder.resourceBundle["AppMenuPrint.quick.text"]
                                     iconFactory = Printer.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuPrint.quick.description")
+                                        builder.resourceBundle["AppMenuPrint.quick.description"]
                                     action = { println("Invoked quick") }
                                 }
 
                                 command(actionKeyTip = "V") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuPrint.preview.text")
+                                        builder.resourceBundle["AppMenuPrint.preview.text"]
                                     iconFactory = Document_print_preview.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuPrint.preview.description")
+                                        builder.resourceBundle["AppMenuPrint.preview.description"]
                                     action = { println("Invoked preview") }
                                 }
                             }
 
                             group {
                                 title =
-                                    builder.resourceBundle.getString("AppMenuPrint.secondary.textGroupTitle2")
+                                    builder.resourceBundle["AppMenuPrint.secondary.textGroupTitle2"]
 
                                 command(actionKeyTip = "M") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuPrint.memo.text")
+                                        builder.resourceBundle["AppMenuPrint.memo.text"]
                                     iconFactory = Text_x_generic.factory()
                                     action = { println("Invoked memo") }
                                 }
 
                                 command(actionKeyTip = "C") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuPrint.custom.text")
+                                        builder.resourceBundle["AppMenuPrint.custom.text"]
                                     iconFactory = Text_x_generic.factory()
                                     action = { println("Invoked custom") }
                                 }
@@ -2260,58 +2260,58 @@ fun main() {
 
                     // "Send" primary + secondaries
                     command(popupKeyTip = "D") {
-                        title = builder.resourceBundle.getString("AppMenuSend.text")
+                        title = builder.resourceBundle["AppMenuSend.text"]
                         iconFactory = Mail_forward.factory()
 
                         commandPopupMenu {
                             group {
                                 title =
-                                    builder.resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1")
+                                    builder.resourceBundle["AppMenuSend.secondary.textGroupTitle1"]
 
                                 command(actionKeyTip = "E") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSend.email.text")
+                                        builder.resourceBundle["AppMenuSend.email.text"]
                                     iconFactory = Mail_message_new.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSend.email.description")
+                                        builder.resourceBundle["AppMenuSend.email.description"]
                                     action = { println("Invoked email") }
                                 }
 
                                 command(actionKeyTip = "H") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSend.html.text")
+                                        builder.resourceBundle["AppMenuSend.html.text"]
                                     iconFactory = Text_html.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSend.html.description")
+                                        builder.resourceBundle["AppMenuSend.html.description"]
                                     action = { println("Invoked HTML") }
                                 }
 
                                 command(actionKeyTip = "W") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSend.word.text")
+                                        builder.resourceBundle["AppMenuSend.word.text"]
                                     iconFactory = X_office_document.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSend.word.description")
+                                        builder.resourceBundle["AppMenuSend.word.description"]
                                     action = { println("Invoked Word") }
                                 }
 
                                 command(popupKeyTip = "X") {
                                     title =
-                                        builder.resourceBundle.getString("AppMenuSend.wireless.text")
+                                        builder.resourceBundle["AppMenuSend.wireless.text"]
                                     iconFactory = Mail_message_new.factory()
                                     extraText =
-                                        builder.resourceBundle.getString("AppMenuSend.wireless.description")
+                                        builder.resourceBundle["AppMenuSend.wireless.description"]
                                     menu = commandPopupMenu {
                                         command(actionKeyTip = "W") {
                                             title =
-                                                builder.resourceBundle.getString("AppMenuSend.wireless.wifi.text")
+                                                builder.resourceBundle["AppMenuSend.wireless.wifi.text"]
                                             iconFactory = EmptyRadianceIcon.factory()
                                             action = { println("WiFi activated") }
                                         }
 
                                         command(actionKeyTip = "B") {
                                             title =
-                                                builder.resourceBundle.getString("AppMenuSend.wireless.bluetooth.text")
+                                                builder.resourceBundle["AppMenuSend.wireless.bluetooth.text"]
                                             iconFactory = EmptyRadianceIcon.factory()
                                             action = { println("Bluetooth activated") }
                                         }
@@ -2325,7 +2325,7 @@ fun main() {
                 group {
                     // "Exit" primary
                     command(actionKeyTip = "X") {
-                        title = builder.resourceBundle.getString("AppMenuExit.text")
+                        title = builder.resourceBundle["AppMenuExit.text"]
                         iconFactory = System_log_out.factory()
                         action = { exitProcess(0) }
                         menu = null
@@ -2334,13 +2334,13 @@ fun main() {
 
                 footer {
                     command {
-                        title = builder.resourceBundle.getString("AppMenuOptions.text")
+                        title = builder.resourceBundle["AppMenuOptions.text"]
                         iconFactory = Document_properties.factory()
                         action = { println("Invoked Options") }
                     }
 
                     command {
-                        title = builder.resourceBundle.getString("AppMenuExit.text")
+                        title = builder.resourceBundle["AppMenuExit.text"]
                         iconFactory = System_log_out.factory()
                         action = { exitProcess(0) }
                     }

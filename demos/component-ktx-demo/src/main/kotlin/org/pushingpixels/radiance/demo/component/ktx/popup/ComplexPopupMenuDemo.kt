@@ -64,7 +64,7 @@ fun main() {
         val frame = JFrame("Test")
         frame.layout = FlowLayout()
 
-        val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+        val mf = MessageFormat(resourceBundle["TestMenuItem.text"])
         val commandButton = commandButton {
             command {
                 title = resourceBundle["Paste.text"]

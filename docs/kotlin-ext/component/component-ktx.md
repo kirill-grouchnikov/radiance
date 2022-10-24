@@ -35,8 +35,8 @@ commandButtonStrip {
         action = { println("Bold toggled") }
         isToggleSelected = true
         actionRichTooltip {
-            title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-            description = resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
+            title = resourceBundle["FontBold.tooltip.textActionTitle"]
+            description = resourceBundle["FontBold.tooltip.textActionParagraph1"]
         }
         actionKeyTip = "1"
     }
@@ -56,31 +56,31 @@ For example, here is a function that constructs and returns a ribbon band:
 ```kotlin
 fun getFindBand(): KRibbonBand {
     return ribbonBand {
-        title = resourceBundle.getString("Find.textBandTitle")
+        title = resourceBundle["Find.textBandTitle"]
         iconFactory = Edit_find.factory()
         collapsedStateKeyTip = "ZY"
 
         command(RibbonElementPriority.TOP, actionKeyTip = "FD") {
-            title = resourceBundle.getString("Search.text")
+            title = resourceBundle["Search.text"]
             iconFactory = System_search.factory()
             action = { println("Search activated") }
         }
 
         command(RibbonElementPriority.MEDIUM) {
-            title = resourceBundle.getString("Find.text")
+            title = resourceBundle["Find.text"]
             iconFactory = Edit_find.factory()
             action = { println("Find activated") }
         }
 
         command(RibbonElementPriority.MEDIUM) {
-            title = resourceBundle.getString("FindReplace.text")
+            title = resourceBundle["FindReplace.text"]
             iconFactory = Edit_find_replace.factory()
             action = { println("Find Replace activated") }
             isActionEnabled = false
         }
 
         command(RibbonElementPriority.MEDIUM) {
-            title = resourceBundle.getString("SelectAll.text")
+          title = resourceBundle["SelectAll.text"]
             iconFactory = Edit_select_all.factory()
             action = { println("Select All activated") }
         }
@@ -98,7 +98,7 @@ You can then construct a ribbon task out of one or more bands:
 ```kotlin
 fun getPageLayoutTask(): KRibbonTask {
     return ribbonTask {
-        title = resourceBundle.getString("PageLayout.textTaskTitle")
+      title = resourceBundle["PageLayout.textTaskTitle"]
         keyTip = "P"
 
         bands {
@@ -116,7 +116,7 @@ And a ribbon frame out of one or more ribbon tasks and other elements:
 
 ```kotlin
 val ribbonFrame = ribbonFrame {
-    title = builder.resourceBundle.getString("Frame.title")
+    title = builder.resourceBundle["Frame.title"]
     applicationIcon = Applications_internet.factory()
 
     tasks {

@@ -71,13 +71,13 @@ fun main() {
                     title = resourceBundle["Tooltip.textActionTitle"]
                     mainIconFactory = Image_x_generic.factory()
                     description {
-                        +resourceBundle.getString("Tooltip.textParagraph1")
-                        +resourceBundle.getString("Tooltip.textParagraph2")
+                        +resourceBundle["Tooltip.textParagraph1"]
+                        +resourceBundle["Tooltip.textParagraph2"]
                     }
                     footer = resourceBundle["Tooltip.textFooterParagraph1"]
                 }
                 menu = commandPopupMenu {
-                    val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
+                    val mf = MessageFormat(resourceBundle["TestMenuItem.text"])
                     group {
                         command {
                             title = mf.format(arrayOf("1"))
