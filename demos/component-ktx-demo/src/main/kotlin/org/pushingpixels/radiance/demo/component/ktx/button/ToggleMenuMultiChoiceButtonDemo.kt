@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.demo.component.ktx.svg.Format_text_underline
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
+import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
@@ -72,7 +73,7 @@ fun main() {
                 title = "multi"
                 menu = commandPopupMenu {
                     command {
-                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                        title = resourceBundle["FontBold.tooltip.textActionTitle"]
                         iconFactory = Format_text_bold.factory()
                         action = {
                             println("Toggle bold")
@@ -82,7 +83,7 @@ fun main() {
                         isToggleSelected = isBold
                     }
                     command {
-                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                        title = resourceBundle["FontItalic.tooltip.textActionTitle"]
                         iconFactory = Format_text_italic.factory()
                         action = {
                             println("Toggle italic")
@@ -92,7 +93,7 @@ fun main() {
                         isToggleSelected = isItalic
                     }
                     command {
-                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                        title = resourceBundle["FontUnderline.tooltip.textActionTitle"]
                         iconFactory = Format_text_underline.factory()
                         action = {
                             println("Toggle underline")
@@ -102,7 +103,7 @@ fun main() {
                         isToggleSelected = isUnderline
                     }
                     command {
-                        title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                        title = resourceBundle["FontStrikethrough.tooltip.textActionTitle"]
                         iconFactory = Format_text_strikethrough.factory()
                         action = {
                             println("Toggle strikethrough")

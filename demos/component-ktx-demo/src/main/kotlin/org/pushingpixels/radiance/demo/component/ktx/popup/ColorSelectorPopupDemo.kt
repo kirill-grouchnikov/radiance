@@ -45,6 +45,7 @@ import org.pushingpixels.radiance.component.ktx.DelayedCommandListener
 import org.pushingpixels.radiance.component.ktx.KColorSelectorCommand
 import org.pushingpixels.radiance.component.ktx.colorSelectorCommandButton
 import org.pushingpixels.radiance.component.ktx.colorSelectorPopupMenu
+import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
@@ -154,7 +155,7 @@ fun main() {
                     onColorPreviewCanceled = onColorPreviewCanceledListener
 
                     command {
-                        title = resourceBundle.getString("ColorSelector.textAutomatic")
+                        title = resourceBundle["ColorSelector.textAutomatic"]
                         iconFactory = ColorIcon.factory(defaultPanelColor)
                         action = {
                             onColorActivatedListener.invoke(defaultPanelColor)
@@ -174,7 +175,7 @@ fun main() {
                     }
 
                     colorSectionWithDerived {
-                        title = resourceBundle.getString("ColorSelector.textThemeCaption")
+                        title = resourceBundle["ColorSelector.textThemeCaption"]
                         colors {
                             +Color(255, 255, 255)
                             +Color(0, 0, 0)
@@ -190,7 +191,7 @@ fun main() {
                     }
 
                     colorSection {
-                        title = resourceBundle.getString("ColorSelector.textStandardCaption")
+                        title = resourceBundle["ColorSelector.textStandardCaption"]
                         colors {
                             +Color(140, 0, 0)
                             +Color(253, 0, 0)
@@ -206,11 +207,11 @@ fun main() {
                     }
 
                     recentSection {
-                        title = resourceBundle.getString("ColorSelector.textRecentCaption")
+                        title = resourceBundle["ColorSelector.textRecentCaption"]
                     }
 
                     command {
-                        title = resourceBundle.getString("ColorSelector.textMoreColor")
+                        title = resourceBundle["ColorSelector.textMoreColor"]
                         action = DelayedCommandListener {
                             val color = JColorChooser.showDialog(it.buttonSource,
                                     "Color chooser", backgroundColor)

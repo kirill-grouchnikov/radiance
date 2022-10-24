@@ -73,6 +73,7 @@ import org.pushingpixels.radiance.swing.ktx.addDelayedItemListener
 import org.pushingpixels.radiance.swing.ktx.awt.brightness
 import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
 import org.pushingpixels.radiance.swing.ktx.awt.render
+import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*
@@ -342,72 +343,72 @@ private class RibbonDemoBuilder {
 
     init {
         documentNewCommand = command {
-            title = resourceBundle.getString("DocumentNew.text")
+            title = resourceBundle["DocumentNew.text"]
             iconFactory = Document_new.factory()
             action = { println("Document New activated") }
         }
 
         cutCommand = command {
-            title = resourceBundle.getString("Cut.text")
+            title = resourceBundle["Cut.text"]
             iconFactory = Edit_cut.factory()
             action = { println("Cut!") }
             actionRichTooltip {
-                title = resourceBundle.getString("Cut.text")
-                description = resourceBundle.getString("Cut.tooltip.actionParagraph1")
+                title = resourceBundle["Cut.text"]
+                description = resourceBundle["Cut.tooltip.actionParagraph1"]
             }
             menu = getSimplePopupMenu()
         }
 
         copyCommand = command {
-            title = resourceBundle.getString("Copy.text")
+            title = resourceBundle["Copy.text"]
             iconFactory = Edit_copy.factory()
             action = { println("Copy!") }
             menu = getSimplePopupMenu()
         }
 
         pasteCommand = command {
-            title = resourceBundle.getString("Paste.text")
+            title = resourceBundle["Paste.text"]
             iconFactory = Edit_paste.factory()
             action = { println("Pasted!") }
             actionRichTooltip {
-                title = resourceBundle.getString("Paste.text")
-                description = resourceBundle.getString("Paste.tooltip.actionParagraph1")
+                title = resourceBundle["Paste.text"]
+                description = resourceBundle["Paste.tooltip.actionParagraph1"]
             }
             menu = getSimplePopupMenu()
             secondaryRichTooltip {
-                title = resourceBundle.getString("Paste.text")
-                description = resourceBundle.getString("Paste.tooltip.popupParagraph1")
+                title = resourceBundle["Paste.text"]
+                description = resourceBundle["Paste.tooltip.popupParagraph1"]
             }
         }
 
         menuSaveSelection = command {
-            title = resourceBundle.getString("Format.menuSaveSelection.text")
+            title = resourceBundle["Format.menuSaveSelection.text"]
             iconFactory = ColorRadianceIcon.factory(Color(0xFB, 0xC0, 0x2D))
             action = { println("Save Selection activated") }
         }
 
         menuClearSelection = command {
-            title = resourceBundle.getString("Format.menuClearSelection.text")
+            title = resourceBundle["Format.menuClearSelection.text"]
             iconFactory = ColorRadianceIcon.factory(Color(0xFF, 0xA0, 0x00))
             action = { println("Clear Selection activated") }
         }
 
         applyStyles = command {
-            title = resourceBundle.getString("Format.applyStyles.text")
+            title = resourceBundle["Format.applyStyles.text"]
             iconFactory = ColorRadianceIcon.factory(Color(0xF5, 0x7C, 0x00))
             action = { println("Apply Styles activated") }
         }
 
 
         val mfButtonText = MessageFormat(
-            resourceBundle.getString("StylesGallery.textButton")
+           resourceBundle["StylesGallery.textButton"]
         )
         mfButtonText.locale = currLocale
 
         styleGalleryContentModel = galleryContent {
             iconFactory = Font_x_generic.factory()
             commandGroup {
-                title = resourceBundle.getString("StylesGallery.textGroupTitle1")
+                title = resourceBundle["StylesGallery.textGroupTitle1"]
                 for (i in 0 until 10) {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
@@ -428,7 +429,7 @@ private class RibbonDemoBuilder {
                 }
             }
             commandGroup {
-                title = resourceBundle.getString("StylesGallery.textGroupTitle2")
+                title = resourceBundle["StylesGallery.textGroupTitle2"]
                 for (i in 10 until 30) {
                     command {
                         title = mfButtonText.format(arrayOf<Any>(i))
@@ -476,7 +477,7 @@ private class RibbonDemoBuilder {
                 "+ Minor (Candella)   ", "+ Minor (Cambria)   "
             )
             richTooltip {
-                title = resourceBundle.getString("Seasons.tooltip.title")
+                title = resourceBundle["Seasons.tooltip.title"]
             }
             selectionChangeListener = { _, newSelection ->
                 println("New font selection -> $newSelection")
@@ -484,7 +485,7 @@ private class RibbonDemoBuilder {
         }
 
         rulerCheckBoxModel = checkBoxContentModel {
-            text = resourceBundle.getString("Ruler.text")
+            text = resourceBundle["Ruler.text"]
             isSelected = true
         }
 
@@ -494,11 +495,11 @@ private class RibbonDemoBuilder {
             maximum = 100
             stepSize = 5
             iconFactory = Format_justify_left.factory()
-            caption = resourceBundle.getString("IndentLeft.text")
+            caption = resourceBundle["IndentLeft.text"]
             selectionChangeListener =
                 { _, newSelection -> println("New selection -> $newSelection") }
             richTooltip {
-                title = resourceBundle.getString("IndentLeft.tooltip.title")
+                title = resourceBundle["IndentLeft.tooltip.title"]
                 description {
                     +resourceBundle.getString("IndentLeft.tooltip.actionParagraph1")
                     +resourceBundle.getString("IndentLeft.tooltip.actionParagraph2")
@@ -588,13 +589,13 @@ private class RibbonDemoBuilder {
 
     fun getClipboardBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Clipboard.textBandTitle")
+            title = resourceBundle["Clipboard.textBandTitle"]
             iconFactory = Edit_paste.factory()
             expandCommand {
                 keyTip = "Q"
                 richTooltip {
-                    title = resourceBundle.getString("Clipboard.textBandTitle")
-                    description = resourceBundle.getString("Clipboard.textBandTooltipParagraph1")
+                    title = resourceBundle["Clipboard.textBandTitle"]
+                    description = resourceBundle["Clipboard.textBandTooltipParagraph1"]
                 }
                 action = ExpandCommandListener()
             }
@@ -622,17 +623,17 @@ private class RibbonDemoBuilder {
             )
 
             command(PresentationPriority.MEDIUM, popupKeyTip = "FP") {
-                title = resourceBundle.getString("Format.text")
+                title = resourceBundle["Format.text"]
                 iconFactory = Edit_paste.factory()
                 menu = commandPopupMenu {
                     val mfGroupTitle = MessageFormat(resourceBundle.getString("PanelStyles.text"))
                     mfGroupTitle.locale = currLocale
                     val mfTooltipTitle = MessageFormat(
-                        resourceBundle.getString("PanelStyles.tooltip.textActionTitle")
+                       resourceBundle["PanelStyles.tooltip.textActionTitle"]
                     )
                     mfTooltipTitle.locale = currLocale
                     val mfTooltipParagraph = MessageFormat(
-                        resourceBundle.getString("PanelStyles.tooltip.textActionParagraph1")
+                       resourceBundle["PanelStyles.tooltip.textActionParagraph1"]
                     )
                     mfTooltipParagraph.locale = currLocale
 
@@ -729,7 +730,7 @@ private class RibbonDemoBuilder {
         }
 
         return ribbonBand {
-            title = resourceBundle.getString("QuickStyles.textBandTitle")
+            title = resourceBundle["QuickStyles.textBandTitle"]
             iconFactory = Preferences_desktop_theme.factory()
             collapsedStateKeyTip = "ZS"
 
@@ -750,19 +751,19 @@ private class RibbonDemoBuilder {
             }
 
             command(priority = PresentationPriority.MEDIUM, actionKeyTip = "SA") {
-                title = resourceBundle.getString("Styles1.text")
+                title = resourceBundle["Styles1.text"]
                 iconFactory = Font_x_generic.factory()
                 action = { println("Generic activated") }
             }
 
             command(priority = PresentationPriority.MEDIUM, actionKeyTip = "SB") {
-                title = resourceBundle.getString("Styles2.text")
+                title = resourceBundle["Styles2.text"]
                 iconFactory = Image_x_generic.factory()
                 action = { println("Image activated") }
             }
 
             colorSelectorCommand(priority = PresentationPriority.MEDIUM, popupKeyTip = "SC") {
-                title = resourceBundle.getString("Styles3.text")
+                title = resourceBundle["Styles3.text"]
                 iconFactory = Text_html.factory()
                 colorSelectorPopupMenu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
@@ -770,7 +771,7 @@ private class RibbonDemoBuilder {
                     onColorPreviewCanceled = onColorPreviewCanceledListener
 
                     command {
-                        title = resourceBundle.getString("ColorSelector.textAutomatic")
+                        title = resourceBundle["ColorSelector.textAutomatic"]
                         iconFactory = ColorIcon.factory(defaultColor)
                         action = {
                             onColorActivatedListener.invoke(defaultColor)
@@ -789,7 +790,7 @@ private class RibbonDemoBuilder {
                     }
 
                     colorSectionWithDerived {
-                        title = resourceBundle.getString("ColorSelector.textThemeCaption")
+                        title = resourceBundle["ColorSelector.textThemeCaption"]
                         colors {
                             +Color(255, 255, 255)
                             +Color(0, 0, 0)
@@ -805,7 +806,7 @@ private class RibbonDemoBuilder {
                     }
 
                     colorSection {
-                        title = resourceBundle.getString("ColorSelector.textStandardCaption")
+                        title = resourceBundle["ColorSelector.textStandardCaption"]
                         colors {
                             +Color(140, 0, 0)
                             +Color(253, 0, 0)
@@ -821,11 +822,11 @@ private class RibbonDemoBuilder {
                     }
 
                     recentSection {
-                        title = resourceBundle.getString("ColorSelector.textRecentCaption")
+                        title = resourceBundle["ColorSelector.textRecentCaption"]
                     }
 
                     command {
-                        title = resourceBundle.getString("ColorSelector.textMoreColor")
+                        title = resourceBundle["ColorSelector.textMoreColor"]
                         action = DelayedCommandListener {
                             val newColor = JColorChooser.showDialog(
                                 it.buttonSource,
@@ -847,7 +848,7 @@ private class RibbonDemoBuilder {
 
     fun getFontBand(): KFlowRibbonBand {
         return flowRibbonBand {
-            title = resourceBundle.getString("Font.textBandTitle")
+            title = resourceBundle["Font.textBandTitle"]
             iconFactory = Preferences_desktop_font.factory()
             collapsedStateKeyTip = "ZF"
             expandCommand {
@@ -889,9 +890,9 @@ private class RibbonDemoBuilder {
                     isToggleSelected = true
                     action = { println("Bold toggled") }
                     actionRichTooltip {
-                        title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
+                        title = resourceBundle["FontBold.tooltip.textActionTitle"]
                         description =
-                            resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
+                           resourceBundle["FontBold.tooltip.textActionParagraph1"]
                     }
                 }
 
@@ -900,9 +901,9 @@ private class RibbonDemoBuilder {
                     isToggle = true
                     action = { println("Italic toggled") }
                     actionRichTooltip {
-                        title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
+                        title = resourceBundle["FontItalic.tooltip.textActionTitle"]
                         description =
-                            resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
+                           resourceBundle["FontItalic.tooltip.textActionParagraph1"]
                     }
                 }
 
@@ -911,9 +912,9 @@ private class RibbonDemoBuilder {
                     isToggle = true
                     action = { println("Underline toggled") }
                     actionRichTooltip {
-                        title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
+                        title = resourceBundle["FontUnderline.tooltip.textActionTitle"]
                         description =
-                            resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
+                           resourceBundle["FontUnderline.tooltip.textActionParagraph1"]
                     }
                 }
 
@@ -923,9 +924,9 @@ private class RibbonDemoBuilder {
                     action = { println("Strikethrough toggled") }
                     actionRichTooltip {
                         title =
-                            resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
+                           resourceBundle["FontStrikethrough.tooltip.textActionTitle"]
                         description =
-                            resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
+                           resourceBundle["FontStrikethrough.tooltip.textActionParagraph1"]
                     }
                 }
             }
@@ -957,7 +958,7 @@ private class RibbonDemoBuilder {
 
     fun getDocumentBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Document.textBandTitle")
+            title = resourceBundle["Document.textBandTitle"]
             iconFactory = Applications_office.factory()
             expandCommand {
                 action = ExpandCommandListener()
@@ -969,7 +970,7 @@ private class RibbonDemoBuilder {
                 val documentLocationToggleGroup = KCommandToggleGroupModel()
 
                 command(priority = PresentationPriority.TOP) {
-                    title = resourceBundle.getString("DocumentLocal.text")
+                    title = resourceBundle["DocumentLocal.text"]
                     iconFactory = Folder.factory()
                     action = { println("Document Local activated") }
                     isToggle = true
@@ -977,7 +978,7 @@ private class RibbonDemoBuilder {
                 }
 
                 command(priority = PresentationPriority.TOP) {
-                    title = resourceBundle.getString("DocumentRemote.text")
+                    title = resourceBundle["DocumentRemote.text"]
                     iconFactory = Folder_remote.factory()
                     action = { println("Document Remote activated") }
                     isToggle = true
@@ -985,7 +986,7 @@ private class RibbonDemoBuilder {
                 }
 
                 command(priority = PresentationPriority.TOP) {
-                    title = resourceBundle.getString("DocumentSaved.text")
+                    title = resourceBundle["DocumentSaved.text"]
                     iconFactory = Folder_saved_search.factory()
                     action = { println("Document Saved activated") }
                     isToggle = true
@@ -1000,31 +1001,31 @@ private class RibbonDemoBuilder {
                 )
 
                 command(priority = PresentationPriority.MEDIUM) {
-                    title = resourceBundle.getString("DocumentOpen.text")
+                    title = resourceBundle["DocumentOpen.text"]
                     iconFactory = Document_open.factory()
                     action = { println("Document Open activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
-                    title = resourceBundle.getString("DocumentSave.text")
+                    title = resourceBundle["DocumentSave.text"]
                     iconFactory = Document_save.factory()
                     action = { println("Document Save activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
-                    title = resourceBundle.getString("DocumentPrint.text")
+                    title = resourceBundle["DocumentPrint.text"]
                     iconFactory = Document_print.factory()
                     action = { println("Document Print activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
-                    title = resourceBundle.getString("DocumentPrintPreview.text")
+                    title = resourceBundle["DocumentPrintPreview.text"]
                     iconFactory = Document_print_preview.factory()
                     action = { println("Document Print Preview activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM) {
-                    title = resourceBundle.getString("DocumentProperties.text")
+                    title = resourceBundle["DocumentProperties.text"]
                     iconFactory = Document_properties.factory()
                     action = { println("Document Properties activated") }
                 }
@@ -1037,31 +1038,31 @@ private class RibbonDemoBuilder {
 
     fun getFindBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Find.textBandTitle")
+            title = resourceBundle["Find.textBandTitle"]
             iconFactory = Edit_find.factory()
             collapsedStateKeyTip = "ZY"
 
             command(priority = PresentationPriority.TOP, actionKeyTip = "FD") {
-                title = resourceBundle.getString("Search.text")
+                title = resourceBundle["Search.text"]
                 iconFactory = System_search.factory()
                 action = { println("Search activated") }
             }
 
             command(priority = PresentationPriority.MEDIUM) {
-                title = resourceBundle.getString("Find.text")
+                title = resourceBundle["Find.text"]
                 iconFactory = Edit_find.factory()
                 action = { println("Find activated") }
             }
 
             command(priority = PresentationPriority.MEDIUM) {
-                title = resourceBundle.getString("FindReplace.text")
+                title = resourceBundle["FindReplace.text"]
                 iconFactory = Edit_find_replace.factory()
                 action = { println("Find Replace activated") }
                 isActionEnabled = false
             }
 
             command(priority = PresentationPriority.MEDIUM) {
-                title = resourceBundle.getString("SelectAll.text")
+                title = resourceBundle["SelectAll.text"]
                 iconFactory = Edit_select_all.factory()
                 action = { println("Select All activated") }
             }
@@ -1077,7 +1078,7 @@ private class RibbonDemoBuilder {
 
     fun getPageLayoutTask(): KRibbonTask {
         return ribbonTask {
-            title = resourceBundle.getString("PageLayout.textTaskTitle")
+            title = resourceBundle["PageLayout.textTaskTitle"]
             keyTip = "P"
 
             bands {
@@ -1092,7 +1093,7 @@ private class RibbonDemoBuilder {
 
     fun getActionBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Action.textBandTitle")
+            title = resourceBundle["Action.textBandTitle"]
             iconFactory = Document_new.factory()
             expandCommand {
                 action = ExpandCommandListener()
@@ -1100,7 +1101,7 @@ private class RibbonDemoBuilder {
 
             group {
                 command(priority = PresentationPriority.TOP, actionKeyTip = "NA") {
-                    title = resourceBundle.getString("AddressBook.text")
+                    title = resourceBundle["AddressBook.text"]
                     iconFactory = Address_book_new.factory()
                     action = { println("Address Book activated") }
                 }
@@ -1108,25 +1109,25 @@ private class RibbonDemoBuilder {
 
             group {
                 command(priority = PresentationPriority.TOP, actionKeyTip = "ND") {
-                    title = resourceBundle.getString("Document.text")
+                    title = resourceBundle["Document.text"]
                     iconFactory = Document_new.factory()
                     action = { println("Document activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "NP") {
-                    title = resourceBundle.getString("Appointment.text")
+                    title = resourceBundle["Appointment.text"]
                     iconFactory = Appointment_new.factory()
                     action = { println("Appointment activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "NB") {
-                    title = resourceBundle.getString("Bookmark.text")
+                    title = resourceBundle["Bookmark.text"]
                     iconFactory = Bookmark_new.factory()
                     action = { println("Bookmark activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "NC") {
-                    title = resourceBundle.getString("Contact.text")
+                    title = resourceBundle["Contact.text"]
                     iconFactory = Contact_new.factory()
                     action = { println("Contact activated") }
                 }
@@ -1144,7 +1145,7 @@ private class RibbonDemoBuilder {
 
     fun getPreferencesBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Preferences.textBandTitle")
+            title = resourceBundle["Preferences.textBandTitle"]
             iconFactory = Preferences_desktop_font.factory()
             expandCommand {
                 action = ExpandCommandListener()
@@ -1152,19 +1153,19 @@ private class RibbonDemoBuilder {
 
             group {
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "Y") {
-                    title = resourceBundle.getString("Accessibility.text")
+                    title = resourceBundle["Accessibility.text"]
                     iconFactory = Preferences_desktop_accessibility.factory()
                     action = { println("Accessibility activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "E") {
-                    title = resourceBundle.getString("Assistive.text")
+                    title = resourceBundle["Assistive.text"]
                     iconFactory = Preferences_desktop_assistive_technology.factory()
                     action = { println("Assistive activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, popupKeyTip = "H") {
-                    title = resourceBundle.getString("KeyboardShortcuts.text")
+                    title = resourceBundle["KeyboardShortcuts.text"]
                     iconFactory = Preferences_desktop_keyboard_shortcuts.factory()
                     menu = getSimplePopupMenu()
                 }
@@ -1172,13 +1173,13 @@ private class RibbonDemoBuilder {
 
             group {
                 command(priority = PresentationPriority.TOP, actionKeyTip = "Z") {
-                    title = resourceBundle.getString("Font.text")
+                    title = resourceBundle["Font.text"]
                     iconFactory = Preferences_desktop_font.factory()
                     action = { println("Font activated") }
                 }
 
                 command(priority = PresentationPriority.TOP, actionKeyTip = "L") {
-                    title = resourceBundle.getString("Locale.text")
+                    title = resourceBundle["Locale.text"]
                     iconFactory = Preferences_desktop_locale.factory()
                     action = { println("Locale activated") }
                 }
@@ -1186,13 +1187,13 @@ private class RibbonDemoBuilder {
 
             group {
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "V") {
-                    title = resourceBundle.getString("Screensaver.text")
+                    title = resourceBundle["Screensaver.text"]
                     iconFactory = Preferences_desktop_screensaver.factory()
                     action = { println("Screensaver activated") }
                 }
 
                 command(priority = PresentationPriority.MEDIUM, actionKeyTip = "T") {
-                    title = resourceBundle.getString("Themes.text")
+                    title = resourceBundle["Themes.text"]
                     iconFactory = Preferences_desktop_theme.factory()
                     action = { println("Themes activated") }
                 }
@@ -1205,7 +1206,7 @@ private class RibbonDemoBuilder {
 
     fun getApplicationsBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Applications.textBandTitle")
+            title = resourceBundle["Applications.textBandTitle"]
             iconFactory = Applications_other.factory()
             expandCommand {
                 action = ExpandCommandListener()
@@ -1215,7 +1216,7 @@ private class RibbonDemoBuilder {
                 content {
                     items("Tetris", "Minesweeper", "Doom")
                     iconFactory = Applications_games.factory()
-                    caption = resourceBundle.getString("Games.text")
+                    caption = resourceBundle["Games.text"]
                 }
                 presentation {
                     keyTip = "AG"
@@ -1229,7 +1230,7 @@ private class RibbonDemoBuilder {
                     items("Firefox", "Opera", "Konqueror")
                     isEnabled = false
                     iconFactory = Applications_internet.factory()
-                    caption = resourceBundle.getString("Internet.text")
+                    caption = resourceBundle["Internet.text"]
                 }
                 presentation {
                     keyTip = "AI"
@@ -1241,11 +1242,11 @@ private class RibbonDemoBuilder {
             comboBox<String> {
                 content {
                     items(
-                        resourceBundle.getString("Pictures.text"),
-                        resourceBundle.getString("Video.text"),
-                        resourceBundle.getString("Audio.text")
+                       resourceBundle["Pictures.text"],
+                       resourceBundle["Video.text"],
+                       resourceBundle["Audio.text"]
                     )
-                    caption = resourceBundle.getString("Multimedia.text")
+                    caption = resourceBundle["Multimedia.text"]
                 }
                 presentation {
                     keyTip = "AM"
@@ -1258,11 +1259,11 @@ private class RibbonDemoBuilder {
 
     fun getParagraphBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Paragraph.textBandTitle")
+            title = resourceBundle["Paragraph.textBandTitle"]
             iconFactory = Format_justify_left.factory()
 
             group {
-                title = resourceBundle.getString("Indent.text")
+                title = resourceBundle["Indent.text"]
 
                 spinnerNumber {
                     +indentLeftSpinnerModel
@@ -1278,9 +1279,9 @@ private class RibbonDemoBuilder {
                         maximum = 100
                         stepSize = 5
                         iconFactory = Format_justify_right.factory()
-                        caption = resourceBundle.getString("IndentRight.text")
+                        caption = resourceBundle["IndentRight.text"]
                         richTooltip {
-                            title = resourceBundle.getString("IndentRight.tooltip.title")
+                            title = resourceBundle["IndentRight.tooltip.title"]
                             description {
                                 +resourceBundle.getString("IndentRight.tooltip.actionParagraph1")
                                 +resourceBundle.getString("IndentRight.tooltip.actionParagraph2")
@@ -1294,7 +1295,7 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                title = resourceBundle.getString("Spacing.text")
+                title = resourceBundle["Spacing.text"]
 
                 spinnerNumber {
                     content {
@@ -1325,7 +1326,7 @@ private class RibbonDemoBuilder {
 
     fun getShowHideBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("ShowHide.textBandTitle")
+            title = resourceBundle["ShowHide.textBandTitle"]
             iconFactory = Format_justify_left.factory()
 
             checkBox {
@@ -1337,7 +1338,7 @@ private class RibbonDemoBuilder {
 
             checkBox {
                 content {
-                    text = resourceBundle.getString("Gridlines.text")
+                    text = resourceBundle["Gridlines.text"]
                 }
                 presentation {
                     keyTip = "SG"
@@ -1346,7 +1347,7 @@ private class RibbonDemoBuilder {
 
             checkBox {
                 content {
-                    text = resourceBundle.getString("MessageBar.text")
+                    text = resourceBundle["MessageBar.text"]
                 }
                 presentation {
                     keyTip = "SM"
@@ -1355,7 +1356,7 @@ private class RibbonDemoBuilder {
 
             checkBox {
                 content {
-                    text = resourceBundle.getString("DocumentMap.text")
+                    text = resourceBundle["DocumentMap.text"]
                 }
                 presentation {
                     keyTip = "SD"
@@ -1364,7 +1365,7 @@ private class RibbonDemoBuilder {
 
             checkBox {
                 content {
-                    text = resourceBundle.getString("Thumbnails.text")
+                    text = resourceBundle["Thumbnails.text"]
                 }
                 presentation {
                     keyTip = "ST"
@@ -1375,7 +1376,7 @@ private class RibbonDemoBuilder {
 
     fun getWriteTask(): KRibbonTask {
         return ribbonTask {
-            title = resourceBundle.getString("Write.textTaskTitle")
+            title = resourceBundle["Write.textTaskTitle"]
             keyTip = "W"
 
             bands {
@@ -1393,17 +1394,17 @@ private class RibbonDemoBuilder {
 
     fun getPreviewBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Preview.textBandTitle")
+            title = resourceBundle["Preview.textBandTitle"]
             iconFactory = SimpleRadianceIcon.FactoryTop()
 
             command(PresentationPriority.TOP) {
-                title = resourceBundle.getString("Preview.text")
+                title = resourceBundle["Preview.text"]
                 iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Preview activated") }
             }
 
             command(PresentationPriority.TOP) {
-                title = resourceBundle.getString("SlideShow.text")
+                title = resourceBundle["SlideShow.text"]
                 iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Slide Show activated") }
             }
@@ -1415,23 +1416,23 @@ private class RibbonDemoBuilder {
 
     fun getAnimationBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Animation.textBandTitle")
+            title = resourceBundle["Animation.textBandTitle"]
             iconFactory = SimpleRadianceIcon.FactoryTop()
 
             command(PresentationPriority.TOP) {
-                title = resourceBundle.getString("CustomAnimation.text")
+                title = resourceBundle["CustomAnimation.text"]
                 iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Animation 1 activated") }
             }
 
             command(PresentationPriority.TOP) {
-                title = resourceBundle.getString("CustomAnimation.text")
+                title = resourceBundle["CustomAnimation.text"]
                 iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Animation 2 activated") }
             }
 
             command(PresentationPriority.TOP) {
-                title = resourceBundle.getString("CustomAnimation.text")
+                title = resourceBundle["CustomAnimation.text"]
                 iconFactory = SimpleRadianceIcon.FactoryTop()
                 action = { println("Animation 3 activated") }
             }
@@ -1443,7 +1444,7 @@ private class RibbonDemoBuilder {
 
     fun getTransitionBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("TransitionToThis.textBandTitle")
+            title = resourceBundle["TransitionToThis.textBandTitle"]
             iconFactory = SimpleRadianceIcon.FactoryTop()
 
             gallery(PresentationPriority.TOP) {
@@ -1460,7 +1461,7 @@ private class RibbonDemoBuilder {
 
                 content {
                     commandGroup {
-                        title = resourceBundle.getString("TransitionGallery.textGroupTitle1")
+                        title = resourceBundle["TransitionGallery.textGroupTitle1"]
                         for (i in 1..40) {
                             command {
                                 iconFactory = DecoratedRadianceIcon.factory(
@@ -1487,7 +1488,7 @@ private class RibbonDemoBuilder {
                     }
 
                     commandGroup {
-                        title = resourceBundle.getString("TransitionGallery.textGroupTitle2")
+                        title = resourceBundle["TransitionGallery.textGroupTitle2"]
                         for (i in 41..70) {
                             command {
                                 iconFactory = DecoratedRadianceIcon.factory(
@@ -1516,23 +1517,23 @@ private class RibbonDemoBuilder {
             }
 
             group {
-                comboBox<String> {
+                comboBox {
                     content {
-                        items("[" + resourceBundle.getString("NoSound.text") + "]     ")
+                        items("[" + resourceBundle["NoSound.text"] + "]     ")
                         iconFactory = SimpleRadianceIcon.FactoryTop()
                     }
                 }
 
-                comboBox<String> {
+                comboBox {
                     content {
-                        items("[" + resourceBundle.getString("Speed.text") + "]     ")
-                        caption = resourceBundle.getString("Speed.text")
+                        items("[" + resourceBundle["Speed.text"] + "]     ")
+                        caption = resourceBundle["Speed.text"]
                     }
                 }
 
                 checkBox {
                     content {
-                        text = resourceBundle.getString("ApplyToAll.text")
+                        text = resourceBundle["ApplyToAll.text"]
                     }
                 }
             }
@@ -1541,19 +1542,19 @@ private class RibbonDemoBuilder {
 
     fun getTransitionNextBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("TransitionToNext.textBandTitle")
+            title = resourceBundle["TransitionToNext.textBandTitle"]
             iconFactory = SimpleRadianceIcon.FactoryTop()
 
             checkBox {
                 content {
-                    text = resourceBundle.getString("OnMouseClick.text")
+                    text = resourceBundle["OnMouseClick.text"]
                     isSelected = true
                 }
             }
 
             checkBox {
                 content {
-                    text = resourceBundle.getString("AutoAfter.text")
+                    text = resourceBundle["AutoAfter.text"]
                 }
             }
 
@@ -1567,7 +1568,7 @@ private class RibbonDemoBuilder {
 
     fun getAnimationsTask(): KRibbonTask {
         return ribbonTask {
-            title = resourceBundle.getString("Animations.textTaskTitle")
+            title = resourceBundle["Animations.textTaskTitle"]
             keyTip = "A"
 
             bands {
@@ -1581,7 +1582,7 @@ private class RibbonDemoBuilder {
 
     fun getAlignmentBand(): KRibbonBand {
         return ribbonBand {
-            title = resourceBundle.getString("Alignment.textTaskTitle")
+            title = resourceBundle["Alignment.textTaskTitle"]
             iconFactory = Format_justify_left.factory()
 
             group {
@@ -1600,7 +1601,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Leading.text")
+                        caption = resourceBundle["Leading.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.LEADING
@@ -1613,7 +1614,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Trailing.text")
+                        caption = resourceBundle["Trailing.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.TRAILING
@@ -1635,7 +1636,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Center.text")
+                        caption = resourceBundle["Center.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.CENTER
@@ -1648,7 +1649,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Fill.text")
+                        caption = resourceBundle["Fill.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.FILL
@@ -1672,7 +1673,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Leading.text")
+                        caption = resourceBundle["Leading.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.LEADING
@@ -1685,7 +1686,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Trailing.text")
+                        caption = resourceBundle["Trailing.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.TRAILING
@@ -1707,7 +1708,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Center.text")
+                        caption = resourceBundle["Center.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.CENTER
@@ -1720,7 +1721,7 @@ private class RibbonDemoBuilder {
                         minimum = 0
                         maximum = 100
                         stepSize = 5
-                        caption = resourceBundle.getString("Fill.text")
+                        caption = resourceBundle["Fill.text"]
                     }
                     presentation {
                         horizontalAlignment = HorizontalAlignment.FILL
@@ -1733,7 +1734,7 @@ private class RibbonDemoBuilder {
 
     fun getWrappedTask(): KRibbonTask {
         return ribbonTask {
-            title = resourceBundle.getString("Wrapped.textTaskTitle")
+            title = resourceBundle["Wrapped.textTaskTitle"]
             keyTip = "R"
 
             bands {

@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.demo.component.ktx.svg.Help_browser
 import org.pushingpixels.radiance.demo.component.ktx.svg.Image_x_generic
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
+import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
@@ -61,18 +62,18 @@ fun main() {
 
         val commandButton = commandButton {
             command {
-                title = resourceBundle.getString("Paste.text")
+                title = resourceBundle["Paste.text"]
                 iconFactory = Help_browser.factory()
-                extraText = resourceBundle.getString("Paste.textExtra")
+                extraText = resourceBundle["Paste.textExtra"]
                 action = { println("Activated at " + System.currentTimeMillis() + "!") }
                 actionRichTooltip {
-                    title = resourceBundle.getString("Tooltip.textActionTitle")
+                    title = resourceBundle["Tooltip.textActionTitle"]
                     mainIconFactory = Image_x_generic.factory()
                     description {
                         +resourceBundle.getString("Tooltip.textParagraph1")
                         +resourceBundle.getString("Tooltip.textParagraph2")
                     }
-                    footer = resourceBundle.getString("Tooltip.textFooterParagraph1")
+                    footer = resourceBundle["Tooltip.textFooterParagraph1"]
                 }
             }
             presentation {

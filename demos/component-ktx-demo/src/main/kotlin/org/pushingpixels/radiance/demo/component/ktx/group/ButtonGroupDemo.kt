@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.swing.ktx.swing.hasStyleInSelection
 import org.pushingpixels.radiance.swing.ktx.swing.toggleStyleInSelection
 import org.pushingpixels.radiance.component.ktx.command
 import org.pushingpixels.radiance.component.ktx.commandButtonStrip
+import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.skin.GeminiSkin
 import java.awt.BorderLayout
@@ -96,8 +97,8 @@ fun main() {
             isToggle = true
             isActionEnabled = false
             actionRichTooltip {
-                title = resourceBundle.getString("FontBold.tooltip.textActionTitle")
-                description = resourceBundle.getString("FontBold.tooltip.textActionParagraph1")
+                title = resourceBundle["FontBold.tooltip.textActionTitle"]
+                description = resourceBundle["FontBold.tooltip.textActionParagraph1"]
             }
         }
 
@@ -110,8 +111,8 @@ fun main() {
             isToggle = true
             isActionEnabled = false
             actionRichTooltip {
-                title = resourceBundle.getString("FontItalic.tooltip.textActionTitle")
-                description = resourceBundle.getString("FontItalic.tooltip.textActionParagraph1")
+                title = resourceBundle["FontItalic.tooltip.textActionTitle"]
+                description = resourceBundle["FontItalic.tooltip.textActionParagraph1"]
             }
         }
 
@@ -124,8 +125,8 @@ fun main() {
             isToggle = true
             isActionEnabled = false
             actionRichTooltip {
-                title = resourceBundle.getString("FontUnderline.tooltip.textActionTitle")
-                description = resourceBundle.getString("FontUnderline.tooltip.textActionParagraph1")
+                title = resourceBundle["FontUnderline.tooltip.textActionTitle"]
+                description = resourceBundle["FontUnderline.tooltip.textActionParagraph1"]
             }
         }
 
@@ -138,8 +139,8 @@ fun main() {
             isToggle = true
             isActionEnabled = false
             actionRichTooltip {
-                title = resourceBundle.getString("FontStrikethrough.tooltip.textActionTitle")
-                description = resourceBundle.getString("FontStrikethrough.tooltip.textActionParagraph1")
+                title = resourceBundle["FontStrikethrough.tooltip.textActionTitle"]
+                description = resourceBundle["FontStrikethrough.tooltip.textActionParagraph1"]
             }
         }
 

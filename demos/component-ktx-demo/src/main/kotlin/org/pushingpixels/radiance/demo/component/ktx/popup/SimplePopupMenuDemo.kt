@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.demo.component.ktx.svg.*
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
+import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
@@ -62,9 +63,9 @@ fun main() {
 
         val commandButton = commandButton {
             command {
-                title = resourceBundle.getString("Paste.text")
+                title = resourceBundle["Paste.text"]
                 iconFactory = Help_browser.factory()
-                extraText = resourceBundle.getString("Paste.textExtra")
+                extraText = resourceBundle["Paste.textExtra"]
                 menu = commandPopupMenu {
                     val mf = MessageFormat(resourceBundle.getString("TestMenuItem.text"))
                     group {
