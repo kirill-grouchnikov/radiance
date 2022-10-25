@@ -14,11 +14,11 @@ The `singleSelectionMode` attribute can be used to mark all commands configured 
 
 `CommandPanelPresentationModel` and its `Builder` are the presentation model for command button panels.
 
-The `layoutKind` attribute can be used to specify whether the button content of each group should be laid out horizontally or vertically. In the screenshot below the same content model is projected into a column-based layout:
+The `layoutSpec` attribute can be used to specify whether the button content of each group should be laid out horizontally or vertically. In the screenshot below the same content model is projected into a column-based layout:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-button-panel-columns.png" width="567" border=0/>
 
-The `toShowGroupLabels` attribute is only relevant when `layoutKind` is `ROW_FILL`. When set to `true`, button groups show titles:
+The `toShowGroupLabels` attribute is only relevant when `layoutSpec` is `PanelLayoutSpec.RowFill`. When set to `true`, button groups show titles:
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-button-panel-rows-titles.png" width="567" border=0/>
 
@@ -64,7 +64,7 @@ CommandPanelContentModel commandPanelContentModel =
 commandPanelContentModel.setSingleSelectionMode(true);
 ```
 
-Then we create a presentation model in the default `ROW_FILL` mode, with all projected buttons using `FIT_TO_ICON` layout and icons sized at 48 pixels:
+Then we create a presentation model in the default `PanelLayoutSpec.RowFill` mode, with all projected buttons using `FIT_TO_ICON` layout and icons sized at 48 pixels:
 
 ```java
 CommandPanelPresentationModel commandPanelPresentationModel = CommandPanelPresentationModel.builder()

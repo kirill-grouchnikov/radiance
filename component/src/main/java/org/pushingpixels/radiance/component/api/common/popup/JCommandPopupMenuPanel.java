@@ -32,6 +32,8 @@ package org.pushingpixels.radiance.component.api.common.popup;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
@@ -94,9 +96,19 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
 
     private void populateContent() {
         if (this.popupMenuPanelContentModel != null) {
+            CommandPopupMenuPanelPresentationModel commandPopupMenuPanelPresentationModel =
+                    this.popupMenuPresentationModel.getPanelPresentationModel();
             this.mainButtonPanel = new CommandPanelProjection(
                     this.popupMenuPanelContentModel,
-                    this.popupMenuPresentationModel.getPanelPresentationModel())
+                    CommandPanelPresentationModel.builder().
+                            setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Fixed(
+                                    commandPopupMenuPanelPresentationModel.getLayoutSpec().getColumnCount()
+                            )))
+                            .setCommandPresentationState(commandPopupMenuPanelPresentationModel.getCommandPresentationState())
+                            .setCommandHorizontalAlignment(commandPopupMenuPanelPresentationModel.getCommandHorizontalAlignment())
+                            .setCommandIconDimension(commandPopupMenuPanelPresentationModel.getCommandIconDimension())
+                            .setToShowGroupLabels(commandPopupMenuPanelPresentationModel.isToShowGroupLabels())
+                            .build())
                     .buildComponent();
         }
 

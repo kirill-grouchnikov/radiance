@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
@@ -196,13 +197,12 @@ public class TestPopupCommandButtons extends JFrame {
             default:
                 return CommandPopupMenuPresentationModel.builder()
                         .setPanelPresentationModel(
-                                CommandPanelPresentationModel.builder()
+                                CommandPopupMenuPanelPresentationModel.builder()
+                                        .setLayoutSpec(new MenuPopupPanelLayoutSpec(5, 3))
                                         .setToShowGroupLabels(false)
                                         .setCommandPresentationState(
                                                 CommandButtonPresentationState.FIT_TO_ICON)
                                         .setCommandIconDimension(48)
-                                        .setMaxColumns(4)
-                                        .setMaxRows(3)
                                         .build())
                         .build();
         }

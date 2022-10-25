@@ -36,6 +36,8 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonPanelUI;
 
@@ -52,7 +54,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPan
                 new CommandPanelContentModel(primaryMenuEntry.getSecondaryContentModel()
                         .getCommandGroups()),
                 CommandPanelPresentationModel.builder()
-                        .setMaxColumns(1)
+                        .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Fixed(1)))
                         .setCommandPresentationState(secondaryMenuPresentationState)
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setPopupOrientationKind(

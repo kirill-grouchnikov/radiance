@@ -29,11 +29,14 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelColumnFillSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -86,13 +89,12 @@ public class TestCommandButtonPanel extends JFrame {
         controlPanel.add(toShowGroupLabels);
 
         final JCheckBox isRowFillLayout = new JCheckBox("use row fill layout");
-        isRowFillLayout.setSelected(panelPresentationModel.getLayoutKind()
-                == CommandPanelPresentationModel.LayoutKind.ROW_FILL);
+        isRowFillLayout.setSelected(panelPresentationModel.getLayoutSpec() instanceof
+                PanelLayoutSpec.RowFill);
         isRowFillLayout.addActionListener(actionEvent ->
-                panelPresentationModel.setLayoutKind(
-                        isRowFillLayout.isSelected()
-                                ? CommandPanelPresentationModel.LayoutKind.ROW_FILL
-                                : CommandPanelPresentationModel.LayoutKind.COLUMN_FILL));
+                panelPresentationModel.setLayoutSpec(isRowFillLayout.isSelected()
+                        ? new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(48))
+                        : new PanelLayoutSpec.ColumnFill(new PanelColumnFillSpec.Adaptive(64))));
         controlPanel.add(isRowFillLayout);
 
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {

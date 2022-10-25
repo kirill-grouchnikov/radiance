@@ -34,12 +34,13 @@ import org.pushingpixels.radiance.component.api.common.model.CommandPanelContent
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
+import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel
 
 @RadianceElementMarker
 public class KCommandPopupMenuButtonPanel {
     private val commandGroups = arrayListOf<KCommandButtonPanel.KCommandButtonPanelGroup>()
-    internal val presentation: KCommandButtonPanelPresentation = KCommandButtonPanelPresentation()
+    internal val presentation: KCommandPopupMenuPanelPresentation = KCommandPopupMenuPanelPresentation()
     public var isSingleSelectionMode: Boolean by NonNullDelegate { false }
 
     init {
@@ -54,7 +55,7 @@ public class KCommandPopupMenuButtonPanel {
         return commandGroup
     }
 
-    public fun presentation(init: KCommandButtonPanelPresentation.() -> Unit) {
+    public fun presentation(init: KCommandPopupMenuPanelPresentation.() -> Unit) {
         presentation.init()
     }
 
@@ -63,8 +64,8 @@ public class KCommandPopupMenuButtonPanel {
             this.commandGroups.map { it.toJavaCommandGroupModel() })
     }
 
-    internal fun getPresentationModel(): CommandPanelPresentationModel {
-        return presentation.toCommandPanelPresentationModel()
+    internal fun getPresentationModel(): CommandPopupMenuPanelPresentationModel {
+        return presentation.toCommandPopupMenuPanelPresentationModel()
     }
 }
 

@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.component.api.common.icon.ColorRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -623,13 +624,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setPopupKeyTip("FP")
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                                 .setPanelPresentationModel(
-                                        CommandPanelPresentationModel.builder()
+                                        CommandPopupMenuPanelPresentationModel.builder()
+                                                .setLayoutSpec(new MenuPopupPanelLayoutSpec(5, 3))
                                                 .setToShowGroupLabels(false)
                                                 .setCommandPresentationState(
                                                         CommandButtonPresentationState.FIT_TO_ICON)
                                                 .setCommandIconDimension(48)
-                                                .setMaxColumns(5)
-                                                .setMaxRows(3)
                                                 .build())
                                 .build())
                         .build());

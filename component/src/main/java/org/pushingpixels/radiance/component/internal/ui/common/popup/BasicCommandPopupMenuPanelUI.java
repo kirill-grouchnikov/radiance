@@ -34,6 +34,9 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
@@ -104,7 +107,8 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
         private ScrollableCommandButtonPanel(JCommandButtonPanel iconPanel, int maxButtonColumns,
                                             int maxVisibleButtonRows) {
             this.buttonPanel = iconPanel;
-            this.buttonPanel.getProjection().getPresentationModel().setMaxColumns(maxButtonColumns);
+            this.buttonPanel.getProjection().getPresentationModel().setLayoutSpec(
+                    new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Fixed(maxButtonColumns)));
             this.maxVisibleButtonRows = maxVisibleButtonRows;
 
             int maxButtonWidth = 0;
@@ -374,12 +378,13 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
     }
 
     protected ScrollableCommandButtonPanel createScrollableButtonPanel() {
-        CommandPanelPresentationModel panelPresentationModel =
+        CommandPopupMenuPanelPresentationModel panelPresentationModel =
                 ((JCommandPopupMenuPanel) this.popupMenuPanel).getProjection().getPresentationModel()
                         .getPanelPresentationModel();
         return new ScrollableCommandButtonPanel(
                 ((JCommandPopupMenuPanel) this.popupMenuPanel).getMainButtonPanel(),
-                panelPresentationModel.getMaxColumns(), panelPresentationModel.getMaxRows());
+                panelPresentationModel.getLayoutSpec().getColumnCount(),
+                panelPresentationModel.getLayoutSpec().getVisibleRowCount());
     }
 
     @Override

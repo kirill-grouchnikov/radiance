@@ -42,6 +42,8 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.SvgStreamTranscoder;
 import org.pushingpixels.radiance.tools.svgtranscoder.api.java.JavaLanguageRenderer;
@@ -83,7 +85,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
         super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setToShowGroupLabels(false)
-                        .setLayoutKind(CommandPanelPresentationModel.LayoutKind.ROW_FILL)
+                        .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(64)))
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                         .setCommandIconDimension(startingDimension)
                         .build()));

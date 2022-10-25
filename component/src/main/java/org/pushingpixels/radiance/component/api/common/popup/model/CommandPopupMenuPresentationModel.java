@@ -51,7 +51,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                 }
             };
 
-    private CommandPanelPresentationModel panelPresentationModel;
+    private CommandPopupMenuPanelPresentationModel panelPresentationModel;
 
     private CommandButtonPresentationState menuPresentationState;
     private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy;
@@ -80,7 +80,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         return new Builder();
     }
 
-    public CommandPanelPresentationModel getPanelPresentationModel() {
+    public CommandPopupMenuPanelPresentationModel getPanelPresentationModel() {
         return this.panelPresentationModel;
     }
 
@@ -113,7 +113,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
     }
 
     public static class Builder {
-        private CommandPanelPresentationModel panelPresentationModel;
+        private CommandPopupMenuPanelPresentationModel panelPresentationModel;
         private CommandButtonPresentationState menuPresentationState =
                 DEFAULT_POPUP_MENU_PRESENTATION_STATE;
         private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy =
@@ -128,7 +128,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                 CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;
 
         public Builder setPanelPresentationModel(
-                CommandPanelPresentationModel panelPresentationModel) {
+                CommandPopupMenuPanelPresentationModel panelPresentationModel) {
             this.panelPresentationModel = panelPresentationModel;
             return this;
         }

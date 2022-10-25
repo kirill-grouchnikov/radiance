@@ -95,16 +95,15 @@ CommandMenuContentModel commandMenuContentModel =
     new CommandMenuContentModel(commandPanelContentModel, extraEntries);
 ```
 
-Then we create a presentation model in the default `ROW_FILL` mode, with all projected buttons using `FIT_TO_ICON` layout and icons sized at 48 pixels:
+Then we create a presentation model in the default `PanelLayoutSpec.RowFill` mode, with all projected buttons using `FIT_TO_ICON` layout and icons sized at 48 pixels:
 
 ```java
 CommandPopupMenuPresentationModel commandPopupMenuPresentationModel = CommandPopupMenuPresentationModel.builder()
-      .setPanelPresentationModel(CommandPanelPresentationModel.builder()
+      .setPanelPresentationModel(CommandPopupMenuPanelPresentationModel.builder()
+            .setLayoutSpec(new MenuPopupPanelLayoutSpec(5, 3))
             .setToShowGroupLabels(false)
             .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
             .setCommandIconDimension(48)
-            .setMaxColumns(5)
-            .setMaxRows(3)
             .build())
       .build();
 ```

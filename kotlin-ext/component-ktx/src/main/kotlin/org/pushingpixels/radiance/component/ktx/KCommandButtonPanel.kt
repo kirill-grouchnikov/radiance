@@ -35,21 +35,23 @@ import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection
 import javax.swing.JComponent
 
 @RadianceElementMarker
 public class KCommandButtonPanelPresentation {
-    public var maxColumns: Int = -1
-    public var maxRows: Int = -1
+    public var layoutSpec: PanelLayoutSpec = PanelLayoutSpec.RowFill(PanelRowFillSpec.Adaptive(48))
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
     public var commandIconDimension: Int = -1
-    public var layoutKind: CommandPanelPresentationModel.LayoutKind = CommandPanelPresentationModel.LayoutKind.ROW_FILL
     public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     public var isMenu: Boolean = false
     public var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
-            CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
+        CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
 
     internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
         val presentationModelBuilder = CommandPanelPresentationModel.builder()
@@ -57,16 +59,39 @@ public class KCommandButtonPanelPresentation {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
             presentationModelBuilder.setCommandPresentationState(
-                    CommandButtonPresentationState.FIT_TO_ICON)
+                CommandButtonPresentationState.FIT_TO_ICON)
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
-        presentationModelBuilder.setMaxColumns(this.maxColumns)
-        presentationModelBuilder.setMaxRows(this.maxRows)
+        presentationModelBuilder.setLayoutSpec(this.layoutSpec)
         presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
-        presentationModelBuilder.setLayoutKind(this.layoutKind)
         presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
         presentationModelBuilder.setMenu(this.isMenu)
         presentationModelBuilder.setPopupOrientationKind(this.popupOrientationKind)
+
+        return presentationModelBuilder.build()
+    }
+}
+
+@RadianceElementMarker
+public class KCommandPopupMenuPanelPresentation {
+    public var layoutSpec: MenuPopupPanelLayoutSpec = MenuPopupPanelLayoutSpec(5, 3)
+    public var toShowGroupLabels: Boolean = true
+    public var commandPresentationState: CommandButtonPresentationState? = null
+    public var commandIconDimension: Int = -1
+    public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+
+    internal fun toCommandPopupMenuPanelPresentationModel() : CommandPopupMenuPanelPresentationModel {
+        val presentationModelBuilder = CommandPopupMenuPanelPresentationModel.builder()
+        presentationModelBuilder.setLayoutSpec(this.layoutSpec)
+        if (this.commandPresentationState != null) {
+            presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
+        } else {
+            presentationModelBuilder.setCommandPresentationState(
+                CommandButtonPresentationState.FIT_TO_ICON)
+            presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
+        }
+        presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
+        presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
 
         return presentationModelBuilder.build()
     }

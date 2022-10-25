@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
+import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Font_x_generic;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon;
@@ -106,6 +108,7 @@ public class QuickStylesPanel {
 
     public static CommandPanelPresentationModel getQuickStylesPresentationModel() {
         return CommandPanelPresentationModel.builder()
+                .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(64)))
                 .setToShowGroupLabels(false)
                 .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
                 .setCommandIconDimension(48)

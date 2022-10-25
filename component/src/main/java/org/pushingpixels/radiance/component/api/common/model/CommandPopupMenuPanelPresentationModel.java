@@ -31,20 +31,20 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 
 import javax.swing.event.ChangeListener;
-import java.util.Objects;
 
-public class CommandPanelPresentationModel implements MutablePresentationModel, ChangeAware {
+public class CommandPopupMenuPanelPresentationModel implements MutablePresentationModel, ChangeAware {
     /**
      * Stores the listeners on this model.
      */
     private final WeakChangeSupport weakChangeSupport;
 
-    private PanelLayoutSpec layoutSpec = new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(48));
+    private MenuPopupPanelLayoutSpec layoutSpec;
 
     /**
      * If <code>true</code>, the panel will show group labels.
@@ -56,10 +56,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
     private Integer commandIconDimension;
 
     private int commandHorizontalAlignment;
-    private boolean isMenu;
-    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
 
-    private CommandPanelPresentationModel() {
+    private CommandPopupMenuPanelPresentationModel() {
         this.weakChangeSupport = new WeakChangeSupport(this);
     }
 
@@ -72,9 +70,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
     }
 
     public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
-        if (commandPresentationState == null) {
-            throw new IllegalArgumentException("Command presentation state cannot be null");
-        }
         if (this.commandPresentationState != commandPresentationState) {
             this.commandPresentationState = commandPresentationState;
             if (this.commandPresentationState != CommandButtonPresentationState.FIT_TO_ICON) {
@@ -89,7 +84,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
     }
 
     public void setCommandIconDimension(Integer commandIconDimension) {
-        if (!Objects.equals(this.commandIconDimension, commandIconDimension)) {
+        if (this.commandIconDimension != commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
             if (this.commandIconDimension != -1) {
                 this.commandPresentationState = CommandButtonPresentationState.FIT_TO_ICON;
@@ -98,18 +93,13 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         }
     }
 
-    public PanelLayoutSpec getLayoutSpec() {
+    public MenuPopupPanelLayoutSpec getLayoutSpec() {
         return this.layoutSpec;
     }
 
-    public void setLayoutSpec(PanelLayoutSpec layoutSpec) {
+    public void setLayoutSpec(MenuPopupPanelLayoutSpec layoutSpec) {
         if (layoutSpec == null) {
             throw new IllegalArgumentException("Layout spec cannot be null");
-        }
-        if (this.isToShowGroupLabels()
-                && (layoutSpec instanceof PanelLayoutSpec.ColumnFill)) {
-            throw new IllegalArgumentException(
-                    "Column fill layout is not supported when group labels are shown");
         }
         if (this.layoutSpec != layoutSpec) {
             this.layoutSpec = layoutSpec;
@@ -122,11 +112,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
     }
 
     public void setToShowGroupLabels(boolean toShowGroupLabels) {
-        if ((this.getLayoutSpec() instanceof PanelLayoutSpec.ColumnFill)
-                && toShowGroupLabels) {
-            throw new IllegalArgumentException(
-                    "Column fill layout is not supported when group labels are shown");
-        }
         if (this.toShowGroupLabels != toShowGroupLabels) {
             this.toShowGroupLabels = toShowGroupLabels;
             this.fireStateChanged();
@@ -135,14 +120,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
 
     public int getCommandHorizontalAlignment() {
         return this.commandHorizontalAlignment;
-    }
-
-    public boolean isMenu() {
-        return this.isMenu;
-    }
-
-    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
-        return this.popupOrientationKind;
     }
 
     public void addChangeListener(ChangeListener l) {
@@ -159,21 +136,13 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
     }
 
     public static class Builder {
-        private PanelLayoutSpec layoutSpec =
-                new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(48));
+        private MenuPopupPanelLayoutSpec layoutSpec;
         private boolean toShowGroupLabels = true;
-        private CommandButtonPresentationState commandPresentationState =
-                CommandButtonPresentationState.MEDIUM;
+        private CommandButtonPresentationState commandPresentationState;
         private Integer commandIconDimension = -1;
         private int commandHorizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
-        private boolean isMenu = false;
-        private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
-                CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;
 
-        public Builder setLayoutSpec(PanelLayoutSpec layoutSpec) {
-            if (layoutSpec == null) {
-                throw new IllegalArgumentException("Layout spec cannot be null");
-            }
+        public Builder setLayoutSpec(MenuPopupPanelLayoutSpec layoutSpec) {
             this.layoutSpec = layoutSpec;
             return this;
         }
@@ -185,9 +154,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
 
         public Builder setCommandPresentationState(
                 CommandButtonPresentationState commandPresentationState) {
-            if (commandPresentationState == null) {
-                throw new IllegalArgumentException("Command presentation state cannot be null");
-            }
             this.commandPresentationState = commandPresentationState;
             return this;
         }
@@ -202,29 +168,17 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
             return this;
         }
 
-        public Builder setPopupOrientationKind(
-                CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
-            if (popupOrientationKind == null) {
-                throw new IllegalArgumentException("Popup orientation kind cannot be null");
+        public CommandPopupMenuPanelPresentationModel build() {
+            if (this.layoutSpec == null) {
+                throw new IllegalArgumentException("Layout spec cannot be null");
             }
-            this.popupOrientationKind = popupOrientationKind;
-            return this;
-        }
 
-        public Builder setMenu(boolean isMenu) {
-            this.isMenu = isMenu;
-            return this;
-        }
-
-        public CommandPanelPresentationModel build() {
-            CommandPanelPresentationModel presentationModel = new CommandPanelPresentationModel();
+            CommandPopupMenuPanelPresentationModel presentationModel = new CommandPopupMenuPanelPresentationModel();
             presentationModel.layoutSpec = this.layoutSpec;
             presentationModel.toShowGroupLabels = this.toShowGroupLabels;
             presentationModel.commandIconDimension = this.commandIconDimension;
             presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
-            presentationModel.isMenu = this.isMenu;
-            presentationModel.popupOrientationKind = this.popupOrientationKind;
             return presentationModel;
         }
     }

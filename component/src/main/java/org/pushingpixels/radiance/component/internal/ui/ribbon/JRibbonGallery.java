@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
@@ -386,14 +387,14 @@ public class JRibbonGallery extends JComponent {
         CommandPopupMenuPresentationModel galleryPopupMenuPresentationModel =
                 CommandPopupMenuPresentationModel.builder()
                         .setPanelPresentationModel(
-                                CommandPanelPresentationModel.builder()
+                                CommandPopupMenuPanelPresentationModel.builder()
+                                        .setLayoutSpec(new MenuPopupPanelLayoutSpec(
+                                                galleryPresentationModel.getPreferredPopupMaxCommandColumns(),
+                                                galleryPresentationModel.getPreferredPopupMaxVisibleCommandRows()
+                                        ))
                                         .setToShowGroupLabels(allGroupsHaveTitles)
                                         .setCommandPresentationState(
                                                 galleryPresentationModel.getCommandPresentationState())
-                                        .setMaxColumns(
-                                                galleryPresentationModel.getPreferredPopupMaxCommandColumns())
-                                        .setMaxRows(
-                                                galleryPresentationModel.getPreferredPopupMaxVisibleCommandRows())
                                         .build())
                         .build();
 

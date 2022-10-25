@@ -36,6 +36,7 @@ import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.demo.component.ktx.svg.*
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.component.ktx.commandButton
 import org.pushingpixels.radiance.component.ktx.commandPopupMenu
@@ -73,9 +74,8 @@ fun main() {
                 menu = commandPopupMenu {
                     commandPanel {
                         presentation {
+                            layoutSpec = MenuPopupPanelLayoutSpec(5, 3)
                             commandIconDimension = 48
-                            maxColumns = 5
-                            maxRows = 3
                             toShowGroupLabels = false
                         }
 

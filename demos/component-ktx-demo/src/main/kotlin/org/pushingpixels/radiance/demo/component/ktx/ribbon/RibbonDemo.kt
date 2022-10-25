@@ -47,6 +47,7 @@ import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
@@ -639,9 +640,8 @@ private class RibbonDemoBuilder {
 
                     commandPanel {
                         presentation {
+                            layoutSpec = MenuPopupPanelLayoutSpec(5, 3)
                             commandIconDimension = 48
-                            maxColumns = 5
-                            maxRows = 3
                             toShowGroupLabels = false
                         }
 
