@@ -74,7 +74,10 @@ fun main() {
                 menu = commandPopupMenu {
                     commandPanel {
                         presentation {
-                            layoutSpec = MenuPopupPanelLayoutSpec(5, 3)
+                            layoutSpec {
+                                columnCount = 5
+                                visibleRowCount = 3
+                            }
                             commandIconDimension = 48
                             toShowGroupLabels = false
                         }

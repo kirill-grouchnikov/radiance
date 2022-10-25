@@ -31,11 +31,7 @@ package org.pushingpixels.radiance.component.ktx
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.JCommandButton
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup
-import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel
-import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec
@@ -73,16 +69,30 @@ public class KCommandButtonPanelPresentation {
 }
 
 @RadianceElementMarker
+public class KCommandPopupMenuPanelLayoutSpec {
+    public var columnCount : Int by NonNullDelegate { false }
+    public var visibleRowCount : Int by NonNullDelegate { false }
+
+    internal fun toMenuPopupPanelLayoutSpec() : MenuPopupPanelLayoutSpec {
+        return MenuPopupPanelLayoutSpec(columnCount, visibleRowCount)
+    }
+}
+
+@RadianceElementMarker
 public class KCommandPopupMenuPanelPresentation {
-    public var layoutSpec: MenuPopupPanelLayoutSpec = MenuPopupPanelLayoutSpec(5, 3)
+    public var layoutSpec: KCommandPopupMenuPanelLayoutSpec = KCommandPopupMenuPanelLayoutSpec()
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
     public var commandIconDimension: Int = -1
     public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
 
+    public fun layoutSpec(init: KCommandPopupMenuPanelLayoutSpec.() -> Unit) {
+        layoutSpec.init()
+    }
+
     internal fun toCommandPopupMenuPanelPresentationModel() : CommandPopupMenuPanelPresentationModel {
         val presentationModelBuilder = CommandPopupMenuPanelPresentationModel.builder()
-        presentationModelBuilder.setLayoutSpec(this.layoutSpec)
+        presentationModelBuilder.setLayoutSpec(this.layoutSpec.toMenuPopupPanelLayoutSpec())
         if (this.commandPresentationState != null) {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
