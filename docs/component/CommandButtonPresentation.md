@@ -43,7 +43,7 @@ Command button presentation models are created with the builder pattern which is
 |  | actionKeyTip | String |
 |  | popupKeyTip | String |
 |  | popupMenuPresentationModel | AbstractPopupMenuPresentationModel |
-|  | popupOrientationKind | PopupOrientationKind |
+|  | popupPlacementStrategy | PopupPlacementStrategy |
 |  | dismissPopupsOnActivation | boolean |
 |  | autoRepeatAction | boolean |
 |  | autoRepeatInitialInterval | int |
@@ -130,7 +130,7 @@ and if the secondary content has more than 8 elements (commands), the popup will
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-secondary-scrollable.png" width="734" border=0/>
 
-Use the `popupOrientationKind` attribute to control the anchoring of the popup content. The default `PopupOrientationKind.DOWNWARD` displays the popup content below the projected button (same as the default popup anchoring for the core `JComboBox` component). Use `PopupOrientationKind.SIDEWARD` to display the popup to the side (right under left-to-right and left under right-to-left) of the projected button.
+Use the `popupPlacementStrategy` attribute to control the placement and alignment of the popup content. The default `PopupPlacementStrategy.Downward.HALIGN_START` displays the popup content below the projected button (same as the default popup anchoring for the core `JComboBox` component). `PopupPlacementStrategy.Endward.VALIGN_TOP` can be used to display the popup to the end side (right under left-to-right and left under right-to-left) of the projected button.
 
 In some cases, you would want to allow the user to interact with multiple entries in the popup menu. Let's take a look at this screenshot:
 

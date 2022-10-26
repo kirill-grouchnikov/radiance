@@ -244,9 +244,9 @@ Specifies the combobox popup prototype callback which is used to compute the wid
 
 Specifies the combobox popup prototype display value which is used to compute the width of the popups at runtime.
 
-`public static void setComboBoxPopupFlyoutOrientation(int comboPopupFlyoutOrientation)`
+`public static void setComboBoxPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy comboBoxPopupPlacementStrategy)`
 
-Specifies the combobox popup flyout orientation.
+Specifies the combobox popup placement strategy.
 
 #### Additional global APIs
 
@@ -472,9 +472,9 @@ Specifies the combobox popup prototype callback which is used to compute the wid
 
 Specifies the combobox popup prototype display value which is used to compute the width of the popup at runtime.
 
-`public static void setComboBoxPopupFlyoutOrientation(JComboBox comboBox, Integer comboPopupFlyoutOrientation)`
+`public static void setComboBoxPopupPlacementStrategy(JComboBox comboBox, RadianceThemingSlices.PopupPlacementStrategy comboBoxPopupPlacementStrategy)`
 
-Specifies the combobox popup flyout orientation.
+Specifies the combobox popup placement strategy.
 
 #### Additional component APIs
 
