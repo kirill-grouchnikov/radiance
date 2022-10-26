@@ -240,20 +240,12 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     private CommandButtonKind commandButtonKind;
 
     /**
-     * The popup orientation kind of this button.
+     * The popup placement strategy of this button.
      *
-     * @see #setPopupOrientationKind(CommandButtonPresentationModel.PopupOrientationKind)
-     * @see #getPopupOrientationKind()
+     * @see #setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
+     * @see #getPopupPlacementStrategy()
      */
-    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
-
-    /**
-     * The popup horizontal gravity of this button.
-     *
-     * @see #setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity)
-     * @see #getPopupHorizontalGravity()
-     */
-    private CommandButtonPresentationModel.PopupHorizontalGravity popupHorizontalGravity;
+    private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
     /**
      * Indicates the auto-repeat action mode. When the button is not in the
@@ -643,8 +635,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         this.getActionModel().setFireActionOnPress(commandPresentation.getFireActionTrigger() ==
                 CommandButtonPresentationModel.FireActionTrigger.ON_PRESSED);
 
-        this.setPopupOrientationKind(commandPresentation.getPopupOrientationKind());
-        this.setPopupHorizontalGravity(commandPresentation.getPopupHorizontalGravity());
+        this.setPopupPlacementStrategy(commandPresentation.getPopupPlacementStrategy());
 
         if (command.getActionPreview() != null) {
             this.getActionModel().addChangeListener(new ChangeListener() {
@@ -1241,54 +1232,28 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
     }
 
     /**
-     * Returns the popup orientation kind of this button.
+     * Returns the popup placement strategy of this button.
      *
-     * @return Popup orientation kind of this button.
-     * @see #setPopupOrientationKind(CommandButtonPresentationModel.PopupOrientationKind)
+     * @return Popup placement strategy of this button.
+     * @see #setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
      */
-    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
-        return this.popupOrientationKind;
+    public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
+        return this.popupPlacementStrategy;
     }
 
     /**
-     * Sets the popup orientation for this button. Fires a
-     * <code>popupOrientationKind</code> property change event.
+     * Sets the popup placement strategy for this button. Fires a
+     * <code>popupPlacementStrategy</code> property change event.
      *
-     * @param popupOrientationKind The new popup orientation kind.
-     * @see #getPopupOrientationKind()
+     * @param popupPlacementStrategy The new popup placement strategy.
+     * @see #getPopupPlacementStrategy()
      */
-    public void setPopupOrientationKind(
-            CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
-        CommandButtonPresentationModel.PopupOrientationKind old = this.popupOrientationKind;
-        this.popupOrientationKind = popupOrientationKind;
-        if (old != this.popupOrientationKind) {
-            firePropertyChange("popupOrientationKind", old, this.popupOrientationKind);
-        }
-    }
-
-    /**
-     * Returns the popup horizontal gravity of this button.
-     *
-     * @return Popup horizontal gravity of this button.
-     * @see #setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity)
-     */
-    public CommandButtonPresentationModel.PopupHorizontalGravity getPopupHorizontalGravity() {
-        return this.popupHorizontalGravity;
-    }
-
-    /**
-     * Sets the popup horizontal gravity for this button. Fires a
-     * <code>popupHorizontalGravity</code> property change event.
-     *
-     * @param popupHorizontalGravity The new popup horizontal gravity.
-     * @see #getPopupHorizontalGravity()
-     */
-    public void setPopupHorizontalGravity(
-            CommandButtonPresentationModel.PopupHorizontalGravity popupHorizontalGravity) {
-        CommandButtonPresentationModel.PopupHorizontalGravity old = this.popupHorizontalGravity;
-        this.popupHorizontalGravity = popupHorizontalGravity;
-        if (old != this.popupHorizontalGravity) {
-            firePropertyChange("popupHorizontalGravity", old, this.popupHorizontalGravity);
+    public void setPopupPlacementStrategy(
+            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+        RadianceThemingSlices.PopupPlacementStrategy old = this.popupPlacementStrategy;
+        this.popupPlacementStrategy = popupPlacementStrategy;
+        if (old != this.popupPlacementStrategy) {
+            firePropertyChange("popupPlacementStrategy", old, this.popupPlacementStrategy);
         }
     }
 

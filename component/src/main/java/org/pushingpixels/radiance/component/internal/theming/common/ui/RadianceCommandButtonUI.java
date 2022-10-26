@@ -38,8 +38,6 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonPresentation
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.RolloverActionListener;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
@@ -485,10 +483,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         return new BladeTransitionAwareRadianceIcon(this.commandButton,
                 this::getPopupTransitionTracker,
                 (g, scheme, width, height) -> {
-                    CommandButtonPresentationModel.PopupOrientationKind orientation =
-                            commandButton.getPopupOrientationKind();
+                    RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+                            commandButton.getPopupPlacementStrategy();
                     int direction =
-                            (orientation == CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD)
+                            (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Downward)
                                     ? SwingConstants.SOUTH
                                     : (commandButton.getComponentOrientation().isLeftToRight()
                                     ? SwingConstants.EAST : SwingConstants.WEST);

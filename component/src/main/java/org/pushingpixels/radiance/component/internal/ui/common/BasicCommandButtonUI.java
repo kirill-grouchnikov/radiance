@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -623,52 +624,45 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
                 popupPanel.doLayout();
 
-                int x = 0;
-                int y = 0;
+                int popupX;
+                int popupY;
 
                 JPopupPanel.PopupPanelCustomizer customizer = popupPanel.getCustomizer();
-                boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
                 if (customizer == null) {
-                    switch (this.commandButton.getPopupOrientationKind()) {
-                        case DOWNWARD:
-                            CommandButtonPresentationModel.PopupHorizontalGravity popupHorizontalGravity =
-                                    this.commandButton.getPopupHorizontalGravity();
-                            boolean isLeftAligned =
-                                    (ltr && (popupHorizontalGravity == CommandButtonPresentationModel.PopupHorizontalGravity.START)) ||
-                                            (!ltr && (popupHorizontalGravity == CommandButtonPresentationModel.PopupHorizontalGravity.END));
-                            if (isLeftAligned) {
-                                x = commandButton.getLocationOnScreen().x;
-                            } else {
-                                x = commandButton.getLocationOnScreen().x + commandButton.getWidth()
-                                        - popupPanel.getPreferredSize().width;
-                            }
-                            y = commandButton.getLocationOnScreen().y + commandButton.getSize().height;
-                            break;
-                        case SIDEWARD:
-                            if (ltr) {
-                                x = commandButton.getLocationOnScreen().x + commandButton.getWidth();
-                            } else {
-                                x = commandButton.getLocationOnScreen().x - popupPanel.getPreferredSize().width;
-                            }
-                            y = commandButton.getLocationOnScreen().y + getLayoutInfo().popupClickArea.y;
-                            break;
-                    }
+                    CommandButtonUI ui = this.commandButton.getUI();
+                    Rectangle popupRect = ui.getLayoutInfo().popupClickArea;
+
+                    RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+                            this.commandButton.getPopupPlacementStrategy();
+                    Insets insets = popupPanel.getInsets();
+
+                    Dimension delta = RadianceCoreUtilities.getPlacementAwarePopupShift(
+                            this.commandButton.getComponentOrientation().isLeftToRight(),
+                            new Dimension(popupRect.width, popupRect.height),
+                            popupPanel.getPreferredSize(), insets,
+                            popupPlacementStrategy);
+
+                    int dx = delta.width;
+                    int dy = delta.height;
+
+                    popupX = commandButton.getLocationOnScreen().x + popupRect.x + dx;
+                    popupY = commandButton.getLocationOnScreen().y + popupRect.y + popupRect.height + dy;
                 } else {
                     Rectangle placementRect = customizer.getScreenBounds();
                     // System.out.println(placementRect);
-                    x = placementRect.x;
-                    y = placementRect.y;
+                    popupX = placementRect.x;
+                    popupY = placementRect.y;
                 }
 
                 // make sure that the popup stays in bounds
                 Rectangle scrBounds = commandButton.getGraphicsConfiguration().getBounds();
                 int pw = popupPanel.getPreferredSize().width;
-                if ((x + pw) > (scrBounds.x + scrBounds.width)) {
-                    x = scrBounds.x + scrBounds.width - pw;
+                if ((popupX + pw) > (scrBounds.x + scrBounds.width)) {
+                    popupX = scrBounds.x + scrBounds.width - pw;
                 }
                 int ph = popupPanel.getPreferredSize().height;
-                if ((y + ph) > (scrBounds.y + scrBounds.height)) {
-                    y = scrBounds.y + scrBounds.height - ph;
+                if ((popupY + ph) > (scrBounds.y + scrBounds.height)) {
+                    popupY = scrBounds.y + scrBounds.height - ph;
                 }
 
                 // get the popup and show it
@@ -677,7 +671,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     popupPanel.setPreferredSize(
                             new Dimension(placementRect.width, placementRect.height));
                 }
-                PopupPanelManager.defaultManager().showPopup(commandButton, popupPanel, x, y);
+                PopupPanelManager.defaultManager().showPopup(commandButton, popupPanel, popupX, popupY);
             });
         }
     }

@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.combo.WidestComboPopupPrototype;
 import org.pushingpixels.radiance.theming.api.skin.RadianceNightShadeLookAndFeel;
@@ -82,8 +83,8 @@ public class TestFrame extends JFrame {
                 DecorationAreaType.FOOTER);
 
         RadianceSkinSelector skinSelector = new RadianceSkinSelector();
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
-                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(skinSelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
         RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
                 new WidestComboPopupPrototype<SkinInfo>());
         skinSelector.setToolTipText("Radiance skin");

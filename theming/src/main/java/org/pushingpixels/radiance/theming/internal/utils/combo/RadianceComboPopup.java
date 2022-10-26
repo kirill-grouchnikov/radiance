@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils.combo;
 
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceListUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
@@ -109,28 +110,36 @@ public class RadianceComboPopup extends BasicComboPopup {
 
 	@Override
 	protected Rectangle computePopupBounds(int px, int py, int pw, int ph) {
-		int popupFlyoutOrientation = RadianceCoreUtilities
-				.getPopupFlyoutOrientation(this.comboBox);
+		RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+				RadianceCoreUtilities.getPopupPlacementStrategy(this.comboBox);
 		Insets insets = this.getInsets();
-		int dx = 0;
-		int dy = 0;
-		switch (popupFlyoutOrientation) {
-		case SwingConstants.NORTH:
-			dy = -ph - (int) this.comboBox.getSize().getHeight() - insets.top
-					- insets.bottom;
-			break;
-		case SwingConstants.CENTER:
-			dy = -ph / 2 - (int) this.comboBox.getSize().getHeight() / 2
-					- insets.top / 2 - insets.bottom / 2;
-			break;
-		case SwingConstants.EAST:
-			dx = pw + insets.left + insets.right;
-			dy = -(int) this.comboBox.getSize().getHeight();
-			break;
-		case SwingConstants.WEST:
-			dx = -pw - insets.left - insets.right;
-			dy = -(int) this.comboBox.getSize().getHeight();
+
+		// The following has been taken from JGoodies' Looks implementation
+		// for the popup prototype value
+		Object popupPrototypeDisplayValue = RadianceCoreUtilities
+				.getComboPopupPrototypeDisplayValue(this.comboBox);
+		if (popupPrototypeDisplayValue != null) {
+			ListCellRenderer<Object> renderer = this.list.getCellRenderer();
+			Component c = renderer.getListCellRendererComponent(this.list,
+					popupPrototypeDisplayValue, -1, true, true);
+			int npw = c.getPreferredSize().width;
+			boolean hasVerticalScrollBar = this.comboBox.getItemCount() > this.comboBox
+					.getMaximumRowCount();
+			if (hasVerticalScrollBar) {
+				// Add the scrollbar width.
+				JScrollBar verticalBar = this.scroller.getVerticalScrollBar();
+				npw += verticalBar.getPreferredSize().width;
+			}
+
+			pw = Math.max(pw, npw);
 		}
+
+		Dimension delta = RadianceCoreUtilities.getPlacementAwarePopupShift(
+				this.comboBox.getComponentOrientation().isLeftToRight(),
+				this.comboBox.getSize(), new Dimension(pw, ph), insets, popupPlacementStrategy);
+		int dx = delta.width;
+		int dy = delta.height;
+
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Rectangle screenBounds;
 
@@ -153,27 +162,6 @@ public class RadianceComboPopup extends BasicComboPopup {
 		if ((py + ph > screenBounds.y + screenBounds.height)
 				&& (ph < screenBounds.height)) {
 			rect.y = -rect.height - insets.top - insets.bottom;
-		}
-
-		// The following has been taken from JGoodies' Looks implementation
-		// for the popup prototype value
-		Object popupPrototypeDisplayValue = RadianceCoreUtilities
-				.getComboPopupPrototypeDisplayValue(this.comboBox);
-		if (popupPrototypeDisplayValue != null) {
-			ListCellRenderer<Object> renderer = this.list.getCellRenderer();
-			Component c = renderer.getListCellRendererComponent(this.list,
-					popupPrototypeDisplayValue, -1, true, true);
-			int npw = c.getPreferredSize().width;
-			boolean hasVerticalScrollBar = this.comboBox.getItemCount() > this.comboBox
-					.getMaximumRowCount();
-			if (hasVerticalScrollBar) {
-				// Add the scrollbar width.
-				JScrollBar verticalBar = this.scroller.getVerticalScrollBar();
-				npw += verticalBar.getPreferredSize().width;
-			}
-
-			pw = Math.max(pw, npw);
-			rect.width = pw;
 		}
 
 		return rect;

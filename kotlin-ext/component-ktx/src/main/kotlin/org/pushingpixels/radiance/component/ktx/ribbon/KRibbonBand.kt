@@ -43,6 +43,8 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePo
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.component.ktx.*
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.PopupPlacementStrategy
 import javax.swing.JComponent
 
 @RadianceElementMarker
@@ -90,7 +92,7 @@ public class KRibbonBandGroup {
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null,
         popupKeyTip: String? = null, textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KCommand.() -> Unit
     ): KCommand {
         val command = KCommand()
@@ -99,7 +101,7 @@ public class KRibbonBandGroup {
             Pair(
                 priority, KCommandGroup.CommandConfig(
                     command, actionKeyTip, popupKeyTip,
-                    textClick, popupHorizontalGravity
+                    textClick, popupPlacementStrategy
                 )
             )
         )
@@ -109,7 +111,7 @@ public class KRibbonBandGroup {
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
         textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         command: KCommand
     ) {
         content.add(
@@ -120,7 +122,7 @@ public class KRibbonBandGroup {
                     actionKeyTip,
                     popupKeyTip,
                     textClick,
-                    popupHorizontalGravity
+                    popupPlacementStrategy
                 )
             )
         )
@@ -153,7 +155,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
         textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KCommand.() -> Unit
     ): KCommand {
         if (groups.size > 1) {
@@ -165,7 +167,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             Pair(
                 priority, KCommandGroup.CommandConfig(
                     command, actionKeyTip, popupKeyTip,
-                    textClick, popupHorizontalGravity
+                    textClick, popupPlacementStrategy
                 )
             )
         )
@@ -177,7 +179,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         actionKeyTip: String? = null,
         popupKeyTip: String? = null,
         textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KColorSelectorCommand.() -> Unit
     ): KColorSelectorCommand {
         if (groups.size > 1) {
@@ -189,7 +191,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             Pair(
                 priority, KCommandGroup.CommandConfig(
                     command, actionKeyTip, popupKeyTip,
-                    textClick, popupHorizontalGravity
+                    textClick, popupPlacementStrategy
                 )
             )
         )
@@ -199,7 +201,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
         textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         command: KCommand
     ) {
         if (groups.size > 1) {
@@ -209,7 +211,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             Pair(
                 priority, KCommandGroup.CommandConfig(
                     command, actionKeyTip, popupKeyTip,
-                    textClick, popupHorizontalGravity
+                    textClick, popupPlacementStrategy
                 )
             )
         )

@@ -29,10 +29,6 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_copy;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_cut;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
@@ -40,6 +36,10 @@ import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_copy;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_cut;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -92,8 +92,8 @@ public class TileMenu extends JFrame {
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
                                 .setMenuPresentationState(CommandButtonPresentationState.TILE)
-                                .setPopupOrientationKind(
-                                        CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
+                                .setPopupPlacementStrategy(
+                                        RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
                                 .build())
                         .build());
 

@@ -98,8 +98,8 @@ public class BreadCrumbTest extends JFrame {
                 RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         RadianceSkinSelector skinSelector = new RadianceSkinSelector();
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
-                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(skinSelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
         RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
                 new WidestComboPopupPrototype<SkinInfo>());
         skinSelector.setToolTipText("Radiance skin");

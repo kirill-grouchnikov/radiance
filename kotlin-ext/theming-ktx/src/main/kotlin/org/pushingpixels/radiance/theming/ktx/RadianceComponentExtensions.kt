@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.ktx
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceSkin
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback
 import org.pushingpixels.radiance.theming.api.password.PasswordStrengthChecker
@@ -479,29 +479,17 @@ public fun JComboBox<*>.setComboBoxPrototypeDisplayValue(comboPopupPrototypeDisp
 }
 
 /**
- * Specifies the combobox popup flyout orientation. The value should be either
- * `null` to reset to the default flyout orientation or one of the
- * [Integer]s below:
+ * Specifies the combobox popup placement strategy. Pass `null` to reset to the
+ * default placement strategy. Note that the combo arrow changes in accordance with the
+ * combo popup placement strategy.
  *
- *  * The default [SwingConstants.SOUTH] - the popup is displayed directly below the
- * combobox aligned to the left.
- *  * [SwingConstants.NORTH] - the popup is displayed directly above the combobox
- * aligned to the left.
- *  * [SwingConstants.EAST] - the popup is displayed to the left of the combobox
- * aligned to the top.
- *  * [SwingConstants.WEST] - the popup is displayed to the right of the combobox
- * aligned to the top.
- *  * [SwingConstants.CENTER] - the popup is displayed centered vertically over the
- * combobox aligned to the left.
- *
- * Note that the combo arrow changes in accordance with the combo popup flyout orientation.
- *
- * @param comboPopupFlyoutOrientation Flyout orientation for combobox popup.
+ * @param comboBoxPopupPlacementStrategy Placement strategy for combobox popup.
  */
 @RadianceComponentScope
-public fun JComboBox<*>.setComboBoxPopupFlyoutOrientation(comboPopupFlyoutOrientation: Int?) {
-    RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(
-        this, comboPopupFlyoutOrientation
+public fun JComboBox<*>.setComboBoxPopupPlacementStrategy(
+    comboPopupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy?) {
+    RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(
+        this, comboPopupPlacementStrategy
     )
 }
 

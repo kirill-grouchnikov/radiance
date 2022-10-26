@@ -575,22 +575,22 @@ public class RadianceCoreUtilities {
     }
 
     /**
-     * Returns the popup flyout orientation for the specified combobox.
+     * Returns the popup placement strategy for the specified combobox.
      *
      * @param combobox Combobox.
-     * @return The popup flyout orientation for the specified combobox.
-     * @see RadianceThemingCortex.ComponentScope#setComboBoxPopupFlyoutOrientation(JComboBox, Integer)
-     * @see RadianceThemingCortex.GlobalScope#setComboBoxPopupFlyoutOrientation(int)
+     * @return The popup placement strategy for the specified combobox.
+     * @see RadianceThemingCortex.ComponentScope#setComboBoxPopupPlacementStrategy(JComboBox, RadianceThemingSlices.PopupPlacementStrategy)
+     * @see RadianceThemingCortex.GlobalScope#setComboBoxPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
      */
-    public static int getPopupFlyoutOrientation(JComboBox combobox) {
+    public static RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy(JComboBox combobox) {
         Object comboProperty = combobox
-                .getClientProperty(RadianceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION);
-        if (comboProperty instanceof Integer)
-            return (Integer) comboProperty;
-        Object globalProperty = UIManager.get(RadianceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION);
-        if (globalProperty instanceof Integer)
-            return (Integer) globalProperty;
-        return SwingConstants.SOUTH;
+                .getClientProperty(RadianceSynapse.COMBO_BOX_POPUP_PLACEMENT_STRATEGY);
+        if (comboProperty instanceof RadianceThemingSlices.PopupPlacementStrategy)
+            return (RadianceThemingSlices.PopupPlacementStrategy) comboProperty;
+        Object globalProperty = UIManager.get(RadianceSynapse.COMBO_BOX_POPUP_PLACEMENT_STRATEGY);
+        if (globalProperty instanceof RadianceThemingSlices.PopupPlacementStrategy)
+            return (RadianceThemingSlices.PopupPlacementStrategy) globalProperty;
+        return RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
     }
 
     /**
@@ -1249,6 +1249,102 @@ public class RadianceCoreUtilities {
         return new BladeArrowButtonTransitionAwareIcon(comp, transitionAwareUIDelegate,
                 BladeArrowIconUtils.getArrowIconDimension(fontSize, orientation),
                 orientation);
+    }
+
+    public static int placementStrategyToOrientation(JComponent comp,
+            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+        boolean ltr = comp.getComponentOrientation().isLeftToRight();
+        if (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Upward) {
+            return SwingUtilities.NORTH;
+        }
+        if (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Downward) {
+            return SwingUtilities.SOUTH;
+        }
+        if (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.CenteredVertically) {
+            return SwingUtilities.CENTER;
+        }
+        if (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Startward) {
+            return ltr? SwingUtilities.WEST : SwingUtilities.EAST;
+        }
+        if (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Endward) {
+            return ltr? SwingUtilities.EAST : SwingUtilities.WEST;
+        }
+        return SwingUtilities.SOUTH;
+    }
+
+    public static Dimension getPlacementAwarePopupShift(boolean ltr,
+            Dimension anchorDimension, Dimension popupDimension, Insets popupInsets,
+            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+        int dx = 0;
+        int dy = 0;
+
+        int anchorWidth = anchorDimension.width;
+        int anchorHeight = anchorDimension.height;
+        int popupWidth = popupDimension.width;
+        int popupHeight = popupDimension.height;
+
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START) {
+            // Popup above the component, horizontally aligned to the start edge
+            dy = -popupHeight - anchorHeight - popupInsets.top - popupInsets.bottom;
+            if (!ltr) {
+                dx = anchorWidth - popupWidth;
+            }
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_END) {
+            // Popup above the component, horizontally aligned to the end edge
+            dy = -popupHeight - anchorHeight - popupInsets.top - popupInsets.bottom;
+            if (ltr) {
+                dx = -(popupWidth - anchorWidth);
+            }
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START) {
+            // Popup below the component, horizontally aligned to the start edge
+            if (!ltr) {
+                dx = anchorWidth - popupWidth;
+            }
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END) {
+            // Popup below the component, horizontally aligned to the end edge
+            if (ltr) {
+                dx = -(popupWidth - anchorWidth);
+            }
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.CenteredVertically.HALIGN_START) {
+            // Popup centered vertically, horizontally aligned to the start edge
+            dy = -popupHeight / 2 - anchorHeight / 2 - popupInsets.top / 2 - popupInsets.bottom / 2;
+            if (!ltr) {
+                dx = anchorWidth - popupWidth;
+            }
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.CenteredVertically.HALIGN_END) {
+            // Popup centered vertically, horizontally aligned to the end edge
+            dy = -popupHeight / 2 - anchorHeight / 2 - popupInsets.top / 2 - popupInsets.bottom / 2;
+            if (ltr) {
+                dx = -(popupWidth - anchorWidth);
+            }
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Startward.VALIGN_TOP) {
+            // Popup next to the start edge of the component, vertically aligned to the top edge
+            dx = ltr ? -popupWidth - popupInsets.left - popupInsets.right : popupWidth + popupInsets.left + popupInsets.right;
+            dy = -anchorHeight;
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Startward.VALIGN_BOTTOM) {
+            // Popup next to the start edge of the component, vertically aligned to the bottom edge
+            dx = ltr ? -popupWidth - popupInsets.left - popupInsets.right : popupWidth + popupInsets.left + popupInsets.right;
+            dy = -popupHeight - popupInsets.bottom;
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP) {
+            // Popup next to the end edge of the component, vertically aligned to the top edge
+            dx = ltr ? anchorWidth : -popupWidth - popupInsets.left - popupInsets.right;
+            dy = -anchorHeight;
+        }
+        if (popupPlacementStrategy == RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_BOTTOM) {
+            // Popup next to the end edge of the component, vertically aligned to the bottom edge
+            dx = ltr ? anchorWidth : -popupWidth - popupInsets.left - popupInsets.right;
+            dy = -popupHeight - popupInsets.bottom;
+        }
+
+        return new Dimension(dx, dy);
     }
 
     /**

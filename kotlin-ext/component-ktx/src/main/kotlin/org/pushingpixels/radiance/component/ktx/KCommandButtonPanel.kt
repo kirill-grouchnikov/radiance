@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPane
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import javax.swing.JComponent
 
 @RadianceElementMarker
@@ -46,8 +47,8 @@ public class KCommandButtonPanelPresentation {
     public var commandIconDimension: Int = -1
     public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     public var isMenu: Boolean = false
-    public var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
-        CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
+    public var popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy =
+        RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
 
     internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
         val presentationModelBuilder = CommandPanelPresentationModel.builder()
@@ -62,7 +63,7 @@ public class KCommandButtonPanelPresentation {
         presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
         presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
         presentationModelBuilder.setMenu(this.isMenu)
-        presentationModelBuilder.setPopupOrientationKind(this.popupOrientationKind)
+        presentationModelBuilder.setPopupPlacementStrategy(this.popupPlacementStrategy)
 
         return presentationModelBuilder.build()
     }

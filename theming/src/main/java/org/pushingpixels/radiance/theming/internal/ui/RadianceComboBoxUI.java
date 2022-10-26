@@ -156,8 +156,9 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
      * @return Icon for the specified button.
      */
     private Icon getCurrentIcon(JButton button) {
-        int popupFlyoutOrientation = RadianceCoreUtilities.getPopupFlyoutOrientation(this.comboBox);
-        return RadianceCoreUtilities.getArrowIcon(button, popupFlyoutOrientation);
+        return RadianceCoreUtilities.getArrowIcon(button,
+                RadianceCoreUtilities.placementStrategyToOrientation(this.comboBox,
+                        RadianceCoreUtilities.getPopupPlacementStrategy(this.comboBox)));
     }
 
     @Override
@@ -201,7 +202,8 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
         // on the combobox
         this.uneditableArrowIcon = RadianceCoreUtilities.getArrowIcon(this.comboBox,
                 () -> (TransitionAwareUI) comboBox.getUI(),
-                RadianceCoreUtilities.getPopupFlyoutOrientation(this.comboBox));
+                RadianceCoreUtilities.placementStrategyToOrientation(this.comboBox,
+                        RadianceCoreUtilities.getPopupPlacementStrategy(this.comboBox)));
         this.updateComboBoxBorder();
     }
 
@@ -328,12 +330,13 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                 });
             }
 
-            if (RadianceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION.equals(propertyName)) {
+            if (RadianceSynapse.COMBO_BOX_POPUP_PLACEMENT_STRATEGY.equals(propertyName)) {
                 RadianceDropDownButton dropDownButton = (RadianceDropDownButton) arrowButton;
                 dropDownButton.setIcon(getCurrentIcon(dropDownButton));
                 uneditableArrowIcon = RadianceCoreUtilities.getArrowIcon(comboBox,
                         () -> (TransitionAwareUI) comboBox.getUI(),
-                        RadianceCoreUtilities.getPopupFlyoutOrientation(comboBox));
+                        RadianceCoreUtilities.placementStrategyToOrientation(comboBox,
+                                RadianceCoreUtilities.getPopupPlacementStrategy(comboBox)));
             }
 
             if ("font".equals(propertyName)) {

@@ -151,39 +151,14 @@ public class KeyTipRenderingUtilities {
         String popupKeyTip = button.getPopupKeyTip();
         if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
             Point popupPrefCenter = button.getUI().getPopupKeyTipAnchorCenterPoint();
-            Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(),
-                    popupKeyTip);
-            if (button.getPopupOrientationKind() ==
-                    CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD) {
-                if (button.getCommandButtonKind() != JCommandButton.CommandButtonKind.POPUP_ONLY) {
-                    // vertically aligned with the action keytip along the right edge
-                    KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
-                                    layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
-                                            - pref.width - 4,
-                                    Math.min(popupPrefCenter.y - pref.height / 2,
-                                            layoutInfo.actionClickArea.y +
-                                                    layoutInfo.actionClickArea.height - pref.height),
-                                    pref.width, pref.height), popupKeyTip,
-                            button.getPopupModel().isEnabled());
-                } else {
-                    KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
-                                    popupPrefCenter.x - pref.width / 2,
-                                    Math.min(popupPrefCenter.y - pref.height / 2,
-                                            layoutInfo.popupClickArea.y +
-                                                    layoutInfo.popupClickArea.height - pref.height),
-                                    pref.width, pref.height), popupKeyTip,
-                            button.getPopupModel().isEnabled());
-                }
-            } else {
-                // horizontally centered along the bottom edge
-                KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
-                                (layoutInfo.popupClickArea.x + layoutInfo.popupClickArea.width
-                                        - pref.width) / 2,
-                                layoutInfo.popupClickArea.y + layoutInfo.popupClickArea.height
-                                        - pref.height,
-                                pref.width, pref.height), popupKeyTip,
-                        button.getPopupModel().isEnabled());
-            }
+            Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), popupKeyTip);
+            KeyTipRenderingUtilities.renderKeyTip(g, button, new Rectangle(
+                            popupPrefCenter.x - pref.width / 2,
+                            Math.min(popupPrefCenter.y - pref.height / 2,
+                                    layoutInfo.popupClickArea.y +
+                                            layoutInfo.popupClickArea.height - pref.height),
+                            pref.width, pref.height), popupKeyTip,
+                    button.getPopupModel().isEnabled());
         }
     }
 }

@@ -113,7 +113,7 @@ fun main() {
             presentation {
                 presentationState = CommandButtonPresentationState.TILE
                 backgroundAppearanceStrategy = RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS
-                popupOrientationKind = CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD
+                popupPlacementStrategy = RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP
             }
         }
 

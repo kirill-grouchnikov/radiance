@@ -127,7 +127,7 @@ public final class RadianceThemingSlices {
 
                 graphics.setStroke(new BasicStroke(1.0f,
                         BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[] {dashLength, dashGap}, dashPhase));
+                        new float[]{dashLength, dashGap}, dashPhase));
 
                 int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
                         : 1;
@@ -171,7 +171,7 @@ public final class RadianceThemingSlices {
 
                     graphics.setStroke(new BasicStroke(
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] {dashLength, dashGap}, dashPhase));
+                            new float[]{dashLength, dashGap}, dashPhase));
 
                     Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, 1.0f,
                             (float) scaleFactor * mainComp.getWidth(),
@@ -190,7 +190,7 @@ public final class RadianceThemingSlices {
 
                     graphics.setStroke(new BasicStroke(
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] {dashLength, dashGap}, dashPhase));
+                            new float[]{dashLength, dashGap}, dashPhase));
                     graphics.draw(contour);
                 }
             }
@@ -226,7 +226,7 @@ public final class RadianceThemingSlices {
                     if (shaper.isProportionate()) {
                         graphics.setStroke(new BasicStroke(
                                 1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                                new float[] {dashLength, dashGap}, dashPhase));
+                                new float[]{dashLength, dashGap}, dashPhase));
                         float insetsPix = extraPadding;
 
                         Shape contour = shaper.getButtonOutline((AbstractButton) mainComp, insetsPix,
@@ -246,7 +246,7 @@ public final class RadianceThemingSlices {
 
                     graphics.setStroke(new BasicStroke(
                             1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                            new float[] {dashLength, dashGap}, dashPhase));
+                            new float[]{dashLength, dashGap}, dashPhase));
                     graphics.draw(contour);
                 }
             }
@@ -311,7 +311,7 @@ public final class RadianceThemingSlices {
 
                 graphics.setStroke(new BasicStroke(
                         1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0.0f,
-                        new float[] {dashLength, dashGap}, dashPhase));
+                        new float[]{dashLength, dashGap}, dashPhase));
 
                 graphics.translate((float) scaleFactor * textRect.x - 1, (float) scaleFactor * textRect.y);
                 graphics.drawLine(0, (int) (scaleFactor * textRect.height - 1),
@@ -774,25 +774,82 @@ public final class RadianceThemingSlices {
      * @author Kirill Grouchnikov
      */
     public enum IconFilterStrategy {
-        /** The icon is always painted in its original appearance. */
+        /**
+         * The icon is always painted in its original appearance.
+         */
         ORIGINAL,
 
-        /** The icon is themed based on the current text color. */
+        /**
+         * The icon is themed based on the current text color.
+         */
         THEMED_FOLLOW_TEXT,
 
-        /** The icon is themed based on the color scheme that matches the current component state. */
+        /**
+         * The icon is themed based on the color scheme that matches the current component state.
+         */
         THEMED_FOLLOW_COLOR_SCHEME
     }
 
     public enum BackgroundAppearanceStrategy {
-        /** Never paint background. */
+        /**
+         * Never paint background.
+         */
         NEVER,
 
-        /** Paint background only when selected, armed, pressed or (possibly) hovered over. */
+        /**
+         * Paint background only when selected, armed, pressed or (possibly) hovered over.
+         */
         FLAT,
 
-        /** Always paint background. */
+        /**
+         * Always paint background.
+         */
         ALWAYS
+    }
+
+    public abstract static class PopupPlacementStrategy {
+        private PopupPlacementStrategy() {
+        }
+
+        public final static class Upward extends PopupPlacementStrategy {
+            private Upward() {
+            }
+
+            public final static Upward HALIGN_START = new Upward();
+            public final static Upward HALIGN_END = new Upward();
+        }
+
+        public final static class Downward extends PopupPlacementStrategy {
+            private Downward() {
+            }
+
+            public final static Downward HALIGN_START = new Downward();
+            public final static Downward HALIGN_END = new Downward();
+        }
+
+        public final static class CenteredVertically extends PopupPlacementStrategy {
+            private CenteredVertically() {
+            }
+
+            public final static CenteredVertically HALIGN_START = new CenteredVertically();
+            public final static CenteredVertically HALIGN_END = new CenteredVertically();
+        }
+
+        public final static class Startward extends PopupPlacementStrategy {
+            private Startward() {
+            }
+
+            public final static Startward VALIGN_TOP = new Startward();
+            public final static Startward VALIGN_BOTTOM = new Startward();
+        }
+
+        public final static class Endward extends PopupPlacementStrategy {
+            private Endward() {
+            }
+
+            public final static Endward VALIGN_TOP = new Endward();
+            public final static Endward VALIGN_BOTTOM = new Endward();
+        }
     }
 
     /**

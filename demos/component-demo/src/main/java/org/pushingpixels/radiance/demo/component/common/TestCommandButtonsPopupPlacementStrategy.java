@@ -31,14 +31,15 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 
-public class TestCommandButtonsPopupHorizontalGravity extends TestCommandButtons {
+public class TestCommandButtonsPopupPlacementStrategy extends TestCommandButtons {
     @Override
     protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
-        builder.setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity.END);
+        builder.setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP);
     }
 
     /**
@@ -50,7 +51,7 @@ public class TestCommandButtonsPopupHorizontalGravity extends TestCommandButtons
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            TestCommandButtonsPopupHorizontalGravity frame = new TestCommandButtonsPopupHorizontalGravity();
+            TestCommandButtonsPopupPlacementStrategy frame = new TestCommandButtonsPopupPlacementStrategy();
             frame.setSize(800, 400);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);

@@ -469,8 +469,8 @@ public class Check extends JFrame {
                 DecorationAreaType.FOOTER);
 
         RadianceSkinSelector skinSelector = new RadianceSkinSelector();
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(skinSelector,
-                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(skinSelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
         RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(skinSelector,
                 new WidestComboPopupPrototype<SkinInfo>());
         skinSelector.setToolTipText("Radiance skin");
@@ -499,8 +499,8 @@ public class Check extends JFrame {
             SwingUtilities.updateComponentTreeUI(Check.this);
         });
 
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(localeSelector,
-                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(localeSelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
         RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(localeSelector,
                 new WidestComboPopupPrototype<RadianceLocaleSelector.LocaleInfo>());
         localeSelector.setToolTipText("Application locale");
@@ -508,8 +508,8 @@ public class Check extends JFrame {
 
         try {
             RadianceFontSelector fontSelector = new RadianceFontSelector();
-            RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(fontSelector,
-                    SwingUtilities.NORTH);
+            RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(fontSelector,
+                    RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
             RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(fontSelector,
                     new WidestComboPopupPrototype<RadianceFontSelector.FontInfo>());
             fontSelector.setToolTipText("Radiance font set");
@@ -518,16 +518,16 @@ public class Check extends JFrame {
         }
 
         RadianceTitlePaneGravitySelector titlePaneGravitySelector = new RadianceTitlePaneGravitySelector();
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(titlePaneGravitySelector,
-                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(titlePaneGravitySelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
         RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(titlePaneGravitySelector,
                 new WidestComboPopupPrototype<RadianceTitlePaneGravitySelector.TitlePaneConfiguration>());
         titlePaneGravitySelector.setToolTipText("Application title pane gravity");
         statusBar.add(titlePaneGravitySelector);
 
         RadianceIconFilterStrategySelector iconFilterStrategySelector = new RadianceIconFilterStrategySelector();
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(iconFilterStrategySelector,
-                SwingUtilities.NORTH);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(iconFilterStrategySelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
         RadianceThemingCortex.ComponentScope.setComboBoxPrototypeCallback(iconFilterStrategySelector,
                 new WidestComboPopupPrototype<RadianceIconFilterStrategySelector.IconFilterStrategyConfiguration>());
         iconFilterStrategySelector.setToolTipText("Icon filter strategies");

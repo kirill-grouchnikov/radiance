@@ -218,8 +218,8 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     }
                     commandButton.setPresentationState(MENU_TILE_LEVEL_1);
                     commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
-                    commandButton.setPopupOrientationKind(
-                            CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD);
+                    commandButton.setPopupPlacementStrategy(
+                            RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP);
                     this.panelLevel1.add(commandButton);
                 }
                 if (i < (primaryGroupCount - 1)) {

@@ -78,14 +78,12 @@ public class KCommandMenu {
 
     public var maxVisibleMenuCommands: Int by NonNullDelegate { hasBeenConverted }
     public var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
-    public var horizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity by NonNullDelegate { hasBeenConverted }
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
     init {
         maxVisibleMenuCommands = -1
         toDismissOnCommandActivation = true
-        horizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.START
         groups.add(defaultGroup)
     }
 

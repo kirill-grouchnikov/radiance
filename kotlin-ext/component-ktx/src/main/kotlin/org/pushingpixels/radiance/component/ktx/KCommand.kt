@@ -342,10 +342,8 @@ public open class KCommandButtonPresentation {
     public var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
     public var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
     public var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    public var popupOrientationKind: CommandButtonPresentationModel.PopupOrientationKind =
-        CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
-    public var popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity =
-        CommandButtonPresentationModel.PopupHorizontalGravity.START
+    public var popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy =
+        RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
     public var iconDimension: Int? = null
     public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
@@ -373,8 +371,7 @@ public open class KCommandButtonPresentation {
             .setHorizontalAlignment(horizontalAlignment)
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
-            .setPopupOrientationKind(popupOrientationKind)
-            .setPopupHorizontalGravity(command.menu?.horizontalGravity ?: popupHorizontalGravity)
+            .setPopupPlacementStrategy(popupPlacementStrategy)
             .setIconDimension(iconDimension)
             .setIconFilterStrategies(
                 activeIconFilterStrategy,
@@ -407,7 +404,7 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
             .setHorizontalAlignment(horizontalAlignment)
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
-            .setPopupOrientationKind(popupOrientationKind)
+            .setPopupPlacementStrategy(popupPlacementStrategy)
             .setIconDimension(iconDimension)
             .setIconFilterStrategies(
                 activeIconFilterStrategy,
@@ -430,7 +427,7 @@ public class KCommandGroup {
     internal data class CommandConfig(
         val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
         val textClick: CommandButtonPresentationModel.TextClick?,
-        val popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity?
+        val popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy?
     ) {
         fun toJavaCommand(): Command {
             return command.asJavaCommand()
@@ -443,8 +440,8 @@ public class KCommandGroup {
             if (textClick != null) {
                 presentationBuilder.setTextClick(textClick)
             }
-            if (popupHorizontalGravity != null) {
-                presentationBuilder.setPopupHorizontalGravity(popupHorizontalGravity)
+            if (popupPlacementStrategy != null) {
+                presentationBuilder.setPopupPlacementStrategy(popupPlacementStrategy)
             }
             return command.asJavaCommand().project(presentationBuilder.build())
         }
@@ -467,13 +464,13 @@ public class KCommandGroup {
     public fun command(
         actionKeyTip: String? = null, popupKeyTip: String? = null,
         textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KCommand.() -> Unit
     ): KCommand {
         val command = KCommand()
         command.init()
         commands.add(
-            CommandConfig(command, actionKeyTip, popupKeyTip, textClick, popupHorizontalGravity)
+            CommandConfig(command, actionKeyTip, popupKeyTip, textClick, popupPlacementStrategy)
         )
         return command
     }
@@ -481,11 +478,11 @@ public class KCommandGroup {
     public fun command(
         actionKeyTip: String? = null, popupKeyTip: String? = null,
         textClick: CommandButtonPresentationModel.TextClick? = null,
-        popupHorizontalGravity: CommandButtonPresentationModel.PopupHorizontalGravity? = null,
+        popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         command: KCommand
     ) {
         commands.add(
-            CommandConfig(command, actionKeyTip, popupKeyTip, textClick, popupHorizontalGravity)
+            CommandConfig(command, actionKeyTip, popupKeyTip, textClick, popupPlacementStrategy)
         )
     }
 

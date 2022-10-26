@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.event.ChangeListener;
 import java.util.Objects;
@@ -57,7 +58,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
 
     private int commandHorizontalAlignment;
     private boolean isMenu;
-    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
+    private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
     private CommandPanelPresentationModel() {
         this.weakChangeSupport = new WeakChangeSupport(this);
@@ -141,8 +142,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         return this.isMenu;
     }
 
-    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
-        return this.popupOrientationKind;
+    public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
+        return this.popupPlacementStrategy;
     }
 
     public void addChangeListener(ChangeListener l) {
@@ -167,8 +168,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         private Integer commandIconDimension = -1;
         private int commandHorizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
-        private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
-                CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;
+        private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
 
         public Builder setLayoutSpec(PanelLayoutSpec layoutSpec) {
             if (layoutSpec == null) {
@@ -202,12 +203,12 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
             return this;
         }
 
-        public Builder setPopupOrientationKind(
-                CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
-            if (popupOrientationKind == null) {
-                throw new IllegalArgumentException("Popup orientation kind cannot be null");
+        public Builder setPopupPlacementStrategy(
+                RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+            if (popupPlacementStrategy == null) {
+                throw new IllegalArgumentException("Popup placement strategy cannot be null");
             }
-            this.popupOrientationKind = popupOrientationKind;
+            this.popupPlacementStrategy = popupPlacementStrategy;
             return this;
         }
 
@@ -224,7 +225,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
             presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
             presentationModel.isMenu = this.isMenu;
-            presentationModel.popupOrientationKind = this.popupOrientationKind;
+            presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             return presentationModel;
         }
     }

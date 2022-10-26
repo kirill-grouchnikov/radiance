@@ -1667,7 +1667,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         shareEntrySendMail, shareEntrySendHtml, shareEntrySendDoc)))
                 .build()
                 .project(CommandButtonPresentationModel.builder()
-                        .setPopupHorizontalGravity(CommandButtonPresentationModel.PopupHorizontalGravity.END)
+                        .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END)
                         .setPopupKeyTip("GS")
                         .build()));
 

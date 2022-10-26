@@ -1317,32 +1317,17 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies the combobox popup flyout orientation. The value should be either
-         * <code>null</code> to reset to the default flyout orientation or one of the
-         * {@link Integer}s below:
+         * Specifies the combobox popup placement strategy. Pass <code>null</code> to reset to the
+         * default placement strategy. Note that the combo arrow changes in accordance with the
+         * combo popup placement strategy.
          *
-         * <ul>
-         * <li>The default {@link SwingConstants#SOUTH} - the popup is displayed directly below the
-         * combobox aligned to the left.
-         * <li>{@link SwingConstants#NORTH} - the popup is displayed directly above the combobox
-         * aligned to the left.
-         * <li>{@link SwingConstants#EAST} - the popup is displayed to the left of the combobox
-         * aligned to the top.
-         * <li>{@link SwingConstants#WEST} - the popup is displayed to the right of the combobox
-         * aligned to the top.
-         * <li>{@link SwingConstants#CENTER} - the popup is displayed centered vertically over the
-         * combobox aligned to the left.
-         * </ul>
-         *
-         * <p>
-         * Note that the combo arrow changes in accordance with the combo popup flyout orientation.
-         *
-         * @param comboPopupFlyoutOrientation Flyout orientation for combobox popups.
-         * @see ComponentScope#setComboBoxPopupFlyoutOrientation(JComboBox, Integer)
+         * @param comboBoxPopupPlacementStrategy Placement strategy for combobox popups.
+         * @see ComponentScope#setComboBoxPopupPlacementStrategy(JComboBox, RadianceThemingSlices.PopupPlacementStrategy)
          */
-        public static void setComboBoxPopupFlyoutOrientation(int comboPopupFlyoutOrientation) {
-            UIManager.put(RadianceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION,
-                    Integer.valueOf(comboPopupFlyoutOrientation));
+        public static void setComboBoxPopupPlacementStrategy(
+                RadianceThemingSlices.PopupPlacementStrategy comboBoxPopupPlacementStrategy) {
+            UIManager.put(RadianceSynapse.COMBO_BOX_POPUP_PLACEMENT_STRATEGY,
+                    comboBoxPopupPlacementStrategy);
         }
 
         public static BufferedImage getBlankImage(double scaleFactor, int width, int height) {
@@ -1945,37 +1930,20 @@ public class RadianceThemingCortex {
         }
 
         /**
-         * Specifies the combobox popup flyout orientation. The value should be either
-         * <code>null</code> to reset to the default flyout orientation or one of the
-         * {@link Integer}s below:
+         * Specifies the combobox popup placement strategy. Pass <code>null</code> to reset to the
+         * default placement strategy. Note that the combo arrow changes in accordance with the
+         * combo popup placement strategy.
          *
-         * <ul>
-         * <li>The default {@link SwingConstants#SOUTH} - the popup is displayed directly below the
-         * combobox aligned to the left.
-         * <li>{@link SwingConstants#NORTH} - the popup is displayed directly above the combobox
-         * aligned to the left.
-         * <li>{@link SwingConstants#EAST} - the popup is displayed to the left of the combobox
-         * aligned to the top.
-         * <li>{@link SwingConstants#WEST} - the popup is displayed to the right of the combobox
-         * aligned to the top.
-         * <li>{@link SwingConstants#CENTER} - the popup is displayed centered vertically over the
-         * combobox aligned to the left.
-         * </ul>
-         *
-         * <p>
-         * Note that the combo arrow changes in accordance with the combo popup flyout orientation.
-         *
-         * @param comboBox                    Combobox.
-         * @param comboPopupFlyoutOrientation Flyout orientation for combobox popup.
-         * @see GlobalScope#setComboBoxPopupFlyoutOrientation(int)
+         * @param comboBoxPopupPlacementStrategy Placement strategy for combobox popup.
+         * @see GlobalScope#setComboBoxPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
          */
-        public static void setComboBoxPopupFlyoutOrientation(JComboBox comboBox,
-                Integer comboPopupFlyoutOrientation) {
+        public static void setComboBoxPopupPlacementStrategy(JComboBox comboBox,
+                RadianceThemingSlices.PopupPlacementStrategy comboBoxPopupPlacementStrategy) {
             if (comboBox == null) {
                 throw new IllegalArgumentException("Component scope APIs do not accept null components");
             }
-            comboBox.putClientProperty(RadianceSynapse.COMBO_BOX_POPUP_FLYOUT_ORIENTATION,
-                    comboPopupFlyoutOrientation);
+            comboBox.putClientProperty(RadianceSynapse.COMBO_BOX_POPUP_PLACEMENT_STRATEGY,
+                    comboBoxPopupPlacementStrategy);
         }
 
         /**

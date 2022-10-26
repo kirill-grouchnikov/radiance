@@ -64,8 +64,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
     private boolean isMenu;
-    private PopupOrientationKind popupOrientationKind;
-    private PopupHorizontalGravity popupHorizontalGravity;
+    private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
     private String actionKeyTip;
     private String popupKeyTip;
     private boolean toDismissPopupsOnActivation;
@@ -103,10 +102,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         result.disabledIconFilterStrategy = (overlay.disabledIconFilterStrategy != null)
                 ? overlay.disabledIconFilterStrategy : this.disabledIconFilterStrategy;
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
-        result.popupOrientationKind = (overlay.popupOrientationKind != null)
-                ? overlay.popupOrientationKind : this.popupOrientationKind;
-        result.popupHorizontalGravity = (overlay.popupHorizontalGravity != null)
-                ? overlay.popupHorizontalGravity : this.popupHorizontalGravity;
+        result.popupPlacementStrategy = (overlay.popupPlacementStrategy != null)
+                ? overlay.popupPlacementStrategy : this.popupPlacementStrategy;
         result.toDismissPopupsOnActivation = (overlay.toDismissPopupsOnActivation != null)
                 ? overlay.toDismissPopupsOnActivation : this.toDismissPopupsOnActivation;
         result.popupMenuPresentationModel = (overlay.popupMenuPresentationModel != null)
@@ -183,12 +180,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.disabledIconFilterStrategy;
     }
 
-    public PopupOrientationKind getPopupOrientationKind() {
-        return this.popupOrientationKind;
-    }
-
-    public PopupHorizontalGravity getPopupHorizontalGravity() {
-        return this.popupHorizontalGravity;
+    public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
+        return this.popupPlacementStrategy;
     }
 
     public boolean isMenu() {
@@ -235,40 +228,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.hasAutoRepeatIntervalsSet ? this.autoRepeatSubsequentInterval : -1;
     }
 
-    /**
-     * Orientation kind for the popup.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum PopupOrientationKind {
-        /**
-         * Indicates that the popup should be displayed below the button.
-         */
-        DOWNWARD,
-
-        /**
-         * Indicates that the popup should be displayed to the side of the button.
-         */
-        SIDEWARD
-    }
-
-    /**
-     * Popup horizontal gravity.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum PopupHorizontalGravity {
-        /**
-         * Indicates that the popup should be horizontally aligned to the start edge of the button.
-         */
-        START,
-
-        /**
-         * Indicates that the popup should be horizontally aligned to the end edge of the button.
-         */
-        END
-    }
-
     public enum FireActionTrigger {
         /**
          * Fire action on rollover.
@@ -310,8 +269,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
         private Boolean isMenu;
-        private PopupOrientationKind popupOrientationKind;
-        private PopupHorizontalGravity popupHorizontalGravity;
+        private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -369,13 +327,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setPopupOrientationKind(PopupOrientationKind popupOrientationKind) {
-            this.popupOrientationKind = popupOrientationKind;
-            return this;
-        }
-
-        public Overlay setPopupHorizontalGravity(PopupHorizontalGravity popupHorizontalGravity) {
-            this.popupHorizontalGravity = popupHorizontalGravity;
+        public Overlay setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+            this.popupPlacementStrategy = popupPlacementStrategy;
             return this;
         }
 
@@ -445,8 +398,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private boolean isMenu = false;
-        private PopupOrientationKind popupOrientationKind = PopupOrientationKind.DOWNWARD;
-        private PopupHorizontalGravity popupHorizontalGravity = PopupHorizontalGravity.START;
+        private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
@@ -505,13 +458,9 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setPopupOrientationKind(PopupOrientationKind popupOrientationKind) {
-            this.popupOrientationKind = popupOrientationKind;
-            return this;
-        }
-
-        public Builder setPopupHorizontalGravity(PopupHorizontalGravity popupHorizontalGravity) {
-            this.popupHorizontalGravity = popupHorizontalGravity;
+        public Builder setPopupPlacementStrategy(
+                RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+            this.popupPlacementStrategy = popupPlacementStrategy;
             return this;
         }
 
@@ -578,8 +527,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             commandPresentation.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             commandPresentation.isMenu = this.isMenu;
-            commandPresentation.popupOrientationKind = this.popupOrientationKind;
-            commandPresentation.popupHorizontalGravity = this.popupHorizontalGravity;
+            commandPresentation.popupPlacementStrategy = this.popupPlacementStrategy;
             commandPresentation.actionKeyTip = this.actionKeyTip;
             commandPresentation.popupKeyTip = this.popupKeyTip;
             commandPresentation.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;

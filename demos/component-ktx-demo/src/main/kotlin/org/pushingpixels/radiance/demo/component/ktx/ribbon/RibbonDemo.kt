@@ -47,7 +47,6 @@ import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
-import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
@@ -76,6 +75,7 @@ import org.pushingpixels.radiance.swing.ktx.awt.deriveByBrightness
 import org.pushingpixels.radiance.swing.ktx.awt.render
 import org.pushingpixels.radiance.swing.ktx.util.get
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.*
 import java.text.MessageFormat
@@ -1991,7 +1991,7 @@ fun main() {
             anchored {
                 command(
                     popupKeyTip = "GS",
-                    popupHorizontalGravity = CommandButtonPresentationModel.PopupHorizontalGravity.END
+                    popupPlacementStrategy = RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END
                 ) {
                     title = builder.resourceBundle["Share.title"]
                     iconFactory = Internet_mail.factory()

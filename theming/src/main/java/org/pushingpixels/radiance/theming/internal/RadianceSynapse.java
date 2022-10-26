@@ -200,9 +200,9 @@ public class RadianceSynapse {
     public final static String FOCUS_KIND = "radiance.theming.internal.focusKind";
 
     /**
-     * Client property name for specifying combo popup flyout orientation.
+     * Client property name for specifying combo popup placement strategy.
      */
-    public final static String COMBO_BOX_POPUP_FLYOUT_ORIENTATION = "radiance.theming.internal.comboBoxPopupFlyoutOrientation";
+    public final static String COMBO_BOX_POPUP_PLACEMENT_STRATEGY = "radiance.theming.internal.comboBoxPopupPlacementStrategy";
 
     /**
      * Client property name for specifying the combobox popup prototype callback which is used to

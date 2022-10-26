@@ -325,50 +325,85 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      * @return The right panel with comboboxes.
      */
     private JPanel getRightComboPanel() {
-        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, left:pref:grow", 2, 18)
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, left:pref:grow", 2, 23)
                 .padding(Paddings.DIALOG);
 
-        builder.appendSeparator("Popup flyout");
+        builder.appendSeparator("Popup placement");
 
-        JComboBox<String> comboFlyoutDefault = new JComboBox<>(
+        JComboBox<String> comboPopupPlacementDefault = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        comboFlyoutDefault.setMaximumRowCount(4);
-        builder.append("Default", comboFlyoutDefault);
+        comboPopupPlacementDefault.setMaximumRowCount(4);
+        builder.append("Default", comboPopupPlacementDefault);
 
-        JComboBox<String> comboFlyoutNorth = new JComboBox<>(
+        JComboBox<String> comboPopupPlacementUpwardStart = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        comboFlyoutNorth.setMaximumRowCount(4);
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutNorth,
-                SwingConstants.NORTH);
-        builder.append("North", comboFlyoutNorth);
+        comboPopupPlacementUpwardStart.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementUpwardStart,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
+        builder.append("Upward start", comboPopupPlacementUpwardStart);
 
-        JComboBox<String> comboFlyoutEast = new JComboBox<>(
+        JComboBox<String> comboPopupPlacementUpwardEnd = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        comboFlyoutEast.setMaximumRowCount(4);
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutEast,
-                SwingConstants.EAST);
-        builder.append("East", comboFlyoutEast);
+        comboPopupPlacementUpwardEnd.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementUpwardEnd,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_END);
+        builder.append("Upward end", comboPopupPlacementUpwardEnd);
 
-        JComboBox<String> comboFlyoutSouth = new JComboBox<>(
+        JComboBox<String> comboPopupPlacementDownwardStart = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        comboFlyoutSouth.setMaximumRowCount(4);
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutSouth,
-                SwingConstants.SOUTH);
-        builder.append("South", comboFlyoutSouth);
+        comboPopupPlacementDownwardStart.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementDownwardStart,
+                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START);
+        builder.append("Downward start", comboPopupPlacementDownwardStart);
 
-        JComboBox<String> comboFlyoutWest = new JComboBox<>(
+        JComboBox<String> comboPopupPlacementDownwardEnd = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        comboFlyoutWest.setMaximumRowCount(4);
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutWest,
-                SwingConstants.WEST);
-        builder.append("West", comboFlyoutWest);
+        comboPopupPlacementDownwardEnd.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementDownwardEnd,
+                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END);
+        builder.append("Downward end", comboPopupPlacementDownwardEnd);
 
-        JComboBox<String> comboFlyoutCenter = new JComboBox<>(
+        JComboBox<String> comboPopupPlacementCenterStart = new JComboBox<>(
                 new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
-        comboFlyoutCenter.setMaximumRowCount(4);
-        RadianceThemingCortex.ComponentScope.setComboBoxPopupFlyoutOrientation(comboFlyoutCenter,
-                SwingConstants.CENTER);
-        builder.append("Center", comboFlyoutCenter);
+        comboPopupPlacementCenterStart.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementCenterStart,
+                RadianceThemingSlices.PopupPlacementStrategy.CenteredVertically.HALIGN_START);
+        builder.append("Center start", comboPopupPlacementCenterStart);
+
+        JComboBox<String> comboPopupPlacementCenterEnd = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        comboPopupPlacementCenterEnd.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementCenterEnd,
+                RadianceThemingSlices.PopupPlacementStrategy.CenteredVertically.HALIGN_END);
+        builder.append("Center end", comboPopupPlacementCenterEnd);
+
+        JComboBox<String> comboPopupPlacementEndwardTop = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        comboPopupPlacementEndwardTop.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementEndwardTop,
+                RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP);
+        builder.append("Endward top", comboPopupPlacementEndwardTop);
+
+        JComboBox<String> comboPopupPlacementEndwardBottom = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        comboPopupPlacementEndwardBottom.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementEndwardBottom,
+                RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_BOTTOM);
+        builder.append("Endward bottom", comboPopupPlacementEndwardBottom);
+
+        JComboBox<String> comboPopupPlacementStartwardTop = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        comboPopupPlacementStartwardTop.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementStartwardTop,
+                RadianceThemingSlices.PopupPlacementStrategy.Startward.VALIGN_TOP);
+        builder.append("Startward top", comboPopupPlacementStartwardTop);
+
+        JComboBox<String> comboPopupPlacementStartwardBottom = new JComboBox<>(
+                new String[] { "entry1", "entry2", "entry3", "entry4", "entry5", "entry6" });
+        comboPopupPlacementStartwardBottom.setMaximumRowCount(4);
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(comboPopupPlacementStartwardBottom,
+                RadianceThemingSlices.PopupPlacementStrategy.Startward.VALIGN_BOTTOM);
+        builder.append("Startward bottom", comboPopupPlacementStartwardBottom);
 
         builder.appendSeparator("Popup prototype");
         JComboBox<String> comboProto1 = new JComboBox<>(new String[] { "aa", "aaaaa", "aaaaaaaaaa",

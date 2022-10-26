@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.internal.ui.common.JCircularProgress;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -421,8 +422,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                 breadcrumbBarPresentationModel.getEnabledIconFilterStrategy(),
                                 breadcrumbBarPresentationModel.getDisabledIconFilterStrategy()
                         )
-                        .setPopupOrientationKind(
-                                CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD)
+                        .setPopupPlacementStrategy(
+                                RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
                         .setHorizontalGapScaleFactor(0.75)
                         .setPopupMenuPresentationModel(
                                 CommandPopupMenuPresentationModel.builder()
@@ -607,11 +608,11 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         button.getPopupModel().addChangeListener(changeEvent -> {
             PopupButtonModel model = button.getPopupModel();
             boolean displayDownwards = model.isRollover() || model.isPopupShowing();
-            CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
+            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                     displayDownwards
-                            ? CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD
-                            : CommandButtonPresentationModel.PopupOrientationKind.SIDEWARD;
-            button.setPopupOrientationKind(popupOrientationKind);
+                            ? RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
+                            : RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP;
+            button.setPopupPlacementStrategy(popupPlacementStrategy);
         });
     }
 

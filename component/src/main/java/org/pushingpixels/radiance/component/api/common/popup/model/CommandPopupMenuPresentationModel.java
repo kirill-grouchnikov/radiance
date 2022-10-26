@@ -32,7 +32,10 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerMedium;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -71,7 +74,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
      */
     private int maxVisibleMenuCommands;
     private boolean toDismissOnCommandActivation;
-    private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind;
+    private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
     private CommandPopupMenuPresentationModel() {
     }
@@ -108,8 +111,8 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         return this.toDismissOnCommandActivation;
     }
 
-    public CommandButtonPresentationModel.PopupOrientationKind getPopupOrientationKind() {
-        return this.popupOrientationKind;
+    public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
+        return this.popupPlacementStrategy;
     }
 
     public static class Builder {
@@ -124,8 +127,8 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
-        private CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind =
-                CommandButtonPresentationModel.PopupOrientationKind.DOWNWARD;
+        private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
 
         public Builder setPanelPresentationModel(
                 CommandPopupMenuPanelPresentationModel panelPresentationModel) {
@@ -159,9 +162,9 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
             return this;
         }
 
-        public Builder setPopupOrientationKind(
-                CommandButtonPresentationModel.PopupOrientationKind popupOrientationKind) {
-            this.popupOrientationKind = popupOrientationKind;
+        public Builder setPopupPlacementStrategy(
+                RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
+            this.popupPlacementStrategy = popupPlacementStrategy;
             return this;
         }
 
@@ -175,7 +178,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
             presentationModel.menuDisabledIconFilterStrategy = this.menuDisabledIconFilterStrategy;
             presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
-            presentationModel.popupOrientationKind = this.popupOrientationKind;
+            presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             return presentationModel;
         }
     }
