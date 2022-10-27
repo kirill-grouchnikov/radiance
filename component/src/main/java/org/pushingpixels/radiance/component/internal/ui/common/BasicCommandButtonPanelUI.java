@@ -124,14 +124,23 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         CommandPanelPresentationModel presentationModel =
                                 buttonPanel.getProjection().getPresentationModel();
                         for (int i = 0; i < groupCount; i++) {
-                            for (JCommandButton button :
-                                    buttonPanel.getGroupButtons(i)) {
+                            for (JCommandButton button : buttonPanel.getGroupButtons(i)) {
                                 button.setIconDimension(
                                         presentationModel.getCommandIconDimension());
                                 button.setContentPadding(
                                         presentationModel.getCommandContentPadding());
                                 button.setPresentationState(
                                         presentationModel.getCommandPresentationState());
+                                button.setHGapScaleFactor(
+                                        presentationModel.getCommandHorizontalGapScaleFactor());
+                                button.setVGapScaleFactor(
+                                        presentationModel.getCommandVerticalGapScaleFactor());
+                                button.setBackgroundAppearanceStrategy(
+                                        presentationModel.getBackgroundAppearanceStrategy());
+                                RadianceThemingCortex.ComponentScope.setIconFilterStrategies(button,
+                                        presentationModel.getActiveIconFilterStrategy(),
+                                        presentationModel.getEnabledIconFilterStrategy(),
+                                        presentationModel.getDisabledIconFilterStrategy());
                             }
                         }
 

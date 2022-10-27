@@ -111,6 +111,13 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                             .setCommandHorizontalAlignment(commandPopupMenuPanelPresentationModel.getCommandHorizontalAlignment())
                             .setCommandIconDimension(commandPopupMenuPanelPresentationModel.getCommandIconDimension())
                             .setToShowGroupLabels(commandPopupMenuPanelPresentationModel.isToShowGroupLabels())
+                            .setCommandHorizontalGapScaleFactor(commandPopupMenuPanelPresentationModel.getCommandHorizontalGapScaleFactor())
+                            .setCommandVerticalGapScaleFactor(commandPopupMenuPanelPresentationModel.getCommandVerticalGapScaleFactor())
+                            .setBackgroundAppearanceStrategy(commandPopupMenuPanelPresentationModel.getBackgroundAppearanceStrategy())
+                            .setIconFilterStrategies(
+                                    commandPopupMenuPanelPresentationModel.getActiveIconFilterStrategy(),
+                                    commandPopupMenuPanelPresentationModel.getEnabledIconFilterStrategy(),
+                                    commandPopupMenuPanelPresentationModel.getDisabledIconFilterStrategy())
                             .build())
                     .buildComponent();
         }

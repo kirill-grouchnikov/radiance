@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.api.common.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -52,6 +53,12 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
     private CommandButtonPresentationState commandPresentationState;
     private Integer commandIconDimension;
     private Insets commandContentPadding;
+    private double commandHorizontalGapScaleFactor;
+    private double commandVerticalGapScaleFactor;
+    private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
+    private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
     private int commandHorizontalAlignment;
 
     private CommandPopupMenuPanelPresentationModel() {
@@ -143,6 +150,65 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
         }
     }
 
+    public double getCommandHorizontalGapScaleFactor() {
+        return this.commandHorizontalGapScaleFactor;
+    }
+
+    public void setCommandHorizontalGapScaleFactor(double commandHorizontalGapScaleFactor) {
+        if (this.commandHorizontalGapScaleFactor != commandHorizontalGapScaleFactor) {
+            this.commandHorizontalGapScaleFactor = commandHorizontalGapScaleFactor;
+            this.fireStateChanged();
+        }
+    }
+
+    public double getCommandVerticalGapScaleFactor() {
+        return this.commandVerticalGapScaleFactor;
+    }
+
+    public void setCommandVerticalGapScaleFactor(double commandVerticalGapScaleFactor) {
+        if (this.commandVerticalGapScaleFactor != commandVerticalGapScaleFactor) {
+            this.commandVerticalGapScaleFactor = commandVerticalGapScaleFactor;
+            this.fireStateChanged();
+        }
+    }
+
+    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
+        return this.backgroundAppearanceStrategy;
+    }
+
+    public void setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+        if (this.backgroundAppearanceStrategy != backgroundAppearanceStrategy) {
+            this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
+            this.fireStateChanged();
+        }
+    }
+
+    public RadianceThemingSlices.IconFilterStrategy getActiveIconFilterStrategy() {
+        return this.activeIconFilterStrategy;
+    }
+
+    public RadianceThemingSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+        return this.enabledIconFilterStrategy;
+    }
+
+    public RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+        return this.disabledIconFilterStrategy;
+    }
+
+    public void setIconFilterStrategies(
+            RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
+            RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
+            RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy) {
+        if ((this.activeIconFilterStrategy != activeIconFilterStrategy) ||
+                (this.enabledIconFilterStrategy != enabledIconFilterStrategy) ||
+                (this.disabledIconFilterStrategy != disabledIconFilterStrategy)) {
+            this.activeIconFilterStrategy = activeIconFilterStrategy;
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
+            this.fireStateChanged();
+        }
+    }
+
     public boolean isToShowGroupLabels() {
         return this.toShowGroupLabels;
     }
@@ -179,6 +245,18 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
         private CommandButtonPresentationState commandPresentationState;
         private Integer commandIconDimension = -1;
         private Insets commandContentPadding = CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
+        private double commandHorizontalGapScaleFactor =
+                CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
+        private double commandVerticalGapScaleFactor =
+                CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
+        private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
+                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
+        private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
+        private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private int commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
 
         public Builder setLayoutSpec(MenuPopupPanelLayoutSpec layoutSpec) {
@@ -228,6 +306,32 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
             return this;
         }
 
+        public Builder setBackgroundAppearanceStrategy(
+                RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
+            this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
+            return this;
+        }
+
+        public Builder setCommandHorizontalGapScaleFactor(double commandHorizontalGapScaleFactor) {
+            this.commandHorizontalGapScaleFactor = commandHorizontalGapScaleFactor;
+            return this;
+        }
+
+        public Builder setCommandVerticalGapScaleFactor(double commandVerticalGapScaleFactor) {
+            this.commandVerticalGapScaleFactor = commandVerticalGapScaleFactor;
+            return this;
+        }
+
+        public Builder setIconFilterStrategies(
+                RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            this.activeIconFilterStrategy = activeIconFilterStrategy;
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
+            return this;
+        }
+
         public CommandPopupMenuPanelPresentationModel build() {
             if (this.layoutSpec == null) {
                 throw new IllegalArgumentException("Layout spec cannot be null");
@@ -241,6 +345,12 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
             presentationModel.commandIconDimension = this.commandIconDimension;
             presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandContentPadding = this.commandContentPadding;
+            presentationModel.commandHorizontalGapScaleFactor = this.commandHorizontalGapScaleFactor;
+            presentationModel.commandVerticalGapScaleFactor = this.commandVerticalGapScaleFactor;
+            presentationModel.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
+            presentationModel.activeIconFilterStrategy = this.activeIconFilterStrategy;
+            presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
+            presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
             return presentationModel;
         }

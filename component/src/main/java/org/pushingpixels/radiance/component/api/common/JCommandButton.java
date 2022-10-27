@@ -853,8 +853,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         }
     }
 
-
-
     /**
      * Returns the action model for this button.
      *

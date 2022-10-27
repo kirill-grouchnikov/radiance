@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandButtonP
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandButtonPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonPanelUI;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -181,6 +182,13 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                 .setPresentationState(this.panelPresentationModel.getCommandPresentationState())
                 .setIconDimension(this.panelPresentationModel.getCommandIconDimension())
                 .setContentPadding(this.panelPresentationModel.getCommandContentPadding())
+                .setHorizontalGapScaleFactor(this.panelPresentationModel.getCommandHorizontalGapScaleFactor())
+                .setVerticalGapScaleFactor(this.panelPresentationModel.getCommandVerticalGapScaleFactor())
+                .setBackgroundAppearanceStrategy(this.panelPresentationModel.getBackgroundAppearanceStrategy())
+                .setIconFilterStrategies(
+                        this.panelPresentationModel.getActiveIconFilterStrategy(),
+                        this.panelPresentationModel.getEnabledIconFilterStrategy(),
+                        this.panelPresentationModel.getDisabledIconFilterStrategy())
                 .setMenu(this.panelPresentationModel.isMenu())
                 .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
                 .setPopupPlacementStrategy(this.panelPresentationModel.getPopupPlacementStrategy())
@@ -265,6 +273,17 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         commandButton.setContentPadding(this.panelPresentationModel.getCommandContentPadding());
         commandButton.setPresentationState(
                 this.panelPresentationModel.getCommandPresentationState());
+        commandButton.setHGapScaleFactor(
+                this.panelPresentationModel.getCommandHorizontalGapScaleFactor());
+        commandButton.setVGapScaleFactor(
+                this.panelPresentationModel.getCommandVerticalGapScaleFactor());
+        commandButton.setBackgroundAppearanceStrategy(
+                this.panelPresentationModel.getBackgroundAppearanceStrategy());
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(commandButton,
+                this.panelPresentationModel.getActiveIconFilterStrategy(),
+                this.panelPresentationModel.getEnabledIconFilterStrategy(),
+                this.panelPresentationModel.getDisabledIconFilterStrategy());
+
         this.add(commandButton);
         this.buttons.get(groupIndex).add(indexInGroup, commandButton);
         if (this.panelContentModel.isSingleSelectionMode() && command.isToggle()) {

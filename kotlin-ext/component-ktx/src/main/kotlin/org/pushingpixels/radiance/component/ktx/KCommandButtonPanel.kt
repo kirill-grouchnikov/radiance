@@ -51,17 +51,30 @@ public class KCommandButtonPanelPresentation {
         CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
     public var commandContentPadding: Insets =
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
+    public var commandHorizontalGapScaleFactor: Double =
+        CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
+    public var commandVerticalGapScaleFactor: Double =
+        CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
+    public var backgroundAppearanceStrategy: RadianceThemingSlices.BackgroundAppearanceStrategy =
+        RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT
+    public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
+        RadianceThemingSlices.IconFilterStrategy.ORIGINAL
+    public var enabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
+        RadianceThemingSlices.IconFilterStrategy.ORIGINAL
+    public var disabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
+        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
     public var isMenu: Boolean = false
     public var popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy =
         RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
 
-    internal fun toCommandPanelPresentationModel() : CommandPanelPresentationModel {
+    internal fun toCommandPanelPresentationModel(): CommandPanelPresentationModel {
         val presentationModelBuilder = CommandPanelPresentationModel.builder()
         if (this.commandPresentationState != null) {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
             presentationModelBuilder.setCommandPresentationState(
-                CommandButtonPresentationState.FIT_TO_ICON)
+                CommandButtonPresentationState.FIT_TO_ICON
+            )
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
         presentationModelBuilder.setLayoutSpec(this.layoutSpec)
@@ -70,6 +83,14 @@ public class KCommandButtonPanelPresentation {
         presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
         presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
         presentationModelBuilder.setCommandContentPadding(this.commandContentPadding)
+        presentationModelBuilder.setCommandHorizontalGapScaleFactor(this.commandHorizontalGapScaleFactor)
+        presentationModelBuilder.setCommandVerticalGapScaleFactor(this.commandVerticalGapScaleFactor)
+        presentationModelBuilder.setBackgroundAppearanceStrategy(this.backgroundAppearanceStrategy)
+        presentationModelBuilder.setIconFilterStrategies(
+            this.activeIconFilterStrategy,
+            this.enabledIconFilterStrategy,
+            this.disabledIconFilterStrategy
+        )
         presentationModelBuilder.setMenu(this.isMenu)
         presentationModelBuilder.setPopupPlacementStrategy(this.popupPlacementStrategy)
 
@@ -79,10 +100,10 @@ public class KCommandButtonPanelPresentation {
 
 @RadianceElementMarker
 public class KCommandPopupMenuPanelLayoutSpec {
-    public var columnCount : Int by NonNullDelegate { false }
-    public var visibleRowCount : Int by NonNullDelegate { false }
+    public var columnCount: Int by NonNullDelegate { false }
+    public var visibleRowCount: Int by NonNullDelegate { false }
 
-    internal fun toMenuPopupPanelLayoutSpec() : MenuPopupPanelLayoutSpec {
+    internal fun toMenuPopupPanelLayoutSpec(): MenuPopupPanelLayoutSpec {
         return MenuPopupPanelLayoutSpec(columnCount, visibleRowCount)
     }
 }
@@ -99,12 +120,24 @@ public class KCommandPopupMenuPanelPresentation {
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
     public var commandHorizontalAlignment: Int =
         CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var commandHorizontalGapScaleFactor: Double =
+        CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
+    public var commandVerticalGapScaleFactor: Double =
+        CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
+    public var backgroundAppearanceStrategy: RadianceThemingSlices.BackgroundAppearanceStrategy =
+        RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT
+    public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
+        RadianceThemingSlices.IconFilterStrategy.ORIGINAL
+    public var enabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
+        RadianceThemingSlices.IconFilterStrategy.ORIGINAL
+    public var disabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
+        RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
 
     public fun layoutSpec(init: KCommandPopupMenuPanelLayoutSpec.() -> Unit) {
         layoutSpec.init()
     }
 
-    internal fun toCommandPopupMenuPanelPresentationModel() : CommandPopupMenuPanelPresentationModel {
+    internal fun toCommandPopupMenuPanelPresentationModel(): CommandPopupMenuPanelPresentationModel {
         val presentationModelBuilder = CommandPopupMenuPanelPresentationModel.builder()
         presentationModelBuilder.setLayoutSpec(this.layoutSpec.toMenuPopupPanelLayoutSpec())
         presentationModelBuilder.setContentPadding(this.contentPadding)
@@ -113,12 +146,21 @@ public class KCommandPopupMenuPanelPresentation {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
             presentationModelBuilder.setCommandPresentationState(
-                CommandButtonPresentationState.FIT_TO_ICON)
+                CommandButtonPresentationState.FIT_TO_ICON
+            )
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
         presentationModelBuilder.setCommandContentPadding(this.commandContentPadding)
         presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
         presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
+        presentationModelBuilder.setCommandHorizontalGapScaleFactor(this.commandHorizontalGapScaleFactor)
+        presentationModelBuilder.setCommandVerticalGapScaleFactor(this.commandVerticalGapScaleFactor)
+        presentationModelBuilder.setBackgroundAppearanceStrategy(this.backgroundAppearanceStrategy)
+        presentationModelBuilder.setIconFilterStrategies(
+            this.activeIconFilterStrategy,
+            this.enabledIconFilterStrategy,
+            this.disabledIconFilterStrategy
+        )
 
         return presentationModelBuilder.build()
     }
@@ -137,7 +179,7 @@ public class KCommandButtonPanel {
             return command
         }
 
-        internal fun toJavaCommandGroupModel() : CommandGroup {
+        internal fun toJavaCommandGroupModel(): CommandGroup {
             return CommandGroup(
                 this.title,
                 this.commands.map { it.asJavaCommand() })
