@@ -166,6 +166,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         result.popupClickArea = new Rectangle(0, 0, 0, 0);
 
         Insets ins = commandButton.getInsets();
+        int bt = ins.top;
+        int by = ins.top + ins.bottom;
 
         result.iconRect = new Rectangle();
         result.popupActionRect = new Rectangle();
@@ -220,7 +222,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 int iconWidth = buttonIcon.getIconWidth();
 
                 result.iconRect.x = x;
-                result.iconRect.y = (height - iconHeight) / 2;
+                result.iconRect.y = bt + (height - by - iconHeight) / 2;
                 result.iconRect.width = iconWidth;
                 result.iconRect.height = iconHeight;
 
@@ -236,7 +238,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 lineLayoutInfo.textRect = new Rectangle();
 
                 lineLayoutInfo.textRect.x = x;
-                lineLayoutInfo.textRect.y = (height - 2 * labelHeight) / 2;
+                lineLayoutInfo.textRect.y = bt + (height - by - 2 * labelHeight) / 2;
                 lineLayoutInfo.textRect.width = (buttonText == null) ? 0
                         : fm.stringWidth(buttonText);
                 lineLayoutInfo.textRect.height = labelHeight;
@@ -270,7 +272,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 x += 2 * layoutHGap;
 
                 result.popupActionRect.x = x;
-                result.popupActionRect.y = (height - labelHeight) / 2 - 1;
+                result.popupActionRect.y = bt + (height - by - labelHeight) / 2 - 1;
                 result.popupActionRect.width = 1 + labelHeight / 2;
                 result.popupActionRect.height = labelHeight + 2;
                 x += result.popupActionRect.width;
@@ -392,7 +394,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 int iconWidth = buttonIcon.getIconWidth();
 
                 result.iconRect.x = x - iconWidth;
-                result.iconRect.y = (height - iconHeight) / 2;
+                result.iconRect.y = bt + (height - by - iconHeight) / 2;
                 result.iconRect.width = iconWidth;
                 result.iconRect.height = iconHeight;
 
@@ -410,7 +412,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 lineLayoutInfo.textRect.width = (buttonText == null) ? 0
                         : fm.stringWidth(buttonText);
                 lineLayoutInfo.textRect.x = x - lineLayoutInfo.textRect.width;
-                lineLayoutInfo.textRect.y = (height - 2 * labelHeight) / 2;
+                lineLayoutInfo.textRect.y = bt + (height - by - 2 * labelHeight) / 2;
                 lineLayoutInfo.textRect.height = labelHeight;
 
                 result.textLayoutInfoList = new ArrayList<>();
@@ -444,7 +446,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 
                 result.popupActionRect.width = 1 + labelHeight / 2;
                 result.popupActionRect.x = x - result.popupActionRect.width;
-                result.popupActionRect.y = (height - labelHeight) / 2 - 1;
+                result.popupActionRect.y = bt + (height - by - labelHeight) / 2 - 1;
                 result.popupActionRect.height = labelHeight + 2;
                 x -= result.popupActionRect.width;
 
