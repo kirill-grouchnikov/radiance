@@ -40,7 +40,7 @@ JCommandButton bigButton = bigPasteProjection.buildComponent();
 
 First, we create a `Command` which is a content model. It sets text, extra text and icon factory as the basic elements that describe this piece of application model realm.
 
-Then we construct a `CommandButtonPresentationModel` which is a presentation model. It specifies that we want to use the `BIG` presentation state (big icon + one or two lines of text underneath), and non-flat appearance (button background always showing).
+Then we construct a `CommandButtonPresentationModel` which is a presentation model. It specifies that we want to use the `BIG` presentation state (big icon + one or two lines of text underneath), and `BackgroundAppearanceStrategy.ALWAYS` appearance (button background always showing).
 
 Then, we combine them together by calling `Command.project(CommandButtonPresentationModel)` that gives us a `CommandButtonProjection`.
 

@@ -272,7 +272,7 @@ JCommandButton colorButton = new ColorSelectorCommandButtonProjection(
 - We use `ColorSelectorCommand.colorSelectorBuilder()` to get a `Builder` instance for our color selector command.
 - The initial icon is set to be based on the default background color of our main panel. All color selections are wired to our main color activation listener that updates the command's icon factory with the newly selected color - automatically updating the projected `colorButton`.
 - The `colorSelectorPopupMenuContentModel` is set to our popup menu content model.
-- We use `ColorSelectorCommandButtonProjection` to combine our `ColorSelectorCommand` content model with a `CommandButtonPresentationModel` presentation model configured with `SMALL` presentation state and non-flat background fill.
+- We use `ColorSelectorCommandButtonProjection` to combine our `ColorSelectorCommand` content model with a `CommandButtonPresentationModel` presentation model configured with `SMALL` presentation state and `ALWAYS` background appearance strategy (meaning that the button always shows its full background).
 - Finally, we call `ColorSelectorCommandButtonProjection.buildComponent()` to get a Swing `JCommandButton` component that we can add to our component hierarchy.
 
 ### Next

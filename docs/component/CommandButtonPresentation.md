@@ -31,7 +31,7 @@ Command button presentation models are created with the builder pattern which is
 
 |  | Attribute | Type |
 | --- | --- | --- |
-| **Visuals** | flat | boolean |
+| **Visuals** | backgroundAppearanceStrategy | BackgroundAppearanceStrategy |
 |  | presentationState | CommandButtonPresentationState |
 |  | iconDimension | int
 | **Layout metrics** | horizontalAlignment | int |
@@ -70,7 +70,7 @@ JCommandButton bigButton = this.pasteActionCommand.project(
 
 In here, `CommandButtonPresentationState.BIG` is used to instruct the projection to create the specific layout that is using a vertical stack of text and big icon. There are additional presentation states available in that class for out-of-box configuration of buttons, as well as support for custom application-specific layouts. One of the out-of-box configurations is `CommandButtonPresentationState.FIT_TO_ICON` that is used when the `iconDimension` attribute is set on the builder.
 
-The boolean `flat` attribute controls the appearance of the projected button in a non-active state (no rollover, selection, press, arm, etc). In the example above, all the buttons are projected as non-flat - showing the background at all times. Buttons marked as flat will only show the background in one of the active states.
+The `backgroundAppearanceStrategy` attribute controls the background fill of the projected button. In the example above, all the buttons are projected with `BackgroundAppearanceStrategy.ALWAYS` to always show their backgrounds. Buttons marked as `BackgroundAppearanceStrategy.FLAT` will only show the background in one of the active states (rollover, selection, press, arm, etc).
 
 ### Layout metrics
 

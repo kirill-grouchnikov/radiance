@@ -24,7 +24,7 @@ The `horizontalGapScaleFactor` and `verticalGapScaleFactor` can be used to contr
 
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/component/walkthrough/command-strip-vertical.png" width="512" border=0/>
 
-The `flat` attribute controls the background presence of all projected buttons in default (non-active state).
+The `backgroundAppearanceStrategy` attribute controls the background fill of all projected buttons.
 
 ### Projection
 
