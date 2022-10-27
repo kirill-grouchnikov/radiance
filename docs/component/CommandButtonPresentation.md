@@ -35,6 +35,7 @@ Command button presentation models are created with the builder pattern which is
 |  | presentationState | CommandButtonPresentationState |
 |  | iconDimension | int
 | **Layout metrics** | horizontalAlignment | int |
+|  | contentPadding | Insets |
 |  | horizontalGapScaleFactor | int |
 |  | verticalGapScaleFactor | int |
 | **Interaction** | focusable | boolean |
