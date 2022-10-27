@@ -30,10 +30,12 @@
 package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Encapsulates presentation metadata for displaying commands as buttons. Use a new instance of
@@ -50,8 +52,14 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
  * @see CommandButtonProjection
  */
 public class CommandButtonPresentationModel implements ImmutablePresentationModel {
+    public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
+    public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
+
     public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
     public static final int DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS = 100;
+
+    public static final Insets WIDE_BUTTON_CONTENT_PADDING = new Insets(3, 10, 2, 10);
+    public static final Insets COMPACT_BUTTON_CONTENT_PADDING = new Insets(3, 5, 2, 5);
 
     private CommandButtonPresentationState presentationState;
     private Integer iconDimension;
@@ -61,6 +69,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     private boolean isFocusable;
     private int horizontalAlignment;
+    private Insets contentPadding;
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
     private boolean isMenu;
@@ -89,6 +98,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         result.isFocusable = (overlay.isFocusable != null) ? overlay.isFocusable : this.isFocusable;
         result.horizontalAlignment = (overlay.horizontalAlignment != null)
                 ? overlay.horizontalAlignment : this.horizontalAlignment;
+        result.contentPadding = (overlay.contentPadding != null)
+                ? overlay.contentPadding : this.contentPadding;
         result.horizontalGapScaleFactor = (overlay.horizontalGapScaleFactor != null)
                 ? overlay.horizontalGapScaleFactor : this.horizontalGapScaleFactor;
         result.verticalGapScaleFactor = (overlay.verticalGapScaleFactor != null)
@@ -154,6 +165,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     public int getHorizontalAlignment() {
         return this.horizontalAlignment;
+    }
+
+    public Insets getContentPadding() {
+        return this.contentPadding;
     }
 
     public double getHorizontalGapScaleFactor() {
@@ -262,6 +277,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
         private Boolean isFocusable;
         private Integer horizontalAlignment;
+        private Insets contentPadding;
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
         private Integer iconDimension;
@@ -289,6 +305,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Overlay setFocusable(boolean focusable) {
             this.isFocusable = focusable;
+            return this;
+        }
+
+        public Overlay setContentPadding(Insets contentPadding) {
+            this.contentPadding = contentPadding;
             return this;
         }
 
@@ -387,9 +408,14 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private boolean isFocusable = true;
-        private int horizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
-        private double horizontalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
-        private double verticalGapScaleFactor = JCommandButton.DEFAULT_GAP_SCALE_FACTOR;
+        private int horizontalAlignment =
+                CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
+        private Insets contentPadding =
+                CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
+        private double horizontalGapScaleFactor =
+                CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
+        private double verticalGapScaleFactor =
+                CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
         private Integer iconDimension;
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
@@ -424,6 +450,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Builder setHorizontalAlignment(int horizontalAlignment) {
             this.horizontalAlignment = horizontalAlignment;
+            return this;
+        }
+
+        public Builder setContentPadding(Insets contentPadding) {
+            this.contentPadding = contentPadding;
             return this;
         }
 
@@ -518,6 +549,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
             commandPresentation.presentationState = this.presentationState;
             commandPresentation.horizontalAlignment = this.horizontalAlignment;
+            commandPresentation.contentPadding = this.contentPadding;
             commandPresentation.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
             commandPresentation.verticalGapScaleFactor = this.verticalGapScaleFactor;
             commandPresentation.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;

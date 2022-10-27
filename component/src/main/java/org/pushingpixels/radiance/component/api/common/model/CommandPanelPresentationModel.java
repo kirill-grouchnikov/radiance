@@ -30,16 +30,19 @@
 package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.util.Objects;
 
 public class CommandPanelPresentationModel implements MutablePresentationModel, ChangeAware {
+    public static final Insets DEFAULT_CONTENT_PADDING = new Insets(4, 4, 4, 4);
+    public static final int DEFAULT_GAP = 4;
+
     /**
      * Stores the listeners on this model.
      */
@@ -47,16 +50,15 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
 
     private PanelLayoutSpec layoutSpec = new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(48));
 
-    /**
-     * If <code>true</code>, the panel will show group labels.
-     */
+    private Insets contentPadding;
+    private int contentGap;
     private boolean toShowGroupLabels = true;
 
     private CommandButtonPresentationState commandPresentationState;
-
     private Integer commandIconDimension;
-
+    private Insets commandContentPadding;
     private int commandHorizontalAlignment;
+
     private boolean isMenu;
     private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
@@ -99,6 +101,20 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         }
     }
 
+    public Insets getCommandContentPadding() {
+        return this.commandContentPadding;
+    }
+
+    public void setCommandContentPadding(Insets commandContentPadding) {
+        if (commandContentPadding == null) {
+            throw new IllegalArgumentException("Command content padding cannot be null");
+        }
+        if (!Objects.equals(this.commandContentPadding, commandContentPadding)) {
+            this.commandContentPadding = commandContentPadding;
+            this.fireStateChanged();
+        }
+    }
+
     public PanelLayoutSpec getLayoutSpec() {
         return this.layoutSpec;
     }
@@ -114,6 +130,31 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         }
         if (this.layoutSpec != layoutSpec) {
             this.layoutSpec = layoutSpec;
+            this.fireStateChanged();
+        }
+    }
+
+    public Insets getContentPadding() {
+        return this.contentPadding;
+    }
+
+    public void setContentPadding(Insets contentPadding) {
+        if (contentPadding == null) {
+            throw new IllegalArgumentException("Content padding cannot be null");
+        }
+        if (!Objects.equals(this.contentPadding, contentPadding)) {
+            this.contentPadding = contentPadding;
+            this.fireStateChanged();
+        }
+    }
+
+    public int getContentGap() {
+        return this.contentGap;
+    }
+
+    public void setContentGap(int contentGap) {
+        if (this.contentGap != contentGap) {
+            this.contentGap = contentGap;
             this.fireStateChanged();
         }
     }
@@ -162,11 +203,14 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
     public static class Builder {
         private PanelLayoutSpec layoutSpec =
                 new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(48));
+        private Insets contentPadding = CommandPanelPresentationModel.DEFAULT_CONTENT_PADDING;
+        private int contentGap = CommandPanelPresentationModel.DEFAULT_GAP;
         private boolean toShowGroupLabels = true;
         private CommandButtonPresentationState commandPresentationState =
                 CommandButtonPresentationState.MEDIUM;
         private Integer commandIconDimension = -1;
-        private int commandHorizontalAlignment = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT;
+        private Insets commandContentPadding = CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
+        private int commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
@@ -176,6 +220,19 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
                 throw new IllegalArgumentException("Layout spec cannot be null");
             }
             this.layoutSpec = layoutSpec;
+            return this;
+        }
+
+        public Builder setContentPadding(Insets contentPadding) {
+            if (commandContentPadding == null) {
+                throw new IllegalArgumentException("Command content padding cannot be null");
+            }
+            this.contentPadding = contentPadding;
+            return this;
+        }
+
+        public Builder setContentGap(int contentGap) {
+            this.contentGap = contentGap;
             return this;
         }
 
@@ -195,6 +252,14 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
 
         public Builder setCommandIconDimension(Integer commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
+            return this;
+        }
+
+        public Builder setCommandContentPadding(Insets commandContentPadding) {
+            if (commandContentPadding == null) {
+                throw new IllegalArgumentException("Command content padding cannot be null");
+            }
+            this.commandContentPadding = commandContentPadding;
             return this;
         }
 
@@ -220,8 +285,11 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         public CommandPanelPresentationModel build() {
             CommandPanelPresentationModel presentationModel = new CommandPanelPresentationModel();
             presentationModel.layoutSpec = this.layoutSpec;
+            presentationModel.contentPadding = this.contentPadding;
+            presentationModel.contentGap = this.contentGap;
             presentationModel.toShowGroupLabels = this.toShowGroupLabels;
             presentationModel.commandIconDimension = this.commandIconDimension;
+            presentationModel.commandContentPadding = this.commandContentPadding;
             presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
             presentationModel.isMenu = this.isMenu;

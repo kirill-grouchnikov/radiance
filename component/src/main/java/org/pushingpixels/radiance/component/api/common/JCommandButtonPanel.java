@@ -146,6 +146,9 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
 
     private ChangeListener contentChangeListener;
 
+    private Insets contentPadding;
+    private int contentGap;
+
     /**
      * The button group for the single selection mode.
      */
@@ -160,6 +163,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         this.buttons = new ArrayList<>();
         this.groupTitles = new ArrayList<>();
 
+        this.contentPadding = this.panelPresentationModel.getContentPadding();
+        this.contentGap = this.panelPresentationModel.getContentGap();
         populateContent();
         this.contentChangeListener = (ChangeEvent changeEvent) -> populateContent();
         this.panelContentModel.addChangeListener(this.contentChangeListener);
@@ -175,6 +180,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         return CommandButtonPresentationModel.builder()
                 .setPresentationState(this.panelPresentationModel.getCommandPresentationState())
                 .setIconDimension(this.panelPresentationModel.getCommandIconDimension())
+                .setContentPadding(this.panelPresentationModel.getCommandContentPadding())
                 .setMenu(this.panelPresentationModel.isMenu())
                 .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
                 .setPopupPlacementStrategy(this.panelPresentationModel.getPopupPlacementStrategy())
@@ -256,6 +262,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
             return;
         }
         commandButton.setIconDimension(this.panelPresentationModel.getCommandIconDimension());
+        commandButton.setContentPadding(this.panelPresentationModel.getCommandContentPadding());
         commandButton.setPresentationState(
                 this.panelPresentationModel.getCommandPresentationState());
         this.add(commandButton);

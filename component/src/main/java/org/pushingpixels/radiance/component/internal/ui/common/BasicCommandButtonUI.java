@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -203,13 +204,20 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.syncInitialInnerFocus();
     }
 
-    protected void updateBorder() {
+    private void updateBorder() {
         Border currBorder = this.commandButton.getBorder();
         if ((currBorder == null) || (currBorder instanceof UIResource)) {
-            int tb = (int) (this.commandButton.getVGapScaleFactor() * 4);
-            int lr = (int) (this.commandButton.getHGapScaleFactor() * 6);
-            this.commandButton
-                    .setBorder(new BorderUIResource.EmptyBorderUIResource(tb, lr, tb, lr));
+            Insets contentPadding = this.commandButton.getContentPadding();
+            double hgapScaleFactor = this.commandButton.getHGapScaleFactor();
+            double vgapScaleFactor = this.commandButton.getVGapScaleFactor();
+
+            int top = (int) (vgapScaleFactor * contentPadding.top);
+            int bottom = (int) (vgapScaleFactor * contentPadding.bottom);
+            int left = (int) (hgapScaleFactor * contentPadding.left);
+            int right = (int) (hgapScaleFactor * contentPadding.right);
+
+            this.commandButton.setBorder(
+                    new BorderUIResource.EmptyBorderUIResource(top, left, bottom, right));
         }
     }
 

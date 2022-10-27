@@ -70,9 +70,6 @@ import java.util.List;
  * @author Kirill Grouchnikov
  */
 public class JCommandButton extends RichTooltipManager.JTrackableComponent {
-    public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
-    public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
-
     /**
      * The UI class ID string.
      */
@@ -147,6 +144,8 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * @see #getHorizontalAlignment()
      */
     private int horizontalAlignment;
+
+    private Insets contentPadding;
 
     /**
      * Scale factor for horizontal gaps.
@@ -533,6 +532,7 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
 
         this.setPresentationState(commandPresentation.getPresentationState());
         this.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
+        this.setContentPadding(commandPresentation.getContentPadding());
         this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
         this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
         this.setBackgroundAppearanceStrategy(commandPresentation.getBackgroundAppearanceStrategy());
@@ -1036,6 +1036,36 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      */
     public int getHorizontalAlignment() {
         return this.horizontalAlignment;
+    }
+
+
+    /**
+     * Sets new content padding for this button. Fires an <code>contentPadding</code> property
+     * change event.
+     *
+     * @param contentPadding New content padding
+     * @see #getContentPadding()
+     */
+    public void setContentPadding(Insets contentPadding) {
+        if (contentPadding == this.contentPadding)
+            return;
+        Insets oldValue = this.contentPadding;
+        this.contentPadding = contentPadding;
+        firePropertyChange("contentPadding", oldValue, this.contentPadding);
+        if (this.contentPadding != oldValue) {
+            revalidate();
+            repaint();
+        }
+    }
+
+    /**
+     * Returns the content padding for this button.
+     *
+     * @return The content padding for this button.
+     * @see #setContentPadding(Insets)
+     */
+    public Insets getContentPadding() {
+        return this.contentPadding;
     }
 
     /**

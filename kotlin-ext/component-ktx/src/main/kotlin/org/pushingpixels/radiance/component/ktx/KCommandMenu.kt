@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
 import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel
+import java.awt.Insets
 
 @RadianceElementMarker
 public class KCommandPopupMenuButtonPanel {
@@ -78,6 +79,8 @@ public class KCommandMenu {
 
     public var maxVisibleMenuCommands: Int by NonNullDelegate { hasBeenConverted }
     public var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
+    public var menuContentPadding: Insets =
+        CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
@@ -153,6 +156,7 @@ public class KCommandMenu {
         if (commandPanel != null) {
             presentationModelBuilder.setPanelPresentationModel(commandPanel!!.getPresentationModel())
         }
+        presentationModelBuilder.setMenuContentPadding(menuContentPadding)
 
         return presentationModelBuilder.build()
     }

@@ -32,13 +32,12 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerMedium;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+
+import java.awt.*;
 
 public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresentationModel {
     public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
@@ -60,6 +59,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
     private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy;
+    private Insets menuContentPadding;
 
     /**
      * Maximum number of menu items visible in this model. If more commands are
@@ -103,6 +103,10 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         return this.menuDisabledIconFilterStrategy;
     }
 
+    public Insets getMenuContentPadding() {
+        return this.menuContentPadding;
+    }
+
     public int getMaxVisibleMenuCommands() {
         return this.maxVisibleMenuCommands;
     }
@@ -125,6 +129,8 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        private Insets menuContentPadding =
+                CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
@@ -152,6 +158,11 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
             return this;
         }
 
+        public Builder setMenuContentPadding(Insets menuContentPadding) {
+            this.menuContentPadding = menuContentPadding;
+            return this;
+        }
+
         public Builder setMaxVisibleMenuCommands(int maxVisibleMenuCommands) {
             this.maxVisibleMenuCommands = maxVisibleMenuCommands;
             return this;
@@ -176,6 +187,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
             presentationModel.menuActiveIconFilterStrategy = this.menuActiveIconFilterStrategy;
             presentationModel.menuEnabledIconFilterStrategy = this.menuEnabledIconFilterStrategy;
             presentationModel.menuDisabledIconFilterStrategy = this.menuDisabledIconFilterStrategy;
+            presentationModel.menuContentPadding = this.menuContentPadding;
             presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;

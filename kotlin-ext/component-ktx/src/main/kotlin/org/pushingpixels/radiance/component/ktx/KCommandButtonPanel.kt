@@ -30,22 +30,27 @@
 package org.pushingpixels.radiance.component.ktx
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.JCommandButton
 import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import java.awt.Insets
 import javax.swing.JComponent
 
 @RadianceElementMarker
 public class KCommandButtonPanelPresentation {
     public var layoutSpec: PanelLayoutSpec = PanelLayoutSpec.RowFill(PanelRowFillSpec.Adaptive(48))
+    public var contentPadding: Insets = CommandPanelPresentationModel.DEFAULT_CONTENT_PADDING
+    public var contentGap: Int = CommandPanelPresentationModel.DEFAULT_GAP
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
     public var commandIconDimension: Int = -1
-    public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var commandHorizontalAlignment: Int =
+        CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var commandContentPadding: Insets =
+        CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
     public var isMenu: Boolean = false
     public var popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy =
         RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
@@ -60,8 +65,11 @@ public class KCommandButtonPanelPresentation {
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
         presentationModelBuilder.setLayoutSpec(this.layoutSpec)
+        presentationModelBuilder.setContentPadding(this.contentPadding)
+        presentationModelBuilder.setContentGap(this.contentGap)
         presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
         presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
+        presentationModelBuilder.setCommandContentPadding(this.commandContentPadding)
         presentationModelBuilder.setMenu(this.isMenu)
         presentationModelBuilder.setPopupPlacementStrategy(this.popupPlacementStrategy)
 
@@ -82,10 +90,15 @@ public class KCommandPopupMenuPanelLayoutSpec {
 @RadianceElementMarker
 public class KCommandPopupMenuPanelPresentation {
     public var layoutSpec: KCommandPopupMenuPanelLayoutSpec = KCommandPopupMenuPanelLayoutSpec()
+    public var contentPadding: Insets = CommandPanelPresentationModel.DEFAULT_CONTENT_PADDING
+    public var contentGap: Int = CommandPanelPresentationModel.DEFAULT_GAP
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
     public var commandIconDimension: Int = -1
-    public var commandHorizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var commandContentPadding: Insets =
+        CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
+    public var commandHorizontalAlignment: Int =
+        CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
 
     public fun layoutSpec(init: KCommandPopupMenuPanelLayoutSpec.() -> Unit) {
         layoutSpec.init()
@@ -94,6 +107,8 @@ public class KCommandPopupMenuPanelPresentation {
     internal fun toCommandPopupMenuPanelPresentationModel() : CommandPopupMenuPanelPresentationModel {
         val presentationModelBuilder = CommandPopupMenuPanelPresentationModel.builder()
         presentationModelBuilder.setLayoutSpec(this.layoutSpec.toMenuPopupPanelLayoutSpec())
+        presentationModelBuilder.setContentPadding(this.contentPadding)
+        presentationModelBuilder.setContentGap(this.contentGap)
         if (this.commandPresentationState != null) {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
@@ -101,6 +116,7 @@ public class KCommandPopupMenuPanelPresentation {
                 CommandButtonPresentationState.FIT_TO_ICON)
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
+        presentationModelBuilder.setCommandContentPadding(this.commandContentPadding)
         presentationModelBuilder.setToShowGroupLabels(this.toShowGroupLabels)
         presentationModelBuilder.setCommandHorizontalAlignment(this.commandHorizontalAlignment)
 

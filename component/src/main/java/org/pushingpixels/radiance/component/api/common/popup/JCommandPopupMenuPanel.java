@@ -104,7 +104,10 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                             setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Fixed(
                                     commandPopupMenuPanelPresentationModel.getLayoutSpec().getColumnCount()
                             )))
+                            .setContentPadding(commandPopupMenuPanelPresentationModel.getContentPadding())
+                            .setContentGap(commandPopupMenuPanelPresentationModel.getContentGap())
                             .setCommandPresentationState(commandPopupMenuPanelPresentationModel.getCommandPresentationState())
+                            .setCommandContentPadding(commandPopupMenuPanelPresentationModel.getCommandContentPadding())
                             .setCommandHorizontalAlignment(commandPopupMenuPanelPresentationModel.getCommandHorizontalAlignment())
                             .setCommandIconDimension(commandPopupMenuPanelPresentationModel.getCommandIconDimension())
                             .setToShowGroupLabels(commandPopupMenuPanelPresentationModel.isToShowGroupLabels())
@@ -120,6 +123,7 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                                 this.popupMenuPresentationModel.getMenuActiveIconFilterStrategy(),
                                 this.popupMenuPresentationModel.getMenuEnabledIconFilterStrategy(),
                                 this.popupMenuPresentationModel.getMenuDisabledIconFilterStrategy())
+                        .setContentPadding(this.popupMenuPresentationModel.getMenuContentPadding())
                         .setMenu(true)
                         .build();
 

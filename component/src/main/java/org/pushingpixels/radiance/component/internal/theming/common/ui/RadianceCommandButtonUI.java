@@ -161,24 +161,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     }
 
     @Override
-    protected void updateBorder() {
-        Border currBorder = this.commandButton.getBorder();
-        if ((currBorder == null) || (currBorder instanceof UIResource)) {
-            Insets extra = RadianceSizeUtils.getDefaultBorderInsets(
-                    RadianceSizeUtils.getComponentFontSize(this.commandButton));
-            double hgapScaleFactor = this.commandButton.getHGapScaleFactor();
-            double vgapScaleFactor = this.commandButton.getVGapScaleFactor();
-
-            int top = 1 + (int) (vgapScaleFactor * extra.top);
-            int left = 2 + (int) (hgapScaleFactor * (1 + extra.left));
-            int bottom = 0 + (int) (vgapScaleFactor * extra.bottom);
-            int right = 2 + (int) (hgapScaleFactor * (1 + extra.right));
-            this.commandButton.setBorder(
-                    new BorderUIResource.EmptyBorderUIResource(top, left, bottom, right));
-        }
-    }
-
-    @Override
     protected void installListeners() {
         super.installListeners();
 

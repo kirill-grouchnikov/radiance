@@ -66,16 +66,6 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
     }
 
     @Override
-    protected Insets getGroupInsets() {
-        int extraPadding = RadianceSizeUtils.getExtraPadding(RadianceSizeUtils
-                .getComponentFontSize(this.buttonPanel));
-        Insets result = BasicCommandButtonPanelUI.GROUP_INSETS;
-        return new Insets(result.top + extraPadding,
-                result.left + extraPadding, result.bottom + extraPadding,
-                result.right + extraPadding);
-    }
-
-    @Override
     protected int getGroupTitleHeight(int groupIndex) {
         int extraPadding = RadianceSizeUtils.getExtraPadding(RadianceSizeUtils
                 .getComponentFontSize(this.buttonPanel));

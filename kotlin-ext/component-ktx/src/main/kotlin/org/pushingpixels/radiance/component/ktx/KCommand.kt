@@ -47,6 +47,7 @@ import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorC
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.BackgroundAppearanceStrategy
+import java.awt.Insets
 
 @RadianceElementMarker
 public open class KCommand {
@@ -339,11 +340,16 @@ public open class KCommandButtonPresentation {
         CommandButtonPresentationState.FIT_TO_ICON
     public var backgroundAppearanceStrategy: BackgroundAppearanceStrategy =
         BackgroundAppearanceStrategy.FLAT
-    public var horizontalAlignment: Int = JCommandButton.DEFAULT_HORIZONTAL_ALIGNMENT
-    public var horizontalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
-    public var verticalGapScaleFactor: Double = JCommandButton.DEFAULT_GAP_SCALE_FACTOR
+    public var horizontalAlignment: Int =
+        CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
+    public var horizontalGapScaleFactor: Double =
+        CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
+    public var verticalGapScaleFactor: Double =
+        CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
     public var popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy =
         RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
+    public var contentPadding: Insets =
+        CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
     public var iconDimension: Int? = null
     public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
@@ -371,6 +377,7 @@ public open class KCommandButtonPresentation {
             .setHorizontalAlignment(horizontalAlignment)
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
+            .setContentPadding(contentPadding)
             .setPopupPlacementStrategy(popupPlacementStrategy)
             .setIconDimension(iconDimension)
             .setIconFilterStrategies(
@@ -404,6 +411,7 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
             .setHorizontalAlignment(horizontalAlignment)
             .setHorizontalGapScaleFactor(horizontalGapScaleFactor)
             .setVerticalGapScaleFactor(verticalGapScaleFactor)
+            .setContentPadding(contentPadding)
             .setPopupPlacementStrategy(popupPlacementStrategy)
             .setIconDimension(iconDimension)
             .setIconFilterStrategies(
