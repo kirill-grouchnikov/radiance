@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.tools.schemeeditor
 
 import com.jgoodies.forms.builder.FormBuilder
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -323,6 +324,7 @@ class SchemeEditor : JFrame(), ClipboardOwner {
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     JDialog.setDefaultLookAndFeelDecorated(true)
     JFrame.setDefaultLookAndFeelDecorated(true)

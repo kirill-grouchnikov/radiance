@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -176,6 +177,7 @@ class ProgressPanel : JPanel() {
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame("Swing progress")

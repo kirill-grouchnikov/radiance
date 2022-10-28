@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -124,6 +125,7 @@ class VolleyExplosion(private val x: Int, private val y: Int, private val color:
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame("Fireworks")

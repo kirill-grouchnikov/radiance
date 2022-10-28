@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.group
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -58,6 +59,7 @@ import javax.swing.WindowConstants
 import javax.swing.border.EmptyBorder
 import javax.swing.text.DefaultCaret
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         RadianceThemingCortex.GlobalScope.setSkin(

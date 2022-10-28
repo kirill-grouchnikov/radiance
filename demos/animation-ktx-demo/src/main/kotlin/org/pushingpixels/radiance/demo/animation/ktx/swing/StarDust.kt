@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -96,6 +97,7 @@ class MainPanel(private val stars: Deque<Star>) : JPanel() {
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         val stars: Deque<Star> = LinkedList()

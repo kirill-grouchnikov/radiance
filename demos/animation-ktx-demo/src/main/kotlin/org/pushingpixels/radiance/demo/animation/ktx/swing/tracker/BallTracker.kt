@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing.tracker
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -49,6 +50,7 @@ import javax.swing.*
 
 data class Options(val description: String, val ease: TimelineEase)
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         var timelineBallFalling: Timeline? = null

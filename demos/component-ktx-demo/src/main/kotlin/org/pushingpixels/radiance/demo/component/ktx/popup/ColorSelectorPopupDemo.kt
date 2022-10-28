@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.popup
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -108,6 +109,7 @@ class ColorIcon(private var color: Color) : RadianceIcon {
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         RadianceThemingCortex.GlobalScope.setSkin(

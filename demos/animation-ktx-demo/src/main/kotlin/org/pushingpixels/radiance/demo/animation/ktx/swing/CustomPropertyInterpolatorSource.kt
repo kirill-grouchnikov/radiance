@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -63,6 +64,7 @@ private class Ellipse2DPropertyInterpolator :
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         RadianceAnimationCortex.addPropertyInterpolator(Ellipse2DPropertyInterpolator())

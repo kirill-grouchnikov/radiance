@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.button
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -51,6 +52,7 @@ import javax.swing.JFrame
 import javax.swing.WindowConstants
 import javax.swing.text.StyleConstants
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         RadianceThemingCortex.GlobalScope.setSkin(

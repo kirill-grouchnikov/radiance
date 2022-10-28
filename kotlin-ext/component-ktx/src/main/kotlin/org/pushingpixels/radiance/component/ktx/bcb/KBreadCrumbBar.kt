@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.ktx.bcb
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,6 +38,7 @@ import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarContentModel
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbPathEvent
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbPathListener
 
+@OptIn(DelicateCoroutinesApi::class)
 public fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) -> Unit): BreadcrumbPathListener<T> {
     return BreadcrumbPathListener { event ->
         GlobalScope.launch(Dispatchers.Swing) {
@@ -48,6 +50,7 @@ public fun <T> DelayedBreadcrumbPathListener(listener: (BreadcrumbPathEvent<T>) 
 // Ideally this should be inline with crossinline listener parameter, but it crashes
 // with "kotlin.coroutines.intrinsics.CoroutineSingletons cannot be cast to java.base/java.util.List"
 // exception
+@OptIn(DelicateCoroutinesApi::class)
 public fun <T> BreadcrumbBarContentModel<T>.addDelayedPathListener(listener: suspend (BreadcrumbPathEvent<T>) -> Unit) {
     this.addPathListener { event ->
         GlobalScope.launch(Dispatchers.Swing) {

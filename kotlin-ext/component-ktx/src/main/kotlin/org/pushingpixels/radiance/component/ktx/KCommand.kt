@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.ktx
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -505,6 +506,7 @@ public class KCommandGroup {
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 public fun DelayedCommandListener(listener: (CommandActionEvent) -> Unit): (CommandActionEvent) -> Unit {
     return { event ->
         GlobalScope.launch(Dispatchers.Swing) {

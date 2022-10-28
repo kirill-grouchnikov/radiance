@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.ktx.swing
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -50,21 +51,21 @@ class ShapesPanel : JComponent() {
     private val shapes: MutableList<MyShape>
     private var toAddRectangle: Boolean = false
 
-    var topColor: Color = COLOR_BLUE
+    var topColor: Color = ColorBlue
 
-    var bottomColor: Color = COLOR_GREEN
+    var bottomColor: Color = ColorGreen
 
     init {
         this.shapes = ArrayList()
-        this.topColor = COLOR_BLUE
-        this.bottomColor = COLOR_GREEN
+        this.topColor = ColorBlue
+        this.bottomColor = ColorGreen
 
         this.addDelayedMouseListener(onMousePressed = { e -> addShape(e!!.point) })
 
         // animate the gradient endpoint colors in an infinite repaintTimeline
         this.repaintTimeline {
-            property(::topColor from COLOR_BLUE to COLOR_GREEN)
-            property(::bottomColor from COLOR_GREEN to COLOR_BLUE)
+            property(::topColor from ColorBlue to ColorGreen)
+            property(::bottomColor from ColorGreen to ColorBlue)
             duration = 1000
         }.playLoop(RepeatBehavior.REVERSE)
     }
@@ -139,7 +140,7 @@ class MyRectangle(internal var x: Float, internal var y: Float, internal var wid
             it.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON)
             it.composite = AlphaComposite.SrcOver.derive(this.opacity)
-            it.color = COLOR_GREEN
+            it.color = ColorGreen
             val xc = this.x + this.width / 2
             val yc = this.y + this.height / 2
             it.translate(xc.toInt(), yc.toInt())
@@ -158,15 +159,16 @@ class MyCircle(internal var x: Float, internal var y: Float, internal var radius
             it.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON)
             it.composite = AlphaComposite.SrcOver.derive(this.opacity)
-            it.color = COLOR_GREEN
+            it.color = ColorGreen
             it.fill(Ellipse2D.Float(this.x - this.radius, this.y - this.radius, 2 * radius, 2 * radius))
         }
     }
 }
 
-val COLOR_BLUE = Color(128, 128, 255)
-val COLOR_GREEN = Color(128, 255, 128)
+private val ColorBlue = Color(128, 128, 255)
+private val ColorGreen = Color(128, 255, 128)
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         val frame = JFrame()

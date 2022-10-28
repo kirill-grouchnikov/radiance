@@ -29,11 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.bcb
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.swing.Swing
-import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon
 import org.pushingpixels.radiance.component.api.bcb.BreadcrumbBarPresentationModel
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbTreeAdapterSelector
@@ -175,6 +172,7 @@ class FileListRenderer : RadianceDefaultListCellRenderer() {
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)

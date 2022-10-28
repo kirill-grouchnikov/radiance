@@ -28,9 +28,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(DelicateCoroutinesApi::class)
 
 package org.pushingpixels.radiance.swing.ktx
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

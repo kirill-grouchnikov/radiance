@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.popup
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -49,6 +50,7 @@ import java.util.*
 import javax.swing.JFrame
 import javax.swing.WindowConstants
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         RadianceThemingCortex.GlobalScope.setSkin(

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.animation.kmusicapp
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,6 +56,7 @@ import kotlin.math.min
  *
  * @author Kirill Grouchnikov
  */
+@OptIn(DelicateCoroutinesApi::class)
 class AlbumOverviewComponent(albumItem: SearchResultRelease) : JComponent() {
     /**
      * The original album art.

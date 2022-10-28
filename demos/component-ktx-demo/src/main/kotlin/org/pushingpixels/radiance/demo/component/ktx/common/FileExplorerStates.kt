@@ -29,11 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.component.ktx.common
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.swing.Swing
-import kotlinx.coroutines.withContext
 import org.pushingpixels.radiance.demo.component.ktx.RadianceLogo
 import org.pushingpixels.radiance.theming.ktx.setDecorationType
 import org.pushingpixels.radiance.component.api.bcb.core.BreadcrumbFileSelector
@@ -48,6 +45,7 @@ import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.swing.*
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)

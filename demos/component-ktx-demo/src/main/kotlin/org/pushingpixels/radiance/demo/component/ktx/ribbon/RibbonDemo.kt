@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.component.ktx.ribbon
 
 import com.jgoodies.forms.builder.FormBuilder
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -1815,6 +1816,7 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
     return (Factory { appMenuRichTooltipMainIcon })
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     GlobalScope.launch(Dispatchers.Swing) {
         JFrame.setDefaultLookAndFeelDecorated(true)

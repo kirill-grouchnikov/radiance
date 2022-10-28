@@ -91,6 +91,7 @@ class MainWindow : JFrame("Music demo") {
         contentPanel.setSearchString(searchString)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun doLoad(searchStringDisplayable: String, searchString: String) {
         GlobalScope.launch(Dispatchers.Swing) {
             setLoading(true)
