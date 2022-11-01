@@ -95,38 +95,24 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 				ComponentState.ARMED, ComponentState.ROLLOVER_ARMED);
 
 		// for progress bars
-		ComponentState determinateState = new ComponentState("determinate",
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.ENABLE,
-						RadianceThemingSlices.ComponentStateFacet.DETERMINATE }, null);
-		ComponentState indeterminateState = new ComponentState("indeterminate",
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.ENABLE },
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.DETERMINATE });
 		RadianceColorScheme determinateScheme = schemes.get("Nebula Determinate");
 		RadianceColorScheme determinateBorderScheme = schemes.get("Nebula Determinate Border");
 		defaultSchemeBundle.registerColorScheme(determinateScheme,
-				determinateState, indeterminateState);
+				ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
 		defaultSchemeBundle.registerColorScheme(determinateBorderScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, determinateState,
-				indeterminateState);
+				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+				ComponentState.DETERMINATE, ComponentState.INDETERMINATE);
 
-		ComponentState determinateDisabledState = new ComponentState(
-				"determinate disabled",
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.DETERMINATE },
-				new RadianceThemingSlices.ComponentStateFacet[] { RadianceThemingSlices.ComponentStateFacet.ENABLE });
-		ComponentState indeterminateDisabledState = new ComponentState(
-				"indeterminate disabled", null, new RadianceThemingSlices.ComponentStateFacet[] {
-						RadianceThemingSlices.ComponentStateFacet.ENABLE,
-						RadianceThemingSlices.ComponentStateFacet.DETERMINATE });
 		RadianceColorScheme determinateDisabledScheme = schemes
 				.get("Nebula Determinate Disabled");
 		RadianceColorScheme determinateDisabledBorderScheme = schemes
 				.get("Nebula Determinate Disabled Border");
 		defaultSchemeBundle.registerColorScheme(determinateDisabledScheme,
-				determinateDisabledState, indeterminateDisabledState);
+				ComponentState.DISABLED_DETERMINATE, ComponentState.DISABLED_INDETERMINATE);
 		defaultSchemeBundle.registerColorScheme(
 				determinateDisabledBorderScheme,
-				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, determinateDisabledState,
-				indeterminateDisabledState);
+				RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+				ComponentState.DISABLED_DETERMINATE, ComponentState.DISABLED_INDETERMINATE);
 
 		registerDecorationAreaSchemeBundle(defaultSchemeBundle,
 				RadianceThemingSlices.DecorationAreaType.NONE);

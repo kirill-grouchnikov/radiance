@@ -64,27 +64,6 @@ import java.util.Set;
  * @author Kirill Grouchnikov
  */
 public class RadianceProgressBarUI extends BasicProgressBarUI {
-    private static final ComponentState DETERMINATE_SELECTED = new ComponentState(
-            "determinate enabled", new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE,
-            RadianceThemingSlices.ComponentStateFacet.DETERMINATE, RadianceThemingSlices.ComponentStateFacet.SELECTION},
-            null);
-
-    private static final ComponentState DETERMINATE_SELECTED_DISABLED = new ComponentState(
-            "determinate disabled",
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE,
-                    RadianceThemingSlices.ComponentStateFacet.SELECTION},
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
-
-    private static final ComponentState INDETERMINATE_SELECTED = new ComponentState(
-            "indeterminate enabled",
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE, RadianceThemingSlices.ComponentStateFacet.SELECTION},
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE});
-
-    private static final ComponentState INDETERMINATE_SELECTED_DISABLED = new ComponentState(
-            "indeterminate disabled", null,
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE, RadianceThemingSlices.ComponentStateFacet.ENABLE,
-                    RadianceThemingSlices.ComponentStateFacet.SELECTION});
-
     private static final RadianceFillPainter progressFillPainter = new FractionBasedFillPainter(
             "Progress fill (internal)", new float[]{0.0f, 0.5f, 1.0f},
             new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.EXTRALIGHT,
@@ -520,16 +499,14 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
     }
 
     private ComponentState getFillState() {
-        return progressBar.isEnabled() ? ComponentState.ENABLED
-                : ComponentState.DISABLED_UNSELECTED;
+        return progressBar.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
     }
 
     private ComponentState getProgressState() {
         if (progressBar.isIndeterminate()) {
-            return progressBar.isEnabled() ? INDETERMINATE_SELECTED
-                    : INDETERMINATE_SELECTED_DISABLED;
+            return progressBar.isEnabled() ? ComponentState.INDETERMINATE : ComponentState.DISABLED_INDETERMINATE;
         } else {
-            return progressBar.isEnabled() ? DETERMINATE_SELECTED : DETERMINATE_SELECTED_DISABLED;
+            return progressBar.isEnabled() ? ComponentState.DETERMINATE : ComponentState.DISABLED_DETERMINATE;
         }
     }
 

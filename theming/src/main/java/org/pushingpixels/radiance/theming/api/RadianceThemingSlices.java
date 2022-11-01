@@ -1036,10 +1036,19 @@ public final class RadianceThemingSlices {
         public static final ComponentStateFacet DEFAULT = new ComponentStateFacet("default", 500);
 
         /**
-         * Facet that describes the determinate bit. This is relevant for {@link JProgressBar}
-         * control and its {@link JProgressBar#setIndeterminate(boolean)} API.
+         * Facet that describes the determinate bit.
          */
         public static final ComponentStateFacet DETERMINATE = new ComponentStateFacet("determinate", 10);
+
+        /**
+         * Facet that describes the determinate bit.
+         */
+        public static final ComponentStateFacet INDETERMINATE = new ComponentStateFacet("indeterminate", 10);
+
+        /**
+         * Facet that describes the determinate bit.
+         */
+        public static final ComponentStateFacet MIX = new ComponentStateFacet("mix", 10);
 
         /**
          * Creates a new facet.

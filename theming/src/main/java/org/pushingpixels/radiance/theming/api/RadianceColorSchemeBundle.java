@@ -406,6 +406,11 @@ public class RadianceColorSchemeBundle {
                 if (this.colorSchemeMap.get(associationKind).containsKey(state)) {
                     continue;
                 }
+                if (state.getHardFallback() != null) {
+                    // Skip states with hard fallback - that link will be traversed in
+                    // getColorScheme() logic
+                    continue;
+                }
                 this.colorSchemeMap.get(associationKind).put(state, scheme);
             }
         } else {
