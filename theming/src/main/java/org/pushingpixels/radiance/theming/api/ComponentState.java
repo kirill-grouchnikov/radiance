@@ -358,7 +358,6 @@ public final class ComponentState {
     private Set<RadianceThemingSlices.ComponentStateFacet> facetsTurnedOff;
 
     private Map<RadianceThemingSlices.ComponentStateFacet, Boolean> mappingOn;
-    private Map<RadianceThemingSlices.ComponentStateFacet, Boolean> mappingOff;
 
     private String name;
 
