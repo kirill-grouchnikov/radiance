@@ -747,7 +747,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
         RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
         // use HIGHLIGHT on active and non-rollover menu items
-        if (!currState.isDisabled() && (currState != ComponentState.ENABLED)
+        if (currState.isActive()
                 && !currState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
             currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
         RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(menuButton,
@@ -765,7 +765,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             float alpha = activeEntry.getValue().getContribution();
             RadianceThemingSlices.ColorSchemeAssociationKind assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
             // use HIGHLIGHT on active and non-rollover menu items
-            if (!activeState.isDisabled() && (activeState != ComponentState.ENABLED)
+            if (activeState.isActive()
                     && !activeState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER))
                 assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
             RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities

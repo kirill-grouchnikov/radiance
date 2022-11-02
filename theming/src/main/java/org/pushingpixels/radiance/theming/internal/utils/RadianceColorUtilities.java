@@ -533,8 +533,9 @@ public class RadianceColorUtilities {
 
         RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
         // use HIGHLIGHT on active menu items
-        if (!currState.isDisabled() && (currState != ComponentState.ENABLED))
+        if (currState.isActive()) {
             currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+        }
         RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
                 .getColorScheme(menuComponent, currAssocKind, currState);
         if (currState.isDisabled() || (activeStates == null)
@@ -551,9 +552,9 @@ public class RadianceColorUtilities {
             float alpha = activeEntry.getValue().getContribution();
             RadianceThemingSlices.ColorSchemeAssociationKind assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
             // use HIGHLIGHT on active menu items
-            if (!activeState.isDisabled()
-                    && (activeState != ComponentState.ENABLED))
+            if (activeState.isActive()) {
                 assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+            }
             RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities
                     .getColorScheme(menuComponent, assocKind, activeState);
             Color activeForeground = activeColorScheme.getForegroundColor();
