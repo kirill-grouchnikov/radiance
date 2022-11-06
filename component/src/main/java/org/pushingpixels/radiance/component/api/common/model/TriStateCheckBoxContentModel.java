@@ -29,84 +29,47 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.common.api.model.TriStateButtonModel.SelectionState;
+import org.pushingpixels.radiance.common.api.model.TriStateSelectionChangeEvent;
+import org.pushingpixels.radiance.common.api.model.TriStateSelectionChangeListener;
+import org.pushingpixels.radiance.common.api.model.TriStateSelectionCycler;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.EventListener;
 
-public class TriStateCheckBoxContentModel implements ComponentContentModel {
-    public enum State {
-        DESELECTED,
-        INDETERMINATE,
-        SELECTED
-    }
-
-    public interface TriStateItemListener extends EventListener {
-        void itemTriStateChanged(TriStateItemEvent e);
-    }
-
-    public interface TriStateItem {
-        void addItemListener(TriStateItemListener l);
-
-        void removeItemListener(TriStateItemListener l);
-    }
-
-    public static class TriStateItemEvent extends AWTEvent {
-        /**
-         * This event id indicates that an item's state changed.
-         */
-        public static final int ITEM_STATE_CHANGED  = 1000;
-
-        Object item;
-
-        State stateChange;
-
-        public TriStateItemEvent(TriStateItem source, int id, Object item, State stateChange) {
-            super(source, id);
-            this.item = item;
-            this.stateChange = stateChange;
+public class TriStateCheckBoxContentModel implements ContentModel {
+    public static TriStateSelectionCycler DEFAULT_CYCLER = currState -> {
+        switch (currState) {
+            case ON:
+                return SelectionState.OFF;
+            case INDETERMINATE:
+                return SelectionState.ON;
+            case OFF:
+            default:
+                return SelectionState.INDETERMINATE;
         }
+    };
 
-        /**
-         * Returns the originator of the event.
-         *
-         * @return the ItemSelectable object that originated the event.
-         */
-        public TriStateItem getTriStateItem() {
-            return (TriStateItem) source;
+    public static TriStateSelectionCycler ALTERNATIVE_CYCLER = currState -> {
+        switch (currState) {
+            case ON:
+                return SelectionState.INDETERMINATE;
+            case INDETERMINATE:
+                return SelectionState.OFF;
+            case OFF:
+            default:
+                return SelectionState.ON;
         }
-
-        /**
-         * Returns the item affected by the event.
-         *
-         * @return the item (object) that was affected by the event
-         */
-        public Object getItem() {
-            return item;
-        }
-
-        /**
-         * Returns the type of state change.
-         */
-        public State getStateChange() {
-            return this.stateChange;
-        }
-    }
-
+    };
 
     private boolean isEnabled;
-    private RadianceIcon.Factory iconFactory;
-    private String caption;
     private RichTooltip richTooltip;
-    private TriStateItemListener itemListener;
+    private TriStateSelectionCycler selectionCycler;
+    private TriStateSelectionChangeListener selectionChangeListener;
 
     private String text;
-    private State state;
+    private SelectionState selectionState;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -118,12 +81,10 @@ public class TriStateCheckBoxContentModel implements ComponentContentModel {
         super();
     }
 
-    @Override
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.pcs.addPropertyChangeListener(pcl);
     }
 
-    @Override
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         this.pcs.removePropertyChangeListener(pcl);
     }
@@ -132,24 +93,45 @@ public class TriStateCheckBoxContentModel implements ComponentContentModel {
         return this.text;
     }
 
-    public State getState() {
-        return this.state;
-    }
-
-    public void setState(State state) {
-        if (this.state != state) {
-            State oldState = this.state;
-            this.state = state;
-            this.pcs.firePropertyChange("state", oldState, this.state);
+    public void setText(String text) {
+        if (!this.text.equals(text)) {
+            String old = this.text;
+            this.text = text;
+            this.pcs.firePropertyChange("text", old, this.text);
         }
     }
 
-    @Override
+    public SelectionState getSelectionState() {
+        return this.selectionState;
+    }
+
+    public void setSelectionState(SelectionState selectionState) {
+        if (this.selectionState != selectionState) {
+            SelectionState oldState = this.selectionState;
+            this.selectionState = selectionState;
+            this.pcs.firePropertyChange("selectionState", oldState, this.selectionState);
+        }
+    }
+
+    public TriStateSelectionCycler getSelectionCycler() {
+        return this.selectionCycler;
+    }
+
+    public void setSelectionCycler(TriStateSelectionCycler selectionCycler) {
+        if (selectionCycler == null) {
+            throw new IllegalArgumentException("Cannot pass null cycler");
+        }
+        if (this.selectionCycler != selectionCycler) {
+            TriStateSelectionCycler oldSelectionCycler = this.selectionCycler;
+            this.selectionCycler = selectionCycler;
+            this.pcs.firePropertyChange("selectionCycler", oldSelectionCycler, this.selectionCycler);
+        }
+    }
+
     public boolean isEnabled() {
         return this.isEnabled;
     }
 
-    @Override
     public void setEnabled(boolean enabled) {
         if (this.isEnabled != enabled) {
             this.isEnabled = enabled;
@@ -157,42 +139,29 @@ public class TriStateCheckBoxContentModel implements ComponentContentModel {
         }
     }
 
-    @Override
-    public RadianceIcon.Factory getIconFactory() {
-        return this.iconFactory;
-    }
-
-    @Override
-    public String getCaption() {
-        return this.caption;
-    }
-
-    @Override
     public RichTooltip getRichTooltip() {
         return this.richTooltip;
     }
 
-    public TriStateItemListener getItemListener() {
-        return this.itemListener;
+    public TriStateSelectionChangeListener getSelectionChangeListener() {
+        return this.selectionChangeListener;
     }
 
     public static class Builder {
         private boolean isEnabled = true;
-        private RadianceIcon.Factory iconFactory;
-        private String caption;
         private RichTooltip richTooltip;
         private String text;
-        private State state;
-        private ActionListener actionListener;
-        private TriStateItemListener itemListener;
+        private SelectionState selectionState;
+        private TriStateSelectionCycler selectionCycler = DEFAULT_CYCLER;
+        private TriStateSelectionChangeListener selectionChangeListener;
 
         public Builder setText(String text) {
             this.text = text;
             return this;
         }
 
-        public Builder setState(State state) {
-            this.state = state;
+        public Builder setSelectionState(SelectionState selectionState) {
+            this.selectionState = selectionState;
             return this;
         }
 
@@ -201,51 +170,47 @@ public class TriStateCheckBoxContentModel implements ComponentContentModel {
             return this;
         }
 
-        public Builder setIconFactory(RadianceIcon.Factory iconFactory) {
-            this.iconFactory = iconFactory;
-            return this;
-        }
-
-        public Builder setCaption(String caption) {
-            this.caption = caption;
-            return this;
-        }
-
         public Builder setRichTooltip(RichTooltip richTooltip) {
             this.richTooltip = richTooltip;
             return this;
         }
 
-        public Builder setItemListener(TriStateItemListener itemListener) {
-            this.itemListener = itemListener;
+        public void setSelectionCycler(TriStateSelectionCycler selectionCycler) {
+            if (selectionCycler == null) {
+                throw new IllegalArgumentException("Cannot pass null cycler");
+            }
+            this.selectionCycler = selectionCycler;
+        }
+
+        public Builder setSelectionChangeListener(TriStateSelectionChangeListener selectionChangeListener) {
+            this.selectionChangeListener = selectionChangeListener;
             return this;
         }
 
         public TriStateCheckBoxContentModel build() {
             TriStateCheckBoxContentModel model = new TriStateCheckBoxContentModel();
             model.text = this.text;
-            model.state = this.state;
-            if (this.itemListener != null) {
+            model.selectionState = this.selectionState;
+            if (this.selectionChangeListener != null) {
                 // Wrap the original application-provided item listener
-                model.itemListener = new TriStateItemListener() {
-                    private State lastState = state;
+                model.selectionChangeListener = new TriStateSelectionChangeListener() {
+                    private SelectionState lastSelectionState = selectionState;
 
                     @Override
-                    public void itemTriStateChanged(TriStateItemEvent e) {
-                        State newState = e.getStateChange();
-                        if (lastState == state) {
+                    public void itemTriStateSelectionChanged(TriStateSelectionChangeEvent e) {
+                        SelectionState newState = e.getSelectionStateChange();
+                        if (lastSelectionState == newState) {
                             // de-dupe changes from multiple checkboxes created from this
                             // content model
                             return;
                         }
-                        itemListener.itemTriStateChanged(e);
-                        lastState = newState;
+                        selectionChangeListener.itemTriStateSelectionChanged(e);
+                        lastSelectionState = newState;
                     }
                 };
             }
+            model.selectionCycler = this.selectionCycler;
             model.isEnabled = this.isEnabled;
-            model.iconFactory = this.iconFactory;
-            model.caption = this.caption;
             model.richTooltip = this.richTooltip;
             return model;
         }

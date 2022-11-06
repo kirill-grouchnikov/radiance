@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.animation;
 
 import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
+import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceRenderer;
@@ -62,6 +63,7 @@ public class StateTransitionTracker {
     private JComponent component;
 
     private ButtonModel model;
+    private TriStateButtonModel triStateModel;
 
     private ChangeListener modelChangeListener;
 
@@ -182,8 +184,46 @@ public class StateTransitionTracker {
         this.model = model;
 
         this.modelStateInfo = new ModelStateInfo();
-        this.modelStateInfo.currState = ComponentState.getState(model, component);
+        this.modelStateInfo.currState = ComponentState.getState(model, component, false);
         this.modelStateInfo.currStateNoSelection = ComponentState.getState(model, component, true);
+        this.modelStateInfo.clear();
+
+        this.repaintCallback = () -> new SwingRepaintCallback(component);
+        this.isAutoTrackingModelChanges = true;
+        this.eventListenerList = new EventListenerList();
+
+        this.focusTimeline =
+                AnimationConfigurationManager.getInstance().timelineBuilder(this.component)
+                        .addCallback(this.repaintCallback.getRepaintCallback())
+                        .addCallback(new TimelineCallbackAdapter() {
+                            @Override
+                            public void onTimelineStateChanged(TimelineState oldState,
+                                    TimelineState newState, float durationFraction,
+                                    float timelinePosition) {
+                                // notify listeners on focus state transition
+                                SwingUtilities.invokeLater(
+                                        () -> fireFocusStateTransitionEvent(oldState, newState));
+                            }
+                        })
+                        .build();
+
+        this.focusLoopTimeline =
+                AnimationConfigurationManager.getInstance().timelineBuilder(this.component)
+                        .addCallback(this.repaintCallback.getRepaintCallback())
+                        .build();
+
+        this.iconGlowTracker = new IconGlowTracker(this.component);
+
+        this.name = "";
+    }
+
+    public StateTransitionTracker(final JComponent component, TriStateButtonModel model) {
+        this.component = component;
+        this.triStateModel = model;
+
+        this.modelStateInfo = new ModelStateInfo();
+        this.modelStateInfo.currState = ComponentState.getState(model, false);
+        this.modelStateInfo.currStateNoSelection = ComponentState.getState(model, true);
         this.modelStateInfo.clear();
 
         this.repaintCallback = () -> new SwingRepaintCallback(component);
@@ -246,7 +286,11 @@ public class StateTransitionTracker {
                 onModelStateChanged();
             }
         };
-        this.model.addChangeListener(this.modelChangeListener);
+        if (this.model != null) {
+            this.model.addChangeListener(this.modelChangeListener);
+        } else {
+            this.triStateModel.addChangeListener(this.modelChangeListener);
+        }
     }
 
     public void unregisterFocusListeners() {
@@ -255,7 +299,11 @@ public class StateTransitionTracker {
     }
 
     public void unregisterModelListeners() {
-        this.model.removeChangeListener(this.modelChangeListener);
+        if (this.model != null) {
+            this.model.removeChangeListener(this.modelChangeListener);
+        } else {
+            this.triStateModel.removeChangeListener(this.modelChangeListener);
+        }
         this.modelChangeListener = null;
     }
 
@@ -266,7 +314,7 @@ public class StateTransitionTracker {
             this.transitionPosition = 0.0f;
         }
 
-        this.modelStateInfo.currState = ComponentState.getState(model, component);
+        this.modelStateInfo.currState = ComponentState.getState(model, component, false);
         this.modelStateInfo.currStateNoSelection = ComponentState.getState(model, component, true);
         this.modelStateInfo.clear();
 
@@ -276,8 +324,29 @@ public class StateTransitionTracker {
         this.component.repaint();
     }
 
+    public void setTriStateModel(TriStateButtonModel model) {
+        this.triStateModel.removeChangeListener(this.modelChangeListener);
+        if (this.transitionTimeline != null) {
+            this.transitionTimeline.abort();
+            this.transitionPosition = 0.0f;
+        }
+
+        this.modelStateInfo.currState = ComponentState.getState(model, false);
+        this.modelStateInfo.currStateNoSelection = ComponentState.getState(model, true);
+        this.modelStateInfo.clear();
+
+        this.triStateModel = model;
+        this.triStateModel.addChangeListener(this.modelChangeListener);
+
+        this.component.repaint();
+    }
+
     public ButtonModel getModel() {
-        return model;
+        return this.model;
+    }
+
+    public TriStateButtonModel getTriStateModel() {
+        return this.triStateModel;
     }
 
     public void turnOffModelChangeTracking() {
@@ -287,9 +356,15 @@ public class StateTransitionTracker {
     public void onModelStateChanged() {
         this.isAutoTrackingModelChanges = true;
 
-        ComponentState newState = ComponentState.getState(this.model, this.component);
-        ComponentState newStateNoSelection = ComponentState.getState(
-                this.model, this.component, true);
+        ComponentState newState;
+        ComponentState newStateNoSelection;
+        if (this.model != null) {
+            newState = ComponentState.getState(this.model, this.component, false);
+            newStateNoSelection = ComponentState.getState(this.model, this.component, true);
+        } else {
+            newState = ComponentState.getState(this.triStateModel, false);
+            newStateNoSelection = ComponentState.getState(this.triStateModel, true);
+        }
 
         boolean isInRenderer = this.component.getClass().isAnnotationPresent(
                 RadianceRenderer.class);
@@ -608,10 +683,22 @@ public class StateTransitionTracker {
     public float getFacetStrength(RadianceThemingSlices.ComponentStateFacet stateFacet) {
         float result = 0.0f;
         for (Map.Entry<ComponentState, StateContributionInfo> activeEntry :
-                this.modelStateInfo.stateContributionMap
-                        .entrySet()) {
+                this.modelStateInfo.stateContributionMap.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             if (activeState.isFacetActive(stateFacet)) {
+                result += activeEntry.getValue().getContribution();
+            }
+        }
+        return result;
+    }
+
+    public float getFacetStrength(RadianceThemingSlices.ComponentStateFacet stateFacet1,
+            RadianceThemingSlices.ComponentStateFacet stateFacet2) {
+        float result = 0.0f;
+        for (Map.Entry<ComponentState, StateContributionInfo> activeEntry :
+                this.modelStateInfo.stateContributionMap.entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            if (activeState.isFacetActive(stateFacet1) || activeState.isFacetActive(stateFacet2)) {
                 result += activeEntry.getValue().getContribution();
             }
         }

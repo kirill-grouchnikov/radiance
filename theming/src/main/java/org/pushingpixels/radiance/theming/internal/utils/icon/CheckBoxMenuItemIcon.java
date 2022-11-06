@@ -113,7 +113,7 @@ public class CheckBoxMenuItemIcon implements Icon, UIResource {
                 graphics, this.menuItem, fillPainter, borderPainter,
                 this.size, currState,
                 mutableFillColorScheme, mutableMarkColorScheme, mutableBorderColorScheme,
-                visibility, isCheckMarkFadingOut, alpha);
+                visibility, 0.0f, isCheckMarkFadingOut, alpha);
         graphics.dispose();
     }
 

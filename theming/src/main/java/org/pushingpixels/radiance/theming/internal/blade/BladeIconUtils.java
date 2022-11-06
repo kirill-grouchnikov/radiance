@@ -81,11 +81,11 @@ public class BladeIconUtils {
         }
     }
 
-    public static void drawCheckBox(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
+    public static void drawCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
             RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
             RadianceColorScheme fillColorScheme, RadianceColorScheme markColorScheme,
             RadianceColorScheme borderColorScheme, float checkMarkVisibility,
-            boolean isCheckMarkFadingOut, float alpha) {
+            float checkMarkFlatness, boolean isCheckMarkFadingOut, float alpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -96,7 +96,8 @@ public class BladeIconUtils {
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     float cornerRadius = (float) scaleFactor *
-                            RadianceSizeUtils.getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(button));
+                            RadianceSizeUtils.getClassicButtonCornerRadius(
+                                    RadianceSizeUtils.getComponentFontSize(component));
 
                     int contourDim = scaledWidth - 1;
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
@@ -109,7 +110,7 @@ public class BladeIconUtils {
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                             contourDim, contourDim,
                             cornerRadius, null, 0.5f);
-                    finalFillPainter.paintContourBackground(graphics1X, button,
+                    finalFillPainter.paintContourBackground(graphics1X, component,
                             contourDim, contourDim,
                             contourFill, fillColorScheme);
 
@@ -117,7 +118,7 @@ public class BladeIconUtils {
                             RadianceOutlineUtilities.getBaseOutline(
                                     contourDim, contourDim, cornerRadius, null, 1.0f)
                             : null;
-                    borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
+                    borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
                             contourOuter, contourInner, borderColorScheme);
 
                     float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
@@ -129,7 +130,7 @@ public class BladeIconUtils {
                         }
 
                         drawCheckMarkAtScale1X(graphicsForCheckMark, scaledWidth, markColorScheme,
-                                checkMarkVisibility);
+                                checkMarkFlatness);
 
                         graphicsForCheckMark.dispose();
                     }
@@ -138,27 +139,18 @@ public class BladeIconUtils {
     }
 
     private static void drawCheckMarkAtScale1X(Graphics2D graphics1X, int dimension,
-            RadianceColorScheme scheme, float checkMarkVisibility) {
+            RadianceColorScheme scheme, float checkMarkFlatness) {
         // create straight checkbox path
         GeneralPath path = new GeneralPath();
-        path.moveTo(0.25f * dimension, 0.47f * dimension);
-        path.lineTo(0.48f * dimension, 0.72f * dimension);
-        path.lineTo(0.76f * dimension, 0.27f * dimension);
+        path.moveTo(0.25f * dimension, 0.47f * dimension + 0.03f * dimension * checkMarkFlatness);
+        path.lineTo(0.48f * dimension, 0.72f * dimension - 0.22f * dimension * checkMarkFlatness);
+        path.lineTo(0.76f * dimension, 0.27f * dimension + 0.23f * dimension * checkMarkFlatness);
 
-        // compute the x-based clip for the visibility
-        float xClipStart = 0.15f * dimension;
-        float xClipEnd = 0.95f * dimension;
-        float xClipRealEnd = xClipStart + (xClipEnd - xClipStart) * checkMarkVisibility;
-
-        Graphics2D clipped = (Graphics2D) graphics1X.create();
-        clipped.setClip(0, 0, (int) Math.ceil(xClipRealEnd), dimension);
-
-        clipped.setColor(scheme.getMarkColor());
+        graphics1X.setColor(scheme.getMarkColor());
         Stroke stroke = new BasicStroke((float) 0.15 * dimension, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_ROUND);
-        clipped.setStroke(stroke);
-        clipped.draw(path);
-        clipped.dispose();
+        graphics1X.setStroke(stroke);
+        graphics1X.draw(path);
     }
 
     public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,

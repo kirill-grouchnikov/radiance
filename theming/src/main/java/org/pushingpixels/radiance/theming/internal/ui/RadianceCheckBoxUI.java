@@ -130,7 +130,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                         graphics, button, fillPainter, borderPainter,
                         checkMarkSize, currState,
                         mutableFillColorScheme, mutableMarkColorScheme, mutableBorderColorScheme,
-                        visibility, isCheckMarkFadingOut, alpha);
+                        visibility, 0.0f, isCheckMarkFadingOut, alpha);
                 graphics.dispose();
             }
 

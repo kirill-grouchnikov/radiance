@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api;
 
+import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 
 import javax.swing.*;
@@ -623,6 +624,41 @@ public final class ComponentState {
         }
 
         return ENABLED;
+    }
+
+    public static ComponentState getState(TriStateButtonModel model, boolean toIgnoreSelection) {
+        TriStateButtonModel.SelectionState selectionState = model.getSelectionState();
+
+        boolean isRollover = model.isRollover();
+
+        if (!model.isEnabled()) {
+            if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.ON)) {
+                return ComponentState.DISABLED_SELECTED;
+            }
+            if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.INDETERMINATE)) {
+                return ComponentState.DISABLED_MIXED;
+            }
+            return ComponentState.DISABLED_UNSELECTED;
+        } else if (model.isPressed()) {
+            if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.ON)) {
+                return ComponentState.PRESSED_SELECTED;
+            }
+            return ComponentState.PRESSED_UNSELECTED;
+        } else if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.ON)) {
+            if (isRollover) {
+                return ComponentState.ROLLOVER_SELECTED;
+            }
+            return ComponentState.SELECTED;
+        }  else if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.INDETERMINATE)) {
+            if (isRollover) {
+                return ComponentState.ROLLOVER_MIXED;
+            }
+            return ComponentState.MIXED;
+        } else if (isRollover) {
+            return ComponentState.ROLLOVER_UNSELECTED;
+        }
+
+        return ComponentState.ENABLED;
     }
 
     /**

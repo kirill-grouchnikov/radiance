@@ -166,8 +166,7 @@ public class RadianceMetricsUtilities {
         return r.getSize();
     }
 
-
-    public static Dimension getPreferredCheckButtonSize(JToggleButton button, Icon defaultIcon) {
+    public static Dimension getPreferredCheckButtonSize(AbstractButton button, Icon defaultIcon) {
         if (button.getComponentCount() > 0) {
             return null;
         }
@@ -207,5 +206,4 @@ public class RadianceMetricsUtilities {
 
         return new Dimension(width, height);
     }
-
 }
