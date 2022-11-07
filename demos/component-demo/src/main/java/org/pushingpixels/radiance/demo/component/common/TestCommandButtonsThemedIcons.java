@@ -29,11 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.error_black_24dp;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.help_black_24dp;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.info_black_24dp;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.warning_black_24dp;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.GraphiteGlassSkin;
