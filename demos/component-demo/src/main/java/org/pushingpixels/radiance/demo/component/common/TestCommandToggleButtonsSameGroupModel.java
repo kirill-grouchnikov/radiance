@@ -29,23 +29,23 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_center;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_fill;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_left;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_right;
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_center;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_fill;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_left;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_justify_right;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
-import org.pushingpixels.radiance.animation.api.Timeline;
-import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

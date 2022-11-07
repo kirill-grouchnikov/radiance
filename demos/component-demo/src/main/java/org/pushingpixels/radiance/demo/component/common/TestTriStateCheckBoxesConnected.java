@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.demo.component.common;
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
-import org.pushingpixels.radiance.common.api.model.TriStateSelectionCycler;
 import org.pushingpixels.radiance.component.api.common.model.TriStateCheckBoxContentModel;
 import org.pushingpixels.radiance.component.api.common.model.TriStateCheckboxPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.TriStateCheckBoxProjection;
@@ -45,10 +44,7 @@ import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class TestTriStateCheckBoxesConnected extends JFrame {
     private Locale currLocale;
