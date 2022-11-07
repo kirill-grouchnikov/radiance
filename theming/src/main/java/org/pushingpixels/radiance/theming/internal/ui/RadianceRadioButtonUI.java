@@ -139,7 +139,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                 // Populate color schemes based on the current transition state of the radio button.
                 BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                         modelStateInfo, currState,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX,
                         false);
                 BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
                         modelStateInfo, currState,

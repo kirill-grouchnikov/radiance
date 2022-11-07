@@ -29,40 +29,42 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.common.api.model.DefaultTriStateButtonModel;
-import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
 import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.TriStateCheckBoxContentModel;
-import org.pushingpixels.radiance.component.api.common.model.TriStateCheckboxPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.SwitchContentModel;
+import org.pushingpixels.radiance.component.api.common.model.SwitchPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceTriStateCheckBoxUI;
+import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceSwitchUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.MouseEvent;
 
-public class JTriStateCheckBox extends JComponent implements RichTooltipManager.WithRichTooltip {
+public class JSwitch extends JToggleButton implements RichTooltipManager.WithRichTooltip {
     /**
      * The UI class ID string.
      */
-    public static final String uiClassID = "TriStateCheckBoxUI";
+    public static final String uiClassID = "SwitchUI";
 
-    private Projection<JTriStateCheckBox, TriStateCheckBoxContentModel, TriStateCheckboxPresentationModel> projection;
-    private TriStateCheckBoxContentModel contentModel;
-    private TriStateCheckboxPresentationModel presentationModel;
+    private Projection<JSwitch, SwitchContentModel, SwitchPresentationModel> projection;
+    private SwitchContentModel contentModel;
+    private SwitchPresentationModel presentationModel;
 
-    private TriStateButtonModel triStateButtonModel;
+    private ButtonModel buttonModel;
 
-    public JTriStateCheckBox(Projection<JTriStateCheckBox, TriStateCheckBoxContentModel,
-            TriStateCheckboxPresentationModel> projection) {
+    public JSwitch(Projection<JSwitch, SwitchContentModel,
+            SwitchPresentationModel> projection) {
         this.projection = projection;
         this.contentModel = projection.getContentModel();
         this.presentationModel = projection.getPresentationModel();
 
-        this.triStateButtonModel = new DefaultTriStateButtonModel(this.contentModel.getSelectionCycler());
-        this.triStateButtonModel.setEnabled(this.contentModel.isEnabled());
-        this.triStateButtonModel.setSelectionState(this.contentModel.getSelectionState());
+        this.buttonModel = new ToggleButtonModel();
+        this.buttonModel.setEnabled(this.contentModel.isEnabled());
+        this.buttonModel.setSelected(this.contentModel.isSelected());
+        this.buttonModel.addItemListener(this.contentModel.getItemListener());
+        this.buttonModel.addActionListener(this.contentModel.getActionListener());
+        this.setModel(this.buttonModel);
 
         // Don't remove the next line - we need to instantiate the RichTooltipManager
         // so that it starts tracking mouse events for displaying rich tooltips
@@ -73,7 +75,7 @@ public class JTriStateCheckBox extends JComponent implements RichTooltipManager.
 
     @Override
     public void updateUI() {
-        setUI(RadianceTriStateCheckBoxUI.createUI(this));
+        setUI(RadianceSwitchUI.createUI(this));
     }
 
     @Override
@@ -81,12 +83,8 @@ public class JTriStateCheckBox extends JComponent implements RichTooltipManager.
         return uiClassID;
     }
 
-    public Projection<JTriStateCheckBox, TriStateCheckBoxContentModel, TriStateCheckboxPresentationModel> getProjection() {
+    public Projection<JSwitch, SwitchContentModel, SwitchPresentationModel> getProjection() {
         return this.projection;
-    }
-
-    public TriStateButtonModel getTriStateButtonModel() {
-        return this.triStateButtonModel;
     }
 
     @Override
@@ -116,5 +114,10 @@ public class JTriStateCheckBox extends JComponent implements RichTooltipManager.
                 ((ChangeListener) listeners[i + 1]).stateChanged(event);
             }
         }
+    }
+
+    @Override
+    public void setBorder(Border border) {
+        super.setBorder(border);
     }
 }

@@ -57,7 +57,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
     /**
      * Prefix for the checkbox-related properties in the {@link UIManager}.
      */
-    private final static String propertyPrefix = "CheckBox" + ".";
+    private final static String propertyPrefix = "CheckBox.";
 
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
@@ -113,7 +113,7 @@ public class RadianceCheckBoxUI extends RadianceRadioButtonUI {
                 // Populate color schemes based on the current transition state of the check box.
                 BladeUtils.populateColorScheme(mutableFillColorScheme, button,
                         modelStateInfo, currState,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        ColorSchemeAssociationKind.MARK_BOX,
                         false);
                 BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
                         modelStateInfo, currState,

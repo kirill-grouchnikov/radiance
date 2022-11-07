@@ -27,38 +27,21 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.component.api.common.model;
+package org.pushingpixels.radiance.component.api.common.projection;
 
-public class TriStateCheckboxPresentationModel implements ImmutablePresentationModel {
-    private RichTooltipPresentationModel richTooltipPresentationModel;
+import org.pushingpixels.radiance.component.api.common.JSwitch;
+import org.pushingpixels.radiance.component.api.common.model.SwitchContentModel;
+import org.pushingpixels.radiance.component.api.common.model.SwitchPresentationModel;
 
-    private TriStateCheckboxPresentationModel() {
+public class SwitchProjection extends Projection<JSwitch,
+        SwitchContentModel, SwitchPresentationModel> {
+
+    public SwitchProjection(SwitchContentModel contentModel,
+            SwitchPresentationModel presentationModel) {
+        super(contentModel, presentationModel, projection -> JSwitch::new);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public RichTooltipPresentationModel getRichTooltipPresentationModel() {
-        return this.richTooltipPresentationModel;
-    }
-
-    public static class Builder {
-        private RichTooltipPresentationModel richTooltipPresentationModel =
-                RichTooltipPresentationModel.builder().build();
-
-        public Builder setRichTooltipPresentationModel(RichTooltipPresentationModel richTooltipPresentationModel) {
-            if (richTooltipPresentationModel == null) {
-                throw new IllegalArgumentException("Cannot pass null tooltip presentation model");
-            }
-            this.richTooltipPresentationModel = richTooltipPresentationModel;
-            return this;
-        }
-
-        public TriStateCheckboxPresentationModel build() {
-            TriStateCheckboxPresentationModel presentationModel = new TriStateCheckboxPresentationModel();
-            presentationModel.richTooltipPresentationModel = this.richTooltipPresentationModel;
-            return presentationModel;
-        }
+    @Override
+    protected void configureComponent(JSwitch component) {
     }
 }

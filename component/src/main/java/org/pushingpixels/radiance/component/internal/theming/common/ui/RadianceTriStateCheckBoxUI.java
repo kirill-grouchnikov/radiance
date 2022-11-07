@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -61,6 +62,10 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
         return new RadianceTriStateCheckBoxUI((JTriStateCheckBox) comp);
     }
+
+    private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    private BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
     private RadianceTriStateCheckBoxUI(JTriStateCheckBox triStateCheckBox) {
         super(triStateCheckBox);
@@ -109,7 +114,7 @@ public class RadianceTriStateCheckBoxUI extends BasicTriStateCheckBoxUI {
                 // Populate color schemes based on the current transition state of the check box.
                 BladeUtils.populateColorScheme(mutableFillColorScheme, triStateCheckBox,
                         modelStateInfo, currState,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX,
                         false);
                 BladeUtils.populateColorScheme(mutableBorderColorScheme, triStateCheckBox,
                         modelStateInfo, currState,

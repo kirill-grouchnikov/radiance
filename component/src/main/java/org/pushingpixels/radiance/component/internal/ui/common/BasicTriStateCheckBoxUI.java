@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
 import org.pushingpixels.radiance.component.internal.theming.common.tristate.RolloverTriStateListener;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
@@ -69,9 +68,6 @@ public abstract class BasicTriStateCheckBoxUI extends TriStateCheckBoxUI impleme
     protected int iconTextGap = 0;
 
     protected Icon radianceIcon;
-    protected BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
-    protected BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
-    protected BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
 
     public BasicTriStateCheckBoxUI(JTriStateCheckBox triStateCheckBox) {
         this.triStateCheckBox = triStateCheckBox;
