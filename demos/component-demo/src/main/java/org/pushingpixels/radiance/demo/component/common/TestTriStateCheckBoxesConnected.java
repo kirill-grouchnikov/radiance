@@ -76,6 +76,7 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
                 .setText("tri-state box")
                 .setSelectionState(TriStateButtonModel.SelectionState.OFF)
                 .setSelectionCycler(currState -> {
+                    // Only cycle between ON and OFF states for user-facing interaction
                     if (currState == TriStateButtonModel.SelectionState.OFF) {
                         return TriStateButtonModel.SelectionState.ON;
                     } else {
@@ -85,23 +86,37 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
                 .setSelectionChangeListener(e -> {
                     System.out.println("New selection state is " + e.getSelectionStateChange());
                     if (e.getSelectionStateChange() == TriStateButtonModel.SelectionState.OFF) {
+                        // OFF -> deselect both child checkboxes
                         checkBoxChild1.setSelected(false);
                         checkBoxChild2.setSelected(false);
                     } else if (e.getSelectionStateChange() == TriStateButtonModel.SelectionState.ON) {
+                        // ON -> select both child checkboxes
                         checkBoxChild1.setSelected(true);
                         checkBoxChild2.setSelected(true);
                     }
                 })
                 .build();
 
+        // Note that here we're using action listeners on the child checkboxes and not item
+        // listeners. The reason to not use item listeners is that they get fired on any change
+        // to the underlying model, including during our selection change logic on the primary
+        // tri-state checkbox. As that logic selects / deselects the child checkboxes one after
+        // another in a non-atomic fashion, we will end up with our primary tri-state checkbox
+        // moving to the INDETERMINATE state in the middle of that update. It can be worked around
+        // with an explicit guard (semaphore, count down latch), it's easier to do this with
+        // the action listener that gets fired on user-initiated interaction only.
+
         checkBoxChild1.addActionListener(e -> {
             boolean isChild1Selected = checkBoxChild1.isSelected();
             boolean isChild2Selected = checkBoxChild2.isSelected();
             if (isChild1Selected && isChild2Selected) {
+                // Both child checkboxes selected -> ON
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.ON);
             } else if (!isChild1Selected && !isChild2Selected) {
+                // Both child checkboxes deselected -> OFF
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.OFF);
             } else {
+                // One is selected, the other is deselected -> INDETERMINATE
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.INDETERMINATE);
             }
         });
@@ -110,10 +125,13 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
             boolean isChild1Selected = checkBoxChild1.isSelected();
             boolean isChild2Selected = checkBoxChild2.isSelected();
             if (isChild1Selected && isChild2Selected) {
+                // Both child checkboxes selected -> ON
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.ON);
             } else if (!isChild1Selected && !isChild2Selected) {
+                // Both child checkboxes deselected -> OFF
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.OFF);
             } else {
+                // One is selected, the other is deselected -> INDETERMINATE
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.INDETERMINATE);
             }
         });
