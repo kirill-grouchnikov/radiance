@@ -30,20 +30,25 @@
 package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRichTooltipPanelUI;
 
 import javax.swing.*;
 
 public class JRichTooltipPanel extends JPanel {
     private RichTooltip tooltipInfo;
+    private RichTooltipPresentationModel tooltipPresentationModel;
 
     /**
      * @see #getUIClassID
      */
     public static final String uiClassID = "RichTooltipPanelUI";
 
-    public JRichTooltipPanel(RichTooltip tooltipInfo) {
+    public JRichTooltipPanel(RichTooltip tooltipInfo, RichTooltipPresentationModel tooltipPresentationModel) {
         this.tooltipInfo = tooltipInfo;
+        this.tooltipPresentationModel = tooltipPresentationModel;
+
+        this.updateUI();
     }
 
     @Override
@@ -71,7 +76,10 @@ public class JRichTooltipPanel extends JPanel {
     }
 
     public RichTooltip getTooltipInfo() {
-        return tooltipInfo;
+        return this.tooltipInfo;
     }
 
+    public RichTooltipPresentationModel getTooltipPresentationModel() {
+        return this.tooltipPresentationModel;
+    }
 }

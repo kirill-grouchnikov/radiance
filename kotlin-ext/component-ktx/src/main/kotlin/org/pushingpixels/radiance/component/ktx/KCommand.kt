@@ -370,6 +370,16 @@ public open class KCommandButtonPresentation {
         CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
     public var autoRepeatSubsequentInterval: Int =
         CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS
+    internal val actionRichTooltipPresentation: KRichTooltipPresentation = KRichTooltipPresentation()
+    internal val popupRichTooltipPresentation: KRichTooltipPresentation = KRichTooltipPresentation()
+
+    public fun actionRichTooltipPresentation(init: KRichTooltipPresentation.() -> Unit) {
+        actionRichTooltipPresentation.init()
+    }
+
+    public fun popupRichTooltipPresentation(init: KRichTooltipPresentation.() -> Unit) {
+        popupRichTooltipPresentation.init()
+    }
 
     internal fun toCommandPresentation(command: KCommand): CommandButtonPresentationModel {
         val result = CommandButtonPresentationModel.builder()
@@ -394,6 +404,8 @@ public open class KCommandButtonPresentation {
             .setAutoRepeatAction(isAutoRepeatAction)
             .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
             .setTextClick(textClick)
+            .setActionRichTooltipPresentationModel(actionRichTooltipPresentation.toRichTooltipPresentation())
+            .setPopupRichTooltipPresentationModel(popupRichTooltipPresentation.toRichTooltipPresentation())
 
         return result.build()
     }

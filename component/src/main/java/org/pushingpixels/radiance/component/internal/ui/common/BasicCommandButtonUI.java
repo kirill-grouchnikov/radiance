@@ -349,12 +349,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("actionPreview".equals(propertyChangeEvent.getPropertyName())) {
                 syncActionPreview(command, ((Command.CommandActionPreview) propertyChangeEvent.getNewValue()));
             }
-            if ("actionRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.setActionRichTooltip((RichTooltip) propertyChangeEvent.getNewValue());
-            }
-            if ("secondaryRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.setPopupRichTooltip((RichTooltip) propertyChangeEvent.getNewValue());
-            }
             if ("isAutoRepeatAction".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.setAutoRepeatAction((Boolean) propertyChangeEvent.getNewValue());
             }

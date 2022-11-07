@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Address_book_new;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Help_browser;
@@ -63,7 +64,8 @@ public class TestRichTooltipPanels extends JFrame {
                 .addFooterSection(
                         "Multiline footer description to provide a little bit more information on" +
                                 " this subject")
-                .build());
+                .build(),
+                RichTooltipPresentationModel.builder().build());
         this.add(panel);
 
         this.pack();

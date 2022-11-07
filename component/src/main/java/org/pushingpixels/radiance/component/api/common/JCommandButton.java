@@ -69,7 +69,7 @@ import java.util.List;
  *
  * @author Kirill Grouchnikov
  */
-public class JCommandButton extends RichTooltipManager.JTrackableComponent {
+public class JCommandButton extends JComponent implements RichTooltipManager.WithRichTooltip {
     /**
      * The UI class ID string.
      */
@@ -162,14 +162,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * @see #getVGapScaleFactor()
      */
     private double vgapScaleFactor;
-
-    /**
-     * Rich tooltip for the action area.
-     *
-     * @see #setActionRichTooltip(RichTooltip)
-     * @see #getRichTooltip(MouseEvent)
-     */
-    private RichTooltip actionRichTooltip;
 
     /**
      * Location order kind for buttons placed in command button strips or for
@@ -308,14 +300,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
      * Default popup handler for this button.
      */
     private PopupHandler popupHandler;
-
-    /**
-     * Rich tooltip for the popup area of this button.
-     *
-     * @see #setPopupRichTooltip(RichTooltip)
-     * @see #getRichTooltip(MouseEvent)
-     */
-    private RichTooltip popupRichTooltip;
 
     /**
      * Key tip for the popup area of this button.
@@ -522,7 +506,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
 
         if (hasAction) {
             this.addCommandListener(command.getAction());
-            this.setActionRichTooltip(command.getActionRichTooltip());
             this.setActionKeyTip(commandPresentation.getActionKeyTip());
         }
 
@@ -607,7 +590,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                     });
                 }
             }
-            this.setPopupRichTooltip(command.getSecondaryRichTooltip());
             this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
         }
 
@@ -654,6 +636,10 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
                 }
             });
         }
+
+        // Don't remove the next line - we need to instantiate the RichTooltipManager
+        // so that it starts tracking mouse events for displaying rich tooltips
+        RichTooltipManager.sharedInstance();
 
         this.updateUI();
     }
@@ -1163,19 +1149,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         actionModel.setArmed(false);
     }
 
-    /**
-     * Sets the rich tooltip for the action area of this button.
-     *
-     * @param richTooltip Rich tooltip for the action area of this button.
-     * @see #getRichTooltip(MouseEvent)
-     */
-    public void setActionRichTooltip(RichTooltip richTooltip) {
-        // Don't remove the next line - we need to instantiate the RichTooltipManager
-        // so that it starts tracking mouse events for displaying rich tooltips
-        RichTooltipManager.sharedInstance();
-        this.actionRichTooltip = richTooltip;
-    }
-
     @Override
     public void setToolTipText(String text) {
         throw new UnsupportedOperationException("Use rich tooltip APIs");
@@ -1319,7 +1292,6 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
             boolean hasPopup = (this.popupCallback != null);
 
             if (hasPopup) {
-                this.setPopupRichTooltip(command.getSecondaryRichTooltip());
                 this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
             }
 
@@ -1547,28 +1519,26 @@ public class JCommandButton extends RichTooltipManager.JTrackableComponent {
         }
     }
 
-    /**
-     * Sets the rich tooltip for the popup area of this button.
-     *
-     * @param richTooltip Rich tooltip for the popup area of this button.
-     * @see #getRichTooltip(MouseEvent)
-     * @see #setActionRichTooltip(RichTooltip)
-     */
-    public void setPopupRichTooltip(RichTooltip richTooltip) {
-        // Don't remove the next line - we need to instantiate the RichTooltipManager
-        // so that it starts tracking mouse events for displaying rich tooltips
-        RichTooltipManager.sharedInstance();
-        this.popupRichTooltip = richTooltip;
-    }
-
     @Override
     public RichTooltip getRichTooltip(MouseEvent event) {
         CommandButtonUI ui = this.getUI();
         if (ui.getLayoutInfo().actionClickArea.contains(event.getPoint())) {
-            return this.actionRichTooltip;
+            return this.command.getActionRichTooltip();
         }
         if (ui.getLayoutInfo().popupClickArea.contains(event.getPoint())) {
-            return this.popupRichTooltip;
+            return this.command.getSecondaryRichTooltip();
+        }
+        return null;
+    }
+
+    @Override
+    public RichTooltipPresentationModel getRichTooltipPresentationModel(MouseEvent event) {
+        CommandButtonUI ui = this.getUI();
+        if (ui.getLayoutInfo().actionClickArea.contains(event.getPoint())) {
+            return this.commandPresentation.getActionRichTooltipPresentationModel();
+        }
+        if (ui.getLayoutInfo().popupClickArea.contains(event.getPoint())) {
+            return this.commandPresentation.getPopupRichTooltipPresentationModel();
         }
         return null;
     }

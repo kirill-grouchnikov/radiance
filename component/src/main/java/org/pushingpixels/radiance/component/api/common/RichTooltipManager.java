@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
@@ -48,7 +49,7 @@ public class RichTooltipManager {
 
     private RichTooltip richTooltip;
 
-    private JTrackableComponent currentActiveTrackable;
+    private WithRichTooltip currentActiveTrackable;
 
     private MouseEvent lastMouseEvent;
 
@@ -62,8 +63,9 @@ public class RichTooltipManager {
 
     private boolean tipShowing = false;
 
-    public static abstract class JTrackableComponent extends JComponent {
-        public abstract RichTooltip getRichTooltip(MouseEvent mouseEvent);
+    public interface WithRichTooltip {
+        RichTooltip getRichTooltip(MouseEvent mouseEvent);
+        RichTooltipPresentationModel getRichTooltipPresentationModel(MouseEvent mouseEvent);
     }
 
     private RichTooltipManager() {
@@ -87,15 +89,15 @@ public class RichTooltipManager {
                     int y = mouseEvent.getY();
                     Component source = (Component) event.getSource();
                     Component deepest = SwingUtilities.getDeepestComponentAt(source, x, y);
-                    JTrackableComponent trackableComponent =
-                            (deepest instanceof JTrackableComponent) ?
-                                    (JTrackableComponent) deepest :
-                                    (JTrackableComponent) SwingUtilities.getAncestorOfClass(
-                                            JTrackableComponent.class, deepest);
+                    WithRichTooltip trackableComponent =
+                            (deepest instanceof WithRichTooltip) ?
+                                    (WithRichTooltip) deepest :
+                                    (WithRichTooltip) SwingUtilities.getAncestorOfClass(
+                                            WithRichTooltip.class, deepest);
                     if (trackableComponent != null) {
                         Point inTrackableComponent = SwingUtilities.convertPoint(
-                                source, x, y, trackableComponent);
-                        if (trackableComponent.contains(inTrackableComponent)) {
+                                source, x, y, (JComponent) trackableComponent);
+                        if (((JComponent) trackableComponent).contains(inTrackableComponent)) {
                             // The mouse event is currently inside a trackable component
                             if (currentActiveTrackable == trackableComponent) {
                                 // Still in the same trackable component
@@ -106,7 +108,7 @@ public class RichTooltipManager {
                                     currentActiveTrackable = trackableComponent;
                                     lastMouseEvent = mouseEvent;
                                     lastMouseEventInCurrentActiveTrackableCoordinates =
-                                            retarget(mouseEvent, source, trackableComponent);
+                                            retarget(mouseEvent, source, ((JComponent) trackableComponent));
                                     richTooltip = null;
                                     initialDelayTimer.restart();
                                 }
@@ -183,14 +185,20 @@ public class RichTooltipManager {
     }
 
     private void showTipWindow(MouseEvent mouseEvent) {
-        if (currentActiveTrackable == null || !currentActiveTrackable.isShowing()) {
+        if (currentActiveTrackable == null) {
+            return;
+        }
+
+        JComponent currentActiveTrackableComponent = (JComponent) currentActiveTrackable;
+
+        if (currentActiveTrackable == null || !currentActiveTrackableComponent.isShowing()) {
             return;
         }
         Dimension size;
-        Point screenLocation = currentActiveTrackable.getLocationOnScreen();
+        Point screenLocation = currentActiveTrackableComponent.getLocationOnScreen();
         Point location = new Point();
         GraphicsConfiguration gc;
-        gc = currentActiveTrackable.getGraphicsConfiguration();
+        gc = currentActiveTrackableComponent.getGraphicsConfiguration();
         Rectangle sBounds = gc.getBounds();
         Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(gc);
         // Take into account screen insets, decrease viewport
@@ -202,18 +210,19 @@ public class RichTooltipManager {
         // Just to be paranoid
         hideTipWindow();
 
-        tip = new JRichTooltipPanel(currentActiveTrackable.getRichTooltip(mouseEvent));
-        tip.applyComponentOrientation(currentActiveTrackable.getComponentOrientation());
+        tip = new JRichTooltipPanel(currentActiveTrackable.getRichTooltip(mouseEvent),
+                currentActiveTrackable.getRichTooltipPresentationModel(mouseEvent));
+        tip.applyComponentOrientation(currentActiveTrackableComponent.getComponentOrientation());
         size = tip.getPreferredSize();
 
         AbstractRibbonBand ribbonBand = (AbstractRibbonBand) SwingUtilities
-                .getAncestorOfClass(AbstractRibbonBand.class, currentActiveTrackable);
+                .getAncestorOfClass(AbstractRibbonBand.class, currentActiveTrackableComponent);
         boolean ltr = tip.getComponentOrientation().isLeftToRight();
         boolean isInRibbonBand = (ribbonBand != null);
         if (isInRibbonBand) {
             // display directly below or above ribbon band
             location.x = ltr ? screenLocation.x : screenLocation.x
-                    + currentActiveTrackable.getWidth() - size.width;
+                    + currentActiveTrackableComponent.getWidth() - size.width;
             Point bandLocationOnScreen = ribbonBand.getLocationOnScreen();
             location.y = bandLocationOnScreen.y + ribbonBand.getHeight() + 4;
             if ((location.y + size.height) > (sBounds.y + sBounds.height)) {
@@ -222,8 +231,8 @@ public class RichTooltipManager {
         } else {
             // display directly below or above it
             location.x = ltr ? screenLocation.x : screenLocation.x
-                    + currentActiveTrackable.getWidth() - size.width;
-            location.y = screenLocation.y + currentActiveTrackable.getHeight();
+                    + currentActiveTrackableComponent.getWidth() - size.width;
+            location.y = screenLocation.y + currentActiveTrackableComponent.getHeight();
             if ((location.y + size.height) > (sBounds.y + sBounds.height)) {
                 location.y = screenLocation.y - size.height;
             }
@@ -237,7 +246,7 @@ public class RichTooltipManager {
         }
 
         PopupFactory popupFactory = PopupFactory.getSharedInstance();
-        tipWindow = popupFactory.getPopup(currentActiveTrackable, tip, location.x, location.y);
+        tipWindow = popupFactory.getPopup(currentActiveTrackableComponent, tip, location.x, location.y);
         tipWindow.show();
 
         dismissTimer.start();
@@ -276,14 +285,14 @@ public class RichTooltipManager {
         this.hideTipWindow();
     }
 
-    private void initiateToolTip(MouseEvent original, JTrackableComponent component) {
+    private void initiateToolTip(MouseEvent original, WithRichTooltip component) {
         // do not show tooltips on components in popup panels that are not in the last shown one
         List<PopupPanelManager.PopupInfo> popups =
                 PopupPanelManager.defaultManager().getShownPath();
         if (popups.size() > 0) {
             JPopupPanel popupPanel = popups.get(popups.size() - 1).getPopupPanel();
             boolean ignore = true;
-            Component c = component;
+            Component c = (Component) component;
             while (c != null) {
                 if (c == popupPanel) {
                     ignore = false;
@@ -303,11 +312,11 @@ public class RichTooltipManager {
         currentActiveTrackable = component;
         lastMouseEvent = original;
         lastMouseEventInCurrentActiveTrackableCoordinates =
-                retarget(original, lastMouseEvent.getComponent(), component);
+                retarget(original, lastMouseEvent.getComponent(), (Component) component);
         initialDelayTimer.start();
     }
 
-    private void checkForTipChange(MouseEvent event, JTrackableComponent component) {
+    private void checkForTipChange(MouseEvent event, WithRichTooltip component) {
         RichTooltip newTooltip = component.getRichTooltip(event);
 
         // is it different?
@@ -323,7 +332,7 @@ public class RichTooltipManager {
 
     private class InitialDelayTimerAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if ((currentActiveTrackable != null) && currentActiveTrackable.isShowing()) {
+            if ((currentActiveTrackable != null) && ((JComponent) currentActiveTrackable).isShowing()) {
                 // Lazy lookup
                 if (richTooltip == null && lastMouseEvent != null) {
                     richTooltip = currentActiveTrackable.getRichTooltip(

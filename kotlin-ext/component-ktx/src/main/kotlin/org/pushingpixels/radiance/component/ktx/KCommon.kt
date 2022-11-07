@@ -32,7 +32,12 @@ package org.pushingpixels.radiance.component.ktx
 import org.pushingpixels.radiance.component.api.common.RichTooltip
 import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import java.awt.Color
+import java.awt.Insets
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -136,6 +141,23 @@ public class KRichTooltip {
         }
 
         return builder.build()
+    }
+}
+
+@RadianceElementMarker
+public open class KRichTooltipPresentation {
+    public var contentPadding: Insets =
+        RichTooltipPresentationModel.DEFAULT_CONTENT_PADDING
+    public var mainIconSize: Int = RichTooltipPresentationModel.LARGE_ICON_SIZE
+    public var footerIconSize: Int = RichTooltipPresentationModel.SMALL_ICON_SIZE
+
+    internal fun toRichTooltipPresentation(): RichTooltipPresentationModel {
+        val result = RichTooltipPresentationModel.builder()
+            .setContentPadding(contentPadding)
+            .setMainIconSize(mainIconSize)
+            .setFooterIconSize(footerIconSize)
+
+        return result.build()
     }
 }
 

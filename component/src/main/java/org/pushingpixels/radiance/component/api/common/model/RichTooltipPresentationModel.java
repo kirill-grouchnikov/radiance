@@ -29,37 +29,64 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPresentationModel;
+import java.awt.*;
 
-public class TriStateCheckboxPresentationModel implements ImmutablePresentationModel {
-    private RichTooltipPresentationModel richTooltipPresentationModel;
+public class RichTooltipPresentationModel implements ImmutablePresentationModel {
+    public static final Insets DEFAULT_CONTENT_PADDING = new Insets(6, 6, 6, 6);
+    public static final int LARGE_ICON_SIZE = 32;
+    public static final int SMALL_ICON_SIZE = 16;
 
-    private TriStateCheckboxPresentationModel() {
+    private Insets contentPadding;
+    private int mainIconSize;
+    private int footerIconSize;
+
+    private RichTooltipPresentationModel() {
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-    public RichTooltipPresentationModel getRichTooltipPresentationModel() {
-        return this.richTooltipPresentationModel;
+    public int getMainIconSize() {
+        return this.mainIconSize;
+    }
+
+    public int getFooterIconSize() {
+        return this.footerIconSize;
+    }
+
+    public Insets getContentPadding() {
+        return this.contentPadding;
     }
 
     public static class Builder {
-        private RichTooltipPresentationModel richTooltipPresentationModel =
-                RichTooltipPresentationModel.builder().build();
+        private Insets contentPadding = DEFAULT_CONTENT_PADDING;
+        private int mainIconSize = LARGE_ICON_SIZE;
+        private int footerIconSize = SMALL_ICON_SIZE;
 
-        public Builder setRichTooltipPresentationModel(RichTooltipPresentationModel richTooltipPresentationModel) {
-            if (richTooltipPresentationModel == null) {
-                throw new IllegalArgumentException("Cannot pass null presentation model");
+        public Builder setContentPadding(Insets contentPadding) {
+            if (contentPadding == null) {
+                throw new IllegalArgumentException("Content padding cannot be null");
             }
-            this.richTooltipPresentationModel = richTooltipPresentationModel;
+            this.contentPadding = contentPadding;
             return this;
         }
 
-        public TriStateCheckboxPresentationModel build() {
-            TriStateCheckboxPresentationModel presentationModel = new TriStateCheckboxPresentationModel();
-            presentationModel.richTooltipPresentationModel = this.richTooltipPresentationModel;
+        public Builder setMainIconSize(int mainIconSize) {
+            this.mainIconSize = mainIconSize;
+            return this;
+        }
+
+        public Builder setFooterIconSize(int footerIconSize) {
+            this.footerIconSize = footerIconSize;
+            return this;
+        }
+
+        public RichTooltipPresentationModel build() {
+            RichTooltipPresentationModel presentationModel = new RichTooltipPresentationModel();
+            presentationModel.contentPadding = this.contentPadding;
+            presentationModel.mainIconSize = this.mainIconSize;
+            presentationModel.footerIconSize = this.footerIconSize;
             return presentationModel;
         }
     }

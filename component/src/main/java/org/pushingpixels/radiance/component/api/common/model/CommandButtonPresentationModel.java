@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.api.common.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
@@ -84,6 +85,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private int autoRepeatInitialInterval;
     private int autoRepeatSubsequentInterval;
     private FireActionTrigger fireActionTrigger;
+    private RichTooltipPresentationModel actionRichTooltipPresentationModel;
+    private RichTooltipPresentationModel popupRichTooltipPresentationModel;
 
     private CommandButtonPresentationModel() {
     }
@@ -135,6 +138,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.autoRepeatSubsequentInterval : this.autoRepeatSubsequentInterval;
         result.fireActionTrigger = (overlay.fireActionTrigger != null)
                 ? overlay.fireActionTrigger : this.fireActionTrigger;
+        result.actionRichTooltipPresentationModel = (overlay.actionRichTooltipPresentationModel != null)
+                ? overlay.actionRichTooltipPresentationModel : this.actionRichTooltipPresentationModel;
+        result.popupRichTooltipPresentationModel = (overlay.popupRichTooltipPresentationModel != null)
+                ? overlay.popupRichTooltipPresentationModel : this.popupRichTooltipPresentationModel;
 
         return result;
     }
@@ -243,6 +250,14 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.hasAutoRepeatIntervalsSet ? this.autoRepeatSubsequentInterval : -1;
     }
 
+    public RichTooltipPresentationModel getActionRichTooltipPresentationModel() {
+        return this.actionRichTooltipPresentationModel;
+    }
+
+    public RichTooltipPresentationModel getPopupRichTooltipPresentationModel() {
+        return this.popupRichTooltipPresentationModel;
+    }
+
     public enum FireActionTrigger {
         /**
          * Fire action on rollover.
@@ -296,6 +311,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Integer autoRepeatInitialInterval;
         private Integer autoRepeatSubsequentInterval;
         private FireActionTrigger fireActionTrigger;
+        private RichTooltipPresentationModel actionRichTooltipPresentationModel;
+        private RichTooltipPresentationModel popupRichTooltipPresentationModel;
 
         public Overlay setBackgroundAppearanceStrategy(
                 RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
@@ -400,6 +417,16 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             this.fireActionTrigger = fireActionTrigger;
             return this;
         }
+
+        public Overlay setActionRichTooltipPresentationModel(RichTooltipPresentationModel actionRichTooltipPresentationModel) {
+            this.actionRichTooltipPresentationModel = actionRichTooltipPresentationModel;
+            return this;
+        }
+
+        public Overlay setPopupRichTooltipPresentationModel(RichTooltipPresentationModel popupRichTooltipPresentationModel) {
+            this.popupRichTooltipPresentationModel = popupRichTooltipPresentationModel;
+            return this;
+        }
     }
 
     public static class Builder {
@@ -436,6 +463,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private int autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
         private int autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
         private FireActionTrigger fireActionTrigger = FireActionTrigger.ON_PRESS_RELEASED;
+        private RichTooltipPresentationModel actionRichTooltipPresentationModel =
+                RichTooltipPresentationModel.builder().build();
+        private RichTooltipPresentationModel popupRichTooltipPresentationModel =
+                RichTooltipPresentationModel.builder().build();
 
         public Builder setBackgroundAppearanceStrategy(
                 RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
@@ -543,6 +574,22 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
+        public Builder setActionRichTooltipPresentationModel(RichTooltipPresentationModel actionRichTooltipPresentationModel) {
+            if (actionRichTooltipPresentationModel == null) {
+                throw new IllegalArgumentException("Cannot pass null presentation model");
+            }
+            this.actionRichTooltipPresentationModel = actionRichTooltipPresentationModel;
+            return this;
+        }
+
+        public Builder setPopupRichTooltipPresentationModel(RichTooltipPresentationModel popupRichTooltipPresentationModel) {
+            if (popupRichTooltipPresentationModel == null) {
+                throw new IllegalArgumentException("Cannot pass null presentation model");
+            }
+            this.popupRichTooltipPresentationModel = popupRichTooltipPresentationModel;
+            return this;
+        }
+
         public CommandButtonPresentationModel build() {
             CommandButtonPresentationModel commandPresentation =
                     new CommandButtonPresentationModel();
@@ -570,6 +617,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
             commandPresentation.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
             commandPresentation.fireActionTrigger = this.fireActionTrigger;
+            commandPresentation.actionRichTooltipPresentationModel = this.actionRichTooltipPresentationModel;
+            commandPresentation.popupRichTooltipPresentationModel = this.popupRichTooltipPresentationModel;
 
             return commandPresentation;
         }

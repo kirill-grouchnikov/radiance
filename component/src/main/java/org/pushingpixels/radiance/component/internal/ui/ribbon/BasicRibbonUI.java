@@ -30,7 +30,10 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.component.api.common.*;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
+import org.pushingpixels.radiance.component.api.common.RichTooltipManager;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel;
@@ -906,18 +909,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         @Override
         public Dimension minimumLayoutSize(Container c) {
-            int tabButtonGap = getTabButtonGap();
-            int taskToggleButtonHeight = ComponentUtilities.getTaskToggleButtonHeight(ribbon);
-
-            int totalTaskButtonsWidth = 0;
-            List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
-            for (RibbonTask task : visibleTasks) {
-                JCommandButton tabButton = taskToggleButtons.get(task);
-                int pw = tabButton.getMinimumSize().width;
-                totalTaskButtonsWidth += (pw + tabButtonGap);
-            }
-
-            return new Dimension(totalTaskButtonsWidth, taskToggleButtonHeight);
+            return this.preferredLayoutSize(c);
         }
 
         @Override
@@ -959,7 +951,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                         tabButton.setBounds(x - pw, y + 1, pw, taskToggleButtonHeight - 1);
                         x -= (pw + tabButtonGap);
                     }
-                    tabButton.setActionRichTooltip(null);
                 }
                 ((JComponent) c).putClientProperty(TaskToggleButtonsHostPanel.IS_SQUISHED, null);
             } else {
@@ -983,9 +974,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                                 taskToggleButtonHeight - 1);
                         x -= (finalWidth + tabButtonGap);
                     }
-                    // show the tooltip with the full title
-                    tabButton.setActionRichTooltip(
-                            RichTooltip.builder().setTitle(task.getTitle()).build());
                 }
                 ((JComponent) c).putClientProperty(TaskToggleButtonsHostPanel.IS_SQUISHED,
                         Boolean.TRUE);

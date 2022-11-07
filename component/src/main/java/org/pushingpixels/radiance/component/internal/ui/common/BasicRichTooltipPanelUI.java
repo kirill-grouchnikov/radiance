@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -100,8 +101,11 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
      */
     protected void installDefaults() {
         Border b = this.richTooltipPanel.getBorder();
-        if (b == null || b instanceof UIResource) {
-            this.richTooltipPanel.setBorder(new RadianceBorder(new Insets(3, 5, 4, 5)));
+        if ((b == null) || (b instanceof UIResource)) {
+            if (this.richTooltipPanel.getTooltipPresentationModel() != null) {
+                this.richTooltipPanel.setBorder(new RadianceBorder(
+                        this.richTooltipPanel.getTooltipPresentationModel().getContentPadding()));
+            }
         }
         LookAndFeel.installProperty(this.richTooltipPanel, "opaque", Boolean.TRUE);
         Font f = this.richTooltipPanel.getFont();
@@ -189,9 +193,10 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
             int descTextWidth = getDescriptionTextWidth();
             int width = ins.left + 2 * gap + descTextWidth + ins.right;
             RichTooltip tooltipInfo = richTooltipPanel.getTooltipInfo();
+            RichTooltipPresentationModel tooltipPresentationModel = richTooltipPanel.getTooltipPresentationModel();
             FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
             if (tooltipInfo.getMainIcon() != null) {
-                width += tooltipInfo.getMainIcon().getIconWidth();
+                width += tooltipPresentationModel.getMainIconSize();
             }
 
             int fontHeight = parent.getFontMetrics(font).getHeight();
@@ -247,7 +252,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 
             if (tooltipInfo.getMainIcon() != null) {
                 height += Math.max(descriptionTextHeight,
-                        tooltipInfo.getMainIcon().getIconHeight());
+                        tooltipPresentationModel.getMainIconSize());
             } else {
                 height += descriptionTextHeight;
             }
@@ -263,10 +268,10 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                 int footerTextHeight = 0;
                 int availableWidth = descTextWidth;
                 if (tooltipInfo.getFooterIcon() != null) {
-                    availableWidth -= 16;
+                    availableWidth -= tooltipPresentationModel.getFooterIconSize();
                 }
                 if (tooltipInfo.getMainIcon() != null) {
-                    availableWidth += tooltipInfo.getMainIcon().getIconWidth();
+                    availableWidth += tooltipPresentationModel.getMainIconSize();
                 }
                 for (String footerText : tooltipInfo.getFooterSections()) {
                     AttributedString footerAttributedDescription = new AttributedString(footerText);
@@ -287,7 +292,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                 footerTextHeight -= fontHeight;
 
                 if (tooltipInfo.getFooterIcon() != null) {
-                    height += Math.max(footerTextHeight, 16);
+                    height += Math.max(footerTextHeight, tooltipPresentationModel.getFooterIconSize());
                 } else {
                     height += footerTextHeight;
                 }
@@ -323,6 +328,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
             Insets ins = richTooltipPanel.getInsets();
             int y = ins.top;
             RichTooltip tooltipInfo = richTooltipPanel.getTooltipInfo();
+            RichTooltipPresentationModel tooltipPresentationModel = richTooltipPanel.getTooltipPresentationModel();
             FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
             int gap = getLayoutGap();
 
@@ -368,9 +374,13 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 
             // The main image
             int x = ltr ? ins.left : parent.getWidth() - ins.right;
-            RadianceIcon mainImage = tooltipInfo.getMainIcon();
-            if (mainImage != null) {
-                mainImageLabel = new JLabel(mainImage);
+            RadianceIcon mainIcon = tooltipInfo.getMainIcon();
+            if (mainIcon != null) {
+                mainIcon.setDimension(new Dimension(
+                        tooltipPresentationModel.getMainIconSize(),
+                        tooltipPresentationModel.getMainIconSize()
+                ));
+                mainImageLabel = new JLabel(mainIcon);
                 richTooltipPanel.add(mainImageLabel);
                 int mainImageWidth = mainImageLabel.getPreferredSize().width;
                 if (ltr) {
@@ -444,7 +454,10 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                 // The footer image
                 x = ltr ? ins.left : parent.getWidth() - ins.right;
                 if (tooltipInfo.getFooterIcon() != null) {
-                    tooltipInfo.getFooterIcon().setDimension(new Dimension(16, 16));
+                    tooltipInfo.getFooterIcon().setDimension(new Dimension(
+                            tooltipPresentationModel.getFooterIconSize(),
+                            tooltipPresentationModel.getFooterIconSize()
+                    ));
                     footerImageLabel = new JLabel(tooltipInfo.getFooterIcon());
                     richTooltipPanel.add(footerImageLabel);
                     int footerImageWidth = footerImageLabel.getPreferredSize().width;

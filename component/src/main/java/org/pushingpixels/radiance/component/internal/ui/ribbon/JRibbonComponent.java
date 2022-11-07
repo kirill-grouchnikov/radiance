@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.component.api.common.RichTooltipManager;
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
@@ -54,7 +55,7 @@ import java.util.ArrayList;
  * @see JRibbonBand#addRibbonComponent(ComponentProjection)
  * @see JFlowRibbonBand#addFlowComponent(ComponentProjection)
  */
-public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
+public class JRibbonComponent extends JComponent implements RichTooltipManager.WithRichTooltip {
     private ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection;
 
     /**
@@ -79,14 +80,6 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
      * @see #getKeyTip()
      */
     private String keyTip;
-
-    /**
-     * The rich tooltip for this wrapper component.
-     *
-     * @see #setRichTooltip(RichTooltip)
-     * @see #getRichTooltip(MouseEvent)
-     */
-    private RichTooltip richTooltip;
 
     /**
      * The horizontal alignment for this wrapper component.
@@ -120,7 +113,6 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
             this.icon = icon;
         }
         this.caption = projection.getContentModel().getCaption();
-        this.richTooltip = projection.getContentModel().getRichTooltip();
         this.setEnabled(projection.getContentModel().isEnabled());
 
         this.presentationPriority = JRibbonBand.PresentationPriority.TOP;
@@ -239,17 +231,12 @@ public class JRibbonComponent extends RichTooltipManager.JTrackableComponent {
 
     @Override
     public RichTooltip getRichTooltip(MouseEvent mouseEvent) {
-        return this.richTooltip;
+        return this.projection.getContentModel().getRichTooltip();
     }
 
-    /**
-     * Sets the rich tooltip for this wrapper component.
-     *
-     * @param richTooltip Rich tooltip for this wrapper component.
-     * @see #getRichTooltip(MouseEvent)
-     */
-    public void setRichTooltip(RichTooltip richTooltip) {
-        this.richTooltip = richTooltip;
+    @Override
+    public RichTooltipPresentationModel getRichTooltipPresentationModel(MouseEvent mouseEvent) {
+        return this.projection.getPresentationModel().getRichTooltipPresentationModel();
     }
 
     /**

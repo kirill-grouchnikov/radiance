@@ -31,16 +31,18 @@ package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.common.api.model.DefaultTriStateButtonModel;
 import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.TriStateCheckBoxContentModel;
 import org.pushingpixels.radiance.component.api.common.model.TriStateCheckboxPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceTriStateCheckBoxUI;
 
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.MouseEvent;
 
-public class JTriStateCheckBox extends RichTooltipManager.JTrackableComponent {
+public class JTriStateCheckBox extends JComponent implements RichTooltipManager.WithRichTooltip {
     /**
      * The UI class ID string.
      */
@@ -49,8 +51,6 @@ public class JTriStateCheckBox extends RichTooltipManager.JTrackableComponent {
     private Projection<JTriStateCheckBox, TriStateCheckBoxContentModel, TriStateCheckboxPresentationModel> projection;
     private TriStateCheckBoxContentModel contentModel;
     private TriStateCheckboxPresentationModel presentationModel;
-
-    private RichTooltip richTooltip;
 
     private TriStateButtonModel triStateButtonModel;
 
@@ -67,7 +67,6 @@ public class JTriStateCheckBox extends RichTooltipManager.JTrackableComponent {
         // Don't remove the next line - we need to instantiate the RichTooltipManager
         // so that it starts tracking mouse events for displaying rich tooltips
         RichTooltipManager.sharedInstance();
-        this.richTooltip = projection.getContentModel().getRichTooltip();
 
         this.updateUI();
     }
@@ -92,7 +91,12 @@ public class JTriStateCheckBox extends RichTooltipManager.JTrackableComponent {
 
     @Override
     public RichTooltip getRichTooltip(MouseEvent mouseEvent) {
-        return this.richTooltip;
+        return this.contentModel.getRichTooltip();
+    }
+
+    @Override
+    public RichTooltipPresentationModel getRichTooltipPresentationModel(MouseEvent mouseEvent) {
+        return this.presentationModel.getRichTooltipPresentationModel();
     }
 
     public void addChangeListener(ChangeListener l) {

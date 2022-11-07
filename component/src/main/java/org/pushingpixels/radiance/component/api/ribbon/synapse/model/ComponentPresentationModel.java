@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.ribbon.synapse.model;
 
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.model.ImmutablePresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -47,6 +48,7 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
     private HorizontalAlignment horizontalAlignment;
     private String keyTip;
     private boolean isResizingAware;
+    private RichTooltipPresentationModel richTooltipPresentationModel;
 
     private ComponentPresentationModel() {
     }
@@ -75,12 +77,18 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
         return this.isResizingAware;
     }
 
+    public RichTooltipPresentationModel getRichTooltipPresentationModel() {
+        return this.richTooltipPresentationModel;
+    }
+
     public static class Builder {
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.FILL;
         private String keyTip;
         private boolean isResizingAware;
+        private RichTooltipPresentationModel richTooltipPresentationModel =
+                RichTooltipPresentationModel.builder().build();
 
         public Builder setBackgroundAppearanceStrategy(
                 RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
@@ -103,13 +111,22 @@ public class ComponentPresentationModel implements ImmutablePresentationModel {
             return this;
         }
 
+        public Builder setRichTooltipPresentationModel(RichTooltipPresentationModel richTooltipPresentationModel) {
+            if (richTooltipPresentationModel == null) {
+                throw new IllegalArgumentException("Cannot pass null presentation model");
+            }
+            this.richTooltipPresentationModel = richTooltipPresentationModel;
+            return this;
+        }
+
         public ComponentPresentationModel build() {
-            ComponentPresentationModel commandPresentation = new ComponentPresentationModel();
-            commandPresentation.horizontalAlignment = this.horizontalAlignment;
-            commandPresentation.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
-            commandPresentation.keyTip = this.keyTip;
-            commandPresentation.isResizingAware = this.isResizingAware;
-            return commandPresentation;
+            ComponentPresentationModel componentPresentationModel = new ComponentPresentationModel();
+            componentPresentationModel.horizontalAlignment = this.horizontalAlignment;
+            componentPresentationModel.backgroundAppearanceStrategy = this.backgroundAppearanceStrategy;
+            componentPresentationModel.keyTip = this.keyTip;
+            componentPresentationModel.isResizingAware = this.isResizingAware;
+            componentPresentationModel.richTooltipPresentationModel = this.richTooltipPresentationModel;
+            return componentPresentationModel;
         }
     }
 }

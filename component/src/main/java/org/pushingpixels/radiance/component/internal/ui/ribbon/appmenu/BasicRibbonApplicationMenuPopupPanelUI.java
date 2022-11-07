@@ -357,14 +357,14 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends RichTooltipManager.JTrackableComponent> T getPrimaryForCommand(Command command) {
+    private JCommandButton getPrimaryForCommand(Command command) {
         for (int topLevelIndex = 0; topLevelIndex < this.panelLevel1.getComponentCount();
              topLevelIndex++) {
             Component topLevel = this.panelLevel1.getComponent(topLevelIndex);
             if (topLevel instanceof JCommandButton) {
                 JCommandButton button = (JCommandButton) topLevel;
                 if (button.getProjection().getContentModel() == command) {
-                    return (T) button;
+                    return button;
                 }
             }
         }
@@ -372,7 +372,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends RichTooltipManager.JTrackableComponent> T getSecondaryForCommand(Command command) {
+    private JCommandButton getSecondaryForCommand(Command command) {
         JRibbonApplicationMenuPopupPanelSecondary secondaryPanel =
                 (JRibbonApplicationMenuPopupPanelSecondary) this.panelLevel2.getComponent(0);
         for (int secondLevelIndex = 0;
@@ -384,7 +384,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 JCommandButton secondLevelButton =
                         (JCommandButton) secondLevel;
                 if (secondLevelButton.getProjection().getContentModel() == command) {
-                    return (T) secondLevelButton;
+                    return secondLevelButton;
                 }
             }
         }
@@ -392,7 +392,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends RichTooltipManager.JTrackableComponent> T getMenuButtonForCommand(Command command) {
+    private JCommandButton getMenuButtonForCommand(Command command) {
         List<PopupPanelManager.PopupInfo> popups =
                 PopupPanelManager.defaultManager().getShownPath();
         if (popups.size() > 0) {
@@ -408,7 +408,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                 if (child instanceof JCommandButton) {
                     JCommandButton button = (JCommandButton) child;
                     if (button.getProjection().getContentModel() == command) {
-                        return (T) button;
+                        return button;
                     }
                 }
             }

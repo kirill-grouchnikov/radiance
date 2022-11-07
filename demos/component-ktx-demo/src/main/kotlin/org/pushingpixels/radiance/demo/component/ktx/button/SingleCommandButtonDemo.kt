@@ -44,6 +44,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin
 import java.awt.Dimension
 import java.awt.FlowLayout
+import java.awt.Insets
 import java.awt.image.BufferedImage
 import java.util.*
 import javax.swing.JFrame
@@ -84,6 +85,12 @@ fun main() {
                 autoRepeatSubsequentInterval = 1000
                 presentationState = CommandButtonPresentationState.TILE
                 backgroundAppearanceStrategy = RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS
+
+                actionRichTooltipPresentation {
+                    contentPadding = Insets(12, 12, 12, 12)
+                    mainIconSize = 64
+                    footerIconSize = 48
+                }
             }
         }.toButton()
 

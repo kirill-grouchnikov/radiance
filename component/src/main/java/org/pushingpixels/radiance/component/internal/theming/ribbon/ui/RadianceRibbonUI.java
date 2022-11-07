@@ -221,9 +221,6 @@ public class RadianceRibbonUI extends BasicRibbonUI {
             RibbonApplicationMenuCommandButtonProjection applicationMenuProjection =
                     ribbon.getApplicationMenuCommandProjection();
             if (applicationMenuProjection != null) {
-                this.applicationMenuButton.setPopupRichTooltip(
-                        ribbon.getApplicationMenuCommandProjection()
-                                .getContentModel().getSecondaryRichTooltip());
                 this.applicationMenuButton.setPopupKeyTip(
                         ribbon.getApplicationMenuCommandProjection()
                                 .getPresentationModel().getPopupKeyTip());
