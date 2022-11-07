@@ -301,8 +301,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel, 
         }
 
         public Builder setContentPadding(Insets contentPadding) {
-            if (commandContentPadding == null) {
-                throw new IllegalArgumentException("Command content padding cannot be null");
+            if (contentPadding == null) {
+                throw new IllegalArgumentException("Content padding cannot be null");
             }
             this.contentPadding = contentPadding;
             return this;
