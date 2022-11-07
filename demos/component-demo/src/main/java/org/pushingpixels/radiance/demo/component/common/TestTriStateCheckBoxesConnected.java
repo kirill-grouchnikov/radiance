@@ -52,7 +52,6 @@ import java.util.ResourceBundle;
 
 public class TestTriStateCheckBoxesConnected extends JFrame {
     private Locale currLocale;
-    private ResourceBundle resourceBundle;
 
     private TriStateCheckBoxContentModel triStateCheckBoxContentModel;
 
@@ -66,8 +65,6 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
                         ComponentState.ENABLED)));
 
         currLocale = Locale.getDefault();
-        resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
         JCheckBox checkBoxChild1 = new JCheckBox("child 1");
         JCheckBox checkBoxChild2 = new JCheckBox("child 2");
@@ -153,8 +150,6 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
-            resourceBundle = ResourceBundle.getBundle(
-                    "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
             Window window = SwingUtilities.getWindowAncestor(TestTriStateCheckBoxesConnected.this);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));

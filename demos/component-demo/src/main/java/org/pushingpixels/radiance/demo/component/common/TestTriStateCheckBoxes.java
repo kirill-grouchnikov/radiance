@@ -48,7 +48,6 @@ import java.util.ResourceBundle;
 
 public class TestTriStateCheckBoxes extends JFrame {
     private Locale currLocale;
-    private ResourceBundle resourceBundle;
 
     private TriStateCheckBoxContentModel contentModel;
 
@@ -62,8 +61,6 @@ public class TestTriStateCheckBoxes extends JFrame {
                         ComponentState.ENABLED)));
 
         currLocale = Locale.getDefault();
-        resourceBundle = ResourceBundle
-                .getBundle("org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
         this.contentModel = TriStateCheckBoxContentModel.builder()
                 .setText("tri-state box")
@@ -79,8 +76,6 @@ public class TestTriStateCheckBoxes extends JFrame {
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
-            resourceBundle = ResourceBundle.getBundle(
-                    "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
             Window window = SwingUtilities.getWindowAncestor(panel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
