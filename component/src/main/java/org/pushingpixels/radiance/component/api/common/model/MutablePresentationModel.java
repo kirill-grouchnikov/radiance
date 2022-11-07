@@ -29,5 +29,5 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-public interface MutablePresentationModel extends PresentationModel {
+public interface MutablePresentationModel extends PresentationModel, ChangeAware {
 }

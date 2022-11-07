@@ -38,7 +38,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.Objects;
 
-public class CommandPopupMenuPanelPresentationModel implements MutablePresentationModel, ChangeAware {
+public class CommandPopupMenuPanelPresentationModel implements MutablePresentationModel {
     /**
      * Stores the listeners on this model.
      */

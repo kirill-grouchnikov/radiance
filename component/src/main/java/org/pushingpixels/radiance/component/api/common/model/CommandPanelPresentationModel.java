@@ -39,7 +39,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.Objects;
 
-public class CommandPanelPresentationModel implements MutablePresentationModel, ChangeAware {
+public class CommandPanelPresentationModel implements MutablePresentationModel {
     public static final Insets DEFAULT_CONTENT_PADDING = new Insets(4, 4, 4, 4);
     public static final int DEFAULT_GAP = 4;
 
