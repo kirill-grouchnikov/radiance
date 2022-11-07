@@ -175,11 +175,12 @@ public class TriStateCheckBoxContentModel implements ContentModel {
             return this;
         }
 
-        public void setSelectionCycler(TriStateSelectionCycler selectionCycler) {
+        public Builder setSelectionCycler(TriStateSelectionCycler selectionCycler) {
             if (selectionCycler == null) {
                 throw new IllegalArgumentException("Cannot pass null cycler");
             }
             this.selectionCycler = selectionCycler;
+            return this;
         }
 
         public Builder setSelectionChangeListener(TriStateSelectionChangeListener selectionChangeListener) {
