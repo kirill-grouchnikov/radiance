@@ -27,37 +27,21 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.component.internal.ui.common;
+package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCircularProgressUI;
+import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 
-import javax.swing.*;
+public class CircularProgressProjection extends Projection<JCircularProgress,
+        CircularProgressContentModel, CircularProgressPresentationModel> {
 
-public class JCircularProgress extends JComponent {
-    /**
-     * @see #getUIClassID
-     */
-    public static final String uiClassID = "CircularProgressUI";
-
-    public JCircularProgress() {
-        this.updateUI();
+    public CircularProgressProjection(CircularProgressContentModel contentModel,
+            CircularProgressPresentationModel presentationModel) {
+        super(contentModel, presentationModel, projection -> JCircularProgress::new);
     }
 
     @Override
-    public String getUIClassID() {
-        return uiClassID;
-    }
-
-    @Override
-    public void updateUI() {
-        setUI(RadianceCircularProgressUI.createUI(this));
-    }
-
-    @Override
-    public void setVisible(boolean aFlag) {
-        if (aFlag != isVisible()) {
-            super.setVisible(aFlag);
-            firePropertyChange("visible", !aFlag, aFlag);
-        }
+    protected void configureComponent(JCircularProgress component) {
     }
 }

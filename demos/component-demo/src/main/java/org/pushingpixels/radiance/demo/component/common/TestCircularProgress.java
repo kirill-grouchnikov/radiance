@@ -29,8 +29,12 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.component.internal.ui.common.JCircularProgress;
+import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.CircularProgressProjection;
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -41,24 +45,51 @@ import java.awt.*;
 
 public class TestCircularProgress extends JFrame {
     public TestCircularProgress() {
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                        ComponentState.ENABLED)));
-
         this.setLayout(new BorderLayout());
         JPanel flow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        JButton add = new JButton("add");
-        add.addActionListener(actionEvent -> {
-            JCircularProgress jcp = new JCircularProgress();
-            jcp.setPreferredSize(new Dimension(20, 20));
+
+        JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        RadianceSkinSelector skinSelector = new RadianceSkinSelector();
+        RadianceThemingCortex.ComponentScope.setComboBoxPopupPlacementStrategy(skinSelector,
+                RadianceThemingSlices.PopupPlacementStrategy.Upward.HALIGN_START);
+        controlPanel.add(skinSelector);
+
+        JButton addEnabled = new JButton("add enabled");
+        addEnabled.addActionListener(actionEvent -> {
+            int size = 15 + (int) (20 * Math.random());
+            float strokeWidth = 1.0f + (float) Math.random();
+            JCircularProgress jcp = new CircularProgressProjection(
+                    CircularProgressContentModel.builder().build(),
+                    CircularProgressPresentationModel.builder()
+                            .setSize(size)
+                            .setStrokeWidth(strokeWidth)
+                            .build()
+            ).buildComponent();
             flow.add(jcp);
-            jcp.setVisible(false);
-            jcp.setVisible(true);
+            flow.revalidate();
         });
+        controlPanel.add(addEnabled);
+
+        JButton addDisabled = new JButton("add disabled");
+        addDisabled.addActionListener(actionEvent -> {
+            int size = 15 + (int) (20 * Math.random());
+            float strokeWidth = 1.0f + (float) Math.random();
+            JCircularProgress jcp = new CircularProgressProjection(
+                    CircularProgressContentModel.builder().setEnabled(false).build(),
+                    CircularProgressPresentationModel.builder()
+                            .setSize(size)
+                            .setStrokeWidth(strokeWidth)
+                            .build()
+            ).buildComponent();
+            flow.add(jcp);
+            flow.revalidate();
+        });
+        controlPanel.add(addDisabled);
+
+        this.add(controlPanel, BorderLayout.SOUTH);
+
         this.add(flow, BorderLayout.CENTER);
-        this.add(add, BorderLayout.SOUTH);
 
         this.setPreferredSize(new Dimension(400, 300));
         this.pack();
@@ -70,7 +101,20 @@ public class TestCircularProgress extends JFrame {
         SwingUtilities.invokeLater(() -> {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
-            new TestCircularProgress().setVisible(true);
+
+            TestCircularProgress test = new TestCircularProgress();
+            test.setTitle("Circular progress");
+            test.setIconImage(RadianceLogo.getLogoImage(test,
+                    RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
+                            RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
+                            ComponentState.ENABLED)));
+            RadianceThemingCortex.GlobalScope.registerSkinChangeListener(() -> SwingUtilities.invokeLater(
+                    () -> test.setIconImage(RadianceLogo.getLogoImage(test,
+                            RadianceThemingCortex.ComponentScope.getCurrentSkin(test.getRootPane())
+                                    .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                                            RadianceThemingSlices.ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
+            test.setVisible(true);
         });
     }
 

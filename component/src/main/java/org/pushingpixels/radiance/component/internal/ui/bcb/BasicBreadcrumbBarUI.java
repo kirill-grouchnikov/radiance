@@ -39,7 +39,8 @@ import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.internal.ui.common.JCircularProgress;
+import org.pushingpixels.radiance.component.api.common.projection.CircularProgressProjection;
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -182,8 +183,10 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
         this.mainPanel.setOpaque(false);
         this.scrollerPanel = new JScrollablePanel<>(this.mainPanel,
                 JScrollablePanel.ScrollType.HORIZONTALLY);
-        this.circularProgress = new JCircularProgress();
-        this.circularProgress.setPreferredSize(new Dimension(12, 12));
+        this.circularProgress = new CircularProgressProjection(
+                CircularProgressContentModel.builder().build(),
+                CircularProgressPresentationModel.builder().setSize(12).build()
+        ).buildComponent();
         bar.add(this.scrollerPanel, BorderLayout.CENTER);
     }
 
@@ -241,7 +244,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 List<BreadcrumbItem<Object>> items = breadcrumbBar.getContentModel().getItems();
                 if (items != null) {
                     for (int itemIndex = indexOfFirstChange; itemIndex < items.size();
-                            itemIndex++) {
+                         itemIndex++) {
                         if (this.isCancelled()) {
                             break;
                         }

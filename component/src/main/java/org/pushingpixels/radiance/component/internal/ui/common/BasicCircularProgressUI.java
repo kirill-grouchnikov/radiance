@@ -36,9 +36,11 @@ import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.HierarchyListener;
 import java.beans.PropertyChangeListener;
 
 /**
@@ -65,6 +67,8 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
 
     private PropertyChangeListener propertyChangeListener;
 
+    private HierarchyListener hierarchyListener;
+
     public BasicCircularProgressUI() {
     }
 
@@ -90,12 +94,96 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
      * Installs default settings for the associated circular progress.
      */
     protected void installDefaults() {
+        if (this.circularProgress.isVisible()) {
+            startAnimations();
+        }
     }
 
     /**
      * Installs listeners on the associated circular progress.
      */
     protected void installListeners() {
+        this.propertyChangeListener = propertyChangeEvent -> {
+            if (propertyChangeEvent.getPropertyName().equals("visible")) {
+                if ((Boolean) propertyChangeEvent.getNewValue()) {
+                    startAnimations();
+                } else {
+                    stopAnimations();
+                }
+            }
+        };
+        this.circularProgress.addPropertyChangeListener(this.propertyChangeListener);
+
+        this.hierarchyListener = e -> {
+            boolean isVisible = circularProgress.isVisible();
+            if (isVisible) {
+                startAnimations();
+            } else {
+                stopAnimations();
+            }
+        };
+        this.circularProgress.addHierarchyListener(this.hierarchyListener);
+    }
+
+    /**
+     * Installs components on the associated circular progress.
+     */
+    protected void installComponents() {
+    }
+
+    /**
+     * Uninstalls default settings from the associated circular progress.
+     */
+    protected void uninstallDefaults() {
+    }
+
+    /**
+     * Uninstalls listeners from the associated circular progress.
+     */
+    protected void uninstallListeners() {
+        this.circularProgress.removeHierarchyListener(this.hierarchyListener);
+        this.hierarchyListener = null;
+
+        this.circularProgress.removePropertyChangeListener(this.propertyChangeListener);
+        this.propertyChangeListener = null;
+
+        this.alphaTimeline.abort();
+        this.arcTimeline.abort();
+
+        this.alphaTimeline = null;
+        this.arcTimeline = null;
+    }
+
+    /**
+     * Uninstalls subcomponents from the associated circular progress.
+     */
+    protected void uninstallComponents() {
+    }
+
+    @Override
+    public Dimension getPreferredSize(JComponent c) {
+        JCircularProgress circularProgress = (JCircularProgress) c;
+        int size = circularProgress.getProjection().getPresentationModel().getSize();
+        return new Dimension(size, size);
+    }
+
+    private void startAnimations() {
+        if ((this.alphaTimeline != null) && !this.alphaTimeline.isDone()) {
+            // is already fading in
+            return;
+        }
+
+        // The fade-in timeline
+        this.alphaTimeline = SwingComponentTimeline.componentBuilder(circularProgress)
+                .addPropertyToInterpolate(Timeline.<Float>property("alpha")
+                        .getWith((obj, fieldName) -> alpha)
+                        .setWith((obj, fieldName, value) -> alpha = value)
+                        .fromCurrent().to(1.0f))
+                .setEase(new Spline(0.5f))
+                .setDuration(100)
+                .addCallback(new SwingRepaintCallback(circularProgress, null))
+                .build();
+
         // Configure the timeline for the moving arc. The single property we're animating
         // is the arc span - going in a loop from 30 degrees to 300 degrees. When the span
         // is growing, on every pulse we advance the "end" of the arc by 8 degrees. When
@@ -123,7 +211,9 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
 
                         arcStart = arcStart % 360;
                         arcEnd = arcEnd % 360;
-                        circularProgress.repaint();
+                        if (circularProgress != null) {
+                            circularProgress.repaint();
+                        }
                     }
 
                     @Override
@@ -147,64 +237,23 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                     }
                 }).build();
 
-        this.propertyChangeListener = propertyChangeEvent -> {
-            if (propertyChangeEvent.getPropertyName().equals("visible")) {
-                if ((Boolean) propertyChangeEvent.getNewValue()) {
-                    if ((alphaTimeline != null) && !alphaTimeline.isDone()) {
-                        // is already fading in
-                        return;
-                    }
-
-                    // The fade-in timeline
-                    alphaTimeline = SwingComponentTimeline.componentBuilder(this.circularProgress)
-                            .addPropertyToInterpolate(Timeline.<Float>property("alpha")
-                                    .getWith((obj, fieldName) -> alpha)
-                                    .setWith((obj, fieldName, value) -> alpha = value)
-                                    .fromCurrent().to(1.0f))
-                            .setEase(new Spline(0.5f))
-                            .setDuration(100)
-                            .addCallback(new SwingRepaintCallback(this.circularProgress, null))
-                            .build();
-
-                    // Start playing the timelines in a separate event to make sure that our
-                    // progress indicator has passed the layout pass
-                    SwingUtilities.invokeLater(() -> {
-                        arcTimeline.playLoop(RepeatBehavior.REVERSE);
-                        alphaTimeline.play();
-                    });
-                }
-            }
-        };
-        this.circularProgress.addPropertyChangeListener(this.propertyChangeListener);
+        // Start playing the timelines in a separate event to make sure that our
+        // progress indicator has passed the layout pass
+        SwingUtilities.invokeLater(() -> {
+            arcTimeline.playLoop(RepeatBehavior.REVERSE);
+            alphaTimeline.play();
+        });
     }
 
-    /**
-     * Installs components on the associated circular progress.
-     */
-    protected void installComponents() {
-    }
-
-    /**
-     * Uninstalls default settings from the associated circular progress.
-     */
-    protected void uninstallDefaults() {
-    }
-
-    /**
-     * Uninstalls listeners from the associated circular progress.
-     */
-    protected void uninstallListeners() {
-        this.circularProgress.removePropertyChangeListener(this.propertyChangeListener);
-        this.propertyChangeListener = null;
-
-        this.alphaTimeline.abort();
-        this.arcTimeline.abort();
-    }
-
-    /**
-     * Uninstalls subcomponents from the associated circular progress.
-     */
-    protected void uninstallComponents() {
+    private void stopAnimations() {
+        if (this.alphaTimeline != null) {
+            this.alphaTimeline.abort();
+            this.alphaTimeline = null;
+        }
+        if (this.arcTimeline != null) {
+            this.arcTimeline.abort();
+            this.arcTimeline = null;
+        }
     }
 
     @Override
@@ -227,16 +276,18 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
-        graphics.setStroke(new BasicStroke(1.2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+        graphics.setStroke(new BasicStroke(
+                this.circularProgress.getProjection().getPresentationModel().getStrokeWidth(),
+                BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 
-        Color baseColor = getColor();
-        Color alphaColor = new Color(baseColor.getRed(), baseColor.getGreen(), baseColor.getBlue(),
-                (int) (baseColor.getAlpha() * this.alpha));
+        Color arcColor = getArcColor();
+        Color alphaColor = new Color(arcColor.getRed(), arcColor.getGreen(), arcColor.getBlue(),
+                (int) (arcColor.getAlpha() * this.alpha));
         graphics.setColor(alphaColor);
 
         graphics.drawArc(dx, dy, diameter, diameter, (int) arcStart, -(int) arcSpan);
         graphics.dispose();
     }
 
-    protected abstract Color getColor();
+    protected abstract Color getArcColor();
 }

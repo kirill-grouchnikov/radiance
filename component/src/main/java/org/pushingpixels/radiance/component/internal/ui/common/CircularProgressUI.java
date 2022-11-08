@@ -29,6 +29,8 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common;
 
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
+
 import javax.swing.plaf.ComponentUI;
 
 /**
