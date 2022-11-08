@@ -41,10 +41,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
@@ -173,6 +170,18 @@ public class RadianceSwitchUI extends BasicSwitchUI {
 
                     graphics1X.setColor(mutableMarkColorScheme.getMarkColor());
                     graphics1X.fill(thumbOutline);
+
+                    graphics1X.translate(-scaleFactor * i.left, -scaleFactor * i.top);
+
+                    if (switchComp.isFocusPainted()) {
+                        // make sure that the focus ring is not clipped
+                        float focusRingPadding = RadianceSizeUtils.getFocusRingPadding(
+                                switchComp, RadianceSizeUtils.getComponentFontSize(switchComp)) / 2;
+
+                        RadianceCoreUtilities.paintFocus(graphics1X, switchComp, switchComp, this,
+                                scaleFactor, null, null, 1.0f,
+                                (float) scaleFactor * focusRingPadding);
+                    }
                 });
 
         graphics.dispose();
