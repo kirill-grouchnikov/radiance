@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceSwitchUI;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.MouseEvent;
@@ -114,10 +113,5 @@ public class JSwitch extends JToggleButton implements RichTooltipManager.WithRic
                 ((ChangeListener) listeners[i + 1]).stateChanged(event);
             }
         }
-    }
-
-    @Override
-    public void setBorder(Border border) {
-        super.setBorder(border);
     }
 }
