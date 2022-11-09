@@ -35,7 +35,7 @@ import java.awt.event.ActionListener;
 public interface TriStateButtonModel {
     enum SelectionState {
         OFF,
-        INDETERMINATE,
+        MIXED,
         ON
     }
 

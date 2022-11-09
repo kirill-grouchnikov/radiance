@@ -43,19 +43,19 @@ public class TriStateCheckBoxContentModel implements ContentModel {
         switch (currState) {
             case ON:
                 return SelectionState.OFF;
-            case INDETERMINATE:
+            case MIXED:
                 return SelectionState.ON;
             case OFF:
             default:
-                return SelectionState.INDETERMINATE;
+                return SelectionState.MIXED;
         }
     };
 
     public static TriStateSelectionCycler ALTERNATIVE_CYCLER = currState -> {
         switch (currState) {
             case ON:
-                return SelectionState.INDETERMINATE;
-            case INDETERMINATE:
+                return SelectionState.MIXED;
+            case MIXED:
                 return SelectionState.OFF;
             case OFF:
             default:

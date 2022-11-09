@@ -635,7 +635,7 @@ public final class ComponentState {
             if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.ON)) {
                 return ComponentState.DISABLED_SELECTED;
             }
-            if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.INDETERMINATE)) {
+            if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.MIXED)) {
                 return ComponentState.DISABLED_MIXED;
             }
             return ComponentState.DISABLED_UNSELECTED;
@@ -649,7 +649,7 @@ public final class ComponentState {
                 return ComponentState.ROLLOVER_SELECTED;
             }
             return ComponentState.SELECTED;
-        }  else if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.INDETERMINATE)) {
+        }  else if (!toIgnoreSelection && (selectionState == TriStateButtonModel.SelectionState.MIXED)) {
             if (isRollover) {
                 return ComponentState.ROLLOVER_MIXED;
             }

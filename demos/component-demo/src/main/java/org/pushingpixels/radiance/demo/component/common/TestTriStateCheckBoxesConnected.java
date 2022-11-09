@@ -109,8 +109,8 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
                 // Both child checkboxes deselected -> OFF
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.OFF);
             } else {
-                // One is selected, the other is deselected -> INDETERMINATE
-                triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.INDETERMINATE);
+                // One is selected, the other is deselected -> MIXED
+                triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.MIXED);
             }
         });
 
@@ -124,8 +124,8 @@ public class TestTriStateCheckBoxesConnected extends JFrame {
                 // Both child checkboxes deselected -> OFF
                 triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.OFF);
             } else {
-                // One is selected, the other is deselected -> INDETERMINATE
-                triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.INDETERMINATE);
+                // One is selected, the other is deselected -> MIXED
+                triStateCheckBoxContentModel.setSelectionState(TriStateButtonModel.SelectionState.MIXED);
             }
         });
 
