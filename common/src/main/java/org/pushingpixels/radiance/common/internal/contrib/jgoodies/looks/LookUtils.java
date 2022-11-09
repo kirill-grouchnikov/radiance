@@ -115,15 +115,18 @@ public final class LookUtils {
 	 */
 	public static final boolean IS_OS_MAC_EL_CAPITAN_OR_LATER = IS_OS_MAC
 			&& (startsWith(OS_VERSION, "10.11") || startsWith(OS_VERSION, "10.12")
-			|| startsWith(OS_VERSION, "10.13") || startsWith(OS_VERSION, "10.14"))
-			|| startsWith(OS_VERSION, "10.15") || startsWith(OS_VERSION, "10.16");
+			|| startsWith(OS_VERSION, "10.13") || startsWith(OS_VERSION, "10.14")
+			|| startsWith(OS_VERSION, "10.15") || startsWith(OS_VERSION, "10.16")
+            || startsWith(OS_VERSION, "11.") || startsWith(OS_VERSION, "12.")
+            || startsWith(OS_VERSION, "13."));
 
 	/**
 	 * True if this is Mac Mojave or later
 	 */
 	public static final boolean IS_OS_MAC_MOJAVE_OR_LATER = IS_OS_MAC
 			&& (startsWith(OS_VERSION, "10.14") || startsWith(OS_VERSION, "10.15")
-            || startsWith(OS_VERSION, "10.16"));
+            || startsWith(OS_VERSION, "10.16") || startsWith(OS_VERSION, "11.")
+            || startsWith(OS_VERSION, "12.") || startsWith(OS_VERSION, "13."));
 
 	/**
 	 * True if this is Mac Catalina or later
