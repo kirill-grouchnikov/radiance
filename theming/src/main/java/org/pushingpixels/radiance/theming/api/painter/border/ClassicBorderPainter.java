@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
 
@@ -48,8 +47,7 @@ public class ClassicBorderPainter extends StandardBorderPainter {
 
 	@Override
 	public Color getTopBorderColor(RadianceColorScheme borderScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super.getTopBorderColor(borderScheme),
-				super.getMidBorderColor(borderScheme), 0.0f);
+		return super.getMidBorderColor(borderScheme);
 	}
 
 	@Override
