@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.CremeColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.LightGrayColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.*;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
@@ -112,7 +112,7 @@ public class CookbookSkin extends RadianceSkin {
                 innerBorderPainter);
 
         this.decorationPainter = new CookbookDecorationPainter();
-        this.highlightPainter = new ClassicHighlightPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
 
         // Add an overlay painter to paint a bezel line along the top edge of the footer area
         TopBezelOverlayPainter footerTopBezelOverlayPainter = new TopBezelOverlayPainter(

@@ -31,15 +31,15 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
@@ -288,7 +288,7 @@ public class MagellanSkin extends RadianceSkin {
                         ColorSchemeSingleColorQuery.EXTRALIGHT,
                         ColorSchemeSingleColorQuery.LIGHT,
                         ColorSchemeSingleColorQuery.MID});
-        this.highlightPainter = new ClassicHighlightPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
         this.decorationPainter = new MatteDecorationPainter();
         this.buttonShaper = new ClassicButtonShaper();
     }

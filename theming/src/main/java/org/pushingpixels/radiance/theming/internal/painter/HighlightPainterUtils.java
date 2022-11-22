@@ -34,7 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.RadianceHighlightPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
@@ -64,8 +64,8 @@ public class HighlightPainterUtils {
      * @param borderScheme The border color scheme.
      */
     public static void paintHighlight(Graphics g, CellRendererPane rendererPane, Component c,
-            Rectangle rect, float borderAlpha, Set<RadianceThemingSlices.Side> openSides, RadianceColorScheme fillScheme,
-            RadianceColorScheme borderScheme) {
+            Rectangle rect, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
+            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme) {
         // fix for bug 65
         if ((rect.width <= 0) || (rect.height <= 0)) {
             return;
@@ -73,10 +73,10 @@ public class HighlightPainterUtils {
 
         Component compForQuerying = (rendererPane != null) ? rendererPane : c;
         RadianceSkin skin = RadianceCoreUtilities.getSkin(compForQuerying);
-        RadianceHighlightPainter highlightPainter = skin.getHighlightPainter();
+        RadianceFillPainter highlightPainter = skin.getHighlightFillPainter();
         RadianceBorderPainter highlightBorderPainter = RadianceCoreUtilities
                 .getHighlightBorderPainter(compForQuerying);
-        Graphics2D g2d = (Graphics2D) g.create(rect.x, rect.y, rect.width, rect.height);
+        Graphics2D g2d = (Graphics2D) g.create();
 
         if (openSides == null) {
             openSides = EnumSet.noneOf(RadianceThemingSlices.Side.class);
@@ -86,13 +86,14 @@ public class HighlightPainterUtils {
     }
 
     private static void paintHighlight(Graphics2D g, Component c, Rectangle rect,
-            float borderAlpha, Set<RadianceThemingSlices.Side> openSides, RadianceColorScheme currScheme,
-            RadianceColorScheme currBorderScheme, RadianceHighlightPainter highlightPainter,
+            float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
+            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
+            RadianceFillPainter highlightPainter,
             RadianceBorderPainter highlightBorderPainter) {
         Graphics2D resGraphics = (Graphics2D) g.create();
-        highlightPainter.paintHighlight(resGraphics, c, rect.width, rect.height, currScheme);
+        highlightPainter.paintContourBackground(g, c, rect.width, rect.height, rect, fillScheme);
         paintHighlightBorder1X(resGraphics, c, rect.width, rect.height, borderAlpha, openSides,
-                highlightBorderPainter, currBorderScheme);
+                highlightBorderPainter, borderScheme);
         resGraphics.dispose();
     }
 
@@ -101,7 +102,7 @@ public class HighlightPainterUtils {
      */
     public static void paintHighlightBorder1X(Graphics2D g, Component comp, int width,
             int height, float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
-            RadianceBorderPainter highlightBorderPainter, RadianceColorScheme borderColorScheme) {
+            RadianceBorderPainter highlightBorderPainter, RadianceColorScheme borderScheme) {
         if (borderAlpha <= 0.0f) {
             return;
         }
@@ -134,7 +135,7 @@ public class HighlightPainterUtils {
                     highlightBorderPainter.paintBorder(graphics1X, comp,
                             scaledWidth + deltaLeft + deltaRight,
                             scaledHeight + deltaTop + deltaBottom,
-                            contour, contourInner, borderColorScheme);
+                            contour, contourInner, borderScheme);
                     graphics1X.translate(deltaLeft, deltaTop);
                 });
         graphics.dispose();

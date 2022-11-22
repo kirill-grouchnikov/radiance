@@ -31,16 +31,16 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SubduedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -149,7 +149,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 		decorationPainter.setTextureAlpha(0.3f);
 		this.decorationPainter = decorationPainter;
 
-		this.highlightPainter = new ClassicHighlightPainter();
+		this.highlightFillPainter = new ClassicFillPainter();
 		this.borderPainter = new FlatBorderPainter();
 
 	}

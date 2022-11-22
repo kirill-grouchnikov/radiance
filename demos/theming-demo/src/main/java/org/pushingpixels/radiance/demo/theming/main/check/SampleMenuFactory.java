@@ -37,7 +37,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.GlassHighlightPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.radiance.theming.api.skin.GraphiteSkin;
 import org.pushingpixels.radiance.theming.api.skin.NebulaAccentedSkin;
@@ -344,7 +343,7 @@ public class SampleMenuFactory {
             this.fillPainter = new GlassFillPainter();
             this.buttonShaper = new ClassicButtonShaper();
             this.decorationPainter = new ArcDecorationPainter();
-            this.highlightPainter = new GlassHighlightPainter();
+            this.highlightFillPainter = new GlassFillPainter();
         }
     }
 

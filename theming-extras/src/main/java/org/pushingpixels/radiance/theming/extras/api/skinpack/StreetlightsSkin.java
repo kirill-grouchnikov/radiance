@@ -31,16 +31,16 @@ package org.pushingpixels.radiance.theming.extras.api.skinpack;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.colorscheme.CharcoalColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -92,7 +92,7 @@ public class StreetlightsSkin extends RadianceSkin {
         // additional skin settings
         this.buttonShaper = new ClassicButtonShaper();
         this.borderPainter = new GlassBorderPainter();
-        this.highlightPainter = new ClassicHighlightPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
         this.fillPainter = new GlassFillPainter();
         this.decorationPainter = new ArcDecorationPainter();
     }

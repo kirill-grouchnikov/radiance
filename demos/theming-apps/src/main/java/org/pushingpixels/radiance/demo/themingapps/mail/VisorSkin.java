@@ -42,7 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainte
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.BrushedMetalDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.FractionBasedHighlightPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 public class VisorSkin extends RadianceSkin {
@@ -133,7 +133,7 @@ public class VisorSkin extends RadianceSkin {
         decorationPainter.setTextureAlpha(0.3f);
         this.decorationPainter = decorationPainter;
 
-        this.highlightPainter = new FractionBasedHighlightPainter(
+        this.highlightFillPainter = new FractionBasedFillPainter(
                 "Visor Highlight", new float[] { 0.0f, 1.0f },
                 new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.EXTRALIGHT,
                         ColorSchemeSingleColorQuery.EXTRALIGHT });

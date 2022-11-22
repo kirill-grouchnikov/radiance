@@ -31,15 +31,15 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.DarkMetallicColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.EbonyColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -139,7 +139,7 @@ public class RavenSkin extends RadianceSkin {
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new GlassFillPainter();
 		this.decorationPainter = new ArcDecorationPainter();
-		this.highlightPainter = new ClassicHighlightPainter();
+		this.highlightFillPainter = new ClassicFillPainter();
 		this.borderPainter = new GlassBorderPainter();
 	}
 

@@ -31,15 +31,15 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.*;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopBezelOverlayPainter;
@@ -217,7 +217,7 @@ public class GeminiSkin extends RadianceSkin {
                         ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.MID});
 
         this.decorationPainter = new MatteDecorationPainter();
-        this.highlightPainter = new ClassicHighlightPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
 
         FractionBasedBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
                 "Gemini Outer", new float[] {0.0f, 0.5f, 1.0f},

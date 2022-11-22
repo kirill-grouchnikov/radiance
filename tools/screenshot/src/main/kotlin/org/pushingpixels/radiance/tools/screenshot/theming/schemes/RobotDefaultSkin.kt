@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainte
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 
@@ -64,23 +63,17 @@ class RobotDefaultSkin(accentColorScheme: RadianceColorScheme) :
                 RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
-        this.buttonShaper =
-            ClassicButtonShaper()
-        this.fillPainter =
-            ClassicFillPainter()
-        this.borderPainter =
-            ClassicBorderPainter()
+        this.buttonShaper = ClassicButtonShaper()
+        this.fillPainter = ClassicFillPainter()
+        this.borderPainter = ClassicBorderPainter()
 
-        val decorationPainter =
-            MarbleNoiseDecorationPainter()
+        val decorationPainter = MarbleNoiseDecorationPainter()
         decorationPainter.setBaseDecorationPainter(ArcDecorationPainter())
         decorationPainter.setTextureAlpha(0.3f)
         this.decorationPainter = decorationPainter
 
-        this.highlightPainter =
-            ClassicHighlightPainter()
-        this.borderPainter =
-            ClassicBorderPainter()
+        this.highlightFillPainter = ClassicFillPainter()
+        this.borderPainter = ClassicBorderPainter()
 
         val defaultSchemeBundle =
             RadianceColorSchemeBundle(

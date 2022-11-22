@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.RadianceHighlightPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
@@ -215,6 +214,11 @@ public abstract class RadianceSkin implements RadianceTrait {
     protected RadianceFillPainter fillPainter;
 
     /**
+     * The highlight fill painter of <code>this</code> skin. Must be non-<code>null</code>.
+     */
+    protected RadianceFillPainter highlightFillPainter;
+
+    /**
      * The border painter of <code>this</code> skin. Must be non-<code>null</code>.
      */
     protected RadianceBorderPainter borderPainter;
@@ -223,11 +227,6 @@ public abstract class RadianceSkin implements RadianceTrait {
      * The highlight border painter of <code>this</code> skin. Can be <code>null</code>.
      */
     protected RadianceBorderPainter highlightBorderPainter;
-
-    /**
-     * The highlight painter of <code>this</code> skin. Must be non-<code>null</code>.
-     */
-    protected RadianceHighlightPainter highlightPainter;
 
     /**
      * The decoration painter of <code>this</code> skin. Must be non-<code>null</code>.
@@ -332,8 +331,8 @@ public abstract class RadianceSkin implements RadianceTrait {
      * {@link #isValid()} to verify that the skin is valid.
      * @see #isValid()
      */
-    public final RadianceHighlightPainter getHighlightPainter() {
-        return this.highlightPainter;
+    public final RadianceFillPainter getHighlightFillPainter() {
+        return this.highlightFillPainter;
     }
 
     /**
@@ -828,7 +827,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         result.buttonShaper = this.buttonShaper;
         result.decorationPainter = this.decorationPainter;
         result.fillPainter = this.fillPainter;
-        result.highlightPainter = this.highlightPainter;
+        result.highlightFillPainter = this.highlightFillPainter;
         result.highlightBorderPainter = this.highlightBorderPainter;
 
         // transform the scheme bundles
@@ -962,7 +961,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (this.getBorderPainter() == null) {
             return false;
         }
-        if (this.getHighlightPainter() == null) {
+        if (this.getHighlightFillPainter() == null) {
             return false;
         }
         if (this.getDecorationPainter() == null) {

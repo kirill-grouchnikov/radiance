@@ -31,16 +31,16 @@ package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 import javax.swing.*;
@@ -103,7 +103,7 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
                 new ColorSchemeSingleColorQuery[] {ColorSchemeSingleColorQuery.ULTRALIGHT,
                         ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT});
         this.decorationPainter = new FlatDecorationPainter();
-        this.highlightPainter = new ClassicHighlightPainter();
+        this.highlightFillPainter = new ClassicFillPainter();
 
         // highlight fill scheme + custom alpha for rollover unselected state
         defaultSchemeBundle.registerHighlightAlpha(0.9f, ComponentState.SELECTED);

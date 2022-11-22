@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.theming.api.skin;
 
 import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.DesertSandColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
-import org.pushingpixels.radiance.theming.api.painter.highlight.ClassicHighlightPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -92,7 +91,7 @@ public class SaharaSkin extends RadianceSkin {
 		this.fillPainter = new ClassicFillPainter();
 		this.borderPainter = new ClassicBorderPainter();
 		this.decorationPainter = new MatteDecorationPainter();
-		this.highlightPainter = new ClassicHighlightPainter();
+		this.highlightFillPainter = new ClassicFillPainter();
 	}
 
 	@Override
