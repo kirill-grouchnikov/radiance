@@ -142,8 +142,8 @@ public class ButtonBackgroundDelegate {
                         // Otherwise pixels on the edge can "spill" outside
                         // the contour. Those pixels will be drawn by the border painter.
                         Shape contourFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
-                                scaledWidth + deltaLeft + deltaRight,
-                                scaledHeight + deltaTop + deltaBottom,
+                                scaledWidth + deltaLeft + deltaRight + 1.0f,
+                                scaledHeight + deltaTop + deltaBottom + 1.0f,
                                 scaleFactor, false) : contourOuter;
                         fillPainter.paintContourBackground(graphics1X, button,
                                 scaledWidth + deltaLeft + deltaRight,

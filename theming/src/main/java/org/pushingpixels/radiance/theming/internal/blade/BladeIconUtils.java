@@ -108,7 +108,7 @@ public class BladeIconUtils {
                             : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
-                            contourDim, contourDim,
+                            contourDim + 1, contourDim + 1,
                             cornerRadius, null, 0.5f);
                     finalFillPainter.paintContourBackground(graphics1X, component,
                             contourDim, contourDim,
@@ -175,7 +175,7 @@ public class BladeIconUtils {
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     finalFillPainter.paintContourBackground(graphics1X, button,
                             contourDim, contourDim,
-                            new Ellipse2D.Float(0.5f, 0.5f, contourDim - 1.0f, contourDim - 1.0f),
+                            new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
                             fillColorScheme);
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?

@@ -130,7 +130,7 @@ public class RadianceOutlineUtilities {
 		}
 		if (!isTopLeftCorner && !isTopRightCorner && !isBottomLeftCorner && !isBottomRightCorner) {
 			// Rounded rectangle
-			return new RoundRectangle2D.Float(xs, ys, width, height, 2 * radius, 2 * radius);
+			//return new RoundRectangle2D.Float(xs, ys, width, height, 2 * radius, 2 * radius);
 		}
 
 		// Some corners are rounded and some are square.
