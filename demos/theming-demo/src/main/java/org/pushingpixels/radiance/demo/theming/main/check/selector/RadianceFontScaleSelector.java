@@ -29,11 +29,17 @@
  */
 package org.pushingpixels.radiance.demo.theming.main.check.selector;
 
+import com.jgoodies.forms.builder.FormBuilder;
+import com.jgoodies.forms.factories.Paddings;
+import com.jgoodies.forms.layout.FormLayout;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.font.FontPolicy;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.view_zoom_in;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.view_zoom_out;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.zoom_in_black_24dp;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.zoom_out_black_24dp;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,9 +47,17 @@ import java.awt.*;
 
 public class RadianceFontScaleSelector extends JPanel {
     public RadianceFontScaleSelector() {
-        this.setLayout(new BorderLayout());
-        this.add(new JLabel(view_zoom_out.of(32, 32)), BorderLayout.LINE_START);
-        this.add(new JLabel(view_zoom_in.of(32, 32)), BorderLayout.LINE_END);
+        FormBuilder builder = FormBuilder.create()
+                .columns("pref, 2dlu, fill:pref, 2dlu, pref")
+                .rows("center: pref");
+
+        JLabel zoomOut = new JLabel(zoom_out_black_24dp.of(16, 16));
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(zoomOut,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+        zoomOut.setBorder(new EmptyBorder(0, 0, 20, 0));
+        builder.add(zoomOut).xy(1, 1);
 
         JSlider fontScaleSlider = new JSlider(100, 300);
         fontScaleSlider.setMajorTickSpacing(50);
@@ -53,7 +67,7 @@ public class RadianceFontScaleSelector extends JPanel {
         fontScaleSlider.setPaintLabels(true);
         fontScaleSlider.setValue(100);
         fontScaleSlider.setBorder(new EmptyBorder(0, 12, 0, 12));
-        this.add(fontScaleSlider, BorderLayout.CENTER);
+        builder.add(fontScaleSlider).xy(3, 1);
 
         fontScaleSlider.addChangeListener(changeEvent -> {
             // if the value is adjusting - ignore. This is done
@@ -71,5 +85,18 @@ public class RadianceFontScaleSelector extends JPanel {
                 RadianceThemingCortex.GlobalScope.setFontPolicy(newFontPolicy);
             });
         });
+
+        JLabel zoomIn = new JLabel(zoom_in_black_24dp.of(16, 16));
+        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(zoomIn,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
+        zoomIn.setBorder(new EmptyBorder(0, 0, 20, 0));
+        builder.add(zoomIn).xy(5, 1);
+
+        builder.padding(Paddings.DLU4);
+
+        this.setLayout(new BorderLayout());
+        this.add(builder.build(), BorderLayout.CENTER);
     }
 }

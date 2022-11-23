@@ -33,10 +33,7 @@ import org.pushingpixels.radiance.animation.api.Timeline.RepeatBehavior;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.demo.theming.main.Check.MyMainTabPreviewPainter;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_error_black_24px;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_help_black_24px;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_info_black_24px;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_warning_black_24px;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.*;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.folder_open;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
@@ -382,7 +379,7 @@ public class ControlPanelFactory {
         }));
         builder.append("Plain", bop);
 
-        JButton bopi = new JButton("Show", ic_info_black_24px.of(16, 16));
+        JButton bopi = new JButton("Show", info_black_24dp.of(16, 16));
         bopi.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
                         "Sample title", JOptionPane.INFORMATION_MESSAGE)));
@@ -392,7 +389,7 @@ public class ControlPanelFactory {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Info", bopi);
 
-        JButton bope = new JButton("Show", ic_error_black_24px.of(16, 16));
+        JButton bope = new JButton("Show", error_black_24dp.of(16, 16));
         bope.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
                         "Sample title", JOptionPane.ERROR_MESSAGE)));
@@ -402,7 +399,7 @@ public class ControlPanelFactory {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Error", bope);
 
-        JButton bopw = new JButton("Show", ic_warning_black_24px.of(16, 16));
+        JButton bopw = new JButton("Show", warning_black_24dp.of(16, 16));
         bopw.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE)));
@@ -412,7 +409,7 @@ public class ControlPanelFactory {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         builder.append("Warning", bopw);
 
-        JButton bopq = new JButton("Show", ic_help_black_24px.of(16, 16));
+        JButton bopq = new JButton("Show", help_black_24dp.of(16, 16));
         bopq.addActionListener(actionEvent -> SwingUtilities.invokeLater(
                 () -> JOptionPane.showMessageDialog(mainFrame,
                         "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE)));

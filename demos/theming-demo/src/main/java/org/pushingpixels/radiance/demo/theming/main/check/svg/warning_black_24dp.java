@@ -18,7 +18,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/radiance">Radiance SVG transcoder</a>.
  */
-public class ic_error_black_24px implements RadianceIcon {
+public class warning_black_24dp implements RadianceIcon {
     private Shape shape = null;
     private GeneralPath generalPath = null;
     private Paint paint = null;
@@ -42,23 +42,22 @@ if (generalPath == null) {
 } else {
    generalPath.reset();
 }
-generalPath.moveTo(12.0f, 2.0f);
-generalPath.curveTo(6.48f, 2.0f, 2.0f, 6.48f, 2.0f, 12.0f);
-generalPath.curveTo(2.0f, 17.52f, 6.48f, 22.0f, 12.0f, 22.0f);
-generalPath.curveTo(17.52f, 22.0f, 22.0f, 17.52f, 22.0f, 12.0f);
-generalPath.curveTo(22.0f, 6.4799995f, 17.52f, 2.0f, 12.0f, 2.0f);
+generalPath.moveTo(1.0f, 21.0f);
+generalPath.lineTo(23.0f, 21.0f);
+generalPath.lineTo(12.0f, 2.0f);
+generalPath.lineTo(1.0f, 21.0f);
 generalPath.closePath();
-generalPath.moveTo(13.0f, 17.0f);
-generalPath.lineTo(11.0f, 17.0f);
-generalPath.lineTo(11.0f, 15.0f);
-generalPath.lineTo(13.0f, 15.0f);
-generalPath.lineTo(13.0f, 17.0f);
+generalPath.moveTo(13.0f, 18.0f);
+generalPath.lineTo(11.0f, 18.0f);
+generalPath.lineTo(11.0f, 16.0f);
+generalPath.lineTo(13.0f, 16.0f);
+generalPath.lineTo(13.0f, 18.0f);
 generalPath.closePath();
-generalPath.moveTo(13.0f, 13.0f);
-generalPath.lineTo(11.0f, 13.0f);
-generalPath.lineTo(11.0f, 7.0f);
-generalPath.lineTo(13.0f, 7.0f);
-generalPath.lineTo(13.0f, 13.0f);
+generalPath.moveTo(13.0f, 14.0f);
+generalPath.lineTo(11.0f, 14.0f);
+generalPath.lineTo(11.0f, 10.0f);
+generalPath.lineTo(13.0f, 10.0f);
+generalPath.lineTo(13.0f, 14.0f);
 generalPath.closePath();
 shape = generalPath;
 paint = (colorFilter != null) ? colorFilter.filter(new Color(0, 0, 0, 255)) : new Color(0, 0, 0, 255);
@@ -98,7 +97,7 @@ g.fill(shape);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 2.0;
+        return 1.0;
     }
 
     /**
@@ -116,7 +115,7 @@ g.fill(shape);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 20.0;
+		return 22.0;
 	}
 
 	/**
@@ -125,7 +124,7 @@ g.fill(shape);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 20.0;
+		return 19.0;
 	}
 
 	/** The current width of this icon. */
@@ -138,7 +137,7 @@ g.fill(shape);
 	 * Creates a new transcoded SVG image. This is marked as private to indicate that app
 	 * code should be using the {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
-	private ic_error_black_24px() {
+	private warning_black_24dp() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -207,7 +206,7 @@ g.fill(shape);
      * @return A new instance of this icon with specified dimensions.
      */
     public static RadianceIcon of(int width, int height) {
-       ic_error_black_24px base = new ic_error_black_24px();
+       warning_black_24dp base = new warning_black_24dp();
        base.width = width;
        base.height = height;
        return base;
@@ -221,7 +220,7 @@ g.fill(shape);
      * @return A new {@link UIResource} instance of this icon with specified dimensions.
      */
     public static RadianceIconUIResource uiResourceOf(int width, int height) {
-       ic_error_black_24px base = new ic_error_black_24px();
+       warning_black_24dp base = new warning_black_24dp();
        base.width = width;
        base.height = height;
        return new RadianceIconUIResource(base);
@@ -233,7 +232,7 @@ g.fill(shape);
      * @return Factory that returns instances of this icon on demand.
      */
     public static Factory factory() {
-        return ic_error_black_24px::new;
+        return warning_black_24dp::new;
     }
 }
 

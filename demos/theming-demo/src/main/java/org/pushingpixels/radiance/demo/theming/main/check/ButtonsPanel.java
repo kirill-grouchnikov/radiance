@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.demo.theming.main.check.command.ConfigurationC
 import org.pushingpixels.radiance.demo.theming.main.check.command.DisableCommand;
 import org.pushingpixels.radiance.demo.theming.main.check.command.SelectCommand;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_help_black_24px;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.help_black_24dp;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.tango.edit_cut;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.bullseye;
 import org.pushingpixels.radiance.demo.theming.main.check.svg.vaadin.button;
@@ -372,8 +372,8 @@ public class ButtonsPanel extends JPanel {
                         RadianceThemingSlices.IconFilterStrategy.ORIGINAL,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME));
-        this.addRow(builder, "Themed follow text", ic_help_black_24px.of(16, 16),
-                new ChainCommand<>(new IconCommand(ic_help_black_24px.of(16, 16)),
+        this.addRow(builder, "Themed follow text", help_black_24dp.of(16, 16),
+                new ChainCommand<>(new IconCommand(help_black_24dp.of(16, 16)),
                         (AbstractButton ab) ->
                                 RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,
                                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
@@ -383,9 +383,9 @@ public class ButtonsPanel extends JPanel {
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT));
-        this.addRow(builder, "Themed follow text (disabled)", ic_help_black_24px.of(16, 16),
+        this.addRow(builder, "Themed follow text (disabled)", help_black_24dp.of(16, 16),
                 new ChainCommand<>(
-                        new IconCommand(ic_help_black_24px.of(16, 16)),
+                        new IconCommand(help_black_24dp.of(16, 16)),
                         (AbstractButton ab) -> ab.setEnabled(false),
                         (AbstractButton ab) ->
                                 RadianceThemingCortex.ComponentScope.setIconFilterStrategies(ab,

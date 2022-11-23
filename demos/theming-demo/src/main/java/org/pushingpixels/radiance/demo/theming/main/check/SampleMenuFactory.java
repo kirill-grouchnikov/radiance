@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.demo.theming.main.check.svg.flags.*;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_info_black_24px;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.info_black_24dp;
 import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
@@ -153,26 +153,26 @@ public class SampleMenuFactory {
         result.add(list3);
 
         LinkedList<JMenuItem> list4 = new LinkedList<>();
-        JMenuItem themed1 = new JMenuItem("Themed enabled", ic_info_black_24px.of(16, 16));
+        JMenuItem themed1 = new JMenuItem("Themed enabled", info_black_24dp.of(16, 16));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(themed1,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
-        JMenuItem themed2 = new JMenuItem("Themed disabled", ic_info_black_24px.of(16, 16));
+        JMenuItem themed2 = new JMenuItem("Themed disabled", info_black_24dp.of(16, 16));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(themed2,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         themed2.setEnabled(false);
         JCheckBoxMenuItem themed3 = new JCheckBoxMenuItem("Themed selected enabled",
-                ic_info_black_24px.of(16, 16));
+                info_black_24dp.of(16, 16));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(themed3,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT);
         themed3.setSelected(true);
         JCheckBoxMenuItem themed4 = new JCheckBoxMenuItem("Themed selected disabled",
-                ic_info_black_24px.of(16, 16));
+                info_black_24dp.of(16, 16));
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(themed4,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,

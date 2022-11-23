@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.demo.theming.main;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.radiance.demo.theming.main.check.svg.ic_help_black_24px;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.help_black_24dp;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -56,28 +56,28 @@ public class ControlStatesExtendedThemed extends JFrame {
                 rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(Paddings.DIALOG);
 
-        JButton regular = new JButton("sample", ic_help_black_24px.of(16, 16));
+        JButton regular = new JButton("sample", help_black_24dp.of(16, 16));
         builder.add("Regular").xy(1, 1).add(regular).xy(3, 1);
 
-        JButton rollover = new JButton("sample", ic_help_black_24px.of(16, 16));
+        JButton rollover = new JButton("sample", help_black_24dp.of(16, 16));
         rollover.getModel().setRollover(true);
         builder.add("Rollover").xy(1, 3).add(rollover).xy(3, 3);
 
-        JButton selected = new JButton("sample", ic_help_black_24px.of(16, 16));
+        JButton selected = new JButton("sample", help_black_24dp.of(16, 16));
         selected.getModel().setSelected(true);
         builder.add("Selected").xy(1, 5).add(selected).xy(3, 5);
 
-        JButton rolloverSelected = new JButton("sample", ic_help_black_24px.of(16, 16));
+        JButton rolloverSelected = new JButton("sample", help_black_24dp.of(16, 16));
         rolloverSelected.getModel().setRollover(true);
         rolloverSelected.getModel().setSelected(true);
         builder.add("Rollover selected").xy(1, 7).add(rolloverSelected).xy(3, 7);
 
-        JButton pressed = new JButton("sample", ic_help_black_24px.of(16, 16));
+        JButton pressed = new JButton("sample", help_black_24dp.of(16, 16));
         pressed.getModel().setArmed(true);
         pressed.getModel().setPressed(true);
         builder.add("Pressed").xy(1, 9).add(pressed).xy(3, 9);
 
-        JButton pressedSelected = new JButton("sample", ic_help_black_24px.of(16, 16));
+        JButton pressedSelected = new JButton("sample", help_black_24dp.of(16, 16));
         pressedSelected.getModel().setArmed(true);
         pressedSelected.getModel().setPressed(true);
         pressedSelected.getModel().setSelected(true);
