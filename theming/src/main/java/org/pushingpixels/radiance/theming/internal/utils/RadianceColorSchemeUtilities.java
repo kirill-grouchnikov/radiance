@@ -186,7 +186,7 @@ public class RadianceColorSchemeUtilities {
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
             ComponentState componentState) {
         // special case - if the component is marked as flat and
-        // it is in the default state, get the color scheme of the parent.
+        // it is in the enabled state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
@@ -197,7 +197,8 @@ public class RadianceColorSchemeUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin == null) {
-            return null;
+            RadianceCoreUtilities.traceRadianceApiUsage(component,
+                    "Radiance delegate used when Radiance is not the current LAF");
         }
         RadianceColorScheme nonColorized = skin.getColorScheme(component, associationKind,
                 componentState);
@@ -215,7 +216,7 @@ public class RadianceColorSchemeUtilities {
     public static RadianceColorScheme getDirectColorScheme(Component component,
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind, ComponentState componentState) {
         // special case - if the component is marked as flat and
-        // it is in the default state, get the color scheme of the parent.
+        // it is in the enabled state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
@@ -239,7 +240,7 @@ public class RadianceColorSchemeUtilities {
     public static RadianceColorScheme getActiveColorScheme(Component component,
             ComponentState componentState) {
         // special case - if the component is marked as flat and
-        // it is in the default state, get the color scheme of the parent.
+        // it is in the enabled state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
         // the "top" level decoration area.
         if (!(component instanceof JToolBar)
