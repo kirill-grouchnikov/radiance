@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPaint
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -142,7 +143,7 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new MatteFillPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 1.0f);
 		this.decorationPainter = new MatteDecorationPainter();
 		this.highlightFillPainter = new ClassicFillPainter();
 		this.borderPainter = new CompositeBorderPainter("Dust", new ClassicBorderPainter(),

@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.SubduedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
@@ -142,7 +143,7 @@ public abstract class NebulaAccentedSkin extends RadianceSkin.Accented {
 				RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new SubduedFillPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new SubduedFillPainter(), 1.0f);
 
 		MarbleNoiseDecorationPainter decorationPainter = new MarbleNoiseDecorationPainter();
 		decorationPainter.setBaseDecorationPainter(new ArcDecorationPainter());

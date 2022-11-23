@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPaint
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -117,7 +118,7 @@ public class AutumnSkin extends RadianceSkin {
 				RadianceThemingSlices.DecorationAreaType.HEADER);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new MatteFillPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 1.0f);
 		this.borderPainter = new CompositeBorderPainter("Autumn",
 				new DelegateBorderPainter(
 						"Autumn Outer", new ClassicBorderPainter(),

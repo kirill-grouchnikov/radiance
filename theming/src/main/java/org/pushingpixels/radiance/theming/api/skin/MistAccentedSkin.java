@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainte
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.shaper.PillButtonShaper;
 
 /**
@@ -90,7 +91,7 @@ public abstract class MistAccentedSkin extends RadianceSkin.Accented {
                 RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new PillButtonShaper();
-        this.fillPainter = new MatteFillPainter();
+        this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 1.0f);
         this.borderPainter = new ClassicBorderPainter();
 
         this.decorationPainter = new MatteDecorationPainter();

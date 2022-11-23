@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopLineOverlayPainter;
 
@@ -74,7 +75,7 @@ public class GraphiteGlassSkin extends GraphiteSkin {
 		this.addOverlayPainter(menuOverlayPainter, RadianceThemingSlices.DecorationAreaType.HEADER);
 		this.addOverlayPainter(toolbarOverlayPainter, RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
-		this.fillPainter = new GlassFillPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
 		this.decorationPainter = new ArcDecorationPainter();
 		this.highlightFillPainter = new GlassFillPainter();
 	}

@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
 /**
@@ -102,7 +103,7 @@ public class MagmaSkin extends RadianceSkin {
                 DecorationAreaType.CONTROL_PANE, DecorationAreaType.TOOLBAR);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new GlassFillPainter();
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
 
         this.borderPainter = new GlassBorderPainter();

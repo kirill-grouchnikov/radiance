@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainte
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper
 
@@ -64,7 +65,7 @@ class RobotDefaultDarkSkin(accentColorScheme: RadianceColorScheme) :
                 RadianceThemingSlices.DecorationAreaType.HEADER)
 
         this.buttonShaper = ClassicButtonShaper()
-        this.fillPainter = ClassicFillPainter()
+        this.fillPainter = SpecularRectangularFillPainter(ClassicFillPainter(), 1.0f)
         this.borderPainter = ClassicBorderPainter()
 
         val decorationPainter = MarbleNoiseDecorationPainter()

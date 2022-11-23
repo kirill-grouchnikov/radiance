@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.TopShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
 
@@ -147,7 +148,7 @@ public class CeruleanSkin extends RadianceSkin {
 		this.addOverlayPainter(TopShadowOverlayPainter.getInstance(100), RadianceThemingSlices.DecorationAreaType.TOOLBAR);
 
 		this.buttonShaper = new ClassicButtonShaper();
-		this.fillPainter = new ClassicFillPainter();
+		this.fillPainter = new SpecularRectangularFillPainter(new ClassicFillPainter(), 1.0f);
 
 		this.decorationPainter = new ArcDecorationPainter();
 

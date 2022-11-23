@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainte
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.GlassFillPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.SpecularRectangularFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomLineOverlayPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.BottomShadowOverlayPainter;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
@@ -87,7 +88,7 @@ public class FieldOfWheatSkin extends RadianceSkin {
                 DecorationAreaType.HEADER);
 
         this.buttonShaper = new ClassicButtonShaper();
-        this.fillPainter = new GlassFillPainter();
+        this.fillPainter = new SpecularRectangularFillPainter(new GlassFillPainter(), 1.0f);
         this.decorationPainter = new ArcDecorationPainter();
         this.borderPainter = new ClassicBorderPainter();
         this.highlightFillPainter = new ClassicFillPainter();

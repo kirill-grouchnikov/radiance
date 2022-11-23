@@ -58,14 +58,4 @@ public class SimplisticFillPainter extends StandardFillPainter {
 				.getMidFillColorTop(fillScheme), super
 				.getBottomFillColor(fillScheme), 0.5);
 	}
-
-	@Override
-	public Color getTopShineColor(RadianceColorScheme fillScheme) {
-		return null;
-	}
-
-	@Override
-	public Color getBottomShineColor(RadianceColorScheme fillScheme) {
-		return null;
-	}
 }
