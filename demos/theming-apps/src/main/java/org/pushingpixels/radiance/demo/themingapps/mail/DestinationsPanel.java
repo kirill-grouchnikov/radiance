@@ -33,9 +33,9 @@ import com.jgoodies.forms.builder.FormBuilder;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.demo.themingapps.mail.svg.*;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
 
@@ -97,7 +97,7 @@ public class DestinationsPanel extends PanelWithRightLine {
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        RadianceIcon refreshIcon = ic_refresh_black_24px.factory().createNewIcon();
+        RadianceIcon refreshIcon = refresh_black_24dp.factory().createNewIcon();
         refreshIcon.setColorFilter(color -> mainSelectorIconTitleColor);
         refreshIcon.setDimension(new Dimension(12, 12));
         this.add(getRefreshAction(window, refreshIcon));
@@ -105,12 +105,12 @@ public class DestinationsPanel extends PanelWithRightLine {
 
         JList<DestinationInfo> destinationList = new JList<>(
                 new DestinationListModel(
-                        new DestinationInfo(ic_inbox_black_24px.factory(), "Inbox", 6),
-                        new DestinationInfo(ic_send_black_24px.factory(), "Sent", 3),
-                        new DestinationInfo(ic_watch_later_black_24px.factory(), "Send later", 5),
-                        new DestinationInfo(ic_drafts_black_24px.factory(), "Drafts", -1),
-                        new DestinationInfo(ic_star_border_black_24px.factory(), "Starred", -1),
-                        new DestinationInfo(ic_delete_black_24px.factory(), "Trash", -1)));
+                        new DestinationInfo(inbox_black_24dp.factory(), "Inbox", 6),
+                        new DestinationInfo(send_black_24dp.factory(), "Sent", 3),
+                        new DestinationInfo(watch_later_black_24dp.factory(), "Send later", 5),
+                        new DestinationInfo(drafts_black_24dp.factory(), "Drafts", -1),
+                        new DestinationInfo(star_border_black_24dp.factory(), "Starred", -1),
+                        new DestinationInfo(delete_black_24dp.factory(), "Trash", -1)));
         destinationList.setCellRenderer(new DestinationRenderer());
 
         destinationList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

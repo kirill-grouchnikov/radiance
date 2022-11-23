@@ -30,10 +30,8 @@
 package org.pushingpixels.radiance.demo.themingapps.mail;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.radiance.demo.themingapps.mail.svg.ic_mode_edit_black_24px;
-import org.pushingpixels.radiance.demo.themingapps.mail.svg.ic_person_outline_black_24px;
-import org.pushingpixels.radiance.demo.themingapps.mail.svg.ic_refresh_black_24px;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.demo.themingapps.mail.svg.person_outline_black_24dp;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
@@ -41,6 +39,8 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
+import org.pushingpixels.radiance.theming.internal.svg.edit_black_24dp;
+import org.pushingpixels.radiance.theming.internal.svg.refresh_black_24dp;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -66,7 +66,7 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        RadianceIcon editIcon = ic_mode_edit_black_24px.of(14, 14);
+        RadianceIcon editIcon = edit_black_24dp.of(14, 14);
         Color filterColor = new Color(mainSelectorIconColor.getRed(),
                 mainSelectorIconColor.getGreen(),
                 mainSelectorIconColor.getBlue(),
@@ -74,7 +74,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         editIcon.setColorFilter(color -> filterColor);
         this.add(getTitlePanel(editIcon));
 
-        RadianceIcon mailIcon = ic_refresh_black_24px.of(12, 12);
+        RadianceIcon mailIcon = refresh_black_24dp.of(12, 12);
         mailIcon.setColorFilter(color -> mainSelectorIconColor);
         this.add(getInboxLabel("Inbox", mailIcon, fillScheme.getLightColor()));
 
@@ -206,7 +206,7 @@ public class ThreadListPanel extends PanelWithRightLine {
             // Register the icon factory for the person label here since the icon visuals
             // are the same for all the thread rows in this app
             this.registerThemeAwareLabelWithIcon(this.personLabel,
-                    ic_person_outline_black_24px.factory(),
+                    person_outline_black_24dp.factory(),
                     new Dimension(10, 10));
 
             this.setOpaque(false);

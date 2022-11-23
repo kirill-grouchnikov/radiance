@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.component.api.bcb.core;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.bcb.*;
-import org.pushingpixels.radiance.component.internal.svg.ic_folder_open_black_24px;
-import org.pushingpixels.radiance.component.internal.svg.ic_insert_drive_file_black_24px;
+import org.pushingpixels.radiance.component.internal.svg.folder_open_black_24dp;
+import org.pushingpixels.radiance.component.internal.svg.insert_drive_file_black_24dp;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.filechooser.FileSystemView;
@@ -59,9 +59,9 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         @Override
         public RadianceIcon.Factory getIconFactory(File file) {
             if (file.isDirectory()) {
-                return ic_folder_open_black_24px.factory();
+                return folder_open_black_24dp.factory();
             } else {
-                return ic_insert_drive_file_black_24px.factory();
+                return insert_drive_file_black_24dp.factory();
             }
         }
     }

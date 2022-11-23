@@ -30,9 +30,9 @@
 package org.pushingpixels.radiance.demo.themingapps.chat;
 
 import com.jgoodies.forms.builder.FormBuilder;
-import org.pushingpixels.radiance.demo.themingapps.chat.svg.ic_chat_black_24px;
-import org.pushingpixels.radiance.demo.themingapps.chat.svg.ic_help_outline_black_24px;
-import org.pushingpixels.radiance.demo.themingapps.chat.svg.ic_person_black_24px;
+import org.pushingpixels.radiance.demo.theming.main.check.svg.help_black_24dp;
+import org.pushingpixels.radiance.demo.themingapps.chat.svg.chat_black_24dp;
+import org.pushingpixels.radiance.demo.themingapps.chat.svg.person_black_24dp;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -61,14 +61,14 @@ public class ChatFrame extends JFrame {
 
         builder.add(new JButton("New chat")).xy(1, 1);
 
-        JLabel titleLabel = new JLabel("Chat", ic_chat_black_24px.of(16, 16), JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Chat", chat_black_24dp.of(16, 16), JLabel.CENTER);
         titleLabel.setIconTextGap(6);
         RadianceThemingCortex.WindowScope.markLabelAsTitlePaneText(this, titleLabel);
         builder.add(titleLabel).xy(3, 1);
 
         builder.add(new JTextField(12)).xy(5, 1);
-        builder.add(new JLabel(ic_help_outline_black_24px.of(14, 14))).xy(7, 1);
-        builder.add(new JLabel(ic_person_black_24px.of(12, 12))).xy(9, 1);
+        builder.add(new JLabel(help_black_24dp.of(14, 14))).xy(7, 1);
+        builder.add(new JLabel(person_black_24dp.of(12, 12))).xy(9, 1);
 
         JPanel titlePane = builder.build();
         titlePane.setPreferredSize(new Dimension(100, 40));
