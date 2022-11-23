@@ -44,7 +44,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getOptionPaneInformationIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_info_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = info_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getMidColor());
         return result;
     }
@@ -52,7 +52,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getOptionPaneWarningIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_warning_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = warning_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getMidColor());
         return result;
     }
@@ -60,7 +60,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getOptionPaneErrorIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_error_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = error_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getMidColor());
         return result;
     }
@@ -68,7 +68,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getOptionPaneQuestionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_help_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = help_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getMidColor());
         return result;
     }
@@ -76,7 +76,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserNewFolderIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_create_new_folder_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = create_new_folder_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -84,7 +84,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserUpFolderIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_arrow_upward_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = arrow_upward_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -92,7 +92,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserHomeFolderIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_home_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = home_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -100,7 +100,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserListViewIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_view_list_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = view_list_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -108,7 +108,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserDetailsViewIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_insert_drive_file_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = insert_drive_file_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -116,7 +116,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserViewMenuIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_menu_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = menu_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -124,7 +124,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserComputerIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_computer_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = computer_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -132,7 +132,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserDirectoryIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_folder_open_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = folder_open_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -140,7 +140,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserFileIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_insert_drive_file_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = insert_drive_file_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -148,7 +148,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserFloppyDriveIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_save_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = save_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -156,7 +156,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getFileChooserHardDriveIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_storage_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = storage_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -164,7 +164,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getLockIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_lock_outline_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = lock_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getDarkColor());
         return result;
     }
@@ -172,7 +172,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getCapsLockIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = keyboard_capslock_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = keyboard_capslock_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -180,7 +180,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getInspectIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = keyboard_capslock_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = adjust_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> RadianceColorUtilities.getAlphaColor(
                 preferredIconColorScheme.getForegroundColor(), 160));
         return result;
@@ -189,7 +189,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getRefreshIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_refresh_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = refresh_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -197,7 +197,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getAllowedIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_add_circle_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = add_circle_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -205,7 +205,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getNotAllowedIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_remove_circle_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = remove_circle_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -213,7 +213,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextCopyActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_content_copy_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = content_copy_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -221,7 +221,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextCutActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_content_cut_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = content_cut_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -229,7 +229,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextPasteActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_content_paste_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = content_paste_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -237,7 +237,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextDeleteActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_delete_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = delete_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -245,7 +245,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getTextSelectAllActionIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_select_all_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = select_all_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -253,7 +253,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserColorPalettesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_palette_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = palette_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -261,7 +261,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserColorSlidersIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_menu_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = menu_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -269,7 +269,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserColorSwatchesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_grid_on_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = grid_on_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -277,7 +277,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserColorWheelIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_album_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = album_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -285,7 +285,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserCrayonsIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_mode_edit_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = edit_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
@@ -293,7 +293,7 @@ public class RadianceDefaultIconPack implements RadianceIconPack {
     @Override
     public RadianceIcon getColorChooserImagePalettesIcon(int preferredSize,
             RadianceColorScheme preferredIconColorScheme) {
-        RadianceIcon result = ic_brightness_high_black_24px.uiResourceOf(preferredSize, preferredSize);
+        RadianceIcon result = brightness_high_black_24dp.uiResourceOf(preferredSize, preferredSize);
         result.setColorFilter(color -> preferredIconColorScheme.getForegroundColor());
         return result;
     }
