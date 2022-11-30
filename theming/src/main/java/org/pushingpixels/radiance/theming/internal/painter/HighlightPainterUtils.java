@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.util.EnumSet;
 import java.util.Set;
@@ -122,16 +123,9 @@ public class HighlightPainterUtils {
                     int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
                     int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
-                    Shape contour = new Rectangle2D.Float(0.0f, 0.0f,
-                            scaledWidth + deltaLeft + deltaRight - 1.0f,
-                            scaledHeight + deltaTop + deltaBottom - 1.0f);
-
-                    graphics1X.translate(-deltaLeft, -deltaTop);
-                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(null, borderAlpha, graphics1X));
-                    Shape contourInner = new Rectangle2D.Float(
-                            1.0f, 1.0f,
-                            scaledWidth + deltaLeft + deltaRight - 3.0f,
-                            scaledHeight + deltaTop + deltaBottom - 3.0f);
+                    Shape contour = getBorderPath(scaledWidth, scaledHeight, 0.0f, openSides);
+                    graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
+                    Shape contourInner = getBorderPath(scaledWidth, scaledHeight, 1.0f, openSides);
 
                     highlightBorderPainter.paintBorder(graphics1X, comp,
                             scaledWidth + deltaLeft + deltaRight,
@@ -140,5 +134,38 @@ public class HighlightPainterUtils {
                     graphics1X.translate(deltaLeft, deltaTop);
                 });
         graphics.dispose();
+    }
+
+    private static Path2D getBorderPath(int width, int height, float insets,
+            Set<RadianceThemingSlices.Side> openSides) {
+        Path2D result = new Path2D.Float();
+        // Top-left
+        result.moveTo(insets, insets);
+        // Jump or move to top-right
+        if (openSides.contains(RadianceThemingSlices.Side.TOP)) {
+            result.moveTo(width - 1.0f - insets, insets);
+        } else {
+            result.lineTo(width - 1.0f - insets, insets);
+        }
+        // Jump or move to bottom-right
+        if (openSides.contains(RadianceThemingSlices.Side.RIGHT)) {
+            result.moveTo(width - 1.0f - insets, height - 1.0f - insets);
+        } else {
+            result.lineTo(width - 1.0f - insets, height - 1.0f - insets);
+        }
+        // Jump or move to bottom-left
+        if (openSides.contains(RadianceThemingSlices.Side.BOTTOM)) {
+            result.moveTo(insets, height - 1.0f - insets);
+        } else {
+            result.lineTo(insets, height - 1.0f - insets);
+        }
+        // Jump or move to top-left
+        if (openSides.contains(RadianceThemingSlices.Side.LEFT)) {
+            result.moveTo(insets, insets);
+        } else {
+            result.lineTo(insets, insets);
+        }
+
+        return result;
     }
 }
