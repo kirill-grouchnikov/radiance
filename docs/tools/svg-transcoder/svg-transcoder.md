@@ -105,7 +105,7 @@ The following table summarizes the level of support for different SVG elements.
 
 ### Dependency versions for the Radiance SVG transcoder
 
-* For **6.5-SNAPSHOT**, use
+* For **6.5.0**, use
   * `batik-all-1.16.jar`
   * `xml-apis-1.4.01.jar`
   * `xml-apis-ext-1.3.04.jar`
