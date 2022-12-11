@@ -728,8 +728,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 new RibbonGalleryProjection(this.styleGalleryContentModel,
                         RibbonGalleryPresentationModel.builder()
                                 .setPreferredVisibleCommandCounts(stylesGalleryVisibleCommandCounts)
-                                .setPreferredPopupMaxVisibleCommandRows(3)
-                                .setPreferredPopupMaxCommandColumns(3)
+                                .setPopupLayoutSpec(new MenuPopupPanelLayoutSpec(3, 3))
                                 .setCommandPresentationState(JRibbonBand.BIG_FIXED_LANDSCAPE)
                                 .setExpandKeyTip("L")
                                 .build());
@@ -1117,8 +1116,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         RibbonGalleryPresentationModel transitionGalleryPresentationModel =
                 RibbonGalleryPresentationModel.builder()
                         .setPreferredVisibleCommandCounts(transitionGalleryVisibleCommandCounts)
-                        .setPreferredPopupMaxVisibleCommandRows(6)
-                        .setPreferredPopupMaxCommandColumns(6)
+                        .setPopupLayoutSpec(new MenuPopupPanelLayoutSpec(6, 6))
                         .setCommandPresentationState(CommandButtonPresentationState.SMALL)
                         .build();
 
@@ -1745,8 +1743,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         } else {
                             RibbonGalleryPresentationModel presentationModel =
                                     RibbonGalleryPresentationModel.builder()
-                                            .setPreferredPopupMaxCommandColumns(4)
-                                            .setPreferredPopupMaxVisibleCommandRows(2)
+                                            .setPopupLayoutSpec(new MenuPopupPanelLayoutSpec(4, 2))
                                             .setCommandPresentationState(JRibbonBand.BIG_FIXED)
                                             .build();
                             galleryCommand = Command.builder()
@@ -1917,8 +1914,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         // along all usages of the gallery content model in our ribbon.
         ribbon.addTaskbarGalleryDropdown(new RibbonGalleryProjection(this.styleGalleryContentModel,
                 RibbonGalleryPresentationModel.builder()
-                        .setPreferredPopupMaxCommandColumns(4)
-                        .setPreferredPopupMaxVisibleCommandRows(2)
+                        .setPopupLayoutSpec(new MenuPopupPanelLayoutSpec(4, 2))
                         .setCommandPresentationState(JRibbonBand.BIG_FIXED)
                         .build()));
 

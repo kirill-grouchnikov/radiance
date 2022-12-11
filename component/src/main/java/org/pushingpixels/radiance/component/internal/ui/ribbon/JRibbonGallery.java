@@ -388,10 +388,7 @@ public class JRibbonGallery extends JComponent {
                 CommandPopupMenuPresentationModel.builder()
                         .setPanelPresentationModel(
                                 CommandPopupMenuPanelPresentationModel.builder()
-                                        .setLayoutSpec(new MenuPopupPanelLayoutSpec(
-                                                galleryPresentationModel.getPreferredPopupMaxCommandColumns(),
-                                                galleryPresentationModel.getPreferredPopupMaxVisibleCommandRows()
-                                        ))
+                                        .setLayoutSpec(galleryPresentationModel.getPopupLayoutSpec())
                                         .setToShowGroupLabels(allGroupsHaveTitles)
                                         .setCommandPresentationState(
                                                 galleryPresentationModel.getCommandPresentationState())

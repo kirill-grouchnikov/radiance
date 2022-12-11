@@ -48,6 +48,7 @@ import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
@@ -743,8 +744,7 @@ private class RibbonDemoBuilder {
 
                 presentation {
                     state = JRibbonBand.BIG_FIXED_LANDSCAPE
-                    preferredPopupMaxCommandColumns = 3
-                    preferredPopupMaxVisibleCommandRows = 3
+                    popupLayoutSpec = MenuPopupPanelLayoutSpec(3, 3)
                     commandVisibilities {
                         1 at PresentationPriority.LOW
                         2 at PresentationPriority.MEDIUM
@@ -1454,8 +1454,7 @@ private class RibbonDemoBuilder {
             gallery(PresentationPriority.TOP) {
                 presentation {
                     state = CommandButtonPresentationState.SMALL
-                    preferredPopupMaxCommandColumns = 6
-                    preferredPopupMaxVisibleCommandRows = 6
+                    popupLayoutSpec = MenuPopupPanelLayoutSpec(6, 6)
                     commandVisibilities {
                         2 at PresentationPriority.LOW
                         4 at PresentationPriority.MEDIUM
@@ -1917,8 +1916,7 @@ fun main() {
                                 .build()
                         } else {
                             val presentationModel = RibbonGalleryPresentationModel.builder()
-                                .setPreferredPopupMaxCommandColumns(4)
-                                .setPreferredPopupMaxVisibleCommandRows(2)
+                                .setPopupLayoutSpec(MenuPopupPanelLayoutSpec(4, 2))
                                 .setCommandPresentationState(JRibbonBand.BIG_FIXED)
                                 .build()
                             Command.builder()
@@ -2072,8 +2070,7 @@ fun main() {
                     content = builder.styleGalleryContentModel
 
                     presentation {
-                        preferredPopupMaxCommandColumns = 4
-                        preferredPopupMaxVisibleCommandRows = 2
+                        popupLayoutSpec = MenuPopupPanelLayoutSpec(4, 2)
                         state = JRibbonBand.BIG_FIXED
                     }
                 }

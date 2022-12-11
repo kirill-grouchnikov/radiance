@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.component.ktx.KCommand
 import org.pushingpixels.radiance.component.ktx.KCommandGroup
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
+import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 
 @RadianceElementMarker
 public class GalleryCommandVisibilityContainer {
@@ -53,8 +54,7 @@ public class GalleryCommandVisibilityContainer {
 @RadianceElementMarker
 public class KRibbonGalleryPresentation {
     public var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
-    public var preferredPopupMaxCommandColumns: Int? by NullableDelegate { false }
-    public var preferredPopupMaxVisibleCommandRows: Int? by NullableDelegate { false }
+    public var popupLayoutSpec: MenuPopupPanelLayoutSpec? by NullableDelegate { false }
     private val commandVisibilityContainer = GalleryCommandVisibilityContainer()
     public var expandKeyTip: String? by NullableDelegate { false }
 
@@ -66,10 +66,9 @@ public class KRibbonGalleryPresentation {
         val presentationModelBuilder = RibbonGalleryPresentationModel.builder()
 
         presentationModelBuilder.setCommandPresentationState(this.state)
-        presentationModelBuilder.setPreferredPopupMaxCommandColumns(this.preferredPopupMaxCommandColumns!!)
-        presentationModelBuilder.setPreferredPopupMaxVisibleCommandRows(this.preferredPopupMaxVisibleCommandRows!!)
+        presentationModelBuilder.setPopupLayoutSpec(this.popupLayoutSpec!!)
         presentationModelBuilder.setPreferredVisibleCommandCounts(
-                this.commandVisibilityContainer.policies.map { it.second to it.first }.toMap())
+            this.commandVisibilityContainer.policies.associate { it.second to it.first })
         presentationModelBuilder.setExpandKeyTip(this.expandKeyTip)
 
         return presentationModelBuilder.build()
