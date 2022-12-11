@@ -41,8 +41,7 @@ Here is the code behind this popup button that, when activated, shows the ribbon
 ```java
 ribbon.addTaskbarGalleryDropdown(new RibbonGalleryProjection(this.styleGalleryContentModel,
         RibbonGalleryPresentationModel.builder()
-                .setPreferredPopupMaxCommandColumns(4)
-                .setPreferredPopupMaxVisibleCommandRows(2)
+                .setPopupLayoutSpec(new MenuPopupPanelLayoutSpec(4, 2))
                 .setCommandPresentationState(JRibbonBand.BIG_FIXED)
                 .build()));
 ```

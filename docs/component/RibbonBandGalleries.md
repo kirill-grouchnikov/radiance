@@ -149,8 +149,7 @@ RibbonGalleryProjection quickStylesGalleryProjection =
         new RibbonGalleryProjection(this.styleGalleryContentModel,
                 RibbonGalleryPresentationModel.builder()
                         .setPreferredVisibleCommandCounts(stylesGalleryVisibleCommandCounts)
-                        .setPreferredPopupMaxVisibleCommandRows(3)
-                        .setPreferredPopupMaxCommandColumns(3)
+                        .setPopupLayoutSpec(new MenuPopupPanelLayoutSpec(3, 3))
                         .setCommandPresentationState(JRibbonBand.BIG_FIXED_LANDSCAPE)
                         .setExpandKeyTip("L")
                         .build());
