@@ -1614,11 +1614,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         JRibbonBand actionBand = this.getActionBand();
         JRibbonBand preferencesBand = this.getPreferencesBand();
-        JRibbonBand arrangeBand = this.getApplicationsBand();
+        JRibbonBand applicationsBand = this.getApplicationsBand();
         paragraphBand = this.getParagraphBand();
         JRibbonBand showHideBand = this.getShowHideBand();
         RibbonTask writeTask = new RibbonTask(resourceBundle.getString("Write.textTaskTitle"),
-                actionBand, preferencesBand, arrangeBand, paragraphBand, showHideBand);
+                actionBand, preferencesBand, applicationsBand, paragraphBand, showHideBand);
         writeTask.setResizeSequencingPolicy(
                 new CoreRibbonResizeSequencingPolicies.CollapseFromLast(writeTask));
         writeTask.setKeyTip("W");
@@ -2234,10 +2234,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
     private RibbonTask getContextualRibbonTask(String title, String keyTip) {
         JRibbonBand actionBand = this.getActionBand();
-        JRibbonBand arrangeBand = this.getApplicationsBand();
+        JRibbonBand applicationsBand = this.getApplicationsBand();
         JRibbonBand previewBand = this.getPreviewBand();
         JRibbonBand transitionBand = this.getTransitionBand();
-        RibbonTask task = new RibbonTask(title, actionBand, arrangeBand, previewBand,
+        RibbonTask task = new RibbonTask(title, actionBand, applicationsBand, previewBand,
                 transitionBand);
         task.setKeyTip(keyTip);
         return task;
