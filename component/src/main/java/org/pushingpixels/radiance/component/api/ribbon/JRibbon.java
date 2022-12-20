@@ -31,11 +31,13 @@ package org.pushingpixels.radiance.component.api.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
+import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
@@ -295,9 +297,11 @@ public class JRibbon extends JComponent {
                         projection.getPresentationModel().getPopupMenuPresentationModel())
                 .build();
 
-        CommandButtonProjection<Command> commandButtonProjection =
-                projection.getContentModel().project(presentationModel);
-        JCommandButton commandButton = commandButtonProjection.buildComponent();
+        JCommandButton commandButton = (projection.getContentModel() instanceof ColorSelectorCommand) ?
+                new ColorSelectorCommandButtonProjection((ColorSelectorCommand) projection.getContentModel(),
+                        presentationModel).buildComponent() :
+                new CommandButtonProjection<>(projection.getContentModel(),
+                        presentationModel).buildComponent();
 
         commandButton.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(commandButton);
