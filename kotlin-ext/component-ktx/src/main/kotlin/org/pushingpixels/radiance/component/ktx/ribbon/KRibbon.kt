@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.component.api.ribbon.RibbonTask
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
@@ -192,11 +191,7 @@ public class KRibbonFrame {
         for (taskbarComponent in taskbar.components) {
             when (taskbarComponent) {
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                    RibbonTaskbarCommandButtonProjection(
-                        taskbarComponent.toJavaCommand(),
-                        RibbonTaskbarCommandButtonPresentationModel.builder()
-                            .build()
-                    )
+                    taskbarComponent.toJavaCommand().project()
                 )
                 is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
                     taskbarComponent

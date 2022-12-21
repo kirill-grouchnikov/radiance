@@ -52,6 +52,7 @@ import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceR
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.*;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager.KeyTipEvent;
@@ -406,6 +407,7 @@ public class JRibbonFrame extends JFrame {
                 if (src instanceof Component) {
                     Component c = (Component) src;
                     if ((c == JRibbonFrame.this)
+                            || (SwingUtilities.getAncestorOfClass(PopupPanelManager.RadiancePopupMenu.class, c) != null)
                             || (SwingUtilities.getWindowAncestor(c) == JRibbonFrame.this)) {
                         if (event instanceof KeyEvent) {
                             KeyEvent keyEvent = (KeyEvent) event;
@@ -703,8 +705,7 @@ public class JRibbonFrame extends JFrame {
             if (taskbarWrapped != null) {
                 projection = taskbarWrapped.getClientProperty(ComponentUtilities.TASKBAR_PROJECTION);
             } else {
-                projection = ((JComponent) c).getClientProperty(
-                        ComponentUtilities.TASKBAR_PROJECTION);
+                projection = ((JComponent) c).getClientProperty(ComponentUtilities.TASKBAR_PROJECTION);
             }
             if (projection instanceof RibbonGalleryProjection) {
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
@@ -719,7 +720,15 @@ public class JRibbonFrame extends JFrame {
                 menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
                         ribbon, commandButtonProjection);
             } else {
-                menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(ribbon);
+                // App menu link?
+                Command appMenuLinkCommand = (Command) ((JComponent) c).getClientProperty(
+                        ComponentUtilities.TASKBAR_APP_MENU_COMMAND);
+                if (appMenuLinkCommand != null) {
+                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
+                            ribbon, appMenuLinkCommand);
+                } else {
+                    menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(ribbon);
+                }
             }
         } else {
             // Special case - popup trigger in a ribbon gallery
@@ -738,9 +747,16 @@ public class JRibbonFrame extends JFrame {
                 } else {
                     if ((c instanceof JCommandButton) &&
                             (!(c instanceof RadianceInternalButton))) {
-                        menuContentModel =
-                                onShowContextualMenuListener.getContextualMenuContentModel(
-                                        ribbon, ((JCommandButton) c).getProjection());
+                        if (SwingUtilities.getAncestorOfClass(JRibbonApplicationMenuPopupPanel.class, c) != null) {
+                            // App menu link
+                            menuContentModel =
+                                    onShowContextualMenuListener.getContextualMenuContentModel(
+                                            ribbon, ((JCommandButton) c).getProjection().getContentModel());
+                        } else {
+                            menuContentModel =
+                                    onShowContextualMenuListener.getContextualMenuContentModel(
+                                            ribbon, ((JCommandButton) c).getProjection());
+                        }
                     }
                 }
             }

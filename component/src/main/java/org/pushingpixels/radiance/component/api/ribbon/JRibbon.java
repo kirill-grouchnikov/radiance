@@ -37,13 +37,13 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
+import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection;
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonTaskbarCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonUI;
@@ -53,6 +53,7 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -73,7 +74,7 @@ import java.util.*;
  * {@link #addContextualTaskGroup(RibbonContextualTaskGroup)}</li>
  * <li>Application menu content set by
  * {@link #setApplicationMenuCommand(RibbonApplicationMenuCommandButtonProjection)} </li>
- * <li>Taskbar panel populated by {@link #addTaskbarCommand(RibbonTaskbarCommandButtonProjection)},
+ * <li>Taskbar panel populated by {@link #addTaskbarCommand(CommandButtonProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)}
  * and {@link #addTaskbarComponent(ComponentProjection)}</li>
  * <li>Anchored content set by {@link #addAnchoredCommand(CommandButtonProjection)}</li>
@@ -105,7 +106,7 @@ import java.util.*;
  *
  * <p>
  * The taskbar panel allows showing controls that are visible no matter what ribbon task is
- * selected. To add content to taskbar, use the {@link #addTaskbarCommand(RibbonTaskbarCommandButtonProjection)},
+ * selected. To add content to taskbar, use the {@link #addTaskbarCommand(CommandButtonProjection)},
  * {@link #addTaskbarGalleryDropdown(RibbonGalleryProjection)} and
  * {@link #addTaskbarComponent(ComponentProjection)} APIs. The taskbar panel lives in the top-left
  * corner of the application frame.
@@ -233,6 +234,9 @@ public class JRibbon extends JComponent {
         CommandMenuContentModel getContextualMenuContentModel(
                 JRibbon ribbon, CommandButtonProjection<? extends Command> commandProjection);
 
+        CommandMenuContentModel getContextualMenuContentModel(
+                JRibbon ribbon, Command appLinkCommand);
+
         CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon);
     }
 
@@ -282,20 +286,19 @@ public class JRibbon extends JComponent {
         return this.taskbarKeyTipPolicy;
     }
 
-    public synchronized void addTaskbarCommand(
-            RibbonTaskbarCommandButtonProjection projection) {
-        CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
-                .setPresentationState(CommandButtonPresentationState.SMALL)
-                .setIconFilterStrategies(
-                        projection.getPresentationModel().getActiveIconFilterStrategy(),
-                        projection.getPresentationModel().getEnabledIconFilterStrategy(),
-                        projection.getPresentationModel().getDisabledIconFilterStrategy()
-                )
-                .setHorizontalGapScaleFactor(0.5)
-                .setVerticalGapScaleFactor(0.5)
-                .setPopupMenuPresentationModel(
-                        projection.getPresentationModel().getPopupMenuPresentationModel())
-                .build();
+    public synchronized void addTaskbarCommand(CommandButtonProjection<? extends Command> projection) {
+        CommandButtonPresentationModel originalPresentationModel = projection.getPresentationModel();
+        CommandButtonPresentationModel presentationModel = originalPresentationModel.overlayWith(
+                new CommandButtonPresentationModel.Overlay()
+                        .setPresentationState(CommandButtonPresentationState.SMALL)
+                        .setIconFilterStrategies(
+                                projection.getPresentationModel().getActiveIconFilterStrategy(),
+                                projection.getPresentationModel().getEnabledIconFilterStrategy(),
+                                projection.getPresentationModel().getDisabledIconFilterStrategy()
+                        )
+                        .setHorizontalGapScaleFactor(0.5)
+                        .setVerticalGapScaleFactor(0.5)
+        );
 
         JCommandButton commandButton = (projection.getContentModel() instanceof ColorSelectorCommand) ?
                 new ColorSelectorCommandButtonProjection((ColorSelectorCommand) projection.getContentModel(),
@@ -370,12 +373,34 @@ public class JRibbon extends JComponent {
 
         CommandButtonProjection<Command> projection = clone.project(presentationModel);
         JCommandButton commandButton = projection.buildComponent();
-        commandButton.putClientProperty(ComponentUtilities.TASKBAR_COMMAND, appMenuCommand);
+        commandButton.putClientProperty(ComponentUtilities.TASKBAR_APP_MENU_COMMAND, appMenuCommand);
 
         this.taskbarComponents.add(commandButton);
         this.taskbarCommandMap.put(appMenuCommand, commandButton);
 
         this.fireStateChanged();
+    }
+
+    public synchronized void removeTaskbarAppMenuLink(Command appMenuCommand) {
+        if (this.applicationMenuProjection == null) {
+            throw new IllegalArgumentException("Can't remove app menu link when app menu is not set");
+        }
+        RibbonApplicationMenu ribbonApplicationMenu =
+                this.applicationMenuProjection.getContentModel();
+        if (ribbonApplicationMenu == null) {
+            throw new IllegalArgumentException("Can't remove app menu link when app menu is not set");
+        }
+        if (!ribbonApplicationMenu.getFooterCommands().getCommands().contains(appMenuCommand)
+                && !ComponentUtilities.existsInMenu(appMenuCommand, ribbonApplicationMenu)) {
+            throw new IllegalArgumentException("Command not found in app menu");
+        }
+
+        JCommandButton existing = this.taskbarCommandMap.get(appMenuCommand);
+        if (existing != null) {
+            this.taskbarComponents.remove(existing);
+            this.taskbarCommandMap.remove(appMenuCommand);
+            this.fireStateChanged();
+        }
     }
 
     public synchronized void addTaskbarComponent(
@@ -456,7 +481,7 @@ public class JRibbon extends JComponent {
     /**
      * Removes all taskbar content from this ribbon.
      *
-     * @see #addTaskbarCommand(RibbonTaskbarCommandButtonProjection)
+     * @see #addTaskbarCommand(CommandButtonProjection)
      * @see #addTaskbarComponent(ComponentProjection)
      * @see #addTaskbarGalleryDropdown(RibbonGalleryProjection)
      * @see #addTaskbarAppMenuLink(Command)

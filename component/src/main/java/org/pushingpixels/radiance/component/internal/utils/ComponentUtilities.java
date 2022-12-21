@@ -58,8 +58,8 @@ public class ComponentUtilities {
     public static final String TASKBAR_PROJECTION =
             "radiance.component.internal.ribbon.taskbarProjection";
 
-    public static final String TASKBAR_COMMAND =
-            "radiance.component.internal.ribbon.taskbarCommand";
+    public static final String TASKBAR_APP_MENU_COMMAND =
+            "radiance.component.internal.ribbon.taskbarAppMenuCommand";
 
     public static int getHLayoutGap(JCommandButton commandButton) {
         Font font = commandButton.getFont();

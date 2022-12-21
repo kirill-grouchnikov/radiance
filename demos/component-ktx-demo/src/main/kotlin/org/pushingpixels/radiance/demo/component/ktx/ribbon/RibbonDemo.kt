@@ -59,7 +59,6 @@ import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonTaskbarCommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel
@@ -1967,16 +1966,27 @@ fun main() {
                         Command.builder()
                             .setText(builder.resourceBundle["ContextMenu.addToTaskbar"])
                             .setAction {
-                                ribbon.addTaskbarCommand(
-                                    RibbonTaskbarCommandButtonProjection(
-                                        originalCommand,
-                                        RibbonTaskbarCommandButtonPresentationModel.builder()
-                                            .setPopupMenuPresentationModel(
-                                                commandButtonProjection.presentationModel
-                                                    .popupMenuPresentationModel
-                                            ).build()
-                                    )
-                                )
+                                ribbon.addTaskbarCommand(commandButtonProjection)
+                            }
+                            .build()
+                    }
+                    return build(ribbon, commandCommand)
+                }
+
+                override fun getContextualMenuContentModel(
+                    ribbon: JRibbon,
+                    appLinkCommand: Command
+                ): CommandMenuContentModel {
+                    val commandCommand = if (ribbon.isShowingInTaskbar(appLinkCommand)) {
+                        Command.builder()
+                            .setText(builder.resourceBundle["ContextMenu.removeFromTaskbar"])
+                            .setAction { ribbon.removeTaskbarAppMenuLink(appLinkCommand) }
+                            .build()
+                    } else {
+                        Command.builder()
+                            .setText(builder.resourceBundle["ContextMenu.addToTaskbar"])
+                            .setAction {
+                                ribbon.addTaskbarAppMenuLink(appLinkCommand)
                             }
                             .build()
                     }

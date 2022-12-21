@@ -56,7 +56,6 @@ import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresen
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection;
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonTaskbarCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizeSequencingPolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
@@ -128,7 +127,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command amEntryPrintMemo;
     private Command amEntryPrintCustom;
 
+    private Command amEntrySendMail;
+    private Command amEntrySendHtml;
+    private Command amEntrySendDoc;
+    private Command amWirelessWiFi;
     private Command amWirelessBluetooth;
+    private Command amEntrySendWireless;
+    private Command amEntrySend;
 
     private Command amEntrySaveAsWord;
     private Command amEntrySaveAsHtml;
@@ -406,7 +411,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         applicationsBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {"Tetris", "Minesweeper", "Doom"})
+                        .setItems(new String[]{"Tetris", "Minesweeper", "Doom"})
                         .setIconFactory(Applications_games.factory())
                         .setCaption(resourceBundle.getString("Games.text"))
                         .build(),
@@ -418,7 +423,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         applicationsBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {"Firefox", "Opera", "Konqueror"})
+                        .setItems(new String[]{"Firefox", "Opera", "Konqueror"})
                         .setEnabled(false)
                         .setIconFactory(Applications_internet.factory())
                         .setCaption(resourceBundle.getString("Internet.text"))
@@ -431,7 +436,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         applicationsBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {
+                        .setItems(new String[]{
                                 resourceBundle.getString("Pictures.text"),
                                 resourceBundle.getString("Video.text"),
                                 resourceBundle.getString("Audio.text")})
@@ -806,7 +811,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         selectorBuilder.addColorSectionWithDerived(
                 new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
                         resourceBundle.getString("ColorSelector.textThemeCaption"),
-                        new Color[] {new Color(255, 255, 255), new Color(0, 0, 0),
+                        new Color[]{new Color(255, 255, 255), new Color(0, 0, 0),
                                 new Color(160, 160, 160), new Color(16, 64, 128),
                                 new Color(80, 128, 192), new Color(180, 80, 80),
                                 new Color(160, 192, 80), new Color(128, 92, 160),
@@ -815,7 +820,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         selectorBuilder.addColorSection(
                 new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
                         resourceBundle.getString("ColorSelector.textStandardCaption"),
-                        new Color[] {new Color(140, 0, 0), new Color(253, 0, 0),
+                        new Color[]{new Color(140, 0, 0), new Color(253, 0, 0),
                                 new Color(255, 160, 0), new Color(255, 255, 0),
                                 new Color(144, 240, 144), new Color(0, 128, 0),
                                 new Color(160, 224, 224), new Color(0, 0, 255),
@@ -892,7 +897,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {resourceBundle.getString("VeryLong.text")})
+                        .setItems(new String[]{resourceBundle.getString("VeryLong.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -918,7 +923,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {resourceBundle.getString("VeryLong.text")})
+                        .setItems(new String[]{resourceBundle.getString("VeryLong.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -946,7 +951,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {resourceBundle.getString("Long.text")})
+                        .setItems(new String[]{resourceBundle.getString("Long.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -970,7 +975,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         alignmentBand.addRibbonComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {resourceBundle.getString("Long.text")})
+                        .setItems(new String[]{resourceBundle.getString("Long.text")})
                         .build(),
                 ComponentPresentationModel.builder()
                         .setHorizontalAlignment(HorizontalAlignment.FILL)
@@ -1129,7 +1134,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         transitionBand.addRibbonComponent(
                 new RibbonComboBoxProjection<>(
                         RibbonDefaultComboBoxContentModel.<String>builder()
-                                .setItems(new String[] {
+                                .setItems(new String[]{
                                         "[" + resourceBundle.getString("NoSound.text") + "]     "})
                                 .setIconFactory(new SimpleRadianceIcon.FactoryTop())
                                 .build(),
@@ -1137,7 +1142,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         transitionBand.addRibbonComponent(
                 new RibbonComboBoxProjection<>(
                         RibbonDefaultComboBoxContentModel.<String>builder()
-                                .setItems(new String[] {
+                                .setItems(new String[]{
                                         resourceBundle.getString("Medium.text") + "           "})
                                 .setCaption(resourceBundle.getString("Speed.text"))
                                 .build(),
@@ -1213,27 +1218,27 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mf.setLocale(currLocale);
 
         this.popupCommand1 = Command.builder()
-                .setText(mf.format(new Object[] {"1"}))
+                .setText(mf.format(new Object[]{"1"}))
                 .setIconFactory(ColorRadianceIcon.factory(new Color(0xFF80DEEA)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 1 activated"))
                 .build();
         this.popupCommand2 = Command.builder()
-                .setText(mf.format(new Object[] {"2"}))
+                .setText(mf.format(new Object[]{"2"}))
                 .setIconFactory(ColorRadianceIcon.factory(new Color(0xFF80CBC4)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 2 activated"))
                 .build();
         this.popupCommand3 = Command.builder()
-                .setText(mf.format(new Object[] {"3"}))
+                .setText(mf.format(new Object[]{"3"}))
                 .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFA5D6A7)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 3 activated"))
                 .build();
         this.popupCommand4 = Command.builder()
-                .setText(mf.format(new Object[] {"4"}))
+                .setText(mf.format(new Object[]{"4"}))
                 .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFC5E1A5)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 4 activated"))
                 .build();
         this.popupCommand5 = Command.builder()
-                .setText(mf.format(new Object[] {"5"}))
+                .setText(mf.format(new Object[]{"5"}))
                 .setIconFactory(ColorRadianceIcon.factory(new Color(0xFFE6EE9C)))
                 .setAction(commandActionEvent -> System.out.println("Test menu item 5 activated"))
                 .build();
@@ -1418,10 +1423,57 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setAction(commandActionEvent -> System.out.println("Invoked custom"))
                 .build();
 
+        this.amEntrySendMail = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.email.text"))
+                .setIconFactory(Mail_message_new.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSend.email.description"))
+                .setAction(commandActionEvent -> System.out.println("Invoked email"))
+                .build();
+
+        this.amEntrySendHtml = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.html.text"))
+                .setIconFactory(Text_html.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSend.html.description"))
+                .setAction(commandActionEvent -> System.out.println("Invoked HTML"))
+                .build();
+
+        this.amEntrySendDoc = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.word.text"))
+                .setIconFactory(X_office_document.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSend.word.description"))
+                .setAction(commandActionEvent -> System.out.println("Invoked Word"))
+                .build();
+
+        this.amWirelessWiFi = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
+                .setIconFactory(EmptyRadianceIcon.factory())
+                .setAction(commandActionEvent -> System.out.println("WiFi activated"))
+                .build();
         this.amWirelessBluetooth = Command.builder()
                 .setText(resourceBundle.getString("AppMenuSend.wireless.bluetooth.text"))
                 .setIconFactory(Network_wireless.factory())
                 .setAction(commandActionEvent -> System.out.println("Bluetooth activated"))
+                .build();
+
+        CommandMenuContentModel wirelessPopupMenuContentModel =
+                new CommandMenuContentModel(Collections.singletonList(
+                        new CommandGroup(this.amWirelessWiFi, this.amWirelessBluetooth)));
+        this.amEntrySendWireless = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.wireless.text"))
+                .setIconFactory(Network_wireless.factory())
+                .setExtraText(resourceBundle.getString("AppMenuSend.wireless.description"))
+                .setSecondaryContentModel(wirelessPopupMenuContentModel)
+                .build();
+
+        CommandMenuContentModel sendMenu = new CommandMenuContentModel(
+                new CommandGroup(resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1"),
+                        this.amEntrySendMail, this.amEntrySendHtml,
+                        this.amEntrySendDoc, this.amEntrySendWireless));
+
+        this.amEntrySend = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.text"))
+                .setIconFactory(Mail_forward.factory())
+                .setSecondaryContentModel(sendMenu)
                 .build();
 
         this.amEntrySaveAsWord = Command.builder()
@@ -1459,6 +1511,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setSecondaryContentModel(saveAsMenu)
                 .build();
 
+
+
         this.amEntryExit = Command.builder()
                 .setText(resourceBundle.getString("AppMenuExit.text"))
                 .setIconFactory(System_log_out.factory())
@@ -1472,7 +1526,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build();
 
         this.fontComboBoxModel = RibbonDefaultComboBoxContentModel.<String>builder()
-                .setItems(new String[] {
+                .setItems(new String[]{
                         "+ Minor (Calibri)   ", "+ Minor (Columbus)   ",
                         "+ Minor (Consolas)   ", "+ Minor (Cornelius)   ",
                         "+ Minor (Cleopatra)   ", "+ Minor (Cornucopia)   ",
@@ -1532,7 +1586,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     });
 
             Command ribbonCommand = Command.builder()
-                    .setText(mfButtonText.format(new Object[] {i}))
+                    .setText(mfButtonText.format(new Object[]{i}))
                     .setIconFactory(iconFactory)
                     .setToggle()
                     .build();
@@ -1735,8 +1789,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         Command galleryCommand;
                         if (ribbon.isShowingInTaskbar(galleryProjection.getContentModel())) {
                             galleryCommand = Command.builder()
-                                    .setText(resourceBundle.getString(
-                                            "ContextMenu.removeFromTaskbar"))
+                                    .setText(resourceBundle.getString("ContextMenu.removeFromTaskbar"))
                                     .setAction(commandActionEvent -> ribbon.removeTaskbarGallery(
                                             galleryProjection.getContentModel()))
                                     .build();
@@ -1761,20 +1814,18 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     @Override
                     public CommandMenuContentModel getContextualMenuContentModel(
                             JRibbon ribbon, ComponentProjection<? extends JComponent, ?
-                                    extends ComponentContentModel> componentProjection) {
+                            extends ComponentContentModel> componentProjection) {
                         Command componentCommand;
                         if (ribbon.isShowingInTaskbar(componentProjection.getContentModel())) {
                             componentCommand = Command.builder()
-                                    .setText(resourceBundle.getString(
-                                            "ContextMenu.removeFromTaskbar"))
+                                    .setText(resourceBundle.getString("ContextMenu.removeFromTaskbar"))
                                     .setAction(commandActionEvent -> ribbon.removeTaskbarComponent(
                                             componentProjection.getContentModel()))
                                     .build();
                         } else {
                             componentCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                                    .setAction(commandActionEvent ->
-                                            ribbon.addTaskbarComponent(componentProjection))
+                                    .setAction(commandActionEvent -> ribbon.addTaskbarComponent(componentProjection))
                                     .build();
                         }
 
@@ -1788,19 +1839,31 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         Command commandCommand;
                         if (ribbon.isShowingInTaskbar(originalCommand)) {
                             commandCommand = Command.builder()
-                                    .setText(resourceBundle.getString(
-                                            "ContextMenu.removeFromTaskbar"))
-                                    .setAction(commandActionEvent ->
-                                            ribbon.removeTaskbarCommand(originalCommand))
+                                    .setText(resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                                    .setAction(commandActionEvent -> ribbon.removeTaskbarCommand(originalCommand))
                                     .build();
                         } else {
                             commandCommand = Command.builder()
                                     .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
-                                    .setAction(commandActionEvent -> ribbon.addTaskbarCommand(
-                                            new RibbonTaskbarCommandButtonProjection(originalCommand,
-                                                    RibbonTaskbarCommandButtonPresentationModel.builder()
-                                                            .setPopupMenuPresentationModel(commandButtonProjection.getPresentationModel().
-                                                                    getPopupMenuPresentationModel()).build())))
+                                    .setAction(commandActionEvent -> ribbon.addTaskbarCommand(commandButtonProjection))
+                                    .build();
+                        }
+
+                        return build(ribbon, commandCommand);
+                    }
+
+                    @Override
+                    public CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon, Command appLinkCommand) {
+                        Command commandCommand;
+                        if (ribbon.isShowingInTaskbar(appLinkCommand)) {
+                            commandCommand = Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.removeFromTaskbar"))
+                                    .setAction(commandActionEvent -> ribbon.removeTaskbarAppMenuLink(appLinkCommand))
+                                    .build();
+                        } else {
+                            commandCommand = Command.builder()
+                                    .setText(resourceBundle.getString("ContextMenu.addToTaskbar"))
+                                    .setAction(commandActionEvent -> ribbon.addTaskbarAppMenuLink(appLinkCommand))
                                     .build();
                         }
 
@@ -1882,17 +1945,13 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbon ribbon = this.getRibbon();
 
         // taskbar components
-        ribbon.addTaskbarCommand(new RibbonTaskbarCommandButtonProjection(
-                this.pasteCommand,
-                RibbonTaskbarCommandButtonPresentationModel.builder().build()));
+        ribbon.addTaskbarCommand(this.pasteCommand.project());
 
-        ribbon.addTaskbarCommand(new RibbonTaskbarCommandButtonProjection(
-                Command.builder()
-                        .setIconFactory(Edit_clear.factory())
-                        .setAction(commandActionEvent -> System.out.println("Taskbar Clear activated"))
-                        .setActionEnabled(false)
-                        .build(),
-                RibbonTaskbarCommandButtonPresentationModel.builder().build()));
+        ribbon.addTaskbarCommand(Command.builder()
+                .setIconFactory(Edit_clear.factory())
+                .setAction(commandActionEvent -> System.out.println("Taskbar Clear activated"))
+                .setActionEnabled(false)
+                .build().project());
 
         ribbon.addTaskbarComponent(new RibbonComboBoxProjection<>(this.fontComboBoxModel,
                 ComponentPresentationModel.withDefaults()));
@@ -1901,6 +1960,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
             ribbon.addTaskbarAppMenuLink(this.amFooterProps);
             ribbon.addTaskbarAppMenuLink(this.amEntryPrintCustom);
             ribbon.addTaskbarAppMenuLink(this.amWirelessBluetooth);
+            ribbon.addTaskbarAppMenuLink(this.amEntrySend);
             ribbon.addTaskbarAppMenuLink(this.amEntryExit);
         }
 
@@ -1919,9 +1979,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .build()));
 
         // Add the same "Save as" command that we have in the application menu to the taskbar
-        ribbon.addTaskbarCommand(new RibbonTaskbarCommandButtonProjection(
-                this.amEntrySaveAs,
-                RibbonTaskbarCommandButtonPresentationModel.builder().build()));
+        ribbon.addTaskbarCommand(this.amEntrySaveAs.project());
     }
 
     private void configureApplicationMenu() {
@@ -1937,7 +1995,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mfDefault.setLocale(currLocale);
         for (int i = 0; i < 5; i++) {
             Command command = Command.builder()
-                    .setText(mfDefault.format(new Object[] {i}))
+                    .setText(mfDefault.format(new Object[]{i}))
                     .setIconFactory(Text_html.factory())
                     .setAction(commandActionEvent ->
                             System.out.println("Creating " + commandActionEvent.getCommand().getText()))
@@ -1968,7 +2026,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         mf.setLocale(currLocale);
         for (int i = 0; i < 5; i++) {
             Command command = Command.builder()
-                    .setText(mf.format(new Object[] {i}))
+                    .setText(mf.format(new Object[]{i}))
                     .setIconFactory(Text_html.factory())
                     .setAction(commandActionEvent ->
                             System.out.println("Opening " + commandActionEvent.getCommand().getText()))
@@ -2072,70 +2130,25 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         .setPopupKeyTip("W"));
 
         // "Send" primary + secondaries
-        Command amEntrySendMail = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.email.text"))
-                .setIconFactory(Mail_message_new.factory())
-                .setExtraText(resourceBundle.getString("AppMenuSend.email.description"))
-                .setAction(commandActionEvent -> System.out.println("Invoked email"))
-                .build();
 
-        Command amEntrySendHtml = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.html.text"))
-                .setIconFactory(Text_html.factory())
-                .setExtraText(resourceBundle.getString("AppMenuSend.html.description"))
-                .setAction(commandActionEvent -> System.out.println("Invoked HTML"))
-                .build();
-
-        Command amEntrySendDoc = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.word.text"))
-                .setIconFactory(X_office_document.factory())
-                .setExtraText(resourceBundle.getString("AppMenuSend.word.description"))
-                .setAction(commandActionEvent -> System.out.println("Invoked Word"))
-                .build();
-
-        applicationMenuOverlays.put(amEntrySendMail,
+        applicationMenuOverlays.put(this.amEntrySendMail,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("E"));
-        applicationMenuOverlays.put(amEntrySendHtml,
+        applicationMenuOverlays.put(this.amEntrySendHtml,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("H"));
-        applicationMenuOverlays.put(amEntrySendDoc,
+        applicationMenuOverlays.put(this.amEntrySendDoc,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("W"));
 
-        Command wirelessWiFi = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.wireless.wifi.text"))
-                .setIconFactory(EmptyRadianceIcon.factory())
-                .setAction(commandActionEvent -> System.out.println("WiFi activated"))
-                .build();
-
-        applicationMenuOverlays.put(wirelessWiFi,
+        applicationMenuOverlays.put(amWirelessWiFi,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("W"));
         applicationMenuOverlays.put(this.amWirelessBluetooth,
                 CommandButtonPresentationModel.overlay().setActionKeyTip("B"));
 
-        CommandMenuContentModel wirelessPopupMenuContentModel =
-                new CommandMenuContentModel(Collections.singletonList(
-                        new CommandGroup(wirelessWiFi, this.amWirelessBluetooth)));
 
-        Command amEntrySendWireless = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.wireless.text"))
-                .setIconFactory(Network_wireless.factory())
-                .setExtraText(resourceBundle.getString("AppMenuSend.wireless.description"))
-                .setSecondaryContentModel(wirelessPopupMenuContentModel)
-                .build();
-        applicationMenuSecondaryStates.put(amEntrySendWireless,
+        applicationMenuSecondaryStates.put(this.amEntrySendWireless,
                 RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
-        applicationMenuOverlays.put(amEntrySendWireless,
+        applicationMenuOverlays.put(this.amEntrySendWireless,
                 CommandButtonPresentationModel.overlay().setPopupKeyTip("X"));
 
-        CommandMenuContentModel sendMenu = new CommandMenuContentModel(
-                new CommandGroup(resourceBundle.getString("AppMenuSend.secondary.textGroupTitle1"),
-                        amEntrySendMail, amEntrySendHtml, amEntrySendDoc,
-                        amEntrySendWireless));
-
-        Command amEntrySend = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.text"))
-                .setIconFactory(Mail_forward.factory())
-                .setSecondaryContentModel(sendMenu)
-                .build();
         applicationMenuSecondaryStates.put(amEntrySend,
                 RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL);
         applicationMenuOverlays.put(amEntrySend,
@@ -2146,7 +2159,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         RibbonApplicationMenu applicationMenu = new RibbonApplicationMenu(
                 new CommandGroup(amEntryNew, amEntryOpen, amEntrySave, this.amEntrySaveAs),
-                new CommandGroup(amEntryPrint, amEntrySend),
+                new CommandGroup(amEntryPrint, this.amEntrySend),
                 new CommandGroup(this.amEntryExit));
 
         applicationMenu.addFooterCommand(this.amFooterProps);
@@ -2347,7 +2360,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         });
 
                 Command ribbonCommand = Command.builder()
-                        .setText(mfButtonText.format(new Object[] {i}))
+                        .setText(mfButtonText.format(new Object[]{i}))
                         .setIconFactory(iconFactory)
                         .setToggle()
                         .build();
@@ -2376,7 +2389,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         fontBand.addFlowComponent(new RibbonComboBoxProjection<>(
                 RibbonDefaultComboBoxContentModel.<String>builder()
-                        .setItems(new String[] {"11  "})
+                        .setItems(new String[]{"11  "})
                         .build(),
                 ComponentPresentationModel.builder().setKeyTip("SS").build()));
 

@@ -203,7 +203,7 @@ public class PopupPanelManager {
         }
     }
 
-    private static class RadiancePopupMenu extends JPopupMenu {
+    public static class RadiancePopupMenu extends JPopupMenu {
         public RadiancePopupMenu() {
             this.setLayout(new BorderLayout());
             this.setBorder(new EmptyBorder(1, 1, 1, 1));
