@@ -67,33 +67,7 @@ public class RadianceRibbonApplicationMenuPopupPanelUI
     @Override
     protected void installComponents() {
         super.installComponents();
-        Border newBorder = new BorderUIResource.CompoundBorderUIResource(
-                new RadianceBorder(0, new Insets(2, 2, 2, 2)),
-                new Border() {
-                    @Override
-                    public boolean isBorderOpaque() {
-                        return true;
-                    }
-
-                    @Override
-                    public Insets getBorderInsets(Component c) {
-                        return new Insets(18, 0, 0, 0);
-                    }
-
-                    @Override
-                    public void paintBorder(Component c, Graphics g, int x, int y, int width,
-                            int height) {
-                        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
-                        RadianceColorScheme scheme = skin.getBackgroundColorScheme(
-                                DecorationPainterUtils.getDecorationType(c));
-                        Color backgroundFill = scheme.getAccentedBackgroundFillColor();
-
-                        Graphics2D g2d = (Graphics2D) g.create(x, y, width, height);
-                        g2d.setColor(backgroundFill);
-                        g2d.fillRect(0, 0, width, height);
-                        g2d.dispose();
-                    }
-                });
+        Border newBorder = new RadianceBorder(0, new Insets(2, 2, 2, 2));
         this.applicationMenuPopupPanel.setBorder(newBorder);
 
         this.panelScrollerLevel2.setBorder(new BorderUIResource(new Border() {
