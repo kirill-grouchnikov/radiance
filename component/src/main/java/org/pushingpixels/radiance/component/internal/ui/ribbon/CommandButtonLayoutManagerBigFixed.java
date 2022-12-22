@@ -43,8 +43,9 @@ import java.util.ArrayList;
 public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutManager {
 
 	@Override
-	public int getPreferredIconSize(JCommandButton commandButton) {
-        return ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+	public Dimension getPreferredIconSize(JCommandButton commandButton) {
+        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+		return new Dimension(size, size);
 	}
 
 	@Override
@@ -60,9 +61,9 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		// icon, label
 		int fillTitleWidth = fm.stringWidth(commandButton.getText());
 
-		int widthFull = Math.max(this.getPreferredIconSize(commandButton), fillTitleWidth);
+		int widthFull = Math.max(this.getPreferredIconSize(commandButton).width, fillTitleWidth);
 
-		int heightFull = by + this.getPreferredIconSize(commandButton) + layoutVGap
+		int heightFull = by + this.getPreferredIconSize(commandButton).height + layoutVGap
 				+ jsep.getPreferredSize().width;
 		if (commandButton.getText() != null) {
 			heightFull += fm.getHeight();

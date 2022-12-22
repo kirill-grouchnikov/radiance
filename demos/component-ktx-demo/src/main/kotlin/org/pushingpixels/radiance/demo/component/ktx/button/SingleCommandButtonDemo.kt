@@ -88,8 +88,8 @@ fun main() {
 
                 actionRichTooltipPresentation {
                     contentPadding = Insets(12, 12, 12, 12)
-                    mainIconSize = 64
-                    footerIconSize = 48
+                    mainIconSize = Dimension(64, 64)
+                    footerIconSize = Dimension(48, 48)
                 }
             }
         }.toButton()

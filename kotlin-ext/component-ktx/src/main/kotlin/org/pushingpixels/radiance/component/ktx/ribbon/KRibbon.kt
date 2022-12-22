@@ -231,6 +231,7 @@ public class KRibbonFrame {
                     .build(),
                 CommandButtonPresentationModel.builder()
                     .setPopupKeyTip(applicationMenu.keyTip)
+                    .setPopupRichTooltipPresentationModel(applicationMenu.getRichTooltipPresentation())
                     .build()
             )
 

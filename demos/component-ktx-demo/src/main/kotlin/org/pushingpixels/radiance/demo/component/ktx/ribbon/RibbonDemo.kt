@@ -645,7 +645,7 @@ private class RibbonDemoBuilder {
                                 columnCount = 5
                                 visibleRowCount = 3
                             }
-                            commandIconDimension = 48
+                            commandIconDimension = Dimension(48, 48)
                             toShowGroupLabels = false
                         }
 
@@ -1760,7 +1760,7 @@ private class RibbonDemoBuilder {
     }
 }
 
-fun getApplicationMenuRichTooltipIcon(): Factory {
+fun getApplicationMenuRichTooltipIcon(): Pair<Factory, Dimension> {
     val appMenuButtonTooltipImage = ImageIO
         .read(
             RibbonDemoBuilder::class.java.classLoader.getResource(
@@ -1806,12 +1806,8 @@ fun getApplicationMenuRichTooltipIcon(): Factory {
             )
         }
     }
-    appMenuRichTooltipMainIcon.setDimension(
-        Dimension(
-            appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight
-        )
-    )
-    return (Factory { appMenuRichTooltipMainIcon })
+    return Pair((Factory { appMenuRichTooltipMainIcon }),
+        Dimension(appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight))
 }
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -2086,14 +2082,19 @@ fun main() {
                 }
             }
 
+            val applicationMenuPair = getApplicationMenuRichTooltipIcon()
+
             applicationMenu {
                 title = builder.resourceBundle["AppMenu.title"]
                 richTooltip {
                     title = builder.resourceBundle["AppMenu.tooltip.title"]
                     description = builder.resourceBundle["AppMenu.tooltip.paragraph1"]
-                    mainIconFactory = getApplicationMenuRichTooltipIcon()
+                    mainIconFactory = applicationMenuPair.first
                     footer = builder.resourceBundle["AppMenu.tooltip.footer1"]
                     footerIconFactory = Help_browser.factory()
+                }
+                richTooltipPresentation {
+                    mainIconSize = applicationMenuPair.second
                 }
                 keyTip = "F"
 

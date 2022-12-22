@@ -46,8 +46,9 @@ import java.util.ArrayList;
 public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLayoutManager {
 
     @Override
-    public int getPreferredIconSize(JCommandButton commandButton) {
-        return ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0, 4);
+    public Dimension getPreferredIconSize(JCommandButton commandButton) {
+        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+        return new Dimension(size, size);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int titleWidth = fm.stringWidth(commandButton.getText());
         int layoutHGap = 2 * ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(commandButton);
-        int widthMed = this.getPreferredIconSize(commandButton)
+        int widthMed = this.getPreferredIconSize(commandButton).width
                 + 2 * layoutHGap
                 + jsep.getPreferredSize().width
                 + titleWidth
@@ -79,7 +80,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             textHeight += 2 * fontHeight;
         }
         return new Dimension(bx + widthMed, by
-                + Math.max(this.getPreferredIconSize(commandButton), textHeight));
+                + Math.max(this.getPreferredIconSize(commandButton).height, textHeight));
     }
 
     @Override

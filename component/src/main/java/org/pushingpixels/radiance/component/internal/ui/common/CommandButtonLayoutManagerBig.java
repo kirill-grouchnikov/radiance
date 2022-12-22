@@ -64,19 +64,20 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     @Override
-    public int getPreferredIconSize(JCommandButton commandButton) {
-        return ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+    public Dimension getPreferredIconSize(JCommandButton commandButton) {
+        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+        return new Dimension(size, size);
     }
 
     protected int getCurrentIconWidth(JCommandButton commandButton) {
         return (commandButton.getIcon() != null)
-                ? this.getPreferredIconSize(commandButton)
+                ? this.getPreferredIconSize(commandButton).width
                 : 0;
     }
 
     protected int getCurrentIconHeight(JCommandButton commandButton) {
         return (commandButton.getIcon() != null)
-                ? this.getPreferredIconSize(commandButton)
+                ? this.getPreferredIconSize(commandButton).height
                 : 0;
     }
 

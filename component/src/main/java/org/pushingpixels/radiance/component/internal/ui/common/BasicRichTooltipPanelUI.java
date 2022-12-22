@@ -196,7 +196,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
             RichTooltipPresentationModel tooltipPresentationModel = richTooltipPanel.getTooltipPresentationModel();
             FontRenderContext frc = new FontRenderContext(new AffineTransform(), true, false);
             if (tooltipInfo.getMainIcon() != null) {
-                width += tooltipPresentationModel.getMainIconSize();
+                width += tooltipPresentationModel.getMainIconSize().width;
             }
 
             int fontHeight = parent.getFontMetrics(font).getHeight();
@@ -252,7 +252,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
 
             if (tooltipInfo.getMainIcon() != null) {
                 height += Math.max(descriptionTextHeight,
-                        tooltipPresentationModel.getMainIconSize());
+                        tooltipPresentationModel.getMainIconSize().height);
             } else {
                 height += descriptionTextHeight;
             }
@@ -268,10 +268,10 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                 int footerTextHeight = 0;
                 int availableWidth = descTextWidth;
                 if (tooltipInfo.getFooterIcon() != null) {
-                    availableWidth -= tooltipPresentationModel.getFooterIconSize();
+                    availableWidth -= tooltipPresentationModel.getFooterIconSize().width;
                 }
                 if (tooltipInfo.getMainIcon() != null) {
-                    availableWidth += tooltipPresentationModel.getMainIconSize();
+                    availableWidth += tooltipPresentationModel.getMainIconSize().width;
                 }
                 for (String footerText : tooltipInfo.getFooterSections()) {
                     AttributedString footerAttributedDescription = new AttributedString(footerText);
@@ -292,7 +292,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                 footerTextHeight -= fontHeight;
 
                 if (tooltipInfo.getFooterIcon() != null) {
-                    height += Math.max(footerTextHeight, tooltipPresentationModel.getFooterIconSize());
+                    height += Math.max(footerTextHeight, tooltipPresentationModel.getFooterIconSize().height);
                 } else {
                     height += footerTextHeight;
                 }
@@ -376,10 +376,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
             int x = ltr ? ins.left : parent.getWidth() - ins.right;
             RadianceIcon mainIcon = tooltipInfo.getMainIcon();
             if (mainIcon != null) {
-                mainIcon.setDimension(new Dimension(
-                        tooltipPresentationModel.getMainIconSize(),
-                        tooltipPresentationModel.getMainIconSize()
-                ));
+                mainIcon.setDimension(tooltipPresentationModel.getMainIconSize());
                 mainImageLabel = new JLabel(mainIcon);
                 richTooltipPanel.add(mainImageLabel);
                 int mainImageWidth = mainImageLabel.getPreferredSize().width;
@@ -454,10 +451,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
                 // The footer image
                 x = ltr ? ins.left : parent.getWidth() - ins.right;
                 if (tooltipInfo.getFooterIcon() != null) {
-                    tooltipInfo.getFooterIcon().setDimension(new Dimension(
-                            tooltipPresentationModel.getFooterIconSize(),
-                            tooltipPresentationModel.getFooterIconSize()
-                    ));
+                    tooltipInfo.getFooterIcon().setDimension(tooltipPresentationModel.getFooterIconSize());
                     footerImageLabel = new JLabel(tooltipInfo.getFooterIcon());
                     richTooltipPanel.add(footerImageLabel);
                     int footerImageWidth = footerImageLabel.getPreferredSize().width;

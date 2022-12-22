@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.ktx.ribbon
 import org.pushingpixels.radiance.component.api.common.RichTooltip
 import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu
 import org.pushingpixels.radiance.component.ktx.*
 import org.pushingpixels.radiance.component.ktx.NonNullDelegate
@@ -45,6 +46,7 @@ public class KRibbonApplicationMenu {
 
     public var title: String by NonNullDelegate { hasBeenConverted }
     private var richTooltip: KRichTooltip? by NullableDelegate { hasBeenConverted }
+    private var richTooltipPresentation: KRichTooltipPresentation? by NullableDelegate { hasBeenConverted }
     public var keyTip: String? by NullableDelegate { hasBeenConverted }
     private val footerCommands = KCommandGroup()
     private val groups = arrayListOf<KCommandGroup>()
@@ -55,6 +57,13 @@ public class KRibbonApplicationMenu {
             richTooltip = KRichTooltip()
         }
         richTooltip!!.init()
+    }
+
+    public fun richTooltipPresentation(init: KRichTooltipPresentation.() -> Unit) {
+        if (richTooltipPresentation == null) {
+            richTooltipPresentation = KRichTooltipPresentation()
+        }
+        richTooltipPresentation!!.init()
     }
 
     public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
@@ -122,5 +131,9 @@ public class KRibbonApplicationMenu {
 
     internal fun getRichTooltip(): RichTooltip? {
         return richTooltip?.toJavaRichTooltip()
+    }
+
+    internal fun getRichTooltipPresentation(): RichTooltipPresentationModel? {
+        return richTooltipPresentation?.toRichTooltipPresentation()
     }
 }

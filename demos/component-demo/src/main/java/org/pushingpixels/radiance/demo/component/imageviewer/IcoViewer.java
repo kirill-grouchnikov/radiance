@@ -73,7 +73,7 @@ public class IcoViewer extends JFrame {
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 32;
-        this.fileViewPanel = new AbstractFileViewPanel<>(32) {
+        this.fileViewPanel = new AbstractFileViewPanel<>(new Dimension(32, 32)) {
             @Override
             protected InputStream getLeafContent(File leaf) {
                 try {
@@ -122,7 +122,7 @@ public class IcoViewer extends JFrame {
                     currIconSize = newValue;
                     SwingUtilities.invokeLater(() -> {
                         fileViewPanel.getProjection().getPresentationModel()
-                                .setCommandIconDimension(currIconSize);
+                                .setCommandIconDimension(new Dimension(currIconSize, currIconSize));
                         invalidate();
                         doLayout();
                     });

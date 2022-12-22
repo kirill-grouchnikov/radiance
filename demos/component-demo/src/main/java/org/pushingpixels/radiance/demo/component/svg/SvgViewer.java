@@ -104,7 +104,7 @@ public class SvgViewer extends JFrame {
                             protected void done() {
                                 try {
                                     svgFileViewPanel.setFolder(get());
-                                    svgFileViewPanel.setIconDimension(currIconSize);
+                                    svgFileViewPanel.setIconDimension(new Dimension(currIconSize, currIconSize));
                                 } catch (Exception exc) {
                                     exc.printStackTrace();
                                 }
@@ -138,8 +138,8 @@ public class SvgViewer extends JFrame {
                 int newValue = iconSizeSlider.getValue();
                 if (newValue != currIconSize) {
                     currIconSize = newValue;
-                    SwingUtilities
-                            .invokeLater(() -> svgFileViewPanel.setIconDimension(currIconSize));
+                    SwingUtilities.invokeLater(() ->
+                            svgFileViewPanel.setIconDimension(new Dimension(currIconSize, currIconSize)));
                 }
             }
         });

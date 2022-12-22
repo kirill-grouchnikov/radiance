@@ -70,7 +70,7 @@ Then we create a presentation model in the default `PanelLayoutSpec.RowFill` mod
 CommandPanelPresentationModel commandPanelPresentationModel = CommandPanelPresentationModel.builder()
       .setToShowGroupLabels(false)
       .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-      .setCommandIconDimension(48)
+      .setCommandIconDimension(new Dimension(48, 48))
       .build()
 ```
 

@@ -51,7 +51,7 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
     private boolean toShowGroupLabels = true;
 
     private CommandButtonPresentationState commandPresentationState;
-    private Integer commandIconDimension;
+    private Dimension commandIconDimension;
     private Insets commandContentPadding;
     private double commandHorizontalGapScaleFactor;
     private double commandVerticalGapScaleFactor;
@@ -77,7 +77,7 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
         if (this.commandPresentationState != commandPresentationState) {
             this.commandPresentationState = commandPresentationState;
             if (this.commandPresentationState != CommandButtonPresentationState.FIT_TO_ICON) {
-                this.commandIconDimension = -1;
+                this.commandIconDimension = null;
             }
             this.fireStateChanged();
         }
@@ -97,14 +97,14 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
         }
     }
 
-    public Integer getCommandIconDimension() {
+    public Dimension getCommandIconDimension() {
         return commandIconDimension;
     }
 
-    public void setCommandIconDimension(Integer commandIconDimension) {
+    public void setCommandIconDimension(Dimension commandIconDimension) {
         if (this.commandIconDimension != commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
-            if (this.commandIconDimension != -1) {
+            if (this.commandIconDimension != null) {
                 this.commandPresentationState = CommandButtonPresentationState.FIT_TO_ICON;
             }
             this.fireStateChanged();
@@ -243,7 +243,7 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
         private int contentGap = CommandPanelPresentationModel.DEFAULT_GAP;
         private boolean toShowGroupLabels = true;
         private CommandButtonPresentationState commandPresentationState;
-        private Integer commandIconDimension = -1;
+        private Dimension commandIconDimension = null;
         private Insets commandContentPadding = CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
         private double commandHorizontalGapScaleFactor =
                 CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
@@ -288,7 +288,7 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
             return this;
         }
 
-        public Builder setCommandIconDimension(Integer commandIconDimension) {
+        public Builder setCommandIconDimension(Dimension commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
             return this;
         }

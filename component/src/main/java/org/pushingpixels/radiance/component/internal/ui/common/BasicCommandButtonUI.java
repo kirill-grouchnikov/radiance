@@ -429,7 +429,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     /**
      * Creates the button listener for the specified command button.
      *
-     * @param b Command button.
      * @return The button listener for the specified command button.
      */
     protected BasicCommandButtonListener createButtonListener() {
@@ -512,10 +511,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Updates the icon dimension.
      */
     private void updateIconDimension() {
-        int dimension = this.commandButton.getIconDimension();
+        Dimension dimension = this.commandButton.getIconDimension();
 
-        if (dimension > 0) {
-            this.commandButton.getIcon().setDimension(new Dimension(dimension, dimension));
+        if (dimension != null) {
+            this.commandButton.getIcon().setDimension(dimension);
             this.commandButton.setPresentationState(CommandButtonPresentationState.FIT_TO_ICON);
 
             this.commandButton.invalidate();
@@ -689,13 +688,18 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             return;
         }
 
-        int maxHeight = layoutManager.getPreferredIconSize(this.commandButton);
-        if (maxHeight < 0) {
-            maxHeight = this.commandButton.getIcon().getIconHeight();
+        Dimension preferredIconSize = layoutManager.getPreferredIconSize(this.commandButton);
+        int iconWidth = (preferredIconSize != null) ? preferredIconSize.width : -1;
+        if (iconWidth < 0) {
+            iconWidth = this.commandButton.getIcon().getIconWidth();
+        }
+        int iconHeight = (preferredIconSize != null) ? preferredIconSize.height : -1;
+        if (iconHeight < 0) {
+            iconHeight = this.commandButton.getIcon().getIconHeight();
         }
 
         if (commandButtonState != CommandButtonPresentationState.FIT_TO_ICON) {
-            Dimension newDim = new Dimension(maxHeight, maxHeight);
+            Dimension newDim = new Dimension(iconWidth, iconHeight);
             icon.setDimension(newDim);
         }
     }

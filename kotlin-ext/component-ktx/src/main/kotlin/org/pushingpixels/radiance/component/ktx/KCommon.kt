@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import java.awt.Color
+import java.awt.Dimension
 import java.awt.Insets
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -148,8 +149,10 @@ public class KRichTooltip {
 public open class KRichTooltipPresentation {
     public var contentPadding: Insets =
         RichTooltipPresentationModel.DEFAULT_CONTENT_PADDING
-    public var mainIconSize: Int = RichTooltipPresentationModel.LARGE_ICON_SIZE
-    public var footerIconSize: Int = RichTooltipPresentationModel.SMALL_ICON_SIZE
+    public var mainIconSize: Dimension = Dimension(RichTooltipPresentationModel.LARGE_ICON_SIZE,
+        RichTooltipPresentationModel.LARGE_ICON_SIZE)
+    public var footerIconSize: Dimension = Dimension(RichTooltipPresentationModel.SMALL_ICON_SIZE,
+        RichTooltipPresentationModel.SMALL_ICON_SIZE)
 
     internal fun toRichTooltipPresentation(): RichTooltipPresentationModel {
         val result = RichTooltipPresentationModel.builder()

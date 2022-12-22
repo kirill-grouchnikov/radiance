@@ -66,9 +66,8 @@ fun main() {
         frame.layout = BorderLayout()
         val initialSize = 100
 
-        val bar =
-            BreadcrumbFileSelector()
-        val fileViewPanel = object : AbstractFileViewPanel<File>(initialSize) {
+        val bar = BreadcrumbFileSelector()
+        val fileViewPanel = object : AbstractFileViewPanel<File>(Dimension(initialSize, initialSize)) {
             override fun getLeafContent(leaf: File): InputStream? {
                 return try {
                     FileInputStream(leaf)
@@ -133,10 +132,10 @@ fun main() {
 
         iconSizeSlider.addChangeListener {
             if (!iconSizeSlider.model.valueIsAdjusting) {
-                if (iconSizeSlider.value != fileViewPanel.projection.presentationModel.commandIconDimension) {
+                if (iconSizeSlider.value != fileViewPanel.projection.presentationModel.commandIconDimension.width) {
                     GlobalScope.launch(Dispatchers.Swing) {
                         fileViewPanel.projection.presentationModel.commandIconDimension =
-                            iconSizeSlider.value
+                            Dimension(iconSizeSlider.value, iconSizeSlider.value)
                     }
                 }
             }

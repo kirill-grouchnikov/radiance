@@ -162,7 +162,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * @return The preferred icon size of the specified command button when it uses
      * this layout manager.
      */
-    int getPreferredIconSize(JCommandButton commandButton);
+    Dimension getPreferredIconSize(JCommandButton commandButton);
 
     /**
      * Returns the anchor center point of the action key tip of the specified command

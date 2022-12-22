@@ -87,7 +87,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                         .setToShowGroupLabels(false)
                         .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(64)))
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                        .setCommandIconDimension(startingDimension)
+                        .setCommandIconDimension(new Dimension(startingDimension, startingDimension))
                         .build()));
 
         this.callback = callback;
@@ -185,9 +185,8 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                 for (final KeyValuePair<String, InputStream> pair : pairs) {
                     final String name = pair.getKey();
                     InputStream svgStream = pair.getValue();
-                    int iconDimension = getProjection().getPresentationModel()
+                    Dimension svgDim = getProjection().getPresentationModel()
                             .getCommandIconDimension();
-                    Dimension svgDim = new Dimension(iconDimension, iconDimension);
 
                     double scale = RadianceCommonCortex.getScaleFactor(SvgFileViewPanel.this);
                     final SvgBatikRadianceIcon svgIcon = name.endsWith(".svg")
@@ -206,7 +205,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
      *
      * @param dimension New dimension for the icons.
      */
-    public void setIconDimension(int dimension) {
+    public void setIconDimension(Dimension dimension) {
         this.getProjection().getPresentationModel().setCommandIconDimension(dimension);
     }
 

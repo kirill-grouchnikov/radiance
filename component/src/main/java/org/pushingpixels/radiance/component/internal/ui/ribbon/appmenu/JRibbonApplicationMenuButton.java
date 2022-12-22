@@ -59,8 +59,8 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                         commandButton) {
                     return new CommandButtonLayoutManager() {
                         @Override
-                        public int getPreferredIconSize(JCommandButton commandButton) {
-                            return 0;
+                        public Dimension getPreferredIconSize(JCommandButton commandButton) {
+                            return null;
                         }
 
                         @Override
@@ -128,6 +128,9 @@ public class JRibbonApplicationMenuButton extends JCommandButton
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(APP_MENU_BUTTON_STATE)
                         .setHorizontalAlignment(SwingConstants.CENTER)
+                        .setPopupRichTooltipPresentationModel(
+                                ribbonApplicationMenuCommandProjection.getPresentationModel().
+                                        getPopupRichTooltipPresentationModel())
                         .build()));
     }
 }

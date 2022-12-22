@@ -48,6 +48,7 @@ import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorC
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.BackgroundAppearanceStrategy
+import java.awt.Dimension
 import java.awt.Insets
 
 @RadianceElementMarker
@@ -351,7 +352,7 @@ public open class KCommandButtonPresentation {
         RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
     public var contentPadding: Insets =
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
-    public var iconDimension: Int? = null
+    public var iconDimension: Dimension? = null
     public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
     public var enabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =

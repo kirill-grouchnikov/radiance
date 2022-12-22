@@ -111,7 +111,7 @@ public class QuickStylesPanel {
                 .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(64)))
                 .setToShowGroupLabels(false)
                 .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
-                .setCommandIconDimension(48)
+                .setCommandIconDimension(new Dimension(48, 48))
                 .build();
     }
 }

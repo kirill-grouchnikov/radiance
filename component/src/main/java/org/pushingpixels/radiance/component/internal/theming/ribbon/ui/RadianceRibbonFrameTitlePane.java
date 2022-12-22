@@ -157,11 +157,11 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
     private static class CommandButtonLayoutManagerTaskbarOverflow
             extends CommandButtonLayoutManagerSmall {
         @Override
-        public int getPreferredIconSize(JCommandButton commandButton) {
+        public Dimension getPreferredIconSize(JCommandButton commandButton) {
             int fontSize = commandButton.getFont().getSize();
             int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
             int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-            return Math.max(arrowIconWidth, arrowIconHeight);
+            return new Dimension(arrowIconWidth, arrowIconHeight);
         }
     }
 

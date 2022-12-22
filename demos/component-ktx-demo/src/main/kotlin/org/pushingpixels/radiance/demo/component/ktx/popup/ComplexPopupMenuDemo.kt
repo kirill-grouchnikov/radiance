@@ -80,7 +80,7 @@ fun main() {
                                 columnCount = 5
                                 visibleRowCount = 3
                             }
-                            commandIconDimension = 48
+                            commandIconDimension = Dimension(48, 48)
                             toShowGroupLabels = false
                         }
 

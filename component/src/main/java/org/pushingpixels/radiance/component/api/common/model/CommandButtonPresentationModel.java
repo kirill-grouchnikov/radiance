@@ -63,7 +63,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     public static final Insets COMPACT_BUTTON_CONTENT_PADDING = new Insets(3, 5, 2, 5);
 
     private CommandButtonPresentationState presentationState;
-    private Integer iconDimension;
+    private Dimension iconDimension;
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
@@ -186,7 +186,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.verticalGapScaleFactor;
     }
 
-    public Integer getIconDimension() {
+    public Dimension getIconDimension() {
         return this.iconDimension;
     }
 
@@ -295,7 +295,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Insets contentPadding;
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
-        private Integer iconDimension;
+        private Dimension iconDimension;
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
@@ -350,7 +350,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setIconDimension(Integer iconDimension) {
+        public Overlay setIconDimension(Dimension iconDimension) {
             this.iconDimension = iconDimension;
             return this;
         }
@@ -443,7 +443,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
         private double verticalGapScaleFactor =
                 CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR;
-        private Integer iconDimension;
+        private Dimension iconDimension = null;
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
@@ -505,7 +505,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setIconDimension(Integer iconDimension) {
+        public Builder setIconDimension(Dimension iconDimension) {
             this.iconDimension = iconDimension;
             return this;
         }

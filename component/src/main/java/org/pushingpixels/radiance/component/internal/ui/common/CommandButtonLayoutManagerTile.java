@@ -43,8 +43,9 @@ import java.util.ArrayList;
 public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManager {
 
     @Override
-    public int getPreferredIconSize(JCommandButton commandButton) {
-        return ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0, 4);
+    public Dimension getPreferredIconSize(JCommandButton commandButton) {
+        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0, 4);
+        return new Dimension(size, size);
     }
 
     @Override
@@ -67,7 +68,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         boolean hasText = (textWidth > 0);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
-        int prefIconSize = hasIcon ? this.getPreferredIconSize(commandButton) : 0;
+        int prefIconWidth = hasIcon ? this.getPreferredIconSize(commandButton).width : 0;
+        int prefIconHeight = hasIcon ? this.getPreferredIconSize(commandButton).height : 0;
 
         // start with the left insets
         int width = borderInsets.left;
@@ -76,7 +78,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             // padding before the icon
             width += layoutHGap;
             // icon width
-            width += prefIconSize;
+            width += prefIconWidth;
             // padding after the icon
             width += layoutHGap;
         }
@@ -121,7 +123,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         width -= 2 * layoutHGap;
 
         return new Dimension(width,
-                by + Math.max(prefIconSize, 2 * (fm.getAscent() + fm.getDescent())));
+                by + Math.max(prefIconHeight, 2 * (fm.getAscent() + fm.getDescent())));
     }
 
     @Override

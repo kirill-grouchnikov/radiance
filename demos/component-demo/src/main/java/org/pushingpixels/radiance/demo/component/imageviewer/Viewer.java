@@ -69,7 +69,7 @@ public class Viewer extends JFrame {
         this.add(bar, BorderLayout.NORTH);
 
         int initialSize = 100;
-        this.fileViewPanel = new AbstractFileViewPanel<>(64) {
+        this.fileViewPanel = new AbstractFileViewPanel<>(new Dimension(64, 64)) {
             @Override
             protected InputStream getLeafContent(File leaf) {
                 try {
@@ -116,10 +116,11 @@ public class Viewer extends JFrame {
         this.iconSizeSlider.addChangeListener(changeEvent -> {
             if (!iconSizeSlider.getModel().getValueIsAdjusting()) {
                 if (iconSizeSlider.getValue() != fileViewPanel.getProjection()
-                        .getPresentationModel().getCommandIconDimension()) {
+                        .getPresentationModel().getCommandIconDimension().width) {
                     SwingUtilities.invokeLater(() ->
                             fileViewPanel.getProjection().getPresentationModel()
-                                    .setCommandIconDimension(iconSizeSlider.getValue()));
+                                    .setCommandIconDimension(
+                                            new Dimension(iconSizeSlider.getValue(), iconSizeSlider.getValue())));
                 }
             }
         });

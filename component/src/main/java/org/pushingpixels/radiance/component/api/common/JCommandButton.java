@@ -125,9 +125,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      *
      * @see #getIconDimension()
-     * @see #setIconDimension(int)
+     * @see #setIconDimension(Dimension)
      */
-    private int iconDimension;
+    private Dimension iconDimension;
 
     /**
      * Background appearance strategy for this button
@@ -788,9 +788,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      *                  the {@link CommandButtonPresentationState#FIT_TO_ICON} state.
      * @see #getIconDimension()
      */
-    public void setIconDimension(int dimension) {
+    public void setIconDimension(Dimension dimension) {
         if (this.iconDimension != dimension) {
-            int old = this.iconDimension;
+            Dimension old = this.iconDimension;
             this.iconDimension = dimension;
             this.firePropertyChange("iconDimension", old, this.iconDimension);
         }
@@ -802,9 +802,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      *
      * @return The dimension of the icon of the associated command button in the
      * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
-     * @see #setIconDimension(int)
+     * @see #setIconDimension(Dimension)
      */
-    public int getIconDimension() {
+    public Dimension getIconDimension() {
         return this.iconDimension;
     }
 

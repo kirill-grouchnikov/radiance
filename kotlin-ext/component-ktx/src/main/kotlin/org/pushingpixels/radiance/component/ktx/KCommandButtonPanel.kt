@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSp
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec
 import org.pushingpixels.radiance.component.api.common.projection.CommandPanelProjection
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices
+import java.awt.Dimension
 import java.awt.Insets
 import javax.swing.JComponent
 
@@ -46,7 +47,7 @@ public class KCommandButtonPanelPresentation {
     public var contentGap: Int = CommandPanelPresentationModel.DEFAULT_GAP
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
-    public var commandIconDimension: Int = -1
+    public var commandIconDimension: Dimension? = null
     public var commandHorizontalAlignment: Int =
         CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
     public var commandContentPadding: Insets =
@@ -115,7 +116,7 @@ public class KCommandPopupMenuPanelPresentation {
     public var contentGap: Int = CommandPanelPresentationModel.DEFAULT_GAP
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
-    public var commandIconDimension: Int = -1
+    public var commandIconDimension: Dimension? = null
     public var commandContentPadding: Insets =
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
     public var commandHorizontalAlignment: Int =
@@ -209,7 +210,7 @@ public class KCommandButtonPanel {
 
     internal fun toJavaButtonPanel(): JComponent {
         val hasInitialState = (presentation.commandPresentationState != null)
-        val hasInitialDimension = (presentation.commandIconDimension > 0)
+        val hasInitialDimension = (presentation.commandIconDimension != null)
 
         if (!hasInitialState && !hasInitialDimension) {
             throw IllegalStateException("No presentation state or dimension specified")

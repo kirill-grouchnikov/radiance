@@ -37,8 +37,8 @@ public class RichTooltipPresentationModel implements ImmutablePresentationModel 
     public static final int SMALL_ICON_SIZE = 16;
 
     private Insets contentPadding;
-    private int mainIconSize;
-    private int footerIconSize;
+    private Dimension mainIconSize;
+    private Dimension footerIconSize;
 
     private RichTooltipPresentationModel() {
     }
@@ -47,11 +47,11 @@ public class RichTooltipPresentationModel implements ImmutablePresentationModel 
         return new Builder();
     }
 
-    public int getMainIconSize() {
+    public Dimension getMainIconSize() {
         return this.mainIconSize;
     }
 
-    public int getFooterIconSize() {
+    public Dimension getFooterIconSize() {
         return this.footerIconSize;
     }
 
@@ -61,8 +61,8 @@ public class RichTooltipPresentationModel implements ImmutablePresentationModel 
 
     public static class Builder {
         private Insets contentPadding = DEFAULT_CONTENT_PADDING;
-        private int mainIconSize = LARGE_ICON_SIZE;
-        private int footerIconSize = SMALL_ICON_SIZE;
+        private Dimension mainIconSize = new Dimension(LARGE_ICON_SIZE, LARGE_ICON_SIZE);
+        private Dimension footerIconSize = new Dimension(SMALL_ICON_SIZE, SMALL_ICON_SIZE);
 
         public Builder setContentPadding(Insets contentPadding) {
             if (contentPadding == null) {
@@ -72,12 +72,12 @@ public class RichTooltipPresentationModel implements ImmutablePresentationModel 
             return this;
         }
 
-        public Builder setMainIconSize(int mainIconSize) {
+        public Builder setMainIconSize(Dimension mainIconSize) {
             this.mainIconSize = mainIconSize;
             return this;
         }
 
-        public Builder setFooterIconSize(int footerIconSize) {
+        public Builder setFooterIconSize(Dimension footerIconSize) {
             this.footerIconSize = footerIconSize;
             return this;
         }

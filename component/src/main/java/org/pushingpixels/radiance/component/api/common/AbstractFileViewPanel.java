@@ -136,7 +136,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
      *
      * @param startingDimension Initial dimension for icons.
      */
-    public AbstractFileViewPanel(int startingDimension) {
+    public AbstractFileViewPanel(Dimension startingDimension) {
         super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
                         .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
@@ -231,9 +231,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
                 for (final Leaf leaf : leaves) {
                     final String name = leaf.getLeafName();
                     InputStream stream = leaf.getLeafStream();
-                    int iconDimension = getProjection().getPresentationModel()
-                            .getCommandIconDimension();
-                    Dimension dim = new Dimension(iconDimension, iconDimension);
+                    Dimension dim = getProjection().getPresentationModel().getCommandIconDimension();
                     final RadianceIcon icon = getRadianceIcon(leaf, stream,
                             getProjection().getPresentationModel().getCommandPresentationState(),
                             dim);

@@ -634,7 +634,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                                 .setToShowGroupLabels(false)
                                                 .setCommandPresentationState(
                                                         CommandButtonPresentationState.FIT_TO_ICON)
-                                                .setCommandIconDimension(48)
+                                                .setCommandIconDimension(new Dimension(48, 48))
                                                 .build())
                                 .build())
                         .build());
@@ -2214,8 +2214,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                             null);
                 }
             };
-            appMenuRichTooltipMainIcon.setDimension(new Dimension(
-                    appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight));
 
             RibbonApplicationMenuCommandButtonProjection ribbonMenuCommandProjection =
                     new RibbonApplicationMenuCommandButtonProjection(
@@ -2233,7 +2231,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                             .build())
                                     .setSecondaryContentModel(applicationMenu)
                                     .build(),
-                            CommandButtonPresentationModel.builder().setPopupKeyTip("F").build());
+                            CommandButtonPresentationModel.builder()
+                                    .setPopupKeyTip("F")
+                                    .setPopupRichTooltipPresentationModel(
+                                            RichTooltipPresentationModel.builder().
+                                                    setMainIconSize(new Dimension(
+                                                            appMenuButtonTooltipImageInitialWidth,
+                                                            appMenuButtonTooltipImageInitialHeight)).
+                                                    build()
+                                    ).build());
 
             ribbonMenuCommandProjection.setCommandOverlays(applicationMenuOverlays);
             ribbonMenuCommandProjection.setSecondaryLevelCommandPresentationState(
