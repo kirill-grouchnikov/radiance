@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.ktx.ribbon
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.RichTooltip
 import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
@@ -90,8 +91,7 @@ public class KRibbonApplicationMenu {
             throw IllegalStateException("This method can only be called once")
         }
 
-        ribbonApplicationMenu =
-            RibbonApplicationMenu()
+        ribbonApplicationMenu = RibbonApplicationMenu()
         if (defaultGroup.commands.isEmpty()) {
             groups.remove(defaultGroup)
         }
@@ -125,6 +125,17 @@ public class KRibbonApplicationMenu {
                         CommandButtonPresentationModel.overlay()
                                 .setActionKeyTip(footerCommand.actionKeyTip)
                                 .setPopupKeyTip(footerCommand.secondaryKeyTip)
+            }
+        }
+    }
+
+    internal fun populateSecondaryStates(secondaryStates: MutableMap<Command, CommandButtonPresentationState>) {
+        for (group in groups) {
+            for (commandConfig in group.commands) {
+                if (commandConfig.command.menu != null) {
+                    secondaryStates[commandConfig.toJavaCommand()] =
+                        commandConfig.command.menu!!.menuPresentationState
+                }
             }
         }
     }

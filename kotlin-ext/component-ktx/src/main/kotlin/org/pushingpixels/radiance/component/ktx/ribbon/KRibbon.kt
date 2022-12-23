@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryP
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.ktx.*
 import org.pushingpixels.radiance.component.ktx.NonNullDelegate
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
@@ -61,6 +62,8 @@ public class KRibbonTaskContainer {
 @RadianceElementMarker
 public class KRibbonTaskbar {
     internal val components = arrayListOf<Any>()
+
+    internal data class AppMenuLinkWrapper(val command: KCommand)
 
     public operator fun KCommand.unaryPlus() {
         this@KRibbonTaskbar.components.add(this)
@@ -87,6 +90,11 @@ public class KRibbonTaskbar {
         gallery.init()
         components.add(gallery)
         return gallery
+    }
+
+    public fun appMenuLink(command: KCommand) : KCommand {
+        components.add(AppMenuLinkWrapper(command))
+        return command
     }
 }
 
@@ -188,23 +196,6 @@ public class KRibbonFrame {
             ribbonFrame.ribbon.addAnchoredCommand(anchoredCommand.toJavaProjection())
         }
 
-        for (taskbarComponent in taskbar.components) {
-            when (taskbarComponent) {
-                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                    taskbarComponent.toJavaCommand().project()
-                )
-                is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
-                    taskbarComponent
-                )
-                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
-                    RibbonGalleryProjection(
-                        taskbarComponent.content.asJavaRibbonGalleryContentModel(),
-                        taskbarComponent.presentation.toRibbonGalleryPresentationModel()
-                    )
-                )
-            }
-        }
-
         for (contextualTaskGroup in contextualTaskGroups.taskGroups) {
             ribbonFrame.ribbon.addContextualTaskGroup(
                 RibbonContextualTaskGroup(
@@ -239,7 +230,36 @@ public class KRibbonFrame {
         applicationMenu.populateCommandOverlays(overlays)
         ribbonMenuCommandProjection.commandOverlays = overlays
 
+        val secondaryStates : MutableMap<Command, CommandButtonPresentationState> = hashMapOf()
+        applicationMenu.populateSecondaryStates(secondaryStates)
+        ribbonMenuCommandProjection.secondaryLevelCommandPresentationState = secondaryStates
+
         ribbonFrame.ribbon.setApplicationMenuCommand(ribbonMenuCommandProjection)
+
+        // This needs to be done after setting the application menu command in order to be able
+        // to add app menu links to the taskbar
+        for (taskbarComponent in taskbar.components) {
+            when (taskbarComponent) {
+                is KCommand -> ribbonFrame.ribbon.addTaskbarCommand(
+                    taskbarComponent.asJavaCommand().project()
+                )
+                is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
+                    taskbarComponent.toJavaCommand().project()
+                )
+                is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
+                    taskbarComponent
+                )
+                is KRibbonGallery -> ribbonFrame.ribbon.addTaskbarGalleryDropdown(
+                    RibbonGalleryProjection(
+                        taskbarComponent.content.asJavaRibbonGalleryContentModel(),
+                        taskbarComponent.presentation.toRibbonGalleryPresentationModel()
+                    )
+                )
+                is KRibbonTaskbar.AppMenuLinkWrapper -> ribbonFrame.ribbon.addTaskbarAppMenuLink(
+                    taskbarComponent.command.asJavaCommand()
+                )
+            }
+        }
 
         if (keyboardActions.keyboardActions.isNotEmpty()) {
             ribbonFrame.setKeyboardActions(keyboardActions.keyboardActions.map {

@@ -57,7 +57,7 @@ import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand.PresentationPriority
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel
-import org.pushingpixels.radiance.component.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizeSequencingPolicies
@@ -343,6 +343,24 @@ private class RibbonDemoBuilder {
 
     val styleGalleryContentModel: KRibbonGalleryContent
 
+    val amEntryPrintMemo: KCommand
+    val amEntryPrintCustom: KCommand
+
+    val amEntrySendMail: KCommand
+    val amEntrySendHtml: KCommand
+    val amEntrySendDoc: KCommand
+    val amWirelessWiFi: KCommand
+    val amWirelessBluetooth: KCommand
+    val amEntrySendWireless: KCommand
+    val amEntrySend: KCommand
+
+    val amEntrySaveAsWord: KCommand
+    val amEntrySaveAsHtml: KCommand
+    val amEntrySaveAsOtherFormats: KCommand
+    val amEntrySaveAs: KCommand
+    val amEntryExit: KCommand
+    val amFooterProps: KCommand
+
     init {
         documentNewCommand = command {
             title = resourceBundle["DocumentNew.text"]
@@ -400,7 +418,6 @@ private class RibbonDemoBuilder {
             iconFactory = ColorRadianceIcon.factory(Color(0xF5, 0x7C, 0x00))
             action = { println("Apply Styles activated") }
         }
-
 
         val mfButtonText = MessageFormat(
             resourceBundle["StylesGallery.textButton"]
@@ -507,6 +524,135 @@ private class RibbonDemoBuilder {
                     +resourceBundle["IndentLeft.tooltip.actionParagraph2"]
                 }
             }
+        }
+
+        amEntryPrintMemo = command {
+            title = resourceBundle["AppMenuPrint.memo.text"]
+            iconFactory = Text_x_generic.factory()
+            action = { println("Invoked memo") }
+        }
+
+        amEntryPrintCustom = command {
+            title = resourceBundle["AppMenuPrint.custom.text"]
+            iconFactory = Text_x_generic.factory()
+            action = { println("Invoked custom") }
+        }
+
+        amEntrySendMail = command {
+            title = resourceBundle["AppMenuSend.email.text"]
+            iconFactory = Mail_message_new.factory()
+            extraText = resourceBundle["AppMenuSend.email.description"]
+            action = { println("Invoked email") }
+        }
+
+        amEntrySendHtml = command {
+            title = resourceBundle["AppMenuSend.html.text"]
+            iconFactory = Text_html.factory()
+            extraText = resourceBundle["AppMenuSend.html.description"]
+            action = { println("Invoked HTML") }
+        }
+
+        amEntrySendDoc = command {
+            title = resourceBundle["AppMenuSend.word.text"]
+            iconFactory = X_office_document.factory()
+            extraText = resourceBundle["AppMenuSend.word.description"]
+            action = { println("Invoked Word") }
+        }
+
+        amWirelessWiFi = command {
+            title = resourceBundle["AppMenuSend.wireless.wifi.text"]
+            iconFactory = EmptyRadianceIcon.factory()
+            action = { println("WiFi activated") }
+        }
+
+        amWirelessBluetooth = command {
+            title = resourceBundle["AppMenuSend.wireless.bluetooth.text"]
+            iconFactory = Network_wireless.factory()
+            action = { println("Bluetooth activated") }
+        }
+
+        amEntrySendWireless = command {
+            title = resourceBundle["AppMenuSend.wireless.text"]
+            iconFactory = Mail_message_new.factory()
+            extraText = resourceBundle["AppMenuSend.wireless.description"]
+            menu = commandPopupMenu {
+                menuPresentationState =
+                    RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL
+                command(command = amWirelessWiFi, actionKeyTip = "W")
+
+                command(command = amWirelessBluetooth, actionKeyTip = "B")
+            }
+        }
+
+        amEntrySend = command {
+            title = resourceBundle["AppMenuSend.text"]
+            iconFactory = Mail_forward.factory()
+
+            menu = commandPopupMenu {
+                menuPresentationState =
+                    RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL
+                group {
+                    title = resourceBundle["AppMenuSend.secondary.textGroupTitle1"]
+
+                    command(command = amEntrySendMail, actionKeyTip = "E")
+                    command(command = amEntrySendHtml, actionKeyTip = "H")
+                    command(command = amEntrySendDoc, actionKeyTip = "W")
+                    command(command = amEntrySendWireless, popupKeyTip = "X")
+                }
+            }
+        }
+
+        amEntrySaveAsWord = command {
+            title = resourceBundle["AppMenuSaveAs.word.text"]
+            iconFactory = X_office_document.factory()
+            extraText = resourceBundle["AppMenuSaveAs.word.description"]
+            action = { println("Invoked saved as Word") }
+        }
+
+        amEntrySaveAsHtml = command {
+            title = resourceBundle["AppMenuSaveAs.html.text"]
+            iconFactory = Text_html.factory()
+            extraText = resourceBundle["AppMenuSaveAs.html.description"]
+            action = { println("Invoked saved as HTML") }
+            isActionEnabled = false
+        }
+
+        amEntrySaveAsOtherFormats = command {
+            title = resourceBundle["AppMenuSaveAs.other.text"]
+            iconFactory = Document_save_as.factory()
+            extraText = resourceBundle["AppMenuSaveAs.other.description"]
+            action = { println("Invoked saved as other") }
+        }
+
+        amEntrySaveAs = command {
+            title = resourceBundle["AppMenuSaveAs.text"]
+            iconFactory = Document_save_as.factory()
+            action = { println("Invoked saving document as") }
+
+            menu = commandPopupMenu {
+                menuPresentationState =
+                    RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL
+                group {
+                    title = resourceBundle["AppMenuSaveAs.secondary.textGroupTitle1"]
+
+                    command(command = amEntrySaveAsWord, actionKeyTip = "W")
+                    command(command = amEntrySaveAsHtml, actionKeyTip = "H")
+                    command(command = amEntrySaveAsOtherFormats, actionKeyTip = "O")
+                }
+            }
+        }
+
+        amEntryExit = command {
+            title = resourceBundle["AppMenuExit.text"]
+            iconFactory = System_log_out.factory()
+            action = { exitProcess(0) }
+            menu = null
+        }
+
+        amFooterProps = command {
+            title = resourceBundle["AppMenuOptions.text"]
+            iconFactory = Document_properties.factory()
+            action = { println("Invoked Options") }
         }
     }
 
@@ -1764,7 +1910,7 @@ fun getApplicationMenuRichTooltipIcon(): Pair<Factory, Dimension> {
     val appMenuButtonTooltipImage = ImageIO
         .read(
             RibbonDemoBuilder::class.java.classLoader.getResource(
-                "org.pushingpixels.radiance.demo.component.ktx.ribbon/appmenubutton-tooltip-main.png"
+                "org/pushingpixels/radiance/demo/component/ktx/ribbon/appmenubutton-tooltip-main.png"
             )
         )
     val appMenuButtonTooltipImageWidth = appMenuButtonTooltipImage.width
@@ -1806,8 +1952,10 @@ fun getApplicationMenuRichTooltipIcon(): Pair<Factory, Dimension> {
             )
         }
     }
-    return Pair((Factory { appMenuRichTooltipMainIcon }),
-        Dimension(appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight))
+    return Pair(
+        (Factory { appMenuRichTooltipMainIcon }),
+        Dimension(appMenuButtonTooltipImageInitialWidth, appMenuButtonTooltipImageInitialHeight)
+    )
 }
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -2063,6 +2211,12 @@ fun main() {
                     +builder.fontComboBoxModel
                 }
 
+                appMenuLink(command = builder.amFooterProps)
+                appMenuLink(command = builder.amEntryPrintCustom)
+                appMenuLink(command = builder.amWirelessBluetooth)
+                appMenuLink(command = builder.amEntrySend)
+                appMenuLink(command = builder.amEntryExit)
+
                 checkBox {
                     +builder.rulerCheckBoxModel
                 }
@@ -2105,7 +2259,8 @@ fun main() {
                         iconFactory = Document_new.factory()
                         action = { println("Invoked creating new document") }
 
-                        commandPopupMenu {
+                        menu = commandPopupMenu {
+                            menuPresentationState = CommandButtonPresentationState.MEDIUM
                             group {
                                 title =
                                     builder.resourceBundle["AppMenu.default.textGroupTitle1"]
@@ -2131,7 +2286,8 @@ fun main() {
                         iconFactory = Document_open.factory()
                         action = { println("Invoked opening document") }
 
-                        commandPopupMenu {
+                        menu = commandPopupMenu {
+                            menuPresentationState = CommandButtonPresentationState.MEDIUM
                             group {
                                 title =
                                     builder.resourceBundle["AppMenuOpen.secondary.textGroupTitle1"]
@@ -2161,49 +2317,11 @@ fun main() {
 
                     // "Save as" primary + secondaries
                     command(
+                        command = builder.amEntrySaveAs,
                         actionKeyTip = "A",
                         popupKeyTip = "F",
                         textClick = CommandButtonPresentationModel.TextClick.ACTION
-                    ) {
-                        title = builder.resourceBundle["AppMenuSaveAs.text"]
-                        iconFactory = Document_save_as.factory()
-                        action = { println("Invoked saving document as") }
-
-                        commandPopupMenu {
-                            group {
-                                title =
-                                    builder.resourceBundle["AppMenuSaveAs.secondary.textGroupTitle1"]
-
-                                command(actionKeyTip = "W") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSaveAs.word.text"]
-                                    iconFactory = X_office_document.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSaveAs.word.description"]
-                                    action = { println("Invoked saved as Word") }
-                                }
-
-                                command(actionKeyTip = "H") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSaveAs.html.text"]
-                                    iconFactory = Text_html.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSaveAs.html.description"]
-                                    action = { println("Invoked saved as HTML") }
-                                    isActionEnabled = false
-                                }
-
-                                command(actionKeyTip = "O") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSaveAs.other.text"]
-                                    iconFactory = Document_save_as.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSaveAs.other.description"]
-                                    action = { println("Invoked saved as other") }
-                                }
-                            }
-                        }
-                    }
+                    )
                 }
 
                 group {
@@ -2217,7 +2335,9 @@ fun main() {
                         iconFactory = Document_print.factory()
                         action = { println("Invoked printing as") }
 
-                        commandPopupMenu {
+                        menu = commandPopupMenu {
+                            menuPresentationState =
+                                RibbonApplicationMenuCommandButtonProjection.RIBBON_APP_MENU_SECONDARY_LEVEL
                             group {
                                 title =
                                     builder.resourceBundle["AppMenuPrint.secondary.textGroupTitle1"]
@@ -2254,109 +2374,26 @@ fun main() {
                                 title =
                                     builder.resourceBundle["AppMenuPrint.secondary.textGroupTitle2"]
 
-                                command(actionKeyTip = "M") {
-                                    title =
-                                        builder.resourceBundle["AppMenuPrint.memo.text"]
-                                    iconFactory = Text_x_generic.factory()
-                                    action = { println("Invoked memo") }
-                                }
+                                command(command = builder.amEntryPrintMemo, actionKeyTip = "M")
 
-                                command(actionKeyTip = "C") {
-                                    title =
-                                        builder.resourceBundle["AppMenuPrint.custom.text"]
-                                    iconFactory = Text_x_generic.factory()
-                                    action = { println("Invoked custom") }
-                                }
+                                command(command = builder.amEntryPrintCustom, actionKeyTip = "C")
                             }
                         }
                     }
 
                     // "Send" primary + secondaries
-                    command(popupKeyTip = "D") {
-                        title = builder.resourceBundle["AppMenuSend.text"]
-                        iconFactory = Mail_forward.factory()
-
-                        commandPopupMenu {
-                            group {
-                                title =
-                                    builder.resourceBundle["AppMenuSend.secondary.textGroupTitle1"]
-
-                                command(actionKeyTip = "E") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSend.email.text"]
-                                    iconFactory = Mail_message_new.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSend.email.description"]
-                                    action = { println("Invoked email") }
-                                }
-
-                                command(actionKeyTip = "H") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSend.html.text"]
-                                    iconFactory = Text_html.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSend.html.description"]
-                                    action = { println("Invoked HTML") }
-                                }
-
-                                command(actionKeyTip = "W") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSend.word.text"]
-                                    iconFactory = X_office_document.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSend.word.description"]
-                                    action = { println("Invoked Word") }
-                                }
-
-                                command(popupKeyTip = "X") {
-                                    title =
-                                        builder.resourceBundle["AppMenuSend.wireless.text"]
-                                    iconFactory = Mail_message_new.factory()
-                                    extraText =
-                                        builder.resourceBundle["AppMenuSend.wireless.description"]
-                                    menu = commandPopupMenu {
-                                        command(actionKeyTip = "W") {
-                                            title =
-                                                builder.resourceBundle["AppMenuSend.wireless.wifi.text"]
-                                            iconFactory = EmptyRadianceIcon.factory()
-                                            action = { println("WiFi activated") }
-                                        }
-
-                                        command(actionKeyTip = "B") {
-                                            title =
-                                                builder.resourceBundle["AppMenuSend.wireless.bluetooth.text"]
-                                            iconFactory = EmptyRadianceIcon.factory()
-                                            action = { println("Bluetooth activated") }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    command(command = builder.amEntrySend, popupKeyTip = "D")
                 }
 
                 group {
                     // "Exit" primary
-                    command(actionKeyTip = "X") {
-                        title = builder.resourceBundle["AppMenuExit.text"]
-                        iconFactory = System_log_out.factory()
-                        action = { exitProcess(0) }
-                        menu = null
-                    }
+                    command(command = builder.amEntryExit, actionKeyTip = "X")
                 }
 
                 footer {
-                    command {
-                        title = builder.resourceBundle["AppMenuOptions.text"]
-                        iconFactory = Document_properties.factory()
-                        action = { println("Invoked Options") }
-                    }
+                    command(command = builder.amFooterProps)
 
-                    command {
-                        title = builder.resourceBundle["AppMenuExit.text"]
-                        iconFactory = System_log_out.factory()
-                        action = { exitProcess(0) }
-                    }
+                    command(command = builder.amEntryExit)
                 }
             }
 

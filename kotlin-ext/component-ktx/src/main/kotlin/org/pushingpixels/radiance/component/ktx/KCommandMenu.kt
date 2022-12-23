@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.ktx
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel
 import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel
@@ -81,6 +82,8 @@ public class KCommandMenu {
     public var toDismissOnCommandActivation: Boolean by NonNullDelegate { hasBeenConverted }
     public var menuContentPadding: Insets =
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
+    public var menuPresentationState: CommandButtonPresentationState =
+        CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE
 
     private var commandPanel: KCommandPopupMenuButtonPanel? = null
 
@@ -99,7 +102,7 @@ public class KCommandMenu {
     }
 
     public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KCommand.() -> Unit): KCommand {
+                       init: KCommand.() -> Unit): KCommand {
         val command = KCommand()
         command.init()
         defaultGroup.commands.add(
@@ -112,6 +115,19 @@ public class KCommandMenu {
             )
         )
         return command
+    }
+
+    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
+                       command: KCommand) {
+        defaultGroup.commands.add(
+            KCommandGroup.CommandConfig(
+                command,
+                actionKeyTip,
+                popupKeyTip,
+                null,
+                null
+            )
+        )
     }
 
     public fun group(init: KCommandGroup.() -> Unit): KCommandGroup {

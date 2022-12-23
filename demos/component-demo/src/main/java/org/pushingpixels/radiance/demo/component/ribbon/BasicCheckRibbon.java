@@ -1511,8 +1511,6 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setSecondaryContentModel(saveAsMenu)
                 .build();
 
-
-
         this.amEntryExit = Command.builder()
                 .setText(resourceBundle.getString("AppMenuExit.text"))
                 .setIconFactory(System_log_out.factory())
