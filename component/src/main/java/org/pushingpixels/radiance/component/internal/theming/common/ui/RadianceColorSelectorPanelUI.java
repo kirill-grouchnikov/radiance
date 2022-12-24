@@ -33,11 +33,13 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicColorSelectorPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorPanel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
+import org.pushingpixels.radiance.theming.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -45,6 +47,8 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * UI for {@link JColorSelectorPanel} components in <b>Radiance</b> look and
@@ -71,28 +75,22 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, scaledX, scaledY, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceColorScheme bgFillScheme = RadianceColorSchemeUtilities.getColorScheme(
-                            this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT,
-                            ComponentState.ENABLED);
-                    RadianceCoreUtilities.getFillPainter(this.colorSelectorPanel)
-                            .paintContourBackground(g, this.colorSelectorPanel, width, height,
-                                    new Rectangle(x, y, width, height), bgFillScheme);
+                    RadianceSkin skin = RadianceCoreUtilities.getSkin(this.colorSelectorPanel);
+                    RadianceColorScheme scheme = skin.getBackgroundColorScheme(
+                            DecorationPainterUtils.getDecorationType(this.colorSelectorPanel));
+                    Color backgroundFill = scheme.getAccentedBackgroundFillColor();
 
-                    Color borderColor = RadianceCoreUtilities.getSkin(this.colorSelectorPanel)
-                            .getOverlayColor(RadianceThemingSlices.ColorOverlayType.LINE,
-                                    DecorationPainterUtils.getDecorationType(this.colorSelectorPanel),
-                                    ComponentState.ENABLED);
-                    if (borderColor == null) {
-                        RadianceColorScheme bgBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                                this.colorSelectorPanel, ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
-                                ComponentState.ENABLED);
-                        borderColor = bgBorderScheme.getLineColor();
-                    }
-
-                    graphics1X.setColor(borderColor);
-                    graphics1X.drawLine(scaledX, scaledY, scaledX + scaledWidth, scaledY);
-                    int bottomLineY = scaledY + scaledHeight - 1;
-                    graphics1X.drawLine(scaledX, bottomLineY, scaledX + scaledWidth, bottomLineY);
+                    Set<RadianceThemingSlices.Side> openSides =
+                            EnumSet.of(RadianceThemingSlices.Side.LEFT,
+                                    RadianceThemingSlices.Side.RIGHT);
+                    graphics1X.setColor(backgroundFill);
+                    graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
+                    HighlightPainterUtils.paintHighlightBorder1X(graphics1X, this.colorSelectorPanel,
+                            scaledWidth, scaledHeight,
+                            1.0f, openSides, RadianceCoreUtilities.getBorderPainter(this.colorSelectorPanel),
+                            RadianceColorSchemeUtilities.getColorScheme(
+                                    this.colorSelectorPanel, ColorSchemeAssociationKind.BORDER,
+                                    ComponentState.ENABLED));
                 });
         graphics.dispose();
     }
