@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2022 Radiance Kirill Grouchnikov
+ * Copyright (c) 2005-2023 Radiance Kirill Grouchnikov
  * and <a href="http://www.topologi.com">Topologi</a>. 
  * Contributed by <b>Rick Jelliffe</b> of <b>Topologi</b> 
  * in January 2006.

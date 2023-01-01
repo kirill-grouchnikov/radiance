@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2022 Radiance Kirill Grouchnikov and contributors. All Rights Reserved.
+ * Copyright (c) 2005-2023 Radiance Kirill Grouchnikov and contributors. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
