@@ -35,9 +35,20 @@ import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelector
 import java.awt.Color
 
 @RadianceElementMarker
-public class KColorSelectorPopupMenuColorSection(public val isDerived: Boolean) {
+public class KColorSelectorPopupMenuColorSection() {
     public var title: String by NonNullDelegate { false }
     internal var colorContainer = ColorContainer()
+
+    public fun colors(init: ColorContainer.() -> Unit) {
+        colorContainer.init()
+    }
+}
+
+@RadianceElementMarker
+public class KColorSelectorPopupMenuColorSectionWithDerived() {
+    public var title: String by NonNullDelegate { false }
+    internal var colorContainer = ColorContainer()
+    public var derivedCount: Int by NonNullDelegate { false }
 
     public fun colors(init: ColorContainer.() -> Unit) {
         colorContainer.init()
@@ -60,8 +71,10 @@ public class KColorSelectorPopupMenuGroup {
         )
     }
 
-    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KCommand.() -> Unit): KCommand {
+    public fun command(
+        actionKeyTip: String? = null, popupKeyTip: String? = null,
+        init: KCommand.() -> Unit
+    ): KCommand {
         val command = KCommand()
         command.init()
         content.add(
@@ -77,15 +90,16 @@ public class KColorSelectorPopupMenuGroup {
     }
 
     public fun colorSection(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
-        val colorSection = KColorSelectorPopupMenuColorSection(false)
+        val colorSection = KColorSelectorPopupMenuColorSection()
         colorSection.init()
         content.add(colorSection)
         return colorSection
     }
 
     public fun colorSectionWithDerived(
-            init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
-        val colorSection = KColorSelectorPopupMenuColorSection(true)
+        init: KColorSelectorPopupMenuColorSectionWithDerived.() -> Unit
+    ): KColorSelectorPopupMenuColorSectionWithDerived {
+        val colorSection = KColorSelectorPopupMenuColorSectionWithDerived()
         colorSection.init()
         content.add(colorSection)
         return colorSection
@@ -106,21 +120,32 @@ public class KColorSelectorPopupMenuGroup {
                 is KCommandGroup.CommandConfig -> {
                     menuGroupBuilder.addCommand(component.toJavaCommand())
                 }
+
                 is KColorSelectorPopupMenuColorSection -> {
-                    if (component.isDerived) {
-                        menuGroupBuilder.addColorSectionWithDerived(
-                                ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title,
-                                        component.colorContainer.colors.toTypedArray()))
-                    } else {
-                        menuGroupBuilder.addColorSection(
-                                ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title,
-                                        component.colorContainer.colors.toTypedArray()))
-                    }
+                    menuGroupBuilder.addColorSection(
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModel(
+                            component.title,
+                            component.colorContainer.colors.toTypedArray()
+                        )
+                    )
                 }
+
+                is KColorSelectorPopupMenuColorSectionWithDerived -> {
+                    menuGroupBuilder.addColorSectionWithDerived(
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModelWithDerived(
+                            component.title,
+                            component.colorContainer.colors.toTypedArray(),
+                            component.derivedCount
+                        )
+                    )
+                }
+
                 is KColorSelectorPopupMenuRecentSection -> {
                     menuGroupBuilder.addRecentsSection(
-                            ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title))
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModel(component.title)
+                    )
                 }
+
                 else -> throw IllegalStateException("Unsupported content")
             }
         }
@@ -147,8 +172,10 @@ public class KColorSelectorPopupMenu {
         )
     }
 
-    public fun command(actionKeyTip: String? = null, popupKeyTip: String? = null,
-            init: KCommand.() -> Unit): KCommand {
+    public fun command(
+        actionKeyTip: String? = null, popupKeyTip: String? = null,
+        init: KCommand.() -> Unit
+    ): KCommand {
         val command = KCommand()
         command.init()
         defaultGroup.content.add(
@@ -164,15 +191,16 @@ public class KColorSelectorPopupMenu {
     }
 
     public fun colorSection(init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
-        val colorSection = KColorSelectorPopupMenuColorSection(false)
+        val colorSection = KColorSelectorPopupMenuColorSection()
         colorSection.init()
         defaultGroup.content.add(colorSection)
         return colorSection
     }
 
     public fun colorSectionWithDerived(
-            init: KColorSelectorPopupMenuColorSection.() -> Unit): KColorSelectorPopupMenuColorSection {
-        val colorSection = KColorSelectorPopupMenuColorSection(true)
+        init: KColorSelectorPopupMenuColorSectionWithDerived.() -> Unit
+    ): KColorSelectorPopupMenuColorSectionWithDerived {
+        val colorSection = KColorSelectorPopupMenuColorSectionWithDerived()
         colorSection.init()
         defaultGroup.content.add(colorSection)
         return colorSection
@@ -204,11 +232,11 @@ public class KColorSelectorPopupMenu {
                 menuGroups
             )
         menuContentModel.colorActivationListener =
-                ColorSelectorPopupMenuContentModel.ColorActivationListener {
-                    onColorActivated?.invoke(it)
-                }
+            ColorSelectorPopupMenuContentModel.ColorActivationListener {
+                onColorActivated?.invoke(it)
+            }
         menuContentModel.colorPreviewListener = object :
-                ColorSelectorPopupMenuContentModel.ColorPreviewListener {
+            ColorSelectorPopupMenuContentModel.ColorPreviewListener {
             override fun onColorPreviewActivated(color: Color) {
                 onColorPreviewActivated?.invoke(color)
             }

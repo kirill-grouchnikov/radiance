@@ -809,13 +809,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .build());
 
         selectorBuilder.addColorSectionWithDerived(
-                new ColorSelectorPopupMenuGroupModel.ColorSectionModel(
+                new ColorSelectorPopupMenuGroupModel.ColorSectionModelWithDerived(
                         resourceBundle.getString("ColorSelector.textThemeCaption"),
                         new Color[]{new Color(255, 255, 255), new Color(0, 0, 0),
                                 new Color(160, 160, 160), new Color(16, 64, 128),
                                 new Color(80, 128, 192), new Color(180, 80, 80),
                                 new Color(160, 192, 80), new Color(128, 92, 160),
-                                new Color(80, 160, 208), new Color(255, 144, 64)}));
+                                new Color(80, 160, 208), new Color(255, 144, 64)},
+                        5));
 
         selectorBuilder.addColorSection(
                 new ColorSelectorPopupMenuGroupModel.ColorSectionModel(

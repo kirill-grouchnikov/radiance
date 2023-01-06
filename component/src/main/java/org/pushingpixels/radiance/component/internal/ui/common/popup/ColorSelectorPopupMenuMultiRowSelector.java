@@ -36,17 +36,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
-    private static final int SECONDARY_ROWS = 5;
-
     private final int columnCount;
+    private final int derivedCount;
 
     public ColorSelectorPopupMenuMultiRowSelector(final JColorSelectorPopupMenuPanel colorSelectorPopupMenu,
-            final Color... colors) {
+            int derivedCount, final Color... colors) {
+        this.derivedCount = derivedCount;
         this.columnCount = colors.length;
         ColorSelectorPopupMenuContentModel contentModel =
                 colorSelectorPopupMenu.getProjection().getContentModel();
         final JColorSelectorComponent[][] comps =
-                new JColorSelectorComponent[colors.length][1 + SECONDARY_ROWS];
+                new JColorSelectorComponent[colors.length][1 + derivedCount];
         for (int i = 0; i < colors.length; i++) {
             Color primary = colors[i];
 
@@ -59,25 +59,25 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
             float[] primaryHsb = new float[3];
             Color.RGBtoHSB(primary.getRed(), primary.getGreen(), primary.getBlue(), primaryHsb);
 
-            for (int row = 1; row <= SECONDARY_ROWS; row++) {
-                float bFactor = (float) (row - 1) / (float) (SECONDARY_ROWS);
+            for (int row = 1; row <= derivedCount; row++) {
+                float bFactor = (float) (row - 1) / (float) (derivedCount);
                 bFactor = (float) Math.pow(bFactor, 1.4f);
                 float brightness = 1.0f - bFactor;
 
                 if (primaryHsb[1] == 0.0f) {
                     // special handling for gray scale
                     float max = 0.5f + 0.5f * primaryHsb[2];
-                    brightness = max * (SECONDARY_ROWS - row + 1) / SECONDARY_ROWS;
+                    brightness = max * (derivedCount - row + 1) / derivedCount;
                 }
 
                 Color secondary = new Color(Color.HSBtoRGB(primaryHsb[0],
-                        primaryHsb[1] * (row + 1) / (SECONDARY_ROWS + 1), brightness));
+                        primaryHsb[1] * (row + 1) / (derivedCount + 1), brightness));
 
                 comps[i][row] = new JColorSelectorComponent(secondary,
                         contentModel.getColorPreviewListener(),
                         contentModel.getColorActivationListener());
                 comps[i][row].setTopOpen(row > 1);
-                comps[i][row].setBottomOpen(row < SECONDARY_ROWS);
+                comps[i][row].setBottomOpen(row < derivedCount);
                 comps[i][row].addColorActivationListener(JColorSelectorPopupMenuPanel::addColorToRecentlyUsed);
                 this.add(comps[i][row]);
             }
@@ -104,7 +104,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
                 int gap = ui.getColorSelectorCellGap();
                 int size = ui.getColorSelectorCellSize();
                 return new Dimension(colors.length * size + (colors.length + 1) * gap,
-                        gap + size + gap + SECONDARY_ROWS * size + gap);
+                        gap + size + gap + derivedCount * size + gap);
             }
 
             @Override
@@ -116,7 +116,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
 
                 if (parent.getComponentOrientation().isLeftToRight()) {
                     int y = gap;
-                    for (int row = 0; row <= SECONDARY_ROWS; row++) {
+                    for (int row = 0; row <= derivedCount; row++) {
                         int x = gap;
                         for (int i = 0; i < colors.length; i++) {
                             comps[i][row].setBounds(x, y, size, size);
@@ -130,7 +130,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
                 } else {
                     int y = gap;
 
-                    for (int row = 0; row <= SECONDARY_ROWS; row++) {
+                    for (int row = 0; row <= derivedCount; row++) {
                         int x = getWidth() - gap;
                         for (int i = 0; i < colors.length; i++) {
                             comps[i][row].setBounds(x - size, y, size, size);
@@ -147,7 +147,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
     }
 
     public void focusOn(int row, int column) {
-        this.getComponent(column * (SECONDARY_ROWS + 1) + row).requestFocus();
+        this.getComponent(column * (this.derivedCount + 1) + row).requestFocus();
     }
 
     private enum FocusMoveDirection {
@@ -155,9 +155,9 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
     }
 
     private boolean focusMove(FocusMoveDirection focusMoveDirection) {
-        for (int row = 0; row <= SECONDARY_ROWS; row++) {
+        for (int row = 0; row <= this.derivedCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {
-                if (this.getComponent(column * (SECONDARY_ROWS + 1) + row).hasFocus()) {
+                if (this.getComponent(column * (this.derivedCount + 1) + row).hasFocus()) {
                     switch (focusMoveDirection) {
                         case UP:
                             if (row > 0) {
@@ -166,7 +166,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
                             }
                             return false;
                         case DOWN:
-                            if (row < (SECONDARY_ROWS)) {
+                            if (row < (this.derivedCount)) {
                                 this.focusOn(row + 1, column);
                                 return true;
                             }
@@ -207,7 +207,7 @@ public class ColorSelectorPopupMenuMultiRowSelector extends JPanel {
     }
 
     public int getRowCount() {
-        return 1 + SECONDARY_ROWS;
+        return 1 + this.derivedCount;
     }
 
 }

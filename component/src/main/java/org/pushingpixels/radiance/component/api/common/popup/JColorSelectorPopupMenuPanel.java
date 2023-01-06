@@ -113,10 +113,11 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
                         this.addColorSection(colorSectionModel.getTitle(), colorSectionModel.getColors());
                         break;
                     case COLOR_SECTION_WITH_DERIVED:
-                        ColorSelectorPopupMenuGroupModel.ColorSectionModel colorSectionWithDerivedModel =
-                                (ColorSelectorPopupMenuGroupModel.ColorSectionModel) groupEntry.getValue();
+                        ColorSelectorPopupMenuGroupModel.ColorSectionModelWithDerived colorSectionWithDerivedModel =
+                                (ColorSelectorPopupMenuGroupModel.ColorSectionModelWithDerived) groupEntry.getValue();
                         this.addColorSectionWithDerived(colorSectionWithDerivedModel.getTitle(),
-                                colorSectionWithDerivedModel.getColors());
+                                colorSectionWithDerivedModel.getColors(),
+                                colorSectionWithDerivedModel.getDerivedCount());
                         break;
                     case RECENTS_SECTION:
                         ColorSelectorPopupMenuGroupModel.ColorSectionModel recentsSectionModel =
@@ -140,11 +141,15 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         setUI(RadianceColorSelectorPopupMenuPanelUI.createUI(this));
     }
 
-    private void addColorSectionWithDerived(String label, Color[] primaryColors) {
+    private void addColorSectionWithDerived(String label, Color[] primaryColors, int derivedCount) {
         if ((primaryColors == null) || (primaryColors.length != this.colorColumns)) {
             throw new IllegalArgumentException("Must pass exactly " + this.colorColumns + " colors");
         }
-        JPanel selectorContainer = new ColorSelectorPopupMenuMultiRowSelector(this, primaryColors);
+        if (derivedCount < 1) {
+            throw new IllegalArgumentException("Needs to pass a non-trivial number of derived colors");
+        }
+        JPanel selectorContainer = new ColorSelectorPopupMenuMultiRowSelector(this, derivedCount,
+                primaryColors);
         JColorSelectorPanel selector = new JColorSelectorPanel(label, selectorContainer);
         this.addMenuPanel(selector);
 

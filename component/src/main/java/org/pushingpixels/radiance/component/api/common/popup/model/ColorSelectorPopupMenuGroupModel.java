@@ -75,6 +75,30 @@ public class ColorSelectorPopupMenuGroupModel implements ChangeAware {
         }
     }
 
+    public static class ColorSectionModelWithDerived {
+        private String title;
+        private Color[] colors;
+        private int derivedCount;
+
+        public ColorSectionModelWithDerived(String title, Color[] colors, int derivedCount) {
+            this.title = title;
+            this.colors = colors;
+            this.derivedCount = derivedCount;
+        }
+
+        public final String getTitle() {
+            return this.title;
+        }
+
+        public final Color[] getColors() {
+            return Arrays.copyOf(this.colors, this.colors.length);
+        }
+
+        public int getDerivedCount() {
+            return this.derivedCount;
+        }
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -109,12 +133,11 @@ public class ColorSelectorPopupMenuGroupModel implements ChangeAware {
         }
 
         public Builder addColorSection(ColorSectionModel colorSectionModel) {
-            this.groupContent.add(
-                    new KeyValuePair<>(GroupEntryKind.COLOR_SECTION, colorSectionModel));
+            this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COLOR_SECTION, colorSectionModel));
             return this;
         }
 
-        public Builder addColorSectionWithDerived(ColorSectionModel colorSectionModel) {
+        public Builder addColorSectionWithDerived(ColorSectionModelWithDerived colorSectionModel) {
             this.groupContent.add(new KeyValuePair<>(GroupEntryKind.COLOR_SECTION_WITH_DERIVED,
                     colorSectionModel));
             return this;
@@ -127,7 +150,7 @@ public class ColorSelectorPopupMenuGroupModel implements ChangeAware {
         }
 
         public ColorSelectorPopupMenuGroupModel build() {
-            ColorSelectorPopupMenuGroupModel menuGroupModel =new ColorSelectorPopupMenuGroupModel();
+            ColorSelectorPopupMenuGroupModel menuGroupModel = new ColorSelectorPopupMenuGroupModel();
             menuGroupModel.groupContent = Collections.unmodifiableList(this.groupContent);
             return menuGroupModel;
         }

@@ -952,6 +952,7 @@ private class RibbonDemoBuilder {
                             +Color(80, 160, 208)
                             +Color(255, 144, 64)
                         }
+                        derivedCount = 5
                     }
 
                     colorSection {
