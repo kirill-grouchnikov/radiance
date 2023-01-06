@@ -92,6 +92,35 @@ public class RadianceColorSelectorComponentUI extends BasicColorSelectorComponen
     }
 
     @Override
+    protected void paintBorder(Graphics g) {
+        int w = this.colorSelectorComponent.getWidth();
+        int h = this.colorSelectorComponent.getHeight();
+
+        Color fillColor = this.colorSelectorComponent.getColor();
+        float[] hsb = new float[3];
+        Color.RGBtoHSB(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue(), hsb);
+        float brightness = hsb[2] * 0.7f;
+        Color borderColor = new Color(brightness, brightness, brightness);
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    graphics1X.setColor(borderColor);
+                    int ty = this.colorSelectorComponent.isTopOpen() ? 1 : 0;
+                    int by = this.colorSelectorComponent.isBottomOpen() ? 1 : 0;
+                    graphics1X.drawRect(x, y - ty, scaledWidth - 1, scaledHeight - 1 + ty + by);
+                });
+
+        graphics.dispose();
+    }
+
+    @Override
     protected void paintRolloverIndication(Graphics g) {
         int w = this.colorSelectorComponent.getWidth();
         int h = this.colorSelectorComponent.getHeight();

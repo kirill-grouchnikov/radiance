@@ -29,17 +29,15 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common.popup;
 
-import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
-import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
-import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
+import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
+import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Basic UI for color selector component {@link JColorSelectorComponent}.
@@ -392,18 +390,7 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
         g2d.setColor(fillColor);
         g2d.fillRect(0, 0, w, h);
 
-        float[] hsb = new float[3];
-        Color.RGBtoHSB(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue(), hsb);
-        float brightness = hsb[2] * 0.7f;
-        g2d.setColor(new Color(brightness, brightness, brightness));
-
-        float borderThickness = 1.0f / (float) RadianceCommonCortex.getScaleFactor(c);
-        float ty = this.colorSelectorComponent.isTopOpen() ? borderThickness : 0;
-        float by = this.colorSelectorComponent.isBottomOpen() ? borderThickness : 0;
-        g2d.setStroke(
-                new BasicStroke(borderThickness, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        g2d.draw(
-                new Rectangle2D.Double(0, -ty, w - borderThickness, h - borderThickness + ty + by));
+        this.paintBorder(g2d);
 
         if (this.rollover > 0.0f) {
             this.paintRolloverIndication(g2d);
@@ -415,6 +402,8 @@ public abstract class BasicColorSelectorComponentUI extends ColorSelectorCompone
 
         g2d.dispose();
     }
+
+    protected abstract void paintBorder(Graphics g);
 
     protected abstract void paintRolloverIndication(Graphics g);
 
