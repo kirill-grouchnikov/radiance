@@ -47,6 +47,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -167,7 +168,10 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     }
 
     private void addRecentSection(String label) {
-        JPanel recent = new ColorSelectorPopupMenuSingleRowSelector(this, recentlySelected.toArray(new Color[0]));
+        int colorCount = Math.min(recentlySelected.size(), this.colorColumns);
+        Color[] toDisplay = Arrays.copyOfRange(recentlySelected.toArray(new Color[0]), 0, colorCount);
+
+        JPanel recent = new ColorSelectorPopupMenuSingleRowSelector(this, toDisplay);
         JColorSelectorPanel recentPanel = new JColorSelectorPanel(label, recent);
         recentPanel.setLastPanel(true);
         this.addMenuPanel(recentPanel);
@@ -202,15 +206,15 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         if (recentlySelected.contains(color)) {
             // Bump up to the top of the most recent
             recentlySelected.remove(color);
-            recentlySelected.addLast(color);
+            recentlySelected.addFirst(color);
             return;
         }
 
         if (recentlySelected.size() == 100) {
             // Too many in history, bump out the least recently used or added
-            recentlySelected.removeFirst();
+            recentlySelected.removeLast();
         }
-        recentlySelected.addLast(color);
+        recentlySelected.addFirst(color);
     }
 
 }
