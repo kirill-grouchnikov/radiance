@@ -84,19 +84,20 @@ public class HighlightPainterUtils {
         }
         paintHighlight(g2d, c, rect, borderAlpha, openSides, fillScheme,
                 borderScheme, highlightPainter, highlightBorderPainter);
+        g2d.dispose();
     }
 
-    private static void paintHighlight(Graphics2D g, Component c, Rectangle rect,
+    private static void paintHighlight(Graphics g, Component c, Rectangle rect,
             float borderAlpha, Set<RadianceThemingSlices.Side> openSides,
             RadianceColorScheme fillScheme, RadianceColorScheme borderScheme,
             RadianceFillPainter highlightPainter,
             RadianceBorderPainter highlightBorderPainter) {
-        Graphics2D resGraphics = (Graphics2D) g.create();
-        highlightPainter.paintContourBackground(g, c, rect.width, rect.height, rect, fillScheme);
-        resGraphics.translate(rect.x, rect.y);
-        paintHighlightBorder1X(resGraphics, c, rect.width, rect.height, borderAlpha, openSides,
+        Graphics2D g2d = (Graphics2D) g.create();
+        highlightPainter.paintContourBackground(g2d, c, rect.width, rect.height, rect, fillScheme);
+        g2d.translate(rect.x, rect.y);
+        paintHighlightBorder1X(g2d, c, rect.width, rect.height, borderAlpha, openSides,
                 highlightBorderPainter, borderScheme);
-        resGraphics.dispose();
+        g2d.dispose();
     }
 
     /**
