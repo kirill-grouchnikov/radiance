@@ -67,14 +67,17 @@ allprojects {
     // Configure Java compilation for all the projects
     tasks.withType(JavaCompile) {
         // enforce Java 9 as the source + target + compile time level
-        def javaVersion = JavaVersion.VERSION_1_9
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
+        javaCompiler = javaToolchains.compilerFor {
+            languageVersion = JavaLanguageVersion.of(9)
+        }
+        sourceCompatibility = JavaVersion.VERSION_1_9
+        targetCompatibility = JavaVersion.VERSION_1_9
 
         compileJava.doFirst {
-            if (JavaVersion.current() != javaVersion)
+            if (javaCompiler.get().getMetadata().getLanguageVersion() != JavaLanguageVersion.of(9))
                 throw new IllegalStateException("Compiler version mismatch; required is "
-                        + javaVersion + ", but using " + JavaVersion.current())
+                        + JavaLanguageVersion.of(9) + ", but using "
+                        + javaCompiler.get().getMetadata().getLanguageVersion())
         }
 
         // flag all usage of deprecated APIs as errors
