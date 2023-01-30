@@ -320,6 +320,7 @@ public class CommandButtonBackgroundDelegate {
                     // Otherwise pixels on the edge can "spill" outside
                     // the contour. Those pixels will be drawn by the border painter.
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                            commandButton.getComponentOrientation(),
                             scaledWidth + dw, scaledHeight + dh,
                             radius, straightSides, 0.5f);
                     fillPainter.paintContourBackground(graphics1X, commandButton,
@@ -330,10 +331,12 @@ public class CommandButtonBackgroundDelegate {
 
                     // Border
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                            commandButton.getComponentOrientation(),
                             scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
                             straightSides, 0.0f);
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             RadianceOutlineUtilities.getBaseOutline(
+                                    commandButton.getComponentOrientation(),
                                     scaledWidth + dw - 1, scaledHeight + dh - 1, radius,
                                     straightSides, 1.0f)
                             : null;

@@ -89,7 +89,7 @@ public class RadianceCommandButtonPanelUI extends BasicCommandButtonPanelUI {
     @Override
     protected void paintGroupTitleBackground(Graphics g, int groupIndex, int x,
             int y, int width, int height) {
-        Set<RadianceThemingSlices.Side> openSides = EnumSet.of(Side.LEFT, Side.RIGHT);
+        Set<RadianceThemingSlices.Side> openSides = EnumSet.of(Side.LEADING, Side.TRAILING);
         if (groupIndex == 0) {
             openSides.add(Side.TOP);
         }

@@ -167,7 +167,8 @@ public abstract class BasePolygonShaper implements RadianceButtonShaper {
             return this.canonicalPath.getPath(width, height, extraInsets);
         }
 
-        return RadianceOutlineUtilities.getBaseOutline(width, height, 2, null, extraInsets);
+        return RadianceOutlineUtilities.getBaseOutline(button.getComponentOrientation(),
+                width, height, 2, null, extraInsets);
     }
 
     @Override

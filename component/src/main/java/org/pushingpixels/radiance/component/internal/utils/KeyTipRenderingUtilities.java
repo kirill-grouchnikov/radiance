@@ -83,12 +83,14 @@ public class KeyTipRenderingUtilities {
                             RadianceSizeUtils.getComponentFontSize(c));
 
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            c.getComponentOrientation(),
                             scaledWidth, scaledHeight, radius,
                             null, 1.0f);
                     fillPainter.paintContourBackground(graphics1X, c, scaledWidth, scaledHeight,
                             contour, fillScheme);
 
                     Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                            c.getComponentOrientation(),
                             scaledWidth, scaledHeight,
                             radius, null, 2.0f);
                     borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,

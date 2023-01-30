@@ -166,6 +166,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
 
                     float radius = (float) scaleFactor * getTaskToggleButtonCornerRadius(button);
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            button.getComponentOrientation(),
                             scaledWidth, scaledHeight + 3.0f, radius, bottom, 1.0f);
 
                     RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
@@ -180,6 +181,7 @@ public class RibbonTaskToggleButtonBackgroundDelegate {
                     }
 
                     Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                            button.getComponentOrientation(),
                             scaledWidth, scaledHeight + 4.0f, radius, bottom, 2.0f);
 
                     borderPainter.paintBorder(graphics1X, button, scaledWidth, scaledHeight + 2.0f,

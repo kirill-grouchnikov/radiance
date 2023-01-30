@@ -125,9 +125,19 @@ public class ButtonBackgroundDelegate {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    ComponentOrientation orientation = button.getComponentOrientation();
+                    RadianceThemingSlices.Side leftSide =
+                            orientation.isLeftToRight()
+                                    ? RadianceThemingSlices.Side.LEADING
+                                    : RadianceThemingSlices.Side.TRAILING;
+                    RadianceThemingSlices.Side rightSide =
+                            orientation.isLeftToRight()
+                                    ? RadianceThemingSlices.Side.TRAILING
+                                    : RadianceThemingSlices.Side.LEADING;
+
                     int openDelta = (int) (3 * scaleFactor);
-                    int deltaLeft = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.LEFT)) ? openDelta : 0;
-                    int deltaRight = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.RIGHT)) ? openDelta : 0;
+                    int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
+                    int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
                     int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
                     int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
 
@@ -150,7 +160,6 @@ public class ButtonBackgroundDelegate {
                                 scaledHeight + deltaTop + deltaBottom,
                                 contourFill, colorScheme);
                     }
-                    graphics1X.translate(deltaLeft, deltaTop);
 
                     if (isBorderPainted) {
                         Shape contourInner = borderPainter.isPaintingInnerContour() ?
@@ -162,6 +171,7 @@ public class ButtonBackgroundDelegate {
                         borderPainter.paintBorder(graphics1X, button, scaledWidth + deltaLeft + deltaRight,
                                 scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner, borderScheme);
                     }
+                    graphics1X.translate(deltaLeft, deltaTop);
                 });
 
         graphics.dispose();

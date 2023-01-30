@@ -486,6 +486,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                     float radius = (float) scaleFactor *
                             RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            this.comboBox.getComponentOrientation(),
                             scaledWidth - 1, scaledHeight - 1, radius, null, 0);
                     RadianceCoreUtilities.paintFocus(graphics1X, this.comboBox, this.comboBox,
                             this, scaleFactor, contour, bounds, 1.0f,

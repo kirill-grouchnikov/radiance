@@ -81,8 +81,8 @@ public class RadianceColorSelectorPanelUI extends BasicColorSelectorPanelUI {
                     Color backgroundFill = scheme.getAccentedBackgroundFillColor();
 
                     Set<RadianceThemingSlices.Side> openSides =
-                            EnumSet.of(RadianceThemingSlices.Side.LEFT,
-                                    RadianceThemingSlices.Side.RIGHT);
+                            EnumSet.of(RadianceThemingSlices.Side.LEADING,
+                                    RadianceThemingSlices.Side.TRAILING);
                     graphics1X.setColor(backgroundFill);
                     graphics1X.fillRect(0, 0, scaledWidth, scaledHeight);
                     HighlightPainterUtils.paintHighlightBorder1X(graphics1X, this.colorSelectorPanel,

@@ -93,7 +93,7 @@ public class RadianceScrollablePanelUI extends BasicScrollablePanelUI {
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
-                        ? EnumSet.of(RadianceThemingSlices.Side.RIGHT)
+                        ? EnumSet.of(RadianceThemingSlices.Side.TRAILING)
                         : EnumSet.of(RadianceThemingSlices.Side.BOTTOM));
 
         button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -118,7 +118,7 @@ public class RadianceScrollablePanelUI extends BasicScrollablePanelUI {
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
                 (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
-                        ? EnumSet.of(RadianceThemingSlices.Side.LEFT)
+                        ? EnumSet.of(RadianceThemingSlices.Side.LEADING)
                         : EnumSet.of(RadianceThemingSlices.Side.TOP));
 
         button.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));

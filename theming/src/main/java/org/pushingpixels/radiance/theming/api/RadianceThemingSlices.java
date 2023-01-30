@@ -72,14 +72,14 @@ public final class RadianceThemingSlices {
      */
     public enum Side {
         /**
-         * Left side.
+         * Leading horizontal side.
          */
-        LEFT,
+        LEADING,
 
         /**
-         * Right side.
+         * Trailing horizontal side.
          */
-        RIGHT,
+        TRAILING,
 
         /**
          * Top side.
@@ -132,6 +132,7 @@ public final class RadianceThemingSlices {
                 int delta = ((mainComp instanceof JComboBox) || (mainComp instanceof JSpinner)) ? 0
                         : 1;
                 Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                        mainComp.getComponentOrientation(),
                         (float) scaleFactor * textRect.width + 2 * delta,
                         (float) scaleFactor * textRect.height,
                         (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize),
@@ -182,6 +183,7 @@ public final class RadianceThemingSlices {
                     float delta = RadianceSizeUtils.getBorderStrokeWidth(mainComp);
                     Shape contour = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
+                            mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - 2 * delta,
                             (float) scaleFactor * mainComp.getHeight() - 2 * delta,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
@@ -238,6 +240,7 @@ public final class RadianceThemingSlices {
                     graphics.translate(extraPadding / 2, extraPadding / 2);
                     Shape contour = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
+                            mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
                             (float) scaleFactor * mainComp.getHeight() - extraPadding,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)
@@ -283,6 +286,7 @@ public final class RadianceThemingSlices {
                     graphics.translate(extraPadding / 2, extraPadding / 2);
                     Shape contour = (focusShape != null) ? focusShape
                             : RadianceOutlineUtilities.getBaseOutline(
+                            mainComp.getComponentOrientation(),
                             (float) scaleFactor * mainComp.getWidth() - extraPadding,
                             (float) scaleFactor * mainComp.getHeight() - extraPadding,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(fontSize)

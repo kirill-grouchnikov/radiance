@@ -57,29 +57,29 @@ public class ButtonOpenSides extends JFrame {
 
         this.setLayout(new FlowLayout());
 
-        JButton buttonA = new JButton("left only");
-        // mark button to have open and straight left side
+        JButton buttonA = new JButton("leading only");
+        // mark button to have open and straight leading side
         // using side constant
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonA, RadianceThemingSlices.Side.LEFT);
-        RadianceThemingCortex.ComponentScope.setButtonOpenSide(buttonA, RadianceThemingSlices.Side.LEFT);
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonA, Side.LEADING);
+        RadianceThemingCortex.ComponentScope.setButtonOpenSide(buttonA, Side.LEADING);
 
-        JButton buttonB = new JButton("right only");
-        // mark button to have open and straight right side using side constant
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonB, RadianceThemingSlices.Side.RIGHT);
-        RadianceThemingCortex.ComponentScope.setButtonOpenSide(buttonB, RadianceThemingSlices.Side.RIGHT);
+        JButton buttonB = new JButton("trailing only");
+        // mark button to have open and straight trailing side using side constant
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonB, Side.TRAILING);
+        RadianceThemingCortex.ComponentScope.setButtonOpenSide(buttonB, Side.TRAILING);
 
-        JButton buttonC = new JButton("left+top");
-        // mark button to have open and straight left and top sides
+        JButton buttonC = new JButton("leading+top");
+        // mark button to have open and straight leading and top sides
         // using set of side constants
-        EnumSet<Side> leftTopSides = EnumSet.of(RadianceThemingSlices.Side.LEFT,
+        EnumSet<Side> leftTopSides = EnumSet.of(Side.LEADING,
                 RadianceThemingSlices.Side.TOP);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonC, leftTopSides);
         RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonC, leftTopSides);
 
         JButton buttonD = new JButton("right+bottom");
-        // mark button to have open and straight right and bottom sides
+        // mark button to have open and straight trailing and bottom sides
         // using set of side constants
-        EnumSet<Side> rightBottomSides = EnumSet.of(RadianceThemingSlices.Side.RIGHT,
+        EnumSet<Side> rightBottomSides = EnumSet.of(Side.TRAILING,
                 RadianceThemingSlices.Side.BOTTOM);
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonD, rightBottomSides);
         RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonD, rightBottomSides);

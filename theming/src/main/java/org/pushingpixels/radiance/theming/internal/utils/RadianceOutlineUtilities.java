@@ -63,7 +63,7 @@ public class RadianceOutlineUtilities {
 		int width = comp.getWidth();
 		int height = comp.getHeight();
 
-		return getBaseOutline(width, height, radius, straightSides);
+		return getBaseOutline(comp.getComponentOrientation(), width, height, radius, straightSides);
 	}
 
 	/**
@@ -81,9 +81,9 @@ public class RadianceOutlineUtilities {
 	 *            Contains all sides which are straight.
 	 * @return The basic outline for the specified parameters.
 	 */
-	public static Shape getBaseOutline(float width, float height,
+	public static Shape getBaseOutline(ComponentOrientation orientation, float width, float height,
 			float radius, Set<RadianceThemingSlices.Side> straightSides) {
-		return getBaseOutline(width, height, radius, straightSides, 0.0f);
+		return getBaseOutline(orientation, width, height, radius, straightSides, 0.0f);
 	}
 
 	/**
@@ -103,19 +103,28 @@ public class RadianceOutlineUtilities {
 	 *            Shape insets.
 	 * @return The basic outline for the specified parameters.
 	 */
-	public static Shape getBaseOutline(float width, float height,
+	public static Shape getBaseOutline(ComponentOrientation orientation, float width, float height,
                                        float radius, Set<RadianceThemingSlices.Side> straightSides, float insets) {
+		RadianceThemingSlices.Side leftSide =
+				orientation.isLeftToRight()
+						? RadianceThemingSlices.Side.LEADING
+						: RadianceThemingSlices.Side.TRAILING;
+		RadianceThemingSlices.Side rightSide =
+				orientation.isLeftToRight()
+						? RadianceThemingSlices.Side.TRAILING
+						: RadianceThemingSlices.Side.LEADING;
+
 		boolean isTopLeftCorner = (straightSides != null)
-				&& (straightSides.contains(RadianceThemingSlices.Side.LEFT) || straightSides
+				&& (straightSides.contains(leftSide) || straightSides
 						.contains(RadianceThemingSlices.Side.TOP));
 		boolean isTopRightCorner = (straightSides != null)
-				&& (straightSides.contains(RadianceThemingSlices.Side.RIGHT) || straightSides
+				&& (straightSides.contains(rightSide) || straightSides
 						.contains(RadianceThemingSlices.Side.TOP));
 		boolean isBottomRightCorner = (straightSides != null)
-				&& (straightSides.contains(RadianceThemingSlices.Side.RIGHT) || straightSides
+				&& (straightSides.contains(rightSide) || straightSides
 						.contains(RadianceThemingSlices.Side.BOTTOM));
 		boolean isBottomLeftCorner = (straightSides != null)
-				&& (straightSides.contains(RadianceThemingSlices.Side.LEFT) || straightSides
+				&& (straightSides.contains(leftSide) || straightSides
 						.contains(RadianceThemingSlices.Side.BOTTOM));
 
 		float xs = insets;

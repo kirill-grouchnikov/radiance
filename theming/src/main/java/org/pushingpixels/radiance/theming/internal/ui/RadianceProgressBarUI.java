@@ -224,6 +224,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                bar.getComponentOrientation(),
                                 scaledWidth, scaledHeight, radius, null);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                                 contour, scheme);
@@ -240,6 +241,7 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                         float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                bar.getComponentOrientation(),
                                 scaledWidth, scaledHeight, radius, null);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                                 contour, scheme);
@@ -262,11 +264,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
                     (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                         float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-                        RadianceThemingSlices.Side straightSide = componentOrientation.isLeftToRight()
-                                ? RadianceThemingSlices.Side.RIGHT : RadianceThemingSlices.Side.LEFT;
+                        RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
                         Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
-                        Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
-                                radius, straightSides);
+                        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                bar.getComponentOrientation(),
+                                scaledWidth, scaledHeight, radius, straightSides);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                                 contour, scheme);
                     });
@@ -281,10 +283,11 @@ public class RadianceProgressBarUI extends BasicProgressBarUI {
 
                         float radius = 0.5f * (float) scaleFactor * RadianceSizeUtils
                                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(bar));
-                        RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.RIGHT;
+                        RadianceThemingSlices.Side straightSide = RadianceThemingSlices.Side.TRAILING;
                         Set<RadianceThemingSlices.Side> straightSides = isFull ? null : EnumSet.of(straightSide);
 
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                bar.getComponentOrientation(),
                                 scaledWidth, scaledHeight, radius, straightSides);
                         fillPainter.paintContourBackground(graphics1X, bar, scaledWidth, scaledHeight,
                                 contour, scheme);

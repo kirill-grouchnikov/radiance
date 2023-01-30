@@ -253,14 +253,16 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
         float radius = (float) scaleFactor *
                 RadianceSizeUtils.getClassicButtonCornerRadius(componentFontSize) / 2.0f;
 
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height,
-                radius, null, 1.0f);
+        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                this.slider.getComponentOrientation(),
+                width, height, radius, null, 1.0f);
 
         fillPainter.paintContourBackground(graphics1X, slider, width, height,
                 contour, fillColorScheme);
 
-        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(width, height,
-                radius - 1.0f, null, 2.0f);
+        Shape contourInner = RadianceOutlineUtilities.getBaseOutline(
+                this.slider.getComponentOrientation(),
+                width, height, radius - 1.0f, null, 2.0f);
         borderPainter.paintBorder(graphics1X, slider, width, height,
                 contour, contourInner, borderScheme);
     }
@@ -311,8 +313,9 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 int fillWidth = fillMaxX - fillMinX;
                 int fillHeight = height;
                 if ((fillWidth > 0) && (fillHeight > 0)) {
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(fillWidth, fillHeight,
-                            radius, null, 1.0f);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            this.slider.getComponentOrientation(),
+                            fillWidth, fillHeight, radius, null, 1.0f);
                     g2d.translate(fillMinX, 0);
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
                             contour, fillScheme);
@@ -337,8 +340,9 @@ public class RadianceSliderUI extends BasicSliderUI implements TransitionAwareUI
                 int fillWidth = fillMax - fillMin;
                 int fillHeight = height;
                 if ((fillWidth > 0) && (fillHeight > 0)) {
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(fillWidth, fillHeight,
-                            radius, null, 1.0f);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            this.slider.getComponentOrientation(),
+                            fillWidth, fillHeight, radius, null, 1.0f);
 
                     fillPainter.paintContourBackground(g2d, this.slider, fillWidth, fillHeight,
                             contour, fillScheme);

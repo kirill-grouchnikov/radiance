@@ -57,12 +57,15 @@ public class BladeDrawingUtils {
                     RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
                     float scaledRadius = (float) scaleFactor * baseRadius;
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            c.getComponentOrientation(),
                             scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, null, 0.0f);
                     boolean skipInnerBorder = (c instanceof JTextComponent)
                             || ((SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null)
                             && (SwingUtilities.getAncestorOfClass(JFileChooser.class, c) != null));
                     Shape contourInner = skipInnerBorder ? null :
-                            RadianceOutlineUtilities.getBaseOutline(scaledWidth - 1.0f, scaledHeight - 1.0f,
+                            RadianceOutlineUtilities.getBaseOutline(
+                                    c.getComponentOrientation(),
+                                    scaledWidth - 1.0f, scaledHeight - 1.0f,
                                     Math.max(scaledRadius - 1.0f, 0.0f), null, 1.0f);
                     borderPainter.paintBorder(graphics1X, c, scaledWidth, scaledHeight, contour,
                             contourInner, borderScheme);

@@ -679,27 +679,27 @@ public class Check extends JFrame {
 
             final JToggleButton buttonStyleBold = new JToggleButton(
                     format_text_bold.of(size, size));
-            Set<Side> rightSide = EnumSet.of(Side.RIGHT);
-            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleBold, rightSide);
+            Set<Side> trailingSide = EnumSet.of(Side.TRAILING);
+            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleBold, trailingSide);
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleBold, 3.0f);
             configureToolbarButton(buttonStyleBold, useMutedIcons);
 
             final JToggleButton buttonStyleItalic = new JToggleButton(
                     format_text_italic.of(size, size));
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleItalic, 0.0f);
-            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleItalic, rightSide);
+            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleItalic, trailingSide);
             configureToolbarButton(buttonStyleItalic, useMutedIcons);
 
             final JToggleButton buttonStyleUnderline = new JToggleButton(
                     format_text_underline.of(size, size));
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleUnderline, 0.0f);
-            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleUnderline, rightSide);
+            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleUnderline, trailingSide);
             configureToolbarButton(buttonStyleUnderline, useMutedIcons);
 
             final JToggleButton buttonStyleStrikethrough = new JToggleButton(
                     format_text_strikethrough.of(size, size));
-            RadianceThemingCortex.ComponentScope.setButtonOpenSides(buttonStyleStrikethrough,
-                    EnumSet.of(Side.LEFT));
+            RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonStyleStrikethrough,
+                    EnumSet.of(Side.LEADING));
             RadianceThemingCortex.ComponentScope.setToolbarButtonCornerRadius(buttonStyleStrikethrough,
                     3.0f);
             configureToolbarButton(buttonStyleStrikethrough, useMutedIcons);

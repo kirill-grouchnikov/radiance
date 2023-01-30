@@ -118,15 +118,25 @@ public class HighlightPainterUtils {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                    ComponentOrientation orientation = comp.getComponentOrientation();
+                    RadianceThemingSlices.Side leftSide =
+                            orientation.isLeftToRight()
+                                    ? RadianceThemingSlices.Side.LEADING
+                                    : RadianceThemingSlices.Side.TRAILING;
+                    RadianceThemingSlices.Side rightSide =
+                            orientation.isLeftToRight()
+                                    ? RadianceThemingSlices.Side.TRAILING
+                                    : RadianceThemingSlices.Side.LEADING;
+
                     int openDelta = (int) (scaleFactor * 6.0);
-                    int deltaLeft = openSides.contains(RadianceThemingSlices.Side.LEFT) ? openDelta : 0;
-                    int deltaRight = openSides.contains(RadianceThemingSlices.Side.RIGHT) ? openDelta : 0;
+                    int deltaLeft = openSides.contains(leftSide) ? openDelta : 0;
+                    int deltaRight = openSides.contains(rightSide) ? openDelta : 0;
                     int deltaTop = openSides.contains(RadianceThemingSlices.Side.TOP) ? openDelta : 0;
                     int deltaBottom = openSides.contains(RadianceThemingSlices.Side.BOTTOM) ? openDelta : 0;
 
-                    Shape contour = getBorderPath(scaledWidth, scaledHeight, 0.0f, openSides);
+                    Shape contour = getBorderPath(orientation, scaledWidth, scaledHeight, 0.0f, openSides);
                     graphics1X.setComposite(WidgetUtilities.getAlphaComposite(comp, borderAlpha, graphics1X));
-                    Shape contourInner = getBorderPath(scaledWidth, scaledHeight, 1.0f, openSides);
+                    Shape contourInner = getBorderPath(orientation, scaledWidth, scaledHeight, 1.0f, openSides);
 
                     highlightBorderPainter.paintBorder(graphics1X, comp,
                             scaledWidth + deltaLeft + deltaRight,
@@ -137,8 +147,18 @@ public class HighlightPainterUtils {
         graphics.dispose();
     }
 
-    private static Path2D getBorderPath(int width, int height, float insets,
+    private static Path2D getBorderPath(ComponentOrientation orientation,
+            int width, int height, float insets,
             Set<RadianceThemingSlices.Side> openSides) {
+        RadianceThemingSlices.Side leftSide =
+                orientation.isLeftToRight()
+                        ? RadianceThemingSlices.Side.LEADING
+                        : RadianceThemingSlices.Side.TRAILING;
+        RadianceThemingSlices.Side rightSide =
+                orientation.isLeftToRight()
+                        ? RadianceThemingSlices.Side.TRAILING
+                        : RadianceThemingSlices.Side.LEADING;
+
         Path2D result = new Path2D.Float();
         // Top-left
         result.moveTo(insets, insets);
@@ -149,7 +169,7 @@ public class HighlightPainterUtils {
             result.lineTo(width - 1.0f - insets, insets);
         }
         // Jump or move to bottom-right
-        if (openSides.contains(RadianceThemingSlices.Side.RIGHT)) {
+        if (openSides.contains(rightSide)) {
             result.moveTo(width - 1.0f - insets, height - 1.0f - insets);
         } else {
             result.lineTo(width - 1.0f - insets, height - 1.0f - insets);
@@ -161,7 +181,7 @@ public class HighlightPainterUtils {
             result.lineTo(insets, height - 1.0f - insets);
         }
         // Jump or move to top-left
-        if (openSides.contains(RadianceThemingSlices.Side.LEFT)) {
+        if (openSides.contains(leftSide)) {
             result.moveTo(insets, insets);
         } else {
             result.lineTo(insets, insets);

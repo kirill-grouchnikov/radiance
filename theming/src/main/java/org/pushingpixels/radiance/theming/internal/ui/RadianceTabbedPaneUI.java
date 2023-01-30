@@ -668,8 +668,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 .getClassicButtonCornerRadius(RadianceSizeUtils.getComponentFontSize(tabPane));
         width -= 1;
 
-        Shape contour = RadianceOutlineUtilities.getBaseOutline(width, height + dy,
-                cornerRadius, straightSides, 1.0f);
+        Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                tabPane.getComponentOrientation(),
+                width, height + dy, cornerRadius, straightSides, 1.0f);
 
         graphics1X.setColor(tabColor);
         graphics1X.fill(contour);
@@ -680,8 +681,9 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
         clipped.dispose();
 
         Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                RadianceOutlineUtilities.getBaseOutline(width, height + dy,
-                        cornerRadius - 1.0f, straightSides, 2.0f)
+                RadianceOutlineUtilities.getBaseOutline(
+                        tabPane.getComponentOrientation(),
+                        width, height + dy, cornerRadius - 1.0f, straightSides, 2.0f)
                 : null;
 
         borderPainter.paintBorder(graphics1X, tabPane, width, height + dy, contour, contourInner,
@@ -754,6 +756,7 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
                 (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
                     if (toPaintBorder) {
                         Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                                tabPane.getComponentOrientation(),
                                 scaledWidth, scaledHeight, 1, null);
                         fillPainter.paintContourBackground(graphics1X, tabPane,
                                 scaledWidth, scaledHeight, contour,
@@ -1390,8 +1393,6 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
     /**
      * Returns extra width for the specified tab.
      *
-     * @param tabPlacement
-     *         Tab placement.
      * @param tabIndex
      *         Tab index.
      * @return Extra width for the specified tab.

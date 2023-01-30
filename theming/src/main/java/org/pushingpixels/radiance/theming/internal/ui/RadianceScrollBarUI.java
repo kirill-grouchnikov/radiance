@@ -186,8 +186,9 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
 
                     float radius = scaledHeight / 2;
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
-                            radius, null, 1.0f);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            this.scrollbar.getComponentOrientation(),
+                            scaledWidth, scaledHeight, radius, null, 1.0f);
 
                     // Rotate the graphics context for correct "orientation" of the visuals
                     AffineTransform at = AffineTransform.getRotateInstance(-Math.PI / 2);
@@ -242,8 +243,9 @@ public class RadianceScrollBarUI extends BasicScrollBarUI implements TransitionA
                     RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(this.scrollbar);
 
                     float radius = scaledHeight / 2;
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
-                            radius, null, 1.0f);
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            this.scrollbar.getComponentOrientation(),
+                            scaledWidth, scaledHeight, radius, null, 1.0f);
                     graphics1X.translate(x, y + voffset * scaleFactor);
                     painter.paintContourBackground(graphics1X, this.scrollbar, scaledWidth, scaledHeight,
                             contour, mutableFillColorScheme);

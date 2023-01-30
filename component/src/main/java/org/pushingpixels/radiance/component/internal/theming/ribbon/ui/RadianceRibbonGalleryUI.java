@@ -98,9 +98,7 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
-                ribbonGallery.getComponentOrientation().isLeftToRight()
-                        ? RadianceThemingSlices.Side.LEFT
-                        : RadianceThemingSlices.Side.RIGHT);
+                RadianceThemingSlices.Side.LEADING);
     }
 
     @Override
@@ -116,9 +114,7 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
-                ribbonGallery.getComponentOrientation().isLeftToRight()
-                        ? RadianceThemingSlices.Side.LEFT
-                        : RadianceThemingSlices.Side.RIGHT);
+                RadianceThemingSlices.Side.LEADING);
     }
 
     @Override
@@ -134,9 +130,7 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                 new Dimension(arrowIconWidth, arrowIconHeight));
         button.setIcon(arrowIcon);
         RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
-                ribbonGallery.getComponentOrientation().isLeftToRight()
-                        ? RadianceThemingSlices.Side.LEFT
-                        : RadianceThemingSlices.Side.RIGHT);
+                RadianceThemingSlices.Side.LEADING);
     }
 
     @Override

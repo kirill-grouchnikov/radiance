@@ -975,10 +975,10 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                 // if row selection is on and column selection is off, we
                 // will show the highlight for the entire row
 
-                // all cells have open left side
-                highlightOpenSides.add(RadianceThemingSlices.Side.LEFT);
-                // all cells have open right side
-                highlightOpenSides.add(RadianceThemingSlices.Side.RIGHT);
+                // all cells have open leading side
+                highlightOpenSides.add(RadianceThemingSlices.Side.LEADING);
+                // all cells have open trailing side
+                highlightOpenSides.add(RadianceThemingSlices.Side.TRAILING);
             }
             if (table.getColumnSelectionAllowed() && !table.getRowSelectionAllowed()) {
                 // if row selection is off and column selection is on, we
@@ -1003,7 +1003,11 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                         .getCellState(new TableCellId(row, column - 1));
                 if (currState == leftNeighbourState) {
                     // the cell to the left is in the same state
-                    highlightOpenSides.add(RadianceThemingSlices.Side.LEFT);
+                    if (table.getComponentOrientation().isLeftToRight()) {
+                        highlightOpenSides.add(RadianceThemingSlices.Side.LEADING);
+                    } else {
+                        highlightOpenSides.add(RadianceThemingSlices.Side.TRAILING);
+                    }
                 }
             }
             if (row == 0) {
@@ -1013,10 +1017,10 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                 highlightOpenSides.add(RadianceThemingSlices.Side.BOTTOM);
             }
             if (column == 0) {
-                highlightOpenSides.add(RadianceThemingSlices.Side.LEFT);
+                highlightOpenSides.add(RadianceThemingSlices.Side.LEADING);
             }
             if (column == (table.getColumnCount() - 1)) {
-                highlightOpenSides.add(RadianceThemingSlices.Side.RIGHT);
+                highlightOpenSides.add(RadianceThemingSlices.Side.TRAILING);
             }
         }
 
@@ -1028,7 +1032,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
 
             if (hasHighlights) {
                 float extra = RadianceSizeUtils.getBorderStrokeWidth(this.table);
-                float extraWidth = highlightOpenSides.contains(RadianceThemingSlices.Side.LEFT) ? 0.0f
+                float extraWidth = highlightOpenSides.contains(RadianceThemingSlices.Side.LEADING) ? 0.0f
                         : extra;
                 float extraHeight = highlightOpenSides.contains(RadianceThemingSlices.Side.TOP) ? 0.0f
                         : extra;
@@ -1106,7 +1110,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
                             0.8f, null, scheme, borderScheme);
                 } else {
                     float extra = RadianceSizeUtils.getBorderStrokeWidth(table);
-                    float extraWidth = highlightOpenSides.contains(RadianceThemingSlices.Side.LEFT) ? 0.0f
+                    float extraWidth = highlightOpenSides.contains(RadianceThemingSlices.Side.LEADING) ? 0.0f
                             : extra;
                     float extraHeight = highlightOpenSides.contains(RadianceThemingSlices.Side.TOP) ? 0.0f
                             : extra;

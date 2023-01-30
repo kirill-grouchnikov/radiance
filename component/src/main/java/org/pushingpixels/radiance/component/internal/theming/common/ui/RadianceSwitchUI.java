@@ -126,6 +126,7 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                     float trackHeight = presentationModel.getTrackSize().height * (float) scaleFactor;
 
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                            switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f,
                             null, 0.0f
@@ -135,10 +136,12 @@ public class RadianceSwitchUI extends BasicSwitchUI {
                             trackWidth, trackHeight, contourFill, mutableFillColorScheme);
 
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                            switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f, null
                     );
                     Shape contourInner = borderPainter.isPaintingInnerContour() ? RadianceOutlineUtilities.getBaseOutline(
+                            switchComp.getComponentOrientation(),
                             trackWidth, trackHeight,
                             trackHeight * 0.5f - 1.0f, null, 1.0f
                     ) : null;

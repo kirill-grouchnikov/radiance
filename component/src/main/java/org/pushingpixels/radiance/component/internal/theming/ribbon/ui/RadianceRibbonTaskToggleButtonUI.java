@@ -242,6 +242,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
                     float focusRingPadding = (float) scaleFactor * RadianceSizeUtils.getFocusRingPadding(this.commandButton,
                             RadianceSizeUtils.getComponentFontSize(this.commandButton));
                     Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            this.commandButton.getComponentOrientation(),
                             scaledWidth, scaledHeight,
                             radius, EnumSet.of(RadianceThemingSlices.Side.BOTTOM),
                             focusRingPadding);

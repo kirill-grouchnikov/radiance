@@ -82,7 +82,9 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
             return result;
         }
 
-        result = RadianceOutlineUtilities.getBaseOutline(width - 1, height - 1, radius, straightSides,
+        result = RadianceOutlineUtilities.getBaseOutline(
+                button.getComponentOrientation(),
+                width - 1, height - 1, radius, straightSides,
                 extraInsets);
         contours.put(key, result);
         return result;
@@ -98,12 +100,23 @@ public class ClassicButtonShaper implements RadianceButtonShaper, RectangularBut
                 int lrPadding = RadianceCoreUtilities.hasText(button)
                         ? RadianceSizeUtils.getTextButtonLRPadding(fontSize)
                         : 0;
+
+                ComponentOrientation orientation = c.getComponentOrientation();
+                RadianceThemingSlices.Side leftSide =
+                        orientation.isLeftToRight()
+                                ? RadianceThemingSlices.Side.LEADING
+                                : RadianceThemingSlices.Side.TRAILING;
+                RadianceThemingSlices.Side rightSide =
+                        orientation.isLeftToRight()
+                                ? RadianceThemingSlices.Side.TRAILING
+                                : RadianceThemingSlices.Side.LEADING;
+
                 Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
                         RadianceSynapse.BUTTON_OPEN_SIDE);
                 int left = lrPadding + buttonInsets.left + (int) focusPadding
-                        + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.LEFT) ? -1 : 0);
+                        + ((openSides != null) && openSides.contains(leftSide) ? -1 : 0);
                 int right = lrPadding + buttonInsets.right + (int) focusPadding
-                        + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.RIGHT) ? -1 : 0);
+                        + ((openSides != null) && openSides.contains(rightSide) ? -1 : 0);
                 int top = buttonInsets.top
                         + ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP) ? -1 : 0);
                 int bottom = buttonInsets.bottom

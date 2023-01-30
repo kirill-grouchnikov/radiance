@@ -96,17 +96,20 @@ public class ComboBoxBackgroundDelegate {
                             RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
 
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                            combo.getComponentOrientation(),
                             scaledWidth - 1, scaledHeight - 1, radius, null, 0);
                     // If the border is painted, compute a separate contour for the fill.
                     // Otherwise pixels on the edge can "spill" outside
                     // the contour. Those pixels will be drawn by the border painter.
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                            combo.getComponentOrientation(),
                             scaledWidth, scaledHeight, radius, null, 0.5f);
                     fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
                             contourFill, fillScheme);
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             RadianceOutlineUtilities.getBaseOutline(
+                                    combo.getComponentOrientation(),
                                     scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
                             : null;
                     borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,

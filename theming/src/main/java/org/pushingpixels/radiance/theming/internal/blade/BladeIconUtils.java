@@ -101,6 +101,7 @@ public class BladeIconUtils {
 
                     int contourDim = scaledWidth - 1;
                     Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                            component.getComponentOrientation(),
                             contourDim, contourDim,
                             cornerRadius, null, 0.0f);
 
@@ -108,6 +109,7 @@ public class BladeIconUtils {
                             : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     graphics1X.setComposite(getAlphaComposite(alpha));
                     Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                            component.getComponentOrientation(),
                             contourDim + 1, contourDim + 1,
                             cornerRadius, null, 0.5f);
                     finalFillPainter.paintContourBackground(graphics1X, component,
@@ -116,6 +118,7 @@ public class BladeIconUtils {
 
                     Shape contourInner = borderPainter.isPaintingInnerContour() ?
                             RadianceOutlineUtilities.getBaseOutline(
+                                    component.getComponentOrientation(),
                                     contourDim, contourDim, cornerRadius, null, 1.0f)
                             : null;
                     borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
@@ -328,7 +331,9 @@ public class BladeIconUtils {
                     RadianceFillPainter fillPainter = SimplisticSoftBorderReverseFillPainter.INSTANCE;
                     RadianceBorderPainter borderPainter = new FlatBorderPainter();
 
-                    Shape contour = RadianceOutlineUtilities.getBaseOutline(scaledWidth, scaledHeight,
+                    Shape contour = RadianceOutlineUtilities.getBaseOutline(
+                            tree.getComponentOrientation(),
+                            scaledWidth, scaledHeight,
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                                     RadianceSizeUtils.getComponentFontSize(tree)) / 1.5f, null,
                             1.0f);

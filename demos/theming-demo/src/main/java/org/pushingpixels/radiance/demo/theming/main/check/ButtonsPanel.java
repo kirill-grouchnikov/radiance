@@ -434,12 +434,12 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Straight bottom", null,
                 (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSide(ab,
                         Side.BOTTOM));
-        this.addRow(builder, "Straight left", null,
+        this.addRow(builder, "Straight leading", null,
                 (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSides(ab,
-                        EnumSet.of(Side.LEFT)));
-        this.addRow(builder, "Straight right", null,
+                        EnumSet.of(Side.LEADING)));
+        this.addRow(builder, "Straight trailing", null,
                 (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonStraightSides(ab,
-                        EnumSet.of(Side.RIGHT)));
+                        EnumSet.of(Side.TRAILING)));
 
         this.addRow(builder, "Open top", null,
                 new ChainCommand<>(
@@ -453,18 +453,18 @@ public class ButtonsPanel extends JPanel {
                                 .setButtonStraightSide(ab, Side.BOTTOM),
                         (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSide(ab,
                                 Side.BOTTOM)));
-        this.addRow(builder, "Open left", null,
+        this.addRow(builder, "Open leading", null,
                 new ChainCommand<>(
                         (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
-                                .setButtonStraightSides(ab, EnumSet.of(Side.LEFT)),
+                                .setButtonStraightSides(ab, EnumSet.of(Side.LEADING)),
                         (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSides(ab,
-                                EnumSet.of(Side.LEFT))));
+                                EnumSet.of(Side.LEADING))));
         this.addRow(builder, "Open right", null,
                 new ChainCommand<>(
                         (AbstractButton ab) -> RadianceThemingCortex.ComponentScope
-                                .setButtonStraightSides(ab, EnumSet.of(Side.RIGHT)),
+                                .setButtonStraightSides(ab, EnumSet.of(Side.TRAILING)),
                         (AbstractButton ab) -> RadianceThemingCortex.ComponentScope.setButtonOpenSides(ab,
-                                EnumSet.of(Side.RIGHT))));
+                                EnumSet.of(Side.TRAILING))));
 
         builder.appendSeparator("Unicode texts");
         this.addRow(builder, "Hebrew", null, new ChainCommand<>(

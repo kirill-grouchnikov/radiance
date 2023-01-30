@@ -57,27 +57,27 @@ public class ButtonStraightSides extends JFrame {
 
         this.setLayout(new FlowLayout());
 
-        JButton buttonA = new JButton("left only");
-        // Mark button to have straight left side
+        JButton buttonA = new JButton("leading only");
+        // Mark button to have straight leading side
         // using side constant
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonA, RadianceThemingSlices.Side.LEFT);
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonA, Side.LEADING);
 
-        JButton buttonB = new JButton("right only");
-        // Mark button to have straight right side
+        JButton buttonB = new JButton("trailing only");
+        // Mark button to have straight trailing side
         // using side constant
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonB, RadianceThemingSlices.Side.RIGHT);
+        RadianceThemingCortex.ComponentScope.setButtonStraightSide(buttonB, Side.TRAILING);
 
-        JButton buttonC = new JButton("left+top");
-        // Mark button to have straight left and top sides
+        JButton buttonC = new JButton("leading+top");
+        // Mark button to have straight leading and top sides
         // using set of side constants
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonC,
-                EnumSet.of(RadianceThemingSlices.Side.LEFT, RadianceThemingSlices.Side.TOP));
+                EnumSet.of(Side.LEADING, Side.TOP));
 
-        JButton buttonD = new JButton("right+bottom");
-        // Mark button to have straight right and bottom sides
+        JButton buttonD = new JButton("trailing+bottom");
+        // Mark button to have straight trailing and bottom sides
         // using set of side constants
         RadianceThemingCortex.ComponentScope.setButtonStraightSides(buttonD,
-                EnumSet.of(RadianceThemingSlices.Side.RIGHT, RadianceThemingSlices.Side.BOTTOM));
+                EnumSet.of(Side.TRAILING, Side.BOTTOM));
 
         this.add(buttonA);
         this.add(buttonB);
