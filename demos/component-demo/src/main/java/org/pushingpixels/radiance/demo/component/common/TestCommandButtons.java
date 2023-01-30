@@ -121,34 +121,53 @@ public class TestCommandButtons extends JFrame {
 
     private CommandMenuContentModel getPopupMenuContentModel() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
+        MessageFormat mfExtra = new MessageFormat(resourceBundle.getString("TestMenuItem.textExtra"));
         mf.setLocale(currLocale);
+        mfExtra.setLocale(currLocale);
 
         List<Command> simpleEntries1 = new ArrayList<>();
         List<Command> simpleEntries2 = new ArrayList<>();
 
         simpleEntries1.add(Command.builder()
-                .setText(mf.format(new Object[] { "1" }))
+                .setText(mf.format(new Object[]{"1"}))
                 .setIconFactory(Address_book_new.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 1"))
                 .build());
         simpleEntries1.add(Command.builder()
-                .setText(mf.format(new Object[] { "2" }))
+                .setText(mf.format(new Object[]{"2"}))
                 .setIconFactory(EmptyRadianceIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 2"))
                 .build());
         simpleEntries1.add(Command.builder()
-                .setText(mf.format(new Object[] { "3" }))
+                .setText(mf.format(new Object[]{"3"}))
                 .setIconFactory(EmptyRadianceIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 3"))
                 .build());
 
         simpleEntries2.add(Command.builder()
-                .setText(mf.format(new Object[] { "4" }))
+                .setText(mf.format(new Object[]{"4"}))
                 .setIconFactory(EmptyRadianceIcon.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 4"))
+                .setSecondaryContentModel(new CommandMenuContentModel(new CommandGroup(
+                        Command.builder()
+                                .setText(mf.format(new Object[]{"4", "1"}))
+                                .setIconFactory(EmptyRadianceIcon.factory())
+                                .setAction(commandActionEvent -> System.out.println("Popup action 4/2"))
+                                .build(),
+                        Command.builder()
+                                .setText(mf.format(new Object[]{"4", "2"}))
+                                .setIconFactory(EmptyRadianceIcon.factory())
+                                .setAction(commandActionEvent -> System.out.println("Popup action 4/3"))
+                                .build(),
+                        Command.builder()
+                                .setText(mf.format(new Object[]{"4", "3"}))
+                                .setIconFactory(EmptyRadianceIcon.factory())
+                                .setAction(commandActionEvent -> System.out.println("Popup action 4/4"))
+                                .build()
+                )))
                 .build());
         simpleEntries2.add(Command.builder()
-                .setText(mf.format(new Object[] { "5" }))
+                .setText(mf.format(new Object[]{"5"}))
                 .setIconFactory(Text_x_generic.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 5"))
                 .build());

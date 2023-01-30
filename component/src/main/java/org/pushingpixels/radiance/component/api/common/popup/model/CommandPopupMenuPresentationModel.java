@@ -134,7 +134,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
-                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
+                RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP;
 
         public Builder setPanelPresentationModel(
                 CommandPopupMenuPanelPresentationModel panelPresentationModel) {
