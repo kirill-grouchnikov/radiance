@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.7.20"
+kotlin = "1.8.0"
 coroutines = "1.6.4"
 dokka = "1.7.20"
 
