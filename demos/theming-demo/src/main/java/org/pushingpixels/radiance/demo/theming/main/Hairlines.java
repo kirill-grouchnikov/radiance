@@ -1,5 +1,7 @@
 package org.pushingpixels.radiance.demo.theming.main;
 
+import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -69,7 +71,9 @@ class Version2 extends Base {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x( g2d, this, this::paintImpl );
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
+                (g1, x, y, scaledWidth, scaledHeight, scaleFactor) ->
+                        paintImpl(g2d, x, y, scaledWidth, scaledHeight, scaleFactor));
         g2d.dispose();
     }
 
@@ -91,7 +95,9 @@ class Version3 extends Base {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
-        HiDPIUtils.paintAtScale1x( g2d, this, this::paintImpl );
+        RadianceCommonCortex.paintAtScale1x(g2d, 0, 0, this.getWidth(), this.getHeight(),
+                (g1, x, y, scaledWidth, scaledHeight, scaleFactor) ->
+                        paintImpl(g2d, x, y, scaledWidth, scaledHeight, scaleFactor));
         g2d.dispose();
     }
 
