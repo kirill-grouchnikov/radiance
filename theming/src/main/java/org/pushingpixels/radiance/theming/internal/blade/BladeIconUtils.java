@@ -370,24 +370,6 @@ public class BladeIconUtils {
         int end = iconSize - start;
 
         Color primaryColor = scheme.getMarkColor();
-        Color echoColor = scheme.getEchoColor();
-
-        int fgStrength = RadianceColorUtilities.getColorBrightness(primaryColor.getRGB());
-        int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
-        boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-
-        if (!noEcho) {
-            // Thicker, translucent stroke
-            Stroke echoStroke = new BasicStroke(primaryStrokeWidth * 2.0f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-
-            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-            graphics.setStroke(echoStroke);
-            graphics.setColor(echoColor);
-            graphics.drawLine(start, start, end, end);
-            graphics.drawLine(start, end, end, start);
-            graphics.setComposite(AlphaComposite.SrcOver);
-        }
 
         Stroke primaryStroke = new BasicStroke(primaryStrokeWidth,
                 BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
@@ -413,23 +395,6 @@ public class BladeIconUtils {
         int size = end - start - 2;
 
         Color primaryColor = scheme.getMarkColor();
-        Color echoColor = scheme.getEchoColor();
-
-        int fgStrength = RadianceColorUtilities.getColorBrightness(primaryColor.getRGB());
-        int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
-        boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-
-        if (!noEcho) {
-            // Thicker, translucent stroke
-            Stroke echoStroke = new BasicStroke(4.2f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-
-            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-            graphics.setStroke(echoStroke);
-            graphics.setColor(echoColor);
-            graphics.drawLine(start + 3, end, start + size, end);
-            graphics.setComposite(AlphaComposite.SrcOver);
-        }
 
         graphics.setColor(primaryColor);
         graphics.fillRect(start + 2, end - 1, size, 3);
@@ -448,36 +413,6 @@ public class BladeIconUtils {
         int end = iconSize - start;
 
         Color primaryColor = scheme.getMarkColor();
-        Color echoColor = scheme.getEchoColor();
-
-        int fgStrength = RadianceColorUtilities.getColorBrightness(primaryColor.getRGB());
-        int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
-        boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-
-        if (!noEcho) {
-            graphics.setColor(echoColor);
-
-            // Thicker, translucent strokes
-            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-
-            Stroke echoStroke = new BasicStroke(3.1f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-            graphics.setStroke(echoStroke);
-            // top (thicker)
-            graphics.drawLine(start, start, end - 1, start);
-
-            echoStroke = new BasicStroke(2.0f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-            graphics.setStroke(echoStroke);
-            GeneralPath rest = new GeneralPath();
-            rest.moveTo(start, start);
-            rest.lineTo(start, end);
-            rest.lineTo(end, end);
-            rest.lineTo(end, start);
-            graphics.draw(rest);
-
-            graphics.setComposite(AlphaComposite.SrcOver);
-        }
 
         graphics.setColor(primaryColor);
         // top (thicker)
@@ -503,61 +438,6 @@ public class BladeIconUtils {
         int end = iconSize - start;
         int smallSquareSize = end - start - 3;
         Color primaryColor = scheme.getMarkColor();
-        Color echoColor = scheme.getEchoColor();
-
-        int fgStrength = RadianceColorUtilities.getColorBrightness(primaryColor.getRGB());
-        int echoStrength = RadianceColorUtilities.getColorBrightness(echoColor.getRGB());
-        boolean noEcho = Math.abs(fgStrength - echoStrength) < 48;
-
-        if (!noEcho) {
-            graphics.setColor(echoColor);
-
-            // Thicker, translucent strokes
-            graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-
-            // "Main" rectangle
-            int mainStartX = start;
-            int mainStartY = end - smallSquareSize;
-
-            Stroke echoStroke = new BasicStroke(3.1f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-            graphics.setStroke(echoStroke);
-            // top (thicker)
-            graphics.drawLine(mainStartX + 1, mainStartY, mainStartX + smallSquareSize - 1, mainStartY);
-
-            echoStroke = new BasicStroke(2.0f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-            graphics.setStroke(echoStroke);
-            GeneralPath rest = new GeneralPath();
-            rest.moveTo(mainStartX, mainStartY);
-            rest.lineTo(mainStartX, mainStartY + smallSquareSize);
-            rest.lineTo(mainStartX + smallSquareSize, mainStartY + smallSquareSize);
-            rest.lineTo(mainStartX + smallSquareSize, mainStartY);
-            graphics.draw(rest);
-
-            // "Secondary rectangle"
-            int secondaryStartX = mainStartX + 3;
-            int secondaryStartY = mainStartY - 3;
-
-            echoStroke = new BasicStroke(3.1f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-            graphics.setStroke(echoStroke);
-            // top (thicker)
-            graphics.drawLine(secondaryStartX + 1, secondaryStartY,
-                    secondaryStartX + smallSquareSize - 1, secondaryStartY);
-
-            echoStroke = new BasicStroke(2.0f,
-                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-            graphics.setStroke(echoStroke);
-
-            rest.reset();
-            rest.moveTo(secondaryStartX + smallSquareSize - 1, secondaryStartY);
-            rest.lineTo(secondaryStartX + smallSquareSize - 1, secondaryStartY + smallSquareSize);
-            rest.lineTo(mainStartX + smallSquareSize + 1, secondaryStartY + smallSquareSize);
-            graphics.draw(rest);
-
-            graphics.setComposite(AlphaComposite.SrcOver);
-        }
 
         graphics.setColor(primaryColor);
 
