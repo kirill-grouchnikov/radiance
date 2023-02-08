@@ -233,6 +233,11 @@ public class RadianceSynapse {
     public final static String IS_TITLE_PANE_LABEL = "radiance.theming.internal.isTitlePaneLabel";
 
     /**
+     * Client property name for specifying the title pane buttons provider.
+     */
+    public final static String TITLE_PANE_BUTTONS_PROVIDER = "radiance.theming.internal.titlePaneButtonsProvider";
+
+    /**
      * Client property name for specifying the horizontal gravity of the title pane text.
      */
     public final static String TITLE_TEXT_HORIZONTAL_GRAVITY = "radiance.theming.internal.titleTextHorizontalGravity";

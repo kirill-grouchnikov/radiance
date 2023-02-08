@@ -40,9 +40,12 @@ import org.pushingpixels.radiance.theming.api.RadianceLookAndFeel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceDefaultIconPack;
 import org.pushingpixels.radiance.theming.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.radiance.theming.api.skin.NebulaBrickWallSkin;
+import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.extras.api.RadianceExtrasSlices.TabOverviewKind;
 
 import javax.swing.*;
@@ -85,7 +88,7 @@ public class ControlPanelFactory {
             final JTabbedPane mainTabbedPane, final MyMainTabPreviewPainter mainTabPreviewPainter,
             final JToolBar toolbar) {
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
-                "right:pref, 4dlu, fill:pref:grow", 2, 22).padding(new EmptyBorder(8, 0, 4, 0));
+                "right:pref, 4dlu, fill:pref:grow", 2, 24).padding(new EmptyBorder(8, 0, 4, 0));
 
         builder.appendSeparator("Title pane settings");
 
@@ -109,6 +112,139 @@ public class ControlPanelFactory {
         });
         builder.append("Title string", changeTitleButton);
 
+        final JCheckBox useCustomTitlePaneButtonsProvider = new JCheckBox("Use custom");
+        useCustomTitlePaneButtonsProvider.setSelected(false);
+        useCustomTitlePaneButtonsProvider.addActionListener(actionEvent -> RadianceThemingCortex.RootPaneScope
+                .setTitlePaneButtonsProvider(mainFrame.getRootPane(),
+                        useCustomTitlePaneButtonsProvider.isSelected() ?
+                                new DefaultTitlePaneButtonsProvider() {
+                                    @Override
+                                    public TitlePaneButtonProvider getCloseButtonProvider() {
+                                        return new DefaultCloseButtonProvider() {
+                                            @Override
+                                            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+                                                Graphics2D graphics = (Graphics2D) g.create();
+                                                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                                        RenderingHints.VALUE_ANTIALIAS_ON);
+                                                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                                        RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                                                int start = iconSize / 4;
+                                                int end = iconSize - start;
+
+                                                Color primaryColor = scheme.getMarkColor();
+
+                                                Stroke primaryStroke = new BasicStroke(1.5f,
+                                                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                                                graphics.setStroke(primaryStroke);
+                                                graphics.setColor(primaryColor);
+                                                // Triangle
+                                                graphics.drawLine(start, start, end, start);
+                                                graphics.drawLine(end, start, end, end);
+                                                graphics.drawLine(end, end, start, start);
+
+                                                graphics.dispose();
+                                            }
+                                        };
+                                    }
+
+                                    @Override
+                                    public TitlePaneButtonProvider getMaximizeButtonProvider() {
+                                        return new DefaultMaximizeButtonProvider() {
+                                            @Override
+                                            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+                                                Graphics2D graphics = (Graphics2D) g.create();
+                                                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                                        RenderingHints.VALUE_ANTIALIAS_ON);
+                                                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                                        RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                                                int start = iconSize / 4;
+                                                int end = iconSize - start;
+
+                                                Color primaryColor = scheme.getMarkColor();
+
+                                                Stroke primaryStroke = new BasicStroke(1.5f,
+                                                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                                                graphics.setStroke(primaryStroke);
+                                                graphics.setColor(primaryColor);
+                                                // Arrow to top-right
+                                                graphics.drawLine(start, end, end, start);
+                                                graphics.drawLine(start, start, end, start);
+                                                graphics.drawLine(end, end, end, start);
+
+                                                graphics.dispose();
+                                            }
+                                        };
+                                    }
+
+                                    @Override
+                                    public TitlePaneButtonProvider getRestoreButtonProvider() {
+                                        return new DefaultRestoreButtonProvider() {
+                                            @Override
+                                            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+                                                Graphics2D graphics = (Graphics2D) g.create();
+                                                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                                        RenderingHints.VALUE_ANTIALIAS_ON);
+                                                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                                        RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                                                int start = iconSize / 4;
+                                                int end = iconSize - start;
+
+                                                Color primaryColor = scheme.getMarkColor();
+
+                                                Stroke primaryStroke = new BasicStroke(1.5f,
+                                                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                                                graphics.setStroke(primaryStroke);
+                                                graphics.setColor(primaryColor);
+                                                // Arrow to bottom-left
+                                                graphics.drawLine(start, end, end, start);
+                                                graphics.drawLine(start, start, start, end);
+                                                graphics.drawLine(start, end, end, end);
+
+                                                graphics.dispose();
+                                            }
+                                        };
+                                    }
+
+                                    @Override
+                                    public TitlePaneButtonProvider getIconifyButtonProvider() {
+                                        return new DefaultIconifyButtonProvider() {
+                                            @Override
+                                            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+                                                Graphics2D graphics = (Graphics2D) g.create();
+                                                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                                                        RenderingHints.VALUE_ANTIALIAS_ON);
+                                                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                                                        RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                                                int start = iconSize / 4;
+                                                int end = iconSize - start;
+                                                int mid = (start + end) / 2;
+
+                                                Color primaryColor = scheme.getMarkColor();
+
+                                                Stroke primaryStroke = new BasicStroke(1.5f,
+                                                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                                                graphics.setStroke(primaryStroke);
+                                                graphics.setColor(primaryColor);
+
+                                                graphics.drawLine(mid, start, mid, end);
+                                                graphics.drawLine(start, end, end, end);
+
+                                                graphics.dispose();
+                                            }
+                                        };
+                                    }
+                                }
+                                : null));
+        builder.append("Buttons provider", useCustomTitlePaneButtonsProvider);
+
         builder.appendSeparator("Miscellaneous");
 
         final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox("use constant themes");
@@ -119,7 +255,7 @@ public class ControlPanelFactory {
         builder.append("Option pane icons", useConstantThemesOnOptionPanes);
 
         final JComboBox<String> placementCombo = new JComboBox<>(
-                new String[] {"top", "bottom", "left", "right"});
+                new String[]{"top", "bottom", "left", "right"});
         placementCombo.addActionListener(actionEvent -> {
             String selected = (String) placementCombo.getSelectedItem();
             if ("top".equals(selected))
@@ -439,7 +575,7 @@ public class ControlPanelFactory {
                         mainFrame,
                         "Sample Question Message", "Title Goes Here",
                         JOptionPane.QUESTION_MESSAGE, null,
-                        new String[] {"entry1", "entry2", "entry3", "entry4"},
+                        new String[]{"entry1", "entry2", "entry3", "entry4"},
                         "entry1")));
         builder.append("Complex input", buttonOptionPaneComplexInput);
 

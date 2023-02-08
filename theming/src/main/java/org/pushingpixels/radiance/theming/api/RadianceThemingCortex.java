@@ -45,6 +45,8 @@ import org.pushingpixels.radiance.theming.api.skin.SkinChangeListener;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.tabbed.BaseTabCloseListener;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.RadiancePluginRepository;
@@ -2227,6 +2229,16 @@ public class RadianceThemingCortex {
                         "Root pane scope APIs do not accept null root panes");
             }
             rootPane.putClientProperty(RadianceSynapse.CONTENTS_MODIFIED, contentsModified);
+        }
+
+        public static void setTitlePaneButtonsProvider(JRootPane rootPane,
+                TitlePaneButtonsProvider titlePaneButtonsProvider) {
+            if (rootPane == null) {
+                throw new IllegalArgumentException(
+                        "Root pane scope APIs do not accept null root panes");
+            }
+            rootPane.putClientProperty(RadianceSynapse.TITLE_PANE_BUTTONS_PROVIDER,
+                    titlePaneButtonsProvider);
         }
     }
 

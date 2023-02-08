@@ -44,6 +44,8 @@ import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorat
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
+import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowButtonTransitionAwareIcon;
@@ -325,6 +327,14 @@ public class RadianceCoreUtilities {
      */
     public static boolean isRootPaneModified(JRootPane rootPane) {
         return Boolean.TRUE.equals(rootPane.getClientProperty(RadianceSynapse.CONTENTS_MODIFIED));
+    }
+
+    public static TitlePaneButtonsProvider getTitlePaneButtonsProvider(JRootPane rootPane) {
+        Object attached = rootPane.getClientProperty(RadianceSynapse.TITLE_PANE_BUTTONS_PROVIDER);
+        if (attached instanceof TitlePaneButtonsProvider) {
+            return (TitlePaneButtonsProvider) attached;
+        }
+        return new DefaultTitlePaneButtonsProvider();
     }
 
     /**
