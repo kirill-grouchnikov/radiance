@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.internal.contrib.jgoodies.looks.LookUtils;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -952,32 +951,16 @@ public class RadianceTitlePane extends JComponent {
         public void actionPerformed(ActionEvent e) {
             Frame frame = RadianceTitlePane.this.getFrame();
             if (frame != null) {
-                // Workaround for https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4737788
-                // to explicitly compute maximized bounds so that our window
-                // does not overlap the taskbar
-                GraphicsConfiguration gc = frame.getGraphicsConfiguration();
-                Rectangle screenBounds = gc.getBounds();
-                // Prior to Java 15, we need to account for screen resolution which is given as
-                // scaleX and scaleY on default transform of the window's graphics configuration.
-                // See https://bugs.openjdk.java.net/browse/JDK-8176359,
+                // Note that on some older releases of Java, maximizing a LAF-decorated frame
+                // results in that frame overlapping the system taskbar. This behavior has been
+                // fixed in Java 15 with https://bugs.openjdk.java.net/browse/JDK-8176359,
                 // https://bugs.openjdk.java.net/browse/JDK-8231564 and
-                // https://bugs.openjdk.java.net/browse/JDK-8243925 that went into Java 15.
-                Rectangle maximizedWindowBounds = (LookUtils.IS_OS_WINDOWS && (Runtime.version().major() < 15))
-                        ? new Rectangle(0, 0,
-                        (int) (screenBounds.width * gc.getDefaultTransform().getScaleX()),
-                        (int) (screenBounds.height * gc.getDefaultTransform().getScaleY()))
-                        : screenBounds;
-                // Now account for screen insets (taskbar and anything else that should not be
-                // interfered with by maximized windows)
-                Insets screenInsets = frame.getToolkit().getScreenInsets(gc);
-                // Set maximized bounds of our window
-                frame.setMaximizedBounds(new Rectangle(
-                        maximizedWindowBounds.x + screenInsets.left,
-                        maximizedWindowBounds.y + screenInsets.top,
-                        maximizedWindowBounds.width - screenInsets.left - screenInsets.right,
-                        maximizedWindowBounds.height - screenInsets.top - screenInsets.bottom
-                ));
-                // And now we can set our extended state
+                // https://bugs.openjdk.java.net/browse/JDK-8243925.
+                // In addition, https://bugs.openjdk.org/browse/JDK-8231564 backported it to
+                // earlier Java versions.
+                // Since there is no reliable way to detect whether the current runtime has a fix
+                // for this issue, do not try to work around it. If your application is running
+                // into this issue, you will need to use a version of Java that has the fix for it.
                 frame.setExtendedState(RadianceTitlePane.this.state | Frame.MAXIMIZED_BOTH);
             }
         }
