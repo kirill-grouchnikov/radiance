@@ -96,6 +96,7 @@ public class BladeDrawingUtils {
                                 0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, scaledRadius));
                     }
                 });
+        graphics.dispose();
     }
 
     /**
