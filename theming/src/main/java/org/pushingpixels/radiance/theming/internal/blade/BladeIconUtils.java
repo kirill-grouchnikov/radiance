@@ -382,7 +382,7 @@ public class BladeIconUtils {
         graphics.dispose();
     }
 
-    public static void drawMinimizeIcon(Graphics2D g, int iconSize,
+    public static void drawIconifyIcon(Graphics2D g, int iconSize,
             RadianceColorScheme scheme) {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,

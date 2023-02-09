@@ -33,6 +33,8 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
+import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
@@ -76,7 +78,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
      */
     private static final String UNINSTALLED = "radiance.theming.internal.internalTitleFramePane.uninstalled";
 
-    // protected boolean wasClosable;
+    private TitlePaneButtonsProvider titlePaneButtonsProvider;
 
     /**
      * Simple constructor.
@@ -118,7 +120,11 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         // when contents has been marked as modified.
         this.radianceWinModifiedListener = propertyChangeEvent -> {
             if (RadianceSynapse.CONTENTS_MODIFIED.equals(propertyChangeEvent.getPropertyName())) {
-                syncCloseButtonTooltip();
+                this.closeButton.setToolTipText(this.titlePaneButtonsProvider.
+                        getCloseButtonProvider().getText(this.frame.getRootPane()));
+            }
+            if (RadianceSynapse.TITLE_PANE_BUTTONS_PROVIDER.equals(propertyChangeEvent.getPropertyName())) {
+                setButtonIcons();
             }
         };
         // Wire it on the root pane.
@@ -294,30 +300,21 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
 
     @Override
     protected void setButtonIcons() {
+        this.titlePaneButtonsProvider = RadianceCoreUtilities.getTitlePaneButtonsProvider(
+                this.frame.getRootPane());
+
         super.setButtonIcons();
-        if (!RadianceCoreUtilities.isCurrentLookAndFeel())
+        if (!RadianceCoreUtilities.isCurrentLookAndFeel()) {
             return;
+        }
 
-        Icon restoreIcon = new BladeTransitionAwareIcon(closeButton,
+        TitlePaneButtonProvider restoreButtonProvider = this.titlePaneButtonsProvider.getRestoreButtonProvider();
+        Icon restoreIcon = new BladeTransitionAwareIcon(
+                this.frame.isIcon() ? this.iconButton : this.maxButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawRestoreIcon(g, iconSize, scheme);
-                    }
-
-                    @Override
-                    public Dimension getIconDimension() {
-                        int size = RadianceSizeUtils.getTitlePaneIconSize();
-                        return new Dimension(size, size);
-                    }
-                });
-        Icon maximizeIcon = new BladeTransitionAwareIcon(closeButton,
-                new BladeTransitionAwareIcon.Delegate() {
-                    @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
+                        restoreButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -326,12 +323,12 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                         return new Dimension(size, size);
                     }
                 });
-        Icon minimizeIcon = new BladeTransitionAwareIcon(closeButton,
+        TitlePaneButtonProvider maximizeButtonProvider = this.titlePaneButtonsProvider.getMaximizeButtonProvider();
+        Icon maximizeIcon = new BladeTransitionAwareIcon(this.maxButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawMinimizeIcon(g, iconSize, scheme);
+                        maximizeButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -340,13 +337,26 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                         return new Dimension(size, size);
                     }
                 });
-        Icon closeIcon = new BladeTransitionAwareIcon(closeButton,
+        TitlePaneButtonProvider iconifyButtonProvider = this.titlePaneButtonsProvider.getIconifyButtonProvider();
+        Icon iconifyIcon = new BladeTransitionAwareIcon(this.iconButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
                     public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                        BladeIconUtils.drawCloseIcon(g, iconSize,
-                                RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), scheme);
+                        iconifyButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
+                    }
+
+                    @Override
+                    public Dimension getIconDimension() {
+                        int size = RadianceSizeUtils.getTitlePaneIconSize();
+                        return new Dimension(size, size);
+                    }
+                });
+        TitlePaneButtonProvider closeButtonProvider = this.titlePaneButtonsProvider.getCloseButtonProvider();
+        Icon closeIcon = new BladeTransitionAwareIcon(this.closeButton,
+                new BladeTransitionAwareIcon.Delegate() {
+                    @Override
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        closeButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -357,27 +367,22 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 });
         if (this.frame.isIcon()) {
             this.iconButton.setIcon(restoreIcon);
-            this.iconButton.setToolTipText(
-                    RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.restore"));
+            this.iconButton.setToolTipText(restoreButtonProvider.getText(this.frame.getRootPane()));
             this.maxButton.setIcon(maximizeIcon);
-            this.maxButton.setToolTipText(
-                    RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.maximize"));
+            this.maxButton.setToolTipText(maximizeButtonProvider.getText(this.frame.getRootPane()));
         } else {
-            this.iconButton.setIcon(minimizeIcon);
-            this.iconButton.setToolTipText(
-                    RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.iconify"));
+            this.iconButton.setIcon(iconifyIcon);
+            this.iconButton.setToolTipText(iconifyButtonProvider.getText(this.frame.getRootPane()));
             if (this.frame.isMaximum()) {
                 this.maxButton.setIcon(restoreIcon);
-                this.maxButton.setToolTipText(RadianceThemingCortex.GlobalScope.getLabelBundle()
-                        .getString("SystemMenu.restore"));
+                this.maxButton.setToolTipText(restoreButtonProvider.getText(this.frame.getRootPane()));
             } else {
                 this.maxButton.setIcon(maximizeIcon);
-                this.maxButton.setToolTipText(RadianceThemingCortex.GlobalScope.getLabelBundle()
-                        .getString("SystemMenu.maximize"));
+                this.maxButton.setToolTipText(maximizeButtonProvider.getText(this.frame.getRootPane()));
             }
         }
         this.closeButton.setIcon(closeIcon);
-        syncCloseButtonTooltip();
+        this.closeButton.setToolTipText(closeButtonProvider.getText(this.frame.getRootPane()));
     }
 
     /**
@@ -416,7 +421,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         closeButton.addActionListener(closeAction);
 
         RadianceTitlePaneUtilities.ExtraComponentKind buttonExtraComponentKind = RadianceTitlePaneUtilities
-                .getTitlePaneControlButtonKind(this.getRootPane());
+                .getTitlePaneControlButtonKind(this.frame.getRootPane());
         RadianceTitlePaneUtilities.markTitlePaneExtraComponent(iconButton,
                 buttonExtraComponentKind);
         RadianceTitlePaneUtilities.markTitlePaneExtraComponent(maxButton,
@@ -445,23 +450,6 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
     @Override
     protected LayoutManager createLayout() {
         return new RadianceTitlePaneLayout();
-    }
-
-    /**
-     * Synchronizes the tooltip of the close button.
-     */
-    protected void syncCloseButtonTooltip() {
-        if (RadianceCoreUtilities.isRootPaneModified(this.frame.getRootPane())) {
-            this.closeButton.setToolTipText(
-                    RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close")
-                            + " [" + RadianceThemingCortex.GlobalScope.getLabelBundle()
-                            .getString("Tooltip.contentsNotSaved")
-                            + "]");
-        } else {
-            this.closeButton.setToolTipText(
-                    RadianceThemingCortex.GlobalScope.getLabelBundle().getString("SystemMenu.close"));
-        }
-        this.closeButton.repaint();
     }
 
     @Override

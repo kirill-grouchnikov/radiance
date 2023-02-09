@@ -450,7 +450,7 @@ public class SkinUtilities {
                                 graphics.translate(x, y);
 
                                 int iconSize = RadianceSizeUtils.getTitlePaneIconSize();
-                                BladeIconUtils.drawMinimizeIcon(graphics, iconSize,
+                                BladeIconUtils.drawIconifyIcon(graphics, iconSize,
                                         titlePaneScheme);
 
                                 graphics.dispose();

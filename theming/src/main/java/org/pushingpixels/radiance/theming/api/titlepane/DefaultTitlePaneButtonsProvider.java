@@ -42,7 +42,7 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
     public static class DefaultCloseButtonProvider implements TitlePaneButtonProvider {
         @Override
         public String getText(JRootPane rootPane) {
-            if (RadianceCoreUtilities.isRootPaneModified(rootPane)) {
+            if ((rootPane != null) && RadianceCoreUtilities.isRootPaneModified(rootPane)) {
                 return RadianceThemingCortex.GlobalScope.getLabelBundle().
                         getString("SystemMenu.close")
                         + " [" + RadianceThemingCortex.GlobalScope.getLabelBundle()
@@ -90,7 +90,7 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
 
         @Override
         public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
-            BladeIconUtils.drawMinimizeIcon(g, iconSize, scheme);
+            BladeIconUtils.drawIconifyIcon(g, iconSize, scheme);
         }
     }
 

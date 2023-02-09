@@ -75,7 +75,7 @@ public class DesktopPanel extends ControllablePanel {
         jdp = new JDesktopPane();
         this.add(jdp, BorderLayout.CENTER);
 
-        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 14);
+        TestFormLayoutBuilder builder = new TestFormLayoutBuilder("right:pref, 4dlu, fill:pref:grow", 2, 16);
         builder.appendSeparator("New sample frame");
 
         JButton sample = new JButton("Add");
@@ -107,6 +107,10 @@ public class DesktopPanel extends ControllablePanel {
         final JCheckBox isResizable = new JCheckBox("Is resizable");
         isResizable.setSelected(true);
         builder.append("", isResizable);
+
+        final JCheckBox hasCustomTitlePaneButtons = new JCheckBox("Custom title pane buttons");
+        hasCustomTitlePaneButtons.setSelected(false);
+        builder.append("", hasCustomTitlePaneButtons);
 
         JButton bt = new JButton("Add");
         bt.addActionListener(actionEvent -> {
@@ -175,6 +179,12 @@ public class DesktopPanel extends ControllablePanel {
             jif.setMaximizable(isMaximizable.isSelected());
             jif.setIconifiable(isIconifiable.isSelected());
             jif.setResizable(isResizable.isSelected());
+
+            if (hasCustomTitlePaneButtons.isSelected()) {
+                RadianceThemingCortex.RootPaneScope
+                        .setTitlePaneButtonsProvider(jif.getRootPane(),
+                                new CustomTitlePaneButtonsProvider());
+            }
 
             JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             final JCheckBox isModified = new JCheckBox("modified");

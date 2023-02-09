@@ -330,9 +330,11 @@ public class RadianceCoreUtilities {
     }
 
     public static TitlePaneButtonsProvider getTitlePaneButtonsProvider(JRootPane rootPane) {
-        Object attached = rootPane.getClientProperty(RadianceSynapse.TITLE_PANE_BUTTONS_PROVIDER);
-        if (attached instanceof TitlePaneButtonsProvider) {
-            return (TitlePaneButtonsProvider) attached;
+        if (rootPane != null) {
+            Object attached = rootPane.getClientProperty(RadianceSynapse.TITLE_PANE_BUTTONS_PROVIDER);
+            if (attached instanceof TitlePaneButtonsProvider) {
+                return (TitlePaneButtonsProvider) attached;
+            }
         }
         return new DefaultTitlePaneButtonsProvider();
     }
