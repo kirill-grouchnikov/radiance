@@ -156,7 +156,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
 
         if (ltr) {
             int x = ins.left;
-            // medium icon, 1-line text, 1-line extra text and action arrow
+            // medium icon, 1-line text, 2-line extra text and popup arrow
             result.iconRect.x = x;
             result.iconRect.y = ins.top + layoutVGap;
             result.iconRect.width = buttonIcon.getIconWidth();
@@ -242,7 +242,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                         .stringWidth(extraLineLayoutInfo2.text);
                 extraLineLayoutInfo2.textRect.height = labelHeight;
 
-                result.extraTextLayoutInfoList = new ArrayList<TextLayoutInfo>();
+                result.extraTextLayoutInfoList = new ArrayList<>();
                 result.extraTextLayoutInfoList.add(extraLineLayoutInfo1);
                 result.extraTextLayoutInfoList.add(extraLineLayoutInfo2);
             }
@@ -279,7 +279,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             }
         } else {
             int x = commandButton.getWidth() - ins.right;
-            // medium icon, 1-line text, 1-line extra text and action arrow
+            // medium icon, 1-line text, 2-line extra text and popup arrow
             result.iconRect.x = x - buttonIcon.getIconWidth();
             result.iconRect.y = ins.top + layoutVGap;
             result.iconRect.width = buttonIcon.getIconWidth();
@@ -319,7 +319,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             lineLayoutInfo.textRect.y = ins.top + layoutVGap / 2;
             lineLayoutInfo.textRect.height = labelHeight;
 
-            result.textLayoutInfoList = new ArrayList<TextLayoutInfo>();
+            result.textLayoutInfoList = new ArrayList<>();
             result.textLayoutInfoList.add(lineLayoutInfo);
 
             String extraText = commandButton.getExtraText();
@@ -366,7 +366,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                         * labelHeight;
                 extraLineLayoutInfo2.textRect.height = labelHeight;
 
-                result.extraTextLayoutInfoList = new ArrayList<TextLayoutInfo>();
+                result.extraTextLayoutInfoList = new ArrayList<>();
                 result.extraTextLayoutInfoList.add(extraLineLayoutInfo1);
                 result.extraTextLayoutInfoList.add(extraLineLayoutInfo2);
             }
