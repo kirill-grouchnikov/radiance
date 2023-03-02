@@ -413,18 +413,17 @@ public abstract class RadianceSkin implements RadianceTrait {
             RadianceThemingSlices.DecorationAreaType decorationAreaType =
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                float registered = this.colorSchemeBundleMap.get(decorationAreaType)
-                        .getHighlightAlpha(componentState);
-                if (registered >= 0.0) {
-                    return registered;
+                if (this.colorSchemeBundleMap.get(decorationAreaType).hasHighlightAlphaFor(componentState)) {
+                    return this.colorSchemeBundleMap.get(decorationAreaType)
+                            .getHighlightAlpha(componentState);
                 }
             }
         }
 
-        float registered = this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-                .getHighlightAlpha(componentState);
-        if (registered >= 0.0) {
-            return registered;
+        if (this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).
+                hasHighlightAlphaFor(componentState)) {
+            return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
+                    .getHighlightAlpha(componentState);
         }
 
         boolean isRollover = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER);
@@ -470,16 +469,16 @@ public abstract class RadianceSkin implements RadianceTrait {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ? RadianceThemingSlices.DecorationAreaType.NONE :
                     RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.colorSchemeBundleMap.containsKey(decorationAreaType)) {
-                float registered = this.colorSchemeBundleMap.get(decorationAreaType).getAlpha(componentState);
-                if (registered >= 0.0) {
-                    return registered;
+                if (this.colorSchemeBundleMap.get(decorationAreaType).hasAlphaFor(componentState)) {
+                    return this.colorSchemeBundleMap.get(decorationAreaType).getAlpha(componentState);
                 }
             }
         }
 
-        float registered = this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).getAlpha(componentState);
-        if (registered >= 0.0) {
-            return registered;
+        if (this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).
+                hasAlphaFor(componentState)) {
+            return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).
+                    getAlpha(componentState);
         }
 
         if (fallback == null) {
@@ -886,7 +885,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public void setOverlayColor(Color color, RadianceThemingSlices.ColorOverlayType colorOverlayType,
-                                RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState... componentStates) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState... componentStates) {
         if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
             this.colorOverlayMap.put(colorOverlayType, new HashMap<>());
         }
@@ -901,7 +900,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public Color getOverlayColor(RadianceThemingSlices.ColorOverlayType colorOverlayType,
-                                 RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState componentState) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType, ComponentState componentState) {
         if (!this.colorOverlayMap.containsKey(colorOverlayType)) {
             return null;
         }

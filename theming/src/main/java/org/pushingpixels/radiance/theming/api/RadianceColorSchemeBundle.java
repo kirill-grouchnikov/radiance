@@ -70,7 +70,7 @@ public class RadianceColorSchemeBundle {
      * scheme. This map doesn't have to contain entries for all
      * {@link ComponentState} instances.
      */
-    private Map<ComponentState, Float> stateHighlightSchemeAlphaMap;
+    private Map<ComponentState, Float> stateHighlightAlphaMap;
 
     /**
      * If there is no explicitly registered color scheme for pressed component
@@ -152,7 +152,7 @@ public class RadianceColorSchemeBundle {
         this.enabledColorScheme = enabledColorScheme;
         this.disabledColorScheme = disabledColorScheme;
         this.stateAlphaMap = new HashMap<>();
-        this.stateHighlightSchemeAlphaMap = new HashMap<>();
+        this.stateHighlightAlphaMap = new HashMap<>();
 
         this.colorSchemeMap = new HashMap<>();
         for (RadianceThemingSlices.ColorSchemeAssociationKind associationKind : RadianceThemingSlices.ColorSchemeAssociationKind.values()) {
@@ -235,11 +235,11 @@ public class RadianceColorSchemeBundle {
     public void registerHighlightAlpha(float alpha, ComponentState... states) {
         if ((states == null) || (states.length == 0)) {
             for (ComponentState state : ComponentState.getAllStates()) {
-                this.stateHighlightSchemeAlphaMap.put(state, alpha);
+                this.stateHighlightAlphaMap.put(state, alpha);
             }
         } else {
             for (ComponentState state : states) {
-                this.stateHighlightSchemeAlphaMap.put(state, alpha);
+                this.stateHighlightAlphaMap.put(state, alpha);
             }
         }
     }
@@ -316,23 +316,35 @@ public class RadianceColorSchemeBundle {
         return this.activeColorScheme;
     }
 
+    public boolean hasHighlightAlphaFor(ComponentState componentState) {
+        return this.stateHighlightAlphaMap.containsKey(componentState);
+    }
+
     /**
      * Returns the alpha channel of the highlight color schemes for the specified component state.
+     * Before calling this API, call {@link #hasHighlightAlphaFor(ComponentState)}. This API returns
+     * 1.0f for states that do not have an explicitly registered alpha channel value.
      *
      * @param componentState Component state.
      * @return Highlight color scheme alpha channel.
      */
     public float getHighlightAlpha(ComponentState componentState) {
-        Float registered = this.stateHighlightSchemeAlphaMap.get(componentState);
+        Float registered = this.stateHighlightAlphaMap.get(componentState);
         if (registered != null) {
             return registered.floatValue();
         }
 
-        return -1.0f;
+        return 1.0f;
+    }
+
+    public boolean hasAlphaFor(ComponentState componentState) {
+        return this.stateAlphaMap.containsKey(componentState);
     }
 
     /**
      * Returns the alpha channel of color schemes for the specified component state.
+     * Before calling this API, call {@link #hasAlphaFor(ComponentState)}. This API returns
+     * 1.0f for states that do not have an explicitly registered alpha channel value.
      *
      * @param componentState Component state.
      * @return Color scheme alpha channel.
@@ -343,7 +355,7 @@ public class RadianceColorSchemeBundle {
             return registered.floatValue();
         }
 
-        return -1.0f;
+        return 1.0f;
     }
 
     /**
@@ -505,8 +517,8 @@ public class RadianceColorSchemeBundle {
         }
 
         // highlight alphas are the same
-        if (this.stateHighlightSchemeAlphaMap != null) {
-            result.stateHighlightSchemeAlphaMap = new HashMap<>(this.stateHighlightSchemeAlphaMap);
+        if (this.stateHighlightAlphaMap != null) {
+            result.stateHighlightAlphaMap = new HashMap<>(this.stateHighlightAlphaMap);
         }
         return result;
     }
