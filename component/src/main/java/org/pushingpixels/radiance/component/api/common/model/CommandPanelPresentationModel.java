@@ -67,7 +67,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
     private int commandHorizontalAlignment;
 
-    private boolean isMenu;
     private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
     private CommandPanelPresentationModel() {
@@ -246,10 +245,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         return this.commandHorizontalAlignment;
     }
 
-    public boolean isMenu() {
-        return this.isMenu;
-    }
-
     public CommandButtonPresentationModel.PopupFireTrigger getCommandPopupFireTrigger() {
         return this.commandPopupFireTrigger;
     }
@@ -298,7 +293,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private int commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
-        private boolean isMenu = false;
         private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger =
                 CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED;
         private CommandButtonPresentationModel.SelectedStateHighlight commandSelectedStateHighlight =
@@ -404,11 +398,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             return this;
         }
 
-        public Builder setMenu(boolean isMenu) {
-            this.isMenu = isMenu;
-            return this;
-        }
-
         public CommandPanelPresentationModel build() {
             CommandPanelPresentationModel presentationModel = new CommandPanelPresentationModel();
             presentationModel.layoutSpec = this.layoutSpec;
@@ -426,7 +415,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
             presentationModel.commandPopupFireTrigger = this.commandPopupFireTrigger;
-            presentationModel.isMenu = this.isMenu;
             presentationModel.commandSelectedStateHighlight = this.commandSelectedStateHighlight;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             return presentationModel;

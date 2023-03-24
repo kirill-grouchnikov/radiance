@@ -56,6 +56,10 @@ public class KCommandButtonPanelPresentation {
         CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
     public var commandVerticalGapScaleFactor: Double =
         CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
+    public var commandPopupFireTrigger: CommandButtonPresentationModel.PopupFireTrigger =
+        CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED
+    public var commandSelectedStateHighlight: CommandButtonPresentationModel.SelectedStateHighlight =
+        CommandButtonPresentationModel.SelectedStateHighlight.FULL_SIZE
     public var backgroundAppearanceStrategy: RadianceThemingSlices.BackgroundAppearanceStrategy =
         RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT
     public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
@@ -64,7 +68,6 @@ public class KCommandButtonPanelPresentation {
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
     public var disabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
-    public var isMenu: Boolean = false
     public var popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy =
         RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
 
@@ -92,7 +95,8 @@ public class KCommandButtonPanelPresentation {
             this.enabledIconFilterStrategy,
             this.disabledIconFilterStrategy
         )
-        presentationModelBuilder.setMenu(this.isMenu)
+        presentationModelBuilder.setCommandPopupFireTrigger(this.commandPopupFireTrigger)
+        presentationModelBuilder.setCommandSelectedStateHighlight(this.commandSelectedStateHighlight)
         presentationModelBuilder.setPopupPlacementStrategy(this.popupPlacementStrategy)
 
         return presentationModelBuilder.build()
