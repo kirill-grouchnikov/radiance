@@ -166,6 +166,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             CommandButtonPresentationModel baseCommandPresentation =
                     CommandButtonPresentationModel.builder()
                             .setMenu(true)
+                            .setSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
                             .setPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                             .build();
             List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();

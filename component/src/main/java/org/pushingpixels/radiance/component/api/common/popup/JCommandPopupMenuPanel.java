@@ -133,6 +133,7 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                         .setContentPadding(this.popupMenuPresentationModel.getMenuContentPadding())
                         .setMenu(true)
                         .setPopupFireTrigger(this.popupMenuPresentationModel.getMenuPopupFireTrigger())
+                        .setSelectedStateHighlight(this.popupMenuPresentationModel.getMenuSelectedStateHighlight())
                         .setPopupPlacementStrategy(this.popupMenuPresentationModel.getPopupPlacementStrategy())
                         .build();
 

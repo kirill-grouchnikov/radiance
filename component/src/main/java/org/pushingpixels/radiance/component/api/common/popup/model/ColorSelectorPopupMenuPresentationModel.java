@@ -36,6 +36,7 @@ public class ColorSelectorPopupMenuPresentationModel extends AbstractPopupMenuPr
     private int colorColumns;
     private CommandButtonPresentationState menuPresentationState;
     private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger;
+    private CommandButtonPresentationModel.SelectedStateHighlight selectedStateHighlight;
 
     private ColorSelectorPopupMenuPresentationModel() {
     }
@@ -56,12 +57,18 @@ public class ColorSelectorPopupMenuPresentationModel extends AbstractPopupMenuPr
         return this.menuPopupFireTrigger;
     }
 
+    public CommandButtonPresentationModel.SelectedStateHighlight getSelectedStateHighlight() {
+        return this.selectedStateHighlight;
+    }
+
     public static class Builder {
         private int colorColumns = 10;
         private CommandButtonPresentationState menuPresentationState =
                 CommandPopupMenuPresentationModel.DEFAULT_POPUP_MENU_PRESENTATION_STATE;
         private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger =
             CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER;
+        private CommandButtonPresentationModel.SelectedStateHighlight selectedStateHighlight =
+                CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY;
 
         public Builder setColorColumns(int colorColumns) {
             this.colorColumns = colorColumns;
@@ -79,12 +86,18 @@ public class ColorSelectorPopupMenuPresentationModel extends AbstractPopupMenuPr
             return this;
         }
 
+        public Builder setSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight selectedStateHighlight) {
+            this.selectedStateHighlight = selectedStateHighlight;
+            return this;
+        }
+
         public ColorSelectorPopupMenuPresentationModel build() {
             ColorSelectorPopupMenuPresentationModel presentationModel =
                     new ColorSelectorPopupMenuPresentationModel();
             presentationModel.colorColumns = this.colorColumns;
             presentationModel.menuPresentationState = this.menuPresentationState;
             presentationModel.menuPopupFireTrigger = this.menuPopupFireTrigger;
+            presentationModel.selectedStateHighlight = this.selectedStateHighlight;
             return presentationModel;
         }
     }

@@ -328,9 +328,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     }
 
     protected void paintButtonIcon(Graphics g, Rectangle iconRect, Color textColor) {
-        boolean isSelectedMenu = this.commandButton.getActionModel().isSelected() &&
-                this.commandButton.getProjection().getPresentationModel().isMenu();
-        if (isSelectedMenu) {
+        boolean showSelectionAroundIcon = this.commandButton.getActionModel().isSelected() &&
+                (this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+                        CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY);
+        if (showSelectionAroundIcon) {
             Graphics2D graphics = (Graphics2D) g.create();
             // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
             // to not normalize coordinates to paint at full pixels, and will result in blurry
@@ -370,7 +371,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         this.paintButtonIconRegular(g, iconRect, textColor);
         // does it actually have an icon?
         Icon iconToPaint = this.commandButton.getIcon();
-        if (isSelectedMenu && (iconToPaint == null)) {
+        if (showSelectionAroundIcon && (iconToPaint == null)) {
             // draw a checkmark
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -437,9 +438,10 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected boolean isPaintingBackground() {
-        if (this.commandButton.getProjection().getPresentationModel().isMenu() &&
-                (this.commandButton.getActionModel().isRollover() ||
-                        (this.commandButton.getBackgroundAppearanceStrategy() != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER))) {
+        if ((this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight()
+                == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
+                && (this.commandButton.getActionModel().isRollover() ||
+                (this.commandButton.getBackgroundAppearanceStrategy() != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER))) {
             return true;
         }
 
@@ -625,7 +627,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(this.commandButton,
                     modelStateInfo.getCurrModelState());
 
-            if (this.commandButton.getProjection().getPresentationModel().isMenu()) {
+            if (this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+                    CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
                 fgColor = getMenuButtonForegroundColor(this.commandButton, modelStateInfo);
 
                 if (buttonAlpha < 1.0f) {
@@ -648,7 +651,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         RadianceCommonCortex.installDesktopHints(g2d, this.commandButton.getFont());
         this.paint(g2d, c);
 
-        if (this.commandButton.getProjection().getPresentationModel().isMenu()) {
+        if (this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+                CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
             KeyTipRenderingUtilities.renderButtonKeyTips(g, this.commandButton, layoutManager);
         }
 

@@ -60,6 +60,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
     private double commandHorizontalGapScaleFactor;
     private double commandVerticalGapScaleFactor;
     private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger;
+    private CommandButtonPresentationModel.SelectedStateHighlight commandSelectedStateHighlight;
     private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
@@ -253,6 +254,10 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         return this.commandPopupFireTrigger;
     }
 
+    public CommandButtonPresentationModel.SelectedStateHighlight getCommandSelectedStateHighlight() {
+        return this.commandSelectedStateHighlight;
+    }
+
     public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
         return this.popupPlacementStrategy;
     }
@@ -296,6 +301,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         private boolean isMenu = false;
         private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger =
                 CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED;
+        private CommandButtonPresentationModel.SelectedStateHighlight commandSelectedStateHighlight =
+                CommandButtonPresentationModel.SelectedStateHighlight.FULL_SIZE;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
 
@@ -357,6 +364,11 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             return this;
         }
 
+        public Builder setCommandSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight commandSelectedStateHighlight) {
+            this.commandSelectedStateHighlight = commandSelectedStateHighlight;
+            return this;
+        }
+
         public Builder setPopupPlacementStrategy(
                 RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
             if (popupPlacementStrategy == null) {
@@ -415,6 +427,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
             presentationModel.commandPopupFireTrigger = this.commandPopupFireTrigger;
             presentationModel.isMenu = this.isMenu;
+            presentationModel.commandSelectedStateHighlight = this.commandSelectedStateHighlight;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             return presentationModel;
         }

@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.utils;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -127,10 +128,11 @@ public class CommandButtonBackgroundDelegate {
             StateTransitionTracker actionTransitionTracker, Rectangle actionArea,
             StateTransitionTracker popupTransitionTracker, Rectangle popupArea) {
         // Draw action area first
-        boolean isActionToggleMenu = commandButton.getProjection().getContentModel().isToggle()
-                && commandButton.getProjection().getPresentationModel().isMenu();
+        boolean ignoreSelectedState = commandButton.getProjection().getContentModel().isToggle()
+                && (commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+                CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY);
 
-        ComponentState currActionState = isActionToggleMenu
+        ComponentState currActionState = ignoreSelectedState
                 ? actionTransitionTracker.getModelStateInfo().getCurrModelStateNoSelection()
                 : actionTransitionTracker.getModelStateInfo().getCurrModelState();
 
@@ -139,13 +141,13 @@ public class CommandButtonBackgroundDelegate {
                 currActionState,
                 BladeUtils.getDefaultColorSchemeDelegate(commandButton,
                         state -> ColorSchemeAssociationKind.FILL),
-                isActionToggleMenu);
+                ignoreSelectedState);
         BladeUtils.populateColorScheme(mutableBorderColorScheme,
                 actionTransitionTracker.getModelStateInfo(),
                 currActionState,
                 BladeUtils.getDefaultColorSchemeDelegate(commandButton,
                         state -> ColorSchemeAssociationKind.BORDER),
-                isActionToggleMenu);
+                ignoreSelectedState);
 
         float actionAlpha;
         if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
@@ -156,7 +158,7 @@ public class CommandButtonBackgroundDelegate {
                 // For flat buttons, compute the combined contribution of all
                 // non-disabled states - ignoring ComponentState.ENABLED
                 actionAlpha = 0.0f;
-                Map<ComponentState, StateTransitionTracker.StateContributionInfo> actionStates = isActionToggleMenu
+                Map<ComponentState, StateTransitionTracker.StateContributionInfo> actionStates = ignoreSelectedState
                         ? actionTransitionTracker.getModelStateInfo().getStateNoSelectionContributionMap()
                         : actionTransitionTracker.getModelStateInfo().getStateContributionMap();
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
@@ -308,7 +310,8 @@ public class CommandButtonBackgroundDelegate {
                         }
                     }
 
-                    float radius = commandButton.getProjection().getPresentationModel().isMenu() ? 0 :
+                    float radius = (commandButton.getProjection().getPresentationModel().getSelectedStateHighlight()
+                            == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) ? 0 :
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                                     RadianceSizeUtils.getComponentFontSize(commandButton));
 

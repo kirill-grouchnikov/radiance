@@ -73,6 +73,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
     private boolean isMenu;
+    private SelectedStateHighlight selectedStateHighlight;
     private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
     private String actionKeyTip;
     private String popupKeyTip;
@@ -116,6 +117,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         result.disabledIconFilterStrategy = (overlay.disabledIconFilterStrategy != null)
                 ? overlay.disabledIconFilterStrategy : this.disabledIconFilterStrategy;
         result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
+        result.selectedStateHighlight = (overlay.selectedStateHighlight != null)
+                ? overlay.selectedStateHighlight : this.selectedStateHighlight;
         result.popupPlacementStrategy = (overlay.popupPlacementStrategy != null)
                 ? overlay.popupPlacementStrategy : this.popupPlacementStrategy;
         result.toDismissPopupsOnActivation = (overlay.toDismissPopupsOnActivation != null)
@@ -212,6 +215,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.isMenu;
     }
 
+    public SelectedStateHighlight getSelectedStateHighlight() {
+        return this.selectedStateHighlight;
+    }
+
     public boolean isToDismissPopupsOnActivation() {
         return this.toDismissPopupsOnActivation;
     }
@@ -293,6 +300,14 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         ON_PRESSED
     }
 
+    public enum SelectedStateHighlight {
+        /** Selected state highlight is displayed around the button icon */
+        ICON_ONLY,
+
+        /** Selected state highlight is displayed over the full button area */
+        FULL_SIZE
+    }
+
     public enum TextClick {
         /**
          * Clicking command text will activate the command action.
@@ -318,6 +333,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
         private Boolean isMenu;
+        private SelectedStateHighlight selectedStateHighlight;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
@@ -391,6 +407,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Overlay setMenu(boolean isMenu) {
             this.isMenu = isMenu;
+            return this;
+        }
+
+        public Overlay setSelectedStateHighlight(SelectedStateHighlight selectedStateHighlight) {
+            this.selectedStateHighlight = selectedStateHighlight;
             return this;
         }
 
@@ -475,6 +496,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private boolean isMenu = false;
+        private SelectedStateHighlight selectedStateHighlight =
+                SelectedStateHighlight.FULL_SIZE;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
         private String actionKeyTip;
@@ -553,6 +576,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Builder setMenu(boolean isMenu) {
             this.isMenu = isMenu;
+            return this;
+        }
+
+        public Builder setSelectedStateHighlight(SelectedStateHighlight selectedStateHighlight) {
+            this.selectedStateHighlight = selectedStateHighlight;
             return this;
         }
 
@@ -636,6 +664,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             commandPresentation.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             commandPresentation.isMenu = this.isMenu;
+            commandPresentation.selectedStateHighlight = this.selectedStateHighlight;
             commandPresentation.popupPlacementStrategy = this.popupPlacementStrategy;
             commandPresentation.actionKeyTip = this.actionKeyTip;
             commandPresentation.popupKeyTip = this.popupKeyTip;
