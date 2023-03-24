@@ -165,7 +165,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     ribbonAppMenuProjection.getCommandOverlays();
             CommandButtonPresentationModel baseCommandPresentation =
                     CommandButtonPresentationModel.builder()
-                            .setMenu(true)
                             .setSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
                             .setPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                             .build();

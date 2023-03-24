@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand
 import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel.SelectedStateHighlight
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection
@@ -359,7 +360,8 @@ public open class KCommandButtonPresentation {
         RadianceThemingSlices.IconFilterStrategy.ORIGINAL
     public var disabledIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =
         RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME
-    public var isMenu: Boolean = false
+    public var selectedStateHighlight: SelectedStateHighlight =
+        SelectedStateHighlight.FULL_SIZE
     public var actionKeyTip: String? = null
     public var popupKeyTip: String? = null
     public var textClick: CommandButtonPresentationModel.TextClick =
@@ -401,7 +403,6 @@ public open class KCommandButtonPresentation {
             )
             .setActionKeyTip(actionKeyTip)
             .setPopupKeyTip(popupKeyTip)
-            .setMenu(isMenu)
             .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
             .setActionFireTrigger(actionFireTrigger)
             .setPopupFireTrigger(popupFireTrigger)
@@ -440,7 +441,7 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
             .setPopupKeyTip(popupKeyTip)
             .setActionFireTrigger(actionFireTrigger)
             .setPopupFireTrigger(popupFireTrigger)
-            .setMenu(isMenu)
+            .setSelectedStateHighlight(selectedStateHighlight)
             .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
             .build()
     }

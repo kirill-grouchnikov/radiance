@@ -72,7 +72,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private Insets contentPadding;
     private double horizontalGapScaleFactor;
     private double verticalGapScaleFactor;
-    private boolean isMenu;
     private SelectedStateHighlight selectedStateHighlight;
     private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
     private String actionKeyTip;
@@ -116,7 +115,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.enabledIconFilterStrategy : this.enabledIconFilterStrategy;
         result.disabledIconFilterStrategy = (overlay.disabledIconFilterStrategy != null)
                 ? overlay.disabledIconFilterStrategy : this.disabledIconFilterStrategy;
-        result.isMenu = (overlay.isMenu != null) ? overlay.isMenu : this.isMenu;
         result.selectedStateHighlight = (overlay.selectedStateHighlight != null)
                 ? overlay.selectedStateHighlight : this.selectedStateHighlight;
         result.popupPlacementStrategy = (overlay.popupPlacementStrategy != null)
@@ -209,10 +207,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
     public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
         return this.popupPlacementStrategy;
-    }
-
-    public boolean isMenu() {
-        return this.isMenu;
     }
 
     public SelectedStateHighlight getSelectedStateHighlight() {
@@ -332,7 +326,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
-        private Boolean isMenu;
         private SelectedStateHighlight selectedStateHighlight;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
         private Boolean toDismissPopupsOnActivation;
@@ -402,11 +395,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
 
         public Overlay setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
             this.popupPlacementStrategy = popupPlacementStrategy;
-            return this;
-        }
-
-        public Overlay setMenu(boolean isMenu) {
-            this.isMenu = isMenu;
             return this;
         }
 
@@ -495,7 +483,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
-        private boolean isMenu = false;
         private SelectedStateHighlight selectedStateHighlight =
                 SelectedStateHighlight.FULL_SIZE;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
@@ -571,11 +558,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         public Builder setPopupPlacementStrategy(
                 RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
             this.popupPlacementStrategy = popupPlacementStrategy;
-            return this;
-        }
-
-        public Builder setMenu(boolean isMenu) {
-            this.isMenu = isMenu;
             return this;
         }
 
@@ -663,7 +645,6 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.activeIconFilterStrategy = this.activeIconFilterStrategy;
             commandPresentation.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             commandPresentation.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
-            commandPresentation.isMenu = this.isMenu;
             commandPresentation.selectedStateHighlight = this.selectedStateHighlight;
             commandPresentation.popupPlacementStrategy = this.popupPlacementStrategy;
             commandPresentation.actionKeyTip = this.actionKeyTip;

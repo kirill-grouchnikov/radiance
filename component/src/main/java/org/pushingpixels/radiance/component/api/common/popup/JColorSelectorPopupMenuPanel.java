@@ -96,7 +96,6 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
                         .setPresentationState(this.presentationModel.getMenuPresentationState())
                         .setPopupFireTrigger(this.presentationModel.getMenuPopupFireTrigger())
                         .setSelectedStateHighlight(this.presentationModel.getSelectedStateHighlight())
-                        .setMenu(true)
                         .build();
 
         List<ColorSelectorPopupMenuGroupModel> menuGroups = this.contentModel.getMenuGroups();
