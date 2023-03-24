@@ -190,7 +190,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 CommandButtonPresentationModel.overlay()
                         .setActionKeyTip(this.ribbonGallery.getProjection()
                                 .getPresentationModel().getExpandKeyTip())
-                        .setFireActionTrigger(CommandButtonPresentationModel.FireActionTrigger.ON_PRESSED));
+                        .setActionFireTrigger(CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED));
 
         // Configure customizers for all the scroller buttons (setting icons and additional
         // straight sides)

@@ -364,8 +364,8 @@ public open class KCommandButtonPresentation {
     public var popupKeyTip: String? = null
     public var textClick: CommandButtonPresentationModel.TextClick =
         CommandButtonPresentationModel.TextClick.ACTION
-    public var fireActionTrigger: CommandButtonPresentationModel.FireActionTrigger =
-        CommandButtonPresentationModel.FireActionTrigger.ON_PRESS_RELEASED
+    public var actionFireTrigger: CommandButtonPresentationModel.ActionFireTrigger =
+        CommandButtonPresentationModel.ActionFireTrigger.ON_PRESS_RELEASED
     public var isAutoRepeatAction: Boolean = false
     public var autoRepeatInitialInterval: Int =
         CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
@@ -401,7 +401,7 @@ public open class KCommandButtonPresentation {
             .setPopupKeyTip(popupKeyTip)
             .setMenu(isMenu)
             .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
-            .setFireActionTrigger(fireActionTrigger)
+            .setActionFireTrigger(actionFireTrigger)
             .setAutoRepeatAction(isAutoRepeatAction)
             .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
             .setTextClick(textClick)

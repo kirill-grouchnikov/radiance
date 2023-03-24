@@ -40,7 +40,7 @@ public class TestCommandButtonsAutoRepeat extends TestCommandButtons {
     protected void configurePresentationBuilder(CommandButtonPresentationModel.Builder builder) {
         builder.setAutoRepeatAction(true);
         builder.setAutoRepeatActionIntervals(200, 50);
-        builder.setFireActionTrigger(CommandButtonPresentationModel.FireActionTrigger.ON_ROLLOVER);
+        builder.setActionFireTrigger(CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER);
     }
 
     /**

@@ -49,7 +49,7 @@ Command button presentation models are created with the builder pattern which is
 |  | autoRepeatAction | boolean |
 |  | autoRepeatInitialInterval | int |
 |  | autoRepeatSubsequentInterval | int |
-|  | fireActionTrigger | FireActionTrigger |
+|  | actionFireTrigger | ActionFireTrigger |
 
 ### Visual attributes
 
@@ -105,8 +105,8 @@ In some cases, the design calls for facilitating repeated activation of the comm
 Command button presentation models come with four attributes that aim to address such scenarios.
 
 * `setAutoRepeatAction(true)` will result in a repeated, continuous activation of the command action as long as the projected button is activated.
-* `setFireActionTrigger(FireActionTrigger.ON_ROLLOVER)` will result in command action activation when the mouse is moved over the projected button - without the need to press the mouse button itself.
-* Alternatively, `setFireActionTrigger(FireActionTrigger.ON_PRESSED)` will result in command action activation when the mouse button is pressed - as opposed to the usual click which is a combination of pressing the button and then releasing it.
+* `setActionFireTrigger(ActionFireTrigger.ON_ROLLOVER)` will result in command action activation when the mouse is moved over the projected button - without the need to press the mouse button itself.
+* Alternatively, `setActionFireTrigger(ActionFireTrigger.ON_PRESSED)` will result in command action activation when the mouse button is pressed - as opposed to the usual click which is a combination of pressing the button and then releasing it.
 * Finally, `setAutoRepeatActionIntervals()` can be used to configure the command-specific initial and subsequent intervals between action activation. The static `Command.DEFAULT_AUTO_REPEAT_*` constants can be used to check for the default values of these two intervals.
 
 #### Working with popups

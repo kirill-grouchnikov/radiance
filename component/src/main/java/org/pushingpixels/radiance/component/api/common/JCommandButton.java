@@ -612,10 +612,10 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             }
         }
 
-        this.setFireActionOnRollover(commandPresentation.getFireActionTrigger() ==
-                CommandButtonPresentationModel.FireActionTrigger.ON_ROLLOVER);
-        this.getActionModel().setFireActionOnPress(commandPresentation.getFireActionTrigger() ==
-                CommandButtonPresentationModel.FireActionTrigger.ON_PRESSED);
+        this.setFireActionOnRollover(commandPresentation.getActionFireTrigger() ==
+                CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER);
+        this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
+                CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED);
 
         this.setPopupPlacementStrategy(commandPresentation.getPopupPlacementStrategy());
 

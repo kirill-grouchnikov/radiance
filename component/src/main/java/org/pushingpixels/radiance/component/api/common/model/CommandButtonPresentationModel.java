@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.component.api.common.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
@@ -84,7 +83,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private boolean hasAutoRepeatIntervalsSet;
     private int autoRepeatInitialInterval;
     private int autoRepeatSubsequentInterval;
-    private FireActionTrigger fireActionTrigger;
+    private ActionFireTrigger actionFireTrigger;
     private RichTooltipPresentationModel actionRichTooltipPresentationModel;
     private RichTooltipPresentationModel popupRichTooltipPresentationModel;
 
@@ -136,8 +135,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.autoRepeatInitialInterval : this.autoRepeatInitialInterval;
         result.autoRepeatSubsequentInterval = (overlay.autoRepeatSubsequentInterval != null)
                 ? overlay.autoRepeatSubsequentInterval : this.autoRepeatSubsequentInterval;
-        result.fireActionTrigger = (overlay.fireActionTrigger != null)
-                ? overlay.fireActionTrigger : this.fireActionTrigger;
+        result.actionFireTrigger = (overlay.actionFireTrigger != null)
+                ? overlay.actionFireTrigger : this.actionFireTrigger;
         result.actionRichTooltipPresentationModel = (overlay.actionRichTooltipPresentationModel != null)
                 ? overlay.actionRichTooltipPresentationModel : this.actionRichTooltipPresentationModel;
         result.popupRichTooltipPresentationModel = (overlay.popupRichTooltipPresentationModel != null)
@@ -230,8 +229,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.textClick;
     }
 
-    public FireActionTrigger getFireActionTrigger() {
-        return this.fireActionTrigger;
+    public ActionFireTrigger getActionFireTrigger() {
+        return this.actionFireTrigger;
     }
 
     public boolean isAutoRepeatAction() {
@@ -258,7 +257,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.popupRichTooltipPresentationModel;
     }
 
-    public enum FireActionTrigger {
+    public enum ActionFireTrigger {
         /**
          * Fire action on rollover.
          */
@@ -310,7 +309,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Boolean hasAutoRepeatIntervalsSet;
         private Integer autoRepeatInitialInterval;
         private Integer autoRepeatSubsequentInterval;
-        private FireActionTrigger fireActionTrigger;
+        private ActionFireTrigger actionFireTrigger;
         private RichTooltipPresentationModel actionRichTooltipPresentationModel;
         private RichTooltipPresentationModel popupRichTooltipPresentationModel;
 
@@ -413,8 +412,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Overlay setFireActionTrigger(FireActionTrigger fireActionTrigger) {
-            this.fireActionTrigger = fireActionTrigger;
+        public Overlay setActionFireTrigger(ActionFireTrigger actionFireTrigger) {
+            this.actionFireTrigger = actionFireTrigger;
             return this;
         }
 
@@ -462,7 +461,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private boolean hasAutoRepeatIntervalsSet;
         private int autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
         private int autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
-        private FireActionTrigger fireActionTrigger = FireActionTrigger.ON_PRESS_RELEASED;
+        private ActionFireTrigger actionFireTrigger = ActionFireTrigger.ON_PRESS_RELEASED;
         private RichTooltipPresentationModel actionRichTooltipPresentationModel =
                 RichTooltipPresentationModel.builder().build();
         private RichTooltipPresentationModel popupRichTooltipPresentationModel =
@@ -569,8 +568,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
-        public Builder setFireActionTrigger(FireActionTrigger fireActionTrigger) {
-            this.fireActionTrigger = fireActionTrigger;
+        public Builder setActionFireTrigger(ActionFireTrigger actionFireTrigger) {
+            this.actionFireTrigger = actionFireTrigger;
             return this;
         }
 
@@ -616,7 +615,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.hasAutoRepeatIntervalsSet = this.hasAutoRepeatIntervalsSet;
             commandPresentation.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
             commandPresentation.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
-            commandPresentation.fireActionTrigger = this.fireActionTrigger;
+            commandPresentation.actionFireTrigger = this.actionFireTrigger;
             commandPresentation.actionRichTooltipPresentationModel = this.actionRichTooltipPresentationModel;
             commandPresentation.popupRichTooltipPresentationModel = this.popupRichTooltipPresentationModel;
 
