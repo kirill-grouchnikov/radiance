@@ -84,6 +84,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
     private int autoRepeatInitialInterval;
     private int autoRepeatSubsequentInterval;
     private ActionFireTrigger actionFireTrigger;
+    private PopupFireTrigger popupFireTrigger;
     private RichTooltipPresentationModel actionRichTooltipPresentationModel;
     private RichTooltipPresentationModel popupRichTooltipPresentationModel;
 
@@ -137,6 +138,8 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
                 ? overlay.autoRepeatSubsequentInterval : this.autoRepeatSubsequentInterval;
         result.actionFireTrigger = (overlay.actionFireTrigger != null)
                 ? overlay.actionFireTrigger : this.actionFireTrigger;
+        result.popupFireTrigger = (overlay.popupFireTrigger != null)
+                ? overlay.popupFireTrigger : this.popupFireTrigger;
         result.actionRichTooltipPresentationModel = (overlay.actionRichTooltipPresentationModel != null)
                 ? overlay.actionRichTooltipPresentationModel : this.actionRichTooltipPresentationModel;
         result.popupRichTooltipPresentationModel = (overlay.popupRichTooltipPresentationModel != null)
@@ -233,6 +236,10 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         return this.actionFireTrigger;
     }
 
+    public PopupFireTrigger getPopupFireTrigger() {
+        return this.popupFireTrigger;
+    }
+
     public boolean isAutoRepeatAction() {
         return this.isAutoRepeatAction;
     }
@@ -274,6 +281,18 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         ON_PRESS_RELEASED
     }
 
+    public enum PopupFireTrigger {
+        /**
+         * Activate popup on rollover.
+         */
+        ON_ROLLOVER,
+
+        /**
+         * Activate popup on press.
+         */
+        ON_PRESSED
+    }
+
     public enum TextClick {
         /**
          * Clicking command text will activate the command action.
@@ -310,6 +329,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private Integer autoRepeatInitialInterval;
         private Integer autoRepeatSubsequentInterval;
         private ActionFireTrigger actionFireTrigger;
+        private PopupFireTrigger popupFireTrigger;
         private RichTooltipPresentationModel actionRichTooltipPresentationModel;
         private RichTooltipPresentationModel popupRichTooltipPresentationModel;
 
@@ -417,6 +437,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
+        public Overlay setPopupFireTrigger(PopupFireTrigger popupFireTrigger) {
+            this.popupFireTrigger = popupFireTrigger;
+            return this;
+        }
+
         public Overlay setActionRichTooltipPresentationModel(RichTooltipPresentationModel actionRichTooltipPresentationModel) {
             this.actionRichTooltipPresentationModel = actionRichTooltipPresentationModel;
             return this;
@@ -462,6 +487,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
         private int autoRepeatInitialInterval = DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS;
         private int autoRepeatSubsequentInterval = DEFAULT_AUTO_REPEAT_SUBSEQUENT_INTERVAL_MS;
         private ActionFireTrigger actionFireTrigger = ActionFireTrigger.ON_PRESS_RELEASED;
+        private PopupFireTrigger popupFireTrigger = PopupFireTrigger.ON_PRESSED;
         private RichTooltipPresentationModel actionRichTooltipPresentationModel =
                 RichTooltipPresentationModel.builder().build();
         private RichTooltipPresentationModel popupRichTooltipPresentationModel =
@@ -573,6 +599,11 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             return this;
         }
 
+        public Builder setPopupFireTrigger(PopupFireTrigger popupFireTrigger) {
+            this.popupFireTrigger = popupFireTrigger;
+            return this;
+        }
+
         public Builder setActionRichTooltipPresentationModel(RichTooltipPresentationModel actionRichTooltipPresentationModel) {
             if (actionRichTooltipPresentationModel == null) {
                 throw new IllegalArgumentException("Cannot pass null presentation model");
@@ -616,6 +647,7 @@ public class CommandButtonPresentationModel implements ImmutablePresentationMode
             commandPresentation.autoRepeatInitialInterval = this.autoRepeatInitialInterval;
             commandPresentation.autoRepeatSubsequentInterval = this.autoRepeatSubsequentInterval;
             commandPresentation.actionFireTrigger = this.actionFireTrigger;
+            commandPresentation.popupFireTrigger = this.popupFireTrigger;
             commandPresentation.actionRichTooltipPresentationModel = this.actionRichTooltipPresentationModel;
             commandPresentation.popupRichTooltipPresentationModel = this.popupRichTooltipPresentationModel;
 

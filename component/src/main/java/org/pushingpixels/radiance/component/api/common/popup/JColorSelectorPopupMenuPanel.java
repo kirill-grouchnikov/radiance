@@ -94,6 +94,7 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         CommandButtonPresentationModel presentation =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(this.presentationModel.getMenuPresentationState())
+                        .setPopupFireTrigger(this.presentationModel.getMenuPopupFireTrigger())
                         .setMenu(true)
                         .build();
 

@@ -60,6 +60,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
     private RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy;
     private Insets menuContentPadding;
+    private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger;
 
     /**
      * Maximum number of menu items visible in this model. If more commands are
@@ -107,6 +108,10 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
         return this.menuContentPadding;
     }
 
+    public CommandButtonPresentationModel.PopupFireTrigger getMenuPopupFireTrigger() {
+        return this.menuPopupFireTrigger;
+    }
+
     public int getMaxVisibleMenuCommands() {
         return this.maxVisibleMenuCommands;
     }
@@ -131,6 +136,8 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private Insets menuContentPadding =
                 CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
+        private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger =
+                CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER;
         private int maxVisibleMenuCommands = -1;
         private boolean toDismissOnCommandActivation = true;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
@@ -163,6 +170,11 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
             return this;
         }
 
+        public Builder setMenuPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger) {
+            this.menuPopupFireTrigger = menuPopupFireTrigger;
+            return this;
+        }
+
         public Builder setMaxVisibleMenuCommands(int maxVisibleMenuCommands) {
             this.maxVisibleMenuCommands = maxVisibleMenuCommands;
             return this;
@@ -188,6 +200,7 @@ public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresenta
             presentationModel.menuEnabledIconFilterStrategy = this.menuEnabledIconFilterStrategy;
             presentationModel.menuDisabledIconFilterStrategy = this.menuDisabledIconFilterStrategy;
             presentationModel.menuContentPadding = this.menuContentPadding;
+            presentationModel.menuPopupFireTrigger = this.menuPopupFireTrigger;
             presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;

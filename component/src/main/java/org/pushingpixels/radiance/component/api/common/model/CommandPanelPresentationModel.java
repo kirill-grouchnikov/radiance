@@ -59,6 +59,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
     private Insets commandContentPadding;
     private double commandHorizontalGapScaleFactor;
     private double commandVerticalGapScaleFactor;
+    private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger;
     private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
@@ -248,6 +249,10 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         return this.isMenu;
     }
 
+    public CommandButtonPresentationModel.PopupFireTrigger getCommandPopupFireTrigger() {
+        return this.commandPopupFireTrigger;
+    }
+
     public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
         return this.popupPlacementStrategy;
     }
@@ -289,6 +294,8 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private int commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
         private boolean isMenu = false;
+        private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger =
+                CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
 
@@ -342,6 +349,11 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
 
         public Builder setCommandHorizontalAlignment(int commandHorizontalAlignment) {
             this.commandHorizontalAlignment = commandHorizontalAlignment;
+            return this;
+        }
+
+        public Builder setCommandPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger) {
+            this.commandPopupFireTrigger = commandPopupFireTrigger;
             return this;
         }
 
@@ -401,6 +413,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.commandPresentationState = this.commandPresentationState;
             presentationModel.commandHorizontalAlignment = this.commandHorizontalAlignment;
+            presentationModel.commandPopupFireTrigger = this.commandPopupFireTrigger;
             presentationModel.isMenu = this.isMenu;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             return presentationModel;

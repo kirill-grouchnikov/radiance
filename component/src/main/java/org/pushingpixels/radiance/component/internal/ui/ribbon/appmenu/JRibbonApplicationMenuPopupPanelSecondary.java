@@ -60,6 +60,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPan
                         .setCommandHorizontalAlignment(SwingUtilities.LEADING)
                         .setPopupPlacementStrategy(
                                 RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
+                        .setCommandPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                         .setMenu(true)
                         .build());
         projection.setCommandOverlays(commandOverlays);

@@ -164,7 +164,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             final Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays =
                     ribbonAppMenuProjection.getCommandOverlays();
             CommandButtonPresentationModel baseCommandPresentation =
-                    CommandButtonPresentationModel.builder().setMenu(true).build();
+                    CommandButtonPresentationModel.builder()
+                            .setMenu(true)
+                            .setPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
+                            .build();
             List<CommandGroup> primaryEntries = ribbonAppMenu.getCommandGroups();
             int primaryGroupCount = primaryEntries.size();
             for (int i = 0; i < primaryGroupCount; i++) {
@@ -176,8 +179,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                                 commandOverlays.get(menuEntry));
                     }
                     final JCommandButton commandButton =
-                            (JCommandButton) menuEntry.project(commandPresentation)
-                                    .buildComponent();
+                            menuEntry.project(commandPresentation).buildComponent();
 
                     if (menuEntry.getSecondaryContentModel() == null) {
                         // if there are no secondary menu items, remove all entries from the

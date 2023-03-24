@@ -366,6 +366,8 @@ public open class KCommandButtonPresentation {
         CommandButtonPresentationModel.TextClick.ACTION
     public var actionFireTrigger: CommandButtonPresentationModel.ActionFireTrigger =
         CommandButtonPresentationModel.ActionFireTrigger.ON_PRESS_RELEASED
+    public var popupFireTrigger: CommandButtonPresentationModel.PopupFireTrigger =
+        CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED
     public var isAutoRepeatAction: Boolean = false
     public var autoRepeatInitialInterval: Int =
         CommandButtonPresentationModel.DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS
@@ -402,6 +404,7 @@ public open class KCommandButtonPresentation {
             .setMenu(isMenu)
             .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
             .setActionFireTrigger(actionFireTrigger)
+            .setPopupFireTrigger(popupFireTrigger)
             .setAutoRepeatAction(isAutoRepeatAction)
             .setAutoRepeatActionIntervals(autoRepeatInitialInterval, autoRepeatSubsequentInterval)
             .setTextClick(textClick)
@@ -435,6 +438,8 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
             )
             .setActionKeyTip(actionKeyTip)
             .setPopupKeyTip(popupKeyTip)
+            .setActionFireTrigger(actionFireTrigger)
+            .setPopupFireTrigger(popupFireTrigger)
             .setMenu(isMenu)
             .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
             .build()

@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManage
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
@@ -772,6 +773,7 @@ public class JRibbonFrame extends JFrame {
                 menuContentModel,
                 CommandPopupMenuPresentationModel.builder()
                         .setMenuPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .setMenuPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                         .build());
         globalContextMenuProjection.setComponentSupplier(projection -> GlobalPopupMenuPanel::new);
         final JCommandPopupMenuPanel menu = globalContextMenuProjection.buildComponent();

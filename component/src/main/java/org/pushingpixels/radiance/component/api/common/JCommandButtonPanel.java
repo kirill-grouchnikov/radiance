@@ -189,6 +189,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
                         this.panelPresentationModel.getActiveIconFilterStrategy(),
                         this.panelPresentationModel.getEnabledIconFilterStrategy(),
                         this.panelPresentationModel.getDisabledIconFilterStrategy())
+                .setPopupFireTrigger(this.panelPresentationModel.getCommandPopupFireTrigger())
                 .setMenu(this.panelPresentationModel.isMenu())
                 .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
                 .setPopupPlacementStrategy(this.panelPresentationModel.getPopupPlacementStrategy())

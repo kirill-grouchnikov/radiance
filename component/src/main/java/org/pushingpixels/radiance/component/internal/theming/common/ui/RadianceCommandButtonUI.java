@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonPresentation
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.RolloverActionListener;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
@@ -194,7 +195,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         this.rolloverMenuMouseListener = new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                if (commandButton.isEnabled() && commandButton.getProjection().getPresentationModel().isMenu()) {
+                if (commandButton.isEnabled() &&
+                        (commandButton.getProjection().getPresentationModel().getPopupFireTrigger() ==
+                                CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)) {
                     int modifiers = 0;
                     AWTEvent currentEvent = EventQueue.getCurrentEvent();
                     if (currentEvent instanceof InputEvent) {
