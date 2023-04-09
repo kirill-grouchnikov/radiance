@@ -36,7 +36,7 @@ For example, to run Screenshot to create screenshots for all Aurora core skins:
 
 `RADIANCE_VERSION=7.0-SNAPSHOT`
 
-`KOTLIN_VERSION=1.8.10`
+`KOTLIN_VERSION=1.8.20`
 
 `KOTLIN_COROUTINES_VERSION=1.6.4`
 
