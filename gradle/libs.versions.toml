@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.20"
+kotlin = "1.8.21"
 coroutines = "1.6.4"
 dokka = "1.7.20"
 
@@ -10,7 +10,7 @@ jgoodies_forms = "1.9.0"
 jhlabs = "2.0.235"
 
 versionchecker = "0.46.0"
-mavenpublish = "0.25.1"
+mavenpublish = "0.25.2"
 
 [libraries]
 
