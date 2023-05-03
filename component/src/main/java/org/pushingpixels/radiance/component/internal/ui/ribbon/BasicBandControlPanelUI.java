@@ -431,8 +431,8 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
 
                     int index3 = 0;
                     int maxWidth3 = 0;
-                    List<JCommandButton> mediums = buttonMap
-                            .get(CommandButtonPresentationState.MEDIUM);
+                    List<JCommandButton> mediums =
+                            buttonMap.get(CommandButtonPresentationState.MEDIUM);
                     if (mediums != null) {
                         for (JCommandButton mediumButton : mediums) {
                             int medWidth = mediumButton.getPreferredSize().width;

@@ -167,7 +167,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 .setIconFactory(this.ribbonBand.getIconFactory())
                 .build();
 
-        this.collapsedButton = (JCommandButton) collapseCommand.project(
+        this.collapsedButton = collapseCommand.project(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(CommandButtonPresentationState.BIG)
                         .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
@@ -330,8 +330,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             int width = useCollapsedButton ? collapsedButton.getPreferredSize().width
                     : controlPanel.getPreferredSize().width;
             int height = (useCollapsedButton ? collapsedButton.getPreferredSize().height
-                    :
-                    controlPanel.getPreferredSize().height) + getBandTitleHeight();
+                    : controlPanel.getPreferredSize().height) + getBandTitleHeight();
 
             // System.out.println(ribbonBand.getTitle() + ":" + height);
 
