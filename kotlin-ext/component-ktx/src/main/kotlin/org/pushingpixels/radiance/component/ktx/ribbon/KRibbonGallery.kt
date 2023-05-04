@@ -40,6 +40,7 @@ import org.pushingpixels.radiance.component.ktx.KCommand
 import org.pushingpixels.radiance.component.ktx.KCommandGroup
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 
 @RadianceElementMarker
@@ -84,9 +85,9 @@ public class KRibbonGalleryContent {
     private val commandGroups = arrayListOf<KCommandGroup>()
     private val extraPopupGroups = arrayListOf<KCommandGroup>()
     private val extraPopupDefaultGroup = KCommandGroup()
-    public var onCommandActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
-    public var onCommandPreviewActivated: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
-    public var onCommandPreviewCanceled: ((Command) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onCommandActivated: ((BaseCommand<*>) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onCommandPreviewActivated: ((BaseCommand<*>) -> Unit)? by NullableDelegate { hasBeenConverted }
+    public var onCommandPreviewCanceled: ((BaseCommand<*>) -> Unit)? by NullableDelegate { hasBeenConverted }
 
     public fun commandGroup(init: KCommandGroup.() -> Unit): KCommandGroup {
         if (hasBeenConverted) {
@@ -153,11 +154,11 @@ public class KRibbonGalleryContent {
         // Wire command preview and activation listeners
         javaRibbonGalleryContentModel.addCommandPreviewListener(
                 object : RibbonGalleryContentModel.GalleryCommandActionPreview {
-                    override fun onCommandPreviewActivated(command: Command) {
+                    override fun onCommandPreviewActivated(command: BaseCommand<*>) {
                         onCommandPreviewActivated?.invoke(command)
                     }
 
-                    override fun onCommandPreviewCanceled(command: Command) {
+                    override fun onCommandPreviewCanceled(command: BaseCommand<*>) {
                         onCommandPreviewCanceled?.invoke(command)
                     }
                 })

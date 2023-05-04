@@ -38,7 +38,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandMenuContentModel implements ContentModel, ChangeAware {
+public class CommandMenuContentModel implements BaseCommandMenuContentModel, ChangeAware {
     private CommandPanelContentModel panelContentModel;
     private List<CommandGroup> commandGroups;
     private Command highlightedCommand;

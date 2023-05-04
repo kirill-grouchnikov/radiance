@@ -39,11 +39,10 @@ import org.pushingpixels.radiance.component.api.common.CommandAction
 import org.pushingpixels.radiance.component.api.common.CommandActionEvent
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.JCommandButton
-import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand
-import org.pushingpixels.radiance.component.api.common.model.Command
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.*
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand.BaseBuilder
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel.SelectedStateHighlight
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup
+import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
@@ -53,9 +52,10 @@ import java.awt.Dimension
 import java.awt.Insets
 
 @RadianceElementMarker
-public open class KCommand {
-    private val builder = Command.builder()
-    internal lateinit var javaCommand: Command
+public abstract class KBaseCommand<C: BaseCommand<MCM>, MCM: BaseCommandMenuContentModel>(
+    protected val builder: BaseBuilder<C, MCM, *>
+) {
+    internal lateinit var javaCommand: C
     internal var hasBeenConverted: Boolean = false
 
     // The "title" property can be modified even after [KCommandButton.toButton] has been called
@@ -239,7 +239,10 @@ public open class KCommand {
     }
 
     internal companion object {
-        fun populateBuilder(builder: Command.BaseBuilder<*, *>, command: KCommand) {
+        fun <C: BaseCommand<MCM>, MCM: BaseCommandMenuContentModel> populateBuilder(
+            builder: BaseBuilder<C, MCM, *>, command: KBaseCommand<C, MCM>,
+            menuContentModelCreator : (KCommandMenu) -> MCM) {
+
             builder.setText(command.title)
             builder.setIconFactory(command.iconFactory)
             builder.setExtraText(command.extraText)
@@ -249,7 +252,8 @@ public open class KCommand {
             builder.setSecondaryRichTooltip(command.secondaryRichTooltip?.toJavaRichTooltip())
 
             if (command.menu != null) {
-                builder.setSecondaryContentModel(command.menu!!.toJavaMenuContentModel())
+                val menuContentModel = menuContentModelCreator.invoke(command.menu!!)
+                builder.setSecondaryContentModel(menuContentModel)
             }
 
             if (command.isToggleSelected) {
@@ -265,12 +269,12 @@ public open class KCommand {
                 builder.inToggleGroup(command.toggleGroup!!.javaCommandToggleModel)
             }
 
-            builder.setActionPreview(object : Command.CommandActionPreview {
-                override fun onCommandPreviewActivated(cmd: Command?) {
+            builder.setActionPreview(object : BaseCommand.CommandActionPreview {
+                override fun onCommandPreviewActivated(cmd: BaseCommand<*>?) {
                     command.onActionPreviewActivated?.invoke()
                 }
 
-                override fun onCommandPreviewCanceled(cmd: Command?) {
+                override fun onCommandPreviewCanceled(cmd: BaseCommand<*>?) {
                     command.onActionPreviewCanceled?.invoke()
                 }
             })
@@ -280,12 +284,20 @@ public open class KCommand {
         }
     }
 
-    internal fun asJavaCommand(): Command {
+    internal abstract fun asJavaCommand(): C
+}
+
+
+@RadianceElementMarker
+public class KCommand : KBaseCommand<Command, CommandMenuContentModel>(
+    Command.builder()
+) {
+    override fun asJavaCommand(): Command {
         if (hasBeenConverted) {
             return javaCommand
         }
-        populateBuilder(builder, this)
-        javaCommand = builder.build()
+        // TODO - make popup menu generic
+        populateBuilder(builder, this) { menu?.toJavaMenuContentModel()!! }
         hasBeenConverted = true
         return javaCommand
     }
@@ -306,21 +318,26 @@ public fun command(init: KCommand.() -> Unit): KCommand {
 }
 
 @RadianceElementMarker
-public class KColorSelectorCommand : KCommand() {
+public class KColorSelectorCommand : KBaseCommand<ColorSelectorCommand, ColorSelectorPopupMenuContentModel>(
+    ColorSelectorCommand.colorSelectorBuilder()
+) {
     public var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
     private val colorSelectorBuilder = ColorSelectorCommand.colorSelectorBuilder()
 
-    internal fun asJavaColorSelectorCommand(): ColorSelectorCommand {
+    override fun asJavaCommand(): ColorSelectorCommand {
         if (hasBeenConverted) {
-            return javaCommand as ColorSelectorCommand
+            return javaCommand
         }
-        populateBuilder(colorSelectorBuilder, this)
-        colorSelectorBuilder.setColorSelectorPopupMenuContentModel(
-            colorSelectorPopupMenu?.toJavaPopupMenuContentModel()
-        )
+        // TODO - make popup menu generic
+        populateBuilder(builder, this) { colorSelectorPopupMenu?.toJavaPopupMenuContentModel()!! }
         javaCommand = colorSelectorBuilder.build()
         hasBeenConverted = true
-        return javaCommand as ColorSelectorCommand
+        return javaCommand
+    }
+
+    // TODO - remove
+    internal fun asJavaColorSelectorCommand(): ColorSelectorCommand {
+        return asJavaCommand()
     }
 
     internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): JCommandButton {
@@ -453,15 +470,16 @@ public class KCommandGroup {
     internal val commands = arrayListOf<CommandConfig>()
 
     internal data class CommandConfig(
-        val command: KCommand, val actionKeyTip: String?, val secondaryKeyTip: String?,
+        val command: KBaseCommand<*, *>, val actionKeyTip: String?, val secondaryKeyTip: String?,
         val textClick: CommandButtonPresentationModel.TextClick?,
         val popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy?
     ) {
-        fun toJavaCommand(): Command {
+        fun toJavaCommand(): BaseCommand<*> {
             return command.asJavaCommand()
         }
 
         fun toJavaProjection(): CommandButtonProjection<Command> {
+            require(command is KCommand)
             val presentationBuilder = CommandButtonPresentationModel.builder()
                 .setActionKeyTip(actionKeyTip)
                 .setPopupKeyTip(secondaryKeyTip)
@@ -517,11 +535,11 @@ public class KCommandGroup {
     internal fun toCommandGroupModel(): CommandGroup {
         return CommandGroup(
             title,
-            commands.map { it.toJavaCommand() })
+            commands.map { it.toJavaCommand() as Command })
     }
 
     internal fun toPresentationOverlays(): Map<Command, CommandButtonPresentationModel.Overlay> {
-        return commands.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }.toMap()
+        return commands.map { it.command.asJavaCommand() as Command to it.toJavaPresentationOverlay() }.toMap()
     }
 }
 

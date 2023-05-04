@@ -42,22 +42,22 @@ public class CommandToggleGroupModel {
     /**
      * Contains all group commands.
      */
-    private Vector<Command> commands;
+    private Vector<BaseCommand> commands;
 
     /**
      * Map of registered model change listeners.
      */
-    private Map<Command, ChangeListener> modelChangeListeners;
+    private Map<BaseCommand, ChangeListener> modelChangeListeners;
 
     /**
      * The currently selected command. Can be <code>null</code>.
      */
-    private Command selection;
+    private BaseCommand selection;
 
     /**
      * If <code>false</code>, the selection cannot be cleared. By default the
      * command group allows clearing the selection in {@link #clearSelection()}
-     * or {@link #setSelected(Command, boolean)} (passing the
+     * or {@link #setSelected(BaseCommand, boolean)} (passing the
      * currently selected command and <code>false</code>).
      */
     private boolean allowsClearingSelection;
@@ -76,14 +76,14 @@ public class CommandToggleGroupModel {
      *
      * @return An unmodifiable collection with all the commands tracked by this model.
      */
-    public Collection<Command> getCommands() {
+    public Collection<BaseCommand> getCommands() {
         return Collections.unmodifiableCollection(this.commands);
     }
 
     /**
      * Sets the new value for clearing selection. If <code>true</code> is
      * passed, the selection can be cleared in {@link #clearSelection()} or
-     * {@link #setSelected(Command, boolean)} (passing the
+     * {@link #setSelected(BaseCommand, boolean)} (passing the
      * currently selected command and <code>false</code>).
      *
      * @param allowsClearingSelection The new value for clearing selection.
@@ -95,7 +95,7 @@ public class CommandToggleGroupModel {
     /**
      * Returns the current value for clearing selection. <code>true</code> is
      * returned when selection can be cleared in {@link #clearSelection()} or
-     * {@link #setSelected(Command, boolean)} (passing the
+     * {@link #setSelected(BaseCommand, boolean)} (passing the
      * currently selected command and <code>false</code>).
      *
      * @return The current value for clearing selection.
@@ -111,7 +111,7 @@ public class CommandToggleGroupModel {
      *
      * @param command The command to be added.
      */
-    public void add(final Command command) {
+    public void add(final BaseCommand command) {
         if (command == null) {
             return;
         }
@@ -147,7 +147,7 @@ public class CommandToggleGroupModel {
      *
      * @param command The command to be removed
      */
-    public void remove(Command command) {
+    public void remove(BaseCommand command) {
         if (command == null) {
             return;
         }
@@ -171,9 +171,9 @@ public class CommandToggleGroupModel {
      * @param command    command.
      * @param isSelected Selection indication.
      */
-    public void setSelected(Command command, boolean isSelected) {
+    public void setSelected(BaseCommand command, boolean isSelected) {
         if (isSelected && command != null && command != selection) {
-            Command oldSelection = selection;
+            BaseCommand oldSelection = selection;
             selection = command;
             if (oldSelection != null) {
                 oldSelection.setToggleSelected(false);
@@ -198,7 +198,7 @@ public class CommandToggleGroupModel {
      * @return The selected command of this group model. The result can be
      * <code>null</code>.
      */
-    public Command getSelected() {
+    public BaseCommand getSelected() {
         return this.selection;
     }
 

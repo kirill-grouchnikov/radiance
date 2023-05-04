@@ -33,8 +33,11 @@ import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection;
@@ -52,7 +55,7 @@ import java.util.Collections;
  *
  * <ul>
  * <li>Ribbon commands added with
- * {@link #addRibbonCommand(CommandButtonProjection, PresentationPriority)}.</li>
+ * {@link #addRibbonCommand(BaseCommandButtonProjection, PresentationPriority)}.</li>
  * <li>Wrapped core / 3rd party components added with
  * {@link #addRibbonComponent(ComponentProjection)}.</li>
  * <li>Ribbon galleries added with
@@ -165,7 +168,8 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param priority   Priority of the command.
      * @return The command button that represents the command.
      */
-    public JCommandButton addRibbonCommand(CommandButtonProjection<? extends Command> projection,
+    public JCommandButton addRibbonCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
+            ? extends BaseCommandMenuContentModel> projection,
             PresentationPriority priority) {
         JCommandButton commandButton = projection.buildComponent();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);

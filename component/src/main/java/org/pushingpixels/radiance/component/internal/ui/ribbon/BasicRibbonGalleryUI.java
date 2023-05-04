@@ -31,10 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel.StripOrientation;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -256,7 +253,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Installs listeners on the associated ribbon gallery.
      */
     protected void installListeners() {
-        this.galleryCommandSelectionListener = (Command activated) ->
+        this.galleryCommandSelectionListener = (BaseCommand activated) ->
                 SwingUtilities.invokeLater(() -> {
                     if (ribbonGallery != null) {
                         scrollToSelected();

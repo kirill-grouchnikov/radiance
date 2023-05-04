@@ -348,7 +348,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         if (this.panelContentModel.isSingleSelectionMode()) {
             for (List<JCommandButton> commandButtons : this.buttons) {
                 for (JCommandButton commandButton : commandButtons) {
-                    Command curr = commandButton.getProjection().getContentModel();
+                    Command curr = (Command) commandButton.getProjection().getContentModel();
                     if (curr.isToggleSelected()) {
                         return curr;
                     }
@@ -362,7 +362,7 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         if (this.panelContentModel.isSingleSelectionMode()) {
             for (List<JCommandButton> commandButtons : this.buttons) {
                 for (JCommandButton commandButton : commandButtons) {
-                    Command curr = commandButton.getProjection().getContentModel();
+                    Command curr = (Command) commandButton.getProjection().getContentModel();
                     if (curr.isToggleSelected()) {
                         Rectangle selectionButtonBounds = commandButton.getBounds();
                         scrollRectToVisible(selectionButtonBounds);

@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 
-public class ColorSelectorCommand extends Command {
-    private ColorSelectorPopupMenuContentModel popupMenuContentModel;
-
+public class ColorSelectorCommand extends BaseCommand<ColorSelectorPopupMenuContentModel> {
     public static Builder colorSelectorBuilder() {
         return new Builder();
     }
@@ -41,18 +39,18 @@ public class ColorSelectorCommand extends Command {
     private ColorSelectorCommand() {
     }
 
+    // TODO - remove
     public ColorSelectorPopupMenuContentModel getColorSelectorPopupMenuContentModel() {
-        return this.popupMenuContentModel;
+        return super.getSecondaryContentModel();
     }
 
     public static class Builder extends BaseBuilder<ColorSelectorCommand,
+            ColorSelectorPopupMenuContentModel,
             ColorSelectorCommand.Builder> {
-        private ColorSelectorPopupMenuContentModel popupMenuContentModel;
-
+        // TODO - remove
         public Builder setColorSelectorPopupMenuContentModel(
                 ColorSelectorPopupMenuContentModel popupMenuContentModel) {
-            this.popupMenuContentModel = popupMenuContentModel;
-            return this;
+            return super.setSecondaryContentModel(popupMenuContentModel);
         }
 
         /**
@@ -64,7 +62,6 @@ public class ColorSelectorCommand extends Command {
             ColorSelectorCommand command = new ColorSelectorCommand();
 
             this.configureBaseCommand(command);
-            command.popupMenuContentModel = this.popupMenuContentModel;
 
             return command;
         }

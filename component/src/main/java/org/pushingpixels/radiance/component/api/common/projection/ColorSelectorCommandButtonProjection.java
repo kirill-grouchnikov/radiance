@@ -31,10 +31,11 @@ package org.pushingpixels.radiance.component.api.common.projection;
 
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.internal.ui.common.JColorSelectorCommandButton;
 
 public class ColorSelectorCommandButtonProjection extends
-        CommandButtonProjection<ColorSelectorCommand> {
+        BaseCommandButtonProjection<ColorSelectorCommand, ColorSelectorPopupMenuContentModel> {
     public ColorSelectorCommandButtonProjection(ColorSelectorCommand command,
             CommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation, projection -> JColorSelectorCommandButton::new);

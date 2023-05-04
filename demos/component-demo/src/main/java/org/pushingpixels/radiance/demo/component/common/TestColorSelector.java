@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
@@ -122,12 +123,12 @@ public class TestColorSelector extends JFrame {
                 })
                 .setActionPreview(new Command.CommandActionPreview() {
                     @Override
-                    public void onCommandPreviewActivated(Command command) {
+                    public void onCommandPreviewActivated(BaseCommand command) {
                         colorPreviewListener.onColorPreviewActivated(defaultPanelColor);
                     }
 
                     @Override
-                    public void onCommandPreviewCanceled(Command command) {
+                    public void onCommandPreviewCanceled(BaseCommand command) {
                         colorPreviewListener.onColorPreviewCanceled();
                     }
                 })

@@ -46,10 +46,7 @@ import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.P
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.component.api.common.projection.*;
 import org.pushingpixels.radiance.component.api.ribbon.*;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel;
@@ -797,12 +794,12 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 })
                 .setActionPreview(new Command.CommandActionPreview() {
                     @Override
-                    public void onCommandPreviewActivated(Command command) {
+                    public void onCommandPreviewActivated(BaseCommand command) {
                         colorPreviewListener.onColorPreviewActivated(defaultColor);
                     }
 
                     @Override
-                    public void onCommandPreviewCanceled(Command command) {
+                    public void onCommandPreviewCanceled(BaseCommand command) {
                         colorPreviewListener.onColorPreviewCanceled();
                     }
                 })
@@ -1610,18 +1607,18 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 stylesGalleryCommands);
         this.styleGalleryContentModel.setSelectedCommand(
                 stylesGalleryCommandsList.get(1));
-        this.styleGalleryContentModel.addCommandActivationListener((Command activated) ->
+        this.styleGalleryContentModel.addCommandActivationListener((BaseCommand activated) ->
                 System.out.println("*** Command '" + ((activated == null) ? "[null]" : activated.getText()) +
                         "' activated! ***"));
         this.styleGalleryContentModel.addCommandPreviewListener(
                 new RibbonGalleryContentModel.GalleryCommandActionPreview() {
                     @Override
-                    public void onCommandPreviewActivated(Command command) {
+                    public void onCommandPreviewActivated(BaseCommand command) {
                         System.out.println("Preview activated for '" + command.getText() + "'");
                     }
 
                     @Override
-                    public void onCommandPreviewCanceled(Command command) {
+                    public void onCommandPreviewCanceled(BaseCommand command) {
                         System.out.println("Preview canceled for '" + command.getText() + "'");
                     }
                 });
@@ -1832,9 +1829,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
 
                     @Override
-                    public CommandMenuContentModel getContextualMenuContentModel(
-                            JRibbon ribbon, CommandButtonProjection<? extends Command> commandButtonProjection) {
-                        Command originalCommand = commandButtonProjection.getContentModel();
+                    public CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon, BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel> commandButtonProjection) {
+                        BaseCommand<?> originalCommand = commandButtonProjection.getContentModel();
                         Command commandCommand;
                         if (ribbon.isShowingInTaskbar(originalCommand)) {
                             commandCommand = Command.builder()
@@ -2516,7 +2512,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Class<?> ownerClass = owner.getClass();
                 if (JCommandButton.class.isAssignableFrom(ownerClass)) {
                     JCommandButton cb = (JCommandButton) owner;
-                    Command command = cb.getProjection().getContentModel();
+                    BaseCommand<?> command = cb.getProjection().getContentModel();
                     toShow = "[" + ownerClass.getSimpleName() + "] " + command.getText();
                     if (command.getIconFactory() != null) {
                         icon = command.getIconFactory().createNewIcon();
@@ -2566,7 +2562,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     .setText("option " + i)
                     .setAction(commandActionEvent -> {
                         // get the command behind this event and check its selected state
-                        Command source = commandActionEvent.getCommand();
+                        BaseCommand<?> source = commandActionEvent.getCommand();
                         boolean isSelectedNow = source.isToggleSelected();
                         if (isSelectedNow) {
                             // add the title of the newly selected command

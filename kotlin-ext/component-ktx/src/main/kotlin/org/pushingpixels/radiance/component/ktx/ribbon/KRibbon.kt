@@ -244,7 +244,7 @@ public class KRibbonFrame {
                     taskbarComponent.asJavaCommand().project()
                 )
                 is KCommandGroup.CommandConfig -> ribbonFrame.ribbon.addTaskbarCommand(
-                    taskbarComponent.toJavaCommand().project()
+                    (taskbarComponent.toJavaCommand() as Command).project()
                 )
                 is ComponentProjection<*, *> -> ribbonFrame.ribbon.addTaskbarComponent(
                     taskbarComponent

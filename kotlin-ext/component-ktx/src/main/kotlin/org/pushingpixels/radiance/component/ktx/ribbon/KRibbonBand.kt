@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.ktx.ribbon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandAction
 import org.pushingpixels.radiance.component.api.common.CommandActionEvent
+import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand
@@ -300,7 +301,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                                 )
                             }
                             ribbonBand.addRibbonCommand(
-                                content.command.asJavaCommand()
+                                (content.command.asJavaCommand() as Command)
                                     .project(buttonPresentationModel.build()), priority
                             )
                         }

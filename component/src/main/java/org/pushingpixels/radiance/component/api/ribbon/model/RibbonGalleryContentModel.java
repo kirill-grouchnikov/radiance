@@ -29,10 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon.model;
 
-import org.pushingpixels.radiance.component.api.common.model.ChangeAware;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.component.api.common.model.ContentModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
@@ -64,14 +61,14 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
          *
          * @param command Command for which the preview has been activated.
          */
-        void onCommandPreviewActivated(Command command);
+        void onCommandPreviewActivated(BaseCommand command);
 
         /**
          * Invoked when the command preview has been canceled.
          *
          * @param command Command for which the preview has been canceled.
          */
-        void onCommandPreviewCanceled(Command command);
+        void onCommandPreviewCanceled(BaseCommand command);
     }
 
     /**
@@ -83,7 +80,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
          *
          * @param command Command that has been activated.
          */
-        void onCommandActivated(Command command);
+        void onCommandActivated(BaseCommand command);
     }
 
     private CommandGroup.CommandGroupListener commandGroupListener;
@@ -225,15 +222,15 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
         return this.selectedCommand;
     }
 
-    public void activatePreview(Command command) {
+    public void activatePreview(BaseCommand<?> command) {
         fireCommandPreviewActivated(command);
     }
 
-    public void cancelPreview(Command command) {
+    public void cancelPreview(BaseCommand<?> command) {
         fireCommandPreviewCanceled(command);
     }
 
-    private void fireCommandPreviewActivated(Command command) {
+    private void fireCommandPreviewActivated(BaseCommand<?> command) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
@@ -246,7 +243,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
         }
     }
 
-    private void fireCommandPreviewCanceled(Command command) {
+    private void fireCommandPreviewCanceled(BaseCommand<?> command) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
@@ -259,7 +256,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
         }
     }
 
-    private void fireCommandSelected(Command command) {
+    private void fireCommandSelected(BaseCommand<?> command) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying

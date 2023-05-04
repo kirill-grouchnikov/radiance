@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
@@ -324,7 +325,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         };
         this.commandButton.addPropertyChangeListener(this.propertyChangeListener);
 
-        Command command = this.commandButton.getProjection().getContentModel();
+        BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
         this.projectionPropertyChangeListener = propertyChangeEvent -> {
             if ("text".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.setText((String) propertyChangeEvent.getNewValue());
@@ -704,7 +705,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         }
     }
 
-    private void syncActionPreview(Command command, Command.CommandActionPreview actionPreview) {
+    private void syncActionPreview(BaseCommand<?> command, Command.CommandActionPreview actionPreview) {
         if (this.actionPreviewChangeListener != null) {
             this.commandButton.getActionModel().removeChangeListener(
                     this.actionPreviewChangeListener);

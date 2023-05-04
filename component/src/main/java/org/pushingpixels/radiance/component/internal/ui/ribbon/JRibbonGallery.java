@@ -77,7 +77,7 @@ public class JRibbonGallery extends JComponent {
     /**
      * The commands of <code>this</code> gallery.
      */
-    protected List<Command> commands;
+    protected List<BaseCommand> commands;
 
     /**
      * Button group for ensuring that only one button is selected.
@@ -111,7 +111,7 @@ public class JRibbonGallery extends JComponent {
         this.populateContent();
 
         this.galleryContentModel.addCommandActivationListener(
-                (Command activated) -> this.commandToggleGroupModel.setSelected(activated, true));
+                (BaseCommand activated) -> this.commandToggleGroupModel.setSelected(activated, true));
 
         this.galleryContentChangeListener = (ChangeEvent changeEvent) -> {
             this.buttons.clear();
@@ -277,7 +277,7 @@ public class JRibbonGallery extends JComponent {
      * @return The currently selected gallery button.
      */
     public JCommandButton getSelectedButton() {
-        Command selectedCommand = this.commandToggleGroupModel.getSelected();
+        BaseCommand selectedCommand = this.commandToggleGroupModel.getSelected();
         if (selectedCommand == null) {
             return null;
         }
@@ -349,12 +349,12 @@ public class JRibbonGallery extends JComponent {
         galleryPopupMenuPanelContentModel.setCommandPreviewListener(
                 new Command.CommandActionPreview() {
                     @Override
-                    public void onCommandPreviewActivated(Command command) {
+                    public void onCommandPreviewActivated(BaseCommand command) {
                         galleryProjection.getContentModel().activatePreview(command);
                     }
 
                     @Override
-                    public void onCommandPreviewCanceled(Command command) {
+                    public void onCommandPreviewCanceled(BaseCommand command) {
                         galleryProjection.getContentModel().cancelPreview(command);
                     }
                 });

@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
@@ -43,6 +44,7 @@ import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPa
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
@@ -748,15 +750,17 @@ public class JRibbonFrame extends JFrame {
                 } else {
                     if ((c instanceof JCommandButton) &&
                             (!(c instanceof RadianceInternalButton))) {
+                        BaseCommandButtonProjection projection = ((JCommandButton) c).getProjection();
                         if (SwingUtilities.getAncestorOfClass(JRibbonApplicationMenuPopupPanel.class, c) != null) {
                             // App menu link
+                            Command appMenuCommand = (Command) projection.getContentModel();
                             menuContentModel =
                                     onShowContextualMenuListener.getContextualMenuContentModel(
-                                            ribbon, ((JCommandButton) c).getProjection().getContentModel());
+                                            ribbon, appMenuCommand);
                         } else {
                             menuContentModel =
                                     onShowContextualMenuListener.getContextualMenuContentModel(
-                                            ribbon, ((JCommandButton) c).getProjection());
+                                            ribbon, projection);
                         }
                     }
                 }

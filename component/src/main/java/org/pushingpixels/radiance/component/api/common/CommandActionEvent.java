@@ -29,20 +29,21 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 
 import java.awt.event.ActionEvent;
 
 public class CommandActionEvent extends ActionEvent {
-    private Command command;
+    private BaseCommand<?> command;
 
-    public CommandActionEvent(Object source, int id, Command radianceCommand,
+    public CommandActionEvent(Object source, int id, BaseCommand<?> radianceCommand,
             String command, long when, int modifiers) {
         super(source, id, command, when, modifiers);
         this.command = radianceCommand;
     }
 
-    public Command getCommand() {
+    public BaseCommand<?> getCommand() {
         return this.command;
     }
 

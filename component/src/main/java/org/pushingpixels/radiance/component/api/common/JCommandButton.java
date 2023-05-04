@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
@@ -75,8 +76,8 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public static final String uiClassID = "CommandButtonUI";
 
-    private Projection<JCommandButton, ? extends Command, CommandButtonPresentationModel> projection;
-    private Command command;
+    private Projection<JCommandButton, ? extends BaseCommand, CommandButtonPresentationModel> projection;
+    private BaseCommand command;
     private CommandButtonPresentationModel commandPresentation;
 
     /**
@@ -485,7 +486,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     }
 
     @SuppressWarnings("unchecked")
-    public JCommandButton(Projection<JCommandButton, ? extends Command,
+    public JCommandButton(Projection<JCommandButton, ? extends BaseCommand,
             CommandButtonPresentationModel> projection) {
         this.projection = projection;
         this.command = projection.getContentModel();
@@ -544,7 +545,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
 
         if (hasPopup) {
             if (command.getSecondaryContentModel() != null) {
-                CommandMenuContentModel popupMenuContentModel = command.getSecondaryContentModel();
+                BaseCommandMenuContentModel popupMenuContentModel = command.getSecondaryContentModel();
                 AbstractPopupMenuPresentationModel popupMenuPresentationModel =
                         commandPresentation.getPopupMenuPresentationModel();
                 if (popupMenuContentModel instanceof RibbonApplicationMenu) {
@@ -562,14 +563,15 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                     menuPanelProjection.setSecondaryLevelCommandPresentationState(
                             ribbonApplicationMenuProjection.getSecondaryLevelCommandPresentationState());
                     this.setPopupCallback(commandButton -> menuPanelProjection.buildComponent());
-                } else if (popupMenuContentModel != null) {
+                } else if (popupMenuContentModel instanceof CommandMenuContentModel) {
+                    CommandMenuContentModel commandMenuContentModel = (CommandMenuContentModel) popupMenuContentModel;
                     CommandButtonProjection<? extends Command> commandProjection =
                             (CommandButtonProjection<? extends Command>) this.projection;
                     if (popupMenuPresentationModel == null) {
                         popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
                     }
                     CommandPopupMenuPanelProjection commandPopupMenuPanelProjection =
-                            new CommandPopupMenuPanelProjection(popupMenuContentModel,
+                            new CommandPopupMenuPanelProjection(commandMenuContentModel,
                                     (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
                     commandPopupMenuPanelProjection.setCommandOverlays(
                             this.projection.getCommandOverlays());
@@ -653,8 +655,8 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         return (CommandButtonUI) ui;
     }
 
-    public CommandButtonProjection<? extends Command> getProjection() {
-        return (CommandButtonProjection<? extends Command>) this.projection;
+    public BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel> getProjection() {
+        return (BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel>) this.projection;
     }
 
     /**

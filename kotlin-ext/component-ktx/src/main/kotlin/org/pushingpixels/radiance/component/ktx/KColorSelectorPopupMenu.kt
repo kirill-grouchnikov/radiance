@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.ktx
 
+import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuGroupModel
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel
@@ -118,7 +119,7 @@ public class KColorSelectorPopupMenuGroup {
         for (component in content) {
             when (component) {
                 is KCommandGroup.CommandConfig -> {
-                    menuGroupBuilder.addCommand(component.toJavaCommand())
+                    menuGroupBuilder.addCommand(component.toJavaCommand() as Command)
                 }
 
                 is KColorSelectorPopupMenuColorSection -> {

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.common.popup.model;
 
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.ChangeAware;
 import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
@@ -41,7 +42,7 @@ import java.util.Collections;
 import java.util.EventListener;
 import java.util.List;
 
-public class ColorSelectorPopupMenuContentModel implements ContentModel, ChangeAware {
+public class ColorSelectorPopupMenuContentModel implements BaseCommandMenuContentModel, ChangeAware {
     private List<ColorSelectorPopupMenuGroupModel> menuGroups;
 
     private ColorPreviewListener colorPreviewListener;

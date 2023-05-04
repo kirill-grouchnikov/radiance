@@ -82,7 +82,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
 
     @Override
     public void setSelected(boolean b) {
-        Command command = this.commandButton.getProjection().getContentModel();
+        BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
         CommandToggleGroupModel groupModel = command.getToggleGroupModel();
         if (groupModel != null) {
             groupModel.setSelected(command, b);
@@ -122,7 +122,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
             stateMask &= ~PRESSED;
         }
 
-        Command command = this.commandButton.getProjection().getContentModel();
+        BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
         if (command.isToggle() && isArmed()) {
             // change selection prior to firing the action event on a toggle button
             if (!this.isFireActionOnPress()) {

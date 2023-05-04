@@ -101,7 +101,7 @@ public class KRibbonApplicationMenu {
         }
 
         for (footerCommand in footerCommands.commands) {
-            ribbonApplicationMenu.addFooterCommand(footerCommand.command.asJavaCommand())
+            ribbonApplicationMenu.addFooterCommand(footerCommand.command.asJavaCommand() as Command)
         }
         hasBeenConverted = true
         return ribbonApplicationMenu
@@ -111,17 +111,17 @@ public class KRibbonApplicationMenu {
         for (group in groups) {
             for (commandConfig in group.commands) {
                 if ((commandConfig.actionKeyTip != null) || (commandConfig.secondaryKeyTip != null)) {
-                    overlays[commandConfig.toJavaCommand()] =
+                    overlays[commandConfig.toJavaCommand() as Command] =
                             CommandButtonPresentationModel.overlay()
                                     .setActionKeyTip(commandConfig.actionKeyTip)
                                     .setPopupKeyTip(commandConfig.secondaryKeyTip)
-                    commandConfig.command.populateCommandOverlays(overlays)
+                    (commandConfig.command as KCommand).populateCommandOverlays(overlays)
                 }
             }
         }
         for (footerCommand in footerCommands.commands) {
             if ((footerCommand.actionKeyTip != null) || (footerCommand.secondaryKeyTip != null)) {
-                overlays[footerCommand.command.asJavaCommand()] =
+                overlays[footerCommand.command.asJavaCommand() as Command] =
                         CommandButtonPresentationModel.overlay()
                                 .setActionKeyTip(footerCommand.actionKeyTip)
                                 .setPopupKeyTip(footerCommand.secondaryKeyTip)
@@ -133,7 +133,7 @@ public class KRibbonApplicationMenu {
         for (group in groups) {
             for (commandConfig in group.commands) {
                 if (commandConfig.command.menu != null) {
-                    secondaryStates[commandConfig.toJavaCommand()] =
+                    secondaryStates[commandConfig.toJavaCommand() as Command] =
                         commandConfig.command.menu!!.menuPresentationState
                 }
             }

@@ -141,11 +141,11 @@ public class KCommandMenu {
         for (group in groups) {
             for (commandConfig in group.commands) {
                 if ((commandConfig.actionKeyTip != null) || (commandConfig.secondaryKeyTip != null)) {
-                    overlays[commandConfig.toJavaCommand()] =
+                    overlays[commandConfig.toJavaCommand() as Command] =
                             CommandButtonPresentationModel.overlay()
                                     .setActionKeyTip(commandConfig.actionKeyTip)
                                     .setPopupKeyTip(commandConfig.secondaryKeyTip)
-                    commandConfig.command.populateCommandOverlays(overlays)
+                    (commandConfig.command as KCommand).populateCommandOverlays(overlays)
                 }
             }
         }

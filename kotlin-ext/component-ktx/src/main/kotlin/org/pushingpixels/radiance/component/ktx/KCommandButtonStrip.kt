@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.ktx
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection
@@ -122,10 +123,10 @@ public class KCommandStrip(private val isToggleGroup: Boolean) {
     public fun toJavaProjection(): CommandStripProjection {
         val commandGroupModel =
             CommandGroup(
-                commandConfigs.map { it.command.asJavaCommand() })
+                commandConfigs.map { it.command.asJavaCommand() as Command })
         val commandStripPresentationModel = presentation.toCommandStripPresentationModel()
         val commandOverlays =
-            commandConfigs.map { it.command.asJavaCommand() to it.toJavaPresentationOverlay() }
+            commandConfigs.map { it.command.asJavaCommand() as Command to it.toJavaPresentationOverlay() }
                 .toMap()
 
         val commandStripProjection =

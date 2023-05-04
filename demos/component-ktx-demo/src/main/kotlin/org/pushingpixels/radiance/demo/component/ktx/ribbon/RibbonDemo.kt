@@ -44,12 +44,10 @@ import org.pushingpixels.radiance.component.api.common.HorizontalAlignment
 import org.pushingpixels.radiance.component.api.common.icon.ColorRadianceIcon
 import org.pushingpixels.radiance.component.api.common.icon.DecoratedRadianceIcon
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon
-import org.pushingpixels.radiance.component.api.common.model.Command
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup
-import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
+import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon.OnShowContextualMenuListener
@@ -2099,7 +2097,7 @@ fun main() {
 
                 override fun getContextualMenuContentModel(
                     ribbon: JRibbon,
-                    commandButtonProjection: CommandButtonProjection<out Command>
+                    commandButtonProjection: BaseCommandButtonProjection<out BaseCommand<*>, out BaseCommandMenuContentModel>
                 ): CommandMenuContentModel {
                     val originalCommand = commandButtonProjection.contentModel
                     val commandCommand = if (ribbon.isShowingInTaskbar(originalCommand)) {

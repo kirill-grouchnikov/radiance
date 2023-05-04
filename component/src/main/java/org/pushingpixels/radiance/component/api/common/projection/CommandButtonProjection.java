@@ -33,23 +33,12 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
-import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
-        extends Projection<JCommandButton, M, CommandButtonPresentationModel> {
-
-    private ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
-            ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
-    private ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer;
+        extends BaseCommandButtonProjection<M, CommandMenuContentModel> {
 
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
-        this(command, commandPresentation, projection ->  JCommandButton::new);
-    }
-
-    public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation,
-            ComponentSupplier<JCommandButton, M, CommandButtonPresentationModel> componentSupplier) {
-        super(command, commandPresentation, componentSupplier);
+        super(command, commandPresentation, projection ->  JCommandButton::new);
     }
 
     @SuppressWarnings("unchecked")
@@ -60,28 +49,5 @@ public class CommandButtonProjection<M extends Command>
         result.setComponentCustomizer(this.getComponentCustomizer());
         result.setCommandOverlays(this.getCommandOverlays());
         return result;
-    }
-
-    public void setPopupMenuCustomizer(ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer) {
-        this.popupMenuCustomizer = popupMenuCustomizer;
-    }
-
-    public ComponentCustomizer<? extends AbstractPopupMenuPanel> getPopupMenuCustomizer() {
-        return this.popupMenuCustomizer;
-    }
-
-    public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenuPanel,
-            ? extends CommandMenuContentModel,
-            ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier) {
-        this.popupMenuSupplier = popupMenuSupplier;
-    }
-
-    public ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
-            ? extends AbstractPopupMenuPresentationModel> getPopupMenuSupplier() {
-        return this.popupMenuSupplier;
-    }
-
-    @Override
-    protected void configureComponent(JCommandButton component) {
     }
 }
