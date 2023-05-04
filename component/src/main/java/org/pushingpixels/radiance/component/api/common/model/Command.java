@@ -76,6 +76,7 @@ public class Command extends BaseCommand<CommandMenuContentModel> {
     }
 
     public static class Builder extends BaseBuilder<Command, CommandMenuContentModel, Builder> {
+        @Override
         public Command build() {
             Command command = new Command();
 

@@ -291,6 +291,8 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
             }
         }
 
+        public abstract T build();
+
         @SuppressWarnings("unchecked")
         public B setText(String text) {
             this.text = text;

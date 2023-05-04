@@ -151,7 +151,7 @@ fun main() {
         val commandButton = colorSelectorCommandButton {
             colorSelectorCommand = command {
                 iconFactory = ColorIcon.factory(backgroundColor)
-                colorSelectorPopupMenu = colorSelectorPopupMenu {
+                menu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
                     onColorPreviewActivated = onColorPreviewActivatedListener
                     onColorPreviewCanceled = onColorPreviewCanceledListener

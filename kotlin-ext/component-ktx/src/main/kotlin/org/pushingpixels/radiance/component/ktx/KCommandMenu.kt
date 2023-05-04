@@ -67,7 +67,7 @@ public class KCommandPopupMenuButtonPanel {
 }
 
 @RadianceElementMarker
-public class KCommandMenu: KBaseCommandMenu<CommandPopupMenuPresentationModel>() {
+public class KCommandMenu: KBaseCommandMenu<CommandMenuContentModel, CommandPopupMenuPresentationModel>() {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
@@ -146,7 +146,7 @@ public class KCommandMenu: KBaseCommandMenu<CommandPopupMenuPresentationModel>()
         }
     }
 
-    internal fun toJavaMenuContentModel(): CommandMenuContentModel {
+    override fun toJavaPopupMenuContentModel(): CommandMenuContentModel? {
         if (defaultGroup.commands.isEmpty()) {
             groups.remove(defaultGroup)
         }

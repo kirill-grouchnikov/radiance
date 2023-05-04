@@ -155,7 +155,7 @@ public class KColorSelectorPopupMenuGroup {
 }
 
 @RadianceElementMarker
-public class KColorSelectorPopupMenu: KBaseCommandMenu<ColorSelectorPopupMenuPresentationModel>() {
+public class KColorSelectorPopupMenu: KBaseCommandMenu<ColorSelectorPopupMenuContentModel, ColorSelectorPopupMenuPresentationModel>() {
     public var onColorActivated: ((Color) -> Unit)? by NullableDelegate { false }
     public var onColorPreviewActivated: ((Color) -> Unit)? by NullableDelegate { false }
     public var onColorPreviewCanceled: (() -> Unit)? by NullableDelegate { false }
@@ -221,7 +221,7 @@ public class KColorSelectorPopupMenu: KBaseCommandMenu<ColorSelectorPopupMenuPre
         return group
     }
 
-    internal fun toJavaPopupMenuContentModel(): ColorSelectorPopupMenuContentModel {
+    override fun toJavaPopupMenuContentModel(): ColorSelectorPopupMenuContentModel? {
         if (defaultGroup.content.isEmpty()) {
             groups.remove(defaultGroup)
         }

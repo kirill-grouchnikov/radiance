@@ -54,14 +54,16 @@ import java.awt.Dimension
 import java.awt.Insets
 
 @RadianceElementMarker
-public abstract class KBaseCommandMenu<MPM: BaseCommandPopupMenuPresentationModel> {
+public abstract class KBaseCommandMenu<MCM: BaseCommandMenuContentModel,
+        MPM: BaseCommandPopupMenuPresentationModel> {
     public abstract fun toJavaPopupMenuPresentationModel(): MPM?
+    public abstract fun toJavaPopupMenuContentModel(): MCM?
 }
 
 @RadianceElementMarker
 public abstract class KBaseCommand<C : BaseCommand<MCM>, MCM : BaseCommandMenuContentModel,
         MPM: BaseCommandPopupMenuPresentationModel,
-        CM: KBaseCommandMenu<MPM>, B : BaseBuilder<C, MCM, *>>(
+        CM: KBaseCommandMenu<MCM, MPM>, B : BaseBuilder<C, MCM, *>>(
     protected val builder: B
 ) {
     internal lateinit var javaCommand: C
@@ -248,9 +250,8 @@ public abstract class KBaseCommand<C : BaseCommand<MCM>, MCM : BaseCommandMenuCo
 
     internal companion object {
         fun <C : BaseCommand<MCM>, MCM : BaseCommandMenuContentModel, MPM: BaseCommandPopupMenuPresentationModel,
-                CM: KBaseCommandMenu<MPM>, B : BaseBuilder<C, MCM, *>> populateBuilder(
-            builder: B, command: KBaseCommand<C, MCM, MPM, CM, B>,
-            menuContentModelCreator: (KBaseCommand<C, MCM, MPM, CM, B>) -> MCM?
+                CM: KBaseCommandMenu<MCM, MPM>, B : BaseBuilder<C, MCM, *>> populateBuilder(
+            builder: B, command: KBaseCommand<C, MCM, MPM, CM, B>
         ) {
 
             builder.setText(command.title)
@@ -260,9 +261,6 @@ public abstract class KBaseCommand<C : BaseCommand<MCM>, MCM : BaseCommandMenuCo
 
             builder.setActionRichTooltip(command.actionRichTooltip?.toJavaRichTooltip())
             builder.setSecondaryRichTooltip(command.secondaryRichTooltip?.toJavaRichTooltip())
-
-            val menuContentModel = menuContentModelCreator.invoke(command)
-            builder.setSecondaryContentModel(menuContentModel)
 
             if (command.isToggleSelected) {
                 builder.setToggle()
@@ -292,27 +290,24 @@ public abstract class KBaseCommand<C : BaseCommand<MCM>, MCM : BaseCommandMenuCo
         }
     }
 
-    internal abstract fun asJavaCommand(): C
-}
-
-
-@RadianceElementMarker
-public class KCommand : KBaseCommand<Command, CommandMenuContentModel, CommandPopupMenuPresentationModel, KCommandMenu, Command.Builder>(
-    Command.builder()
-) {
-    override fun asJavaCommand(): Command {
+    internal fun asJavaCommand(): C {
         if (hasBeenConverted) {
             return javaCommand
         }
-        // TODO - make popup menu generic
-        populateBuilder(builder, this) {
-            menu?.toJavaMenuContentModel()
-        }
+        populateBuilder(builder, this)
+        builder.setSecondaryContentModel(menu?.toJavaPopupMenuContentModel())
         javaCommand = builder.build()
         hasBeenConverted = true
         return javaCommand
     }
+}
 
+
+@RadianceElementMarker
+public class KCommand : KBaseCommand<Command, CommandMenuContentModel, CommandPopupMenuPresentationModel,
+        KCommandMenu, Command.Builder>(
+    Command.builder()
+) {
     internal fun toCommandButton(presentation: KCommandButtonPresentation): JCommandButton {
         return asJavaCommand().project(presentation.toCommandPresentation(this)).buildComponent()
     }
@@ -335,19 +330,6 @@ public class KColorSelectorCommand :
             KColorSelectorPopupMenu, ColorSelectorCommand.Builder>(
         ColorSelectorCommand.colorSelectorBuilder()
     ) {
-    public var colorSelectorPopupMenu: KColorSelectorPopupMenu? by NullableDelegate { hasBeenConverted }
-
-    override fun asJavaCommand(): ColorSelectorCommand {
-        if (hasBeenConverted) {
-            return javaCommand
-        }
-        // TODO - make popup menu generic
-        populateBuilder(builder, this) { colorSelectorPopupMenu?.toJavaPopupMenuContentModel() }
-        javaCommand = builder.build()
-        hasBeenConverted = true
-        return javaCommand
-    }
-
     internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): JCommandButton {
         return ColorSelectorCommandButtonProjection(
             asJavaCommand(),
@@ -468,7 +450,7 @@ public class KColorSelectorCommandPresentation : KCommandButtonPresentation() {
             .setActionFireTrigger(actionFireTrigger)
             .setPopupFireTrigger(popupFireTrigger)
             .setSelectedStateHighlight(selectedStateHighlight)
-            .setPopupMenuPresentationModel(command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel())
+            .setPopupMenuPresentationModel(command.menu?.toJavaPopupMenuPresentationModel())
             .build()
     }
 }

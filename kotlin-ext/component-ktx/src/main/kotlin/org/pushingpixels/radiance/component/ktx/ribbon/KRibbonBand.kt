@@ -285,9 +285,9 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                             val buttonPresentationModel = ColorSelectorCommandButtonPresentationModel.builder()
                                 .setActionKeyTip(content.actionKeyTip)
                                 .setPopupKeyTip(content.secondaryKeyTip)
-                            if (content.command.colorSelectorPopupMenu != null) {
+                            if (content.command.menu != null) {
                                 buttonPresentationModel.setPopupMenuPresentationModel(
-                                    content.command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel()
+                                    content.command.menu!!.toJavaPopupMenuPresentationModel()
                                 )
                             }
                             ribbonBand.addRibbonCommand(

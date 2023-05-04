@@ -47,6 +47,7 @@ public class ColorSelectorCommand extends BaseCommand<ColorSelectorPopupMenuCont
          *
          * @return Command.
          */
+        @Override
         public ColorSelectorCommand build() {
             ColorSelectorCommand command = new ColorSelectorCommand();
 

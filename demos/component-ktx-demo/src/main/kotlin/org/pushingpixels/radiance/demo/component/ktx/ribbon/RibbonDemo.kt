@@ -913,7 +913,7 @@ private class RibbonDemoBuilder {
             colorSelectorCommand(priority = PresentationPriority.MEDIUM, popupKeyTip = "SC") {
                 title = resourceBundle["Styles3.text"]
                 iconFactory = Text_html.factory()
-                colorSelectorPopupMenu = colorSelectorPopupMenu {
+                menu = colorSelectorPopupMenu {
                     onColorActivated = onColorActivatedListener
                     onColorPreviewActivated = onColorPreviewActivatedListener
                     onColorPreviewCanceled = onColorPreviewCanceledListener
