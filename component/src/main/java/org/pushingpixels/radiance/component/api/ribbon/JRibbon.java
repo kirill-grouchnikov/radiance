@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
@@ -230,7 +231,10 @@ public class JRibbon extends JComponent {
                 ComponentProjection<? extends JComponent, ? extends ComponentContentModel> componentProjection);
 
         CommandMenuContentModel getContextualMenuContentModel(
-                JRibbon ribbon, BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel> commandProjection);
+                JRibbon ribbon, BaseCommandButtonProjection<? extends BaseCommand<?>,
+                ? extends BaseCommandMenuContentModel,
+                ? extends BaseCommandButtonPresentationModel<?, ?>,
+                ? extends BaseCommandPopupMenuPresentationModel> commandProjection);
 
         CommandMenuContentModel getContextualMenuContentModel(
                 JRibbon ribbon, Command appLinkCommand);
@@ -284,9 +288,12 @@ public class JRibbon extends JComponent {
         return this.taskbarKeyTipPolicy;
     }
 
-    public synchronized void addTaskbarCommand(BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel> projection) {
-        CommandButtonPresentationModel originalPresentationModel = projection.getPresentationModel();
-        CommandButtonPresentationModel presentationModel = originalPresentationModel.overlayWith(
+    public synchronized void addTaskbarCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
+            ? extends BaseCommandMenuContentModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>,
+            ? extends BaseCommandPopupMenuPresentationModel> projection) {
+        BaseCommandButtonPresentationModel originalPresentationModel = projection.getPresentationModel();
+        BaseCommandButtonPresentationModel presentationModel = originalPresentationModel.overlayWith(
                 new CommandButtonPresentationModel.Overlay()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setIconFilterStrategies(
@@ -299,11 +306,12 @@ public class JRibbon extends JComponent {
         );
 
         BaseCommand contentModel = projection.getContentModel();
+        // TODO - make this generic
         JCommandButton commandButton = (contentModel instanceof ColorSelectorCommand) ?
                 new ColorSelectorCommandButtonProjection((ColorSelectorCommand) contentModel,
-                        presentationModel).buildComponent() :
+                        (ColorSelectorCommandButtonPresentationModel) presentationModel).buildComponent() :
                 new CommandButtonProjection<>((Command) projection.getContentModel(),
-                        presentationModel).buildComponent();
+                        (CommandButtonPresentationModel) presentationModel).buildComponent();
 
         commandButton.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(commandButton);

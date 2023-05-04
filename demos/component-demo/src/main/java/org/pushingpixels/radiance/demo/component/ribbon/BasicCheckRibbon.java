@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPa
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupListener;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuGroupModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
@@ -852,7 +853,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                 .setIconFactory(Text_html.factory())
                                 .setSecondaryContentModel(selectorModel)
                                 .build(),
-                        CommandButtonPresentationModel.builder()
+                        ColorSelectorCommandButtonPresentationModel.builder()
                                 .setPopupKeyTip("SC")
                                 .build()),
                 JRibbonBand.PresentationPriority.MEDIUM);
@@ -1829,7 +1830,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
                     }
 
                     @Override
-                    public CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon, BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel> commandButtonProjection) {
+                    public CommandMenuContentModel getContextualMenuContentModel(JRibbon ribbon,
+                            BaseCommandButtonProjection<? extends BaseCommand<?>,
+                                    ? extends BaseCommandMenuContentModel,
+                                    ? extends BaseCommandButtonPresentationModel<?, ?>,
+                                    ? extends BaseCommandPopupMenuPresentationModel> commandButtonProjection) {
                         BaseCommand<?> originalCommand = commandButtonProjection.getContentModel();
                         Command commandCommand;
                         if (ribbon.isShowingInTaskbar(originalCommand)) {

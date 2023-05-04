@@ -32,18 +32,20 @@ package org.pushingpixels.radiance.component.api.common.projection;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
-import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
 public abstract class BaseCommandButtonProjection<M extends BaseCommand<MCM>,
-        MCM extends BaseCommandMenuContentModel>
-        extends Projection<JCommandButton, M, CommandButtonPresentationModel> {
+        MCM extends BaseCommandMenuContentModel,
+        P extends BaseCommandButtonPresentationModel<MPM, P>,
+        MPM extends BaseCommandPopupMenuPresentationModel>
+        extends Projection<JCommandButton, M, P> {
 
     private ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
-            ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier;
+            ? extends BaseCommandPopupMenuPresentationModel> popupMenuSupplier;
     private ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer;
 
-    public BaseCommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation,
-            ComponentSupplier<JCommandButton, M, CommandButtonPresentationModel> componentSupplier) {
+    public BaseCommandButtonProjection(M command, P commandPresentation,
+            ComponentSupplier<JCommandButton, M, P> componentSupplier) {
         super(command, commandPresentation, componentSupplier);
     }
 
@@ -57,12 +59,12 @@ public abstract class BaseCommandButtonProjection<M extends BaseCommand<MCM>,
 
     public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenuPanel,
             ? extends CommandMenuContentModel,
-            ? extends AbstractPopupMenuPresentationModel> popupMenuSupplier) {
+            ? extends BaseCommandPopupMenuPresentationModel> popupMenuSupplier) {
         this.popupMenuSupplier = popupMenuSupplier;
     }
 
     public ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
-            ? extends AbstractPopupMenuPresentationModel> getPopupMenuSupplier() {
+            ? extends BaseCommandPopupMenuPresentationModel> getPopupMenuSupplier() {
         return this.popupMenuSupplier;
     }
 

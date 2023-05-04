@@ -30,12 +30,7 @@
 package org.pushingpixels.radiance.component.ktx
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.model.Command
-import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel
-import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
-import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel
-import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel
 import java.awt.Insets
 
@@ -72,7 +67,7 @@ public class KCommandPopupMenuButtonPanel {
 }
 
 @RadianceElementMarker
-public class KCommandMenu {
+public class KCommandMenu: KBaseCommandMenu<CommandPopupMenuPresentationModel>() {
     private var hasBeenConverted: Boolean = false
 
     private val groups = arrayListOf<KCommandGroup>()
@@ -137,7 +132,7 @@ public class KCommandMenu {
         return group
     }
 
-    internal fun populateCommandOverlays(overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay>) {
+    internal fun populateCommandOverlays(overlays: MutableMap<Command, BaseCommandButtonPresentationModel.Overlay>) {
         for (group in groups) {
             for (commandConfig in group.commands) {
                 if ((commandConfig.actionKeyTip != null) || (commandConfig.secondaryKeyTip != null)) {
@@ -163,7 +158,7 @@ public class KCommandMenu {
         )
     }
 
-    internal fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel {
+    override fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel? {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
             presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)

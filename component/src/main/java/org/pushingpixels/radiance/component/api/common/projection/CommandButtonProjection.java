@@ -33,9 +33,11 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
-        extends BaseCommandButtonProjection<M, CommandMenuContentModel> {
+        extends BaseCommandButtonProjection<M, CommandMenuContentModel,
+        CommandButtonPresentationModel, CommandPopupMenuPresentationModel> {
 
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation, projection ->  JCommandButton::new);

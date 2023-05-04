@@ -56,10 +56,10 @@ public class KCommandButtonPanelPresentation {
         CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
     public var commandVerticalGapScaleFactor: Double =
         CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR
-    public var commandPopupFireTrigger: CommandButtonPresentationModel.PopupFireTrigger =
-        CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED
-    public var commandSelectedStateHighlight: CommandButtonPresentationModel.SelectedStateHighlight =
-        CommandButtonPresentationModel.SelectedStateHighlight.FULL_SIZE
+    public var commandPopupFireTrigger: BaseCommandButtonPresentationModel.PopupFireTrigger =
+        BaseCommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED
+    public var commandSelectedStateHighlight: BaseCommandButtonPresentationModel.SelectedStateHighlight =
+        BaseCommandButtonPresentationModel.SelectedStateHighlight.FULL_SIZE
     public var backgroundAppearanceStrategy: RadianceThemingSlices.BackgroundAppearanceStrategy =
         RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT
     public var activeIconFilterStrategy: RadianceThemingSlices.IconFilterStrategy =

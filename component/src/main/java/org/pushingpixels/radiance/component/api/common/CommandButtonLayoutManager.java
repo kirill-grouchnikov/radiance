@@ -33,7 +33,7 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
-import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -99,7 +99,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          *
          * @see JCommandButton#setPopupCallback(PopupPanelCallback)
          * @see Command.Builder#setSecondaryContentModel(CommandMenuContentModel)
-         * @see CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel)
+         * @see CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(BaseCommandPopupMenuPresentationModel)
          */
         public Rectangle popupClickArea;
 

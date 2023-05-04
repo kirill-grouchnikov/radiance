@@ -32,6 +32,8 @@ package org.pushingpixels.radiance.component.ktx.ribbon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandAction
 import org.pushingpixels.radiance.component.api.common.CommandActionEvent
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection
@@ -92,7 +94,7 @@ public class KRibbonBandGroup {
 
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null,
-        popupKeyTip: String? = null, textClick: CommandButtonPresentationModel.TextClick? = null,
+        popupKeyTip: String? = null, textClick: BaseCommandButtonPresentationModel.TextClick? = null,
         popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KCommand.() -> Unit
     ): KCommand {
@@ -111,7 +113,7 @@ public class KRibbonBandGroup {
 
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-        textClick: CommandButtonPresentationModel.TextClick? = null,
+        textClick: BaseCommandButtonPresentationModel.TextClick? = null,
         popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         command: KCommand
     ) {
@@ -155,7 +157,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
 
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-        textClick: CommandButtonPresentationModel.TextClick? = null,
+        textClick: BaseCommandButtonPresentationModel.TextClick? = null,
         popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KCommand.() -> Unit
     ): KCommand {
@@ -179,7 +181,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
         priority: PresentationPriority,
         actionKeyTip: String? = null,
         popupKeyTip: String? = null,
-        textClick: CommandButtonPresentationModel.TextClick? = null,
+        textClick: BaseCommandButtonPresentationModel.TextClick? = null,
         popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         init: KColorSelectorCommand.() -> Unit
     ): KColorSelectorCommand {
@@ -201,7 +203,7 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
 
     public fun command(
         priority: PresentationPriority, actionKeyTip: String? = null, popupKeyTip: String? = null,
-        textClick: CommandButtonPresentationModel.TextClick? = null,
+        textClick: BaseCommandButtonPresentationModel.TextClick? = null,
         popupPlacementStrategy: RadianceThemingSlices.PopupPlacementStrategy? = null,
         command: KCommand
     ) {
@@ -279,10 +281,10 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
             for ((priority, content) in group.content) {
                 when (content) {
                     is KCommandGroup.CommandConfig -> {
-                        val buttonPresentationModel = CommandButtonPresentationModel.builder()
-                            .setActionKeyTip(content.actionKeyTip)
-                            .setPopupKeyTip(content.secondaryKeyTip)
                         if (content.command is KColorSelectorCommand) {
+                            val buttonPresentationModel = ColorSelectorCommandButtonPresentationModel.builder()
+                                .setActionKeyTip(content.actionKeyTip)
+                                .setPopupKeyTip(content.secondaryKeyTip)
                             if (content.command.colorSelectorPopupMenu != null) {
                                 buttonPresentationModel.setPopupMenuPresentationModel(
                                     content.command.colorSelectorPopupMenu!!.toJavaPopupMenuPresentationModel()
@@ -290,14 +292,17 @@ public class KRibbonBand : KBaseRibbonBand<JRibbonBand>() {
                             }
                             ribbonBand.addRibbonCommand(
                                 ColorSelectorCommandButtonProjection(
-                                    content.command.asJavaColorSelectorCommand(),
+                                    content.command.asJavaCommand(),
                                     buttonPresentationModel.build()
                                 ), priority
                             )
                         } else {
+                            val buttonPresentationModel = CommandButtonPresentationModel.builder()
+                                .setActionKeyTip(content.actionKeyTip)
+                                .setPopupKeyTip(content.secondaryKeyTip)
                             if (content.command.menu != null) {
                                 buttonPresentationModel.setPopupMenuPresentationModel(
-                                    content.command.menu!!.toJavaPopupMenuPresentationModel()
+                                    (content.command.menu!! as KCommandMenu).toJavaPopupMenuPresentationModel()
                                 )
                             }
                             ribbonBand.addRibbonCommand(

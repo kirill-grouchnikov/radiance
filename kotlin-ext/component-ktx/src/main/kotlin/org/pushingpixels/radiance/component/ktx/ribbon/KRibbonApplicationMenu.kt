@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.ktx.ribbon
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.RichTooltip
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.Command
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel
@@ -107,7 +108,7 @@ public class KRibbonApplicationMenu {
         return ribbonApplicationMenu
     }
 
-    internal fun populateCommandOverlays(overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay>) {
+    internal fun populateCommandOverlays(overlays: MutableMap<Command, BaseCommandButtonPresentationModel.Overlay>) {
         for (group in groups) {
             for (commandConfig in group.commands) {
                 if ((commandConfig.actionKeyTip != null) || (commandConfig.secondaryKeyTip != null)) {
@@ -133,7 +134,8 @@ public class KRibbonApplicationMenu {
         for (group in groups) {
             for (commandConfig in group.commands) {
                 if (commandConfig.command.menu != null) {
-                    secondaryStates[commandConfig.toJavaCommand() as Command] =
+                    val command = commandConfig.command as KCommand
+                    secondaryStates[command.asJavaCommand()] =
                         commandConfig.command.menu!!.menuPresentationState
                 }
             }

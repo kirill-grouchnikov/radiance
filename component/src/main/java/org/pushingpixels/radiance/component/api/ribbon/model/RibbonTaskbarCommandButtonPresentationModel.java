@@ -30,7 +30,7 @@
 package org.pushingpixels.radiance.component.api.ribbon.model;
 
 import org.pushingpixels.radiance.component.api.common.model.ImmutablePresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePresentationModel {
@@ -38,7 +38,7 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
 
-    private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
+    private BaseCommandPopupMenuPresentationModel popupMenuPresentationModel;
 
     private RibbonTaskbarCommandButtonPresentationModel() {
     }
@@ -59,7 +59,7 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
         return this.disabledIconFilterStrategy;
     }
 
-    public AbstractPopupMenuPresentationModel getPopupMenuPresentationModel() {
+    public BaseCommandPopupMenuPresentationModel getPopupMenuPresentationModel() {
         return this.popupMenuPresentationModel;
     }
 
@@ -71,7 +71,7 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
 
-        private AbstractPopupMenuPresentationModel popupMenuPresentationModel;
+        private BaseCommandPopupMenuPresentationModel popupMenuPresentationModel;
 
         public Builder setIconFilterStrategies(
                 RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
@@ -83,7 +83,7 @@ public class RibbonTaskbarCommandButtonPresentationModel implements ImmutablePre
             return this;
         }
 
-        public Builder setPopupMenuPresentationModel(AbstractPopupMenuPresentationModel popupMenuPresentationModel) {
+        public Builder setPopupMenuPresentationModel(BaseCommandPopupMenuPresentationModel popupMenuPresentationModel) {
             this.popupMenuPresentationModel = popupMenuPresentationModel;
             return this;
         }

@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentCo
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.ktx.*
 import org.pushingpixels.radiance.component.ktx.NonNullDelegate
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
@@ -226,7 +227,7 @@ public class KRibbonFrame {
                     .build()
             )
 
-        val overlays: MutableMap<Command, CommandButtonPresentationModel.Overlay> = hashMapOf()
+        val overlays: MutableMap<Command, BaseCommandButtonPresentationModel.Overlay> = hashMapOf()
         applicationMenu.populateCommandOverlays(overlays)
         ribbonMenuCommandProjection.commandOverlays = overlays
 

@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.component.ktx.KCommandGroup
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.model.BaseCommand
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 
 @RadianceElementMarker
@@ -123,8 +124,8 @@ public class KRibbonGalleryContent {
         return group
     }
 
-    internal fun toCommandOverlayMap(): Map<Command, CommandButtonPresentationModel.Overlay> {
-        val commandOverlays = HashMap<Command, CommandButtonPresentationModel.Overlay>()
+    internal fun toCommandOverlayMap(): Map<Command, BaseCommandButtonPresentationModel.Overlay> {
+        val commandOverlays = HashMap<Command, BaseCommandButtonPresentationModel.Overlay>()
         for (groupOverlays in extraPopupGroups.map { it.toPresentationOverlays() }) {
             commandOverlays.putAll(groupOverlays)
         }

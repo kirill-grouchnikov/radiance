@@ -31,5 +31,5 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 
 import org.pushingpixels.radiance.component.api.common.model.ImmutablePresentationModel;
 
-public abstract class AbstractPopupMenuPresentationModel implements ImmutablePresentationModel {
+public abstract class BaseCommandPopupMenuPresentationModel implements ImmutablePresentationModel {
 }

@@ -35,7 +35,7 @@ import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPa
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
-import org.pushingpixels.radiance.component.api.common.popup.model.AbstractPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
@@ -76,9 +76,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public static final String uiClassID = "CommandButtonUI";
 
-    private Projection<JCommandButton, ? extends BaseCommand, CommandButtonPresentationModel> projection;
+    private Projection<JCommandButton, ? extends BaseCommand, ? extends BaseCommandButtonPresentationModel> projection;
     private BaseCommand command;
-    private CommandButtonPresentationModel commandPresentation;
+    private BaseCommandButtonPresentationModel commandPresentation;
 
     /**
      * Associated icon.
@@ -487,7 +487,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
 
     @SuppressWarnings("unchecked")
     public JCommandButton(Projection<JCommandButton, ? extends BaseCommand,
-            CommandButtonPresentationModel> projection) {
+            ? extends BaseCommandButtonPresentationModel> projection) {
         this.projection = projection;
         this.command = projection.getContentModel();
         this.commandPresentation = projection.getPresentationModel();
@@ -546,7 +546,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         if (hasPopup) {
             if (command.getSecondaryContentModel() != null) {
                 BaseCommandMenuContentModel popupMenuContentModel = command.getSecondaryContentModel();
-                AbstractPopupMenuPresentationModel popupMenuPresentationModel =
+                BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
                         commandPresentation.getPopupMenuPresentationModel();
                 if (popupMenuContentModel instanceof RibbonApplicationMenu) {
                     RibbonApplicationMenuCommandButtonProjection ribbonApplicationMenuProjection =
@@ -596,7 +596,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
 
         if (hasAction && hasPopup) {
-            this.setCommandButtonKind(commandPresentation.getTextClick() == CommandButtonPresentationModel.TextClick.ACTION
+            this.setCommandButtonKind(commandPresentation.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else if (hasPopup) {
@@ -655,8 +655,12 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         return (CommandButtonUI) ui;
     }
 
-    public BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel> getProjection() {
-        return (BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel>) this.projection;
+    public BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>,
+            ? extends BaseCommandPopupMenuPresentationModel> getProjection() {
+        return (BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel,
+                ? extends BaseCommandButtonPresentationModel<?, ?>,
+                ? extends BaseCommandPopupMenuPresentationModel>) this.projection;
     }
 
     /**
@@ -1298,7 +1302,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             }
 
             if (hasAction && hasPopup) {
-                this.setCommandButtonKind(commandPresentation.getTextClick() == CommandButtonPresentationModel.TextClick.ACTION
+                this.setCommandButtonKind(commandPresentation.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION
                         ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                         : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
             } else if (hasPopup) {

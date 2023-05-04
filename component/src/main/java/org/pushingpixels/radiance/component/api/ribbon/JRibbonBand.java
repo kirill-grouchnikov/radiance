@@ -33,10 +33,8 @@ import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
+import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
@@ -169,7 +167,9 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @return The command button that represents the command.
      */
     public JCommandButton addRibbonCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
-            ? extends BaseCommandMenuContentModel> projection,
+            ? extends BaseCommandMenuContentModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>,
+            ? extends BaseCommandPopupMenuPresentationModel> projection,
             PresentationPriority priority) {
         JCommandButton commandButton = projection.buildComponent();
         ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);

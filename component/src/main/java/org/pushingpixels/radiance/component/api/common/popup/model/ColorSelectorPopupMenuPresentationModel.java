@@ -32,7 +32,7 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 
-public class ColorSelectorPopupMenuPresentationModel extends AbstractPopupMenuPresentationModel {
+public class ColorSelectorPopupMenuPresentationModel extends BaseCommandPopupMenuPresentationModel {
     private int colorColumns;
     private CommandButtonPresentationState menuPresentationState;
     private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger;

@@ -29,32 +29,25 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
 
 /**
- * Encapsulates presentation metadata for displaying commands as buttons. Use a new instance of
- * {@link Builder} to configure a new presentation, and {@link Builder#build()} to build a
- * presentation.
- *
- * <p>Note that you can use the same {@link CommandButtonPresentationModel} instance on multiple
- * calls to {@link Command#project(CommandButtonPresentationModel)}. Use
- * {@link #overlayWith(Overlay)} to create a new presentation instance that overlays the
- * presentation configuration with values set on the passed {@link Overlay} object.</p>
+ * Encapsulates presentation metadata for displaying color selector commands as buttons. Use a new
+ * instance of {@link Builder} to configure a new presentation, and {@link Builder#build()} to build
+ * a presentation.
  *
  * @author Kirill Grouchnikov
- * @see Command
- * @see CommandButtonProjection
+ * @see ColorSelectorCommand
  */
-public class CommandButtonPresentationModel extends BaseCommandButtonPresentationModel<CommandPopupMenuPresentationModel,
-        CommandButtonPresentationModel> {
+public class ColorSelectorCommandButtonPresentationModel extends BaseCommandButtonPresentationModel<ColorSelectorPopupMenuPresentationModel,
+        ColorSelectorCommandButtonPresentationModel> {
 
-    protected CommandButtonPresentationModel() {
+    protected ColorSelectorCommandButtonPresentationModel() {
     }
 
     @Override
-    public CommandButtonPresentationModel overlayWith(BaseCommandButtonPresentationModel.Overlay overlay) {
-        CommandButtonPresentationModel result = new CommandButtonPresentationModel();
+    public ColorSelectorCommandButtonPresentationModel overlayWith(Overlay overlay) {
+        ColorSelectorCommandButtonPresentationModel result = new ColorSelectorCommandButtonPresentationModel();
 
         result.presentationState = (overlay.getPresentationState() != null)
                 ? overlay.getPresentationState() : this.presentationState;
@@ -84,7 +77,7 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
         result.toDismissPopupsOnActivation = (overlay.getToDismissPopupsOnActivation() != null)
                 ? overlay.getToDismissPopupsOnActivation() : this.toDismissPopupsOnActivation;
         result.popupMenuPresentationModel = (overlay.getPopupMenuPresentationModel() != null)
-                ? (CommandPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
+                ? (ColorSelectorPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
         result.actionKeyTip = (overlay.getActionKeyTip() != null)
                 ? overlay.getActionKeyTip() : this.actionKeyTip;
         result.popupKeyTip = (overlay.getPopupKeyTip() != null)
@@ -111,8 +104,8 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
         return result;
     }
 
-    public static CommandButtonPresentationModel withDefaults() {
-        return CommandButtonPresentationModel.builder().build();
+    public static ColorSelectorCommandButtonPresentationModel withDefaults() {
+        return ColorSelectorCommandButtonPresentationModel.builder().build();
     }
 
     public static Builder builder() {
@@ -120,10 +113,10 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
     }
 
 
-    public static class Builder extends BaseBuilder<CommandPopupMenuPresentationModel,
-            CommandButtonPresentationModel, Builder> {
-        public CommandButtonPresentationModel build() {
-            CommandButtonPresentationModel presentationModel = new CommandButtonPresentationModel();
+    public static class Builder extends BaseBuilder<ColorSelectorPopupMenuPresentationModel,
+            ColorSelectorCommandButtonPresentationModel, Builder> {
+        public ColorSelectorCommandButtonPresentationModel build() {
+            ColorSelectorCommandButtonPresentationModel presentationModel = new ColorSelectorCommandButtonPresentationModel();
             this.configureBaseCommandButtonPresentationModel(presentationModel);
             return presentationModel;
         }

@@ -39,7 +39,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import java.awt.*;
 
-public class CommandPopupMenuPresentationModel extends AbstractPopupMenuPresentationModel {
+public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPresentationModel {
     public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
             new CommandButtonPresentationState("Popup menu", 16) {
                 @Override

@@ -47,6 +47,7 @@ import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon
 import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon
@@ -750,21 +751,21 @@ private class RibbonDemoBuilder {
             command(
                 priority = PresentationPriority.TOP,
                 popupKeyTip = "V",
-                textClick = CommandButtonPresentationModel.TextClick.ACTION,
+                textClick = BaseCommandButtonPresentationModel.TextClick.ACTION,
                 command = pasteCommand
             )
 
             command(
                 priority = PresentationPriority.MEDIUM,
                 popupKeyTip = "X",
-                textClick = CommandButtonPresentationModel.TextClick.ACTION,
+                textClick = BaseCommandButtonPresentationModel.TextClick.ACTION,
                 command = cutCommand
             )
 
             command(
                 priority = PresentationPriority.MEDIUM,
                 popupKeyTip = "C",
-                textClick = CommandButtonPresentationModel.TextClick.POPUP,
+                textClick = BaseCommandButtonPresentationModel.TextClick.POPUP,
                 command = copyCommand
             )
 
@@ -2097,7 +2098,10 @@ fun main() {
 
                 override fun getContextualMenuContentModel(
                     ribbon: JRibbon,
-                    commandButtonProjection: BaseCommandButtonProjection<out BaseCommand<*>, out BaseCommandMenuContentModel>
+                    commandButtonProjection: BaseCommandButtonProjection<out BaseCommand<*>,
+                            out BaseCommandMenuContentModel,
+                            out BaseCommandButtonPresentationModel<*, *>,
+                            out BaseCommandPopupMenuPresentationModel>
                 ): CommandMenuContentModel {
                     val originalCommand = commandButtonProjection.contentModel
                     val commandCommand = if (ribbon.isShowingInTaskbar(originalCommand)) {
@@ -2319,7 +2323,7 @@ fun main() {
                         command = builder.amEntrySaveAs,
                         actionKeyTip = "A",
                         popupKeyTip = "F",
-                        textClick = CommandButtonPresentationModel.TextClick.ACTION
+                        textClick = BaseCommandButtonPresentationModel.TextClick.ACTION
                     )
                 }
 
@@ -2328,7 +2332,7 @@ fun main() {
                     command(
                         actionKeyTip = "P",
                         popupKeyTip = "W",
-                        textClick = CommandButtonPresentationModel.TextClick.ACTION
+                        textClick = BaseCommandButtonPresentationModel.TextClick.ACTION
                     ) {
                         title = builder.resourceBundle["AppMenuPrint.text"]
                         iconFactory = Document_print.factory()
