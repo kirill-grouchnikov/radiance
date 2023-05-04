@@ -18,7 +18,7 @@ public class JColorSelectorCommandButton extends JCommandButton {
         CommandButtonPresentationModel commandButtonPresentationModel = projection.getPresentationModel();
 
         ColorSelectorPopupMenuContentModel popupMenuContentModel =
-                command.getColorSelectorPopupMenuContentModel();
+                command.getSecondaryContentModel();
         AbstractPopupMenuPresentationModel popupMenuPresentationModel =
                 commandButtonPresentationModel.getPopupMenuPresentationModel();
         if (popupMenuPresentationModel == null) {

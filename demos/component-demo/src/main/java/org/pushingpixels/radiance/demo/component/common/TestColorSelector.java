@@ -181,7 +181,7 @@ public class TestColorSelector extends JFrame {
 
         this.colorSelectorCommand = ColorSelectorCommand.colorSelectorBuilder()
                 .setIconFactory(ColorIcon.factory(backgroundColor))
-                .setColorSelectorPopupMenuContentModel(selectorModel)
+                .setSecondaryContentModel(selectorModel)
                 .build();
         JCommandButton colorButton = new ColorSelectorCommandButtonProjection(
                 this.colorSelectorCommand,

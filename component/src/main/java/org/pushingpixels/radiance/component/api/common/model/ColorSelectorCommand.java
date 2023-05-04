@@ -39,20 +39,9 @@ public class ColorSelectorCommand extends BaseCommand<ColorSelectorPopupMenuCont
     private ColorSelectorCommand() {
     }
 
-    // TODO - remove
-    public ColorSelectorPopupMenuContentModel getColorSelectorPopupMenuContentModel() {
-        return super.getSecondaryContentModel();
-    }
-
     public static class Builder extends BaseBuilder<ColorSelectorCommand,
             ColorSelectorPopupMenuContentModel,
             ColorSelectorCommand.Builder> {
-        // TODO - remove
-        public Builder setColorSelectorPopupMenuContentModel(
-                ColorSelectorPopupMenuContentModel popupMenuContentModel) {
-            return super.setSecondaryContentModel(popupMenuContentModel);
-        }
-
         /**
          * Builds a color selector command from this builder.
          *

@@ -850,7 +850,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                         ColorSelectorCommand.colorSelectorBuilder()
                                 .setText(resourceBundle.getString("Styles3.text"))
                                 .setIconFactory(Text_html.factory())
-                                .setColorSelectorPopupMenuContentModel(selectorModel)
+                                .setSecondaryContentModel(selectorModel)
                                 .build(),
                         CommandButtonPresentationModel.builder()
                                 .setPopupKeyTip("SC")
