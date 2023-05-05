@@ -29,13 +29,17 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common;
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel.ScrollType;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +48,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeListener;
+import java.util.EnumSet;
 
 /**
  * Basic UI for scrollable panel {@link JScrollablePanel}.
@@ -57,6 +62,10 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
     protected JScrollablePanel scrollablePanel;
 
     private JPanel viewport;
+
+    private Command leadingScrollCommand;
+
+    private Command trailingScrollCommand;
 
     private JCommandButton leadingScroller;
 
@@ -156,22 +165,47 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         }
         this.scrollablePanel.add(this.viewport);
 
-        Command leadingScrollCommand = Command.builder()
+        final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
+        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+        int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
+        this.leadingScrollCommand = Command.builder()
                 .setAction(commandActionEvent -> {
                     viewOffset -= 12;
                     syncScrolling();
                 })
+                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                        (g, scheme, width, height) -> {
+                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                    (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
+                                            ? SwingUtilities.WEST
+                                            : SwingUtilities.NORTH,
+                                    scheme);
+                        }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
 
-        Command trailingScrollCommand = Command.builder()
+        this.trailingScrollCommand = Command.builder()
                 .setAction(commandActionEvent -> {
                     viewOffset += 12;
                     syncScrolling();
                 })
+                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                        (g, scheme, width, height) -> {
+                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                    (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
+                                            ? SwingUtilities.EAST
+                                            : SwingUtilities.SOUTH,
+                                    scheme);
+                        }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
 
         // Common scroller command presentation
         CommandButtonPresentationModel scrollerActionsPresentation = CommandButtonPresentationModel.builder()
+                .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                .setContentPadding(new Insets(2, 2, 2, 2))
                 .setFocusable(false)
                 .setToDismissPopupsOnActivation(false)
                 .setHorizontalAlignment(SwingConstants.CENTER)
@@ -186,12 +220,26 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         // Create command projections for scroller commands and set button customizers for
         // icons and additional straight sides
         CommandButtonProjection<Command> leadingScrollerProjection =
-                leadingScrollCommand.project(scrollerActionsPresentation);
-        leadingScrollerProjection.setComponentCustomizer(this::configureLeadingScrollerButton);
+                leadingScrollCommand.project(scrollerActionsPresentation.overlayWith(
+                        CommandButtonPresentationModel.overlay().setSides(
+                                RadianceThemingSlices.Sides.builder().setStraightSides(
+                                                (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
+                                                        ? EnumSet.of(RadianceThemingSlices.Side.TRAILING)
+                                                        : EnumSet.of(RadianceThemingSlices.Side.BOTTOM))
+                                        .build()
+                        )
+                ));
 
         CommandButtonProjection<Command> trailingScrollerProjection =
-                trailingScrollCommand.project(scrollerActionsPresentation);
-        trailingScrollerProjection.setComponentCustomizer(this::configureTrailingScrollerButton);
+                trailingScrollCommand.project(scrollerActionsPresentation.overlayWith(
+                        CommandButtonPresentationModel.overlay().setSides(
+                                RadianceThemingSlices.Sides.builder().setStraightSides(
+                                                (scrollablePanel.getScrollType() == JScrollablePanel.ScrollType.HORIZONTALLY)
+                                                        ? EnumSet.of(RadianceThemingSlices.Side.LEADING)
+                                                        : EnumSet.of(RadianceThemingSlices.Side.TOP))
+                                        .build()
+                        )
+                ));
 
         this.leadingScroller = leadingScrollerProjection.buildComponent();
         this.scrollablePanel.add(this.leadingScroller);
@@ -233,10 +281,6 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
             this.componentListener = null;
         }
     }
-
-    protected abstract void configureLeadingScrollerButton(JCommandButton button);
-
-    protected abstract void configureTrailingScrollerButton(JCommandButton button);
 
     private void syncScrolling() {
         this.scrollablePanel.doLayout();
@@ -414,13 +458,10 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                     trailingScroller.setBounds(ins.left, y, width - ins.left - ins.right, sph);
                 }
             }
-
-            if (scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY) {
-                trailingScroller.setEnabled((viewOffset + viewport.getWidth()) < view.getWidth());
-            } else {
-                trailingScroller.setEnabled((viewOffset + viewport.getHeight()) < view.getHeight());
-            }
-            leadingScroller.setEnabled(viewOffset > 0);
+            leadingScrollCommand.setActionEnabled(viewOffset > 0);
+            trailingScrollCommand.setActionEnabled((scrollablePanel.getScrollType() == ScrollType.HORIZONTALLY)
+                    ?  (viewOffset + viewport.getWidth()) < view.getWidth()
+                    :  (viewOffset + viewport.getHeight()) < view.getHeight());
         }
     }
 

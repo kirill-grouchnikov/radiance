@@ -174,6 +174,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         CommandButtonPresentationModel presentation = CommandButtonPresentationModel.withDefaults()
                 .overlayWith(CommandButtonPresentationModel.overlay()
                         .setPresentationState(stripPresentationModel.getCommandPresentationState())
+                        .setContentPadding(stripPresentationModel.getCommandContentPadding())
                         .setIconFilterStrategies(
                                 stripPresentationModel.getActiveIconFilterStrategy(),
                                 stripPresentationModel.getEnabledIconFilterStrategy(),

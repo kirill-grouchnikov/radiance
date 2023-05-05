@@ -29,18 +29,11 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonGallery;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeDrawingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -81,56 +74,6 @@ public class RadianceRibbonGalleryUI extends BasicRibbonGalleryUI {
                         RadianceSizeUtils.getComponentFontSize(this.ribbonGallery)),
                 borderColorScheme);
         g2d.dispose();
-    }
-
-    @Override
-    protected void configureExpandButton(JCommandButton button) {
-        final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-        int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
-                () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (g, scheme, width, height) ->
-                        BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                                RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                SwingConstants.SOUTH, scheme),
-                new Dimension(arrowIconWidth, arrowIconHeight));
-        button.setIcon(arrowIcon);
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
-                RadianceThemingSlices.Side.LEADING);
-    }
-
-    @Override
-    protected void configureScrollDownButton(JCommandButton button) {
-        final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-        int arrowIconHeight = (int) RadianceSizeUtils.getSmallArrowIconHeight(fontSize);
-        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
-                () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (g, scheme, width, height) -> BladeArrowIconUtils.drawArrow(g, width, height,
-                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                        SwingConstants.SOUTH, scheme),
-                new Dimension(arrowIconWidth, arrowIconHeight));
-        button.setIcon(arrowIcon);
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
-                RadianceThemingSlices.Side.LEADING);
-    }
-
-    @Override
-    protected void configureScrollUpButton(JCommandButton button) {
-        final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-        int arrowIconHeight = (int) RadianceSizeUtils.getSmallArrowIconHeight(fontSize);
-        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
-                () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (g, scheme, width, height) -> BladeArrowIconUtils.drawArrow(g, width, height,
-                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                        SwingConstants.NORTH, scheme),
-                new Dimension(arrowIconWidth, arrowIconHeight));
-        button.setIcon(arrowIcon);
-        RadianceThemingCortex.ComponentScope.setButtonStraightSide(button,
-                RadianceThemingSlices.Side.LEADING);
     }
 
     @Override

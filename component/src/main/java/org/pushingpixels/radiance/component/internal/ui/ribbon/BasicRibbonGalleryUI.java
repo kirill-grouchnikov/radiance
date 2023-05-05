@@ -29,8 +29,10 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel.StripOrientation;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
@@ -39,10 +41,14 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandStripPr
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
+import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
+import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -51,6 +57,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -114,18 +121,36 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      */
     @SuppressWarnings("unchecked")
     protected void installComponents() {
+
+        final int fontSize = RadianceSizeUtils.getComponentFontSize(this.ribbonGallery);
+        int arrowIconHeight = (int) RadianceSizeUtils.getSmallArrowIconHeight(fontSize);
+        int arrowDoubleIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
+        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+
         // Gallery scroller commands
         this.scrollUpCommand = Command.builder()
                 .setAction(commandActionEvent -> {
                     scrollOneRowUp();
                     ribbonGallery.revalidate();
                 })
+                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                        (g, scheme, width, height) ->
+                                BladeArrowIconUtils.drawArrow(g, width, height,
+                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                        SwingConstants.NORTH,
+                                        scheme), new Dimension(arrowIconWidth, arrowIconHeight)))
                 .build();
         this.scrollDownCommand = Command.builder()
                 .setAction(commandActionEvent -> {
                     scrollOneRowDown();
                     ribbonGallery.revalidate();
                 })
+                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                        (g, scheme, width, height) ->
+                                BladeArrowIconUtils.drawArrow(g, width, height,
+                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                        SwingConstants.SOUTH,
+                                        scheme), new Dimension(arrowIconWidth, arrowIconHeight)))
                 .build();
         this.expandCommand = Command.builder()
                 .setAction(commandActionEvent -> {
@@ -170,6 +195,13 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                                 popupMenuPanel, x, loc.y);
                     });
                 })
+                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                        (g, scheme, width, height) ->
+                                BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                        SwingConstants.SOUTH, scheme),
+                        new Dimension(arrowIconWidth, arrowDoubleIconHeight)))
                 .build();
 
         // Configure the overlay for the expand command to show the gallery's expand key tip
@@ -177,24 +209,26 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 new HashMap<>();
         galleryScrollerOverlays.put(this.scrollUpCommand,
                 CommandButtonPresentationModel.overlay()
+                        .setSides(RadianceThemingSlices.Sides.builder()
+                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
+                                .build())
                         .setAutoRepeatAction(true)
                         .setAutoRepeatActionIntervals(200, 50));
         galleryScrollerOverlays.put(this.scrollDownCommand,
                 CommandButtonPresentationModel.overlay()
+                        .setSides(RadianceThemingSlices.Sides.builder()
+                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
+                                .build())
                         .setAutoRepeatAction(true)
                         .setAutoRepeatActionIntervals(200, 50));
         galleryScrollerOverlays.put(this.expandCommand,
                 CommandButtonPresentationModel.overlay()
+                        .setSides(RadianceThemingSlices.Sides.builder()
+                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
+                                .build())
                         .setActionKeyTip(this.ribbonGallery.getProjection()
                                 .getPresentationModel().getExpandKeyTip())
                         .setActionFireTrigger(CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED));
-
-        // Configure customizers for all the scroller buttons (setting icons and additional
-        // straight sides)
-        Map<Command, Projection.ComponentCustomizer<JCommandButton>> galleryScrollerCustomizers = new HashMap<>();
-        galleryScrollerCustomizers.put(this.scrollUpCommand, this::configureScrollUpButton);
-        galleryScrollerCustomizers.put(this.scrollDownCommand, this::configureScrollDownButton);
-        galleryScrollerCustomizers.put(this.expandCommand, this::configureExpandButton);
 
         // Configure the component supplier for the expand command to return our own subclass
         Map<Command, Projection.ComponentSupplier<JCommandButton, Command,
@@ -209,12 +243,12 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 this.galleryScrollerCommands,
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
-                        .setCommandPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON)
+                        .setCommandPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                        .setCommandContentPadding(new Insets(0, 0, 0, 0))
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setToDismissPopupsOnActivation(false)
                         .build());
         projection.setCommandComponentSuppliers(galleryScrollerSuppliers);
-        projection.setCommandComponentCustomizers(galleryScrollerCustomizers);
         projection.setCommandOverlays(galleryScrollerOverlays);
 
         this.buttonStrip = projection.buildComponent();
@@ -588,10 +622,4 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
             super(projection);
         }
     }
-
-    protected abstract void configureScrollUpButton(JCommandButton button);
-
-    protected abstract void configureScrollDownButton(JCommandButton button);
-
-    protected abstract void configureExpandButton(JCommandButton button);
 }

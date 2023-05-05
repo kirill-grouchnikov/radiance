@@ -107,6 +107,10 @@ public abstract class Projection<T extends JComponent, C extends ContentModel, P
         this.componentCustomizer = componentCustomizer;
     }
 
+    /**
+     * @deprecated This method will be removed before the final 7.0 release.
+     */
+    @Deprecated
     public void setCommandComponentCustomizers(Map<Command,
             ComponentCustomizer<JCommandButton>> commandComponentCustomizers) {
         this.commandComponentCustomizers = commandComponentCustomizers;

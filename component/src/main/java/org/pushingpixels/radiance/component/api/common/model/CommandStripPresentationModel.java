@@ -32,6 +32,8 @@ package org.pushingpixels.radiance.component.api.common.model;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
+import java.awt.*;
+
 public class CommandStripPresentationModel implements ImmutablePresentationModel {
     public static final double DEFAULT_GAP_SCALE_FACTOR_PRIMARY_AXIS = 0.75;
     public static final double DEFAULT_GAP_SCALE_FACTOR_SECONDARY_AXIS = 1.0;
@@ -58,6 +60,8 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
      * {@link CommandButtonPresentationState#SMALL}.
      */
     private CommandButtonPresentationState commandPresentationState;
+
+    private Insets commandContentPadding;
 
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
@@ -97,6 +101,10 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         return this.commandPresentationState;
     }
 
+    public Insets getCommandContentPadding() {
+        return this.commandContentPadding;
+    }
+
     public RadianceThemingSlices.IconFilterStrategy getActiveIconFilterStrategy() {
         return this.activeIconFilterStrategy;
     }
@@ -134,8 +142,10 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
     }
 
     public static class Builder {
-        private CommandButtonPresentationState commandPresentationState
-                = CommandButtonPresentationState.SMALL;
+        private CommandButtonPresentationState commandPresentationState =
+                CommandButtonPresentationState.SMALL;
+        private Insets commandContentPadding =
+                CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
@@ -153,6 +163,11 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         public Builder setCommandPresentationState(
                 CommandButtonPresentationState commandPresentationState) {
             this.commandPresentationState = commandPresentationState;
+            return this;
+        }
+
+        public Builder setCommandContentPadding(Insets commandContentPadding) {
+            this.commandContentPadding = commandContentPadding;
             return this;
         }
 
@@ -200,6 +215,7 @@ public class CommandStripPresentationModel implements ImmutablePresentationModel
         public CommandStripPresentationModel build() {
             CommandStripPresentationModel presentationModel = new CommandStripPresentationModel();
             presentationModel.commandPresentationState = this.commandPresentationState;
+            presentationModel.commandContentPadding = this.commandContentPadding;
             presentationModel.activeIconFilterStrategy = this.activeIconFilterStrategy;
             presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;

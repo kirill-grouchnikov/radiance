@@ -38,6 +38,8 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import java.awt.*;
@@ -111,6 +113,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
+        float alpha = 1.0f;
         // If the passed component is null or not a JCommandButton, our best effort is to
         // display either "enabled" or "disabled" version of the delegate icon
         if (!(c instanceof JCommandButton)) {
@@ -118,6 +121,9 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
                     ((c == null) || !c.isEnabled()) ? ComponentState.DISABLED_UNSELECTED
                             : ComponentState.ENABLED,
                     this.colorSchemeAssociationKind, false);
+            if ((c == null) || !c.isEnabled()) {
+                alpha = RadianceColorSchemeUtilities.getAlpha(c, ComponentState.DISABLED_UNSELECTED);
+            }
         } else {
             JCommandButton commandButton = (JCommandButton) c;
 
@@ -130,10 +136,14 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
 
             BladeUtils.populateColorScheme(mutableColorScheme, commandButton, modelStateInfo, currState,
                     this.colorSchemeAssociationKind, false);
+            alpha = RadianceColorSchemeUtilities.getAlpha(c, currState);
         }
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
+        if (alpha < 1.0f) {
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
+        }
         this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, this.width, this.height);
         graphics.dispose();
     }
