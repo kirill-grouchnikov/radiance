@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -90,6 +91,63 @@ public final class RadianceThemingSlices {
          * Bottom side.
          */
         BOTTOM
+    }
+
+    public static class Sides {
+        private Set<Side> openSides;
+        private Set<Side> straightSides;
+
+        private Sides(Set<Side> openSides, Set<Side> straightSides) {
+            this.openSides = openSides;
+            this.straightSides = straightSides;
+        }
+
+        public Set<Side> getOpenSides() {
+            return this.openSides;
+        }
+
+        public Set<Side> getStraightSides() {
+            return this.straightSides;
+        }
+
+        public static Sides CLOSED_RECTANGLE = Sides.builder().setStraightSidesAll().build();
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static class Builder {
+            private Set<Side> openSides = new HashSet<>();
+            private Set<Side> straightSides = new HashSet<>();
+
+            public Builder setOpenSides(Set<Side> openSides) {
+                this.openSides.clear();
+                this.openSides.addAll(openSides);
+                return this;
+            }
+
+            public Builder setOpenSidesAll() {
+                this.openSides.clear();
+                this.openSides.addAll(EnumSet.allOf(RadianceThemingSlices.Side.class));
+                return this;
+            }
+
+            public Builder setStraightSides(Set<Side> straightSides) {
+                this.straightSides.clear();
+                this.straightSides.addAll(straightSides);
+                return this;
+            }
+
+            public Builder setStraightSidesAll() {
+                this.straightSides.clear();
+                this.straightSides.addAll(EnumSet.allOf(RadianceThemingSlices.Side.class));
+                return this;
+            }
+
+            public Sides build() {
+                return new Sides(this.openSides, this.straightSides);
+            }
+        }
     }
 
     /**

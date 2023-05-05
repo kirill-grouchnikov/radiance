@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
@@ -46,22 +47,19 @@ import java.util.StringTokenizer;
 public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager {
     private JCommandButton commandButton;
 
+    private boolean titlePartsComputed = false;
+
     /**
      * The first part of (possibly) two-lined split of {@link #commandButton}'s
      * title.
      */
-    protected String titlePart1;
+    private String titlePart1;
 
     /**
      * The second part of (possibly) two-lined split of {@link #commandButton}'s
      * title.
      */
-    protected String titlePart2;
-
-    public CommandButtonLayoutManagerBig(JCommandButton commandButton) {
-        this.commandButton = commandButton;
-        this.updateTitleStrings();
-    }
+    private String titlePart2;
 
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
@@ -83,6 +81,11 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
+        if (!this.titlePartsComputed) {
+            this.updateTitleStrings();
+            this.titlePartsComputed = true;
+        }
+
         Insets borderInsets = (commandButton == null) ? new Insets(0, 0, 0, 0)
                 : commandButton.getInsets();
         int bx = borderInsets.left + borderInsets.right;
@@ -224,6 +227,11 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
+        if (!this.titlePartsComputed) {
+            this.updateTitleStrings();
+            this.titlePartsComputed = true;
+        }
+
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -408,5 +416,18 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         }
 
         return result;
+    }
+
+    public static class FitToIcon extends CommandButtonLayoutManagerBig {
+        @Override
+        public Dimension getPreferredIconSize(JCommandButton commandButton) {
+            BaseCommandButtonPresentationModel presentationModel =
+                    commandButton.getProjection().getPresentationModel();
+            Dimension preferredIconDimension = presentationModel.getIconDimension();
+            if (preferredIconDimension != null) {
+                return preferredIconDimension;
+            }
+            return super.getPreferredIconSize(commandButton);
+        }
     }
 }

@@ -35,10 +35,6 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import java.awt.*;
 
 public class CommandButtonLayoutManagerFitToIcon extends CommandButtonLayoutManagerBig {
-	public CommandButtonLayoutManagerFitToIcon(JCommandButton commandButton) {
-		super(commandButton);
-	}
-
 	@Override
 	public Dimension getPreferredIconSize(JCommandButton commandButton) {
 		return null;

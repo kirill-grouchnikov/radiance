@@ -74,6 +74,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected PopupFireTrigger popupFireTrigger;
     protected RichTooltipPresentationModel actionRichTooltipPresentationModel;
     protected RichTooltipPresentationModel popupRichTooltipPresentationModel;
+    protected RadianceThemingSlices.Sides sides;
 
     protected BaseCommandButtonPresentationModel() {
     }
@@ -188,6 +189,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         return this.popupRichTooltipPresentationModel;
     }
 
+    public RadianceThemingSlices.Sides getSides() {
+        return this.sides;
+    }
+
     public enum ActionFireTrigger {
         /**
          * Fire action on rollover.
@@ -264,6 +269,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private PopupFireTrigger popupFireTrigger;
         private RichTooltipPresentationModel actionRichTooltipPresentationModel;
         private RichTooltipPresentationModel popupRichTooltipPresentationModel;
+        private RadianceThemingSlices.Sides sides;
 
         public Overlay setBackgroundAppearanceStrategy(
                 RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
@@ -384,6 +390,11 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this;
         }
 
+        public Overlay setSides(RadianceThemingSlices.Sides sides) {
+            this.sides = sides;
+            return this;
+        }
+
         public CommandButtonPresentationState getPresentationState() {
             return this.presentationState;
         }
@@ -487,6 +498,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         public RichTooltipPresentationModel getPopupRichTooltipPresentationModel() {
             return this.popupRichTooltipPresentationModel;
         }
+
+        public RadianceThemingSlices.Sides getSides() {
+            return this.sides;
+        }
     }
 
     public abstract static class BaseBuilder<MPM extends BaseCommandPopupMenuPresentationModel,
@@ -531,6 +546,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
                 RichTooltipPresentationModel.builder().build();
         private RichTooltipPresentationModel popupRichTooltipPresentationModel =
                 RichTooltipPresentationModel.builder().build();
+        private RadianceThemingSlices.Sides sides = null;
 
         @SuppressWarnings("unchecked")
         public B setBackgroundAppearanceStrategy(
@@ -680,6 +696,12 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return (B) this;
         }
 
+        @SuppressWarnings("unchecked")
+        public B setSides(RadianceThemingSlices.Sides sides) {
+            this.sides = sides;
+            return (B) this;
+        }
+
         protected void configureBaseCommandButtonPresentationModel(
                 BaseCommandButtonPresentationModel<MPM, PM> presentationModel) {
             presentationModel.presentationState = this.presentationState;
@@ -708,6 +730,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.popupFireTrigger = this.popupFireTrigger;
             presentationModel.actionRichTooltipPresentationModel = this.actionRichTooltipPresentationModel;
             presentationModel.popupRichTooltipPresentationModel = this.popupRichTooltipPresentationModel;
+            presentationModel.sides = this.sides;
         }
     }
 }

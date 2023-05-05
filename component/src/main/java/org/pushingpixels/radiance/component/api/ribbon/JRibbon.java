@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
@@ -52,7 +51,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuProjection;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -231,7 +231,8 @@ public class KeyTipManager {
                     JCommandButton cb = (JCommandButton) taskbarComp;
                     KeyTipLink actionLink = getCommandButtonActionLink(cb);
                     if (actionLink != null) {
-                        if (taskbarComp instanceof RadianceRibbonFrameTitlePane.TaskbarOverflowButton) {
+                        if (RadianceRibbonFrameTitlePane.TASKBAR_OVERFLOW_BUTTON.equals(
+                                cb.getProjection().getContentModel().getTag())) {
                             actionLink.traversal = () -> {
                                 // collect key tips of all controls in the taskbar overflow popup
                                 List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
@@ -249,12 +250,9 @@ public class KeyTipManager {
 
                         root.addLink(actionLink);
                     }
-                    if (taskbarComp instanceof JCommandButton) {
-                        JCommandButton jcb = (JCommandButton) taskbarComp;
-                        KeyTipLink popupLink = getCommandButtonPopupLink(jcb);
-                        if (popupLink != null) {
-                            root.addLink(popupLink);
-                        }
+                    KeyTipLink popupLink = getCommandButtonPopupLink(cb);
+                    if (popupLink != null) {
+                        root.addLink(popupLink);
                     }
                 } else if (taskbarComp instanceof JRibbonComponent) {
                     JRibbonComponent rc = (JRibbonComponent) taskbarComp;

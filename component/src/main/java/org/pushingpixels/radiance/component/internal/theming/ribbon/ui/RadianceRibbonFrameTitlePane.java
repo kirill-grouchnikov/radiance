@@ -30,24 +30,19 @@
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
-import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTaskbarKeyTipPolicy;
-import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
-import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerSmall;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
@@ -65,8 +60,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
 
 /**
  * Custom title pane for {@link JRibbonFrame} running under Radiance look-and-feel.
@@ -75,6 +72,8 @@ import java.util.*;
  */
 public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
     private static final double TASKBAR_WIDTH_MAX_RATIO = 0.25;
+
+    public static final String TASKBAR_OVERFLOW_BUTTON = "radiance.internal.ribbon.taskbarOverflowButton";
 
     /**
      * Custom component to paint the header of a single contextual task group.
@@ -154,17 +153,6 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
         }
     }
 
-    private static class CommandButtonLayoutManagerTaskbarOverflow
-            extends CommandButtonLayoutManagerSmall {
-        @Override
-        public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            int fontSize = commandButton.getFont().getSize();
-            int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-            int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-            return new Dimension(arrowIconWidth, arrowIconHeight);
-        }
-    }
-
     @RadiancePopupContainer
     private class TaskbarOverflowPopupPanelContent extends JPanel {
         public TaskbarOverflowPopupPanelContent(LayoutManager layout) {
@@ -198,20 +186,13 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
         }
     }
 
-    public static class TaskbarOverflowButton extends JCommandButton {
-        public TaskbarOverflowButton(Projection<JCommandButton, ? extends Command,
-                CommandButtonPresentationModel> projection) {
-            super(projection);
-        }
-    }
-
     /**
      * The taskbar panel that holds the taskbar components.
      *
      * @author Kirill Grouchnikov
      */
     private class TaskbarPanel extends JPanel {
-        private TaskbarOverflowButton overflowButton;
+        private JCommandButton overflowButton;
         private List<Component> overflowComponents;
 
         /**
@@ -229,45 +210,29 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                     RadianceSizeUtils.getComponentFontSize(this), 2, 3, 1, false);
             this.setBorder(new EmptyBorder(2, insets, 2, insets));
 
-            int defaultIconSize = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(
-                    getFont().getSize());
+            final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
+            int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+            int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
             CommandButtonProjection<Command> overflowProjection = Command.builder()
                     .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
                             showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
+                    .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                            (g, scheme, width, height) -> {
+                                BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                        getComponentOrientation().isLeftToRight()
+                                                ? SwingConstants.EAST : SwingConstants.WEST,
+                                        scheme);
+                            }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                    .setTag(TASKBAR_OVERFLOW_BUTTON)
                     .build().project(CommandButtonPresentationModel.builder()
-                            .setPresentationState(new CommandButtonPresentationState(
-                                    "overflow", defaultIconSize) {
-                                @Override
-                                public CommandButtonLayoutManager createLayoutManager(
-                                        JCommandButton commandButton) {
-                                    return new CommandButtonLayoutManagerTaskbarOverflow();
-                                }
-                            })
+                            .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
+                            .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                            .setContentPadding(new Insets(2, 6, 2, 6))
+                            .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
                             .build());
-            overflowProjection.setComponentCustomizer(button -> {
-                final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
-                int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-                int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-                RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
-                        () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                        (g, scheme, width, height) -> BladeArrowIconUtils.drawDoubleArrow(
-                                g, arrowIconWidth, arrowIconHeight,
-                                RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                getComponentOrientation().isLeftToRight()
-                                        ? SwingUtilities.EAST
-                                        : SwingUtilities.WEST,
-                                scheme),
-                        new Dimension(arrowIconWidth, arrowIconHeight));
-                button.setIcon(arrowIcon);
-
-                button.setBorder(BorderFactory.createEmptyBorder(2, 6, 2, 6));
-                button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
-                        EnumSet.allOf(RadianceThemingSlices.Side.class));
-            });
-            overflowProjection.setComponentSupplier(projection -> TaskbarOverflowButton::new);
-            this.overflowButton = (TaskbarOverflowButton) overflowProjection.buildComponent();
+            this.overflowButton = overflowProjection.buildComponent();
         }
 
         @Override

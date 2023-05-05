@@ -48,7 +48,7 @@ public abstract class CommandButtonPresentationState {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(
                         JCommandButton commandButton) {
-                    return new CommandButtonLayoutManagerFitToIcon(commandButton);
+                    return new CommandButtonLayoutManagerFitToIcon();
                 }
             };
 
@@ -58,11 +58,21 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState BIG = new CommandButtonPresentationState(
             "Big", 32) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(
-                JCommandButton commandButton) {
-            return new CommandButtonLayoutManagerBig(commandButton);
+        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+            return new CommandButtonLayoutManagerBig();
         }
     };
+
+    /**
+     * Fit-to-icon + big state
+     */
+    public static final CommandButtonPresentationState BIG_FIT_TO_ICON =
+            new CommandButtonPresentationState("Big fit to icon", 16) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerBig.FitToIcon();
+                }
+            };
 
     /**
      * Tile state.
@@ -70,11 +80,21 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState TILE = new CommandButtonPresentationState(
             "Tile", 32) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(
-                JCommandButton arg0) {
+        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
             return new CommandButtonLayoutManagerTile();
         }
     };
+
+    /**
+     * Fit-to-icon + tile state
+     */
+    public static final CommandButtonPresentationState TILE_FIT_TO_ICON =
+            new CommandButtonPresentationState("Tile fit to icon", 16) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerTile.FitToIcon();
+                }
+            };
 
     /**
      * Medium state.
@@ -82,11 +102,21 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState MEDIUM = new CommandButtonPresentationState(
             "Medium", 16) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(
-                JCommandButton arg0) {
+        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
             return new CommandButtonLayoutManagerMedium();
         }
     };
+
+    /**
+     * Fit-to-icon + medium state
+     */
+    public static final CommandButtonPresentationState MEDIUM_FIT_TO_ICON =
+            new CommandButtonPresentationState("Medium fit to icon", 16) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerMedium.FitToIcon();
+                }
+            };
 
     /**
      * Small state.
@@ -94,11 +124,21 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState SMALL = new CommandButtonPresentationState(
             "Small", 16) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(
-                JCommandButton arg0) {
+        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
             return new CommandButtonLayoutManagerSmall();
         }
     };
+
+    /**
+     * Fit-to-icon + small state
+     */
+    public static final CommandButtonPresentationState SMALL_FIT_TO_ICON =
+            new CommandButtonPresentationState("Small fit to icon", 16) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                    return new CommandButtonLayoutManagerSmall.FitToIcon();
+                }
+            };
 
     /**
      * Preferred icon size for this state.

@@ -639,6 +639,14 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             });
         }
 
+        RadianceThemingSlices.Sides sides = commandPresentation.getSides();
+        if (sides != null) {
+            RadianceThemingCortex.ComponentScope.setButtonOpenSides(
+                    this, sides.getOpenSides());
+            RadianceThemingCortex.ComponentScope.setButtonStraightSides(
+                    this, sides.getStraightSides());
+        }
+
         // Don't remove the next line - we need to instantiate the RichTooltipManager
         // so that it starts tracking mouse events for displaying rich tooltips
         RichTooltipManager.sharedInstance();

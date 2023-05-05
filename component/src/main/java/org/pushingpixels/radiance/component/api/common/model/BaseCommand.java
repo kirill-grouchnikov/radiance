@@ -53,6 +53,7 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
     private RichTooltip secondaryRichTooltip;
     private boolean isSecondaryEnabled;
     private CommandToggleGroupModel toggleGroupModel;
+    private Object tag;
 
     public interface CommandActionPreview extends EventListener {
         /**
@@ -230,6 +231,10 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         this.weakPropertyChangeSupport.firePropertyChange("actionPreview", old, this.actionPreview);
     }
 
+    public Object getTag() {
+        return this.tag;
+    }
+
     @Override
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);
@@ -269,6 +274,7 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         protected boolean isToggle;
         protected boolean isToggleSelected;
         protected CommandToggleGroupModel toggleGroupModel;
+        protected Object tag;
 
         protected void configureBaseCommand(BaseCommand<MCM> command) {
             command.text = this.text;
@@ -289,6 +295,8 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
             if (command.toggleGroupModel != null) {
                 command.toggleGroupModel.add(command);
             }
+
+            command.tag = this.tag;
         }
 
         public abstract T build();
@@ -378,6 +386,12 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         @SuppressWarnings("unchecked")
         public B setActionPreview(CommandActionPreview actionPreview) {
             this.actionPreview = actionPreview;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setTag(Object tag) {
+            this.tag = tag;
             return (B) this;
         }
     }

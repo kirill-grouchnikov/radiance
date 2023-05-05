@@ -107,6 +107,8 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
                 ? overlay.getActionRichTooltipPresentationModel() : this.actionRichTooltipPresentationModel;
         result.popupRichTooltipPresentationModel = (overlay.getPopupRichTooltipPresentationModel() != null)
                 ? overlay.getPopupRichTooltipPresentationModel() : this.popupRichTooltipPresentationModel;
+        result.sides = (overlay.getSides() != null)
+                ? overlay.getSides() : this.sides;
 
         return result;
     }
