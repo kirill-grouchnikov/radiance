@@ -508,7 +508,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             PM extends BaseCommandButtonPresentationModel<MPM, PM>,
             B extends BaseBuilder<MPM, PM, B>> {
         private CommandButtonPresentationState presentationState =
-                CommandButtonPresentationState.FIT_TO_ICON;
+                CommandButtonPresentationState.BIG_FIT_TO_ICON;
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private boolean isFocusable = true;

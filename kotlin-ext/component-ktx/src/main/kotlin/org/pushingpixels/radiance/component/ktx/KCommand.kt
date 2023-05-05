@@ -347,7 +347,7 @@ public fun colorSelectorCommand(init: KColorSelectorCommand.() -> Unit): KColorS
 @RadianceElementMarker
 public open class KCommandButtonPresentation {
     public var presentationState: CommandButtonPresentationState =
-        CommandButtonPresentationState.FIT_TO_ICON
+        CommandButtonPresentationState.BIG_FIT_TO_ICON
     public var backgroundAppearanceStrategy: BackgroundAppearanceStrategy =
         BackgroundAppearanceStrategy.FLAT
     public var horizontalAlignment: Int =

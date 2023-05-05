@@ -45,19 +45,15 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager {
-    private JCommandButton commandButton;
-
     private boolean titlePartsComputed = false;
 
     /**
-     * The first part of (possibly) two-lined split of {@link #commandButton}'s
-     * title.
+     * The first part of (possibly) two-lined split of the button's title.
      */
     private String titlePart1;
 
     /**
-     * The second part of (possibly) two-lined split of {@link #commandButton}'s
-     * title.
+     * The second part of (possibly) two-lined split of the button's title.
      */
     private String titlePart2;
 
@@ -82,7 +78,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
         if (!this.titlePartsComputed) {
-            this.updateTitleStrings();
+            this.updateTitleStrings(commandButton);
             this.titlePartsComputed = true;
         }
 
@@ -138,7 +134,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         }
 
         // separator?
-        JCommandButton.CommandButtonKind buttonKind = this.commandButton.getCommandButtonKind();
+        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
         if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
             // space for a horizontal separator
             height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
@@ -156,7 +152,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("text".equals(evt.getPropertyName()) || "font".equals(evt.getPropertyName())) {
-            this.updateTitleStrings();
+            this.titlePartsComputed = false;
         }
     }
 
@@ -164,16 +160,16 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
      * Updates the title strings for {@link CommandButtonPresentationState#BIG} and
      * other relevant states.
      */
-    private void updateTitleStrings() {
+    private void updateTitleStrings(JCommandButton commandButton) {
         // Break the title in two parts (the second part may be empty),
         // finding the "inflection" point. The inflection point is a space
         // character that breaks the title in two parts, such that the maximal
         // length of the first part and the second part + action label icon
         // is minimal between all possible space characters
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(commandButton), this.commandButton.getFont());
+                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 
-        String title = (this.commandButton == null) ? null : this.commandButton.getText();
+        String title = commandButton.getText();
         if (title != null) {
             StringTokenizer tokenizer = new StringTokenizer(title, " _-", true);
             if (tokenizer.countTokens() <= 1) {
@@ -181,10 +177,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 this.titlePart1 = title;
                 this.titlePart2 = null;
             } else {
-                int actionIconWidth = ComponentUtilities.hasPopupAction(this.commandButton) ? 0
+                int actionIconWidth = ComponentUtilities.hasPopupAction(commandButton) ? 0
                         : 2 * ComponentUtilities.getHLayoutGap(commandButton)
                         + (fm.getAscent() + fm.getDescent()) / 2;
-                int currMaxLength = fm.stringWidth(this.commandButton.getText()) + actionIconWidth;
+                int currMaxLength = fm.stringWidth(commandButton.getText()) + actionIconWidth;
 
                 StringBuilder currLeading = new StringBuilder();
                 while (tokenizer.hasMoreTokens()) {
@@ -228,7 +224,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
         if (!this.titlePartsComputed) {
-            this.updateTitleStrings();
+            this.updateTitleStrings(commandButton);
             this.titlePartsComputed = true;
         }
 

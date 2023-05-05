@@ -30,15 +30,12 @@
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonFollowColorSchemeIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
-import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -50,14 +47,16 @@ import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.radiance.theming.internal.utils.*;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.util.EnumSet;
 
 /**
  * UI for ribbon bands in <b>Radiance</b> look and feel.
@@ -153,57 +152,44 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     @SuppressWarnings("unchecked")
     protected JCommandButton createExpandButton() {
+        final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
+        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+        int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
+
         CommandButtonProjection<Command> expandCommandProjection =
                 new CommandButtonProjection<>(this.expandCommand,
                         CommandButtonPresentationModel.builder()
+                                .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
+                                .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                                .setContentPadding(new Insets(3, 2, 3, 2))
+                                .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
                                 .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
                                 .build());
-        expandCommandProjection.setComponentSupplier(projection -> RibbonBandExpandButton::new);
-        expandCommandProjection.setComponentCustomizer(button -> {
-            // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
-            // CONTROL_PANE as well to sync the mark color
-            ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.CONTROL_PANE);
-            RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonBand);
-            button.setIcon(getExpandButtonIcon(skin, button));
-            // Mark the button as rectangular
-            RadianceThemingCortex.ComponentScope.setButtonStraightSides(button,
-                    EnumSet.allOf(RadianceThemingSlices.Side.class));
-        });
-
-        return expandCommandProjection.buildComponent();
+        JCommandButton result = expandCommandProjection.buildComponent();
+        // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
+        // CONTROL_PANE as well to sync the mark color
+        ComponentOrParentChainScope.setDecorationType(result, DecorationAreaType.CONTROL_PANE);
+        return result;
     }
 
     @Override
-    protected Command createExpandCommand() {
-        return Command.builder()
-                .setAction(ribbonBand.getExpandCommandListener())
-                .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip()).build();
-    }
-
-    private RadianceIcon getExpandButtonIcon(final RadianceSkin skin,
-            final JCommandButton button) {
-        final int fontSize = RadianceSizeUtils.getComponentFontSize(button);
+    protected Command createExpandCommand(ComponentOrientation componentOrientation) {
+        final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-        final RadianceIcon arrowIcon = new BladeTransitionAwareRadianceIcon(button,
-                () -> ((ActionPopupTransitionAwareUI) button.getUI()).getActionTransitionTracker(),
-                (g, scheme, width, height) -> {
-                    Color bgFillColor = RadianceCoreUtilities.getBackgroundFill(skin, DecorationAreaType.CONTROL_PANE);
-                    BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                            RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                            RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                            ribbonBand.getComponentOrientation().isLeftToRight()
-                                    ? SwingConstants.EAST : SwingConstants.WEST,
-                            RadianceColorSchemeUtilities.getShiftedScheme(scheme, bgFillColor,
-                                    0.0f, bgFillColor, 0.3f));
-                }, new Dimension(arrowIconHeight, arrowIconWidth));
-        return arrowIcon;
-    }
-
-    @Override
-    protected void syncExpandButtonIcon() {
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonBand);
-        this.expandCommand.setIconFactory(() -> getExpandButtonIcon(skin, this.expandButton));
+        return Command.builder()
+                .setAction(ribbonBand.getExpandCommandListener())
+                .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip())
+                .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                        (g, scheme, width, height) -> {
+                            BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                    RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                    RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                    componentOrientation.isLeftToRight()
+                                            ? SwingConstants.EAST : SwingConstants.WEST,
+                                    scheme);
+                        }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                .build();
     }
 
     @Override
@@ -214,15 +200,5 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
         BackgroundPaintingUtils.update(g2d, c, false);
         this.paint(g2d, c);
         g2d.dispose();
-    }
-
-    @org.pushingpixels.radiance.theming.internal.utils.RadianceInternalButton
-    private static class RibbonBandExpandButton extends JCommandButton implements RadianceInternalButton {
-        private RibbonBandExpandButton(Projection<JCommandButton, Command,
-                CommandButtonPresentationModel> projection) {
-            super(projection);
-
-            this.setBorder(new EmptyBorder(3, 2, 3, 2));
-        }
     }
 }

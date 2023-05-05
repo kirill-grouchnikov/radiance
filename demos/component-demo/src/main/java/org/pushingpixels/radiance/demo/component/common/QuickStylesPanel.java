@@ -110,7 +110,7 @@ public class QuickStylesPanel {
         return CommandPanelPresentationModel.builder()
                 .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(64)))
                 .setToShowGroupLabels(false)
-                .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
+                .setCommandPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON)
                 .setCommandIconDimension(new Dimension(48, 48))
                 .build();
     }

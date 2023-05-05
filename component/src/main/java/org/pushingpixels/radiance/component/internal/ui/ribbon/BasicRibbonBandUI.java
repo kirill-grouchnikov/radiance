@@ -176,7 +176,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         this.ribbonBand.add(this.collapsedButton);
 
         if (this.ribbonBand.getExpandCommandListener() != null) {
-            this.expandCommand = this.createExpandCommand();
+            this.expandCommand = this.createExpandCommand(this.ribbonBand.getComponentOrientation());
             this.expandButton = this.createExpandButton();
             this.ribbonBand.add(this.expandButton);
         }
@@ -188,9 +188,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * @return Expand button for the associated ribbon band.
      */
     protected abstract JCommandButton createExpandButton();
-    protected abstract Command createExpandCommand();
-
-    protected abstract void syncExpandButtonIcon();
+    protected abstract Command createExpandCommand(ComponentOrientation componentOrientation);
 
     /**
      * Installs listeners on the associated ribbon band.
@@ -232,7 +230,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 }
                 if ((oldListener == null) && (newListener != null)) {
                     // need to add
-                    expandCommand = createExpandCommand();
+                    expandCommand = createExpandCommand(ribbonBand.getComponentOrientation());
                     expandButton = createExpandButton();
                     ribbonBand.add(expandButton);
                     ribbonBand.revalidate();
@@ -240,11 +238,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 if ((oldListener != null) && (newListener != null)) {
                     // need to reconfigure
                     expandCommand.setAction(newListener);
-                }
-            }
-            if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
-                if (expandButton != null) {
-                    syncExpandButtonIcon();
                 }
             }
         };

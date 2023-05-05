@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.component.internal.ui.common.*;
+import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerBig;
+import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerMedium;
+import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerSmall;
+import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerTile;
 
 /**
  * Presentation state for command buttons. This class provides a number of core
@@ -40,18 +43,6 @@ import org.pushingpixels.radiance.component.internal.ui.common.*;
  * @author Kirill Grouchnikov
  */
 public abstract class CommandButtonPresentationState {
-    /**
-     * Fit to icon state.
-     */
-    public static final CommandButtonPresentationState FIT_TO_ICON =
-            new CommandButtonPresentationState("Fit to icon", -1) {
-                @Override
-                public CommandButtonLayoutManager createLayoutManager(
-                        JCommandButton commandButton) {
-                    return new CommandButtonLayoutManagerFitToIcon();
-                }
-            };
-
     /**
      * Big state.
      */
@@ -67,7 +58,7 @@ public abstract class CommandButtonPresentationState {
      * Fit-to-icon + big state
      */
     public static final CommandButtonPresentationState BIG_FIT_TO_ICON =
-            new CommandButtonPresentationState("Big fit to icon", 16) {
+            new CommandButtonPresentationState("Big fit to icon", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
                     return new CommandButtonLayoutManagerBig.FitToIcon();
@@ -89,7 +80,7 @@ public abstract class CommandButtonPresentationState {
      * Fit-to-icon + tile state
      */
     public static final CommandButtonPresentationState TILE_FIT_TO_ICON =
-            new CommandButtonPresentationState("Tile fit to icon", 16) {
+            new CommandButtonPresentationState("Tile fit to icon", 32) {
                 @Override
                 public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
                     return new CommandButtonLayoutManagerTile.FitToIcon();

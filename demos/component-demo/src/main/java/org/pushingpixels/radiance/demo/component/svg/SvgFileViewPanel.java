@@ -86,7 +86,7 @@ public class SvgFileViewPanel extends JCommandButtonPanel {
                 CommandPanelPresentationModel.builder()
                         .setToShowGroupLabels(false)
                         .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Adaptive(64)))
-                        .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
+                        .setCommandPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON)
                         .setCommandIconDimension(new Dimension(startingDimension, startingDimension))
                         .build()));
 

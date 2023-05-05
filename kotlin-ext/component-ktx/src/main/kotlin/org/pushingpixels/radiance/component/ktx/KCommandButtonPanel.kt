@@ -77,7 +77,7 @@ public class KCommandButtonPanelPresentation {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
             presentationModelBuilder.setCommandPresentationState(
-                CommandButtonPresentationState.FIT_TO_ICON
+                CommandButtonPresentationState.BIG_FIT_TO_ICON
             )
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }
@@ -151,7 +151,7 @@ public class KCommandPopupMenuPanelPresentation {
             presentationModelBuilder.setCommandPresentationState(this.commandPresentationState)
         } else {
             presentationModelBuilder.setCommandPresentationState(
-                CommandButtonPresentationState.FIT_TO_ICON
+                CommandButtonPresentationState.BIG_FIT_TO_ICON
             )
             presentationModelBuilder.setCommandIconDimension(this.commandIconDimension)
         }

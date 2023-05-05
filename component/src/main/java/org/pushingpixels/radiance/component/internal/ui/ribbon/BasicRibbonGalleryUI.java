@@ -209,7 +209,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 this.galleryScrollerCommands,
                 CommandStripPresentationModel.builder()
                         .setOrientation(StripOrientation.VERTICAL)
-                        .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
+                        .setCommandPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON)
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setToDismissPopupsOnActivation(false)
                         .build());

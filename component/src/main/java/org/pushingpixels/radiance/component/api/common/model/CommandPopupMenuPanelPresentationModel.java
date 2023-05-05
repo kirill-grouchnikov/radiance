@@ -76,9 +76,6 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
     public void setCommandPresentationState(CommandButtonPresentationState commandPresentationState) {
         if (this.commandPresentationState != commandPresentationState) {
             this.commandPresentationState = commandPresentationState;
-            if (this.commandPresentationState != CommandButtonPresentationState.FIT_TO_ICON) {
-                this.commandIconDimension = null;
-            }
             this.fireStateChanged();
         }
     }
@@ -104,9 +101,6 @@ public class CommandPopupMenuPanelPresentationModel implements MutablePresentati
     public void setCommandIconDimension(Dimension commandIconDimension) {
         if (this.commandIconDimension != commandIconDimension) {
             this.commandIconDimension = commandIconDimension;
-            if (this.commandIconDimension != null) {
-                this.commandPresentationState = CommandButtonPresentationState.FIT_TO_ICON;
-            }
             this.fireStateChanged();
         }
     }

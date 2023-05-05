@@ -631,7 +631,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                                                 .setLayoutSpec(new MenuPopupPanelLayoutSpec(5, 3))
                                                 .setToShowGroupLabels(false)
                                                 .setCommandPresentationState(
-                                                        CommandButtonPresentationState.FIT_TO_ICON)
+                                                        CommandButtonPresentationState.BIG_FIT_TO_ICON)
                                                 .setCommandIconDimension(new Dimension(48, 48))
                                                 .build())
                                 .build())

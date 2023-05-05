@@ -139,7 +139,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     public AbstractFileViewPanel(Dimension startingDimension) {
         super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
-                        .setCommandPresentationState(CommandButtonPresentationState.FIT_TO_ICON)
+                        .setCommandPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON)
                         .setCommandIconDimension(startingDimension)
                         .setToShowGroupLabels(false).build()));
         this.loadedSet = new HashSet<>();

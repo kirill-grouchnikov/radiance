@@ -55,7 +55,7 @@ public class GalleryCommandVisibilityContainer {
 
 @RadianceElementMarker
 public class KRibbonGalleryPresentation {
-    public var state: CommandButtonPresentationState = CommandButtonPresentationState.FIT_TO_ICON
+    public var state: CommandButtonPresentationState = CommandButtonPresentationState.BIG_FIT_TO_ICON
     public var popupLayoutSpec: MenuPopupPanelLayoutSpec? by NullableDelegate { false }
     private val commandVisibilityContainer = GalleryCommandVisibilityContainer()
     public var expandKeyTip: String? by NullableDelegate { false }

@@ -516,7 +516,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         if (dimension != null) {
             this.commandButton.getIcon().setDimension(dimension);
-            this.commandButton.setPresentationState(CommandButtonPresentationState.FIT_TO_ICON);
+            this.commandButton.setPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON);
 
             this.commandButton.invalidate();
             this.commandButton.revalidate();
@@ -680,16 +680,21 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     private void syncIconDimension() {
         RadianceIcon icon = this.commandButton.getIcon();
+        if (icon == null) {
+            return;
+        }
+
         CommandButtonPresentationState commandButtonState =
                 this.commandButton.getPresentationState();
 
         this.layoutManager = commandButtonState.createLayoutManager(this.commandButton);
 
-        if (icon == null) {
-            return;
+        Dimension preferredIconSize =
+                this.commandButton.getProjection().getPresentationModel().getIconDimension();
+        if (preferredIconSize == null) {
+            preferredIconSize = layoutManager.getPreferredIconSize(this.commandButton);
         }
 
-        Dimension preferredIconSize = layoutManager.getPreferredIconSize(this.commandButton);
         int iconWidth = (preferredIconSize != null) ? preferredIconSize.width : -1;
         if (iconWidth < 0) {
             iconWidth = this.commandButton.getIcon().getIconWidth();
@@ -699,10 +704,12 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             iconHeight = this.commandButton.getIcon().getIconHeight();
         }
 
-        if (commandButtonState != CommandButtonPresentationState.FIT_TO_ICON) {
-            Dimension newDim = new Dimension(iconWidth, iconHeight);
-            icon.setDimension(newDim);
+        if ((icon.getIconWidth() == iconWidth) && (icon.getIconHeight() == iconHeight)) {
+            return;
         }
+
+        Dimension newDim = new Dimension(iconWidth, iconHeight);
+        icon.setDimension(newDim);
     }
 
     private void syncActionPreview(BaseCommand<?> command, Command.CommandActionPreview actionPreview) {

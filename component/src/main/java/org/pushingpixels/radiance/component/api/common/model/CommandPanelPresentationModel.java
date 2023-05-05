@@ -87,9 +87,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         }
         if (this.commandPresentationState != commandPresentationState) {
             this.commandPresentationState = commandPresentationState;
-            if (this.commandPresentationState != CommandButtonPresentationState.FIT_TO_ICON) {
-                this.commandIconDimension = null;
-            }
             this.fireStateChanged();
         }
     }
@@ -101,9 +98,6 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
     public void setCommandIconDimension(Dimension commandIconDimension) {
         if (!Objects.equals(this.commandIconDimension, commandIconDimension)) {
             this.commandIconDimension = commandIconDimension;
-            if (this.commandIconDimension != null) {
-                this.commandPresentationState = CommandButtonPresentationState.FIT_TO_ICON;
-            }
             this.fireStateChanged();
         }
     }

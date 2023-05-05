@@ -122,8 +122,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private CommandButtonPresentationState presentationState;
 
     /**
-     * The dimension of the icon of the associated command button in the
-     * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
+     * The dimension of the icon of the associated command button.
      *
      * @see #getIconDimension()
      * @see #setIconDimension(Dimension)
@@ -794,12 +793,10 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     }
 
     /**
-     * Updates the dimension of the icon of the associated command button in the
-     * {@link CommandButtonPresentationState#FIT_TO_ICON} state. Fires an
+     * Updates the dimension of the icon of the associated command button. Fires an
      * <code>iconDimension</code> property change event.
      *
-     * @param dimension New dimension of the icon of the associated command button in
-     *                  the {@link CommandButtonPresentationState#FIT_TO_ICON} state.
+     * @param dimension New dimension of the icon of the associated command button.
      * @see #getIconDimension()
      */
     public void setIconDimension(Dimension dimension) {
@@ -811,11 +808,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     }
 
     /**
-     * Returns the dimension of the icon of the associated command button in the
-     * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
+     * Returns the dimension of the icon of the associated command button.
      *
-     * @return The dimension of the icon of the associated command button in the
-     * {@link CommandButtonPresentationState#FIT_TO_ICON} state.
+     * @return The dimension of the icon of the associated command button.
      * @see #setIconDimension(Dimension)
      */
     public Dimension getIconDimension() {
