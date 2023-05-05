@@ -227,7 +227,6 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                             }, new Dimension(arrowIconHeight, arrowIconWidth)))
                     .setTag(TASKBAR_OVERFLOW_BUTTON)
                     .build().project(CommandButtonPresentationModel.builder()
-                            .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
                             .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
                             .setContentPadding(new Insets(2, 6, 2, 6))
                             .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)

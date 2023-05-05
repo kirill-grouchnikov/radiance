@@ -152,14 +152,9 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
     @Override
     @SuppressWarnings("unchecked")
     protected JCommandButton createExpandButton() {
-        final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
-        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-        int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-
         CommandButtonProjection<Command> expandCommandProjection =
                 new CommandButtonProjection<>(this.expandCommand,
                         CommandButtonPresentationModel.builder()
-                                .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
                                 .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
                                 .setContentPadding(new Insets(3, 2, 3, 2))
                                 .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)

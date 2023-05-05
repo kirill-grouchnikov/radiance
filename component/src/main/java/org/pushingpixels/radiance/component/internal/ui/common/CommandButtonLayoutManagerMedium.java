@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
@@ -547,6 +548,10 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
     public static class FitToIcon extends CommandButtonLayoutManagerMedium {
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
+            RadianceIcon icon = commandButton.getIcon();
+            if (icon != null) {
+                return new Dimension(icon.getIconWidth(), icon.getIconHeight());
+            }
             BaseCommandButtonPresentationModel presentationModel =
                     commandButton.getProjection().getPresentationModel();
             Dimension preferredIconDimension = presentationModel.getIconDimension();

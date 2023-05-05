@@ -364,6 +364,10 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
     public static class FitToIcon extends CommandButtonLayoutManagerSmall {
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
+            RadianceIcon icon = commandButton.getIcon();
+            if (icon != null) {
+                return new Dimension(icon.getIconWidth(), icon.getIconHeight());
+            }
             BaseCommandButtonPresentationModel presentationModel =
                     commandButton.getProjection().getPresentationModel();
             Dimension preferredIconDimension = presentationModel.getIconDimension();
