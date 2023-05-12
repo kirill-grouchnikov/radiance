@@ -240,6 +240,8 @@ public class Check extends JFrame {
         } catch (NoClassDefFoundError ncdfe) {
         }
 
+        jtp.addTab("Fancy list", lines.of(12, 12), new FancyListPanel());
+
         jtp.addTab("Slider", slider.of(12, 12), new SliderPanel());
 
         jtp.addTab("Progress bar", progressbar.of(12, 12), new ProgressBarPanel());
@@ -249,6 +251,8 @@ public class Check extends JFrame {
         jtp.addTab("Tree", file_tree.of(12, 12), new TreePanel());
 
         jtp.addTab("File tree", file_tree.of(12, 12), new FileTreePanel());
+
+        jtp.addTab("Fancy tree", file_tree.of(12, 12), new FancyTreePanel());
 
         jtp.addTab("Cards", grid_big_o.of(12, 12), new CardPanel());
 

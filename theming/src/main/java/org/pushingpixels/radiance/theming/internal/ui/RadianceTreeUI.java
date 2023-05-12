@@ -36,7 +36,10 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultListCellRenderer;
 import org.pushingpixels.radiance.theming.api.renderer.RadianceDefaultTreeCellRenderer;
+import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelListCellRenderer;
+import org.pushingpixels.radiance.theming.api.renderer.RadiancePanelTreeCellRenderer;
 import org.pushingpixels.radiance.theming.internal.RadianceThemingWidgetRepository;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -218,7 +221,10 @@ public class RadianceTreeUI extends BasicTreeUI {
 				path.getLastPathComponent(), this.tree.isRowSelected(row), isExpanded, isLeaf, row,
 				(leadIndex == row));
 
-		if (!(renderer instanceof RadianceDefaultTreeCellRenderer)) {
+		boolean isRadianceRenderer =
+				(renderer instanceof RadianceDefaultTreeCellRenderer) ||
+						(renderer instanceof RadiancePanelTreeCellRenderer);
+		if (!isRadianceRenderer) {
 			// if it's not Radiance renderer - ask the Basic delegate to paint
 			// it.
 			super.paintRow(g, clipBounds, insets, bounds, path, row, isExpanded, hasBeenExpanded,
@@ -267,8 +273,7 @@ public class RadianceTreeUI extends BasicTreeUI {
 		// + alphaForPrevBackground + "]:" + currTheme.getDisplayName()
 		// + "[" + alphaForCurrBackground + "]");
 
-		// At this point the renderer is an instance of
-		// RadianceDefaultTreeCellRenderer
+		// At this point the renderer comes from Radiance
 		JTree.DropLocation dropLocation = tree.getDropLocation();
 		Rectangle rowRectangle = new Rectangle(this.tree.getInsets().left, bounds.y,
 				this.tree.getWidth() - this.tree.getInsets().right - this.tree.getInsets().left,

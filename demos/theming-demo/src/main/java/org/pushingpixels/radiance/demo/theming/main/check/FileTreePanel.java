@@ -82,7 +82,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
         private Map<File, String> rootNameCache = new HashMap<>();
 
         @Override
-        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected,
                 boolean expanded, boolean leaf, int row, boolean hasFocus) {
             FileTreeNode ftn = (FileTreeNode) value;
             File file = ftn.file;
@@ -101,7 +101,7 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
                     filename = file.getName();
                 }
             }
-            JLabel result = (JLabel) super.getTreeCellRendererComponent(tree, filename, sel,
+            JLabel result = (JLabel) super.getTreeCellRendererComponent(tree, filename, selected,
                     expanded, leaf, row, hasFocus);
             if (file != null) {
                 int lastPointIndex = filename.lastIndexOf('.');

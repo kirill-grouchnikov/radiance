@@ -55,11 +55,11 @@ public class TreePanel extends ControllablePanel {
      */
     private static class TestTreeCellRenderer extends RadianceDefaultTreeCellRenderer {
         @Override
-        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected,
                 boolean expanded, boolean leaf, int row, boolean hasFocus) {
-            JLabel result = (JLabel) super.getTreeCellRendererComponent(tree, value, sel, expanded,
+            JLabel result = (JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded,
                     leaf, row, hasFocus);
-            if (sel) {
+            if (selected) {
                 result.setText("<html><b>" + getText() + "</b></html>");
                 result.setIcon(se.of(16, 16));
             }

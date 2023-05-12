@@ -107,3 +107,12 @@ protected void onPreRender(JList<? extends DestinationInfo> list,
 ```
 
 At runtime, the highlighted destination is using the light-yellow background fill and slightly darker text / icon foreground colors. The same flow applies to the threads list that is using white-on-blue highlight visuals for its content.
+
+### Complex Radiance tree renderers
+
+For more complex `JTree` content, use `RadiancePanelTreeCellRenderer` with the same flow of layout and data binding as for complex lists:
+
+* In your renderer constructor, add all sub-components to your renderer and define the layout constraints.
+* In `bindData(JTree, Object, int)` bind the relevant data fields to those sub-components.
+* Use `registerThemeAwareLabelsWithText(JLabel...)` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their text based on the current state (rollover, selection, etc). In case a specific label is using a fixed foreground / text color for some of the rows in your tree, use `registerThemeAwareLabelsWithText(JLabel...)` and `unregisterThemeAwareLabelsWithText(JLabel...)` in `onPreRender(JTree, Object, int)` instead of in the constructor.
+* Use `registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)}` in the constructor to "mark" those sub-component labels that should participate in highlight animations on their icons based on the current state (rollover, selection, etc). In case a specific label is using a fixed icon for some of the rows in your list or different icon sources for different rows, use `registerThemeAwareLabelWithIcon(JLabel, RadianceIcon.Factory, Dimension)` and `unregisterThemeAwareLabelWithIcon(JLabel)` in `onPreRender(JTree, Object, int)` instead of in the constructor.

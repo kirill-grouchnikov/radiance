@@ -153,9 +153,9 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
      * based on on leaf and expanded.
      */
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected,
             boolean expanded, boolean leaf, int row, boolean hasFocus) {
-        String stringValue = tree.convertValueToText(value, sel, expanded, leaf, row, hasFocus);
+        String stringValue = tree.convertValueToText(value, selected, expanded, leaf, row, hasFocus);
 
         this.tree = tree;
         this.hasFocus = hasFocus;
@@ -223,7 +223,7 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
                 this.activeContributions.put(currState, isActive ? 1.0f : 0.0f);
             }
         } else {
-            if (sel) {
+            if (selected) {
                 this.setForeground(UIManager.getColor("Tree.selectionForeground"));
             } else {
                 this.setForeground(UIManager.getColor("Tree.textForeground"));
@@ -247,7 +247,7 @@ public class RadianceDefaultTreeCellRenderer extends JLabel implements TreeCellR
 
         this.setOpaque(false);
 
-        this.selected = sel;
+        this.selected = selected;
 
         if (treeUI instanceof RadianceTreeUI) {
             RadianceTreeUI ui = (RadianceTreeUI) treeUI;
