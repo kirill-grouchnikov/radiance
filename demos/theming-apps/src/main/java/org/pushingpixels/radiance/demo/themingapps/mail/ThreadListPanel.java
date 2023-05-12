@@ -200,7 +200,7 @@ public class ThreadListPanel extends PanelWithRightLine {
             this.add(this.separator);
 
             // Register the text labels so that they get the right colors on rollover,
-            // selection and other highight effects
+            // selection and other highlight effects
             this.registerThemeAwareLabelsWithText(this.fromLabel, this.timeLabel, this.titleLabel,
                     this.summaryLabel, this.unreadLabel);
             // Register the icon factory for the person label here since the icon visuals

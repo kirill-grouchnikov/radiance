@@ -71,7 +71,7 @@ public DestinationRenderer() {
     builder.add(this.unreadLabel).xy(5, 1);
 
     // Register the text labels so that they get the right colors on rollover,
-    // selection and other highight effects
+    // selection and other highlight effects
     this.registerThemeAwareLabelsWithText(this.iconLabel, this.titleLabel, this.unreadLabel);
 
     this.setLayout(new BorderLayout());
