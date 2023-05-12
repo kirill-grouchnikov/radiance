@@ -48,7 +48,6 @@ public class CommandButtonProjection<M extends Command>
         CommandButtonProjection<M> result =
                 (CommandButtonProjection<M>) this.getContentModel().project(newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
-        result.setComponentCustomizer(this.getComponentCustomizer());
         result.setCommandOverlays(this.getCommandOverlays());
         return result;
     }

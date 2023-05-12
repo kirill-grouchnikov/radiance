@@ -43,9 +43,7 @@ import java.util.function.Function;
 public abstract class Projection<T extends JComponent, C extends ContentModel, P extends PresentationModel>
         extends BlackboxProjection<C, P> {
     private ComponentSupplier<T, C, P> componentSupplier;
-    private ComponentCustomizer<T> componentCustomizer;
 
-    private Map<Command, ComponentCustomizer<JCommandButton>> commandComponentCustomizers;
     private Map<Command, ComponentSupplier<JCommandButton, Command,
             CommandButtonPresentationModel>> commandComponentSuppliers;
 
@@ -70,29 +68,9 @@ public abstract class Projection<T extends JComponent, C extends ContentModel, P
         Function<Projection<TC, CC, PC>, TC> getComponentSupplier(Projection<TC, CC, PC> projection);
     }
 
-    /**
-     * This interface can be used as part of
-     * {@link #setComponentCustomizer(ComponentCustomizer)} to customize the result of
-     * {@link #buildComponent()} with additional functionality not exposed via
-     * {@link #getContentModel()} or {@link #getPresentationModel()}.
-     */
-    @FunctionalInterface
-    public interface ComponentCustomizer<TC extends JComponent> {
-        /**
-         * Customizes the result of {@link #buildComponent()} just before it is returned
-         * to the application code.
-         *
-         * @param component Projected component (from
-         *                  {@link #setComponentSupplier(ComponentSupplier)}
-         *                  if configured, or the default supplier otherwise.
-         */
-        void customizeComponent(TC component);
-    }
-
     protected Projection(C contentModel, P presentationModel, ComponentSupplier<T, C, P> componentSupplier) {
         super(contentModel, presentationModel);
         this.componentSupplier = componentSupplier;
-        this.commandComponentCustomizers = new HashMap<>();
         this.commandComponentSuppliers = new HashMap<>();
     }
 
@@ -101,19 +79,6 @@ public abstract class Projection<T extends JComponent, C extends ContentModel, P
             throw new IllegalArgumentException("Cannot pass null component creator");
         }
         this.componentSupplier = componentSupplier;
-    }
-
-    public void setComponentCustomizer(ComponentCustomizer<T> componentCustomizer) {
-        this.componentCustomizer = componentCustomizer;
-    }
-
-    /**
-     * @deprecated This method will be removed before the final 7.0 release.
-     */
-    @Deprecated
-    public void setCommandComponentCustomizers(Map<Command,
-            ComponentCustomizer<JCommandButton>> commandComponentCustomizers) {
-        this.commandComponentCustomizers = commandComponentCustomizers;
     }
 
     public void setCommandComponentSuppliers(Map<Command,
@@ -125,27 +90,15 @@ public abstract class Projection<T extends JComponent, C extends ContentModel, P
         return this.componentSupplier;
     }
 
-    public final ComponentCustomizer<T> getComponentCustomizer() {
-        return this.componentCustomizer;
-    }
-
     public final Map<Command, ComponentSupplier<JCommandButton, Command,
             CommandButtonPresentationModel>> getCommandComponentSuppliers() {
         return this.commandComponentSuppliers;
-    }
-
-    public final Map<Command, ComponentCustomizer<JCommandButton>> getCommandComponentCustomizers() {
-        return this.commandComponentCustomizers;
     }
 
     public T buildComponent() {
         T result = this.getComponentSupplier().getComponentSupplier(this).apply(this);
 
         this.configureComponent(result);
-
-        if (this.getComponentCustomizer() != null) {
-            this.getComponentCustomizer().customizeComponent(result);
-        }
 
         return result;
     }

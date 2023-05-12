@@ -456,8 +456,6 @@ public class JRibbon extends JComponent {
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setPopupMenuPresentationModel(popupMenuPanelProjection.getPresentationModel())
                         .build());
-        galleryDropdownProjection.setPopupMenuCustomizer(
-                popupMenuPanelProjection.getComponentCustomizer());
         galleryDropdownProjection.setCommandOverlays(popupMenuPanelProjection.getCommandOverlays());
 
         JCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();

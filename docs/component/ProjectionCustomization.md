@@ -56,49 +56,6 @@ Here, we are "pointing" the specific projection to use our custom subclass of `J
 
 Note that the `Function` method returned from `getComponentSupplier` does not have to be the class constructor. It can be any `Function` object that matches the expected signature.
 
-### Component customizer
-
-```java
-public interface ComponentCustomizer<TC extends JComponent> {
-    /**
-     * Customizes the result of {@link #buildComponent()} just before it is returned
-     * to the application code.
-     *
-     * @param component Projected component (from
-     *                  {@link #setComponentSupplier(ComponentSupplier)}
-     *                  if configured, or the default supplier otherwise.
-     */
-    void customizeComponent(TC component);
-}
-```
-
-Component customizer is a way to provide a block of code to be run on the projected component prior to that component being returned by the `Projection.buildComponent()` call.
-
-For example:
-
-```java
-CommandButtonProjection<Command> expandCommandProjection =
-        new CommandButtonProjection<>(this.expandCommand,
-                CommandButtonPresentationModel.builder()
-                        .setFocusable(false)
-                        .setActionKeyTip(ribbonBand.getExpandButtonKeyTip())
-                        .build());
-expandCommandProjection.setComponentCustomizer(button -> {
-    // since paintBandTitleBackground uses CONTROL_PANE, mark this button with
-    // CONTROL_PANE as well to sync the mark color
-    ComponentOrParentChainScope.setDecorationType(button, DecorationAreaType.CONTROL_PANE);
-    RadianceSkin skin = RadianceCoreUtilities.getSkin(this.ribbonBand);
-    button.setIcon(getExpandButtonIcon(skin, button));
-    // Mark the button as rectangular
-    RadianceCortex.ComponentScope.setButtonStraightSides(button,
-            EnumSet.allOf(RadianceSlices.Side.class));
-});
-```
-
-Here, we want to provide additional presentation configuration on the projected button that is not covered by the `CommandButtonPresentationModel` attributes.
-
-Why should you use a component customizer? You might as well simply call `Projection.buildComponent()` and then perform the same customization over the projected component? One of the target cases is a projection that is used to project more than one instance of a Swing component. In this case, specifying the additional customization logic at the level of projection results in a nice encapsulation of responsibilities between different layers in your application codebase.
-
 ### Next
 
 Continue to [command strips](CommandStrip.md).

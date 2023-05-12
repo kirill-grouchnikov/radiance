@@ -42,19 +42,10 @@ public abstract class BaseCommandButtonProjection<M extends BaseCommand<MCM>,
 
     private ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
             ? extends BaseCommandPopupMenuPresentationModel> popupMenuSupplier;
-    private ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer;
 
     public BaseCommandButtonProjection(M command, P commandPresentation,
             ComponentSupplier<JCommandButton, M, P> componentSupplier) {
         super(command, commandPresentation, componentSupplier);
-    }
-
-    public void setPopupMenuCustomizer(ComponentCustomizer<? extends AbstractPopupMenuPanel> popupMenuCustomizer) {
-        this.popupMenuCustomizer = popupMenuCustomizer;
-    }
-
-    public ComponentCustomizer<? extends AbstractPopupMenuPanel> getPopupMenuCustomizer() {
-        return this.popupMenuCustomizer;
     }
 
     public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenuPanel,

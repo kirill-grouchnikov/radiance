@@ -72,7 +72,6 @@ public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonP
                 new RibbonApplicationMenuCommandButtonProjection(
                         this.getContentModel(), newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
-        result.setComponentCustomizer(this.getComponentCustomizer());
         result.setCommandOverlays(this.getCommandOverlays());
         result.setSecondaryLevelCommandPresentationState(
                 this.getSecondaryLevelCommandPresentationState());

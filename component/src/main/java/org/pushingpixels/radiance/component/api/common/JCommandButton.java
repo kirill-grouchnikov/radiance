@@ -580,10 +580,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                                         CommandMenuContentModel,
                                         CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
                     }
-                    if (commandProjection.getPopupMenuCustomizer() != null) {
-                        commandPopupMenuPanelProjection.setComponentCustomizer(
-                                (Projection.ComponentCustomizer<JCommandPopupMenuPanel>) commandProjection.getPopupMenuCustomizer());
-                    }
                     this.setPopupCallback(commandButton -> {
                         JPopupPanel result = commandPopupMenuPanelProjection.buildComponent();
                         result.applyComponentOrientation(JCommandButton.this.getComponentOrientation());

@@ -217,8 +217,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 .setAutoRepeatActionIntervals(200, 50)
                 .build();
 
-        // Create command projections for scroller commands and set button customizers for
-        // icons and additional straight sides
+        // Create command projections for scroller commands
         CommandButtonProjection<Command> leadingScrollerProjection =
                 leadingScrollCommand.project(scrollerActionsPresentation.overlayWith(
                         CommandButtonPresentationModel.overlay().setSides(
