@@ -31,7 +31,9 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,32 +56,48 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
 
     private CommandGroup.CommandGroupListener commandGroupListener;
     private PropertyChangeListener commandGroupPropertyChangeListener;
+    private PropertyChangeListener commandPropertyChangeListener;
+
+    private Command selectedCommand;
 
     public CommandPanelContentModel(List<CommandGroup> commands) {
         this.weakChangeSupport = new WeakChangeSupport(this);
         this.commandGroups = new ArrayList<>(commands);
+
+        this.commandPropertyChangeListener = evt -> {
+            if (evt.getPropertyName().equals("isToggleSelected")) {
+                syncSelectedCommand();
+            }
+        };
+
         this.commandGroupListener = new CommandGroup.CommandGroupListener() {
             @Override
             public void onCommandAdded(Command command) {
+                command.addPropertyChangeListener(commandPropertyChangeListener);
                 fireStateChanged();
             }
 
             @Override
             public void onCommandRemoved(Command command) {
+                command.removePropertyChangeListener(commandPropertyChangeListener);
                 fireStateChanged();
             }
 
             @Override
-            public void onAllCommandsRemoved() {
+            public void onAllCommandsRemoved(List<Command> commands) {
+                for (Command command: commands) {
+                    command.removePropertyChangeListener(commandPropertyChangeListener);
+                }
                 fireStateChanged();
             }
         };
-        for (CommandGroup commandGroupModel : this.commandGroups) {
-            commandGroupModel.addCommandGroupListener(this.commandGroupListener);
-        }
         this.commandGroupPropertyChangeListener = propertyChangeEvent -> fireStateChanged();
         for (CommandGroup commandGroupModel : this.commandGroups) {
+            commandGroupModel.addCommandGroupListener(this.commandGroupListener);
             commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
+            for (Command command: commandGroupModel.getCommands()) {
+                command.addPropertyChangeListener(commandPropertyChangeListener);
+            }
         }
     }
 
@@ -87,23 +105,41 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         this.commandGroups.add(commandGroupModel);
         commandGroupModel.addCommandGroupListener(this.commandGroupListener);
         commandGroupModel.addPropertyChangeListener(this.commandGroupPropertyChangeListener);
-        this.fireStateChanged();
+        for (Command command: commandGroupModel.getCommands()) {
+            command.addPropertyChangeListener(commandPropertyChangeListener);
+        }
+        boolean firedStateChange = this.syncSelectedCommand();
+        if (!firedStateChange) {
+            this.fireStateChanged();
+        }
     }
 
     public void removeCommandGroup(CommandGroup commandGroupModel) {
         this.commandGroups.remove(commandGroupModel);
         commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
         commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
-        this.fireStateChanged();
+        for (Command command: commandGroupModel.getCommands()) {
+            command.removePropertyChangeListener(commandPropertyChangeListener);
+        }
+        boolean firedStateChange = this.syncSelectedCommand();
+        if (!firedStateChange) {
+            this.fireStateChanged();
+        }
     }
 
     public void removeAllCommandGroups() {
         for (CommandGroup commandGroupModel : this.commandGroups) {
             commandGroupModel.removeCommandGroupListener(this.commandGroupListener);
             commandGroupModel.removePropertyChangeListener(this.commandGroupPropertyChangeListener);
+            for (Command command: commandGroupModel.getCommands()) {
+                command.removePropertyChangeListener(commandPropertyChangeListener);
+            }
         }
         this.commandGroups.clear();
-        this.fireStateChanged();
+        boolean firedStateChange = this.syncSelectedCommand();
+        if (!firedStateChange) {
+            this.fireStateChanged();
+        }
     }
 
     public List<CommandGroup> getCommandGroups() {
@@ -142,7 +178,12 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
         }
 
         this.isSingleSelectionMode = isSingleSelectionMode;
+        this.syncSelectedCommand();
         this.fireStateChanged();
+    }
+
+    public Command getSelectedCommand() {
+        return this.selectedCommand;
     }
 
     public boolean isSingleSelectionMode() {
@@ -155,6 +196,31 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
 
     public Command.CommandActionPreview getCommandPreviewListener() {
         return this.commandPreviewListener;
+    }
+
+    private boolean syncSelectedCommand() {
+        Command previouslySelectedCommand = this.selectedCommand;
+        if (!this.isSingleSelectionMode) {
+            this.selectedCommand = null;
+            if (previouslySelectedCommand != null) {
+                this.fireStateChanged();
+                return true;
+            }
+            return false;
+        }
+
+        for (CommandGroup commandGroup: this.commandGroups) {
+            for (Command command: commandGroup.getCommands()) {
+                if (command.isToggleSelected()) {
+                    this.selectedCommand = command;
+                    if (previouslySelectedCommand != this.selectedCommand) {
+                        this.fireStateChanged();
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void addChangeListener(ChangeListener l) {

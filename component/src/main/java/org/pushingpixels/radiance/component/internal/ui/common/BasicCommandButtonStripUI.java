@@ -44,6 +44,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -105,7 +106,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             }
 
             @Override
-            public void onAllCommandsRemoved() {
+            public void onAllCommandsRemoved(List<Command> commands) {
                 for (Map.Entry<Command, JCommandButton> entry :
                         commandButtonMap.entrySet()) {
                     entry.getValue().removeCommandListener(entry.getKey().getAction());

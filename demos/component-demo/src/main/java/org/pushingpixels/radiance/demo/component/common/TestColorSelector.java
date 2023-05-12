@@ -176,7 +176,7 @@ public class TestColorSelector extends JFrame {
         selectorModel.setColorActivationListener(colorActivationListener);
         selectorModel.setColorPreviewListener(colorPreviewListener);
 
-        this.colorSelectorCommand = ColorSelectorCommand.colorSelectorBuilder()
+        this.colorSelectorCommand = ColorSelectorCommand.builder()
                 .setIconFactory(ColorIcon.factory(backgroundColor))
                 .setSecondaryContentModel(selectorModel)
                 .build();

@@ -79,7 +79,7 @@ public class CommandMenuContentModel implements BaseCommandMenuContentModel, Cha
             }
 
             @Override
-            public void onAllCommandsRemoved() {
+            public void onAllCommandsRemoved(List<Command> commands) {
                 fireStateChanged();
             }
         };

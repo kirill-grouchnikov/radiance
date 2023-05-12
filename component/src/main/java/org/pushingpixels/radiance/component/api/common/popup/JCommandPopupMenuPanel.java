@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceC
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ScrollableHost;
 import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -59,7 +60,7 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
     /**
      * @see #getUIClassID
      */
-    public static final String uiClassID = "CommandPopupMenuUI";
+    public static final String uiClassID = "CommandPopupMenuPanelUI";
 
     private Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
             CommandPopupMenuPresentationModel> projection;
@@ -92,6 +93,8 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
         this.popupMenuContentModel.addChangeListener(this.popupMenuPanelContentChangeListener);
 
         this.updateUI();
+
+        SwingUtilities.invokeLater(() -> getMainButtonPanel().scrollToSelectedCommand());
     }
 
     private void populateContent() {

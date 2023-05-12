@@ -72,6 +72,7 @@ public class ColorSelectorCommandButtonPresentationModel extends BaseCommandButt
                 ? overlay.getDisabledIconFilterStrategy() : this.disabledIconFilterStrategy;
         result.selectedStateHighlight = (overlay.getSelectedStateHighlight() != null)
                 ? overlay.getSelectedStateHighlight() : this.selectedStateHighlight;
+        result.font = (overlay.getFont() != null) ? overlay.getFont() : this.font;
         result.popupPlacementStrategy = (overlay.getPopupPlacementStrategy() != null)
                 ? overlay.getPopupPlacementStrategy() : this.popupPlacementStrategy;
         result.toDismissPopupsOnActivation = (overlay.getToDismissPopupsOnActivation() != null)

@@ -51,7 +51,6 @@ import org.pushingpixels.radiance.component.api.common.projection.*;
 import org.pushingpixels.radiance.component.api.ribbon.*;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel;
-import org.pushingpixels.radiance.component.api.ribbon.model.RibbonTaskbarCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryProjection;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -848,7 +847,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         selectorModel.setColorPreviewListener(colorPreviewListener);
 
         quickStylesBand.addRibbonCommand(new ColorSelectorCommandButtonProjection(
-                        ColorSelectorCommand.colorSelectorBuilder()
+                        ColorSelectorCommand.builder()
                                 .setText(resourceBundle.getString("Styles3.text"))
                                 .setIconFactory(Text_html.factory())
                                 .setSecondaryContentModel(selectorModel)

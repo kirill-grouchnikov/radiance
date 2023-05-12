@@ -32,12 +32,8 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
-import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
-import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
@@ -365,6 +361,13 @@ public class JRibbonGallery extends JComponent {
                 new CommandMenuContentModel(
                         galleryPopupMenuPanelContentModel,
                         galleryProjection.getContentModel().getExtraPopupCommandGroups());
+        // Track command selection in the popup and update our main gallery content model on
+        // every selection change. This way changing selection in popup will be reflected in the
+        // main gallery once the popup is closed.
+        galleryPopupMenuContentModel.addChangeListener(e -> {
+            Command selectedCommandInPopupMenu = galleryPopupMenuPanelContentModel.getSelectedCommand();
+            galleryProjection.getContentModel().setSelectedCommand(selectedCommandInPopupMenu);
+        });
 
         // Do all the primary gallery command groups have titles?
         boolean allGroupsHaveTitles = true;
@@ -401,54 +404,7 @@ public class JRibbonGallery extends JComponent {
             commandPopupMenuPanelProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
         }
 
-        commandPopupMenuPanelProjection.setComponentCustomizer(
-                new RibbonGalleryCommandPopupMenuCustomizer(galleryProjection, componentOrientation));
-
         return commandPopupMenuPanelProjection;
-    }
-
-    private static class RibbonGalleryCommandPopupMenuCustomizer
-            implements Projection.ComponentCustomizer<JCommandPopupMenuPanel> {
-        private RibbonGalleryProjection galleryProjection;
-        private ComponentOrientation componentOrientation;
-
-        // Do not convert this to a local variable inside #customizeComponent, as we need
-        // this strong reference to prevent PopupPanelManager from garbage collecting its
-        // internal weak reference.
-        @SuppressWarnings("FieldCanBeLocal")
-        private PopupPanelManager.PopupListener popupListener;
-
-        public RibbonGalleryCommandPopupMenuCustomizer(
-                RibbonGalleryProjection galleryProjection,
-                ComponentOrientation componentOrientation
-        ) {
-            this.galleryProjection = galleryProjection;
-            this.componentOrientation = componentOrientation;
-        }
-
-        @Override
-        public void customizeComponent(JCommandPopupMenuPanel galleryPopupMenu) {
-            galleryPopupMenu.applyComponentOrientation(componentOrientation);
-
-            // Configure a popup listener for the two-way sync between the gallery model and
-            // its present popup menu manifestation.
-            this.popupListener = new PopupPanelManager.PopupListener() {
-                @Override
-                public void popupShown(PopupPanelManager.PopupEvent event) {
-                    // scroll the popup to reveal the selected command
-                    galleryPopupMenu.getMainButtonPanel().scrollToSelectedCommand();
-                }
-
-                @Override
-                public void popupHidden(PopupPanelManager.PopupEvent event) {
-                    // update the gallery content model with the command selection
-                    Command selectedCommand = galleryPopupMenu.getMainButtonPanel().getSelectedCommand();
-                    galleryProjection.getContentModel().setSelectedCommand(selectedCommand);
-                    PopupPanelManager.defaultManager().removePopupListener(this);
-                }
-            };
-            PopupPanelManager.defaultManager().addPopupListener(this.popupListener);
-        }
     }
 }
 

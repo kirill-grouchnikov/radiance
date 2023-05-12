@@ -52,8 +52,7 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandButtonP
  * @see CommandButtonProjection
  */
 public class Command extends BaseCommand<CommandMenuContentModel> {
-
-    protected Command() {
+    private Command() {
         super();
     }
 

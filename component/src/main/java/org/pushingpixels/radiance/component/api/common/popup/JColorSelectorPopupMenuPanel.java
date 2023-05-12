@@ -57,7 +57,7 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     /**
      * @see #getUIClassID
      */
-    public static final String uiClassID = "ColorSelectorPopupMenuUI";
+    public static final String uiClassID = "ColorSelectorPopupMenuPanelUI";
 
     private Projection<JColorSelectorPopupMenuPanel, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel> projection;

@@ -651,6 +651,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         RichTooltipManager.sharedInstance();
 
         this.updateUI();
+        if (commandPresentation.getFont() != null) {
+            this.setFont(commandPresentation.getFont());
+        }
     }
 
     /**

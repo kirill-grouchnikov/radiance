@@ -60,6 +60,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected double horizontalGapScaleFactor;
     protected double verticalGapScaleFactor;
     protected SelectedStateHighlight selectedStateHighlight;
+    protected Font font;
     protected RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
     protected String actionKeyTip;
     protected String popupKeyTip;
@@ -127,6 +128,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
     public RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
         return this.disabledIconFilterStrategy;
+    }
+
+    public Font getFont() {
+        return this.font;
     }
 
     public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
@@ -255,6 +260,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
         private SelectedStateHighlight selectedStateHighlight;
+        private Font font;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
@@ -319,6 +325,11 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;
+            return this;
+        }
+
+        public Overlay setFont(Font font) {
+            this.font = font;
             return this;
         }
 
@@ -443,6 +454,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this.selectedStateHighlight;
         }
 
+        public Font getFont() {
+            return this.font;
+        }
+
         public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
             return this.popupPlacementStrategy;
         }
@@ -529,6 +544,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private SelectedStateHighlight selectedStateHighlight =
                 SelectedStateHighlight.FULL_SIZE;
+        private Font font = null;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
         private String actionKeyTip;
@@ -606,6 +622,12 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setFont(Font font) {
+            this.font = font;
             return (B) this;
         }
 
@@ -716,6 +738,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.selectedStateHighlight = this.selectedStateHighlight;
+            presentationModel.font = this.font;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             presentationModel.actionKeyTip = this.actionKeyTip;
             presentationModel.popupKeyTip = this.popupKeyTip;

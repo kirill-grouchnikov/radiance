@@ -1122,44 +1122,34 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // use its own UI delegate class
             taskToggleCommandProjection.setComponentSupplier(projection -> JRibbonTaskToggleButton::new);
 
-            // Configure the projection with additional customizations on the command button that
-            // is created to represent the task toggle command
-            taskToggleCommandProjection.setComponentCustomizer(
-                    button -> {
-                        JRibbonTaskToggleButton taskToggleButton = (JRibbonTaskToggleButton) button;
-
-                        // wire listener to toggle ribbon minimization on double mouse click
-                        taskToggleButton.addMouseListener(new MouseAdapter() {
-                            @Override
-                            public void mouseClicked(MouseEvent e) {
-                                if ((ribbon.getSelectedTask() == task) &&
-                                        (e.getClickCount() == 2)) {
-                                    boolean wasMinimized = ribbon.isMinimized();
-                                    ribbon.setMinimized(!wasMinimized);
-                                    if (!wasMinimized) {
-                                        // fix for issue 69 - mark the ribbon as
-                                        // "just minimized" to prevent the action handler
-                                        // of the toggle button to show the ribbon in
-                                        // popup mode
-                                        ribbon.putClientProperty(JUST_MINIMIZED, Boolean.TRUE);
-                                    }
-                                }
-                            }
-                        });
-
-                        // set the background hue color on the tab buttons
-                        // of tasks in contextual groups
-                        if (task.getContextualGroup() != null) {
-                            taskToggleButton.setContextualGroupHueColor(
-                                    task.getContextualGroup().getHueColor());
-                        }
-
-                        taskToggleButton.setRibbonTask(task);
-                    }
-            );
-
             final JRibbonTaskToggleButton taskToggleButton =
                     (JRibbonTaskToggleButton) taskToggleCommandProjection.buildComponent();
+            // wire listener to toggle ribbon minimization on double mouse click
+            taskToggleButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if ((ribbon.getSelectedTask() == task) &&
+                            (e.getClickCount() == 2)) {
+                        boolean wasMinimized = ribbon.isMinimized();
+                        ribbon.setMinimized(!wasMinimized);
+                        if (!wasMinimized) {
+                            // fix for issue 69 - mark the ribbon as
+                            // "just minimized" to prevent the action handler
+                            // of the toggle button to show the ribbon in
+                            // popup mode
+                            ribbon.putClientProperty(JUST_MINIMIZED, Boolean.TRUE);
+                        }
+                    }
+                }
+            });
+
+            // set the background hue color on the tab buttons
+            // of tasks in contextual groups
+            if (task.getContextualGroup() != null) {
+                taskToggleButton.setContextualGroupHueColor(
+                        task.getContextualGroup().getHueColor());
+            }
+            taskToggleButton.setRibbonTask(task);
 
             taskToggleButtonsHostPanel.add(taskToggleButton);
             this.taskToggleButtons.put(task, taskToggleButton);

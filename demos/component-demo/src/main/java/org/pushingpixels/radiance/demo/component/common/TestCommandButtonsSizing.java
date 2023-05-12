@@ -141,7 +141,9 @@ public class TestCommandButtonsSizing extends JPanel {
         CommandButtonPresentationModel.Builder commandButtonPresentationBuilder =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(state)
-                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS);
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                        .setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().
+                                getFontSet().getControlFont().deriveFont((float) fontSize));
         switch (commandButtonKind) {
             case ACTION_AND_POPUP_MAIN_ACTION:
                 commandButtonPresentationBuilder.setTextClick(CommandButtonPresentationModel.TextClick.ACTION);
@@ -153,8 +155,6 @@ public class TestCommandButtonsSizing extends JPanel {
 
         CommandButtonProjection<Command> commandProjection = commandBuilder.build().project(
                 commandButtonPresentationBuilder.build());
-        commandProjection.setComponentCustomizer(button ->
-                button.setFont(button.getFont().deriveFont((float) fontSize)));
 
         return commandProjection.buildComponent();
     }

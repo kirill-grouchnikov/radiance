@@ -328,7 +328,7 @@ public class KColorSelectorCommand :
     KBaseCommand<ColorSelectorCommand, ColorSelectorPopupMenuContentModel,
             ColorSelectorPopupMenuPresentationModel,
             KColorSelectorPopupMenu, ColorSelectorCommand.Builder>(
-        ColorSelectorCommand.colorSelectorBuilder()
+        ColorSelectorCommand.builder()
     ) {
     internal fun toColorSelectorCommandButton(presentation: KColorSelectorCommandPresentation): JCommandButton {
         return ColorSelectorCommandButtonProjection(

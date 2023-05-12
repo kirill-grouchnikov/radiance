@@ -103,7 +103,7 @@ public class RibbonGalleryContentModel implements ContentModel, ChangeAware {
             }
 
             @Override
-            public void onAllCommandsRemoved() {
+            public void onAllCommandsRemoved(List<Command> commands) {
                 fireStateChanged();
             }
         };

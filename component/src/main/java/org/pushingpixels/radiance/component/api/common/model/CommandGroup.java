@@ -50,7 +50,7 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
 
         void onCommandRemoved(Command command);
 
-        void onAllCommandsRemoved();
+        void onAllCommandsRemoved(List<Command> commands);
     }
 
     public interface CommandFilter {
@@ -114,8 +114,10 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
     }
 
     public void removeAllCommands() {
+        List<Command> removed = new ArrayList<>(this.commands);
         this.commands.clear();
-        this.fireAllCommandsRemoved();
+
+        this.fireAllCommandsRemoved(removed);
     }
 
     /**
@@ -160,14 +162,14 @@ public class CommandGroup implements ContentModel, PropertyChangeAware {
         }
     }
 
-    private void fireAllCommandsRemoved() {
+    private void fireAllCommandsRemoved(List<Command> commands) {
         // Guaranteed to return a non-null array
         Object[] listeners = listenerList.getListenerList();
         // Process the listeners last to first, notifying
         // those that are interested in this event
         for (int i = listeners.length - 2; i >= 0; i -= 2) {
             if (listeners[i] == CommandGroupListener.class) {
-                ((CommandGroupListener) listeners[i + 1]).onAllCommandsRemoved();
+                ((CommandGroupListener) listeners[i + 1]).onAllCommandsRemoved(commands);
             }
         }
     }
