@@ -31,22 +31,13 @@ package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
-import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandPopupMenuPanelProjection;
-import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelPanelProjection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -76,8 +67,13 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public static final String uiClassID = "CommandButtonUI";
 
-    private Projection<JCommandButton, ? extends BaseCommand, ? extends BaseCommandButtonPresentationModel> projection;
+    private BaseCommandButtonProjection<? extends BaseCommand<?>,
+            ? extends BaseCommandMenuContentModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>,
+            ? extends BaseCommandPopupMenuPresentationModel> projection;
+    @SuppressWarnings("rawtypes")
     private BaseCommand command;
+    @SuppressWarnings("rawtypes")
     private BaseCommandButtonPresentationModel commandPresentation;
 
     /**
@@ -484,9 +480,10 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public JCommandButton(Projection<JCommandButton, ? extends BaseCommand,
-            ? extends BaseCommandButtonPresentationModel> projection) {
+    public JCommandButton(BaseCommandButtonProjection<? extends BaseCommand<?>,
+            ? extends BaseCommandMenuContentModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>,
+            ? extends BaseCommandPopupMenuPresentationModel> projection) {
         this.projection = projection;
         this.command = projection.getContentModel();
         this.commandPresentation = projection.getPresentationModel();
@@ -544,48 +541,8 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
 
         if (hasPopup) {
             if (command.getSecondaryContentModel() != null) {
-                BaseCommandMenuContentModel popupMenuContentModel = command.getSecondaryContentModel();
-                BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
-                        commandPresentation.getPopupMenuPresentationModel();
-                if (popupMenuContentModel instanceof RibbonApplicationMenu) {
-                    RibbonApplicationMenuCommandButtonProjection ribbonApplicationMenuProjection =
-                            (RibbonApplicationMenuCommandButtonProjection) this.projection;
-                    if (popupMenuPresentationModel == null) {
-                        popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
-                    }
-                    RibbonApplicationMenuPanelPanelProjection menuPanelProjection =
-                            new RibbonApplicationMenuPanelPanelProjection(
-                                    (RibbonApplicationMenu) popupMenuContentModel,
-                                    (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
-                    menuPanelProjection.setCommandOverlays(
-                            ribbonApplicationMenuProjection.getCommandOverlays());
-                    menuPanelProjection.setSecondaryLevelCommandPresentationState(
-                            ribbonApplicationMenuProjection.getSecondaryLevelCommandPresentationState());
-                    this.setPopupCallback(commandButton -> menuPanelProjection.buildComponent());
-                } else if (popupMenuContentModel instanceof CommandMenuContentModel) {
-                    CommandMenuContentModel commandMenuContentModel = (CommandMenuContentModel) popupMenuContentModel;
-                    CommandButtonProjection<? extends Command> commandProjection =
-                            (CommandButtonProjection<? extends Command>) this.projection;
-                    if (popupMenuPresentationModel == null) {
-                        popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
-                    }
-                    CommandPopupMenuPanelProjection commandPopupMenuPanelProjection =
-                            new CommandPopupMenuPanelProjection(commandMenuContentModel,
-                                    (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
-                    commandPopupMenuPanelProjection.setCommandOverlays(
-                            this.projection.getCommandOverlays());
-                    if (commandProjection.getPopupMenuSupplier() != null) {
-                        commandPopupMenuPanelProjection.setComponentSupplier(
-                                (Projection.ComponentSupplier<JCommandPopupMenuPanel,
-                                        CommandMenuContentModel,
-                                        CommandPopupMenuPresentationModel>) commandProjection.getPopupMenuSupplier());
-                    }
-                    this.setPopupCallback(commandButton -> {
-                        JPopupPanel result = commandPopupMenuPanelProjection.buildComponent();
-                        result.applyComponentOrientation(JCommandButton.this.getComponentOrientation());
-                        return result;
-                    });
-                }
+                this.setPopupCallback(commandButton ->
+                        projection.getPopupMenuPanelProjection().buildComponent());
             }
             this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
         }
@@ -664,9 +621,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     public BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel,
             ? extends BaseCommandButtonPresentationModel<?, ?>,
             ? extends BaseCommandPopupMenuPresentationModel> getProjection() {
-        return (BaseCommandButtonProjection<? extends BaseCommand<?>, ? extends BaseCommandMenuContentModel,
-                ? extends BaseCommandButtonPresentationModel<?, ?>,
-                ? extends BaseCommandPopupMenuPresentationModel>) this.projection;
+        return this.projection;
     }
 
     /**

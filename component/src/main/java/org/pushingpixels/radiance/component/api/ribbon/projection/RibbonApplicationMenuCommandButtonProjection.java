@@ -34,12 +34,24 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonPresentation
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.AbstractPopupMenuPanelProjection;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
+import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
+import org.pushingpixels.radiance.component.api.ribbon.model.RibbonApplicationMenuCommand;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.CommandButtonLayoutManagerMenuTileLevel2;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelPanelProjection;
 
 import java.util.Map;
 
-public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonProjection<Command> {
+public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandButtonProjection<
+        RibbonApplicationMenuCommand, RibbonApplicationMenu,
+        CommandButtonPresentationModel,
+        CommandPopupMenuPresentationModel> {
+        //JRibbonApplicationMenuPopupPanel> {
     public static final CommandButtonPresentationState RIBBON_APP_MENU_SECONDARY_LEVEL =
             new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
                 @Override
@@ -51,7 +63,7 @@ public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonP
 
     private Map<Command, CommandButtonPresentationState> secondaryLevelCommandPresentationState;
 
-    public RibbonApplicationMenuCommandButtonProjection(Command command,
+    public RibbonApplicationMenuCommandButtonProjection(RibbonApplicationMenuCommand command,
             CommandButtonPresentationModel commandPresentation) {
         super(command, commandPresentation);
     }
@@ -65,7 +77,7 @@ public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonP
         return this.secondaryLevelCommandPresentationState;
     }
 
-    @Override
+    //@Override
     public RibbonApplicationMenuCommandButtonProjection reproject(
             CommandButtonPresentationModel newCommandPresentation) {
         RibbonApplicationMenuCommandButtonProjection result =
@@ -76,5 +88,23 @@ public class RibbonApplicationMenuCommandButtonProjection extends CommandButtonP
         result.setSecondaryLevelCommandPresentationState(
                 this.getSecondaryLevelCommandPresentationState());
         return result;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, RibbonApplicationMenu, CommandPopupMenuPresentationModel> getPopupMenuPanelProjection() {
+        BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
+                this.getPresentationModel().getPopupMenuPresentationModel();
+        if (popupMenuPresentationModel == null) {
+            popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
+        }
+        RibbonApplicationMenuPanelPanelProjection menuPanelProjection =
+                new RibbonApplicationMenuPanelPanelProjection(
+                        this.getContentModel().getSecondaryContentModel(),
+                        (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+        menuPanelProjection.setCommandOverlays(this.getCommandOverlays());
+        menuPanelProjection.setSecondaryLevelCommandPresentationState(
+                this.getSecondaryLevelCommandPresentationState());
+        return menuPanelProjection;
     }
 }

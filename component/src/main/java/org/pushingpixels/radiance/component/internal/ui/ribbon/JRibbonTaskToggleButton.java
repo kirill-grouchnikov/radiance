@@ -30,8 +30,9 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonTaskToggleButtonUI;
@@ -60,7 +61,10 @@ public class JRibbonTaskToggleButton extends JCommandButton
 
     private RibbonTask ribbonTask;
 
-    public JRibbonTaskToggleButton(Projection<JCommandButton, Command, CommandButtonPresentationModel> projection) {
+    public JRibbonTaskToggleButton(BaseCommandButtonProjection<? extends BaseCommand<?>,
+            ? extends BaseCommandMenuContentModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>,
+            ? extends BaseCommandPopupMenuPresentationModel> projection) {
         super(projection);
     }
 

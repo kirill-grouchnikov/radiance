@@ -33,6 +33,8 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 
 public class CommandButtonProjection<M extends Command>
@@ -40,7 +42,7 @@ public class CommandButtonProjection<M extends Command>
         CommandButtonPresentationModel, CommandPopupMenuPresentationModel> {
 
     public CommandButtonProjection(M command, CommandButtonPresentationModel commandPresentation) {
-        super(command, commandPresentation, projection ->  JCommandButton::new);
+        super(command, commandPresentation);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,5 +52,22 @@ public class CommandButtonProjection<M extends Command>
         result.setComponentSupplier(this.getComponentSupplier());
         result.setCommandOverlays(this.getCommandOverlays());
         return result;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> getPopupMenuPanelProjection() {
+        BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
+                this.getPresentationModel().getPopupMenuPresentationModel();
+        CommandMenuContentModel commandMenuContentModel =
+                this.getContentModel().getSecondaryContentModel();
+        if (popupMenuPresentationModel == null) {
+            popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
+        }
+        CommandPopupMenuPanelProjection commandPopupMenuPanelProjection =
+                new CommandPopupMenuPanelProjection(commandMenuContentModel,
+                        (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+        commandPopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
+        return commandPopupMenuPanelProjection;
     }
 }

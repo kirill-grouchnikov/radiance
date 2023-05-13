@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonRootPaneUI;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGalleryUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
@@ -393,7 +394,8 @@ public class KeyTipManager {
             link.prefAnchorPoint = cb.getUI().getActionKeyTipAnchorCenterPoint();
             link.onActivated = actionEvent -> cb.doActionClick();
             link.enabled = cb.getActionModel().isEnabled();
-            if (cb.getClass().isAnnotationPresent(KeyTipManager.HasNextKeyTipChain.class)) {
+            if (BasicRibbonGalleryUI.RIBBON_GALLERY_EXPAND_BUTTON.equals(
+                    cb.getProjection().getContentModel().getTag())) {
                 link.traversal = () -> {
                     // collect key tips of all controls in the relevant popup panel
                     List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();

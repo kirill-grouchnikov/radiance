@@ -37,6 +37,8 @@ import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel.StripOrientation;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
@@ -67,6 +69,8 @@ import java.util.Map;
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
+    public static final String RIBBON_GALLERY_EXPAND_BUTTON = "radiance.internal.ribbon.galleryExpandButton";
+
     /**
      * The associated ribbon gallery.
      */
@@ -230,11 +234,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                                 .getPresentationModel().getExpandKeyTip())
                         .setActionFireTrigger(CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED));
 
-        // Configure the component supplier for the expand command to return our own subclass
-        Map<Command, Projection.ComponentSupplier<JCommandButton, Command,
-                CommandButtonPresentationModel>> galleryScrollerSuppliers = new HashMap<>();
-        galleryScrollerSuppliers.put(this.expandCommand, projection -> ExpandCommandButton::new);
-
         // Create a button strip that hosts all three scroller commands with all the additional
         // command-specific configurations
         this.galleryScrollerCommands = new CommandGroup(this.scrollUpCommand,
@@ -248,7 +247,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setToDismissPopupsOnActivation(false)
                         .build());
-        projection.setCommandComponentSuppliers(galleryScrollerSuppliers);
         projection.setCommandOverlays(galleryScrollerOverlays);
 
         this.buttonStrip = projection.buildComponent();
@@ -612,14 +610,6 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     + this.visibleButtonRowNumber * this.visibleButtonsInEachRow))) {
                 return;
             }
-        }
-    }
-
-    @KeyTipManager.HasNextKeyTipChain
-    private static class ExpandCommandButton extends JCommandButton {
-        public ExpandCommandButton(Projection<JCommandButton, Command,
-                CommandButtonPresentationModel> projection) {
-            super(projection);
         }
     }
 }

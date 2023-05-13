@@ -34,29 +34,65 @@ import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
-public abstract class BaseCommandButtonProjection<M extends BaseCommand<MCM>,
+import javax.swing.*;
+import java.util.function.Function;
+
+public abstract class BaseCommandButtonProjection<
+        M extends BaseCommand<MCM>,
         MCM extends BaseCommandMenuContentModel,
         P extends BaseCommandButtonPresentationModel<MPM, P>,
         MPM extends BaseCommandPopupMenuPresentationModel>
-        extends Projection<JCommandButton, M, P> {
+        extends BaseProjection<JCommandButton, M, P> {
+    private CommandButtonComponentSupplier<JCommandButton, M, MCM, P, MPM> componentSupplier;
 
-    private ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
-            ? extends BaseCommandPopupMenuPresentationModel> popupMenuSupplier;
-
-    public BaseCommandButtonProjection(M command, P commandPresentation,
-            ComponentSupplier<JCommandButton, M, P> componentSupplier) {
-        super(command, commandPresentation, componentSupplier);
+    /**
+     * This interface can be used as part of
+     * {@link #setComponentSupplier(CommandButtonComponentSupplier)} to return your own supplier of
+     * {@link TC} to be used before the {@link #configureComponent(JCommandButton)} call.
+     */
+    @FunctionalInterface
+    public interface CommandButtonComponentSupplier<TC extends JCommandButton,
+            M extends BaseCommand<MCM>,
+            MCM extends BaseCommandMenuContentModel,
+            P extends BaseCommandButtonPresentationModel<MPM, P>,
+            MPM extends BaseCommandPopupMenuPresentationModel> {
+        /**
+         * @param projection Information on the projection in case this
+         *                   creator has logic that depends on specific field(s) of
+         *                   the content model and / or the presentation model.
+         * @return A supplier of the target component. It should be a reference to a function that
+         * gets one parameter - projection, and returns an instance of the matching
+         * {@link JComponent} subclass that represents the Swing component to be
+         * used to configure the projected component in {@link #configureComponent(JCommandButton)}
+         * call.
+         */
+        Function<BaseCommandButtonProjection<M, MCM, P, MPM>, TC> getComponentSupplier(
+                BaseCommandButtonProjection<M, MCM, P, MPM> projection);
     }
 
-    public void setPopupMenuSupplier(ComponentSupplier<? extends AbstractPopupMenuPanel,
-            ? extends CommandMenuContentModel,
-            ? extends BaseCommandPopupMenuPresentationModel> popupMenuSupplier) {
-        this.popupMenuSupplier = popupMenuSupplier;
+    public BaseCommandButtonProjection(M command, P commandPresentation) {
+        super(command, commandPresentation);
+        this.componentSupplier = projection -> JCommandButton::new;
     }
 
-    public ComponentSupplier<? extends AbstractPopupMenuPanel, ? extends CommandMenuContentModel,
-            ? extends BaseCommandPopupMenuPresentationModel> getPopupMenuSupplier() {
-        return this.popupMenuSupplier;
+    public void setComponentSupplier(BaseCommandButtonProjection.CommandButtonComponentSupplier<
+            JCommandButton, M, MCM, P, MPM> componentSupplier) {
+        if (componentSupplier == null) {
+            throw new IllegalArgumentException("Cannot pass null component creator");
+        }
+        this.componentSupplier = componentSupplier;
+    }
+
+    public CommandButtonComponentSupplier<JCommandButton, M, MCM, P, MPM> getComponentSupplier() {
+        return componentSupplier;
+    }
+
+    public abstract AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, MCM, MPM>
+        getPopupMenuPanelProjection();
+
+    @Override
+    public JCommandButton buildBaseComponent() {
+        return this.getComponentSupplier().getComponentSupplier(this).apply(this);
     }
 
     @Override

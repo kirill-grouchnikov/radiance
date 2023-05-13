@@ -31,16 +31,22 @@ package org.pushingpixels.radiance.component.api.common.projection;
 
 import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 
-public abstract class AbstractPopupMenuPanelProjection<M extends AbstractPopupMenuPanel,
-        C extends ContentModel, P extends PresentationModel> extends Projection<M, C, P> {
+import javax.swing.*;
 
-    protected AbstractPopupMenuPanelProjection(C contentModel, P presentationModel,
-            ComponentSupplier<M, C, P> componentSupplier2) {
-        super(contentModel, presentationModel, componentSupplier2);
+public abstract class BaseProjection<T extends JComponent, C extends ContentModel,
+        P extends PresentationModel> extends BlackboxProjection<C, P> {
+    protected BaseProjection(C contentModel, P presentationModel) {
+        super(contentModel, presentationModel);
     }
 
-    @Override
-    protected abstract void configureComponent(M component);
+    public abstract T buildBaseComponent();
+
+    public final T buildComponent() {
+        T result = this.buildBaseComponent();
+        this.configureComponent(result);
+        return result;
+    }
+
+    protected abstract void configureComponent(T component);
 }

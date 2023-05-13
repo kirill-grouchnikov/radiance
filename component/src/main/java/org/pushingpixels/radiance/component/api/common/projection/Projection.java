@@ -29,23 +29,16 @@
  */
 package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
 
 import javax.swing.*;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
-public abstract class Projection<T extends JComponent, C extends ContentModel, P extends PresentationModel>
-        extends BlackboxProjection<C, P> {
+public abstract class Projection<T extends JComponent, C extends ContentModel,
+        P extends PresentationModel> extends BaseProjection<T, C, P> {
     private ComponentSupplier<T, C, P> componentSupplier;
-
-    private Map<Command, ComponentSupplier<JCommandButton, Command,
-            CommandButtonPresentationModel>> commandComponentSuppliers;
 
     /**
      * This interface can be used as part of {@link #setComponentSupplier(ComponentSupplier)}
@@ -71,7 +64,6 @@ public abstract class Projection<T extends JComponent, C extends ContentModel, P
     protected Projection(C contentModel, P presentationModel, ComponentSupplier<T, C, P> componentSupplier) {
         super(contentModel, presentationModel);
         this.componentSupplier = componentSupplier;
-        this.commandComponentSuppliers = new HashMap<>();
     }
 
     public void setComponentSupplier(ComponentSupplier<T, C, P> componentSupplier) {
@@ -81,27 +73,12 @@ public abstract class Projection<T extends JComponent, C extends ContentModel, P
         this.componentSupplier = componentSupplier;
     }
 
-    public void setCommandComponentSuppliers(Map<Command,
-            ComponentSupplier<JCommandButton, Command, CommandButtonPresentationModel>> commandComponentSuppliers) {
-        this.commandComponentSuppliers = commandComponentSuppliers;
-    }
-
     public final ComponentSupplier<T, C, P> getComponentSupplier() {
         return this.componentSupplier;
     }
 
-    public final Map<Command, ComponentSupplier<JCommandButton, Command,
-            CommandButtonPresentationModel>> getCommandComponentSuppliers() {
-        return this.commandComponentSuppliers;
+    @Override
+    public final T buildBaseComponent() {
+        return this.getComponentSupplier().getComponentSupplier(this).apply(this);
     }
-
-    public T buildComponent() {
-        T result = this.getComponentSupplier().getComponentSupplier(this).apply(this);
-
-        this.configureComponent(result);
-
-        return result;
-    }
-
-    protected abstract void configureComponent(T component);
 }

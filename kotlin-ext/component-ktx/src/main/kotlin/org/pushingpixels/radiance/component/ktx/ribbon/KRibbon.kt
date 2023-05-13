@@ -43,6 +43,7 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.Compon
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel
+import org.pushingpixels.radiance.component.api.ribbon.model.RibbonApplicationMenuCommand
 import org.pushingpixels.radiance.component.ktx.*
 import org.pushingpixels.radiance.component.ktx.NonNullDelegate
 import org.pushingpixels.radiance.component.ktx.NullableDelegate
@@ -216,7 +217,7 @@ public class KRibbonFrame {
 
         val ribbonMenuCommandProjection =
             RibbonApplicationMenuCommandButtonProjection(
-                Command.builder()
+                RibbonApplicationMenuCommand.builder()
                     .setText(applicationMenu.title)
                     .setSecondaryRichTooltip(applicationMenu.getRichTooltip())
                     .setSecondaryContentModel(applicationMenu.asJavaRibbonApplicationMenu())

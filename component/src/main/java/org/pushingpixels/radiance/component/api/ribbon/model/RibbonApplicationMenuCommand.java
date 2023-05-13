@@ -27,20 +27,34 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.component.api.common.projection;
+package org.pushingpixels.radiance.component.api.ribbon.model;
 
-import org.pushingpixels.radiance.component.api.common.model.ContentModel;
-import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
-import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
 
-public abstract class AbstractPopupMenuPanelProjection<M extends AbstractPopupMenuPanel,
-        C extends ContentModel, P extends PresentationModel> extends Projection<M, C, P> {
-
-    protected AbstractPopupMenuPanelProjection(C contentModel, P presentationModel,
-            ComponentSupplier<M, C, P> componentSupplier2) {
-        super(contentModel, presentationModel, componentSupplier2);
+public class RibbonApplicationMenuCommand extends BaseCommand<RibbonApplicationMenu> {
+    public static Builder builder() {
+        return new Builder();
     }
 
-    @Override
-    protected abstract void configureComponent(M component);
+    private RibbonApplicationMenuCommand() {
+    }
+
+    public static class Builder extends BaseBuilder<RibbonApplicationMenuCommand,
+            RibbonApplicationMenu,
+            RibbonApplicationMenuCommand.Builder> {
+        /**
+         * Builds a color selector command from this builder.
+         *
+         * @return Command.
+         */
+        @Override
+        public RibbonApplicationMenuCommand build() {
+            RibbonApplicationMenuCommand command = new RibbonApplicationMenuCommand();
+
+            this.configureBaseCommand(command);
+
+            return command;
+        }
+    }
 }

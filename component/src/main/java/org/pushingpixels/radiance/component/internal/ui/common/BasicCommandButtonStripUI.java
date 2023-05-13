@@ -32,10 +32,9 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
-import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 
@@ -169,6 +168,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         this.commandButtonMap.clear();
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void addButton(Command command) {
         CommandStripPresentationModel stripPresentationModel =
                 this.buttonStrip.getProjection().getPresentationModel();
@@ -196,12 +196,6 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         }
 
         CommandButtonProjection<Command> commandProjection = command.project(presentation);
-        Projection.ComponentSupplier<JCommandButton, Command, CommandButtonPresentationModel> componentSupplier =
-                this.buttonStrip.getProjection().getCommandComponentSuppliers().get(command);
-        if (componentSupplier != null) {
-            commandProjection.setComponentSupplier(componentSupplier);
-        }
-
         JCommandButton button = commandProjection.buildComponent();
         button.setComponentOrientation(this.buttonStrip.getComponentOrientation());
 

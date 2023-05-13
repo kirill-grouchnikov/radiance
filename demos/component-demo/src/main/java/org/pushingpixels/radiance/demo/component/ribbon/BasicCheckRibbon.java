@@ -49,6 +49,7 @@ import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelector
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.*;
 import org.pushingpixels.radiance.component.api.ribbon.*;
+import org.pushingpixels.radiance.component.api.ribbon.model.RibbonApplicationMenuCommand;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonGalleryPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
@@ -2216,7 +2217,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
             RibbonApplicationMenuCommandButtonProjection ribbonMenuCommandProjection =
                     new RibbonApplicationMenuCommandButtonProjection(
-                            Command.builder()
+                            RibbonApplicationMenuCommand.builder()
                                     .setText(resourceBundle.getString("AppMenu.title"))
                                     .setSecondaryRichTooltip(RichTooltip.builder()
                                             .setTitle(resourceBundle.getString(

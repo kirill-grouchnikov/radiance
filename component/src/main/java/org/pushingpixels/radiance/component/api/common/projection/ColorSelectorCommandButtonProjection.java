@@ -31,9 +31,11 @@ package org.pushingpixels.radiance.component.api.common.projection;
 
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.internal.ui.common.JColorSelectorCommandButton;
 
 public class ColorSelectorCommandButtonProjection extends
         BaseCommandButtonProjection<ColorSelectorCommand, ColorSelectorPopupMenuContentModel,
@@ -41,6 +43,25 @@ public class ColorSelectorCommandButtonProjection extends
                 ColorSelectorPopupMenuPresentationModel> {
     public ColorSelectorCommandButtonProjection(ColorSelectorCommand command,
             ColorSelectorCommandButtonPresentationModel commandPresentation) {
-        super(command, commandPresentation, projection -> JColorSelectorCommandButton::new);
+        super(command, commandPresentation);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, ColorSelectorPopupMenuContentModel, ColorSelectorPopupMenuPresentationModel> getPopupMenuPanelProjection() {
+        ColorSelectorPopupMenuContentModel popupMenuContentModel =
+                this.getContentModel().getSecondaryContentModel();
+        BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
+                this.getPresentationModel().getPopupMenuPresentationModel();
+        if (popupMenuPresentationModel == null) {
+            popupMenuPresentationModel = ColorSelectorPopupMenuPresentationModel.builder().build();
+        }
+        ColorSelectorPopupMenuPanelProjection colorSelectorPopupMenuPanelProjection =
+                new ColorSelectorPopupMenuPanelProjection(popupMenuContentModel,
+                        (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
+        colorSelectorPopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
+        colorSelectorPopupMenuPanelProjection.setComponentSupplier(
+                popupPanelMenuProjection -> JColorSelectorPopupMenuPanel::new);
+        return colorSelectorPopupMenuPanelProjection;
     }
 }

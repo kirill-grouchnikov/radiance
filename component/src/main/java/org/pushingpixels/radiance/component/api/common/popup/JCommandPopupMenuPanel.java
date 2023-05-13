@@ -94,7 +94,11 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
 
         this.updateUI();
 
-        SwingUtilities.invokeLater(() -> getMainButtonPanel().scrollToSelectedCommand());
+        SwingUtilities.invokeLater(() -> {
+            if (mainButtonPanel != null) {
+                mainButtonPanel.scrollToSelectedCommand();
+            }
+        });
     }
 
     private void populateContent() {
