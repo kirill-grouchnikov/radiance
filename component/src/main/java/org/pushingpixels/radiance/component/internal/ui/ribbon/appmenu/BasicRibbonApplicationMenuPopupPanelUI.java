@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.radiance.component.api.common.*;
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
@@ -55,7 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Basic UI for ribbon application menu button {@link JRibbonApplicationMenuButton}.
+ * Basic UI for ribbon application menu button.
  *
  * @author Kirill Grouchnikov
  */

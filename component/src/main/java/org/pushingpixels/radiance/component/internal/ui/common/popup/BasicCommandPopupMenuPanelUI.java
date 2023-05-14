@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManage
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
-import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandPopupMenuPanelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;

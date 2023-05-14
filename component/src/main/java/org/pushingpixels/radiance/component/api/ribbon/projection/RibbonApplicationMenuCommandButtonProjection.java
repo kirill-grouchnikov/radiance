@@ -51,7 +51,6 @@ public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandBut
         RibbonApplicationMenuCommand, RibbonApplicationMenu,
         CommandButtonPresentationModel,
         CommandPopupMenuPresentationModel> {
-        //JRibbonApplicationMenuPopupPanel> {
     public static final CommandButtonPresentationState RIBBON_APP_MENU_SECONDARY_LEVEL =
             new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
                 @Override
@@ -77,7 +76,6 @@ public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandBut
         return this.secondaryLevelCommandPresentationState;
     }
 
-    //@Override
     public RibbonApplicationMenuCommandButtonProjection reproject(
             CommandButtonPresentationModel newCommandPresentation) {
         RibbonApplicationMenuCommandButtonProjection result =

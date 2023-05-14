@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.ribbon.model;
 
 import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
+import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 
 public class RibbonApplicationMenuCommand extends BaseCommand<RibbonApplicationMenu> {
     public static Builder builder() {
@@ -44,7 +45,7 @@ public class RibbonApplicationMenuCommand extends BaseCommand<RibbonApplicationM
             RibbonApplicationMenu,
             RibbonApplicationMenuCommand.Builder> {
         /**
-         * Builds a color selector command from this builder.
+         * Builds a ribbon application menu command from this builder.
          *
          * @return Command.
          */
@@ -53,6 +54,7 @@ public class RibbonApplicationMenuCommand extends BaseCommand<RibbonApplicationM
             RibbonApplicationMenuCommand command = new RibbonApplicationMenuCommand();
 
             this.configureBaseCommand(command);
+            command.setTag(BasicRibbonUI.INTERNAL);
 
             return command;
         }

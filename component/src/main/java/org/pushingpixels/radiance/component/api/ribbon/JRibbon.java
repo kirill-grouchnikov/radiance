@@ -806,7 +806,7 @@ public class JRibbon extends JComponent {
         if (applicationMenuCommandProjection == null) {
             this.applicationMenuProjection = null;
         } else {
-            RibbonApplicationMenu ribbonApplicationMenu = (RibbonApplicationMenu)
+            RibbonApplicationMenu ribbonApplicationMenu =
                     applicationMenuCommandProjection.getContentModel().getSecondaryContentModel();
             RibbonApplicationMenuProjection ribbonApplicationMenuProjection =
                     new RibbonApplicationMenuProjection(

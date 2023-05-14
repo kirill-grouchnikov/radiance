@@ -30,13 +30,13 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonTaskToggleButtonUI;
-import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
 
 import java.awt.*;
 
@@ -46,8 +46,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class JRibbonTaskToggleButton extends JCommandButton
-        implements RadianceInternalButton {
+public class JRibbonTaskToggleButton extends JCommandButton {
     /**
      * The UI class ID string.
      */

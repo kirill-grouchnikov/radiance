@@ -235,6 +235,10 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         return this.tag;
     }
 
+    public void setTag(Object tag) {
+        this.tag = tag;
+    }
+
     @Override
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);

@@ -36,13 +36,11 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
@@ -53,7 +51,6 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentCo
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonFrameTitlePane;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
-import org.pushingpixels.radiance.component.internal.ui.common.RadianceInternalButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.*;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
@@ -748,19 +745,25 @@ public class JRibbonFrame extends JFrame {
                     menuContentModel = onShowContextualMenuListener.getContextualMenuContentModel(
                             ribbon, component.getProjection());
                 } else {
-                    if ((c instanceof JCommandButton) &&
-                            (!(c instanceof RadianceInternalButton))) {
-                        BaseCommandButtonProjection projection = ((JCommandButton) c).getProjection();
-                        if (SwingUtilities.getAncestorOfClass(JRibbonApplicationMenuPopupPanel.class, c) != null) {
-                            // App menu link
-                            Command appMenuCommand = (Command) projection.getContentModel();
-                            menuContentModel =
-                                    onShowContextualMenuListener.getContextualMenuContentModel(
-                                            ribbon, appMenuCommand);
-                        } else {
-                            menuContentModel =
-                                    onShowContextualMenuListener.getContextualMenuContentModel(
-                                            ribbon, projection);
+                    if (c instanceof JCommandButton) {
+                        BaseCommandButtonProjection<? extends BaseCommand<?>,
+                                ? extends BaseCommandMenuContentModel,
+                                ? extends BaseCommandButtonPresentationModel<?, ?>,
+                                ? extends BaseCommandPopupMenuPresentationModel> projection =
+                                ((JCommandButton) c).getProjection();
+                        BaseCommand command = projection.getContentModel();
+                        if (!BasicRibbonUI.INTERNAL.equals(command.getTag())) {
+                            if (SwingUtilities.getAncestorOfClass(JRibbonApplicationMenuPopupPanel.class, c) != null) {
+                                // App menu link
+                                Command appMenuCommand = (Command) projection.getContentModel();
+                                menuContentModel =
+                                        onShowContextualMenuListener.getContextualMenuContentModel(
+                                                ribbon, appMenuCommand);
+                            } else {
+                                menuContentModel =
+                                        onShowContextualMenuListener.getContextualMenuContentModel(
+                                                ribbon, projection);
+                            }
                         }
                     }
                 }

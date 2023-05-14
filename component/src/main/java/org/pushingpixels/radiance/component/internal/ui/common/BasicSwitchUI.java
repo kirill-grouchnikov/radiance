@@ -30,20 +30,10 @@
 package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.model.TriStateButtonModel;
-import org.pushingpixels.radiance.common.api.model.TriStateSelectionChangeEvent;
-import org.pushingpixels.radiance.common.api.model.TriStateSelectionChangeListener;
-import org.pushingpixels.radiance.common.api.model.TriStateSelectionCycler;
 import org.pushingpixels.radiance.component.api.common.JSwitch;
-import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
-import org.pushingpixels.radiance.component.internal.theming.common.tristate.RolloverTriStateListener;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
-import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RolloverButtonListener;
-import org.pushingpixels.radiance.theming.internal.utils.border.RadianceBorder;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -52,7 +42,6 @@ import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicButtonListener;
 import javax.swing.plaf.basic.BasicToggleButtonUI;
 import java.awt.*;
-import java.awt.event.ItemEvent;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 

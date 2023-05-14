@@ -30,10 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
-import org.pushingpixels.radiance.component.api.common.RichTooltipManager;
+import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel;
@@ -42,9 +39,9 @@ import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.*;
+import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizeSequencingPolicy;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -69,7 +66,8 @@ import java.util.*;
  * @author Kirill Grouchnikov
  */
 public abstract class BasicRibbonUI extends RibbonUI {
-    private static final String JUST_MINIMIZED = "ribbon.internal.justMinimized";
+    private static final String JUST_MINIMIZED = "radiance.internal.ribbon.justMinimized";
+    public static final String INTERNAL = "radiance.internal.ribbon.internal";
 
     /**
      * The associated ribbon.
@@ -80,7 +78,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
     protected JScrollablePanel<TaskToggleButtonsHostPanel> taskToggleButtonsScrollablePanel;
 
-    protected JRibbonApplicationMenuButton applicationMenuButton;
+    protected JCommandButton applicationMenuButton;
 
     private Container anchoredButtons;
 
@@ -150,8 +148,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
                 boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
                 if (isShowingAppMenuButton) {
-                    this.applicationMenuButton = new JRibbonApplicationMenuButton(
-                            this.ribbon.getApplicationMenuCommandProjection());
+                    this.applicationMenuButton = createApplicationMenuButton();
                     this.applicationMenuButton.applyComponentOrientation(
                             this.ribbon.getComponentOrientation());
                     this.syncApplicationMenuTips();
@@ -251,8 +248,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         boolean isShowingAppMenuButton = (ribbon.getApplicationMenuProjection() != null);
         if (isShowingAppMenuButton) {
-            this.applicationMenuButton = new JRibbonApplicationMenuButton(
-                    this.ribbon.getApplicationMenuCommandProjection());
+            this.applicationMenuButton = createApplicationMenuButton();
             this.applicationMenuButton.applyComponentOrientation(
                     this.ribbon.getComponentOrientation());
             this.syncApplicationMenuTips();
@@ -265,8 +261,92 @@ public abstract class BasicRibbonUI extends RibbonUI {
         }
     }
 
+    private final static CommandButtonPresentationState APP_MENU_BUTTON_STATE =
+            new CommandButtonPresentationState("Ribbon Application Menu Button", 16) {
+                @Override
+                public CommandButtonLayoutManager createLayoutManager(JCommandButton
+                        commandButton) {
+                    return new CommandButtonLayoutManager() {
+                        @Override
+                        public Dimension getPreferredIconSize(JCommandButton commandButton) {
+                            return null;
+                        }
+
+                        @Override
+                        public CommandButtonLayoutInfo getLayoutInfo(
+                                JCommandButton commandButton) {
+                            CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
+                            result.actionClickArea = new Rectangle(0, 0, 0, 0);
+                            result.popupActionRect = new Rectangle(0, 0, 0, 0);
+                            result.isTextInActionArea = false;
+
+                            FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+                                    RadianceCommonCortex.getScaleFactor(commandButton),
+                                    commandButton.getFont());
+                            int labelHeight = fm.getAscent() + fm.getDescent();
+
+                            int availableWidth = commandButton.getWidth();
+                            int textWidth = fm.stringWidth(commandButton.getText());
+
+                            TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
+                            lineLayoutInfo.text = commandButton.getText();
+                            lineLayoutInfo.textRect = new Rectangle();
+                            result.textLayoutInfoList = new ArrayList<>();
+                            result.textLayoutInfoList.add(lineLayoutInfo);
+
+                            lineLayoutInfo.textRect.x = (availableWidth - textWidth) / 2;
+                            lineLayoutInfo.textRect.y =
+                                    (commandButton.getHeight() - labelHeight) / 2;
+                            lineLayoutInfo.textRect.width = textWidth;
+                            lineLayoutInfo.textRect.height = labelHeight;
+
+                            result.popupClickArea = new Rectangle(0, 0, availableWidth,
+                                    commandButton.getHeight());
+
+                            return result;
+                        }
+
+                        @Override
+                        public Dimension getPreferredSize(
+                                JCommandButton commandButton) {
+                            return new Dimension(40, 20);
+                        }
+
+                        @Override
+                        public Point getActionKeyTipAnchorCenterPoint(
+                                JCommandButton commandButton) {
+                            return null;
+                        }
+
+                        @Override
+                        public Point getPopupKeyTipAnchorCenterPoint(
+                                JCommandButton commandButton) {
+                            // center at the middle of the bottom edge to be consistent with
+                            // the location of key tips of the task toggle buttons
+                            return new Point(commandButton.getWidth() / 2,
+                                    commandButton.getHeight());
+                        }
+                    };
+                }
+            };
+
+    private JCommandButton createApplicationMenuButton() {
+        RibbonApplicationMenuCommandButtonProjection applicationMenuCommandButtonProjection =
+                this.ribbon.getApplicationMenuCommandProjection();
+        return new JCommandButton(
+                applicationMenuCommandButtonProjection.reproject(
+                CommandButtonPresentationModel.builder()
+                        .setPresentationState(APP_MENU_BUTTON_STATE)
+                        .setHorizontalAlignment(SwingConstants.CENTER)
+                        .setPopupRichTooltipPresentationModel(
+                                applicationMenuCommandButtonProjection.getPresentationModel().
+                                        getPopupRichTooltipPresentationModel())
+                        .build())
+        );
+    }
+
     @Override
-    public JRibbonApplicationMenuButton getApplicationMenuButton() {
+    public JCommandButton getApplicationMenuButton() {
         return this.applicationMenuButton;
     }
 
@@ -1109,6 +1189,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
                             processTaskSelection(task,
                                     (JRibbonTaskToggleButton) commandActionEvent.getButtonSource())))
+                    .setTag(BasicRibbonUI.INTERNAL)
                     .build();
 
             // And create a specific projection

@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonGaller
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 
 import javax.swing.FocusManager;
@@ -191,8 +190,7 @@ public class KeyTipManager {
         KeyTipChain root = new KeyTipChain(ribbon);
 
         // application menu button
-        final JRibbonApplicationMenuButton appMenuButton =
-                ribbon.getUI().getApplicationMenuButton();
+        final JCommandButton appMenuButton = ribbon.getUI().getApplicationMenuButton();
         if ((appMenuButton != null) && (ribbon.getApplicationMenuCommandProjection()
                 .getPresentationModel().getPopupKeyTip() != null)) {
             final KeyTipLink appMenuButtonLink = new KeyTipLink();

@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
+import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuButton;
 
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
@@ -56,5 +56,5 @@ public abstract class RibbonUI extends ComponentUI {
 
 	public abstract void handleMouseWheelEvent(MouseWheelEvent e);
 
-	public abstract JRibbonApplicationMenuButton getApplicationMenuButton();
+	public abstract JCommandButton getApplicationMenuButton();
 }
