@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.component.api.common.projection;
 
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 
 public class CircularProgressProjection extends Projection<JCircularProgress,
         CircularProgressContentModel, CircularProgressPresentationModel> {

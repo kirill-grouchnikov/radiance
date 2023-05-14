@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 import org.pushingpixels.radiance.component.api.common.model.PresentationModel;
 
 import javax.swing.*;
-import java.util.HashMap;
 import java.util.function.Function;
 
 public abstract class Projection<T extends JComponent, C extends ContentModel,

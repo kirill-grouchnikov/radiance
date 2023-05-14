@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
-import org.pushingpixels.radiance.component.api.common.model.Command;
 
 import java.awt.event.ActionEvent;
 

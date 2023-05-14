@@ -31,11 +31,8 @@ package org.pushingpixels.radiance.component.internal.theming.common.tristate;
 
 import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalFrameTitlePane;
 
-import javax.swing.plaf.basic.BasicButtonListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
 

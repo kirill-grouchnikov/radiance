@@ -30,11 +30,11 @@
 package org.pushingpixels.radiance.component.api.ribbon.synapse.projection;
 
 import org.pushingpixels.radiance.component.api.ribbon.JFlowRibbonBand;
+import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.JRibbonCheckBox;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.RibbonCheckBoxContentModel;
-import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 
 /**
  * Projection that allows using a {@link javax.swing.JCheckBox} as a ribbon component.

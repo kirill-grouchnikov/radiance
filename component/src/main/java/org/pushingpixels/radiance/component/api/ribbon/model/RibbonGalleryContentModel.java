@@ -29,9 +29,9 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon.model;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;

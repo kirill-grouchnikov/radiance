@@ -71,8 +71,6 @@ import org.pushingpixels.radiance.theming.internal.widget.animation.effects.Ghos
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostingListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.UIResource;
 import java.awt.*;

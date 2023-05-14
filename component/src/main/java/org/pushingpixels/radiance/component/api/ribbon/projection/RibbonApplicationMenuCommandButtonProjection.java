@@ -42,7 +42,6 @@ import org.pushingpixels.radiance.component.api.common.projection.BaseCommandBut
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.radiance.component.api.ribbon.model.RibbonApplicationMenuCommand;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.CommandButtonLayoutManagerMenuTileLevel2;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.RibbonApplicationMenuPanelPanelProjection;
 
 import java.util.Map;

@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.component.api.common.projection;
 import org.pushingpixels.radiance.component.api.common.JTriStateCheckBox;
 import org.pushingpixels.radiance.component.api.common.model.TriStateCheckBoxContentModel;
 import org.pushingpixels.radiance.component.api.common.model.TriStateCheckboxPresentationModel;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentPresentationModel;
 
 public class TriStateCheckBoxProjection extends Projection<JTriStateCheckBox,
         TriStateCheckBoxContentModel, TriStateCheckboxPresentationModel> {

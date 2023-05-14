@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -38,7 +39,6 @@ import org.pushingpixels.radiance.component.internal.ui.ribbon.AbstractBandContr
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonBandUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonBandUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 import java.util.Collections;

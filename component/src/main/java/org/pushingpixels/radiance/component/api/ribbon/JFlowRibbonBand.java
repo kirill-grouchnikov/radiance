@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -36,7 +37,6 @@ import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentCo
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JFlowBandControlPanel;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 
 import javax.swing.*;
 

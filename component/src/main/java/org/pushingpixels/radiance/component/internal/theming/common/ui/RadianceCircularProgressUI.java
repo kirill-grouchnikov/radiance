@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
-import org.pushingpixels.radiance.component.internal.ui.common.BasicCircularProgressUI;
 import org.pushingpixels.radiance.component.api.common.JCircularProgress;
+import org.pushingpixels.radiance.component.internal.ui.common.BasicCircularProgressUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;

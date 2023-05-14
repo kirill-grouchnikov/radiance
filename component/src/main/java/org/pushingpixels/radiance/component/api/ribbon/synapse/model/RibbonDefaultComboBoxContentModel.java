@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.component.api.ribbon.synapse.model;
 
-import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.common.RichTooltip;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;

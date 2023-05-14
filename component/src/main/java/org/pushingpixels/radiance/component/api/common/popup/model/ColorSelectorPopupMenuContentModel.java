@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.ChangeAware;
-import org.pushingpixels.radiance.component.api.common.model.ContentModel;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 
 import javax.swing.event.ChangeEvent;
