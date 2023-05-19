@@ -64,6 +64,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected String actionKeyTip;
     protected String popupKeyTip;
     protected boolean toDismissPopupsOnActivation;
+    protected boolean showPopupIcon;
     protected MPM popupMenuPresentationModel;
     protected TextClick textClick;
     protected boolean isAutoRepeatAction;
@@ -135,6 +136,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
     public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
         return this.popupPlacementStrategy;
+    }
+
+    public boolean isShowPopupIcon() {
+        return this.showPopupIcon;
     }
 
     public SelectedStateHighlight getSelectedStateHighlight() {
@@ -261,6 +266,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private SelectedStateHighlight selectedStateHighlight;
         private Font font;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
+        private Boolean showPopupIcon;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -334,6 +340,11 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
         public Overlay setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
             this.popupPlacementStrategy = popupPlacementStrategy;
+            return this;
+        }
+
+        public Overlay setShowPopupIcon(boolean showPopupIcon) {
+            this.showPopupIcon = showPopupIcon;
             return this;
         }
 
@@ -465,6 +476,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this.toDismissPopupsOnActivation;
         }
 
+        public Boolean isShowPopupIcon() {
+            return this.showPopupIcon;
+        }
+
         public String getActionKeyTip() {
             return this.actionKeyTip;
         }
@@ -546,6 +561,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private Font font = null;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
+        private boolean showPopupIcon = true;
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
@@ -634,6 +650,12 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         public B setPopupPlacementStrategy(
                 RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
             this.popupPlacementStrategy = popupPlacementStrategy;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setShowPopupIcon(boolean showPopupIcon) {
+            this.showPopupIcon = showPopupIcon;
             return (B) this;
         }
 
@@ -739,6 +761,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.selectedStateHighlight = this.selectedStateHighlight;
             presentationModel.font = this.font;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
+            presentationModel.showPopupIcon = this.showPopupIcon;
             presentationModel.actionKeyTip = this.actionKeyTip;
             presentationModel.popupKeyTip = this.popupKeyTip;
             presentationModel.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;

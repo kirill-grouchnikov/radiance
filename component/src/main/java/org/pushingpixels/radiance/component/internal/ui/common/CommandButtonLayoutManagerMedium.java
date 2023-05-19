@@ -105,7 +105,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
             width += layoutHGap;
         }
         // popup icon?
-        if (hasPopupIcon) {
+        if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
             // padding before the popup icon
             if (hasText || hasIcon) {
                 width += 2 * layoutHGap;
@@ -265,7 +265,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 x += layoutHGap;
             }
 
-            if (hasPopupIcon) {
+            if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
                 if (hasText || hasIcon) {
                     x += 2 * layoutHGap;
                 }
@@ -421,7 +421,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 x -= layoutHGap;
             }
 
-            if (hasPopupIcon) {
+            if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
                 if (hasText || hasIcon) {
                     x -= 2 * layoutHGap;
                 }

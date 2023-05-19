@@ -93,7 +93,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             width += layoutHGap;
         }
         // popup icon?
-        if (hasPopupIcon) {
+        if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
             // padding before the popup icon
             width += 2 * layoutHGap;
             // text width
@@ -271,7 +271,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 x += layoutHGap;
             }
 
-            if (hasPopupIcon) {
+            if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
                 x += 2 * layoutHGap;
 
                 result.popupActionRect.x = x;
@@ -444,7 +444,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 x -= layoutHGap;
             }
 
-            if (hasPopupIcon) {
+            if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
                 x -= 2 * layoutHGap;
 
                 result.popupActionRect.width = 1 + labelHeight / 2;
