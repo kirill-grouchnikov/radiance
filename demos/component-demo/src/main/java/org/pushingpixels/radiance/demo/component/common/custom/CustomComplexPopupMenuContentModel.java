@@ -77,6 +77,26 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
             }
         }
 
+        public String getTitle() {
+            return title;
+        }
+
+        public int getZoom() {
+            return zoom;
+        }
+
+        public Command getCommandZoomOut() {
+            return commandZoomOut;
+        }
+
+        public Command getCommandZoomIn() {
+            return commandZoomIn;
+        }
+
+        public Command getCommandFullScreen() {
+            return commandFullScreen;
+        }
+
         @Override
         public void addPropertyChangeListener(PropertyChangeListener l) {
             this.weakPropertyChangeSupport.addPropertyChangeListener(l);
@@ -101,6 +121,22 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
             this.commandCopy = commandCopy;
             this.commandPaste = commandPaste;
         }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Command getCommandCut() {
+            return commandCut;
+        }
+
+        public Command getCommandCopy() {
+            return commandCopy;
+        }
+
+        public Command getCommandPaste() {
+            return commandPaste;
+        }
     }
 
     public static class CustomComplexPopupMenuHeader {
@@ -121,6 +157,10 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
 
         public CustomComplexPopupMenuFooter(Command commandFooter) {
             this.commandFooter = commandFooter;
+        }
+
+        public Command getCommandFooter() {
+            return commandFooter;
         }
     }
 

@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.RolloverActionListener;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
@@ -685,7 +686,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if ((button.getPresentationState() == CommandButtonPresentationState.MEDIUM)
                 && (SwingUtilities.getAncestorOfClass(JRibbon.class, button) == null)
                 && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, button) == null)
-                && (SwingUtilities.getAncestorOfClass(JCommandPopupMenuPanel.class, button) == null)) {
+                && (SwingUtilities.getAncestorOfClass(AbstractPopupMenuPanel.class, button) == null)) {
             JButton forSizing = new JButton(button.getText(), button.getIcon());
             Dimension result = shaper.getPreferredSize(forSizing, superPref);
             if (ComponentUtilities.hasPopupAction(button)) {
