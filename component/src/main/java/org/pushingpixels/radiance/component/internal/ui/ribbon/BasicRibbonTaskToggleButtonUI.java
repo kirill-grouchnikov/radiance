@@ -128,8 +128,17 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
         Rectangle textR = new Rectangle();
         Rectangle viewR = new Rectangle(Short.MAX_VALUE, Short.MAX_VALUE);
 
+        int horizontalAlignment = SwingUtilities.LEADING;
+        switch (b.getHorizontalAlignment()) {
+            case CENTER:
+                horizontalAlignment = SwingUtilities.CENTER;
+                break;
+            case TRAILING:
+                horizontalAlignment = SwingUtilities.TRAILING;
+                break;
+        }
         SwingUtilities.layoutCompoundLabel(b, fm, text, icon,
-                SwingUtilities.CENTER, b.getHorizontalAlignment(),
+                SwingUtilities.CENTER, horizontalAlignment,
                 SwingUtilities.CENTER, SwingUtilities.CENTER, viewR, iconR,
                 textR, (text == null ? 0 : 6));
 

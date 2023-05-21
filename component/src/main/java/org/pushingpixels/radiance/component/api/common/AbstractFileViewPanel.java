@@ -153,7 +153,7 @@ public abstract class AbstractFileViewPanel<T> extends JCommandButtonPanel {
     public AbstractFileViewPanel(CommandButtonPresentationState startingState) {
         super(new CommandPanelProjection(new CommandPanelContentModel(new ArrayList<>()),
                 CommandPanelPresentationModel.builder()
-                        .setCommandHorizontalAlignment(SwingUtilities.LEADING)
+                        .setCommandHorizontalAlignment(HorizontalAlignment.LEADING)
                         .setCommandPresentationState(startingState)
                         .setToShowGroupLabels(false).build()));
         this.loadedSet = new HashSet<>();

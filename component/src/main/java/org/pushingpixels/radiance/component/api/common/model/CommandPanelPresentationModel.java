@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
@@ -65,7 +66,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
     private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
-    private int commandHorizontalAlignment;
+    private HorizontalAlignment commandHorizontalAlignment;
 
     private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
@@ -235,7 +236,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
         }
     }
 
-    public int getCommandHorizontalAlignment() {
+    public HorizontalAlignment getCommandHorizontalAlignment() {
         return this.commandHorizontalAlignment;
     }
 
@@ -286,7 +287,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
-        private int commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
+        private HorizontalAlignment commandHorizontalAlignment = CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
         private CommandButtonPresentationModel.PopupFireTrigger commandPopupFireTrigger =
                 CommandButtonPresentationModel.PopupFireTrigger.ON_PRESSED;
         private CommandButtonPresentationModel.SelectedStateHighlight commandSelectedStateHighlight =
@@ -342,7 +343,7 @@ public class CommandPanelPresentationModel implements MutablePresentationModel {
             return this;
         }
 
-        public Builder setCommandHorizontalAlignment(int commandHorizontalAlignment) {
+        public Builder setCommandHorizontalAlignment(HorizontalAlignment commandHorizontalAlignment) {
             this.commandHorizontalAlignment = commandHorizontalAlignment;
             return this;
         }

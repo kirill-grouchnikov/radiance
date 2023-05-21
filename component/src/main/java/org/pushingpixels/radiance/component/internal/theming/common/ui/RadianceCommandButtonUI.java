@@ -590,9 +590,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                             this, scaleFactor, insetFocusArea, innerFocusArea, 1.0f, 0);
                 });
 
-        g2d.dispose();
-
-
 //        g2d.setColor(Color.red);
 //        g2d.draw(layoutInfo.iconRect);
 //        g2d.setColor(Color.blue);

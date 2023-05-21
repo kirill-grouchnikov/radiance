@@ -32,8 +32,15 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
+import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
@@ -178,6 +185,13 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
+        BaseCommandButtonProjection<
+                ? extends BaseCommand<?>,
+                ? extends BaseCommandMenuContentModel,
+                ? extends BaseCommandButtonPresentationModel<?, ?>,
+                ? extends BaseCommandPopupMenuPresentationModel> projection = commandButton.getProjection();
+        BaseCommandButtonPresentationModel presentationModel = projection.getPresentationModel();
+
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -208,13 +222,14 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
             // Consult the horizontal alignment attribute of the command button to see
             // how we should shift the content horizontally.
             switch (commandButton.getHorizontalAlignment()) {
-                case SwingConstants.LEADING:
+                case LEADING:
+                case FILL:
                     break;
-                case SwingConstants.CENTER:
+                case CENTER:
                     // shift everything to be centered horizontally
                     shiftX = (width - prefWidth) / 2;
                     break;
-                case SwingConstants.TRAILING:
+                case TRAILING:
                     // shift everything to the end of the button bounds
                     shiftX = width - prefWidth;
             }
@@ -265,18 +280,26 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 x += layoutHGap;
             }
 
-            if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
+            if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
+                int popupIconWidth = ComponentUtilities.getCommandButtonPopupIconWidth(
+                        commandButton.getFont().getSize());
                 if (hasText || hasIcon) {
-                    x += 2 * layoutHGap;
+                    if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
+                        // Under Fill alignment, popup icon goes all the way to the right edge
+                        x = width - ins.right - popupIconWidth - 4;
+                    } else {
+                        // Otherwise, the popup icon is to the right of the texts
+                        x += 2 * layoutHGap;
+                    }
                 }
 
                 if (!hasText && !hasIcon) {
                     // horizontally center the popup icon
-                    x += (width - 2 * layoutHGap - 1 - labelHeight / 2) / 2;
+                    x += (width - 2 * layoutHGap - popupIconWidth) / 2;
                 }
                 result.popupActionRect.x = x;
                 result.popupActionRect.y = (height - labelHeight) / 2 - 1;
-                result.popupActionRect.width = 1 + labelHeight / 2;
+                result.popupActionRect.width = popupIconWidth + 4;
                 result.popupActionRect.height = labelHeight + 2;
             }
 
@@ -304,7 +327,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                     // 2. no break (all popup) if button has no text and no icon
                     if (hasText || hasIcon) {
                         // shift popup action rectangle to the right to
-                        // accomodate the vertical separator
+                        // accommodate the vertical separator
                         result.popupActionRect.x += verticalSeparatorWidth;
 
                         xBorderBetweenActionAndPopup = result.popupActionRect.x - 2
@@ -421,17 +444,25 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 x -= layoutHGap;
             }
 
-            if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
+            if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
+                int popupIconWidth = ComponentUtilities.getCommandButtonPopupIconWidth(
+                        commandButton.getFont().getSize());
                 if (hasText || hasIcon) {
-                    x -= 2 * layoutHGap;
+                    if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
+                        // Under Fill alignment, popup icon goes all the way to the left edge
+                        x = ins.left + 4;
+                    } else {
+                        // Otherwise, the popup icon is to the left of the texts
+                        x -= 2 * layoutHGap;
+                    }
                 }
 
                 if (!hasText && !hasIcon) {
                     // horizontally center the popup icon
-                    x -= (width - 2 * layoutHGap - 1 - labelHeight / 2) / 2;
+                    x -= (width - 2 * layoutHGap - popupIconWidth) / 2;
                 }
 
-                result.popupActionRect.width = 1 + labelHeight / 2;
+                result.popupActionRect.width = popupIconWidth + 4;
                 result.popupActionRect.x = x - result.popupActionRect.width;
                 result.popupActionRect.y = (height - labelHeight) / 2 - 1;
                 result.popupActionRect.height = labelHeight + 2;

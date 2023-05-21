@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.demo.component.common;
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
@@ -466,7 +467,7 @@ public class TestCommandButtons extends JFrame {
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END)
                         .setShowPopupIcon(false)
-                        .setHorizontalAlignment(SwingUtilities.CENTER)
+                        .setHorizontalAlignment(HorizontalAlignment.CENTER)
                         .setIconFilterStrategies(
                                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
                                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,

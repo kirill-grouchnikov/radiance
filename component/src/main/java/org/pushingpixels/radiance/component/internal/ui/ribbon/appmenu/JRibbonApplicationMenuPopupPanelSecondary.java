@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
@@ -57,7 +58,7 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPan
                 CommandPanelPresentationModel.builder()
                         .setLayoutSpec(new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Fixed(1)))
                         .setCommandPresentationState(secondaryMenuPresentationState)
-                        .setCommandHorizontalAlignment(SwingUtilities.LEADING)
+                        .setCommandHorizontalAlignment(HorizontalAlignment.LEADING)
                         .setPopupPlacementStrategy(
                                 RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
                         .setCommandPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)

@@ -337,7 +337,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 applicationMenuCommandButtonProjection.reproject(
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(APP_MENU_BUTTON_STATE)
-                        .setHorizontalAlignment(SwingConstants.CENTER)
+                        .setHorizontalAlignment(HorizontalAlignment.CENTER)
                         .setPopupRichTooltipPresentationModel(
                                 applicationMenuCommandButtonProjection.getPresentationModel().
                                         getPopupRichTooltipPresentationModel())

@@ -136,10 +136,10 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     /**
      * Horizontal alignment of the content.
      *
-     * @see #setHorizontalAlignment(int)
+     * @see #setHorizontalAlignment(HorizontalAlignment) 
      * @see #getHorizontalAlignment()
      */
-    private int horizontalAlignment;
+    private HorizontalAlignment horizontalAlignment;
 
     private Insets contentPadding;
 
@@ -965,11 +965,11 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * @param alignment New horizontal alignment for the content of this button.
      * @see #getHorizontalAlignment()
      */
-    public void setHorizontalAlignment(int alignment) {
+    public void setHorizontalAlignment(HorizontalAlignment alignment) {
         if (alignment == this.horizontalAlignment) {
             return;
         }
-        int oldValue = this.horizontalAlignment;
+        HorizontalAlignment oldValue = this.horizontalAlignment;
         this.horizontalAlignment = alignment;
         firePropertyChange("horizontalAlignment", oldValue, this.horizontalAlignment);
         repaint();
@@ -979,9 +979,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * Returns the horizontal alignment for the content of this button.
      *
      * @return The horizontal alignment for the content of this button.
-     * @see #setHorizontalAlignment(int)
+     * @see #setHorizontalAlignment(HorizontalAlignment)
      */
-    public int getHorizontalAlignment() {
+    public HorizontalAlignment getHorizontalAlignment() {
         return this.horizontalAlignment;
     }
 

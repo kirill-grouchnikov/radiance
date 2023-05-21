@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.ktx
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment
 import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.model.panel.MenuPopupPanelLayoutSpec
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec
@@ -48,7 +49,7 @@ public class KCommandButtonPanelPresentation {
     public var toShowGroupLabels: Boolean = true
     public var commandPresentationState: CommandButtonPresentationState? = null
     public var commandIconDimension: Dimension? = null
-    public var commandHorizontalAlignment: Int =
+    public var commandHorizontalAlignment: HorizontalAlignment =
         CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
     public var commandContentPadding: Insets =
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
@@ -123,7 +124,7 @@ public class KCommandPopupMenuPanelPresentation {
     public var commandIconDimension: Dimension? = null
     public var commandContentPadding: Insets =
         CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING
-    public var commandHorizontalAlignment: Int =
+    public var commandHorizontalAlignment: HorizontalAlignment =
         CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
     public var commandHorizontalGapScaleFactor: Double =
         CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR

@@ -35,10 +35,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.swing.Swing
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon.Factory
-import org.pushingpixels.radiance.component.api.common.CommandAction
-import org.pushingpixels.radiance.component.api.common.CommandActionEvent
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState
-import org.pushingpixels.radiance.component.api.common.JCommandButton
+import org.pushingpixels.radiance.component.api.common.*
 import org.pushingpixels.radiance.component.api.common.model.*
 import org.pushingpixels.radiance.component.api.common.model.BaseCommand.BaseBuilder
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel.SelectedStateHighlight
@@ -350,7 +347,7 @@ public open class KCommandButtonPresentation {
         CommandButtonPresentationState.BIG_FIT_TO_ICON
     public var backgroundAppearanceStrategy: BackgroundAppearanceStrategy =
         BackgroundAppearanceStrategy.FLAT
-    public var horizontalAlignment: Int =
+    public var horizontalAlignment: HorizontalAlignment =
         CommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT
     public var horizontalGapScaleFactor: Double =
         CommandButtonPresentationModel.DEFAULT_GAP_SCALE_FACTOR

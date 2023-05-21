@@ -29,10 +29,7 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
-import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
+import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
@@ -222,7 +219,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                         });
                     }
                     commandButton.setPresentationState(MENU_TILE_LEVEL_1);
-                    commandButton.setHorizontalAlignment(SwingUtilities.LEADING);
+                    commandButton.setHorizontalAlignment(HorizontalAlignment.FILL);
                     commandButton.setPopupPlacementStrategy(
                             RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP);
                     this.panelLevel1.add(commandButton);

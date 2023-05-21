@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel;
 import org.pushingpixels.radiance.component.api.common.JScrollablePanel.ScrollType;
@@ -208,7 +209,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                 .setContentPadding(new Insets(2, 2, 2, 2))
                 .setFocusable(false)
                 .setToDismissPopupsOnActivation(false)
-                .setHorizontalAlignment(SwingConstants.CENTER)
+                .setHorizontalAlignment(HorizontalAlignment.CENTER)
                 .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
                 .setActionFireTrigger(this.scrollablePanel.isScrollOnRollover() ?
                         CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER :

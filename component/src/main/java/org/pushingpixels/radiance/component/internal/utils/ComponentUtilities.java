@@ -175,6 +175,10 @@ public class ComponentUtilities {
         return ComponentUtilities.getScaledSize(16, fontSize, 1.0, 4);
     }
 
+    public static int getCommandButtonPopupIconWidth(int fontSize) {
+        return ComponentUtilities.getScaledSize(12, fontSize, 1.0, 4);
+    }
+
     public static int getTaskToggleButtonHeight(JRibbon ribbon) {
         Font titleFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet()
                 .getWindowTitleFont();

@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.demo.component.common.custom;
 
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
 import org.pushingpixels.radiance.component.api.common.model.Command;
@@ -82,8 +83,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                 this.presentationModel.itemIconDisabledFilterStrategy
                         )
                         .setContentPadding(this.presentationModel.itemContentPadding)
+                        .setHorizontalAlignment(this.presentationModel.itemHorizontalAlignment)
                         .setPopupPlacementStrategy(this.presentationModel.popupPlacementStrategy)
-                        .setHorizontalAlignment(this.presentationModel.horizontalAlignment)
                         .build();
 
         List<CustomComplexPopupMenuContentModel.CustomComplexPopupMenuSectionModel> sections =

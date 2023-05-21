@@ -56,9 +56,9 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
     public final RadianceThemingSlices.IconFilterStrategy itemIconDisabledFilterStrategy =
             RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
     public final Insets itemContentPadding = new Insets(6, 16, 6, 16);
+    public final HorizontalAlignment itemHorizontalAlignment = HorizontalAlignment.FILL;
     public final RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
             RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP;
-    public final int horizontalAlignment = SwingUtilities.LEADING;
 
     public final CommandButtonPresentationModel zoomPresentationModel =
             CommandButtonPresentationModel.builder()
@@ -113,7 +113,7 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
                     .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
                     .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
                     .setContentPadding(new Insets(10, 16, 10, 16))
-                    .setHorizontalAlignment(SwingUtilities.LEADING)
+                    .setHorizontalAlignment(HorizontalAlignment.LEADING)
                     .build();
 
     public CustomComplexPopupMenuPresentationModel() {

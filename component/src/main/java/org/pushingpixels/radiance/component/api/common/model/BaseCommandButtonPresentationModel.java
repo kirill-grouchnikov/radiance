@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -38,7 +39,7 @@ import java.awt.*;
 
 public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommandPopupMenuPresentationModel,
         PM extends BaseCommandButtonPresentationModel<MPM, PM>> implements ImmutablePresentationModel {
-    public static final int DEFAULT_HORIZONTAL_ALIGNMENT = SwingConstants.CENTER;
+    public static final HorizontalAlignment DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.CENTER;
     public static final double DEFAULT_GAP_SCALE_FACTOR = 1.0;
 
     public static final int DEFAULT_AUTO_REPEAT_INITIAL_INTERVAL_MS = 500;
@@ -54,7 +55,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
     protected RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     protected boolean isFocusable;
-    protected int horizontalAlignment;
+    protected HorizontalAlignment horizontalAlignment;
     protected Insets contentPadding;
     protected double horizontalGapScaleFactor;
     protected double verticalGapScaleFactor;
@@ -98,7 +99,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         return this.isFocusable;
     }
 
-    public int getHorizontalAlignment() {
+    public HorizontalAlignment getHorizontalAlignment() {
         return this.horizontalAlignment;
     }
 
@@ -255,7 +256,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private CommandButtonPresentationState presentationState;
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
         private Boolean isFocusable;
-        private Integer horizontalAlignment;
+        private HorizontalAlignment horizontalAlignment;
         private Insets contentPadding;
         private Double horizontalGapScaleFactor;
         private Double verticalGapScaleFactor;
@@ -298,7 +299,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this;
         }
 
-        public Overlay setHorizontalAlignment(int horizontalAlignment) {
+        public Overlay setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
             this.horizontalAlignment = horizontalAlignment;
             return this;
         }
@@ -428,7 +429,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this.isFocusable;
         }
 
-        public Integer getHorizontalAlignment() {
+        public HorizontalAlignment getHorizontalAlignment() {
             return this.horizontalAlignment;
         }
 
@@ -541,7 +542,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy =
                 RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT;
         private boolean isFocusable = true;
-        private int horizontalAlignment =
+        private HorizontalAlignment horizontalAlignment =
                 BaseCommandButtonPresentationModel.DEFAULT_HORIZONTAL_ALIGNMENT;
         private Insets contentPadding =
                 BaseCommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
@@ -593,7 +594,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         }
 
         @SuppressWarnings("unchecked")
-        public B setHorizontalAlignment(int horizontalAlignment) {
+        public B setHorizontalAlignment(HorizontalAlignment horizontalAlignment) {
             this.horizontalAlignment = horizontalAlignment;
             return (B) this;
         }
