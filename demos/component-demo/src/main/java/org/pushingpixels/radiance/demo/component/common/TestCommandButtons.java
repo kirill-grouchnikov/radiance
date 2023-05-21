@@ -38,7 +38,11 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
+import org.pushingpixels.radiance.demo.component.common.custom.*;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
+import org.pushingpixels.radiance.demo.component.svg.material.transcoded.fullscreen_black_24dp;
+import org.pushingpixels.radiance.demo.component.svg.material.transcoded.menu_black_24dp;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceLocaleSelector;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
@@ -46,8 +50,10 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -117,6 +123,12 @@ public class TestCommandButtons extends JFrame {
 
         buttonPanel = getButtonPanel();
         this.add(buttonPanel, BorderLayout.CENTER);
+
+        JPanel customPanel = new JPanel();
+        customPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
+        customPanel.setBorder(new EmptyBorder(8, 20, 8, 20));
+        customPanel.add(getCustomButtonProjection().buildComponent());
+        this.add(customPanel, BorderLayout.NORTH);
     }
 
     private CommandMenuContentModel getPopupMenuContentModel() {
@@ -129,7 +141,7 @@ public class TestCommandButtons extends JFrame {
         List<Command> simpleEntries2 = new ArrayList<>();
 
         simpleEntries1.add(Command.builder()
-                .setText(mf.format(new Object[]{"1"}))
+                .setText(mf.format(new Object[]{"1"}) + "sfdjhskjshdksjdh")
                 .setIconFactory(Address_book_new.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 1"))
                 .build());
@@ -303,6 +315,163 @@ public class TestCommandButtons extends JFrame {
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
             SwingUtilities.updateComponentTreeUI(window);
         }));
+    }
+
+    private static int[] ZOOM_LEVELS = {30, 50, 67, 80, 90, 100, 110, 120, 133, 150, 170, 200, 240, 300, 400, 500};
+    private static int CURR_ZOOM_LEVEL_INDEX = 5;
+    private static Command ZOOM_OUT_COMMAND;
+    private static Command ZOOM_IN_COMMAND;
+    private static CustomComplexPopupMenuZoom MENU_ZOOM;
+
+    private BaseCommandButtonProjection getCustomButtonProjection() {
+        ZOOM_OUT_COMMAND = Command.builder()
+                .setText("-")
+                .setAction(commandActionEvent -> {
+                    CURR_ZOOM_LEVEL_INDEX--;
+                    MENU_ZOOM.setZoom(ZOOM_LEVELS[CURR_ZOOM_LEVEL_INDEX]);
+                    ZOOM_OUT_COMMAND.setActionEnabled(CURR_ZOOM_LEVEL_INDEX > 0);
+                    ZOOM_IN_COMMAND.setActionEnabled(CURR_ZOOM_LEVEL_INDEX < (ZOOM_LEVELS.length - 1));
+                })
+                .build();
+        ZOOM_IN_COMMAND = Command.builder()
+                .setText("+")
+                .setAction(commandActionEvent -> {
+                    CURR_ZOOM_LEVEL_INDEX++;
+                    MENU_ZOOM.setZoom(ZOOM_LEVELS[CURR_ZOOM_LEVEL_INDEX]);
+                    ZOOM_OUT_COMMAND.setActionEnabled(CURR_ZOOM_LEVEL_INDEX > 0);
+                    ZOOM_IN_COMMAND.setActionEnabled(CURR_ZOOM_LEVEL_INDEX < (ZOOM_LEVELS.length - 1));
+                })
+                .build();
+        MessageFormat managedByMf = new MessageFormat(resourceBundle.getString("Menu.managedBy"));
+        managedByMf.setLocale(currLocale);
+
+        CustomComplexPopupMenuContentModel menuContentModel =
+                new CustomComplexPopupMenuContentModel();
+        menuContentModel.addSection(
+                CustomComplexPopupMenuContentModel.sectionBuilder()
+                        .addHeader(new CustomComplexPopupMenuHeader(
+                                resourceBundle.getString("Menu.syncAndSaveData"),
+                                Command.builder()
+                                        .setText(resourceBundle.getString("Menu.signIn"))
+                                        .setAction(commandActionEvent -> System.out.println("Sign in"))
+                                        .build(),
+                                Arrays.asList(new Color(167, 130, 245),
+                                        new Color(240, 128, 180),
+                                        new Color(248, 206, 136))
+                        ))
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.history"))
+                                .setAction(commandActionEvent -> System.out.println("History"))
+                                .build())
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.downloads"))
+                                .setAction(commandActionEvent -> System.out.println("Downloads"))
+                                .build())
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.bookmarks"))
+                                .setAction(commandActionEvent -> System.out.println("Bookmarks"))
+                                .build())
+                        .build());
+        MENU_ZOOM = new CustomComplexPopupMenuZoom(
+                resourceBundle.getString("Menu.zoom"),
+                ZOOM_LEVELS[CURR_ZOOM_LEVEL_INDEX],
+                ZOOM_OUT_COMMAND,
+                ZOOM_IN_COMMAND,
+                Command.builder()
+                        .setText("")
+                        .setIconFactory(fullscreen_black_24dp.factory())
+                        .setAction(commandActionEvent -> System.out.println("Full screen!"))
+                        .build()
+        );
+        menuContentModel.addSection(
+                CustomComplexPopupMenuContentModel.sectionBuilder()
+                        .addZoom(MENU_ZOOM)
+                        .build()
+        );
+        menuContentModel.addSection(
+                CustomComplexPopupMenuContentModel.sectionBuilder()
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.print"))
+                                .setAction(commandActionEvent -> System.out.println("Print"))
+                                .build())
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.cast"))
+                                .setAction(commandActionEvent -> System.out.println("Cast"))
+                                .build())
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.find"))
+                                .setAction(commandActionEvent -> System.out.println("Find"))
+                                .build())
+                        .build());
+        menuContentModel.addSection(
+                CustomComplexPopupMenuContentModel.sectionBuilder()
+                        .addEdit(new CustomComplexPopupMenuEdit(
+                                resourceBundle.getString("Menu.edit"),
+                                Command.builder()
+                                        .setText(resourceBundle.getString("Cut.text"))
+                                        .setAction(commandActionEvent -> System.out.println("Cut"))
+                                        .build(),
+                                Command.builder()
+                                        .setText(resourceBundle.getString("Copy.text"))
+                                        .setAction(commandActionEvent -> System.out.println("Copy"))
+                                        .build(),
+                                Command.builder()
+                                        .setText(resourceBundle.getString("Paste.text"))
+                                        .setAction(commandActionEvent -> System.out.println("Past"))
+                                        .build()))
+                        .build());
+        menuContentModel.addSection(
+                CustomComplexPopupMenuContentModel.sectionBuilder()
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.settings"))
+                                .setAction(commandActionEvent -> System.out.println("Settings"))
+                                .build())
+                        .addCommand(Command.builder()
+                                .setText(resourceBundle.getString("Menu.help"))
+                                .setSecondaryContentModel(new CommandMenuContentModel(
+                                        new CommandGroup(
+                                                Command.builder()
+                                                        .setText(resourceBundle.getString("Menu.help.about"))
+                                                        .setAction(commandActionEvent -> System.out.println("About"))
+                                                        .build(),
+                                                Command.builder()
+                                                        .setText(resourceBundle.getString("Menu.help.whatsNew"))
+                                                        .setAction(commandActionEvent -> System.out.println("What's New"))
+                                                        .build(),
+                                                Command.builder()
+                                                        .setText(resourceBundle.getString("Menu.help.helpCenter"))
+                                                        .setAction(commandActionEvent -> System.out.println("Help Center"))
+                                                        .build()))
+                                )
+                                .build()
+                        )
+                        .build());
+        menuContentModel.addSection(
+                CustomComplexPopupMenuContentModel.sectionBuilder()
+                        .addFooter(new CustomComplexPopupMenuFooter(
+                                Command.builder()
+                                        .setText(managedByMf.format(new Object[]{"acme.com"}))
+                                        .setAction(commandActionEvent -> System.out.println("Manage"))
+                                        .build()))
+                        .build());
+
+        return new CustomComplexCommandButtonProjection(
+                CustomComplexCommand.builder()
+                        .setIconFactory(menu_black_24dp.factory())
+                        .setSecondaryContentModel(menuContentModel)
+                        .build(),
+                CustomComplexCommandButtonPresentationModel.builder()
+                        .setPresentationState(CommandButtonPresentationState.SMALL)
+                        .setContentPadding(CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                        .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END)
+                        .setShowPopupIcon(false)
+                        .setHorizontalAlignment(SwingUtilities.CENTER)
+                        .setIconFilterStrategies(
+                                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_TEXT,
+                                RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME)
+                        .build());
     }
 
     /**
