@@ -960,7 +960,7 @@ public class RadianceThemingCortex {
          * If the specific widget needs to be visible when the window is shown, wrap the call with
          * {@link SwingUtilities#invokeLater(Runnable)}.
          *
-         * @param visible          Visibility indication.
+         * @param visible         Visibility indication.
          * @param radianceWidgets Widget types.
          */
         public static void setWidgetVisible(boolean visible,
@@ -1117,10 +1117,9 @@ public class RadianceThemingCortex {
          * Specifies that extra UI elements (such as menu items in system menu or lock borders) can
          * be shown.
          *
-         * @param extraWidgetsPresence
-         *         If <code>true</code>, extra UI elements (such as menu items in system menu or
-         *         lock borders) can be shown. Pass <code>null</code> to reset to the default
-         *         behavior.
+         * @param extraWidgetsPresence If <code>true</code>, extra UI elements (such as menu items in system menu or
+         *                             lock borders) can be shown. Pass <code>null</code> to reset to the default
+         *                             behavior.
          * @see ComponentOrParentChainScope#setExtraWidgetsPresence(JComponent, Boolean)
          */
         public static void setExtraWidgetsPresence(Boolean extraWidgetsPresence) {
@@ -1967,6 +1966,17 @@ public class RadianceThemingCortex {
             component.putClientProperty(RadianceSynapse.ICON_FILTER_STRATEGY_DISABLED,
                     disabledIconFilterStrategy);
         }
+
+        /**
+         * Specifies the appearance of the specified separator.
+         *
+         * @param separator  Separator.
+         * @param appearance Its appearance.
+         */
+        public static void setSeparatorAppearance(JSeparator separator,
+                RadianceThemingSlices.SeparatorAppearance appearance) {
+            separator.putClientProperty(RadianceSynapse.SEPARATOR_APPEARANCE, appearance);
+        }
     }
 
     /**
@@ -2252,8 +2262,8 @@ public class RadianceThemingCortex {
          * be visible when the window is shown, wrap the call with
          * {@link SwingUtilities#invokeLater(Runnable)}.
          *
-         * @param window           Window. May not be <code>null</code>.
-         * @param visible          Visibility indication.
+         * @param window          Window. May not be <code>null</code>.
+         * @param visible         Visibility indication.
          * @param radianceWidgets Widget types.
          */
         public static void setWidgetVisible(Window window, boolean visible,

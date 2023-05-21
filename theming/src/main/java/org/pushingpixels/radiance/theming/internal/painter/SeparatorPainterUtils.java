@@ -54,7 +54,7 @@ public class SeparatorPainterUtils {
     /**
      * Paints a separator.
      *
-     * @param c
+     * @param separator
      *         Component.
      * @param graphics
      *         Graphics context.
@@ -65,9 +65,11 @@ public class SeparatorPainterUtils {
      * @param orientation
      *         Separator orientation.
      */
-    public static void paintSeparator(Component c, Graphics graphics, int width, int height,
+    public static void paintSeparator(JSeparator separator, Graphics graphics, int width, int height,
             int orientation) {
-        paintSeparator(c, graphics, width, height, orientation, true, 10);
+        int fadeLength = (RadianceCoreUtilities.getSeparatorAppearance(separator) ==
+                RadianceThemingSlices.SeparatorAppearance.SOFT) ? 10 : 0;
+        paintSeparator(separator, graphics, width, height, orientation, true, fadeLength);
     }
 
     /**
@@ -198,7 +200,6 @@ public class SeparatorPainterUtils {
         if ((width == 0) || (height == 0)) {
             return;
         }
-
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT

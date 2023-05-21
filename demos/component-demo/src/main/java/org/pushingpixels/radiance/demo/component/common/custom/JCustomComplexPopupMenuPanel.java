@@ -46,6 +46,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 @RadiancePopupContainer
@@ -116,6 +117,11 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                 (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom) sectionEntry.getValue();
                         this.addZoomSection(zoom);
                         break;
+                    case HEADER:
+                        CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader header =
+                                (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader) sectionEntry.getValue();
+                        this.addHeaderSection(header);
+                        break;
                     case FOOTER:
                         CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer =
                                 (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter) sectionEntry.getValue();
@@ -139,6 +145,13 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
         setUI(RadianceColorSelectorPopupMenuPanelUI.createUI(this));
     }
 
+    private JSeparator getHardVerticalSeparator() {
+        JSeparator separator = new JSeparator(JSeparator.VERTICAL);
+        RadianceThemingCortex.ComponentScope.setSeparatorAppearance(separator,
+                RadianceThemingSlices.SeparatorAppearance.HARD);
+        return separator;
+    }
+
     private void addEditSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit edit) {
         JPanel section = new JPanel(new BorderLayout());
         JLabel titleLabel = new JLabel(edit.getTitle());
@@ -149,13 +162,13 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
         BoxLayout commandsLayout = new BoxLayout(commands, BoxLayout.LINE_AXIS);
         commands.setLayout(commandsLayout);
 
-        commands.add(new JSeparator(JSeparator.VERTICAL));
+        commands.add(getHardVerticalSeparator());
         commands.add(edit.getCommandCut().project(this.presentationModel.editPresentationModel)
                 .buildComponent());
-        commands.add(new JSeparator(JSeparator.VERTICAL));
+        commands.add(getHardVerticalSeparator());
         commands.add(edit.getCommandCopy().project(this.presentationModel.editPresentationModel)
                 .buildComponent());
-        commands.add(new JSeparator(JSeparator.VERTICAL));
+        commands.add(getHardVerticalSeparator());
         commands.add(edit.getCommandPaste().project(this.presentationModel.editPresentationModel)
                 .buildComponent());
         section.add(commands, BorderLayout.LINE_END);
@@ -173,14 +186,14 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
         BoxLayout commandsLayout = new BoxLayout(commands, BoxLayout.LINE_AXIS);
         commands.setLayout(commandsLayout);
 
-        commands.add(new JSeparator(JSeparator.VERTICAL));
+        commands.add(getHardVerticalSeparator());
         commands.add(zoom.getCommandZoomOut().project(this.presentationModel.zoomPresentationModel)
                 .buildComponent());
-        commands.add(new JSeparator(JSeparator.VERTICAL));
+        commands.add(getHardVerticalSeparator());
         JLabel zoomLabel = new JLabel(String.valueOf(zoom.getZoom()));
         zoomLabel.setBorder(new EmptyBorder(this.presentationModel.zoomLabelPresentationModel.getContentPadding()));
         commands.add(zoomLabel);
-        commands.add(new JSeparator(JSeparator.VERTICAL));
+        commands.add(getHardVerticalSeparator());
         commands.add(zoom.getCommandZoomIn().project(this.presentationModel.zoomPresentationModel)
                 .buildComponent());
         section.add(commands, BorderLayout.LINE_END);
@@ -191,6 +204,59 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             }
         };
         zoom.addPropertyChangeListener(this.zoomPropertyChangeListener);
+
+        this.addMenuPanel(section);
+    }
+
+    private void addHeaderSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader header) {
+        JPanel section = new JPanel(new BorderLayout());
+
+        JPanel mainSection = new JPanel(new BorderLayout());
+        JLabel titleLabel = new JLabel(header.getTitle());
+        titleLabel.setBorder(new EmptyBorder(this.presentationModel.headerTitlePresentationModel.getContentPadding()));
+        mainSection.add(titleLabel, BorderLayout.LINE_START);
+
+
+        JPanel signInPanel = new JPanel(new BorderLayout());
+        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
+        RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
+        RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+
+        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(section, 1.0);
+        signInPanel.setBackground(scheme.getAccentedBackgroundFillColor());
+
+        signInPanel.add(header.getCommandSignIn().project(this.presentationModel.headerSignInPresentationModel).
+                buildComponent(), BorderLayout.CENTER);
+        mainSection.add(signInPanel, BorderLayout.LINE_END);
+
+        section.add(mainSection, BorderLayout.CENTER);
+
+        JPanel headerSeparator = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                int width = getWidth();
+                Graphics2D g2d = (Graphics2D) g.create();
+
+                int stopCount = header.getColors().length;
+                float[] stops = new float[stopCount];
+                stops[0] = 0.0f;
+                for (int stop = 1; stop <= (stopCount - 2); stop++) {
+                    stops[stop] = (float) stop / (float) stopCount;
+                }
+                stops[stopCount - 1] = 1.0f;
+
+                g2d.setPaint(new LinearGradientPaint(
+                        0.0f, 0.0f, width, 0.0f,
+                        stops, header.getColors()
+                ));
+                g2d.fillRect(0, 0, width, getHeight());
+
+                g2d.dispose();
+            }
+        };
+        headerSeparator.setPreferredSize(new Dimension(0, this.presentationModel.headerSeparatorHeight));
+        section.add(headerSeparator, BorderLayout.SOUTH);
 
         this.addMenuPanel(section);
     }

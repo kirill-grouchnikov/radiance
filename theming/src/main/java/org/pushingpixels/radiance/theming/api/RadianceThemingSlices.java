@@ -869,6 +869,14 @@ public final class RadianceThemingSlices {
         ALWAYS
     }
 
+    public enum SeparatorAppearance {
+        // Start and end of the separator are fading
+        SOFT,
+
+        // Start and end of the separator do not fade
+        HARD
+    }
+
     public abstract static class PopupPlacementStrategy {
         private PopupPlacementStrategy() {
         }

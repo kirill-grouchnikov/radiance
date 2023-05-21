@@ -356,10 +356,11 @@ public class TestCommandButtons extends JFrame {
                                         .setText(resourceBundle.getString("Menu.signIn"))
                                         .setAction(commandActionEvent -> System.out.println("Sign in"))
                                         .build(),
-                                Arrays.asList(new Color(167, 130, 245),
+                                new Color[]{new Color(167, 130, 245),
                                         new Color(240, 128, 180),
-                                        new Color(248, 206, 136))
-                        ))
+                                        new Color(248, 206, 136)
+                                })
+                        )
                         .addCommand(Command.builder()
                                 .setText(resourceBundle.getString("Menu.history"))
                                 .setAction(commandActionEvent -> System.out.println("History"))

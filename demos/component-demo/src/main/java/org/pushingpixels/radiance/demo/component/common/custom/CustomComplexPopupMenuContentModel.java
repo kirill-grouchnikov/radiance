@@ -142,13 +142,25 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
     public static class CustomComplexPopupMenuHeader {
         private String title;
         private Command commandSignIn;
-        private List<Color> colors;
+        private Color[] colors;
 
         public CustomComplexPopupMenuHeader(String title, Command commandSignIn,
-                List<Color> colors) {
+                Color[] colors) {
             this.title = title;
             this.commandSignIn = commandSignIn;
             this.colors = colors;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Command getCommandSignIn() {
+            return commandSignIn;
+        }
+
+        public Color[] getColors() {
+            return colors;
         }
     }
 

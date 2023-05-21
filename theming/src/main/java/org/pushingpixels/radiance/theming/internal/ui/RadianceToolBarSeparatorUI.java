@@ -54,9 +54,9 @@ public class RadianceToolBarSeparatorUI extends BasicToolBarSeparatorUI {
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		Graphics2D graphics = (Graphics2D) g.create();
-
-		SeparatorPainterUtils.paintSeparator(c, graphics, c.getWidth(), c.getHeight(),
-				((JSeparator) c).getOrientation());
+		JSeparator separator = (JSeparator) c;
+		SeparatorPainterUtils.paintSeparator(separator, graphics, c.getWidth(), c.getHeight(),
+				separator.getOrientation());
 		graphics.dispose();
 	}
 

@@ -999,6 +999,21 @@ public class RadianceCoreUtilities {
     }
 
     /**
+     * Returns the appearance for the specified separator.
+     *
+     * @param separator Separator.
+     * @return Its appearance.
+     * @see RadianceThemingCortex.ComponentScope#setSeparatorAppearance(JSeparator, RadianceThemingSlices.SeparatorAppearance)
+     */
+    public static RadianceThemingSlices.SeparatorAppearance getSeparatorAppearance(JSeparator separator) {
+        Object separatorProperty = separator
+                .getClientProperty(RadianceSynapse.SEPARATOR_APPEARANCE);
+        if (separatorProperty instanceof RadianceThemingSlices.SeparatorAppearance)
+            return (RadianceThemingSlices.SeparatorAppearance) separatorProperty;
+        return RadianceThemingSlices.SeparatorAppearance.SOFT;
+    }
+
+    /**
      * Given a component, returns the parent for computing the {@link RadianceDecorationPainter}.
      *
      * @param c Component.

@@ -258,7 +258,12 @@ public class RadianceSynapse {
     public final static String TITLE_ICON_HORIZONTAL_GRAVITY = "radiance.theming.internal.titleIconHorizontalGravity";
 
     /**
-     * Client property name for specifying the horizontal gravity of the title pane icon.
+     * Client property name for controlling usage of the default color chooser.
      */
     public final static String USE_DEFAULT_COLOR_CHOOSER = "radiance.theming.internal.useDefaultColorChooser";
+
+    /**
+     * Client property name for specifying the separator appearance.
+     */
+    public final static String SEPARATOR_APPEARANCE = "radiance.theming.internal.separatorAppearance";
 }
