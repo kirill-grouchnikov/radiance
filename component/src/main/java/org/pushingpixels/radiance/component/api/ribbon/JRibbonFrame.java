@@ -779,8 +779,8 @@ public class JRibbonFrame extends JFrame {
         CommandPopupMenuPanelProjection globalContextMenuProjection = new CommandPopupMenuPanelProjection(
                 menuContentModel,
                 CommandPopupMenuPresentationModel.builder()
-                        .setMenuPresentationState(CommandButtonPresentationState.MEDIUM)
-                        .setMenuPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
+                        .setItemPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .setItemPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                         .build());
         globalContextMenuProjection.setComponentSupplier(projection -> GlobalPopupMenuPanel::new);
         final JCommandPopupMenuPanel menu = globalContextMenuProjection.buildComponent();

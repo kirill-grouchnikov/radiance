@@ -91,8 +91,8 @@ public class TileMenu extends JFrame {
                         .setPresentationState(CommandButtonPresentationState.MEDIUM)
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
                         .setPopupMenuPresentationModel(CommandPopupMenuPresentationModel.builder()
-                                .setMenuPresentationState(CommandButtonPresentationState.TILE)
-                                .setMenuPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
+                                .setItemPresentationState(CommandButtonPresentationState.TILE)
+                                .setItemPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                                 .setPopupPlacementStrategy(
                                         RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
                                 .build())

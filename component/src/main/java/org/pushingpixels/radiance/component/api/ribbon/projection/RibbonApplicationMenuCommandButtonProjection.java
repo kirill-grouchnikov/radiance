@@ -90,15 +90,14 @@ public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandBut
     @Override
     @SuppressWarnings("unchecked")
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, RibbonApplicationMenu, CommandPopupMenuPresentationModel> getPopupMenuPanelProjection() {
-        BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
+        CommandPopupMenuPresentationModel popupMenuPresentationModel =
                 this.getPresentationModel().getPopupMenuPresentationModel();
         if (popupMenuPresentationModel == null) {
             popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
         }
         RibbonApplicationMenuPanelPanelProjection menuPanelProjection =
                 new RibbonApplicationMenuPanelPanelProjection(
-                        this.getContentModel().getSecondaryContentModel(),
-                        (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+                        this.getContentModel().getSecondaryContentModel(), popupMenuPresentationModel);
         menuPanelProjection.setCommandOverlays(this.getCommandOverlays());
         menuPanelProjection.setSecondaryLevelCommandPresentationState(
                 this.getSecondaryLevelCommandPresentationState());

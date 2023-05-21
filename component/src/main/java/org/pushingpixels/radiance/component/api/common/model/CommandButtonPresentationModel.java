@@ -46,8 +46,8 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandButtonP
  * @see Command
  * @see CommandButtonProjection
  */
-public class CommandButtonPresentationModel extends BaseCommandButtonPresentationModel<CommandPopupMenuPresentationModel,
-        CommandButtonPresentationModel> {
+public class CommandButtonPresentationModel extends BaseCommandButtonPresentationModel<
+        CommandPopupMenuPresentationModel, CommandButtonPresentationModel> {
 
     protected CommandButtonPresentationModel() {
     }

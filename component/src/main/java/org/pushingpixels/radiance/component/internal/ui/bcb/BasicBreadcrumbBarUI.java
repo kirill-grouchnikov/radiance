@@ -430,8 +430,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         .setHorizontalGapScaleFactor(0.75)
                         .setPopupMenuPresentationModel(
                                 CommandPopupMenuPresentationModel.builder()
-                                        .setMaxVisibleMenuCommands(10)
-                                        .setMenuIconFilterStrategies(
+                                        .setMaxVisibleItems(10)
+                                        .setItemFilterStrategies(
                                                 breadcrumbBarPresentationModel.getActiveIconFilterStrategy(),
                                                 breadcrumbBarPresentationModel.getEnabledIconFilterStrategy(),
                                                 breadcrumbBarPresentationModel.getDisabledIconFilterStrategy()

@@ -51,17 +51,14 @@ public class ColorSelectorCommandButtonProjection extends
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, ColorSelectorPopupMenuContentModel, ColorSelectorPopupMenuPresentationModel> getPopupMenuPanelProjection() {
         ColorSelectorPopupMenuContentModel popupMenuContentModel =
                 this.getContentModel().getSecondaryContentModel();
-        BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
+        ColorSelectorPopupMenuPresentationModel popupMenuPresentationModel =
                 this.getPresentationModel().getPopupMenuPresentationModel();
         if (popupMenuPresentationModel == null) {
             popupMenuPresentationModel = ColorSelectorPopupMenuPresentationModel.builder().build();
         }
         ColorSelectorPopupMenuPanelProjection colorSelectorPopupMenuPanelProjection =
-                new ColorSelectorPopupMenuPanelProjection(popupMenuContentModel,
-                        (ColorSelectorPopupMenuPresentationModel) popupMenuPresentationModel);
+                new ColorSelectorPopupMenuPanelProjection(popupMenuContentModel, popupMenuPresentationModel);
         colorSelectorPopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
-        colorSelectorPopupMenuPanelProjection.setComponentSupplier(
-                popupPanelMenuProjection -> JColorSelectorPopupMenuPanel::new);
         return colorSelectorPopupMenuPanelProjection;
     }
 }

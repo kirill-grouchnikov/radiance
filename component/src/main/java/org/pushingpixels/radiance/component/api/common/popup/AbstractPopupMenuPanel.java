@@ -60,13 +60,13 @@ public abstract class AbstractPopupMenuPanel extends JPopupPanel implements Scro
         this.menuComponents = new ArrayList<>();
     }
 
-    void addMenuButton(JCommandButton menuButton) {
+    protected void addMenuButton(JCommandButton menuButton) {
         menuButton.setHorizontalAlignment(SwingUtilities.LEADING);
         this.menuComponents.add(menuButton);
         this.fireStateChanged();
     }
 
-    void addMenuSeparator() {
+    protected void addMenuSeparator() {
         Separator separator = new Separator();
         separator.setFocusable(false);
         this.menuComponents.add(separator);
@@ -78,7 +78,7 @@ public abstract class AbstractPopupMenuPanel extends JPopupPanel implements Scro
      *
      * @param menuPanel Menu panel to add.
      */
-    void addMenuPanel(JPanel menuPanel) {
+    protected void addMenuPanel(JPanel menuPanel) {
         this.menuComponents.add(menuPanel);
         this.fireStateChanged();
     }

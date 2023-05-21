@@ -180,13 +180,13 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     }
 
     @Override
-    void addMenuButton(JCommandButton menuButton) {
+    protected void addMenuButton(JCommandButton menuButton) {
         super.addMenuButton(menuButton);
         this.updateLastColorSelectorPanel();
     }
 
     @Override
-    void addMenuSeparator() {
+    protected void addMenuSeparator() {
         super.addMenuSeparator();
         this.updateLastColorSelectorPanel();
     }

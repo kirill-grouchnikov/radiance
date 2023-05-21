@@ -161,13 +161,13 @@ public class KCommandMenu: KBaseCommandMenu<CommandMenuContentModel, CommandPopu
     override fun toJavaPopupMenuPresentationModel(): CommandPopupMenuPresentationModel? {
         val presentationModelBuilder = CommandPopupMenuPresentationModel.builder()
         if (maxVisibleMenuCommands > 0) {
-            presentationModelBuilder.setMaxVisibleMenuCommands(maxVisibleMenuCommands)
+            presentationModelBuilder.setMaxVisibleItems(maxVisibleMenuCommands)
         }
         presentationModelBuilder.setToDismissOnCommandActivation(toDismissOnCommandActivation)
         if (commandPanel != null) {
             presentationModelBuilder.setPanelPresentationModel(commandPanel!!.getPresentationModel())
         }
-        presentationModelBuilder.setMenuContentPadding(menuContentPadding)
+        presentationModelBuilder.setItemContentPadding(menuContentPadding)
 
         return presentationModelBuilder.build()
     }

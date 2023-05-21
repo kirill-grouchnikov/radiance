@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.common.popup.model;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
+import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
@@ -55,13 +56,15 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
 
     private CommandPopupMenuPanelPresentationModel panelPresentationModel;
 
-    private CommandButtonPresentationState menuPresentationState;
-    private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy;
-    private RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy;
-    private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy;
-    private Insets menuContentPadding;
-    private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger;
-    private CommandButtonPresentationModel.SelectedStateHighlight menuSelectedStateHighlight;
+    private CommandButtonPresentationState itemPresentationState;
+    private RadianceThemingSlices.IconFilterStrategy itemActiveIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy itemEnabledIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy itemDisabledIconFilterStrategy;
+    private Insets itemContentPadding;
+    private RadianceThemingSlices.Sides itemSides;
+    private HorizontalAlignment itemHorizontalAlignment;
+    private CommandButtonPresentationModel.PopupFireTrigger itemPopupFireTrigger;
+    private CommandButtonPresentationModel.SelectedStateHighlight itemSelectedStateHighlight;
 
     /**
      * Maximum number of menu items visible in this model. If more commands are
@@ -89,32 +92,40 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
         return this.panelPresentationModel;
     }
 
-    public CommandButtonPresentationState getMenuPresentationState() {
-        return this.menuPresentationState;
+    public CommandButtonPresentationState getItemPresentationState() {
+        return this.itemPresentationState;
     }
 
-    public RadianceThemingSlices.IconFilterStrategy getMenuActiveIconFilterStrategy() {
-        return this.menuActiveIconFilterStrategy;
+    public RadianceThemingSlices.IconFilterStrategy getItemActiveIconFilterStrategy() {
+        return this.itemActiveIconFilterStrategy;
     }
 
-    public RadianceThemingSlices.IconFilterStrategy getMenuEnabledIconFilterStrategy() {
-        return this.menuEnabledIconFilterStrategy;
+    public RadianceThemingSlices.IconFilterStrategy getItemEnabledIconFilterStrategy() {
+        return this.itemEnabledIconFilterStrategy;
     }
 
-    public RadianceThemingSlices.IconFilterStrategy getMenuDisabledIconFilterStrategy() {
-        return this.menuDisabledIconFilterStrategy;
+    public RadianceThemingSlices.IconFilterStrategy getItemDisabledIconFilterStrategy() {
+        return this.itemDisabledIconFilterStrategy;
     }
 
-    public Insets getMenuContentPadding() {
-        return this.menuContentPadding;
+    public Insets getItemContentPadding() {
+        return this.itemContentPadding;
     }
 
-    public CommandButtonPresentationModel.PopupFireTrigger getMenuPopupFireTrigger() {
-        return this.menuPopupFireTrigger;
+    public RadianceThemingSlices.Sides getItemSides() {
+        return this.itemSides;
     }
 
-    public CommandButtonPresentationModel.SelectedStateHighlight getMenuSelectedStateHighlight() {
-        return this.menuSelectedStateHighlight;
+    public HorizontalAlignment getItemHorizontalAlignment() {
+        return this.itemHorizontalAlignment;
+    }
+
+    public CommandButtonPresentationModel.PopupFireTrigger getItemPopupFireTrigger() {
+        return this.itemPopupFireTrigger;
+    }
+
+    public CommandButtonPresentationModel.SelectedStateHighlight getItemSelectedStateHighlight() {
+        return this.itemSelectedStateHighlight;
     }
 
     public int getMaxVisibleMenuCommands() {
@@ -131,21 +142,23 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
 
     public static class Builder {
         private CommandPopupMenuPanelPresentationModel panelPresentationModel;
-        private CommandButtonPresentationState menuPresentationState =
+        private CommandButtonPresentationState itemPresentationState =
                 DEFAULT_POPUP_MENU_PRESENTATION_STATE;
-        private RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy =
+        private RadianceThemingSlices.IconFilterStrategy itemActiveIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
-        private RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy =
+        private RadianceThemingSlices.IconFilterStrategy itemEnabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
-        private RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy =
+        private RadianceThemingSlices.IconFilterStrategy itemDisabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
-        private Insets menuContentPadding =
+        private Insets itemContentPadding =
                 CommandButtonPresentationModel.COMPACT_BUTTON_CONTENT_PADDING;
-        private CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger =
+        private RadianceThemingSlices.Sides itemSides = RadianceThemingSlices.Sides.CLOSED_RECTANGLE;
+        private HorizontalAlignment itemHorizontalAlignment = HorizontalAlignment.FILL;
+        private CommandButtonPresentationModel.PopupFireTrigger itemPopupFireTrigger =
                 CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER;
-        private CommandButtonPresentationModel.SelectedStateHighlight menuSelectedStateHighlight =
+        private CommandButtonPresentationModel.SelectedStateHighlight itemSelectedStateHighlight =
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY;
-        private int maxVisibleMenuCommands = -1;
+        private int maxVisibleItems = -1;
         private boolean toDismissOnCommandActivation = true;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP;
@@ -156,39 +169,49 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
             return this;
         }
 
-        public Builder setMenuPresentationState(
-                CommandButtonPresentationState menuPresentationState) {
-            this.menuPresentationState = menuPresentationState;
+        public Builder setItemPresentationState(
+                CommandButtonPresentationState itemPresentationState) {
+            this.itemPresentationState = itemPresentationState;
             return this;
         }
 
-        public Builder setMenuIconFilterStrategies(
+        public Builder setItemFilterStrategies(
                 RadianceThemingSlices.IconFilterStrategy menuActiveIconFilterStrategy,
                 RadianceThemingSlices.IconFilterStrategy menuEnabledIconFilterStrategy,
                 RadianceThemingSlices.IconFilterStrategy menuDisabledIconFilterStrategy) {
-            this.menuActiveIconFilterStrategy = menuActiveIconFilterStrategy;
-            this.menuEnabledIconFilterStrategy = menuEnabledIconFilterStrategy;
-            this.menuDisabledIconFilterStrategy = menuDisabledIconFilterStrategy;
+            this.itemActiveIconFilterStrategy = menuActiveIconFilterStrategy;
+            this.itemEnabledIconFilterStrategy = menuEnabledIconFilterStrategy;
+            this.itemDisabledIconFilterStrategy = menuDisabledIconFilterStrategy;
             return this;
         }
 
-        public Builder setMenuContentPadding(Insets menuContentPadding) {
-            this.menuContentPadding = menuContentPadding;
+        public Builder setItemContentPadding(Insets itemContentPadding) {
+            this.itemContentPadding = itemContentPadding;
             return this;
         }
 
-        public Builder setMenuPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger menuPopupFireTrigger) {
-            this.menuPopupFireTrigger = menuPopupFireTrigger;
+        public Builder setItemSides(RadianceThemingSlices.Sides itemSides) {
+            this.itemSides = itemSides;
             return this;
         }
 
-        public Builder setMenuSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight menuSelectedStateHighlight) {
-            this.menuSelectedStateHighlight = menuSelectedStateHighlight;
+        public Builder setItemHorizontalAlignment(HorizontalAlignment itemHorizontalAlignment) {
+            this.itemHorizontalAlignment = itemHorizontalAlignment;
             return this;
         }
 
-        public Builder setMaxVisibleMenuCommands(int maxVisibleMenuCommands) {
-            this.maxVisibleMenuCommands = maxVisibleMenuCommands;
+        public Builder setItemPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger itemPopupFireTrigger) {
+            this.itemPopupFireTrigger = itemPopupFireTrigger;
+            return this;
+        }
+
+        public Builder setItemSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight itemSelectedStateHighlight) {
+            this.itemSelectedStateHighlight = itemSelectedStateHighlight;
+            return this;
+        }
+
+        public Builder setMaxVisibleItems(int maxVisibleItems) {
+            this.maxVisibleItems = maxVisibleItems;
             return this;
         }
 
@@ -207,14 +230,16 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
             CommandPopupMenuPresentationModel presentationModel =
                     new CommandPopupMenuPresentationModel();
             presentationModel.panelPresentationModel = this.panelPresentationModel;
-            presentationModel.menuPresentationState = this.menuPresentationState;
-            presentationModel.menuActiveIconFilterStrategy = this.menuActiveIconFilterStrategy;
-            presentationModel.menuEnabledIconFilterStrategy = this.menuEnabledIconFilterStrategy;
-            presentationModel.menuDisabledIconFilterStrategy = this.menuDisabledIconFilterStrategy;
-            presentationModel.menuContentPadding = this.menuContentPadding;
-            presentationModel.menuPopupFireTrigger = this.menuPopupFireTrigger;
-            presentationModel.menuSelectedStateHighlight = this.menuSelectedStateHighlight;
-            presentationModel.maxVisibleMenuCommands = this.maxVisibleMenuCommands;
+            presentationModel.itemPresentationState = this.itemPresentationState;
+            presentationModel.itemActiveIconFilterStrategy = this.itemActiveIconFilterStrategy;
+            presentationModel.itemEnabledIconFilterStrategy = this.itemEnabledIconFilterStrategy;
+            presentationModel.itemDisabledIconFilterStrategy = this.itemDisabledIconFilterStrategy;
+            presentationModel.itemContentPadding = this.itemContentPadding;
+            presentationModel.itemSides = this.itemSides;
+            presentationModel.itemHorizontalAlignment = this.itemHorizontalAlignment;
+            presentationModel.itemPopupFireTrigger = this.itemPopupFireTrigger;
+            presentationModel.itemSelectedStateHighlight = this.itemSelectedStateHighlight;
+            presentationModel.maxVisibleMenuCommands = this.maxVisibleItems;
             presentationModel.toDismissOnCommandActivation = this.toDismissOnCommandActivation;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             return presentationModel;

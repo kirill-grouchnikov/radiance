@@ -191,7 +191,7 @@ public class TestPopupCommandButtons extends JFrame {
 
             case SCROLLABLE:
                 return CommandPopupMenuPresentationModel.builder()
-                        .setMaxVisibleMenuCommands(8)
+                        .setMaxVisibleItems(8)
                         .build();
 
             default:

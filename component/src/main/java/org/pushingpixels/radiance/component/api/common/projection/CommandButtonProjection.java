@@ -56,7 +56,7 @@ public class CommandButtonProjection<M extends Command>
     @Override
     @SuppressWarnings("unchecked")
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> getPopupMenuPanelProjection() {
-        BaseCommandPopupMenuPresentationModel popupMenuPresentationModel =
+        CommandPopupMenuPresentationModel popupMenuPresentationModel =
                 this.getPresentationModel().getPopupMenuPresentationModel();
         CommandMenuContentModel commandMenuContentModel =
                 this.getContentModel().getSecondaryContentModel();
@@ -64,8 +64,7 @@ public class CommandButtonProjection<M extends Command>
             popupMenuPresentationModel = CommandPopupMenuPresentationModel.builder().build();
         }
         CommandPopupMenuPanelProjection commandPopupMenuPanelProjection =
-                new CommandPopupMenuPanelProjection(commandMenuContentModel,
-                        (CommandPopupMenuPresentationModel) popupMenuPresentationModel);
+                new CommandPopupMenuPanelProjection(commandMenuContentModel, popupMenuPresentationModel);
         commandPopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
         return commandPopupMenuPanelProjection;
     }

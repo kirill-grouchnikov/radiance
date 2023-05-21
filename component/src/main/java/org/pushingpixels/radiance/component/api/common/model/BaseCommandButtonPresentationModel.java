@@ -150,7 +150,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         return this.toDismissPopupsOnActivation;
     }
 
-    public BaseCommandPopupMenuPresentationModel getPopupMenuPresentationModel() {
+    public MPM getPopupMenuPresentationModel() {
         return this.popupMenuPresentationModel;
     }
 

@@ -132,14 +132,15 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
         // Command presentation for menu content
         CommandButtonPresentationModel presentation =
                 CommandButtonPresentationModel.builder()
-                        .setPresentationState(this.popupMenuPresentationModel.getMenuPresentationState())
+                        .setPresentationState(this.popupMenuPresentationModel.getItemPresentationState())
                         .setIconFilterStrategies(
-                                this.popupMenuPresentationModel.getMenuActiveIconFilterStrategy(),
-                                this.popupMenuPresentationModel.getMenuEnabledIconFilterStrategy(),
-                                this.popupMenuPresentationModel.getMenuDisabledIconFilterStrategy())
-                        .setContentPadding(this.popupMenuPresentationModel.getMenuContentPadding())
-                        .setPopupFireTrigger(this.popupMenuPresentationModel.getMenuPopupFireTrigger())
-                        .setSelectedStateHighlight(this.popupMenuPresentationModel.getMenuSelectedStateHighlight())
+                                this.popupMenuPresentationModel.getItemActiveIconFilterStrategy(),
+                                this.popupMenuPresentationModel.getItemEnabledIconFilterStrategy(),
+                                this.popupMenuPresentationModel.getItemDisabledIconFilterStrategy())
+                        .setContentPadding(this.popupMenuPresentationModel.getItemContentPadding())
+                        .setSides(this.popupMenuPresentationModel.getItemSides())
+                        .setPopupFireTrigger(this.popupMenuPresentationModel.getItemPopupFireTrigger())
+                        .setSelectedStateHighlight(this.popupMenuPresentationModel.getItemSelectedStateHighlight())
                         .setPopupPlacementStrategy(this.popupMenuPresentationModel.getPopupPlacementStrategy())
                         .build();
 
