@@ -72,6 +72,7 @@ public class TestCommandButtons extends JFrame {
     protected Command pastePopupCommand;
 
     private JPanel buttonPanel;
+    private JPanel customPanel;
 
     TestCommandButtons() {
         super("Command button test");
@@ -92,6 +93,18 @@ public class TestCommandButtons extends JFrame {
         resourceBundle = ResourceBundle
                 .getBundle("org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
+        this.rebuildCommands();
+        buttonPanel = this.getButtonPanel();
+        this.add(buttonPanel, BorderLayout.CENTER);
+
+        this.customPanel = new JPanel();
+        this.customPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
+        this.customPanel.setBorder(new EmptyBorder(8, 20, 8, 20));
+        this.customPanel.add(getCustomButtonProjection().buildComponent());
+        this.add(customPanel, BorderLayout.NORTH);
+    }
+
+    private void rebuildCommands() {
         this.pastePopupCommand = Command.builder()
                 .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
@@ -121,15 +134,6 @@ public class TestCommandButtons extends JFrame {
                 .setExtraText(resourceBundle.getString("Paste.textExtra"))
                 .setAction(commandActionEvent -> System.out.println(stamp() + ": Main paste"))
                 .build();
-
-        buttonPanel = getButtonPanel();
-        this.add(buttonPanel, BorderLayout.CENTER);
-
-        JPanel customPanel = new JPanel();
-        customPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
-        customPanel.setBorder(new EmptyBorder(8, 20, 8, 20));
-        customPanel.add(getCustomButtonProjection().buildComponent());
-        this.add(customPanel, BorderLayout.NORTH);
     }
 
     private CommandMenuContentModel getPopupMenuContentModel() {
@@ -309,9 +313,15 @@ public class TestCommandButtons extends JFrame {
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
 
+            rebuildCommands();
+
             remove(buttonPanel);
             buttonPanel = getButtonPanel();
             add(buttonPanel, BorderLayout.CENTER);
+
+            customPanel.removeAll();
+            customPanel.add(getCustomButtonProjection().buildComponent());
+
             Window window = SwingUtilities.getWindowAncestor(buttonPanel);
             window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
             SwingUtilities.updateComponentTreeUI(window);

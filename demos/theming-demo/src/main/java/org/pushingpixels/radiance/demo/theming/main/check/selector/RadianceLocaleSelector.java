@@ -88,7 +88,7 @@ public class RadianceLocaleSelector extends FlexiComboBox<RadianceLocaleSelector
 
     private static LocaleInfo[] SHORT = new LocaleInfo[] {
             new LocaleInfo("English", us.of(16, 16), "en", "US"),
-            new LocaleInfo("Arabic", sa.of(16, 16), "ar", "AR")
+            new LocaleInfo("Hebrew", il.of(16, 16), "iw", "IL")
     };
 
     public interface LocaleCallback {
