@@ -327,7 +327,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                     // 2. no break (all popup) if button has no text and no icon
                     if (hasText || hasIcon) {
                         // shift popup action rectangle to the right to
-                        // accomodate the vertical separator
+                        // accommodate the vertical separator
                         result.popupActionRect.x += verticalSeparatorWidth;
 
                         xBorderBetweenActionAndPopup = result.popupActionRect.x - 2
@@ -364,7 +364,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                     if (hasIcon) {
                         // shift text rectangles and popup action rectangle to the
                         // right
-                        // to accomodate the vertical separator
+                        // to accommodate the vertical separator
                         if (result.textLayoutInfoList != null) {
                             for (TextLayoutInfo textLayoutInfo : result.textLayoutInfoList) {
                                 textLayoutInfo.textRect.x += verticalSeparatorWidth;
@@ -507,7 +507,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                     // 2. no break (all popup) if button has no text and no icon
                     if (hasText || hasIcon) {
                         // shift popup action rectangle to the left to
-                        // accomodate the vertical separator
+                        // accommodate the vertical separator
                         result.popupActionRect.x -= verticalSeparatorWidth;
 
                         xBorderBetweenActionAndPopup = result.popupActionRect.x
@@ -543,7 +543,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                     // 2. no break (all popup) if button has no icon
                     if (hasIcon) {
                         // shift text rectangles and popup action rectangle to the
-                        // left to accomodate the vertical separator
+                        // left to accommodate the vertical separator
                         if (result.textLayoutInfoList != null) {
                             for (TextLayoutInfo textLayoutInfo : result.textLayoutInfoList) {
                                 textLayoutInfo.textRect.x -= verticalSeparatorWidth;

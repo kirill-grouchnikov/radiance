@@ -492,7 +492,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                     // 2. no break (all popup) if button has no text and no icon
                     if (hasText || hasIcon) {
                         // shift popup action rectangle to the left to
-                        // accomodate the vertical separator
+                        // accommodate the vertical separator
                         result.popupActionRect.x -= verticalSeparatorWidth;
 
                         xBorderBetweenActionAndPopup = result.popupActionRect.x
@@ -531,7 +531,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                     // 2. no break (all popup) if button has no icon
                     if (hasIcon) {
                         // shift text rectangle and popup action rectangle to the
-                        // left to accomodate the vertical separator
+                        // left to accommodate the vertical separator
                         if (result.textLayoutInfoList != null) {
                             for (TextLayoutInfo textLayoutInfo : result.textLayoutInfoList) {
                                 textLayoutInfo.textRect.x -= verticalSeparatorWidth;
