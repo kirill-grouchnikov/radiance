@@ -35,27 +35,18 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceColorSelectorPopupMenuPanelUI;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
-@RadiancePopupContainer
 public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
-    /**
-     * @see #getUIClassID
-     */
-    public static final String uiClassID = "CustomComplexPopupMenuPanelUI";
-
     private Projection<JCustomComplexPopupMenuPanel, CustomComplexPopupMenuContentModel,
             CustomComplexPopupMenuPresentationModel> projection;
     private CustomComplexPopupMenuContentModel contentModel;
@@ -63,7 +54,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
     private PropertyChangeListener zoomPropertyChangeListener;
 
-    public JCustomComplexPopupMenuPanel(Projection<JCustomComplexPopupMenuPanel, CustomComplexPopupMenuContentModel,
+    public JCustomComplexPopupMenuPanel(Projection<JCustomComplexPopupMenuPanel,
+            CustomComplexPopupMenuContentModel,
             CustomComplexPopupMenuPresentationModel> projection) {
         this.projection = projection;
         this.contentModel = projection.getContentModel();
@@ -71,6 +63,57 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
         this.populateContent();
         this.updateUI();
+
+        // This assumes that the content of the popup does not change. If it does, we would need to
+        // register a change listener on the content model and update the content accordingly.
+        for (Component comp : this.getMenuComponents()) {
+            this.add(comp);
+        }
+
+        // Simple vertical stack, no scrolling built in. If scrolling needed, the entire content
+        // or relevant part of it can be wrapped in a JScrollablePanel.
+        this.setLayout(new LayoutManager() {
+            @Override
+            public void addLayoutComponent(String name, Component comp) {
+            }
+
+            @Override
+            public void removeLayoutComponent(Component comp) {
+            }
+
+            @Override
+            public Dimension preferredLayoutSize(Container parent) {
+                int height = 0;
+                int width = 0;
+                for (int i = 0; i < parent.getComponentCount(); i++) {
+                    Dimension pref = parent.getComponent(i).getPreferredSize();
+                    height += pref.height;
+                    width = Math.max(width, pref.width);
+                }
+
+                Insets ins = parent.getInsets();
+                return new Dimension(width + ins.left + ins.right, height + ins.top + ins.bottom);
+            }
+
+            @Override
+            public Dimension minimumLayoutSize(Container parent) {
+                return preferredLayoutSize(parent);
+            }
+
+            @Override
+            public void layoutContainer(Container parent) {
+                Insets ins = parent.getInsets();
+
+                int topY = ins.top;
+                for (int i = 0; i < parent.getComponentCount(); i++) {
+                    Component comp = parent.getComponent(i);
+                    Dimension pref = comp.getPreferredSize();
+                    comp.setBounds(ins.left, topY, parent.getWidth() - ins.left - ins.right,
+                            pref.height);
+                    topY += pref.height;
+                }
+            }
+        });
     }
 
     public Projection<JCustomComplexPopupMenuPanel, CustomComplexPopupMenuContentModel,
@@ -137,12 +180,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
     @Override
     public String getUIClassID() {
-        return uiClassID;
-    }
-
-    @Override
-    public void updateUI() {
-        setUI(RadianceColorSelectorPopupMenuPanelUI.createUI(this));
+        return "PanelUI";
     }
 
     private JSeparator getHardVerticalSeparator() {

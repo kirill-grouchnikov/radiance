@@ -36,11 +36,9 @@ import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonApplicationMenu;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceRibbonApplicationMenuPopupPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ScrollableHost;
-import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 
-@RadiancePopupContainer
 public class JRibbonApplicationMenuPopupPanel extends AbstractPopupMenuPanel implements ScrollableHost {
     /**
      * The UI class ID string.

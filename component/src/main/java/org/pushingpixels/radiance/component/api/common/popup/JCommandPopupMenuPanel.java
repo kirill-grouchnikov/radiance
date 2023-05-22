@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandPanelPr
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ScrollableHost;
-import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -55,7 +54,6 @@ import java.util.List;
  *
  * @author Kirill Grouchnikov
  */
-@RadiancePopupContainer
 public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements ScrollableHost {
     /**
      * @see #getUIClassID

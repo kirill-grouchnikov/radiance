@@ -58,7 +58,6 @@ import org.pushingpixels.radiance.component.internal.utils.KeyTipManager;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipManager.KeyTipEvent;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -674,7 +673,6 @@ public class JRibbonFrame extends JFrame {
         }
     }
 
-    @RadiancePopupContainer
     public static class GlobalPopupMenuPanel extends JCommandPopupMenuPanel {
         public GlobalPopupMenuPanel(Projection<JCommandPopupMenuPanel, CommandMenuContentModel,
                 CommandPopupMenuPresentationModel> projection) {

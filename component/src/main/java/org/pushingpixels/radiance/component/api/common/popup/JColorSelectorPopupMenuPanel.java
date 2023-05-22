@@ -41,7 +41,6 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceC
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ColorSelectorPopupMenuMultiRowSelector;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.ColorSelectorPopupMenuSingleRowSelector;
 import org.pushingpixels.radiance.component.internal.ui.common.popup.JColorSelectorPanel;
-import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -52,7 +51,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-@RadiancePopupContainer
 public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
     /**
      * @see #getUIClassID
