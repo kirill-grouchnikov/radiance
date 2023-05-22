@@ -325,6 +325,14 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         builder.append("Line wrap words", new JLabel(""));
         builder.append(jtaLineWrapWords, new JLabel(""));
 
+        JTextArea jtaLineWrapWordsNotEditable = new JTextArea(
+                "The contents of this text area wrap, necessarily between words", 3, 15);
+        jtaLineWrapWordsNotEditable.setLineWrap(true);
+        jtaLineWrapWordsNotEditable.setWrapStyleWord(true);
+        jtaLineWrapWordsNotEditable.setEditable(false);
+        builder.append("Line wrap words", new JLabel(""));
+        builder.append(jtaLineWrapWordsNotEditable, new JLabel(""));
+
         JTextArea textAreaScroll = new JTextArea(5, 15);
         for (int i = 0; i < 20; i++) {
             textAreaScroll.append("Some long long long line with number " + i + "\n");
