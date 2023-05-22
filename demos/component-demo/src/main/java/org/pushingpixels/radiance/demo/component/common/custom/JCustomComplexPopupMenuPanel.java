@@ -29,16 +29,20 @@
  */
 package org.pushingpixels.radiance.demo.component.common.custom;
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.text.RadianceTextUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -51,8 +55,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             CustomComplexPopupMenuPresentationModel> projection;
     private CustomComplexPopupMenuContentModel contentModel;
     private CustomComplexPopupMenuPresentationModel presentationModel;
-
-    private PropertyChangeListener zoomPropertyChangeListener;
 
     public JCustomComplexPopupMenuPanel(Projection<JCustomComplexPopupMenuPanel,
             CustomComplexPopupMenuContentModel,
@@ -81,18 +83,189 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             public void removeLayoutComponent(Component comp) {
             }
 
+            private int getLabelPreferredSingleLineWidth(
+                    LabelContentModel contentModel,
+                    LabelPresentationModel presentationModel,
+                    Font font
+            ) {
+                // This is temporary
+                String text = (presentationModel.getSingleLineDisplayPrototype() != null)
+                        ? presentationModel.getSingleLineDisplayPrototype()
+                        : contentModel.getText();
+                return presentationModel.getContentPadding().left
+                        + RadianceTextUtils.getLabelPreferredSingleLineWidth(
+                        JCustomComplexPopupMenuPanel.this, text, font)
+                        + presentationModel.getContentPadding().right;
+            }
+
             @Override
             public Dimension preferredLayoutSize(Container parent) {
-                int height = 0;
-                int width = 0;
-                for (int i = 0; i < parent.getComponentCount(); i++) {
-                    Dimension pref = parent.getComponent(i).getPreferredSize();
-                    height += pref.height;
-                    width = Math.max(width, pref.width);
+                int combinedHeight = 0;
+                int maxPrimaryWidth = 0;
+                int maxActionWidth = 0;
+
+                CommandButtonPresentationModel itemButtonPresentationModel =
+                        CommandButtonPresentationModel.builder()
+                                .setPresentationState(presentationModel.itemPresentationState)
+                                .setPopupFireTrigger(presentationModel.itemPopupFireTrigger)
+                                .setSelectedStateHighlight(presentationModel.itemSelectedStateHighlight)
+                                .setIconFilterStrategies(
+                                        presentationModel.itemIconActiveFilterStrategy,
+                                        presentationModel.itemIconEnabledFilterStrategy,
+                                        presentationModel.itemIconDisabledFilterStrategy
+                                )
+                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
+                                .setContentPadding(presentationModel.itemContentPadding)
+                                .setHorizontalAlignment(presentationModel.itemHorizontalAlignment)
+                                .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
+                                .setPopupPlacementStrategy(presentationModel.popupPlacementStrategy)
+                                .build();
+
+                // Rows such as zoom, edit and header have two areas: title and actions.
+                // Treat the title area separately to be aligned with the command-based
+                // rows. That is, do not allow the action area of any such row to vertically
+                // overlap with the text of any command-based row.
+
+                Font defaultFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+                int entryIndex = 0;
+                List<CustomComplexPopupMenuContentModel.CustomComplexPopupMenuSectionModel> sections =
+                        contentModel.getSections();
+                for (int i = 0; i < sections.size(); i++) {
+                    CustomComplexPopupMenuContentModel.CustomComplexPopupMenuSectionModel section = sections.get(i);
+                    for (KeyValuePair<CustomComplexPopupMenuContentModel.PopupMenuSectionEntryKind, Object> sectionEntry :
+                            section.getSectionContent()) {
+                        switch (sectionEntry.getKey()) {
+                            case COMMAND:
+                                JCommandButton commandButton =
+                                        (JCommandButton) parent.getComponent(entryIndex++);
+                                CommandButtonLayoutManager regularLayoutManager =
+                                        presentationModel.itemPresentationState
+                                                .createLayoutManager(commandButton);
+                                Dimension preferredSize =
+                                        regularLayoutManager.getPreferredSize(commandButton);
+
+                                maxPrimaryWidth = Math.max(maxPrimaryWidth, preferredSize.width);
+                                combinedHeight += preferredSize.height;
+                                break;
+                            case EDIT:
+                                CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit edit =
+                                        (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit) sectionEntry.getValue();
+                                EditSection editSection = (EditSection) parent.getComponent(entryIndex++);
+
+                                int editTitleWidth = getLabelPreferredSingleLineWidth(
+                                        LabelContentModel.builder().setText(edit.getTitle()).build(),
+                                        LabelPresentationModel.builder()
+                                                .setContentPadding(presentationModel.itemContentPadding)
+                                                .setTextMaxLines(1)
+                                                .build(),
+                                        defaultFont
+                                );
+                                maxPrimaryWidth = Math.max(maxPrimaryWidth, editTitleWidth);
+
+                                Dimension cutPreferredSize = presentationModel.editPresentationModel
+                                        .getPresentationState().createLayoutManager(editSection.getCutButton())
+                                        .getPreferredSize(editSection.getCutButton());
+                                Dimension copyPreferredSize = presentationModel.editPresentationModel
+                                        .getPresentationState().createLayoutManager(editSection.getCopyButton())
+                                        .getPreferredSize(editSection.getCopyButton());
+                                Dimension pastePreferredSize = presentationModel.editPresentationModel
+                                        .getPresentationState().createLayoutManager(editSection.getPasteButton())
+                                        .getPreferredSize(editSection.getPasteButton());
+
+                                maxActionWidth = Math.max(
+                                        maxActionWidth,
+                                        cutPreferredSize.width + copyPreferredSize.width + pastePreferredSize.width + 6
+                                );
+
+                                combinedHeight += cutPreferredSize.height;
+
+                                break;
+                            case ZOOM:
+                                CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom zoom =
+                                        (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom) sectionEntry.getValue();
+                                ZoomSection zoomSection = (ZoomSection) parent.getComponent(entryIndex++);
+
+                                int zoomTitleWidth = getLabelPreferredSingleLineWidth(
+                                        LabelContentModel.builder().setText(zoom.getTitle()).build(),
+                                        LabelPresentationModel.builder()
+                                                .setContentPadding(presentationModel.itemContentPadding)
+                                                .setTextMaxLines(1)
+                                                .build(),
+                                        defaultFont
+                                );
+                                maxPrimaryWidth = Math.max(maxPrimaryWidth, zoomTitleWidth);
+
+                                Dimension zoomOutPreferredSize = presentationModel.zoomPresentationModel
+                                        .getPresentationState().createLayoutManager(zoomSection.getZoomOutButton())
+                                        .getPreferredSize(zoomSection.getZoomOutButton());
+                                int zoomLevelWidth = getLabelPreferredSingleLineWidth(
+                                        LabelContentModel.builder().setText(String.valueOf(zoom.getZoom())).build(),
+                                        presentationModel.zoomLabelPresentationModel,
+                                        defaultFont
+                                );
+                                Dimension zoomInPreferredSize = presentationModel.zoomPresentationModel
+                                        .getPresentationState().createLayoutManager(zoomSection.getZoomInButton())
+                                        .getPreferredSize(zoomSection.getZoomInButton());
+                                Dimension fullScreenPreferredSize = presentationModel.fullScreenPresentationModel
+                                        .getPresentationState().createLayoutManager(zoomSection.getFullScreenButton())
+                                        .getPreferredSize(zoomSection.getFullScreenButton());
+
+                                maxActionWidth = Math.max(
+                                        maxActionWidth,
+                                        zoomOutPreferredSize.width + zoomLevelWidth + zoomInPreferredSize.width + fullScreenPreferredSize.width + 4
+                                );
+
+                                combinedHeight += zoomOutPreferredSize.height;
+
+                                break;
+                            case HEADER:
+                                CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader header =
+                                        (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader) sectionEntry.getValue();
+                                HeaderSection headerSection = (HeaderSection) parent.getComponent(entryIndex++);
+
+                                int headerTitleWidth = getLabelPreferredSingleLineWidth(
+                                        LabelContentModel.builder().setText(header.getTitle()).build(),
+                                        presentationModel.headerTitlePresentationModel,
+                                        defaultFont
+                                );
+                                maxPrimaryWidth = Math.max(maxPrimaryWidth, headerTitleWidth);
+
+                                Dimension signInPreferredSize = presentationModel.headerSignInPresentationModel
+                                        .getPresentationState().createLayoutManager(headerSection.getSignInButton())
+                                        .getPreferredSize(headerSection.getSignInButton());
+
+                                maxActionWidth = Math.max(maxActionWidth, signInPreferredSize.width);
+
+                                combinedHeight += (signInPreferredSize.height + presentationModel.headerSeparatorHeight);
+
+                                break;
+                            case FOOTER:
+                                CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer =
+                                        (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter) sectionEntry.getValue();
+                                FooterSection footerSection = (FooterSection) parent.getComponent(entryIndex++);
+
+                                Dimension footerPreferredSize = presentationModel.footerPresentationModel
+                                        .getPresentationState().createLayoutManager(footerSection.getFooterButton())
+                                        .getPreferredSize(footerSection.getFooterButton());
+
+                                maxPrimaryWidth = Math.max(maxPrimaryWidth, footerPreferredSize.width);
+                                combinedHeight += footerPreferredSize.height;
+                                break;
+                        }
+                    }
+                    // Account for the section separator in index tracking
+                    entryIndex++;
                 }
 
+                // Account for horizontal separators between sections
+                combinedHeight += (sections.size() - 1) * 2;
+
                 Insets ins = parent.getInsets();
-                return new Dimension(width + ins.left + ins.right, height + ins.top + ins.bottom);
+                // For width, account for horizontal insets, the max width of the "primary" section,
+                // an extra gap of 32 pixels between "primary" and "action", and the max width of
+                // the "action" section
+                return new Dimension(ins.left + maxPrimaryWidth + 32 + maxActionWidth + ins.right,
+                        combinedHeight + ins.top + ins.bottom);
             }
 
             @Override
@@ -133,8 +306,10 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                 this.presentationModel.itemIconEnabledFilterStrategy,
                                 this.presentationModel.itemIconDisabledFilterStrategy
                         )
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
                         .setContentPadding(this.presentationModel.itemContentPadding)
                         .setHorizontalAlignment(this.presentationModel.itemHorizontalAlignment)
+                        .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
                         .setPopupPlacementStrategy(this.presentationModel.popupPlacementStrategy)
                         .build();
 
@@ -153,22 +328,22 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                     case EDIT:
                         CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit edit =
                                 (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit) sectionEntry.getValue();
-                        this.addEditSection(edit);
+                        this.addMenuPanel(new EditSection(edit));
                         break;
                     case ZOOM:
                         CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom zoom =
                                 (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom) sectionEntry.getValue();
-                        this.addZoomSection(zoom);
+                        this.addMenuPanel(new ZoomSection(zoom));
                         break;
                     case HEADER:
                         CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader header =
                                 (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader) sectionEntry.getValue();
-                        this.addHeaderSection(header);
+                        this.addMenuPanel(new HeaderSection(header));
                         break;
                     case FOOTER:
                         CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer =
                                 (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter) sectionEntry.getValue();
-                        this.addFooterSection(footer);
+                        this.addMenuPanel(new FooterSection(footer));
                         break;
                 }
             }
@@ -190,128 +365,185 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
         return separator;
     }
 
-    private void addEditSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit edit) {
-        JPanel section = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel(edit.getTitle());
-        titleLabel.setBorder(new EmptyBorder(this.presentationModel.itemContentPadding));
-        section.add(titleLabel, BorderLayout.LINE_START);
+    private class EditSection extends JPanel {
+        private JCommandButton cutButton;
+        private JCommandButton copyButton;
+        private JCommandButton pasteButton;
 
-        JPanel commands = new JPanel();
-        BoxLayout commandsLayout = new BoxLayout(commands, BoxLayout.LINE_AXIS);
-        commands.setLayout(commandsLayout);
+        public EditSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit edit) {
+            this.setLayout(new BorderLayout());
 
-        commands.add(getHardVerticalSeparator());
-        commands.add(edit.getCommandCut().project(this.presentationModel.editPresentationModel)
-                .buildComponent());
-        commands.add(getHardVerticalSeparator());
-        commands.add(edit.getCommandCopy().project(this.presentationModel.editPresentationModel)
-                .buildComponent());
-        commands.add(getHardVerticalSeparator());
-        commands.add(edit.getCommandPaste().project(this.presentationModel.editPresentationModel)
-                .buildComponent());
-        section.add(commands, BorderLayout.LINE_END);
+            JLabel titleLabel = new JLabel(edit.getTitle());
+            titleLabel.setBorder(new EmptyBorder(presentationModel.itemContentPadding));
+            this.add(titleLabel, BorderLayout.LINE_START);
 
-        this.addMenuPanel(section);
+            JPanel commands = new JPanel();
+            BoxLayout commandsLayout = new BoxLayout(commands, BoxLayout.LINE_AXIS);
+            commands.setLayout(commandsLayout);
+
+            commands.add(getHardVerticalSeparator());
+            this.cutButton = edit.getCommandCut().project(presentationModel.editPresentationModel)
+                    .buildComponent();
+            commands.add(this.cutButton);
+            commands.add(getHardVerticalSeparator());
+            this.copyButton = edit.getCommandCopy().project(presentationModel.editPresentationModel)
+                    .buildComponent();
+            commands.add(this.copyButton);
+            commands.add(getHardVerticalSeparator());
+            this.pasteButton = edit.getCommandPaste().project(presentationModel.editPresentationModel)
+                    .buildComponent();
+            commands.add(this.pasteButton);
+            this.add(commands, BorderLayout.LINE_END);
+        }
+
+        public JCommandButton getCutButton() {
+            return cutButton;
+        }
+
+        public JCommandButton getCopyButton() {
+            return copyButton;
+        }
+
+        public JCommandButton getPasteButton() {
+            return pasteButton;
+        }
     }
 
-    private void addZoomSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom zoom) {
-        JPanel section = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel(zoom.getTitle());
-        titleLabel.setBorder(new EmptyBorder(this.presentationModel.itemContentPadding));
-        section.add(titleLabel, BorderLayout.LINE_START);
+    private class ZoomSection extends JPanel {
+        private PropertyChangeListener zoomPropertyChangeListener;
+        private JCommandButton zoomOutButton;
+        private JCommandButton zoomInButton;
+        private JCommandButton fullScreenButton;
 
-        JPanel commands = new JPanel();
-        BoxLayout commandsLayout = new BoxLayout(commands, BoxLayout.LINE_AXIS);
-        commands.setLayout(commandsLayout);
+        public ZoomSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom zoom) {
+            this.setLayout(new BorderLayout());
+            JLabel titleLabel = new JLabel(zoom.getTitle());
+            titleLabel.setBorder(new EmptyBorder(presentationModel.itemContentPadding));
+            this.add(titleLabel, BorderLayout.LINE_START);
 
-        commands.add(getHardVerticalSeparator());
-        commands.add(zoom.getCommandZoomOut().project(this.presentationModel.zoomPresentationModel)
-                .buildComponent());
-        commands.add(getHardVerticalSeparator());
-        JLabel zoomLabel = new JLabel(String.valueOf(zoom.getZoom()));
-        zoomLabel.setBorder(new EmptyBorder(this.presentationModel.zoomLabelPresentationModel.getContentPadding()));
-        commands.add(zoomLabel);
-        commands.add(getHardVerticalSeparator());
-        commands.add(zoom.getCommandZoomIn().project(this.presentationModel.zoomPresentationModel)
-                .buildComponent());
-        section.add(commands, BorderLayout.LINE_END);
+            JPanel commands = new JPanel();
+            BoxLayout commandsLayout = new BoxLayout(commands, BoxLayout.LINE_AXIS);
+            commands.setLayout(commandsLayout);
 
-        this.zoomPropertyChangeListener = evt -> {
-            if ("zoom".equals(evt.getPropertyName())) {
-                zoomLabel.setText(String.valueOf(evt.getNewValue()));
-            }
-        };
-        zoom.addPropertyChangeListener(this.zoomPropertyChangeListener);
+            commands.add(getHardVerticalSeparator());
+            this.zoomOutButton = zoom.getCommandZoomOut().project(presentationModel.zoomPresentationModel)
+                    .buildComponent();
+            commands.add(this.zoomOutButton);
+            JLabel zoomLabel = new JLabel(String.valueOf(zoom.getZoom()));
+            zoomLabel.setBorder(new EmptyBorder(presentationModel.zoomLabelPresentationModel.getContentPadding()));
+            commands.add(zoomLabel);
+            this.zoomInButton = zoom.getCommandZoomIn().project(presentationModel.zoomPresentationModel)
+                    .buildComponent();
+            commands.add(this.zoomInButton);
 
-        this.addMenuPanel(section);
-    }
+            commands.add(getHardVerticalSeparator());
 
-    private void addHeaderSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader header) {
-        JPanel section = new JPanel(new BorderLayout());
+            this.fullScreenButton = zoom.getCommandFullScreen().project(presentationModel.fullScreenPresentationModel)
+                    .buildComponent();
+            commands.add(this.fullScreenButton);
 
-        JPanel mainSection = new JPanel(new BorderLayout());
-        JLabel titleLabel = new JLabel(header.getTitle());
-        titleLabel.setBorder(new EmptyBorder(this.presentationModel.headerTitlePresentationModel.getContentPadding()));
-        mainSection.add(titleLabel, BorderLayout.LINE_START);
+            this.add(commands, BorderLayout.LINE_END);
 
-
-        JPanel signInPanel = new JPanel(new BorderLayout());
-        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-        RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-        RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
-
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(section, 1.0);
-        signInPanel.setBackground(scheme.getAccentedBackgroundFillColor());
-
-        signInPanel.add(header.getCommandSignIn().project(this.presentationModel.headerSignInPresentationModel).
-                buildComponent(), BorderLayout.CENTER);
-        mainSection.add(signInPanel, BorderLayout.LINE_END);
-
-        section.add(mainSection, BorderLayout.CENTER);
-
-        JPanel headerSeparator = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                int width = getWidth();
-                Graphics2D g2d = (Graphics2D) g.create();
-
-                int stopCount = header.getColors().length;
-                float[] stops = new float[stopCount];
-                stops[0] = 0.0f;
-                for (int stop = 1; stop <= (stopCount - 2); stop++) {
-                    stops[stop] = (float) stop / (float) stopCount;
+            this.zoomPropertyChangeListener = evt -> {
+                if ("zoom".equals(evt.getPropertyName())) {
+                    zoomLabel.setText(String.valueOf(evt.getNewValue()));
                 }
-                stops[stopCount - 1] = 1.0f;
+            };
+            zoom.addPropertyChangeListener(this.zoomPropertyChangeListener);
+        }
 
-                g2d.setPaint(new LinearGradientPaint(
-                        0.0f, 0.0f, width, 0.0f,
-                        stops, header.getColors()
-                ));
-                g2d.fillRect(0, 0, width, getHeight());
+        public JCommandButton getZoomOutButton() {
+            return zoomOutButton;
+        }
 
-                g2d.dispose();
-            }
-        };
-        headerSeparator.setPreferredSize(new Dimension(0, this.presentationModel.headerSeparatorHeight));
-        section.add(headerSeparator, BorderLayout.SOUTH);
+        public JCommandButton getZoomInButton() {
+            return zoomInButton;
+        }
 
-        this.addMenuPanel(section);
+        public JCommandButton getFullScreenButton() {
+            return fullScreenButton;
+        }
     }
 
-    private void addFooterSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer) {
-        JPanel section = new JPanel(new BorderLayout());
-        RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
-        RadianceThemingSlices.DecorationAreaType decorationAreaType =
-                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
-        RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+    private class HeaderSection extends JPanel {
+        private JCommandButton signInButton;
 
-        RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(section, 1.0);
-        section.setBackground(scheme.getAccentedBackgroundFillColor());
+        public HeaderSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader header) {
+            this.setLayout(new BorderLayout());
 
-        section.add(footer.getCommandFooter().project(this.presentationModel.footerPresentationModel)
-                .buildComponent(), BorderLayout.CENTER);
+            JPanel mainSection = new JPanel(new BorderLayout());
+            JLabel titleLabel = new JLabel(header.getTitle());
+            titleLabel.setBorder(new EmptyBorder(presentationModel.headerTitlePresentationModel.getContentPadding()));
+            mainSection.add(titleLabel, BorderLayout.LINE_START);
 
-        this.addMenuPanel(section);
+            JPanel signInPanel = new JPanel(new BorderLayout());
+            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
+            RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+
+            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(signInPanel, 1.0);
+            signInPanel.setBackground(scheme.getAccentedBackgroundFillColor());
+
+            this.signInButton = header.getCommandSignIn().project(presentationModel.headerSignInPresentationModel).
+                    buildComponent();
+            signInPanel.add(this.signInButton, BorderLayout.CENTER);
+            mainSection.add(signInPanel, BorderLayout.LINE_END);
+
+            this.add(mainSection, BorderLayout.CENTER);
+
+            JPanel headerSeparator = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    int width = getWidth();
+                    Graphics2D g2d = (Graphics2D) g.create();
+
+                    int stopCount = header.getColors().length;
+                    float[] stops = new float[stopCount];
+                    stops[0] = 0.0f;
+                    for (int stop = 1; stop <= (stopCount - 2); stop++) {
+                        stops[stop] = (float) stop / (float) stopCount;
+                    }
+                    stops[stopCount - 1] = 1.0f;
+
+                    g2d.setPaint(new LinearGradientPaint(
+                            0.0f, 0.0f, width, 0.0f,
+                            stops, header.getColors()
+                    ));
+                    g2d.fillRect(0, 0, width, getHeight());
+
+                    g2d.dispose();
+                }
+            };
+            headerSeparator.setPreferredSize(new Dimension(0, presentationModel.headerSeparatorHeight));
+            this.add(headerSeparator, BorderLayout.SOUTH);
+        }
+
+        public JCommandButton getSignInButton() {
+            return signInButton;
+        }
+    }
+
+    private class FooterSection extends JPanel {
+        private JCommandButton footerButton;
+
+        public FooterSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer) {
+            this.setLayout(new BorderLayout());
+            RadianceSkin skin = RadianceThemingCortex.ComponentScope.getCurrentSkin(this);
+            RadianceThemingSlices.DecorationAreaType decorationAreaType =
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this);
+            RadianceColorScheme scheme = skin.getBackgroundColorScheme(decorationAreaType);
+
+            RadianceThemingCortex.ComponentOrParentChainScope.setColorizationFactor(this, 1.0);
+            this.setBackground(scheme.getAccentedBackgroundFillColor());
+
+            this.footerButton = footer.getCommandFooter().project(presentationModel.footerPresentationModel)
+                    .buildComponent();
+            this.add(this.footerButton, BorderLayout.CENTER);
+        }
+
+        public JCommandButton getFooterButton() {
+            return footerButton;
+        }
     }
 }

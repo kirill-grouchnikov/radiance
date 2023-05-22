@@ -140,6 +140,21 @@ public class RadianceMetricsUtilities {
         }
     }
 
+    public static int getLabelPreferredSingleLineWidth(JComponent component, String text, Font font) {
+        FontMetrics fm = getFontMetrics(RadianceCommonCortex.getScaleFactor(component), font);
+
+        iconR.setBounds(0, 0, 0, 0);
+        textR.setBounds(0, 0, 0, 0);
+        viewR.setBounds(0, 0, Short.MAX_VALUE, Short.MAX_VALUE);
+
+        SwingUtilities.layoutCompoundLabel(component, fm, text, null,
+                SwingConstants.CENTER, SwingConstants.LEADING,
+                SwingConstants.CENTER, SwingConstants.LEADING,
+                viewR, iconR, textR, 0);
+
+        return textR.width;
+    }
+
     public static Dimension getPreferredButtonSize(AbstractButton button) {
         if (button.getComponentCount() > 0) {
             return null;
