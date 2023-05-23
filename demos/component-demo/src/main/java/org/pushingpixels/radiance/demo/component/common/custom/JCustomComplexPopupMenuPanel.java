@@ -104,23 +104,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                 int maxPrimaryWidth = 0;
                 int maxActionWidth = 0;
 
-                CommandButtonPresentationModel itemButtonPresentationModel =
-                        CommandButtonPresentationModel.builder()
-                                .setPresentationState(presentationModel.itemPresentationState)
-                                .setPopupFireTrigger(presentationModel.itemPopupFireTrigger)
-                                .setSelectedStateHighlight(presentationModel.itemSelectedStateHighlight)
-                                .setIconFilterStrategies(
-                                        presentationModel.itemIconActiveFilterStrategy,
-                                        presentationModel.itemIconEnabledFilterStrategy,
-                                        presentationModel.itemIconDisabledFilterStrategy
-                                )
-                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
-                                .setContentPadding(presentationModel.itemContentPadding)
-                                .setHorizontalAlignment(presentationModel.itemHorizontalAlignment)
-                                .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
-                                .setPopupPlacementStrategy(presentationModel.popupPlacementStrategy)
-                                .build();
-
                 // Rows such as zoom, edit and header have two areas: title and actions.
                 // Treat the title area separately to be aligned with the command-based
                 // rows. That is, do not allow the action area of any such row to vertically
@@ -130,8 +113,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                 int entryIndex = 0;
                 List<CustomComplexPopupMenuContentModel.CustomComplexPopupMenuSectionModel> sections =
                         contentModel.getSections();
-                for (int i = 0; i < sections.size(); i++) {
-                    CustomComplexPopupMenuContentModel.CustomComplexPopupMenuSectionModel section = sections.get(i);
+                for (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuSectionModel section : sections) {
                     for (KeyValuePair<CustomComplexPopupMenuContentModel.PopupMenuSectionEntryKind, Object> sectionEntry :
                             section.getSectionContent()) {
                         switch (sectionEntry.getKey()) {
@@ -240,8 +222,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
                                 break;
                             case FOOTER:
-                                CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter footer =
-                                        (CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter) sectionEntry.getValue();
                                 FooterSection footerSection = (FooterSection) parent.getComponent(entryIndex++);
 
                                 Dimension footerPreferredSize = presentationModel.footerPresentationModel
@@ -410,6 +390,7 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
     }
 
     private class ZoomSection extends JPanel {
+        @SuppressWarnings("FieldCanBeLocal")
         private PropertyChangeListener zoomPropertyChangeListener;
         private JCommandButton zoomOutButton;
         private JCommandButton zoomInButton;
