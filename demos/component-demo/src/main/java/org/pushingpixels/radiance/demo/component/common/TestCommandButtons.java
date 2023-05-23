@@ -40,7 +40,14 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
-import org.pushingpixels.radiance.demo.component.common.custom.*;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexCommand;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexCommandButtonPresentationModel;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexCommandButtonProjection;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel.CustomComplexPopupMenuFooter;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel.CustomComplexPopupMenuHeader;
+import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.fullscreen_black_24dp;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.menu_black_24dp;
@@ -51,7 +58,6 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
-import org.pushingpixels.radiance.demo.component.common.custom.CustomComplexPopupMenuContentModel.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

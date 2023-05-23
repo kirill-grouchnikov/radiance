@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupM
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMenuPresentationModel {

@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
+import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CircularProgressProjection;
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
