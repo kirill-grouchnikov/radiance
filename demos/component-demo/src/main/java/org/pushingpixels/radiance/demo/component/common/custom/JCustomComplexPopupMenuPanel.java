@@ -88,13 +88,9 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                     LabelPresentationModel presentationModel,
                     Font font
             ) {
-                // This is temporary
-                String text = (presentationModel.getSingleLineDisplayPrototype() != null)
-                        ? presentationModel.getSingleLineDisplayPrototype()
-                        : contentModel.getText();
                 return presentationModel.getContentPadding().left
                         + RadianceTextUtils.getLabelPreferredSingleLineWidth(
-                        JCustomComplexPopupMenuPanel.this, text, font)
+                        JCustomComplexPopupMenuPanel.this, contentModel.getText(), font)
                         + presentationModel.getContentPadding().right;
             }
 
@@ -181,7 +177,9 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                         .getPresentationState().createLayoutManager(zoomSection.getZoomOutButton())
                                         .getPreferredSize(zoomSection.getZoomOutButton());
                                 int zoomLevelWidth = getLabelPreferredSingleLineWidth(
-                                        LabelContentModel.builder().setText(String.valueOf(zoom.getZoom())).build(),
+                                        LabelContentModel.builder().setText(
+                                                presentationModel.zoomLabelPresentationModel.getSingleLineDisplayPrototype()
+                                        ).build(),
                                         presentationModel.zoomLabelPresentationModel,
                                         defaultFont
                                 );
