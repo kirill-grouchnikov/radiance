@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -89,6 +90,18 @@ public class RadianceExoLabelUI extends ComponentUI {
             if (presentationModel.getFont() != null) {
                 this.singleLineLabel.setFont(presentationModel.getFont());
             }
+            switch (presentationModel.getHorizontalAlignment()) {
+                case LEADING:
+                case FILL:
+                    this.singleLineLabel.setHorizontalAlignment(SwingUtilities.LEADING);
+                    break;
+                case CENTER:
+                    this.singleLineLabel.setHorizontalAlignment(SwingUtilities.CENTER);
+                    break;
+                case TRAILING:
+                    this.singleLineLabel.setHorizontalAlignment(SwingUtilities.TRAILING);
+                    break;
+            }
             label.add(this.singleLineLabel);
         } else {
             this.multiLineLabel = new JTextArea(contentModel.getText());
@@ -131,48 +144,12 @@ public class RadianceExoLabelUI extends ComponentUI {
                 LabelContentModel contentModel = label.getProjection().getContentModel();
                 LabelPresentationModel presentationModel = label.getProjection().getPresentationModel();
 
-                int width = presentationModel.getContentPadding().left +
-                        presentationModel.getContentPadding().right;
-                int height = presentationModel.getContentPadding().top +
-                        presentationModel.getContentPadding().bottom;
-
-                int iconHeight = (contentModel.getIconFactory() != null)
-                        ? presentationModel.getIconDimension().height
-                        : 0;
-                int iconWidth = (contentModel.getIconFactory() != null)
-                        ? presentationModel.getIconDimension().width
-                        : 0;
-
                 if (presentationModel.getTextMaxLines() == 1) {
-                    if (iconWidth > 0) {
-                        width = width + iconWidth +
-                                (int) (presentationModel.getIconTextGap() *
-                                        presentationModel.getHorizontalGapScaleFactor());
-                    }
-
-                    Font font = (presentationModel.getFont() != null)
-                            ? presentationModel.getFont()
-                            : label.getFont();
-                    Dimension textDimension =
-                            RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(
-                                    label, contentModel.getText(), font);
-                    int textWidth = textDimension.width;
-                    int textHeight = textDimension.height;
-                    if (presentationModel.getSingleLineDisplayPrototype() != null) {
-                        Dimension prototypeTextDimension =
-                                RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(
-                                        label, presentationModel.getSingleLineDisplayPrototype(),
-                                        font);
-                        textWidth = Math.max(textWidth, prototypeTextDimension.width);
-                        textHeight = Math.max(textHeight, prototypeTextDimension.height);
-                    }
-
-                    width = width + textWidth;
-
-                    height += Math.max(iconHeight, textHeight);
+                    return getSingleLinePreferredDimension(label);
                 }
 
-                return new Dimension(width, height);
+                // TODO - support multiline mode
+                return new Dimension(0, 0);
             }
 
             @Override
@@ -187,35 +164,59 @@ public class RadianceExoLabelUI extends ComponentUI {
                 LabelContentModel contentModel = label.getProjection().getContentModel();
                 LabelPresentationModel presentationModel = label.getProjection().getPresentationModel();
 
-                int textLeft = 0;
-                int textTop = presentationModel.getContentPadding().top;
-                int textRight = 0;
-                int textBottom = label.getHeight() - presentationModel.getContentPadding().bottom;
+                int width = label.getWidth();
 
-                if (label.getComponentOrientation().isLeftToRight()) {
-                    if (contentModel.getIconFactory() == null) {
+                if (presentationModel.getTextMaxLines() == 1) {
+                    int shiftX = 0;
+                    int preferredWidth = getSingleLinePreferredDimension(label).width;
+                    if (preferredWidth < label.getWidth()) {
+                        // We have more horizontal space than needed to display the content.
+                        // Consult the horizontal alignment attribute of the command button to see
+                        // how we should shift the content horizontally.
+                        switch (presentationModel.getHorizontalAlignment()) {
+                            case LEADING:
+                            case FILL:
+                                break;
+                            case CENTER:
+                                // shift everything to be centered horizontally
+                                shiftX = (width - preferredWidth) / 2;
+                                break;
+                            case TRAILING:
+                                // shift everything to the end of the button bounds
+                                shiftX = width - preferredWidth;
+                        }
+                    }
+
+                    int textLeft = 0;
+                    int textTop = presentationModel.getContentPadding().top;
+                    int textRight = 0;
+                    int textBottom = label.getHeight() - presentationModel.getContentPadding().bottom;
+
+                    if (label.getComponentOrientation().isLeftToRight()) {
+                        if (contentModel.getIconFactory() == null) {
+                            textLeft = presentationModel.getContentPadding().left;
+                        } else {
+                            textLeft = presentationModel.getContentPadding().left +
+                                    presentationModel.getIconDimension().width +
+                                    (int) (presentationModel.getIconTextGap() *
+                                            presentationModel.getHorizontalGapScaleFactor());
+                        }
+                        textRight = width - presentationModel.getContentPadding().right;
+                    } else {
                         textLeft = presentationModel.getContentPadding().left;
-                    } else {
-                        textLeft = presentationModel.getContentPadding().left +
-                                presentationModel.getIconDimension().width +
-                                (int) (presentationModel.getIconTextGap() *
-                                        presentationModel.getHorizontalGapScaleFactor());
+                        if (contentModel.getIconFactory() == null) {
+                            textRight = width - presentationModel.getContentPadding().right;
+                        } else {
+                            textRight = width - presentationModel.getContentPadding().right -
+                                    presentationModel.getIconDimension().width -
+                                    (int) (presentationModel.getIconTextGap() *
+                                            presentationModel.getHorizontalGapScaleFactor());
+                        }
                     }
-                    textRight = label.getWidth() - presentationModel.getContentPadding().right;
-                } else {
-                    textLeft = presentationModel.getContentPadding().left;
-                    if (contentModel.getIconFactory() == null) {
-                        textRight = label.getWidth() - presentationModel.getContentPadding().right;
-                    } else {
-                        textRight = label.getWidth() - presentationModel.getContentPadding().right -
-                                presentationModel.getIconDimension().width -
-                                (int) (presentationModel.getIconTextGap() *
-                                        presentationModel.getHorizontalGapScaleFactor());
-                    }
-                }
 
-                label.getComponent(0).setBounds(textLeft, textTop,
-                        textRight - textLeft, textBottom - textTop);
+                    label.getComponent(0).setBounds(shiftX + textLeft, textTop,
+                            shiftX + textRight - textLeft, textBottom - textTop);
+                }
             }
         });
     }
@@ -230,6 +231,52 @@ public class RadianceExoLabelUI extends ComponentUI {
         super.uninstallUI(c);
     }
 
+    private static Dimension getSingleLinePreferredDimension(JExoLabel label) {
+        LabelContentModel contentModel = label.getProjection().getContentModel();
+        LabelPresentationModel presentationModel = label.getProjection().getPresentationModel();
+
+        int width = presentationModel.getContentPadding().left +
+                presentationModel.getContentPadding().right;
+        int height = presentationModel.getContentPadding().top +
+                presentationModel.getContentPadding().bottom;
+
+        int iconHeight = (contentModel.getIconFactory() != null)
+                ? presentationModel.getIconDimension().height
+                : 0;
+        int iconWidth = (contentModel.getIconFactory() != null)
+                ? presentationModel.getIconDimension().width
+                : 0;
+
+        if (iconWidth > 0) {
+            width = width + iconWidth +
+                    (int) (presentationModel.getIconTextGap() *
+                            presentationModel.getHorizontalGapScaleFactor());
+        }
+
+        Font font = (presentationModel.getFont() != null)
+                ? presentationModel.getFont()
+                : label.getFont();
+        Dimension textDimension =
+                RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(
+                        label, contentModel.getText(), font);
+        int textWidth = textDimension.width;
+        int textHeight = textDimension.height;
+        if (presentationModel.getSingleLineDisplayPrototype() != null) {
+            Dimension prototypeTextDimension =
+                    RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(
+                            label, presentationModel.getSingleLineDisplayPrototype(),
+                            font);
+            textWidth = Math.max(textWidth, prototypeTextDimension.width);
+            textHeight = Math.max(textHeight, prototypeTextDimension.height);
+        }
+
+        width = width + textWidth;
+
+        height += Math.max(iconHeight, textHeight);
+
+        return new Dimension(width, height);
+    }
+
     @Override
     public void paint(Graphics g, JComponent c) {
         JExoLabel label = (JExoLabel) c;
@@ -240,12 +287,33 @@ public class RadianceExoLabelUI extends ComponentUI {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setComposite(WidgetUtilities.getAlphaComposite(label, g));
 
+        int width = label.getWidth();
+        int shiftX = 0;
+        int preferredWidth = getSingleLinePreferredDimension(label).width;
+        if (preferredWidth < label.getWidth()) {
+            // We have more horizontal space than needed to display the content.
+            // Consult the horizontal alignment attribute of the command button to see
+            // how we should shift the content horizontally.
+            switch (presentationModel.getHorizontalAlignment()) {
+                case LEADING:
+                case FILL:
+                    break;
+                case CENTER:
+                    // shift everything to be centered horizontally
+                    shiftX = (width - preferredWidth) / 2;
+                    break;
+                case TRAILING:
+                    // shift everything to the end of the button bounds
+                    shiftX = width - preferredWidth;
+            }
+        }
+
         if (this.icon != null) {
             int iconX = label.getComponentOrientation().isLeftToRight()
                     ? presentationModel.getContentPadding().left
                     : label.getWidth() - presentationModel.getContentPadding().right - icon.getIconWidth();
             int iconY = presentationModel.getContentPadding().top;
-            g2d.translate(iconX, iconY);
+            g2d.translate(shiftX + iconX, iconY);
 
             ComponentState state = contentModel.isEnabled() ?
                     ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
