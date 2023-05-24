@@ -40,9 +40,9 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
     public static final int DEFAULT_ICON_TEXT_GAP = 4;
 
     private Insets contentPadding;
-    private int iconDimension;
-    private RadianceThemingSlices.IconFilterStrategy iconEnabledFilterStrategy;
-    private RadianceThemingSlices.IconFilterStrategy iconDisabledFilterStrategy;
+    private Dimension iconDimension;
+    private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
+    private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
     private Font font;
     private int textMaxLines;
     private HorizontalAlignment horizontalAlignment;
@@ -57,16 +57,16 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
         return this.contentPadding;
     }
 
-    public int getIconDimension() {
+    public Dimension getIconDimension() {
         return this.iconDimension;
     }
 
-    public RadianceThemingSlices.IconFilterStrategy getIconEnabledFilterStrategy() {
-        return this.iconEnabledFilterStrategy;
+    public RadianceThemingSlices.IconFilterStrategy getEnabledIconFilterStrategy() {
+        return this.enabledIconFilterStrategy;
     }
 
-    public RadianceThemingSlices.IconFilterStrategy getIconDisabledFilterStrategy() {
-        return this.iconDisabledFilterStrategy;
+    public RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
+        return this.disabledIconFilterStrategy;
     }
 
     public Font getFont() {
@@ -99,10 +99,11 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
 
     public static class Builder {
         private Insets contentPadding = DEFAULT_LABEL_CONTENT_PADDING;
-        private int iconDimension = DEFAULT_LABEL_ICON_SIZE;
-        private RadianceThemingSlices.IconFilterStrategy iconEnabledFilterStrategy =
+        private Dimension iconDimension =
+                new Dimension(DEFAULT_LABEL_ICON_SIZE, DEFAULT_LABEL_ICON_SIZE);
+        private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
-        private RadianceThemingSlices.IconFilterStrategy iconDisabledFilterStrategy =
+        private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private Font font = null;
         private int textMaxLines = Integer.MAX_VALUE;
@@ -119,16 +120,16 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
             return this;
         }
 
-        public Builder setIconDimension(int iconDimension) {
+        public Builder setIconDimension(Dimension iconDimension) {
             this.iconDimension = iconDimension;
             return this;
         }
 
         public Builder setIconFilterStrategies(
-                RadianceThemingSlices.IconFilterStrategy iconEnabledFilterStrategy,
-                RadianceThemingSlices.IconFilterStrategy iconDisabledFilterStrategy) {
-            this.iconEnabledFilterStrategy = iconEnabledFilterStrategy;
-            this.iconDisabledFilterStrategy = iconDisabledFilterStrategy;
+                RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
+                RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy) {
+            this.enabledIconFilterStrategy = enabledIconFilterStrategy;
+            this.disabledIconFilterStrategy = disabledIconFilterStrategy;
             return this;
         }
 
@@ -169,8 +170,8 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
             LabelPresentationModel presentationModel = new LabelPresentationModel();
             presentationModel.contentPadding = this.contentPadding;
             presentationModel.iconDimension = this.iconDimension;
-            presentationModel.iconEnabledFilterStrategy = this.iconEnabledFilterStrategy;
-            presentationModel.iconDisabledFilterStrategy = this.iconDisabledFilterStrategy;
+            presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
+            presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.font = this.font;
             presentationModel.textMaxLines = this.textMaxLines;
             presentationModel.horizontalAlignment = this.horizontalAlignment;

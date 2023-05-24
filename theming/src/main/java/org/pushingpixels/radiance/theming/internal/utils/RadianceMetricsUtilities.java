@@ -140,7 +140,7 @@ public class RadianceMetricsUtilities {
         }
     }
 
-    public static int getLabelPreferredSingleLineWidth(JComponent component, String text, Font font) {
+    public static Dimension getLabelPreferredSingleLineDimension(JComponent component, String text, Font font) {
         FontMetrics fm = getFontMetrics(RadianceCommonCortex.getScaleFactor(component), font);
 
         iconR.setBounds(0, 0, 0, 0);
@@ -152,7 +152,7 @@ public class RadianceMetricsUtilities {
                 SwingConstants.CENTER, SwingConstants.LEADING,
                 viewR, iconR, textR, 0);
 
-        return textR.width;
+        return new Dimension(textR.width, textR.height);
     }
 
     public static Dimension getPreferredButtonSize(AbstractButton button) {

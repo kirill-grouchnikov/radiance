@@ -27,15 +27,19 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.text;
+package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.component.api.common.JExoLabel;
+import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 
-import javax.swing.*;
-import java.awt.*;
+public class LabelProjection extends Projection<JExoLabel, LabelContentModel, LabelPresentationModel> {
+    public LabelProjection(LabelContentModel contentModel,
+            LabelPresentationModel presentationModel) {
+        super(contentModel, presentationModel, projection -> JExoLabel::new);
+    }
 
-public class RadianceTextUtils {
-    public static int getLabelPreferredSingleLineWidth(JComponent component, String text, Font font) {
-        return RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(component, text, font).width;
+    @Override
+    protected void configureComponent(JExoLabel component) {
     }
 }

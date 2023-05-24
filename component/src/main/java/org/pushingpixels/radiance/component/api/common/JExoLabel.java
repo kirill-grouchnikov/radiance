@@ -27,15 +27,40 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.theming.api.text;
+package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
+import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.Projection;
+import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceExoLabelUI;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class RadianceTextUtils {
-    public static int getLabelPreferredSingleLineWidth(JComponent component, String text, Font font) {
-        return RadianceMetricsUtilities.getLabelPreferredSingleLineDimension(component, text, font).width;
+public class JExoLabel extends JComponent {
+    /**
+     * The UI class ID string.
+     */
+    public static final String uiClassID = "ExoLabelUI";
+
+    private Projection<JExoLabel, LabelContentModel, LabelPresentationModel> projection;
+
+    public JExoLabel(Projection<JExoLabel, LabelContentModel, LabelPresentationModel> projection) {
+        this.projection = projection;
+        this.updateUI();
     }
+
+    public Projection<JExoLabel, LabelContentModel, LabelPresentationModel> getProjection() {
+        return this.projection;
+    }
+
+    @Override
+    public void updateUI() {
+        setUI(RadianceExoLabelUI.createUI(this));
+    }
+
+    @Override
+    public String getUIClassID() {
+        return uiClassID;
+    }
+
 }

@@ -31,12 +31,14 @@ package org.pushingpixels.radiance.demo.component.common.custom;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.JExoLabel;
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
+import org.pushingpixels.radiance.component.api.common.projection.LabelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -45,7 +47,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.text.RadianceTextUtils;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.util.List;
@@ -351,8 +352,13 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
         public EditSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuEdit edit) {
             this.setLayout(new BorderLayout());
 
-            JLabel titleLabel = new JLabel(edit.getTitle());
-            titleLabel.setBorder(new EmptyBorder(presentationModel.itemContentPadding));
+            JExoLabel titleLabel = new LabelProjection(
+                    LabelContentModel.builder().setText(edit.getTitle()).build(),
+                    LabelPresentationModel.builder()
+                            .setTextMaxLines(1)
+                            .setContentPadding(presentationModel.itemContentPadding)
+                            .build()
+            ).buildComponent();
             this.add(titleLabel, BorderLayout.LINE_START);
 
             JPanel commands = new JPanel();
@@ -396,8 +402,13 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
         public ZoomSection(CustomComplexPopupMenuContentModel.CustomComplexPopupMenuZoom zoom) {
             this.setLayout(new BorderLayout());
-            JLabel titleLabel = new JLabel(zoom.getTitle());
-            titleLabel.setBorder(new EmptyBorder(presentationModel.itemContentPadding));
+            JExoLabel titleLabel = new LabelProjection(
+                    LabelContentModel.builder().setText(zoom.getTitle()).build(),
+                    LabelPresentationModel.builder()
+                            .setTextMaxLines(1)
+                            .setContentPadding(presentationModel.itemContentPadding)
+                            .build()
+            ).buildComponent();
             this.add(titleLabel, BorderLayout.LINE_START);
 
             JPanel commands = new JPanel();
@@ -405,12 +416,19 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             commands.setLayout(commandsLayout);
 
             commands.add(getHardVerticalSeparator());
+
             this.zoomOutButton = zoom.getCommandZoomOut().project(presentationModel.zoomPresentationModel)
                     .buildComponent();
             commands.add(this.zoomOutButton);
-            JLabel zoomLabel = new JLabel(String.valueOf(zoom.getZoom()));
-            zoomLabel.setBorder(new EmptyBorder(presentationModel.zoomLabelPresentationModel.getContentPadding()));
+
+            LabelContentModel zoomContentModel = LabelContentModel.builder().
+                    setText(String.valueOf(zoom.getZoom())).build();
+
+            JExoLabel zoomLabel = new LabelProjection(zoomContentModel,
+                    presentationModel.zoomLabelPresentationModel
+            ).buildComponent();
             commands.add(zoomLabel);
+
             this.zoomInButton = zoom.getCommandZoomIn().project(presentationModel.zoomPresentationModel)
                     .buildComponent();
             commands.add(this.zoomInButton);
@@ -425,7 +443,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
             this.zoomPropertyChangeListener = evt -> {
                 if ("zoom".equals(evt.getPropertyName())) {
-                    zoomLabel.setText(String.valueOf(evt.getNewValue()));
+                    // Propagate the zoom level change into our label content model
+                    zoomContentModel.setText(String.valueOf(evt.getNewValue()));
                 }
             };
             zoom.addPropertyChangeListener(this.zoomPropertyChangeListener);
@@ -451,8 +470,10 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             this.setLayout(new BorderLayout());
 
             JPanel mainSection = new JPanel(new BorderLayout());
-            JLabel titleLabel = new JLabel(header.getTitle());
-            titleLabel.setBorder(new EmptyBorder(presentationModel.headerTitlePresentationModel.getContentPadding()));
+            JExoLabel titleLabel = new LabelProjection(
+                    LabelContentModel.builder().setText(header.getTitle()).build(),
+                    presentationModel.headerTitlePresentationModel
+            ).buildComponent();
             mainSection.add(titleLabel, BorderLayout.LINE_START);
 
             JPanel signInPanel = new JPanel(new BorderLayout());
