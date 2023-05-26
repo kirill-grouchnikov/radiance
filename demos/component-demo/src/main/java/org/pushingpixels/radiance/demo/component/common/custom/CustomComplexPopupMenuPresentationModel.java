@@ -70,7 +70,6 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
     public final LabelPresentationModel zoomLabelPresentationModel =
             LabelPresentationModel.builder()
                     .setContentPadding(new Insets(6, 4, 6, 4))
-                    .setTextMaxLines(1)
                     .setSingleLineDisplayPrototype("999%")
                     .setHorizontalAlignment(HorizontalAlignment.CENTER)
                     .build();
@@ -94,7 +93,6 @@ public class CustomComplexPopupMenuPresentationModel extends BaseCommandPopupMen
     public final LabelPresentationModel headerTitlePresentationModel =
             LabelPresentationModel.builder()
                     .setContentPadding(new Insets(10, 16, 10, 16))
-                    .setTextMaxLines(1)
                     .setFont(RadianceThemingCortex.GlobalScope.getFontPolicy().
                             getFontSet().getControlFont().deriveFont(Font.BOLD))
                     .build();

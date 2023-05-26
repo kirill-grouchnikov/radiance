@@ -135,7 +135,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                         LabelContentModel.builder().setText(edit.getTitle()).build(),
                                         LabelPresentationModel.builder()
                                                 .setContentPadding(presentationModel.itemContentPadding)
-                                                .setTextMaxLines(1)
                                                 .build(),
                                         defaultFont
                                 );
@@ -168,7 +167,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                         LabelContentModel.builder().setText(zoom.getTitle()).build(),
                                         LabelPresentationModel.builder()
                                                 .setContentPadding(presentationModel.itemContentPadding)
-                                                .setTextMaxLines(1)
                                                 .build(),
                                         defaultFont
                                 );
@@ -355,7 +353,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             JExoLabel titleLabel = new LabelProjection(
                     LabelContentModel.builder().setText(edit.getTitle()).build(),
                     LabelPresentationModel.builder()
-                            .setTextMaxLines(1)
                             .setContentPadding(presentationModel.itemContentPadding)
                             .build()
             ).buildComponent();
@@ -405,7 +402,6 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
             JExoLabel titleLabel = new LabelProjection(
                     LabelContentModel.builder().setText(zoom.getTitle()).build(),
                     LabelPresentationModel.builder()
-                            .setTextMaxLines(1)
                             .setContentPadding(presentationModel.itemContentPadding)
                             .build()
             ).buildComponent();

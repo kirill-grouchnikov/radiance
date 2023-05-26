@@ -44,7 +44,6 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
     private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
     private Font font;
-    private int textMaxLines;
     private HorizontalAlignment horizontalAlignment;
     private int iconTextGap;
     private float horizontalGapScaleFactor;
@@ -71,10 +70,6 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
 
     public Font getFont() {
         return this.font;
-    }
-
-    public int getTextMaxLines() {
-        return this.textMaxLines;
     }
 
     public HorizontalAlignment getHorizontalAlignment() {
@@ -106,8 +101,7 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
         private Font font = null;
-        private int textMaxLines = Integer.MAX_VALUE;
-        private HorizontalAlignment horizontalAlignment = HorizontalAlignment.CENTER;
+        private HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEADING;
         private int iconTextGap = DEFAULT_ICON_TEXT_GAP;
         private float horizontalGapScaleFactor = 1.0f;
         private String singleLineDisplayPrototype = null;
@@ -135,11 +129,6 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
 
         public Builder setFont(Font font) {
             this.font = font;
-            return this;
-        }
-
-        public Builder setTextMaxLines(int textMaxLines) {
-            this.textMaxLines = textMaxLines;
             return this;
         }
 
@@ -173,7 +162,6 @@ public class LabelPresentationModel implements ImmutablePresentationModel {
             presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
             presentationModel.font = this.font;
-            presentationModel.textMaxLines = this.textMaxLines;
             presentationModel.horizontalAlignment = this.horizontalAlignment;
             presentationModel.iconTextGap = this.iconTextGap;
             presentationModel.horizontalGapScaleFactor = this.horizontalGapScaleFactor;
