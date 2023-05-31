@@ -169,24 +169,24 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 
-        String title = commandButton.getText();
-        if (title != null) {
-            StringTokenizer tokenizer = new StringTokenizer(title, " _-", true);
+        String buttonText = commandButton.getContentModel().getText();
+        if (buttonText != null) {
+            StringTokenizer tokenizer = new StringTokenizer(buttonText, " _-", true);
             if (tokenizer.countTokens() <= 1) {
                 // single word
-                this.titlePart1 = title;
+                this.titlePart1 = buttonText;
                 this.titlePart2 = null;
             } else {
                 int actionIconWidth = ComponentUtilities.hasPopupAction(commandButton) ? 0
                         : 2 * ComponentUtilities.getHLayoutGap(commandButton)
                         + (fm.getAscent() + fm.getDescent()) / 2;
-                int currMaxLength = fm.stringWidth(commandButton.getText()) + actionIconWidth;
+                int currMaxLength = fm.stringWidth(buttonText) + actionIconWidth;
 
                 StringBuilder currLeading = new StringBuilder();
                 while (tokenizer.hasMoreTokens()) {
                     currLeading.append(tokenizer.nextToken());
                     String part1 = currLeading.toString();
-                    String part2 = title.substring(currLeading.length());
+                    String part2 = buttonText.substring(currLeading.length());
 
                     int len1 = fm.stringWidth(part1);
                     int len2 = fm.stringWidth(part2) + actionIconWidth;

@@ -77,14 +77,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private BaseCommandButtonPresentationModel commandPresentation;
 
     /**
-     * The button text.
-     *
-     * @see #setText(String)
-     * @see #getText()
-     */
-    private String text;
-
-    /**
      * The button action model.
      *
      * @see #getActionModel()
@@ -471,8 +463,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.command = projection.getContentModel();
         this.commandPresentation = projection.getPresentationModel();
 
-        this.setText(command.getText());
-
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(this,
                 commandPresentation.getActiveIconFilterStrategy(),
                 commandPresentation.getEnabledIconFilterStrategy(),
@@ -634,39 +624,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public CommandButtonPresentationState getPresentationState() {
         return this.presentationState;
-    }
-
-    /**
-     * Returns the text of this button.
-     *
-     * @return The text of this button.
-     * @see #setText(String)
-     */
-    public String getText() {
-        return this.text;
-    }
-
-    /**
-     * Sets the new text for this button. Fires a <code>text</code> property
-     * change event.
-     *
-     * @param text The new text for this button.
-     * @see #getText()
-     */
-    public void setText(String text) {
-        String oldValue = this.text;
-        this.text = text;
-        firePropertyChange("text", oldValue, text);
-
-        if (accessibleContext != null) {
-            accessibleContext.firePropertyChange(
-                    AccessibleContext.ACCESSIBLE_VISIBLE_DATA_PROPERTY,
-                    oldValue, text);
-        }
-        if ((text == null) || (oldValue == null) || !text.equals(oldValue)) {
-            revalidate();
-            repaint();
-        }
     }
 
     /**

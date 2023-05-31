@@ -177,10 +177,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             }
         }
 
-        String buttonText = commandButton.getText();
-
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
-        boolean hasText = (buttonText != null);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
@@ -212,7 +209,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
                 int popupIconWidth = ComponentUtilities.getCommandButtonPopupIconWidth(
                         commandButton.getFont().getSize());
-                if (hasText || hasIcon) {
+                if (hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the right edge
                         x = width - ins.right - popupIconWidth - 4;
@@ -220,8 +217,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
                         // Otherwise, the popup icon is to the right of the texts
                         x += 2 * layoutHGap;
                     }
-                }
-                if (!hasText && !hasIcon) {
+                } else {
                     // horizontally center the popup icon
                     x = (width - 2 * layoutHGap - popupIconWidth) / 2;
                 }
@@ -314,7 +310,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
                 int popupIconWidth = ComponentUtilities.getCommandButtonPopupIconWidth(
                         commandButton.getFont().getSize());
-                if (hasText || hasIcon) {
+                if (hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the left edge
                         x = ins.left + 4;
@@ -322,8 +318,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
                         // Otherwise, the popup icon is to the left of the texts
                         x -= 2 * layoutHGap;
                     }
-                }
-                if (!hasText && !hasIcon) {
+                } else {
                     // horizontally center the popup icon
                     x -= (width - 2 * layoutHGap - 1 - popupIconWidth) / 2;
                 }

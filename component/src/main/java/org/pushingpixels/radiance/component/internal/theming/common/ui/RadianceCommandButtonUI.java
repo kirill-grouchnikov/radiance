@@ -632,7 +632,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 }
             } else {
                 fgColor = RadianceTextUtilities.getForegroundColor(this.commandButton,
-                        this.commandButton.getText(), modelStateInfo, buttonAlpha);
+                        this.text, modelStateInfo, buttonAlpha);
             }
         }
         return fgColor;

@@ -176,7 +176,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
     private void paintTextAndFocus(Graphics g) {
         FontMetrics fm = g.getFontMetrics();
-        String toPaint = this.commandButton.getText();
+        String toPaint = this.text;
 
         // compute the insets
         int fullInsets = this.commandButton.getInsets().left;
@@ -314,7 +314,7 @@ public class RadianceRibbonTaskToggleButtonUI extends
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        JButton forSizing = new JButton(this.commandButton.getText(), this.icon);
+        JButton forSizing = new JButton(this.text, this.icon);
         Dimension result = forSizing.getUI().getPreferredSize(forSizing);
         Insets borderInsets = this.commandButton.getBorder().getBorderInsets(this.commandButton);
         result.width += (borderInsets.left + borderInsets.right);

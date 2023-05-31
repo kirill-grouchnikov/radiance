@@ -61,9 +61,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 
-        String buttonText = commandButton.getText();
-        int titleWidth = (buttonText == null) ? 0 : fm
-                .stringWidth(commandButton.getText());
+        String buttonText = commandButton.getContentModel().getText();
+        int titleWidth = (buttonText == null) ? 0 : fm.stringWidth(buttonText);
         String extraText = commandButton.getContentModel().getExtraText();
         int extraWidth = (extraText == null) ? 0 : fm.stringWidth(extraText);
         double textWidth = Math.max(titleWidth, extraWidth);
@@ -212,7 +211,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
         }
 
-        String buttonText = commandButton.getText();
+        String buttonText = commandButton.getContentModel().getText();
         String buttonExtraText = commandButton.getContentModel().getExtraText();
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
@@ -250,7 +249,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 x += layoutHGap;
 
                 TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-                lineLayoutInfo.text = commandButton.getText();
+                lineLayoutInfo.text = buttonText;
                 lineLayoutInfo.textRect = new Rectangle();
 
                 lineLayoutInfo.textRect.x = x;
@@ -430,7 +429,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 x -= layoutHGap;
 
                 TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-                lineLayoutInfo.text = commandButton.getText();
+                lineLayoutInfo.text = buttonText;
                 lineLayoutInfo.textRect = new Rectangle();
 
                 lineLayoutInfo.textRect.width = (buttonText == null) ? 0

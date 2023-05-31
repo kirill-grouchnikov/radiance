@@ -59,13 +59,13 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);
 
 		// icon, label
-		int fillTitleWidth = fm.stringWidth(commandButton.getText());
+		int fillTitleWidth = fm.stringWidth(commandButton.getContentModel().getText());
 
 		int widthFull = Math.max(this.getPreferredIconSize(commandButton).width, fillTitleWidth);
 
 		int heightFull = by + this.getPreferredIconSize(commandButton).height + layoutVGap
 				+ jsep.getPreferredSize().width;
-		if (commandButton.getText() != null) {
+		if (commandButton.getContentModel().getText() != null) {
 			heightFull += fm.getHeight();
 		}
 
@@ -131,7 +131,8 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		int iconWidth = iconSize.width;
 		int iconHeight = iconSize.height;
 
-		if (commandButton.getText() == null) {
+		String buttonText = commandButton.getContentModel().getText();
+		if (buttonText == null) {
 			y = ins.top + (height - ins.top - ins.bottom - iconHeight) / 2;
 		}
 		result.iconRect.x = (width - iconWidth) / 2;
@@ -143,10 +144,10 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		y += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
 
 		TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-		lineLayoutInfo.text = commandButton.getText();
+		lineLayoutInfo.text = buttonText;
 		lineLayoutInfo.textRect = new Rectangle();
 
-		int labelWidth = fm.stringWidth(commandButton.getText());
+		int labelWidth = fm.stringWidth(buttonText);
 
 		lineLayoutInfo.textRect.x = ins.left
 				+ (width - labelWidth - ins.left - ins.right) / 2;

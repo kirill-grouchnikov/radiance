@@ -60,7 +60,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
 
-        int titleWidth = fm.stringWidth(commandButton.getText());
+        int titleWidth = fm.stringWidth(commandButton.getContentModel().getText());
         int layoutHGap = 2 * ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(commandButton);
         int widthMed = this.getPreferredIconSize(commandButton).width
@@ -151,6 +151,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int layoutHGap = 2 * ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(commandButton);
 
+        String buttonText = commandButton.getContentModel().getText();
         Dimension iconSize = getPreferredIconSize(commandButton);
         int iconWidth = iconSize.width;
         int iconHeight = iconSize.height;
@@ -190,13 +191,12 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             x += 2 * layoutHGap + jsep.getPreferredSize().width;
 
             TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-            lineLayoutInfo.text = commandButton.getText();
+            lineLayoutInfo.text = buttonText;
             lineLayoutInfo.textRect = new Rectangle();
 
             lineLayoutInfo.textRect.x = x;
             lineLayoutInfo.textRect.y = ins.top + layoutVGap / 2;
-            lineLayoutInfo.textRect.width = fm.stringWidth(commandButton
-                    .getText());
+            lineLayoutInfo.textRect.width = fm.stringWidth(buttonText);
             lineLayoutInfo.textRect.height = labelHeight;
 
             result.textLayoutInfoList = new ArrayList<>();
@@ -247,7 +247,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 result.extraTextLayoutInfoList.add(extraLineLayoutInfo2);
             }
 
-            x += fm.stringWidth(commandButton.getText());
+            x += fm.stringWidth(buttonText);
             if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION) {
                 // popup click areas are right aligned
                 result.actionClickArea.x = 0;
@@ -310,11 +310,10 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             x -= (2 * layoutHGap + jsep.getPreferredSize().width);
 
             TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-            lineLayoutInfo.text = commandButton.getText();
+            lineLayoutInfo.text = buttonText;
             lineLayoutInfo.textRect = new Rectangle();
 
-            lineLayoutInfo.textRect.width = fm.stringWidth(commandButton
-                    .getText());
+            lineLayoutInfo.textRect.width = fm.stringWidth(buttonText);
             lineLayoutInfo.textRect.x = x - lineLayoutInfo.textRect.width;
             lineLayoutInfo.textRect.y = ins.top + layoutVGap / 2;
             lineLayoutInfo.textRect.height = labelHeight;

@@ -158,14 +158,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 ribbon.revalidate();
                 ribbon.doLayout();
                 ribbon.repaint();
-
-                Window windowAncestor = SwingUtilities.getWindowAncestor(ribbon);
-                if ((windowAncestor instanceof JRibbonFrame) && isShowingAppMenuButton) {
-                    applicationMenuButton.setText(ribbon.getApplicationMenuCommandProjection()
-                            .getContentModel().getText());
-                }
-
-                syncApplicationMenuTips();
             }
             if ("minimized".equals(propertyChangeEvent.getPropertyName())) {
                 PopupPanelManager.defaultManager().hidePopups(null);
@@ -253,11 +245,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     this.ribbon.getComponentOrientation());
             this.syncApplicationMenuTips();
             this.ribbon.add(this.applicationMenuButton);
-            Window windowAncestor = SwingUtilities.getWindowAncestor(this.ribbon);
-            if (windowAncestor instanceof JRibbonFrame) {
-                this.applicationMenuButton.setText(ribbon.getApplicationMenuCommandProjection()
-                        .getContentModel().getText());
-            }
         }
     }
 
@@ -280,16 +267,18 @@ public abstract class BasicRibbonUI extends RibbonUI {
                             result.popupActionRect = new Rectangle(0, 0, 0, 0);
                             result.isTextInActionArea = false;
 
+                            String buttonText = commandButton.getContentModel().getText();
+
                             FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                                     RadianceCommonCortex.getScaleFactor(commandButton),
                                     commandButton.getFont());
                             int labelHeight = fm.getAscent() + fm.getDescent();
 
                             int availableWidth = commandButton.getWidth();
-                            int textWidth = fm.stringWidth(commandButton.getText());
+                            int textWidth = fm.stringWidth(buttonText);
 
                             TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-                            lineLayoutInfo.text = commandButton.getText();
+                            lineLayoutInfo.text = buttonText;
                             lineLayoutInfo.textRect = new Rectangle();
                             result.textLayoutInfoList = new ArrayList<>();
                             result.textLayoutInfoList.add(lineLayoutInfo);

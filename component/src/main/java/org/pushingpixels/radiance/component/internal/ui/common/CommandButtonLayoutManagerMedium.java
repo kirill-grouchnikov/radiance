@@ -77,7 +77,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 
-        String buttonText = commandButton.getText();
+        String buttonText = commandButton.getContentModel().getText();
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
         boolean hasIcon = this.hasIcon(commandButton);
@@ -205,7 +205,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         int width = commandButton.getWidth();
         int height = commandButton.getHeight();
 
-        String buttonText = commandButton.getText();
+        String buttonText = commandButton.getContentModel().getText();
         int iconWidth = this.getPreferredIconSize(commandButton).width;
         int iconHeight = this.getPreferredIconSize(commandButton).height;
 
@@ -266,7 +266,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 }
 
                 TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-                lineLayoutInfo.text = commandButton.getText();
+                lineLayoutInfo.text = buttonText;
                 lineLayoutInfo.textRect = new Rectangle();
                 result.textLayoutInfoList = new ArrayList<>();
                 result.textLayoutInfoList.add(lineLayoutInfo);
@@ -430,7 +430,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 }
 
                 TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-                lineLayoutInfo.text = commandButton.getText();
+                lineLayoutInfo.text = buttonText;
                 lineLayoutInfo.textRect = new Rectangle();
                 result.textLayoutInfoList = new ArrayList<>();
                 result.textLayoutInfoList.add(lineLayoutInfo);

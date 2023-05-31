@@ -77,7 +77,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    private PropertyChangeListener projectionPropertyChangeListener;
+    private PropertyChangeListener commandPropertyChangeListener;
 
     /**
      * Tracks user interaction with the command button (including keyboard and mouse).
@@ -95,6 +95,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     protected boolean isInnerFocusOnAction;
 
+    protected String text;
     protected String extraText;
     protected RadianceIcon icon;
 
@@ -171,6 +172,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         RadianceIcon.Factory iconFactory = this.commandButton.getContentModel().getIconFactory();
         this.icon = (iconFactory != null) ? iconFactory.createNewIcon() : null;
+        this.text = this.commandButton.getContentModel().getText();
         this.extraText = this.commandButton.getContentModel().getExtraText();
 
         this.syncIconDimension();
@@ -332,9 +334,17 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.commandButton.addPropertyChangeListener(this.propertyChangeListener);
 
         BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
-        this.projectionPropertyChangeListener = propertyChangeEvent -> {
+        this.commandPropertyChangeListener = propertyChangeEvent -> {
             if ("text".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.setText((String) propertyChangeEvent.getNewValue());
+                text = (String) propertyChangeEvent.getNewValue();
+                AccessibleContext accessibleContext = commandButton.getAccessibleContext();
+                if (accessibleContext != null) {
+                    accessibleContext.firePropertyChange(
+                            AccessibleContext.ACCESSIBLE_VISIBLE_DATA_PROPERTY,
+                            propertyChangeEvent.getOldValue(), extraText);
+                }
+                commandButton.revalidate();
+                commandButton.repaint();
             }
             if ("extraText".equals(propertyChangeEvent.getPropertyName())) {
                 extraText = (String) propertyChangeEvent.getNewValue();
@@ -383,7 +393,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.repaint();
             }
         };
-        command.addPropertyChangeListener(this.projectionPropertyChangeListener);
+        command.addPropertyChangeListener(this.commandPropertyChangeListener);
 
         syncActionPreview(command, command.getActionPreview());
 
@@ -488,8 +498,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.propertyChangeListener = null;
 
         this.commandButton.getProjection().getContentModel().removePropertyChangeListener(
-                this.projectionPropertyChangeListener);
-        this.projectionPropertyChangeListener = null;
+                this.commandPropertyChangeListener);
+        this.commandPropertyChangeListener = null;
 
         this.commandButton.removeCommandListener(this.disposePopupsActionListener);
         this.disposePopupsActionListener = null;
