@@ -64,7 +64,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         String buttonText = commandButton.getText();
         int titleWidth = (buttonText == null) ? 0 : fm
                 .stringWidth(commandButton.getText());
-        String extraText = commandButton.getExtraText();
+        String extraText = commandButton.getContentModel().getExtraText();
         int extraWidth = (extraText == null) ? 0 : fm.stringWidth(extraText);
         double textWidth = Math.max(titleWidth, extraWidth);
 
@@ -213,7 +213,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         }
 
         String buttonText = commandButton.getText();
-        String buttonExtraText = commandButton.getExtraText();
+        String buttonExtraText = commandButton.getContentModel().getExtraText();
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (buttonText != null) || (buttonExtraText != null);
@@ -262,7 +262,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 result.textLayoutInfoList = new ArrayList<>();
                 result.textLayoutInfoList.add(lineLayoutInfo);
 
-                String extraText = commandButton.getExtraText();
+                String extraText = commandButton.getContentModel().getExtraText();
 
                 TextLayoutInfo extraLineLayoutInfo = new TextLayoutInfo();
                 extraLineLayoutInfo.text = extraText;
@@ -442,7 +442,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 result.textLayoutInfoList = new ArrayList<>();
                 result.textLayoutInfoList.add(lineLayoutInfo);
 
-                String extraText = commandButton.getExtraText();
+                String extraText = commandButton.getContentModel().getExtraText();
 
                 TextLayoutInfo extraLineLayoutInfo = new TextLayoutInfo();
                 extraLineLayoutInfo.text = extraText;

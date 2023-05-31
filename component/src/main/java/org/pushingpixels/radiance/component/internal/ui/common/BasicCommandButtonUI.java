@@ -45,6 +45,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
+import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
@@ -94,6 +95,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     protected boolean isInnerFocusOnAction;
 
+    protected String extraText;
     protected RadianceIcon icon;
 
     /**
@@ -169,6 +171,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         RadianceIcon.Factory iconFactory = this.commandButton.getContentModel().getIconFactory();
         this.icon = (iconFactory != null) ? iconFactory.createNewIcon() : null;
+        this.extraText = this.commandButton.getContentModel().getExtraText();
+
         this.syncIconDimension();
 
         // Support for focus traversal inside command buttons that have action area
@@ -333,7 +337,15 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.setText((String) propertyChangeEvent.getNewValue());
             }
             if ("extraText".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.setExtraText((String) propertyChangeEvent.getNewValue());
+                extraText = (String) propertyChangeEvent.getNewValue();
+                AccessibleContext accessibleContext = commandButton.getAccessibleContext();
+                if (accessibleContext != null) {
+                    accessibleContext.firePropertyChange(
+                            AccessibleContext.ACCESSIBLE_VISIBLE_DATA_PROPERTY,
+                            propertyChangeEvent.getOldValue(), extraText);
+                }
+                commandButton.revalidate();
+                commandButton.repaint();
             }
             if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
                 RadianceIcon.Factory factory = (RadianceIcon.Factory) propertyChangeEvent.getNewValue();

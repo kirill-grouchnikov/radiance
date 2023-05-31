@@ -93,15 +93,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private ActionButtonModel actionModel;
 
     /**
-     * Additional text. It is up to the presentation layer to decide whether to display this
-     * text (depending on the layout and available space).
-     *
-     * @see #setExtraText(String)
-     * @see #getExtraText()
-     */
-    private String extraText;
-
-    /**
      * Current presentation state of <code>this</code> button.
      *
      * @see #setPresentationState(CommandButtonPresentationState)
@@ -481,7 +472,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.commandPresentation = projection.getPresentationModel();
 
         this.setText(command.getText());
-        this.setExtraText(command.getExtraText());
 
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(this,
                 commandPresentation.getActiveIconFilterStrategy(),
@@ -644,39 +634,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public CommandButtonPresentationState getPresentationState() {
         return this.presentationState;
-    }
-
-    /**
-     * Returns the extra text of this button.
-     *
-     * @return Extra text of this button.
-     * @see #setExtraText(String)
-     */
-    public String getExtraText() {
-        return this.extraText;
-    }
-
-    /**
-     * Sets the extra text for this button. Fires an <code>extraText</code>
-     * property change event.
-     *
-     * @param extraText Extra text for this button.
-     * @see #getExtraText()
-     */
-    public void setExtraText(String extraText) {
-        String oldValue = this.extraText;
-        this.extraText = extraText;
-        firePropertyChange("extraText", oldValue, extraText);
-
-        if (accessibleContext != null) {
-            accessibleContext.firePropertyChange(
-                    AccessibleContext.ACCESSIBLE_VISIBLE_DATA_PROPERTY,
-                    oldValue, extraText);
-        }
-        if ((extraText == null) || (oldValue == null) || !extraText.equals(oldValue)) {
-            revalidate();
-            repaint();
-        }
     }
 
     /**

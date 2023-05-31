@@ -75,7 +75,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         // The gap between the lines is half the main gap.
         int fontHeight = fm.getAscent() + fm.getDescent();
         int textHeight = fontHeight + layoutVGap;
-        String extraText = commandButton.getExtraText();
+        String extraText = commandButton.getContentModel().getExtraText();
         if ((extraText != null) && (extraText.length() > 0)) {
             textHeight += 2 * fontHeight;
         }
@@ -202,12 +202,11 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             result.textLayoutInfoList = new ArrayList<>();
             result.textLayoutInfoList.add(lineLayoutInfo);
 
-            String extraText = commandButton.getExtraText();
+            String extraText = commandButton.getContentModel().getExtraText();
             if ((extraText == null) || (extraText.length() == 0)) {
                 lineLayoutInfo.textRect.y = (height - labelHeight) / 2;
             } else {
-                AttributedString attributedDescription = new AttributedString(
-                        commandButton.getExtraText());
+                AttributedString attributedDescription = new AttributedString(extraText);
                 attributedDescription.addAttribute(TextAttribute.FONT, commandButton.getFont());
                 LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
                         attributedDescription.getIterator(),
@@ -222,8 +221,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                         .nextOffset(maxFirstExtraLineWidth);
 
                 TextLayoutInfo extraLineLayoutInfo1 = new TextLayoutInfo();
-                extraLineLayoutInfo1.text = commandButton.getExtraText()
-                        .substring(0, breakIndex);
+                extraLineLayoutInfo1.text = extraText.substring(0, breakIndex);
                 extraLineLayoutInfo1.textRect = new Rectangle();
 
                 extraLineLayoutInfo1.textRect.x = x;
@@ -234,8 +232,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 extraLineLayoutInfo1.textRect.height = labelHeight;
 
                 TextLayoutInfo extraLineLayoutInfo2 = new TextLayoutInfo();
-                extraLineLayoutInfo2.text = commandButton.getExtraText()
-                        .substring(breakIndex);
+                extraLineLayoutInfo2.text = extraText.substring(breakIndex);
                 extraLineLayoutInfo2.textRect = new Rectangle();
 
                 extraLineLayoutInfo2.textRect.x = x;
@@ -325,12 +322,11 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             result.textLayoutInfoList = new ArrayList<>();
             result.textLayoutInfoList.add(lineLayoutInfo);
 
-            String extraText = commandButton.getExtraText();
+            String extraText = commandButton.getContentModel().getExtraText();
             if ((extraText == null) || (extraText.length() == 0)) {
                 lineLayoutInfo.textRect.y = (height - labelHeight) / 2;
             } else {
-                AttributedString attributedDescription = new AttributedString(
-                        commandButton.getExtraText());
+                AttributedString attributedDescription = new AttributedString(extraText);
                 attributedDescription.addAttribute(TextAttribute.FONT, commandButton.getFont());
                 LineBreakMeasurer lineBreakMeasurer = new LineBreakMeasurer(
                         attributedDescription.getIterator(),
@@ -344,8 +340,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                         .nextOffset(maxFirstExtraLineWidth);
 
                 TextLayoutInfo extraLineLayoutInfo1 = new TextLayoutInfo();
-                extraLineLayoutInfo1.text = commandButton.getExtraText()
-                        .substring(0, breakIndex);
+                extraLineLayoutInfo1.text = extraText.substring(0, breakIndex);
                 extraLineLayoutInfo1.textRect = new Rectangle();
 
                 extraLineLayoutInfo1.textRect.width = fm
@@ -357,8 +352,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 extraLineLayoutInfo1.textRect.height = labelHeight;
 
                 TextLayoutInfo extraLineLayoutInfo2 = new TextLayoutInfo();
-                extraLineLayoutInfo2.text = commandButton.getExtraText()
-                        .substring(breakIndex);
+                extraLineLayoutInfo2.text = extraText.substring(breakIndex);
                 extraLineLayoutInfo2.textRect = new Rectangle();
 
                 extraLineLayoutInfo2.textRect.width = fm
