@@ -206,6 +206,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 new HashMap<>();
         galleryScrollerOverlays.put(this.scrollUpCommand,
                 CommandButtonPresentationModel.overlay()
+                        .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
                         .setSides(RadianceThemingSlices.Sides.builder()
                                 .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
                                 .build())
@@ -213,6 +214,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         .setAutoRepeatActionIntervals(200, 50));
         galleryScrollerOverlays.put(this.scrollDownCommand,
                 CommandButtonPresentationModel.overlay()
+                        .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
                         .setSides(RadianceThemingSlices.Sides.builder()
                                 .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
                                 .build())
@@ -220,6 +222,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                         .setAutoRepeatActionIntervals(200, 50));
         galleryScrollerOverlays.put(this.expandCommand,
                 CommandButtonPresentationModel.overlay()
+                        .setIconDimension(new Dimension(arrowIconWidth, arrowDoubleIconHeight))
                         .setSides(RadianceThemingSlices.Sides.builder()
                                 .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
                                 .build())

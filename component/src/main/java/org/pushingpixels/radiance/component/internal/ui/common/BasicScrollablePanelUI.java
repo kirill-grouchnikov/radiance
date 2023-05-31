@@ -206,6 +206,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
         // Common scroller command presentation
         CommandButtonPresentationModel scrollerActionsPresentation = CommandButtonPresentationModel.builder()
                 .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                .setIconDimension(new Dimension(arrowIconHeight, arrowIconWidth))
                 .setContentPadding(new Insets(2, 2, 2, 2))
                 .setFocusable(false)
                 .setToDismissPopupsOnActivation(false)
