@@ -77,14 +77,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private BaseCommandButtonPresentationModel commandPresentation;
 
     /**
-     * Associated icon.
-     *
-     * @see #setIcon(RadianceIcon)
-     * @see #getIcon()
-     */
-    private RadianceIcon icon;
-
-    /**
      * The button text.
      *
      * @see #setText(String)
@@ -491,9 +483,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.setText(command.getText());
         this.setExtraText(command.getExtraText());
 
-        this.setIcon((command.getIconFactory() != null)
-                ? command.getIconFactory().createNewIcon()
-                : null);
         RadianceThemingCortex.ComponentScope.setIconFilterStrategies(this,
                 commandPresentation.getActiveIconFilterStrategy(),
                 commandPresentation.getEnabledIconFilterStrategy(),
@@ -624,6 +613,15 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         return this.projection;
     }
 
+    public BaseCommand<? extends BaseCommandMenuContentModel> getContentModel() {
+        return this.projection.getContentModel();
+    }
+
+    public BaseCommandButtonPresentationModel<? extends BaseCommandPopupMenuPresentationModel,
+            ? extends BaseCommandButtonPresentationModel<?, ?>> getPresentationModel() {
+        return this.projection.getPresentationModel();
+    }
+
     /**
      * Sets new presentation state for <code>this</code> button. Fires a
      * <code>presentationState</code> property change event.
@@ -636,38 +634,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.presentationState = state;
 
         this.firePropertyChange("presentationState", old, this.presentationState);
-    }
-
-    /**
-     * Returns the associated icon.
-     *
-     * @return The associated icon.
-     * @see #setIcon(RadianceIcon)
-     */
-    public RadianceIcon getIcon() {
-        return icon;
-    }
-
-    /**
-     * Sets new icon for this button. Fires an <code>icon</code> property change
-     * event.
-     *
-     * @param defaultIcon New default icon for this button.
-     * @see #getIcon()
-     */
-    public void setIcon(RadianceIcon defaultIcon) {
-        RadianceIcon oldValue = this.icon;
-        this.icon = defaultIcon;
-
-        firePropertyChange("icon", oldValue, defaultIcon);
-        if (defaultIcon != oldValue) {
-            if (defaultIcon == null || oldValue == null
-                    || defaultIcon.getIconWidth() != oldValue.getIconWidth()
-                    || defaultIcon.getIconHeight() != oldValue.getIconHeight()) {
-                revalidate();
-            }
-            repaint();
-        }
     }
 
     /**

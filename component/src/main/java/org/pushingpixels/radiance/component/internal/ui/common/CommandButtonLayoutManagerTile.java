@@ -70,7 +70,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
-        boolean hasIcon = (commandButton.getIcon() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (textWidth > 0);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
@@ -135,7 +135,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
     @Override
     public Point getActionKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
-        boolean hasIcon = (commandButton.getIcon() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         int height = commandButton.getHeight();
 
         if (commandButton.getComponentOrientation().isLeftToRight()) {
@@ -212,11 +212,10 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
         }
 
-        RadianceIcon buttonIcon = commandButton.getIcon();
         String buttonText = commandButton.getText();
         String buttonExtraText = commandButton.getExtraText();
 
-        boolean hasIcon = (buttonIcon != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (buttonText != null) || (buttonExtraText != null);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
@@ -234,8 +233,9 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             if (hasIcon) {
                 x += layoutHGap;
 
-                int iconHeight = buttonIcon.getIconHeight();
-                int iconWidth = buttonIcon.getIconWidth();
+                Dimension iconSize = getPreferredIconSize(commandButton);
+                int iconHeight = iconSize.height;
+                int iconWidth = iconSize.width;
 
                 result.iconRect.x = x;
                 result.iconRect.y = bt + (height - by - iconHeight) / 2;
@@ -413,8 +413,9 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             if (hasIcon) {
                 x -= layoutHGap;
 
-                int iconHeight = buttonIcon.getIconHeight();
-                int iconWidth = buttonIcon.getIconWidth();
+                Dimension iconSize = getPreferredIconSize(commandButton);
+                int iconHeight = iconSize.height;
+                int iconWidth = iconSize.width;
 
                 result.iconRect.x = x - iconWidth;
                 result.iconRect.y = bt + (height - by - iconHeight) / 2;

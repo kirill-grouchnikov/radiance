@@ -151,7 +151,10 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int layoutHGap = 2 * ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(commandButton);
 
-        RadianceIcon buttonIcon = commandButton.getIcon();
+        Dimension iconSize = getPreferredIconSize(commandButton);
+        int iconWidth = iconSize.width;
+        int iconHeight = iconSize.height;
+
         boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
         if (ltr) {
@@ -159,10 +162,10 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             // medium icon, 1-line text, 2-line extra text and popup arrow
             result.iconRect.x = x;
             result.iconRect.y = ins.top + layoutVGap;
-            result.iconRect.width = buttonIcon.getIconWidth();
-            result.iconRect.height = buttonIcon.getIconHeight();
+            result.iconRect.width = iconWidth;
+            result.iconRect.height = iconHeight;
 
-            x += buttonIcon.getIconWidth();
+            x += iconWidth;
             if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP) {
                 result.actionClickArea.x = 0;
                 result.actionClickArea.y = 0;
@@ -280,12 +283,12 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         } else {
             int x = commandButton.getWidth() - ins.right;
             // medium icon, 1-line text, 2-line extra text and popup arrow
-            result.iconRect.x = x - buttonIcon.getIconWidth();
+            result.iconRect.x = x - iconWidth;
             result.iconRect.y = ins.top + layoutVGap;
-            result.iconRect.width = buttonIcon.getIconWidth();
-            result.iconRect.height = buttonIcon.getIconHeight();
+            result.iconRect.width = iconWidth;
+            result.iconRect.height = iconHeight;
 
-            x -= buttonIcon.getIconWidth();
+            x -= iconWidth;
             if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP) {
                 result.actionClickArea.x = x + layoutHGap;
                 result.actionClickArea.y = 0;

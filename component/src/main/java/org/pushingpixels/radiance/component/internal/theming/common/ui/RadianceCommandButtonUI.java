@@ -274,17 +274,16 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
      * Tracks possible usage of glowing icon.
      */
     private void trackGlowingIcon() {
-        RadianceIcon currIcon = this.commandButton.getIcon();
-        if (currIcon instanceof GlowingRadianceIcon)
+        if (this.icon instanceof GlowingRadianceIcon)
             return;
-        if (currIcon == null)
+        if (this.icon == null)
             return;
         boolean isPopupOnly = (this.commandButton.getCommandButtonKind() ==
                 JCommandButton.CommandButtonKind.POPUP_ONLY);
         StateTransitionTracker tracker = isPopupOnly
                 ? this.radianceVisualStateTracker.getPopupStateTransitionTracker()
                 : this.radianceVisualStateTracker.getActionStateTransitionTracker();
-        this.glowingIcon = new GlowingRadianceIcon(currIcon, tracker.getIconGlowTracker());
+        this.glowingIcon = new GlowingRadianceIcon(this.icon, tracker.getIconGlowTracker());
     }
 
     private void paintButtonBackground(Graphics graphics) {
@@ -303,15 +302,14 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     }
 
     private void paintButtonIconRegular(Graphics g, Rectangle iconRect, Color textColor) {
-        Icon icon = this.commandButton.getIcon();
-        if ((iconRect == null) || (icon == null) || (iconRect.width == 0)
+        if ((iconRect == null) || (this.icon == null) || (iconRect.width == 0)
                 || (iconRect.height == 0)) {
             return;
         }
 
         Graphics2D g2d = (Graphics2D) g.create();
 
-        GhostPaintingUtils.paintGhostIcon(g2d, this.commandButton, icon, iconRect);
+        GhostPaintingUtils.paintGhostIcon(g2d, this.commandButton, this.icon, iconRect);
         g2d.setComposite(WidgetUtilities.getAlphaComposite(this.commandButton, g));
 
         StateTransitionTracker tracker = this.radianceVisualStateTracker
@@ -322,7 +320,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             model = this.commandButton.getPopupModel();
         }
         this.commandButtonBackgroundDelegate.paintCommandButtonIcon(g2d, iconRect,
-                this.commandButton, icon, this.glowingIcon, model, tracker, textColor);
+                this.commandButton, this.icon, this.glowingIcon, model, tracker, textColor);
         g2d.dispose();
     }
 
@@ -369,8 +367,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         }
         this.paintButtonIconRegular(g, iconRect, textColor);
         // does it actually have an icon?
-        Icon iconToPaint = this.commandButton.getIcon();
-        if (showSelectionAroundIcon && (iconToPaint == null)) {
+        if (showSelectionAroundIcon && (this.icon == null)) {
             // draw a checkmark
             Graphics2D g2d = (Graphics2D) g.create();
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -456,7 +453,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         if (super.isPaintingSeparators()) {
             return true;
         }
-        boolean hasIcon = (this.commandButton.getIcon() != null);
+        boolean hasIcon = (this.icon != null);
         return this.commandButton.hasFocus() || (hasIcon && (this.overallStateTransitionTracker
                 .getFacetStrength(ComponentStateFacet.ROLLOVER) > 0.0f));
     }
@@ -668,10 +665,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        JCommandButton button = (JCommandButton) c;
-        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(this.commandButton);
 
-        Dimension superPref = super.getPreferredSize(button);
+        Dimension superPref = super.getPreferredSize(this.commandButton);
         if (superPref == null)
             return null;
 
@@ -683,13 +679,13 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         // not have min size enforced as well
         // Additional fix - buttons in popup menus and breadcrumb bars should
         // not have min size enforced
-        if ((button.getPresentationState() == CommandButtonPresentationState.MEDIUM)
-                && (SwingUtilities.getAncestorOfClass(JRibbon.class, button) == null)
-                && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, button) == null)
-                && (SwingUtilities.getAncestorOfClass(AbstractPopupMenuPanel.class, button) == null)) {
-            JButton forSizing = new JButton(button.getText(), button.getIcon());
+        if ((this.commandButton.getPresentationState() == CommandButtonPresentationState.MEDIUM)
+                && (SwingUtilities.getAncestorOfClass(JRibbon.class, this.commandButton) == null)
+                && (SwingUtilities.getAncestorOfClass(JBreadcrumbBar.class, this.commandButton) == null)
+                && (SwingUtilities.getAncestorOfClass(AbstractPopupMenuPanel.class, this.commandButton) == null)) {
+            JButton forSizing = new JButton(this.commandButton.getContentModel().getText(), this.icon);
             Dimension result = shaper.getPreferredSize(forSizing, superPref);
-            if (ComponentUtilities.hasPopupAction(button)) {
+            if (ComponentUtilities.hasPopupAction(this.commandButton)) {
                 result.width = superPref.width;
             }
             return result;

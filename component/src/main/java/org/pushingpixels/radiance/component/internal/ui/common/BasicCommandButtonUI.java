@@ -94,6 +94,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
     protected boolean isInnerFocusOnAction;
 
+    protected RadianceIcon icon;
+
     /**
      * Client property to mark the command button to not dispose the popups on activation.
      *
@@ -164,6 +166,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             this.commandButton.setFont(RadianceThemingCortex.GlobalScope.getFontPolicy()
                     .getFontSet().getControlFont());
         }
+
+        RadianceIcon.Factory iconFactory = this.commandButton.getContentModel().getIconFactory();
+        this.icon = (iconFactory != null) ? iconFactory.createNewIcon() : null;
         this.syncIconDimension();
 
         // Support for focus traversal inside command buttons that have action area
@@ -226,9 +231,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected void installComponents() {
         this.updatePopupActionIcon();
 
-        RadianceIcon buttonIcon = this.commandButton.getIcon();
-        if (buttonIcon instanceof AsynchronousLoading) {
-            ((AsynchronousLoading) buttonIcon).addAsynchronousLoadListener((boolean success) -> {
+        if (this.icon instanceof AsynchronousLoading) {
+            ((AsynchronousLoading) this.icon).addAsynchronousLoadListener((boolean success) -> {
                 if (success && (commandButton != null))
                     commandButton.repaint();
             });
@@ -333,7 +337,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
             if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
                 RadianceIcon.Factory factory = (RadianceIcon.Factory) propertyChangeEvent.getNewValue();
-                commandButton.setIcon((factory != null) ? factory.createNewIcon() : null);
+                icon = (factory != null) ? factory.createNewIcon() : null;
+                commandButton.repaint();
             }
             if ("isToggleSelected".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.getActionModel().setSelected((Boolean) propertyChangeEvent.getNewValue());
@@ -513,7 +518,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         Dimension dimension = this.commandButton.getIconDimension();
 
         if (dimension != null) {
-            this.commandButton.getIcon().setDimension(dimension);
+            this.icon.setDimension(dimension);
             this.commandButton.setPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON);
 
             this.commandButton.invalidate();
@@ -677,8 +682,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     private void syncIconDimension() {
-        RadianceIcon icon = this.commandButton.getIcon();
-        if (icon == null) {
+        if (this.icon == null) {
             return;
         }
 
@@ -695,19 +699,19 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         int iconWidth = (preferredIconSize != null) ? preferredIconSize.width : -1;
         if (iconWidth < 0) {
-            iconWidth = this.commandButton.getIcon().getIconWidth();
+            iconWidth = this.icon.getIconWidth();
         }
         int iconHeight = (preferredIconSize != null) ? preferredIconSize.height : -1;
         if (iconHeight < 0) {
-            iconHeight = this.commandButton.getIcon().getIconHeight();
+            iconHeight = this.icon.getIconHeight();
         }
 
-        if ((icon.getIconWidth() == iconWidth) && (icon.getIconHeight() == iconHeight)) {
+        if ((this.icon.getIconWidth() == iconWidth) && (this.icon.getIconHeight() == iconHeight)) {
             return;
         }
 
         Dimension newDim = new Dimension(iconWidth, iconHeight);
-        icon.setDimension(newDim);
+        this.icon.setDimension(newDim);
     }
 
     private void syncActionPreview(BaseCommand<?> command, Command.CommandActionPreview actionPreview) {

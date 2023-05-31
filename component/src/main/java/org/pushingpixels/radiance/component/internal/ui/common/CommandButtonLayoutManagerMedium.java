@@ -61,7 +61,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
     }
 
     private boolean hasIcon(JCommandButton button) {
-        if (button.getIcon() != null) {
+        if (button.getContentModel().getIconFactory() != null) {
             return true;
         }
         if (Boolean.TRUE.equals(button.getClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON))) {

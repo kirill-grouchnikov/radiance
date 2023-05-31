@@ -127,22 +127,20 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 			result.popupClickArea.height = height;
 		}
 
-		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
-
-		RadianceIcon buttonIcon = commandButton.getIcon();
+		Dimension iconSize = getPreferredIconSize(commandButton);
+		int iconWidth = iconSize.width;
+		int iconHeight = iconSize.height;
 
 		if (commandButton.getText() == null) {
-			y = ins.top
-					+ (height - ins.top - ins.bottom - buttonIcon
-							.getIconHeight()) / 2;
+			y = ins.top + (height - ins.top - ins.bottom - iconHeight) / 2;
 		}
-		result.iconRect.x = (width - buttonIcon.getIconWidth()) / 2;
+		result.iconRect.x = (width - iconWidth) / 2;
 		result.iconRect.y = y;
-		result.iconRect.width = buttonIcon.getIconWidth();
-		result.iconRect.height = buttonIcon.getIconHeight();
-		y += buttonIcon.getIconHeight();
+		result.iconRect.width = iconWidth;
+		result.iconRect.height = iconHeight;
+		y += iconHeight;
 
-		y += jsep.getPreferredSize().width;
+		y += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
 
 		TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
 		lineLayoutInfo.text = commandButton.getText();

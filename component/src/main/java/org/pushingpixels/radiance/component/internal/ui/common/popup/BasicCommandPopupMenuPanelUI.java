@@ -309,7 +309,7 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
             for (Component menuComponent : menuComponents) {
                 if (menuComponent instanceof JCommandButton) {
                     JCommandButton menuButton = (JCommandButton) menuComponent;
-                    if (menuButton.getIcon() != null) {
+                    if (menuButton.getContentModel().getIconFactory() != null) {
                         atLeastOneButtonHasIcon = true;
                     }
                     if (menuButton.getProjection().getContentModel().isToggle()) {

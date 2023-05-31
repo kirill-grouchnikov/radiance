@@ -62,7 +62,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
 
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
-        boolean hasIcon = (commandButton.getIcon() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
         int prefIconWidth = hasIcon ? this.getPreferredIconSize(commandButton).width : 0;
@@ -177,10 +177,9 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             }
         }
 
-        RadianceIcon buttonIcon = commandButton.getIcon();
         String buttonText = commandButton.getText();
 
-        boolean hasIcon = (buttonIcon != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (buttonText != null);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
@@ -198,8 +197,9 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             if (hasIcon) {
                 x += layoutHGap;
 
-                int iconHeight = buttonIcon.getIconHeight();
-                int iconWidth = buttonIcon.getIconWidth();
+                Dimension iconSize = getPreferredIconSize(commandButton);
+                int iconHeight = iconSize.height;
+                int iconWidth = iconSize.width;
 
                 result.iconRect.x = x;
                 result.iconRect.y = (height - iconHeight) / 2;
@@ -299,8 +299,9 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             if (hasIcon) {
                 x -= layoutHGap;
 
-                int iconHeight = buttonIcon.getIconHeight();
-                int iconWidth = buttonIcon.getIconWidth();
+                Dimension iconSize = getPreferredIconSize(commandButton);
+                int iconHeight = iconSize.height;
+                int iconWidth = iconSize.width;
 
                 result.iconRect.x = x - iconWidth;
                 result.iconRect.y = (height - iconHeight) / 2;

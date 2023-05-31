@@ -2518,11 +2518,17 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 if (JCommandButton.class.isAssignableFrom(ownerClass)) {
                     JCommandButton cb = (JCommandButton) owner;
                     BaseCommand<?> command = cb.getProjection().getContentModel();
+                    BaseCommandButtonPresentationModel<?, ?> presentation =
+                            cb.getProjection().getPresentationModel();
                     toShow = "[" + ownerClass.getSimpleName() + "] " + command.getText();
                     if (command.getIconFactory() != null) {
                         icon = command.getIconFactory().createNewIcon();
-                        int iconWidth = Math.min(cb.getIcon().getIconWidth(), 16);
-                        int iconHeight = Math.min(cb.getIcon().getIconHeight(), 16);
+                        int iconWidth = 16;
+                        int iconHeight = 16;
+                        if (presentation.getIconDimension() != null) {
+                            iconWidth = presentation.getIconDimension().width;
+                            iconHeight = presentation.getIconDimension().height;
+                        }
                         icon.setDimension(new Dimension(iconWidth, iconHeight));
                     }
                 } else if (JRibbonComboBox.class.isAssignableFrom(ownerClass)) {

@@ -115,21 +115,19 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
 
     @Override
     public Dimension getMinimumSize(JComponent c) {
-        JRibbonTaskToggleButton b = (JRibbonTaskToggleButton) c;
-
-        Icon icon = b.getIcon();
+        Icon icon = this.icon;
         String text = "Www";
 
-        Font font = b.getFont();
+        Font font = this.commandButton.getFont();
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(b), font);
+                RadianceCommonCortex.getScaleFactor(this.commandButton), font);
 
         Rectangle iconR = new Rectangle();
         Rectangle textR = new Rectangle();
         Rectangle viewR = new Rectangle(Short.MAX_VALUE, Short.MAX_VALUE);
 
         int horizontalAlignment = SwingUtilities.LEADING;
-        switch (b.getHorizontalAlignment()) {
+        switch (this.commandButton.getHorizontalAlignment()) {
             case CENTER:
                 horizontalAlignment = SwingUtilities.CENTER;
                 break;
@@ -137,14 +135,14 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
                 horizontalAlignment = SwingUtilities.TRAILING;
                 break;
         }
-        SwingUtilities.layoutCompoundLabel(b, fm, text, icon,
+        SwingUtilities.layoutCompoundLabel(this.commandButton, fm, text, icon,
                 SwingUtilities.CENTER, horizontalAlignment,
                 SwingUtilities.CENTER, SwingUtilities.CENTER, viewR, iconR,
                 textR, (text == null ? 0 : 6));
 
         Rectangle r = iconR.union(textR);
 
-        Insets insets = b.getInsets();
+        Insets insets = this.commandButton.getInsets();
         r.width += 4;
         r.height += insets.top + insets.bottom;
 

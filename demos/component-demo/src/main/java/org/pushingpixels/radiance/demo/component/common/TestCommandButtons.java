@@ -152,7 +152,7 @@ public class TestCommandButtons extends JFrame {
         List<Command> simpleEntries2 = new ArrayList<>();
 
         simpleEntries1.add(Command.builder()
-                .setText(mf.format(new Object[]{"1"}) + "sfdjhskjshdksjdh")
+                .setText(mf.format(new Object[]{"1"}))
                 .setIconFactory(Address_book_new.factory())
                 .setAction(commandActionEvent -> System.out.println("Popup action 1"))
                 .build());

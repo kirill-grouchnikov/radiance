@@ -64,13 +64,13 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     protected int getCurrentIconWidth(JCommandButton commandButton) {
-        return (commandButton.getIcon() != null)
+        return (commandButton.getContentModel().getIconFactory() != null)
                 ? this.getPreferredIconSize(commandButton).width
                 : 0;
     }
 
     protected int getCurrentIconHeight(JCommandButton commandButton) {
-        return (commandButton.getIcon() != null)
+        return (commandButton.getContentModel().getIconFactory() != null)
                 ? this.getPreferredIconSize(commandButton).height
                 : 0;
     }
@@ -91,7 +91,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);
 
-        boolean hasIcon = (commandButton.getIcon() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (this.titlePart1 != null);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
@@ -251,9 +251,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
         JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
 
-        RadianceIcon buttonIcon = commandButton.getIcon();
-
-        boolean hasIcon = (commandButton.getIcon() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (this.titlePart1 != null);
         boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
 
@@ -272,8 +270,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         if (hasIcon) {
             y += layoutVGap;
 
-            int iconHeight = buttonIcon.getIconHeight();
-            int iconWidth = buttonIcon.getIconWidth();
+            int iconHeight = getCurrentIconHeight(commandButton);
+            int iconWidth = getCurrentIconWidth(commandButton);
 
             result.iconRect.x = (width - iconWidth) / 2;
             result.iconRect.y = y;
