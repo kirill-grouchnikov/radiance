@@ -99,6 +99,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected String extraText;
     protected RadianceIcon icon;
     protected HorizontalAlignment horizontalAlignment;
+    protected RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
 
     /**
      * Client property to mark the command button to not dispose the popups on activation.
@@ -176,6 +177,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.text = this.commandButton.getContentModel().getText();
         this.extraText = this.commandButton.getContentModel().getExtraText();
         this.horizontalAlignment = this.commandButton.getPresentationModel().getHorizontalAlignment();
+        this.backgroundAppearanceStrategy = this.commandButton.getPresentationModel().getBackgroundAppearanceStrategy();
 
         this.syncIconDimension();
 
@@ -613,7 +615,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         return (isActionSelected || isPopupSelected || isActionRollover || isPopupRollover
                 || isPopupShowing || isActionArmed || isPopupArmed ||
-                (this.commandButton.getBackgroundAppearanceStrategy() != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER));
+                (this.backgroundAppearanceStrategy != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER));
     }
 
     /**

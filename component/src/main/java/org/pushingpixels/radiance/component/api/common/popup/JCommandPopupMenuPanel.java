@@ -165,7 +165,6 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                     commandButton.setFont(commandButton.getFont().deriveFont(Font.BOLD));
                 }
 
-                commandButton.setPopupPlacementStrategy(this.popupMenuPresentationModel.getPopupPlacementStrategy());
                 this.addMenuButton(commandButton);
             }
             if (i < (commandGroups.size() - 1)) {

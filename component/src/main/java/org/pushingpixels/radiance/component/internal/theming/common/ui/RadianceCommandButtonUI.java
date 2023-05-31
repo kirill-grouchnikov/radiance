@@ -434,10 +434,11 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     @Override
     protected boolean isPaintingBackground() {
-        if ((this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight()
+        if ((this.commandButton.getPresentationModel().getSelectedStateHighlight()
                 == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
                 && (this.commandButton.getActionModel().isRollover() ||
-                (this.commandButton.getBackgroundAppearanceStrategy() != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER))) {
+                (this.commandButton.getPresentationModel().getBackgroundAppearanceStrategy()
+                        != RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER))) {
             return true;
         }
 

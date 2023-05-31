@@ -128,8 +128,8 @@ public class CommandButtonBackgroundDelegate {
             StateTransitionTracker actionTransitionTracker, Rectangle actionArea,
             StateTransitionTracker popupTransitionTracker, Rectangle popupArea) {
         // Draw action area first
-        boolean ignoreSelectedState = commandButton.getProjection().getContentModel().isToggle()
-                && (commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+        boolean ignoreSelectedState = commandButton.getContentModel().isToggle()
+                && (commandButton.getPresentationModel().getSelectedStateHighlight() ==
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY);
 
         ComponentState currActionState = ignoreSelectedState
@@ -150,7 +150,7 @@ public class CommandButtonBackgroundDelegate {
                 ignoreSelectedState);
 
         float actionAlpha;
-        if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
+        if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currActionState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
                 actionAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton, currActionState);
@@ -206,7 +206,7 @@ public class CommandButtonBackgroundDelegate {
                 false);
 
         float popupAlpha;
-        if (commandButton.getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
+        if (commandButton.getPresentationModel().getBackgroundAppearanceStrategy() == RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT) {
             if (currPopupState == ComponentState.DISABLED_SELECTED) {
                 // Respect the alpha in disabled+selected state
                 popupAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton, currPopupState);

@@ -100,14 +100,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     private Dimension iconDimension;
 
-    /**
-     * Background appearance strategy for this button
-     *
-     * @see #setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
-     * @see #getBackgroundAppearanceStrategy()
-     */
-    private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
-
     private Insets contentPadding;
 
     /**
@@ -475,7 +467,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.setContentPadding(commandPresentation.getContentPadding());
         this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
         this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
-        this.setBackgroundAppearanceStrategy(commandPresentation.getBackgroundAppearanceStrategy());
         this.setFocusable(commandPresentation.isFocusable());
         if (commandPresentation.getIconDimension() != null) {
             this.setIconDimension(commandPresentation.getIconDimension());
@@ -640,37 +631,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public Dimension getIconDimension() {
         return this.iconDimension;
-    }
-
-    /**
-     * Returns the background appearance strategy for this button.
-     *
-     * @return the background appearance strategy for this button.
-     * @see #setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy)
-     */
-    public RadianceThemingSlices.BackgroundAppearanceStrategy getBackgroundAppearanceStrategy() {
-        return this.backgroundAppearanceStrategy;
-    }
-
-    /**
-     * Sets the background appearance strategy for this button. Fires a
-     * <code>backgroundAppearanceStrategy</code> property change event.
-     *
-     * @param backgroundAppearanceStrategy The new background appearance strategy for this button.
-     * @see #getBackgroundAppearanceStrategy()
-     */
-    public void setBackgroundAppearanceStrategy(
-            RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy) {
-        RadianceThemingSlices.BackgroundAppearanceStrategy old = this.backgroundAppearanceStrategy;
-        this.backgroundAppearanceStrategy = backgroundAppearanceStrategy;
-        if (old != this.backgroundAppearanceStrategy) {
-            this.firePropertyChange("backgroundAppearanceStrategy",
-                    old, this.backgroundAppearanceStrategy);
-        }
-
-        if (old != backgroundAppearanceStrategy) {
-            repaint();
-        }
     }
 
     /**
