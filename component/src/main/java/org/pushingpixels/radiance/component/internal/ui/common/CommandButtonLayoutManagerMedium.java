@@ -112,7 +112,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
             width += layoutHGap;
         }
         // popup icon?
-        if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
+        if (hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
             // padding before the popup icon
             if (hasText || hasIcon) {
                 width += 2 * layoutHGap;
@@ -185,12 +185,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
-        BaseCommandButtonProjection<
-                ? extends BaseCommand<?>,
-                ? extends BaseCommandMenuContentModel,
-                ? extends BaseCommandButtonPresentationModel<?, ?>,
-                ? extends BaseCommandPopupMenuPresentationModel> projection = commandButton.getProjection();
-        BaseCommandButtonPresentationModel presentationModel = projection.getPresentationModel();
+        BaseCommandButtonPresentationModel presentationModel = commandButton.getPresentationModel();
 
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
@@ -580,7 +575,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
             BaseCommandButtonPresentationModel presentationModel =
-                    commandButton.getProjection().getPresentationModel();
+                    commandButton.getPresentationModel();
             Dimension preferredIconDimension = presentationModel.getIconDimension();
             if (preferredIconDimension != null) {
                 return preferredIconDimension;

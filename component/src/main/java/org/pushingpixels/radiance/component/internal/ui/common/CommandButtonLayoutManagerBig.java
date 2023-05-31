@@ -416,7 +416,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
             BaseCommandButtonPresentationModel presentationModel =
-                    commandButton.getProjection().getPresentationModel();
+                    commandButton.getPresentationModel();
             Dimension preferredIconDimension = presentationModel.getIconDimension();
             if (preferredIconDimension != null) {
                 return preferredIconDimension;
