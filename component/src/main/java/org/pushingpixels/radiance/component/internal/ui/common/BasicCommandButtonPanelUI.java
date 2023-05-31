@@ -31,10 +31,12 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonPanel;
-import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelColumnFillSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelRowFillSpec;
+import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
@@ -42,6 +44,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.UIResource;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Basic UI for command button panel {@link JCommandButtonPanel}.
@@ -61,9 +66,24 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     protected JCommandButtonPanel buttonPanel;
 
     /**
+     * List of titles for all button groups.
+     */
+    private List<String> groupTitles;
+
+    /**
+     * List of all button groups.
+     */
+    private List<List<JCommandButton>> buttons;
+
+    /**
      * Labels of the button panel groups.
      */
     protected JLabel[] groupLabels;
+
+    /**
+     * The button group for the single selection mode.
+     */
+    private CommandToggleGroupModel buttonGroup;
 
     /**
      * Bounds of button panel groups.
@@ -75,11 +95,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     private ChangeListener presentationModelChangeListener;
 
     private CommandButtonPanelLayout layoutManager;
-
-    /**
-     * Default insets of button panel groups.
-     */
-    protected static final Insets GROUP_INSETS = new Insets(4, 4, 4, 4);
 
     @Override
     public void installUI(JComponent c) {
@@ -107,6 +122,10 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
      * Installs sub-components on the associated button panel.
      */
     protected void installComponents() {
+        this.buttons = new ArrayList<>();
+        this.groupTitles = new ArrayList<>();
+
+        this.recomputeContent();
         this.recomputeGroupHeaders();
     }
 
@@ -117,32 +136,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.presentationModelChangeListener = (ChangeEvent event) ->
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
+                        recomputeContent();
                         recomputeGroupHeaders();
-
-                        int groupCount = (groupLabels != null) ? groupLabels.length : 0;
-
-                        CommandPanelPresentationModel presentationModel =
-                                buttonPanel.getProjection().getPresentationModel();
-                        for (int i = 0; i < groupCount; i++) {
-                            for (JCommandButton button : buttonPanel.getGroupButtons(i)) {
-                                button.setIconDimension(
-                                        presentationModel.getCommandIconDimension());
-                                button.setContentPadding(
-                                        presentationModel.getCommandContentPadding());
-                                button.setPresentationState(
-                                        presentationModel.getCommandPresentationState());
-                                button.setHGapScaleFactor(
-                                        presentationModel.getCommandHorizontalGapScaleFactor());
-                                button.setVGapScaleFactor(
-                                        presentationModel.getCommandVerticalGapScaleFactor());
-                                button.setBackgroundAppearanceStrategy(
-                                        presentationModel.getBackgroundAppearanceStrategy());
-                                RadianceThemingCortex.ComponentScope.setIconFilterStrategies(button,
-                                        presentationModel.getActiveIconFilterStrategy(),
-                                        presentationModel.getEnabledIconFilterStrategy(),
-                                        presentationModel.getDisabledIconFilterStrategy());
-                            }
-                        }
 
                         updateLayoutManager();
                         buttonPanel.revalidate();
@@ -155,6 +150,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.contentModelChangeListener = changeEvent ->
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
+                        recomputeContent();
                         recomputeGroupHeaders();
                         buttonPanel.revalidate();
                         buttonPanel.doLayout();
@@ -338,7 +334,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int groupCount = (groupLabels != null) ? groupLabels.length : 0;
 
             for (int i = 0; i < groupCount; i++) {
-                for (JCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : buttons.get(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -372,7 +368,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
             int totalRowCount = 0;
             for (int i = 0; i < groupCount; i++) {
-                int buttonRows = (int) (Math.ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
+                int buttonRows = (int) (Math.ceil((double) buttons.get(i).size() / buttonsInRow));
                 totalRowCount += buttonRows;
             }
 
@@ -401,7 +397,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     y += labelHeight + gap;
                 }
 
-                int buttonRows = (int) (Math.ceil((double) panel.getGroupButtons(i).size() / buttonsInRow));
+                int buttonRows = (int) (Math.ceil((double) buttons.get(i).size() / buttonsInRow));
                 if (maxButtonColumnsToUse > 0) {
                     buttonsInRow = Math.min(buttonsInRow, maxButtonColumnsToUse);
                 }
@@ -418,7 +414,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 if (ltr) {
                     int currX = left + contentPadding.left;
                     int currColumnIndex = 0;
-                    for (JCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : buttons.get(i)) {
                         int endX = currX + actualButtonWidth;
                         if (endX > (parent.getWidth() - right - contentPadding.right)) {
                             currRowIndex++;
@@ -436,7 +432,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 } else {
                     int currX = parent.getWidth() - right - contentPadding.right;
                     int currColumnIndex = buttonsInRow - 1;
-                    for (JCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : buttons.get(i)) {
                         int startX = currX - actualButtonWidth;
                         if (startX < (left + contentPadding.left)) {
                             currRowIndex++;
@@ -484,7 +480,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int maxButtonHeight = 0;
             int groupCount = (groupLabels != null) ? groupLabels.length : 0;
             for (int i = 0; i < groupCount; i++) {
-                for (JCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : buttons.get(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -520,7 +516,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
 
                 height += (contentPadding.top + contentPadding.bottom);
 
-                int buttonRows = (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                int buttonRows = (int) (Math.ceil((double) buttons.get(i).size()
                         / maxButtonColumnsToUse));
                 height += buttonRows * maxButtonHeight + (buttonRows - 1) * gap;
             }
@@ -558,9 +554,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // compute max width of buttons
             int maxButtonWidth = 0;
             int maxButtonHeight = 0;
-            int groupCount = panel.getGroupCount();
+            int groupCount = panel.getProjection().getContentModel().getCommandGroups().size();
             for (int i = 0; i < groupCount; i++) {
-                for (JCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : buttons.get(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -588,7 +584,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             int totalColumnCount = 0;
             for (int i = 0; i < groupCount; i++) {
                 int buttonColumns = (maxButtonRowsToUse == 0) ? 0
-                        : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                        : (int) (Math.ceil((double) buttons.get(i).size()
                         / maxButtonRowsToUse));
                 totalColumnCount += buttonColumns;
             }
@@ -608,7 +604,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     int currY = top + contentPadding.top;
 
                     int buttonColumns = (maxButtonRowsToUse == 0) ? 0
-                            : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                            : (int) (Math.ceil((double) buttons.get(i).size()
                             / maxButtonRowsToUse));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
@@ -617,7 +613,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             : maxButtonHeight;
 
                     int currRowIndex = 0;
-                    for (JCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : buttons.get(i)) {
                         int endY = currY + actualButtonHeight;
                         if (endY > (parent.getHeight() - bottom - contentPadding.bottom)) {
                             currY = top + contentPadding.top;
@@ -647,7 +643,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                     int currY = top + contentPadding.top;
 
                     int buttonColumns = (maxButtonRowsToUse == 0) ? 0
-                            : (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                            : (int) (Math.ceil((double) buttons.get(i).size()
                             / maxButtonRowsToUse));
                     // spread the buttons so that we don't have extra space
                     // on the bottom
@@ -656,7 +652,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                             : maxButtonHeight;
 
                     int currRowIndex = 0;
-                    for (JCommandButton button : panel.getGroupButtons(i)) {
+                    for (JCommandButton button : buttons.get(i)) {
                         int endY = currY + actualButtonHeight;
                         if (endY > (parent.getHeight() - bottom - contentPadding.bottom)) {
                             currY = top + contentPadding.top;
@@ -700,9 +696,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             // compute max width and height of buttons
             int maxButtonWidth = 0;
             int maxButtonHeight = 0;
-            int groupCount = panel.getGroupCount();
+            int groupCount = panel.getProjection().getContentModel().getCommandGroups().size();
             for (int i = 0; i < groupCount; i++) {
-                for (JCommandButton button : panel.getGroupButtons(i)) {
+                for (JCommandButton button : buttons.get(i)) {
                     maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
                     maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
                 }
@@ -734,7 +730,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             for (int i = 0; i < groupCount; i++) {
                 width += (contentPadding.left + contentPadding.right);
 
-                int buttonColumns = (int) (Math.ceil((double) panel.getGroupButtons(i).size()
+                int buttonColumns = (int) (Math.ceil((double) buttons.get(i).size()
                         / maxButtonRowsToUse));
                 width += buttonColumns * maxButtonWidth + (buttonColumns - 1) * gap;
             }
@@ -755,16 +751,140 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             }
         }
 
-        int groupCount = this.buttonPanel.getGroupCount();
+        CommandPanelContentModel panelContentModel =
+                this.buttonPanel.getProjection().getContentModel();
+        int groupCount = panelContentModel.getCommandGroups().size();
         this.groupLabels = new JLabel[groupCount];
         for (int i = 0; i < groupCount; i++) {
-            this.groupLabels[i] = new JLabel(this.buttonPanel.getGroupTitleAt(i));
+            this.groupLabels[i] = new JLabel(panelContentModel.getCommandGroups().get(i).getTitle());
             this.groupLabels[i].setComponentOrientation(this.buttonPanel.getComponentOrientation());
 
             this.buttonPanel.add(this.groupLabels[i]);
 
             this.groupLabels[i].setVisible(
                     this.buttonPanel.getProjection().getPresentationModel().isToShowGroupLabels());
+        }
+    }
+
+    private CommandButtonPresentationModel createBaseCommandPresentation() {
+        CommandPanelPresentationModel panelPresentationModel = this.buttonPanel.getProjection().getPresentationModel();
+        return CommandButtonPresentationModel.builder()
+                .setPresentationState(panelPresentationModel.getCommandPresentationState())
+                .setIconDimension(panelPresentationModel.getCommandIconDimension())
+                .setContentPadding(panelPresentationModel.getCommandContentPadding())
+                .setHorizontalGapScaleFactor(panelPresentationModel.getCommandHorizontalGapScaleFactor())
+                .setVerticalGapScaleFactor(panelPresentationModel.getCommandVerticalGapScaleFactor())
+                .setBackgroundAppearanceStrategy(panelPresentationModel.getBackgroundAppearanceStrategy())
+                .setIconFilterStrategies(
+                        panelPresentationModel.getActiveIconFilterStrategy(),
+                        panelPresentationModel.getEnabledIconFilterStrategy(),
+                        panelPresentationModel.getDisabledIconFilterStrategy())
+                .setPopupFireTrigger(panelPresentationModel.getCommandPopupFireTrigger())
+                .setSelectedStateHighlight(panelPresentationModel.getCommandSelectedStateHighlight())
+                .setHorizontalAlignment(panelPresentationModel.getCommandHorizontalAlignment())
+                .setPopupPlacementStrategy(panelPresentationModel.getPopupPlacementStrategy())
+                .build();
+    }
+
+    private void recomputeContent() {
+        this.groupTitles.clear();
+        this.buttons.clear();
+        this.buttonPanel.removeAll();
+
+        Projection<JCommandButtonPanel, CommandPanelContentModel, CommandPanelPresentationModel> projection =
+                this.buttonPanel.getProjection();
+        CommandPanelContentModel panelContentModel = projection.getContentModel();
+        if (panelContentModel.isSingleSelectionMode()) {
+            this.buttonGroup = new CommandToggleGroupModel();
+        } else {
+            this.buttonGroup = null;
+        }
+
+        int groupIndex = 0;
+        CommandButtonPresentationModel baseCommandPresentation = createBaseCommandPresentation();
+        Command.CommandActionPreview commandPreviewListener =
+                panelContentModel.getCommandPreviewListener();
+        for (CommandGroup groupModel : panelContentModel.getCommandGroups()) {
+            this.groupTitles.add(groupIndex, groupModel.getTitle());
+            List<JCommandButton> list = new ArrayList<>();
+            this.buttons.add(groupIndex, list);
+
+            for (Command command : groupModel.getCommands()) {
+                // Apply overlay if we have it in the top-level projection
+                CommandButtonPresentationModel commandPresentation =
+                        projection.getCommandOverlays().containsKey(command)
+                                ? baseCommandPresentation.overlayWith(
+                                projection.getCommandOverlays().get(command))
+                                : baseCommandPresentation;
+
+                CommandButtonProjection<Command> commandProjection = command.project(commandPresentation);
+                // Propagate command overlays so that key tips are properly displayed
+                // on secondary content of this command's projection
+                commandProjection.setCommandOverlays(projection.getCommandOverlays());
+                JCommandButton button = commandProjection.buildComponent();
+
+                // Wire preview listener is configured on the panel content model
+                if (commandPreviewListener != null) {
+                    button.getActionModel().addChangeListener(new ChangeListener() {
+                        boolean wasRollover = false;
+
+                        @Override
+                        public void stateChanged(ChangeEvent e) {
+                            boolean isRollover = button.getActionModel().isRollover();
+                            if (wasRollover && !isRollover) {
+                                commandPreviewListener.onCommandPreviewCanceled(command);
+                            }
+                            if (!wasRollover && isRollover) {
+                                commandPreviewListener.onCommandPreviewActivated(command);
+                            }
+                            wasRollover = isRollover;
+                        }
+                    });
+                }
+
+                this.addButtonToLastGroup(command, button);
+            }
+            groupIndex++;
+        }
+    }
+
+    private void addButtonToLastGroup(Command command, JCommandButton commandButton) {
+        if (this.groupTitles.size() == 0) {
+            return;
+        }
+        int groupIndex = this.groupTitles.size() - 1;
+        this.addButtonToGroup(this.groupTitles.get(groupIndex),
+                this.buttons.get(groupIndex).size(), command, commandButton);
+    }
+
+    private void addButtonToGroup(String buttonGroupName, int indexInGroup,
+            Command command, JCommandButton commandButton) {
+        int groupIndex = this.groupTitles.indexOf(buttonGroupName);
+        if (groupIndex < 0) {
+            return;
+        }
+
+        this.buttonPanel.add(commandButton);
+        this.buttons.get(groupIndex).add(indexInGroup, commandButton);
+        if (this.buttonPanel.getProjection().getContentModel().isSingleSelectionMode() &&
+                command.isToggle()) {
+            this.buttonGroup.add(command);
+        }
+    }
+
+    @Override
+    public void scrollToSelectedCommand() {
+        if (this.buttonPanel.getProjection().getContentModel().isSingleSelectionMode()) {
+            for (List<JCommandButton> commandButtons : this.buttons) {
+                for (JCommandButton commandButton : commandButtons) {
+                    Command curr = (Command) commandButton.getProjection().getContentModel();
+                    if (curr.isToggleSelected()) {
+                        Rectangle selectionButtonBounds = commandButton.getBounds();
+                        this.buttonPanel.scrollRectToVisible(selectionButtonBounds);
+                        return;
+                    }
+                }
+            }
         }
     }
 
@@ -779,9 +899,9 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         Insets bInsets = this.buttonPanel.getInsets();
         Insets contentPadding = this.buttonPanel.getProjection().getPresentationModel().getContentPadding();
         int maxButtonHeight = 0;
-        int groupCount = this.buttonPanel.getGroupCount();
+        int groupCount = this.buttonPanel.getProjection().getContentModel().getCommandGroups().size();
         for (int i = 0; i < groupCount; i++) {
-            for (JCommandButton button : this.buttonPanel.getGroupButtons(i)) {
+            for (JCommandButton button : this.buttons.get(i)) {
                 maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
             }
         }

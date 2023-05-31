@@ -98,6 +98,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     protected String text;
     protected String extraText;
     protected RadianceIcon icon;
+    protected HorizontalAlignment horizontalAlignment;
 
     /**
      * Client property to mark the command button to not dispose the popups on activation.
@@ -174,6 +175,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.icon = (iconFactory != null) ? iconFactory.createNewIcon() : null;
         this.text = this.commandButton.getContentModel().getText();
         this.extraText = this.commandButton.getContentModel().getExtraText();
+        this.horizontalAlignment = this.commandButton.getPresentationModel().getHorizontalAlignment();
 
         this.syncIconDimension();
 

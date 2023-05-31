@@ -97,7 +97,7 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
         private JScrollPane scroll;
 
         /**
-         * Creates new a icon popup panel.
+         * Creates a new icon popup panel.
          *
          * @param iconPanel            The internal panel that hosts icon command buttons.
          * @param maxButtonColumns     The maximum number of button columns.
@@ -109,16 +109,6 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
             this.buttonPanel.getProjection().getPresentationModel().setLayoutSpec(
                     new PanelLayoutSpec.RowFill(new PanelRowFillSpec.Fixed(maxButtonColumns)));
             this.maxVisibleButtonRows = maxVisibleButtonRows;
-
-            int maxButtonWidth = 0;
-            int maxButtonHeight = 0;
-            int groupCount = iconPanel.getGroupCount();
-            for (int i = 0; i < groupCount; i++) {
-                for (JCommandButton button : iconPanel.getGroupButtons(i)) {
-                    maxButtonWidth = Math.max(maxButtonWidth, button.getPreferredSize().width);
-                    maxButtonHeight = Math.max(maxButtonHeight, button.getPreferredSize().height);
-                }
-            }
 
             updateMaxDimension();
 

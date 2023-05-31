@@ -129,186 +129,17 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
     private CommandPanelContentModel panelContentModel;
     private CommandPanelPresentationModel panelPresentationModel;
 
-    /**
-     * List of titles for all button groups.
-     *
-     * @see #getGroupCount()
-     * @see #getGroupTitleAt(int)
-     */
-    private List<String> groupTitles;
-
-    /**
-     * List of all button groups.
-     *
-     * @see #getGroupCount()
-     * @see #getGroupButtons(int)
-     */
-    private List<List<JCommandButton>> buttons;
-
-    private ChangeListener contentChangeListener;
-
-    private Insets contentPadding;
-    private int contentGap;
-
-    /**
-     * The button group for the single selection mode.
-     */
-    private CommandToggleGroupModel buttonGroup;
-
     public JCommandButtonPanel(Projection<JCommandButtonPanel,
             CommandPanelContentModel, CommandPanelPresentationModel> projection) {
         this.projection = projection;
         this.panelContentModel = projection.getContentModel();
         this.panelPresentationModel = projection.getPresentationModel();
 
-        this.buttons = new ArrayList<>();
-        this.groupTitles = new ArrayList<>();
-
-        this.contentPadding = this.panelPresentationModel.getContentPadding();
-        this.contentGap = this.panelPresentationModel.getContentGap();
-        populateContent();
-        this.contentChangeListener = (ChangeEvent changeEvent) -> populateContent();
-        this.panelContentModel.addChangeListener(this.contentChangeListener);
-
         this.updateUI();
     }
 
     public Projection<JCommandButtonPanel, CommandPanelContentModel, CommandPanelPresentationModel> getProjection() {
         return this.projection;
-    }
-
-    private CommandButtonPresentationModel createBaseCommandPresentation() {
-        return CommandButtonPresentationModel.builder()
-                .setPresentationState(this.panelPresentationModel.getCommandPresentationState())
-                .setIconDimension(this.panelPresentationModel.getCommandIconDimension())
-                .setContentPadding(this.panelPresentationModel.getCommandContentPadding())
-                .setHorizontalGapScaleFactor(this.panelPresentationModel.getCommandHorizontalGapScaleFactor())
-                .setVerticalGapScaleFactor(this.panelPresentationModel.getCommandVerticalGapScaleFactor())
-                .setBackgroundAppearanceStrategy(this.panelPresentationModel.getBackgroundAppearanceStrategy())
-                .setIconFilterStrategies(
-                        this.panelPresentationModel.getActiveIconFilterStrategy(),
-                        this.panelPresentationModel.getEnabledIconFilterStrategy(),
-                        this.panelPresentationModel.getDisabledIconFilterStrategy())
-                .setPopupFireTrigger(this.panelPresentationModel.getCommandPopupFireTrigger())
-                .setSelectedStateHighlight(this.panelPresentationModel.getCommandSelectedStateHighlight())
-                .setHorizontalAlignment(this.panelPresentationModel.getCommandHorizontalAlignment())
-                .setPopupPlacementStrategy(this.panelPresentationModel.getPopupPlacementStrategy())
-                .build();
-    }
-
-    private void populateContent() {
-        this.groupTitles.clear();
-        this.buttons.clear();
-        this.removeAll();
-
-        if (this.panelContentModel.isSingleSelectionMode()) {
-            this.buttonGroup = new CommandToggleGroupModel();
-        } else {
-            this.buttonGroup = null;
-        }
-
-        int groupIndex = 0;
-        CommandButtonPresentationModel baseCommandPresentation = createBaseCommandPresentation();
-        Command.CommandActionPreview commandPreviewListener =
-                panelContentModel.getCommandPreviewListener();
-        for (CommandGroup groupModel : panelContentModel.getCommandGroups()) {
-            this.groupTitles.add(groupIndex, groupModel.getTitle());
-            List<JCommandButton> list = new ArrayList<>();
-            this.buttons.add(groupIndex, list);
-
-            for (Command command : groupModel.getCommands()) {
-                // Apply overlay if we have it in the top-level projection
-                CommandButtonPresentationModel commandPresentation =
-                        this.projection.getCommandOverlays().containsKey(command)
-                                ? baseCommandPresentation.overlayWith(
-                                this.projection.getCommandOverlays().get(command))
-                                : baseCommandPresentation;
-
-                CommandButtonProjection<Command> commandProjection = command.project(commandPresentation);
-                // Propagate command overlays so that key tips are properly displayed
-                // on secondary content of this command's projection
-                commandProjection.setCommandOverlays(this.projection.getCommandOverlays());
-                JCommandButton button = commandProjection.buildComponent();
-
-                // Wire preview listener is configured on the panel content model
-                if (commandPreviewListener != null) {
-                    button.getActionModel().addChangeListener(new ChangeListener() {
-                        boolean wasRollover = false;
-
-                        @Override
-                        public void stateChanged(ChangeEvent e) {
-                            boolean isRollover = button.getActionModel().isRollover();
-                            if (wasRollover && !isRollover) {
-                                commandPreviewListener.onCommandPreviewCanceled(command);
-                            }
-                            if (!wasRollover && isRollover) {
-                                commandPreviewListener.onCommandPreviewActivated(command);
-                            }
-                            wasRollover = isRollover;
-                        }
-                    });
-                }
-
-                this.addButtonToLastGroup(command, button);
-            }
-            groupIndex++;
-        }
-    }
-
-    private void addButtonToLastGroup(Command command, JCommandButton commandButton) {
-        if (this.groupTitles.size() == 0) {
-            return;
-        }
-        int groupIndex = this.groupTitles.size() - 1;
-        this.addButtonToGroup(this.groupTitles.get(groupIndex),
-                this.buttons.get(groupIndex).size(), command, commandButton);
-    }
-
-    private void addButtonToGroup(String buttonGroupName, int indexInGroup,
-            Command command, JCommandButton commandButton) {
-        int groupIndex = this.groupTitles.indexOf(buttonGroupName);
-        if (groupIndex < 0) {
-            return;
-        }
-        commandButton.setIconDimension(this.panelPresentationModel.getCommandIconDimension());
-        commandButton.setContentPadding(this.panelPresentationModel.getCommandContentPadding());
-        commandButton.setPresentationState(
-                this.panelPresentationModel.getCommandPresentationState());
-        commandButton.setHGapScaleFactor(
-                this.panelPresentationModel.getCommandHorizontalGapScaleFactor());
-        commandButton.setVGapScaleFactor(
-                this.panelPresentationModel.getCommandVerticalGapScaleFactor());
-        commandButton.setBackgroundAppearanceStrategy(
-                this.panelPresentationModel.getBackgroundAppearanceStrategy());
-        RadianceThemingCortex.ComponentScope.setIconFilterStrategies(commandButton,
-                this.panelPresentationModel.getActiveIconFilterStrategy(),
-                this.panelPresentationModel.getEnabledIconFilterStrategy(),
-                this.panelPresentationModel.getDisabledIconFilterStrategy());
-
-        this.add(commandButton);
-        this.buttons.get(groupIndex).add(indexInGroup, commandButton);
-        if (this.panelContentModel.isSingleSelectionMode() && command.isToggle()) {
-            this.buttonGroup.add(command);
-        }
-    }
-
-    /**
-     * Returns the number of button groups in this panel.
-     *
-     * @return Number of button groups in this panel.
-     */
-    public int getGroupCount() {
-        return (this.groupTitles != null) ? this.groupTitles.size() : 0;
-    }
-
-    /**
-     * Returns the title of the command group at the specified index.
-     *
-     * @param index Command group index.
-     * @return Title of the command group at the specified index.
-     */
-    public String getGroupTitleAt(int index) {
-        return this.panelContentModel.getCommandGroups().get(index).getTitle();
     }
 
     /**
@@ -331,46 +162,8 @@ public class JCommandButtonPanel extends JComponent implements Scrollable {
         return uiClassID;
     }
 
-    /**
-     * Returns the list of all buttons in the specified button group. Note that this method should only
-     * be used sparingly when your UI logic has to work with the projected buttons instead of the original
-     * (canonical) commands that define the content itself.
-     *
-     * @param groupIndex Group index.
-     * @return Unmodifiable view on the list of all buttons in the specified button group.
-     * @see #getGroupCount()
-     */
-    public List<JCommandButton> getGroupButtons(int groupIndex) {
-        return Collections.unmodifiableList(this.buttons.get(groupIndex));
-    }
-
-    public Command getSelectedCommand() {
-        if (this.panelContentModel.isSingleSelectionMode()) {
-            for (List<JCommandButton> commandButtons : this.buttons) {
-                for (JCommandButton commandButton : commandButtons) {
-                    Command curr = (Command) commandButton.getProjection().getContentModel();
-                    if (curr.isToggleSelected()) {
-                        return curr;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     public void scrollToSelectedCommand() {
-        if (this.panelContentModel.isSingleSelectionMode()) {
-            for (List<JCommandButton> commandButtons : this.buttons) {
-                for (JCommandButton commandButton : commandButtons) {
-                    Command curr = (Command) commandButton.getProjection().getContentModel();
-                    if (curr.isToggleSelected()) {
-                        Rectangle selectionButtonBounds = commandButton.getBounds();
-                        scrollRectToVisible(selectionButtonBounds);
-                        return;
-                    }
-                }
-            }
-        }
+        this.getUI().scrollToSelectedCommand();
     }
 
     @Override

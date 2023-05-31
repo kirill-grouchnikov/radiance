@@ -1184,6 +1184,8 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // And create a specific projection
             CommandButtonProjection<Command> taskToggleCommandProjection = taskToggleCommand.project(
                     CommandButtonPresentationModel.builder()
+                            .setContentPadding(new Insets(1, 12, 1, 12))
+                            .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT)
                             .setActionKeyTip(task.getKeyTip())
                             .setToDismissPopupsOnActivation(false)
                             .build());

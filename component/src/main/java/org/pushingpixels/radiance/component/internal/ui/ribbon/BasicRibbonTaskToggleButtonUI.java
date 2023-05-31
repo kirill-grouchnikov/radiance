@@ -53,26 +53,6 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
     private PopupPanelManager.PopupListener popupListener;
 
     @Override
-    protected void installDefaults() {
-        super.installDefaults();
-        Font f = this.commandButton.getFont();
-        if (f == null || f instanceof UIResource) {
-            this.commandButton.setFont(
-                    RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont());
-        }
-
-        Border border = this.commandButton.getBorder();
-        if (border == null || border instanceof UIResource) {
-            Border toInstall = new BorderUIResource.EmptyBorderUIResource(1, 12, 1, 12);
-            this.commandButton.setBorder(toInstall);
-        }
-
-        this.commandButton.setBackgroundAppearanceStrategy(
-                RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
-        this.commandButton.setOpaque(false);
-    }
-
-    @Override
     protected void installListeners() {
         super.installListeners();
 
@@ -127,7 +107,7 @@ public abstract class BasicRibbonTaskToggleButtonUI extends BasicCommandButtonUI
         Rectangle viewR = new Rectangle(Short.MAX_VALUE, Short.MAX_VALUE);
 
         int horizontalAlignment = SwingUtilities.LEADING;
-        switch (this.commandButton.getHorizontalAlignment()) {
+        switch (this.horizontalAlignment) {
             case CENTER:
                 horizontalAlignment = SwingUtilities.CENTER;
                 break;

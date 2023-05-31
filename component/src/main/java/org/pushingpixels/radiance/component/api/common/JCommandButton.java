@@ -108,14 +108,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     private RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
 
-    /**
-     * Horizontal alignment of the content.
-     *
-     * @see #setHorizontalAlignment(HorizontalAlignment) 
-     * @see #getHorizontalAlignment()
-     */
-    private HorizontalAlignment horizontalAlignment;
-
     private Insets contentPadding;
 
     /**
@@ -480,7 +472,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
 
         this.setPresentationState(commandPresentation.getPresentationState());
-        this.setHorizontalAlignment(commandPresentation.getHorizontalAlignment());
         this.setContentPadding(commandPresentation.getContentPadding());
         this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
         this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
@@ -837,34 +828,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             }
         }
     }
-
-    /**
-     * Sets new horizontal alignment for the content of this button. Fires a
-     * <code>horizontalAlignment</code> property change event.
-     *
-     * @param alignment New horizontal alignment for the content of this button.
-     * @see #getHorizontalAlignment()
-     */
-    public void setHorizontalAlignment(HorizontalAlignment alignment) {
-        if (alignment == this.horizontalAlignment) {
-            return;
-        }
-        HorizontalAlignment oldValue = this.horizontalAlignment;
-        this.horizontalAlignment = alignment;
-        firePropertyChange("horizontalAlignment", oldValue, this.horizontalAlignment);
-        repaint();
-    }
-
-    /**
-     * Returns the horizontal alignment for the content of this button.
-     *
-     * @return The horizontal alignment for the content of this button.
-     * @see #setHorizontalAlignment(HorizontalAlignment)
-     */
-    public HorizontalAlignment getHorizontalAlignment() {
-        return this.horizontalAlignment;
-    }
-
 
     /**
      * Sets new content padding for this button. Fires an <code>contentPadding</code> property

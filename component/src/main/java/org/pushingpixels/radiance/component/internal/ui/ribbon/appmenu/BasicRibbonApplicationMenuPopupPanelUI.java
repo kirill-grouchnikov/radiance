@@ -165,6 +165,9 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                     ribbonAppMenuProjection.getCommandOverlays();
             CommandButtonPresentationModel baseCommandPresentation =
                     CommandButtonPresentationModel.builder()
+                            .setPresentationState(MENU_TILE_LEVEL_1)
+                            .setHorizontalAlignment(HorizontalAlignment.FILL)
+                            .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
                             .setSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
                             .setPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                             .build();
@@ -178,6 +181,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                         commandPresentation = commandPresentation.overlayWith(
                                 commandOverlays.get(menuEntry));
                     }
+
                     final JCommandButton commandButton =
                             menuEntry.project(commandPresentation).buildComponent();
 
@@ -218,10 +222,6 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             commandButton.getPopupModel().setPopupShowing(true);
                         });
                     }
-                    commandButton.setPresentationState(MENU_TILE_LEVEL_1);
-                    commandButton.setHorizontalAlignment(HorizontalAlignment.FILL);
-                    commandButton.setPopupPlacementStrategy(
-                            RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP);
                     this.panelLevel1.add(commandButton);
                 }
                 if (i < (primaryGroupCount - 1)) {

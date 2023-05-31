@@ -192,7 +192,7 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             // We have more horizontal space than needed to display the content.
             // Consult the horizontal alignment attribute of the command button to see
             // how we should shift the content horizontally.
-            switch (commandButton.getHorizontalAlignment()) {
+            switch (presentationModel.getHorizontalAlignment()) {
                 case LEADING:
                 case FILL:
                     break;

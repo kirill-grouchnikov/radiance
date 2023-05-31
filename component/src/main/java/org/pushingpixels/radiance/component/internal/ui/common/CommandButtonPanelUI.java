@@ -46,4 +46,6 @@ public abstract class CommandButtonPanelUI extends PanelUI {
     public abstract boolean focusDown();
     public abstract boolean focusRight();
     public abstract boolean focusLeft();
+
+    public abstract void scrollToSelectedCommand();
 }
