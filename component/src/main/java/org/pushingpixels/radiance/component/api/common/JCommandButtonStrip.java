@@ -37,6 +37,7 @@ import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonStri
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Button strip container. Provides visual appearance of a strip. The buttons in
@@ -48,7 +49,7 @@ import java.awt.*;
  *
  * @author Kirill Grouchnikov
  */
-public class JCommandButtonStrip extends JComponent {
+public class JCommandButtonStrip extends JComponent implements JExoContainer {
     /**
      * The UI class ID string.
      */
@@ -145,24 +146,8 @@ public class JCommandButtonStrip extends JComponent {
         return uiClassID;
     }
 
-    /**
-     * Returns the number of buttons in <code>this</code> strip.
-     *
-     * @return Number of buttons in <code>this</code> strip.
-     * @see #getButton(int)
-     */
-    public int getButtonCount() {
-        return this.getComponentCount();
-    }
-
-    /**
-     * Returns the specified button component of <code>this</code> strip.
-     *
-     * @param index Button index.
-     * @return The matching button.
-     * @see #getButtonCount()
-     */
-    public JCommandButton getButton(int index) {
-        return (JCommandButton) this.getComponent(index);
+    @Override
+    public List<JComponent> getFocusSequence() {
+        return this.getUI().getFocusSequence();
     }
 }

@@ -306,7 +306,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                         } else {
                             coreComp.setBounds(x - prefWidth, y + yNudge, prefWidth, compHeight);
                         }
-                        focusSequence.add(coreComp.getMainComponent());
+                        focusSequence.addAll(coreComp.getFocusSequence());
                         maxWidthInCurrColumn = Math.max(maxWidthInCurrColumn, prefWidth);
                         currColumn.add(coreComp);
 
@@ -372,9 +372,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
                                 Component child = gallery.getComponent(ci);
                                 if (child instanceof JCommandButtonStrip) {
                                     JCommandButtonStrip strip = (JCommandButtonStrip) child;
-                                    for (int si = 0; si < strip.getButtonCount(); si++) {
-                                        focusSequence.add(strip.getButton(si));
-                                    }
+                                    focusSequence.addAll(strip.getFocusSequence());
                                 } else {
                                     focusSequence.add(child);
                                 }

@@ -31,8 +31,10 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 
+import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
+import java.util.List;
 
 /**
  * UI for extended components ({@link JRibbonComponent}).
@@ -43,4 +45,6 @@ public abstract class RibbonComponentUI extends ComponentUI {
 	public abstract Point getKeyTipAnchorCenterPoint();
 
 	public abstract Dimension getPreferredSize(JRibbonBand.PresentationPriority priority);
+
+	public abstract List<JComponent> getFocusSequence();
 }

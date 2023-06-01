@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
+import org.pushingpixels.radiance.component.api.common.JExoContainer;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.component.api.common.RichTooltipManager;
 import org.pushingpixels.radiance.component.api.common.model.RichTooltipPresentationModel;
@@ -45,6 +46,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper around core and 3rd party Swing controls to allow placing them in the ribbon.
@@ -55,7 +57,8 @@ import java.util.ArrayList;
  * @see JRibbonBand#addRibbonComponent(ComponentProjection)
  * @see JFlowRibbonBand#addFlowComponent(ComponentProjection)
  */
-public class JRibbonComponent extends JComponent implements RichTooltipManager.WithRichTooltip {
+public class JRibbonComponent extends JComponent
+        implements JExoContainer, RichTooltipManager.WithRichTooltip {
     private ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection;
 
     /**
@@ -281,7 +284,7 @@ public class JRibbonComponent extends JComponent implements RichTooltipManager.W
     }
 
     @Override
-    public void setFont(Font font) {
-        super.setFont(font);
+    public List<JComponent> getFocusSequence() {
+        return this.getUI().getFocusSequence();
     }
 }

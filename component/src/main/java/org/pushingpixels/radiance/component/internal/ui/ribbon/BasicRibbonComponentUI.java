@@ -37,6 +37,8 @@ import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
     /**
@@ -184,6 +186,13 @@ public abstract class BasicRibbonComponentUI extends RibbonComponentUI {
             return new Point(this.ribbonComponent.getMainComponent().getX() +
                     this.ribbonComponent.getMainComponent().getWidth() / 2, tipCenterY);
         }
+    }
+
+    @Override
+    public List<JComponent> getFocusSequence() {
+        List<JComponent> result = new ArrayList<>();
+        result.add(this.ribbonComponent.getMainComponent());
+        return result;
     }
 
     protected LayoutManager createLayoutManager() {

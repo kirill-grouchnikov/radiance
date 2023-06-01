@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
+import org.pushingpixels.radiance.component.api.common.JExoContainer;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
@@ -186,13 +187,9 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 
 			List<Component> components = new ArrayList<>();
 			for (Component flow : flowBandControlPanel.getFlowComponents()) {
-				if (flow instanceof JRibbonComponent) {
-					components.add(((JRibbonComponent) flow).getMainComponent());
-				} else if (flow instanceof JCommandButtonStrip) {
-					JCommandButtonStrip buttonStrip = (JCommandButtonStrip) flow;
-					for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-						components.add(buttonStrip.getButton(i));
-					}
+				if (flow instanceof JExoContainer) {
+					JExoContainer exoContainer = (JExoContainer) flow;
+					components.addAll(exoContainer.getFocusSequence());
 				} else {
 					components.add(flow);
 				}

@@ -229,6 +229,15 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
         }
     }
 
+    @Override
+    public List<JComponent> getFocusSequence() {
+        List<JComponent> result = new ArrayList<>();
+        for (int i = 0; i < this.buttonStrip.getComponentCount(); i++) {
+            result.add((JCommandButton ) this.buttonStrip.getComponent(i));
+        }
+        return result;
+    }
+
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JCommandButtonStrip}.
@@ -259,14 +268,14 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
             int height = 0;
             if (buttonStrip.getProjection().getPresentationModel().getOrientation() ==
                     CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
-                for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    width += buttonStrip.getButton(i).getPreferredSize().width;
-                    height = Math.max(height, buttonStrip.getButton(i).getPreferredSize().height);
+                for (int i = 0; i < buttonStrip.getComponentCount(); i++) {
+                    width += buttonStrip.getComponent(i).getPreferredSize().width;
+                    height = Math.max(height, buttonStrip.getComponent(i).getPreferredSize().height);
                 }
             } else {
-                for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    height += buttonStrip.getButton(i).getPreferredSize().height;
-                    width = Math.max(width, buttonStrip.getButton(i).getPreferredSize().width);
+                for (int i = 0; i < buttonStrip.getComponentCount(); i++) {
+                    height += buttonStrip.getComponent(i).getPreferredSize().height;
+                    width = Math.max(width, buttonStrip.getComponent(i).getPreferredSize().width);
                 }
             }
             Insets ins = c.getInsets();
@@ -281,31 +290,35 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
 
         @Override
         public void layoutContainer(Container c) {
-            if (buttonStrip.getButtonCount() == 0)
+            int buttonCount = buttonStrip.getComponentCount();
+
+            if (buttonCount == 0) {
                 return;
+            }
+
             Insets ins = c.getInsets();
             int height = c.getHeight() - ins.top - ins.bottom;
             int width = c.getWidth() - ins.left - ins.right;
             if (buttonStrip.getProjection().getPresentationModel().getOrientation() ==
                     CommandStripPresentationModel.StripOrientation.HORIZONTAL) {
                 int totalPreferredWidth = 0;
-                for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    JCommandButton currButton = buttonStrip.getButton(i);
+                for (int i = 0; i < buttonCount; i++) {
+                    Component currButton = buttonStrip.getComponent(i);
                     totalPreferredWidth += currButton.getPreferredSize().width;
                 }
-                int deltaX = (width - totalPreferredWidth) / buttonStrip.getButtonCount();
+                int deltaX = (width - totalPreferredWidth) / buttonCount;
                 if (buttonStrip.getComponentOrientation().isLeftToRight()) {
                     int x = ins.left;
-                    for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                        JCommandButton currButton = buttonStrip.getButton(i);
+                    for (int i = 0; i < buttonCount; i++) {
+                        Component currButton = buttonStrip.getComponent(i);
                         currButton.setBounds(x, ins.top,
                                 currButton.getPreferredSize().width + deltaX, height);
                         x += (currButton.getPreferredSize().width + deltaX);
                     }
                 } else {
                     int x = c.getWidth() - ins.right;
-                    for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                        JCommandButton currButton = buttonStrip.getButton(i);
+                    for (int i = 0; i < buttonCount; i++) {
+                        Component currButton = buttonStrip.getComponent(i);
                         int buttonWidth = currButton.getPreferredSize().width + deltaX;
                         currButton.setBounds(x - buttonWidth, ins.top, buttonWidth, height);
                         x -= buttonWidth;
@@ -313,15 +326,15 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
                 }
             } else {
                 int totalPreferredHeight = 0;
-                for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    JCommandButton currButton = buttonStrip.getButton(i);
+                for (int i = 0; i < buttonCount; i++) {
+                    Component currButton = buttonStrip.getComponent(i);
                     totalPreferredHeight += currButton.getPreferredSize().height;
                 }
                 float deltaY = (float) (height - totalPreferredHeight)
-                        / (float) buttonStrip.getButtonCount();
+                        / (float) buttonCount;
                 float y = ins.top;
-                for (int i = 0; i < buttonStrip.getButtonCount(); i++) {
-                    JCommandButton currButton = buttonStrip.getButton(i);
+                for (int i = 0; i < buttonCount; i++) {
+                    Component currButton = buttonStrip.getComponent(i);
                     float buttonHeight = (currButton.getPreferredSize().height + deltaY);
                     currButton.setBounds(ins.left, (int) y, width, (int) Math.ceil(buttonHeight));
                     y += buttonHeight;

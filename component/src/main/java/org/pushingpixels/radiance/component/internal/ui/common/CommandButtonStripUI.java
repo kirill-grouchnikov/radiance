@@ -31,7 +31,9 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
 
+import javax.swing.*;
 import javax.swing.plaf.ComponentUI;
+import java.util.List;
 
 /**
  * UI for button strip ({@link JCommandButtonStrip}).
@@ -39,4 +41,5 @@ import javax.swing.plaf.ComponentUI;
  * @author Kirill Grouchnikov
  */
 public abstract class CommandButtonStripUI extends ComponentUI {
+    public abstract List<JComponent> getFocusSequence();
 }
