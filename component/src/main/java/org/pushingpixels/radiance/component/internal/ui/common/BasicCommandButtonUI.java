@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
@@ -221,9 +222,11 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     private void updateBorder() {
         Border currBorder = this.commandButton.getBorder();
         if ((currBorder == null) || (currBorder instanceof UIResource)) {
-            Insets contentPadding = this.commandButton.getContentPadding();
-            double hgapScaleFactor = this.commandButton.getHGapScaleFactor();
-            double vgapScaleFactor = this.commandButton.getVGapScaleFactor();
+            BaseCommandButtonPresentationModel presentationModel =
+                    this.commandButton.getPresentationModel();
+            Insets contentPadding = presentationModel.getContentPadding();
+            double hgapScaleFactor = presentationModel.getHorizontalGapScaleFactor();
+            double vgapScaleFactor = presentationModel.getVerticalGapScaleFactor();
 
             int top = (int) (vgapScaleFactor * contentPadding.top);
             int bottom = (int) (vgapScaleFactor * contentPadding.bottom);
@@ -381,9 +384,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
             if ("isAutoRepeatAction".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.setAutoRepeatAction((Boolean) propertyChangeEvent.getNewValue());
-            }
-            if ("isFireActionOnRollover".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.setFireActionOnRollover((Boolean) propertyChangeEvent.getNewValue());
             }
             if ("isFireActionOnPress".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.getActionModel().setFireActionOnPress((Boolean) propertyChangeEvent.getNewValue());

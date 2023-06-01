@@ -103,9 +103,9 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
 
         this.propertyChangeListener = propertyChangeEvent -> {
             if ("scrollOnRollover".equals(propertyChangeEvent.getPropertyName())) {
-                boolean isScrollOnRollover = (Boolean) propertyChangeEvent.getNewValue();
-                leadingScroller.setFireActionOnRollover(isScrollOnRollover);
-                trailingScroller.setFireActionOnRollover(isScrollOnRollover);
+                scrollablePanel.remove(leadingScroller);
+                scrollablePanel.remove(trailingScroller);
+                recomputeScrollers();
             }
         };
         this.scrollablePanel.addPropertyChangeListener(this.propertyChangeListener);
@@ -202,6 +202,13 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                                     scheme);
                         }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
+        this.recomputeScrollers();
+    }
+
+    private void recomputeScrollers() {
+        final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
+        int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+        int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
 
         // Common scroller command presentation
         CommandButtonPresentationModel scrollerActionsPresentation = CommandButtonPresentationModel.builder()

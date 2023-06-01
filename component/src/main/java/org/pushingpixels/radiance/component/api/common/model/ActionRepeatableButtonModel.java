@@ -122,7 +122,9 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
             stateMask &= ~PRESSED;
         }
 
-        BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
+        BaseCommand<?> command = this.commandButton.getContentModel();
+        BaseCommandButtonPresentationModel<?, ?> presentationModel =
+                this.commandButton.getPresentationModel();
         if (command.isToggle() && isArmed()) {
             // change selection prior to firing the action event on a toggle button
             if (!this.isFireActionOnPress()) {
@@ -139,7 +141,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         boolean toFireFirstAction = isArmed();
         // if the button is in auto-repeat action mode, the action
         // starts firing on press-down and not on press-up
-        if (commandButton.isAutoRepeatAction() || isFireActionOnPress())
+        if (presentationModel.isAutoRepeatAction() || isFireActionOnPress())
             toFireFirstAction = isPressed() && toFireFirstAction;
         else
             toFireFirstAction = !isPressed() && toFireFirstAction;
@@ -148,7 +150,8 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         if (commandButton.getCommandButtonKind() == JCommandButton.CommandButtonKind.POPUP_ONLY)
             toFireFirstAction = false;
 
-        if (this.commandButton.isFireActionOnRollover()) {
+        if (presentationModel.getActionFireTrigger() ==
+                CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER) {
             // the action is invoked on rollover
             toFireFirstAction = false;
         }
@@ -175,7 +178,8 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
 
         // we need to stop timer when the non-action-on-rollover button
         // gets pressed=false and it is in auto-repeat mode
-        if (!this.commandButton.isFireActionOnRollover()) {
+        if (presentationModel.getActionFireTrigger() !=
+                CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER) {
             if (this.commandButton.isAutoRepeatAction() && !b) {
                 this.stopActionTimer();
             }
@@ -196,7 +200,10 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
             stateMask &= ~ROLLOVER;
         }
 
-        if (this.commandButton.isFireActionOnRollover()) {
+        BaseCommandButtonPresentationModel<?, ?> presentationModel =
+                this.commandButton.getPresentationModel();
+        if (presentationModel.getActionFireTrigger() ==
+                CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER) {
             if (b && !this.isActionTimerRunning()
                     && (this.commandButton.getCommandButtonKind() != JCommandButton.CommandButtonKind
                     .POPUP_ONLY)) {

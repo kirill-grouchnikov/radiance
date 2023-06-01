@@ -100,24 +100,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     private Dimension iconDimension;
 
-    private Insets contentPadding;
-
-    /**
-     * Scale factor for horizontal gaps.
-     *
-     * @see #setHGapScaleFactor(double)
-     * @see #getHGapScaleFactor()
-     */
-    private double hgapScaleFactor;
-
-    /**
-     * Scale factor for vertical gaps.
-     *
-     * @see #setVGapScaleFactor(double)
-     * @see #getVGapScaleFactor()
-     */
-    private double vgapScaleFactor;
-
     /**
      * Location order kind for buttons placed in command button strips or for
      * buttons that need the visuals of segmented strips.
@@ -232,16 +214,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * @see #setAutoRepeatActionIntervals(int, int)
      */
     private int autoRepeatSubsequentInterval;
-
-    /**
-     * Indicates that rollover should result in firing the action. Used in
-     * conjunction with the {@link #isAutoRepeatAction} can model quick pan
-     * buttons such as breadcrumb bar scrollers.
-     *
-     * @see #setFireActionOnRollover(boolean)
-     * @see #isFireActionOnRollover()
-     */
-    private boolean isFireActionOnRollover;
 
     /**
      * Popup model of this button.
@@ -464,9 +436,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
 
         this.setPresentationState(commandPresentation.getPresentationState());
-        this.setContentPadding(commandPresentation.getContentPadding());
-        this.setHGapScaleFactor(commandPresentation.getHorizontalGapScaleFactor());
-        this.setVGapScaleFactor(commandPresentation.getVerticalGapScaleFactor());
         this.setFocusable(commandPresentation.isFocusable());
         if (commandPresentation.getIconDimension() != null) {
             this.setIconDimension(commandPresentation.getIconDimension());
@@ -517,8 +486,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             }
         }
 
-        this.setFireActionOnRollover(commandPresentation.getActionFireTrigger() ==
-                CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER);
         this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
                 CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED);
 
@@ -790,114 +757,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     }
 
     /**
-     * Sets new content padding for this button. Fires an <code>contentPadding</code> property
-     * change event.
-     *
-     * @param contentPadding New content padding
-     * @see #getContentPadding()
-     */
-    public void setContentPadding(Insets contentPadding) {
-        if (contentPadding == this.contentPadding)
-            return;
-        Insets oldValue = this.contentPadding;
-        this.contentPadding = contentPadding;
-        firePropertyChange("contentPadding", oldValue, this.contentPadding);
-        if (this.contentPadding != oldValue) {
-            revalidate();
-            repaint();
-        }
-    }
-
-    /**
-     * Returns the content padding for this button.
-     *
-     * @return The content padding for this button.
-     * @see #setContentPadding(Insets)
-     */
-    public Insets getContentPadding() {
-        return this.contentPadding;
-    }
-
-    /**
-     * Sets new horizontal gap scale factor for the content of this button.
-     * Fires an <code>hgapScaleFactor</code> property change event.
-     *
-     * @param hgapScaleFactor New horizontal gap scale factor for the content of this
-     *                        button.
-     * @see #getHGapScaleFactor()
-     * @see #setVGapScaleFactor(double)
-     * @see #setGapScaleFactor(double)
-     */
-    public void setHGapScaleFactor(double hgapScaleFactor) {
-        if (hgapScaleFactor == this.hgapScaleFactor)
-            return;
-        double oldValue = this.hgapScaleFactor;
-        this.hgapScaleFactor = hgapScaleFactor;
-        firePropertyChange("hgapScaleFactor", oldValue, this.hgapScaleFactor);
-        if (this.hgapScaleFactor != oldValue) {
-            revalidate();
-            repaint();
-        }
-    }
-
-    /**
-     * Sets new vertical gap scale factor for the content of this button. Fires
-     * a <code>vgapScaleFactor</code> property change event.
-     *
-     * @param vgapScaleFactor New vertical gap scale factor for the content of this button.
-     * @see #getVGapScaleFactor()
-     * @see #setHGapScaleFactor(double)
-     * @see #setGapScaleFactor(double)
-     */
-    public void setVGapScaleFactor(double vgapScaleFactor) {
-        if (vgapScaleFactor == this.vgapScaleFactor)
-            return;
-        double oldValue = this.vgapScaleFactor;
-        this.vgapScaleFactor = vgapScaleFactor;
-        firePropertyChange("vgapScaleFactor", oldValue, this.vgapScaleFactor);
-        if (this.vgapScaleFactor != oldValue) {
-            revalidate();
-            repaint();
-        }
-    }
-
-    /**
-     * Sets new gap scale factor for the content of this button.
-     *
-     * @param gapScaleFactor New gap scale factor for the content of this button.
-     * @see #getHGapScaleFactor()
-     * @see #getVGapScaleFactor()
-     */
-    public void setGapScaleFactor(double gapScaleFactor) {
-        setHGapScaleFactor(gapScaleFactor);
-        setVGapScaleFactor(gapScaleFactor);
-    }
-
-    /**
-     * Returns the horizontal gap scale factor for the content of this button.
-     *
-     * @return The horizontal gap scale factor for the content of this button.
-     * @see #setHGapScaleFactor(double)
-     * @see #setGapScaleFactor(double)
-     * @see #getVGapScaleFactor()
-     */
-    public double getHGapScaleFactor() {
-        return this.hgapScaleFactor;
-    }
-
-    /**
-     * Returns the vertical gap scale factor for the content of this button.
-     *
-     * @return The vertical gap scale factor for the content of this button.
-     * @see #setVGapScaleFactor(double)
-     * @see #setGapScaleFactor(double)
-     * @see #getHGapScaleFactor()
-     */
-    public double getVGapScaleFactor() {
-        return this.vgapScaleFactor;
-    }
-
-    /**
      * Programmatically perform an action "click". This does the same thing as
      * if the user had pressed and released the action area of the button.
      */
@@ -1153,32 +1012,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public int getAutoRepeatSubsequentInterval() {
         return autoRepeatSubsequentInterval;
-    }
-
-    /**
-     * Sets action-on-rollover mode. When this mode is on, button will fire
-     * action events when it gets rollover (instead of press). Combine with
-     * {@link #setAutoRepeatAction(boolean)} passing <code>true</code> to get
-     * auto-repeat action fired on rollover (useful for quicker manipulation of
-     * scroller buttons, for example).
-     *
-     * @param isFireActionOnRollover If <code>true</code>, the button is moved into the
-     *                               action-on-rollover mode.
-     * @see #isFireActionOnRollover()
-     */
-    public void setFireActionOnRollover(boolean isFireActionOnRollover) {
-        this.isFireActionOnRollover = isFireActionOnRollover;
-    }
-
-    /**
-     * Returns indication whether this button is in action-on-rollover mode.
-     *
-     * @return <code>true</code> if this button is in action-on-rollover mode,
-     * <code>false</code> otherwise.
-     * @see #setFireActionOnRollover(boolean)
-     */
-    public boolean isFireActionOnRollover() {
-        return this.isFireActionOnRollover;
     }
 
     /**

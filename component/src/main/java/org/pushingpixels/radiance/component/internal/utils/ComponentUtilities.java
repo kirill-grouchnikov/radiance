@@ -63,12 +63,14 @@ public class ComponentUtilities {
 
     public static int getHLayoutGap(JCommandButton commandButton) {
         Font font = commandButton.getFont();
-        return (int) Math.ceil(commandButton.getHGapScaleFactor() * (font.getSize() - 4) / 4);
+        return (int) Math.ceil(commandButton.getPresentationModel().getHorizontalGapScaleFactor()
+                * (font.getSize() - 4) / 4);
     }
 
     public static int getVLayoutGap(JCommandButton commandButton) {
         Font font = commandButton.getFont();
-        return (int) Math.ceil(commandButton.getVGapScaleFactor() * (font.getSize() - 4) / 4);
+        return (int) Math.ceil(commandButton.getPresentationModel().getVerticalGapScaleFactor()
+                * (font.getSize() - 4) / 4);
     }
 
     public static boolean hasPopupAction(JCommandButton commandButton) {
