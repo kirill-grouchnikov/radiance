@@ -171,7 +171,7 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                     // create new button with binary icon
                     JButton resultButton = new JButton();
                     final int finalCount = count;
-                    resultButton.setIcon(new BladeTransitionAwareIcon(resultButton,
+                    resultButton.setIcon(new BladeTransitionAwareIcon(
                             () -> (TransitionAwareUI) resultButton.getUI(),
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
@@ -531,7 +531,7 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
         for (Map.Entry<Integer, JButton> entry : searchPanel.resultButtons.entrySet()) {
             int index = entry.getKey();
             JButton button = entry.getValue();
-            button.setIcon(new BladeTransitionAwareIcon(button,
+            button.setIcon(new BladeTransitionAwareIcon(
                     () -> (TransitionAwareUI) button.getUI(),
                     new BladeTransitionAwareIcon.Delegate() {
                         @Override

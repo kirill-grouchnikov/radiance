@@ -71,8 +71,6 @@ public class BladeTransitionAwareIcon implements Icon {
     private static ColorSchemeAssociationKindDelegate MARK_DELEGATE =
             state -> ColorSchemeAssociationKind.MARK;
 
-    private JComponent comp;
-
     private TransitionAwareUIDelegate transitionAwareUIDelegate;
 
     // Delegate to draw the icons visuals that match the current model state.
@@ -87,18 +85,17 @@ public class BladeTransitionAwareIcon implements Icon {
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
     public BladeTransitionAwareIcon(final AbstractButton button, Delegate delegate) {
-        this(button, (button == null) ? null : () -> (TransitionAwareUI) button.getUI(), delegate,
+        this((button == null) ? null : () -> (TransitionAwareUI) button.getUI(), delegate,
                 null);
     }
 
     /**
      * Creates a new transition-aware icon.
      */
-    public BladeTransitionAwareIcon(JComponent comp,
+    public BladeTransitionAwareIcon(
             TransitionAwareUIDelegate transitionAwareUIDelegate,
             Delegate delegate,
             ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate) {
-        this.comp = comp;
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = delegate;
         this.colorSchemeAssociationKindDelegate =
