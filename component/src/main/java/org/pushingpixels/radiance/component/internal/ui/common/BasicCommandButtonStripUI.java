@@ -37,14 +37,14 @@ import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresen
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ComponentUI;
 import java.awt.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Basic UI for button strip {@link JCommandButtonStrip}.
@@ -89,29 +89,25 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
      */
     protected void installListeners() {
         this.commandGroupListener = new CommandGroup.CommandGroupListener() {
+            private void resync() {
+                buttonStrip.removeAll();
+                commandButtonMap.clear();
+                syncButtons();
+            }
+
             @Override
             public void onCommandAdded(Command command) {
-                addButton(command);
-                updateButtonOrder();
+                resync();
             }
 
             @Override
             public void onCommandRemoved(Command command) {
-                JCommandButton commandButton = commandButtonMap.get(command);
-                commandButton.removeCommandListener(command.getAction());
-                buttonStrip.remove(commandButton);
-                commandButtonMap.remove(command);
-                updateButtonOrder();
+                resync();
             }
 
             @Override
             public void onAllCommandsRemoved(List<Command> commands) {
-                for (Map.Entry<Command, JCommandButton> entry :
-                        commandButtonMap.entrySet()) {
-                    entry.getValue().removeCommandListener(entry.getKey().getAction());
-                    buttonStrip.remove(entry.getValue());
-                }
-                commandButtonMap.clear();
+                resync();
             }
         };
         this.buttonStrip.getProjection().getContentModel().addCommandGroupListener(this.commandGroupListener);
@@ -145,11 +141,7 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     protected void installComponents() {
         this.buttonStrip.setLayout(createLayoutManager());
 
-        CommandGroup commandGroupModel = this.buttonStrip.getProjection().getContentModel();
-        for (Command command : commandGroupModel.getCommands()) {
-            this.addButton(command);
-        }
-        this.updateButtonOrder();
+        syncButtons();
     }
 
     /**
@@ -169,59 +161,71 @@ public class BasicCommandButtonStripUI extends CommandButtonStripUI {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private void addButton(Command command) {
+    private void syncButtons() {
         CommandStripPresentationModel stripPresentationModel =
                 this.buttonStrip.getProjection().getPresentationModel();
-        CommandButtonPresentationModel presentation = CommandButtonPresentationModel.withDefaults()
-                .overlayWith(CommandButtonPresentationModel.overlay()
-                        .setPresentationState(stripPresentationModel.getCommandPresentationState())
-                        .setContentPadding(stripPresentationModel.getCommandContentPadding())
-                        .setIconFilterStrategies(
-                                stripPresentationModel.getActiveIconFilterStrategy(),
-                                stripPresentationModel.getEnabledIconFilterStrategy(),
-                                stripPresentationModel.getDisabledIconFilterStrategy())
-                        .setHorizontalGapScaleFactor(
-                                stripPresentationModel.getHorizontalGapScaleFactor())
-                        .setVerticalGapScaleFactor(
-                                stripPresentationModel.getVerticalGapScaleFactor())
-                        .setBackgroundAppearanceStrategy(
-                                stripPresentationModel.getBackgroundAppearanceStrategy())
-                        .setFocusable(stripPresentationModel.isFocusable())
-                        .setToDismissPopupsOnActivation(
-                                stripPresentationModel.isToDismissPopupsOnActivation()));
-        CommandButtonPresentationModel.Overlay extraOverlay =
-                this.buttonStrip.getProjection().getCommandOverlays().get(command);
-        if (extraOverlay != null) {
-            presentation = presentation.overlayWith(extraOverlay);
-        }
+        boolean isHorizontal = (this.buttonStrip.getProjection().getPresentationModel().getOrientation() ==
+                CommandStripPresentationModel.StripOrientation.HORIZONTAL);
+        RadianceThemingSlices.Side leadingSide = isHorizontal ? RadianceThemingSlices.Side.LEADING
+                : RadianceThemingSlices.Side.TOP;
+        RadianceThemingSlices.Side trailingSide = isHorizontal ? RadianceThemingSlices.Side.TRAILING
+                : RadianceThemingSlices.Side.BOTTOM;
 
-        CommandButtonProjection<Command> commandProjection = command.project(presentation);
-        JCommandButton button = commandProjection.buildComponent();
-        button.setComponentOrientation(this.buttonStrip.getComponentOrientation());
+        CommandGroup commandGroupModel = this.buttonStrip.getProjection().getContentModel();
+        List<Command> commands = commandGroupModel.getCommands();
+        int commandCount = commands.size();
+        for (int i = 0; i < commandCount; i++) {
+            Command command = commands.get(i);
 
-        this.buttonStrip.add(button);
-        this.commandButtonMap.put(command, button);
-    }
-
-    private void updateButtonOrder() {
-        int buttonCount = buttonStrip.getButtonCount();
-        if (buttonCount == 0) {
-            return;
-        }
-
-        if (buttonCount == 1) {
-            buttonStrip.getButton(0).setLocationOrderKind(
-                    JCommandButton.CommandButtonLocationOrderKind.ONLY);
-        } else {
-            buttonStrip.getButton(0).setLocationOrderKind(
-                    JCommandButton.CommandButtonLocationOrderKind.FIRST);
-            for (int i = 1; i < buttonCount - 1; i++) {
-                buttonStrip.getButton(i).setLocationOrderKind(
-                        JCommandButton.CommandButtonLocationOrderKind.MIDDLE);
-
+            Set<RadianceThemingSlices.Side> straightSides = new HashSet<>();
+            if (commandCount > 1) {
+                if (i == 0) {
+                    straightSides.add(trailingSide);
+                } else if (i == (commandCount - 1)) {
+                    straightSides.add(leadingSide);
+                } else {
+                    straightSides.add(leadingSide);
+                    straightSides.add(trailingSide);
+                }
             }
-            buttonStrip.getButton(buttonCount - 1).setLocationOrderKind(
-                    JCommandButton.CommandButtonLocationOrderKind.LAST);
+
+            Set<RadianceThemingSlices.Side> openSides = new HashSet<>();
+            if ((commandCount > 1) && (i > 0)) {
+                openSides.add(leadingSide);
+            }
+
+            CommandButtonPresentationModel presentation = CommandButtonPresentationModel.builder()
+                    .setPresentationState(stripPresentationModel.getCommandPresentationState())
+                    .setContentPadding(stripPresentationModel.getCommandContentPadding())
+                    .setSides(RadianceThemingSlices.Sides.builder()
+                            .setOpenSides(openSides)
+                            .setStraightSides(straightSides).build())
+                    .setIconFilterStrategies(
+                            stripPresentationModel.getActiveIconFilterStrategy(),
+                            stripPresentationModel.getEnabledIconFilterStrategy(),
+                            stripPresentationModel.getDisabledIconFilterStrategy())
+                    .setHorizontalGapScaleFactor(
+                            stripPresentationModel.getHorizontalGapScaleFactor())
+                    .setVerticalGapScaleFactor(
+                            stripPresentationModel.getVerticalGapScaleFactor())
+                    .setBackgroundAppearanceStrategy(
+                            stripPresentationModel.getBackgroundAppearanceStrategy())
+                    .setFocusable(stripPresentationModel.isFocusable())
+                    .setToDismissPopupsOnActivation(
+                            stripPresentationModel.isToDismissPopupsOnActivation())
+                    .build();
+            CommandButtonPresentationModel.Overlay extraOverlay =
+                    this.buttonStrip.getProjection().getCommandOverlays().get(command);
+            if (extraOverlay != null) {
+                presentation = presentation.overlayWith(extraOverlay);
+            }
+
+            CommandButtonProjection<Command> commandProjection = command.project(presentation);
+            JCommandButton button = commandProjection.buildComponent();
+            button.setComponentOrientation(this.buttonStrip.getComponentOrientation());
+
+            this.buttonStrip.add(button);
+            this.commandButtonMap.put(command, button);
         }
     }
 

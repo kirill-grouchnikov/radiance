@@ -541,8 +541,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Updates the icon dimension.
      */
     private void updateIconDimension() {
-        Dimension dimension = this.commandButton.getIconDimension();
-
+        Dimension dimension = this.commandButton.getPresentationModel().getIconDimension();
         if (dimension != null) {
             this.icon.setDimension(dimension);
             this.commandButton.setPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON);

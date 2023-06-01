@@ -192,7 +192,6 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
      * @author Kirill Grouchnikov
      */
     private class TaskbarPanel extends JPanel {
-        private JCommandButton overflowButton;
         private List<Component> overflowComponents;
 
         /**
@@ -209,30 +208,6 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             int insets = RadianceSizeUtils.getAdjustedSize(
                     RadianceSizeUtils.getComponentFontSize(this), 2, 3, 1, false);
             this.setBorder(new EmptyBorder(2, insets, 2, insets));
-
-            final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
-            int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
-            int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
-            CommandButtonProjection<Command> overflowProjection = Command.builder()
-                    .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
-                            showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
-                    .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                            (g, scheme, width, height) -> {
-                                BladeArrowIconUtils.drawDoubleArrow(g, width, height,
-                                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
-                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                        getComponentOrientation().isLeftToRight()
-                                                ? SwingConstants.EAST : SwingConstants.WEST,
-                                        scheme);
-                            }, new Dimension(arrowIconHeight, arrowIconWidth)))
-                    .setTag(TASKBAR_OVERFLOW_BUTTON)
-                    .build().project(CommandButtonPresentationModel.builder()
-                            .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
-                            .setIconDimension(new Dimension(arrowIconHeight, arrowIconWidth))
-                            .setContentPadding(new Insets(2, 6, 2, 6))
-                            .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
-                            .build());
-            this.overflowButton = overflowProjection.buildComponent();
         }
 
         @Override
@@ -313,11 +288,37 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             this.removeAll();
             this.overflowComponents.clear();
 
+            final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
+            int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
+            int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
+            CommandButtonProjection<Command> overflowProjection = Command.builder()
+                    .setAction(commandActionEvent -> SwingUtilities.invokeLater(() ->
+                            showOverflowTaskbarContent(commandActionEvent.getButtonSource())))
+                    .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
+                            (g, scheme, width, height) -> {
+                                BladeArrowIconUtils.drawDoubleArrow(g, width, height,
+                                        RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
+                                        RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
+                                        getComponentOrientation().isLeftToRight()
+                                                ? SwingConstants.EAST : SwingConstants.WEST,
+                                        scheme);
+                            }, new Dimension(arrowIconHeight, arrowIconWidth)))
+                    .setTag(TASKBAR_OVERFLOW_BUTTON)
+                    .build().project(CommandButtonPresentationModel.builder()
+                            .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
+                            .setIconDimension(new Dimension(arrowIconHeight, arrowIconWidth))
+                            .setContentPadding(new Insets(2, 6, 2, 6))
+                            .setSides(RadianceThemingSlices.Sides.CLOSED_RECTANGLE)
+                            .setActionKeyTip(getRibbon().getTaskbarKeyTipPolicy()
+                                    .getOverflowButtonKeyTip())
+                            .build());
+            JCommandButton overflowButton = overflowProjection.buildComponent();
+
             Insets ins = this.getInsets();
             int gap = getTaskBarLayoutGap(this);
 
             boolean isInOverflow = false;
-            int pw = ins.left + ins.right + this.overflowButton.getPreferredSize().width + gap;
+            int pw = ins.left + ins.right + overflowButton.getPreferredSize().width + gap;
             for (Component component : getRibbon().getTaskbarComponents()) {
                 int componentWidth = component.getPreferredSize().width;
                 if (!isInOverflow && (pw + componentWidth + gap) <= availableWidth) {
@@ -329,9 +330,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                     this.overflowComponents.add(component);
                 }
             }
-            this.add(this.overflowButton);
-            this.overflowButton.setActionKeyTip(getRibbon().getTaskbarKeyTipPolicy()
-                    .getOverflowButtonKeyTip());
+            this.add(overflowButton);
 
             updateKeyTips();
             revalidate();

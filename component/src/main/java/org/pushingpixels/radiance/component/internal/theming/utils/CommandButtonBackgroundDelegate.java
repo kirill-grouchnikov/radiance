@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.component.internal.theming.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadianceIcon;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -42,7 +40,6 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeA
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
-import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
@@ -51,7 +48,6 @@ import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.Map;
 import java.util.Set;
 
@@ -264,59 +260,35 @@ public class CommandButtonBackgroundDelegate {
                     RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(commandButton);
                     RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(commandButton);
 
-                    // special handling for location order
-                    JCommandButton.CommandButtonLocationOrderKind locationOrderKind = commandButton
-                            .getLocationOrderKind();
-                    int dx = 0;
-                    int dy = 0;
-                    int dw = 0;
-                    int dh = 0;
-                    boolean isVertical = false;
-                    if ((locationOrderKind != null)
-                            && (locationOrderKind != JCommandButton.CommandButtonLocationOrderKind.ONLY)) {
-                        Component parent = commandButton.getParent();
-                        if ((parent instanceof JCommandButtonStrip) &&
-                                (((JCommandButtonStrip) parent).getProjection().getPresentationModel().getOrientation() ==
-                                        CommandStripPresentationModel.StripOrientation.VERTICAL)) {
-                            isVertical = true;
-                            switch (locationOrderKind) {
-                                case FIRST:
-                                    dh = scaledHeight;
-                                    break;
-                                case MIDDLE:
-                                    dy = -scaledHeight / 2;
-                                    dh = scaledHeight;
-                                    break;
-                                case LAST:
-                                    dy = -scaledHeight / 2;
-                                    dh = scaledHeight / 2;
-                            }
-                        } else {
-                            boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
-                            if (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.MIDDLE) {
-                                dx = -scaledWidth / 2;
-                                dw = scaledWidth;
-                            } else {
-                                boolean curveOnLeft = (ltr
-                                        && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST))
-                                        || (!ltr && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST));
-                                if (curveOnLeft) {
-                                    dw = scaledWidth / 2;
-                                } else {
-                                    dx = -scaledWidth / 2;
-                                    dw = scaledWidth / 2;
-                                }
-                            }
-                        }
-                    }
+                    RadianceThemingSlices.Sides sides = commandButton.getPresentationModel().getSides();
+                    Set<RadianceThemingSlices.Side> openSides = (sides != null) ? sides.getOpenSides() : null;
+                    Set<RadianceThemingSlices.Side> straightSides = (sides != null) ? sides.getStraightSides() : null;
+
+                    ComponentOrientation orientation = commandButton.getComponentOrientation();
+                    RadianceThemingSlices.Side leftSide =
+                            orientation.isLeftToRight()
+                                    ? RadianceThemingSlices.Side.LEADING
+                                    : RadianceThemingSlices.Side.TRAILING;
+                    RadianceThemingSlices.Side rightSide =
+                            orientation.isLeftToRight()
+                                    ? RadianceThemingSlices.Side.TRAILING
+                                    : RadianceThemingSlices.Side.LEADING;
+
+                    int openDelta = (int) (3 * scaleFactor);
+                    int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
+                    int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
+                    int deltaTop = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ? openDelta : 0;
+                    int deltaBottom = ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
+
+                    int dx = -deltaLeft;
+                    int dw = deltaLeft + deltaRight;
+                    int dy = -deltaTop;
+                    int dh = deltaTop + deltaBottom;
 
                     float radius = (commandButton.getProjection().getPresentationModel().getSelectedStateHighlight()
                             == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) ? 0 :
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                                     RadianceSizeUtils.getComponentFontSize(commandButton));
-
-                    Set<RadianceThemingSlices.Side> straightSides = RadianceCoreUtilities.getSides(commandButton,
-                            RadianceSynapse.BUTTON_STRAIGHT_SIDE);
 
                     graphics1X.translate(dx, dy);
                     // Compute a separate contour for the fill.
@@ -347,70 +319,6 @@ public class CommandButtonBackgroundDelegate {
                             scaledWidth + dw,
                             scaledHeight + dh,
                             contourOuter, contourInner, mutableBorderColorScheme);
-
-                    // Borders for strips
-                    if (isVertical) {
-                        if ((locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST)
-                                || (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.MIDDLE)) {
-                            // outer/inner line at the bottom
-                            float y = -dy + scaledHeight - 2.0f;
-                            float xs = 1.0f;
-                            float xe = scaledWidth - 1.0f;
-                            Shape upper = new Line2D.Double(xs + 1.0f, y, xe - 1.0f, y);
-                            y += 1.0f;
-                            Shape lower = new Line2D.Double(xs, y, xe, y);
-                            borderPainter.paintBorder(graphics1X, commandButton,
-                                    scaledWidth + dw, scaledHeight + dh,
-                                    lower, upper, mutableBorderColorScheme);
-                        }
-
-                        // special case for MIDDLE and LAST location order kinds
-                        if ((locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.MIDDLE)
-                                || (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST)) {
-                            // inner line at the top
-                            float y = -dy + 1.0f;
-                            float xs = 1.0f;
-                            float xe = scaledWidth - 1.0f;
-                            Shape upper = new Line2D.Double(xs + 1.0f, y, xe - 1.0f, y);
-                            borderPainter.paintBorder(graphics1X, commandButton,
-                                    scaledWidth + dw, scaledHeight + dh,
-                                    null, upper, mutableBorderColorScheme);
-                        }
-                    } else {
-                        // special case for leftmost (not FIRST!!!) and MIDDLE location
-                        // order kinds
-                        boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
-                        boolean leftmost = (ltr
-                                && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST))
-                                || (!ltr && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST));
-                        if (leftmost || (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.MIDDLE)) {
-                            // outer / inner line at the right
-                            float x = -dx + scaledWidth - 2.0f;
-                            float ys = 1.0f;
-                            float ye = scaledHeight - 1.0f;
-                            Shape upper = new Line2D.Double(x, ys + 1.0f, x, ye - 1.0f);
-                            x += 1.0f;
-                            Shape lower = new Line2D.Double(x, ys, x, ye);
-                            borderPainter.paintBorder(graphics1X, commandButton,
-                                    scaledWidth + dw, scaledHeight + dh,
-                                    lower, upper, mutableBorderColorScheme);
-                        }
-
-                        // special case for MIDDLE and LAST location order kinds
-                        boolean rightmost = (ltr
-                                && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.LAST))
-                                || (!ltr && (locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.FIRST));
-                        if ((locationOrderKind == JCommandButton.CommandButtonLocationOrderKind.MIDDLE) || rightmost) {
-                            // inner line at the left
-                            float x = -dx + 1.0f;
-                            float ys = 1.0f;
-                            float ye = scaledHeight - 1.0f;
-                            Shape upper = new Line2D.Double(x, ys + 1.0f, x, ye - 1.0f);
-                            borderPainter.paintBorder(graphics1X, commandButton,
-                                    scaledWidth + dw, scaledHeight + dh,
-                                    null, upper, mutableBorderColorScheme);
-                        }
-                    }
 
                     graphics1X.translate(-dx, -dy);
                 });

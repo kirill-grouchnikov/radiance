@@ -175,11 +175,22 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 .buildComponent();
         this.ribbonBand.add(this.collapsedButton);
 
+        this.recomputeExpandButton();
+    }
+
+    private void recomputeExpandButton() {
+        if (this.expandButton != null) {
+            this.ribbonBand.remove(this.expandButton);
+            this.expandButton = null;
+        }
+
         if (this.ribbonBand.getExpandCommandListener() != null) {
             this.expandCommand = this.createExpandCommand(this.ribbonBand.getComponentOrientation());
             this.expandButton = this.createExpandButton();
             this.ribbonBand.add(this.expandButton);
         }
+
+        this.ribbonBand.revalidate();
     }
 
     /**
@@ -201,43 +212,21 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         this.ribbonBand.addMouseListener(this.mouseListener);
 
         this.propertyChangeListener = propertyChangeEvent -> {
-            if ("title".equals(propertyChangeEvent.getPropertyName()))
+            if ("title".equals(propertyChangeEvent.getPropertyName())) {
                 ribbonBand.repaint();
+            }
             if ("expandButtonKeyTip".equals(propertyChangeEvent.getPropertyName())) {
-                if (expandButton != null) {
-                    expandButton.setActionKeyTip((String) propertyChangeEvent.getNewValue());
-                }
+                recomputeExpandButton();
             }
             if ("expandButtonRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
-                if (expandCommand != null) {
-                    expandCommand.setActionRichTooltip((RichTooltip) propertyChangeEvent.getNewValue());
-                }
+                recomputeExpandButton();
+            }
+            if ("expandCommandListener".equals(propertyChangeEvent.getPropertyName())) {
+                recomputeExpandButton();
             }
             if ("collapsedStateKeyTip".equals(propertyChangeEvent.getPropertyName())) {
                 if (collapsedButton != null) {
                     collapsedButton.setPopupKeyTip((String) propertyChangeEvent.getNewValue());
-                }
-            }
-            if ("expandCommandListener".equals(propertyChangeEvent.getPropertyName())) {
-                CommandAction oldListener = (CommandAction) propertyChangeEvent.getOldValue();
-                CommandAction newListener = (CommandAction) propertyChangeEvent.getNewValue();
-
-                if ((oldListener != null) && (newListener == null)) {
-                    // need to remove
-                    ribbonBand.remove(expandButton);
-                    expandButton = null;
-                    ribbonBand.revalidate();
-                }
-                if ((oldListener == null) && (newListener != null)) {
-                    // need to add
-                    expandCommand = createExpandCommand(ribbonBand.getComponentOrientation());
-                    expandButton = createExpandButton();
-                    ribbonBand.add(expandButton);
-                    ribbonBand.revalidate();
-                }
-                if ((oldListener != null) && (newListener != null)) {
-                    // need to reconfigure
-                    expandCommand.setAction(newListener);
                 }
             }
         };

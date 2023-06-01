@@ -93,23 +93,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private CommandButtonPresentationState presentationState;
 
     /**
-     * The dimension of the icon of the associated command button.
-     *
-     * @see #getIconDimension()
-     * @see #setIconDimension(Dimension)
-     */
-    private Dimension iconDimension;
-
-    /**
-     * Location order kind for buttons placed in command button strips or for
-     * buttons that need the visuals of segmented strips.
-     *
-     * @see #setLocationOrderKind(CommandButtonLocationOrderKind)
-     * @see #getLocationOrderKind()
-     */
-    private CommandButtonLocationOrderKind locationOrderKind;
-
-    /**
      * Action handler for the button.
      */
     private ActionHandler actionHandler;
@@ -121,35 +104,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * @see #getActionKeyTip()
      */
     private String actionKeyTip;
-
-    /**
-     * Enumerates the available values for the location order kind. This is used
-     * for buttons placed in command button strips or for buttons that need the
-     * visuals of segmented strips.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum CommandButtonLocationOrderKind {
-        /**
-         * Indicates that this button is the only button in the strip.
-         */
-        ONLY,
-
-        /**
-         * Indicates that this button is the first button in the strip.
-         */
-        FIRST,
-
-        /**
-         * Indicates that this button is in the middle of the strip.
-         */
-        MIDDLE,
-
-        /**
-         * Indicates that this button is the last button in the strip.
-         */
-        LAST
-    }
 
     /**
      * Associated popup callback. May be <code>null</code>.
@@ -437,9 +391,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
 
         this.setPresentationState(commandPresentation.getPresentationState());
         this.setFocusable(commandPresentation.isFocusable());
-        if (commandPresentation.getIconDimension() != null) {
-            this.setIconDimension(commandPresentation.getIconDimension());
-        }
 
         this.actionHandler = new ActionHandler();
         this.setOpaque(false);
@@ -573,31 +524,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public CommandButtonPresentationState getPresentationState() {
         return this.presentationState;
-    }
-
-    /**
-     * Updates the dimension of the icon of the associated command button. Fires an
-     * <code>iconDimension</code> property change event.
-     *
-     * @param dimension New dimension of the icon of the associated command button.
-     * @see #getIconDimension()
-     */
-    public void setIconDimension(Dimension dimension) {
-        if (this.iconDimension != dimension) {
-            Dimension old = this.iconDimension;
-            this.iconDimension = dimension;
-            this.firePropertyChange("iconDimension", old, this.iconDimension);
-        }
-    }
-
-    /**
-     * Returns the dimension of the icon of the associated command button.
-     *
-     * @return The dimension of the icon of the associated command button.
-     * @see #setIconDimension(Dimension)
-     */
-    public Dimension getIconDimension() {
-        return this.iconDimension;
     }
 
     /**
@@ -777,36 +703,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     @Override
     public void setToolTipText(String text) {
         throw new UnsupportedOperationException("Use rich tooltip APIs");
-    }
-
-    /**
-     * Returns the location order kind for buttons placed in command button
-     * strips or for buttons that need the visuals of segmented strips.
-     *
-     * @return The location order kind for buttons placed in command button
-     * strips or for buttons that need the visuals of segmented strips.
-     * @see #setLocationOrderKind(CommandButtonLocationOrderKind)
-     */
-    public CommandButtonLocationOrderKind getLocationOrderKind() {
-        return this.locationOrderKind;
-    }
-
-    /**
-     * Sets the location order kind for buttons placed in command button strips
-     * or for buttons that need the visuals of segmented strips. Fires a
-     * <code>locationOrderKind</code> property change event.
-     *
-     * @param locationOrderKind The location order kind for buttons placed in command button
-     *                          strips or for buttons that need the visuals of segmented
-     *                          strips.
-     * @see #getLocationOrderKind()
-     */
-    public void setLocationOrderKind(CommandButtonLocationOrderKind locationOrderKind) {
-        CommandButtonLocationOrderKind old = this.locationOrderKind;
-        if (old != locationOrderKind) {
-            this.locationOrderKind = locationOrderKind;
-            this.firePropertyChange("locationOrderKind", old, this.locationOrderKind);
-        }
     }
 
     /**
