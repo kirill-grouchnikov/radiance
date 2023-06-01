@@ -82,7 +82,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
 
     @Override
     public void setSelected(boolean b) {
-        BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
+        BaseCommand<?> command = this.commandButton.getContentModel();
         CommandToggleGroupModel groupModel = command.getToggleGroupModel();
         if (groupModel != null) {
             groupModel.setSelected(command, b);
@@ -168,9 +168,9 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
             this.commandButton.getUI().setInnerFocusOnAction(true);
             fireActionPerformed(new CommandActionEvent(this.commandButton,
                     ActionEvent.ACTION_PERFORMED,
-                    this.commandButton.getProjection().getContentModel(), getActionCommand(),
+                    command, getActionCommand(),
                     EventQueue.getMostRecentEventTime(), modifiers));
-            if (commandButton.isAutoRepeatAction()) {
+            if (presentationModel.isAutoRepeatAction()) {
                 // start timer
                 this.startActionTimer(modifiers);
             }
@@ -180,7 +180,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         // gets pressed=false and it is in auto-repeat mode
         if (presentationModel.getActionFireTrigger() !=
                 CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER) {
-            if (this.commandButton.isAutoRepeatAction() && !b) {
+            if (presentationModel.isAutoRepeatAction() && !b) {
                 this.stopActionTimer();
             }
         }
@@ -221,9 +221,9 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
                 this.commandButton.getUI().setInnerFocusOnAction(true);
                 fireActionPerformed(new CommandActionEvent(this.commandButton,
                         ActionEvent.ACTION_PERFORMED,
-                        this.commandButton.getProjection().getContentModel(), getActionCommand(),
+                        this.commandButton.getContentModel(), getActionCommand(),
                         EventQueue.getMostRecentEventTime(), modifiers));
-                if (commandButton.isAutoRepeatAction()) {
+                if (presentationModel.isAutoRepeatAction()) {
                     // start timer
                     this.startActionTimer(modifiers);
                 }
@@ -265,7 +265,10 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
      * @param modifiers Modifiers for the action event to be fired.
      */
     private void startActionTimer(final int modifiers) {
-        this.autoRepeatTimer = new Timer(this.commandButton.getAutoRepeatSubsequentInterval(),
+        BaseCommandButtonPresentationModel<?, ?> presentationModel =
+                this.commandButton.getPresentationModel();
+
+        this.autoRepeatTimer = new Timer(presentationModel.getAutoRepeatSubsequentInterval(),
                 actionEvent -> {
                     if (!isEnabled() || !commandButton.isVisible() || !commandButton.isDisplayable()) {
                         // stop the timer when the button becomes
@@ -275,10 +278,10 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
                     }
                     fireActionPerformed(new CommandActionEvent(this.commandButton,
                             ActionEvent.ACTION_PERFORMED,
-                            this.commandButton.getProjection().getContentModel(),
+                            this.commandButton.getContentModel(),
                             getActionCommand(), EventQueue.getMostRecentEventTime(), modifiers));
                 });
-        this.autoRepeatTimer.setInitialDelay(this.commandButton.getAutoRepeatInitialInterval());
+        this.autoRepeatTimer.setInitialDelay(presentationModel.getAutoRepeatInitialInterval());
         this.autoRepeatTimer.start();
     }
 

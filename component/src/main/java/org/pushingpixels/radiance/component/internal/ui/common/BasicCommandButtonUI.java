@@ -382,9 +382,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("actionPreview".equals(propertyChangeEvent.getPropertyName())) {
                 syncActionPreview(command, ((Command.CommandActionPreview) propertyChangeEvent.getNewValue()));
             }
-            if ("isAutoRepeatAction".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.setAutoRepeatAction((Boolean) propertyChangeEvent.getNewValue());
-            }
             if ("isFireActionOnPress".equals(propertyChangeEvent.getPropertyName())) {
                 commandButton.getActionModel().setFireActionOnPress((Boolean) propertyChangeEvent.getNewValue());
             }

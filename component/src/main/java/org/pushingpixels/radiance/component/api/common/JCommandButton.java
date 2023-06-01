@@ -128,46 +128,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
     /**
-     * Indicates the auto-repeat action mode. When the button is not in the
-     * auto-repeat action mode, the registered action listeners are activated
-     * when the mouse is released (just as with the base {@link AbstractButton}
-     * ). When the button is in auto-repeat mode, the registered action
-     * listeners are activated when the mouse is pressed. In addition, if the
-     * mouse is still pressed after {@link #getAutoRepeatInitialInterval()}, the
-     * action listeners will be activated every
-     * {@link #getAutoRepeatSubsequentInterval()} until the button is disabled
-     * or the mouse is released.
-     *
-     * @see #autoRepeatInitialInterval
-     * @see #autoRepeatSubsequentInterval
-     * @see #setAutoRepeatAction(boolean)
-     * @see #isAutoRepeatAction()
-     */
-    private boolean isAutoRepeatAction;
-
-    /**
-     * The initial interval for invoking the registered action listeners in the
-     * auto-repeat action mode.
-     *
-     * @see #isAutoRepeatAction
-     * @see #autoRepeatSubsequentInterval
-     * @see #getAutoRepeatInitialInterval()
-     * @see #setAutoRepeatActionIntervals(int, int)
-     */
-    private int autoRepeatInitialInterval;
-
-    /**
-     * The subsequent interval for invoking the registered action listeners in
-     * the auto-repeat action mode.
-     *
-     * @see #isAutoRepeatAction
-     * @see #autoRepeatInitialInterval
-     * @see #getAutoRepeatSubsequentInterval()
-     * @see #setAutoRepeatActionIntervals(int, int)
-     */
-    private int autoRepeatSubsequentInterval;
-
-    /**
      * Popup model of this button.
      *
      * @see #setPopupModel(PopupButtonModel)
@@ -424,15 +384,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             this.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
         } else {
             this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
-        }
-
-        if (commandPresentation.isAutoRepeatAction()) {
-            this.setAutoRepeatAction(true);
-            if (commandPresentation.hasAutoRepeatIntervalsSet()) {
-                this.setAutoRepeatActionIntervals(
-                        commandPresentation.getAutoRepeatInitialInterval(),
-                        commandPresentation.getAutoRepeatSubsequentInterval());
-            }
         }
 
         this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
@@ -816,88 +767,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                 this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
             }
         }
-    }
-
-    /**
-     * Sets the auto-repeat action indication.
-     *
-     * @param isAutoRepeatAction If <code>true</code>, pressing the button will activate
-     *                           auto-repeat action mode. When the button is not in the
-     *                           auto-repeat action mode, the registered action listeners are
-     *                           activated when the mouse is released (just as with the base
-     *                           {@link AbstractButton}). When the button is in auto-repeat
-     *                           mode, the registered action listeners are activated when the
-     *                           mouse is pressed. In addition, is the mouse is still pressed
-     *                           after {@link #getAutoRepeatInitialInterval()}, the action
-     *                           listeners will be activated every
-     *                           {@link #getAutoRepeatSubsequentInterval()} until the button is
-     *                           disabled or the mouse is released.
-     * @see #setAutoRepeatActionIntervals(int, int)
-     * @see #isAutoRepeatAction()
-     */
-    public void setAutoRepeatAction(boolean isAutoRepeatAction) {
-        this.isAutoRepeatAction = isAutoRepeatAction;
-    }
-
-    /**
-     * Sets the intervals for the auto-repeat action mode.
-     *
-     * @param initial    The initial interval for invoking the registered action
-     *                   listeners in the auto-repeat action mode.
-     * @param subsequent The subsequent interval for invoking the registered action
-     *                   listeners in the auto-repeat action mode.
-     * @see #setAutoRepeatAction(boolean)
-     * @see #isAutoRepeatAction()
-     * @see #getAutoRepeatInitialInterval()
-     * @see #getAutoRepeatSubsequentInterval()
-     */
-    public void setAutoRepeatActionIntervals(int initial, int subsequent) {
-        this.autoRepeatInitialInterval = initial;
-        this.autoRepeatSubsequentInterval = subsequent;
-    }
-
-    /**
-     * Returns indication whether the button is in auto-repeat action mode.
-     *
-     * @return <code>true</code> if the button is in auto-repeat action mode,
-     * <code>false</code> otherwise.
-     * @see #setAutoRepeatAction(boolean)
-     * @see #setAutoRepeatActionIntervals(int, int)
-     * @see #getAutoRepeatInitialInterval()
-     * @see #getAutoRepeatSubsequentInterval()
-     */
-    public boolean isAutoRepeatAction() {
-        return this.isAutoRepeatAction;
-    }
-
-    /**
-     * Returns the initial interval for invoking the registered action listeners
-     * in the auto-repeat action mode.
-     *
-     * @return The initial interval for invoking the registered action listeners
-     * in the auto-repeat action mode.
-     * @see #setAutoRepeatActionIntervals(int, int)
-     * @see #setAutoRepeatAction(boolean)
-     * @see #isAutoRepeatAction()
-     * @see #getAutoRepeatSubsequentInterval()
-     */
-    public int getAutoRepeatInitialInterval() {
-        return autoRepeatInitialInterval;
-    }
-
-    /**
-     * Returns the subsequent interval for invoking the registered action
-     * listeners in the auto-repeat action mode.
-     *
-     * @return The subsequent interval for invoking the registered action
-     * listeners in the auto-repeat action mode.
-     * @see #setAutoRepeatActionIntervals(int, int)
-     * @see #setAutoRepeatAction(boolean)
-     * @see #isAutoRepeatAction()
-     * @see #getAutoRepeatInitialInterval()
-     */
-    public int getAutoRepeatSubsequentInterval() {
-        return autoRepeatSubsequentInterval;
     }
 
     /**
