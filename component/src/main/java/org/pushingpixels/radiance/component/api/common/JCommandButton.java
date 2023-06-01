@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -41,7 +40,6 @@ import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
-import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -458,14 +456,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                     wasRollover = isRollover;
                 }
             });
-        }
-
-        RadianceThemingSlices.Sides sides = commandPresentation.getSides();
-        if (sides != null) {
-            RadianceThemingCortex.ComponentScope.setButtonOpenSides(
-                    this, sides.getOpenSides());
-            RadianceThemingCortex.ComponentScope.setButtonStraightSides(
-                    this, sides.getStraightSides());
         }
 
         // Don't remove the next line - we need to instantiate the RichTooltipManager
