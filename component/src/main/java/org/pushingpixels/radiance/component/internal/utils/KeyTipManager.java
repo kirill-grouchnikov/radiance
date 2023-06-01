@@ -231,7 +231,7 @@ public class KeyTipManager {
                     KeyTipLink actionLink = getCommandButtonActionLink(cb);
                     if (actionLink != null) {
                         if (RadianceRibbonFrameTitlePane.TASKBAR_OVERFLOW_BUTTON.equals(
-                                cb.getProjection().getContentModel().getTag())) {
+                                cb.getContentModel().getTag())) {
                             actionLink.traversal = () -> {
                                 // collect key tips of all controls in the taskbar overflow popup
                                 List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
@@ -393,7 +393,7 @@ public class KeyTipManager {
             link.onActivated = actionEvent -> cb.doActionClick();
             link.enabled = cb.getActionModel().isEnabled();
             if (BasicRibbonGalleryUI.RIBBON_GALLERY_EXPAND_BUTTON.equals(
-                    cb.getProjection().getContentModel().getTag())) {
+                    cb.getContentModel().getTag())) {
                 link.traversal = () -> {
                     // collect key tips of all controls in the relevant popup panel
                     List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();

@@ -302,7 +302,7 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
                     if (menuButton.getContentModel().getIconFactory() != null) {
                         atLeastOneButtonHasIcon = true;
                     }
-                    if (menuButton.getProjection().getContentModel().isToggle()) {
+                    if (menuButton.getContentModel().isToggle()) {
                         atLeastOneButtonHasIcon = true;
                     }
                 }

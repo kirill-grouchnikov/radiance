@@ -340,7 +340,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         };
         this.commandButton.addPropertyChangeListener(this.propertyChangeListener);
 
-        BaseCommand<?> command = this.commandButton.getProjection().getContentModel();
+        BaseCommand<?> command = this.commandButton.getContentModel();
         this.commandPropertyChangeListener = propertyChangeEvent -> {
             if ("text".equals(propertyChangeEvent.getPropertyName())) {
                 text = (String) propertyChangeEvent.getNewValue();
@@ -498,7 +498,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.commandButton.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
 
-        this.commandButton.getProjection().getContentModel().removePropertyChangeListener(
+        this.commandButton.getContentModel().removePropertyChangeListener(
                 this.commandPropertyChangeListener);
         this.commandPropertyChangeListener = null;
 
@@ -714,7 +714,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         this.layoutManager = commandButtonState.createLayoutManager(this.commandButton);
 
         Dimension preferredIconSize =
-                this.commandButton.getProjection().getPresentationModel().getIconDimension();
+                this.commandButton.getPresentationModel().getIconDimension();
         if (preferredIconSize == null) {
             preferredIconSize = layoutManager.getPreferredIconSize(this.commandButton);
         }

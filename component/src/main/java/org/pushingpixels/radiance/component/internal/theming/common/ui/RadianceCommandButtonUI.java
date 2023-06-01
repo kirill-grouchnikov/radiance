@@ -195,7 +195,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             @Override
             public void mouseEntered(MouseEvent e) {
                 if (commandButton.isEnabled() &&
-                        (commandButton.getProjection().getPresentationModel().getPopupFireTrigger() ==
+                        (commandButton.getPresentationModel().getPopupFireTrigger() ==
                                 CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)) {
                     int modifiers = 0;
                     AWTEvent currentEvent = EventQueue.getCurrentEvent();
@@ -326,7 +326,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
 
     protected void paintButtonIcon(Graphics g, Rectangle iconRect, Color textColor) {
         boolean showSelectionAroundIcon = this.commandButton.getActionModel().isSelected() &&
-                (this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+                (this.commandButton.getPresentationModel().getSelectedStateHighlight() ==
                         CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY);
         if (showSelectionAroundIcon) {
             Graphics2D graphics = (Graphics2D) g.create();
@@ -621,7 +621,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(this.commandButton,
                     modelStateInfo.getCurrModelState());
 
-            if (this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+            if (this.commandButton.getPresentationModel().getSelectedStateHighlight() ==
                     CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
                 fgColor = getMenuButtonForegroundColor(this.commandButton, modelStateInfo);
 
@@ -645,7 +645,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         RadianceCommonCortex.installDesktopHints(g2d, this.commandButton.getFont());
         this.paint(g2d, c);
 
-        if (this.commandButton.getProjection().getPresentationModel().getSelectedStateHighlight() ==
+        if (this.commandButton.getPresentationModel().getSelectedStateHighlight() ==
                 CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) {
             KeyTipRenderingUtilities.renderButtonKeyTips(g, this.commandButton, layoutManager);
         }

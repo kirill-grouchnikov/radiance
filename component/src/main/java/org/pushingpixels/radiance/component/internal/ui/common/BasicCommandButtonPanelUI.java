@@ -877,7 +877,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         if (this.buttonPanel.getProjection().getContentModel().isSingleSelectionMode()) {
             for (List<JCommandButton> commandButtons : this.buttons) {
                 for (JCommandButton commandButton : commandButtons) {
-                    Command curr = (Command) commandButton.getProjection().getContentModel();
+                    BaseCommand<?> curr = commandButton.getContentModel();
                     if (curr.isToggleSelected()) {
                         Rectangle selectionButtonBounds = commandButton.getBounds();
                         this.buttonPanel.scrollRectToVisible(selectionButtonBounds);

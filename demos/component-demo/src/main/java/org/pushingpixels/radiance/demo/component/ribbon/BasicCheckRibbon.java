@@ -2517,9 +2517,9 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 Class<?> ownerClass = owner.getClass();
                 if (JCommandButton.class.isAssignableFrom(ownerClass)) {
                     JCommandButton cb = (JCommandButton) owner;
-                    BaseCommand<?> command = cb.getProjection().getContentModel();
+                    BaseCommand<?> command = cb.getContentModel();
                     BaseCommandButtonPresentationModel<?, ?> presentation =
-                            cb.getProjection().getPresentationModel();
+                            cb.getPresentationModel();
                     toShow = "[" + ownerClass.getSimpleName() + "] " + command.getText();
                     if (command.getIconFactory() != null) {
                         icon = command.getIconFactory().createNewIcon();

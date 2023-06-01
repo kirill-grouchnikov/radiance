@@ -365,7 +365,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             Component topLevel = this.panelLevel1.getComponent(topLevelIndex);
             if (topLevel instanceof JCommandButton) {
                 JCommandButton button = (JCommandButton) topLevel;
-                if (button.getProjection().getContentModel() == command) {
+                if (button.getContentModel() == command) {
                     return button;
                 }
             }
@@ -380,12 +380,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         for (int secondLevelIndex = 0;
              secondLevelIndex < secondaryPanel.getComponentCount();
              secondLevelIndex++) {
-            Component secondLevel = secondaryPanel.getComponent(
-                    secondLevelIndex);
+            Component secondLevel = secondaryPanel.getComponent(secondLevelIndex);
             if (secondLevel instanceof JCommandButton) {
-                JCommandButton secondLevelButton =
-                        (JCommandButton) secondLevel;
-                if (secondLevelButton.getProjection().getContentModel() == command) {
+                JCommandButton secondLevelButton = (JCommandButton) secondLevel;
+                if (secondLevelButton.getContentModel() == command) {
                     return secondLevelButton;
                 }
             }
@@ -409,7 +407,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             for (Component child : popupMenu.getMenuComponents()) {
                 if (child instanceof JCommandButton) {
                     JCommandButton button = (JCommandButton) child;
-                    if (button.getProjection().getContentModel() == command) {
+                    if (button.getContentModel() == command) {
                         return button;
                     }
                 }

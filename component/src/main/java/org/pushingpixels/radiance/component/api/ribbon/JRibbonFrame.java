@@ -749,7 +749,7 @@ public class JRibbonFrame extends JFrame {
                                 ? extends BaseCommandButtonPresentationModel<?, ?>,
                                 ? extends BaseCommandPopupMenuPresentationModel> projection =
                                 ((JCommandButton) c).getProjection();
-                        BaseCommand command = projection.getContentModel();
+                        BaseCommand command = ((JCommandButton) c).getContentModel();
                         if (!BasicRibbonUI.INTERNAL.equals(command.getTag())) {
                             if (SwingUtilities.getAncestorOfClass(JRibbonApplicationMenuPopupPanel.class, c) != null) {
                                 // App menu link

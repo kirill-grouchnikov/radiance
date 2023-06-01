@@ -124,7 +124,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             height += layoutVGap;
         }
         // popup icon (no text)?
-        if (!hasText && hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
+        if (!hasText && hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
             // padding above the popup icon
             height += layoutVGap;
             // popup icon height - one line of text
@@ -323,7 +323,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             lastTextLineWidth = (this.titlePart2 != null)
                     ? fm.stringWidth(this.titlePart2) : 0;
 
-            int extraWidth = hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon() ? 4 * layoutHGap + labelHeight / 2 : 0;
+            int extraWidth = hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon() ? 4 * layoutHGap + labelHeight / 2 : 0;
 
             if (ltr) {
                 x = ins.left + (width - lastTextLineWidth - extraWidth - ins.left - ins.right) / 2;
@@ -347,7 +347,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             result.textLayoutInfoList.add(line2LayoutInfo);
         }
 
-        if (hasPopupIcon && commandButton.getProjection().getPresentationModel().isShowPopupIcon()) {
+        if (hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
             if (lastTextLineWidth > 0) {
                 if (ltr) {
                     x += 2 * layoutHGap;

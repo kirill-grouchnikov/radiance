@@ -285,7 +285,7 @@ public class CommandButtonBackgroundDelegate {
                     int dy = -deltaTop;
                     int dh = deltaTop + deltaBottom;
 
-                    float radius = (commandButton.getProjection().getPresentationModel().getSelectedStateHighlight()
+                    float radius = (commandButton.getPresentationModel().getSelectedStateHighlight()
                             == CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY) ? 0 :
                             (float) scaleFactor * RadianceSizeUtils.getClassicButtonCornerRadius(
                                     RadianceSizeUtils.getComponentFontSize(commandButton));
