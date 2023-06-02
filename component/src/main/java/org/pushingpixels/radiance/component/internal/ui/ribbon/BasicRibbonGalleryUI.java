@@ -208,7 +208,8 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 CommandButtonPresentationModel.overlay()
                         .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
                         .setSides(RadianceThemingSlices.Sides.builder()
-                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
+                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING,
+                                        RadianceThemingSlices.Side.BOTTOM))
                                 .build())
                         .setAutoRepeatAction(true)
                         .setAutoRepeatActionIntervals(200, 50));
@@ -216,7 +217,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 CommandButtonPresentationModel.overlay()
                         .setIconDimension(new Dimension(arrowIconWidth, arrowIconHeight))
                         .setSides(RadianceThemingSlices.Sides.builder()
-                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
+                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING,
+                                        RadianceThemingSlices.Side.TOP, RadianceThemingSlices.Side.BOTTOM))
+                                .setOpenSides(EnumSet.of(RadianceThemingSlices.Side.TOP))
                                 .build())
                         .setAutoRepeatAction(true)
                         .setAutoRepeatActionIntervals(200, 50));
@@ -224,7 +227,9 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 CommandButtonPresentationModel.overlay()
                         .setIconDimension(new Dimension(arrowIconWidth, arrowDoubleIconHeight))
                         .setSides(RadianceThemingSlices.Sides.builder()
-                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING))
+                                .setStraightSides(EnumSet.of(RadianceThemingSlices.Side.LEADING,
+                                        RadianceThemingSlices.Side.TOP))
+                                .setOpenSides(EnumSet.of(RadianceThemingSlices.Side.TOP))
                                 .build())
                         .setActionKeyTip(this.ribbonGallery.getProjection()
                                 .getPresentationModel().getExpandKeyTip())
