@@ -45,7 +45,6 @@ public class ColorSelectorCommandButtonProjection extends
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, ColorSelectorPopupMenuContentModel, ColorSelectorPopupMenuPresentationModel> getPopupMenuPanelProjection() {
         ColorSelectorPopupMenuContentModel popupMenuContentModel =
                 this.getContentModel().getSecondaryContentModel();

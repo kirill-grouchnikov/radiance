@@ -88,7 +88,6 @@ public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandBut
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, RibbonApplicationMenu, CommandPopupMenuPresentationModel> getPopupMenuPanelProjection() {
         CommandPopupMenuPresentationModel popupMenuPresentationModel =
                 this.getPresentationModel().getPopupMenuPresentationModel();

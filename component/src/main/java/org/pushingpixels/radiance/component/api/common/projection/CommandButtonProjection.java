@@ -43,18 +43,16 @@ public class CommandButtonProjection<M extends Command>
         super(command, commandPresentation);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public CommandButtonProjection<M> reproject(CommandButtonPresentationModel newCommandPresentation) {
-        CommandButtonProjection<M> result =
-                (CommandButtonProjection<M>) this.getContentModel().project(newCommandPresentation);
+        CommandButtonProjection<M> result = new CommandButtonProjection<>(
+                this.getContentModel(), newCommandPresentation);
         result.setComponentSupplier(this.getComponentSupplier());
         result.setCommandOverlays(this.getCommandOverlays());
         return result;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel, CommandMenuContentModel, CommandPopupMenuPresentationModel> getPopupMenuPanelProjection() {
         CommandPopupMenuPresentationModel popupMenuPresentationModel =
                 this.getPresentationModel().getPopupMenuPresentationModel();

@@ -43,7 +43,6 @@ public class CustomComplexCommandButtonProjection extends
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel,
             CustomComplexPopupMenuContentModel, CustomComplexPopupMenuPresentationModel> getPopupMenuPanelProjection() {
         CustomComplexPopupMenuContentModel popupMenuContentModel =
