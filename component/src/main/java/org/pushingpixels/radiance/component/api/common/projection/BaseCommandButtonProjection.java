@@ -93,6 +93,11 @@ public abstract class BaseCommandButtonProjection<
 
     public abstract BaseCommandButtonProjection<M, MCM, P, MPM> reproject(P newCommandPresentation);
 
+    public BaseCommandButtonProjection<M, MCM, P, MPM> reprojectWithOverlay(
+            BaseCommandButtonPresentationModel.Overlay overlay) {
+        return this.reproject(this.getPresentationModel().overlayWith(overlay));
+    }
+
     @Override
     public JCommandButton buildBaseComponent() {
         return this.getComponentSupplier().getComponentSupplier(this).apply(this);

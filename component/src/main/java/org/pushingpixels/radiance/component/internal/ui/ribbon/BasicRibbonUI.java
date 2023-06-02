@@ -255,12 +255,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
     private JCommandButton createApplicationMenuButton() {
         RibbonApplicationMenuCommandButtonProjection applicationMenuCommandButtonProjection =
                 this.ribbon.getApplicationMenuCommandProjection();
-        return applicationMenuCommandButtonProjection.reproject(
-                        applicationMenuCommandButtonProjection.getPresentationModel().overlayWith(
-                                new BaseCommandButtonPresentationModel.Overlay()
-                                        .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                        .setHorizontalAlignment(HorizontalAlignment.CENTER)
-                                        .setShowPopupIcon(false)))
+        return applicationMenuCommandButtonProjection.reprojectWithOverlay(
+                        new BaseCommandButtonPresentationModel.Overlay()
+                                .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                                .setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                .setShowPopupIcon(false))
                 .buildComponent();
     }
 
