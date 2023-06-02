@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.*;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandToggleGroupModel;
@@ -251,90 +252,16 @@ public abstract class BasicRibbonUI extends RibbonUI {
         }
     }
 
-    private final static CommandButtonPresentationState APP_MENU_BUTTON_STATE =
-            new CommandButtonPresentationState("Ribbon Application Menu Button", 16) {
-                @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton
-                        commandButton) {
-                    return new CommandButtonLayoutManager() {
-                        @Override
-                        public Dimension getPreferredIconSize(JCommandButton commandButton) {
-                            return null;
-                        }
-
-                        @Override
-                        public CommandButtonLayoutInfo getLayoutInfo(
-                                JCommandButton commandButton) {
-                            CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
-                            result.actionClickArea = new Rectangle(0, 0, 0, 0);
-                            result.popupActionRect = new Rectangle(0, 0, 0, 0);
-                            result.isTextInActionArea = false;
-
-                            String buttonText = commandButton.getContentModel().getText();
-
-                            FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                                    RadianceCommonCortex.getScaleFactor(commandButton),
-                                    commandButton.getFont());
-                            int labelHeight = fm.getAscent() + fm.getDescent();
-
-                            int availableWidth = commandButton.getWidth();
-                            int textWidth = fm.stringWidth(buttonText);
-
-                            TextLayoutInfo lineLayoutInfo = new TextLayoutInfo();
-                            lineLayoutInfo.text = buttonText;
-                            lineLayoutInfo.textRect = new Rectangle();
-                            result.textLayoutInfoList = new ArrayList<>();
-                            result.textLayoutInfoList.add(lineLayoutInfo);
-
-                            lineLayoutInfo.textRect.x = (availableWidth - textWidth) / 2;
-                            lineLayoutInfo.textRect.y =
-                                    (commandButton.getHeight() - labelHeight) / 2;
-                            lineLayoutInfo.textRect.width = textWidth;
-                            lineLayoutInfo.textRect.height = labelHeight;
-
-                            result.popupClickArea = new Rectangle(0, 0, availableWidth,
-                                    commandButton.getHeight());
-
-                            return result;
-                        }
-
-                        @Override
-                        public Dimension getPreferredSize(
-                                JCommandButton commandButton) {
-                            return new Dimension(40, 20);
-                        }
-
-                        @Override
-                        public Point getActionKeyTipAnchorCenterPoint(
-                                JCommandButton commandButton) {
-                            return null;
-                        }
-
-                        @Override
-                        public Point getPopupKeyTipAnchorCenterPoint(
-                                JCommandButton commandButton) {
-                            // center at the middle of the bottom edge to be consistent with
-                            // the location of key tips of the task toggle buttons
-                            return new Point(commandButton.getWidth() / 2,
-                                    commandButton.getHeight());
-                        }
-                    };
-                }
-            };
-
     private JCommandButton createApplicationMenuButton() {
         RibbonApplicationMenuCommandButtonProjection applicationMenuCommandButtonProjection =
                 this.ribbon.getApplicationMenuCommandProjection();
-        return new JCommandButton(
-                applicationMenuCommandButtonProjection.reproject(
-                CommandButtonPresentationModel.builder()
-                        .setPresentationState(APP_MENU_BUTTON_STATE)
-                        .setHorizontalAlignment(HorizontalAlignment.CENTER)
-                        .setPopupRichTooltipPresentationModel(
-                                applicationMenuCommandButtonProjection.getPresentationModel().
-                                        getPopupRichTooltipPresentationModel())
-                        .build())
-        );
+        return applicationMenuCommandButtonProjection.reproject(
+                        applicationMenuCommandButtonProjection.getPresentationModel().overlayWith(
+                                new BaseCommandButtonPresentationModel.Overlay()
+                                        .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                                        .setHorizontalAlignment(HorizontalAlignment.CENTER)
+                                        .setShowPopupIcon(false)))
+                .buildComponent();
     }
 
     @Override
