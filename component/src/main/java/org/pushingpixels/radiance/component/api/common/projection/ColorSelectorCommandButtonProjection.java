@@ -32,11 +32,8 @@ package org.pushingpixels.radiance.component.api.common.projection;
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommand;
 import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
-import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopupMenuPanel;
-import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 
 public class ColorSelectorCommandButtonProjection extends
         BaseCommandButtonProjection<ColorSelectorCommand, ColorSelectorPopupMenuContentModel,

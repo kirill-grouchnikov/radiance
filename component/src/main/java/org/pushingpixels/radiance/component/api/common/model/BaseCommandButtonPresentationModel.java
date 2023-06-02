@@ -34,7 +34,6 @@ import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
-import javax.swing.*;
 import java.awt.*;
 
 public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommandPopupMenuPresentationModel,

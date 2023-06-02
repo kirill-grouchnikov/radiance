@@ -29,21 +29,15 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.component.api.common.model.*;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelContentModel;
+import org.pushingpixels.radiance.component.api.common.model.CommandPanelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.panel.PanelLayoutSpec;
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCommandButtonPanelUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonPanelUI;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Panel that hosts command buttons. Provides support for button groups, single

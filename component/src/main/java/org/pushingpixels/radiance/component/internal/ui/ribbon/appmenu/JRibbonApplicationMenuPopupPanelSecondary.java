@@ -43,7 +43,6 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandPanelPr
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonPanelUI;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
-import javax.swing.*;
 import java.util.Map;
 
 public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPanel {

@@ -29,7 +29,6 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
-import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
 import org.pushingpixels.radiance.component.api.common.JExoContainer;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
