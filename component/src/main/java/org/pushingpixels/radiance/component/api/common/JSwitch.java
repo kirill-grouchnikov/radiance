@@ -96,14 +96,6 @@ public class JSwitch extends JToggleButton implements RichTooltipManager.WithRic
         return this.presentationModel.getRichTooltipPresentationModel();
     }
 
-    public void addChangeListener(ChangeListener l) {
-        this.listenerList.add(ChangeListener.class, l);
-    }
-
-    public void removeChangeListener(ChangeListener l) {
-        this.listenerList.remove(ChangeListener.class, l);
-    }
-
     protected void fireStateChanged() {
         Object[] listeners = listenerList.getListenerList();
         ChangeEvent event = new ChangeEvent(this);

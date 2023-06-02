@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.ribbon.resize;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JFlowRibbonBand;
@@ -68,7 +69,7 @@ import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonGalleryP
  * <p>
  * The {@link CoreRibbonResizePolicies} provides a number of built in resize
  * policies that respect the application element priorities passed to
- * {@link JRibbonBand#addRibbonCommand(CommandButtonProjection, JRibbonBand.PresentationPriority)}
+ * {@link JRibbonBand#addRibbonCommand(BaseCommandButtonProjection, JRibbonBand.PresentationPriority)}
  * and
  * {@link JRibbonBand#addRibbonGallery(RibbonGalleryProjection, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:

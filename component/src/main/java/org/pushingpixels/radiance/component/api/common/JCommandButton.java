@@ -179,12 +179,12 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         /**
          * <code>true</code> if the command button kind has an action.
          */
-        private boolean hasAction;
+        private final boolean hasAction;
 
         /**
          * <code>true</code> if the command button kind has a popup.
          */
-        private boolean hasPopup;
+        private final boolean hasPopup;
 
         /**
          * Constructs a new command button kind.

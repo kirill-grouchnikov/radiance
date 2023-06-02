@@ -680,7 +680,6 @@ public class JRibbonFrame extends JFrame {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private void handlePopupTrigger(MouseEvent event, Component c) {
         if (!isValidPopupTriggerSource(c)) {
             // Component not in the ribbon. Do nothing.

@@ -144,8 +144,8 @@ public class BreadcrumbBarContentModel<T> {
      */
     public void replace(List<BreadcrumbItem<T>> items) {
         this.items.clear();
-        for (int i = 0; i < items.size(); i++) {
-            this.items.addLast(items.get(i));
+        for (BreadcrumbItem<T> item : items) {
+            this.items.addLast(item);
         }
         this.firePathChanged(0);
     }

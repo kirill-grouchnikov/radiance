@@ -95,8 +95,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         if (hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
             // padding before the popup icon
             width += 2 * layoutHGap;
-            // text width
-            width += 1 + fm.getHeight() / 2;
+            // popup icon width
+            width += commandButton.getPresentationModel().getPopupIcon().getIconWidth();
             // padding after the popup icon
             width += 2 * layoutHGap;
         }
@@ -274,8 +274,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
 
             if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
-                int popupIconWidth = ComponentUtilities.getCommandButtonPopupIconWidth(
-                        commandButton.getFont().getSize());
+                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
                 if (hasText || hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the right edge
@@ -287,9 +287,9 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 }
 
                 result.popupActionRect.x = x;
-                result.popupActionRect.y = bt + (height - by - labelHeight) / 2 - 1;
+                result.popupActionRect.y = bt + (height - by - popupIconHeight) / 2;
                 result.popupActionRect.width = popupIconWidth;
-                result.popupActionRect.height = labelHeight + 2;
+                result.popupActionRect.height = popupIconHeight;
             }
 
             int xBorderBetweenActionAndPopup = 0;
@@ -455,8 +455,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             }
 
             if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
-                int popupIconWidth = ComponentUtilities.getCommandButtonPopupIconWidth(
-                        commandButton.getFont().getSize());
+                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
                 if (hasText || hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the left edge
@@ -469,8 +469,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
 
                 result.popupActionRect.width = popupIconWidth;
                 result.popupActionRect.x = x - result.popupActionRect.width;
-                result.popupActionRect.y = bt + (height - by - labelHeight) / 2 - 1;
-                result.popupActionRect.height = labelHeight + 2;
+                result.popupActionRect.y = bt + (height - by - popupIconHeight) / 2;
+                result.popupActionRect.height = popupIconHeight;
             }
 
             int xBorderBetweenActionAndPopup = 0;

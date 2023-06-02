@@ -1,37 +1,38 @@
 /*
  * Copyright (c) 2005-2023 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
@@ -66,9 +67,10 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 + 2 * layoutHGap
                 + jsep.getPreferredSize().width
                 + titleWidth
-                + (ComponentUtilities.hasPopupAction(commandButton) ? 1
-                        + fm.getHeight() / 2 + 4 * layoutHGap
-                        + jsep.getPreferredSize().width : 0);
+                + (ComponentUtilities.hasPopupAction(commandButton)
+                ? commandButton.getPresentationModel().getPopupIcon().getIconWidth()
+                + 4 * layoutHGap + jsep.getPreferredSize().width
+                : 0);
 
         // height - three lines of text and two gaps between them.
         // The gap between the lines is half the main gap.
@@ -112,6 +114,8 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
 
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
+        BaseCommandButtonPresentationModel presentationModel = commandButton.getPresentationModel();
+
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -270,11 +274,13 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             }
 
             if (ComponentUtilities.hasPopupAction(commandButton)) {
-                result.popupActionRect.x = width - ins.right - labelHeight * 3
-                        / 4;
-                result.popupActionRect.y = (height - labelHeight) / 2 - 1;
-                result.popupActionRect.width = 1 + labelHeight / 2;
-                result.popupActionRect.height = labelHeight + 2;
+                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+
+                result.popupActionRect.x = width - ins.right - popupIconWidth;
+                result.popupActionRect.y = (height - popupIconHeight) / 2;
+                result.popupActionRect.width = popupIconWidth;
+                result.popupActionRect.height = popupIconHeight;
             }
         } else {
             int x = commandButton.getWidth() - ins.right;
@@ -390,10 +396,13 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             }
 
             if (ComponentUtilities.hasPopupAction(commandButton)) {
-                result.popupActionRect.x = ins.left + labelHeight / 4;
-                result.popupActionRect.y = (height - labelHeight) / 2 - 1;
-                result.popupActionRect.width = 1 + labelHeight / 2;
-                result.popupActionRect.height = labelHeight + 2;
+                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+
+                result.popupActionRect.x = ins.left;
+                result.popupActionRect.y = (height - popupIconHeight) / 2;
+                result.popupActionRect.width = popupIconWidth;
+                result.popupActionRect.height = popupIconHeight;
             }
         }
         return result;

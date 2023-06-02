@@ -126,7 +126,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         if (!hasText && hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
             // padding above the popup icon
             height += layoutVGap;
-            // popup icon height - one line of text
+            // popup icon height to be equivalent to one line of text
             height += fm.getHeight();
             // padding below the popup icon
             height += layoutVGap;
@@ -222,6 +222,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
+        BaseCommandButtonPresentationModel presentationModel = commandButton.getPresentationModel();
+
         if (!this.titlePartsComputed) {
             this.updateTitleStrings(commandButton);
             this.titlePartsComputed = true;
@@ -322,7 +324,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             lastTextLineWidth = (this.titlePart2 != null)
                     ? fm.stringWidth(this.titlePart2) : 0;
 
-            int extraWidth = hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon() ? 4 * layoutHGap + labelHeight / 2 : 0;
+            int extraWidth = (hasPopupIcon && presentationModel.isShowPopupIcon()) ?
+                    presentationModel.getPopupIcon().getIconWidth() : 0;
 
             if (ltr) {
                 x = ins.left + (width - lastTextLineWidth - extraWidth - ins.left - ins.right) / 2;
@@ -359,10 +362,13 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 x = (width - 1 - labelHeight / 2) / 2;
             }
 
+            int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+            int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+
             result.popupActionRect.x = x;
-            result.popupActionRect.y = y - 1;
-            result.popupActionRect.width = 1 + labelHeight / 2;
-            result.popupActionRect.height = labelHeight + 2;
+            result.popupActionRect.y = y + (labelHeight - popupIconHeight) / 2;
+            result.popupActionRect.width = popupIconWidth;
+            result.popupActionRect.height = popupIconHeight;
         }
 
         switch (buttonKind) {

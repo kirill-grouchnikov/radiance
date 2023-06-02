@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
@@ -63,9 +64,10 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
                 + 2 * layoutHGap
                 + jsep.getPreferredSize().width
                 + titleWidth
-                + (ComponentUtilities.hasPopupAction(commandButton) ? 1
-                + fm.getHeight() / 2 + 4 * layoutHGap
-                + jsep.getPreferredSize().width : 0);
+                + (ComponentUtilities.hasPopupAction(commandButton)
+                ? commandButton.getPresentationModel().getPopupIcon().getIconWidth()
+                + 4 * layoutHGap + jsep.getPreferredSize().width
+                : 0);
         return new Dimension(bx + widthMed,
                 by + Math.max(this.getPreferredIconSize(commandButton).height,
                         2 * (fm.getAscent() + fm.getDescent()) + layoutVGap));
@@ -101,6 +103,8 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
 
     @Override
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
+        BaseCommandButtonPresentationModel presentationModel = commandButton.getPresentationModel();
+
         CommandButtonLayoutInfo result = new CommandButtonLayoutInfo();
 
         result.actionClickArea = new Rectangle(0, 0, 0, 0);
@@ -214,11 +218,13 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
             }
 
             if (ComponentUtilities.hasPopupAction(commandButton)) {
-                result.popupActionRect.x = width - ins.right - labelHeight * 3
-                        / 4;
-                result.popupActionRect.y = (height - labelHeight) / 2 - 1;
-                result.popupActionRect.width = 1 + labelHeight / 2;
-                result.popupActionRect.height = labelHeight + 2;
+                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+
+                result.popupActionRect.x = width - ins.right - popupIconWidth;
+                result.popupActionRect.y = (height - popupIconHeight) / 2;
+                result.popupActionRect.width = popupIconWidth;
+                result.popupActionRect.height = popupIconHeight;
             }
         } else {
             int x = commandButton.getWidth() - ins.right;
@@ -288,10 +294,13 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
             }
 
             if (ComponentUtilities.hasPopupAction(commandButton)) {
-                result.popupActionRect.x = ins.left + labelHeight / 4;
-                result.popupActionRect.y = (height - labelHeight) / 2 - 1;
-                result.popupActionRect.width = 1 + labelHeight / 2;
-                result.popupActionRect.height = labelHeight + 2;
+                int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
+                int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
+
+                result.popupActionRect.x = ins.left;
+                result.popupActionRect.y = (height - popupIconHeight) / 2;
+                result.popupActionRect.width = popupIconWidth;
+                result.popupActionRect.height = popupIconHeight;
             }
         }
 

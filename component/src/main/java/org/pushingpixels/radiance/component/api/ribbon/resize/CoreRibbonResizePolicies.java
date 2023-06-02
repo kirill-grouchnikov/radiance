@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.ribbon.resize;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JFlowRibbonBand;
@@ -48,7 +49,7 @@ import java.util.Map;
 /**
  * The core resize policies. Provides a number of built in resize policies that
  * respect the application element priorities passed to
- * {@link JRibbonBand#addRibbonCommand(CommandButtonProjection, JRibbonBand.PresentationPriority)}
+ * {@link JRibbonBand#addRibbonCommand(BaseCommandButtonProjection, JRibbonBand.PresentationPriority)}
  * and
  * {@link JRibbonBand#addRibbonGallery(RibbonGalleryProjection, JRibbonBand.PresentationPriority)}
  * APIs. There are three types of built in resize policies:
@@ -369,8 +370,7 @@ public class CoreRibbonResizePolicies {
                     int startRowIndex = (controlPanelGroup.getGroupTitle() == null) ? 0 : 1;
                     int rowIndex = startRowIndex;
                     int maxWidthInCurrColumn = 0;
-                    for (int i = 0; i < ribbonComps.size(); i++) {
-                        JRibbonComponent ribbonComp = ribbonComps.get(i);
+                    for (JRibbonComponent ribbonComp : ribbonComps) {
                         int rowSpan = 1;
 
                         // do we need to start a new column?
@@ -488,8 +488,7 @@ public class CoreRibbonResizePolicies {
                 boolean isCoreContent = controlPanelGroup.isCoreContent();
                 if (isCoreContent) {
                     List<JRibbonComponent> ribbonComps = controlPanelGroup.getRibbonComps();
-                    for (int i = 0; i < ribbonComps.size(); i++) {
-                        JRibbonComponent ribbonComp = ribbonComps.get(i);
+                    for (JRibbonComponent ribbonComp : ribbonComps) {
                         JRibbonBand.PresentationPriority targetPriority = JRibbonBand.PresentationPriority.TOP;
                         if (ribbonComp.isResizingAware()) {
                             targetPriority = this.mapping.map(JRibbonBand.PresentationPriority.TOP);
