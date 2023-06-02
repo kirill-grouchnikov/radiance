@@ -29,9 +29,11 @@
  */
 package org.pushingpixels.radiance.demo.component.common.custom;
 
+import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.projection.AbstractPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
+import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 
 public class CustomComplexCommandButtonProjection extends
         BaseCommandButtonProjection<CustomComplexCommand, CustomComplexPopupMenuContentModel,
@@ -57,5 +59,16 @@ public class CustomComplexCommandButtonProjection extends
                 new CustomComplexPopupMenuPanelProjection(popupMenuContentModel, popupMenuPresentationModel);
         customComplexPopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
         return customComplexPopupMenuPanelProjection;
+    }
+
+    @Override
+    public CustomComplexCommandButtonProjection reproject(
+            CustomComplexCommandButtonPresentationModel newCommandPresentation) {
+        CustomComplexCommandButtonProjection result =
+                new CustomComplexCommandButtonProjection(
+                        this.getContentModel(), newCommandPresentation);
+        result.setComponentSupplier(this.getComponentSupplier());
+        result.setCommandOverlays(this.getCommandOverlays());
+        return result;
     }
 }

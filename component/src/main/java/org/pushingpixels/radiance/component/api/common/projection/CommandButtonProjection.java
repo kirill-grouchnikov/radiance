@@ -45,6 +45,7 @@ public class CommandButtonProjection<M extends Command>
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public CommandButtonProjection<M> reproject(CommandButtonPresentationModel newCommandPresentation) {
         CommandButtonProjection<M> result =
                 (CommandButtonProjection<M>) this.getContentModel().project(newCommandPresentation);

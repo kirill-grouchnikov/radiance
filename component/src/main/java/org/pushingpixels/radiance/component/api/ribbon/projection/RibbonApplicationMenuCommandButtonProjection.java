@@ -75,6 +75,7 @@ public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandBut
         return this.secondaryLevelCommandPresentationState;
     }
 
+    @Override
     public RibbonApplicationMenuCommandButtonProjection reproject(
             CommandButtonPresentationModel newCommandPresentation) {
         RibbonApplicationMenuCommandButtonProjection result =

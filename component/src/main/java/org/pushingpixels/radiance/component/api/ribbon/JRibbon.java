@@ -286,12 +286,14 @@ public class JRibbon extends JComponent {
         return this.taskbarKeyTipPolicy;
     }
 
-    public synchronized void addTaskbarCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
-            ? extends BaseCommandMenuContentModel,
-            ? extends BaseCommandButtonPresentationModel<?, ?>,
-            ? extends BaseCommandPopupMenuPresentationModel> projection) {
-        BaseCommandButtonPresentationModel originalPresentationModel = projection.getPresentationModel();
-        BaseCommandButtonPresentationModel presentationModel = originalPresentationModel.overlayWith(
+    public synchronized <M extends BaseCommand<MCM>,
+            MCM extends BaseCommandMenuContentModel,
+            P extends BaseCommandButtonPresentationModel<MPM, P>,
+            MPM extends BaseCommandPopupMenuPresentationModel> void addTaskbarCommand(
+                    BaseCommandButtonProjection<M, MCM, P, MPM> projection) {
+
+        P originalPresentationModel = projection.getPresentationModel();
+        P presentationModel = originalPresentationModel.overlayWith(
                 new CommandButtonPresentationModel.Overlay()
                         .setPresentationState(CommandButtonPresentationState.SMALL)
                         .setIconFilterStrategies(
@@ -303,13 +305,7 @@ public class JRibbon extends JComponent {
                         .setVerticalGapScaleFactor(0.5)
         );
 
-        BaseCommand contentModel = projection.getContentModel();
-        // TODO - make this generic
-        JCommandButton commandButton = (contentModel instanceof ColorSelectorCommand) ?
-                new ColorSelectorCommandButtonProjection((ColorSelectorCommand) contentModel,
-                        (ColorSelectorCommandButtonPresentationModel) presentationModel).buildComponent() :
-                new CommandButtonProjection<>((Command) projection.getContentModel(),
-                        (CommandButtonPresentationModel) presentationModel).buildComponent();
+        JCommandButton commandButton = projection.reproject(presentationModel).buildComponent();
 
         commandButton.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
         this.taskbarComponents.add(commandButton);

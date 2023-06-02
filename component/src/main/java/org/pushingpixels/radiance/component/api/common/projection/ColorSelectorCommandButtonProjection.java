@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.popup.JColorSelectorPopup
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 
 public class ColorSelectorCommandButtonProjection extends
         BaseCommandButtonProjection<ColorSelectorCommand, ColorSelectorPopupMenuContentModel,
@@ -60,5 +61,16 @@ public class ColorSelectorCommandButtonProjection extends
                 new ColorSelectorPopupMenuPanelProjection(popupMenuContentModel, popupMenuPresentationModel);
         colorSelectorPopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
         return colorSelectorPopupMenuPanelProjection;
+    }
+
+    @Override
+    public ColorSelectorCommandButtonProjection reproject(
+            ColorSelectorCommandButtonPresentationModel newCommandPresentation) {
+        ColorSelectorCommandButtonProjection result =
+                new ColorSelectorCommandButtonProjection(
+                        this.getContentModel(), newCommandPresentation);
+        result.setComponentSupplier(this.getComponentSupplier());
+        result.setCommandOverlays(this.getCommandOverlays());
+        return result;
     }
 }
