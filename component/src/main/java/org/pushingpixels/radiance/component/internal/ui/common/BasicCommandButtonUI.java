@@ -107,15 +107,15 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      *
      * @see #disposePopupsActionListener
      */
-    public static final String DONT_DISPOSE_POPUPS =
-            "radiance.component.internal.commandButton.ui.dontDisposePopups";
+    public static final String DO_NOT_DISPOSE_POPUPS =
+            "radiance.component.internal.commandButton.ui.doNotDisposePopups";
 
     /**
      * This listener disposes all popup panels when button's action is activated. An example of
      * scenario would be a command button in the popup panel of an in-ribbon gallery. When this
      * command button is activated, the associated popup panel is dismissed.
      *
-     * @see #DONT_DISPOSE_POPUPS
+     * @see #DO_NOT_DISPOSE_POPUPS
      */
     private CommandAction disposePopupsActionListener;
 
@@ -400,7 +400,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         this.disposePopupsActionListener = commandActionEvent -> {
             boolean toDismiss = !Boolean.TRUE
-                    .equals(commandButton.getClientProperty(DONT_DISPOSE_POPUPS));
+                    .equals(commandButton.getClientProperty(DO_NOT_DISPOSE_POPUPS));
             if (toDismiss) {
                 JCommandPopupMenuPanel menuPanel = (JCommandPopupMenuPanel) SwingUtilities
                         .getAncestorOfClass(JCommandPopupMenuPanel.class, commandButton);

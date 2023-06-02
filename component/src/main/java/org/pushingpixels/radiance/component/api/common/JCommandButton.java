@@ -344,7 +344,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
 
         if (!commandPresentation.isToDismissPopupsOnActivation()) {
-            this.putClientProperty(BasicCommandButtonUI.DONT_DISPOSE_POPUPS, Boolean.TRUE);
+            this.putClientProperty(BasicCommandButtonUI.DO_NOT_DISPOSE_POPUPS, Boolean.TRUE);
         }
 
         this.setPresentationState(commandPresentation.getPresentationState());
@@ -377,7 +377,8 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         }
 
         if (hasAction && hasPopup) {
-            this.setCommandButtonKind(commandPresentation.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION
+            this.setCommandButtonKind((commandPresentation.getTextClick() ==
+                    BaseCommandButtonPresentationModel.TextClick.ACTION)
                     ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                     : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
         } else if (hasPopup) {
