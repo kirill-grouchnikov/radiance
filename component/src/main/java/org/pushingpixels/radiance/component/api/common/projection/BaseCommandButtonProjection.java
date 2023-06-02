@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuCont
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
-import javax.swing.*;
 import java.util.function.Function;
 
 public abstract class BaseCommandButtonProjection<
@@ -64,7 +63,7 @@ public abstract class BaseCommandButtonProjection<
          *                   the content model and / or the presentation model.
          * @return A supplier of the target component. It should be a reference to a function that
          * gets one parameter - projection, and returns an instance of the matching
-         * {@link JComponent} subclass that represents the Swing component to be
+         * {@link JCommandButton} subclass that represents the Swing component to be
          * used to configure the projected component in {@link #configureComponent(JCommandButton)}
          * call.
          */
@@ -80,7 +79,7 @@ public abstract class BaseCommandButtonProjection<
     public void setComponentSupplier(BaseCommandButtonProjection.CommandButtonComponentSupplier<
             JCommandButton, M, MCM, P, MPM> componentSupplier) {
         if (componentSupplier == null) {
-            throw new IllegalArgumentException("Cannot pass null component creator");
+            throw new IllegalArgumentException("Cannot pass null component supplier");
         }
         this.componentSupplier = componentSupplier;
     }
