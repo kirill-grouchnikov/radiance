@@ -72,6 +72,8 @@ public class CustomComplexCommandButtonPresentationModel extends
                 ? overlay.getToDismissPopupsOnActivation() : this.toDismissPopupsOnActivation;
         result.showPopupIcon = (overlay.isShowPopupIcon() != null)
                 ? overlay.isShowPopupIcon() : this.showPopupIcon;
+        result.popupIcon = (overlay.getPopupIcon() != null)
+                ? overlay.getPopupIcon() : this.popupIcon;
         result.popupMenuPresentationModel = (overlay.getPopupMenuPresentationModel() != null)
                 ? (CustomComplexPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
         result.actionKeyTip = (overlay.getActionKeyTip() != null)

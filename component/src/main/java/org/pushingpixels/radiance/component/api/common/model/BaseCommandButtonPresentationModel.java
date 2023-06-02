@@ -29,8 +29,10 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
+import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
+import org.pushingpixels.radiance.component.api.common.icon.CommandButtonDefaultPopupIcon;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -65,6 +67,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected String popupKeyTip;
     protected boolean toDismissPopupsOnActivation;
     protected boolean showPopupIcon;
+    protected RadianceIcon popupIcon;
     protected MPM popupMenuPresentationModel;
     protected TextClick textClick;
     protected boolean isAutoRepeatAction;
@@ -140,6 +143,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
     public boolean isShowPopupIcon() {
         return this.showPopupIcon;
+    }
+
+    public RadianceIcon getPopupIcon() {
+        return this.popupIcon;
     }
 
     public SelectedStateHighlight getSelectedStateHighlight() {
@@ -267,6 +274,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private Font font;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
         private Boolean showPopupIcon;
+        private RadianceIcon popupIcon;
         private Boolean toDismissPopupsOnActivation;
         private String actionKeyTip;
         private String popupKeyTip;
@@ -345,6 +353,11 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
         public Overlay setShowPopupIcon(boolean showPopupIcon) {
             this.showPopupIcon = showPopupIcon;
+            return this;
+        }
+
+        public Overlay setPopupIcon(RadianceIcon popupIcon) {
+            this.popupIcon = popupIcon;
             return this;
         }
 
@@ -480,6 +493,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this.showPopupIcon;
         }
 
+        public RadianceIcon getPopupIcon() {
+            return this.popupIcon;
+        }
+
         public String getActionKeyTip() {
             return this.actionKeyTip;
         }
@@ -562,6 +579,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
                 RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START;
         private boolean showPopupIcon = true;
+        private RadianceIcon popupIcon = new CommandButtonDefaultPopupIcon();
         private String actionKeyTip;
         private String popupKeyTip;
         private boolean toDismissPopupsOnActivation = true;
@@ -656,6 +674,15 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         @SuppressWarnings("unchecked")
         public B setShowPopupIcon(boolean showPopupIcon) {
             this.showPopupIcon = showPopupIcon;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setPopupIcon(RadianceIcon popupIcon) {
+            if (popupIcon == null) {
+                throw new IllegalArgumentException("Cannot pass null popup icon");
+            }
+            this.popupIcon = popupIcon;
             return (B) this;
         }
 
@@ -762,6 +789,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.font = this.font;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;
             presentationModel.showPopupIcon = this.showPopupIcon;
+            presentationModel.popupIcon = this.popupIcon;
             presentationModel.actionKeyTip = this.actionKeyTip;
             presentationModel.popupKeyTip = this.popupKeyTip;
             presentationModel.toDismissPopupsOnActivation = this.toDismissPopupsOnActivation;

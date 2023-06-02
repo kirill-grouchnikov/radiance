@@ -125,9 +125,9 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     private PopupActionListener popupActionListener;
 
     /**
-     * The "expand" action icon.
+     * The popup indicator icon.
      */
-    protected RadianceIcon popupActionIcon;
+    protected RadianceIcon popupIcon;
 
     protected CommandButtonLayoutManager layoutManager;
 
@@ -242,7 +242,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Installs subcomponents on the associated command button.
      */
     protected void installComponents() {
-        this.updatePopupActionIcon();
+        this.updatePopupIcon();
 
         if (this.icon instanceof AsynchronousLoading) {
             ((AsynchronousLoading) this.icon).addAsynchronousLoadListener((boolean success) -> {
@@ -251,7 +251,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             });
         }
 
-        this.popupActionIcon = this.createPopupActionIcon();
+        this.popupIcon = this.commandButton.getPresentationModel().getPopupIcon();
     }
 
     /**
@@ -290,10 +290,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 }
             }
             if ("commandButtonKind".equals(propertyChangeEvent.getPropertyName())) {
-                updatePopupActionIcon();
+                updatePopupIcon();
             }
             if ("popupOrientationKind".equals(propertyChangeEvent.getPropertyName())) {
-                updatePopupActionIcon();
+                updatePopupIcon();
             }
             if ("iconDimension".equals(propertyChangeEvent.getPropertyName())) {
                 updateIconDimension();
@@ -334,7 +334,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             }
 
             if ("componentOrientation".equals(propertyChangeEvent.getPropertyName())) {
-                updatePopupActionIcon();
+                updatePopupIcon();
                 commandButton.repaint();
             }
         };
@@ -445,15 +445,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     /**
-     * Creates the icon for the popup area.
-     *
-     * @return The icon for the popup area.
-     */
-    protected RadianceIcon createPopupActionIcon() {
-        return null;
-    }
-
-    /**
      * Creates the button listener for the specified command button.
      *
      * @return The button listener for the specified command button.
@@ -551,14 +542,13 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     /**
-     * Updates the popup action icon.
+     * Updates the popup indicator icon.
      */
-    protected void updatePopupActionIcon() {
-        JCommandButton button = (JCommandButton) this.commandButton;
-        if (button.getCommandButtonKind().hasPopup()) {
-            this.popupActionIcon = this.createPopupActionIcon();
+    protected void updatePopupIcon() {
+        if (this.commandButton.getCommandButtonKind().hasPopup()) {
+            this.popupIcon = this.commandButton.getPresentationModel().getPopupIcon();
         } else {
-            this.popupActionIcon = null;
+            this.popupIcon = null;
         }
     }
 

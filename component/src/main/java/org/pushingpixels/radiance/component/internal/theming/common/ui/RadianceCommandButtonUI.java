@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.bcb.JBreadcrumbBar;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
@@ -43,7 +42,6 @@ import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPa
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
-import org.pushingpixels.radiance.component.internal.theming.common.BladeTransitionAwareRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadianceIcon;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
@@ -64,7 +62,6 @@ import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
-import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 import org.pushingpixels.radiance.theming.internal.widget.animation.effects.GhostPaintingUtils;
@@ -459,27 +456,6 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
     }
 
     @Override
-    protected RadianceIcon createPopupActionIcon() {
-        final int fontSize = RadianceSizeUtils.getComponentFontSize(this.commandButton);
-        int arrowIconHeight = (int) RadianceSizeUtils.getArrowIconHeight(fontSize);
-        int arrowIconWidth = (int) RadianceSizeUtils.getArrowIconWidth(fontSize);
-        return new BladeTransitionAwareRadianceIcon(this.commandButton,
-                this::getPopupTransitionTracker,
-                (g, scheme, width, height) -> {
-                    RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
-                            commandButton.getPopupPlacementStrategy();
-                    int direction =
-                            (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Downward)
-                                    ? SwingConstants.SOUTH
-                                    : (commandButton.getComponentOrientation().isLeftToRight()
-                                    ? SwingConstants.EAST : SwingConstants.WEST);
-                    BladeArrowIconUtils.drawArrow(g, width, height,
-                            RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
-                            direction, scheme);
-                }, new Dimension(arrowIconWidth, arrowIconHeight));
-    }
-
-    @Override
     public void paint(Graphics g, JComponent c) {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setFont(this.commandButton.getFont());
@@ -657,9 +633,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        popupActionIcon.paintIcon(this.commandButton, g2d,
-                popupActionRect.x + (popupActionRect.width - popupActionIcon.getIconWidth()) / 2,
-                popupActionRect.y + (popupActionRect.height - popupActionIcon.getIconHeight()) / 2);
+        popupIcon.paintIcon(this.commandButton, g2d,
+                popupActionRect.x + (popupActionRect.width - popupIcon.getIconWidth()) / 2,
+                popupActionRect.y + (popupActionRect.height - popupIcon.getIconHeight()) / 2);
         g2d.dispose();
     }
 
