@@ -124,8 +124,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.buttons = new ArrayList<>();
         this.groupTitles = new ArrayList<>();
 
-        this.recomputeContent();
-        this.recomputeGroupHeaders();
+        this.syncContent();
     }
 
     /**
@@ -135,8 +134,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.presentationModelChangeListener = (ChangeEvent event) ->
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
-                        recomputeContent();
-                        recomputeGroupHeaders();
+                        syncContent();
 
                         updateLayoutManager();
                         buttonPanel.revalidate();
@@ -149,8 +147,8 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         this.contentModelChangeListener = changeEvent ->
                 SwingUtilities.invokeLater(() -> {
                     if (buttonPanel != null) {
-                        recomputeContent();
-                        recomputeGroupHeaders();
+                        syncContent();
+
                         buttonPanel.revalidate();
                         buttonPanel.doLayout();
                     }
@@ -740,31 +738,6 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
         }
     }
 
-    /**
-     * Recomputes the components for button group headers.
-     */
-    private void recomputeGroupHeaders() {
-        if (this.groupLabels != null) {
-            for (JLabel groupLabel : this.groupLabels) {
-                this.buttonPanel.remove(groupLabel);
-            }
-        }
-
-        CommandPanelContentModel panelContentModel =
-                this.buttonPanel.getProjection().getContentModel();
-        int groupCount = panelContentModel.getCommandGroups().size();
-        this.groupLabels = new JLabel[groupCount];
-        for (int i = 0; i < groupCount; i++) {
-            this.groupLabels[i] = new JLabel(panelContentModel.getCommandGroups().get(i).getTitle());
-            this.groupLabels[i].setComponentOrientation(this.buttonPanel.getComponentOrientation());
-
-            this.buttonPanel.add(this.groupLabels[i]);
-
-            this.groupLabels[i].setVisible(
-                    this.buttonPanel.getProjection().getPresentationModel().isToShowGroupLabels());
-        }
-    }
-
     private CommandButtonPresentationModel createBaseCommandPresentation() {
         CommandPanelPresentationModel panelPresentationModel = this.buttonPanel.getProjection().getPresentationModel();
         return CommandButtonPresentationModel.builder()
@@ -785,7 +758,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 .build();
     }
 
-    private void recomputeContent() {
+    private void syncContent() {
         this.groupTitles.clear();
         this.buttons.clear();
         this.buttonPanel.removeAll();
@@ -844,6 +817,24 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                 this.addButtonToLastGroup(command, button);
             }
             groupIndex++;
+        }
+
+        if (this.groupLabels != null) {
+            for (JLabel groupLabel : this.groupLabels) {
+                this.buttonPanel.remove(groupLabel);
+            }
+        }
+
+        int groupCount = panelContentModel.getCommandGroups().size();
+        this.groupLabels = new JLabel[groupCount];
+        for (int i = 0; i < groupCount; i++) {
+            this.groupLabels[i] = new JLabel(panelContentModel.getCommandGroups().get(i).getTitle());
+            this.groupLabels[i].setComponentOrientation(this.buttonPanel.getComponentOrientation());
+
+            this.buttonPanel.add(this.groupLabels[i]);
+
+            this.groupLabels[i].setVisible(
+                    this.buttonPanel.getProjection().getPresentationModel().isToShowGroupLabels());
         }
     }
 

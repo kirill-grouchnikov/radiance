@@ -173,10 +173,10 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 .buildComponent();
         this.ribbonBand.add(this.collapsedButton);
 
-        this.recomputeExpandButton();
+        this.syncExpandButton();
     }
 
-    private void recomputeExpandButton() {
+    private void syncExpandButton() {
         if (this.expandButton != null) {
             this.ribbonBand.remove(this.expandButton);
             this.expandButton = null;
@@ -214,13 +214,13 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 ribbonBand.repaint();
             }
             if ("expandButtonKeyTip".equals(propertyChangeEvent.getPropertyName())) {
-                recomputeExpandButton();
+                syncExpandButton();
             }
             if ("expandButtonRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
-                recomputeExpandButton();
+                syncExpandButton();
             }
             if ("expandCommandListener".equals(propertyChangeEvent.getPropertyName())) {
-                recomputeExpandButton();
+                syncExpandButton();
             }
             if ("collapsedStateKeyTip".equals(propertyChangeEvent.getPropertyName())) {
                 if (collapsedButton != null) {

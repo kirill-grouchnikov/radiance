@@ -105,7 +105,7 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
             if ("scrollOnRollover".equals(propertyChangeEvent.getPropertyName())) {
                 scrollablePanel.remove(leadingScroller);
                 scrollablePanel.remove(trailingScroller);
-                recomputeScrollers();
+                syncScrollers();
             }
         };
         this.scrollablePanel.addPropertyChangeListener(this.propertyChangeListener);
@@ -202,10 +202,10 @@ public abstract class BasicScrollablePanelUI extends ScrollablePanelUI {
                                     scheme);
                         }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
-        this.recomputeScrollers();
+        this.syncScrollers();
     }
 
-    private void recomputeScrollers() {
+    private void syncScrollers() {
         final int fontSize = RadianceSizeUtils.getComponentFontSize(null);
         int arrowIconWidth = (int) RadianceSizeUtils.getSmallArrowIconWidth(fontSize);
         int arrowIconHeight = (int) RadianceSizeUtils.getSmallDoubleArrowIconHeight(fontSize);
