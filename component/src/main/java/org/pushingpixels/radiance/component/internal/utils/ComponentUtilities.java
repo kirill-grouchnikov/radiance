@@ -80,7 +80,7 @@ public class ComponentUtilities {
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {
         List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager()
                 .getShownPath();
-        if (popups.size() == 0) {
+        if (popups.isEmpty()) {
             return false;
         }
 
@@ -132,7 +132,7 @@ public class ComponentUtilities {
 
     private static void checkResizePoliciesConsistencyBase(AbstractRibbonBand ribbonBand) {
         List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
-        if (resizePolicies.size() == 0) {
+        if (resizePolicies.isEmpty()) {
             throw new IllegalStateException("Must have at least one resize policy");
         }
         if ((resizePolicies.size() == 1)

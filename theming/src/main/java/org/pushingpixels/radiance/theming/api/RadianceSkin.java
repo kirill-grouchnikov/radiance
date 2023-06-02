@@ -691,7 +691,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 return;
             }
             this.overlayPaintersMap.get(areaType).remove(overlayPainter);
-            if (this.overlayPaintersMap.get(areaType).size() == 0) {
+            if (this.overlayPaintersMap.get(areaType).isEmpty()) {
                 this.overlayPaintersMap.remove(areaType);
             }
         }

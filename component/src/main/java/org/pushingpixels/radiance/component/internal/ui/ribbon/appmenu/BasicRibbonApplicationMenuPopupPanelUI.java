@@ -391,11 +391,10 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     private JCommandButton getMenuButtonForCommand(Command command) {
         List<PopupPanelManager.PopupInfo> popups =
                 PopupPanelManager.defaultManager().getShownPath();
-        if (popups.size() > 0) {
+        if (!popups.isEmpty()) {
             PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
             JPopupPanel popupPanel = last.getPopupPanel();
             // Should be command popup menu

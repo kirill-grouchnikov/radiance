@@ -258,7 +258,7 @@ public class CoreRibbonResizePolicies {
                 // try to move buttons from low to med to make
                 // three-somes.
                 while (((mediumButtons.size() % 3) != 0)
-                        && (smallButtons.size() > 0)) {
+                        && !smallButtons.isEmpty()) {
                     JCommandButton low = smallButtons.remove(0);
                     mediumButtons.add(low);
                 }
@@ -534,11 +534,11 @@ public class CoreRibbonResizePolicies {
                     }
 
                     // next - medium priority
-                    if (mapped.get(JRibbonBand.PresentationPriority.MEDIUM).size() > 0) {
+                    if (!mapped.get(JRibbonBand.PresentationPriority.MEDIUM).isEmpty()) {
                         // try to move buttons from small to medium to make
                         // three-somes.
                         while (((mapped.get(JRibbonBand.PresentationPriority.MEDIUM).size() % 3) != 0)
-                                && (mapped.get(JRibbonBand.PresentationPriority.LOW).size() > 0)) {
+                                && !mapped.get(JRibbonBand.PresentationPriority.LOW).isEmpty()) {
                             JCommandButton low = mapped.get(
                                     JRibbonBand.PresentationPriority.LOW).get(0);
                             mapped.get(JRibbonBand.PresentationPriority.LOW).remove(low);

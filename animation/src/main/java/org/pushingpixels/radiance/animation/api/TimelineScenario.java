@@ -101,7 +101,7 @@ public class TimelineScenario {
     }
 
     public void addCallback(TimelineScenarioCallback callback) {
-        if (this.doneActors.size() > 0) {
+        if (!this.doneActors.isEmpty()) {
             throw new IllegalArgumentException("Cannot change state of non-idle timeline scenario");
         }
         this.callback.addCallback(callback);
@@ -303,7 +303,7 @@ public class TimelineScenario {
         public void rendezvous() {
             // make all actors added since last rendezvous to wait for
             // all actors added prior to last rendezvous
-            if (this.addedPriorToLastRendezvous.size() > 0) {
+            if (!this.addedPriorToLastRendezvous.isEmpty()) {
                 for (TimelineScenarioActor sinceLast : this.addedSinceLastRendezvous) {
                     for (TimelineScenarioActor beforeLast : this.addedPriorToLastRendezvous) {
                         super.addDependency(sinceLast, beforeLast);

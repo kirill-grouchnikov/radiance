@@ -1273,7 +1273,7 @@ public class RadianceTitlePane extends JComponent {
         }
         java.util.List<Image> iconImages = window.getIconImages();
 
-        if (iconImages.size() == 0) {
+        if (iconImages.isEmpty()) {
             this.appIcon = null;
         } else {
             int prefSize = getControlButtonSize();

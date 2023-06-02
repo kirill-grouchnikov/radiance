@@ -64,7 +64,7 @@ public class BreadCrumbTest extends JFrame {
                         System.out.println("\t" + item.getData().getAbsolutePath());
                     }
 
-                    if (newPath.size() > 0) {
+                    if (!newPath.isEmpty()) {
                         SwingWorker<List<BreadcrumbItem<File>>, Void> worker = new SwingWorker<>() {
                             @Override
                             protected List<BreadcrumbItem<File>> doInBackground() {

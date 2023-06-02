@@ -188,7 +188,7 @@ public class DeltaQueue {
 	 */
 	public synchronized List<Deltable> dequeue(int delay) {
 		List<Deltable> result = new LinkedList<>();
-		while (this.queue.size() > 0) {
+		while (!this.queue.isEmpty()) {
 			Deltable next = this.queue.get(0);
 			int timeToExpire = next.getDelta();
 			next.decrementDelta(delay);

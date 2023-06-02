@@ -259,7 +259,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                         }
                         BreadcrumbItemChoices<Object> bic = new BreadcrumbItemChoices<>(
                                 item, breadcrumbBar.getContentProvider().getPathChoices(subPath));
-                        if ((bic.getChoices() != null) && (bic.getChoices().size() > 0)) {
+                        if ((bic.getChoices() != null) && !bic.getChoices().isEmpty()) {
                             // add the selector - the current item has
                             // children
                             publish(bic);

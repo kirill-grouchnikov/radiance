@@ -258,7 +258,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
             }
 
             if ((tooltipInfo.getFooterIcon() != null)
-                    || (tooltipInfo.getFooterSections().size() > 0)) {
+                    || !tooltipInfo.getFooterSections().isEmpty()) {
                 height += gap;
                 // The footer separator
                 height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
@@ -437,7 +437,7 @@ public abstract class BasicRichTooltipPanelUI extends RichTooltipPanelUI {
             }
 
             if ((tooltipInfo.getFooterIcon() != null)
-                    || (tooltipInfo.getFooterSections().size() > 0)) {
+                    || !tooltipInfo.getFooterSections().isEmpty()) {
                 y += gap;
                 // The footer separator
                 footerSeparator = new JSeparator(JSeparator.HORIZONTAL);

@@ -114,7 +114,7 @@ public class RibbonTask {
 			band.setRibbonTask(this);
 			this.bands.add(band);
 		}
-		if (this.bands.size() == 0) {
+		if (this.bands.isEmpty()) {
             throw new IllegalArgumentException("Cannot have empty ribbon task");
         }
 		this.resizeSequencingPolicy = new CoreRibbonResizeSequencingPolicies.RoundRobin(

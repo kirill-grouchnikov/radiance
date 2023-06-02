@@ -283,7 +283,7 @@ public class PopupPanelManager {
      * Hides the last shown popup panel.
      */
     public void hideLastPopup() {
-        if (shownPath.size() == 0) {
+        if (shownPath.isEmpty()) {
             return;
         }
         PopupInfo last = shownPath.removeLast();
@@ -317,7 +317,7 @@ public class PopupPanelManager {
                     foundAndDismissed = true;
                     // And close all popups that were opened
                     // from the found popup panel
-                    while (shownPath.size() > 0) {
+                    while (!shownPath.isEmpty()) {
                         if (shownPath.getLast().popupPanel == c) {
                             return;
                         }
@@ -339,7 +339,7 @@ public class PopupPanelManager {
         }
         if (!foundAndDismissed || (comp == null)) {
             Component lastOriginator = null;
-            while (shownPath.size() > 0) {
+            while (!shownPath.isEmpty()) {
                 PopupInfo last = shownPath.removeLast();
                 lastOriginator = last.popupOriginator;
                 RadiancePopupMenu popup = popupHosts.get(last.popupPanel);

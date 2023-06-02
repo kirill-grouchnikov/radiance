@@ -147,7 +147,7 @@ public class BreadcrumbTreeAdapterSelector<T> extends JBreadcrumbBar<T> {
                 }
                 return bRoots;
             }
-            if (path.size() == 0) {
+            if (path.isEmpty()) {
                 return null;
             }
 

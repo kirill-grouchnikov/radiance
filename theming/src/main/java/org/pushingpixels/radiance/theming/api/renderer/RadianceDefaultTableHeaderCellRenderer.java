@@ -169,7 +169,7 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                             tableHeader, ComponentState.ENABLED);
                 }
 
-                if ((sortKeys.size() > 0) &&
+                if (!sortKeys.isEmpty() &&
                         (sortKeys.get(0).getColumn() == table.convertColumnIndexToModel(column))) {
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:

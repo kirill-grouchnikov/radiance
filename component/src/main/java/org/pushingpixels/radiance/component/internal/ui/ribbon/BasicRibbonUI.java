@@ -1287,7 +1287,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             // shown in a popup?
             List<PopupPanelManager.PopupInfo> popups = PopupPanelManager
                     .defaultManager().getShownPath();
-            if (popups.size() > 0) {
+            if (!popups.isEmpty()) {
                 for (PopupPanelManager.PopupInfo popup : popups) {
                     if (popup.getPopupOriginator() == taskToggleButton) {
                         // hide all popups and return (hides
@@ -1432,7 +1432,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         // get the visible tasks
         final List<RibbonTask> visibleTasks = getCurrentlyShownRibbonTasks();
-        if (visibleTasks.size() == 0) {
+        if (visibleTasks.isEmpty()) {
             return;
         }
 

@@ -63,7 +63,7 @@ public class FileExplorerStates extends JFrame {
         this.bar.getContentModel().addPathListener(
                 event -> SwingUtilities.invokeLater(() -> {
                     final List<BreadcrumbItem<File>> newPath = event.getSource().getItems();
-                    if (newPath.size() > 0) {
+                    if (!newPath.isEmpty()) {
                         SwingWorker<List<BreadcrumbItem<File>>, Void> worker =
                                 new SwingWorker<>() {
                                     @Override

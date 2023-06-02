@@ -349,7 +349,7 @@ public class JRibbon extends JComponent {
                     SwingUtilities.invokeLater(() -> {
                         List<PopupPanelManager.PopupInfo> popups =
                                 PopupPanelManager.defaultManager().getShownPath();
-                        if (popups.size() > 0) {
+                        if (!popups.isEmpty()) {
                             PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
                             JPopupPanel popupPanel = last.getPopupPanel();
                             // Should be application menu

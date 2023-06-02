@@ -220,7 +220,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
             PopupPanelManager popupPanelManager = PopupPanelManager
                     .defaultManager();
             this.lastPathSelected = popupPanelManager.getShownPath();
-            if (this.lastPathSelected.size() != 0) {
+            if (!this.lastPathSelected.isEmpty()) {
                 traceRootPane(this.lastPathSelected);
             }
         }
@@ -230,7 +230,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
             PopupPanelManager msm = PopupPanelManager.defaultManager();
             List<PopupPanelManager.PopupInfo> p = msm.getShownPath();
 
-            if (lastPathSelected.size() != 0 && p.size() == 0) {
+            if (!lastPathSelected.isEmpty() && p.isEmpty()) {
                 // if it is the last popup panel to be dismissed, untrace the
                 // root pane
                 untraceRootPane();
@@ -254,7 +254,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
             PopupPanelManager msm = PopupPanelManager.defaultManager();
             List<PopupPanelManager.PopupInfo> p = msm.getShownPath();
 
-            if (lastPathSelected.size() == 0 && p.size() != 0) {
+            if (lastPathSelected.isEmpty() && !p.isEmpty()) {
                 // if it is the first popup panel to be shown, trace the root
                 // panel
                 traceRootPane(p);
@@ -289,7 +289,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
                         // do not dismiss the popup
                         List<PopupPanelManager.PopupInfo> popups = PopupPanelManager
                                 .defaultManager().getShownPath();
-                        if (popups.size() > 0) {
+                        if (!popups.isEmpty()) {
                             PopupPanelManager.PopupInfo lastPopup = popups
                                     .get(popups.size() - 1);
                             if (lastPopup.getPopupPanel() instanceof JRibbonApplicationMenuPopupPanel) {
@@ -447,7 +447,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
             PopupPanelManager popupPanelManager = PopupPanelManager.defaultManager();
             popupPanelManager.addPopupListener(this);
             this.lastPathSelected = popupPanelManager.getShownPath();
-            if (this.lastPathSelected.size() != 0) {
+            if (!this.lastPathSelected.isEmpty()) {
                 grabWindow(this.lastPathSelected);
             }
         }
@@ -491,7 +491,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
             PopupPanelManager msm = PopupPanelManager.defaultManager();
             List<PopupPanelManager.PopupInfo> p = msm.getShownPath();
 
-            if (lastPathSelected.size() == 0 && p.size() != 0) {
+            if (lastPathSelected.isEmpty() && !p.isEmpty()) {
                 // if it is the first popup panel to be shown, grab its window
                 grabWindow(p);
             }
@@ -504,7 +504,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
             PopupPanelManager msm = PopupPanelManager.defaultManager();
             List<PopupPanelManager.PopupInfo> p = msm.getShownPath();
 
-            if (lastPathSelected.size() != 0 && p.size() == 0) {
+            if (!lastPathSelected.isEmpty() && p.isEmpty()) {
                 // if it is the last popup panel to be hidden, ungrab its window
                 ungrabWindow();
             }

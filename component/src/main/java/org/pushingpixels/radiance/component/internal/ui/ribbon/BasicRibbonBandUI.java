@@ -480,7 +480,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             MouseEvent mouseEvent = (MouseEvent) event;
 
             if (mouseEvent.getID() == MouseEvent.MOUSE_WHEEL) {
-                if (PopupPanelManager.defaultManager().getShownPath().size() > 0) {
+                if (!PopupPanelManager.defaultManager().getShownPath().isEmpty()) {
                     return;
                 }
 

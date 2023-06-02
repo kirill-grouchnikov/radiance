@@ -111,7 +111,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                             continue;
                         }
                         String systemName = fsv.getSystemDisplayName(root);
-                        if (systemName.length() == 0) {
+                        if (systemName.isEmpty()) {
                             systemName = root.getAbsolutePath();
                         }
                         BreadcrumbItem<File> rootItem = new BreadcrumbItem<>(systemName,
@@ -120,7 +120,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
                     }
                     return bRoots;
                 }
-                if (path.size() == 0) {
+                if (path.isEmpty()) {
                     return null;
                 }
                 File lastInPath = path.get(path.size() - 1).getData();
@@ -170,7 +170,7 @@ public class BreadcrumbFileSelector extends JBreadcrumbBar<File> {
         @Override
         public List<BreadcrumbItem<File>> getLeaves(List<BreadcrumbItem<File>> path) {
             synchronized (fsv) {
-                if ((path == null) || (path.size() == 0)) {
+                if ((path == null) || (path.isEmpty())) {
                     return null;
                 }
                 File lastInPath = path.get(path.size() - 1).getData();

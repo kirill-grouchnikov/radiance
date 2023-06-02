@@ -92,7 +92,7 @@ public class TreeModelAdapterBreadCrumbTest extends JFrame {
                         System.out.println("\t" + node.file.getName());
                     }
 
-                    if (newPath.size() > 0) {
+                    if (!newPath.isEmpty()) {
                         SwingWorker<List<BreadcrumbItem<FileTreeNode>>, Void> worker = new
                                 SwingWorker<>() {
                                     @Override

@@ -263,7 +263,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
      */
     public synchronized void addCommandButton(
             JCommandButton ribbonButton, JRibbonBand.PresentationPriority priority) {
-        if (this.controlPanelGroups.size() == 0) {
+        if (this.controlPanelGroups.isEmpty()) {
             this.startGroup();
         }
 
@@ -280,7 +280,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
      */
     public synchronized void addRibbonGallery(JRibbonGallery ribbonGallery,
             JRibbonBand.PresentationPriority priority) {
-        if (this.controlPanelGroups.size() == 0) {
+        if (this.controlPanelGroups.isEmpty()) {
             this.startGroup();
         }
 
@@ -290,7 +290,7 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
     }
 
     public void addRibbonComponent(JRibbonComponent comp) {
-        if (this.controlPanelGroups.size() == 0) {
+        if (this.controlPanelGroups.isEmpty()) {
             this.startGroup();
         }
 

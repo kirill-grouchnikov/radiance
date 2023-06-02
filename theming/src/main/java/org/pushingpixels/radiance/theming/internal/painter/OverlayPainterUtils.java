@@ -61,7 +61,7 @@ public class OverlayPainterUtils {
 	public static void paintOverlays(Graphics g, Component c, RadianceSkin skin,
 			RadianceThemingSlices.DecorationAreaType decorationAreaType) {
 		List<RadianceOverlayPainter> overlayPainters = skin.getOverlayPainters(decorationAreaType);
-		if (overlayPainters.size() == 0) {
+		if (overlayPainters.isEmpty()) {
 			return;
 		}
 

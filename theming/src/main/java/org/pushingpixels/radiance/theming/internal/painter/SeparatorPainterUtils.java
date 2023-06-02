@@ -219,7 +219,7 @@ public class SeparatorPainterUtils {
                             (decorationAreaType == RadianceThemingSlices.DecorationAreaType.NONE)
                                     ? false
                                     : skin.isRegisteredAsDecorationArea(decorationAreaType)
-                                    || (skin.getOverlayPainters(decorationAreaType).size() > 0);
+                                    || !skin.getOverlayPainters(decorationAreaType).isEmpty();
                     toUseAlphaColors = toUseAlphaColors || toEnforceAlphaColors;
 
                     Color backgroundFill = RadianceColorUtilities.getBackgroundFillColor(c);

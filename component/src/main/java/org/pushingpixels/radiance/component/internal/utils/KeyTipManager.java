@@ -206,7 +206,7 @@ public class KeyTipManager {
                 // collect key tips of all controls in the relevant popup
                 // panel
                 List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
-                if (popups.size() > 0) {
+                if (!popups.isEmpty()) {
                     PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
                     if (last.getPopupOriginator() == appMenuButton) {
                         JPopupPanel popupPanel = last.getPopupPanel();
@@ -235,7 +235,7 @@ public class KeyTipManager {
                             actionLink.traversal = () -> {
                                 // collect key tips of all controls in the taskbar overflow popup
                                 List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
-                                if (popups.size() > 0) {
+                                if (!popups.isEmpty()) {
                                     PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
                                     JPopupPanel popupPanel = last.getPopupPanel();
                                     KeyTipChain chain = new KeyTipChain(popupPanel);
@@ -397,7 +397,7 @@ public class KeyTipManager {
                 link.traversal = () -> {
                     // collect key tips of all controls in the relevant popup panel
                     List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
-                    if (popups.size() > 0) {
+                    if (!popups.isEmpty()) {
                         PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
                         JPopupPanel popupPanel = last.getPopupPanel();
                         KeyTipChain chain = new KeyTipChain(popupPanel);
@@ -467,7 +467,7 @@ public class KeyTipManager {
             link.traversal = () -> {
                 // collect key tips of all controls in the relevant popup panel
                 List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager().getShownPath();
-                if (popups.size() > 0) {
+                if (!popups.isEmpty()) {
                     PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
                     JPopupPanel popupPanel = last.getPopupPanel();
                     // special case - application menu
@@ -595,7 +595,7 @@ public class KeyTipManager {
                     secondary.addLink(secondaryLink);
                 }
             }
-            if (secondary.links.size() > 0) {
+            if (!secondary.links.isEmpty()) {
                 this.keyTipChains.add(secondary);
             }
             repaintWindows();

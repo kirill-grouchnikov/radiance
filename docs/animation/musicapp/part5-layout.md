@@ -139,7 +139,7 @@ The layout itself (triggered by the calls to `revalidate()`` above) is quite sim
 ```java
 @Override
 public synchronized void doLayout() {
-	if (comps.size() == 0)
+	if (comps.isEmpty())
 		return;
 
 	for (int i = 0; i < this.comps.size(); i++) {

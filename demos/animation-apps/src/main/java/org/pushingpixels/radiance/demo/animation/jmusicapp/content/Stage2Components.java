@@ -155,7 +155,7 @@ public class Stage2Components extends Stage1LoadingProgress {
 
     @Override
     public synchronized void doLayout() {
-        if (comps.size() == 0)
+        if (comps.isEmpty())
             return;
 
         for (int i = 0; i < this.comps.size(); i++) {

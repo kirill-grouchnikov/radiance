@@ -848,7 +848,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
     }
 
     private void addButtonToLastGroup(Command command, JCommandButton commandButton) {
-        if (this.groupTitles.size() == 0) {
+        if (this.groupTitles.isEmpty()) {
             return;
         }
         int groupIndex = this.groupTitles.size() - 1;

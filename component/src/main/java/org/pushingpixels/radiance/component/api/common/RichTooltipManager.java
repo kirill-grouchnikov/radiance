@@ -289,7 +289,7 @@ public class RichTooltipManager {
         // do not show tooltips on components in popup panels that are not in the last shown one
         List<PopupPanelManager.PopupInfo> popups =
                 PopupPanelManager.defaultManager().getShownPath();
-        if (popups.size() > 0) {
+        if (!popups.isEmpty()) {
             JPopupPanel popupPanel = popups.get(popups.size() - 1).getPopupPanel();
             boolean ignore = true;
             Component c = (Component) component;

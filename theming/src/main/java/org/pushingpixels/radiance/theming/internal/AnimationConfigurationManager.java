@@ -185,7 +185,7 @@ public class AnimationConfigurationManager {
         Set<Class<?>> existingAllowed = this.classAllowed.get(animationFacet);
         if (existingAllowed != null) {
             existingAllowed.remove(clazz);
-            if (existingAllowed.size() == 0)
+            if (existingAllowed.isEmpty())
                 this.classAllowed.remove(animationFacet);
         }
 
@@ -219,7 +219,7 @@ public class AnimationConfigurationManager {
         Set<Component> existingAllowed = this.instanceAllowed.get(animationFacet);
         if (existingAllowed != null) {
             existingAllowed.remove(comp);
-            if (existingAllowed.size() == 0)
+            if (existingAllowed.isEmpty())
                 this.instanceAllowed.remove(animationFacet);
         }
 

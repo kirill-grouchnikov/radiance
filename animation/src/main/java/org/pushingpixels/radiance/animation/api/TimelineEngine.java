@@ -217,7 +217,7 @@ class TimelineEngine {
      */
     void updateTimelines() {
         synchronized (LOCK) {
-            if ((this.runningTimelines.size() == 0) && (this.runningScenarios.size() == 0)) {
+            if (this.runningTimelines.isEmpty() && this.runningScenarios.isEmpty()) {
                 this.lastIterationTimeStamp = System.currentTimeMillis();
                 return;
             }
@@ -418,7 +418,7 @@ class TimelineEngine {
                 }
             }
 
-            if (this.runningScenarios.size() > 0) {
+            if (!this.runningScenarios.isEmpty()) {
                 // System.err.println(Thread.currentThread().getName()
                 // + " : updating");
                 for (Iterator<TimelineScenario> it = this.runningScenarios.iterator(); it
