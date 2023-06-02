@@ -31,16 +31,12 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.LabelProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.component.svg.material.transcoded.info_black_24dp;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Edit_paste;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -48,8 +44,6 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

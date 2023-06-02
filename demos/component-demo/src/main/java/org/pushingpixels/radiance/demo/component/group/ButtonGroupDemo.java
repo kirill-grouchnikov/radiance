@@ -29,16 +29,16 @@
  */
 package org.pushingpixels.radiance.demo.component.group;
 
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_bold;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_italic;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_strikethrough;
-import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_underline;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandStripPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandStripProjection;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_bold;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_italic;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_strikethrough;
+import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.Format_text_underline;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.skin.MarinerSkin;
 

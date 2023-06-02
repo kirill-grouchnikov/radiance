@@ -29,11 +29,9 @@
  */
 package org.pushingpixels.radiance.demo.component.common.custom;
 
-import org.pushingpixels.radiance.component.api.common.model.ColorSelectorCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.projection.AbstractPopupMenuPanelProjection;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.ColorSelectorCommandButtonProjection;
 
 public class CustomComplexCommandButtonProjection extends
         BaseCommandButtonProjection<CustomComplexCommand, CustomComplexPopupMenuContentModel,

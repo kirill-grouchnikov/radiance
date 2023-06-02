@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.demo.component.ribbon;
 
-import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 
 import java.awt.*;
 
