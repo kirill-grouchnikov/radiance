@@ -33,7 +33,6 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceP
 import org.pushingpixels.radiance.component.internal.ui.common.popup.PopupPanelUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Base class for popup panels.
@@ -47,31 +46,7 @@ public abstract class JPopupPanel extends JPanel {
 	 */
 	public static final String uiClassID = "PopupPanelUI";
 
-	/**
-	 * The customizer for this popup panel. Can be <code>null</code>.
-	 * 
-	 * @see #getCustomizer()
-	 * @see #setCustomizer(PopupPanelCustomizer)
-	 */
-	private PopupPanelCustomizer customizer;
-	
 	private JComponent originator;
-
-	/**
-	 * Allows providing custom application logic for computing the screen bounds
-	 * of popup panels before they are shown on the screen.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	@FunctionalInterface
-	public interface PopupPanelCustomizer {
-		/**
-		 * Returns the requested screen bounds of the associated popup panel.
-		 * 
-		 * @return The requested screen bounds of the associated popup panel.
-		 */
-		Rectangle getScreenBounds();
-	}
 
 	/**
 	 * Protected to prevent direct instantiation.
@@ -103,27 +78,6 @@ public abstract class JPopupPanel extends JPanel {
 		setUI(RadiancePopupPanelUI.createUI(this));
 	}
 
-	/**
-	 * Sets the customizer for this popup panel.
-	 * 
-	 * @param customizer
-	 *            The customizer for this popup panel.
-	 * @see #getCustomizer()
-	 */
-	public void setCustomizer(PopupPanelCustomizer customizer) {
-		this.customizer = customizer;
-	}
-
-	/**
-	 * Returns the customizer of this popup panel. Can return <code>null</code>.
-	 * 
-	 * @return The customizer of this popup panel.
-	 * @see #setCustomizer(PopupPanelCustomizer)
-	 */
-	public PopupPanelCustomizer getCustomizer() {
-		return this.customizer;
-	}
-	
 	/**
 	 * Sets the originator of this popup panel.
      *

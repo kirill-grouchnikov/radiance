@@ -644,46 +644,38 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 int popupX;
                 int popupY;
 
-                JPopupPanel.PopupPanelCustomizer customizer = popupPanel.getCustomizer();
-                if (customizer == null) {
-                    CommandButtonUI ui = this.commandButton.getUI();
-                    BaseCommandButtonPresentationModel presentationModel =
-                            this.commandButton.getPresentationModel();
-                    Rectangle popupAnchorRectOnScreen;
-                    if (presentationModel.getPopupAnchorBoundsProvider() != null) {
-                        popupAnchorRectOnScreen = presentationModel.getPopupAnchorBoundsProvider().
-                                getPopupAnchorBoundsOnScreen();
-                    } else {
-                        Rectangle popupClickArea = ui.getLayoutInfo().popupClickArea;
-                        Point buttonLocationOnScreen = this.commandButton.getLocationOnScreen();
-                        popupAnchorRectOnScreen = new Rectangle(
-                                buttonLocationOnScreen.x + popupClickArea.x,
-                                buttonLocationOnScreen.y + popupClickArea.y,
-                                popupClickArea.width, popupClickArea.height
-                        );
-                    }
-
-                    RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
-                            this.commandButton.getPresentationModel().getPopupPlacementStrategy();
-                    Insets insets = popupPanel.getInsets();
-
-                    Dimension delta = RadianceCoreUtilities.getPlacementAwarePopupShift(
-                            this.commandButton.getComponentOrientation().isLeftToRight(),
-                            new Dimension(popupAnchorRectOnScreen.width, popupAnchorRectOnScreen.height),
-                            popupPanel.getPreferredSize(), insets,
-                            popupPlacementStrategy);
-
-                    int dx = delta.width;
-                    int dy = delta.height;
-
-                    popupX = popupAnchorRectOnScreen.x + dx;
-                    popupY = popupAnchorRectOnScreen.y + popupAnchorRectOnScreen.height + dy;
+                CommandButtonUI ui = this.commandButton.getUI();
+                BaseCommandButtonPresentationModel presentationModel =
+                        this.commandButton.getPresentationModel();
+                Rectangle popupAnchorRectOnScreen;
+                if (presentationModel.getPopupAnchorBoundsProvider() != null) {
+                    popupAnchorRectOnScreen = presentationModel.getPopupAnchorBoundsProvider().
+                            getPopupAnchorBoundsOnScreen();
                 } else {
-                    Rectangle placementRect = customizer.getScreenBounds();
-                    // System.out.println(placementRect);
-                    popupX = placementRect.x;
-                    popupY = placementRect.y;
+                    Rectangle popupClickArea = ui.getLayoutInfo().popupClickArea;
+                    Point buttonLocationOnScreen = this.commandButton.getLocationOnScreen();
+                    popupAnchorRectOnScreen = new Rectangle(
+                            buttonLocationOnScreen.x + popupClickArea.x,
+                            buttonLocationOnScreen.y + popupClickArea.y,
+                            popupClickArea.width, popupClickArea.height
+                    );
                 }
+
+                RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
+                        this.commandButton.getPresentationModel().getPopupPlacementStrategy();
+                Insets insets = popupPanel.getInsets();
+
+                Dimension delta = RadianceCoreUtilities.getPlacementAwarePopupShift(
+                        this.commandButton.getComponentOrientation().isLeftToRight(),
+                        new Dimension(popupAnchorRectOnScreen.width, popupAnchorRectOnScreen.height),
+                        popupPanel.getPreferredSize(), insets,
+                        popupPlacementStrategy);
+
+                int dx = delta.width;
+                int dy = delta.height;
+
+                popupX = popupAnchorRectOnScreen.x + dx;
+                popupY = popupAnchorRectOnScreen.y + popupAnchorRectOnScreen.height + dy;
 
                 // make sure that the popup stays in bounds
                 Rectangle scrBounds = commandButton.getGraphicsConfiguration().getBounds();
@@ -696,12 +688,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     popupY = scrBounds.y + scrBounds.height - ph;
                 }
 
-                // get the popup and show it
-                if (customizer != null) {
-                    Rectangle placementRect = customizer.getScreenBounds();
-                    popupPanel.setPreferredSize(
-                            new Dimension(placementRect.width, placementRect.height));
-                }
                 PopupPanelManager.defaultManager().showPopup(commandButton, popupPanel, popupX, popupY);
             });
         }
