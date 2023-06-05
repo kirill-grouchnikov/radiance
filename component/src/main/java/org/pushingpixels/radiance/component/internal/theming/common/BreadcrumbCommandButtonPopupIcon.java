@@ -27,10 +27,11 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.component.api.common.icon;
+package org.pushingpixels.radiance.component.internal.theming.common;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.ActionPopupTransitionAwareUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -45,7 +46,7 @@ import javax.swing.*;
 import java.awt.*;
 
 @TransitionAware
-public class CommandButtonDefaultPopupIcon implements RadianceIcon {
+public class BreadcrumbCommandButtonPopupIcon implements RadianceIcon {
     // Current width
     private int width;
     // Current height
@@ -53,7 +54,7 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
-    public CommandButtonDefaultPopupIcon() {
+    public BreadcrumbCommandButtonPopupIcon() {
         int fontSize = RadianceSizeUtils.getComponentFontSize(null);
         this.width = (int) RadianceSizeUtils.getArrowIconWidth(fontSize);
         this.height = (int) RadianceSizeUtils.getArrowIconHeight(fontSize);
@@ -98,12 +99,12 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
 
         BladeUtils.populateColorScheme(mutableColorScheme, c, modelStateInfo, currState,
                 RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
-        RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
-                commandButton.getPresentationModel().getPopupPlacementStrategy();
-        int direction =
-                (popupPlacementStrategy instanceof RadianceThemingSlices.PopupPlacementStrategy.Downward)
-                        ? SwingConstants.SOUTH
-                        : (commandButton.getComponentOrientation().isLeftToRight()
+
+        PopupButtonModel model = commandButton.getPopupModel();
+        boolean displayDownwards = model.isRollover() || model.isPopupShowing();
+
+        int direction = displayDownwards ? SwingUtilities.SOUTH :
+                (commandButton.getComponentOrientation().isLeftToRight()
                         ? SwingConstants.EAST : SwingConstants.WEST);
         int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 

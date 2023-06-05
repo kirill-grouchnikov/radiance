@@ -41,6 +41,7 @@ import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.model.CommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CircularProgressProjection;
+import org.pushingpixels.radiance.component.internal.theming.common.BreadcrumbCommandButtonPopupIcon;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
@@ -426,7 +427,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                 breadcrumbBarPresentationModel.getDisabledIconFilterStrategy()
                         )
                         .setPopupPlacementStrategy(
-                                RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
+                                RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START)
+                        .setPopupIcon(new BreadcrumbCommandButtonPopupIcon())
                         .setHorizontalGapScaleFactor(0.75)
                         .setPopupMenuPresentationModel(
                                 CommandPopupMenuPresentationModel.builder()
@@ -609,13 +611,7 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private void configureBreadcrumbButton(final JCommandButton button) {
         button.getPopupModel().addChangeListener(changeEvent -> {
-            PopupButtonModel model = button.getPopupModel();
-            boolean displayDownwards = model.isRollover() || model.isPopupShowing();
-            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
-                    displayDownwards
-                            ? RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START
-                            : RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP;
-            button.setPopupPlacementStrategy(popupPlacementStrategy);
+            button.repaint();
         });
     }
 

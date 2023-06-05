@@ -650,7 +650,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     Rectangle popupRect = ui.getLayoutInfo().popupClickArea;
 
                     RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy =
-                            this.commandButton.getPopupPlacementStrategy();
+                            this.commandButton.getPresentationModel().getPopupPlacementStrategy();
                     Insets insets = popupPanel.getInsets();
 
                     Dimension delta = RadianceCoreUtilities.getPlacementAwarePopupShift(

@@ -38,7 +38,6 @@ import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceC
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -118,14 +117,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * @see #getCommandButtonKind()
      */
     private CommandButtonKind commandButtonKind;
-
-    /**
-     * The popup placement strategy of this button.
-     *
-     * @see #setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
-     * @see #getPopupPlacementStrategy()
-     */
-    private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
 
     /**
      * Popup model of this button.
@@ -389,8 +380,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
 
         this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
                 CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED);
-
-        this.setPopupPlacementStrategy(commandPresentation.getPopupPlacementStrategy());
 
         if (command.getActionPreview() != null) {
             this.getActionModel().addChangeListener(new ChangeListener() {
@@ -692,32 +681,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.commandButtonKind = commandButtonKind;
         if (old != this.commandButtonKind) {
             firePropertyChange("commandButtonKind", old, this.commandButtonKind);
-        }
-    }
-
-    /**
-     * Returns the popup placement strategy of this button.
-     *
-     * @return Popup placement strategy of this button.
-     * @see #setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy)
-     */
-    public RadianceThemingSlices.PopupPlacementStrategy getPopupPlacementStrategy() {
-        return this.popupPlacementStrategy;
-    }
-
-    /**
-     * Sets the popup placement strategy for this button. Fires a
-     * <code>popupPlacementStrategy</code> property change event.
-     *
-     * @param popupPlacementStrategy The new popup placement strategy.
-     * @see #getPopupPlacementStrategy()
-     */
-    public void setPopupPlacementStrategy(
-            RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy) {
-        RadianceThemingSlices.PopupPlacementStrategy old = this.popupPlacementStrategy;
-        this.popupPlacementStrategy = popupPlacementStrategy;
-        if (old != this.popupPlacementStrategy) {
-            firePropertyChange("popupPlacementStrategy", old, this.popupPlacementStrategy);
         }
     }
 
