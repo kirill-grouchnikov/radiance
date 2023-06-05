@@ -133,6 +133,11 @@ public class ColorSelectorPopupMenuContentModel implements BaseCommandMenuConten
         this.fireStateChanged();
     }
 
+    @Override
+    public boolean isEmpty() {
+        return this.menuGroups.isEmpty();
+    }
+
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);
     }

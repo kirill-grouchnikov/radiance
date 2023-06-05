@@ -111,14 +111,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private PopupPanelCallback popupCallback;
 
     /**
-     * The command button kind of this button.
-     *
-     * @see #setCommandButtonKind(CommandButtonKind)
-     * @see #getCommandButtonKind()
-     */
-    private CommandButtonKind commandButtonKind;
-
-    /**
      * Popup model of this button.
      *
      * @see #setPopupModel(PopupButtonModel)
@@ -365,17 +357,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                         projection.getPopupMenuPanelProjection().buildComponent());
             }
             this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
-        }
-
-        if (hasAction && hasPopup) {
-            this.setCommandButtonKind((commandPresentation.getTextClick() ==
-                    BaseCommandButtonPresentationModel.TextClick.ACTION)
-                    ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
-                    : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
-        } else if (hasPopup) {
-            this.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
-        } else {
-            this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
         }
 
         this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
@@ -663,25 +644,28 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * Returns the command button kind of this button.
      *
      * @return Command button kind of this button.
-     * @see #setCommandButtonKind(CommandButtonKind)
      */
     public CommandButtonKind getCommandButtonKind() {
-        return this.commandButtonKind;
-    }
+        boolean hasAction = (this.command.getAction() != null);
+        boolean hasSecondary = (this.command.getSecondaryContentModel() != null) &&
+                !this.command.getSecondaryContentModel().isEmpty();
 
-    /**
-     * Sets the kind for this button. Fires a <code>commandButtonKind</code>
-     * property change event.
-     *
-     * @param commandButtonKind The new button kind.
-     * @see #getCommandButtonKind()
-     */
-    public void setCommandButtonKind(CommandButtonKind commandButtonKind) {
-        CommandButtonKind old = this.commandButtonKind;
-        this.commandButtonKind = commandButtonKind;
-        if (old != this.commandButtonKind) {
-            firePropertyChange("commandButtonKind", old, this.commandButtonKind);
+        if (!hasAction && !hasSecondary) {
+            // Treat as action-only
+            return CommandButtonKind.ACTION_ONLY;
         }
+
+        if (!hasSecondary) {
+            return CommandButtonKind.ACTION_ONLY;
+        }
+
+        if (!hasAction) {
+            return CommandButtonKind.POPUP_ONLY;
+        }
+
+        return (this.commandPresentation.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION)
+                ? CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
     }
 
     @Override
@@ -714,21 +698,9 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         this.popupCallback = popupCallback;
 
         if (command != null) {
-            boolean hasAction = (command.getAction() != null);
             boolean hasPopup = (this.popupCallback != null);
-
             if (hasPopup) {
                 this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
-            }
-
-            if (hasAction && hasPopup) {
-                this.setCommandButtonKind(commandPresentation.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION
-                        ? JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
-                        : JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP);
-            } else if (hasPopup) {
-                this.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
-            } else {
-                this.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_ONLY);
             }
         }
     }

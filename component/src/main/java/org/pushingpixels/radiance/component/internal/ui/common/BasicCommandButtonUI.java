@@ -289,9 +289,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     commandButton.repaint();
                 }
             }
-            if ("commandButtonKind".equals(propertyChangeEvent.getPropertyName())) {
-                updatePopupIcon();
-            }
             if ("popupOrientationKind".equals(propertyChangeEvent.getPropertyName())) {
                 updatePopupIcon();
             }

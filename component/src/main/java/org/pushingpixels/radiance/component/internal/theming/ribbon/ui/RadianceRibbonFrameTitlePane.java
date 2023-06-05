@@ -355,17 +355,11 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             for (Component taskbarComp : taskbarComponents) {
                 if (taskbarComp instanceof JCommandButton) {
                     JCommandButton button = (JCommandButton) taskbarComp;
-                    switch (button.getCommandButtonKind()) {
-                        case ACTION_ONLY:
-                            button.setActionKeyTip(policy.getContentKeyTip(index++));
-                            break;
-                        case ACTION_AND_POPUP_MAIN_ACTION:
-                        case ACTION_AND_POPUP_MAIN_POPUP:
-                            button.setActionKeyTip(policy.getContentKeyTip(index++));
-                            button.setPopupKeyTip(policy.getContentKeyTip(index++));
-                            break;
-                        case POPUP_ONLY:
-                            button.setPopupKeyTip(policy.getContentKeyTip(index++));
+                    if (button.getContentModel().getAction() != null) {
+                        button.setActionKeyTip(policy.getContentKeyTip(index++));
+                    }
+                    if (!button.getContentModel().getSecondaryContentModel().isEmpty()) {
+                        button.setPopupKeyTip(policy.getContentKeyTip(index++));
                     }
                 } else if (taskbarComp instanceof JRibbonComponent) {
                     ((JRibbonComponent) taskbarComp).setKeyTip(policy.getContentKeyTip(index++));

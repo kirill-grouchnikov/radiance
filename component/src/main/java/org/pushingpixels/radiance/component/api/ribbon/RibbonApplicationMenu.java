@@ -119,4 +119,9 @@ public class RibbonApplicationMenu extends CommandMenuContentModel {
     public CommandGroup getFooterCommands() {
         return this.footerCommands;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return super.isEmpty() && this.footerCommands.getCommands().isEmpty();
+    }
 }

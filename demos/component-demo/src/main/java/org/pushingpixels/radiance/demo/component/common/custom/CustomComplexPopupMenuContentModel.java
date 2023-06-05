@@ -196,6 +196,11 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
         return Collections.unmodifiableList(this.sections);
     }
 
+    @Override
+    public boolean isEmpty() {
+        return this.sections.isEmpty();
+    }
+
     public static class Builder {
         private List<KeyValuePair<PopupMenuSectionEntryKind, Object>> sectionContent = new ArrayList<>();
 

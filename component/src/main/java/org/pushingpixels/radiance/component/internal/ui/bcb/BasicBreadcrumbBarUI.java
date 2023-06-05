@@ -452,7 +452,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                                     new CommandGroup()))
                             .build();
                     JCommandButton button = command.project(commandPresentation).buildComponent();
-                    button.setCommandButtonKind(JCommandButton.CommandButtonKind.POPUP_ONLY);
                     configureBreadcrumbButton(button);
                     configurePopupAction(command, bic);
                     configurePopupRollover(button);
@@ -461,7 +460,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
                 } else {
                     JCommandButton button = buttonStack.getLast();
                     Command command = commandStack.getLast();
-                    button.setCommandButtonKind(JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
                     configurePopupAction(command, bic);
                     configurePopupRollover(button);
                 }

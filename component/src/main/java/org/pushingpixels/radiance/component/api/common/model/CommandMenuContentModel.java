@@ -131,6 +131,17 @@ public class CommandMenuContentModel implements BaseCommandMenuContentModel, Cha
     }
 
     @Override
+    public boolean isEmpty() {
+        boolean isPanelContentModelEmpty = (this.panelContentModel == null)
+            || (this.panelContentModel.getCommandCount() == 0);
+        int regularCommandCount = 0;
+        for (CommandGroup group : this.getCommandGroups()) {
+            regularCommandCount += group.getCommands().size();
+        }
+        return isPanelContentModelEmpty && (regularCommandCount == 0);
+    }
+
+    @Override
     public void addChangeListener(ChangeListener l) {
         this.weakChangeSupport.addChangeListener(l);
     }
