@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.common.model;
 
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 
+import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class CommandPanelContentModel implements ContentModel, ChangeAware {
 
         this.commandPropertyChangeListener = evt -> {
             if (evt.getPropertyName().equals("isToggleSelected")) {
-                syncSelectedCommand();
+                SwingUtilities.invokeLater(this::syncSelectedCommand);
             }
         };
 

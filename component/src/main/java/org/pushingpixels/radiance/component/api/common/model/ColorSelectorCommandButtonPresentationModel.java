@@ -81,6 +81,8 @@ public class ColorSelectorCommandButtonPresentationModel extends BaseCommandButt
                 ? overlay.isShowPopupIcon() : this.showPopupIcon;
         result.popupIcon = (overlay.getPopupIcon() != null)
                 ? overlay.getPopupIcon() : this.popupIcon;
+        result.popupAnchorBoundsProvider = (overlay.getPopupAnchorBoundsProvider() != null)
+                ? overlay.getPopupAnchorBoundsProvider() : this.popupAnchorBoundsProvider;
         result.popupMenuPresentationModel = (overlay.getPopupMenuPresentationModel() != null)
                 ? (ColorSelectorPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
         result.actionKeyTip = (overlay.getActionKeyTip() != null)

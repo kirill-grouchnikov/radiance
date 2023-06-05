@@ -56,6 +56,9 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonGallery.getExpandPopupMenuContentModel;
+import static org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonGallery.getExpandPopupMenuPresentationModel;
+
 /**
  * Basic UI for ribbon gallery {@link JRibbonGallery}.
  *
@@ -92,9 +95,12 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      */
     private JComponent buttonStrip;
 
+    private CommandMenuContentModel expandedGalleryContentModel;
+
     private RibbonGalleryContentModel.GalleryCommandAction
             galleryCommandSelectionListener;
     private ChangeListener galleryModelChangeListener;
+    private ChangeListener expandedGalleryModelChangeListener;
 
     /**
      * Ribbon gallery margin.
@@ -149,49 +155,10 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                                         SwingConstants.SOUTH,
                                         scheme), new Dimension(arrowIconWidth, arrowIconHeight)))
                 .build();
+
+        this.expandedGalleryContentModel = getExpandPopupMenuContentModel(ribbonGallery.getProjection());
         this.expandCommand = Command.builder()
-                .setAction(commandActionEvent -> {
-                    PopupPanelManager.defaultManager().hidePopups(ribbonGallery);
-                    SwingUtilities.invokeLater(() -> {
-                        JCommandPopupMenuPanel popupMenuPanel =
-                                JRibbonGallery.getExpandPopupMenuPanelProjection(
-                                        ribbonGallery.getProjection(),
-                                        ribbonGallery.getComponentOrientation()).buildComponent();
-                        final Point loc = ribbonGallery.getLocationOnScreen();
-                        popupMenuPanel.setCustomizer(() -> {
-                            Rectangle scrBounds =
-                                    ribbonGallery.getGraphicsConfiguration().getBounds();
-
-                            boolean ltr = popupMenuPanel.getComponentOrientation().isLeftToRight();
-
-                            Dimension pref = popupMenuPanel.getPreferredSize();
-                            int width = Math.max(pref.width, ribbonGallery.getWidth());
-                            int height = pref.height;
-
-                            int x = ltr ? loc.x : loc.x + width - pref.width;
-                            int y = loc.y;
-
-                            // make sure that the popup stays in bounds
-                            if ((x + width) > (scrBounds.x + scrBounds.width)) {
-                                x = scrBounds.x + scrBounds.width - width;
-                            }
-                            if ((y + height) > (scrBounds.y + scrBounds.height)) {
-                                y = scrBounds.y + scrBounds.height - height;
-                            }
-
-                            return new Rectangle(x, y, width, height);
-                        });
-
-                        // get the popup and show it
-                        Dimension pref = popupMenuPanel.getPreferredSize();
-                        int width = Math.max(pref.width, ribbonGallery.getWidth());
-
-                        boolean ltr = ribbonGallery.getComponentOrientation().isLeftToRight();
-                        int x = ltr ? loc.x : loc.x + ribbonGallery.getWidth() - width;
-                        PopupPanelManager.defaultManager().showPopup(ribbonGallery,
-                                popupMenuPanel, x, loc.y);
-                    });
-                })
+                .setSecondaryContentModel(this.expandedGalleryContentModel)
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
                         (g, scheme, width, height) ->
                                 BladeArrowIconUtils.drawDoubleArrow(g, width, height,
@@ -231,9 +198,17 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                                         RadianceThemingSlices.Side.TOP))
                                 .setOpenSides(EnumSet.of(RadianceThemingSlices.Side.TOP))
                                 .build())
-                        .setActionKeyTip(this.ribbonGallery.getProjection()
+                        .setShowPopupIcon(false)
+                        .setPopupKeyTip(this.ribbonGallery.getProjection()
                                 .getPresentationModel().getExpandKeyTip())
-                        .setActionFireTrigger(CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED));
+                        .setPopupMenuPresentationModel(getExpandPopupMenuPresentationModel(this.ribbonGallery.getProjection()))
+                        .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START)
+                        .setPopupAnchorBoundsProvider(() -> {
+                            Point loc = ribbonGallery.getLocationOnScreen();
+                            return new Rectangle(loc.x, loc.y - ribbonGallery.getHeight(), ribbonGallery.getWidth(),
+                                    ribbonGallery.getHeight());
+                        }));
+        galleryScrollerOverlays.putAll(this.ribbonGallery.getProjection().getCommandOverlays());
 
         // Create a button strip that hosts all three scroller commands with all the additional
         // command-specific configurations
@@ -259,6 +234,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
      * Uninstalls subcomponents from the associated ribbon gallery.
      */
     protected void uninstallComponents() {
+        this.expandedGalleryContentModel = null;
         this.galleryScrollerCommands.removeAllCommands();
         this.buttonStrip.removeAll();
         this.ribbonGallery.remove(this.buttonStrip);
@@ -299,6 +275,19 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         this.galleryModelChangeListener = (ChangeEvent changeEvent) -> ribbonGallery.revalidate();
         this.ribbonGallery.getProjection().getContentModel().addChangeListener(
                 this.galleryModelChangeListener);
+
+        // Track command selection in the popup and update our main gallery content model on
+        // every selection change. This way changing selection in popup will be reflected in the
+        // main gallery once the popup is closed.
+        this.expandedGalleryModelChangeListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                Command selectedCommandInPopupMenu =
+                        expandedGalleryContentModel.getPanelContentModel().getSelectedCommand();
+                ribbonGallery.getProjection().getContentModel().setSelectedCommand(selectedCommandInPopupMenu);
+            }
+        };
+        this.expandedGalleryContentModel.addChangeListener(this.expandedGalleryModelChangeListener);
     }
 
     /**
@@ -309,6 +298,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                 this.galleryCommandSelectionListener);
         this.ribbonGallery.getProjection().getContentModel().removeChangeListener(
                 this.galleryModelChangeListener);
+        this.expandedGalleryContentModel.removeChangeListener(this.expandedGalleryModelChangeListener);
     }
 
     @Override

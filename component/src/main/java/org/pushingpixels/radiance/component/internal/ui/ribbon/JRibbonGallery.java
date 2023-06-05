@@ -406,6 +406,70 @@ public class JRibbonGallery extends JComponent {
 
         return commandPopupMenuPanelProjection;
     }
+
+    public static CommandMenuContentModel getExpandPopupMenuContentModel(
+            RibbonGalleryProjection galleryProjection) {
+        // Create the content model for the panel with all the primary gallery commands,
+        // wiring the preview listener for the panel to update the gallery content
+        // model
+        CommandPanelContentModel galleryPopupMenuPanelContentModel = new CommandPanelContentModel(
+                galleryProjection.getContentModel().getCommandGroups());
+        galleryPopupMenuPanelContentModel.setSingleSelectionMode(true);
+        galleryPopupMenuPanelContentModel.setCommandPreviewListener(
+                new Command.CommandActionPreview() {
+                    @Override
+                    public void onCommandPreviewActivated(BaseCommand command) {
+                        galleryProjection.getContentModel().activatePreview(command);
+                    }
+
+                    @Override
+                    public void onCommandPreviewCanceled(BaseCommand command) {
+                        galleryProjection.getContentModel().cancelPreview(command);
+                    }
+                });
+
+        // Create the content model for the entire popup based on the gallery commands,
+        // as well as on the extra popup commands set on the gallery content model
+        CommandMenuContentModel galleryPopupMenuContentModel =
+                new CommandMenuContentModel(
+                        galleryPopupMenuPanelContentModel,
+                        galleryProjection.getContentModel().getExtraPopupCommandGroups());
+        return galleryPopupMenuContentModel;
+    }
+
+    public static CommandPopupMenuPresentationModel getExpandPopupMenuPresentationModel(
+            RibbonGalleryProjection galleryProjection) {
+        // Do all the primary gallery command groups have titles?
+        boolean allGroupsHaveTitles = true;
+        for (CommandGroup commandGroupModel :
+                galleryProjection.getContentModel().getCommandGroups()) {
+            String groupTitle = commandGroupModel.getTitle();
+            if (groupTitle == null) {
+                allGroupsHaveTitles = false;
+                break;
+            }
+        }
+
+        // Configure the presentation model for the gallery popup menu. Here we configure
+        // the presentation model for the panel with primary gallery commands based on
+        // the gallery presentation model. This is what allows having different presentation
+        // for the same gallery popup content when it's in the ribbon band vs when it's shown
+        // in ribbon task bar.
+        RibbonGalleryPresentationModel galleryPresentationModel =
+                galleryProjection.getPresentationModel();
+        CommandPopupMenuPresentationModel galleryPopupMenuPresentationModel =
+                CommandPopupMenuPresentationModel.builder()
+                        .setPanelPresentationModel(
+                                CommandPopupMenuPanelPresentationModel.builder()
+                                        .setLayoutSpec(galleryPresentationModel.getPopupLayoutSpec())
+                                        .setToShowGroupLabels(allGroupsHaveTitles)
+                                        .setCommandPresentationState(
+                                                galleryPresentationModel.getCommandPresentationState())
+                                        .build())
+                        .build();
+
+        return galleryPopupMenuPresentationModel;
+    }
 }
 
 

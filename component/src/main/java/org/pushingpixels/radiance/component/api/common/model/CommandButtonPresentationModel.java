@@ -88,6 +88,8 @@ public class CommandButtonPresentationModel extends BaseCommandButtonPresentatio
                 ? overlay.isShowPopupIcon() : this.showPopupIcon;
         result.popupIcon = (overlay.getPopupIcon() != null)
                 ? overlay.getPopupIcon() : this.popupIcon;
+        result.popupAnchorBoundsProvider = (overlay.getPopupAnchorBoundsProvider() != null)
+                ? overlay.getPopupAnchorBoundsProvider() : this.popupAnchorBoundsProvider;
         result.popupMenuPresentationModel = (overlay.getPopupMenuPresentationModel() != null)
                 ? (CommandPopupMenuPresentationModel) overlay.getPopupMenuPresentationModel() : this.popupMenuPresentationModel;
         result.actionKeyTip = (overlay.getActionKeyTip() != null)
