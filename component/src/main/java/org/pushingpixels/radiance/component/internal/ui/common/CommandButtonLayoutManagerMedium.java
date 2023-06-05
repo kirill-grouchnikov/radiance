@@ -287,7 +287,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 }
                 result.popupActionRect.x = x;
                 result.popupActionRect.y = (height - popupIconHeight) / 2;
-                result.popupActionRect.width = popupIconWidth + 4;
+                result.popupActionRect.width = popupIconWidth;
                 result.popupActionRect.height = popupIconHeight;
             }
 
@@ -450,7 +450,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                     x -= (width - 2 * layoutHGap - popupIconWidth) / 2;
                 }
 
-                result.popupActionRect.width = popupIconWidth + 4;
+                result.popupActionRect.width = popupIconWidth;
                 result.popupActionRect.x = x - result.popupActionRect.width;
                 result.popupActionRect.y = (height - popupIconHeight) / 2;
                 result.popupActionRect.height = popupIconHeight;
