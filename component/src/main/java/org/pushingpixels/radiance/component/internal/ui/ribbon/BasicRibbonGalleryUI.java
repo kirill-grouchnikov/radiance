@@ -199,8 +199,7 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                                 .setOpenSides(EnumSet.of(RadianceThemingSlices.Side.TOP))
                                 .build())
                         .setShowPopupIcon(false)
-                        .setPopupKeyTip(this.ribbonGallery.getProjection()
-                                .getPresentationModel().getExpandKeyTip())
+                        .setPopupKeyTip(this.ribbonGallery.getProjection().getPresentationModel().getExpandKeyTip())
                         .setPopupMenuPresentationModel(getExpandPopupMenuPresentationModel(this.ribbonGallery.getProjection()))
                         .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_START)
                         .setPopupAnchorBoundsProvider(() -> {
@@ -279,13 +278,10 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
         // Track command selection in the popup and update our main gallery content model on
         // every selection change. This way changing selection in popup will be reflected in the
         // main gallery once the popup is closed.
-        this.expandedGalleryModelChangeListener = new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                Command selectedCommandInPopupMenu =
-                        expandedGalleryContentModel.getPanelContentModel().getSelectedCommand();
-                ribbonGallery.getProjection().getContentModel().setSelectedCommand(selectedCommandInPopupMenu);
-            }
+        this.expandedGalleryModelChangeListener = e -> {
+            Command selectedCommandInPopupMenu =
+                    expandedGalleryContentModel.getPanelContentModel().getSelectedCommand();
+            ribbonGallery.getProjection().getContentModel().setSelectedCommand(selectedCommandInPopupMenu);
         };
         this.expandedGalleryContentModel.addChangeListener(this.expandedGalleryModelChangeListener);
     }

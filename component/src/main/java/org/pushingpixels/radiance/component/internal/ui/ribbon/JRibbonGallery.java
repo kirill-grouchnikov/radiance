@@ -44,7 +44,6 @@ import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceR
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -333,73 +332,17 @@ public class JRibbonGallery extends JComponent {
     }
 
     public static CommandPopupMenuPanelProjection getExpandPopupMenuPanelProjection(
-            RibbonGalleryProjection galleryProjection,
-            ComponentOrientation componentOrientation) {
-
-        // Create the content model for the panel with all the primary gallery commands,
-        // wiring the preview listener for the panel to update the gallery content
-        // model
-        CommandPanelContentModel galleryPopupMenuPanelContentModel = new CommandPanelContentModel(
-                galleryProjection.getContentModel().getCommandGroups());
-        galleryPopupMenuPanelContentModel.setSingleSelectionMode(true);
-        galleryPopupMenuPanelContentModel.setCommandPreviewListener(
-                new Command.CommandActionPreview() {
-                    @Override
-                    public void onCommandPreviewActivated(BaseCommand command) {
-                        galleryProjection.getContentModel().activatePreview(command);
-                    }
-
-                    @Override
-                    public void onCommandPreviewCanceled(BaseCommand command) {
-                        galleryProjection.getContentModel().cancelPreview(command);
-                    }
-                });
-
-        // Create the content model for the entire popup based on the gallery commands,
-        // as well as on the extra popup commands set on the gallery content model
+            RibbonGalleryProjection galleryProjection) {
+        // Content model
         CommandMenuContentModel galleryPopupMenuContentModel =
-                new CommandMenuContentModel(
-                        galleryPopupMenuPanelContentModel,
-                        galleryProjection.getContentModel().getExtraPopupCommandGroups());
-        // Track command selection in the popup and update our main gallery content model on
-        // every selection change. This way changing selection in popup will be reflected in the
-        // main gallery once the popup is closed.
-        galleryPopupMenuContentModel.addChangeListener(e -> {
-            Command selectedCommandInPopupMenu = galleryPopupMenuPanelContentModel.getSelectedCommand();
-            galleryProjection.getContentModel().setSelectedCommand(selectedCommandInPopupMenu);
-        });
-
-        // Do all the primary gallery command groups have titles?
-        boolean allGroupsHaveTitles = true;
-        for (CommandGroup commandGroupModel :
-                galleryProjection.getContentModel().getCommandGroups()) {
-            String groupTitle = commandGroupModel.getTitle();
-            if (groupTitle == null) {
-                allGroupsHaveTitles = false;
-                break;
-            }
-        }
-
-        // Configure the presentation model for the gallery popup menu. Here we configure
-        // the presentation model for the panel with primary gallery commands based on
-        // the gallery presentation model. This is what allows having different presentation
-        // for the same gallery popup content when it's in the ribbon band vs when it's shown
-        // in ribbon task bar.
-        RibbonGalleryPresentationModel galleryPresentationModel =
-                galleryProjection.getPresentationModel();
+                getExpandPopupMenuContentModel(galleryProjection);
+        // Presentation model
         CommandPopupMenuPresentationModel galleryPopupMenuPresentationModel =
-                CommandPopupMenuPresentationModel.builder()
-                        .setPanelPresentationModel(
-                                CommandPopupMenuPanelPresentationModel.builder()
-                                        .setLayoutSpec(galleryPresentationModel.getPopupLayoutSpec())
-                                        .setToShowGroupLabels(allGroupsHaveTitles)
-                                        .setCommandPresentationState(
-                                                galleryPresentationModel.getCommandPresentationState())
-                                        .build())
-                        .build();
-
-        CommandPopupMenuPanelProjection commandPopupMenuPanelProjection = new CommandPopupMenuPanelProjection(
-                galleryPopupMenuContentModel, galleryPopupMenuPresentationModel);
+                getExpandPopupMenuPresentationModel(galleryProjection);
+        // Projection
+        CommandPopupMenuPanelProjection commandPopupMenuPanelProjection =
+                new CommandPopupMenuPanelProjection(
+                        galleryPopupMenuContentModel, galleryPopupMenuPresentationModel);
         if (galleryProjection.getCommandOverlays() != null) {
             commandPopupMenuPanelProjection.setCommandOverlays(galleryProjection.getCommandOverlays());
         }
@@ -430,11 +373,9 @@ public class JRibbonGallery extends JComponent {
 
         // Create the content model for the entire popup based on the gallery commands,
         // as well as on the extra popup commands set on the gallery content model
-        CommandMenuContentModel galleryPopupMenuContentModel =
-                new CommandMenuContentModel(
-                        galleryPopupMenuPanelContentModel,
-                        galleryProjection.getContentModel().getExtraPopupCommandGroups());
-        return galleryPopupMenuContentModel;
+        return new CommandMenuContentModel(
+                galleryPopupMenuPanelContentModel,
+                galleryProjection.getContentModel().getExtraPopupCommandGroups());
     }
 
     public static CommandPopupMenuPresentationModel getExpandPopupMenuPresentationModel(
@@ -457,18 +398,15 @@ public class JRibbonGallery extends JComponent {
         // in ribbon task bar.
         RibbonGalleryPresentationModel galleryPresentationModel =
                 galleryProjection.getPresentationModel();
-        CommandPopupMenuPresentationModel galleryPopupMenuPresentationModel =
-                CommandPopupMenuPresentationModel.builder()
-                        .setPanelPresentationModel(
-                                CommandPopupMenuPanelPresentationModel.builder()
-                                        .setLayoutSpec(galleryPresentationModel.getPopupLayoutSpec())
-                                        .setToShowGroupLabels(allGroupsHaveTitles)
-                                        .setCommandPresentationState(
-                                                galleryPresentationModel.getCommandPresentationState())
-                                        .build())
-                        .build();
-
-        return galleryPopupMenuPresentationModel;
+        return CommandPopupMenuPresentationModel.builder()
+                .setPanelPresentationModel(
+                        CommandPopupMenuPanelPresentationModel.builder()
+                                .setLayoutSpec(galleryPresentationModel.getPopupLayoutSpec())
+                                .setToShowGroupLabels(allGroupsHaveTitles)
+                                .setCommandPresentationState(
+                                        galleryPresentationModel.getCommandPresentationState())
+                                .build())
+                .build();
     }
 }
 

@@ -438,8 +438,7 @@ public class JRibbon extends JComponent {
 
     public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
         CommandPopupMenuPanelProjection popupMenuPanelProjection =
-                JRibbonGallery.getExpandPopupMenuPanelProjection(galleryProjection,
-                        this.getComponentOrientation());
+                JRibbonGallery.getExpandPopupMenuPanelProjection(galleryProjection);
         // The popup callback displays the expanded popup menu for the gallery
         Command galleryDropdownCommand = Command.builder()
                 .setIconFactory(galleryProjection.getContentModel().getIconFactory())
