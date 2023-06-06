@@ -160,19 +160,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * Installs subcomponents on the associated ribbon band.
      */
     protected void installComponents() {
-        Command collapseCommand = Command.builder()
-                .setText(this.ribbonBand.getTitle())
-                .setIconFactory(this.ribbonBand.getIconFactory())
-                .build();
-
-        this.collapsedButton = collapseCommand.project(
-                CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.BIG)
-                        .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
-                        .build())
-                .buildComponent();
-        this.ribbonBand.add(this.collapsedButton);
-
+        this.syncCollapsedButton();
         this.syncExpandButton();
     }
 
@@ -189,6 +177,24 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         }
 
         this.ribbonBand.revalidate();
+    }
+
+    private void syncCollapsedButton() {
+        if (this.collapsedButton != null) {
+            this.ribbonBand.remove(this.collapsedButton);
+        }
+
+        Command collapseCommand = Command.builder()
+                .setText(this.ribbonBand.getTitle())
+                .setIconFactory(this.ribbonBand.getIconFactory())
+                .build();
+        this.collapsedButton = collapseCommand.project(
+                        CommandButtonPresentationModel.builder()
+                                .setPresentationState(CommandButtonPresentationState.BIG)
+                                .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
+                                .build())
+                .buildComponent();
+        this.ribbonBand.add(this.collapsedButton);
     }
 
     /**
@@ -211,21 +217,19 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
         this.propertyChangeListener = propertyChangeEvent -> {
             if ("title".equals(propertyChangeEvent.getPropertyName())) {
-                ribbonBand.repaint();
+                this.ribbonBand.repaint();
             }
             if ("expandButtonKeyTip".equals(propertyChangeEvent.getPropertyName())) {
-                syncExpandButton();
+                this.syncExpandButton();
             }
             if ("expandButtonRichTooltip".equals(propertyChangeEvent.getPropertyName())) {
-                syncExpandButton();
+                this.syncExpandButton();
             }
             if ("expandCommandListener".equals(propertyChangeEvent.getPropertyName())) {
-                syncExpandButton();
+                this.syncExpandButton();
             }
             if ("collapsedStateKeyTip".equals(propertyChangeEvent.getPropertyName())) {
-                if (collapsedButton != null) {
-                    collapsedButton.setPopupKeyTip((String) propertyChangeEvent.getNewValue());
-                }
+                this.syncCollapsedButton();
             }
         };
         this.ribbonBand.addPropertyChangeListener(this.propertyChangeListener);

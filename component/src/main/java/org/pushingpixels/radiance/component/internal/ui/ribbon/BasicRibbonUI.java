@@ -155,7 +155,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     this.applicationMenuButton = createApplicationMenuButton();
                     this.applicationMenuButton.applyComponentOrientation(
                             this.ribbon.getComponentOrientation());
-                    this.syncApplicationMenuTips();
                     this.ribbon.add(this.applicationMenuButton);
                 }
 
@@ -247,7 +246,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
             this.applicationMenuButton = createApplicationMenuButton();
             this.applicationMenuButton.applyComponentOrientation(
                     this.ribbon.getComponentOrientation());
-            this.syncApplicationMenuTips();
             this.ribbon.add(this.applicationMenuButton);
         }
     }
@@ -259,7 +257,9 @@ public abstract class BasicRibbonUI extends RibbonUI {
                         new BaseCommandButtonPresentationModel.Overlay()
                                 .setPresentationState(CommandButtonPresentationState.MEDIUM)
                                 .setHorizontalAlignment(HorizontalAlignment.CENTER)
-                                .setShowPopupIcon(false))
+                                .setShowPopupIcon(false)
+                                .setPopupKeyTip(applicationMenuCommandButtonProjection.
+                                        getPresentationModel().getPopupKeyTip()))
                 .buildComponent();
     }
 
@@ -1317,8 +1317,6 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         return result;
     }
-
-    protected abstract void syncApplicationMenuTips();
 
     @Override
     public boolean isShowingScrollsForTaskToggleButtons() {

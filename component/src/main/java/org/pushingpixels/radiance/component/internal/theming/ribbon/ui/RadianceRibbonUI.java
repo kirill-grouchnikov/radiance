@@ -30,13 +30,9 @@
 package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
-import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
-import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonTask;
-import org.pushingpixels.radiance.component.api.ribbon.projection.RibbonApplicationMenuCommandButtonProjection;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonUI;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonRootPane;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex.ComponentOrParentChainScope;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
@@ -203,29 +199,6 @@ public class RadianceRibbonUI extends BasicRibbonUI {
         return RadianceSizeUtils.getAdjustedSize(
                 RadianceSizeUtils.getComponentFontSize(this.ribbon), super.getTabButtonGap(), 3, 1,
                 false);
-    }
-
-    @Override
-    protected void syncApplicationMenuTips() {
-        if ((this.applicationMenuButton == null) || !this.applicationMenuButton.isVisible()) {
-            return;
-        }
-
-        JRibbonRootPane ribbonRootPane = (JRibbonRootPane) SwingUtilities.getRootPane(this.ribbon);
-        if (ribbonRootPane == null) {
-            return;
-        }
-        JRibbonFrame ribbonFrame = (JRibbonFrame) ribbonRootPane.getParent();
-        JRibbon ribbon = ribbonFrame.getRibbon();
-        if (ribbon != null) {
-            RibbonApplicationMenuCommandButtonProjection applicationMenuProjection =
-                    ribbon.getApplicationMenuCommandProjection();
-            if (applicationMenuProjection != null) {
-                this.applicationMenuButton.setPopupKeyTip(
-                        ribbon.getApplicationMenuCommandProjection()
-                                .getPresentationModel().getPopupKeyTip());
-            }
-        }
     }
 
     @Override
