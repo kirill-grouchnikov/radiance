@@ -133,16 +133,16 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
 
-        if (buttonKind == JCommandButton.CommandButtonKind.ACTION_ONLY) {
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_ONLY) {
             result.actionClickArea.x = 0;
             result.actionClickArea.y = 0;
             result.actionClickArea.width = width;
             result.actionClickArea.height = height;
             result.isTextInActionArea = true;
         }
-        if (buttonKind == JCommandButton.CommandButtonKind.POPUP_ONLY) {
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.POPUP_ONLY) {
             result.popupClickArea.x = 0;
             result.popupClickArea.y = 0;
             result.popupClickArea.width = width;
@@ -170,7 +170,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             result.iconRect.height = iconHeight;
 
             x += iconWidth;
-            if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP) {
+            if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP) {
                 result.actionClickArea.x = 0;
                 result.actionClickArea.y = 0;
                 result.actionClickArea.width = x + layoutHGap;
@@ -251,7 +251,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             }
 
             x += fm.stringWidth(buttonText);
-            if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION) {
+            if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION) {
                 // popup click areas are right aligned
                 result.actionClickArea.x = 0;
                 result.actionClickArea.y = 0;
@@ -291,7 +291,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
             result.iconRect.height = iconHeight;
 
             x -= iconWidth;
-            if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP) {
+            if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP) {
                 result.actionClickArea.x = x + layoutHGap;
                 result.actionClickArea.y = 0;
                 result.actionClickArea.width = width - x - layoutHGap;
@@ -372,7 +372,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 result.extraTextLayoutInfoList.add(extraLineLayoutInfo2);
             }
 
-            if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION) {
+            if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION) {
                 // popup click areas are left aligned
                 result.actionClickArea.x = labelHeight + ins.left;
                 result.actionClickArea.y = 0;

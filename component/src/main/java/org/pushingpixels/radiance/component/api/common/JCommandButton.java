@@ -132,76 +132,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private String popupKeyTip;
 
     /**
-     * Enumerates the available command button kinds.
-     *
-     * @author Kirill Grouchnikov
-     */
-    public enum CommandButtonKind {
-        /**
-         * Command button that has only action area.
-         */
-        ACTION_ONLY(true, false),
-
-        /**
-         * Command button that has only popup area.
-         */
-        POPUP_ONLY(false, true),
-
-        /**
-         * Command button that has both action and popup areas, with the main
-         * text click activating the action.
-         */
-        ACTION_AND_POPUP_MAIN_ACTION(true, true),
-
-        /**
-         * Command button that has both action and popup areas, with the main
-         * text click activating the popup.
-         */
-        ACTION_AND_POPUP_MAIN_POPUP(true, true);
-
-        /**
-         * <code>true</code> if the command button kind has an action.
-         */
-        private final boolean hasAction;
-
-        /**
-         * <code>true</code> if the command button kind has a popup.
-         */
-        private final boolean hasPopup;
-
-        /**
-         * Constructs a new command button kind.
-         *
-         * @param hasAction Indicates whether the command button kind has an action.
-         * @param hasPopup  Indicates whether the command button kind has a popup.
-         */
-        CommandButtonKind(boolean hasAction, boolean hasPopup) {
-            this.hasAction = hasAction;
-            this.hasPopup = hasPopup;
-        }
-
-        /**
-         * Returns indication whether this command button kind has an action.
-         *
-         * @return <code>true</code> if the command button kind has an action,
-         * <code>false</code> otherwise.
-         */
-        public boolean hasAction() {
-            return hasAction;
-        }
-
-        /**
-         * Returns indication whether this command button kind has a popup.
-         *
-         * @return <code>true</code> if the command button kind has a popup,
-         * <code>false</code> otherwise.
-         */
-        public boolean hasPopup() {
-            return hasPopup;
-        }
-    }
-
-    /**
      * Extension of the default button model that supports the
      * {@link PopupButtonModel} interface.
      *
@@ -638,33 +568,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         String old = this.actionKeyTip;
         this.actionKeyTip = actionKeyTip;
         this.firePropertyChange("actionKeyTip", old, this.actionKeyTip);
-    }
-
-    /**
-     * Returns the command button kind of this button.
-     *
-     * @return Command button kind of this button.
-     */
-    public CommandButtonKind getCommandButtonKind() {
-        boolean hasAction = (this.command.getAction() != null);
-        boolean hasSecondary = this.command.hasSecondaryContent();
-
-        if (!hasAction && !hasSecondary) {
-            // Treat as action-only
-            return CommandButtonKind.ACTION_ONLY;
-        }
-
-        if (!hasSecondary) {
-            return CommandButtonKind.ACTION_ONLY;
-        }
-
-        if (!hasAction) {
-            return CommandButtonKind.POPUP_ONLY;
-        }
-
-        return (this.commandPresentation.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION)
-                ? CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
-                : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
     }
 
     @Override

@@ -84,7 +84,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
             width += 2 * layoutHGap;
         }
 
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
         if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
             // space for a vertical separator
             width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
@@ -174,7 +174,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
         if (ltr) {

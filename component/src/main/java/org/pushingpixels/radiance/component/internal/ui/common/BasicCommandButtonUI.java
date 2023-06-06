@@ -761,15 +761,15 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     private void syncInitialInnerFocus() {
-        switch (this.commandButton.getCommandButtonKind()) {
-            case ACTION_ONLY:
-                this.isInnerFocusOnAction = true;
-                break;
-            case POPUP_ONLY:
-                this.isInnerFocusOnAction = false;
-                break;
-            default:
-                this.isInnerFocusOnAction = this.commandButton.getActionModel().isEnabled();
+        boolean hasAction = (this.commandButton.getContentModel().getAction() != null);
+        boolean hasSecondary = this.commandButton.getContentModel().hasSecondaryContent();
+
+        if (!hasSecondary) {
+            this.isInnerFocusOnAction = true;
+        } else if (!hasAction) {
+            this.isInnerFocusOnAction = false;
+        } else {
+            this.isInnerFocusOnAction = this.commandButton.getActionModel().isEnabled();
         }
     }
 

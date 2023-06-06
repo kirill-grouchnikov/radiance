@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
@@ -61,6 +62,76 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * Horizontal separator orientation.
          */
         HORIZONTAL
+    }
+
+    /**
+     * Enumerates the available command button kinds.
+     *
+     * @author Kirill Grouchnikov
+     */
+    enum CommandButtonKind {
+        /**
+         * Command button that has only action area.
+         */
+        ACTION_ONLY(true, false),
+
+        /**
+         * Command button that has only popup area.
+         */
+        POPUP_ONLY(false, true),
+
+        /**
+         * Command button that has both action and popup areas, with the main
+         * text click activating the action.
+         */
+        ACTION_AND_POPUP_MAIN_ACTION(true, true),
+
+        /**
+         * Command button that has both action and popup areas, with the main
+         * text click activating the popup.
+         */
+        ACTION_AND_POPUP_MAIN_POPUP(true, true);
+
+        /**
+         * <code>true</code> if the command button kind has an action.
+         */
+        private final boolean hasAction;
+
+        /**
+         * <code>true</code> if the command button kind has a popup.
+         */
+        private final boolean hasPopup;
+
+        /**
+         * Constructs a new command button kind.
+         *
+         * @param hasAction Indicates whether the command button kind has an action.
+         * @param hasPopup  Indicates whether the command button kind has a popup.
+         */
+        CommandButtonKind(boolean hasAction, boolean hasPopup) {
+            this.hasAction = hasAction;
+            this.hasPopup = hasPopup;
+        }
+
+        /**
+         * Returns indication whether this command button kind has an action.
+         *
+         * @return <code>true</code> if the command button kind has an action,
+         * <code>false</code> otherwise.
+         */
+        public boolean hasAction() {
+            return hasAction;
+        }
+
+        /**
+         * Returns indication whether this command button kind has a popup.
+         *
+         * @return <code>true</code> if the command button kind has a popup,
+         * <code>false</code> otherwise.
+         */
+        public boolean hasPopup() {
+            return hasPopup;
+        }
     }
 
     /**
@@ -142,6 +213,28 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * {@link #textLayoutInfoList}) belongs in the action area.
          */
         public boolean isTextInActionArea;
+    }
+
+    default CommandButtonKind getCommandButtonKind(JCommandButton commandButton) {
+        boolean hasAction = (commandButton.getContentModel().getAction() != null);
+        boolean hasSecondary = commandButton.getContentModel().hasSecondaryContent();
+
+        if (!hasAction && !hasSecondary) {
+            // Treat as action-only
+            return CommandButtonKind.ACTION_ONLY;
+        }
+
+        if (!hasSecondary) {
+            return CommandButtonKind.ACTION_ONLY;
+        }
+
+        if (!hasAction) {
+            return CommandButtonKind.POPUP_ONLY;
+        }
+
+        return (commandButton.getPresentationModel().getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION)
+                ? CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
     }
 
     /**

@@ -2,9 +2,10 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandButtonKind;
+import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
@@ -48,7 +49,7 @@ public class TestCommandButtonsSizing extends JPanel {
         for (final CommandButtonPresentationState state : new CommandButtonPresentationState[] {
                 CommandButtonPresentationState.BIG, CommandButtonPresentationState.MEDIUM,
                 CommandButtonPresentationState.TILE, CommandButtonPresentationState.SMALL}) {
-            for (final CommandButtonKind commandButtonKind : CommandButtonKind.values()) {
+            for (final CommandButtonKind commandButtonKind : CommandButtonLayoutManager.CommandButtonKind.values()) {
                 this.model.add(new Mapping(
                         state.getDisplayName() + " + " + commandButtonKind.name(),
                         fontSize -> createActionOnlyButton("Sample", state, commandButtonKind, fontSize)));

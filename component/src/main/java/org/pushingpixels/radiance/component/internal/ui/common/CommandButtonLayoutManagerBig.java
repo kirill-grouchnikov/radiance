@@ -133,7 +133,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         }
 
         // separator?
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
         if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
             // space for a horizontal separator
             height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
@@ -250,7 +250,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (this.titlePart1 != null);

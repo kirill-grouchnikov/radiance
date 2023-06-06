@@ -35,7 +35,6 @@ import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManage
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonSeparatorOrientation;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.radiance.component.api.common.RolloverActionListener;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
@@ -46,7 +45,6 @@ import org.pushingpixels.radiance.component.internal.theming.common.GlowingRadia
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonBackgroundDelegate;
 import org.pushingpixels.radiance.component.internal.theming.utils.CommandButtonVisualStateTracker;
 import org.pushingpixels.radiance.component.internal.ui.common.BasicCommandButtonUI;
-import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.component.internal.utils.KeyTipRenderingUtilities;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;

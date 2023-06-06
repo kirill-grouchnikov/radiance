@@ -117,13 +117,13 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         }
 
         // separator?
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
         boolean hasSeparator = false;
-        if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                 && (hasIcon || hasText)) {
             hasSeparator = true;
         }
-        if (buttonKind == JCommandButton.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP
                 && hasIcon) {
             hasSeparator = true;
         }
@@ -227,7 +227,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
         int labelHeight = fm.getAscent() + fm.getDescent();
 
-        JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
         if (ltr) {

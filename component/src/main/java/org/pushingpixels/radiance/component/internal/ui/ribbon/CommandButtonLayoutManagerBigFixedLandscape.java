@@ -110,17 +110,17 @@ public class CommandButtonLayoutManagerBigFixedLandscape implements
 				RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
 		int labelHeight = fm.getAscent() + fm.getDescent();
 
-		JCommandButton.CommandButtonKind buttonKind = commandButton.getCommandButtonKind();
+		CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
 
 		result.isTextInActionArea = false;
-		if (buttonKind == JCommandButton.CommandButtonKind.ACTION_ONLY) {
+		if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_ONLY) {
 			result.actionClickArea.x = 0;
 			result.actionClickArea.y = 0;
 			result.actionClickArea.width = width;
 			result.actionClickArea.height = height;
 			result.isTextInActionArea = true;
 		}
-		if (buttonKind == JCommandButton.CommandButtonKind.POPUP_ONLY) {
+		if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.POPUP_ONLY) {
 			result.popupClickArea.x = 0;
 			result.popupClickArea.y = 0;
 			result.popupClickArea.width = width;
