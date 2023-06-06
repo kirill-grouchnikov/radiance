@@ -92,7 +92,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (this.titlePart1 != null);
-        boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
+        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
         int title1Width = (this.titlePart1 == null) ? 0 : fm.stringWidth(this.titlePart1);
         int title2Width = (this.titlePart2 == null) ? 0 : fm.stringWidth(this.titlePart2);
@@ -100,7 +100,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         int width = Math.max(this.getCurrentIconWidth(commandButton),
                 Math.max(title1Width, title2Width + 4 * layoutHGap
                         + jsep.getPreferredSize().height
-                        + (ComponentUtilities.hasPopupAction(commandButton) ? 1 + fm.getHeight() / 2 : 0)));
+                        + (commandButton.getContentModel().hasSecondaryContent() ? 1 + fm.getHeight() / 2 : 0)));
 
         // start height with the top inset
         int height = borderInsets.top;
@@ -176,7 +176,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 this.titlePart1 = buttonText;
                 this.titlePart2 = null;
             } else {
-                int actionIconWidth = ComponentUtilities.hasPopupAction(commandButton) ? 0
+                int actionIconWidth = commandButton.getContentModel().hasSecondaryContent() ? 0
                         : 2 * ComponentUtilities.getHLayoutGap(commandButton)
                         + (fm.getAscent() + fm.getDescent()) / 2;
                 int currMaxLength = fm.stringWidth(buttonText) + actionIconWidth;
@@ -254,7 +254,7 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
         boolean hasText = (this.titlePart1 != null);
-        boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
+        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);

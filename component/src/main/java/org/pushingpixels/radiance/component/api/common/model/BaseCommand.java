@@ -157,6 +157,11 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         }
     }
 
+    public boolean hasSecondaryContent() {
+        return (this.getSecondaryContentModel() != null) &&
+                !this.getSecondaryContentModel().isEmpty();
+    }
+
     public MCM getSecondaryContentModel() {
         return this.secondaryContentModel;
     }

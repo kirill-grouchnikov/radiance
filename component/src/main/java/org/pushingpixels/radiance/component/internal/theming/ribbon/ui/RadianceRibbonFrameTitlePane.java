@@ -358,7 +358,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                     if (button.getContentModel().getAction() != null) {
                         button.setActionKeyTip(policy.getContentKeyTip(index++));
                     }
-                    if (!button.getContentModel().getSecondaryContentModel().isEmpty()) {
+                    if (button.getContentModel().hasSecondaryContent()) {
                         button.setPopupKeyTip(policy.getContentKeyTip(index++));
                     }
                 } else if (taskbarComp instanceof JRibbonComponent) {

@@ -75,7 +75,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
         boolean hasIcon = this.hasIcon(commandButton);
         boolean hasText = (buttonText != null);
-        boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
+        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
         int prefIconWidth = hasIcon ? this.getPreferredIconSize(commandButton).width : 0;
         int prefIconHeight = hasIcon ? this.getPreferredIconSize(commandButton).height : 0;
@@ -199,7 +199,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
         boolean hasIcon = this.hasIcon(commandButton);
         boolean hasText = (buttonText != null);
-        boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
+        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
         boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 

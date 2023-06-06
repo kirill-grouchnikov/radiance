@@ -274,8 +274,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
             return;
         if (this.icon == null)
             return;
-        boolean isPopupOnly = (this.commandButton.getCommandButtonKind() ==
-                JCommandButton.CommandButtonKind.POPUP_ONLY);
+        boolean isPopupOnly = (commandButton.getContentModel().getAction() == null) &&
+                commandButton.getContentModel().hasSecondaryContent();
         StateTransitionTracker tracker = isPopupOnly
                 ? this.radianceVisualStateTracker.getPopupStateTransitionTracker()
                 : this.radianceVisualStateTracker.getActionStateTransitionTracker();
@@ -311,7 +311,8 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
         StateTransitionTracker tracker = this.radianceVisualStateTracker
                 .getActionStateTransitionTracker();
         ButtonModel model = commandButton.getActionModel();
-        if (this.commandButton.getCommandButtonKind() == CommandButtonKind.POPUP_ONLY) {
+        if ((commandButton.getContentModel().getAction() == null) &&
+                commandButton.getContentModel().hasSecondaryContent()) {
             tracker = this.radianceVisualStateTracker.getPopupStateTransitionTracker();
             model = this.commandButton.getPopupModel();
         }
@@ -661,7 +662,7 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                 && (SwingUtilities.getAncestorOfClass(AbstractPopupMenuPanel.class, this.commandButton) == null)) {
             JButton forSizing = new JButton(this.commandButton.getContentModel().getText(), this.icon);
             Dimension result = shaper.getPreferredSize(forSizing, superPref);
-            if (ComponentUtilities.hasPopupAction(this.commandButton)) {
+            if (this.commandButton.getContentModel().hasSecondaryContent()) {
                 result.width = superPref.width;
             }
             return result;

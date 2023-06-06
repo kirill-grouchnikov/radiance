@@ -73,10 +73,6 @@ public class ComponentUtilities {
                 * (font.getSize() - 4) / 4);
     }
 
-    public static boolean hasPopupAction(JCommandButton commandButton) {
-        return commandButton.getCommandButtonKind().hasPopup();
-    }
-
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {
         List<PopupPanelManager.PopupInfo> popups = PopupPanelManager.defaultManager()
                 .getShownPath();

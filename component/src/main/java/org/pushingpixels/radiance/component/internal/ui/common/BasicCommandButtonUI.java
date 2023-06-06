@@ -542,7 +542,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
      * Updates the popup indicator icon.
      */
     protected void updatePopupIcon() {
-        if (this.commandButton.getCommandButtonKind().hasPopup()) {
+        if (this.commandButton.getContentModel().hasSecondaryContent()) {
             this.popupIcon = this.commandButton.getPresentationModel().getPopupIcon();
         } else {
             this.popupIcon = null;
@@ -774,9 +774,10 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     }
 
     private void toggleInnerFocus() {
-        JCommandButton.CommandButtonKind commandButtonKind = this.commandButton.getCommandButtonKind();
-        if ((commandButtonKind == JCommandButton.CommandButtonKind.ACTION_ONLY) ||
-                (commandButtonKind == JCommandButton.CommandButtonKind.POPUP_ONLY)) {
+        boolean hasAction = (this.commandButton.getContentModel().getAction() != null);
+        boolean hasSecondary = this.commandButton.getContentModel().hasSecondaryContent();
+
+        if (!hasAction || !hasSecondary) {
             // Only one area
             return;
         }

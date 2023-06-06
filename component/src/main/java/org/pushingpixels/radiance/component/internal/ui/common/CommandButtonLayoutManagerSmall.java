@@ -58,7 +58,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
-        boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
+        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
         int prefIconWidth = hasIcon ? this.getPreferredIconSize(commandButton).width : 0;
         int prefIconHeight = hasIcon ? this.getPreferredIconSize(commandButton).height : 0;
@@ -168,7 +168,7 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
         }
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
-        boolean hasPopupIcon = ComponentUtilities.hasPopupAction(commandButton);
+        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
         FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
                 RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());

@@ -647,8 +647,7 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public CommandButtonKind getCommandButtonKind() {
         boolean hasAction = (this.command.getAction() != null);
-        boolean hasSecondary = (this.command.getSecondaryContentModel() != null) &&
-                !this.command.getSecondaryContentModel().isEmpty();
+        boolean hasSecondary = this.command.hasSecondaryContent();
 
         if (!hasAction && !hasSecondary) {
             // Treat as action-only

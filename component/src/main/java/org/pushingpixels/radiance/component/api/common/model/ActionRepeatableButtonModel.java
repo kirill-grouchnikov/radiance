@@ -147,8 +147,10 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
             toFireFirstAction = !isPressed() && toFireFirstAction;
 
         // no action on popup only command buttons
-        if (commandButton.getCommandButtonKind() == JCommandButton.CommandButtonKind.POPUP_ONLY)
+        if ((commandButton.getContentModel().getAction() == null) &&
+                commandButton.getContentModel().hasSecondaryContent()) {
             toFireFirstAction = false;
+        }
 
         if (presentationModel.getActionFireTrigger() ==
                 CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER) {
@@ -205,8 +207,7 @@ public class ActionRepeatableButtonModel extends DefaultButtonModel implements A
         if (presentationModel.getActionFireTrigger() ==
                 CommandButtonPresentationModel.ActionFireTrigger.ON_ROLLOVER) {
             if (b && !this.isActionTimerRunning()
-                    && (this.commandButton.getCommandButtonKind() != JCommandButton.CommandButtonKind
-                    .POPUP_ONLY)) {
+                    && (this.commandButton.getContentModel().getAction() != null)) {
                 // action-on-rollover non-popup-only button that gained
                 // rollover and the action timer is not running - fire the
                 // first event and start the action timer.

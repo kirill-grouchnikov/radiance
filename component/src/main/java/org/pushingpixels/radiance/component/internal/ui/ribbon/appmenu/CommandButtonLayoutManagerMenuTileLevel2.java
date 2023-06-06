@@ -67,7 +67,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 + 2 * layoutHGap
                 + jsep.getPreferredSize().width
                 + titleWidth
-                + (ComponentUtilities.hasPopupAction(commandButton)
+                + (commandButton.getContentModel().hasSecondaryContent()
                 ? commandButton.getPresentationModel().getPopupIcon().getIconWidth()
                 + 4 * layoutHGap + jsep.getPreferredSize().width
                 : 0);
@@ -273,7 +273,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 result.isTextInActionArea = true;
             }
 
-            if (ComponentUtilities.hasPopupAction(commandButton)) {
+            if (commandButton.getContentModel().hasSecondaryContent()) {
                 int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
                 int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
 
@@ -395,7 +395,7 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
                 result.isTextInActionArea = true;
             }
 
-            if (ComponentUtilities.hasPopupAction(commandButton)) {
+            if (commandButton.getContentModel().hasSecondaryContent()) {
                 int popupIconWidth = presentationModel.getPopupIcon().getIconWidth();
                 int popupIconHeight = presentationModel.getPopupIcon().getIconHeight();
 
