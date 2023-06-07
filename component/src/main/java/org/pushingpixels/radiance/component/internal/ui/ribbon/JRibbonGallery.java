@@ -178,6 +178,8 @@ public class JRibbonGallery extends JComponent {
         if (overlay != null) {
             presentation = presentation.overlayWith(overlay);
         }
+        presentation = presentation.overlayWith(new BaseCommandButtonPresentationModel.Overlay()
+                .setPresentationState(this.galleryPresentationModel.getCommandPresentationState()));
 
         JCommandButton button = command.project(presentation).buildComponent();
         button.getActionModel().addChangeListener(new ChangeListener() {
@@ -205,7 +207,6 @@ public class JRibbonGallery extends JComponent {
         this.buttons.add(button);
         this.commandToggleGroupModel.add(command);
         this.commands.add(command);
-        button.setPresentationState(this.galleryPresentationModel.getCommandPresentationState());
 
         super.add(button);
     }
