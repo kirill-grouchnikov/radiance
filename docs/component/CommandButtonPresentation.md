@@ -34,7 +34,13 @@ Command button presentation models are created with the builder pattern which is
 | **Visuals** | backgroundAppearanceStrategy | BackgroundAppearanceStrategy |
 |  | presentationState | CommandButtonPresentationState |
 |  | iconDimension | Dimension
-| **Layout metrics** | horizontalAlignment | int |
+|  | font | Font
+|  | selectedStateHighlight | SelectedStateHighlight
+|  | showPopupIcon | boolean
+|  | popupIcon | RadianceIcon
+|  | sides | Sides
+| **Layout metrics** | horizontalAlignment | HorizontalAlignment
+ |
 |  | contentPadding | Insets |
 |  | horizontalGapScaleFactor | int |
 |  | verticalGapScaleFactor | int |
@@ -45,11 +51,13 @@ Command button presentation models are created with the builder pattern which is
 |  | popupKeyTip | String |
 |  | popupMenuPresentationModel | AbstractPopupMenuPresentationModel |
 |  | popupPlacementStrategy | PopupPlacementStrategy |
+|  | popupAnchorBoundsProvider | PopupAnchorBoundsProvider |
 |  | dismissPopupsOnActivation | boolean |
 |  | autoRepeatAction | boolean |
 |  | autoRepeatInitialInterval | int |
 |  | autoRepeatSubsequentInterval | int |
 |  | actionFireTrigger | ActionFireTrigger |
+|  | popupFireTrigger | PopupFireTrigger |
 
 ### Visual attributes
 
