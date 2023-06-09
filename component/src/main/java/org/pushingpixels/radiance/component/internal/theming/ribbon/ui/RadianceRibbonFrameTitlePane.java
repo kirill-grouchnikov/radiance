@@ -42,8 +42,6 @@ import org.pushingpixels.radiance.component.api.common.projection.CommandButtonP
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonFrame;
 import org.pushingpixels.radiance.component.api.ribbon.RibbonContextualTaskGroup;
-import org.pushingpixels.radiance.component.api.ribbon.RibbonTaskbarKeyTipPolicy;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.RibbonUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -332,7 +330,6 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
             }
             this.add(overflowButton);
 
-            updateKeyTips();
             revalidate();
         }
 
@@ -344,27 +341,7 @@ public class RadianceRibbonFrameTitlePane extends RadianceTitlePane {
                 this.add(component);
             }
 
-            updateKeyTips();
             revalidate();
-        }
-
-        private void updateKeyTips() {
-            RibbonTaskbarKeyTipPolicy policy = getRibbon().getTaskbarKeyTipPolicy();
-            List<Component> taskbarComponents = getRibbon().getTaskbarComponents();
-            int index = 1;
-            for (Component taskbarComp : taskbarComponents) {
-                if (taskbarComp instanceof JCommandButton) {
-                    JCommandButton button = (JCommandButton) taskbarComp;
-                    if (button.getContentModel().getAction() != null) {
-                        button.setActionKeyTip(policy.getContentKeyTip(index++));
-                    }
-                    if (button.getContentModel().hasSecondaryContent()) {
-                        button.setPopupKeyTip(policy.getContentKeyTip(index++));
-                    }
-                } else if (taskbarComp instanceof JRibbonComponent) {
-                    ((JRibbonComponent) taskbarComp).setKeyTip(policy.getContentKeyTip(index++));
-                }
-            }
         }
     }
 

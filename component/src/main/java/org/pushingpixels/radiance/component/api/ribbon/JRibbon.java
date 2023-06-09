@@ -244,7 +244,9 @@ public class JRibbon extends JComponent {
     private interface TaskbarContentHandler<T extends ContentModel> {
         T getKey();
 
-        JComponent buildComponent();
+        int numberOfKeyTipsNeeded();
+
+        JComponent buildComponent(RibbonTaskbarKeyTipPolicy keyTipPolicy, int currentKeyTipIndex);
     }
 
     private class TaskbarCommandHandler<M extends BaseCommand<MCM>,
@@ -263,8 +265,21 @@ public class JRibbon extends JComponent {
         }
 
         @Override
-        public JComponent buildComponent() {
+        public int numberOfKeyTipsNeeded() {
+            M command = this.getKey();
+            boolean needsActionTip = (command.getAction() != null) && command.isActionEnabled();
+            boolean needsPopupTip = command.hasSecondaryContent() && command.isSecondaryEnabled();
+            return (needsActionTip ? 1 : 0) + (needsPopupTip ? 1 : 0);
+        }
+
+        @Override
+        public JComponent buildComponent(RibbonTaskbarKeyTipPolicy keyTipPolicy, int currentKeyTipIndex) {
+            M command = this.getKey();
+            boolean needsActionTip = (command.getAction() != null) && command.isActionEnabled();
+            boolean needsPopupTip = command.hasSecondaryContent() && command.isSecondaryEnabled();
+
             P originalPresentationModel = projection.getPresentationModel();
+
             P presentationModel = originalPresentationModel.overlayWith(
                     new CommandButtonPresentationModel.Overlay()
                             .setPresentationState(CommandButtonPresentationState.SMALL)
@@ -275,6 +290,8 @@ public class JRibbon extends JComponent {
                             )
                             .setHorizontalGapScaleFactor(0.5)
                             .setVerticalGapScaleFactor(0.5)
+                            .setActionKeyTip(needsActionTip ? keyTipPolicy.getContentKeyTip(currentKeyTipIndex++) : null)
+                            .setPopupKeyTip(needsPopupTip ? keyTipPolicy.getContentKeyTip(currentKeyTipIndex) : null)
             );
 
             JCommandButton commandButton = projection.reproject(presentationModel).buildComponent();
@@ -297,7 +314,12 @@ public class JRibbon extends JComponent {
         }
 
         @Override
-        public JComponent buildComponent() {
+        public int numberOfKeyTipsNeeded() {
+            return 1;
+        }
+
+        @Override
+        public JComponent buildComponent(RibbonTaskbarKeyTipPolicy keyTipPolicy, int currentKeyTipIndex) {
             if (applicationMenuProjection == null) {
                 throw new IllegalArgumentException("Can't add app menu link when app menu is not set");
             }
@@ -338,6 +360,7 @@ public class JRibbon extends JComponent {
                     .setPresentationState(CommandButtonPresentationState.SMALL)
                     .setHorizontalGapScaleFactor(0.5)
                     .setVerticalGapScaleFactor(0.5)
+                    .setActionKeyTip(keyTipPolicy.getContentKeyTip(currentKeyTipIndex))
                     .build();
 
             CommandButtonProjection<Command> projection = clone.project(presentationModel);
@@ -360,7 +383,12 @@ public class JRibbon extends JComponent {
         }
 
         @Override
-        public JComponent buildComponent() {
+        public int numberOfKeyTipsNeeded() {
+            return 1;
+        }
+
+        @Override
+        public JComponent buildComponent(RibbonTaskbarKeyTipPolicy keyTipPolicy, int currentKeyTipIndex) {
             CommandPopupMenuPanelProjection popupMenuPanelProjection =
                     JRibbonGallery.getExpandPopupMenuPanelProjection(galleryProjection);
             // The popup callback displays the expanded popup menu for the gallery
@@ -373,6 +401,7 @@ public class JRibbon extends JComponent {
                     CommandButtonPresentationModel.builder()
                             .setPresentationState(CommandButtonPresentationState.SMALL)
                             .setPopupMenuPresentationModel(popupMenuPanelProjection.getPresentationModel())
+                            .setPopupKeyTip(keyTipPolicy.getContentKeyTip(currentKeyTipIndex))
                             .build());
             galleryDropdownProjection.setCommandOverlays(popupMenuPanelProjection.getCommandOverlays());
 
@@ -398,8 +427,14 @@ public class JRibbon extends JComponent {
         }
 
         @Override
-        public JComponent buildComponent() {
+        public int numberOfKeyTipsNeeded() {
+            return 1;
+        }
+
+        @Override
+        public JComponent buildComponent(RibbonTaskbarKeyTipPolicy keyTipPolicy, int currentKeyTipIndex) {
             JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
+            ribbonComponent.setKeyTip(keyTipPolicy.getContentKeyTip(currentKeyTipIndex));
             ribbonComponent.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
             return ribbonComponent;
         }
@@ -471,9 +506,17 @@ public class JRibbon extends JComponent {
 
     private void syncTaskbarContent() {
         this.taskbarComponents.clear();
+
+        RibbonTaskbarKeyTipPolicy keyTipPolicy = this.getTaskbarKeyTipPolicy();
+        int currentKeyTipIndex = 1;
         for (TaskbarContentHandler<?> taskbarContentHandler : this.taskbarContentHandlers) {
-            JComponent taskbarComponent = taskbarContentHandler.buildComponent();
+            System.out.println("Building component by " +
+                    taskbarContentHandler.getClass().getSimpleName() + " at " + currentKeyTipIndex);
+            JComponent taskbarComponent = taskbarContentHandler.buildComponent(keyTipPolicy,
+                    currentKeyTipIndex);
             this.taskbarComponents.add(taskbarComponent);
+            currentKeyTipIndex += taskbarContentHandler.numberOfKeyTipsNeeded();
+            System.out.println("   and advancing to " + currentKeyTipIndex);
         }
     }
 
