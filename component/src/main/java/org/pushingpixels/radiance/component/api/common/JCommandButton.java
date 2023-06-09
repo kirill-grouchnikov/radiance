@@ -95,14 +95,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     private ActionHandler actionHandler;
 
     /**
-     * Key tip for the action area.
-     *
-     * @see #setActionKeyTip(String)
-     * @see #getActionKeyTip()
-     */
-    private String actionKeyTip;
-
-    /**
      * Associated popup callback. May be <code>null</code>.
      *
      * @see #setPopupCallback(PopupPanelCallback)
@@ -122,14 +114,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * Default popup handler for this button.
      */
     private PopupHandler popupHandler;
-
-    /**
-     * Key tip for the popup area of this button.
-     *
-     * @see #setPopupKeyTip(String)
-     * @see #getPopupKeyTip()
-     */
-    private String popupKeyTip;
 
     /**
      * Extension of the default button model that supports the
@@ -253,7 +237,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
 
         if (hasAction) {
             this.addCommandListener(command.getAction());
-            this.setActionKeyTip(commandPresentation.getActionKeyTip());
         }
 
         if (!commandPresentation.isToDismissPopupsOnActivation()) {
@@ -286,7 +269,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
                 this.setPopupCallback(commandButton ->
                         projection.getPopupMenuPanelProjection().buildComponent());
             }
-            this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
         }
 
         this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
@@ -547,29 +529,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         throw new UnsupportedOperationException("Use rich tooltip APIs");
     }
 
-    /**
-     * Returns the key tip for the action area of this button.
-     *
-     * @return The key tip for the action area of this button.
-     * @see #setActionKeyTip(String)
-     */
-    public String getActionKeyTip() {
-        return this.actionKeyTip;
-    }
-
-    /**
-     * Sets the key tip for the action area of this button. Fires an
-     * <code>actionKeyTip</code> property change event.
-     *
-     * @param actionKeyTip The key tip for the action area of this button.
-     * @see #getActionKeyTip()
-     */
-    public void setActionKeyTip(String actionKeyTip) {
-        String old = this.actionKeyTip;
-        this.actionKeyTip = actionKeyTip;
-        this.firePropertyChange("actionKeyTip", old, this.actionKeyTip);
-    }
-
     @Override
     public void updateUI() {
         setUI(RadianceCommandButtonUI.createUI(this));
@@ -598,13 +557,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      */
     public void setPopupCallback(PopupPanelCallback popupCallback) {
         this.popupCallback = popupCallback;
-
-        if (command != null) {
-            boolean hasPopup = (this.popupCallback != null);
-            if (hasPopup) {
-                this.setPopupKeyTip(commandPresentation.getPopupKeyTip());
-            }
-        }
     }
 
     /**
@@ -733,31 +685,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
             return this.commandPresentation.getPopupRichTooltipPresentationModel();
         }
         return null;
-    }
-
-    /**
-     * Returns the key tip for the popup area of this button.
-     *
-     * @return The key tip for the popup area of this button.
-     * @see #setPopupKeyTip(String)
-     * @see #getActionKeyTip()
-     */
-    public String getPopupKeyTip() {
-        return this.popupKeyTip;
-    }
-
-    /**
-     * Sets the key tip for the popup area of this button. Fires a
-     * <code>popupKeyTip</code> property change event.
-     *
-     * @param popupKeyTip The key tip for the popup area of this button.
-     * @see #getPopupKeyTip()
-     * @see #setActionKeyTip(String)
-     */
-    public void setPopupKeyTip(String popupKeyTip) {
-        String old = this.popupKeyTip;
-        this.popupKeyTip = popupKeyTip;
-        this.firePropertyChange("popupKeyTip", old, this.popupKeyTip);
     }
 
     /**

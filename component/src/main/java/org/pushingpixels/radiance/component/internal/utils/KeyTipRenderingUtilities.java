@@ -136,7 +136,7 @@ public class KeyTipRenderingUtilities {
 
         CommandButtonLayoutManager.CommandButtonLayoutInfo layoutInfo =
                 layoutManager.getLayoutInfo(button);
-        String actionKeyTip = button.getActionKeyTip();
+        String actionKeyTip = button.getPresentationModel().getActionKeyTip();
         if ((layoutInfo.actionClickArea.width > 0) && (actionKeyTip != null)) {
             Point actionPrefCenter = button.getUI().getActionKeyTipAnchorCenterPoint();
             Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), actionKeyTip);
@@ -149,7 +149,7 @@ public class KeyTipRenderingUtilities {
                     actionKeyTip, button.getActionModel().isEnabled());
         }
 
-        String popupKeyTip = button.getPopupKeyTip();
+        String popupKeyTip = button.getPresentationModel().getPopupKeyTip();
         if ((layoutInfo.popupClickArea.width > 0) && (popupKeyTip != null)) {
             Point popupPrefCenter = button.getUI().getPopupKeyTipAnchorCenterPoint();
             Dimension pref = KeyTipRenderingUtilities.getPrefSize(g.getFontMetrics(), popupKeyTip);

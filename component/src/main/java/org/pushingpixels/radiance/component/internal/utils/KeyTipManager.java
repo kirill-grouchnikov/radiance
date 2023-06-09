@@ -385,10 +385,11 @@ public class KeyTipManager {
     }
 
     private KeyTipLink getCommandButtonActionLink(final JCommandButton cb) {
-        if (cb.getActionKeyTip() != null) {
+        if ((cb.getContentModel().getAction() != null) &&
+                (cb.getPresentationModel().getActionKeyTip() != null)) {
             final KeyTipLink link = new KeyTipLink();
             link.comp = cb;
-            link.keyTipString = cb.getActionKeyTip();
+            link.keyTipString = cb.getPresentationModel().getActionKeyTip();
             link.prefAnchorPoint = cb.getUI().getActionKeyTipAnchorCenterPoint();
             link.onActivated = actionEvent -> cb.doActionClick();
             link.enabled = cb.getActionModel().isEnabled();
@@ -454,10 +455,11 @@ public class KeyTipManager {
     }
 
     private KeyTipLink getCommandButtonPopupLink(final JCommandButton cb) {
-        if (cb.getPopupKeyTip() != null) {
+        if (((cb.getPopupCallback() != null) || cb.getContentModel().hasSecondaryContent()) &&
+                (cb.getPresentationModel().getPopupKeyTip() != null)) {
             final KeyTipLink link = new KeyTipLink();
             link.comp = cb;
-            link.keyTipString = cb.getPopupKeyTip();
+            link.keyTipString = cb.getPresentationModel().getPopupKeyTip();
             link.prefAnchorPoint = cb.getUI().getPopupKeyTipAnchorCenterPoint();
             link.onActivated = actionEvent -> {
                 cb.doActionRollover();
