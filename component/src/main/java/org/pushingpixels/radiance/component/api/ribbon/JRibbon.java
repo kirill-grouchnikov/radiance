@@ -148,13 +148,10 @@ public class JRibbon extends JComponent {
     private ArrayList<RibbonContextualTaskGroup> contextualTaskGroups;
 
     /**
-     * The taskbar components (to the right of the application menu button).
+     * The taskbar components (displayed between the application menu button and the frame title).
      */
     private ArrayList<Component> taskbarComponents;
-
-    private Map<RibbonGalleryContentModel, JCommandButton> taskbarGalleryMap;
-
-    private Map<BaseCommand<?>, JCommandButton> taskbarCommandMap;
+    private List<TaskbarContentHandler<?>> taskbarContentHandlers;
 
     /**
      * Bands of the currently shown task.
@@ -244,6 +241,170 @@ public class JRibbon extends JComponent {
         void onTaskSelectionChanged(RibbonTask newSelection);
     }
 
+    private interface TaskbarContentHandler<T extends ContentModel> {
+        T getKey();
+
+        JComponent buildComponent();
+    }
+
+    private class TaskbarCommandHandler<M extends BaseCommand<MCM>,
+            MCM extends BaseCommandMenuContentModel,
+            P extends BaseCommandButtonPresentationModel<MPM, P>,
+            MPM extends BaseCommandPopupMenuPresentationModel> implements TaskbarContentHandler<M> {
+        private BaseCommandButtonProjection<M, MCM, P, MPM> projection;
+
+        public TaskbarCommandHandler(BaseCommandButtonProjection<M, MCM, P, MPM> projection) {
+            this.projection = projection;
+        }
+
+        @Override
+        public M getKey() {
+            return this.projection.getContentModel();
+        }
+
+        @Override
+        public JComponent buildComponent() {
+            P originalPresentationModel = projection.getPresentationModel();
+            P presentationModel = originalPresentationModel.overlayWith(
+                    new CommandButtonPresentationModel.Overlay()
+                            .setPresentationState(CommandButtonPresentationState.SMALL)
+                            .setIconFilterStrategies(
+                                    projection.getPresentationModel().getActiveIconFilterStrategy(),
+                                    projection.getPresentationModel().getEnabledIconFilterStrategy(),
+                                    projection.getPresentationModel().getDisabledIconFilterStrategy()
+                            )
+                            .setHorizontalGapScaleFactor(0.5)
+                            .setVerticalGapScaleFactor(0.5)
+            );
+
+            JCommandButton commandButton = projection.reproject(presentationModel).buildComponent();
+
+            commandButton.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
+            return commandButton;
+        }
+    }
+
+    private class TaskbarAppMenuLinkHandler implements TaskbarContentHandler<Command> {
+        private Command appMenuCommand;
+
+        public TaskbarAppMenuLinkHandler(Command appMenuCommand) {
+            this.appMenuCommand = appMenuCommand;
+        }
+
+        @Override
+        public Command getKey() {
+            return this.appMenuCommand;
+        }
+
+        @Override
+        public JComponent buildComponent() {
+            if (applicationMenuProjection == null) {
+                throw new IllegalArgumentException("Can't add app menu link when app menu is not set");
+            }
+            RibbonApplicationMenu ribbonApplicationMenu = applicationMenuProjection.getContentModel();
+            if (ribbonApplicationMenu == null) {
+                throw new IllegalArgumentException("Can't add app menu link when app menu is not set");
+            }
+            if (!ribbonApplicationMenu.getFooterCommands().getCommands().contains(appMenuCommand)
+                    && !ComponentUtilities.existsInMenu(appMenuCommand, ribbonApplicationMenu)) {
+                throw new IllegalArgumentException("Command not found in app menu");
+            }
+
+            Command clone = Command.builder()
+                    .setText(appMenuCommand.getText())
+                    .setIconFactory(appMenuCommand.getIconFactory())
+                    .setAction(commandActionEvent -> {
+                        getUI().getApplicationMenuButton().doPopupClick();
+                        SwingUtilities.invokeLater(() -> {
+                            List<PopupPanelManager.PopupInfo> popups =
+                                    PopupPanelManager.defaultManager().getShownPath();
+                            if (!popups.isEmpty()) {
+                                PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
+                                JPopupPanel popupPanel = last.getPopupPanel();
+                                // Should be application menu
+                                if (!(popupPanel instanceof JRibbonApplicationMenuPopupPanel)) {
+                                    return;
+                                }
+
+                                JRibbonApplicationMenuPopupPanel appMenuPopupPanel =
+                                        (JRibbonApplicationMenuPopupPanel) popupPanel;
+                                appMenuPopupPanel.getPathToSequence(appMenuCommand).run();
+                            }
+                        });
+                    })
+                    .setActionRichTooltip(appMenuCommand.getActionRichTooltip())
+                    .build();
+            CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
+                    .setPresentationState(CommandButtonPresentationState.SMALL)
+                    .setHorizontalGapScaleFactor(0.5)
+                    .setVerticalGapScaleFactor(0.5)
+                    .build();
+
+            CommandButtonProjection<Command> projection = clone.project(presentationModel);
+            JCommandButton commandButton = projection.buildComponent();
+
+            return commandButton;
+        }
+    }
+
+    private class TaskbarGalleryDropdownHandler implements TaskbarContentHandler<RibbonGalleryContentModel> {
+        private RibbonGalleryProjection galleryProjection;
+
+        public TaskbarGalleryDropdownHandler(RibbonGalleryProjection galleryProjection) {
+            this.galleryProjection = galleryProjection;
+        }
+
+        @Override
+        public RibbonGalleryContentModel getKey() {
+            return this.galleryProjection.getContentModel();
+        }
+
+        @Override
+        public JComponent buildComponent() {
+            CommandPopupMenuPanelProjection popupMenuPanelProjection =
+                    JRibbonGallery.getExpandPopupMenuPanelProjection(galleryProjection);
+            // The popup callback displays the expanded popup menu for the gallery
+            Command galleryDropdownCommand = Command.builder()
+                    .setIconFactory(galleryProjection.getContentModel().getIconFactory())
+                    .setSecondaryContentModel(popupMenuPanelProjection.getContentModel())
+                    .build();
+
+            CommandButtonProjection<Command> galleryDropdownProjection = galleryDropdownCommand.project(
+                    CommandButtonPresentationModel.builder()
+                            .setPresentationState(CommandButtonPresentationState.SMALL)
+                            .setPopupMenuPresentationModel(popupMenuPanelProjection.getPresentationModel())
+                            .build());
+            galleryDropdownProjection.setCommandOverlays(popupMenuPanelProjection.getCommandOverlays());
+
+            JCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();
+            galleryDropdown.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION,
+                    galleryProjection);
+
+            return galleryDropdown;
+        }
+    }
+
+    private class TaskbarComponentHandler<C extends JComponent, CCM extends ComponentContentModel>
+            implements TaskbarContentHandler<CCM> {
+        private ComponentProjection<C, CCM> projection;
+
+        public TaskbarComponentHandler(ComponentProjection<C, CCM> projection) {
+            this.projection = projection;
+        }
+
+        @Override
+        public CCM getKey() {
+            return this.projection.getContentModel();
+        }
+
+        @Override
+        public JComponent buildComponent() {
+            JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
+            ribbonComponent.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
+            return ribbonComponent;
+        }
+    }
+
     /**
      * Creates a new empty ribbon. Applications are highly encouraged to use {@link JRibbonFrame}
      * and access the ribbon with {@link JRibbonFrame#getRibbon()} API.
@@ -252,8 +413,7 @@ public class JRibbon extends JComponent {
         this.tasks = new ArrayList<>();
         this.contextualTaskGroups = new ArrayList<>();
         this.taskbarComponents = new ArrayList<>();
-        this.taskbarCommandMap = new HashMap<>();
-        this.taskbarGalleryMap = new HashMap<>();
+        this.taskbarContentHandlers = new ArrayList<>();
         this.bands = new ArrayList<>();
         this.currentlySelectedTask = null;
         this.groupVisibilityMap = new HashMap<>();
@@ -285,46 +445,54 @@ public class JRibbon extends JComponent {
         return this.taskbarKeyTipPolicy;
     }
 
+    private boolean matchesTaskbarContentHandler(ContentModel key) {
+        return (this.getTaskbarContentHandlerFor(key) != null);
+    }
+
+    private TaskbarContentHandler getTaskbarContentHandlerFor(ContentModel key) {
+        for (TaskbarContentHandler taskbarContentHandler : this.taskbarContentHandlers) {
+            if (taskbarContentHandler.getKey() == key) {
+                return taskbarContentHandler;
+            }
+        }
+        return null;
+    }
+
+    private void removeTaskbarContentHandlerFor(ContentModel key) {
+        for (int i = this.taskbarContentHandlers.size() - 1; i >= 0; i--) {
+            if (this.taskbarContentHandlers.get(i).getKey() == key) {
+                this.taskbarContentHandlers.remove(i);
+                this.syncTaskbarContent();
+                this.fireStateChanged();
+                return;
+            }
+        }
+    }
+
+    private void syncTaskbarContent() {
+        this.taskbarComponents.clear();
+        for (TaskbarContentHandler<?> taskbarContentHandler : this.taskbarContentHandlers) {
+            JComponent taskbarComponent = taskbarContentHandler.buildComponent();
+            this.taskbarComponents.add(taskbarComponent);
+        }
+    }
+
     public synchronized <M extends BaseCommand<MCM>,
             MCM extends BaseCommandMenuContentModel,
             P extends BaseCommandButtonPresentationModel<MPM, P>,
             MPM extends BaseCommandPopupMenuPresentationModel> void addTaskbarCommand(
                     BaseCommandButtonProjection<M, MCM, P, MPM> projection) {
-
-        P originalPresentationModel = projection.getPresentationModel();
-        P presentationModel = originalPresentationModel.overlayWith(
-                new CommandButtonPresentationModel.Overlay()
-                        .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setIconFilterStrategies(
-                                projection.getPresentationModel().getActiveIconFilterStrategy(),
-                                projection.getPresentationModel().getEnabledIconFilterStrategy(),
-                                projection.getPresentationModel().getDisabledIconFilterStrategy()
-                        )
-                        .setHorizontalGapScaleFactor(0.5)
-                        .setVerticalGapScaleFactor(0.5)
-        );
-
-        JCommandButton commandButton = projection.reproject(presentationModel).buildComponent();
-
-        commandButton.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
-        this.taskbarComponents.add(commandButton);
-
-        this.taskbarCommandMap.put(projection.getContentModel(), commandButton);
-
+        this.taskbarContentHandlers.add(new TaskbarCommandHandler<>(projection));
+        this.syncTaskbarContent();
         this.fireStateChanged();
     }
 
     public synchronized boolean isShowingInTaskbar(BaseCommand<?> command) {
-        return this.taskbarCommandMap.containsKey(command);
+        return this.matchesTaskbarContentHandler(command);
     }
 
     public synchronized void removeTaskbarCommand(BaseCommand<?> command) {
-        JCommandButton existing = this.taskbarCommandMap.get(command);
-        if (existing != null) {
-            this.taskbarComponents.remove(existing);
-            this.taskbarCommandMap.remove(command);
-            this.fireStateChanged();
-        }
+        this.removeTaskbarContentHandlerFor(command);
     }
 
     public synchronized void addTaskbarAppMenuLink(Command appMenuCommand) {
@@ -341,43 +509,8 @@ public class JRibbon extends JComponent {
             throw new IllegalArgumentException("Command not found in app menu");
         }
 
-        Command clone = Command.builder()
-                .setText(appMenuCommand.getText())
-                .setIconFactory(appMenuCommand.getIconFactory())
-                .setAction(commandActionEvent -> {
-                    getUI().getApplicationMenuButton().doPopupClick();
-                    SwingUtilities.invokeLater(() -> {
-                        List<PopupPanelManager.PopupInfo> popups =
-                                PopupPanelManager.defaultManager().getShownPath();
-                        if (!popups.isEmpty()) {
-                            PopupPanelManager.PopupInfo last = popups.get(popups.size() - 1);
-                            JPopupPanel popupPanel = last.getPopupPanel();
-                            // Should be application menu
-                            if (!(popupPanel instanceof JRibbonApplicationMenuPopupPanel)) {
-                                return;
-                            }
-
-                            JRibbonApplicationMenuPopupPanel appMenuPopupPanel =
-                                    (JRibbonApplicationMenuPopupPanel) popupPanel;
-                            appMenuPopupPanel.getPathToSequence(appMenuCommand).run();
-                        }
-                    });
-                })
-                .setActionRichTooltip(appMenuCommand.getActionRichTooltip())
-                .build();
-        CommandButtonPresentationModel presentationModel = CommandButtonPresentationModel.builder()
-                .setPresentationState(CommandButtonPresentationState.SMALL)
-                .setHorizontalGapScaleFactor(0.5)
-                .setVerticalGapScaleFactor(0.5)
-                .build();
-
-        CommandButtonProjection<Command> projection = clone.project(presentationModel);
-        JCommandButton commandButton = projection.buildComponent();
-        commandButton.putClientProperty(ComponentUtilities.TASKBAR_APP_MENU_COMMAND, appMenuCommand);
-
-        this.taskbarComponents.add(commandButton);
-        this.taskbarCommandMap.put(appMenuCommand, commandButton);
-
+        this.taskbarContentHandlers.add(new TaskbarAppMenuLinkHandler(appMenuCommand));
+        this.syncTaskbarContent();
         this.fireStateChanged();
     }
 
@@ -395,84 +528,37 @@ public class JRibbon extends JComponent {
             throw new IllegalArgumentException("Command not found in app menu");
         }
 
-        JCommandButton existing = this.taskbarCommandMap.get(appMenuCommand);
-        if (existing != null) {
-            this.taskbarComponents.remove(existing);
-            this.taskbarCommandMap.remove(appMenuCommand);
-            this.fireStateChanged();
-        }
+        this.removeTaskbarContentHandlerFor(appMenuCommand);
     }
 
     public synchronized void addTaskbarComponent(
             ComponentProjection<? extends JComponent, ? extends ComponentContentModel> projection) {
-        JRibbonComponent ribbonComponent = new JRibbonComponent(projection);
-        ribbonComponent.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION, projection);
-        this.taskbarComponents.add(ribbonComponent);
+        this.taskbarContentHandlers.add(new TaskbarComponentHandler<>(projection));
+        this.syncTaskbarContent();
         this.fireStateChanged();
     }
 
     public synchronized boolean isShowingInTaskbar(ComponentContentModel componentContentModel) {
-        for (Component taskbarComponent : this.taskbarComponents) {
-            if (taskbarComponent instanceof JRibbonComponent) {
-                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel()
-                        == componentContentModel) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return this.matchesTaskbarContentHandler(componentContentModel);
     }
 
     public synchronized void removeTaskbarComponent(ComponentContentModel componentContentModel) {
-        for (Component taskbarComponent : this.taskbarComponents) {
-            if (taskbarComponent instanceof JRibbonComponent) {
-                if (((JRibbonComponent) taskbarComponent).getProjection().getContentModel()
-                        == componentContentModel) {
-                    this.taskbarComponents.remove(taskbarComponent);
-                    this.fireStateChanged();
-                    return;
-                }
-            }
-        }
+        this.removeTaskbarContentHandlerFor(componentContentModel);
     }
 
     public synchronized void addTaskbarGalleryDropdown(RibbonGalleryProjection galleryProjection) {
-        CommandPopupMenuPanelProjection popupMenuPanelProjection =
-                JRibbonGallery.getExpandPopupMenuPanelProjection(galleryProjection);
-        // The popup callback displays the expanded popup menu for the gallery
-        Command galleryDropdownCommand = Command.builder()
-                .setIconFactory(galleryProjection.getContentModel().getIconFactory())
-                .setSecondaryContentModel(popupMenuPanelProjection.getContentModel())
-                .build();
-
-        CommandButtonProjection<Command> galleryDropdownProjection = galleryDropdownCommand.project(
-                CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.SMALL)
-                        .setPopupMenuPresentationModel(popupMenuPanelProjection.getPresentationModel())
-                        .build());
-        galleryDropdownProjection.setCommandOverlays(popupMenuPanelProjection.getCommandOverlays());
-
-        JCommandButton galleryDropdown = galleryDropdownProjection.buildComponent();
-        galleryDropdown.putClientProperty(ComponentUtilities.TASKBAR_PROJECTION,
-                galleryProjection);
-        this.taskbarComponents.add(galleryDropdown);
-        this.taskbarGalleryMap.put(galleryProjection.getContentModel(), galleryDropdown);
-
+        this.taskbarContentHandlers.add(new TaskbarGalleryDropdownHandler(galleryProjection));
+        this.syncTaskbarContent();
         this.fireStateChanged();
     }
 
 
     public synchronized boolean isShowingInTaskbar(RibbonGalleryContentModel galleryContentModel) {
-        return this.taskbarGalleryMap.containsKey(galleryContentModel);
+        return this.matchesTaskbarContentHandler(galleryContentModel);
     }
 
     public synchronized void removeTaskbarGallery(RibbonGalleryContentModel galleryContentModel) {
-        JCommandButton existing = this.taskbarGalleryMap.get(galleryContentModel);
-        if (existing != null) {
-            this.taskbarComponents.remove(existing);
-            this.taskbarGalleryMap.remove(galleryContentModel);
-            this.fireStateChanged();
-        }
+        this.removeTaskbarContentHandlerFor(galleryContentModel);
     }
 
     /**
@@ -484,9 +570,8 @@ public class JRibbon extends JComponent {
      * @see #addTaskbarAppMenuLink(Command)
      */
     public synchronized void clearTaskbar() {
-        this.taskbarCommandMap.clear();
-        this.taskbarComponents.clear();
-        this.fireStateChanged();
+        this.taskbarContentHandlers.clear();
+        this.syncTaskbarContent();
     }
 
     /**
