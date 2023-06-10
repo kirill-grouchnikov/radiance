@@ -510,13 +510,10 @@ public class JRibbon extends JComponent {
         RibbonTaskbarKeyTipPolicy keyTipPolicy = this.getTaskbarKeyTipPolicy();
         int currentKeyTipIndex = 1;
         for (TaskbarContentHandler<?> taskbarContentHandler : this.taskbarContentHandlers) {
-            System.out.println("Building component by " +
-                    taskbarContentHandler.getClass().getSimpleName() + " at " + currentKeyTipIndex);
             JComponent taskbarComponent = taskbarContentHandler.buildComponent(keyTipPolicy,
                     currentKeyTipIndex);
             this.taskbarComponents.add(taskbarComponent);
             currentKeyTipIndex += taskbarContentHandler.numberOfKeyTipsNeeded();
-            System.out.println("   and advancing to " + currentKeyTipIndex);
         }
     }
 
