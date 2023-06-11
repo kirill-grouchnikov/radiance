@@ -66,18 +66,6 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         return 1.0f;
     }
 
-    private boolean hasIcon(JCommandButton button) {
-        return (button.getContentModel().getIconFactory() != null)
-                || button.getPresentationModel().isForceAllocateSpaceForIcon();
-    }
-
-    @SuppressWarnings("rawtypes")
-    private boolean hasIcon(BaseCommand command,
-            BaseCommandButtonPresentationModel presentationModel) {
-        return (command.getIconFactory() != null)
-                || presentationModel.isForceAllocateSpaceForIcon();
-    }
-
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
         Insets borderInsets = commandButton.getInsets();
@@ -88,7 +76,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         String buttonText = commandButton.getContentModel().getText();
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
 
-        boolean hasIcon = this.hasIcon(commandButton);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
+                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
         boolean hasText = (buttonText != null);
         boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
@@ -174,7 +163,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         String buttonText = command.getText();
         int layoutHGap = ComponentUtilities.getHLayoutGap(presentationModel);
 
-        boolean hasIcon = this.hasIcon(command, presentationModel);
+        boolean hasIcon = (command.getIconFactory() != null)
+                || presentationModel.isForceAllocateSpaceForIcon();
         boolean hasText = (buttonText != null);
         boolean hasPopupIcon = command.hasSecondaryContent();
 
@@ -246,7 +236,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
     @Override
     public Point getActionKeyTipAnchorCenterPoint(JCommandButton commandButton) {
         CommandButtonLayoutInfo layoutInfo = this.getLayoutInfo(commandButton);
-        boolean hasIcon = this.hasIcon(commandButton);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
+                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
         int height = commandButton.getHeight();
 
         if (commandButton.getComponentOrientation().isLeftToRight()) {
@@ -298,7 +289,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         int iconWidth = this.getPreferredIconSize(commandButton).width;
         int iconHeight = this.getPreferredIconSize(commandButton).height;
 
-        boolean hasIcon = this.hasIcon(commandButton);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
+                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
         boolean hasText = (buttonText != null);
         boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 

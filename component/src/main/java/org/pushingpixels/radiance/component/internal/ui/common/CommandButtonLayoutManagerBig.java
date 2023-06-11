@@ -120,7 +120,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);
 
-        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
+                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
         boolean hasText = (this.titlePart1 != null);
         boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
@@ -199,7 +200,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         int layoutHGap = ComponentUtilities.getHLayoutGap(presentationModel);
         int layoutVGap = ComponentUtilities.getVLayoutGap(presentationModel);
 
-        boolean hasIcon = (command.getIconFactory() != null);
+        boolean hasIcon = (command.getIconFactory() != null)
+                || presentationModel.isForceAllocateSpaceForIcon();
         boolean hasText = (this.titlePart1 != null);
         boolean hasPopupIcon = command.hasSecondaryContent();
 
@@ -415,7 +417,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
         CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
 
-        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null);
+        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
+                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
         boolean hasText = (this.titlePart1 != null);
         boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
 
