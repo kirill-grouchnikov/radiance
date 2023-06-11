@@ -60,8 +60,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
-        return new Dimension(size, size);
+        return getPreferredIconSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -77,15 +77,13 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     private int getCurrentIconWidth(JCommandButton commandButton) {
-        return (commandButton.getContentModel().getIconFactory() != null)
-                ? this.getPreferredIconSize(commandButton).width
-                : 0;
+        return getCurrentIconWidth(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     private int getCurrentIconHeight(JCommandButton commandButton) {
-        return (commandButton.getContentModel().getIconFactory() != null)
-                ? this.getPreferredIconSize(commandButton).height
-                : 0;
+        return getCurrentIconHeight(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @SuppressWarnings("rawtypes")
@@ -106,77 +104,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
 
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
-        if (!this.titlePartsComputed) {
-            this.updateTitleStrings(commandButton);
-            this.titlePartsComputed = true;
-        }
-
-        Insets borderInsets = (commandButton == null) ? new Insets(0, 0, 0, 0)
-                : commandButton.getInsets();
-        int bx = borderInsets.left + borderInsets.right;
-        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
-        JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
-        int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
-        int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);
-
-        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
-                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
-        boolean hasText = (this.titlePart1 != null);
-        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
-
-        int title1Width = (this.titlePart1 == null) ? 0 : fm.stringWidth(this.titlePart1);
-        int title2Width = (this.titlePart2 == null) ? 0 : fm.stringWidth(this.titlePart2);
-
-        int width = Math.max(this.getCurrentIconWidth(commandButton),
-                Math.max(title1Width, title2Width + 4 * layoutHGap
-                        + jsep.getPreferredSize().height
-                        + (commandButton.getContentModel().hasSecondaryContent() ? 1 + fm.getHeight() / 2 : 0)));
-
-        // start height with the top inset
-        int height = borderInsets.top;
-        // icon?
-        if (hasIcon) {
-            // padding above the icon
-            height += layoutVGap;
-            // icon height
-            height += this.getCurrentIconHeight(commandButton);
-            // padding below the icon
-            height += layoutVGap;
-        }
-        // text?
-        if (hasText) {
-            // padding above the text
-            height += layoutVGap;
-            // text height - two lines
-            height += 2 * (fm.getAscent() + fm.getDescent());
-            // padding below the text
-            height += layoutVGap;
-        }
-        // popup icon (no text)?
-        if (!hasText && hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
-            // padding above the popup icon
-            height += layoutVGap;
-            // popup icon height to be equivalent to one line of text
-            height += fm.getHeight();
-            // padding below the popup icon
-            height += layoutVGap;
-        }
-
-        // separator?
-        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
-        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
-            // space for a horizontal separator
-            height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
-        }
-
-        // bottom insets
-        height += borderInsets.bottom;
-
-        // and remove the padding above the first and below the last elements
-        height -= 2 * layoutVGap;
-
-        return new Dimension(bx + width, height);
+        return this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -586,13 +515,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     public static class FitToIcon extends CommandButtonLayoutManagerBig {
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            BaseCommandButtonPresentationModel presentationModel =
-                    commandButton.getPresentationModel();
-            Dimension preferredIconDimension = presentationModel.getIconDimension();
-            if (preferredIconDimension != null) {
-                return preferredIconDimension;
-            }
-            return super.getPreferredIconSize(commandButton);
+            return getPreferredIconSize(commandButton.getContentModel(),
+                    commandButton.getPresentationModel());
         }
 
         @Override

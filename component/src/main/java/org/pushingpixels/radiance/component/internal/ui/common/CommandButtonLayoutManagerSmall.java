@@ -45,8 +45,8 @@ import java.awt.*;
 public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManager {
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        int size = ComponentUtilities.getCommandButtonSmallIconSize(commandButton.getFont().getSize());
-        return new Dimension(size, size);
+        return getPreferredIconSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -63,56 +63,8 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
 
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
-        Insets borderInsets = commandButton.getInsets();
-        // int bx = borderInsets.left + borderInsets.right;
-        int by = borderInsets.top + borderInsets.bottom;
-        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
-
-        int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
-
-        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
-                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
-        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
-
-        int prefIconWidth = hasIcon ? this.getPreferredIconSize(commandButton).width : 0;
-        int prefIconHeight = hasIcon ? this.getPreferredIconSize(commandButton).height : 0;
-
-        // start with the left insets
-        int width = borderInsets.left;
-        // icon?
-        if (hasIcon) {
-            // padding before the icon
-            width += layoutHGap;
-            // icon width
-            width += prefIconWidth;
-            // padding after the icon
-            width += layoutHGap;
-        }
-        // popup icon?
-        if (hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
-            // padding before the popup icon
-            width += 2 * layoutHGap;
-            // popup icon width
-            width += commandButton.getPresentationModel().getPopupIcon().getIconWidth();
-            // padding after the popup icon
-            width += 2 * layoutHGap;
-        }
-
-        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
-        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
-            // space for a vertical separator
-            width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
-        }
-
-        // right insets
-        width += borderInsets.right;
-
-        // and remove the padding before the first and after the last elements
-        width -= 2 * layoutHGap;
-
-        return new Dimension(width, by
-                + Math.max(prefIconHeight, fm.getAscent() + fm.getDescent()));
+        return this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -463,13 +415,8 @@ public class CommandButtonLayoutManagerSmall implements CommandButtonLayoutManag
     public static class FitToIcon extends CommandButtonLayoutManagerSmall {
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            BaseCommandButtonPresentationModel presentationModel =
-                    commandButton.getPresentationModel();
-            Dimension preferredIconDimension = presentationModel.getIconDimension();
-            if (preferredIconDimension != null) {
-                return preferredIconDimension;
-            }
-            return super.getPreferredIconSize(commandButton);
+            return getPreferredIconSize(commandButton.getContentModel(),
+                    commandButton.getPresentationModel());
         }
 
         @Override

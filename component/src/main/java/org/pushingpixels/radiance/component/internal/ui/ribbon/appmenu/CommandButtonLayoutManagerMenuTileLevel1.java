@@ -45,8 +45,8 @@ import java.util.ArrayList;
 public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLayoutManager {
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
-        return new Dimension(size, size);
+        return getPreferredIconSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -63,27 +63,8 @@ public class CommandButtonLayoutManagerMenuTileLevel1 implements CommandButtonLa
 
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
-        Insets borderInsets = commandButton.getInsets();
-        int bx = borderInsets.left + borderInsets.right;
-        int by = borderInsets.top + borderInsets.bottom;
-        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
-        JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
-
-        int titleWidth = fm.stringWidth(commandButton.getContentModel().getText());
-        int layoutHGap = 2 * ComponentUtilities.getHLayoutGap(commandButton);
-        int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(commandButton);
-        int widthMed = this.getPreferredIconSize(commandButton).width
-                + 2 * layoutHGap
-                + jsep.getPreferredSize().width
-                + titleWidth
-                + (commandButton.getContentModel().hasSecondaryContent()
-                ? commandButton.getPresentationModel().getPopupIcon().getIconWidth()
-                + 4 * layoutHGap + jsep.getPreferredSize().width
-                : 0);
-        return new Dimension(bx + widthMed,
-                by + Math.max(this.getPreferredIconSize(commandButton).height,
-                        2 * (fm.getAscent() + fm.getDescent()) + layoutVGap));
+        return this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override

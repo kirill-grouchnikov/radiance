@@ -46,8 +46,8 @@ import java.util.ArrayList;
 public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutManager {
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        int size = ComponentUtilities.getCommandButtonSmallIconSize(commandButton.getFont().getSize());
-        return new Dimension(size, size);
+        return getPreferredIconSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -68,82 +68,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
     @Override
     public Dimension getPreferredSize(JCommandButton commandButton) {
-        Insets borderInsets = commandButton.getInsets();
-        int by = borderInsets.top + borderInsets.bottom;
-        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
-
-        String buttonText = commandButton.getContentModel().getText();
-        int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
-
-        boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
-                || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
-        boolean hasText = (buttonText != null);
-        boolean hasPopupIcon = commandButton.getContentModel().hasSecondaryContent();
-
-        int prefIconWidth = hasIcon ? this.getPreferredIconSize(commandButton).width : 0;
-        int prefIconHeight = hasIcon ? this.getPreferredIconSize(commandButton).height : 0;
-
-        // start with the left insets
-        int width = borderInsets.left;
-        // icon?
-        if (hasIcon) {
-            // padding before the icon
-            width += layoutHGap;
-            // icon width
-            width += prefIconWidth;
-            // padding after the icon
-            width += layoutHGap;
-        }
-        // text?
-        if (hasText) {
-            // padding before the text
-            if (hasIcon) {
-                width += (int) (layoutHGap * getIconTextGapFactor());
-            } else {
-                width += layoutHGap;
-            }
-            // text width
-            width += fm.stringWidth(buttonText);
-            // padding after the text
-            width += layoutHGap;
-        }
-        // popup icon?
-        if (hasPopupIcon && commandButton.getPresentationModel().isShowPopupIcon()) {
-            // padding before the popup icon
-            if (hasText || hasIcon) {
-                width += 2 * layoutHGap;
-            }
-            // popup icon width
-            width += commandButton.getPresentationModel().getPopupIcon().getIconWidth();
-            // padding after the popup icon
-            width += 2 * layoutHGap;
-        }
-
-        // separator?
-        CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
-        boolean hasSeparator = false;
-        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
-                && (hasIcon || hasText)) {
-            hasSeparator = true;
-        }
-        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP
-                && hasIcon) {
-            hasSeparator = true;
-        }
-        if (hasSeparator) {
-            // space for a vertical separator
-            width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
-        }
-
-        // right insets
-        width += borderInsets.right;
-
-        // and remove the padding before the first and after the last elements
-        width -= 2 * layoutHGap;
-
-        return new Dimension(width, by
-                + Math.max(prefIconHeight, fm.getAscent() + fm.getDescent()));
+        return this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
     }
 
     @Override
@@ -660,13 +586,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
     public static class FitToIcon extends CommandButtonLayoutManagerMedium {
         @Override
         public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            BaseCommandButtonPresentationModel presentationModel =
-                    commandButton.getPresentationModel();
-            Dimension preferredIconDimension = presentationModel.getIconDimension();
-            if (preferredIconDimension != null) {
-                return preferredIconDimension;
-            }
-            return super.getPreferredIconSize(commandButton);
+            return getPreferredIconSize(commandButton.getContentModel(),
+                    commandButton.getPresentationModel());
         }
 
         @Override
