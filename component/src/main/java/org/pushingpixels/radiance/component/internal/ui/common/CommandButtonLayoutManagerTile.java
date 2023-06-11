@@ -33,8 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
@@ -46,6 +48,18 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
         int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0, 4);
+        return new Dimension(size, size);
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredIconSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
         return new Dimension(size, size);
     }
 
@@ -102,6 +116,89 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         }
 
         CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
+        boolean hasSeparator = false;
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                && (hasIcon || hasText)) {
+            hasSeparator = true;
+        }
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP
+                && hasIcon) {
+            hasSeparator = true;
+        }
+        if (hasSeparator) {
+            // space for a vertical separator
+            width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
+        }
+
+        // right insets
+        width += borderInsets.right;
+
+        // and remove the padding before the first and after the last elements
+        width -= 2 * layoutHGap;
+
+        return new Dimension(width,
+                by + Math.max(prefIconHeight, 2 * (fm.getAscent() + fm.getDescent())));
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
+        Insets borderInsets = presentationModel.getContentPadding();
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+
+        int by = borderInsets.top + borderInsets.bottom;
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+                RadianceCommonCortex.getScaleFactor(null), presentationFont);
+
+        String buttonText = command.getText();
+        int titleWidth = (buttonText == null) ? 0 : fm.stringWidth(buttonText);
+        String extraText = command.getExtraText();
+        int extraWidth = (extraText == null) ? 0 : fm.stringWidth(extraText);
+        double textWidth = Math.max(titleWidth, extraWidth);
+
+        int layoutHGap = ComponentUtilities.getHLayoutGap(presentationModel);
+
+        boolean hasIcon = (command.getIconFactory() != null);
+        boolean hasText = (textWidth > 0);
+        boolean hasPopupIcon = command.hasSecondaryContent();
+
+        int prefIconWidth = hasIcon ? this.getPreferredIconSize(command, presentationModel).width : 0;
+        int prefIconHeight = hasIcon ? this.getPreferredIconSize(command, presentationModel).height : 0;
+
+        // start with the left insets
+        int width = borderInsets.left;
+        // icon?
+        if (hasIcon) {
+            // padding before the icon
+            width += layoutHGap;
+            // icon width
+            width += prefIconWidth;
+            // padding after the icon
+            width += layoutHGap;
+        }
+        // text?
+        if (hasText) {
+            // padding before the text
+            width += layoutHGap;
+            // text width
+            width += textWidth;
+            // padding after the text
+            width += layoutHGap;
+        }
+        // popup icon?
+        if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
+            // padding before the popup icon
+            width += 2 * layoutHGap;
+            // popup icon width
+            width += presentationModel.getPopupIcon().getIconWidth();
+            // padding after the popup icon
+            width += 2 * layoutHGap;
+        }
+
+        CommandButtonKind buttonKind = getCommandButtonKind(command, presentationModel);
         boolean hasSeparator = false;
         if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                 && (hasIcon || hasText)) {
@@ -591,6 +688,16 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
                 return preferredIconDimension;
             }
             return super.getPreferredIconSize(commandButton);
+        }
+
+        @Override
+        @SuppressWarnings("rawtypes")
+        public Dimension getPreferredIconSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
+            Dimension preferredIconDimension = presentationModel.getIconDimension();
+            if (preferredIconDimension != null) {
+                return preferredIconDimension;
+            }
+            return super.getPreferredIconSize(command, presentationModel);
         }
     }
 }

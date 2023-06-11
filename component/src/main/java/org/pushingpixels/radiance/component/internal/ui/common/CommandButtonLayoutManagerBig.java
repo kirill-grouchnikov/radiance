@@ -33,8 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
@@ -62,15 +64,43 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         return new Dimension(size, size);
     }
 
-    protected int getCurrentIconWidth(JCommandButton commandButton) {
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredIconSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
+        return new Dimension(size, size);
+    }
+
+    private int getCurrentIconWidth(JCommandButton commandButton) {
         return (commandButton.getContentModel().getIconFactory() != null)
                 ? this.getPreferredIconSize(commandButton).width
                 : 0;
     }
 
-    protected int getCurrentIconHeight(JCommandButton commandButton) {
+    private int getCurrentIconHeight(JCommandButton commandButton) {
         return (commandButton.getContentModel().getIconFactory() != null)
                 ? this.getPreferredIconSize(commandButton).height
+                : 0;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private int getCurrentIconWidth(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        return (command.getIconFactory() != null)
+                ? this.getPreferredIconSize(command, presentationModel).width
+                : 0;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private int getCurrentIconHeight(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        return (command.getIconFactory() != null)
+                ? this.getPreferredIconSize(command, presentationModel).height
                 : 0;
     }
 
@@ -149,6 +179,85 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
+        if (!this.titlePartsComputed) {
+            this.updateTitleStrings(command, presentationModel);
+            this.titlePartsComputed = true;
+        }
+
+        Insets borderInsets = presentationModel.getContentPadding();
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        int bx = borderInsets.left + borderInsets.right;
+
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+                RadianceCommonCortex.getScaleFactor(null), presentationFont);
+        JSeparator jsep = new JSeparator(JSeparator.HORIZONTAL);
+        int layoutHGap = ComponentUtilities.getHLayoutGap(presentationModel);
+        int layoutVGap = ComponentUtilities.getVLayoutGap(presentationModel);
+
+        boolean hasIcon = (command.getIconFactory() != null);
+        boolean hasText = (this.titlePart1 != null);
+        boolean hasPopupIcon = command.hasSecondaryContent();
+
+        int title1Width = (this.titlePart1 == null) ? 0 : fm.stringWidth(this.titlePart1);
+        int title2Width = (this.titlePart2 == null) ? 0 : fm.stringWidth(this.titlePart2);
+
+        int width = Math.max(this.getCurrentIconWidth(command, presentationModel),
+                Math.max(title1Width, title2Width + 4 * layoutHGap
+                        + jsep.getPreferredSize().height
+                        + (command.hasSecondaryContent() ? 1 + fm.getHeight() / 2 : 0)));
+
+        // start height with the top inset
+        int height = borderInsets.top;
+        // icon?
+        if (hasIcon) {
+            // padding above the icon
+            height += layoutVGap;
+            // icon height
+            height += this.getCurrentIconHeight(command, presentationModel);
+            // padding below the icon
+            height += layoutVGap;
+        }
+        // text?
+        if (hasText) {
+            // padding above the text
+            height += layoutVGap;
+            // text height - two lines
+            height += 2 * (fm.getAscent() + fm.getDescent());
+            // padding below the text
+            height += layoutVGap;
+        }
+        // popup icon (no text)?
+        if (!hasText && hasPopupIcon && presentationModel.isShowPopupIcon()) {
+            // padding above the popup icon
+            height += layoutVGap;
+            // popup icon height to be equivalent to one line of text
+            height += fm.getHeight();
+            // padding below the popup icon
+            height += layoutVGap;
+        }
+
+        // separator?
+        CommandButtonKind buttonKind = getCommandButtonKind(command, presentationModel);
+        if (hasIcon && buttonKind.hasAction() && buttonKind.hasPopup()) {
+            // space for a horizontal separator
+            height += new JSeparator(JSeparator.HORIZONTAL).getPreferredSize().height;
+        }
+
+        // bottom insets
+        height += borderInsets.bottom;
+
+        // and remove the padding above the first and below the last elements
+        height -= 2 * layoutVGap;
+
+        return new Dimension(bx + width, height);
+    }
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("text".equals(evt.getPropertyName()) || "font".equals(evt.getPropertyName())) {
             this.titlePartsComputed = false;
@@ -178,6 +287,60 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
             } else {
                 int actionIconWidth = commandButton.getContentModel().hasSecondaryContent() ? 0
                         : 2 * ComponentUtilities.getHLayoutGap(commandButton)
+                        + (fm.getAscent() + fm.getDescent()) / 2;
+                int currMaxLength = fm.stringWidth(buttonText) + actionIconWidth;
+
+                StringBuilder currLeading = new StringBuilder();
+                while (tokenizer.hasMoreTokens()) {
+                    currLeading.append(tokenizer.nextToken());
+                    String part1 = currLeading.toString();
+                    String part2 = buttonText.substring(currLeading.length());
+
+                    int len1 = fm.stringWidth(part1);
+                    int len2 = fm.stringWidth(part2) + actionIconWidth;
+                    int len = Math.max(len1, len2);
+
+                    if (currMaxLength > len) {
+                        currMaxLength = len;
+                        this.titlePart1 = part1;
+                        this.titlePart2 = part2;
+                    }
+                }
+            }
+        } else {
+            this.titlePart1 = null;
+            this.titlePart2 = null;
+        }
+    }
+
+
+    /**
+     * Updates the title strings for {@link CommandButtonPresentationState#BIG} and
+     * other relevant states.
+     */
+    private void updateTitleStrings(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
+        // Break the title in two parts (the second part may be empty),
+        // finding the "inflection" point. The inflection point is a space
+        // character that breaks the title in two parts, such that the maximal
+        // length of the first part and the second part + action label icon
+        // is minimal between all possible space characters
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+                RadianceCommonCortex.getScaleFactor(null), presentationFont);
+
+        String buttonText = command.getText();
+        if (buttonText != null) {
+            StringTokenizer tokenizer = new StringTokenizer(buttonText, " _-", true);
+            if (tokenizer.countTokens() <= 1) {
+                // single word
+                this.titlePart1 = buttonText;
+                this.titlePart2 = null;
+            } else {
+                int actionIconWidth = command.hasSecondaryContent() ? 0
+                        : 2 * ComponentUtilities.getHLayoutGap(presentationModel)
                         + (fm.getAscent() + fm.getDescent()) / 2;
                 int currMaxLength = fm.stringWidth(buttonText) + actionIconWidth;
 
@@ -427,6 +590,16 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
                 return preferredIconDimension;
             }
             return super.getPreferredIconSize(commandButton);
+        }
+
+        @Override
+        @SuppressWarnings("rawtypes")
+        public Dimension getPreferredIconSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
+            Dimension preferredIconDimension = presentationModel.getIconDimension();
+            if (preferredIconDimension != null) {
+                return preferredIconDimension;
+            }
+            return super.getPreferredIconSize(command, presentationModel);
         }
     }
 }

@@ -33,9 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.internal.ui.common.popup.BasicCommandPopupMenuPanelUI;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
@@ -49,18 +50,32 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         return new Dimension(size, size);
     }
 
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredIconSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        int size = ComponentUtilities.getCommandButtonSmallIconSize(presentationFont.getSize());
+        return new Dimension(size, size);
+    }
+
     protected float getIconTextGapFactor() {
         return 1.0f;
     }
 
     private boolean hasIcon(JCommandButton button) {
-        if (button.getContentModel().getIconFactory() != null) {
-            return true;
-        }
-        if (Boolean.TRUE.equals(button.getClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON))) {
-            return true;
-        }
-        return false;
+        return (button.getContentModel().getIconFactory() != null)
+                || button.getPresentationModel().isForceAllocateSpaceForIcon();
+    }
+
+    @SuppressWarnings("rawtypes")
+    private boolean hasIcon(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        return (command.getIconFactory() != null)
+                || presentationModel.isForceAllocateSpaceForIcon();
     }
 
     @Override
@@ -118,6 +133,92 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
         // separator?
         CommandButtonKind buttonKind = getCommandButtonKind(commandButton);
+        boolean hasSeparator = false;
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                && (hasIcon || hasText)) {
+            hasSeparator = true;
+        }
+        if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP
+                && hasIcon) {
+            hasSeparator = true;
+        }
+        if (hasSeparator) {
+            // space for a vertical separator
+            width += new JSeparator(JSeparator.VERTICAL).getPreferredSize().width;
+        }
+
+        // right insets
+        width += borderInsets.right;
+
+        // and remove the padding before the first and after the last elements
+        width -= 2 * layoutHGap;
+
+        return new Dimension(width, by
+                + Math.max(prefIconHeight, fm.getAscent() + fm.getDescent()));
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        Insets borderInsets = presentationModel.getContentPadding();
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+
+        int by = borderInsets.top + borderInsets.bottom;
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+                RadianceCommonCortex.getScaleFactor(null), presentationFont);
+
+        String buttonText = command.getText();
+        int layoutHGap = ComponentUtilities.getHLayoutGap(presentationModel);
+
+        boolean hasIcon = this.hasIcon(command, presentationModel);
+        boolean hasText = (buttonText != null);
+        boolean hasPopupIcon = command.hasSecondaryContent();
+
+        int prefIconWidth = hasIcon ? this.getPreferredIconSize(command, presentationModel).width : 0;
+        int prefIconHeight = hasIcon ? this.getPreferredIconSize(command, presentationModel).height : 0;
+
+        // start with the left insets
+        int width = borderInsets.left;
+        // icon?
+        if (hasIcon) {
+            // padding before the icon
+            width += layoutHGap;
+            // icon width
+            width += prefIconWidth;
+            // padding after the icon
+            width += layoutHGap;
+        }
+        // text?
+        if (hasText) {
+            // padding before the text
+            if (hasIcon) {
+                width += (int) (layoutHGap * getIconTextGapFactor());
+            } else {
+                width += layoutHGap;
+            }
+            // text width
+            width += fm.stringWidth(buttonText);
+            // padding after the text
+            width += layoutHGap;
+        }
+        // popup icon?
+        if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
+            // padding before the popup icon
+            if (hasText || hasIcon) {
+                width += 2 * layoutHGap;
+            }
+            // popup icon width
+            width += presentationModel.getPopupIcon().getIconWidth();
+            // padding after the popup icon
+            width += 2 * layoutHGap;
+        }
+
+        // separator?
+        CommandButtonKind buttonKind = getCommandButtonKind(command, presentationModel);
         boolean hasSeparator = false;
         if (buttonKind == CommandButtonLayoutManager.CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
                 && (hasIcon || hasText)) {
@@ -574,6 +675,16 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 return preferredIconDimension;
             }
             return super.getPreferredIconSize(commandButton);
+        }
+
+        @Override
+        @SuppressWarnings("rawtypes")
+        public Dimension getPreferredIconSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
+            Dimension preferredIconDimension = presentationModel.getIconDimension();
+            if (preferredIconDimension != null) {
+                return preferredIconDimension;
+            }
+            return super.getPreferredIconSize(command, presentationModel);
         }
     }
 }

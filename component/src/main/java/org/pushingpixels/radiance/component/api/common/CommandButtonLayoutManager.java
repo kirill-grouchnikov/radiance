@@ -29,10 +29,7 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
@@ -237,6 +234,29 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
                 : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
     }
 
+    default CommandButtonKind getCommandButtonKind(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        boolean hasAction = (command.getAction() != null);
+        boolean hasSecondary = command.hasSecondaryContent();
+
+        if (!hasAction && !hasSecondary) {
+            // Treat as action-only
+            return CommandButtonKind.ACTION_ONLY;
+        }
+
+        if (!hasSecondary) {
+            return CommandButtonKind.ACTION_ONLY;
+        }
+
+        if (!hasAction) {
+            return CommandButtonKind.POPUP_ONLY;
+        }
+
+        return (presentationModel.getTextClick() == BaseCommandButtonPresentationModel.TextClick.ACTION)
+                ? CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION
+                : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
+    }
+
     /**
      * Returns the preferred size of the specified command button when it uses
      * this layout manager.
@@ -256,6 +276,14 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
      * this layout manager.
      */
     Dimension getPreferredIconSize(JCommandButton commandButton);
+
+    @SuppressWarnings("rawtypes")
+    Dimension getPreferredIconSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel);
+
+    @SuppressWarnings("rawtypes")
+    Dimension getPreferredSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel);
 
     /**
      * Returns the anchor center point of the action key tip of the specified command

@@ -54,6 +54,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
     protected RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
     protected RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
     protected RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
+    protected boolean forceAllocateSpaceForIcon;
     protected RadianceThemingSlices.BackgroundAppearanceStrategy backgroundAppearanceStrategy;
     protected boolean isFocusable;
     protected HorizontalAlignment horizontalAlignment;
@@ -132,6 +133,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
 
     public RadianceThemingSlices.IconFilterStrategy getDisabledIconFilterStrategy() {
         return this.disabledIconFilterStrategy;
+    }
+
+    public boolean isForceAllocateSpaceForIcon() {
+        return this.forceAllocateSpaceForIcon;
     }
 
     public Font getFont() {
@@ -279,6 +284,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
         private RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy;
+        private boolean forceAllocateSpaceForIcon;
         private SelectedStateHighlight selectedStateHighlight;
         private Font font;
         private RadianceThemingSlices.PopupPlacementStrategy popupPlacementStrategy;
@@ -348,6 +354,11 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;
+            return this;
+        }
+
+        public Overlay setForceAllocateSpaceForIcon(boolean forceAllocateSpaceForIcon) {
+            this.forceAllocateSpaceForIcon = forceAllocateSpaceForIcon;
             return this;
         }
 
@@ -488,6 +499,10 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             return this.disabledIconFilterStrategy;
         }
 
+        public Boolean isForceAllocateSpaceForIcon() {
+            return this.forceAllocateSpaceForIcon;
+        }
+
         public SelectedStateHighlight getSelectedStateHighlight() {
             return this.selectedStateHighlight;
         }
@@ -592,6 +607,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
                 RadianceThemingSlices.IconFilterStrategy.ORIGINAL;
         private RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy =
                 RadianceThemingSlices.IconFilterStrategy.THEMED_FOLLOW_COLOR_SCHEME;
+        private boolean forceAllocateSpaceForIcon = false;
         private SelectedStateHighlight selectedStateHighlight =
                 SelectedStateHighlight.FULL_SIZE;
         private Font font = null;
@@ -675,6 +691,12 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             this.activeIconFilterStrategy = activeIconFilterStrategy;
             this.enabledIconFilterStrategy = enabledIconFilterStrategy;
             this.disabledIconFilterStrategy = disabledIconFilterStrategy;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setForceAllocateSpaceForIcon(boolean forceAllocateSpaceForIcon) {
+            this.forceAllocateSpaceForIcon = forceAllocateSpaceForIcon;
             return (B) this;
         }
 
@@ -811,6 +833,7 @@ public abstract class BaseCommandButtonPresentationModel<MPM extends BaseCommand
             presentationModel.activeIconFilterStrategy = this.activeIconFilterStrategy;
             presentationModel.enabledIconFilterStrategy = this.enabledIconFilterStrategy;
             presentationModel.disabledIconFilterStrategy = this.disabledIconFilterStrategy;
+            presentationModel.forceAllocateSpaceForIcon = this.forceAllocateSpaceForIcon;
             presentationModel.selectedStateHighlight = this.selectedStateHighlight;
             presentationModel.font = this.font;
             presentationModel.popupPlacementStrategy = this.popupPlacementStrategy;

@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandGroup;
 import org.pushingpixels.radiance.component.api.common.model.CommandMenuContentModel;
@@ -71,6 +72,24 @@ public class ComponentUtilities {
         Font font = commandButton.getFont();
         return (int) Math.ceil(commandButton.getPresentationModel().getVerticalGapScaleFactor()
                 * (font.getSize() - 4) / 4);
+    }
+
+    public static int getHLayoutGap(BaseCommandButtonPresentationModel presentationModel) {
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        return (int) Math.ceil(presentationModel.getHorizontalGapScaleFactor()
+                * (presentationFont.getSize() - 4) / 4);
+    }
+
+    public static int getVLayoutGap(BaseCommandButtonPresentationModel presentationModel) {
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        return (int) Math.ceil(presentationModel.getVerticalGapScaleFactor()
+                * (presentationFont.getSize() - 4) / 4);
     }
 
     public static boolean isShowingMinimizedRibbonInPopup(JRibbon ribbon) {

@@ -32,7 +32,10 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
@@ -40,10 +43,21 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutManager {
-
 	@Override
 	public Dimension getPreferredIconSize(JCommandButton commandButton) {
         int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+		return new Dimension(size, size);
+	}
+
+	@Override
+	@SuppressWarnings("rawtypes")
+	public Dimension getPreferredIconSize(BaseCommand command,
+			BaseCommandButtonPresentationModel presentationModel) {
+		Font presentationFont = presentationModel.getFont();
+		if (presentationFont == null) {
+			presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+		}
+		int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
 		return new Dimension(size, size);
 	}
 
@@ -65,6 +79,38 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		int heightFull = by + this.getPreferredIconSize(commandButton).height + layoutVGap
 				+ jsep.getPreferredSize().width;
 		if (commandButton.getContentModel().getText() != null) {
+			heightFull += fm.getHeight();
+		}
+
+		widthFull = Math.max(widthFull, heightFull);
+		return new Dimension(bx + widthFull, heightFull);
+	}
+
+	@Override
+	@SuppressWarnings("rawtypes")
+	public Dimension getPreferredSize(BaseCommand command,
+			BaseCommandButtonPresentationModel presentationModel) {
+		Insets borderInsets = presentationModel.getContentPadding();
+		Font presentationFont = presentationModel.getFont();
+		if (presentationFont == null) {
+			presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+		}
+
+		int bx = borderInsets.left + borderInsets.right;
+		int by = borderInsets.top + borderInsets.bottom;
+		FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+				RadianceCommonCortex.getScaleFactor(null), presentationFont);
+		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
+		int layoutVGap = ComponentUtilities.getVLayoutGap(presentationModel);
+
+		// icon, label
+		int fillTitleWidth = fm.stringWidth(command.getText());
+
+		int widthFull = Math.max(this.getPreferredIconSize(command, presentationModel).width, fillTitleWidth);
+
+		int heightFull = by + this.getPreferredIconSize(command, presentationModel).height + layoutVGap
+				+ jsep.getPreferredSize().width;
+		if (command.getText() != null) {
 			heightFull += fm.getHeight();
 		}
 

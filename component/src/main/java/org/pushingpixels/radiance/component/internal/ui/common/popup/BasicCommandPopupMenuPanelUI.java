@@ -310,13 +310,6 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
 
             this.popupMenuPanel.putClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON,
                     atLeastOneButtonHasIcon ? Boolean.TRUE : null);
-            for (Component menuComponent : menuComponents) {
-                if (menuComponent instanceof JCommandButton) {
-                    JCommandButton menuButton = (JCommandButton) menuComponent;
-                    menuButton.putClientProperty(BasicCommandPopupMenuPanelUI.FORCE_ICON,
-                            atLeastOneButtonHasIcon ? Boolean.TRUE : null);
-                }
-            }
         }
 
         this.menuItemsPanel = new JScrollablePanel<>(menuPanel,
@@ -504,7 +497,7 @@ public abstract class BasicCommandPopupMenuPanelUI extends BasicPopupPanelUI {
                 for (Component menuComponent : menuComponents) {
                     if (menuComponent instanceof JCommandButton) {
                         JCommandButton button = (JCommandButton) menuComponent;
-                        if (!Boolean.TRUE.equals(button.getClientProperty(FORCE_ICON))) {
+                        if (!button.getPresentationModel().isForceAllocateSpaceForIcon()) {
                             continue;
                         }
                         boolean ltr = button.getComponentOrientation().isLeftToRight();

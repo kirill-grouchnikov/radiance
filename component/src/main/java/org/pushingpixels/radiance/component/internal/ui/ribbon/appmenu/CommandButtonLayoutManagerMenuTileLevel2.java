@@ -32,8 +32,10 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceMetricsUtilities;
 
 import javax.swing.*;
@@ -44,10 +46,21 @@ import java.text.AttributedString;
 import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLayoutManager {
-
     @Override
     public Dimension getPreferredIconSize(JCommandButton commandButton) {
         int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
+        return new Dimension(size, size);
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredIconSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+        int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
         return new Dimension(size, size);
     }
 
@@ -82,6 +95,46 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         }
         return new Dimension(bx + widthMed, by
                 + Math.max(this.getPreferredIconSize(commandButton).height, textHeight));
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Dimension getPreferredSize(BaseCommand command,
+            BaseCommandButtonPresentationModel presentationModel) {
+        Insets borderInsets = presentationModel.getContentPadding();
+        Font presentationFont = presentationModel.getFont();
+        if (presentationFont == null) {
+            presentationFont = RadianceThemingCortex.GlobalScope.getFontPolicy().getFontSet().getControlFont();
+        }
+
+        int bx = borderInsets.left + borderInsets.right;
+        int by = borderInsets.top + borderInsets.bottom;
+        FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
+                RadianceCommonCortex.getScaleFactor(null), presentationFont);
+        JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
+
+        int titleWidth = fm.stringWidth(command.getText());
+        int layoutHGap = 2 * ComponentUtilities.getHLayoutGap(presentationModel);
+        int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(presentationModel);
+        int widthMed = this.getPreferredIconSize(command, presentationModel).width
+                + 2 * layoutHGap
+                + jsep.getPreferredSize().width
+                + titleWidth
+                + (command.hasSecondaryContent()
+                ? presentationModel.getPopupIcon().getIconWidth()
+                + 4 * layoutHGap + jsep.getPreferredSize().width
+                : 0);
+
+        // height - three lines of text and two gaps between them.
+        // The gap between the lines is half the main gap.
+        int fontHeight = fm.getAscent() + fm.getDescent();
+        int textHeight = fontHeight + layoutVGap;
+        String extraText = command.getExtraText();
+        if ((extraText != null) && (extraText.length() > 0)) {
+            textHeight += 2 * fontHeight;
+        }
+        return new Dimension(bx + widthMed, by
+                + Math.max(this.getPreferredIconSize(command, presentationModel).height, textHeight));
     }
 
     @Override

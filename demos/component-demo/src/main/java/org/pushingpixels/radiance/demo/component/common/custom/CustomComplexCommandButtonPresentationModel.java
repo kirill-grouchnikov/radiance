@@ -63,6 +63,8 @@ public class CustomComplexCommandButtonPresentationModel extends
                 ? overlay.getEnabledIconFilterStrategy() : this.enabledIconFilterStrategy;
         result.disabledIconFilterStrategy = (overlay.getDisabledIconFilterStrategy() != null)
                 ? overlay.getDisabledIconFilterStrategy() : this.disabledIconFilterStrategy;
+        result.forceAllocateSpaceForIcon = (overlay.isForceAllocateSpaceForIcon() != null)
+                ? overlay.isForceAllocateSpaceForIcon() : this.forceAllocateSpaceForIcon;
         result.selectedStateHighlight = (overlay.getSelectedStateHighlight() != null)
                 ? overlay.getSelectedStateHighlight() : this.selectedStateHighlight;
         result.font = (overlay.getFont() != null) ? overlay.getFont() : this.font;

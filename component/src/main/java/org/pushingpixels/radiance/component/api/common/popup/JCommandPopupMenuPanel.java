@@ -86,8 +86,8 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
         this.popupMenuPanelContentModel = (this.popupMenuContentModel != null) ?
                 this.popupMenuContentModel.getPanelContentModel() : null;
 
-        this.populateContent();
-        this.popupMenuPanelContentChangeListener = (ChangeEvent event) -> populateContent();
+        this.syncContent();
+        this.popupMenuPanelContentChangeListener = (ChangeEvent event) -> syncContent();
         this.popupMenuContentModel.addChangeListener(this.popupMenuPanelContentChangeListener);
 
         this.updateUI();
@@ -99,7 +99,7 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
         });
     }
 
-    private void populateContent() {
+    private void syncContent() {
         if (this.popupMenuPanelContentModel != null) {
             CommandPopupMenuPanelPresentationModel commandPopupMenuPanelPresentationModel =
                     this.popupMenuPresentationModel.getPanelPresentationModel();
@@ -143,18 +143,36 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                         .setPopupPlacementStrategy(this.popupMenuPresentationModel.getPopupPlacementStrategy())
                         .build();
 
-        List<CommandGroup> commandGroups =
-                this.popupMenuContentModel.getCommandGroups();
+        List<CommandGroup> commandGroups = this.popupMenuContentModel.getCommandGroups();
+        boolean atLeastOneButtonHasIcon = false;
+        for (int i = 0; i < commandGroups.size(); i++) {
+            for (Command command : commandGroups.get(i).getCommands()) {
+                if (command.getIconFactory() != null) {
+                    atLeastOneButtonHasIcon = true;
+                }
+                if (command.isToggle()) {
+                    atLeastOneButtonHasIcon = true;
+                }
+            }
+        }
+
         for (int i = 0; i < commandGroups.size(); i++) {
             for (Command command : commandGroups.get(i).getCommands()) {
                 CommandButtonProjection<Command> commandProjection;
                 // Do we need to apply a command-specific overlay?
                 CommandButtonPresentationModel.Overlay overlay = this.projection.getCommandOverlays().get(command);
-                if (overlay != null) {
-                    commandProjection = command.project(presentation.overlayWith(overlay));
-                } else {
-                    commandProjection = command.project(presentation);
+                CommandButtonPresentationModel combinedPresentationModel = (overlay != null) ?
+                        presentation.overlayWith(overlay) : presentation;
+
+                // If at least one button needs space for icons, all of them do
+                if (atLeastOneButtonHasIcon) {
+                    combinedPresentationModel = combinedPresentationModel.overlayWith(
+                            new BaseCommandButtonPresentationModel.Overlay()
+                                    .setForceAllocateSpaceForIcon(true)
+                    );
                 }
+                commandProjection = command.project(combinedPresentationModel);
+
                 // Create a button that can be used in this popup menu
                 JCommandButton commandButton = commandProjection.buildComponent();
 
