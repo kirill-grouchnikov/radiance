@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.component.api.common.popup;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;
@@ -75,8 +76,8 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         this.presentationModel = projection.getPresentationModel();
         this.colorColumns = this.presentationModel.getColorColumns();
 
-        this.populateContent();
-        this.contentChangeListener = (ChangeEvent event) -> populateContent();
+        this.syncContent();
+        this.contentChangeListener = (ChangeEvent event) -> syncContent();
         this.contentModel.addChangeListener(this.contentChangeListener);
 
         this.updateUI();
@@ -87,16 +88,33 @@ public class JColorSelectorPopupMenuPanel extends AbstractPopupMenuPanel {
         return this.projection;
     }
 
-    private void populateContent() {
+    private void syncContent() {
+        List<ColorSelectorPopupMenuGroupModel> menuGroups = this.contentModel.getMenuGroups();
+        boolean atLeastOneButtonHasIcon = false;
+        for (int i = 0; i < menuGroups.size(); i++) {
+            ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
+            for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :
+                    menuGroup.getGroupContent()) {
+                if (groupEntry.getKey() == ColorSelectorPopupMenuGroupModel.GroupEntryKind.COMMAND) {
+                    Command command = (Command) groupEntry.getValue();
+                    if ((command.getIconFactory() != null) || command.isToggle()) {
+                        atLeastOneButtonHasIcon = true;
+                        break;
+                    }
+                }
+            }
+        }
+
         // Command presentation for menu content
         CommandButtonPresentationModel presentation =
                 CommandButtonPresentationModel.builder()
                         .setPresentationState(this.presentationModel.getMenuPresentationState())
                         .setPopupFireTrigger(this.presentationModel.getMenuPopupFireTrigger())
                         .setSelectedStateHighlight(this.presentationModel.getSelectedStateHighlight())
+                        .setForceAllocateSpaceForIcon(atLeastOneButtonHasIcon)
                         .build();
 
-        List<ColorSelectorPopupMenuGroupModel> menuGroups = this.contentModel.getMenuGroups();
+
         for (int i = 0; i < menuGroups.size(); i++) {
             ColorSelectorPopupMenuGroupModel menuGroup = menuGroups.get(i);
             for (KeyValuePair<ColorSelectorPopupMenuGroupModel.GroupEntryKind, Object> groupEntry :

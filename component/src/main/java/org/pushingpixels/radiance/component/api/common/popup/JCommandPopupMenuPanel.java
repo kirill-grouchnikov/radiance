@@ -127,6 +127,17 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                     .buildComponent();
         }
 
+        List<CommandGroup> commandGroups = this.popupMenuContentModel.getCommandGroups();
+        boolean atLeastOneButtonHasIcon = false;
+        for (int i = 0; i < commandGroups.size(); i++) {
+            for (Command command : commandGroups.get(i).getCommands()) {
+                if ((command.getIconFactory() != null) || command.isToggle()) {
+                    atLeastOneButtonHasIcon = true;
+                    break;
+                }
+            }
+        }
+
         // Command presentation for menu content
         CommandButtonPresentationModel presentation =
                 CommandButtonPresentationModel.builder()
@@ -141,20 +152,9 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                         .setPopupFireTrigger(this.popupMenuPresentationModel.getItemPopupFireTrigger())
                         .setSelectedStateHighlight(this.popupMenuPresentationModel.getItemSelectedStateHighlight())
                         .setPopupPlacementStrategy(this.popupMenuPresentationModel.getPopupPlacementStrategy())
+                        .setForceAllocateSpaceForIcon(atLeastOneButtonHasIcon)
                         .build();
 
-        List<CommandGroup> commandGroups = this.popupMenuContentModel.getCommandGroups();
-        boolean atLeastOneButtonHasIcon = false;
-        for (int i = 0; i < commandGroups.size(); i++) {
-            for (Command command : commandGroups.get(i).getCommands()) {
-                if (command.getIconFactory() != null) {
-                    atLeastOneButtonHasIcon = true;
-                }
-                if (command.isToggle()) {
-                    atLeastOneButtonHasIcon = true;
-                }
-            }
-        }
 
         for (int i = 0; i < commandGroups.size(); i++) {
             for (Command command : commandGroups.get(i).getCommands()) {
@@ -163,14 +163,6 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                 CommandButtonPresentationModel.Overlay overlay = this.projection.getCommandOverlays().get(command);
                 CommandButtonPresentationModel combinedPresentationModel = (overlay != null) ?
                         presentation.overlayWith(overlay) : presentation;
-
-                // If at least one button needs space for icons, all of them do
-                if (atLeastOneButtonHasIcon) {
-                    combinedPresentationModel = combinedPresentationModel.overlayWith(
-                            new BaseCommandButtonPresentationModel.Overlay()
-                                    .setForceAllocateSpaceForIcon(true)
-                    );
-                }
                 commandProjection = command.project(combinedPresentationModel);
 
                 // Create a button that can be used in this popup menu
