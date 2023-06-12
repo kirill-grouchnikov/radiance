@@ -49,7 +49,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState BIG = new CommandButtonPresentationState(
             "Big", 32) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+        public CommandButtonLayoutManager createLayoutManager() {
             return new CommandButtonLayoutManagerBig();
         }
     };
@@ -60,7 +60,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState BIG_FIT_TO_ICON =
             new CommandButtonPresentationState("Big fit to icon", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerBig.FitToIcon();
                 }
             };
@@ -71,7 +71,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState TILE = new CommandButtonPresentationState(
             "Tile", 32) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+        public CommandButtonLayoutManager createLayoutManager() {
             return new CommandButtonLayoutManagerTile();
         }
     };
@@ -82,7 +82,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState TILE_FIT_TO_ICON =
             new CommandButtonPresentationState("Tile fit to icon", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerTile.FitToIcon();
                 }
             };
@@ -93,7 +93,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState MEDIUM = new CommandButtonPresentationState(
             "Medium", 16) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+        public CommandButtonLayoutManager createLayoutManager() {
             return new CommandButtonLayoutManagerMedium();
         }
     };
@@ -104,7 +104,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState MEDIUM_FIT_TO_ICON =
             new CommandButtonPresentationState("Medium fit to icon", 16) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerMedium.FitToIcon();
                 }
             };
@@ -115,7 +115,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState SMALL = new CommandButtonPresentationState(
             "Small", 16) {
         @Override
-        public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+        public CommandButtonLayoutManager createLayoutManager() {
             return new CommandButtonLayoutManagerSmall();
         }
     };
@@ -126,7 +126,7 @@ public abstract class CommandButtonPresentationState {
     public static final CommandButtonPresentationState SMALL_FIT_TO_ICON =
             new CommandButtonPresentationState("Small fit to icon", 16) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerSmall.FitToIcon();
                 }
             };
@@ -179,13 +179,11 @@ public abstract class CommandButtonPresentationState {
     }
 
     /**
-     * Creates a layout manager for the specified button.
+     * Creates a layout manager for this state.
      *
-     * @param commandButton Command button.
-     * @return A layout manager for the specified button.
+     * @return A layout manager for this state.
      */
-    public abstract CommandButtonLayoutManager createLayoutManager(
-            JCommandButton commandButton);
+    public abstract CommandButtonLayoutManager createLayoutManager();
 
     @Override
     public String toString() {

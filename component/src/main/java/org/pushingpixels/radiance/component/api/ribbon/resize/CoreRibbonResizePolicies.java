@@ -351,7 +351,7 @@ public class CoreRibbonResizePolicies {
                     presentationState = CommandButtonPresentationState.SMALL;
                     break;
             }
-            return presentationState.createLayoutManager(button).getPreferredSize(button).width;
+            return presentationState.createLayoutManager().getPreferredSize(button).width;
         }
 
         @Override

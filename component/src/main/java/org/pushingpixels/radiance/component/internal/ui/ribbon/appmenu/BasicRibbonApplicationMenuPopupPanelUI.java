@@ -72,7 +72,7 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
             new CommandButtonPresentationState(
                     "Ribbon application menu tile level 1", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerMenuTileLevel1();
                 }
             };

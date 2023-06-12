@@ -44,7 +44,7 @@ public class CommandPopupMenuPresentationModel extends BaseCommandPopupMenuPrese
     public static final CommandButtonPresentationState DEFAULT_POPUP_MENU_PRESENTATION_STATE =
             new CommandButtonPresentationState("Popup menu", 16) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerMedium() {
                         @Override
                         protected float getIconTextGapFactor() {

@@ -95,7 +95,7 @@ public class JRibbonBand extends AbstractRibbonBand {
     public static final CommandButtonPresentationState BIG_FIXED_LANDSCAPE =
             new CommandButtonPresentationState("Big Fixed Landscape", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton button) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerBigFixedLandscape();
                 }
             };
@@ -106,7 +106,7 @@ public class JRibbonBand extends AbstractRibbonBand {
     public static final CommandButtonPresentationState BIG_FIXED =
             new CommandButtonPresentationState("Big Fixed", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(JCommandButton button) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerBigFixed();
                 }
             };

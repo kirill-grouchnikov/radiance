@@ -145,8 +145,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         installListeners();
         installKeyboardActions();
 
-        this.layoutManager = this.commandButton.getPresentationState()
-                .createLayoutManager(this.commandButton);
+        this.layoutManager = this.commandButton.getPresentationState().createLayoutManager();
 
         this.updateIconDimension();
     }
@@ -698,7 +697,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         CommandButtonPresentationState commandButtonState =
                 this.commandButton.getPresentationState();
 
-        this.layoutManager = commandButtonState.createLayoutManager(this.commandButton);
+        this.layoutManager = commandButtonState.createLayoutManager();
 
         Dimension preferredIconSize =
                 this.commandButton.getPresentationModel().getIconDimension();

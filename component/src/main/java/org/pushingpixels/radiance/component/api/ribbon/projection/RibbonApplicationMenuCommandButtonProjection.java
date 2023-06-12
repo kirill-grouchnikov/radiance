@@ -52,8 +52,7 @@ public class RibbonApplicationMenuCommandButtonProjection extends BaseCommandBut
     public static final CommandButtonPresentationState RIBBON_APP_MENU_SECONDARY_LEVEL =
             new CommandButtonPresentationState("Ribbon application menu tile level 2", 32) {
                 @Override
-                public CommandButtonLayoutManager createLayoutManager(
-                        JCommandButton commandButton) {
+                public CommandButtonLayoutManager createLayoutManager() {
                     return new CommandButtonLayoutManagerMenuTileLevel2();
                 }
             };
