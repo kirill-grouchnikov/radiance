@@ -451,8 +451,10 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
             for (Component comp : anchoredButtons.getComponents()) {
                 JCommandButton anchoredButton = (JCommandButton) comp;
-                result += state.createLayoutManager()
-                        .getPreferredSize(anchoredButton).width;
+                result += state.createLayoutManager().getPreferredSize(
+                        anchoredButton.getContentModel(),
+                        anchoredButton.getPresentationModel()
+                ).width;
             }
 
             return result;

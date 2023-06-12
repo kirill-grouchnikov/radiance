@@ -47,12 +47,6 @@ import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLayoutManager {
     @Override
-    public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        return getPreferredIconSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
-    }
-
-    @Override
     @SuppressWarnings("rawtypes")
     public Dimension getPreferredIconSize(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel) {
@@ -62,12 +56,6 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         }
         int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
         return new Dimension(size, size);
-    }
-
-    @Override
-    public Dimension getPreferredSize(JCommandButton commandButton) {
-        return this.getPreferredSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
     }
 
     @Override
@@ -181,7 +169,8 @@ public class CommandButtonLayoutManagerMenuTileLevel2 implements CommandButtonLa
         int layoutVGap = 2 * ComponentUtilities.getVLayoutGap(commandButton);
 
         String buttonText = commandButton.getContentModel().getText();
-        Dimension iconSize = getPreferredIconSize(commandButton);
+        Dimension iconSize = getPreferredIconSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
         int iconWidth = iconSize.width;
         int iconHeight = iconSize.height;
 

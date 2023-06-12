@@ -29,11 +29,6 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.internal.utils.ComponentUtilities;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 
@@ -52,8 +47,6 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
      */
     protected AbstractBandControlPanel controlPanel;
 
-    protected JCommandButton forSizing;
-
     public static final String TOP_ROW = "radiance.component.internal.ribbonBandControlPanel.topRow";
 
     public static final String MID_ROW = "radiance.component.internal.ribbonBandControlPanel.midRow";
@@ -63,14 +56,6 @@ abstract class AbstractBandControlPanelUI extends BandControlPanelUI {
     @Override
     public void installUI(JComponent c) {
         this.controlPanel = (AbstractBandControlPanel) c;
-
-        this.forSizing = Command.builder()
-                .setText("Text")
-                .setIconFactory(EmptyRadianceIcon.factory())
-                .setAction(commandActionEvent -> {})
-                .build().project(CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.BIG).build())
-                .buildComponent();
 
         installDefaults();
         installComponents();

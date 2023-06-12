@@ -80,8 +80,6 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
     private ComponentListener componentListener;
 
-    private JCommandButton forSizing;
-
     /**
      * Contains the item path.
      */
@@ -99,6 +97,8 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
     private boolean isShowingProgress;
 
     private SwingWorker<Void, Object> pathChangeWorker;
+
+    private int preferredHeight;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -145,18 +145,22 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
             worker.execute();
         }
 
-        this.forSizing = Command.builder()
-                .setText("Text")
-                .setIconFactory(EmptyRadianceIcon.factory())
-                .setAction(commandActionEvent -> {
-                })
-                .build().project(CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.SMALL).build())
-                .buildComponent();
-        int preferredHeight = forSizing.getPreferredSize().height;
+        this.preferredHeight = CommandButtonPresentationState.SMALL.createLayoutManager()
+                .getPreferredSize(
+                        Command.builder()
+                                .setText("Text")
+                                .setIconFactory(EmptyRadianceIcon.factory())
+                                .setAction(commandActionEvent -> {
+                                })
+                                .build(),
+                        CommandButtonPresentationModel.builder()
+                                .setPresentationState(CommandButtonPresentationState.SMALL).build()
+                ).height;
+
         this.circularProgress.setBorder(
-                new EmptyBorder((preferredHeight - 12) / 2, 10, (preferredHeight - 12) / 2, 10));
-        this.circularProgress.setPreferredSize(new Dimension(32, preferredHeight));
+                new EmptyBorder((this.preferredHeight - 12) / 2, 10,
+                        (this.preferredHeight - 12) / 2, 10));
+        this.circularProgress.setPreferredSize(new Dimension(32, this.preferredHeight));
     }
 
     @Override
@@ -382,20 +386,13 @@ public abstract class BasicBreadcrumbBarUI extends BreadcrumbBarUI {
 
         @Override
         public Dimension preferredLayoutSize(Container c) {
-            // The height of breadcrumb bar is
-            // computed based on the preferred height of a command
-            // button in MEDIUM state.
-            int buttonHeight = forSizing.getPreferredSize().height;
-
             Insets ins = c.getInsets();
-            return new Dimension(c.getWidth(), buttonHeight + ins.top + ins.bottom);
+            return new Dimension(c.getWidth(), preferredHeight + ins.top + ins.bottom);
         }
 
         @Override
         public Dimension minimumLayoutSize(Container c) {
-            int buttonHeight = forSizing.getPreferredSize().height;
-
-            return new Dimension(10, buttonHeight);
+            return new Dimension(10, preferredHeight);
         }
 
         @Override

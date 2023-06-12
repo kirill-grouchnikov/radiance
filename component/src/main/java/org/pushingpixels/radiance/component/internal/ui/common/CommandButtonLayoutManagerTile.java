@@ -44,13 +44,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManager {
-
-    @Override
-    public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        return getPreferredIconSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
-    }
-
     @Override
     @SuppressWarnings("rawtypes")
     public Dimension getPreferredIconSize(BaseCommand command,
@@ -61,12 +54,6 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         }
         int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
         return new Dimension(size, size);
-    }
-
-    @Override
-    public Dimension getPreferredSize(JCommandButton commandButton) {
-        return this.getPreferredSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
     }
 
     @Override
@@ -209,7 +196,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
         int width = commandButton.getWidth();
         int height = commandButton.getHeight();
 
-        int prefWidth = this.getPreferredSize(commandButton).width;
+        int prefWidth = this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel()).width;
         int shiftX = 0;
         if (width > prefWidth) {
             // We have more horizontal space than needed to display the content.
@@ -251,7 +239,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             if (hasIcon) {
                 x += layoutHGap;
 
-                Dimension iconSize = getPreferredIconSize(commandButton);
+                Dimension iconSize = getPreferredIconSize(commandButton.getContentModel(),
+                        commandButton.getPresentationModel());
                 int iconHeight = iconSize.height;
                 int iconWidth = iconSize.width;
 
@@ -431,7 +420,8 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
             if (hasIcon) {
                 x -= layoutHGap;
 
-                Dimension iconSize = getPreferredIconSize(commandButton);
+                Dimension iconSize = getPreferredIconSize(commandButton.getContentModel(),
+                        commandButton.getPresentationModel());
                 int iconHeight = iconSize.height;
                 int iconWidth = iconSize.width;
 
@@ -611,12 +601,6 @@ public class CommandButtonLayoutManagerTile implements CommandButtonLayoutManage
     }
 
     public static class FitToIcon extends CommandButtonLayoutManagerTile {
-        @Override
-        public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            return getPreferredIconSize(commandButton.getContentModel(),
-                    commandButton.getPresentationModel());
-        }
-
         @Override
         @SuppressWarnings("rawtypes")
         public Dimension getPreferredIconSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {

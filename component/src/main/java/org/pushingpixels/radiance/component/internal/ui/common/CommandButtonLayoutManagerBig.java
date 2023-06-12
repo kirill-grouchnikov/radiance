@@ -59,12 +59,6 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     private String titlePart2;
 
     @Override
-    public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        return getPreferredIconSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
-    }
-
-    @Override
     @SuppressWarnings("rawtypes")
     public Dimension getPreferredIconSize(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel) {
@@ -100,12 +94,6 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         return (command.getIconFactory() != null)
                 ? this.getPreferredIconSize(command, presentationModel).height
                 : 0;
-    }
-
-    @Override
-    public Dimension getPreferredSize(JCommandButton commandButton) {
-        return this.getPreferredSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
     }
 
     @Override
@@ -354,7 +342,8 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
         int layoutHGap = ComponentUtilities.getHLayoutGap(commandButton);
         int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);
 
-        int prefHeight = this.getPreferredSize(commandButton).height;
+        int prefHeight = this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel()).height;
         int shiftY = 0;
         if (height > prefHeight) {
             shiftY = (height - prefHeight) / 2;
@@ -513,12 +502,6 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     }
 
     public static class FitToIcon extends CommandButtonLayoutManagerBig {
-        @Override
-        public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            return getPreferredIconSize(commandButton.getContentModel(),
-                    commandButton.getPresentationModel());
-        }
-
         @Override
         @SuppressWarnings("rawtypes")
         public Dimension getPreferredIconSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {

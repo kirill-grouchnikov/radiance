@@ -120,7 +120,9 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                 CommandButtonLayoutManager regularLayoutManager =
                                         presentationModel.itemPresentationState.createLayoutManager();
                                 Dimension preferredSize =
-                                        regularLayoutManager.getPreferredSize(commandButton);
+                                        regularLayoutManager.getPreferredSize(
+                                                commandButton.getContentModel(),
+                                                commandButton.getPresentationModel());
 
                                 maxPrimaryWidth = Math.max(maxPrimaryWidth, preferredSize.width);
                                 combinedHeight += preferredSize.height;
@@ -142,11 +144,14 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                 CommandButtonLayoutManager editButtonLayoutManager =
                                         presentationModel.editPresentationModel.getPresentationState().createLayoutManager();
                                 Dimension cutPreferredSize = editButtonLayoutManager
-                                        .getPreferredSize(editSection.getCutButton());
+                                        .getPreferredSize(editSection.getCutButton().getContentModel(),
+                                                presentationModel.editPresentationModel);
                                 Dimension copyPreferredSize = editButtonLayoutManager
-                                        .getPreferredSize(editSection.getCopyButton());
+                                        .getPreferredSize(editSection.getCopyButton().getContentModel(),
+                                                presentationModel.editPresentationModel);
                                 Dimension pastePreferredSize = editButtonLayoutManager
-                                        .getPreferredSize(editSection.getPasteButton());
+                                        .getPreferredSize(editSection.getPasteButton().getContentModel(),
+                                                presentationModel.editPresentationModel);
 
                                 maxActionWidth = Math.max(
                                         maxActionWidth,
@@ -172,7 +177,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
                                 Dimension zoomOutPreferredSize = presentationModel.zoomPresentationModel
                                         .getPresentationState().createLayoutManager()
-                                        .getPreferredSize(zoomSection.getZoomOutButton());
+                                        .getPreferredSize(zoomSection.getZoomOutButton().getContentModel(),
+                                                presentationModel.zoomPresentationModel);
                                 int zoomLevelWidth = getLabelPreferredSingleLineWidth(
                                         LabelContentModel.builder().setText(
                                                 presentationModel.zoomLabelPresentationModel.getSingleLineDisplayPrototype()
@@ -182,10 +188,12 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
                                 );
                                 Dimension zoomInPreferredSize = presentationModel.zoomPresentationModel
                                         .getPresentationState().createLayoutManager()
-                                        .getPreferredSize(zoomSection.getZoomInButton());
+                                        .getPreferredSize(zoomSection.getZoomInButton().getContentModel(),
+                                                presentationModel.zoomPresentationModel);
                                 Dimension fullScreenPreferredSize = presentationModel.fullScreenPresentationModel
                                         .getPresentationState().createLayoutManager()
-                                        .getPreferredSize(zoomSection.getFullScreenButton());
+                                        .getPreferredSize(zoomSection.getFullScreenButton().getContentModel(),
+                                                presentationModel.fullScreenPresentationModel);
 
                                 maxActionWidth = Math.max(
                                         maxActionWidth,
@@ -209,7 +217,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
                                 Dimension signInPreferredSize = presentationModel.headerSignInPresentationModel
                                         .getPresentationState().createLayoutManager()
-                                        .getPreferredSize(headerSection.getSignInButton());
+                                        .getPreferredSize(headerSection.getSignInButton().getContentModel(),
+                                                presentationModel.headerSignInPresentationModel);
 
                                 maxActionWidth = Math.max(maxActionWidth, signInPreferredSize.width);
 
@@ -221,7 +230,8 @@ public class JCustomComplexPopupMenuPanel extends AbstractPopupMenuPanel {
 
                                 Dimension footerPreferredSize = presentationModel.footerPresentationModel
                                         .getPresentationState().createLayoutManager()
-                                        .getPreferredSize(footerSection.getFooterButton());
+                                        .getPreferredSize(footerSection.getFooterButton().getContentModel(),
+                                                presentationModel.footerPresentationModel);
 
                                 maxPrimaryWidth = Math.max(maxPrimaryWidth, footerPreferredSize.width);
                                 combinedHeight += footerPreferredSize.height;

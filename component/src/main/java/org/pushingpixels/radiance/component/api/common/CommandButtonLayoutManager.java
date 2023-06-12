@@ -258,29 +258,15 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
     }
 
     /**
-     * Returns the preferred size of the specified command button when it uses
-     * this layout manager.
-     *
-     * @param commandButton Command button.
-     * @return The preferred size of the specified command button when it uses
-     * this layout manager.
+     * Returns the preferred icon size of a button using this layout manager.
      */
-    Dimension getPreferredSize(JCommandButton commandButton);
-
-    /**
-     * Returns the preferred icon size of the specified command button when it uses
-     * this layout manager.
-     *
-     * @param commandButton Command button.
-     * @return The preferred icon size of the specified command button when it uses
-     * this layout manager.
-     */
-    Dimension getPreferredIconSize(JCommandButton commandButton);
-
     @SuppressWarnings("rawtypes")
     Dimension getPreferredIconSize(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel);
 
+    /**
+     * Returns the preferred size of a button using this layout manager.
+     */
     @SuppressWarnings("rawtypes")
     Dimension getPreferredSize(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel);

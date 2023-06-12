@@ -45,12 +45,6 @@ import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutManager {
     @Override
-    public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        return getPreferredIconSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
-    }
-
-    @Override
     @SuppressWarnings("rawtypes")
     public Dimension getPreferredIconSize(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel) {
@@ -64,12 +58,6 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
     protected float getIconTextGapFactor() {
         return 1.0f;
-    }
-
-    @Override
-    public Dimension getPreferredSize(JCommandButton commandButton) {
-        return this.getPreferredSize(commandButton.getContentModel(),
-                commandButton.getPresentationModel());
     }
 
     @Override
@@ -212,8 +200,10 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         int height = commandButton.getHeight();
 
         String buttonText = commandButton.getContentModel().getText();
-        int iconWidth = this.getPreferredIconSize(commandButton).width;
-        int iconHeight = this.getPreferredIconSize(commandButton).height;
+        Dimension iconSize = getPreferredIconSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel());
+        int iconWidth = iconSize.width;
+        int iconHeight = iconSize.height;
 
         boolean hasIcon = (commandButton.getContentModel().getIconFactory() != null)
                 || commandButton.getPresentationModel().isForceAllocateSpaceForIcon();
@@ -222,7 +212,8 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
 
         boolean ltr = commandButton.getComponentOrientation().isLeftToRight();
 
-        int prefWidth = this.getPreferredSize(commandButton).width;
+        int prefWidth = this.getPreferredSize(commandButton.getContentModel(),
+                commandButton.getPresentationModel()).width;
         int shiftX = 0;
         if (width > prefWidth) {
             // We have more horizontal space than needed to display the content.
@@ -584,12 +575,6 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
     }
 
     public static class FitToIcon extends CommandButtonLayoutManagerMedium {
-        @Override
-        public Dimension getPreferredIconSize(JCommandButton commandButton) {
-            return getPreferredIconSize(commandButton.getContentModel(),
-                    commandButton.getPresentationModel());
-        }
-
         @Override
         @SuppressWarnings("rawtypes")
         public Dimension getPreferredIconSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {

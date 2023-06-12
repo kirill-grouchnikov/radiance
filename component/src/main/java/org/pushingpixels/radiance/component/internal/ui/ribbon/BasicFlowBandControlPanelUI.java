@@ -29,7 +29,11 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
+import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JExoContainer;
+import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
@@ -69,7 +73,17 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 			// The height of ribbon band control panel is
 			// computed based on the preferred height of a command
 			// button in BIG state.
-			int buttonHeight = forSizing.getPreferredSize().height;
+			int buttonHeight = CommandButtonPresentationState.BIG.createLayoutManager()
+					.getPreferredSize(
+							Command.builder()
+									.setText("Text")
+									.setIconFactory(EmptyRadianceIcon.factory())
+									.setAction(commandActionEvent -> {
+									})
+									.build(),
+							CommandButtonPresentationModel.builder()
+									.setPresentationState(CommandButtonPresentationState.BIG).build()
+					).height;
 			int vGap = getLayoutGap() * 3 / 4;
 			int minusGaps = buttonHeight - 2 * vGap;
 			switch (minusGaps % 3) {

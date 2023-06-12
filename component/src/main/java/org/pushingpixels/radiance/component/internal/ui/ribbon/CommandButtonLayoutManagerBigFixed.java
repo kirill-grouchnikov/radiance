@@ -44,12 +44,6 @@ import java.util.ArrayList;
 
 public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutManager {
 	@Override
-	public Dimension getPreferredIconSize(JCommandButton commandButton) {
-        int size = ComponentUtilities.getScaledSize(32, commandButton.getFont().getSize(), 2.0f, 4);
-		return new Dimension(size, size);
-	}
-
-	@Override
 	@SuppressWarnings("rawtypes")
 	public Dimension getPreferredIconSize(BaseCommand command,
 			BaseCommandButtonPresentationModel presentationModel) {
@@ -59,31 +53,6 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 		}
 		int size = ComponentUtilities.getScaledSize(32, presentationFont.getSize(), 2.0f, 4);
 		return new Dimension(size, size);
-	}
-
-	@Override
-	public Dimension getPreferredSize(JCommandButton commandButton) {
-		Insets borderInsets = commandButton.getInsets();
-		int bx = borderInsets.left + borderInsets.right;
-		int by = borderInsets.top + borderInsets.bottom;
-		FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-				RadianceCommonCortex.getScaleFactor(commandButton), commandButton.getFont());
-		JSeparator jsep = new JSeparator(JSeparator.VERTICAL);
-		int layoutVGap = ComponentUtilities.getVLayoutGap(commandButton);
-
-		// icon, label
-		int fillTitleWidth = fm.stringWidth(commandButton.getContentModel().getText());
-
-		int widthFull = Math.max(this.getPreferredIconSize(commandButton).width, fillTitleWidth);
-
-		int heightFull = by + this.getPreferredIconSize(commandButton).height + layoutVGap
-				+ jsep.getPreferredSize().width;
-		if (commandButton.getContentModel().getText() != null) {
-			heightFull += fm.getHeight();
-		}
-
-		widthFull = Math.max(widthFull, heightFull);
-		return new Dimension(bx + widthFull, heightFull);
 	}
 
 	@Override
@@ -172,7 +141,8 @@ public class CommandButtonLayoutManagerBigFixed implements CommandButtonLayoutMa
 			result.popupClickArea.height = height;
 		}
 
-		Dimension iconSize = getPreferredIconSize(commandButton);
+		Dimension iconSize = getPreferredIconSize(commandButton.getContentModel(),
+				commandButton.getPresentationModel());
 		int iconWidth = iconSize.width;
 		int iconHeight = iconSize.height;
 

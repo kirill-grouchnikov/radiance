@@ -551,7 +551,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     @Override
     public Dimension getPreferredSize(JComponent c) {
         JCommandButton button = (JCommandButton) c;
-        return this.layoutManager.getPreferredSize(button);
+        return this.layoutManager.getPreferredSize(button.getContentModel(),
+                button.getPresentationModel());
     }
 
     @Override
@@ -699,20 +700,11 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         this.layoutManager = commandButtonState.createLayoutManager();
 
-        Dimension preferredIconSize =
-                this.commandButton.getPresentationModel().getIconDimension();
-        if (preferredIconSize == null) {
-            preferredIconSize = layoutManager.getPreferredIconSize(this.commandButton);
-        }
-
-        int iconWidth = (preferredIconSize != null) ? preferredIconSize.width : -1;
-        if (iconWidth < 0) {
-            iconWidth = this.icon.getIconWidth();
-        }
-        int iconHeight = (preferredIconSize != null) ? preferredIconSize.height : -1;
-        if (iconHeight < 0) {
-            iconHeight = this.icon.getIconHeight();
-        }
+        Dimension preferredIconSize = layoutManager.getPreferredIconSize(
+                this.commandButton.getContentModel(),
+                this.commandButton.getPresentationModel());
+        int iconWidth = (preferredIconSize != null) ? preferredIconSize.width : this.icon.getIconWidth();
+        int iconHeight = (preferredIconSize != null) ? preferredIconSize.height : this.icon.getIconHeight();
 
         if ((this.icon.getIconWidth() == iconWidth) && (this.icon.getIconHeight() == iconHeight)) {
             return;

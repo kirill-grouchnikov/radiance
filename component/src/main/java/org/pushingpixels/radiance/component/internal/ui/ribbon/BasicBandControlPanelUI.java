@@ -1,37 +1,40 @@
 /*
  * Copyright (c) 2005-2023 Radiance Kirill Grouchnikov. All Rights Reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- *  o Redistributions of source code must retain the above copyright notice, 
- *    this list of conditions and the following disclaimer. 
- *     
- *  o Redistributions in binary form must reproduce the above copyright notice, 
- *    this list of conditions and the following disclaimer in the documentation 
- *    and/or other materials provided with the distribution. 
- *     
+ *
+ *  o Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ *  o Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
  *  o Neither the name of the copyright holder nor the names of
- *    its contributors may be used to endorse or promote products derived 
- *    from this software without specific prior written permission. 
- *     
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR 
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.JCommandButtonStrip;
+import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
+import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
@@ -48,7 +51,7 @@ import java.util.Map;
 
 /**
  * Basic UI for control panel of ribbon band {@link JBandControlPanel}.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI {
@@ -61,7 +64,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
     /**
      * Invoked by <code>installUI</code> to create a layout manager object to manage the
      * {@link JBandControlPanel}.
-     * 
+     *
      * @return a layout manager object
      */
     @Override
@@ -148,7 +151,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
 
     /**
      * Layout for the control panel of ribbon band.
-     * 
+     *
      * @author Kirill Grouchnikov
      */
     private class ControlPanelLayout implements LayoutManager {
@@ -165,16 +168,26 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
             // The height of ribbon band control panel is
             // computed based on the preferred height of a command
             // button in BIG state.
-            int buttonHeight = forSizing.getPreferredSize().height;
+            int buttonHeight = CommandButtonPresentationState.BIG.createLayoutManager()
+                    .getPreferredSize(
+                            Command.builder()
+                                    .setText("Text")
+                                    .setIconFactory(EmptyRadianceIcon.factory())
+                                    .setAction(commandActionEvent -> {
+                                    })
+                                    .build(),
+                            CommandButtonPresentationModel.builder()
+                                    .setPresentationState(CommandButtonPresentationState.BIG).build()
+                    ).height;
             int vGap = getLayoutGap() * 3 / 4;
             int minusGaps = buttonHeight - 2 * vGap;
             switch (minusGaps % 3) {
-            case 1:
-                buttonHeight += 2;
-                break;
-            case 2:
-                buttonHeight++;
-                break;
+                case 1:
+                    buttonHeight += 2;
+                    break;
+                case 2:
+                    buttonHeight++;
+                    break;
             }
 
             Insets ins = c.getInsets();
