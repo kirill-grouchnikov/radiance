@@ -35,8 +35,8 @@ import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayo
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonLayoutManagerTile;
 
 /**
- * Presentation state for command buttons. This class provides a number of core
- * presentation states, and it is possible to create additional custom states by
+ * Presentation state for command buttons. In addition to a number of core presentation states
+ * provided by the static fields of this class, it is possible to create additional custom states by
  * using the protected constructor and implementing the relevant abstract
  * methods.
  *
@@ -148,7 +148,7 @@ public abstract class CommandButtonPresentationState {
     private String displayName;
 
     /**
-     * Creates a new element state.
+     * Creates a new command button presentation state.
      *
      * @param displayName       Display name.
      * @param preferredIconSize Preferred icon size.

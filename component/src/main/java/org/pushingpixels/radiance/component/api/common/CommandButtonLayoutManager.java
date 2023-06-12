@@ -234,6 +234,7 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
                 : CommandButtonKind.ACTION_AND_POPUP_MAIN_POPUP;
     }
 
+    @SuppressWarnings("rawtypes")
     default CommandButtonKind getCommandButtonKind(BaseCommand command,
             BaseCommandButtonPresentationModel presentationModel) {
         boolean hasAction = (command.getAction() != null);
