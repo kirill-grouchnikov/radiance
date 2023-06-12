@@ -31,6 +31,11 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.internal.theming.ribbon.ui.RadianceBandControlPanelUI;
 
@@ -174,10 +179,8 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
          * @return All ribbon buttons of specified priority from
          * <code>this</code> control panel.
          */
-        public List<JCommandButton> getRibbonButtons(
-                JRibbonBand.PresentationPriority priority) {
-            List<JCommandButton> result = this.ribbonButtons
-                    .get(priority);
+        public List<JCommandButton> getRibbonButtons(JRibbonBand.PresentationPriority priority) {
+            List<JCommandButton> result = this.ribbonButtons.get(priority);
             if (result == null) {
                 return EMPTY_GALLERY_BUTTONS_LIST;
             }
@@ -258,18 +261,23 @@ public class JBandControlPanel extends AbstractBandControlPanel implements UIRes
     /**
      * Adds a new ribbon button to <code>this</code> control panel.
      *
-     * @param ribbonButton Ribbon button to add.
+     * @param projection   Ribbon button projection to add.
      * @param priority     Ribbon button priority.
      */
     public synchronized void addCommandButton(
-            JCommandButton ribbonButton, JRibbonBand.PresentationPriority priority) {
+            BaseCommandButtonProjection<? extends BaseCommand<?>,
+                    ? extends BaseCommandMenuContentModel,
+                    ? extends BaseCommandButtonPresentationModel<?, ?>,
+                    ? extends BaseCommandPopupMenuPresentationModel> projection,
+            JRibbonBand.PresentationPriority priority) {
         if (this.controlPanelGroups.isEmpty()) {
             this.startGroup();
         }
 
-        this.controlPanelGroups.getLast().addCommandButton(ribbonButton, priority);
+        JCommandButton commandButton = projection.buildComponent();
+        this.controlPanelGroups.getLast().addCommandButton(commandButton, priority);
 
-        super.add(ribbonButton);
+        super.add(commandButton);
     }
 
     /**

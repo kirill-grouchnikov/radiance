@@ -165,14 +165,12 @@ public class JRibbonBand extends AbstractRibbonBand {
      * @param priority   Priority of the command.
      * @return The command button that represents the command.
      */
-    public JCommandButton addRibbonCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
+    public void addRibbonCommand(BaseCommandButtonProjection<? extends BaseCommand<?>,
             ? extends BaseCommandMenuContentModel,
             ? extends BaseCommandButtonPresentationModel<?, ?>,
             ? extends BaseCommandPopupMenuPresentationModel> projection,
             PresentationPriority priority) {
-        JCommandButton commandButton = projection.buildComponent();
-        ((JBandControlPanel) this.getControlPanel()).addCommandButton(commandButton, priority);
-        return commandButton;
+        ((JBandControlPanel) this.getControlPanel()).addCommandButton(projection, priority);
     }
 
     public void addRibbonGallery(RibbonGalleryProjection galleryProjection,
