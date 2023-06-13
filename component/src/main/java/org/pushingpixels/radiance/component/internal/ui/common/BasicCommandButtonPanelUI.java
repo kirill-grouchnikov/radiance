@@ -492,19 +492,14 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             if (panelRowFillSpec instanceof PanelRowFillSpec.Fixed) {
                 maxButtonColumnsToUse = ((PanelRowFillSpec.Fixed) panelRowFillSpec).getColumnCount();
             } else {
-                maxButtonColumnsToUse = availableWidth /
-                        (((PanelRowFillSpec.Adaptive) panelRowFillSpec).getMinColumnWidth() + gap);
+                maxButtonWidth = Math.max(maxButtonWidth,
+                        ((PanelRowFillSpec.Adaptive) panelRowFillSpec).getMinColumnWidth());
+                maxButtonColumnsToUse = availableWidth / (maxButtonWidth + gap);
             }
+            // Never end up with zero buttons in row
+            maxButtonColumnsToUse = Math.max(1, maxButtonColumnsToUse);
 
             // total height
-            boolean usePanelWidth = (maxButtonColumnsToUse <= 0);
-
-            if (usePanelWidth) {
-                // this hasn't been set. Compute using the available width
-                maxButtonColumnsToUse = (availableWidth + gap) / (maxButtonWidth + gap);
-                // Never end up with zero buttons in row
-                maxButtonColumnsToUse = Math.max(1, maxButtonColumnsToUse);
-            }
             int height = bInsets.top + bInsets.bottom;
             for (int i = 0; i < groupCount; i++) {
                 if (groupLabels[i].isVisible()) {
@@ -517,10 +512,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         / maxButtonColumnsToUse));
                 height += buttonRows * maxButtonHeight + (buttonRows - 1) * gap;
             }
-            int prefWidth = usePanelWidth ? availableWidth
-                    : maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1) * gap
-                    + bInsets.left + bInsets.right + contentPadding.left + contentPadding.right;
-            return new Dimension(Math.max(10, prefWidth), Math.max(10, height));
+            return new Dimension(Math.max(10, availableWidth), Math.max(10, height));
         }
     }
 
@@ -710,18 +702,13 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
             if (panelColumnFillSpec instanceof PanelColumnFillSpec.Fixed) {
                 maxButtonRowsToUse = ((PanelColumnFillSpec.Fixed) panelColumnFillSpec).getRowCount();
             } else {
-                maxButtonRowsToUse = availableHeight /
-                        (((PanelColumnFillSpec.Adaptive) panelColumnFillSpec).getMinRowHeight() + gap);
+                maxButtonHeight = Math.max(maxButtonHeight,
+                        ((PanelColumnFillSpec.Adaptive) panelColumnFillSpec).getMinRowHeight());
+                maxButtonRowsToUse = availableHeight / (maxButtonHeight + gap);
             }
+            // Never end up with zero buttons in column
+            maxButtonRowsToUse = Math.max(1, maxButtonRowsToUse);
 
-            // total width
-            boolean usePanelHeight = (maxButtonRowsToUse <= 0);
-
-            if (usePanelHeight) {
-                // this hasn't been set. Compute using the available
-                // height
-                maxButtonRowsToUse = (availableHeight + gap) / (maxButtonHeight + gap);
-            }
             // go over all groups and see how many columns each one needs
             int width = bInsets.left + bInsets.right;
             for (int i = 0; i < groupCount; i++) {
@@ -731,10 +718,7 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         / maxButtonRowsToUse));
                 width += buttonColumns * maxButtonWidth + (buttonColumns - 1) * gap;
             }
-            int prefHeight = usePanelHeight ? availableHeight
-                    : maxButtonRowsToUse * maxButtonHeight + (maxButtonRowsToUse - 1) * gap
-                    + bInsets.top + bInsets.bottom + contentPadding.top + contentPadding.bottom;
-            return new Dimension(Math.max(10, width), Math.max(10, prefHeight));
+            return new Dimension(Math.max(10, width), Math.max(10, availableHeight));
         }
     }
 
