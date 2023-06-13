@@ -37,26 +37,26 @@ package org.pushingpixels.radiance.component.api.common;
 public enum HorizontalAlignment {
 	/**
 	 * If the preferred width is less than the available width, the relevant
-	 * component is placed at the leading position in its parent (left for LTR
+	 * content is placed at the leading position in its container (left for LTR
 	 * and right for RTL).
 	 */
 	LEADING,
 
 	/**
 	 * If the preferred width is less than the available width, the relevant
-	 * component is horizontally centerd in its parent.
+	 * content is horizontally centered in its container.
 	 */
 	CENTER,
 
 	/**
 	 * If the preferred width is less than the available width, the relevant
-	 * component is placed at the trailing position in its parent (right for LTR
+	 * content is placed at the trailing position in its container (right for LTR
 	 * and left for RTL).
 	 */
 	TRAILING,
 
 	/**
-	 * The component is placed to fill all available width from its parent.
+	 * The content is placed to fill all available width from its container.
 	 */
 	FILL
 }
