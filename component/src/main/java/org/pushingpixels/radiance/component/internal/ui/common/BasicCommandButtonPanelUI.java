@@ -512,7 +512,11 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         / maxButtonColumnsToUse));
                 height += buttonRows * maxButtonHeight + (buttonRows - 1) * gap;
             }
-            return new Dimension(Math.max(10, availableWidth), Math.max(10, height));
+            int width = (availableWidth <= 0)
+                    ? maxButtonColumnsToUse * maxButtonWidth + (maxButtonColumnsToUse - 1) * gap
+                    + bInsets.left + bInsets.right + contentPadding.left + contentPadding.right
+                    : availableWidth;
+            return new Dimension(Math.max(10, width), Math.max(10, height));
         }
     }
 
@@ -718,7 +722,11 @@ public abstract class BasicCommandButtonPanelUI extends CommandButtonPanelUI {
                         / maxButtonRowsToUse));
                 width += buttonColumns * maxButtonWidth + (buttonColumns - 1) * gap;
             }
-            return new Dimension(Math.max(10, width), Math.max(10, availableHeight));
+            int height = (availableHeight <= 0)
+                    ? maxButtonRowsToUse * maxButtonHeight + (maxButtonRowsToUse - 1) * gap
+                    + bInsets.top + bInsets.bottom + contentPadding.top + contentPadding.bottom
+                    : availableHeight;
+            return new Dimension(Math.max(10, width), Math.max(10, height));
         }
     }
 
