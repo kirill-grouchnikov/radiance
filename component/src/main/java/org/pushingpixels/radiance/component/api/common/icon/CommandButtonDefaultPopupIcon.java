@@ -46,23 +46,27 @@ import java.awt.*;
 
 @TransitionAware
 public class CommandButtonDefaultPopupIcon implements RadianceIcon {
-    // Current width
-    private int width;
-    // Current height
-    private int height;
+    // Base width
+    private int baseWidth;
+    // Base height
+    private int baseHeight;
+    // Icon dimension
+    private int dimension;
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
     public CommandButtonDefaultPopupIcon() {
         int fontSize = RadianceSizeUtils.getComponentFontSize(null);
-        this.width = (int) RadianceSizeUtils.getArrowIconWidth(fontSize);
-        this.height = (int) RadianceSizeUtils.getArrowIconHeight(fontSize);
+        this.baseWidth = (int) RadianceSizeUtils.getArrowIconWidth(fontSize);
+        this.baseHeight = (int) RadianceSizeUtils.getArrowIconHeight(fontSize);
+        this.dimension = Math.max(this.baseWidth, this.baseHeight);
     }
 
     @Override
     public void setDimension(Dimension newDimension) {
-        this.width = newDimension.width;
-        this.height = newDimension.height;
+        this.baseWidth = newDimension.width;
+        this.baseHeight = newDimension.height;
+        this.dimension = Math.max(this.baseWidth, this.baseHeight);
     }
 
     @Override
@@ -77,12 +81,12 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
 
     @Override
     public int getIconHeight() {
-        return this.height;
+        return this.dimension;
     }
 
     @Override
     public int getIconWidth() {
-        return this.width;
+        return this.dimension;
     }
 
     @Override
@@ -107,9 +111,14 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
                         ? SwingConstants.EAST : SwingConstants.WEST);
         int fontSize = RadianceSizeUtils.getComponentFontSize(c);
 
+        int widthNudge = Math.round((this.dimension - this.baseWidth) / 2.0f);
+        int heightNudge = Math.round((this.dimension - this.baseHeight) / 2.0f);
+        int dx = (direction == SwingConstants.SOUTH) ? widthNudge : heightNudge;
+        int dy = (direction == SwingConstants.SOUTH) ? heightNudge : widthNudge;
+
         Graphics2D graphics = (Graphics2D) g.create();
-        graphics.translate(x, y);
-        BladeArrowIconUtils.drawArrow(graphics, this.width, this.height,
+        graphics.translate(x + dx, y + dy);
+        BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
                 RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
                 direction, this.mutableColorScheme);
         graphics.dispose();

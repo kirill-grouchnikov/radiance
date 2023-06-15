@@ -113,12 +113,12 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
         if (hasPopupIcon && presentationModel.isShowPopupIcon()) {
             // padding before the popup icon
             if (hasText || hasIcon) {
-                width += 2 * layoutHGap;
+                width += layoutHGap;
             }
             // popup icon width
             width += presentationModel.getPopupIcon().getIconWidth();
             // padding after the popup icon
-            width += 2 * layoutHGap;
+            width += layoutHGap;
         }
 
         // separator?
@@ -284,10 +284,10 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 if (hasText || hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the right edge
-                        x = width - ins.right - popupIconWidth - 4;
+                        x = width - ins.right - layoutHGap - popupIconWidth;
                     } else {
                         // Otherwise, the popup icon is to the right of the texts
-                        x += 2 * layoutHGap;
+                        x += layoutHGap;
                     }
                 }
 
@@ -328,8 +328,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                         // accommodate the vertical separator
                         result.popupActionRect.x += verticalSeparatorWidth;
 
-                        xBorderBetweenActionAndPopup = result.popupActionRect.x - 2
-                                * layoutHGap;
+                        xBorderBetweenActionAndPopup = result.popupActionRect.x - layoutHGap;
 
                         result.actionClickArea.x = 0;
                         result.actionClickArea.y = 0;
@@ -448,7 +447,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                 if (hasText || hasIcon) {
                     if (presentationModel.getHorizontalAlignment() == HorizontalAlignment.FILL) {
                         // Under Fill alignment, popup icon goes all the way to the left edge
-                        x = ins.left + 4;
+                        x = ins.left + layoutHGap;
                     } else {
                         // Otherwise, the popup icon is to the left of the texts
                         x -= 2 * layoutHGap;
@@ -494,7 +493,7 @@ public class CommandButtonLayoutManagerMedium implements CommandButtonLayoutMana
                         result.popupActionRect.x -= verticalSeparatorWidth;
 
                         xBorderBetweenActionAndPopup = result.popupActionRect.x
-                                + result.popupActionRect.width + 2 * layoutHGap;
+                                + result.popupActionRect.width + layoutHGap;
 
                         result.actionClickArea.x = xBorderBetweenActionAndPopup;
                         result.actionClickArea.y = 0;
