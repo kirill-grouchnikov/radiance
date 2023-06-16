@@ -93,7 +93,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    public static class BandCollapsePopupMenuContentModel implements BaseCommandMenuContentModel {
+    private static class BandCollapsePopupMenuContentModel implements BaseCommandMenuContentModel {
         public BandCollapsePopupMenuContentModel() {
         }
 
@@ -125,12 +125,12 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         }
     }
 
-    public static class BandCollapsePopupMenuPresentationModel extends BaseCommandPopupMenuPresentationModel {
+    private static class BandCollapsePopupMenuPresentationModel extends BaseCommandPopupMenuPresentationModel {
         public BandCollapsePopupMenuPresentationModel() {
         }
     }
 
-    public static class BandCollapseCommandButtonPresentationModel extends
+    private static class BandCollapseCommandButtonPresentationModel extends
             BaseCommandButtonPresentationModel<BandCollapsePopupMenuPresentationModel,
                     BandCollapseCommandButtonPresentationModel> {
 
@@ -175,7 +175,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         }
     }
 
-    public static class BandCollapsePopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
+    private static class BandCollapsePopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
             BandCollapsePopupMenuPanel, BandCollapsePopupMenuContentModel,
             BandCollapsePopupMenuPresentationModel> {
 
@@ -189,7 +189,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
         }
     }
 
-    public static class BandCollapseCommandButtonProjection extends
+    private static class BandCollapseCommandButtonProjection extends
             BaseCommandButtonProjection<BandCollapseCommand, BandCollapsePopupMenuContentModel,
                     BandCollapseCommandButtonPresentationModel,
                     BandCollapsePopupMenuPresentationModel> {
