@@ -455,7 +455,7 @@ public class KeyTipManager {
     }
 
     private KeyTipLink getCommandButtonPopupLink(final JCommandButton cb) {
-        if (((cb.getPopupCallback() != null) || cb.getContentModel().hasSecondaryContent()) &&
+        if (cb.getContentModel().hasSecondaryContent() &&
                 (cb.getPresentationModel().getPopupKeyTip() != null)) {
             final KeyTipLink link = new KeyTipLink();
             link.comp = cb;

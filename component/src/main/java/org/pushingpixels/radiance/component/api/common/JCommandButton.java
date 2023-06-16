@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
@@ -93,14 +92,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
      * Action handler for the button.
      */
     private ActionHandler actionHandler;
-
-    /**
-     * Associated popup callback. May be <code>null</code>.
-     *
-     * @see #setPopupCallback(PopupPanelCallback)
-     * @see #getPopupCallback()
-     */
-    private PopupPanelCallback popupCallback;
 
     /**
      * Popup model of this button.
@@ -261,15 +252,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
         PopupButtonModel popupButtonModel = new DefaultPopupButtonModel(this);
         popupButtonModel.setEnabled(command.isSecondaryEnabled());
         this.setPopupModel(popupButtonModel);
-
-        boolean hasPopup = (command.getSecondaryContentModel() != null);
-
-        if (hasPopup) {
-            if (command.getSecondaryContentModel() != null) {
-                this.setPopupCallback(commandButton ->
-                        projection.getPopupMenuPanelProjection().buildComponent());
-            }
-        }
 
         this.getActionModel().setFireActionOnPress(commandPresentation.getActionFireTrigger() ==
                 CommandButtonPresentationModel.ActionFireTrigger.ON_PRESSED);
@@ -537,26 +519,6 @@ public class JCommandButton extends JComponent implements RichTooltipManager.Wit
     @Override
     public String getUIClassID() {
         return uiClassID;
-    }
-
-    /**
-     * Returns the associated popup callback.
-     *
-     * @return The associated popup callback.
-     * @see #setPopupCallback(PopupPanelCallback)
-     */
-    public PopupPanelCallback getPopupCallback() {
-        return this.popupCallback;
-    }
-
-    /**
-     * Sets new popup callback for <code>this</code> button.
-     *
-     * @param popupCallback New popup callback for <code>this</code> button.
-     * @see #getPopupCallback()
-     */
-    public void setPopupCallback(PopupPanelCallback popupCallback) {
-        this.popupCallback = popupCallback;
     }
 
     /**

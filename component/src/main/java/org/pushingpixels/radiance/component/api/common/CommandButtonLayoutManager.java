@@ -30,7 +30,6 @@
 package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.component.api.common.model.*;
-import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
 
 import java.awt.*;
@@ -165,7 +164,6 @@ public interface CommandButtonLayoutManager extends PropertyChangeListener {
          * The popup area. A mouse click in this area will show the popup content
          * associated with the command button.
          *
-         * @see JCommandButton#setPopupCallback(PopupPanelCallback)
          * @see Command.Builder#setSecondaryContentModel(CommandMenuContentModel)
          * @see CommandButtonPresentationModel.Builder#setPopupMenuPresentationModel(BaseCommandPopupMenuPresentationModel)
          */

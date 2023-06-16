@@ -40,7 +40,6 @@ import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
-import org.pushingpixels.radiance.component.api.common.popup.PopupPanelCallback;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
@@ -622,13 +621,11 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         }
 
         // check if the command button has an associated popup panel
-        PopupPanelCallback popupCallback = this.commandButton.getPopupCallback();
-        final JPopupPanel popupPanel =
-                (popupCallback != null) ? popupCallback.getPopupPanel(this.commandButton) : null;
+        final JPopupPanel popupPanel = this.commandButton.getProjection().getPopupMenuPanelProjection().buildComponent();
         if (popupPanel != null) {
             popupPanel.applyComponentOrientation(this.commandButton.getComponentOrientation());
             SwingUtilities.invokeLater(() -> {
-                if ((commandButton == null) || (popupPanel == null)) {
+                if (commandButton == null) {
                     return;
                 }
 
