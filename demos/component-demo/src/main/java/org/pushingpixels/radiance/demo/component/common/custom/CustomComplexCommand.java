@@ -43,7 +43,7 @@ public class CustomComplexCommand extends BaseCommand<CustomComplexPopupMenuCont
             CustomComplexPopupMenuContentModel,
             Builder> {
         /**
-         * Builds a color selector command from this builder.
+         * Builds a custom command from this builder.
          *
          * @return Command.
          */

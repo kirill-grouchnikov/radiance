@@ -123,7 +123,7 @@ public abstract class BasicFlowBandControlPanelUI extends AbstractBandControlPan
 			int gap = getLayoutGap();
 			int availableHeight = c.getHeight() - ins.top - ins.bottom;
 
-			if (SwingUtilities.getAncestorOfClass(BasicRibbonBandUI.CollapsedButtonPopupPanel.class, c) != null) {
+			if (SwingUtilities.getAncestorOfClass(BasicRibbonBandUI.BandCollapsePopupMenuPanel.class, c) != null) {
 				List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
 				// install the most permissive resize policy on the popup
 				// panel of a collapsed ribbon band

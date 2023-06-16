@@ -31,20 +31,24 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
+import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
+import org.pushingpixels.radiance.component.api.common.popup.model.BaseCommandPopupMenuPresentationModel;
+import org.pushingpixels.radiance.component.api.common.projection.AbstractPopupMenuPanelProjection;
+import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
+import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadiancePopupContainer;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
@@ -77,6 +81,8 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     protected JCommandButton expandButton;
     protected Command expandCommand;
 
+    private Dimension popupContentSize;
+
     /**
      * Mouse listener on the associated ribbon band.
      */
@@ -87,43 +93,136 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    /**
-     * Popup panel that shows the contents of the ribbon band when it is in a collapsed state.
-     *
-     * @author Kirill Grouchnikov
-     */
-    @RadiancePopupContainer
-    protected static class CollapsedButtonPopupPanel extends JPopupPanel {
-        /**
-         * The main component of <code>this</code> popup panel. Can be <code>null</code>.
-         */
-        protected Component component;
-
-        /**
-         * Creates popup gallery with the specified component.
-         *
-         * @param component    The main component of the popup gallery.
-         * @param originalSize The original dimension of the main component.
-         */
-        private CollapsedButtonPopupPanel(Component component, Dimension originalSize) {
-            this.component = component;
-            this.setLayout(new BorderLayout());
-            this.add(component, BorderLayout.CENTER);
-            // System.out.println("Popup dim is " + originalSize);
-            this.setPreferredSize(originalSize);
-            this.setSize(originalSize);
-            RadianceThemingCortex.ComponentOrParentChainScope.setDecorationType(this,
-                    RadianceThemingSlices.DecorationAreaType.CONTROL_PANE);
+    public static class BandCollapsePopupMenuContentModel implements BaseCommandMenuContentModel {
+        public BandCollapsePopupMenuContentModel() {
         }
 
-        /**
-         * Removes the main component of <code>this</code> popup gallery.
-         *
-         * @return The removed main component.
-         */
-        public Component removeComponent() {
-            this.remove(this.component);
-            return this.component;
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+    }
+
+    private static class BandCollapseCommand extends BaseCommand<BandCollapsePopupMenuContentModel> {
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        private BandCollapseCommand() {
+        }
+
+        public static class Builder extends BaseBuilder<BandCollapseCommand,
+                BandCollapsePopupMenuContentModel, Builder> {
+
+            @Override
+            public BandCollapseCommand build() {
+                BandCollapseCommand command = new BandCollapseCommand();
+
+                this.configureBaseCommand(command);
+
+                return command;
+            }
+        }
+    }
+
+    public static class BandCollapsePopupMenuPresentationModel extends BaseCommandPopupMenuPresentationModel {
+        public BandCollapsePopupMenuPresentationModel() {
+        }
+    }
+
+    public static class BandCollapseCommandButtonPresentationModel extends
+            BaseCommandButtonPresentationModel<BandCollapsePopupMenuPresentationModel,
+                    BandCollapseCommandButtonPresentationModel> {
+
+        protected BandCollapseCommandButtonPresentationModel() {
+        }
+
+        @Override
+        public BandCollapseCommandButtonPresentationModel overlayWith(Overlay overlay) {
+            return this;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static class Builder extends BaseBuilder<BandCollapsePopupMenuPresentationModel,
+                BandCollapseCommandButtonPresentationModel, Builder> {
+            public BandCollapseCommandButtonPresentationModel build() {
+                BandCollapseCommandButtonPresentationModel presentationModel =
+                        new BandCollapseCommandButtonPresentationModel();
+                this.configureBaseCommandButtonPresentationModel(presentationModel);
+                return presentationModel;
+            }
+        }
+    }
+
+    public static class BandCollapsePopupMenuPanel extends AbstractPopupMenuPanel {
+        private Projection<BandCollapsePopupMenuPanel, BandCollapsePopupMenuContentModel,
+                BandCollapsePopupMenuPresentationModel> projection;
+        public BandCollapsePopupMenuPanel(Projection<BandCollapsePopupMenuPanel,
+                BandCollapsePopupMenuContentModel,
+                BandCollapsePopupMenuPresentationModel> projection) {
+            this.projection = projection;
+
+            this.updateUI();
+            this.setLayout(new BorderLayout());
+        }
+
+        @Override
+        public String getUIClassID() {
+            return "PanelUI";
+        }
+    }
+
+    public static class BandCollapsePopupMenuPanelProjection extends AbstractPopupMenuPanelProjection<
+            BandCollapsePopupMenuPanel, BandCollapsePopupMenuContentModel,
+            BandCollapsePopupMenuPresentationModel> {
+
+        public BandCollapsePopupMenuPanelProjection(BandCollapsePopupMenuContentModel contentModel,
+                BandCollapsePopupMenuPresentationModel presentationModel) {
+            super(contentModel, presentationModel, projection -> BandCollapsePopupMenuPanel::new);
+        }
+
+        @Override
+        protected void configureComponent(BandCollapsePopupMenuPanel component) {
+        }
+    }
+
+    public static class BandCollapseCommandButtonProjection extends
+            BaseCommandButtonProjection<BandCollapseCommand, BandCollapsePopupMenuContentModel,
+                    BandCollapseCommandButtonPresentationModel,
+                    BandCollapsePopupMenuPresentationModel> {
+        public BandCollapseCommandButtonProjection(BandCollapseCommand command,
+                BandCollapseCommandButtonPresentationModel commandPresentation) {
+            super(command, commandPresentation);
+        }
+
+        @Override
+        public AbstractPopupMenuPanelProjection<? extends AbstractPopupMenuPanel,
+                BandCollapsePopupMenuContentModel, BandCollapsePopupMenuPresentationModel> getPopupMenuPanelProjection() {
+            BandCollapsePopupMenuContentModel popupMenuContentModel =
+                    this.getContentModel().getSecondaryContentModel();
+            BandCollapsePopupMenuPresentationModel popupMenuPresentationModel =
+                    this.getPresentationModel().getPopupMenuPresentationModel();
+            if (popupMenuPresentationModel == null) {
+                popupMenuPresentationModel = new BandCollapsePopupMenuPresentationModel();
+            }
+            BandCollapsePopupMenuPanelProjection bandCollapsePopupMenuPanelProjection =
+                    new BandCollapsePopupMenuPanelProjection(popupMenuContentModel, popupMenuPresentationModel);
+            bandCollapsePopupMenuPanelProjection.setCommandOverlays(this.getCommandOverlays());
+            return bandCollapsePopupMenuPanelProjection;
+        }
+
+        @Override
+        public BandCollapseCommandButtonProjection reproject(
+                BandCollapseCommandButtonPresentationModel newCommandPresentation) {
+            BandCollapseCommandButtonProjection result =
+                    new BandCollapseCommandButtonProjection(
+                            this.getContentModel(), newCommandPresentation);
+            result.setComponentSupplier(this.getComponentSupplier());
+            result.setCommandOverlays(this.getCommandOverlays());
+            return result;
         }
     }
 
@@ -184,15 +283,37 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             this.ribbonBand.remove(this.collapsedButton);
         }
 
-        Command collapseCommand = Command.builder()
+        BandCollapseCommand collapseCommand = BandCollapseCommand.builder()
                 .setText(this.ribbonBand.getTitle())
                 .setIconFactory(this.ribbonBand.getIconFactory())
+                .setSecondaryContentModel(new BandCollapsePopupMenuContentModel())
+                .setSecondaryLifecycle(new BaseCommand.SecondaryLifecycle() {
+                    @Override
+                    public void onBeforeActivateSecondary(JPopupPanel popupPanel) {
+                        popupPanel.add(ribbonBand.getPopupRibbonBand(), BorderLayout.CENTER);
+                        popupPanel.setPreferredSize(popupContentSize);
+                    }
+
+                    @Override
+                    public void onAfterActivateSecondary(JPopupPanel popupPanel) {
+                    }
+
+                    @Override
+                    public void onBeforeDeactivateSecondary(JPopupPanel popupPanel) {
+                    }
+
+                    @Override
+                    public void onAfterDeactivateSecondary(JPopupPanel popupPanel) {
+                        popupPanel.removeAll();
+                    }
+                })
                 .build();
-        this.collapsedButton = collapseCommand.project(
-                        CommandButtonPresentationModel.builder()
-                                .setPresentationState(CommandButtonPresentationState.BIG)
-                                .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
-                                .build())
+        this.collapsedButton = new BandCollapseCommandButtonProjection(
+                collapseCommand,
+                BandCollapseCommandButtonPresentationModel.builder()
+                        .setPresentationState(CommandButtonPresentationState.BIG)
+                        .setPopupKeyTip(this.ribbonBand.getCollapsedStateKeyTip())
+                        .build())
                 .buildComponent();
         this.ribbonBand.add(this.collapsedButton);
     }
@@ -203,6 +324,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      * @return Expand button for the associated ribbon band.
      */
     protected abstract JCommandButton createExpandButton();
+
     protected abstract Command createExpandCommand(ComponentOrientation componentOrientation);
 
     /**
@@ -248,16 +370,9 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
     protected void uninstallComponents() {
         if (this.collapsedButton.isVisible()) {
             // restore the control panel to the ribbon band.
-            CollapsedButtonPopupPanel popupPanel = (collapsedButton.getPopupCallback() == null)
-                    ? null
-                    : (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
-                            .getPopupPanel(collapsedButton);
-            if (popupPanel != null) {
-                AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
-                        .removeComponent();
-                ribbonBand.setControlPanel(bandFromPopup.getControlPanel());
+            if (ribbonBand.getPopupRibbonBand() != null) {
+                ribbonBand.setControlPanel(ribbonBand.getPopupRibbonBand().getControlPanel());
                 ribbonBand.setPopupRibbonBand(null);
-                collapsedButton.setPopupCallback(null);
             }
         }
 
@@ -368,13 +483,14 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             RibbonBandResizePolicy resizePolicy = ((AbstractRibbonBand) c).getCurrentResizePolicy();
 
             if (resizePolicy instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy) {
+                boolean wasCollapsedVisible = collapsedButton.isVisible();
                 collapsedButton.setVisible(true);
                 int collapsedButtonWidth = c.getWidth() - ins.left - ins.right - 2;
                 collapsedButton.setBounds((c.getWidth() - collapsedButtonWidth) / 2,
                         extraTop + ins.top,
-                        collapsedButtonWidth, c.getHeight() - extraTop - ins.top - ins.bottom);
+                        collapsedButtonWidth, availableHeight);
 
-                if (collapsedButton.getPopupCallback() == null) {
+                if (!wasCollapsedVisible) {
                     final AbstractRibbonBand popupBand = ribbonBand.cloneBand();
                     popupBand.setControlPanel(ribbonBand.getControlPanel());
                     List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
@@ -382,14 +498,13 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                     RibbonBandResizePolicy largest = resizePolicies.get(0);
                     popupBand.setCurrentResizePolicy(largest);
                     int gap = popupBand.getControlPanel().getUI().getLayoutGap();
-                    final Dimension size = new Dimension(
+                    popupContentSize = new Dimension(
                             ins.left + ins.right + gap
                                     + largest.getPreferredWidth(availableHeight, gap),
                             ins.top + ins.bottom
                                     + Math.max(c.getHeight(),
                                     ribbonBand.getControlPanel().getPreferredSize().height
                                             + getBandTitleHeight()));
-                    collapsedButton.setPopupCallback(commandButton -> new CollapsedButtonPopupPanel(popupBand, size));
                     ribbonBand.setControlPanel(null);
                     ribbonBand.setPopupRibbonBand(popupBand);
                 }
@@ -403,17 +518,9 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
 
             if (collapsedButton.isVisible()) {
                 // was icon and now is normal band - have to restore the control panel
-                CollapsedButtonPopupPanel popupPanel =
-                        (collapsedButton.getPopupCallback() != null) ?
-                                (CollapsedButtonPopupPanel) collapsedButton.getPopupCallback()
-                                        .getPopupPanel(collapsedButton)
-                                : null;
-                if (popupPanel != null) {
-                    AbstractRibbonBand bandFromPopup = (AbstractRibbonBand) popupPanel
-                            .removeComponent();
-                    ribbonBand.setControlPanel(bandFromPopup.getControlPanel());
+                if (ribbonBand.getPopupRibbonBand() != null) {
+                    ribbonBand.setControlPanel(ribbonBand.getPopupRibbonBand().getControlPanel());
                     ribbonBand.setPopupRibbonBand(null);
-                    collapsedButton.setPopupCallback(null);
                 }
             }
             collapsedButton.setVisible(false);

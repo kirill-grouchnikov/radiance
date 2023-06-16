@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.api.common.model;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 import org.pushingpixels.radiance.component.internal.utils.WeakPropertyChangeSupport;
 
@@ -50,6 +51,7 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
     private boolean isToggleSelected;
     private RichTooltip actionRichTooltip;
     private MCM secondaryContentModel;
+    private BaseCommand.SecondaryLifecycle secondaryLifecycle;
     private RichTooltip secondaryRichTooltip;
     private boolean isSecondaryEnabled;
     private CommandToggleGroupModel toggleGroupModel;
@@ -69,6 +71,13 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
          * @param command Command for which the preview has been canceled.
          */
         void onCommandPreviewCanceled(BaseCommand command);
+    }
+
+    public interface SecondaryLifecycle {
+        void onBeforeActivateSecondary(JPopupPanel popupPanel);
+        void onAfterActivateSecondary(JPopupPanel popupPanel);
+        void onBeforeDeactivateSecondary(JPopupPanel popupPanel);
+        void onAfterDeactivateSecondary(JPopupPanel popupPanel);
     }
 
     /**
@@ -164,6 +173,10 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
 
     public MCM getSecondaryContentModel() {
         return this.secondaryContentModel;
+    }
+
+    public SecondaryLifecycle getSecondaryLifecycle() {
+        return this.secondaryLifecycle;
     }
 
     public RichTooltip getSecondaryRichTooltip() {
@@ -277,6 +290,7 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         protected CommandActionPreview actionPreview;
         protected RichTooltip actionRichTooltip;
         protected MCM secondaryContentModel;
+        protected SecondaryLifecycle secondaryLifecycle;
         protected RichTooltip secondaryRichTooltip;
         protected boolean isActionEnabled = true;
         protected boolean isSecondaryEnabled = true;
@@ -292,6 +306,7 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
             command.action = this.action;
             command.actionRichTooltip = this.actionRichTooltip;
             command.secondaryContentModel = this.secondaryContentModel;
+            command.secondaryLifecycle = this.secondaryLifecycle;
             command.secondaryRichTooltip = this.secondaryRichTooltip;
             command.isActionEnabled = this.isActionEnabled;
             command.isSecondaryEnabled = this.isSecondaryEnabled;
@@ -343,6 +358,12 @@ public abstract class BaseCommand<MCM extends BaseCommandMenuContentModel> imple
         @SuppressWarnings("unchecked")
         public B setSecondaryContentModel(MCM secondaryContentModel) {
             this.secondaryContentModel = secondaryContentModel;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B setSecondaryLifecycle(SecondaryLifecycle secondaryLifecycle) {
+            this.secondaryLifecycle = secondaryLifecycle;
             return (B) this;
         }
 

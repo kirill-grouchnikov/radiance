@@ -636,6 +636,12 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                     return;
                 }
 
+                BaseCommand.SecondaryLifecycle secondaryLifecycle =
+                        commandButton.getContentModel().getSecondaryLifecycle();
+                if (secondaryLifecycle != null) {
+                    secondaryLifecycle.onBeforeActivateSecondary(popupPanel);
+                }
+
                 popupPanel.doLayout();
 
                 int popupX;

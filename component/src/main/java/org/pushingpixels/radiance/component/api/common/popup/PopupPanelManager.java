@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.component.api.common.popup;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -260,6 +261,12 @@ public class PopupPanelManager {
      */
     public void showPopup(JComponent popupOriginator, JPopupPanel popupContent,
             int xOnScreen, int yOnScreen) {
+        BaseCommand.SecondaryLifecycle secondaryLifecycle = null;
+        if (popupOriginator instanceof JCommandButton) {
+            BaseCommand<?> command = ((JCommandButton) popupOriginator).getContentModel();
+            secondaryLifecycle = command.getSecondaryLifecycle();
+        }
+
         RadiancePopupMenu popupMenu = new RadiancePopupMenu();
         popupMenu.add(popupContent);
 
@@ -277,6 +284,10 @@ public class PopupPanelManager {
             ((JCommandButton) popupOriginator).getPopupModel().setPopupShowing(true);
         }
         this.firePopupShown(popupContent, popupOriginator);
+
+        if (secondaryLifecycle != null) {
+            secondaryLifecycle.onAfterActivateSecondary(popupContent);
+        }
     }
 
     /**
@@ -287,6 +298,16 @@ public class PopupPanelManager {
             return;
         }
         PopupInfo last = shownPath.removeLast();
+        BaseCommand.SecondaryLifecycle secondaryLifecycle = null;
+        if (last.popupOriginator instanceof JCommandButton) {
+            BaseCommand<?> command = ((JCommandButton) last.popupOriginator).getContentModel();
+            secondaryLifecycle = command.getSecondaryLifecycle();
+        }
+
+        if (secondaryLifecycle != null) {
+            secondaryLifecycle.onBeforeDeactivateSecondary(last.popupPanel);
+        }
+
         RadiancePopupMenu popup = popupHosts.get(last.popupPanel);
         popup.setVisible(false);
         popupHosts.remove(last.popupPanel);
@@ -297,6 +318,10 @@ public class PopupPanelManager {
         // KeyTipManager.defaultManager().showChainBefore(last.popupPanel);
         last.popupPanel.setOriginator(null);
         this.firePopupHidden(last.popupPanel, last.popupOriginator);
+
+        if (secondaryLifecycle != null) {
+            secondaryLifecycle.onAfterDeactivateSecondary(last.popupPanel);
+        }
     }
 
     /**
@@ -323,6 +348,16 @@ public class PopupPanelManager {
                         }
 
                         PopupInfo last = shownPath.removeLast();
+                        BaseCommand.SecondaryLifecycle secondaryLifecycle = null;
+                        if (last.popupOriginator instanceof JCommandButton) {
+                            BaseCommand<?> command = ((JCommandButton) last.popupOriginator).getContentModel();
+                            secondaryLifecycle = command.getSecondaryLifecycle();
+                        }
+
+                        if (secondaryLifecycle != null) {
+                            secondaryLifecycle.onBeforeDeactivateSecondary(last.popupPanel);
+                        }
+
                         RadiancePopupMenu popup = popupHosts.get(last.popupPanel);
                         popup.setVisible(false);
                         if (last.popupOriginator instanceof JCommandButton) {
@@ -331,6 +366,9 @@ public class PopupPanelManager {
                         }
                         last.popupPanel.setOriginator(null);
                         this.firePopupHidden(last.popupPanel, last.popupOriginator);
+                        if (secondaryLifecycle != null) {
+                            secondaryLifecycle.onAfterDeactivateSecondary(last.popupPanel);
+                        }
                         popupHosts.remove(last.popupPanel);
                     }
                 }
@@ -342,6 +380,15 @@ public class PopupPanelManager {
             while (!shownPath.isEmpty()) {
                 PopupInfo last = shownPath.removeLast();
                 lastOriginator = last.popupOriginator;
+                BaseCommand.SecondaryLifecycle secondaryLifecycle = null;
+                if (last.popupOriginator instanceof JCommandButton) {
+                    BaseCommand<?> command = ((JCommandButton) last.popupOriginator).getContentModel();
+                    secondaryLifecycle = command.getSecondaryLifecycle();
+                }
+
+                if (secondaryLifecycle != null) {
+                    secondaryLifecycle.onBeforeDeactivateSecondary(last.popupPanel);
+                }
                 RadiancePopupMenu popup = popupHosts.get(last.popupPanel);
                 popup.setVisible(false);
                 if (last.popupOriginator instanceof JCommandButton) {
@@ -350,6 +397,9 @@ public class PopupPanelManager {
                 }
                 last.popupPanel.setOriginator(null);
                 this.firePopupHidden(last.popupPanel, last.popupOriginator);
+                if (secondaryLifecycle != null) {
+                    secondaryLifecycle.onAfterDeactivateSecondary(last.popupPanel);
+                }
                 popupHosts.remove(last.popupPanel);
             }
             if ((lastOriginator != null) && lastOriginator.isFocusable()) {

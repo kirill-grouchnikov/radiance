@@ -39,7 +39,6 @@ import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
-import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonBandUI.CollapsedButtonPopupPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -220,7 +219,7 @@ public abstract class BasicBandControlPanelUI extends AbstractBandControlPanelUI
             int x = ltr ? ins.left + gap / 2 : c.getWidth() - ins.right - gap / 2;
             int availableHeight = c.getHeight() - ins.top - ins.bottom;
 
-            if (SwingUtilities.getAncestorOfClass(CollapsedButtonPopupPanel.class, c) != null) {
+            if (SwingUtilities.getAncestorOfClass(BasicRibbonBandUI.BandCollapsePopupMenuPanel.class, c) != null) {
                 // install the most permissive resize policy on the popup
                 // panel of a collapsed ribbon band
                 List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
