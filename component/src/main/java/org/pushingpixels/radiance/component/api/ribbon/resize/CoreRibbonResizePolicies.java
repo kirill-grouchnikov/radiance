@@ -815,7 +815,7 @@ public class CoreRibbonResizePolicies {
             }
 
             // need to find the inflection point that results in
-            // lowest value for max length of two sub-sequences
+            // the lowest value for max length of two sub-sequences
             for (int inflectionIndex = 0; inflectionIndex < (compCount - 1); inflectionIndex++) {
                 int w1 = 0;
                 for (int index1 = 0; index1 <= inflectionIndex; index1++) {
@@ -869,12 +869,11 @@ public class CoreRibbonResizePolicies {
                 currBestResult += (pref + gap);
             }
 
-            // need to find the inflection points that results in
-            // lowest value for max length of three sub-sequences
-            for (int inflectionIndex1 = 0; inflectionIndex1 < (compCount - 2);
-                 inflectionIndex1++) {
-                for (int inflectionIndex2 = inflectionIndex1 + 1; inflectionIndex2 < (compCount -
-                        1); inflectionIndex2++) {
+            // need to find the inflection points that result in
+            // the lowest value for max length of three sub-sequences
+            for (int inflectionIndex1 = 0; inflectionIndex1 < (compCount - 2); inflectionIndex1++) {
+                for (int inflectionIndex2 = inflectionIndex1 + 1;
+                     inflectionIndex2 < (compCount - 1); inflectionIndex2++) {
                     int w1 = 0;
                     for (int index1 = 0; index1 <= inflectionIndex1; index1++) {
                         w1 += widths[index1] + gap;
