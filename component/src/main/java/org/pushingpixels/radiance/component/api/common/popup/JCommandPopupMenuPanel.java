@@ -129,8 +129,8 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
 
         List<CommandGroup> commandGroups = this.popupMenuContentModel.getCommandGroups();
         boolean atLeastOneButtonHasIcon = false;
-        for (int i = 0; i < commandGroups.size(); i++) {
-            for (Command command : commandGroups.get(i).getCommands()) {
+        for (CommandGroup commandGroup : commandGroups) {
+            for (Command command : commandGroup.getCommands()) {
                 if ((command.getIconFactory() != null) || command.isToggle()) {
                     atLeastOneButtonHasIcon = true;
                     break;
