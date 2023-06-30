@@ -59,10 +59,7 @@ import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizeSe
 import org.pushingpixels.radiance.component.api.ribbon.resize.RibbonBandResizePolicy;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.JRibbonComboBox;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.*;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonCheckBoxProjection;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonComboBoxProjection;
-import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.RibbonSpinnerProjection;
+import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.*;
 import org.pushingpixels.radiance.demo.component.common.QuickStylesPanel;
 import org.pushingpixels.radiance.demo.component.svg.tango.transcoded.*;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
@@ -400,6 +397,40 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 ComponentPresentationModel.builder().setKeyTip("ST").build()));
 
         return showHideBand;
+    }
+
+    private JRibbonBand getPresentationBand() {
+        JRibbonBand presentationBand = new JRibbonBand(
+                resourceBundle.getString("Presentation.textBandTitle"), Format_justify_left.factory(),
+                null);
+
+        RibbonRadioButtonGroupModel groupModel = new RibbonRadioButtonGroupModel();
+
+        RibbonRadioButtonContentModel comfortable = RibbonRadioButtonContentModel.builder()
+                .setText(resourceBundle.getString("Comfortable.text"))
+                .setSelected(true)
+                .setToggleGroupModel(groupModel)
+                .build();
+        RibbonRadioButtonContentModel cozy = RibbonRadioButtonContentModel.builder()
+                .setText(resourceBundle.getString("Cozy.text"))
+                .setToggleGroupModel(groupModel)
+                .build();
+        RibbonRadioButtonContentModel compact = RibbonRadioButtonContentModel.builder()
+                .setText(resourceBundle.getString("Compact.text"))
+                .setToggleGroupModel(groupModel)
+                .build();
+
+        presentationBand.addRibbonComponent(new RibbonRadioButtonProjection(
+                comfortable,
+                ComponentPresentationModel.builder().setKeyTip("LA").build()));
+        presentationBand.addRibbonComponent(new RibbonRadioButtonProjection(
+                cozy,
+                ComponentPresentationModel.builder().setKeyTip("LB").build()));
+        presentationBand.addRibbonComponent(new RibbonRadioButtonProjection(
+                compact,
+                ComponentPresentationModel.builder().setKeyTip("LC").build()));
+
+        return presentationBand;
     }
 
     private JRibbonBand getApplicationsBand() {
@@ -1668,8 +1699,10 @@ public class BasicCheckRibbon extends JRibbonFrame {
         JRibbonBand applicationsBand = this.getApplicationsBand();
         paragraphBand = this.getParagraphBand();
         JRibbonBand showHideBand = this.getShowHideBand();
+        JRibbonBand presentationBandBand = this.getPresentationBand();
         RibbonTask writeTask = new RibbonTask(resourceBundle.getString("Write.textTaskTitle"),
-                actionBand, preferencesBand, applicationsBand, paragraphBand, showHideBand);
+                actionBand, preferencesBand, applicationsBand, paragraphBand, showHideBand,
+                presentationBandBand);
         writeTask.setResizeSequencingPolicy(
                 new CoreRibbonResizeSequencingPolicies.CollapseFromLast(writeTask));
         writeTask.setKeyTip("W");
