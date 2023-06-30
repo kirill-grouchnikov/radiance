@@ -122,12 +122,54 @@ this.rulerCheckBoxModel = RibbonCheckBoxContentModel.builder()
 
 Here we are using the `RibbonCheckBoxContentModel` class and its builder to create a content model with selection initialized to `true`, and an associated action listener that will be invoked whenever a Swing checkbox projected from this content model will change its selection.
 
-And then we combine this content model with a simple presentation model that associates a key tip during the projection, and create a `RibbonCheckBoxProjection` object to be passed to the `JFlowRibbonBand.addFlowComponent()` API:
+And then we combine this content model with a simple presentation model that associates a key tip during the projection, and create a `RibbonCheckBoxProjection` object to be passed to the `JRibbonBand.addRibbonComponent()` API:
 
 ```java
 showHideBand.addRibbonComponent(new RibbonCheckBoxProjection(
         this.rulerCheckBoxModel,
         ComponentPresentationModel.builder().setKeyTip("SR").build()));
+```
+
+#### Wrapping `JRadioButton`
+
+We start with a button group model that will keep track of which radio button is the selected one:
+
+```java
+RibbonRadioButtonGroupModel groupModel = new RibbonRadioButtonGroupModel();
+```
+
+Then we define our content models:
+
+```java
+RibbonRadioButtonContentModel comfortable = RibbonRadioButtonContentModel.builder()
+        .setText(resourceBundle.getString("Comfortable.text"))
+        .setSelected(true)
+        .setToggleGroupModel(groupModel)
+        .build();
+RibbonRadioButtonContentModel cozy = RibbonRadioButtonContentModel.builder()
+        .setText(resourceBundle.getString("Cozy.text"))
+        .setToggleGroupModel(groupModel)
+        .build();
+RibbonRadioButtonContentModel compact = RibbonRadioButtonContentModel.builder()
+        .setText(resourceBundle.getString("Compact.text"))
+        .setToggleGroupModel(groupModel)
+        .build();
+```
+
+Here we are using the `RibbonRadioButtonContentModel` class and its builder to create a content model with selection of the "comfortable" initialized to `true`, and every model associated with the same group model.
+
+And then we combine these content models with a simple presentation model that associates a key tip during the projection, and create a `RibbonRadioButtonProjection` object to be passed to the `JRibbonBand.addRibbonComponent()` API:
+
+```java
+presentationBand.addRibbonComponent(new RibbonRadioButtonProjection(
+        comfortable,
+        ComponentPresentationModel.builder().setKeyTip("LA").build()));
+presentationBand.addRibbonComponent(new RibbonRadioButtonProjection(
+        cozy,
+        ComponentPresentationModel.builder().setKeyTip("LB").build()));
+presentationBand.addRibbonComponent(new RibbonRadioButtonProjection(
+        compact,
+        ComponentPresentationModel.builder().setKeyTip("LC").build()));
 ```
 
 #### Wrapping `JSpinner`
@@ -151,7 +193,7 @@ this.indentLeftSpinnerModel = RibbonSpinnerNumberContentModel.builder()
 
 Here we are using the `RibbonSpinnerNumberContentModel` class and its builder to create a content model that will "add" a leading caption and icon to the left of the wrapped spinner itself.
 
-And then we combine this content model with a simple presentation model that associates a key tip during the projection, and create a `RibbonCheckBoxProjection` object to be passed to the `JRibbonBand.addRibbonComponent()` API:
+And then we combine this content model with a simple presentation model that associates a key tip during the projection, and create a `RibbonSpinnerProjection` object to be passed to the `JRibbonBand.addRibbonComponent()` API:
 
 ```java
 paragraphBand.addRibbonComponent(new RibbonSpinnerProjection(
