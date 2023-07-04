@@ -216,7 +216,9 @@ public class RadianceCommandButtonUI extends BasicCommandButtonUI
                         return;
                     }
 
-                    processPopupAction();
+                    if (commandButton.getContentModel().hasSecondaryContent()) {
+                        processPopupAction();
+                    }
                 }
             }
         };
