@@ -752,11 +752,11 @@ public class BasicCheckRibbon extends JRibbonFrame {
 
         Map<Command, CommandButtonPresentationModel.Overlay> formatMenuOverlays = new HashMap<>();
         formatMenuOverlays.put(this.menuSaveSelection,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("SS"));
+                CommandButtonPresentationModel.overlay().setActionKeyTip("KS"));
         formatMenuOverlays.put(this.menuClearSelection,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("SC"));
+                CommandButtonPresentationModel.overlay().setActionKeyTip("KC"));
         formatMenuOverlays.put(this.applyStyles,
-                CommandButtonPresentationModel.overlay().setActionKeyTip("SA"));
+                CommandButtonPresentationModel.overlay().setActionKeyTip("KA"));
 
         RibbonGalleryProjection quickStylesGalleryProjection =
                 new RibbonGalleryProjection(this.styleGalleryContentModel,
