@@ -118,7 +118,7 @@ public final class LookUtils {
 			|| startsWith(OS_VERSION, "10.13") || startsWith(OS_VERSION, "10.14")
 			|| startsWith(OS_VERSION, "10.15") || startsWith(OS_VERSION, "10.16")
             || startsWith(OS_VERSION, "11.") || startsWith(OS_VERSION, "12.")
-            || startsWith(OS_VERSION, "13."));
+            || startsWith(OS_VERSION, "13.") || startsWith(OS_VERSION, "14."));
 
 	/**
 	 * True if this is Mac Mojave or later
@@ -126,7 +126,8 @@ public final class LookUtils {
 	public static final boolean IS_OS_MAC_MOJAVE_OR_LATER = IS_OS_MAC
 			&& (startsWith(OS_VERSION, "10.14") || startsWith(OS_VERSION, "10.15")
             || startsWith(OS_VERSION, "10.16") || startsWith(OS_VERSION, "11.")
-            || startsWith(OS_VERSION, "12.") || startsWith(OS_VERSION, "13."));
+            || startsWith(OS_VERSION, "12.") || startsWith(OS_VERSION, "13.")
+            || startsWith(OS_VERSION, "14."));
 
 	/**
 	 * True if this is Mac Catalina or later
@@ -134,7 +135,7 @@ public final class LookUtils {
 	public static final boolean IS_OS_MAC_CATALINA_OR_LATER = IS_OS_MAC
 			&& (startsWith(OS_VERSION, "10.15") || startsWith(OS_VERSION, "10.16")
             || startsWith(OS_VERSION, "11.") || startsWith(OS_VERSION, "12.")
-            || startsWith(OS_VERSION, "13."));
+            || startsWith(OS_VERSION, "13.") || startsWith(OS_VERSION, "14."));
 
 
 	// Other Properties *******************************************************
