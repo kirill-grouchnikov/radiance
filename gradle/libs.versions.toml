@@ -9,8 +9,8 @@ jgoodies_common = "1.8.1"
 jgoodies_forms = "1.9.0"
 jhlabs = "2.0.235"
 
-versionchecker = "0.49.0"
-mavenpublish = "0.25.3"
+versionchecker = "0.50.0"
+mavenpublish = "0.26.0"
 
 [libraries]
 
