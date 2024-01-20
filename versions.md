@@ -12,6 +12,7 @@
 | 5.0 | **Heliotrope** | October 25, 2021 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2021/10/29/radiance-5-0-0.html) |
 | 6.0 | **Iridium** | September 1, 2022 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2022/09/02/radiance-6-0-0-and-looking-ahead-into-the-future.html) |
 | 6.5 | **Jade** | December 1, 2022 | Java 9+ | [Announcement](https://www.pushing-pixels.org/2022/12/01/radiance-6-5-0.html) |
+| 7.0 | **Karat** | January 20, 2024 | Java 9+ |  |
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/icon/radiance_product_256.png" width="128" height="128" border=0>
