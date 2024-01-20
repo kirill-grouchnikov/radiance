@@ -64,9 +64,10 @@ public class ColorWheel extends JPanel {
         }
 
         private void update(MouseEvent e) {
+            double scaleFactor = RadianceCommonCortex.getScaleFactor(ColorWheel.this);
             int x = e.getX() - getWidth() / 2;
             int y = e.getY() - getHeight() / 2;
-            float r = (float) Math.sqrt(x * x + y * y);
+            float r = (float) (scaleFactor * Math.sqrt(x * x + y * y));
             float theta = (float) Math.atan2(y, -x);
 
             model.setValue(0, 180 + (int) (theta / Math.PI * 180d));
@@ -150,15 +151,25 @@ public class ColorWheel extends JPanel {
         g.drawImage(colorWheelImage, 0, 0, (int) (colorWheelImage.getWidth(null) / scaleFactor),
                 (int) (colorWheelImage.getHeight(null) / scaleFactor), this);
 
-        int x = w / 2 + (int) (colorWheelProducer.getRadius() * model.getValue(1) / 100d
-                * Math.cos(model.getValue(0) * Math.PI / 180d));
-        int y = h / 2 - (int) (colorWheelProducer.getRadius() * model.getValue(1) / 100d
-                * Math.sin(model.getValue(0) * Math.PI / 180d));
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
+                (graphics1X, x, y, scaledWidth, scaledHeight, _scaleFactor) -> {
+                    double r = colorWheelProducer.getRadius()  * model.getValue(1) / 100d;
+                    double angle = model.getValue(0) * Math.PI / 180d;
 
-        g.setColor(Color.white);
-        g.fillRect(x - 1, y - 1, 2, 2);
-        g.setColor(Color.black);
-        g.drawRect(x - 2, y - 2, 3, 3);
+                    int scaledX = scaledWidth / 2 + (int) (r * Math.cos(angle));
+                    int scaledY = scaledHeight / 2 - (int) (r * Math.sin(angle));
+                    graphics1X.setColor(Color.black);
+                    graphics1X.fillRect(scaledX - 6, scaledY - 6, 12, 12);
+                    graphics1X.setColor(Color.white);
+                    graphics1X.fillRect(scaledX - 3, scaledY - 3, 6, 6);
+                });
+        graphics.dispose();
     }
 
     /**
