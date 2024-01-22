@@ -159,15 +159,17 @@ public class ColorWheel extends JPanel {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, w, h,
                 (graphics1X, x, y, scaledWidth, scaledHeight, _scaleFactor) -> {
-                    double r = colorWheelProducer.getRadius()  * model.getValue(1) / 100d;
+                    double r = colorWheelProducer.getRadius() * model.getValue(1) / 100d;
                     double angle = model.getValue(0) * Math.PI / 180d;
 
                     int scaledX = scaledWidth / 2 + (int) (r * Math.cos(angle));
                     int scaledY = scaledHeight / 2 - (int) (r * Math.sin(angle));
+                    int halfRectSize = ((int) Math.floor( 4 * _scaleFactor)) / 2;
+                    int rectSize = 2 * halfRectSize;
                     graphics1X.setColor(Color.black);
-                    graphics1X.fillRect(scaledX - 6, scaledY - 6, 12, 12);
+                    graphics1X.fillRect(scaledX - rectSize, scaledY - rectSize, 2 * rectSize, 2 * rectSize);
                     graphics1X.setColor(Color.white);
-                    graphics1X.fillRect(scaledX - 3, scaledY - 3, 6, 6);
+                    graphics1X.fillRect(scaledX - halfRectSize, scaledY - halfRectSize, rectSize, rectSize);
                 });
         graphics.dispose();
     }
