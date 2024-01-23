@@ -167,8 +167,12 @@ public class Crayons extends javax.swing.JPanel {
     public void paintComponent(Graphics gr) {
         Graphics2D g2d = (Graphics2D) gr.create();
         RadianceCommonCortex.installDesktopHints(g2d, getFont());
-        double scaleFactor = RadianceCommonCortex.getScaleFactor(this);
-        RadianceCommonCortex.drawImageWithScale(g2d, scaleFactor, crayonsImage, 0, 0);
+
+        // The crayons image is created once at Radiance initialization based on the scale
+        // max scale factor of all connected screens. Use that same scale factor to draw
+        // that image, no matter what the scale factor of the current monitor is.
+        double imageScaleFactor = RadianceCommonCortex.getScaleFactor(null);
+        RadianceCommonCortex.drawImageWithScale(g2d, imageScaleFactor, crayonsImage, 0, 0);
 
         if (selectedCrayon != null) {
             Color selectedTextColor = RadianceColorSchemeUtilities.getColorScheme(
@@ -176,6 +180,7 @@ public class Crayons extends javax.swing.JPanel {
             g2d.setColor(selectedTextColor);
             FontMetrics fm = g2d.getFontMetrics();
             int nameWidth = fm.stringWidth(selectedCrayon.name);
+            double scaleFactor = RadianceCommonCortex.getScaleFactor(this);
             g2d.drawString(selectedCrayon.name,
                     ((int) (crayonsImage.getWidth() / scaleFactor) - nameWidth) / 2,
                     fm.getAscent() + 1);
