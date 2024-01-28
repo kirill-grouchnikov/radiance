@@ -27,7 +27,7 @@
 ::  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set RADIANCE_VERSION=7.0.1
+set RADIANCE_VERSION=7.5-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-laf-benchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
 
 "%JAVA_HOME%"\bin\java -Dswing.defaultlaf=javax.swing.plaf.nimbus.NimbusLookAndFeel -cp %CLASSPATH% org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
