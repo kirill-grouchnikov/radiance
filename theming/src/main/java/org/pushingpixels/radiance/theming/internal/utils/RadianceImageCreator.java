@@ -41,12 +41,14 @@ import java.awt.*;
 import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
  * Provides utility functions for creating various images for <b>Radiance</b> look and feel. This
  * class is <b>for internal use only</b>.
- * 
+ *
  * @author Kirill Grouchnikov
  */
 public final class RadianceImageCreator {
@@ -62,23 +64,15 @@ public final class RadianceImageCreator {
 
     /**
      * Paints the bump dots on the split pane dividers.
-     * 
-     * @param g
-     *            Graphics context.
-     * @param divider
-     *            Split pane divider.
-     * @param x
-     *            X coordinate of the bump dots.
-     * @param y
-     *            Y coordinate of the bump dots.
-     * @param width
-     *            Width of the bump dots area.
-     * @param height
-     *            Height of the bump dots area.
-     * @param isHorizontal
-     *            Indicates whether the dots are horizontal.
-     * @param colorScheme
-     *            Color scheme.
+     *
+     * @param g            Graphics context.
+     * @param divider      Split pane divider.
+     * @param x            X coordinate of the bump dots.
+     * @param y            Y coordinate of the bump dots.
+     * @param width        Width of the bump dots area.
+     * @param height       Height of the bump dots area.
+     * @param isHorizontal Indicates whether the dots are horizontal.
+     * @param colorScheme  Color scheme.
      */
     public static void paintSplitDividerBumpImage(Graphics g, RadianceSplitPaneDivider divider,
             int x, int y, int width, int height, boolean isHorizontal,
@@ -129,93 +123,116 @@ public final class RadianceImageCreator {
     /**
      * Retrieves a single crayon of the specified color and dimensions for the crayon panel in color
      * chooser.
-     * 
-     * @param mainColor
-     *            Crayon main color.
-     * @param width
-     *            Crayon width.
-     * @param height
-     *            Crayon height.
+     *
+     * @param mainColor Crayon main color.
+     * @param width     Crayon width.
+     * @param height    Crayon height.
      * @return Crayon image.
      */
     private static BufferedImage getSingleCrayon(double scale, Color mainColor,
             int width, int height) {
         BufferedImage image = RadianceCoreUtilities.getBlankImage(scale, width, height);
 
-        int baseTop = (int) (0.2 * height);
+        // Four parts:
+        // 1. Pointed tip
+        // 2. Colorful cap
+        // 3. Muted base
+        // 4. Stripe across the cap
+
+        int tipBase = (int) (0.2 * height);
+        int capBase = (int) (0.4 * height);
 
         Graphics2D graphics = (Graphics2D) image.getGraphics().create();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        int r = mainColor.getRed();
-        int g = mainColor.getGreen();
-        int b = mainColor.getBlue();
-        // light coefficient
-        double lc = 0.8;
-        int lr = (int) (r + (255 - r) * lc);
-        int lg = (int) (g + (255 - g) * lc);
-        int lb = (int) (b + (255 - b) * lc);
-        // dark coefficient
-        double dc = 0.05;
-        int dr = (int) ((1.0 - dc) * r);
-        int dg = (int) ((1.0 - dc) * g);
-        int db = (int) ((1.0 - dc) * b);
+        Color lightColor = RadianceColorUtilities.getLighterColor(mainColor, 0.6);
+        Color darkColor = RadianceColorUtilities.getDarkerColor(mainColor, 0.2);
+        Color desaturaredLight = RadianceColorUtilities.getSaturatedColor(
+                RadianceColorUtilities.getLighterColor(mainColor, 0.3), -0.4f);
+        Color desaturaredDark = RadianceColorUtilities.getSaturatedColor(
+                RadianceColorUtilities.getInterpolatedColor(
+                        RadianceColorUtilities.getDarkerColor(mainColor, 0.2),
+                        Color.lightGray, 0.6), -0.4f);
 
-        Color lightColor = new Color(lr, lg, lb);
-        Color darkColor = new Color(dr, dg, db);
-
-        LinearGradientPaint paint = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.3f, 0.5f, 0.9f, 1.0f },
-                new Color[] { lightColor, darkColor, darkColor, lightColor, lightColor },
+        LinearGradientPaint capFillPaint = new LinearGradientPaint(0, 0, width, 0,
+                new float[]{0.0f, 0.45f, 1.0f},
+                new Color[]{desaturaredLight, darkColor, desaturaredLight},
                 CycleMethod.REPEAT);
-        graphics.setPaint(paint);
-        graphics.fillRect(0, baseTop, width, height);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        graphics.setPaint(capFillPaint);
+        graphics.fillRect(0, tipBase, width, height - tipBase);
 
-        int dbwr = lr;
-        int dbwg = lg;
-        int dbwb = lb;
-        int lbwr = 128 + dr / 4;
-        int lbwg = 128 + dg / 4;
-        int lbwb = 128 + db / 4;
+        LinearGradientPaint caseFillPaint = new LinearGradientPaint(0, 0, width, 0,
+                new float[]{0.0f, 0.45f, 1.0f},
+                new Color[]{desaturaredDark, lightColor, desaturaredDark},
+                CycleMethod.REPEAT);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+        graphics.setPaint(caseFillPaint);
+        graphics.fillRect(0, capBase, width, height - capBase);
 
-        Color lightStripeColor = new Color(lbwr, lbwg, lbwb);
-        Color darkStripeColor = new Color(dbwr, dbwg, dbwb);
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
-        int stripeTop = (int) (0.35 * height);
+        Color sideStripeColor = RadianceColorUtilities.getSaturatedColor(lightColor, -0.1f);
+        Color midStripeColor = RadianceColorUtilities.getSaturatedColor(lightColor, -0.25f);
+        int stripeTop = (int) (0.25 * height);
         int stripeHeight = (int) (0.04 * height);
-        LinearGradientPaint stripePaint = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.3f, 0.5f, 0.9f, 1.0f },
-                new Color[] { lightStripeColor, darkStripeColor, darkStripeColor, lightStripeColor,
-                                lightStripeColor },
+        LinearGradientPaint stripeFillPaint = new LinearGradientPaint(0, 0, width, 0,
+                new float[]{0.0f, 0.45f, 1.0f},
+                new Color[]{sideStripeColor, midStripeColor, sideStripeColor},
                 CycleMethod.REPEAT);
-        graphics.setPaint(stripePaint);
+        graphics.setPaint(stripeFillPaint);
         graphics.fillRect(0, stripeTop, width, stripeHeight);
 
-        graphics.setColor(lightStripeColor);
-        graphics.drawRect(0, stripeTop, width - 1, stripeHeight);
+        // Stripe outline
+        graphics.setColor(RadianceColorUtilities.getInterpolatedColor(sideStripeColor,
+                Color.gray, 0.3));
+        graphics.drawLine(0, stripeTop, 0, stripeTop + stripeHeight);
+        graphics.drawLine(width - 1, stripeTop, width - 1, stripeTop + stripeHeight);
+
+        // Outline between the tip and the stripe
+        graphics.setColor(darkColor);
+        graphics.drawRect(0, tipBase, width - 1, stripeTop - tipBase);
+
+        // Outline between the stripe and the base of the cap
+        graphics.setPaint(new LinearGradientPaint(0, 0, width, 0,
+                new float[]{0.0f, 0.45f, 1.0f},
+                new Color[]{darkColor, RadianceColorUtilities.getDarkerColor(mainColor, 0.4), darkColor},
+                CycleMethod.REPEAT));
+        graphics.drawRect(0, stripeTop + stripeHeight, width - 1, capBase - stripeTop - stripeHeight);
+
+        // Base side outlines
+        graphics.setColor(RadianceColorUtilities.getInterpolatedColor(mainColor,
+                Color.gray, 0.6));
+        graphics.drawLine(0, capBase, 0, height);
+        graphics.drawLine(width - 1, capBase, width - 1, height);
 
         // create cap path
         GeneralPath capPath = new GeneralPath();
         capPath.moveTo(0.5f * width - 3, 4);
         capPath.quadTo(0.5f * width, 0, 0.5f * width + 3, 4);
-        capPath.lineTo(width - 3, baseTop);
-        capPath.lineTo(2, baseTop);
+        capPath.lineTo(width - 3, tipBase);
+        capPath.lineTo(2, tipBase);
         capPath.lineTo(0.5f * width - 3, 4);
 
         graphics.setClip(capPath);
 
-        RadialGradientPaint capPaint = new RadialGradientPaint(width / 2, baseTop, baseTop,
-                width / 2, 4 * baseTop / 3, new float[] { 0.0f, 0.1f, 1.0f },
-                new Color[] { mainColor, mainColor, lightColor }, CycleMethod.NO_CYCLE);
-        graphics.setPaint(capPaint);
-        graphics.fillRect(0, 0, width, baseTop);
+        // Tip fill
+        ConicalGradientPaint tipFillPaint = new ConicalGradientPaint(
+                true, // use degrees
+                new Point2D.Double(0.5 * width, 0), // cone center
+                0f, // rotation offset
+                new float[] {0f, 162f, 179f, 183f, 198f, 360f}, // cone angles
+                new Color[] {desaturaredLight, desaturaredLight, darkColor, darkColor, desaturaredLight, desaturaredLight}
+        );
+        graphics.setPaint(tipFillPaint);
+        graphics.fillRect(0, 0, width, tipBase);
 
         graphics.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
-        graphics.setClip(null);
-        graphics.setColor(new Color(64 + dr / 2, 64 + dg / 2, 64 + db / 2, 200));
-        graphics.drawRect(0, baseTop, width - 1, height - baseTop - 1);
+        // Tip outline
+        graphics.setClip(new Rectangle2D.Double(0, 0, width, tipBase));
+        graphics.setColor(darkColor);
         graphics.draw(capPath);
 
         graphics.dispose();
@@ -226,66 +243,65 @@ public final class RadianceImageCreator {
     /**
      * Crayon colors.
      */
-    private final static int[] crayonColors = { 0x800000, // Cayenne
-                    0x808000, // Asparagus
-                    0x008000, // Clover
-                    0x008080, // Teal
-                    0x000080, // Midnight
-                    0x800080, // Plum
-                    0x7f7f7f, // Tin
-                    0x808080, // Nickel
+    private final static int[] crayonColors = {0x800000, // Cayenne
+            0x808000, // Asparagus
+            0x008000, // Clover
+            0x008080, // Teal
+            0x000080, // Midnight
+            0x800080, // Plum
+            0x7f7f7f, // Tin
+            0x808080, // Nickel
 
-                    0x804000, // Mocha
-                    0x408000, // Fern
-                    0x008040, // Moss
-                    0x004080, // Ocean
-                    0x400080, // Eggplant
-                    0x800040, // Maroon
-                    0x666666, // Steel
-                    0x999999, // Aluminium
+            0x804000, // Mocha
+            0x408000, // Fern
+            0x008040, // Moss
+            0x004080, // Ocean
+            0x400080, // Eggplant
+            0x800040, // Maroon
+            0x666666, // Steel
+            0x999999, // Aluminium
 
-                    0xff0000, // Maraschino
-                    0xffff00, // Lemon
-                    0x00ff00, // Spring
-                    0x00ffff, // Turquoise
-                    0x0000ff, // Blueberry
-                    0xff00ff, // Magenta
-                    0x4c4c4c, // Iron
-                    0xb3b3b3, // Magnesium
+            0xff0000, // Maraschino
+            0xffff00, // Lemon
+            0x00ff00, // Spring
+            0x00ffff, // Turquoise
+            0x0000ff, // Blueberry
+            0xff00ff, // Magenta
+            0x4c4c4c, // Iron
+            0xb3b3b3, // Magnesium
 
-                    0xff8000, // Tangerine
-                    0x80ff00, // Lime
-                    0x00ff80, // Sea Foam
-                    0x0080ff, // Aqua
-                    0x8000ff, // Grape
-                    0xff0080, // Strawberry
-                    0x333333, // Tungsten
-                    0xcccccc, // Silver
+            0xff8000, // Tangerine
+            0x80ff00, // Lime
+            0x00ff80, // Sea Foam
+            0x0080ff, // Aqua
+            0x8000ff, // Grape
+            0xff0080, // Strawberry
+            0x333333, // Tungsten
+            0xcccccc, // Silver
 
-                    0xff6666, // Salmon
-                    0xffff66, // Banana
-                    0x66ff66, // Flora
-                    0x66ffff, // Ice
-                    0x6666ff, // Orchid
-                    0xff66ff, // Bubblegum
-                    0x191919, // Lead
-                    0xe6e6e6, // Mercury
+            0xff6666, // Salmon
+            0xffff66, // Banana
+            0x66ff66, // Flora
+            0x66ffff, // Ice
+            0x6666ff, // Orchid
+            0xff66ff, // Bubblegum
+            0x191919, // Lead
+            0xe6e6e6, // Mercury
 
-                    0xffcc66, // Cantaloupe
-                    0xccff66, // Honeydew
-                    0x66ffcc, // Spindrift
-                    0x66ccff, // Sky
-                    0xcc66ff, // Lavender
-                    0xff6fcf, // Carnation
-                    0x000000, // Licorice
-                    0xffffff, // Snow
+            0xffcc66, // Cantaloupe
+            0xccff66, // Honeydew
+            0x66ffcc, // Spindrift
+            0x66ccff, // Sky
+            0xcc66ff, // Lavender
+            0xff6fcf, // Carnation
+            0x000000, // Licorice
+            0xffffff, // Snow
     };
 
     /**
      * Retrieves crayon X offset.
-     * 
-     * @param i
-     *            Crayon index.
+     *
+     * @param i Crayon index.
      * @return Crayon X offset.
      */
     private static int crayonX(int i) {
@@ -294,9 +310,8 @@ public final class RadianceImageCreator {
 
     /**
      * Retrieves crayon Y offset.
-     * 
-     * @param i
-     *            Crayon index.
+     *
+     * @param i Crayon index.
      * @return Crayon Y offset.
      */
     private static int crayonY(int i) {
@@ -305,7 +320,7 @@ public final class RadianceImageCreator {
 
     /**
      * Retrieves crayons image for the crayon panel of color chooser.
-     * 
+     *
      * @return Crayons image.
      */
     public static Image getCrayonsImage(Color fillColor) {
@@ -337,8 +352,7 @@ public final class RadianceImageCreator {
     /**
      * Returns a lock icon that matches the specified scheme.
      *
-     * @param scheme
-     *            Scheme instance.
+     * @param scheme Scheme instance.
      * @return Lock icon that matches the specified scheme.
      */
     public static Icon getSmallLockIcon(RadianceColorScheme scheme, Component c) {
@@ -352,8 +366,7 @@ public final class RadianceImageCreator {
     /**
      * Returns a caps lock icon that matches the specified scheme.
      *
-     * @param scheme
-     *            Scheme instance.
+     * @param scheme Scheme instance.
      * @return Caps lock icon that matches the specified scheme.
      */
     public static Icon getCapsLockIcon(RadianceColorScheme scheme, Component c) {
@@ -363,13 +376,10 @@ public final class RadianceImageCreator {
     /**
      * Creates a new version of the specified icon that is rendered in the colors of the specified
      * color scheme.
-     * 
-     * @param comp
-     *            Component.
-     * @param original
-     *            The original icon.
-     * @param colorScheme
-     *            Color scheme.
+     *
+     * @param comp        Component.
+     * @param original    The original icon.
+     * @param colorScheme Color scheme.
      * @return Scheme-based version of the original icon.
      */
     public static BufferedImage getColorSchemeImage(Component comp, Icon original,
@@ -395,13 +405,10 @@ public final class RadianceImageCreator {
     /**
      * Creates a new version of the specified image that is rendered in the colors of the specified
      * color scheme.
-     * 
-     * @param original
-     *            The original image.
-     * @param colorScheme
-     *            Color scheme.
-     * @param originalBrightnessFactor
-     *            The original brightness factor.
+     *
+     * @param original                 The original image.
+     * @param colorScheme              Color scheme.
+     * @param originalBrightnessFactor The original brightness factor.
      * @return Scheme-based version of the original icon.
      */
     public static BufferedImage getColorSchemeImage(BufferedImage original,
