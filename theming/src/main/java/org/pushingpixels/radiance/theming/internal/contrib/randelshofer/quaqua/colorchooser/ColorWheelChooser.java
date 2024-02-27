@@ -35,6 +35,7 @@ import java.awt.*;
 public class ColorWheelChooser extends RadianceColorChooserPanel implements UIResource {
 	private ColorWheel colorWheel;
 	private HSBColorSliderModel ccModel = new HSBColorSliderModel();
+	private int updateRecursion;
 
 	/**
 	 * Creates a new instance.
@@ -87,12 +88,21 @@ public class ColorWheelChooser extends RadianceColorChooserPanel implements UIRe
                 colorScheme);
     }
 
+	@Override
 	public void updateChooser() {
-		ccModel.setColor(getColorFromModel());
+		if (updateRecursion == 0) {
+			updateRecursion++;
+			ccModel.setColor(getColorFromModel());
+			updateRecursion--;
+		}
 	}
 
 	public void setColorToModel(Color color) {
-		getColorSelectionModel().setSelectedColor(color);
+		if (updateRecursion == 0) {
+			updateRecursion++;
+			getColorSelectionModel().setSelectedColor(color);
+			updateRecursion--;
+		}
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
