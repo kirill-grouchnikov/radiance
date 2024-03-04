@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-
-import java.awt.*;
 
 /**
  * Fill painter that draws visuals with matte appearance. This class is part of
@@ -40,38 +38,26 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class MatteFillPainter extends ClassicFillPainter {
+public class MatteFillPainter extends FractionBasedFillPainter {
 	/**
 	 * Reusable instance of this painter.
 	 */
 	public static final MatteFillPainter INSTANCE = new MatteFillPainter();
 
 	/**
-	 * Creates a new matte fill painter.
+	 * Creates a new classic gradient painter.
 	 */
 	public MatteFillPainter() {
-		super();
-	}
-
-	@Override
-	public String getDisplayName() {
-		return "Matte";
-	}
-
-	@Override
-	public Color getTopFillColor(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super.getBottomFillColor(fillScheme),
-				super.getMidFillColorTop(fillScheme), 0.5f);
-	}
-
-	@Override
-	public Color getMidFillColorTop(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super.getMidFillColorTop(fillScheme),
-				super.getBottomFillColor(fillScheme), 0.7f);
-	}
-
-	@Override
-	public Color getBottomFillColor(RadianceColorScheme fillScheme) {
-		return super.getMidFillColorTop(fillScheme);
+		super("Matte",
+				new float[] {0.0f, 0.5f, 1.0f},
+				new ColorSchemeSingleColorQuery[] {
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.35f),
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.49f),
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.7f),
+				}
+		);
 	}
 }

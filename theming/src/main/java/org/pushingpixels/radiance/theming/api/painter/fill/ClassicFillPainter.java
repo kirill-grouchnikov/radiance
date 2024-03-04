@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-
-import java.awt.*;
 
 /**
  * Fill painter that draws visuals with classic appearance. This class is part
@@ -40,7 +38,7 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class ClassicFillPainter extends StandardFillPainter {
+public class ClassicFillPainter extends FractionBasedFillPainter {
 	/**
 	 * Reusable instance of this painter.
 	 */
@@ -50,22 +48,15 @@ public class ClassicFillPainter extends StandardFillPainter {
 	 * Creates a new classic gradient painter.
 	 */
 	public ClassicFillPainter() {
-	}
-
-	@Override
-	public String getDisplayName() {
-		return "Classic";
-	}
-
-	@Override
-	public Color getTopFillColor(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super.getBottomFillColor(fillScheme),
-				super.getMidFillColorTop(fillScheme), 0.5f);
-	}
-
-	@Override
-	public Color getMidFillColorTop(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super.getMidFillColorTop(fillScheme),
-				super.getBottomFillColor(fillScheme), 0.7f);
+		super("Classic",
+				new float[] {0.0f, 0.5f, 1.0f},
+				new ColorSchemeSingleColorQuery[] {
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.5f),
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.7f),
+						ColorSchemeSingleColorQuery.ULTRALIGHT
+				}
+		);
 	}
 }

@@ -29,11 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-
-import java.awt.*;
-import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
  * Fill painter that draws visuals with subtle 3D gradient appearance. This class is part of
@@ -41,85 +38,16 @@ import java.awt.MultipleGradientPaint.CycleMethod;
  *
  * @author Kirill Grouchnikov
  */
-public class StandardFillPainter implements RadianceFillPainter {
-    @Override
-    public String getDisplayName() {
-        return "Standard";
-    }
-
-    @Override
-    public void paintContourBackground(Graphics g, Component comp, float width, float height,
-            Shape contour, RadianceColorScheme fillScheme) {
-
-        // long millis = System.nanoTime();
-
-        Graphics2D graphics = (Graphics2D) g.create();
-
-        Color topFillColor = this.getTopFillColor(fillScheme);
-        Color midFillColorTop = this.getMidFillColorTop(fillScheme);
-        Color midFillColorBottom = this.getMidFillColorBottom(fillScheme);
-        Color bottomFillColor = this.getBottomFillColor(fillScheme);
-
-        // Fill background
-        // long millis000 = System.nanoTime();
-
-        MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height,
-                new float[]{0.0f, 0.4999999f, 0.5f, 1.0f},
-                new Color[]{topFillColor, midFillColorTop, midFillColorBottom, bottomFillColor},
-                CycleMethod.REPEAT);
-        graphics.setPaint(gradient);
-        graphics.fill(contour);
-
-        graphics.dispose();
-    }
-
-    /**
-     * Computes the color of the top portion of the fill. Override to provide different visual.
-     *
-     * @param fillScheme
-     *         The fill scheme.
-     * @return The color of the top portion of the fill.
-     */
-    public Color getTopFillColor(RadianceColorScheme fillScheme) {
-        return RadianceColorUtilities.getTopFillColor(fillScheme);
-    }
-
-    /**
-     * Computes the color of the middle portion of the fill from the top. Override to provide
-     * different visual.
-     *
-     * @param fillScheme
-     *         The fill scheme.
-     * @return The color of the middle portion of the fill from the top.
-     */
-    public Color getMidFillColorTop(RadianceColorScheme fillScheme) {
-        return RadianceColorUtilities.getMidFillColor(fillScheme);
-    }
-
-    /**
-     * Computes the color of the middle portion of the fill from the bottom. Override to provide
-     * different visual.
-     *
-     * @param fillScheme
-     *         The fill scheme.
-     * @return The color of the middle portion of the fill from the bottom.
-     */
-    public Color getMidFillColorBottom(RadianceColorScheme fillScheme) {
-        return this.getMidFillColorTop(fillScheme);
-    }
-
-    /**
-     * Computes the color of the bottom portion of the fill. Override to provide different visual.
-     *
-     * @param fillScheme
-     *         The fill scheme.
-     * @return The color of the bottom portion of the fill.
-     */
-    public Color getBottomFillColor(RadianceColorScheme fillScheme) {
-        return RadianceColorUtilities.getBottomFillColor(fillScheme);
-    }
-    @Override
-    public Color getRepresentativeColor(RadianceColorScheme fillScheme) {
-        return this.getMidFillColorTop(fillScheme);
+public class StandardFillPainter extends FractionBasedFillPainter {
+    public StandardFillPainter() {
+        super("Standard",
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {
+                        scheme -> RadianceColorUtilities.getInterpolatedColor(
+                                scheme.getDarkColor(), scheme.getMidColor(), 0.4f),
+                        ColorSchemeSingleColorQuery.MID,
+                        ColorSchemeSingleColorQuery.ULTRALIGHT
+                }
+        );
     }
 }

@@ -30,9 +30,9 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -80,57 +80,6 @@ public class RadianceColorUtilities {
     public static Color getBottomBorderColor(RadianceColorScheme scheme) {
         return RadianceColorUtilities.getInterpolatedColor(scheme
                 .getDarkColor(), scheme.getMidColor(), 0.5);
-    }
-
-    /**
-     * Returns the color of the top portion of fill in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the top portion of fill in control backgrounds.
-     */
-    public static Color getTopFillColor(RadianceColorScheme scheme) {
-        return RadianceColorUtilities.getInterpolatedColor(scheme
-                .getDarkColor(), scheme.getMidColor(), 0.4);
-    }
-
-    /**
-     * Returns the color of the middle portion of fill in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the middle portion of fill in control backgrounds.
-     */
-    public static Color getMidFillColor(RadianceColorScheme scheme) {
-        return scheme.getMidColor();
-    }
-
-    /**
-     * Returns the color of the bottom portion of fill in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the bottom portion of fill in control backgrounds.
-     */
-    public static Color getBottomFillColor(RadianceColorScheme scheme) {
-        return scheme.getUltraLightColor();
-    }
-
-    /**
-     * Returns the color of the top portion of shine in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the top portion of shine in control backgrounds.
-     */
-    public static Color getTopShineColor(RadianceColorScheme scheme) {
-        return getBottomFillColor(scheme);
-    }
-
-    /**
-     * Returns the color of the bottom portion of shine in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the bottom portion of shine in control backgrounds.
-     */
-    public static Color getBottomShineColor(RadianceColorScheme scheme) {
-        return scheme.getLightColor();
     }
 
     /**

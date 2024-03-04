@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-
-import java.awt.*;
 
 /**
  * Fill painter that draws visuals with glass appearance. This class is part
@@ -40,32 +38,20 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class GlassFillPainter extends StandardFillPainter {
-	@Override
-	public String getDisplayName() {
-		return "Glass";
+public class GlassFillPainter extends FractionBasedFillPainter {
+	public GlassFillPainter() {
+		super("Glass",
+				new float[] {0.0f, 0.4999999f, 0.5f, 1.0f},
+				new ColorSchemeSingleColorQuery[] {
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.4f),
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.52f),
+						ColorSchemeSingleColorQuery.MID,
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getMidColor(), scheme.getUltraLightColor(), 0.7f),
+				}
+		);
 	}
 
-	@Override
-	public Color getTopFillColor(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super.getBottomFillColor(fillScheme),
-				super.getMidFillColorTop(fillScheme), 0.6f);
-	}
-
-	@Override
-	public Color getMidFillColorTop(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(this.getTopFillColor(fillScheme),
-				super.getMidFillColorTop(fillScheme), 0.8f);
-	}
-
-	@Override
-	public Color getMidFillColorBottom(RadianceColorScheme fillScheme) {
-		return super.getMidFillColorTop(fillScheme);
-	}
-
-	@Override
-	public Color getBottomFillColor(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(this.getMidFillColorBottom(fillScheme),
-				super.getBottomFillColor(fillScheme), 0.7f);
-	}
 }

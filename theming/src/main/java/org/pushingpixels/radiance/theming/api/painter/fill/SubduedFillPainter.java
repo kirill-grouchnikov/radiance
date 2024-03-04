@@ -29,10 +29,8 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-
-import java.awt.*;
 
 /**
  * Fill painter that draws visuals with subdued 3D gradient appearance. This
@@ -40,16 +38,16 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class SubduedFillPainter extends StandardFillPainter {
-	@Override
-	public String getDisplayName() {
-		return "Subdued";
-	}
-
-	@Override
-	public Color getTopFillColor(RadianceColorScheme fillScheme) {
-		return RadianceColorUtilities.getInterpolatedColor(super
-				.getTopFillColor(fillScheme), this
-				.getMidFillColorTop(fillScheme), 0.3);
+public class SubduedFillPainter extends FractionBasedFillPainter {
+	public SubduedFillPainter() {
+		super("Subdued",
+				new float[] {0.0f, 0.5f, 1.0f},
+				new ColorSchemeSingleColorQuery[] {
+						scheme -> RadianceColorUtilities.getInterpolatedColor(
+								scheme.getDarkColor(), scheme.getMidColor(), 0.12f),
+						ColorSchemeSingleColorQuery.MID,
+						ColorSchemeSingleColorQuery.ULTRALIGHT
+				}
+		);
 	}
 }

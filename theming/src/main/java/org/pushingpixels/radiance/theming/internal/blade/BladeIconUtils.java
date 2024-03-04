@@ -31,11 +31,12 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.FlatBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
-import org.pushingpixels.radiance.theming.internal.painter.SimplisticFillPainter;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -53,31 +54,22 @@ public class BladeIconUtils {
      *
      * @author Kirill Grouchnikov
      */
-    private static class SimplisticSoftBorderReverseFillPainter extends SimplisticFillPainter {
+    private static class SimplisticSoftBorderReverseFillPainter extends FractionBasedFillPainter {
         /**
          * Singleton instance.
          */
         public static final RadianceFillPainter INSTANCE = new SimplisticSoftBorderReverseFillPainter();
 
-        /**
-         * Private constructor.
-         */
         private SimplisticSoftBorderReverseFillPainter() {
-        }
-
-        @Override
-        public String getDisplayName() {
-            return "Simplistic Soft Border Reverse";
-        }
-
-        @Override
-        public Color getTopFillColor(RadianceColorScheme fillScheme) {
-            return super.getBottomFillColor(fillScheme);
-        }
-
-        @Override
-        public Color getBottomFillColor(RadianceColorScheme fillScheme) {
-            return super.getTopFillColor(fillScheme);
+            super("Simplistic Soft Border Reverse",
+                    new float[] {0.0f, 0.5f, 1.0f},
+                    new ColorSchemeSingleColorQuery[] {
+                            ColorSchemeSingleColorQuery.ULTRALIGHT,
+                            scheme -> RadianceColorUtilities.getInterpolatedColor(
+                                    scheme.getMidColor(), scheme.getUltraLightColor(), 0.5f),
+                            ColorSchemeSingleColorQuery.MID
+                    }
+            );
         }
     }
 
