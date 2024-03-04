@@ -29,8 +29,8 @@ Important thing to note - a fill painter **must not** paint the focus ring or th
 
 Radiance provides a number of fill painters that can be used as a starting point for your custom application visuals.
 
-* `StandardFillPainter` provides six base methods that compute fill colors at four fill and two shine vertical locations (see `get*FillColor` and `get*ShineColor` methods). Most core Radiance fill painters extend this class. Note that if your fill painter does not paint the shine spot, return `null` from the `get*ShineColor` methods.
-* `FractionBasedFillPainter` enables vertical gradients with arbitrary multi-stop colors.
+* `FractionBasedFillPainter` enables vertical gradients with arbitrary multi-stop colors. Most core Radiance fill painters extend this class.
+* `SpecularRectangularFillPainter` allows adding specular shine along the top part of the fill area.
 
 ### Management API
 

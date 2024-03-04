@@ -47,11 +47,9 @@ Note that if this method returns `false`, the implementation of the `paintBorder
 
 Radiance provides a number of border painters that can be used as a starting point for your custom application visuals.
 
-* `StandardBorderPainter` provides three base methods that compute border colors at different vertical locations (see `get*BorderColor` methods). Most core Radiance border painters extend this class.
-* `DelegateBorderPainter` wraps a `StandardBorderPainter` instance and applies bit masks to each one of the three colors. For example, a mask of `0x40FFFFFF` applies a 25% alpha, leaving the red, green and blue channels untouched.
-* `CompositeBorderPainter` combines two border painters, using one for just the outer contour, and the other just for the inner contour.
-* `FractionBasedBorderPainter` enables vertical gradients with arbitrary multi-stop colors.
+* `FractionBasedBorderPainter` enables vertical gradients with arbitrary multi-stop colors. Most core Radiance border painters extend this class.
 * `DelegateFractionBasedBorderPainter` wraps a `FractionBasedBorderPainter` with per-stop bit masks and a color scheme transform.
+* `CompositeBorderPainter` combines two border painters, using one for just the outer contour, and the other just for the inner contour.
 
 
 ### Management API
