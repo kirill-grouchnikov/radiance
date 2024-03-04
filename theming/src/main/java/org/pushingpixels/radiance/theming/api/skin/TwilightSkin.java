@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
@@ -210,14 +210,14 @@ public class TwilightSkin extends RadianceSkin {
 
         this.buttonShaper = new ClassicButtonShaper();
         this.fillPainter = new FractionBasedFillPainter("Twilight",
-                new float[] {0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[] {ColorSchemeSingleColorQuery.ULTRALIGHT,
+                new float[]{0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,
                         ColorSchemeSingleColorQuery.LIGHT, ColorSchemeSingleColorQuery.LIGHT});
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
         this.borderPainter = new CompositeBorderPainter("Twilight", new ClassicBorderPainter(),
-                new DelegateBorderPainter("Twilight Inner", new ClassicBorderPainter(), 0x40FFFFFF,
-                        0x20FFFFFF, 0x00FFFFFF,
+                new DelegateFractionBasedBorderPainter("Twilight Inner", new ClassicBorderPainter(),
+                        new int[]{0x40FFFFFF, 0x20FFFFFF, 0x00FFFFFF},
                         scheme -> scheme.tint(0.2f)));
     }
 

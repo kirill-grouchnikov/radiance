@@ -105,8 +105,10 @@ public class CookbookSkin extends RadianceSkin {
                 new ColorSchemeSingleColorQuery[] { ColorSchemeSingleColorQuery.DARK,
                                 ColorSchemeSingleColorQuery.ULTRADARK,
                                 ColorSchemeSingleColorQuery.ULTRADARK });
-        RadianceBorderPainter innerBorderPainter = new DelegateBorderPainter("Cookbook Inner",
-                new ClassicBorderPainter(), 0x88FFFFFF, 0x44FFFFFF, 0x00FFFFFF,
+        RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
+                "Cookbook Inner",
+                new ClassicBorderPainter(),
+                new int[] {0x88FFFFFF, 0x44FFFFFF, 0x00FFFFFF},
                 scheme -> scheme.shiftBackground(scheme.getUltraLightColor(), 0.8).tint(0.7));
         this.borderPainter = new CompositeBorderPainter("Cookbook", outerBorderPainter,
                 innerBorderPainter);

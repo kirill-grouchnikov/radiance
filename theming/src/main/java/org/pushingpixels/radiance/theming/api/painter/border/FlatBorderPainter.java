@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.border;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-
-import java.awt.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 
 /**
  * Border painter that draws visuals with flat appearance. This class is part
@@ -39,20 +37,14 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class FlatBorderPainter extends StandardBorderPainter {
-	@Override
-	public String getDisplayName() {
-		return "Flat";
+public class FlatBorderPainter extends FractionBasedBorderPainter {
+	public FlatBorderPainter() {
+		super(
+				"Flat",
+				new float[]{0.0f, 1.0f},
+				new ColorSchemeSingleColorQuery[]{
+						ColorSchemeSingleColorQuery.ULTRADARK,
+						ColorSchemeSingleColorQuery.ULTRADARK}
+		);
 	}
-
-	@Override
-	public Color getMidBorderColor(RadianceColorScheme borderScheme) {
-		return super.getTopBorderColor(borderScheme);
-	}
-
-	@Override
-	public Color getBottomBorderColor(RadianceColorScheme borderScheme) {
-		return super.getTopBorderColor(borderScheme);
-	}
-
 }

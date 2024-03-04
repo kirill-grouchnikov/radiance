@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
@@ -147,8 +147,8 @@ public abstract class DustAccentedSkin extends RadianceSkin.Accented {
 		this.decorationPainter = new MatteDecorationPainter();
 		this.highlightFillPainter = new ClassicFillPainter();
 		this.borderPainter = new CompositeBorderPainter("Dust", new ClassicBorderPainter(),
-				new DelegateBorderPainter("Dust Inner", new ClassicBorderPainter(),
-						0x60FFFFFF, 0x30FFFFFF, 0x18FFFFFF,
+				new DelegateFractionBasedBorderPainter("Dust Inner", new ClassicBorderPainter(),
+						new int[] {0x60FFFFFF, 0x30FFFFFF, 0x18FFFFFF},
 						scheme -> scheme.shiftBackground(scheme.getUltraLightColor(), 0.8).tint(0.6).saturate(0.2)));
 	}
 }

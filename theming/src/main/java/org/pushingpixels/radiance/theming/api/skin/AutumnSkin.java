@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColor
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
@@ -120,11 +120,13 @@ public class AutumnSkin extends RadianceSkin {
 		this.buttonShaper = new ClassicButtonShaper();
 		this.fillPainter = new SpecularRectangularFillPainter(new MatteFillPainter(), 1.0f);
 		this.borderPainter = new CompositeBorderPainter("Autumn",
-				new DelegateBorderPainter(
+				new DelegateFractionBasedBorderPainter(
 						"Autumn Outer", new ClassicBorderPainter(),
+						new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
 						scheme -> scheme.shade(0.1f)),
-				new DelegateBorderPainter(
+				new DelegateFractionBasedBorderPainter(
 						"Autumn Inner", new ClassicBorderPainter(),
+						new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
 						scheme -> scheme.tint(0.8f)));
 
 		this.highlightFillPainter = new ClassicFillPainter();

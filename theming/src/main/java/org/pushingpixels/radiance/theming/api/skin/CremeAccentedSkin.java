@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.CremeColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.MatteFillPainter;
@@ -90,8 +90,10 @@ public abstract class CremeAccentedSkin extends RadianceSkin.Accented {
         this.decorationPainter = new ArcDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
         this.borderPainter = new CompositeBorderPainter("Creme",
-                new ClassicBorderPainter(), new DelegateBorderPainter(
-                "Creme Inner", new ClassicBorderPainter(),
-                scheme -> scheme.tint(0.9f)));
+                new ClassicBorderPainter(),
+                new DelegateFractionBasedBorderPainter(
+                        "Creme Inner", new ClassicBorderPainter(),
+                        new int[]{0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
+                        scheme -> scheme.tint(0.9f)));
     }
 }

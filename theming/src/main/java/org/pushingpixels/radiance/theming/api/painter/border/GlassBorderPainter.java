@@ -29,9 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.border;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-
-import java.awt.*;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 
 /**
  * Border painter that draws visuals with glass appearance. This class is part
@@ -39,24 +37,14 @@ import java.awt.*;
  * 
  * @author Kirill Grouchnikov
  */
-public class GlassBorderPainter extends StandardBorderPainter {
-	@Override
-	public String getDisplayName() {
-		return "Glass";
-	}
-
-	@Override
-	public Color getTopBorderColor(RadianceColorScheme borderScheme) {
-		return super.getMidBorderColor(borderScheme);
-	}
-
-	@Override
-	public Color getMidBorderColor(RadianceColorScheme borderScheme) {
-		return this.getTopBorderColor(borderScheme);
-	}
-
-	@Override
-	public Color getBottomBorderColor(RadianceColorScheme borderScheme) {
-		return this.getTopBorderColor(borderScheme);
+public class GlassBorderPainter extends FractionBasedBorderPainter {
+	public GlassBorderPainter() {
+		super(
+				"Glass",
+				new float[]{0.0f, 1.0f},
+				new ColorSchemeSingleColorQuery[]{
+						ColorSchemeSingleColorQuery.DARK,
+						ColorSchemeSingleColorQuery.DARK}
+		);
 	}
 }

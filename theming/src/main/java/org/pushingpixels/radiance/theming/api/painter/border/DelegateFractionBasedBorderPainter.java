@@ -176,7 +176,7 @@ public class DelegateFractionBasedBorderPainter implements RadianceBorderPainter
 				return new Color(
 						this.masks[i + 1] & colorQueries[i + 1].query(borderScheme).getRGB(), true);
 			}
-			if ((fractionLow < 0.5f) || (fractionHigh > 0.5f)) {
+			if ((fractionLow > 0.5f) || (fractionHigh < 0.5f)) {
 				continue;
 			}
 			// current range contains 0.5f

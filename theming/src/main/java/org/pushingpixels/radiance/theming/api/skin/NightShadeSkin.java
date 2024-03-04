@@ -38,7 +38,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorTransform;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MatteDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
@@ -191,8 +191,8 @@ public class NightShadeSkin extends RadianceSkin {
         this.decorationPainter = new MatteDecorationPainter();
         this.highlightFillPainter = new ClassicFillPainter();
         this.borderPainter = new CompositeBorderPainter("Night Shade", new ClassicBorderPainter(),
-                new DelegateBorderPainter("Night Shade Inner", new ClassicBorderPainter(), 0x40FFFFFF,
-                        0x20FFFFFF, 0x00FFFFFF,
+                new DelegateFractionBasedBorderPainter("Night Shade Inner", new ClassicBorderPainter(),
+                        new int[]{0x40FFFFFF, 0x20FFFFFF, 0x00FFFFFF},
                         scheme -> scheme.tint(0.2f)));
     }
 

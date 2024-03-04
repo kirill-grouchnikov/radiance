@@ -37,7 +37,7 @@ import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColor
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.border.CompositeBorderPainter;
-import org.pushingpixels.radiance.theming.api.painter.border.DelegateBorderPainter;
+import org.pushingpixels.radiance.theming.api.painter.border.DelegateFractionBasedBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.FlatDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.FractionBasedFillPainter;
@@ -91,11 +91,11 @@ public abstract class GraphiteAccentedSkin extends RadianceSkin.Accented {
 
         this.buttonShaper = new ClassicButtonShaper();
         this.borderPainter = new CompositeBorderPainter("Graphite",
-                new DelegateBorderPainter("Graphite Outer", new ClassicBorderPainter(), 0xFFFFFFFF,
-                        0xFFFFFFFF, 0xFFFFFFFF,
+                new DelegateFractionBasedBorderPainter("Graphite Outer", new ClassicBorderPainter(),
+                        new int[] {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF},
                         scheme -> scheme.shade(0.4f)),
-                new DelegateBorderPainter("Graphite Inner", new ClassicBorderPainter(), 0xA0FFFFFF,
-                        0x90FFFFFF, 0xA0FFFFFF,
+                new DelegateFractionBasedBorderPainter("Graphite Inner", new ClassicBorderPainter(),
+                        new int[] {0xA0FFFFFF, 0x90FFFFFF, 0xA0FFFFFF},
                         scheme -> scheme.tint(0.25f)));
         this.highlightBorderPainter = new ClassicBorderPainter();
 

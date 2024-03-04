@@ -111,7 +111,7 @@ public class FractionBasedBorderPainter extends FractionBasedPainter
 			if (fractionHigh == 0.5f) {
 				return this.colorQueries[i + 1].query(borderScheme);
 			}
-			if ((fractionLow < 0.5f) || (fractionHigh > 0.5f)) {
+			if ((fractionLow > 0.5f) || (fractionHigh < 0.5f)) {
 				continue;
 			}
 			// current range contains 0.5f

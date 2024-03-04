@@ -271,20 +271,20 @@ public class MagellanSkin extends RadianceSkin {
         this.addOverlayPainter(this.footerTopShadowOverlayPainter, RadianceThemingSlices.DecorationAreaType.FOOTER);
 
         RadianceBorderPainter outerBorderPainter = new FractionBasedBorderPainter(
-                "Magellan Outer", new float[] {0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[] {
+                "Magellan Outer", new float[]{0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[]{
                         ColorSchemeSingleColorQuery.ULTRADARK,
                         ColorSchemeSingleColorQuery.DARK,
                         ColorSchemeSingleColorQuery.DARK});
-        RadianceBorderPainter innerBorderPainter = new DelegateBorderPainter(
+        RadianceBorderPainter innerBorderPainter = new DelegateFractionBasedBorderPainter(
                 "Magellan Inner", new ClassicBorderPainter(),
-                0xA0FFFFFF, 0x60FFFFFF, 0x40FFFFFF,
+                new int[]{0xA0FFFFFF, 0x60FFFFFF, 0x40FFFFFF},
                 scheme -> scheme.tint(0.5f));
         this.borderPainter = new CompositeBorderPainter("Magellan",
                 outerBorderPainter, innerBorderPainter);
         this.fillPainter = new FractionBasedFillPainter("Magellan",
-                new float[] {0.0f, 0.5f, 1.0f},
-                new ColorSchemeSingleColorQuery[] {
+                new float[]{0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[]{
                         ColorSchemeSingleColorQuery.EXTRALIGHT,
                         ColorSchemeSingleColorQuery.LIGHT,
                         ColorSchemeSingleColorQuery.MID});

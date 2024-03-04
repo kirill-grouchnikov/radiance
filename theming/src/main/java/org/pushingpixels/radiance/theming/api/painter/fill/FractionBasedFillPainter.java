@@ -93,7 +93,7 @@ public class FractionBasedFillPainter extends FractionBasedPainter implements
 			if (fractionHigh == 0.5f) {
 				return this.colorQueries[i + 1].query(fillScheme);
 			}
-			if ((fractionLow < 0.5f) || (fractionHigh > 0.5f)) {
+			if ((fractionLow > 0.5f) || (fractionHigh < 0.5f)) {
 				continue;
 			}
 			// current range contains 0.5f

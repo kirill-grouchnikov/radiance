@@ -52,37 +52,6 @@ import java.util.Map;
  */
 public class RadianceColorUtilities {
     /**
-     * Returns the color of the top portion of border in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the top portion of border in control backgrounds.
-     */
-    public static Color getTopBorderColor(RadianceColorScheme scheme) {
-        return scheme.getUltraDarkColor();
-    }
-
-    /**
-     * Returns the color of the middle portion of border in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the middle portion of border in control backgrounds.
-     */
-    public static Color getMidBorderColor(RadianceColorScheme scheme) {
-        return scheme.getDarkColor();
-    }
-
-    /**
-     * Returns the color of the bottom portion of border in control backgrounds.
-     *
-     * @param scheme The color scheme.
-     * @return The color of the bottom portion of border in control backgrounds.
-     */
-    public static Color getBottomBorderColor(RadianceColorScheme scheme) {
-        return RadianceColorUtilities.getInterpolatedColor(scheme
-                .getDarkColor(), scheme.getMidColor(), 0.5);
-    }
-
-    /**
      * Interpolates color.
      *
      * @param color1         The first color

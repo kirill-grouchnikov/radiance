@@ -29,98 +29,24 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.border;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.colorscheme.ColorSchemeSingleColorQuery;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
-import org.pushingpixels.radiance.theming.internal.utils.RadianceInternalArrowButton;
-
-import java.awt.*;
-import java.awt.MultipleGradientPaint.CycleMethod;
 
 /**
  * The default border painter. This class is part of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public class StandardBorderPainter implements RadianceBorderPainter {
-    @Override
-    public String getDisplayName() {
-        return "Standard";
-    }
-
-    @Override
-    public boolean isPaintingInnerContour() {
-        return false;
-    }
-
-    @Override
-    public void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
-            Shape innerContour, RadianceColorScheme borderScheme) {
-        if (contour == null)
-            return;
-
-        Graphics2D graphics = (Graphics2D) g.create();
-
-        Color topBorderColor = getTopBorderColor(borderScheme);
-        Color midBorderColor = getMidBorderColor(borderScheme);
-        Color bottomBorderColor = getBottomBorderColor(borderScheme);
-
-        if ((topBorderColor != null) && (midBorderColor != null) && (bottomBorderColor != null)) {
-            // issue 433 - the "c" can be null when painting
-            // the border of a tree icon used outside the
-            // JTree context.
-            boolean isSpecialButton = (c != null)
-                    && c.getClass().isAnnotationPresent(RadianceInternalArrowButton.class);
-            int joinKind = isSpecialButton ? BasicStroke.JOIN_MITER : BasicStroke.JOIN_ROUND;
-            int capKind = isSpecialButton ? BasicStroke.CAP_SQUARE : BasicStroke.CAP_BUTT;
-            graphics.setStroke(new BasicStroke(1.0f, capKind, joinKind));
-
-            MultipleGradientPaint gradient = new LinearGradientPaint(0, 0, 0, height,
-                    new float[] { 0.0f, 0.5f, 1.0f },
-                    new Color[] { topBorderColor, midBorderColor, bottomBorderColor },
-                    CycleMethod.REPEAT);
-            graphics.setPaint(gradient);
-            // graphics.setColor(Color.green);
-            graphics.draw(contour);
-        }
-
-        graphics.dispose();
-    }
-
-    /**
-     * Computes the color of the top portion of the border. Override to provide different visual.
-     * 
-     * @param borderScheme
-     *            The border color scheme.
-     * @return The color of the top portion of the border.
-     */
-    public Color getTopBorderColor(RadianceColorScheme borderScheme) {
-        return RadianceColorUtilities.getTopBorderColor(borderScheme);
-    }
-
-    /**
-     * Computes the color of the middle portion of the border. Override to provide different visual.
-     * 
-     * @param borderScheme
-     *            The border color scheme.
-     * @return The color of the middle portion of the border.
-     */
-    public Color getMidBorderColor(RadianceColorScheme borderScheme) {
-        return RadianceColorUtilities.getMidBorderColor(borderScheme);
-    }
-
-    /**
-     * Computes the color of the bottom portion of the border. Override to provide different visual.
-     * 
-     * @param borderScheme
-     *            The border color scheme.
-     * @return The color of the bottom portion of the border.
-     */
-    public Color getBottomBorderColor(RadianceColorScheme borderScheme) {
-        return RadianceColorUtilities.getBottomBorderColor(borderScheme);
-    }
-
-    @Override
-    public Color getRepresentativeColor(RadianceColorScheme borderScheme) {
-        return this.getMidBorderColor(borderScheme);
+public class StandardBorderPainter extends FractionBasedBorderPainter {
+    public StandardBorderPainter() {
+        super(
+                "Standard",
+                new float[]{0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[]{
+                        ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorSchemeSingleColorQuery.ULTRADARK,
+                        scheme -> RadianceColorUtilities.getInterpolatedColor(scheme
+                                .getDarkColor(), scheme.getMidColor(), 0.5)}
+        );
     }
 }
