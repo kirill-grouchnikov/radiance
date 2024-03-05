@@ -95,7 +95,7 @@ public class DelegateFractionBasedBorderPainter implements RadianceBorderPainter
 	 * Map of transformed color schemes (to speed up the subsequent lookups).
 	 */
 	protected final static LazyResettableHashMap<RadianceColorScheme> transformMap = new LazyResettableHashMap<>(
-            "DelegateBorderPainter");
+            "DelegateFractionBasedBorderPainter");
 
 	@Override
 	public boolean isPaintingInnerContour() {
