@@ -44,7 +44,7 @@ public class StandardBorderPainter extends FractionBasedBorderPainter {
                 new float[]{0.0f, 0.5f, 1.0f},
                 new ColorSchemeSingleColorQuery[]{
                         ColorSchemeSingleColorQuery.ULTRADARK,
-                        ColorSchemeSingleColorQuery.ULTRADARK,
+                        ColorSchemeSingleColorQuery.DARK,
                         scheme -> RadianceColorUtilities.getInterpolatedColor(scheme
                                 .getDarkColor(), scheme.getMidColor(), 0.5)}
         );
