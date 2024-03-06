@@ -1037,7 +1037,7 @@ public class RadianceRootPaneUI extends BasicRootPaneUI {
         private boolean isMousePressed;
 
         /**
-         * Used to determine the corner the resize is occuring from.
+         * Used to determine the corner the resize is occurring from.
          */
         private int dragCursor;
 

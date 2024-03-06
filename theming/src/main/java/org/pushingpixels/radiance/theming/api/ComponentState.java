@@ -552,7 +552,7 @@ public final class ComponentState {
      *                          on menu items that use <code>armed</code> state instead, when
      *                          we don't want to use different rollover themes for selected
      *                          and unselected checkbox and radio button menu items (to
-     *                          preserve consistent visual appearence of highlights).
+     *                          preserve consistent visual appearance of highlights).
      * @return The matching component state.
      */
     public static ComponentState getState(ButtonModel model,

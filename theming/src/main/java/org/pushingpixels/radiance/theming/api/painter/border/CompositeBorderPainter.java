@@ -46,7 +46,7 @@ public class CompositeBorderPainter implements RadianceBorderPainter {
 	private String displayName;
 
 	/**
-	 * Delegate painter for painting the inner contrours.
+	 * Delegate painter for painting the inner contours.
 	 */
 	private RadianceBorderPainter inner;
 
@@ -63,7 +63,7 @@ public class CompositeBorderPainter implements RadianceBorderPainter {
 	 * @param outer
 	 *            Delegate painter for painting the outer contours.
 	 * @param inner
-	 *            Delegate painter for painting the inner contrours.
+	 *            Delegate painter for painting the inner contours.
 	 */
 	public CompositeBorderPainter(String displayName,
 			RadianceBorderPainter outer, RadianceBorderPainter inner) {

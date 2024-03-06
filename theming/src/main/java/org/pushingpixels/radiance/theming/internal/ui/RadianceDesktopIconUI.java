@@ -165,7 +165,7 @@ public class RadianceDesktopIconUI extends BasicDesktopIconUI {
 
 	@Override
 	public Dimension getMinimumSize(JComponent c) {
-		// For the desktop icon we will use the layout maanger to
+		// For the desktop icon we will use the layout manager to
 		// determine the correct height of the component, but we want to keep
 		// the width consistent according to the jlf spec.
 		return new Dimension(this.width, this.desktopIcon.getLayout()

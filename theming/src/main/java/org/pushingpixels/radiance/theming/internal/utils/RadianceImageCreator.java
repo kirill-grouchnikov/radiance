@@ -148,16 +148,16 @@ public final class RadianceImageCreator {
 
         Color lightColor = RadianceColorUtilities.getLighterColor(mainColor, 0.6);
         Color darkColor = RadianceColorUtilities.getDarkerColor(mainColor, 0.2);
-        Color desaturaredLight = RadianceColorUtilities.getSaturatedColor(
+        Color desaturatedLight = RadianceColorUtilities.getSaturatedColor(
                 RadianceColorUtilities.getLighterColor(mainColor, 0.3), -0.4f);
-        Color desaturaredDark = RadianceColorUtilities.getSaturatedColor(
+        Color desaturatedDark = RadianceColorUtilities.getSaturatedColor(
                 RadianceColorUtilities.getInterpolatedColor(
                         RadianceColorUtilities.getDarkerColor(mainColor, 0.2),
                         Color.lightGray, 0.6), -0.4f);
 
         LinearGradientPaint capFillPaint = new LinearGradientPaint(0, 0, width, 0,
                 new float[]{0.0f, 0.45f, 1.0f},
-                new Color[]{desaturaredLight, darkColor, desaturaredLight},
+                new Color[]{desaturatedLight, darkColor, desaturatedLight},
                 CycleMethod.REPEAT);
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
         graphics.setPaint(capFillPaint);
@@ -165,7 +165,7 @@ public final class RadianceImageCreator {
 
         LinearGradientPaint caseFillPaint = new LinearGradientPaint(0, 0, width, 0,
                 new float[]{0.0f, 0.45f, 1.0f},
-                new Color[]{desaturaredDark, lightColor, desaturaredDark},
+                new Color[]{desaturatedDark, lightColor, desaturatedDark},
                 CycleMethod.REPEAT);
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
         graphics.setPaint(caseFillPaint);
@@ -223,7 +223,7 @@ public final class RadianceImageCreator {
                 new Point2D.Double(0.5 * width, 0), // cone center
                 0f, // rotation offset
                 new float[] {0f, 162f, 179f, 183f, 198f, 360f}, // cone angles
-                new Color[] {desaturaredLight, desaturaredLight, darkColor, darkColor, desaturaredLight, desaturaredLight}
+                new Color[] {desaturatedLight, desaturatedLight, darkColor, darkColor, desaturatedLight, desaturatedLight}
         );
         graphics.setPaint(tipFillPaint);
         graphics.fillRect(0, 0, width, tipBase);

@@ -77,7 +77,7 @@ public class RadianceMenuBackgroundDelegate {
 
 		if (textOffset == 0) {
 			// issue 465 - the value can be 0 - leading to
-			// IllegalArgumenException on LinearGradientPaint below.
+			// IllegalArgumentException on LinearGradientPaint below.
 			return;
 		}
 		

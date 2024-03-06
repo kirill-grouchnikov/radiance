@@ -209,7 +209,7 @@ public class RadianceOutlineUtilities {
 	 *            Corner radius for the top two corners.
 	 * @param insets
 	 *            Insets to compute the outline.
-	 * @return Outline that has a triangle poiting downwards.
+	 * @return Outline that has a triangle pointing downwards.
 	 */
 	public static GeneralPath getTriangleButtonOutline(float width, float height,
 			float radius, float insets) {
