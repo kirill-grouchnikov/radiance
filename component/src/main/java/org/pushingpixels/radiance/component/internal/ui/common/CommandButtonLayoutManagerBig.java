@@ -43,10 +43,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.StringTokenizer;
 
 public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager {
     private boolean titlePartsComputed = false;
+    private String titleForPreviousComputation;
 
     /**
      * The first part of (possibly) two-lined split of the button's title.
@@ -99,8 +101,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     @Override
     @SuppressWarnings("rawtypes")
     public Dimension getPreferredSize(BaseCommand command, BaseCommandButtonPresentationModel presentationModel) {
-        if (!this.titlePartsComputed) {
+        if (!this.titlePartsComputed ||
+                !Objects.equals(this.titleForPreviousComputation, command.getText())) {
             this.updateTitleStrings(command, presentationModel);
+            this.titleForPreviousComputation = command.getText();
             this.titlePartsComputed = true;
         }
 
@@ -306,8 +310,10 @@ public class CommandButtonLayoutManagerBig implements CommandButtonLayoutManager
     public CommandButtonLayoutInfo getLayoutInfo(JCommandButton commandButton) {
         BaseCommandButtonPresentationModel presentationModel = commandButton.getPresentationModel();
 
-        if (!this.titlePartsComputed) {
+        if (!this.titlePartsComputed ||
+                !Objects.equals(this.titleForPreviousComputation, commandButton.getProjection().getContentModel().getText())) {
             this.updateTitleStrings(commandButton);
+            this.titleForPreviousComputation = commandButton.getProjection().getContentModel().getText();
             this.titlePartsComputed = true;
         }
 

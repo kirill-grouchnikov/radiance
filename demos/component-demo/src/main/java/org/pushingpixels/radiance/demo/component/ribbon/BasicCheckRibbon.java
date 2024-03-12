@@ -2298,7 +2298,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
 
         final JCheckBox group1Visible = new JCheckBox("visible");
@@ -2362,7 +2362,28 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }));
         builder.add("Change 'Paragraph'").xy(1, 11).add(changeParagraph).xy(3, 11);
 
-        builder.add("Locale").xy(1, 13).add(new RadianceLocaleSelector(false, selected -> {
+        JButton changePaste = new JButton("change");
+        changePaste
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        pasteCommand.setText(getRandomString(5, 15));
+                    }
+
+                    private String getRandomString(int minLength, int maxLength) {
+                        Random random = new Random();
+                        int len = minLength + random.nextInt(maxLength - minLength);
+                        String newTitle = new String();
+                        String letters = "abcdefghijklmnopqrstubvwxyz       ";
+                        for (int i = 0; i < len; i++) {
+                            newTitle += letters.charAt(random.nextInt(letters.length()));
+                        }
+                        return newTitle;
+                    }
+                }));
+        builder.add("Change 'Paste'").xy(1, 13).add(changePaste).xy(3, 13);
+
+        builder.add("Locale").xy(1, 15).add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
@@ -2370,7 +2391,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
                 SwingUtilities.updateComponentTreeUI(window);
             }
-        })).xy(3, 13);
+        })).xy(3, 15);
 
         JButton galleryUpdate = new JButton("update");
         galleryUpdate.addActionListener(actionEvent -> {
@@ -2410,8 +2431,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
             // And mark the second new command as the new selection in the gallery
             this.styleGalleryContentModel.setSelectedCommand(this.styleGalleryCommandGroup1.getCommands().get(1));
         });
-        builder.add("Update gallery").xy(1, 15).add(galleryUpdate).xy(3, 15);
-        builder.add(new RadianceFontScaleSelector()).xyw(1, 17, 3);
+        builder.add("Update gallery").xy(1, 17).add(galleryUpdate).xy(3, 17);
+        builder.add(new RadianceFontScaleSelector()).xyw(1, 19, 3);
 
         return builder.build();
     }
