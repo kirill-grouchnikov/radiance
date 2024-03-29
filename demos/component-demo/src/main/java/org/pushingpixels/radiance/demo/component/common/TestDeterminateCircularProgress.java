@@ -92,7 +92,6 @@ public class TestDeterminateCircularProgress extends JFrame {
                     decreaseProgress.setActionEnabled(contentModel.getProgress() > 0.00001f);
                     increaseProgress.setActionEnabled(true);
                 })
-                .setActionEnabled(false)
                 .build();
         this.increaseProgress = Command.builder()
                 .setIconFactory(add_circle_outline_24px.factory())

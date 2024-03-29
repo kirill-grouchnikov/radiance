@@ -302,10 +302,6 @@ public class RadianceTextUtilities {
      */
     public static Color getForegroundColor(JComponent component, String text,
             StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
-        if ((text == null) || (text.length() == 0)) {
-            return null;
-        }
-
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
