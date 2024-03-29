@@ -527,7 +527,6 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         Dimension dimension = this.commandButton.getPresentationModel().getIconDimension();
         if (dimension != null) {
             this.icon.setDimension(dimension);
-            this.commandButton.setPresentationState(CommandButtonPresentationState.BIG_FIT_TO_ICON);
 
             this.commandButton.invalidate();
             this.commandButton.revalidate();

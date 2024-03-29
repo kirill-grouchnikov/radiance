@@ -86,6 +86,7 @@ public class TestDeterminateCircularProgress extends JFrame {
         controlPanel.add(addEnabled);
 
         this.decreaseProgress = Command.builder()
+                .setText("D")
                 .setIconFactory(remove_circle_outline_24px.factory())
                 .setAction(e -> {
                     contentModel.setProgress(contentModel.getProgress() - 0.1f);
@@ -104,7 +105,7 @@ public class TestDeterminateCircularProgress extends JFrame {
 
         CommandButtonPresentationModel progressButtonPresentationModel =
                 CommandButtonPresentationModel.builder()
-                        .setPresentationState(CommandButtonPresentationState.SMALL)
+                        .setPresentationState(CommandButtonPresentationState.SMALL_FIT_TO_ICON)
                         .setIconDimension(new Dimension(14, 14))
                         .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER)
                         .setIconFilterStrategies(
