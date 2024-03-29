@@ -43,8 +43,8 @@ import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 import javax.swing.*;
 import java.awt.*;
 
-public class TestCircularProgress extends JFrame {
-    public TestCircularProgress() {
+public class TestIndeterminateCircularProgress extends JFrame {
+    public TestIndeterminateCircularProgress() {
         this.setLayout(new BorderLayout());
         JPanel flow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
@@ -102,7 +102,7 @@ public class TestCircularProgress extends JFrame {
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
 
-            TestCircularProgress test = new TestCircularProgress();
+            TestIndeterminateCircularProgress test = new TestIndeterminateCircularProgress();
             test.setTitle("Circular progress");
             test.setIconImage(RadianceLogo.getLogoImage(test,
                     RadianceThemingCortex.GlobalScope.getCurrentSkin().getColorScheme(
