@@ -29,19 +29,19 @@
  */
 package org.pushingpixels.radiance.component.api.common.projection;
 
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
-import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
+import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
+import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
 
-public class CircularProgressProjection extends Projection<JCircularProgress,
-        CircularProgressContentModel, CircularProgressPresentationModel> {
+public class IndeterminateCircularProgressProjection extends Projection<JIndeterminateCircularProgress,
+        IndeterminateProgressContentModel, CircularProgressPresentationModel> {
 
-    public CircularProgressProjection(CircularProgressContentModel contentModel,
+    public IndeterminateCircularProgressProjection(IndeterminateProgressContentModel contentModel,
             CircularProgressPresentationModel presentationModel) {
-        super(contentModel, presentationModel, projection -> JCircularProgress::new);
+        super(contentModel, presentationModel, projection -> JIndeterminateCircularProgress::new);
     }
 
     @Override
-    protected void configureComponent(JCircularProgress component) {
+    protected void configureComponent(JIndeterminateCircularProgress component) {
     }
 }

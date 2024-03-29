@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
-import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
+import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
+import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
-import org.pushingpixels.radiance.component.api.common.projection.CircularProgressProjection;
+import org.pushingpixels.radiance.component.api.common.projection.IndeterminateCircularProgressProjection;
 import org.pushingpixels.radiance.demo.component.svg.logo.RadianceLogo;
 import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceSkinSelector;
 import org.pushingpixels.radiance.theming.api.ComponentState;
@@ -57,12 +57,12 @@ public class TestCircularProgress extends JFrame {
 
         JButton addEnabled = new JButton("add enabled");
         addEnabled.addActionListener(actionEvent -> {
-            int size = 15 + (int) (20 * Math.random());
-            float strokeWidth = 1.0f + (float) Math.random();
-            JCircularProgress jcp = new CircularProgressProjection(
-                    CircularProgressContentModel.builder().build(),
+            int radius = 8 + (int) (10 * Math.random());
+            float strokeWidth = 1.5f + (float) Math.random();
+            JIndeterminateCircularProgress jcp = new IndeterminateCircularProgressProjection(
+                    IndeterminateProgressContentModel.builder().build(),
                     CircularProgressPresentationModel.builder()
-                            .setSize(size)
+                            .setRadius(radius)
                             .setStrokeWidth(strokeWidth)
                             .build()
             ).buildComponent();
@@ -73,12 +73,12 @@ public class TestCircularProgress extends JFrame {
 
         JButton addDisabled = new JButton("add disabled");
         addDisabled.addActionListener(actionEvent -> {
-            int size = 15 + (int) (20 * Math.random());
-            float strokeWidth = 1.0f + (float) Math.random();
-            JCircularProgress jcp = new CircularProgressProjection(
-                    CircularProgressContentModel.builder().setEnabled(false).build(),
+            int radius = 8 + (int) (10 * Math.random());
+            float strokeWidth = 1.5f + (float) Math.random();
+            JIndeterminateCircularProgress jcp = new IndeterminateCircularProgressProjection(
+                    IndeterminateProgressContentModel.builder().setEnabled(false).build(),
                     CircularProgressPresentationModel.builder()
-                            .setSize(size)
+                            .setRadius(radius)
                             .setStrokeWidth(strokeWidth)
                             .build()
             ).buildComponent();

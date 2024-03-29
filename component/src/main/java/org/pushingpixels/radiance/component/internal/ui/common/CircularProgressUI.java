@@ -29,12 +29,12 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common;
 
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
+import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
 
 import javax.swing.plaf.ComponentUI;
 
 /**
- * UI for circular progress ({@link JCircularProgress}).
+ * UI for circular progress ({@link JIndeterminateCircularProgress}).
  * 
  * @author Kirill Grouchnikov
  */

@@ -29,8 +29,8 @@
  */
 package org.pushingpixels.radiance.component.internal.theming.common.ui;
 
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
-import org.pushingpixels.radiance.component.internal.ui.common.BasicCircularProgressUI;
+import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
+import org.pushingpixels.radiance.component.internal.ui.common.BasicIndeterminateCircularProgressUI;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -42,32 +42,32 @@ import javax.swing.plaf.ComponentUI;
 import java.awt.*;
 
 /**
- * UI for {@link JCircularProgress} components in <b>Radiance</b> look and feel.
+ * UI for {@link JIndeterminateCircularProgress} components in <b>Radiance</b> look and feel.
  *
  * @author Kirill Grouchnikov
  */
-public class RadianceCircularProgressUI extends BasicCircularProgressUI {
+public class RadianceIndeterminateCircularProgressUI extends BasicIndeterminateCircularProgressUI {
     public static ComponentUI createUI(JComponent comp) {
         RadianceCoreUtilities.testComponentCreationThreadingViolation(comp);
-        return new RadianceCircularProgressUI();
+        return new RadianceIndeterminateCircularProgressUI();
     }
 
-    private RadianceCircularProgressUI() {
+    private RadianceIndeterminateCircularProgressUI() {
     }
 
     @Override
     protected Color getArcColor() {
-        boolean isEnabled = this.circularProgress.getProjection().getContentModel().isEnabled();
+        boolean isEnabled = this.indeterminateCircularProgress.getProjection().getContentModel().isEnabled();
         ComponentState state = isEnabled ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED;
-        float alpha = RadianceColorSchemeUtilities.getAlpha(this.circularProgress, state);
+        float alpha = RadianceColorSchemeUtilities.getAlpha(this.indeterminateCircularProgress, state);
 
         RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.circularProgress, state);
+                this.indeterminateCircularProgress, state);
         Color foreground = colorScheme.getForegroundColor();
         if (alpha == 1.0f) {
             return foreground;
         }
-        Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(this.circularProgress);
+        Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(this.indeterminateCircularProgress);
         return RadianceColorUtilities.getInterpolatedColor(foreground, bgFillColor, alpha);
     }
 }

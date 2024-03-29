@@ -36,7 +36,7 @@ import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.EventDispatchThreadTimelineCallbackAdapter;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
 import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
-import org.pushingpixels.radiance.component.api.common.JCircularProgress;
+import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,12 +44,12 @@ import java.awt.event.HierarchyListener;
 import java.beans.PropertyChangeListener;
 
 /**
- * Basic UI for circular progress {@link JCircularProgress}.
+ * Basic UI for indeterminate circular progress {@link JIndeterminateCircularProgress}.
  *
  * @author Kirill Grouchnikov
  */
-public abstract class BasicCircularProgressUI extends CircularProgressUI {
-    protected JCircularProgress circularProgress;
+public abstract class BasicIndeterminateCircularProgressUI extends CircularProgressUI {
+    protected JIndeterminateCircularProgress indeterminateCircularProgress;
 
     protected double arcStart;
 
@@ -69,12 +69,12 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
 
     private HierarchyListener hierarchyListener;
 
-    public BasicCircularProgressUI() {
+    public BasicIndeterminateCircularProgressUI() {
     }
 
     @Override
     public void installUI(JComponent c) {
-        this.circularProgress = (JCircularProgress) c;
+        this.indeterminateCircularProgress = (JIndeterminateCircularProgress) c;
         super.installUI(c);
         installDefaults();
         installComponents();
@@ -87,14 +87,14 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         uninstallComponents();
         uninstallDefaults();
         super.uninstallUI(c);
-        this.circularProgress = null;
+        this.indeterminateCircularProgress = null;
     }
 
     /**
      * Installs default settings for the associated circular progress.
      */
     protected void installDefaults() {
-        if (this.circularProgress.isVisible()) {
+        if (this.indeterminateCircularProgress.isVisible()) {
             startAnimations();
         }
     }
@@ -112,17 +112,17 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
                 }
             }
         };
-        this.circularProgress.addPropertyChangeListener(this.propertyChangeListener);
+        this.indeterminateCircularProgress.addPropertyChangeListener(this.propertyChangeListener);
 
         this.hierarchyListener = e -> {
-            boolean isVisible = circularProgress.isVisible();
+            boolean isVisible = indeterminateCircularProgress.isVisible();
             if (isVisible) {
                 startAnimations();
             } else {
                 stopAnimations();
             }
         };
-        this.circularProgress.addHierarchyListener(this.hierarchyListener);
+        this.indeterminateCircularProgress.addHierarchyListener(this.hierarchyListener);
     }
 
     /**
@@ -141,10 +141,10 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
      * Uninstalls listeners from the associated circular progress.
      */
     protected void uninstallListeners() {
-        this.circularProgress.removeHierarchyListener(this.hierarchyListener);
+        this.indeterminateCircularProgress.removeHierarchyListener(this.hierarchyListener);
         this.hierarchyListener = null;
 
-        this.circularProgress.removePropertyChangeListener(this.propertyChangeListener);
+        this.indeterminateCircularProgress.removePropertyChangeListener(this.propertyChangeListener);
         this.propertyChangeListener = null;
 
         this.alphaTimeline.abort();
@@ -162,9 +162,9 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        JCircularProgress circularProgress = (JCircularProgress) c;
-        int size = circularProgress.getProjection().getPresentationModel().getSize();
-        return new Dimension(size, size);
+        JIndeterminateCircularProgress circularProgress = (JIndeterminateCircularProgress) c;
+        int radius = circularProgress.getProjection().getPresentationModel().getRadius();
+        return new Dimension(2 * radius, 2 * radius);
     }
 
     private void startAnimations() {
@@ -174,14 +174,14 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         }
 
         // The fade-in timeline
-        this.alphaTimeline = SwingComponentTimeline.componentBuilder(circularProgress)
+        this.alphaTimeline = SwingComponentTimeline.componentBuilder(indeterminateCircularProgress)
                 .addPropertyToInterpolate(Timeline.<Float>property("alpha")
                         .getWith((obj, fieldName) -> alpha)
                         .setWith((obj, fieldName, value) -> alpha = value)
                         .fromCurrent().to(1.0f))
                 .setEase(new Spline(0.5f))
                 .setDuration(100)
-                .addCallback(new SwingRepaintCallback(circularProgress, null))
+                .addCallback(new SwingRepaintCallback(indeterminateCircularProgress, null))
                 .build();
 
         // Configure the timeline for the moving arc. The single property we're animating
@@ -191,14 +191,14 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         // degrees. The constant pace of advancing one of the ends creates a continuous
         // motion around the circle. The expanding / shrinking arc span creates the second
         // dimension of the overall indeterminate progress.
-        this.arcTimeline = SwingComponentTimeline.componentBuilder(this.circularProgress)
+        this.arcTimeline = SwingComponentTimeline.componentBuilder(this.indeterminateCircularProgress)
                 .addPropertyToInterpolate(Timeline.<Double>property("arcSpan")
                         .getWith((obj, fieldName) -> arcSpan)
                         .setWith((obj, fieldName, value) -> arcSpan = value)
                         .from(30.0)
                         .to(300.0))
                 .setEase(new Spline(0.5f))
-                .setDuration(600)
+                .setDuration(1000)
                 .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
                     private void update() {
                         if (goFromStart) {
@@ -211,8 +211,8 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
 
                         arcStart = arcStart % 360;
                         arcEnd = arcEnd % 360;
-                        if (circularProgress != null) {
-                            circularProgress.repaint();
+                        if (indeterminateCircularProgress != null) {
+                            indeterminateCircularProgress.repaint();
                         }
                     }
 
@@ -263,11 +263,12 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
 
     @Override
     public void paint(Graphics g, JComponent c) {
-        Insets insets = this.circularProgress.getInsets();
-        int width = this.circularProgress.getWidth() - insets.left - insets.right;
-        int height = this.circularProgress.getHeight() - insets.top - insets.bottom;
+        Insets insets = this.indeterminateCircularProgress.getInsets();
+        int width = this.indeterminateCircularProgress.getWidth() - insets.left - insets.right;
+        int height = this.indeterminateCircularProgress.getHeight() - insets.top - insets.bottom;
 
-        int diameter = Math.min(width, height) - 2;
+        float strokeWidth = this.indeterminateCircularProgress.getProjection().getPresentationModel().getStrokeWidth();
+        int diameter = Math.min(width, height) - (int) Math.ceil(strokeWidth);
         int dx = (width - diameter) / 2 + insets.left;
         int dy = (height - diameter) / 2 + insets.top;
 
@@ -277,8 +278,8 @@ public abstract class BasicCircularProgressUI extends CircularProgressUI {
         graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                 RenderingHints.VALUE_STROKE_PURE);
         graphics.setStroke(new BasicStroke(
-                this.circularProgress.getProjection().getPresentationModel().getStrokeWidth(),
-                BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+                this.indeterminateCircularProgress.getProjection().getPresentationModel().getStrokeWidth(),
+                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
         Color arcColor = getArcColor();
         Color alphaColor = new Color(arcColor.getRed(), arcColor.getGreen(), arcColor.getBlue(),

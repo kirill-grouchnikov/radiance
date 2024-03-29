@@ -32,8 +32,10 @@ package org.pushingpixels.radiance.component.api.common.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class CircularProgressContentModel implements ContentModel {
+public class DeterminateProgressContentModel implements ContentModel {
     private boolean isEnabled;
+
+    private float progress;
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -41,7 +43,7 @@ public class CircularProgressContentModel implements ContentModel {
         return new Builder();
     }
 
-    private CircularProgressContentModel() {
+    private DeterminateProgressContentModel() {
         super();
     }
 
@@ -64,17 +66,36 @@ public class CircularProgressContentModel implements ContentModel {
         }
     }
 
+    public float getProgress() {
+        return this.progress;
+    }
+
+    public void setProgress(float progress) {
+        if (this.progress != progress) {
+            float oldProgress = this.progress;
+            this.progress = progress;
+            this.pcs.firePropertyChange("progress", oldProgress, this.progress);
+        }
+    }
+
     public static class Builder {
         private boolean isEnabled = true;
+        private float progress = 0.0f;
 
         public Builder setEnabled(boolean enabled) {
             this.isEnabled = enabled;
             return this;
         }
 
-        public CircularProgressContentModel build() {
-            CircularProgressContentModel model = new CircularProgressContentModel();
+        public Builder setProgress(float progress) {
+            this.progress = progress;
+            return this;
+        }
+
+        public DeterminateProgressContentModel build() {
+            DeterminateProgressContentModel model = new DeterminateProgressContentModel();
             model.isEnabled = this.isEnabled;
+            model.progress = this.progress;
             return model;
         }
     }

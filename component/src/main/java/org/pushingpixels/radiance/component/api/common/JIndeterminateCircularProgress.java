@@ -29,24 +29,24 @@
  */
 package org.pushingpixels.radiance.component.api.common;
 
-import org.pushingpixels.radiance.component.api.common.model.CircularProgressContentModel;
+import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceCircularProgressUI;
+import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceIndeterminateCircularProgressUI;
 
 import javax.swing.*;
 
-public class JCircularProgress extends JComponent {
+public class JIndeterminateCircularProgress extends JComponent {
     /**
      * @see #getUIClassID
      */
-    public static final String uiClassID = "CircularProgressUI";
+    public static final String uiClassID = "IndeterminateCircularProgressUI";
 
-    private Projection<JCircularProgress, CircularProgressContentModel, CircularProgressPresentationModel> projection;
-    private CircularProgressContentModel contentModel;
+    private Projection<JIndeterminateCircularProgress, IndeterminateProgressContentModel, CircularProgressPresentationModel> projection;
+    private IndeterminateProgressContentModel contentModel;
     private CircularProgressPresentationModel presentationModel;
 
-    public JCircularProgress(Projection<JCircularProgress, CircularProgressContentModel,
+    public JIndeterminateCircularProgress(Projection<JIndeterminateCircularProgress, IndeterminateProgressContentModel,
             CircularProgressPresentationModel> projection) {
         this.projection = projection;
         this.contentModel = projection.getContentModel();
@@ -55,7 +55,7 @@ public class JCircularProgress extends JComponent {
         this.updateUI();
     }
 
-    public Projection<JCircularProgress, CircularProgressContentModel, CircularProgressPresentationModel> getProjection() {
+    public Projection<JIndeterminateCircularProgress, IndeterminateProgressContentModel, CircularProgressPresentationModel> getProjection() {
         return this.projection;
     }
 
@@ -66,7 +66,7 @@ public class JCircularProgress extends JComponent {
 
     @Override
     public void updateUI() {
-        setUI(RadianceCircularProgressUI.createUI(this));
+        setUI(RadianceIndeterminateCircularProgressUI.createUI(this));
     }
 
     @Override

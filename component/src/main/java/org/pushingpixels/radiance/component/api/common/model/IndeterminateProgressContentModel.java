@@ -29,47 +29,53 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-public class CircularProgressPresentationModel implements ImmutablePresentationModel {
-    public static final int DEFAULT_RADIUS = 10;
-    public static final float DEFAULT_STROKE_WIDTH = 2.0f;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
-    private int size;
-    private float strokeWidth;
+public class IndeterminateProgressContentModel implements ContentModel {
+    private boolean isEnabled;
 
-    private CircularProgressPresentationModel() {
-    }
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public static Builder builder() {
         return new Builder();
     }
 
-    public int getRadius() {
-        return this.size;
+    private IndeterminateProgressContentModel() {
+        super();
     }
 
-    public float getStrokeWidth() {
-        return this.strokeWidth;
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        this.pcs.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        this.pcs.removePropertyChangeListener(pcl);
+    }
+
+    public boolean isEnabled() {
+        return this.isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        if (this.isEnabled != enabled) {
+            this.isEnabled = enabled;
+            this.pcs.firePropertyChange("enabled", !this.isEnabled, this.isEnabled);
+        }
     }
 
     public static class Builder {
-        private int radius = DEFAULT_RADIUS;
-        private float strokeWidth = DEFAULT_STROKE_WIDTH;
+        private boolean isEnabled = true;
 
-        public Builder setRadius(int radius) {
-            this.radius = radius;
+        public Builder setEnabled(boolean enabled) {
+            this.isEnabled = enabled;
             return this;
         }
 
-        public Builder setStrokeWidth(float strokeWidth) {
-            this.strokeWidth = strokeWidth;
-            return this;
-        }
-
-        public CircularProgressPresentationModel build() {
-            CircularProgressPresentationModel presentationModel = new CircularProgressPresentationModel();
-            presentationModel.size = this.radius;
-            presentationModel.strokeWidth = this.strokeWidth;
-            return presentationModel;
+        public IndeterminateProgressContentModel build() {
+            IndeterminateProgressContentModel model = new IndeterminateProgressContentModel();
+            model.isEnabled = this.isEnabled;
+            return model;
         }
     }
 }
