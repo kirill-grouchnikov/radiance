@@ -303,7 +303,7 @@ public class ButtonsPanel extends JPanel {
 
         TestFormLayoutBuilder builder = new TestFormLayoutBuilder(
                 "right:pref, 10dlu, left:pref:grow(1), 4dlu, left:pref:grow(1), 4dlu, " +
-                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 56).padding(Paddings.DIALOG);
+                        "left:pref:grow(1), 4dlu, left:pref:grow(1)", 5, 58).padding(Paddings.DIALOG);
 
         builder.append("");
 
@@ -489,9 +489,17 @@ public class ButtonsPanel extends JPanel {
                 new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()));
         this.addRow(builder, "Flat", null, (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
                 .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT));
+        this.addRow(builder, "Flat + disabled", null, new ChainCommand<>(
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                        .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT),
+                new DisableCommand()));
         this.addRow(builder, "Never", null,
                 (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
                         .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER));
+        this.addRow(builder, "Never + disabled", null, new ChainCommand<>(
+                (JComponent jc) -> RadianceThemingCortex.ComponentOrParentScope
+                        .setBackgroundAppearanceStrategy(jc, RadianceThemingSlices.BackgroundAppearanceStrategy.NEVER),
+                new DisableCommand()));
 
         this.addRow(builder, "Fixed font", null,
                 new FontCommand(new Font("Arial", Font.PLAIN, 12)));
