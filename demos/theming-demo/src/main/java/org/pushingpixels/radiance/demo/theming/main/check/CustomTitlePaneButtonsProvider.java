@@ -40,7 +40,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
     public TitlePaneButtonProvider getCloseButtonProvider() {
         return new DefaultCloseButtonProvider() {
             @Override
-            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
@@ -71,7 +71,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
     public TitlePaneButtonProvider getMaximizeButtonProvider() {
         return new DefaultMaximizeButtonProvider() {
             @Override
-            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
@@ -102,7 +102,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
     public TitlePaneButtonProvider getRestoreButtonProvider() {
         return new DefaultRestoreButtonProvider() {
             @Override
-            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
@@ -133,7 +133,7 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
     public TitlePaneButtonProvider getIconifyButtonProvider() {
         return new DefaultIconifyButtonProvider() {
             @Override
-            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize) {
+            public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);

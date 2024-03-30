@@ -465,8 +465,8 @@ public class RadianceTitlePane extends JComponent {
         Icon closeIcon = new BladeTransitionAwareIcon(closeButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        closeButtonProvider.drawIcon(g, scheme,
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                        closeButtonProvider.drawIcon(g, scheme, alpha,
                                 RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
@@ -497,8 +497,8 @@ public class RadianceTitlePane extends JComponent {
             Icon minIcon = new BladeTransitionAwareIcon(minimizeButton,
                     new BladeTransitionAwareIcon.Delegate() {
                         @Override
-                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                            minimizeButtonProvider.drawIcon(g, scheme,
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                            minimizeButtonProvider.drawIcon(g, scheme, alpha,
                                     RadianceSizeUtils.getTitlePaneIconSize());
                         }
 
@@ -527,8 +527,8 @@ public class RadianceTitlePane extends JComponent {
                 Icon restoreIcon = new BladeTransitionAwareIcon(toggleButton,
                         new BladeTransitionAwareIcon.Delegate() {
                             @Override
-                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                restoreButtonProvider.drawIcon(g, scheme,
+                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                restoreButtonProvider.drawIcon(g, scheme, alpha,
                                         RadianceSizeUtils.getTitlePaneIconSize());
                             }
 
@@ -547,8 +547,8 @@ public class RadianceTitlePane extends JComponent {
                 Icon maxIcon = new BladeTransitionAwareIcon(toggleButton,
                         new BladeTransitionAwareIcon.Delegate() {
                             @Override
-                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                maximizeButtonProvider.drawIcon(g, scheme,
+                            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                maximizeButtonProvider.drawIcon(g, scheme, alpha,
                                         RadianceSizeUtils.getTitlePaneIconSize());
                             }
 
@@ -639,8 +639,8 @@ public class RadianceTitlePane extends JComponent {
                         Icon restoreIcon = new BladeTransitionAwareIcon(toggleButton,
                                 new BladeTransitionAwareIcon.Delegate() {
                                     @Override
-                                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                        restoreButtonProvider.drawIcon(g, scheme,
+                                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                        restoreButtonProvider.drawIcon(g, scheme, alpha,
                                                 RadianceSizeUtils.getTitlePaneIconSize());
                                     }
 
@@ -660,8 +660,8 @@ public class RadianceTitlePane extends JComponent {
                         Icon maxIcon = new BladeTransitionAwareIcon(toggleButton,
                                 new BladeTransitionAwareIcon.Delegate() {
                                     @Override
-                                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                        maximizeButtonProvider.drawIcon(g, scheme,
+                                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                        maximizeButtonProvider.drawIcon(g, scheme, alpha,
                                                 RadianceSizeUtils.getTitlePaneIconSize());
                                     }
 
@@ -867,8 +867,9 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(closeButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                    closeButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                    closeButtonProvider.drawIcon(g, scheme, alpha,
+                                            RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 
                                 @Override
@@ -899,8 +900,8 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(minimizeButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                    minimizeButtonProvider.drawIcon(g, scheme,
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                    minimizeButtonProvider.drawIcon(g, scheme, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 
@@ -933,8 +934,8 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(toggleButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                    restoreButtonProvider.drawIcon(g, scheme,
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                    restoreButtonProvider.drawIcon(g, scheme, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 
@@ -974,8 +975,8 @@ public class RadianceTitlePane extends JComponent {
                     new BladeTransitionAwareIcon(toggleButton,
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                                    maximizeButtonProvider.drawIcon(g, scheme,
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                                    maximizeButtonProvider.drawIcon(g, scheme, alpha,
                                             RadianceSizeUtils.getTitlePaneIconSize());
                                 }
 

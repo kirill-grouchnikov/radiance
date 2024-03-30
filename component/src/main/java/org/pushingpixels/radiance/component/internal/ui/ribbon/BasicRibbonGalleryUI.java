@@ -137,11 +137,11 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     ribbonGallery.revalidate();
                 })
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                        (g, scheme, width, height) ->
+                        (g, scheme, alpha, width, height) ->
                                 BladeArrowIconUtils.drawArrow(g, width, height,
                                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                         SwingConstants.NORTH,
-                                        scheme), new Dimension(arrowIconWidth, arrowIconHeight)))
+                                        scheme, alpha), new Dimension(arrowIconWidth, arrowIconHeight)))
                 .build();
         this.scrollDownCommand = Command.builder()
                 .setAction(commandActionEvent -> {
@@ -149,22 +149,22 @@ public abstract class BasicRibbonGalleryUI extends RibbonGalleryUI {
                     ribbonGallery.revalidate();
                 })
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                        (g, scheme, width, height) ->
+                        (g, scheme, alpha, width, height) ->
                                 BladeArrowIconUtils.drawArrow(g, width, height,
                                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                         SwingConstants.SOUTH,
-                                        scheme), new Dimension(arrowIconWidth, arrowIconHeight)))
+                                        scheme, alpha), new Dimension(arrowIconWidth, arrowIconHeight)))
                 .build();
 
         this.expandedGalleryContentModel = getExpandPopupMenuContentModel(ribbonGallery.getProjection());
         this.expandCommand = Command.builder()
                 .setSecondaryContentModel(this.expandedGalleryContentModel)
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                        (g, scheme, width, height) ->
+                        (g, scheme, alpha, width, height) ->
                                 BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                         RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                         RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
-                                        SwingConstants.SOUTH, scheme),
+                                        SwingConstants.SOUTH, scheme, alpha),
                         new Dimension(arrowIconWidth, arrowDoubleIconHeight)))
                 .build();
 

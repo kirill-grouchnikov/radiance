@@ -80,7 +80,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
          * @param height Icon height.
          * @return Icon that matches the specified theme.
          */
-        void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, int width, int height);
+        void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int width, int height);
     }
 
     // Color scheme association kind. {@link ColorSchemeAssociationKind#MARK} by default
@@ -141,10 +141,7 @@ public class CommandButtonFollowColorSchemeIcon implements RadianceIcon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        if (alpha < 1.0f) {
-            graphics.setComposite(WidgetUtilities.getAlphaComposite(c, alpha, g));
-        }
-        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, this.width, this.height);
+        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, alpha, this.width, this.height);
         graphics.dispose();
     }
 

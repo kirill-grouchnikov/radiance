@@ -45,5 +45,5 @@ public interface TitlePaneButtonProvider {
     /**
      * Draws the icon for this button.
      */
-    void drawIcon(Graphics2D g, RadianceColorScheme scheme, int iconSize);
+    void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize);
 }

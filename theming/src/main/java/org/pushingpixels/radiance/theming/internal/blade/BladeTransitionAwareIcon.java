@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentSta
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -58,7 +59,7 @@ public class BladeTransitionAwareIcon implements Icon {
      * @author Kirill Grouchnikov
      */
     public interface Delegate {
-        void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme);
+        void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha);
 
         Dimension getIconDimension();
     }
@@ -121,11 +122,14 @@ public class BladeTransitionAwareIcon implements Icon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         StateTransitionTracker stateTransitionTracker;
         StateTransitionTracker.ModelStateInfo modelStateInfo;
+        float iconAlpha = 0.0f;
 
         if (this.transitionAwareUIDelegate != null) {
             stateTransitionTracker = this.transitionAwareUIDelegate.getTransitionAwareUI().
                     getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
+            iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
+                    modelStateInfo.getCurrModelState());
         } else if (c instanceof AbstractButton) {
             // This is for icons set on buttons via actions, such as the menu bar on
             // undecorated title panes
@@ -133,6 +137,8 @@ public class BladeTransitionAwareIcon implements Icon {
             TransitionAwareUI transitionAwareUI = (TransitionAwareUI) ab.getUI();
             stateTransitionTracker = transitionAwareUI.getTransitionTracker();
             modelStateInfo = stateTransitionTracker.getModelStateInfo();
+            iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
+                    modelStateInfo.getCurrModelState());
         } else {
             // No support for this icon set on a non-button component
             return;
@@ -152,7 +158,7 @@ public class BladeTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme);
+        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
         graphics.dispose();
     }
 

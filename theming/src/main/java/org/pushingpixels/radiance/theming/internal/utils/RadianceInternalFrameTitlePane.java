@@ -313,8 +313,8 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
                 this.frame.isIcon() ? this.iconButton : this.maxButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        restoreButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                        restoreButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -327,8 +327,8 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         Icon maximizeIcon = new BladeTransitionAwareIcon(this.maxButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        maximizeButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                        maximizeButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -341,8 +341,8 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         Icon iconifyIcon = new BladeTransitionAwareIcon(this.iconButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        iconifyButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                        iconifyButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override
@@ -355,8 +355,8 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         Icon closeIcon = new BladeTransitionAwareIcon(this.closeButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
-                        closeButtonProvider.drawIcon(g, scheme, RadianceSizeUtils.getTitlePaneIconSize());
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
+                        closeButtonProvider.drawIcon(g, scheme, alpha, RadianceSizeUtils.getTitlePaneIconSize());
                     }
 
                     @Override

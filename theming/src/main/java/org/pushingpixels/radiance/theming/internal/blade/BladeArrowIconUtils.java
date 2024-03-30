@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 
 import javax.swing.*;
@@ -38,7 +39,7 @@ import java.awt.geom.GeneralPath;
 
 public class BladeArrowIconUtils {
     public static void drawArrow(Graphics2D g, int fontSize, Dimension boundingBox,
-            int direction, RadianceColorScheme colorScheme) {
+            int direction, RadianceColorScheme colorScheme, float alpha) {
         float origWidth = RadianceSizeUtils.getArrowIconWidth(fontSize);
         float origHeight = RadianceSizeUtils.getArrowIconHeight(fontSize);
         float width = origWidth;
@@ -52,12 +53,12 @@ public class BladeArrowIconUtils {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(dx, dy);
-        drawArrow(graphics, width, height, strokeWidth, direction, colorScheme);
+        drawArrow(graphics, width, height, strokeWidth, direction, colorScheme, alpha);
         graphics.dispose();
     }
 
     public static void drawArrow(Graphics2D g, float width, float height,
-            float strokeWidth, int direction, RadianceColorScheme scheme) {
+            float strokeWidth, int direction, RadianceColorScheme scheme, float alpha) {
         if (direction == SwingConstants.EAST || direction == SwingConstants.WEST) {
             float tmp = width;
             width = height;
@@ -75,17 +76,17 @@ public class BladeArrowIconUtils {
 
         Color arrowColor = scheme.getMarkColor();
 
-        graphics.setColor(arrowColor);
+        graphics.setColor(RadianceColorUtilities.getAlphaColor(arrowColor, (int) (255 * alpha)));
         Stroke stroke = new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
         graphics.setStroke(stroke);
 
         if (direction == SwingConstants.CENTER) {
             float smallHeight = (height - strokeWidth) / 2;
             drawArrow(graphics, width, smallHeight, strokeWidth,
-                    SwingConstants.NORTH, scheme);
+                    SwingConstants.NORTH, scheme, alpha);
             graphics.translate(0, (int) (height / 2.0));
             drawArrow(graphics, width, smallHeight, strokeWidth,
-                    SwingConstants.SOUTH, scheme);
+                    SwingConstants.SOUTH, scheme, alpha);
         } else {
             float cushion = strokeWidth / 2.0f;
             GeneralPath gp = new GeneralPath();
@@ -129,7 +130,7 @@ public class BladeArrowIconUtils {
     }
 
     public static Icon getArrowIcon(JComponent component, int direction,
-            RadianceColorScheme scheme) {
+            RadianceColorScheme scheme, float alpha) {
         int fontSize = RadianceSizeUtils.getComponentFontSize(component);
         Dimension iconSize = BladeArrowIconUtils.getArrowIconDimension(fontSize, direction);
         return new Icon() {
@@ -147,7 +148,7 @@ public class BladeArrowIconUtils {
             public void paintIcon(Component c, Graphics g, int x, int y) {
                 Graphics2D graphics = (Graphics2D) g.create();
                 graphics.translate(x, y);
-                BladeArrowIconUtils.drawArrow(graphics, fontSize, iconSize, direction, scheme);
+                BladeArrowIconUtils.drawArrow(graphics, fontSize, iconSize, direction, scheme, alpha);
                 graphics.dispose();
             }
         };
@@ -155,7 +156,7 @@ public class BladeArrowIconUtils {
 
     public static void drawDoubleArrow(Graphics2D g, float fullWidth,
             float fullHeight, float arrowGap, float strokeWidth, int direction,
-            RadianceColorScheme colorScheme) {
+            RadianceColorScheme colorScheme, float alpha) {
         boolean toggle = (direction == SwingConstants.WEST) || (direction == SwingConstants.EAST);
         int singleArrowWidth = toggle ? (int) fullHeight : (int) fullWidth;
         int singleArrowHeight = toggle ? (int) (fullWidth - arrowGap) : (int) (fullHeight - arrowGap);
@@ -167,13 +168,13 @@ public class BladeArrowIconUtils {
                 RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
         if (!toggle) {
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
             graphics.translate(0, (int) arrowGap);
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
         } else {
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
             graphics.translate((int) arrowGap, 0);
-            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme);
+            drawArrow(graphics, singleArrowWidth, singleArrowHeight, strokeWidth, direction, colorScheme, alpha);
         }
 
         graphics.dispose();

@@ -38,6 +38,7 @@ import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTrac
 import org.pushingpixels.radiance.theming.internal.blade.BladeArrowIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -99,6 +100,8 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
+        float iconAlpha = RadianceColorSchemeUtilities.getAlpha(commandButton,
+                modelStateInfo.getCurrModelState());
 
         BladeUtils.populateColorScheme(mutableColorScheme, c, modelStateInfo, currState,
                 RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
@@ -120,7 +123,7 @@ public class CommandButtonDefaultPopupIcon implements RadianceIcon {
         graphics.translate(x + dx, y + dy);
         BladeArrowIconUtils.drawArrow(graphics, this.baseWidth, this.baseHeight,
                 RadianceSizeUtils.getArrowStrokeWidth(fontSize) - 0.5f,
-                direction, this.mutableColorScheme);
+                direction, this.mutableColorScheme, iconAlpha);
         graphics.dispose();
     }
 }

@@ -175,7 +175,7 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                             () -> (TransitionAwareUI) resultButton.getUI(),
                             new BladeTransitionAwareIcon.Delegate() {
                                 @Override
-                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                                public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                                     BladeIconUtils.drawHexaMarker(g, finalCount, scheme);
                                 }
 
@@ -275,7 +275,7 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
             this.searchButton.setIcon(new BladeTransitionAwareIcon(this.searchButton,
                     new BladeTransitionAwareIcon.Delegate() {
                         @Override
-                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                             RadianceThemingCortex.GlobalScope.getIconPack()
                                     .getInspectIcon(dimension, scheme)
                                     .paintIcon(null, g, 0, 0);
@@ -535,7 +535,7 @@ public class MenuSearchWidget extends RadianceThemingWidget<JMenuBar> {
                     () -> (TransitionAwareUI) button.getUI(),
                     new BladeTransitionAwareIcon.Delegate() {
                         @Override
-                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                        public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                             BladeIconUtils.drawHexaMarker(g, index, scheme);
                         }
 

@@ -34,6 +34,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -92,9 +93,9 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         this.transitionAwareUIDelegate = transitionAwareUIDelegate;
         this.delegate = new BladeTransitionAwareIcon.Delegate() {
             @Override
-            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(component);
-                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation, scheme);
+                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation, scheme, alpha);
             }
 
             @Override
@@ -123,6 +124,8 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
+        float iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
+                modelStateInfo.getCurrModelState());
 
         BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
                 currState,
@@ -132,7 +135,7 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme);
+        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
         graphics.dispose();
     }
 

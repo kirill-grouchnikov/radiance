@@ -505,9 +505,9 @@ public class TabOverviewDialog extends JDialog {
                     .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
             this.caroselMenu.setUpDownIcons(
                     BladeArrowIconUtils.getArrowIcon(caroselMenu,
-                            SwingConstants.NORTH, colorScheme),
+                            SwingConstants.NORTH, colorScheme, 1.0f),
                     BladeArrowIconUtils.getArrowIcon(caroselMenu,
-                            SwingConstants.SOUTH, colorScheme));
+                            SwingConstants.SOUTH, colorScheme, 1.0f));
 
             this.setLayout(new BorderLayout());
             this.add(caroselMenu, BorderLayout.CENTER);
@@ -538,9 +538,9 @@ public class TabOverviewDialog extends JDialog {
                         .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
                 this.caroselMenu.setUpDownIcons(
                         BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
-                                SwingConstants.NORTH, colorScheme),
+                                SwingConstants.NORTH, colorScheme, 1.0f),
                         BladeArrowIconUtils.getArrowIcon(this.caroselMenu,
-                                SwingConstants.SOUTH, colorScheme));
+                                SwingConstants.SOUTH, colorScheme, 1.0f));
             }
         }
     }

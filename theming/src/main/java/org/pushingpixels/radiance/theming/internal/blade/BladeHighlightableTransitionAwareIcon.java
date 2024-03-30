@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
 import javax.swing.*;
@@ -91,6 +92,8 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
                 stateTransitionTracker.getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
+        float iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
+                modelStateInfo.getCurrModelState());
 
         // Use HIGHLIGHT when necessary and MARK for the rest
         BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
@@ -101,7 +104,7 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme);
+        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
         graphics.dispose();
     }
 

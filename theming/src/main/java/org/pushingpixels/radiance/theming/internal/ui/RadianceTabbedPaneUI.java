@@ -929,10 +929,10 @@ public class RadianceTabbedPaneUI extends BasicTabbedPaneUI {
 
         Icon icon = new BladeTransitionAwareIcon(ssb, new BladeTransitionAwareIcon.Delegate() {
             @Override
-            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+            public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                 int fontSize = RadianceSizeUtils.getComponentFontSize(tabPane);
                 BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(),
-                        direction, scheme);
+                        direction, scheme, alpha);
             }
 
             @Override

@@ -250,7 +250,7 @@ public class ScrollPaneSelector extends JComponent {
         this.theButton.setIcon(new BladeTransitionAwareIcon(this.theButton,
                 new BladeTransitionAwareIcon.Delegate() {
                     @Override
-                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+                    public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
                         RadianceThemingCortex.GlobalScope.getIconPack()
                                 .getInspectIcon(dimension, scheme)
                                 .paintIcon(null, g, 0, 0);

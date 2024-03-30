@@ -181,13 +181,13 @@ public class RadianceRibbonBandUI extends BasicRibbonBandUI {
                 .setAction(ribbonBand.getExpandCommandListener())
                 .setActionRichTooltip(ribbonBand.getExpandButtonRichTooltip())
                 .setIconFactory(() -> new CommandButtonFollowColorSchemeIcon(
-                        (g, scheme, width, height) -> {
+                        (g, scheme, alpha, width, height) -> {
                             BladeArrowIconUtils.drawDoubleArrow(g, width, height,
                                     RadianceSizeUtils.getSmallDoubleArrowGap(fontSize),
                                     RadianceSizeUtils.getDoubleArrowStrokeWidth(fontSize),
                                     componentOrientation.isLeftToRight()
                                             ? SwingConstants.EAST : SwingConstants.WEST,
-                                    scheme);
+                                    scheme, alpha);
                         }, new Dimension(arrowIconHeight, arrowIconWidth)))
                 .build();
     }

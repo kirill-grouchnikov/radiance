@@ -196,7 +196,7 @@ public class ColorWheelPanel extends RadianceColorChooserPanel implements
         // based on the color scheme that matches the current state of our toggle button
         resetBtn.setIcon(new BladeTransitionAwareIcon(resetBtn, new BladeTransitionAwareIcon.Delegate() {
 			@Override
-			public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme) {
+			public void drawColorSchemeIcon(Graphics2D g, RadianceColorScheme scheme, float alpha) {
 				RadianceThemingCortex.GlobalScope.getIconPack().getRefreshIcon(10, scheme)
 						.paintIcon(null, g, 0, 0);
 			}

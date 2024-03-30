@@ -174,11 +174,11 @@ public class RadianceDefaultTableHeaderCellRenderer extends
                     switch (sortKeys.get(0).getSortOrder()) {
                         case ASCENDING:
                             sortIcon = BladeArrowIconUtils.getArrowIcon(
-                                    this, SwingConstants.NORTH, scheme);
+                                    this, SwingConstants.NORTH, scheme, 1.0f);
                             break;
                         case DESCENDING:
                             sortIcon = BladeArrowIconUtils.getArrowIcon(
-                                    this, SwingConstants.SOUTH, scheme);
+                                    this, SwingConstants.SOUTH, scheme, 1.0f);
                             break;
                         case UNSORTED:
                             // No sort, the icon remains null
