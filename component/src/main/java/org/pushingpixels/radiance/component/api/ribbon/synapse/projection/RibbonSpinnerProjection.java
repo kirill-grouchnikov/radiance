@@ -48,8 +48,4 @@ public class RibbonSpinnerProjection extends ComponentProjection<JRibbonSpinner,
             ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JRibbonSpinner::new);
     }
-
-    @Override
-    protected void configureComponent(JRibbonSpinner component) {
-    }
 }

@@ -40,8 +40,4 @@ public class IndeterminateCircularProgressProjection extends Projection<JIndeter
             CircularProgressPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JIndeterminateCircularProgress::new);
     }
-
-    @Override
-    protected void configureComponent(JIndeterminateCircularProgress component) {
-    }
 }

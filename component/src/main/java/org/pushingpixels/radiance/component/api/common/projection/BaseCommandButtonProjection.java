@@ -102,8 +102,4 @@ public abstract class BaseCommandButtonProjection<
     public JCommandButton buildBaseComponent() {
         return this.getComponentSupplier().getComponentSupplier(this).apply(this);
     }
-
-    @Override
-    protected void configureComponent(JCommandButton component) {
-    }
 }

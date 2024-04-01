@@ -41,8 +41,4 @@ public class ColorSelectorPopupMenuPanelProjection extends AbstractPopupMenuPane
             ColorSelectorPopupMenuPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JColorSelectorPopupMenuPanel::new);
     }
-
-    @Override
-    protected void configureComponent(JColorSelectorPopupMenuPanel component) {
-    }
 }

@@ -40,7 +40,4 @@ public abstract class AbstractPopupMenuPanelProjection<M extends AbstractPopupMe
             ComponentSupplier<M, C, P> componentSupplier2) {
         super(contentModel, presentationModel, componentSupplier2);
     }
-
-    @Override
-    protected abstract void configureComponent(M component);
 }

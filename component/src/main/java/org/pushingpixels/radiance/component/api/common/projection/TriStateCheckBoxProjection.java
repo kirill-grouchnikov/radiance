@@ -40,8 +40,4 @@ public class TriStateCheckBoxProjection extends Projection<JTriStateCheckBox,
             TriStateCheckboxPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JTriStateCheckBox::new);
     }
-
-    @Override
-    protected void configureComponent(JTriStateCheckBox component) {
-    }
 }

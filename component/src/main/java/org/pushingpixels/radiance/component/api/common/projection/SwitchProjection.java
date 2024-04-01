@@ -40,8 +40,4 @@ public class SwitchProjection extends Projection<JSwitch,
             SwitchPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JSwitch::new);
     }
-
-    @Override
-    protected void configureComponent(JSwitch component) {
-    }
 }

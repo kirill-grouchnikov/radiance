@@ -40,8 +40,4 @@ public class CommandPanelProjection extends Projection<JCommandButtonPanel,
             CommandPanelPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCommandButtonPanel::new);
     }
-
-    @Override
-    protected void configureComponent(JCommandButtonPanel component) {
-    }
 }

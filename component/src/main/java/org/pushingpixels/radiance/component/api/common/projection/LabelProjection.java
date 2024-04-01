@@ -38,8 +38,4 @@ public class LabelProjection extends Projection<JExoLabel, LabelContentModel, La
             LabelPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JExoLabel::new);
     }
-
-    @Override
-    protected void configureComponent(JExoLabel component) {
-    }
 }

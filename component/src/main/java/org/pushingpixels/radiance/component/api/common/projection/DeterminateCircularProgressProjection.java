@@ -40,8 +40,4 @@ public class DeterminateCircularProgressProjection extends Projection<JDetermina
             CircularProgressPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JDeterminateCircularProgress::new);
     }
-
-    @Override
-    protected void configureComponent(JDeterminateCircularProgress component) {
-    }
 }

@@ -40,8 +40,4 @@ public class CommandPopupMenuPanelProjection extends AbstractPopupMenuPanelProje
             CommandPopupMenuPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCommandPopupMenuPanel::new);
     }
-
-    @Override
-    protected void configureComponent(JCommandPopupMenuPanel component) {
-    }
 }

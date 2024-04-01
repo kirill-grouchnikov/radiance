@@ -48,8 +48,4 @@ public class RibbonCheckBoxProjection extends ComponentProjection<JRibbonCheckBo
             ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JRibbonCheckBox::new);
     }
-
-    @Override
-    protected void configureComponent(JRibbonCheckBox component) {
-    }
 }

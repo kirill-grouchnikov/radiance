@@ -47,10 +47,6 @@ public class RibbonApplicationMenuPanelPanelProjection extends AbstractPopupMenu
         super(contentModel, presentationModel, projection -> JRibbonApplicationMenuPopupPanel::new);
     }
 
-    @Override
-    protected void configureComponent(JRibbonApplicationMenuPopupPanel component) {
-    }
-
     public void setSecondaryLevelCommandPresentationState(Map<Command,
             CommandButtonPresentationState> secondaryLevelCommandPresentationState) {
         this.secondaryLevelCommandPresentationState = secondaryLevelCommandPresentationState;

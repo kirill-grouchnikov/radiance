@@ -40,8 +40,4 @@ public class CommandStripProjection extends Projection<JCommandButtonStrip,
             CommandStripPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCommandButtonStrip::new);
     }
-
-    @Override
-    protected void configureComponent(JCommandButtonStrip component) {
-    }
 }

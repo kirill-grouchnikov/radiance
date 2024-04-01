@@ -39,8 +39,4 @@ public class CustomComplexPopupMenuPanelProjection extends AbstractPopupMenuPane
             CustomComplexPopupMenuPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JCustomComplexPopupMenuPanel::new);
     }
-
-    @Override
-    protected void configureComponent(JCustomComplexPopupMenuPanel component) {
-    }
 }

@@ -183,10 +183,6 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
                 BandCollapsePopupMenuPresentationModel presentationModel) {
             super(contentModel, presentationModel, projection -> BandCollapsePopupMenuPanel::new);
         }
-
-        @Override
-        protected void configureComponent(BandCollapsePopupMenuPanel component) {
-        }
     }
 
     private static class BandCollapseCommandButtonProjection extends

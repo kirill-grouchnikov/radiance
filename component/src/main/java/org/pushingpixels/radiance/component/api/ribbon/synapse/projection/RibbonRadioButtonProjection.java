@@ -48,8 +48,4 @@ public class RibbonRadioButtonProjection extends ComponentProjection<JRibbonRadi
             ComponentPresentationModel presentationModel) {
         super(contentModel, presentationModel, projection -> JRibbonRadioButton::new);
     }
-
-    @Override
-    protected void configureComponent(JRibbonRadioButton component) {
-    }
 }

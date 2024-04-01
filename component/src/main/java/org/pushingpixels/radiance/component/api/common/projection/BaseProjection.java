@@ -48,5 +48,5 @@ public abstract class BaseProjection<T extends JComponent, C extends ContentMode
         return result;
     }
 
-    protected abstract void configureComponent(T component);
+    protected void configureComponent(T component) {}
 }
