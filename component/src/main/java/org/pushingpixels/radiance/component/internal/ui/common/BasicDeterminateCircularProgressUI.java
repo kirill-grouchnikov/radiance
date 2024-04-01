@@ -29,9 +29,12 @@
  */
 package org.pushingpixels.radiance.component.internal.ui.common;
 
+import org.pushingpixels.radiance.animation.api.Timeline;
+import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.component.api.common.JDeterminateCircularProgress;
 import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
+import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +47,10 @@ import java.beans.PropertyChangeListener;
  */
 public abstract class BasicDeterminateCircularProgressUI extends CircularProgressUI {
     protected JDeterminateCircularProgress determinateCircularProgress;
+
+    private float displayedProgress;
+
+    private Timeline displayTimeline;
 
     /**
      * Property change listener.
@@ -75,6 +82,8 @@ public abstract class BasicDeterminateCircularProgressUI extends CircularProgres
      * Installs default settings for the associated circular progress.
      */
     protected void installDefaults() {
+        this.displayedProgress =
+                this.determinateCircularProgress.getProjection().getContentModel().getProgress();
     }
 
     /**
@@ -83,7 +92,25 @@ public abstract class BasicDeterminateCircularProgressUI extends CircularProgres
     protected void installListeners() {
         this.propertyChangeListener = propertyChangeEvent -> {
             if ("progress".equals(propertyChangeEvent.getPropertyName())) {
-                determinateCircularProgress.repaint();
+                if (displayTimeline != null) {
+                    displayTimeline.abort();
+                }
+
+                float currProgress = determinateCircularProgress.getProjection().getContentModel().getProgress();
+                displayTimeline =
+                        AnimationConfigurationManager.getInstance().timelineBuilder(determinateCircularProgress)
+                                .addPropertyToInterpolate(Timeline.<Float>property("displayedProgress")
+                                        .from(displayedProgress)
+                                        .to(currProgress)
+                                        .setWith((obj, fieldName, value) -> {
+                                            displayedProgress = value;
+                                            if (determinateCircularProgress != null) {
+                                                determinateCircularProgress.repaint();
+                                            }
+                                        }))
+                                .setEase(new Spline(0.4f))
+                                .build();
+                displayTimeline.play();
             }
         };
         this.determinateCircularProgress.getProjection().getContentModel()
@@ -152,8 +179,7 @@ public abstract class BasicDeterminateCircularProgressUI extends CircularProgres
         Color arcColor = getArcColor();
         graphics.setColor(arcColor);
 
-        graphics.drawArc(dx, dy, diameter, diameter, 90,
-                -(int) (360.0f * this.determinateCircularProgress.getProjection().getContentModel().getProgress()));
+        graphics.drawArc(dx, dy, diameter, diameter, 90, -(int) (360.0f * this.displayedProgress));
         graphics.dispose();
     }
 
