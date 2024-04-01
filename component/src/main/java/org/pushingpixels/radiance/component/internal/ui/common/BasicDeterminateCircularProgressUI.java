@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.common;
 
 import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.ease.Spline;
-import org.pushingpixels.radiance.common.api.AsynchronousLoading;
 import org.pushingpixels.radiance.component.api.common.JDeterminateCircularProgress;
-import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 
 import javax.swing.*;

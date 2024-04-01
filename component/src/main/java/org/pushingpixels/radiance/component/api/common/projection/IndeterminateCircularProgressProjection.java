@@ -30,8 +30,8 @@
 package org.pushingpixels.radiance.component.api.common.projection;
 
 import org.pushingpixels.radiance.component.api.common.JIndeterminateCircularProgress;
-import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
+import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 
 public class IndeterminateCircularProgressProjection extends Projection<JIndeterminateCircularProgress,
         IndeterminateProgressContentModel, CircularProgressPresentationModel> {

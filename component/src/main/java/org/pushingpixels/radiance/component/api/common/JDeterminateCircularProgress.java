@@ -31,10 +31,8 @@ package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.component.api.common.model.CircularProgressPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.DeterminateProgressContentModel;
-import org.pushingpixels.radiance.component.api.common.model.IndeterminateProgressContentModel;
 import org.pushingpixels.radiance.component.api.common.projection.Projection;
 import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceDeterminateCircularProgressUI;
-import org.pushingpixels.radiance.component.internal.theming.common.ui.RadianceIndeterminateCircularProgressUI;
 
 import javax.swing.*;
 
