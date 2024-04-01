@@ -31,7 +31,6 @@ package org.pushingpixels.radiance.component.api.common.popup;
 
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
 import org.pushingpixels.radiance.component.api.common.popup.model.ColorSelectorPopupMenuContentModel;

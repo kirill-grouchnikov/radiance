@@ -67,7 +67,7 @@ public abstract class Projection<T extends JComponent, C extends ContentModel,
 
     public void setComponentSupplier(ComponentSupplier<T, C, P> componentSupplier) {
         if (componentSupplier == null) {
-            throw new IllegalArgumentException("Cannot pass null component creator");
+            throw new IllegalArgumentException("Cannot pass null component supplier");
         }
         this.componentSupplier = componentSupplier;
     }

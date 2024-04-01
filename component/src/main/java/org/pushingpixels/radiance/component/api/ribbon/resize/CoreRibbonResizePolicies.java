@@ -32,7 +32,6 @@ package org.pushingpixels.radiance.component.api.ribbon.resize;
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
 import org.pushingpixels.radiance.component.api.common.projection.BaseCommandButtonProjection;
-import org.pushingpixels.radiance.component.api.common.projection.CommandButtonProjection;
 import org.pushingpixels.radiance.component.api.ribbon.AbstractRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbonBand;
