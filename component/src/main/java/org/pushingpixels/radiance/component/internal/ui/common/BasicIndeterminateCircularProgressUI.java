@@ -186,11 +186,11 @@ public abstract class BasicIndeterminateCircularProgressUI extends CircularProgr
 
         // Configure the timeline for the moving arc. The single property we're animating
         // is the arc span - going in a loop from 30 degrees to 300 degrees. When the span
-        // is growing, on every pulse we advance the "end" of the arc by 8 degrees. When
-        // the span is shrinking, on every pulse we advance the "start" of the arc by 8
-        // degrees. The constant pace of advancing one of the ends creates a continuous
-        // motion around the circle. The expanding / shrinking arc span creates the second
-        // dimension of the overall indeterminate progress.
+        // is growing, on every pulse we advance the "end" of the arc based on the elapsed
+        // duration. When the span is shrinking, on every pulse we advance the "start" of
+        // the arc based on the elapsed duration. The constant pace of advancing one of the
+        // ends creates a continuous motion around the circle. The expanding / shrinking arc
+        // span creates the second dimension of the overall indeterminate progress.
         this.arcTimeline = SwingComponentTimeline.componentBuilder(this.indeterminateCircularProgress)
                 .addPropertyToInterpolate(Timeline.<Double>property("arcSpan")
                         .getWith((obj, fieldName) -> arcSpan)
@@ -200,12 +200,15 @@ public abstract class BasicIndeterminateCircularProgressUI extends CircularProgr
                 .setEase(new Spline(0.5f))
                 .setDuration(1000)
                 .addCallback(new EventDispatchThreadTimelineCallbackAdapter() {
-                    private void update() {
+                    private float previousDurationFraction = 0.0f;
+                    private void update(float durationFraction) {
+                        float durationFractionDelta =
+                                (durationFraction - this.previousDurationFraction);
                         if (goFromStart) {
-                            arcStart -= 8;
+                            arcStart -= (300 * durationFractionDelta);
                             arcEnd = arcStart - arcSpan;
                         } else {
-                            arcEnd -= 8;
+                            arcEnd += (300 * durationFractionDelta);
                             arcStart = arcEnd + arcSpan;
                         }
 
@@ -214,6 +217,7 @@ public abstract class BasicIndeterminateCircularProgressUI extends CircularProgr
                         if (indeterminateCircularProgress != null) {
                             indeterminateCircularProgress.repaint();
                         }
+                        this.previousDurationFraction = durationFraction;
                     }
 
                     @Override
@@ -228,12 +232,12 @@ public abstract class BasicIndeterminateCircularProgressUI extends CircularProgr
                                 && newState == TimelineState.PLAYING_FORWARD) {
                             goFromStart = true;
                         }
-                        update();
+                        update(durationFraction);
                     }
 
                     @Override
                     public void onTimelinePulse(float durationFraction, float timelinePosition) {
-                        update();
+                        update(durationFraction);
                     }
                 }).build();
 

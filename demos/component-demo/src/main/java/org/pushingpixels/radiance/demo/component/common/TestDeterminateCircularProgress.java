@@ -86,7 +86,6 @@ public class TestDeterminateCircularProgress extends JFrame {
         controlPanel.add(addEnabled);
 
         this.decreaseProgress = Command.builder()
-                .setText("D")
                 .setIconFactory(remove_circle_outline_24px.factory())
                 .setAction(e -> {
                     contentModel.setProgress(contentModel.getProgress() - 0.1f);
