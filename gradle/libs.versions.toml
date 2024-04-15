@@ -1,16 +1,16 @@
 [versions]
-kotlin = "1.9.22"
+kotlin = "2.0.0-RC1"
 coroutines = "1.8.0"
 dokka = "1.9.20"
 
 batik = "1.17"
-retrofit = "2.9.0"
+retrofit = "2.11.0"
 jgoodies_common = "1.8.1"
 jgoodies_forms = "1.9.0"
 jhlabs = "2.0.235"
 
 versionchecker = "0.51.0"
-mavenpublish = "0.27.0"
+mavenpublish = "0.28.0"
 
 [libraries]
 
