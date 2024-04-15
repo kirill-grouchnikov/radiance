@@ -102,6 +102,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
         graphics.setColor(scheme.getLightColor());
         graphics.drawRect(x + 2, y + 2, w - 5, h - 5);
         graphics.drawRect(x + 3, y + 3, w - 7, h - 7);
+        graphics.drawRect(x + 4, y + 4, w - 9, h - 9);
 
         graphics.dispose();
     }
