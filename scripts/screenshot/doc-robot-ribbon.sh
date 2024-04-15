@@ -27,7 +27,7 @@
 #  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 #  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-export JAVA_HOME=`/usr/libexec/java_home -v 21`
+export JAVA_HOME=`/usr/libexec/java_home -v 22`
 alias JAVA="java"
 
 RADIANCE_VERSION=7.5-SNAPSHOT
