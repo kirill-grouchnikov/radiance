@@ -32,6 +32,6 @@ alias JAVA="java"
 
 RADIANCE_VERSION=7.5-SNAPSHOT
 CLASSPATH=../../drop/$RADIANCE_VERSION/tools/radiance-laf-benchmark-$RADIANCE_VERSION.jar:../../build/libs-tools/jgoodies-forms-1.9.0.jar:../../build/libs-tools/jgoodies-common-1.8.1.jar
-FLATLAF_CLASSPATH=../../../thirdparty/flatlaf-3.0.jar
+FLATLAF_CLASSPATH=../../../thirdparty/flatlaf-3.4.1.jar
 
 java -Dswing.defaultlaf=com.formdev.flatlaf.FlatLightLaf -cp $CLASSPATH:$FLATLAF_CLASSPATH org.pushingpixels.radiance.tools.lafbenchmark.DynamicPerformanceSuite 10
