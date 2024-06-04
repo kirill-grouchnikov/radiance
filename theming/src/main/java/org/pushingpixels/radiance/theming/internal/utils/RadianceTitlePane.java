@@ -812,8 +812,7 @@ public class RadianceTitlePane extends JComponent {
         if (displayTitle != null) {
             Rectangle titleTextRect = RadianceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     (this.window != null) ? this.window : this.getRootPane());
-            FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                    RadianceCommonCortex.getScaleFactor(this), font);
+            FontMetrics fm = g.getFontMetrics();
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary

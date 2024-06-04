@@ -36,7 +36,6 @@ import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
-import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeTransitionAwareIcon;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.radiance.theming.internal.ui.RadianceMenuBarUI;
@@ -259,8 +258,7 @@ public class RadianceInternalFrameTitlePane extends BasicInternalFrameTitlePane 
         if (displayTitle != null) {
             Rectangle titleTextRect = RadianceTitlePaneUtilities.getTitlePaneTextRectangle(this,
                     this.frame);
-            FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                    RadianceCommonCortex.getScaleFactor(this), font);
+            FontMetrics fm = g.getFontMetrics();
             int displayTitleWidth = fm.stringWidth(displayTitle);
 
             // show tooltip with full title only if necessary

@@ -31,8 +31,8 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -115,7 +115,8 @@ public class RadianceLabelUI extends BasicLabelUI {
         paintTextR.x = paintTextR.y = paintTextR.width = paintTextR.height = 0;
 
         g.setFont(label.getFont());
-        String clippedText = SwingUtilities.layoutCompoundLabel(label, g.getFontMetrics(), text,
+        FontMetrics fm = g.getFontMetrics();
+        String clippedText = SwingUtilities.layoutCompoundLabel(label, fm, text,
                 icon, label.getVerticalAlignment(), label.getHorizontalAlignment(),
                 label.getVerticalTextPosition(), label.getHorizontalTextPosition(), paintViewR,
                 paintIconR, paintTextR, label.getIconTextGap());
@@ -140,8 +141,6 @@ public class RadianceLabelUI extends BasicLabelUI {
                 RadianceSkin skin = RadianceCoreUtilities.getSkin(label.getRootPane());
                 RadianceColorScheme scheme = skin.getEnabledColorScheme(
                         RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
-                FontMetrics fm = RadianceMetricsUtilities.getFontMetrics(
-                        RadianceCommonCortex.getScaleFactor(label), label.getFont());
                 int yOffset = paintTextR.y + (int) ((paintTextR.getHeight() - fm.getHeight()) / 2)
                         + fm.getAscent();
                 g2d.translate(paintTextR.x + 3, 0);
