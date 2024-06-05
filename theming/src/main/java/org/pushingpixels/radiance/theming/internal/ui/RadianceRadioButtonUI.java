@@ -222,8 +222,6 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
             BackgroundPaintingUtils.update(g, c, false);
         }
 
-        FontMetrics fm = g.getFontMetrics();
-
         Insets i = b.getInsets();
 
         viewRect.x = i.left;
@@ -236,6 +234,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
 
         Font f = b.getFont();
         g.setFont(f);
+        FontMetrics fm = g.getFontMetrics();
 
         Icon icon = RadianceCoreUtilities.getOriginalIcon(b, getDefaultIcon());
 
