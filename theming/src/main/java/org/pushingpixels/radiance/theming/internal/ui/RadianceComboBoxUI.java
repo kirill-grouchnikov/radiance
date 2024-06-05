@@ -430,29 +430,16 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
             Rectangle r = rectangleForCurrentValue();
 
             ListCellRenderer<Object> renderer = this.comboBox.getRenderer();
-            Component rendererComponent;
-            if (hasFocus) {
-                rendererComponent = renderer.getListCellRendererComponent(this.listBox,
-                        this.comboBox.getSelectedItem(), -1, true, hasFocus);
-            } else {
-                rendererComponent = renderer.getListCellRendererComponent(this.listBox,
-                        this.comboBox.getSelectedItem(), -1, false, hasFocus);
-            }
+            boolean isSelected = hasFocus;
+            Component rendererComponent = renderer.getListCellRendererComponent(this.listBox,
+                        this.comboBox.getSelectedItem(), -1, isSelected, hasFocus);
             rendererComponent.setFont(this.comboBox.getFont());
 
             // Fix for 4238829: should lay out the JPanel.
-            boolean shouldValidate = false;
-            if (rendererComponent instanceof JPanel) {
-                shouldValidate = true;
-            }
+            boolean shouldValidate = (rendererComponent instanceof JPanel);
 
-            if (this.comboBox.getComponentOrientation().isLeftToRight()) {
-                this.currentValuePane.paintComponent(graphics, rendererComponent, this.comboBox,
-                        r.x, r.y, r.width, r.height, shouldValidate);
-            } else {
-                this.currentValuePane.paintComponent(graphics, rendererComponent, this.comboBox,
-                        r.x, r.y, r.width, r.height, shouldValidate);
-            }
+            this.currentValuePane.paintComponent(graphics, rendererComponent, this.comboBox,
+                    r.x, r.y, r.width, r.height, shouldValidate);
         }
 
         if (!this.comboBox.isEditable()) {
