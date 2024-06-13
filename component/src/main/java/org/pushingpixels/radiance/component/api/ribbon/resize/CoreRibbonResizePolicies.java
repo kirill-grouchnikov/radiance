@@ -868,6 +868,14 @@ public class CoreRibbonResizePolicies {
                 currBestResult += (pref + gap);
             }
 
+            // Special case for two components. With zero or one components, the total width
+            // is also the "best" / smallest width achievable. With 3+ components, we should
+            // look at all possible options that go to 3 rows. But with 2 components, we take the
+            // width of the widest one
+            if (compCount == 2) {
+                return Math.max(widths[0], widths[1]) + gap;
+            }
+
             // need to find the inflection points that result in
             // the lowest value for max length of three sub-sequences
             for (int inflectionIndex1 = 0; inflectionIndex1 < (compCount - 2); inflectionIndex1++) {
