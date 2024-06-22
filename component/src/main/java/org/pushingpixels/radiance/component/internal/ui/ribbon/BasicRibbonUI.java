@@ -91,6 +91,12 @@ public abstract class BasicRibbonUI extends RibbonUI {
      */
     protected Map<RibbonTask, JRibbonTaskToggleButton> taskToggleButtons;
 
+    // Strong references to popup listeners registered when a task is displayed in a popup (when
+    // the ribbon is minimized). Not having strong references can lead to the locally defined listener
+    // to be garbage collected and not notified when the ribbon is maximized, and the end result
+    // is the ribbon task content not getting re-parented back to the ribbon.
+    private Map<RibbonTask, PopupPanelManager.PopupListener> taskPopupListeners;
+
     /**
      * Group model for task toggle buttons.
      */
@@ -113,6 +119,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
      */
     protected BasicRibbonUI() {
         this.taskToggleButtons = new HashMap<>();
+        this.taskPopupListeners = new HashMap<>();
         this.taskToggleGroupModel = new CommandToggleGroupModel();
         this.taskToggleGroupModel.setAllowsClearingSelection(false);
     }
@@ -163,6 +170,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                 ribbon.repaint();
             }
             if ("minimized".equals(propertyChangeEvent.getPropertyName())) {
+                System.out.println("Minimizing ribbon state change -> hiding popups");
                 PopupPanelManager.defaultManager().hidePopups(null);
                 RichTooltipManager.sharedInstance().hideCurrentlyShowingTipIfNecessary();
                 ribbon.revalidate();
@@ -195,6 +203,11 @@ public abstract class BasicRibbonUI extends RibbonUI {
 
         this.ribbon.removeComponentListener(this.ribbonComponentListener);
         this.ribbonComponentListener = null;
+
+        for (PopupPanelManager.PopupListener taskPopupListener: this.taskPopupListeners.values()) {
+            PopupPanelManager.defaultManager().removePopupListener(taskPopupListener);
+        }
+        this.taskPopupListeners.clear();
     }
 
     /**
@@ -1282,6 +1295,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
                     if (originator instanceof JRibbonTaskToggleButton) {
                         ribbon.add(bandScrollablePanel);
                         PopupPanelManager.defaultManager().removePopupListener(this);
+                        taskPopupListeners.remove(task);
                         ribbon.revalidate();
                         ribbon.doLayout();
                         ribbon.repaint();
@@ -1290,6 +1304,7 @@ public abstract class BasicRibbonUI extends RibbonUI {
             };
             PopupPanelManager.defaultManager().addPopupListener(tracker);
             PopupPanelManager.defaultManager().showPopup(taskToggleButton, popupPanel, x, y);
+            taskPopupListeners.put(task, tracker);
         }
     }
 
