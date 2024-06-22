@@ -4,6 +4,7 @@
 
 .gradle/
 .idea/
+.kotlin/
 .settings/
 build/
 out/
