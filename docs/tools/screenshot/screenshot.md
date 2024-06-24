@@ -34,7 +34,7 @@ For example, to run Screenshot to create screenshots for all Radiance core skins
 
 `alias JAVA="java"`
 
-`RADIANCE_VERSION=7.5-SNAPSHOT`
+`RADIANCE_VERSION=7.5.0`
 
 `KOTLIN_VERSION=2.0.0`
 
