@@ -114,7 +114,7 @@ dependencies {
 
 The instructions in this section apply to the build script written in Kotlin, usually placed in the `build.gradle.kts` file.
 
-Add the plugin to the `buildscript` part of your Gradle build file and apply the plugin:
+Add the plugin to the `buildscript` part of your Gradle build file:
 
 ```kotlin
 import org.pushingpixels.radiance.tools.svgtranscoder.gradle.TranscodeTask
@@ -128,8 +128,6 @@ buildscript {
         classpath("org.pushing-pixels:radiance-svg-transcoder-gradle-plugin:X.Y.Z")
     }
 }
-
-apply(plugin = "org.pushing-pixels.radiance.tools.svgtranscoder.gradle")
 ```
 
 In case you want to use the latest snapshot version of the plugin, use the Sonatype repository:
@@ -145,37 +143,64 @@ buildscript {
 }
 ```
 
+#### Optionally place the generated files in a separate source folder
+
+Mark `src/gen/java` (or similarly named folder) to contain generated sources:
+
+```kotlin
+idea {
+    module {
+        generatedSourceDirs.add(file("$rootDir/src/gen/java"))
+    }
+}
+```
+
+And add them as source set alongside your main code:
+
+```kotlin
+java {
+    sourceSets {
+        java {
+            sourceSets["main"].apply {
+                java.srcDir("$rootDir/src/main/java")
+                java.srcDir("$rootDir/src/gen/java")
+            }
+        }
+    }
+}
+```
+
 #### Transcoding SVG files from a single folder
 
 For a Java project, generate Java classes with the plugin (add multiple `tasks.create<TranscodeTask>` if you have more than one SVG content folder):
 
 ```kotlin
-tasks.create<TranscodeTask>("transcodeMySingle") {
+tasks.register<org.pushingpixels.radiance.tools.svgtranscoder.gradle.TranscodeDeepTask>("transcodeSingle") {
     inputDirectory = file("src/main/resources")
-    outputDirectory = file("src/main/java/org/radiance/demo/svg")
+    outputDirectory = file("src/gen/java/org/radiance/demo/svg")
     outputLanguage = "java"
     outputPackageName = "org.radiance.demo.svg"
     transcode()
 }
 
-tasks.compileJava {
-    dependsOn("transcodeMySingle")
+tasks.withType<JavaCompile> {
+    dependsOn("transcodeSingle")
 }
 ```
 
 For a Kotlin project, generate Kotlin classes with the plugin (add multiple `tasks.create<TranscodeTask>` if you have more than one SVG content folder):
 
 ```kotlin
-tasks.create<TranscodeTask>("transcodeMySingle") {
+tasks.register<org.pushingpixels.radiance.tools.svgtranscoder.gradle.TranscodeDeepTask>("transcodeSingle") {
     inputDirectory = file("src/main/resources")
-    outputDirectory = file("src/main/java/org/radiance/demo/svg")
+    outputDirectory = file("src/gen/java/org/radiance/demo/svg")
     outputLanguage = "kotlin"
     outputPackageName = "org.radiance.demo.svg"
     transcode()
 }
 
-tasks.compileKotlin {
-    dependsOn("transcodeMySingle")
+tasks.withType<KotlinCompile> {
+    dependsOn("transcodeSingle")
 }
 ```
 
@@ -184,32 +209,32 @@ tasks.compileKotlin {
 For a Java project, generate Java classes with the plugin (add multiple `tasks.create<TranscodeDeepTask>` if you have more than one SVG content root folder):
 
 ```kotlin
-tasks.create<TranscodeDeepTask>("transcodeMyDeep") {
-    inputRootDirectory = file("src/main/resources/scalable")
-    outputRootDirectory = file("src/main/java/org/radiance/demo/svg")
-    outputLanguage = "java"
+tasks.register<org.pushingpixels.radiance.tools.svgtranscoder.gradle.TranscodeDeepTask>("transcodeDeep") {
+    inputRootDirectory = file("src/main/resources")
+    outputRootDirectory = file("src/gen/java/org/radiance/demo/svg")
     outputRootPackageName = "org.radiance.demo.svg"
+    outputLanguage = "java"
     transcode()
 }
 
-tasks.compileJava {
-    dependsOn("transcodeMyDeep")
+tasks.withType<JavaCompile> {
+    dependsOn("transcodeDeep")
 }
 ```
 
 For a Kotlin project, generate Kotlin classes with the plugin (add multiple `tasks.create<TranscodeDeepTask>` if you have more than one SVG content root folder):
 
 ```kotlin
-tasks.create<TranscodeDeepTask>("transcodeMyDeep") {
-    inputRootDirectory = file("src/main/resources/scalable")
-    outputRootDirectory = file("src/main/java/org/radiance/demo/svg")
-    outputLanguage = "kotlin"
+tasks.register<org.pushingpixels.radiance.tools.svgtranscoder.gradle.TranscodeDeepTask>("transcodeDeep") {
+    inputRootDirectory = file("src/main/resources")
+    outputRootDirectory = file("src/gen/java/org/radiance/demo/svg")
     outputRootPackageName = "org.radiance.demo.svg"
+    outputLanguage = "kotlib"
     transcode()
 }
 
-tasks.compileJava {
-    dependsOn("transcodeMyDeep")
+tasks.withType<KotlinCompile> {
+    dependsOn("transcodeDeep")
 }
 ```
 
