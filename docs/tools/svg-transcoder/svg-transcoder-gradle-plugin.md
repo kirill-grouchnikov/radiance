@@ -240,7 +240,7 @@ tasks.withType<KotlinCompile> {
 
 #### Additional notes
 
-Note that using either `compileJava` or `compileKotlin` assumes that you have at least one "real" source file in your project so that these tasks are executed by Gradle. If you are planning to use the plugin in a module that will have only SVG content and the transcoded classes, you will need to use the `TranscodeTask` / `TranscodeDeepTask` tasks in a different way (perhaps as a default task).
+Note that using either `tasks.withType<JavaCompile>` or `tasks.withType<KotlinCompile>` assumes that you have at least one "real" source file in your project so that these tasks are executed by Gradle. If you are planning to use the plugin in a module that will have only SVG content and the transcoded classes, you will need to use the `TranscodeTask` / `TranscodeDeepTask` tasks in a different way (perhaps as a default task).
 
 You also need to declare a dependency on the matching [common](../../common/common.md) version in order to compile the transcoded classes:
 
