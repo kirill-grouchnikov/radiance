@@ -27,7 +27,7 @@
 ::  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 ::  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-set RADIANCE_VERSION=7.5.0
+set RADIANCE_VERSION=8.0-SNAPSHOT
 set CLASSPATH=../../drop/%RADIANCE_VERSION%/tools/radiance-laf-benchmark-%RADIANCE_VERSION%.jar;../../build/libs-tools/jgoodies-forms-1.9.0.jar;../../build/libs-tools/jgoodies-common-1.8.1.jar
 set PLASTIC_CLASSPATH=../../../thirdparty/jgoodies/jgoodies-looks-2.5.3.jar
 
