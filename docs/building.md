@@ -4,7 +4,7 @@ Radiance libraries are built with [Gradle](https://docs.gradle.org/). Each libra
 
 ### Java requirements
 
-Radiance is built with Java 9. Search for "Java 9 download" in your favorite search engine, or browse [this page](https://www.oracle.com/technetwork/java/javase/downloads/index.html) (and perhaps the archives that it points to) to get the JDK distribution for your environment.
+Radiance is built with Java 11. Search for "Java 11 download" in your favorite search engine, or browse [this page](https://www.oracle.com/technetwork/java/javase/downloads/index.html) (and perhaps the archives that it points to) to get the JDK distribution for your environment.
 
 ### Local artifacts
 
@@ -22,8 +22,8 @@ Some Radiance libraries have third-party dependencies. To print the full depende
 
 ```
 -------------- svg-transcoder ---------------
-org.apache.xmlgraphics:batik-all:1.16
-org.pushing-pixels:common:6.5.0
+org.apache.xmlgraphics:batik-all:1.17
+org.pushing-pixels:common:7.5.0
 ```
 
 To locally copy these dependencies (in case you do not want to pull them at build time with Gradle, Maven or other similar build tools in your own environment), use the following:
