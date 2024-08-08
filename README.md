@@ -1,7 +1,7 @@
 # Radiance libraries
 
 **Radiance** is a collection of libraries for writing modern, elegant and fast Swing applications based on
-the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. It is built with Java 9, and runs on Java 9 and later.
+the [Ephemeral](https://github.com/kirill-grouchnikov/ephemeral) design system. It is built with Java 11, and runs on Java 9 and later.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/kirill-grouchnikov/radiance/sunshine/docs/images/theming/skins/nebula1.png" width="340" height="258" border=0>
