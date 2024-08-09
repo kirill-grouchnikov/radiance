@@ -31,7 +31,7 @@ package org.pushingpixels.radiance.component.api.ribbon;
 
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandAction;
-import org.pushingpixels.radiance.component.api.common.projection.Projection;
+import org.pushingpixels.radiance.component.api.common.projection.BaseProjection;
 import org.pushingpixels.radiance.component.api.ribbon.resize.CoreRibbonResizePolicies;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.model.ComponentContentModel;
 import org.pushingpixels.radiance.component.api.ribbon.synapse.projection.ComponentProjection;
@@ -42,7 +42,7 @@ import javax.swing.*;
 
 /**
  * Flow ribbon band component. Hosts components added with
- * {@link #addFlowComponent(Projection)} and {@link #addFlowComponent(ComponentProjection)} in
+ * {@link #addFlowComponent(BaseProjection)} and {@link #addFlowComponent(ComponentProjection)} in
  * flowing rows. Depending on the current resize policy, the content is shown in either two or
  * three rows.
  *
@@ -73,7 +73,7 @@ public class JFlowRibbonBand extends AbstractRibbonBand {
         updateUI();
     }
 
-    public void addFlowComponent(Projection projection) {
+    public void addFlowComponent(BaseProjection projection) {
         ((JFlowBandControlPanel) this.getControlPanel()).addFlowComponent(
                 projection.buildComponent());
     }
