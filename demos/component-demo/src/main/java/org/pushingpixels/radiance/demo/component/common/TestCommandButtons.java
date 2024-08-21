@@ -144,9 +144,9 @@ public class TestCommandButtons extends JFrame {
 
     private CommandMenuContentModel getPopupMenuContentModel() {
         MessageFormat mf = new MessageFormat(resourceBundle.getString("TestMenuItem.text"));
-        MessageFormat mfExtra = new MessageFormat(resourceBundle.getString("TestMenuItem.textExtra"));
+        MessageFormat mfLevel2 = new MessageFormat(resourceBundle.getString("TestMenuItem.textLevel2"));
         mf.setLocale(currLocale);
-        mfExtra.setLocale(currLocale);
+        mfLevel2.setLocale(currLocale);
 
         List<Command> simpleEntries1 = new ArrayList<>();
         List<Command> simpleEntries2 = new ArrayList<>();
@@ -173,17 +173,17 @@ public class TestCommandButtons extends JFrame {
                 .setAction(commandActionEvent -> System.out.println("Popup action 4"))
                 .setSecondaryContentModel(new CommandMenuContentModel(new CommandGroup(
                         Command.builder()
-                                .setText(mf.format(new Object[]{"4", "1"}))
+                                .setText(mfLevel2.format(new Object[]{"4", "1"}))
                                 .setIconFactory(EmptyRadianceIcon.factory())
                                 .setAction(commandActionEvent -> System.out.println("Popup action 4/2"))
                                 .build(),
                         Command.builder()
-                                .setText(mf.format(new Object[]{"4", "2"}))
+                                .setText(mfLevel2.format(new Object[]{"4", "2"}))
                                 .setIconFactory(EmptyRadianceIcon.factory())
                                 .setAction(commandActionEvent -> System.out.println("Popup action 4/3"))
                                 .build(),
                         Command.builder()
-                                .setText(mf.format(new Object[]{"4", "3"}))
+                                .setText(mfLevel2.format(new Object[]{"4", "3"}))
                                 .setIconFactory(EmptyRadianceIcon.factory())
                                 .setAction(commandActionEvent -> System.out.println("Popup action 4/4"))
                                 .build()

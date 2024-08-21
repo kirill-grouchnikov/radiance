@@ -164,6 +164,7 @@ public class JCommandPopupMenuPanel extends AbstractPopupMenuPanel implements Sc
                 CommandButtonPresentationModel combinedPresentationModel = (overlay != null) ?
                         presentation.overlayWith(overlay) : presentation;
                 commandProjection = command.project(combinedPresentationModel);
+                commandProjection.setCommandOverlays(this.projection.getCommandOverlays());
 
                 // Create a button that can be used in this popup menu
                 JCommandButton commandButton = commandProjection.buildComponent();
