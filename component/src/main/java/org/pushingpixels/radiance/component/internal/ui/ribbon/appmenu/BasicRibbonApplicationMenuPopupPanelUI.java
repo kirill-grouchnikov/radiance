@@ -168,6 +168,9 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             .setPresentationState(MENU_TILE_LEVEL_1)
                             .setHorizontalAlignment(HorizontalAlignment.FILL)
                             .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
+                            .setIconFilterStrategies(ribbonAppMenuProjection.getPresentationModel().getItemActiveIconFilterStrategy(),
+                                    ribbonAppMenuProjection.getPresentationModel().getItemEnabledIconFilterStrategy(),
+                                    ribbonAppMenuProjection.getPresentationModel().getItemDisabledIconFilterStrategy())
                             .setSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
                             .setPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                             .build();
@@ -212,6 +215,9 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
                             JRibbonApplicationMenuPopupPanelSecondary secondary =
                                     JRibbonApplicationMenuPopupPanelSecondary.getPanel(menuEntry,
                                             commandOverlays, secondaryMenuPresentationState,
+                                            ribbonAppMenuProjection.getPresentationModel().getItemActiveIconFilterStrategy(),
+                                            ribbonAppMenuProjection.getPresentationModel().getItemEnabledIconFilterStrategy(),
+                                            ribbonAppMenuProjection.getPresentationModel().getItemDisabledIconFilterStrategy(),
                                             commandButton);
                             secondary.applyComponentOrientation(
                                     applicationMenuPopupPanel.getComponentOrientation());
@@ -277,18 +283,22 @@ public abstract class BasicRibbonApplicationMenuPopupPanelUI extends BasicPopupP
         if (ribbonAppMenu != null) {
             final Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays =
                     ribbonAppMenuProjection.getCommandOverlays();
+            CommandButtonPresentationModel baseFooterCommandPresentation =
+                    CommandButtonPresentationModel.builder()
+                            .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                            .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                            .setIconFilterStrategies(ribbonAppMenuProjection.getPresentationModel().getItemActiveIconFilterStrategy(),
+                                    ribbonAppMenuProjection.getPresentationModel().getItemEnabledIconFilterStrategy(),
+                                    ribbonAppMenuProjection.getPresentationModel().getItemDisabledIconFilterStrategy())
+                            .build();
             for (Command footerCommand : ribbonAppMenu.getFooterCommands().getCommands()) {
-                CommandButtonPresentationModel commandPresentation =
-                        CommandButtonPresentationModel.builder()
-                                .setPresentationState(CommandButtonPresentationState.MEDIUM)
-                                .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
-                                .build();
+                CommandButtonPresentationModel footerCommandPresentation = baseFooterCommandPresentation;
                 if (commandOverlays.containsKey(footerCommand)) {
-                    commandPresentation = commandPresentation.overlayWith(
+                    footerCommandPresentation = baseFooterCommandPresentation.overlayWith(
                             commandOverlays.get(footerCommand));
                 }
                 JCommandButton commandFooterButton =
-                        footerCommand.project(commandPresentation).buildComponent();
+                        footerCommand.project(footerCommandPresentation).buildComponent();
                 this.footerPanel.add(commandFooterButton);
             }
         }

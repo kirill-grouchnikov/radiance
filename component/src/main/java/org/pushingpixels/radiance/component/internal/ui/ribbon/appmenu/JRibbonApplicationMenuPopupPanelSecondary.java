@@ -50,6 +50,9 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPan
             Command primaryMenuEntry,
             Map<Command, CommandButtonPresentationModel.Overlay> commandOverlays,
             CommandButtonPresentationState secondaryMenuPresentationState,
+            RadianceThemingSlices.IconFilterStrategy activeIconFilterStrategy,
+            RadianceThemingSlices.IconFilterStrategy enabledIconFilterStrategy,
+            RadianceThemingSlices.IconFilterStrategy disabledIconFilterStrategy,
             JCommandButton commandButton) {
         CommandPanelProjection projection = new CommandPanelProjection(
                 new CommandPanelContentModel(primaryMenuEntry.getSecondaryContentModel()
@@ -62,6 +65,8 @@ public class JRibbonApplicationMenuPopupPanelSecondary extends JCommandButtonPan
                                 RadianceThemingSlices.PopupPlacementStrategy.Endward.VALIGN_TOP)
                         .setCommandPopupFireTrigger(CommandButtonPresentationModel.PopupFireTrigger.ON_ROLLOVER)
                         .setCommandSelectedStateHighlight(CommandButtonPresentationModel.SelectedStateHighlight.ICON_ONLY)
+                        .setIconFilterStrategies(activeIconFilterStrategy, enabledIconFilterStrategy,
+                                disabledIconFilterStrategy)
                         .build());
         projection.setCommandOverlays(commandOverlays);
 
