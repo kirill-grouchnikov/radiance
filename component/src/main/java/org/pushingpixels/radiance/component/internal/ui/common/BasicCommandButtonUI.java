@@ -362,6 +362,7 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
             if ("iconFactory".equals(propertyChangeEvent.getPropertyName())) {
                 RadianceIcon.Factory factory = (RadianceIcon.Factory) propertyChangeEvent.getNewValue();
                 icon = (factory != null) ? factory.createNewIcon() : null;
+                syncIconDimension();
                 commandButton.repaint();
             }
             if ("isToggleSelected".equals(propertyChangeEvent.getPropertyName())) {
