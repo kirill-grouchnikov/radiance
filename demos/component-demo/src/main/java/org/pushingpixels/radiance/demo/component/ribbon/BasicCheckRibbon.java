@@ -137,6 +137,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private Command amEntryExit;
     private Command amFooterProps;
 
+    private Command anchoredShareCommand;
+
     private RibbonComboBoxContentModel<String> fontComboBoxModel;
     private RibbonCheckBoxContentModel rulerCheckBoxModel;
     private RibbonSpinnerNumberContentModel indentLeftSpinnerModel;
@@ -1590,6 +1592,29 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 .setSelectionChangeListener(((oldSelection, newSelection) ->
                         System.out.println("New indent left -> " + newSelection)))
                 .build();
+
+        // "Share" anchored menu
+        Command shareEntrySendMail = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.email.text"))
+                .setAction(commandActionEvent -> System.out.println("Shared to email"))
+                .build();
+
+        Command shareEntrySendHtml = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.html.text"))
+                .setAction(commandActionEvent -> System.out.println("Shared to browser"))
+                .build();
+
+        Command shareEntrySendDoc = Command.builder()
+                .setText(resourceBundle.getString("AppMenuSend.word.text"))
+                .setAction(commandActionEvent -> System.out.println("Shared to Word"))
+                .build();
+
+        this.anchoredShareCommand = Command.builder()
+                .setText(resourceBundle.getString("Share.title"))
+                .setIconFactory(Internet_mail.factory())
+                .setSecondaryContentModel(new CommandMenuContentModel(new CommandGroup(
+                        shareEntrySendMail, shareEntrySendHtml, shareEntrySendDoc)))
+                .build();
     }
 
     private void createStyleGalleryModel() {
@@ -1726,28 +1751,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
 
-        // "Share" anchored menu
-        Command shareEntrySendMail = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.email.text"))
-                .setAction(commandActionEvent -> System.out.println("Shared to email"))
-                .build();
-
-        Command shareEntrySendHtml = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.html.text"))
-                .setAction(commandActionEvent -> System.out.println("Shared to browser"))
-                .build();
-
-        Command shareEntrySendDoc = Command.builder()
-                .setText(resourceBundle.getString("AppMenuSend.word.text"))
-                .setAction(commandActionEvent -> System.out.println("Shared to Word"))
-                .build();
-
-        this.getRibbon().addAnchoredCommand(Command.builder()
-                .setText(resourceBundle.getString("Share.title"))
-                .setIconFactory(Internet_mail.factory())
-                .setSecondaryContentModel(new CommandMenuContentModel(new CommandGroup(
-                        shareEntrySendMail, shareEntrySendHtml, shareEntrySendDoc)))
-                .build()
+        this.getRibbon().addAnchoredCommand(this.anchoredShareCommand
                 .project(CommandButtonPresentationModel.builder()
                         .setPopupPlacementStrategy(RadianceThemingSlices.PopupPlacementStrategy.Downward.HALIGN_END)
                         .setPopupKeyTip("GS")
@@ -2298,7 +2302,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
     private JPanel getControlPanel() {
         FormBuilder builder = FormBuilder.create().
                 columns("right:pref, 8dlu, fill:pref:grow").
-                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
+                rows("p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p, $lg, p").
                 padding(new EmptyBorder(20, 4, 0, 4));
 
         final JCheckBox group1Visible = new JCheckBox("visible");
@@ -2383,7 +2387,29 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 }));
         builder.add("Change 'Paste'").xy(1, 13).add(changePaste).xy(3, 13);
 
-        builder.add("Locale").xy(1, 15).add(new RadianceLocaleSelector(false, selected -> {
+        JButton changeShare = new JButton("change");
+        changeShare
+                .addActionListener(actionEvent -> SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        anchoredShareCommand.setText(getRandomString(5, 10));
+                        anchoredShareCommand.setIconFactory(Help_browser.factory());
+                    }
+
+                    private String getRandomString(int minLength, int maxLength) {
+                        Random random = new Random();
+                        int len = minLength + random.nextInt(maxLength - minLength);
+                        String newTitle = new String();
+                        String letters = "abcdefghijklmnopqrstubvwxyz       ";
+                        for (int i = 0; i < len; i++) {
+                            newTitle += letters.charAt(random.nextInt(letters.length()));
+                        }
+                        return newTitle;
+                    }
+                }));
+        builder.add("Change 'Share'").xy(1, 15).add(changeShare).xy(3, 15);
+
+        builder.add("Locale").xy(1, 17).add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
             resourceBundle = ResourceBundle.getBundle(
                     "org.pushingpixels.radiance.demo.component.resource.Resources", currLocale);
@@ -2391,7 +2417,7 @@ public class BasicCheckRibbon extends JRibbonFrame {
                 window.applyComponentOrientation(ComponentOrientation.getOrientation(currLocale));
                 SwingUtilities.updateComponentTreeUI(window);
             }
-        })).xy(3, 15);
+        })).xy(3, 17);
 
         JButton galleryUpdate = new JButton("update");
         galleryUpdate.addActionListener(actionEvent -> {
@@ -2431,8 +2457,8 @@ public class BasicCheckRibbon extends JRibbonFrame {
             // And mark the second new command as the new selection in the gallery
             this.styleGalleryContentModel.setSelectedCommand(this.styleGalleryCommandGroup1.getCommands().get(1));
         });
-        builder.add("Update gallery").xy(1, 17).add(galleryUpdate).xy(3, 17);
-        builder.add(new RadianceFontScaleSelector()).xyw(1, 19, 3);
+        builder.add("Update gallery").xy(1, 19).add(galleryUpdate).xy(3, 19);
+        builder.add(new RadianceFontScaleSelector()).xyw(1, 21, 3);
 
         return builder.build();
     }
