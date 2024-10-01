@@ -479,14 +479,14 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
             RibbonBandResizePolicy resizePolicy = ((AbstractRibbonBand) c).getCurrentResizePolicy();
 
             if (resizePolicy instanceof CoreRibbonResizePolicies.IconRibbonBandResizePolicy) {
-                boolean wasCollapsedVisible = collapsedButton.isVisible();
                 collapsedButton.setVisible(true);
                 int collapsedButtonWidth = c.getWidth() - ins.left - ins.right - 2;
                 collapsedButton.setBounds((c.getWidth() - collapsedButtonWidth) / 2,
                         extraTop + ins.top,
                         collapsedButtonWidth, availableHeight);
 
-                if (!wasCollapsedVisible) {
+                if (ribbonBand.getControlPanel() != null) {
+                    // Move control panel from the ribbon band to the popup band
                     final AbstractRibbonBand popupBand = ribbonBand.cloneBand();
                     popupBand.setControlPanel(ribbonBand.getControlPanel());
                     List<RibbonBandResizePolicy> resizePolicies = ribbonBand.getResizePolicies();
