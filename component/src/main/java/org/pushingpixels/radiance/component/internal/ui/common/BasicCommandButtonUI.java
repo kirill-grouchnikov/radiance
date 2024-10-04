@@ -382,11 +382,25 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
                 commandButton.getActionModel().setFireActionOnPress((Boolean) propertyChangeEvent.getNewValue());
             }
             if ("actionEnabled".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.getActionModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
+                boolean newValue = (Boolean) propertyChangeEvent.getNewValue();
+                if (!newValue) {
+                    // Clear active states, need to do this before marking the model as disabled
+                    commandButton.getActionModel().setPressed(false);
+                    commandButton.getActionModel().setRollover(false);
+                    commandButton.getActionModel().setArmed(false);
+                }
+                commandButton.getActionModel().setEnabled(newValue);
                 commandButton.repaint();
             }
             if ("secondaryEnabled".equals(propertyChangeEvent.getPropertyName())) {
-                commandButton.getPopupModel().setEnabled((Boolean) propertyChangeEvent.getNewValue());
+                boolean newValue = (Boolean) propertyChangeEvent.getNewValue();
+                if (!newValue) {
+                    // Clear active states, need to do this before marking the model as disabled
+                    commandButton.getPopupModel().setPressed(false);
+                    commandButton.getPopupModel().setRollover(false);
+                    commandButton.getPopupModel().setArmed(false);
+                }
+                commandButton.getPopupModel().setEnabled(newValue);
                 commandButton.repaint();
             }
         };
