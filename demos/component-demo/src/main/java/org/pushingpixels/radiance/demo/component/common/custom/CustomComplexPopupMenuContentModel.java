@@ -30,10 +30,10 @@
 package org.pushingpixels.radiance.demo.component.common.custom;
 
 import org.pushingpixels.radiance.component.api.common.KeyValuePair;
+import org.pushingpixels.radiance.component.api.common.WeakPropertyChangeSupport;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.PropertyChangeAware;
-import org.pushingpixels.radiance.component.internal.utils.WeakPropertyChangeSupport;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;

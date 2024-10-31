@@ -31,10 +31,10 @@
 apply plugin: 'kotlin'
 
 dependencies {
+    implementation libs.batik
     implementation libs.kotlin.core.stdlib
     implementation libs.kotlin.coroutines.core
     implementation libs.kotlin.coroutines.swing
-    implementation libs.batik
     implementation project(':common')
     implementation project(':theming')
     implementation project(':component')

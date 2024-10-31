@@ -32,9 +32,9 @@ package org.pushingpixels.radiance.component.api.common.model;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.CommandAction;
 import org.pushingpixels.radiance.component.api.common.RichTooltip;
+import org.pushingpixels.radiance.component.api.common.WeakPropertyChangeSupport;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
-import org.pushingpixels.radiance.component.internal.utils.WeakPropertyChangeSupport;
 
 import javax.swing.event.ChangeListener;
 import java.beans.PropertyChangeListener;

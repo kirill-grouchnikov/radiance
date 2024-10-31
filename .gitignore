@@ -6,6 +6,8 @@
 .idea/
 .kotlin/
 .settings/
+.classpath
+.project
 build/
 out/
 bin/

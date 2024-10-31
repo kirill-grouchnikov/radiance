@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.component.internal.utils;
+package org.pushingpixels.radiance.component.api.common;
 
 import org.pushingpixels.radiance.component.api.common.model.PropertyChangeAware;
 

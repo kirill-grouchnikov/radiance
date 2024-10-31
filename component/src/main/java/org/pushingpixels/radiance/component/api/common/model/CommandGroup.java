@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-import org.pushingpixels.radiance.component.internal.utils.WeakPropertyChangeSupport;
-
 import javax.swing.event.EventListenerList;
+
+import org.pushingpixels.radiance.component.api.common.WeakPropertyChangeSupport;
+
 import java.beans.PropertyChangeListener;
 import java.util.*;
 

@@ -31,7 +31,9 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation libs.batik
+    implementation(libs.batik) {
+    	//exclude(group = "xml-apis", module = "xml-apis")
+    }
     implementation project(':common')
 }
 
