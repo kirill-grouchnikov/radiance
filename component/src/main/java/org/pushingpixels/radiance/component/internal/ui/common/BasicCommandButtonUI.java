@@ -34,10 +34,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
 import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.CommandButtonLayoutManager.CommandButtonLayoutInfo;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.Command;
-import org.pushingpixels.radiance.component.api.common.model.PopupButtonModel;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.JCommandPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -78,6 +75,8 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
     private PropertyChangeListener propertyChangeListener;
 
     private PropertyChangeListener commandPropertyChangeListener;
+
+    private ChangeListener commandMenuContentChangeListener;
 
     /**
      * Tracks user interaction with the command button (including keyboard and mouse).
@@ -406,6 +405,17 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
         };
         command.addPropertyChangeListener(this.commandPropertyChangeListener);
 
+        BaseCommandMenuContentModel menuContentModel = command.getSecondaryContentModel();
+        if (menuContentModel != null) {
+            this.commandMenuContentChangeListener = e -> {
+                commandButton.invalidate();
+                commandButton.revalidate();
+                commandButton.doLayout();
+                commandButton.repaint();
+            };
+            menuContentModel.addChangeListener(this.commandMenuContentChangeListener);
+        }
+
         syncActionPreview(command, command.getActionPreview());
 
         this.disposePopupsActionListener = commandActionEvent -> {
@@ -505,6 +515,12 @@ public abstract class BasicCommandButtonUI extends CommandButtonUI {
 
         this.commandButton.removeCommandListener(this.disposePopupsActionListener);
         this.disposePopupsActionListener = null;
+
+        BaseCommandMenuContentModel menuContentModel = this.commandButton.getContentModel().getSecondaryContentModel();
+        if (menuContentModel != null) {
+            menuContentModel.removeChangeListener(this.commandMenuContentChangeListener);
+            this.commandMenuContentChangeListener = null;
+        }
 
         commandButton.getPopupModel().removePopupActionListener(this.popupActionListener);
         this.popupActionListener = null;

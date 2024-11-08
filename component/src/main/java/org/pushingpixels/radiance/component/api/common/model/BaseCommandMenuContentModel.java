@@ -29,6 +29,6 @@
  */
 package org.pushingpixels.radiance.component.api.common.model;
 
-public interface BaseCommandMenuContentModel extends ContentModel {
+public interface BaseCommandMenuContentModel extends ContentModel, ChangeAware {
     boolean isEmpty();
 }

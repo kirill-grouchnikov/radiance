@@ -31,10 +31,7 @@ package org.pushingpixels.radiance.component.internal.ui.ribbon;
 
 import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
 import org.pushingpixels.radiance.component.api.common.JCommandButton;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommand;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandButtonPresentationModel;
-import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
-import org.pushingpixels.radiance.component.api.common.model.Command;
+import org.pushingpixels.radiance.component.api.common.model.*;
 import org.pushingpixels.radiance.component.api.common.popup.AbstractPopupMenuPanel;
 import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
@@ -93,7 +90,7 @@ public abstract class BasicRibbonBandUI extends RibbonBandUI {
      */
     private PropertyChangeListener propertyChangeListener;
 
-    private static class BandCollapsePopupMenuContentModel implements BaseCommandMenuContentModel {
+    private static class BandCollapsePopupMenuContentModel extends CommandMenuContentModel {
         public BandCollapsePopupMenuContentModel() {
         }
 

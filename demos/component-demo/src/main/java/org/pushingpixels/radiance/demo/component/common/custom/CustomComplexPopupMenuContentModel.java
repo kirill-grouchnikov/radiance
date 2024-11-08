@@ -33,8 +33,10 @@ import org.pushingpixels.radiance.component.api.common.KeyValuePair;
 import org.pushingpixels.radiance.component.api.common.model.BaseCommandMenuContentModel;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.PropertyChangeAware;
+import org.pushingpixels.radiance.component.internal.utils.WeakChangeSupport;
 import org.pushingpixels.radiance.component.internal.utils.WeakPropertyChangeSupport;
 
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -42,6 +44,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class CustomComplexPopupMenuContentModel implements BaseCommandMenuContentModel {
+    /**
+     * Stores the listeners on this model.
+     */
+    private final WeakChangeSupport weakChangeSupport;
 
     public enum PopupMenuSectionEntryKind {
         COMMAND, ZOOM, EDIT, HEADER, FOOTER
@@ -184,12 +190,17 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
         }
     }
 
+    public CustomComplexPopupMenuContentModel() {
+        this.weakChangeSupport = new WeakChangeSupport(this);
+    }
+
     public static Builder sectionBuilder() {
         return new Builder();
     }
 
     public void addSection(CustomComplexPopupMenuSectionModel sectionModel) {
         this.sections.add(sectionModel);
+        this.fireStateChanged();
     }
 
     public List<CustomComplexPopupMenuSectionModel> getSections() {
@@ -199,6 +210,20 @@ public class CustomComplexPopupMenuContentModel implements BaseCommandMenuConten
     @Override
     public boolean isEmpty() {
         return this.sections.isEmpty();
+    }
+
+    @Override
+    public void addChangeListener(ChangeListener l) {
+        this.weakChangeSupport.addChangeListener(l);
+    }
+
+    @Override
+    public void removeChangeListener(ChangeListener l) {
+        this.weakChangeSupport.removeChangeListener(l);
+    }
+
+    private void fireStateChanged() {
+        this.weakChangeSupport.fireStateChanged();
     }
 
     public static class Builder {
