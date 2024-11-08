@@ -31,9 +31,7 @@ package org.pushingpixels.radiance.demo.component.common;
 
 import com.jgoodies.forms.builder.FormBuilder;
 import com.jgoodies.forms.factories.Paddings;
-import org.pushingpixels.radiance.component.api.common.CommandButtonPresentationState;
-import org.pushingpixels.radiance.component.api.common.HorizontalAlignment;
-import org.pushingpixels.radiance.component.api.common.JCommandButton;
+import org.pushingpixels.radiance.component.api.common.*;
 import org.pushingpixels.radiance.component.api.common.icon.EmptyRadianceIcon;
 import org.pushingpixels.radiance.component.api.common.model.Command;
 import org.pushingpixels.radiance.component.api.common.model.CommandButtonPresentationModel;
@@ -72,6 +70,7 @@ public class TestCommandButtons extends JFrame {
 
     Locale currLocale;
 
+    protected CommandMenuContentModel commandMenuContentModel;
     protected Command pasteActionCommand;
     protected Command cutCommand;
     protected Command copyCommand;
@@ -111,11 +110,13 @@ public class TestCommandButtons extends JFrame {
     }
 
     private void rebuildCommands() {
+        this.commandMenuContentModel = getPopupMenuContentModel();
+
         this.pastePopupCommand = Command.builder()
                 .setText(resourceBundle.getString("SelectAll.text"))
                 .setIconFactory(Edit_paste.factory())
                 .setExtraText(resourceBundle.getString("SelectAll.textExtra"))
-                .setSecondaryContentModel(getPopupMenuContentModel())
+                .setSecondaryContentModel(this.commandMenuContentModel)
                 .build();
 
         this.copyCommand = Command.builder()
@@ -123,7 +124,7 @@ public class TestCommandButtons extends JFrame {
                 .setIconFactory(Edit_copy.factory())
                 .setExtraText(resourceBundle.getString("Copy.textExtra"))
                 .setAction(commandActionEvent -> System.out.println(stamp() + ": Copy"))
-                .setSecondaryContentModel(getPopupMenuContentModel())
+                .setSecondaryContentModel(this.commandMenuContentModel)
                 .build();
 
         this.cutCommand = Command.builder()
@@ -131,7 +132,7 @@ public class TestCommandButtons extends JFrame {
                 .setIconFactory(Edit_cut.factory())
                 .setExtraText(resourceBundle.getString("Cut.textExtra"))
                 .setAction(commandActionEvent -> System.out.println(stamp() + ": Cut"))
-                .setSecondaryContentModel(getPopupMenuContentModel())
+                .setSecondaryContentModel(this.commandMenuContentModel)
                 .build();
 
         this.pasteActionCommand = Command.builder()
@@ -313,6 +314,20 @@ public class TestCommandButtons extends JFrame {
             pastePopupCommand.setSecondaryEnabled(popupEnabled.isSelected());
         }));
         controlPanel.add(popupEnabled);
+
+        Command clearSecondaryMenusCommand = Command.builder()
+                .setText("Clear menus")
+                .setAction(e -> {
+                    commandMenuContentModel.removeAllCommandGroups();
+                    e.getCommand().setActionEnabled(false);
+                })
+                .build();
+        controlPanel.add(clearSecondaryMenusCommand.project(
+                CommandButtonPresentationModel.builder()
+                        .setPresentationState(CommandButtonPresentationState.MEDIUM)
+                        .setBackgroundAppearanceStrategy(RadianceThemingSlices.BackgroundAppearanceStrategy.ALWAYS)
+                        .build())
+                .buildComponent());
 
         controlPanel.add(new RadianceLocaleSelector(false, selected -> {
             currLocale = selected;
