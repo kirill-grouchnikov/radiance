@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.component.api.common.popup.JPopupPanel;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager;
 import org.pushingpixels.radiance.component.api.common.popup.PopupPanelManager.PopupEvent;
 import org.pushingpixels.radiance.component.api.ribbon.JRibbon;
+import org.pushingpixels.radiance.component.api.ribbon.synapse.JRibbonComboBox;
 import org.pushingpixels.radiance.component.internal.ui.common.CommandButtonUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonTaskToggleButton;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.appmenu.JRibbonApplicationMenuPopupPanel;
@@ -123,7 +124,7 @@ public abstract class BasicPopupPanelUI extends PopupPanelUI {
                     for (Component c = src; c != null; c = c.getParent()) {
                         if (c instanceof Window) {
                             break;
-                        } else if (c instanceof JPopupPanel) {
+                        } else if ((c instanceof JPopupPanel) || (c instanceof RadianceComboPopup)) {
                             return;
                         }
                     }
