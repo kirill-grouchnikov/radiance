@@ -120,7 +120,7 @@ public class RadianceFontSelector extends FlexiComboBox<RadianceFontSelector.Fon
         // populate the combobox
         super(new FontInfo("Platform", RadianceThemingCortex.GlobalScope.getFontPolicy()
                         .getFontSet()),
-                new FontInfo("fonts/Inter-UI-Regular.ttf", "fonts/Inter-UI-Bold.ttf"),
+                new FontInfo("fonts/Inter-Regular.ttf", "fonts/Inter-Bold.ttf"),
                 new FontInfo("fonts/SourceCodePro-Regular.ttf", "fonts/SourceCodePro-Bold.ttf"),
                 new FontInfo("fonts/Roboto-Regular.ttf", "fonts/Roboto-Bold.ttf"),
                 new FontInfo("fonts/RobotoCondensed-Regular.ttf",
