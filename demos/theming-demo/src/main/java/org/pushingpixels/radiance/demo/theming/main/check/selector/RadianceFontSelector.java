@@ -121,10 +121,10 @@ public class RadianceFontSelector extends FlexiComboBox<RadianceFontSelector.Fon
         super(new FontInfo("Platform", RadianceThemingCortex.GlobalScope.getFontPolicy()
                         .getFontSet()),
                 new FontInfo("fonts/Inter-Regular.ttf", "fonts/Inter-Bold.ttf"),
-                new FontInfo("fonts/SourceCodePro-Regular.ttf", "fonts/SourceCodePro-Bold.ttf"),
                 new FontInfo("fonts/Roboto-Regular.ttf", "fonts/Roboto-Bold.ttf"),
                 new FontInfo("fonts/RobotoCondensed-Regular.ttf",
-                        "fonts/RobotoCondensed-Bold.ttf"));
+                        "fonts/RobotoCondensed-Bold.ttf"),
+                new FontInfo("fonts/SourceCodePro-Regular.ttf", "fonts/SourceCodePro-Bold.ttf"));
 
         // add an action listener to change font based on user selection
         this.addActionListener(actionEvent -> SwingUtilities.invokeLater(() ->
