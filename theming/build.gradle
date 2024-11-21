@@ -33,6 +33,7 @@ apply plugin: 'java'
 dependencies {
     implementation project(':common')
     implementation project(':animation')
+    implementation libs.ephemeral.chroma
 }
 
 ext.designation = "core"

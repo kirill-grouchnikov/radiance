@@ -9,6 +9,8 @@ jgoodies_common = "1.8.1"
 jgoodies_forms = "1.9.0"
 jhlabs = "2.0.235"
 
+ephemeral_chroma = "1.0-SNAPSHOT"
+
 versionchecker = "0.51.0"
 mavenpublish = "0.30.0"
 
@@ -20,6 +22,7 @@ kotlin-core-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 batik = { module = "org.apache.xmlgraphics:batik-all", version.ref = "batik" }
+ephemeral-chroma = { module = "org.pushing-pixels:ephemeral-chroma", version.ref = "ephemeral_chroma" }
 
 # Demo dependencies
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
