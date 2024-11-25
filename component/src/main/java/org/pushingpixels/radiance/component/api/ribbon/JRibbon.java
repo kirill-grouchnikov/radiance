@@ -641,9 +641,25 @@ public class JRibbon extends JComponent {
      * @param projection Command projection to add.
      * @see #getAnchoredCommands()
      * @see #removeAnchoredCommand(CommandButtonProjection)
+     * @see #addAnchoredCommand(CommandButtonProjection, int) 
      */
     public synchronized void addAnchoredCommand(CommandButtonProjection projection) {
         this.anchoredCommands.add(projection);
+        this.fireStateChanged();
+    }
+
+    /**
+     * Adds the specified ribbon command projection at the specified index of the task toggle strip
+     * of this ribbon.
+     *
+     * @param projection Command projection to add.
+     * @param index Index of the projection
+     * @see #getAnchoredCommands()
+     * @see #removeAnchoredCommand(CommandButtonProjection)
+     * @see #addAnchoredCommand(CommandButtonProjection, int) 
+     */
+    public synchronized void addAnchoredCommand(CommandButtonProjection projection, int index) {
+        this.anchoredCommands.add(index, projection);
         this.fireStateChanged();
     }
 
@@ -654,6 +670,7 @@ public class JRibbon extends JComponent {
      * @param projection Command projection to remove.
      * @see #getAnchoredCommands()
      * @see #addAnchoredCommand(CommandButtonProjection)
+     * @see #addAnchoredCommand(CommandButtonProjection, int) 
      */
     public synchronized void removeAnchoredCommand(CommandButtonProjection projection) {
         this.anchoredCommands.remove(projection);
