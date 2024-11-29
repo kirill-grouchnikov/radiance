@@ -27,19 +27,14 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package org.pushingpixels.radiance.theming.api.palette;
 
-apply plugin: 'java'
+import java.awt.*;
 
-dependencies {
-    implementation libs.jgoodies.common
-    implementation libs.jgoodies.forms
-    implementation project(':common')
-    implementation project(':animation')
-    implementation project(':theming')
-    implementation project(':component')
-    implementation project(':theming-extras')
-    implementation libs.ephemeral.chroma
+public interface ContainerColorTokens {
+    Color getContainerLowest();
+    Color getContainerLow();
+    Color getContainer();
+    Color getContainerHigh();
+    Color getContainerHighest();
 }
-
-ext.designation = "demo"
-
