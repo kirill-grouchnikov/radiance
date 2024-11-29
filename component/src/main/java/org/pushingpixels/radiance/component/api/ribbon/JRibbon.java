@@ -670,7 +670,7 @@ public class JRibbon extends JComponent {
      * @param projection Command projection to remove.
      * @see #getAnchoredCommands()
      * @see #addAnchoredCommand(CommandButtonProjection)
-     * @see #addAnchoredCommand(CommandButtonProjection, int) 
+     * @see #addAnchoredCommand(CommandButtonProjection, int)
      */
     public synchronized void removeAnchoredCommand(CommandButtonProjection projection) {
         this.anchoredCommands.remove(projection);
