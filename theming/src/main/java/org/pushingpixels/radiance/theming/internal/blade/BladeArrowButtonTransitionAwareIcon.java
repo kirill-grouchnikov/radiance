@@ -130,22 +130,24 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         float iconAlpha = RadianceColorSchemeUtilities.getAlpha(c,
                 modelStateInfo.getCurrModelState());
 
-        BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
-                currState,
-                BladeUtils.getDefaultColorSchemeDelegate(this.component,
-                        this.colorSchemeAssociationKindDelegate),
-                false);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
         if (skin instanceof TonalSkin) {
+            // TODO: TONAL - add animations
             this.delegate.drawColorSchemeIcon(graphics,
                     BladeUtils.getDefaultColorSchemeDelegate(this.component,
                             this.colorSchemeAssociationKindDelegate)
                             .getRenderColorTokensForCurrentState(currState),
                     iconAlpha);
         } else {
+            BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
+                    currState,
+                    BladeUtils.getDefaultColorSchemeDelegate(this.component,
+                            this.colorSchemeAssociationKindDelegate),
+                    false);
+
             this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
         }
         graphics.dispose();

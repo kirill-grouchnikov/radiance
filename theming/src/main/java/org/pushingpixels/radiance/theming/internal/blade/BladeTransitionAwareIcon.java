@@ -157,22 +157,23 @@ public class BladeTransitionAwareIcon implements Icon {
                 currState = ComponentState.ENABLED;
         }
 
-        BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo, currState,
-                BladeUtils.getDefaultColorSchemeDelegate(c,
-                        this.colorSchemeAssociationKindDelegate),
-                false);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
         if (skin instanceof TonalSkin) {
+            // TODO: TONAL - add animations
             this.delegate.drawColorSchemeIcon(graphics,
                     BladeUtils.getDefaultColorSchemeDelegate(c,
                                     this.colorSchemeAssociationKindDelegate)
                             .getRenderColorTokensForCurrentState(currState),
                     iconAlpha);
         } else {
+            BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo, currState,
+                    BladeUtils.getDefaultColorSchemeDelegate(c,
+                            this.colorSchemeAssociationKindDelegate),
+                    false);
+
             this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
         }
         graphics.dispose();

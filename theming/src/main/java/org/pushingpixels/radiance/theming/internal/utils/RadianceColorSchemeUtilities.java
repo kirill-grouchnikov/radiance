@@ -234,6 +234,7 @@ public class RadianceColorSchemeUtilities {
         }
         ContainerRenderColorTokens nonColorized = skin.getColorRenderTokens(component,
                 componentState);
+        // TODO: TONAL - add colorization
         return nonColorized;
     }
 

@@ -102,6 +102,7 @@ public class ButtonBackgroundDelegate {
             ContainerRenderColorTokens buttonRenderColorTokens =
                     skin.getColorRenderTokens(button, currState);
 
+            // TODO: TONAL - add animations
             drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
                     buttonRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
         } else {

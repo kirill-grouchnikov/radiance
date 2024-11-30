@@ -416,6 +416,7 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
+            // TODO: TONAL - add animations
             ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
             return colorTokens.getOnContainerColorTokens().getOnContainer();
         } else {
