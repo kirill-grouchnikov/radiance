@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.painter.border;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
@@ -64,8 +65,12 @@ public interface RadianceBorderPainter extends RadianceTrait {
 	 * @param borderScheme
 	 *            The border color scheme.
 	 */
-    void paintBorder(Graphics g, Component c, float width, float height,
-            Shape contour, Shape innerContour, RadianceColorScheme borderScheme);
+	void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
+			Shape innerContour, RadianceColorScheme borderScheme);
+
+	default void paintBorder(Graphics g, Component c, float width, float height, Shape contour,
+			Shape innerContour, ContainerRenderColorTokens renderColorTokens) {
+	}
 
 	/**
 	 * Returns boolean indication whether this border painter is painting the

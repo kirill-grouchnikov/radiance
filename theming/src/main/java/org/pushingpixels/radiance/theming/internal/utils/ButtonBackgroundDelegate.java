@@ -33,10 +33,13 @@ import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.animation.api.Timeline.TimelineState;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
@@ -94,21 +97,27 @@ public class ButtonBackgroundDelegate {
             }
         }
 
-        // Populate fill and border color schemes based on the current transition state of the button.
-        // Important - don't do it on pulsating buttons (such as close button of modified frames).
-        BladeUtils.populateColorScheme(mutableFillColorScheme, button,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                false);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                false);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+        if (skin instanceof TonalSkin) {
+            ContainerRenderColorTokens buttonRenderColorTokens =
+                    skin.getColorRenderTokens(button, currState);
 
-        drawBackground(graphics, button, shaper, fillPainter, borderPainter, width,
-                height, mutableFillColorScheme, mutableBorderColorScheme, openSides, isContentAreaFilled,
-                isBorderPainted);
+            drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
+                    buttonRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
+        } else {
+            // Populate fill and border color schemes based on the current transition state of
+            // the button.
+            // Important - don't do it on pulsating buttons (such as close button of modified
+            // frames).
+            BladeUtils.populateColorScheme(mutableFillColorScheme, button, modelStateInfo,
+                    currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
+            BladeUtils.populateColorScheme(mutableBorderColorScheme, button, modelStateInfo,
+                    currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
 
+            drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
+                    mutableFillColorScheme, mutableBorderColorScheme, openSides,
+                    isContentAreaFilled, isBorderPainted);
+        }
     }
 
     private void drawBackground(Graphics2D g, AbstractButton button,
@@ -173,6 +182,70 @@ public class ButtonBackgroundDelegate {
                     }
                     graphics1X.translate(deltaLeft, deltaTop);
                 });
+
+        graphics.dispose();
+    }
+
+
+    private void drawBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
+            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
+            int height, ContainerRenderColorTokens renderColorTokens,
+            Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
+            boolean isBorderPainted) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height, (graphics1X, x, y,
+                scaledWidth, scaledHeight, scaleFactor) -> {
+            ComponentOrientation orientation = button.getComponentOrientation();
+            RadianceThemingSlices.Side leftSide = orientation.isLeftToRight() ?
+                    RadianceThemingSlices.Side.LEADING : RadianceThemingSlices.Side.TRAILING;
+            RadianceThemingSlices.Side rightSide = orientation.isLeftToRight() ?
+                    RadianceThemingSlices.Side.TRAILING : RadianceThemingSlices.Side.LEADING;
+
+            int openDelta = (int) (3 * scaleFactor);
+            int deltaLeft = ((openSides != null) && openSides.contains(leftSide)) ? openDelta : 0;
+            int deltaRight = ((openSides != null) && openSides.contains(rightSide)) ? openDelta : 0;
+            int deltaTop =
+                    ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.TOP)) ?
+                            openDelta : 0;
+            int deltaBottom =
+                    ((openSides != null) && openSides.contains(RadianceThemingSlices.Side.BOTTOM)) ? openDelta : 0;
+
+            Shape contourOuter = shaper.getButtonOutline(button, 0.0f,
+                    scaledWidth + deltaLeft + deltaRight, scaledHeight + deltaTop + deltaBottom,
+                    scaleFactor, false);
+
+            graphics1X.translate(-deltaLeft, -deltaTop);
+            if (isContentAreaFilled) {
+                // If the border is painted, compute a separate contour for the fill.
+                // Otherwise pixels on the edge can "spill" outside
+                // the contour. Those pixels will be drawn by the border painter.
+                Shape contourFill = isBorderPainted ? shaper.getButtonOutline(button, 0.5f,
+                        scaledWidth + deltaLeft + deltaRight + 1.0f,
+                        scaledHeight + deltaTop + deltaBottom + 1.0f, scaleFactor, false) :
+                        contourOuter;
+                fillPainter.paintContourBackground(graphics1X, button,
+                        scaledWidth + deltaLeft + deltaRight,
+                        scaledHeight + deltaTop + deltaBottom, contourFill, renderColorTokens);
+            }
+
+            if (isBorderPainted) {
+                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                        shaper.getButtonOutline(button, 1.0f,
+                                scaledWidth + deltaLeft + deltaRight,
+                                scaledHeight + deltaTop + deltaBottom, scaleFactor, true) : null;
+                borderPainter.paintBorder(graphics1X, button,
+                        scaledWidth + deltaLeft + deltaRight,
+                        scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner,
+                        renderColorTokens);
+            }
+            graphics1X.translate(deltaLeft, deltaTop);
+        });
 
         graphics.dispose();
     }

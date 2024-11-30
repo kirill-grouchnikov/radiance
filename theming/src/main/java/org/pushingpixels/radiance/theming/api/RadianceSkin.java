@@ -37,6 +37,8 @@ import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPaint
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -192,6 +194,8 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorSchemeBundle> colorSchemeBundleMap;
 
+    private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme2> tonalColorSchemeMap;
+
     /**
      * Maps decoration area type to the background color schemes.
      */
@@ -257,6 +261,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     protected RadianceSkin() {
         this.colorSchemeBundleMap = new HashMap<>();
+        this.tonalColorSchemeMap = new HashMap<>();
         this.backgroundColorSchemeMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
         this.colorOverlayMap = new HashMap<>();
@@ -399,6 +404,34 @@ public abstract class RadianceSkin implements RadianceTrait {
         return registered;
     }
 
+    public final ContainerRenderColorTokens getColorRenderTokens(Component comp,
+            ComponentState componentState) {
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific scheme bundles.
+        if (this.tonalColorSchemeMap.size() > 1) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
+                    RadianceThemingSlices.DecorationAreaType.NONE :
+                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+            if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+                RadianceColorScheme2 registered = this.tonalColorSchemeMap.get(decorationAreaType);
+                if (registered == null) {
+                    throw new IllegalStateException("Color scheme shouldn't be null here. Please "
+                            + "report this issue");
+                }
+                return componentState.isActive() ? registered.getTonalContainerTokens()
+                        : registered.getMutedContainerTokens();
+            }
+        }
+
+        RadianceColorScheme2 registered =
+                this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
+        if (registered == null) {
+            throw new IllegalStateException("Color scheme shouldn't be null here. Please report " + "this issue");
+        }
+        return componentState.isActive() ? registered.getTonalContainerTokens()
+                : registered.getMutedContainerTokens();
+    }
+
     /**
      * Returns the alpha channel of the highlight color scheme of the component.
      *
@@ -517,6 +550,26 @@ public abstract class RadianceSkin implements RadianceTrait {
             this.backgroundColorSchemeMap.put(areaType, backgroundColorScheme);
         }
         this.statesWithAlpha.addAll(bundle.getStatesWithAlpha());
+    }
+
+    /**
+     * Registers the specified color scheme bundle and background color scheme
+     * to be used on controls in decoration areas.
+     *
+     * @param bundle    The color scheme bundle to use on controls in decoration
+     *                  areas.
+     * @param areaTypes Enumerates the area types that are affected by the parameters.
+     */
+    public void registerDecorationAreaColorScheme(RadianceColorScheme2 colorScheme,
+            RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        if (colorScheme == null) {
+            return;
+        }
+
+        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            this.decoratedAreaSet.add(areaType);
+            this.tonalColorSchemeMap.put(areaType, colorScheme);
+        }
     }
 
     /**

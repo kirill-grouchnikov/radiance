@@ -74,7 +74,6 @@ class RobotDefaultSkin(accentColorScheme: RadianceColorScheme) :
         this.decorationPainter = decorationPainter
 
         this.highlightFillPainter = ClassicFillPainter()
-        this.borderPainter = ClassicBorderPainter()
 
         val defaultSchemeBundle =
             RadianceColorSchemeBundle(

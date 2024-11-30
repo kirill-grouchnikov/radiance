@@ -27,43 +27,33 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.radiance.theming.api.painter.fill;
-
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
+package org.pushingpixels.radiance.theming.api.palette;
 
 import java.awt.*;
 
 /**
- * Fill painter interface for <b>Radiance</b> look and feel. This class is part
- * of officially supported API.
+ * Defines a query that returns a single color based on a color scheme.
  * 
  * @author Kirill Grouchnikov
  */
-public interface RadianceFillPainter extends RadianceTrait {
-	/**
-	 * Fills the contour that matches the specified parameters.
-	 * 
-	 * @param g
-	 *            Graphics context.
-	 * @param comp
-	 *            Component to paint.
-	 * @param width
-	 *            Width of a UI component.
-	 * @param height
-	 *            Height of a UI component.
-	 * @param contour
-	 *            Contour of a UI component.
-	 * @param fillScheme
-	 *            The fill color scheme.
-	 */
-	void paintContourBackground(Graphics g, Component comp, float width,
-			float height, Shape contour, RadianceColorScheme fillScheme);
+@FunctionalInterface
+public interface ContainerColorTokensSingleColorQuery {
+	Color query(ContainerRenderColorTokens colorTokens);
 
-	default void paintContourBackground(Graphics g, Component comp, float width, float height,
-			Shape contour, ContainerRenderColorTokens renderColorTokens) {
-	}
+	ContainerColorTokensSingleColorQuery CONTAINER_LOWEST = (colorTokens) ->
+		colorTokens.getContainerColorTokens().getContainerLowest();
+	ContainerColorTokensSingleColorQuery CONTAINER_LOW = (colorTokens) ->
+			colorTokens.getContainerColorTokens().getContainerLow();
+	ContainerColorTokensSingleColorQuery CONTAINER = (colorTokens) ->
+			colorTokens.getContainerColorTokens().getContainer();
+	ContainerColorTokensSingleColorQuery CONTAINER_HIGH = (colorTokens) ->
+			colorTokens.getContainerColorTokens().getContainerHigh();
+	ContainerColorTokensSingleColorQuery CONTAINER_HIGHEST = (colorTokens) ->
+			colorTokens.getContainerColorTokens().getContainerHighest();
 
-	Color getRepresentativeColor(RadianceColorScheme fillScheme);
+	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE = (colorTokens) ->
+			colorTokens.getContainerOutlineColorTokens().getContainerOutline();
+	ContainerColorTokensSingleColorQuery CONTAINER_OUTLINE_VARIANT = (colorTokens) ->
+			colorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant();
+
 }

@@ -29,41 +29,31 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.fill;
 
-import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
-import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
-
-import java.awt.*;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokensSingleColorQuery;
 
 /**
- * Fill painter interface for <b>Radiance</b> look and feel. This class is part
+ * Fill painter that draws visuals with classic appearance. This class is part
  * of officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
-public interface RadianceFillPainter extends RadianceTrait {
+public class ClassicTonalFillPainter extends FractionBasedTonalFillPainter {
 	/**
-	 * Fills the contour that matches the specified parameters.
-	 * 
-	 * @param g
-	 *            Graphics context.
-	 * @param comp
-	 *            Component to paint.
-	 * @param width
-	 *            Width of a UI component.
-	 * @param height
-	 *            Height of a UI component.
-	 * @param contour
-	 *            Contour of a UI component.
-	 * @param fillScheme
-	 *            The fill color scheme.
+	 * Reusable instance of this painter.
 	 */
-	void paintContourBackground(Graphics g, Component comp, float width,
-			float height, Shape contour, RadianceColorScheme fillScheme);
+	public static final ClassicTonalFillPainter INSTANCE = new ClassicTonalFillPainter();
 
-	default void paintContourBackground(Graphics g, Component comp, float width, float height,
-			Shape contour, ContainerRenderColorTokens renderColorTokens) {
+	/**
+	 * Creates a new classic gradient painter.
+	 */
+	public ClassicTonalFillPainter() {
+		super("Classic",
+				new float[] {0.0f, 0.5f, 1.0f},
+				new ContainerColorTokensSingleColorQuery[] {
+						ContainerColorTokensSingleColorQuery.CONTAINER_HIGH,
+						ContainerColorTokensSingleColorQuery.CONTAINER,
+						ContainerColorTokensSingleColorQuery.CONTAINER_LOW
+				}
+		);
 	}
-
-	Color getRepresentativeColor(RadianceColorScheme fillScheme);
 }
