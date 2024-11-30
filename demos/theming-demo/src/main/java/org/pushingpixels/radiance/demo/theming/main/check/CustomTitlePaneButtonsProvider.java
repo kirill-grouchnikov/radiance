@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.demo.theming.main.check;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 
@@ -51,6 +52,33 @@ public class CustomTitlePaneButtonsProvider extends DefaultTitlePaneButtonsProvi
                 int end = iconSize - start;
 
                 Color primaryColor = scheme.getMarkColor();
+
+                Stroke primaryStroke = new BasicStroke(1.5f,
+                        BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+                graphics.setStroke(primaryStroke);
+                graphics.setColor(primaryColor);
+                // Triangle
+                graphics.drawLine(start, start, end, start);
+                graphics.drawLine(end, start, end, end);
+                graphics.drawLine(end, end, start, start);
+
+                graphics.dispose();
+            }
+
+            @Override
+            public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens,
+                    float alpha, int iconSize) {
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                        RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+
+                int start = iconSize / 4;
+                int end = iconSize - start;
+
+                Color primaryColor = renderColorTokens.getOnContainerColorTokens().getOnContainer();
 
                 Stroke primaryStroke = new BasicStroke(1.5f,
                         BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);

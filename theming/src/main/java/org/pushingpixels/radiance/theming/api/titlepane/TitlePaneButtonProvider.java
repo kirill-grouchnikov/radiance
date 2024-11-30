@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.titlepane;
 
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,4 +47,10 @@ public interface TitlePaneButtonProvider {
      * Draws the icon for this button.
      */
     void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize);
+
+    /**
+     * Draws the icon for this button.
+     */
+    default void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens,
+            float alpha, int iconSize) {}
 }

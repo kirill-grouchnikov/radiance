@@ -30,10 +30,11 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -203,6 +204,37 @@ public class RadianceColorSchemeUtilities {
         RadianceColorScheme nonColorized = skin.getColorScheme(component, associationKind,
                 componentState);
         return getColorizedScheme(component, nonColorized, !componentState.isDisabled());
+    }
+
+    /**
+     * Returns the color scheme of the component.
+     *
+     * @param component       Component.
+     * @param associationKind Association kind.
+     * @param componentState  Component state.
+     * @return Component color scheme.
+     */
+    public static ContainerRenderColorTokens getColorRenderTokens(Component component,
+            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
+            ComponentState componentState) {
+        // special case - if the component is marked as flat and
+        // it is in the enabled state, get the color scheme of the parent.
+        // However, flat toolbars should be ignored, since they are
+        // the "top" level decoration area.
+        if (!(component instanceof JToolBar)
+                && RadianceCoreUtilities.hasFlatAppearance(component, false)
+                && (componentState == ComponentState.ENABLED)) {
+            component = component.getParent();
+        }
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        if (skin == null) {
+            RadianceCoreUtilities.traceRadianceApiUsage(component,
+                    "Radiance delegate used when Radiance is not the current LAF");
+        }
+        ContainerRenderColorTokens nonColorized = skin.getColorRenderTokens(component,
+                componentState);
+        return nonColorized;
     }
 
     /**

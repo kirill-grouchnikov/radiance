@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.api.titlepane;
 
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
@@ -58,6 +59,12 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
             BladeIconUtils.drawCloseIcon(g, iconSize,
                     RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), scheme);
         }
+
+        @Override
+        public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+            BladeIconUtils.drawCloseIcon(g, iconSize,
+                    RadianceSizeUtils.getCloseIconStrokeWidth(iconSize), renderColorTokens);
+        }
     }
 
     @Override
@@ -74,6 +81,11 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         @Override
         public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
             BladeIconUtils.drawRestoreIcon(g, iconSize, scheme);
+        }
+
+        @Override
+        public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+            BladeIconUtils.drawRestoreIcon(g, iconSize, renderColorTokens);
         }
     }
 
@@ -92,6 +104,11 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
             BladeIconUtils.drawIconifyIcon(g, iconSize, scheme);
         }
+
+        @Override
+        public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+            BladeIconUtils.drawIconifyIcon(g, iconSize, renderColorTokens);
+        }
     }
 
     @Override
@@ -108,6 +125,11 @@ public class DefaultTitlePaneButtonsProvider implements TitlePaneButtonsProvider
         @Override
         public void drawIcon(Graphics2D g, RadianceColorScheme scheme, float alpha, int iconSize) {
             BladeIconUtils.drawMaximizeIcon(g, iconSize, scheme);
+        }
+
+        @Override
+        public void drawIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha, int iconSize) {
+            BladeIconUtils.drawMaximizeIcon(g, iconSize, renderColorTokens);
         }
     }
 

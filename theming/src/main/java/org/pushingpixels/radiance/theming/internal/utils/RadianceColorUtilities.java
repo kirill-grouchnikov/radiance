@@ -34,6 +34,8 @@ import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
@@ -412,28 +414,32 @@ public class RadianceColorUtilities {
             }
         }
 
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(component, currState);
-        if (currState.isDisabled() || (activeStates == null)
-                || (activeStates.size() == 1)) {
-            return colorScheme.getForegroundColor();
-        }
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        if (skin instanceof TonalSkin) {
+            ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
+            return colorTokens.getOnContainerColorTokens().getOnContainer();
+        } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(component, currState);
+            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+                return colorScheme.getForegroundColor();
+            }
 
-        float aggrRed = 0;
-        float aggrGreen = 0;
-        float aggrBlue = 0;
-        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-            ComponentState activeState = activeEntry.getKey();
-            float alpha = activeEntry.getValue().getContribution();
-            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(component, activeState);
-            Color activeForeground = activeColorScheme.getForegroundColor();
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
+            float aggrRed = 0;
+            float aggrGreen = 0;
+            float aggrBlue = 0;
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                float alpha = activeEntry.getValue().getContribution();
+                RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                        component, activeState);
+                Color activeForeground = activeColorScheme.getForegroundColor();
+                aggrRed += alpha * activeForeground.getRed();
+                aggrGreen += alpha * activeForeground.getGreen();
+                aggrBlue += alpha * activeForeground.getBlue();
+            }
+            return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
         }
-        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }
 
     /**

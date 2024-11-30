@@ -418,7 +418,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                     throw new IllegalStateException("Color scheme shouldn't be null here. Please "
                             + "report this issue");
                 }
-                return componentState.isActive() ? registered.getTonalContainerTokens()
+                return componentState.isActive() ? registered.getPrimaryContainerTokens()
                         : registered.getMutedContainerTokens();
             }
         }
@@ -428,7 +428,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         if (registered == null) {
             throw new IllegalStateException("Color scheme shouldn't be null here. Please report " + "this issue");
         }
-        return componentState.isActive() ? registered.getTonalContainerTokens()
+        return componentState.isActive() ? registered.getPrimaryContainerTokens()
                 : registered.getMutedContainerTokens();
     }
 

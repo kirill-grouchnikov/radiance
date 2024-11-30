@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
@@ -222,6 +223,14 @@ public class BladeUtils {
     public interface ColorSchemeDelegate {
         RadianceColorScheme getColorSchemeForCurrentState(ComponentState state);
         RadianceColorScheme getColorSchemeForActiveState(ComponentState state);
+
+        default ContainerRenderColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
+            return null;
+        }
+
+        default ContainerRenderColorTokens getRenderColorTokensForActiveState(ComponentState state) {
+            return null;
+        }
     }
 
     public static ColorSchemeDelegate getDefaultColorSchemeDelegate(Component component,
@@ -236,6 +245,18 @@ public class BladeUtils {
             @Override
             public RadianceColorScheme getColorSchemeForActiveState(ComponentState state) {
                 return RadianceColorSchemeUtilities.getColorScheme(component,
+                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
+            }
+
+            @Override
+            public ContainerRenderColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
+                return RadianceColorSchemeUtilities.getColorRenderTokens(component,
+                        colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
+            }
+
+            @Override
+            public ContainerRenderColorTokens getRenderColorTokensForActiveState(ComponentState state) {
+                return RadianceColorSchemeUtilities.getColorRenderTokens(component,
                         colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
             }
         };

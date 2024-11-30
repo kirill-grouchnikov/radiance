@@ -30,11 +30,14 @@
 package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceSizeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.icon.TransitionAware;
 
@@ -135,7 +138,16 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
-        this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(c);
+        if (skin instanceof TonalSkin) {
+            this.delegate.drawColorSchemeIcon(graphics,
+                    BladeUtils.getDefaultColorSchemeDelegate(this.component,
+                            this.colorSchemeAssociationKindDelegate)
+                            .getRenderColorTokensForCurrentState(currState),
+                    iconAlpha);
+        } else {
+            this.delegate.drawColorSchemeIcon(graphics, mutableColorScheme, iconAlpha);
+        }
         graphics.dispose();
     }
 
