@@ -77,7 +77,7 @@ public class ControlStates extends JFrame {
         RadianceLogo.tonalConfigureOn(this);
     }
 
-    private static class SampleSkin extends RadianceSkin.Accented implements TonalSkin {
+    static class SampleSkin extends RadianceSkin.Accented implements TonalSkin {
         public SampleSkin(RadianceColorScheme accentScheme) {
             super(new RadianceSkin.Accented.AccentBuilder()
                     .withActiveControlsAccent(accentScheme)
