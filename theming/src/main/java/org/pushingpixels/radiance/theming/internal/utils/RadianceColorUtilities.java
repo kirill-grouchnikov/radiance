@@ -154,6 +154,33 @@ public class RadianceColorUtilities {
         return new Color(getInterpolatedRGB(color1, color2, color1Likeness), true);
     }
 
+    public static Color overlayColor(Color base, Color overlay) {
+        float baseAlpha = base.getAlpha() / 255.0f;
+        float overlayAlpha = overlay.getAlpha() / 255.0f;
+        float finalAlpha = overlayAlpha + baseAlpha * (1.0f - overlayAlpha);
+
+        if (finalAlpha == 0.0f) {
+            return new Color(0, 0, 0, 0);
+        }
+
+        int baseR = base.getRed();
+        int overlayR = overlay.getRed();
+        int finalR = (int) ((overlayR * overlayAlpha +
+                (baseR * baseAlpha) * (1.0f - overlayAlpha)) / finalAlpha);
+
+        int baseG = base.getGreen();
+        int overlayG = overlay.getGreen();
+        int finalG = (int) ((overlayG * overlayAlpha +
+                (baseG * baseAlpha) * (1.0f - overlayAlpha)) / finalAlpha);
+
+        int baseB = base.getBlue();
+        int overlayB = overlay.getBlue();
+        int finalB = (int) ((overlayB * overlayAlpha +
+                (baseB * baseAlpha) * (1.0f - overlayAlpha)) / finalAlpha);
+
+        return new Color(finalR, finalG, finalB, (int) (255 * finalAlpha));
+    }
+
     /**
      * Inverts the specified color.
      *

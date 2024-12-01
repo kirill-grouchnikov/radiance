@@ -30,8 +30,10 @@
 package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class ColorSchemeUtils {
     public static RadianceColorScheme2 getLightColorScheme(Palettes palettes) {
@@ -295,6 +297,8 @@ public class ColorSchemeUtils {
         };
 
         return new RadianceColorScheme2() {
+            private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
+
             @Override
             public Color getSurface() {
                 return paletteColorResolver.getSurface(palettes);
@@ -332,7 +336,71 @@ public class ColorSchemeUtils {
 
             @Override
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
-                return null;
+                // TODO: TONAL - configurable at the skin definition level
+                ContainerRenderColorTokens defaultActive = this.getPrimaryContainerTokens();
+                // TODO: TONAL - configurable at the component state level
+                int mixinAmount = 40;
+                if (componentState == ComponentState.PRESSED_UNSELECTED) {
+                    // surface dim on top of muted
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                getMutedContainerTokens(),
+                                getSurfaceDim(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.PRESSED_SELECTED) {
+                    // surface dim on top of active
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                defaultActive,
+                                getSurfaceDim(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.SELECTED) {
+                    return defaultActive;
+                }
+                if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
+                    // surface on top of muted
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                getMutedContainerTokens(),
+                                getSurface(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.ROLLOVER_SELECTED) {
+                    // surface bright on top of active
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                defaultActive,
+                                getSurfaceBright(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+
+                ComponentState hardFallback = componentState.getHardFallback();
+                if (hardFallback != null) {
+                    return this.getStateRenderTokens(hardFallback);
+                }
+
+                if (componentState == ComponentState.ENABLED) {
+                    return getMutedContainerTokens();
+                }
+                if (componentState.isDisabled()) {
+                    // TODO: TONAL - revisit
+                    return getMutedContainerTokens();
+                }
+                return defaultActive;
             }
         };
     }
@@ -598,6 +666,8 @@ public class ColorSchemeUtils {
         };
 
         return new RadianceColorScheme2() {
+            private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
+
             @Override
             public Color getSurface() {
                 return paletteColorResolver.getSurface(palettes);
@@ -635,7 +705,156 @@ public class ColorSchemeUtils {
 
             @Override
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
-                return null;
+                // TODO: TONAL - configurable at the skin definition level
+                ContainerRenderColorTokens defaultActive = this.getPrimaryContainerTokens();
+                // TODO: TONAL - configurable at the component state level
+                int mixinAmount = 40;
+                if (componentState == ComponentState.PRESSED_UNSELECTED) {
+                    // surface dim on top of muted
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                getMutedContainerTokens(),
+                                getSurfaceDim(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.PRESSED_SELECTED) {
+                    // surface dim on top of active
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                defaultActive,
+                                getSurfaceDim(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.SELECTED) {
+                    return defaultActive;
+                }
+                if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
+                    // surface on top of muted
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                getMutedContainerTokens(),
+                                getSurface(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.ROLLOVER_SELECTED) {
+                    // surface bright on top of active
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState,
+                            ColorSchemeUtils.overlay(
+                                defaultActive,
+                                getSurfaceBright(),
+                                mixinAmount));
+                    }
+                    return stateTokens.get(componentState);
+                }
+
+                ComponentState hardFallback = componentState.getHardFallback();
+                if (hardFallback != null) {
+                    return this.getStateRenderTokens(hardFallback);
+                }
+
+                if (componentState == ComponentState.ENABLED) {
+                    return getMutedContainerTokens();
+                }
+                if (componentState.isDisabled()) {
+                    // TODO: TONAL - revisit
+                    return getMutedContainerTokens();
+                }
+                return defaultActive;
+            }
+        };
+    }
+
+    private static ContainerRenderColorTokens overlay(ContainerRenderColorTokens original, Color overlay,
+            int overlayAmount) {
+        Color overlayWithAlpha = RadianceColorUtilities.getAlphaColor(overlay, overlayAmount);
+
+        // Apply overlay on the container tokens
+        Color containerLowest = RadianceColorUtilities.overlayColor(
+                original.getContainerColorTokens().getContainerLowest(), overlayWithAlpha);
+        Color containerLow = RadianceColorUtilities.overlayColor(
+                original.getContainerColorTokens().getContainerLow(), overlayWithAlpha);
+        Color container = RadianceColorUtilities.overlayColor(
+                original.getContainerColorTokens().getContainer(), overlayWithAlpha);
+        Color containerHigh = RadianceColorUtilities.overlayColor(
+                original.getContainerColorTokens().getContainerHigh(), overlayWithAlpha);
+        Color containerHighest = RadianceColorUtilities.overlayColor(
+                original.getContainerColorTokens().getContainerHighest(), overlayWithAlpha);
+
+        // Leave on container and container outline tokens as they are
+        Color onContainer = original.getOnContainerColorTokens().getOnContainer();
+        Color onContainerVariant = original.getOnContainerColorTokens().getOnContainerVariant();
+        Color containerOutline = original.getContainerOutlineColorTokens().getContainerOutline();
+        Color containerOutlineVariant = original.getContainerOutlineColorTokens().getContainerOutlineVariant();
+
+        return new ContainerRenderColorTokens() {
+            @Override
+            public ContainerColorTokens getContainerColorTokens() {
+                return new ContainerColorTokens() {
+                    @Override
+                    public Color getContainerLowest() {
+                        return containerLowest;
+                    }
+
+                    @Override
+                    public Color getContainerLow() {
+                        return containerLow;
+                    }
+
+                    @Override
+                    public Color getContainer() {
+                        return container;
+                    }
+
+                    @Override
+                    public Color getContainerHigh() {
+                        return containerHigh;
+                    }
+
+                    @Override
+                    public Color getContainerHighest() {
+                        return containerHighest;
+                    }
+                };
+            }
+
+            @Override
+            public OnContainerColorTokens getOnContainerColorTokens() {
+                return new OnContainerColorTokens() {
+                    @Override
+                    public Color getOnContainer() {
+                        return onContainer;
+                    }
+
+                    @Override
+                    public Color getOnContainerVariant() {
+                        return onContainerVariant;
+                    }
+                };
+            }
+
+            @Override
+            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
+                return new ContainerOutlineColorTokens() {
+                    @Override
+                    public Color getContainerOutline() {
+                        return containerOutline;
+                    }
+
+                    @Override
+                    public Color getContainerOutlineVariant() {
+                        return containerOutlineVariant;
+                    }
+                };
             }
         };
     }

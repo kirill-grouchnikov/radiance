@@ -684,5 +684,4 @@ public class BladeUtils {
 
         bladeColorScheme.displayName = nameBuilder.toString();
     }
-
 }
