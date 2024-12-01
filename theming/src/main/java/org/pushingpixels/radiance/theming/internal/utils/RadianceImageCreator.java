@@ -33,8 +33,10 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ColorSchemeFilter;
 import org.pushingpixels.radiance.theming.internal.utils.filters.ImageColorFilter;
+import org.pushingpixels.radiance.theming.internal.utils.filters.RenderColorTokensFilter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -415,6 +417,13 @@ public final class RadianceImageCreator {
             RadianceColorScheme colorScheme, float originalBrightnessFactor,
             float alpha) {
         return ColorSchemeFilter.getColorSchemeFilter(colorScheme, originalBrightnessFactor, alpha)
+                .filter(original, null);
+    }
+
+    public static BufferedImage getColorSchemeImage(BufferedImage original,
+            ContainerRenderColorTokens renderColorTokens, float originalBrightnessFactor,
+            float alpha) {
+        return RenderColorTokensFilter.getColorSchemeFilter(renderColorTokens, originalBrightnessFactor, alpha)
                 .filter(original, null);
     }
 

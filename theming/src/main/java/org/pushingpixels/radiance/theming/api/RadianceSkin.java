@@ -201,6 +201,8 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme> backgroundColorSchemeMap;
 
+    private Map<RadianceThemingSlices.DecorationAreaType, ContainerRenderColorTokens> tonalBackgroundRenderColorTokensMap;
+
     /**
      * Maps decoration area type to the registered overlay painters. Each
      * decoration area type can have more than one overlay painter.
@@ -263,6 +265,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.colorSchemeBundleMap = new HashMap<>();
         this.tonalColorSchemeMap = new HashMap<>();
         this.backgroundColorSchemeMap = new HashMap<>();
+        this.tonalBackgroundRenderColorTokensMap = new HashMap<>();
         this.overlayPaintersMap = new HashMap<>();
         this.colorOverlayMap = new HashMap<>();
 
@@ -552,23 +555,23 @@ public abstract class RadianceSkin implements RadianceTrait {
         this.statesWithAlpha.addAll(bundle.getStatesWithAlpha());
     }
 
-    /**
-     * Registers the specified color scheme bundle and background color scheme
-     * to be used on controls in decoration areas.
-     *
-     * @param bundle    The color scheme bundle to use on controls in decoration
-     *                  areas.
-     * @param areaTypes Enumerates the area types that are affected by the parameters.
-     */
-    public void registerDecorationAreaColorScheme(RadianceColorScheme2 colorScheme,
+    public void registerDecorationAreaColorScheme(
+            RadianceColorScheme2 colorScheme,
+            ContainerRenderColorTokens backgroundRenderColorTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (colorScheme == null) {
             return;
         }
 
+        if (backgroundRenderColorTokens == null) {
+            throw new IllegalArgumentException(
+                    "Cannot pass null background color render tokens");
+        }
+
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
             this.decoratedAreaSet.add(areaType);
             this.tonalColorSchemeMap.put(areaType, colorScheme);
+            this.tonalBackgroundRenderColorTokensMap.put(areaType, backgroundRenderColorTokens);
         }
     }
 
@@ -583,6 +586,12 @@ public abstract class RadianceSkin implements RadianceTrait {
     public void registerDecorationAreaSchemeBundle(
             RadianceColorSchemeBundle bundle, RadianceThemingSlices.DecorationAreaType... areaTypes) {
         this.registerDecorationAreaSchemeBundle(bundle, bundle.getEnabledColorScheme(),
+                areaTypes);
+    }
+
+    public void registerDecorationAreaColorScheme(
+            RadianceColorScheme2 colorScheme, RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        this.registerDecorationAreaColorScheme(colorScheme, colorScheme.getMutedContainerTokens(),
                 areaTypes);
     }
 
@@ -605,6 +614,18 @@ public abstract class RadianceSkin implements RadianceTrait {
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
             this.decoratedAreaSet.add(areaType);
             this.backgroundColorSchemeMap.put(areaType, backgroundColorScheme);
+        }
+    }
+
+    public void registerAsDecorationArea(ContainerRenderColorTokens backgroundRenderColorTokens,
+            RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        if (backgroundRenderColorTokens == null) {
+            throw new IllegalArgumentException(
+                    "Cannot pass null background color tokens");
+        }
+        for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
+            this.decoratedAreaSet.add(areaType);
+            this.tonalBackgroundRenderColorTokensMap.put(areaType, backgroundRenderColorTokens);
         }
     }
 
@@ -935,6 +956,24 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
         // 3 - return the background scheme for the default area type
         return this.backgroundColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
+    }
+
+    public final ContainerRenderColorTokens getBackgroundRenderColorTokens(
+            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        // 1 - check the registered background scheme for this specific area type.
+        if (this.tonalBackgroundRenderColorTokensMap.containsKey(decorationAreaType)) {
+            return this.tonalBackgroundRenderColorTokensMap.get(decorationAreaType);
+        }
+        // 2 - check the registered scheme bundle for this specific area type.
+        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+            ContainerRenderColorTokens registered = this.tonalColorSchemeMap.get(
+                    decorationAreaType).getMutedContainerTokens();
+            if (registered != null) {
+                return registered;
+            }
+        }
+        // 3 - return the background scheme for the default area type
+        return this.tonalBackgroundRenderColorTokensMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 
     public void setOverlayColor(Color color, RadianceThemingSlices.ColorOverlayType colorOverlayType,

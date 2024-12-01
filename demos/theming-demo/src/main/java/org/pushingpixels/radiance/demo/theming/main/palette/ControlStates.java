@@ -115,6 +115,11 @@ public class ControlStates extends JFrame {
             this.registerDecorationAreaColorScheme(lightColorScheme,
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
+            this.registerAsDecorationArea(lightColorScheme.getTonalContainerTokens(),
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                    RadianceThemingSlices.DecorationAreaType.HEADER);
+
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new ClassicTonalFillPainter();
             this.borderPainter = new ClassicTonalBorderPainter();

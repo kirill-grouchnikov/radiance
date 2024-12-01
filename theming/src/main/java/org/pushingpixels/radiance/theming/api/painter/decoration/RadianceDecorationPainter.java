@@ -29,9 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.api.painter.decoration;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 
 import java.awt.*;
@@ -67,6 +68,10 @@ public interface RadianceDecorationPainter extends RadianceTrait {
      * @param colorScheme        Color scheme for painting the decoration area.
      */
     void paintDecorationArea(Graphics2D graphics, Component comp,
-                             RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-                             RadianceColorScheme colorScheme);
+            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+            RadianceColorScheme colorScheme);
+
+    default void paintDecorationArea(Graphics2D graphics, Component comp,
+            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+            ContainerRenderColorTokens renderColorTokens) {}
 }

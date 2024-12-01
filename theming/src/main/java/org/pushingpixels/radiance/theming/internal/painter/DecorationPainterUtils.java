@@ -168,7 +168,8 @@ public class DecorationPainterUtils {
      *            If <code>true</code>, the painting of decoration background is enforced.
      */
     public static void paintDecorationBackground(Graphics g, Component c, boolean force) {
-        RadianceThemingSlices.DecorationAreaType decorationType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
+        RadianceThemingSlices.DecorationAreaType decorationType =
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(c);
         paintDecorationBackground(g, c, decorationType, force);
     }
 
@@ -190,8 +191,8 @@ public class DecorationPainterUtils {
     private static void paintDecorationBackground(Graphics g, Component c,
                                                   RadianceThemingSlices.DecorationAreaType decorationType, boolean force) {
         // System.out.println("Painting " + c.getClass().getSimpleName());
-        boolean isInCellRenderer = (SwingUtilities.getAncestorOfClass(CellRendererPane.class,
-                c) != null);
+        boolean isInCellRenderer =
+                (SwingUtilities.getAncestorOfClass(CellRendererPane.class, c) != null);
         boolean isPreviewMode = false;
         if (c instanceof JComponent) {
             isPreviewMode = (Boolean.TRUE
@@ -211,7 +212,6 @@ public class DecorationPainterUtils {
 
         Graphics2D g2d = (Graphics2D) g.create();
         painter.paintDecorationArea(g2d, c, decorationType, c.getWidth(), c.getHeight(), skin);
-
         g2d.dispose();
     }
 
