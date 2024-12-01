@@ -46,6 +46,7 @@ import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 
 import javax.swing.*;
@@ -62,6 +63,7 @@ import java.util.Set;
 public class ButtonBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
 
     private void drawBackground(
             Graphics2D graphics, AbstractButton button,
@@ -99,12 +101,11 @@ public class ButtonBackgroundDelegate {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         if (skin instanceof TonalSkin) {
-            ContainerRenderColorTokens buttonRenderColorTokens =
-                    skin.getColorRenderTokens(button, currState);
+            BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
+                    currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
 
-            // TODO: TONAL - add animations
             drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
-                    buttonRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
+                    mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
         } else {
             // Populate fill and border color schemes based on the current transition state of
             // the button.

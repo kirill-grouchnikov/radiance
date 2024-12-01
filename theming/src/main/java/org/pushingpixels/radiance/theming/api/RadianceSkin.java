@@ -694,6 +694,14 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.colorSchemeBundleMap.get(RadianceThemingSlices.DecorationAreaType.NONE).getActiveColorScheme();
     }
 
+    public final ContainerRenderColorTokens getActiveColorRenderTokens(
+            RadianceThemingSlices.DecorationAreaType decorationAreaType) {
+        if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+            return this.tonalColorSchemeMap.get(decorationAreaType).getPrimaryContainerTokens();
+        }
+        return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE).getPrimaryContainerTokens();
+    }
+
     /**
      * Returns the main enabled color scheme for the specific decoration area
      * type. Custom painting code that needs to consult the colors of the

@@ -416,9 +416,26 @@ public class RadianceColorUtilities {
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin instanceof TonalSkin) {
-            // TODO: TONAL - add animations
             ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
-            return colorTokens.getOnContainerColorTokens().getOnContainer();
+            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+                return colorTokens.getOnContainerColorTokens().getOnContainer();
+            }
+
+            float aggrRed = 0;
+            float aggrGreen = 0;
+            float aggrBlue = 0;
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                    activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                float alpha = activeEntry.getValue().getContribution();
+                ContainerRenderColorTokens activeColorTokens =
+                        RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState);
+                Color activeForeground = activeColorTokens.getOnContainerColorTokens().getOnContainer();
+                aggrRed += alpha * activeForeground.getRed();
+                aggrGreen += alpha * activeForeground.getGreen();
+                aggrBlue += alpha * activeForeground.getBlue();
+            }
+            return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
         } else {
             RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(component, currState);
             if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {

@@ -220,6 +220,95 @@ public class BladeUtils {
         bladeColorScheme.displayName = nameBuilder.toString();
     }
 
+    public static void populateColorTokens(
+            BladeContainerRenderColorTokens bladeRenderColorTokens,
+            Component component,
+            StateTransitionTracker.ModelStateInfo modelStateInfo,
+            ComponentState currState,
+            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
+            boolean treatEnabledAsActive) {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
+                    "Color scheme population must be done on Event Dispatch Thread");
+            uiThreadingViolationError.printStackTrace(System.err);
+            throw uiThreadingViolationError;
+        }
+
+        StringBuilder nameBuilder = new StringBuilder();
+        ContainerRenderColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
+                ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, currState)
+                : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, currState);
+
+        Color containerLowest = currColorTokens.getContainerColorTokens().getContainerLowest();
+        Color containerLow = currColorTokens.getContainerColorTokens().getContainerLow();
+        Color container = currColorTokens.getContainerColorTokens().getContainer();
+        Color containerHigh = currColorTokens.getContainerColorTokens().getContainerHigh();
+        Color containerHighest = currColorTokens.getContainerColorTokens().getContainerHighest();
+        Color onContainer = currColorTokens.getOnContainerColorTokens().getOnContainer();
+        Color onContainerVariant = currColorTokens.getOnContainerColorTokens().getOnContainerVariant();
+        Color containerOutline = currColorTokens.getContainerOutlineColorTokens().getContainerOutline();
+        Color containerOutlineVariant = currColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant();
+
+        nameBuilder.append(currColorTokens.hashCode());
+
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+                (modelStateInfo == null) ? null : modelStateInfo.getStateContributionMap();
+
+        if (!currState.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates.entrySet()) {
+                if (activeEntry.getKey() == currState) {
+                    // Already accounted for the currently active state
+                    continue;
+                }
+                float amount = activeEntry.getValue().getContribution();
+                if (amount == 0.0f) {
+                    // Skip a zero-amount contribution
+                    continue;
+                }
+                // Get the color scheme that matches the contribution state
+                ContainerRenderColorTokens contributionColorTokens = (treatEnabledAsActive && (activeEntry.getKey() == ComponentState.ENABLED))
+                        ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, activeEntry.getKey())
+                        : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, activeEntry.getKey());
+
+                // And interpolate the colors
+                containerLowest = RadianceColorUtilities.getInterpolatedColor(containerLowest,
+                        contributionColorTokens.getContainerColorTokens().getContainerLowest(), 1.0f - amount);
+                containerLow = RadianceColorUtilities.getInterpolatedColor(containerLow,
+                        contributionColorTokens.getContainerColorTokens().getContainerLow(), 1.0f - amount);
+                container = RadianceColorUtilities.getInterpolatedColor(container,
+                        contributionColorTokens.getContainerColorTokens().getContainer(), 1.0f - amount);
+                containerHigh = RadianceColorUtilities.getInterpolatedColor(containerHigh,
+                        contributionColorTokens.getContainerColorTokens().getContainerHigh(), 1.0f - amount);
+                containerHighest = RadianceColorUtilities.getInterpolatedColor(containerHighest,
+                        contributionColorTokens.getContainerColorTokens().getContainerHighest(), 1.0f - amount);
+                onContainer = RadianceColorUtilities.getInterpolatedColor(onContainer,
+                        contributionColorTokens.getOnContainerColorTokens().getOnContainer(), 1.0f - amount);
+                onContainerVariant = RadianceColorUtilities.getInterpolatedColor(onContainerVariant,
+                        contributionColorTokens.getOnContainerColorTokens().getOnContainerVariant(), 1.0f - amount);
+                containerOutline = RadianceColorUtilities.getInterpolatedColor(containerOutline,
+                        contributionColorTokens.getContainerOutlineColorTokens().getContainerOutline(), 1.0f - amount);
+                containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
+                        contributionColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(), 1.0f - amount);
+
+                nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
+                        .append(amount).append("]");
+            }
+        }
+
+        // Update the mutable color tokens with the interpolated colors
+        bladeRenderColorTokens.containerLowest = containerLowest;
+        bladeRenderColorTokens.containerLow = containerLow;
+        bladeRenderColorTokens.container = container;
+        bladeRenderColorTokens.containerHigh = containerHigh;
+        bladeRenderColorTokens.containerHighest = containerHighest;
+        bladeRenderColorTokens.onContainer = onContainer;
+        bladeRenderColorTokens.onContainerVariant = onContainerVariant;
+        bladeRenderColorTokens.containerOutline = containerOutline;
+        bladeRenderColorTokens.containerOutlineVariant = containerOutlineVariant;
+
+        bladeRenderColorTokens.combinedName = nameBuilder.toString();
+    }
+
     public interface ColorSchemeDelegate {
         RadianceColorScheme getColorSchemeForCurrentState(ComponentState state);
         RadianceColorScheme getColorSchemeForActiveState(ComponentState state);
@@ -250,13 +339,13 @@ public class BladeUtils {
 
             @Override
             public ContainerRenderColorTokens getRenderColorTokensForCurrentState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getColorRenderTokens(component,
+                return RadianceColorSchemeUtilities.getRenderColorTokens(component,
                         colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
             }
 
             @Override
             public ContainerRenderColorTokens getRenderColorTokensForActiveState(ComponentState state) {
-                return RadianceColorSchemeUtilities.getColorRenderTokens(component,
+                return RadianceColorSchemeUtilities.getRenderColorTokens(component,
                         colorSchemeAssociationKindDelegate.getColorSchemeAssociationKind(state), state);
             }
         };

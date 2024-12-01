@@ -29,10 +29,10 @@
  */
 package org.pushingpixels.radiance.theming.internal;
 
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.animation.api.ease.Spline;
 import org.pushingpixels.radiance.animation.api.swing.SwingComponentTimeline;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import java.awt.*;
 import java.util.HashMap;
