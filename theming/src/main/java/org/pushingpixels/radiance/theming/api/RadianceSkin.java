@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
@@ -492,6 +493,14 @@ public abstract class RadianceSkin implements RadianceTrait {
      * @return Color scheme alpha channel.
      */
     public final float getAlpha(Component comp, ComponentState componentState) {
+        if (this instanceof TonalSkin) {
+            // TODO: TONAL - finalize this
+            if (componentState.isDisabled()) {
+                return 0.4f;
+            } else {
+                return 1.0f;
+            }
+        }
         // optimization - if the state does not have hard fallback, and it is not registered in any
         // scheme bundle with custom alpha, return 1.0
         ComponentState fallback = componentState.getHardFallback();

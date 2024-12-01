@@ -70,6 +70,8 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
+    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+
     private BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationKindDelegate;
 
     public BladeHighlightableTransitionAwareIcon(final JComponent component,
@@ -103,12 +105,12 @@ public class BladeHighlightableTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         if (skin instanceof TonalSkin) {
-            // TODO: TONAL - add animations
-            this.delegate.drawColorSchemeIcon(graphics,
-                    BladeUtils.getDefaultColorSchemeDelegate(this.component,
-                                    this.colorSchemeAssociationKindDelegate)
-                            .getRenderColorTokensForCurrentState(currState),
-                    iconAlpha);
+            BladeUtils.populateColorTokens(mutableRenderColorTokens, modelStateInfo, currState,
+                    BladeUtils.getDefaultColorSchemeDelegate(c,
+                            this.colorSchemeAssociationKindDelegate),
+                    false);
+
+            this.delegate.drawColorSchemeIcon(graphics, mutableRenderColorTokens, iconAlpha);
         } else {
             // Use HIGHLIGHT when necessary and MARK for the rest
             BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,

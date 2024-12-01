@@ -91,6 +91,8 @@ public class BladeTransitionAwareIcon implements Icon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
+    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+
     public BladeTransitionAwareIcon(final AbstractButton button, Delegate delegate) {
         this((button == null) ? null : () -> (TransitionAwareUI) button.getUI(), delegate,
                 null);
@@ -162,12 +164,12 @@ public class BladeTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         if (skin instanceof TonalSkin) {
-            // TODO: TONAL - add animations
-            this.delegate.drawColorSchemeIcon(graphics,
+            BladeUtils.populateColorTokens(mutableRenderColorTokens, modelStateInfo, currState,
                     BladeUtils.getDefaultColorSchemeDelegate(c,
-                                    this.colorSchemeAssociationKindDelegate)
-                            .getRenderColorTokensForCurrentState(currState),
-                    iconAlpha);
+                            this.colorSchemeAssociationKindDelegate),
+                    false);
+
+            this.delegate.drawColorSchemeIcon(graphics, mutableRenderColorTokens, iconAlpha);
         } else {
             BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo, currState,
                     BladeUtils.getDefaultColorSchemeDelegate(c,

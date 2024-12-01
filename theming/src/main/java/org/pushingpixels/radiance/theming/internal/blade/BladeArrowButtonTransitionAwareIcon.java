@@ -75,6 +75,8 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
 
     private BladeColorScheme mutableColorScheme = new BladeColorScheme();
 
+    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
+
     public BladeArrowButtonTransitionAwareIcon(final AbstractButton button,
             final Dimension iconDimension,
             final int orientation) {
@@ -135,12 +137,12 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         Graphics2D graphics = (Graphics2D) g.create();
         graphics.translate(x, y);
         if (skin instanceof TonalSkin) {
-            // TODO: TONAL - add animations
-            this.delegate.drawColorSchemeIcon(graphics,
-                    BladeUtils.getDefaultColorSchemeDelegate(this.component,
-                            this.colorSchemeAssociationKindDelegate)
-                            .getRenderColorTokensForCurrentState(currState),
-                    iconAlpha);
+            BladeUtils.populateColorTokens(mutableRenderColorTokens, modelStateInfo, currState,
+                    BladeUtils.getDefaultColorSchemeDelegate(c,
+                            this.colorSchemeAssociationKindDelegate),
+                    false);
+
+            this.delegate.drawColorSchemeIcon(graphics, mutableRenderColorTokens, iconAlpha);
         } else {
             BladeUtils.populateColorScheme(mutableColorScheme, modelStateInfo,
                     currState,
