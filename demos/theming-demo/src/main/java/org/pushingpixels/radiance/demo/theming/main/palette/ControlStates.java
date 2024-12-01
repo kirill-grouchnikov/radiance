@@ -32,7 +32,10 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.*;
+import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.AquaColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.LightGrayColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
@@ -71,11 +74,7 @@ public class ControlStates extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setIconImage(RadianceLogo.getLogoImage(this,
-                RadianceThemingCortex.ComponentScope.getCurrentSkin(this.getRootPane())
-                        .getColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                                ComponentState.ENABLED)));
+        RadianceLogo.tonalConfigureOn(this);
     }
 
     private static class SampleSkin extends RadianceSkin.Accented implements TonalSkin {

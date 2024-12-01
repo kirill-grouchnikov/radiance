@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.*;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
 import javax.swing.plaf.UIResource;
@@ -217,6 +218,8 @@ public class RadianceColorSchemeUtilities {
     public static ContainerRenderColorTokens getColorRenderTokens(Component component,
             RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
             ComponentState componentState) {
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+
         // special case - if the component is marked as flat and
         // it is in the enabled state, get the color scheme of the parent.
         // However, flat toolbars should be ignored, since they are
@@ -224,10 +227,11 @@ public class RadianceColorSchemeUtilities {
         if (!(component instanceof JToolBar)
                 && RadianceCoreUtilities.hasFlatAppearance(component, false)
                 && (componentState == ComponentState.ENABLED)) {
-            component = component.getParent();
+            // TODO: TONAL - verify that we don't need to use the old logic.
+            return skin.getBackgroundRenderColorTokens( DecorationPainterUtils.getDecorationType(component));
+//            component = component.getParent();
         }
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         if (skin == null) {
             RadianceCoreUtilities.traceRadianceApiUsage(component,
                     "Radiance delegate used when Radiance is not the current LAF");

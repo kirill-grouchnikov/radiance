@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.skin.SkinInfo;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonProvider;
 import org.pushingpixels.radiance.theming.api.titlepane.TitlePaneButtonsProvider;
@@ -836,8 +837,6 @@ public class RadianceTitlePane extends JComponent {
             RadianceCoreUtilities.traceRadianceApiUsage(this,
                     "Radiance delegate used when Radiance is not the current LAF");
         }
-        RadianceColorScheme scheme = skin
-                .getEnabledColorScheme(RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
 
         String theTitle = this.getTitle();
         String displayTitle = getDisplayTitle();
@@ -882,9 +881,23 @@ public class RadianceTitlePane extends JComponent {
             int yOffset = titleTextRect.y + (int) ((titleTextRect.getHeight() - fm.getHeight()) / 2)
                     + fm.getAscent();
 
-            RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
-                    scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle,
-                    width, height, xOffset, yOffset);
+            if (skin instanceof TonalSkin) {
+                ContainerRenderColorTokens renderColorTokens = skin.getBackgroundRenderColorTokens(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                // TODO: TONAL - finalize the text echo color logic
+                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
+                        renderColorTokens.getOnContainerColorTokens().getOnContainer(),
+                        RadianceColorUtilities.getAlphaColor(
+                            renderColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
+                            100),
+                        displayTitle, width, height, xOffset, yOffset);
+            } else {
+                RadianceColorScheme scheme = skin.getEnabledColorScheme(
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
+                        scheme.getForegroundColor(), scheme.getEchoColor(), displayTitle,
+                        width, height, xOffset, yOffset);
+            }
         }
 
         GhostPaintingUtils.paintGhostImages(this, graphics);
