@@ -337,7 +337,7 @@ public class ColorSchemeUtils {
             @Override
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
                 // TODO: TONAL - configurable at the skin definition level
-                ContainerRenderColorTokens defaultActive = this.getPrimaryContainerTokens();
+                ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
                 // TODO: TONAL - configurable at the component state level
                 int mixinAmount = 40;
                 if (componentState == ComponentState.PRESSED_UNSELECTED) {
@@ -706,7 +706,7 @@ public class ColorSchemeUtils {
             @Override
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
                 // TODO: TONAL - configurable at the skin definition level
-                ContainerRenderColorTokens defaultActive = this.getPrimaryContainerTokens();
+                ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
                 // TODO: TONAL - configurable at the component state level
                 int mixinAmount = 40;
                 if (componentState == ComponentState.PRESSED_UNSELECTED) {

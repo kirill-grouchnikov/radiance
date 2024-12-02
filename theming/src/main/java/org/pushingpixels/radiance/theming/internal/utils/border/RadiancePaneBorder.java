@@ -71,7 +71,7 @@ public class RadiancePaneBorder extends AbstractBorder implements UIResource {
 
         if (skin instanceof TonalSkin) {
             ContainerRenderColorTokens backgroundRenderColorTokens = skin.getBackgroundRenderColorTokens(
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getSurfaceContainerRenderColorTokens();
             Component titlePaneComp = RadianceCoreUtilities.getTitlePaneComponent(
                     SwingUtilities.windowForComponent(c));
             ContainerRenderColorTokens titleRenderColorTokens = skin.getColorRenderTokens(

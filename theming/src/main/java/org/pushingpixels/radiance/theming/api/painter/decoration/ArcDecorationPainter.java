@@ -32,7 +32,8 @@ package org.pushingpixels.radiance.theming.api.painter.decoration;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
-import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.ContainerColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
@@ -146,7 +147,10 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     }
 
     private void paintTitleBackground(Graphics2D original, Component comp, int width, int height,
-            ContainerRenderColorTokens renderColorTokens) {
+            SurfaceRenderColorTokens renderColorTokens) {
+        ContainerColorTokens containerColorTokens =
+            renderColorTokens.getSurfaceContainerRenderColorTokens().getContainerColorTokens();
+
         // Create a new Graphics2D object so that we can apply clipping to it without having
         // to reset the state after we're done
         Graphics2D g2d = (Graphics2D) original.create();
@@ -161,11 +165,12 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
         g2d.setClip(clipTop);
         LinearGradientPaint gradientTop = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.5f, 1.0f }, new Color[] {
-                        renderColorTokens.getContainerColorTokens().getContainer(),
-                        renderColorTokens.getContainerColorTokens().getContainerLowest(),
-                        renderColorTokens.getContainerColorTokens().getContainer() },
-                CycleMethod.REPEAT);
+            new float[] { 0.0f, 0.5f, 1.0f },
+            new Color[] {
+                containerColorTokens.getContainer(),
+                containerColorTokens.getContainerLowest(),
+                containerColorTokens.getContainer() },
+            CycleMethod.REPEAT);
         g2d.setPaint(gradientTop);
         g2d.fillRect(0, 0, width, height);
 
@@ -178,12 +183,13 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
         g2d.setClip(clipBottom);
         LinearGradientPaint gradientBottom = new LinearGradientPaint(0, 0, width, 0,
-                new float[] { 0.0f, 0.5f, 1.0f },
-                new Color[] {
-                        renderColorTokens.getContainerColorTokens().getContainerHighest(),
-                        renderColorTokens.getContainerColorTokens().getContainer(),
-                        renderColorTokens.getContainerColorTokens().getContainerHighest() },
-                CycleMethod.REPEAT);
+            new float[] { 0.0f, 0.5f, 1.0f },
+            new Color[] {
+                containerColorTokens.getContainerHighest(),
+                containerColorTokens.getContainer(),
+                containerColorTokens.getContainerHighest()
+            },
+            CycleMethod.REPEAT);
         g2d.setPaint(gradientBottom);
         g2d.fillRect(0, 0, width, height);
 
@@ -239,7 +245,10 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
     }
 
     private void paintExtraBackground(Graphics2D graphics, Container parent, Component comp,
-            int width, int height, ContainerRenderColorTokens renderColorTokens) {
+            int width, int height, SurfaceRenderColorTokens renderColorTokens) {
+        ContainerColorTokens containerColorTokens =
+            renderColorTokens.getSurfaceContainerRenderColorTokens().getContainerColorTokens();
+
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         JRootPane rootPane = SwingUtilities.getRootPane(parent);
         // fix for bug 234 - Window doesn't have a root pane.
@@ -250,14 +259,15 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 : layeredPane.getWidth() - layeredPaneInsets.left - layeredPaneInsets.right;
 
         if (pWidth != 0) {
-            LinearGradientPaint gradientBottom = new LinearGradientPaint(-offset.x, 0,
-                    -offset.x + pWidth, 0, new float[] { 0.0f, 0.5f, 1.0f },
-                    new Color[] {
-                            renderColorTokens.getContainerColorTokens().getContainerHighest(),
-                            renderColorTokens.getContainerColorTokens().getContainer(),
-                            renderColorTokens.getContainerColorTokens().getContainerHighest()
-                    },
-                    CycleMethod.REPEAT);
+            LinearGradientPaint gradientBottom = new LinearGradientPaint(
+                -offset.x, 0, -offset.x + pWidth, 0,
+                new float[] { 0.0f, 0.5f, 1.0f },
+                new Color[] {
+                    containerColorTokens.getContainerHighest(),
+                    containerColorTokens.getContainer(),
+                    containerColorTokens.getContainerHighest()
+                },
+                CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setPaint(gradientBottom);
             g2d.fillRect(-offset.x, 0, pWidth, height);
@@ -293,8 +303,12 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
 
     @Override
     public void paintDecorationArea(Graphics2D graphics, Component comp,
-            RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
-            ContainerRenderColorTokens renderColorTokens) {
+        RadianceThemingSlices.DecorationAreaType decorationAreaType, Shape contour,
+        SurfaceRenderColorTokens renderColorTokens) {
+
+        ContainerColorTokens containerColorTokens =
+            renderColorTokens.getSurfaceContainerRenderColorTokens().getContainerColorTokens();
+
         Component parent = RadianceCoreUtilities.getHeaderParent(comp);
         Point offset = RadianceCoreUtilities.getOffsetInRootPaneCoords(comp);
         JRootPane rootPane = SwingUtilities.getRootPane(parent);
@@ -306,14 +320,15 @@ public class ArcDecorationPainter implements RadianceDecorationPainter {
                 : layeredPane.getWidth() - layeredPaneInsets.left - layeredPaneInsets.right;
 
         if (pWidth != 0) {
-            LinearGradientPaint gradientBottom = new LinearGradientPaint(-offset.x, 0,
-                    -offset.x + pWidth, 0, new float[] { 0.0f, 0.5f, 1.0f },
-                    new Color[] {
-                            renderColorTokens.getContainerColorTokens().getContainerHighest(),
-                            renderColorTokens.getContainerColorTokens().getContainer(),
-                            renderColorTokens.getContainerColorTokens().getContainerHighest()
-                    },
-                    CycleMethod.REPEAT);
+            LinearGradientPaint gradientBottom = new LinearGradientPaint(
+                -offset.x, 0, -offset.x + pWidth, 0,
+                new float[] { 0.0f, 0.5f, 1.0f },
+                new Color[] {
+                    containerColorTokens.getContainerHighest(),
+                    containerColorTokens.getContainer(),
+                    containerColorTokens.getContainerHighest()
+                },
+                CycleMethod.REPEAT);
             Graphics2D g2d = (Graphics2D) graphics.create();
             g2d.setPaint(gradientBottom);
             g2d.fill(contour);

@@ -221,7 +221,7 @@ public class PaletteResolverUtils {
         return new PaletteColorResolver() {
             @Override
             public Color getSurface(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(98));
+                return new Color(palettes.getNeutralPalette().tone(99));
             }
 
             @Override

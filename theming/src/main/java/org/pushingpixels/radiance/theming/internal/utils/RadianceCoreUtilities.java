@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
 import org.pushingpixels.radiance.theming.api.titlepane.DefaultTitlePaneButtonsProvider;
@@ -1831,7 +1832,12 @@ public class RadianceCoreUtilities {
         if (overlay != null) {
             return overlay;
         }
-        return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
+        if (skin instanceof TonalSkin) {
+            // TODO: TONAL - need configuration APIs?
+            return skin.getBackgroundRenderColorTokens(decorationAreaType).getSurface();
+        } else {
+            return skin.getBackgroundColorScheme(decorationAreaType).getBackgroundFillColor();
+        }
     }
 
     public static Color getTextBackgroundFill(Component component, ComponentState componentState) {

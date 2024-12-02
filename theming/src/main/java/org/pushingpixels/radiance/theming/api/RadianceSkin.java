@@ -39,6 +39,7 @@ import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.overlay.RadianceOverlayPainter;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
+import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.trait.RadianceTrait;
@@ -202,7 +203,7 @@ public abstract class RadianceSkin implements RadianceTrait {
      */
     private Map<RadianceThemingSlices.DecorationAreaType, RadianceColorScheme> backgroundColorSchemeMap;
 
-    private Map<RadianceThemingSlices.DecorationAreaType, ContainerRenderColorTokens> tonalBackgroundRenderColorTokensMap;
+    private Map<RadianceThemingSlices.DecorationAreaType, SurfaceRenderColorTokens> tonalBackgroundRenderColorTokensMap;
 
     /**
      * Maps decoration area type to the registered overlay painters. Each
@@ -568,16 +569,15 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public void registerDecorationAreaColorScheme(
-            RadianceColorScheme2 colorScheme,
-            ContainerRenderColorTokens backgroundRenderColorTokens,
-            RadianceThemingSlices.DecorationAreaType... areaTypes) {
+        RadianceColorScheme2 colorScheme,
+        SurfaceRenderColorTokens backgroundRenderColorTokens,
+        RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (colorScheme == null) {
             return;
         }
 
         if (backgroundRenderColorTokens == null) {
-            throw new IllegalArgumentException(
-                    "Cannot pass null background color render tokens");
+            throw new IllegalArgumentException("Cannot pass null background color render tokens");
         }
 
         for (RadianceThemingSlices.DecorationAreaType areaType : areaTypes) {
@@ -603,7 +603,7 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public void registerDecorationAreaColorScheme(
             RadianceColorScheme2 colorScheme, RadianceThemingSlices.DecorationAreaType... areaTypes) {
-        this.registerDecorationAreaColorScheme(colorScheme, colorScheme.getMutedContainerTokens(),
+        this.registerDecorationAreaColorScheme(colorScheme, colorScheme.getSurfaceRenderColorTokens(),
                 areaTypes);
     }
 
@@ -629,7 +629,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
     }
 
-    public void registerAsDecorationArea(ContainerRenderColorTokens backgroundRenderColorTokens,
+    public void registerAsDecorationArea(SurfaceRenderColorTokens backgroundRenderColorTokens,
             RadianceThemingSlices.DecorationAreaType... areaTypes) {
         if (backgroundRenderColorTokens == null) {
             throw new IllegalArgumentException(
@@ -978,7 +978,7 @@ public abstract class RadianceSkin implements RadianceTrait {
         return this.backgroundColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
     }
 
-    public final ContainerRenderColorTokens getBackgroundRenderColorTokens(
+    public final SurfaceRenderColorTokens getBackgroundRenderColorTokens(
             RadianceThemingSlices.DecorationAreaType decorationAreaType) {
         // 1 - check the registered background scheme for this specific area type.
         if (this.tonalBackgroundRenderColorTokensMap.containsKey(decorationAreaType)) {
@@ -986,8 +986,8 @@ public abstract class RadianceSkin implements RadianceTrait {
         }
         // 2 - check the registered scheme bundle for this specific area type.
         if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
-            ContainerRenderColorTokens registered = this.tonalColorSchemeMap.get(
-                    decorationAreaType).getMutedContainerTokens();
+            SurfaceRenderColorTokens registered = this.tonalBackgroundRenderColorTokensMap.
+                get(decorationAreaType);
             if (registered != null) {
                 return registered;
             }

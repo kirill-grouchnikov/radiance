@@ -883,7 +883,7 @@ public class RadianceTitlePane extends JComponent {
 
             if (skin instanceof TonalSkin) {
                 ContainerRenderColorTokens renderColorTokens = skin.getBackgroundRenderColorTokens(
-                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE);
+                        RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE).getSurfaceContainerRenderColorTokens();
                 // TODO: TONAL - finalize the text echo color logic
                 RadianceTextUtilities.paintTextWithDropShadow(this, graphics,
                         renderColorTokens.getOnContainerColorTokens().getOnContainer(),

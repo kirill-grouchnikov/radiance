@@ -95,13 +95,13 @@ public class ControlStates extends JFrame {
                     RadianceThemingSlices.DecorationAreaType.HEADER);
 
             // First tonal configuration
-            Hct seedHct = Hct.fromInt(0xFF20F290);
+            Hct seedHct = Hct.fromInt(0xFF9020F4);
             double seedHue = seedHct.getHue();
             double seedChroma = seedHct.getChroma();
 
             TonalPalette primary = TonalPalette.fromHueAndChroma(seedHue, seedChroma);
-            TonalPalette neutral = TonalPalette.fromHueAndChroma(seedHue, 10.0);
-            TonalPalette neutralVariant = TonalPalette.fromHueAndChroma(seedHue, 16.0);
+            TonalPalette neutral = TonalPalette.fromHueAndChroma(seedHue, 6.0);
+            TonalPalette neutralVariant = TonalPalette.fromHueAndChroma(seedHue, 8.0);
 
             Palettes samplePalettes = Palettes.builder()
                     .setNeutralPalette(neutral)
@@ -114,10 +114,11 @@ public class ControlStates extends JFrame {
             this.registerDecorationAreaColorScheme(lightColorScheme,
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
-            this.registerAsDecorationArea(lightColorScheme.getTonalContainerTokens(),
-                    RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
-                    RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
-                    RadianceThemingSlices.DecorationAreaType.HEADER);
+            this.registerAsDecorationArea(
+                lightColorScheme.getTonalSurfaceRenderColorTokens(),
+                RadianceThemingSlices.DecorationAreaType.PRIMARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.SECONDARY_TITLE_PANE,
+                RadianceThemingSlices.DecorationAreaType.HEADER);
 
             this.buttonShaper = new ClassicButtonShaper();
             this.fillPainter = new ClassicTonalFillPainter();
