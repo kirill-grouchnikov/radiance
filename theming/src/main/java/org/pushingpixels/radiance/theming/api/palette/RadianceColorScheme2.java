@@ -50,6 +50,16 @@ public interface RadianceColorScheme2 {
 
     ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState);
 
+    ContainerRenderColorTokens getSystemInfoContainerTokens();
+
+    ContainerRenderColorTokens getSystemWarningContainerTokens();
+
+    ContainerRenderColorTokens getSystemErrorContainerTokens();
+
+    ContainerRenderColorTokens getSystemSuccessContainerTokens();
+
+    ContainerRenderColorTokens getSystemEmergencyContainerTokens();
+
     default SurfaceRenderColorTokens getSurfaceRenderColorTokens() {
         return getSurfaceRenderColorTokens(getSurfaceContainerTokens());
     }

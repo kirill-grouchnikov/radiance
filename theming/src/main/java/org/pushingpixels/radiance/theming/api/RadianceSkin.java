@@ -410,7 +410,7 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public final ContainerRenderColorTokens getColorRenderTokens(Component comp,
-            ComponentState componentState) {
+        ComponentState componentState) {
         if (componentState.isDisabled()) {
             // TODO: TONAL - finalize this
             // Use the enabled match, and alpha will be applied during rendering
@@ -421,29 +421,71 @@ public abstract class RadianceSkin implements RadianceTrait {
         // are decoration-specific scheme bundles.
         if (this.tonalColorSchemeMap.size() > 1) {
             RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
-                    RadianceThemingSlices.DecorationAreaType.NONE :
-                    RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+                RadianceThemingSlices.DecorationAreaType.NONE :
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 RadianceColorScheme2 registered = this.tonalColorSchemeMap.get(decorationAreaType);
                 if (registered == null) {
                     throw new IllegalStateException("Color scheme shouldn't be null here. Please "
-                            + "report this issue");
+                        + "report this issue");
                 }
 
                 return componentState.isActive() ? registered.getStateRenderTokens(componentState)
-                        : registered.getMutedContainerTokens();
+                    : registered.getMutedContainerTokens();
             }
         }
 
         RadianceColorScheme2 registered =
-                this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
+            this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
         if (registered == null) {
             throw new IllegalStateException("Color scheme shouldn't be null here. Please report " + "this issue");
         }
 
 
         return componentState.isActive() ? registered.getStateRenderTokens(componentState)
-                : registered.getMutedContainerTokens();
+            : registered.getMutedContainerTokens();
+    }
+
+    public final ContainerRenderColorTokens getSystemColorRenderTokens(Component comp,
+        RadianceThemingSlices.SystemContainerType systemContainerType) {
+        // small optimization - lookup the decoration area only if there
+        // are decoration-specific scheme bundles.
+        if (this.tonalColorSchemeMap.size() > 1) {
+            RadianceThemingSlices.DecorationAreaType decorationAreaType = (comp == null) ?
+                RadianceThemingSlices.DecorationAreaType.NONE :
+                RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
+            if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
+                RadianceColorScheme2 registered = this.tonalColorSchemeMap.get(decorationAreaType);
+                if (registered == null) {
+                    throw new IllegalStateException("Color scheme shouldn't be null here. Please "
+                        + "report this issue");
+                }
+
+                switch (systemContainerType) {
+                    case INFO: return registered.getSystemInfoContainerTokens();
+                    case WARNING: return registered.getSystemWarningContainerTokens();
+                    case ERROR: return registered.getSystemErrorContainerTokens();
+                    case SUCCESS: return registered.getSystemSuccessContainerTokens();
+                    case EMERGENCY: return registered.getSystemEmergencyContainerTokens();
+                }
+            }
+        }
+
+        RadianceColorScheme2 registered =
+            this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE);
+        if (registered == null) {
+            throw new IllegalStateException("Color scheme shouldn't be null here. Please report " + "this issue");
+        }
+
+        switch (systemContainerType) {
+            case INFO: return registered.getSystemInfoContainerTokens();
+            case WARNING: return registered.getSystemWarningContainerTokens();
+            case ERROR: return registered.getSystemErrorContainerTokens();
+            case SUCCESS: return registered.getSystemSuccessContainerTokens();
+            case EMERGENCY: return registered.getSystemEmergencyContainerTokens();
+        }
+
+        return registered.getSystemInfoContainerTokens();
     }
 
     /**

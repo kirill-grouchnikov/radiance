@@ -830,6 +830,14 @@ public final class RadianceThemingSlices {
         SELECTION_FOREGROUND
     }
 
+    public enum SystemContainerType {
+        INFO,
+        WARNING,
+        ERROR,
+        SUCCESS,
+        EMERGENCY
+    }
+
     /**
      * Enumerates available icon filter strategies.
      *

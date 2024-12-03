@@ -258,7 +258,7 @@ public class RadianceColorSchemeUtilities {
                 && RadianceCoreUtilities.hasFlatAppearance(component, false)
                 && (componentState == ComponentState.ENABLED)) {
             // TODO: TONAL - verify that we don't need to use the old logic.
-            return skin.getBackgroundRenderColorTokens( DecorationPainterUtils.getDecorationType(component))
+            return skin.getBackgroundRenderColorTokens(DecorationPainterUtils.getDecorationType(component))
                     .getSurfaceContainerRenderColorTokens();
 //            component = component.getParent();
         }

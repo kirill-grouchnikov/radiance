@@ -40,28 +40,62 @@ public class Palettes {
     private TonalPalette neutralVariantPalette;
     private TonalPalette primaryPalette;
     private Map<ComponentState, TonalPalette> statePalettes;
+    private TonalPalette systemInfoPalette;
+    private TonalPalette systemWarningPalette;
+    private TonalPalette systemErrorPalette;
+    private TonalPalette systemSuccessPalette;
+    private TonalPalette systemEmergencyPalette;
 
-    private Palettes(TonalPalette neutralPalette, TonalPalette neutralVariantPalette, TonalPalette primaryPalette, Map<ComponentState, TonalPalette> statePalettes) {
+    private Palettes(TonalPalette neutralPalette, TonalPalette neutralVariantPalette,
+        TonalPalette primaryPalette, Map<ComponentState, TonalPalette> statePalettes,
+        TonalPalette systemInfoPalette, TonalPalette systemWarningPalette, TonalPalette systemErrorPalette,
+        TonalPalette systemSuccessPalette, TonalPalette systemEmergencyPalette) {
+
         this.neutralPalette = neutralPalette;
         this.neutralVariantPalette = neutralVariantPalette;
         this.primaryPalette = primaryPalette;
         this.statePalettes = statePalettes;
+        this.systemInfoPalette = systemInfoPalette;
+        this.systemWarningPalette = systemWarningPalette;
+        this.systemErrorPalette = systemErrorPalette;
+        this.systemSuccessPalette = systemSuccessPalette;
+        this.systemEmergencyPalette = systemEmergencyPalette;
     }
 
     public TonalPalette getNeutralPalette() {
-        return neutralPalette;
+        return this.neutralPalette;
     }
 
     public TonalPalette getNeutralVariantPalette() {
-        return neutralVariantPalette;
+        return this.neutralVariantPalette;
     }
 
     public TonalPalette getPrimaryPalette() {
-        return primaryPalette;
+        return this.primaryPalette;
     }
 
     public Map<ComponentState, TonalPalette> getStatePalettes() {
-        return statePalettes;
+        return this.statePalettes;
+    }
+
+    public TonalPalette getSystemInfoPalette() {
+        return this.systemInfoPalette;
+    }
+
+    public TonalPalette getSystemWarningPalette() {
+        return this.systemWarningPalette;
+    }
+
+    public TonalPalette getSystemErrorPalette() {
+        return this.systemErrorPalette;
+    }
+
+    public TonalPalette getSystemSuccessPalette() {
+        return this.systemSuccessPalette;
+    }
+
+    public TonalPalette getSystemEmergencyPalette() {
+        return this.systemEmergencyPalette;
     }
 
     public static Palettes.Builder builder() {
@@ -73,6 +107,13 @@ public class Palettes {
         private TonalPalette neutralVariantPalette;
         private TonalPalette primaryPalette;
         private Map<ComponentState, TonalPalette> statePalettes = new HashMap<>();
+
+        // TODO - TONAL: Does this need to be configured by the app side?
+        private TonalPalette systemInfoPalette = TonalPalette.fromInt(0xFF95C1DB);
+        private TonalPalette systemWarningPalette = TonalPalette.fromInt(0xFFE237);
+        private TonalPalette systemErrorPalette = TonalPalette.fromInt(0xFFFF7829);
+        private TonalPalette systemSuccessPalette = TonalPalette.fromInt(0xFF068B3A);
+        private TonalPalette systemEmergencyPalette = TonalPalette.fromInt(0xFFD72A17);
 
         public Builder setNeutralPalette(TonalPalette neutralPalette) {
             this.neutralPalette = neutralPalette;
@@ -96,8 +137,11 @@ public class Palettes {
         }
 
         public Palettes build() {
-            return new Palettes(this.neutralPalette, this.neutralVariantPalette,
-                    this.primaryPalette, this.statePalettes);
+            return new Palettes(
+                this.neutralPalette, this.neutralVariantPalette,
+                this.primaryPalette, this.statePalettes,
+                this.systemInfoPalette, this.systemWarningPalette, this.systemErrorPalette,
+                this.systemSuccessPalette, this.systemEmergencyPalette);
         }
     }
 }

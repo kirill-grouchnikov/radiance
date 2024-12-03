@@ -80,26 +80,35 @@ public class ButtonBackgroundDelegate {
         boolean isContentAreaFilled = button.isContentAreaFilled();
         boolean isBorderPainted = button.isBorderPainted();
 
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+
         // Do we need to use attention-drawing animation?
         if (button.getUI() instanceof ModificationAwareUI) {
             ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
             Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
             if (modificationTimeline != null) {
                 if (modificationTimeline.getState() != TimelineState.IDLE) {
-                    BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
-                            modificationTimeline.getTimelinePosition());
-                    RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(button,
-                            RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
+                    if (skin instanceof TonalSkin) {
+                        BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                            button, modificationTimeline.getTimelinePosition());
 
-                    drawBackground(graphics, button, shaper, fillPainter, borderPainter, width,
-                            height, mutableFillColorScheme, baseBorderScheme, openSides, isContentAreaFilled,
-                            isBorderPainted);
+                        drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
+                            mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
+                    } else {
+                        BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
+                            modificationTimeline.getTimelinePosition());
+                        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                            button, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
+
+                        drawBackground(graphics, button, shaper, fillPainter, borderPainter, width,
+                            height, mutableFillColorScheme, baseBorderScheme, openSides,
+                            isContentAreaFilled, isBorderPainted);
+                    }
                     return;
                 }
             }
         }
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         if (skin instanceof TonalSkin) {
             BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
                     currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);

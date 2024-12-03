@@ -32,100 +32,8 @@ package org.pushingpixels.radiance.theming.api.palette;
 import java.awt.*;
 
 public class PaletteResolverUtils {
-    public static PaletteColorResolver getLightPaletteColorResolver() {
-        PaletteContainerColorsResolver surfaceContainerResolver = new PaletteContainerColorsResolver() {
-            @Override
-            public Color getContainerLowest(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(100));
-            }
-
-            @Override
-            public Color getContainerLow(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(96));
-            }
-
-            @Override
-            public Color getContainer(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(94));
-            }
-
-            @Override
-            public Color getContainerHigh(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(92));
-            }
-
-            @Override
-            public Color getContainerHighest(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(90));
-            }
-
-            @Override
-            public Color getOnContainer(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(10));
-            }
-
-            @Override
-            public Color getOnContainerVariant(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(30));
-            }
-
-            @Override
-            public Color getContainerOutline(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(50));
-            }
-
-            @Override
-            public Color getContainerOutlineVariant(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(70));
-            }
-        };
-        PaletteContainerColorsResolver mutedContainerResolver = new PaletteContainerColorsResolver() {
-            @Override
-            public Color getContainerLowest(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(94));
-            }
-
-            @Override
-            public Color getContainerLow(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(90));
-            }
-
-            @Override
-            public Color getContainer(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(88));
-            }
-
-            @Override
-            public Color getContainerHigh(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(86));
-            }
-
-            @Override
-            public Color getContainerHighest(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(84));
-            }
-
-            @Override
-            public Color getOnContainer(Palettes palettes) {
-                return new Color(palettes.getNeutralPalette().tone(10));
-            }
-
-            @Override
-            public Color getOnContainerVariant(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(30));
-            }
-
-            @Override
-            public Color getContainerOutline(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(50));
-            }
-
-            @Override
-            public Color getContainerOutlineVariant(Palettes palettes) {
-                return new Color(palettes.getNeutralVariantPalette().tone(70));
-            }
-        };
-        PaletteContainerColorsResolver tonalContainerResolver = new PaletteContainerColorsResolver() {
+    private static PaletteContainerColorsResolver getLightTonalPaletteColorResolver() {
+        return new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
                 return new Color(palettes.getPrimaryPalette().tone(94));
@@ -171,7 +79,152 @@ public class PaletteResolverUtils {
                 return new Color(palettes.getPrimaryPalette().tone(70));
             }
         };
-        PaletteContainerColorsResolver primaryContainerResolver = new PaletteContainerColorsResolver() {
+    }
+
+    public static PaletteColorResolver getLightPaletteColorResolver() {
+        PaletteContainerColorsResolver surfaceContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(100));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(96));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(90));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(10));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver mutedContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(86));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(84));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getNeutralPalette().tone(10));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getNeutralVariantPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver tonalContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(86));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(30));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(40));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getPrimaryPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver primaryContainerResolver =
+            new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
                 return new Color(palettes.getPrimaryPalette().tone(34));
@@ -218,6 +271,242 @@ public class PaletteResolverUtils {
             }
         };
 
+        PaletteContainerColorsResolver systemInfoContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(86));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(30));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(40));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver systemWarningContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(86));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(30));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(40));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver systemErrorContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(86));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(30));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(40));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver systemSuccessContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(86));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(30));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(40));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(70));
+            }
+        };
+        PaletteContainerColorsResolver systemEmergencyContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(94));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(92));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(90));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(88));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(86));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(30));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(40));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(50));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(70));
+            }
+        };
+
         return new PaletteColorResolver() {
             @Override
             public Color getSurface(Palettes palettes) {
@@ -253,11 +542,37 @@ public class PaletteResolverUtils {
             public PaletteContainerColorsResolver getPrimaryContainerResolver(Palettes palettes) {
                 return primaryContainerResolver;
             }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemInfoContainerResolver(Palettes palettes) {
+                return systemInfoContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemWarningContainerResolver(Palettes palettes) {
+                return systemWarningContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemErrorContainerResolver(Palettes palettes) {
+                return systemErrorContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemSuccessContainerResolver(Palettes palettes) {
+                return systemSuccessContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemEmergencyContainerResolver(Palettes palettes) {
+                return systemEmergencyContainerResolver;
+            }
         };
     }
 
     public static PaletteColorResolver getDarkPaletteColorResolver() {
-        PaletteContainerColorsResolver surfaceContainerResolver = new PaletteContainerColorsResolver() {
+        PaletteContainerColorsResolver surfaceContainerResolver =
+            new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
                 return new Color(palettes.getNeutralPalette().tone(4));
@@ -303,7 +618,8 @@ public class PaletteResolverUtils {
                 return new Color(palettes.getNeutralVariantPalette().tone(40));
             }
         };
-        PaletteContainerColorsResolver mutedContainerResolver = new PaletteContainerColorsResolver() {
+        PaletteContainerColorsResolver mutedContainerResolver =
+            new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
                 return new Color(palettes.getNeutralVariantPalette().tone(12));
@@ -349,7 +665,8 @@ public class PaletteResolverUtils {
                 return new Color(palettes.getNeutralVariantPalette().tone(40));
             }
         };
-        PaletteContainerColorsResolver tonalContainerResolver = new PaletteContainerColorsResolver() {
+        PaletteContainerColorsResolver tonalContainerResolver =
+            new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
                 return new Color(palettes.getPrimaryPalette().tone(22));
@@ -395,7 +712,8 @@ public class PaletteResolverUtils {
                 return new Color(palettes.getPrimaryPalette().tone(40));
             }
         };
-        PaletteContainerColorsResolver primaryContainerResolver = new PaletteContainerColorsResolver() {
+        PaletteContainerColorsResolver primaryContainerResolver =
+            new PaletteContainerColorsResolver() {
             @Override
             public Color getContainerLowest(Palettes palettes) {
                 return new Color(palettes.getPrimaryPalette().tone(88));
@@ -442,6 +760,242 @@ public class PaletteResolverUtils {
             }
         };
 
+        PaletteContainerColorsResolver systemInfoContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(22));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(28));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(35));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(40));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(90));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(80));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(60));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemInfoPalette().tone(40));
+            }
+        };
+        PaletteContainerColorsResolver systemWarningContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(22));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(28));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(35));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(40));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(90));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(80));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(60));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemWarningPalette().tone(40));
+            }
+        };
+        PaletteContainerColorsResolver systemErrorContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(22));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(28));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(35));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(40));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(90));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(80));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(60));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemErrorPalette().tone(40));
+            }
+        };
+        PaletteContainerColorsResolver systemSuccessContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(22));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(28));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(35));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(40));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(90));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(80));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(60));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemSuccessPalette().tone(40));
+            }
+        };
+        PaletteContainerColorsResolver systemEmergencyContainerResolver =
+            new PaletteContainerColorsResolver() {
+            @Override
+            public Color getContainerLowest(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(22));
+            }
+
+            @Override
+            public Color getContainerLow(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(28));
+            }
+
+            @Override
+            public Color getContainer(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(30));
+            }
+
+            @Override
+            public Color getContainerHigh(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(35));
+            }
+
+            @Override
+            public Color getContainerHighest(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(40));
+            }
+
+            @Override
+            public Color getOnContainer(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(90));
+            }
+
+            @Override
+            public Color getOnContainerVariant(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(80));
+            }
+
+            @Override
+            public Color getContainerOutline(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(60));
+            }
+
+            @Override
+            public Color getContainerOutlineVariant(Palettes palettes) {
+                return new Color(palettes.getSystemEmergencyPalette().tone(40));
+            }
+        };
+
         return new PaletteColorResolver() {
             @Override
             public Color getSurface(Palettes palettes) {
@@ -476,6 +1030,31 @@ public class PaletteResolverUtils {
             @Override
             public PaletteContainerColorsResolver getPrimaryContainerResolver(Palettes palettes) {
                 return primaryContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemInfoContainerResolver(Palettes palettes) {
+                return systemInfoContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemWarningContainerResolver(Palettes palettes) {
+                return systemWarningContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemErrorContainerResolver(Palettes palettes) {
+                return systemErrorContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemSuccessContainerResolver(Palettes palettes) {
+                return systemSuccessContainerResolver;
+            }
+
+            @Override
+            public PaletteContainerColorsResolver getSystemEmergencyContainerResolver(Palettes palettes) {
+                return systemEmergencyContainerResolver;
             }
         };
     }

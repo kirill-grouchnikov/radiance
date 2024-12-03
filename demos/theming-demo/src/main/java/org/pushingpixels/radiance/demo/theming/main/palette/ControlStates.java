@@ -51,6 +51,7 @@ import org.pushingpixels.radiance.theming.api.palette.Palettes;
 import org.pushingpixels.radiance.theming.api.palette.RadianceColorScheme2;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.ClassicButtonShaper;
+import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,12 +61,19 @@ public class ControlStates extends JFrame {
         super("Control states");
 
         this.setLayout(new FlowLayout());
+
+        JButton attentionButton = new JButton("attention");
+        attentionButton.putClientProperty(RadianceSynapse.CONTENTS_MODIFIED, Boolean.TRUE);
+
         JToggleButton toggleButton = new JToggleButton("selected");
         toggleButton.setSelected(true);
+
         JButton enabledButton = new JButton("enabled");
+
         JButton disabledButton = new JButton("disabled");
         disabledButton.setEnabled(false);
 
+        this.add(attentionButton);
         this.add(toggleButton);
         this.add(enabledButton);
         this.add(disabledButton);

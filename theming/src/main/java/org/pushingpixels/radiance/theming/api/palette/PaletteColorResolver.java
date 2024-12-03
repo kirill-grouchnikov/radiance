@@ -40,4 +40,10 @@ public interface PaletteColorResolver {
     PaletteContainerColorsResolver getMutedContainerResolver(Palettes palettes);
     PaletteContainerColorsResolver getTonalContainerResolver(Palettes palettes);
     PaletteContainerColorsResolver getPrimaryContainerResolver(Palettes palettes);
+
+    PaletteContainerColorsResolver getSystemInfoContainerResolver(Palettes palettes);
+    PaletteContainerColorsResolver getSystemWarningContainerResolver(Palettes palettes);
+    PaletteContainerColorsResolver getSystemErrorContainerResolver(Palettes palettes);
+    PaletteContainerColorsResolver getSystemSuccessContainerResolver(Palettes palettes);
+    PaletteContainerColorsResolver getSystemEmergencyContainerResolver(Palettes palettes);
 }

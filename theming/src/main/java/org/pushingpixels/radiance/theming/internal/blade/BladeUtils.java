@@ -31,12 +31,14 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.common.api.UiThreadingViolationException;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorUtilities;
+import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,56 +46,112 @@ import java.util.Map;
 
 public class BladeUtils {
     public static void populateModificationAwareColorScheme(
-            BladeColorScheme bladeColorScheme, float modificationCyclePosition) {
+        BladeColorScheme bladeColorScheme, float modificationCyclePosition) {
         RadianceColorScheme colorScheme2 = RadianceColorSchemeUtilities.YELLOW;
         RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.ORANGE;
 
         if (!SwingUtilities.isEventDispatchThread()) {
             UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
-                    "Color scheme population must be done on Event Dispatch Thread");
+                "Color scheme population must be done on Event Dispatch Thread");
             uiThreadingViolationError.printStackTrace(System.err);
             throw uiThreadingViolationError;
         }
 
         bladeColorScheme.ultraLight = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getUltraLightColor(),
-                colorScheme.getUltraLightColor(), modificationCyclePosition);
+            colorScheme.getUltraLightColor(), modificationCyclePosition);
         bladeColorScheme.extraLight = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getExtraLightColor(),
-                colorScheme.getExtraLightColor(), modificationCyclePosition);
+            colorScheme.getExtraLightColor(), modificationCyclePosition);
         bladeColorScheme.light = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getLightColor(),
-                colorScheme.getLightColor(), modificationCyclePosition);
+            colorScheme.getLightColor(), modificationCyclePosition);
         bladeColorScheme.mid = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getMidColor(),
-                colorScheme.getMidColor(), modificationCyclePosition);
+            colorScheme.getMidColor(), modificationCyclePosition);
         bladeColorScheme.dark = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getDarkColor(),
-                colorScheme.getDarkColor(), modificationCyclePosition);
+            colorScheme.getDarkColor(), modificationCyclePosition);
         bladeColorScheme.ultraDark = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getUltraDarkColor(),
-                colorScheme.getUltraDarkColor(), modificationCyclePosition);
+            colorScheme.getUltraDarkColor(), modificationCyclePosition);
         bladeColorScheme.foreground = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getForegroundColor(),
-                colorScheme.getForegroundColor(), modificationCyclePosition);
+            colorScheme.getForegroundColor(), modificationCyclePosition);
         bladeColorScheme.backgroundFill = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getBackgroundFillColor(),
-                colorScheme.getBackgroundFillColor(), modificationCyclePosition);
+            colorScheme.getBackgroundFillColor(), modificationCyclePosition);
         bladeColorScheme.accentedBackgroundFill = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getAccentedBackgroundFillColor(),
-                colorScheme.getAccentedBackgroundFillColor(), modificationCyclePosition);
+            colorScheme.getAccentedBackgroundFillColor(), modificationCyclePosition);
         bladeColorScheme.focusRing = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getFocusRingColor(),
-                colorScheme.getFocusRingColor(), modificationCyclePosition);
+            colorScheme.getFocusRingColor(), modificationCyclePosition);
         bladeColorScheme.line = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getLineColor(),
-                colorScheme.getLineColor(), modificationCyclePosition);
+            colorScheme.getLineColor(), modificationCyclePosition);
         bladeColorScheme.selectionForeground = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getSelectionForegroundColor(),
-                colorScheme.getSelectionForegroundColor(), modificationCyclePosition);
+            colorScheme.getSelectionForegroundColor(), modificationCyclePosition);
         bladeColorScheme.selectionBackground = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getSelectionBackgroundColor(),
-                colorScheme.getSelectionBackgroundColor(), modificationCyclePosition);
+            colorScheme.getSelectionBackgroundColor(), modificationCyclePosition);
         bladeColorScheme.textBackgroundFill = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getTextBackgroundFillColor(),
-                colorScheme.getTextBackgroundFillColor(), modificationCyclePosition);
+            colorScheme.getTextBackgroundFillColor(), modificationCyclePosition);
         bladeColorScheme.separatorPrimary = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getSeparatorPrimaryColor(),
-                colorScheme.getSeparatorPrimaryColor(), modificationCyclePosition);
+            colorScheme.getSeparatorPrimaryColor(), modificationCyclePosition);
         bladeColorScheme.separatorSecondary = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getSeparatorSecondaryColor(),
-                colorScheme.getSeparatorSecondaryColor(), modificationCyclePosition);
+            colorScheme.getSeparatorSecondaryColor(), modificationCyclePosition);
         bladeColorScheme.mark = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getMarkColor(),
-                colorScheme.getMarkColor(), modificationCyclePosition);
+            colorScheme.getMarkColor(), modificationCyclePosition);
         bladeColorScheme.echo = RadianceColorUtilities.getInterpolatedColor(colorScheme2.getEchoColor(),
-                colorScheme.getEchoColor(), modificationCyclePosition);
+            colorScheme.getEchoColor(), modificationCyclePosition);
 
         bladeColorScheme.displayName = "[" + colorScheme2.getDisplayName() + ":" + modificationCyclePosition
-                + "], [" + colorScheme.getDisplayName() + ":" + (1.0f - modificationCyclePosition) + "]";
+            + "], [" + colorScheme.getDisplayName() + ":" + (1.0f - modificationCyclePosition) + "]";
+    }
+
+    public static void populateModificationAwareColorTokens(
+        BladeContainerRenderColorTokens bladeRenderColorTokens, Component component,
+        float modificationCyclePosition) {
+
+        if (!SwingUtilities.isEventDispatchThread()) {
+            UiThreadingViolationException uiThreadingViolationError = new UiThreadingViolationException(
+                "Color tokens population must be done on Event Dispatch Thread");
+            uiThreadingViolationError.printStackTrace(System.err);
+            throw uiThreadingViolationError;
+        }
+
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        ContainerRenderColorTokens warningColorTokens = skin.getSystemColorRenderTokens(
+            component, RadianceThemingSlices.SystemContainerType.WARNING);
+        ContainerRenderColorTokens errorColorTokens = skin.getSystemColorRenderTokens(
+            component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
+
+        bladeRenderColorTokens.containerLowest = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getContainerColorTokens().getContainerLowest(),
+            errorColorTokens.getContainerColorTokens().getContainerLowest(),
+            modificationCyclePosition);
+        bladeRenderColorTokens.containerLow = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getContainerColorTokens().getContainerLow(),
+            errorColorTokens.getContainerColorTokens().getContainerLow(),
+            modificationCyclePosition);
+        bladeRenderColorTokens.container = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getContainerColorTokens().getContainer(),
+            errorColorTokens.getContainerColorTokens().getContainer(),
+            modificationCyclePosition);
+        bladeRenderColorTokens.containerHigh = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getContainerColorTokens().getContainerHigh(),
+            errorColorTokens.getContainerColorTokens().getContainerHigh(),
+            modificationCyclePosition);
+        bladeRenderColorTokens.containerHighest = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getContainerColorTokens().getContainerHighest(),
+            errorColorTokens.getContainerColorTokens().getContainerHighest(),
+            modificationCyclePosition);
+
+        bladeRenderColorTokens.onContainer = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getOnContainerColorTokens().getOnContainer(),
+            errorColorTokens.getOnContainerColorTokens().getOnContainer(),
+            modificationCyclePosition);
+        bladeRenderColorTokens.onContainerVariant = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
+            errorColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
+            modificationCyclePosition);
+
+        bladeRenderColorTokens.containerOutline = RadianceColorUtilities.getInterpolatedColor(
+            warningColorTokens.getContainerOutlineColorTokens().getContainerOutline(),
+            errorColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(),
+            modificationCyclePosition);
+
+        bladeRenderColorTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
+            + "], [" + errorColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
     }
 
     public static void populateColorScheme(

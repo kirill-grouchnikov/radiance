@@ -36,141 +36,10 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class ColorSchemeUtils {
-    public static RadianceColorScheme2 getLightColorScheme(Palettes palettes) {
-        PaletteColorResolver paletteColorResolver =
-                PaletteResolverUtils.getLightPaletteColorResolver();
+    private static ContainerRenderColorTokens getContainerRenderColorTokens(
+        Palettes palettes, PaletteContainerColorsResolver tonalContainerColorResolver) {
 
-        PaletteContainerColorsResolver surfaceContainerColorResolver =
-                paletteColorResolver.getSurfaceContainerResolver(palettes);
-        ContainerRenderColorTokens surfaceContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return surfaceContainerColorResolver.getContainerLowest(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return surfaceContainerColorResolver.getContainerLow(palettes);
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return surfaceContainerColorResolver.getContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return surfaceContainerColorResolver.getContainerHigh(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return surfaceContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return surfaceContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return surfaceContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return surfaceContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return surfaceContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
-
-        PaletteContainerColorsResolver mutedContainerColorResolver =
-                paletteColorResolver.getMutedContainerResolver(palettes);
-        ContainerRenderColorTokens mutedContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return mutedContainerColorResolver.getContainerLowest(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return mutedContainerColorResolver.getContainerLow(palettes);
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return mutedContainerColorResolver.getContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return mutedContainerColorResolver.getContainerHigh(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return mutedContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return mutedContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return mutedContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return mutedContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return mutedContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
-
-        PaletteContainerColorsResolver tonalContainerColorResolver =
-                paletteColorResolver.getTonalContainerResolver(palettes);
-        ContainerRenderColorTokens tonalContainerTokens = new ContainerRenderColorTokens() {
+        return new ContainerRenderColorTokens() {
             @Override
             public ContainerColorTokens getContainerColorTokens() {
                 return new ContainerColorTokens() {
@@ -231,70 +100,56 @@ public class ColorSchemeUtils {
                 };
             }
         };
+    }
+
+    public static RadianceColorScheme2 getLightColorScheme(Palettes palettes) {
+        PaletteColorResolver paletteColorResolver =
+                PaletteResolverUtils.getLightPaletteColorResolver();
+
+        PaletteContainerColorsResolver surfaceContainerColorResolver =
+                paletteColorResolver.getSurfaceContainerResolver(palettes);
+        ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
+            palettes, surfaceContainerColorResolver);
+
+        PaletteContainerColorsResolver mutedContainerColorResolver =
+                paletteColorResolver.getMutedContainerResolver(palettes);
+        ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
+            palettes, mutedContainerColorResolver);
+
+        PaletteContainerColorsResolver tonalContainerColorResolver =
+                paletteColorResolver.getTonalContainerResolver(palettes);
+        ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
+            palettes, tonalContainerColorResolver);
 
         PaletteContainerColorsResolver primaryContainerColorResolver =
                 paletteColorResolver.getPrimaryContainerResolver(palettes);
-        ContainerRenderColorTokens primaryContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return primaryContainerColorResolver.getContainerLowest(palettes);
-                    }
+        ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
+            palettes, primaryContainerColorResolver);
 
-                    @Override
-                    public Color getContainerLow() {
-                        return primaryContainerColorResolver.getContainerLow(palettes);
-                    }
+        PaletteContainerColorsResolver systemInfoContainerColorResolver =
+            paletteColorResolver.getSystemInfoContainerResolver(palettes);
+        ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
+            palettes, systemInfoContainerColorResolver);
 
-                    @Override
-                    public Color getContainer() {
-                        return primaryContainerColorResolver.getContainer(palettes);
-                    }
+        PaletteContainerColorsResolver systemWarningContainerColorResolver =
+            paletteColorResolver.getSystemWarningContainerResolver(palettes);
+        ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
+            palettes, systemWarningContainerColorResolver);
 
-                    @Override
-                    public Color getContainerHigh() {
-                        return primaryContainerColorResolver.getContainerHigh(palettes);
-                    }
+        PaletteContainerColorsResolver systemErrorContainerColorResolver =
+            paletteColorResolver.getSystemErrorContainerResolver(palettes);
+        ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
+            palettes, systemErrorContainerColorResolver);
 
-                    @Override
-                    public Color getContainerHighest() {
-                        return primaryContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
+        PaletteContainerColorsResolver systemSuccessContainerColorResolver =
+            paletteColorResolver.getSystemSuccessContainerResolver(palettes);
+        ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
+            palettes, systemSuccessContainerColorResolver);
 
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return primaryContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return primaryContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return primaryContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return primaryContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
+        PaletteContainerColorsResolver systemEmergencyContainerColorResolver =
+            paletteColorResolver.getSystemEmergencyContainerResolver(palettes);
+        ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
+            palettes, systemEmergencyContainerColorResolver);
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
@@ -392,6 +247,31 @@ public class ColorSchemeUtils {
                     return getMutedContainerTokens();
                 }
                 return defaultActive;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemInfoContainerTokens() {
+                return systemInfoContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemWarningContainerTokens() {
+                return systemWarningContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemErrorContainerTokens() {
+                return systemErrorContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemSuccessContainerTokens() {
+                return systemSuccessContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemEmergencyContainerTokens() {
+                return systemEmergencyContainerTokens;
             }
         };
     }
@@ -401,260 +281,49 @@ public class ColorSchemeUtils {
                 PaletteResolverUtils.getDarkPaletteColorResolver();
 
         PaletteContainerColorsResolver surfaceContainerColorResolver =
-                paletteColorResolver.getSurfaceContainerResolver(palettes);
-        ContainerRenderColorTokens surfaceContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return surfaceContainerColorResolver.getContainerLowest(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return surfaceContainerColorResolver.getContainerLow(palettes);
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return surfaceContainerColorResolver.getContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return surfaceContainerColorResolver.getContainerHigh(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return surfaceContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return surfaceContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return surfaceContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return surfaceContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return surfaceContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
+            paletteColorResolver.getSurfaceContainerResolver(palettes);
+        ContainerRenderColorTokens surfaceContainerTokens = getContainerRenderColorTokens(
+            palettes, surfaceContainerColorResolver);
 
         PaletteContainerColorsResolver mutedContainerColorResolver =
-                paletteColorResolver.getMutedContainerResolver(palettes);
-        ContainerRenderColorTokens mutedContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return mutedContainerColorResolver.getContainerLowest(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return mutedContainerColorResolver.getContainerLow(palettes);
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return mutedContainerColorResolver.getContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return mutedContainerColorResolver.getContainerHigh(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return mutedContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return mutedContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return mutedContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return mutedContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return mutedContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
+            paletteColorResolver.getMutedContainerResolver(palettes);
+        ContainerRenderColorTokens mutedContainerTokens = getContainerRenderColorTokens(
+            palettes, mutedContainerColorResolver);
 
         PaletteContainerColorsResolver tonalContainerColorResolver =
-                paletteColorResolver.getTonalContainerResolver(palettes);
-        ContainerRenderColorTokens tonalContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return tonalContainerColorResolver.getContainerLowest(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerLow() {
-                        return tonalContainerColorResolver.getContainerLow(palettes);
-                    }
-
-                    @Override
-                    public Color getContainer() {
-                        return tonalContainerColorResolver.getContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHigh() {
-                        return tonalContainerColorResolver.getContainerHigh(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerHighest() {
-                        return tonalContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return tonalContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return tonalContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return tonalContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return tonalContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
+            paletteColorResolver.getTonalContainerResolver(palettes);
+        ContainerRenderColorTokens tonalContainerTokens = getContainerRenderColorTokens(
+            palettes, tonalContainerColorResolver);
 
         PaletteContainerColorsResolver primaryContainerColorResolver =
-                paletteColorResolver.getPrimaryContainerResolver(palettes);
-        ContainerRenderColorTokens primaryContainerTokens = new ContainerRenderColorTokens() {
-            @Override
-            public ContainerColorTokens getContainerColorTokens() {
-                return new ContainerColorTokens() {
-                    @Override
-                    public Color getContainerLowest() {
-                        return primaryContainerColorResolver.getContainerLowest(palettes);
-                    }
+            paletteColorResolver.getPrimaryContainerResolver(palettes);
+        ContainerRenderColorTokens primaryContainerTokens = getContainerRenderColorTokens(
+            palettes, primaryContainerColorResolver);
 
-                    @Override
-                    public Color getContainerLow() {
-                        return primaryContainerColorResolver.getContainerLow(palettes);
-                    }
+        PaletteContainerColorsResolver systemInfoContainerColorResolver =
+            paletteColorResolver.getSystemInfoContainerResolver(palettes);
+        ContainerRenderColorTokens systemInfoContainerTokens = getContainerRenderColorTokens(
+            palettes, systemInfoContainerColorResolver);
 
-                    @Override
-                    public Color getContainer() {
-                        return primaryContainerColorResolver.getContainer(palettes);
-                    }
+        PaletteContainerColorsResolver systemWarningContainerColorResolver =
+            paletteColorResolver.getSystemWarningContainerResolver(palettes);
+        ContainerRenderColorTokens systemWarningContainerTokens = getContainerRenderColorTokens(
+            palettes, systemWarningContainerColorResolver);
 
-                    @Override
-                    public Color getContainerHigh() {
-                        return primaryContainerColorResolver.getContainerHigh(palettes);
-                    }
+        PaletteContainerColorsResolver systemErrorContainerColorResolver =
+            paletteColorResolver.getSystemErrorContainerResolver(palettes);
+        ContainerRenderColorTokens systemErrorContainerTokens = getContainerRenderColorTokens(
+            palettes, systemErrorContainerColorResolver);
 
-                    @Override
-                    public Color getContainerHighest() {
-                        return primaryContainerColorResolver.getContainerHighest(palettes);
-                    }
-                };
-            }
+        PaletteContainerColorsResolver systemSuccessContainerColorResolver =
+            paletteColorResolver.getSystemSuccessContainerResolver(palettes);
+        ContainerRenderColorTokens systemSuccessContainerTokens = getContainerRenderColorTokens(
+            palettes, systemSuccessContainerColorResolver);
 
-            @Override
-            public OnContainerColorTokens getOnContainerColorTokens() {
-                return new OnContainerColorTokens() {
-                    @Override
-                    public Color getOnContainer() {
-                        return primaryContainerColorResolver.getOnContainer(palettes);
-                    }
-
-                    @Override
-                    public Color getOnContainerVariant() {
-                        return primaryContainerColorResolver.getOnContainerVariant(palettes);
-                    }
-                };
-            }
-
-            @Override
-            public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
-                return new ContainerOutlineColorTokens() {
-                    @Override
-                    public Color getContainerOutline() {
-                        return primaryContainerColorResolver.getContainerOutline(palettes);
-                    }
-
-                    @Override
-                    public Color getContainerOutlineVariant() {
-                        return primaryContainerColorResolver.getContainerOutlineVariant(palettes);
-                    }
-                };
-            }
-        };
+        PaletteContainerColorsResolver systemEmergencyContainerColorResolver =
+            paletteColorResolver.getSystemEmergencyContainerResolver(palettes);
+        ContainerRenderColorTokens systemEmergencyContainerTokens = getContainerRenderColorTokens(
+            palettes, systemEmergencyContainerColorResolver);
 
         return new RadianceColorScheme2() {
             private HashMap<ComponentState, ContainerRenderColorTokens> stateTokens = new HashMap<>();
@@ -752,6 +421,31 @@ public class ColorSchemeUtils {
                     return getMutedContainerTokens();
                 }
                 return defaultActive;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemInfoContainerTokens() {
+                return systemInfoContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemWarningContainerTokens() {
+                return systemWarningContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemErrorContainerTokens() {
+                return systemErrorContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemSuccessContainerTokens() {
+                return systemSuccessContainerTokens;
+            }
+
+            @Override
+            public ContainerRenderColorTokens getSystemEmergencyContainerTokens() {
+                return systemEmergencyContainerTokens;
             }
         };
     }
