@@ -338,27 +338,19 @@ public class ColorSchemeUtils {
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
                 // TODO: TONAL - configurable at the skin definition level
                 ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
-                // TODO: TONAL - configurable at the component state level
-                int mixinAmount = 40;
                 if (componentState == ComponentState.PRESSED_UNSELECTED) {
                     // surface dim on top of muted
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                getMutedContainerTokens(),
-                                getSurfaceDim(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getPressedUnselectedTokens(this,
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.PRESSED_SELECTED) {
                     // surface dim on top of active
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                defaultActive,
-                                getSurfaceDim(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getPressedSelectedTokens(this,
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -366,24 +358,17 @@ public class ColorSchemeUtils {
                     return defaultActive;
                 }
                 if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
-                    // surface on top of muted
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                getMutedContainerTokens(),
-                                getSurface(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getRolloverUnselectedTokens(this,
+                            getMutedContainerTokens()));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
                     // surface bright on top of active
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                defaultActive,
-                                getSurfaceBright(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getRolloverSelectedTokens(this,
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -707,27 +692,19 @@ public class ColorSchemeUtils {
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
                 // TODO: TONAL - configurable at the skin definition level
                 ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
-                // TODO: TONAL - configurable at the component state level
-                int mixinAmount = 40;
                 if (componentState == ComponentState.PRESSED_UNSELECTED) {
                     // surface dim on top of muted
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                getMutedContainerTokens(),
-                                getSurfaceDim(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getPressedUnselectedTokens(this,
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.PRESSED_SELECTED) {
                     // surface dim on top of active
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                defaultActive,
-                                getSurfaceDim(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getPressedSelectedTokens(this,
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -735,24 +712,17 @@ public class ColorSchemeUtils {
                     return defaultActive;
                 }
                 if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
-                    // surface on top of muted
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                getMutedContainerTokens(),
-                                getSurface(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getRolloverUnselectedTokens(this,
+                            getMutedContainerTokens()));
                     }
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
                     // surface bright on top of active
                     if (!stateTokens.containsKey(componentState)) {
-                        stateTokens.put(componentState,
-                            ColorSchemeUtils.overlay(
-                                defaultActive,
-                                getSurfaceBright(),
-                                mixinAmount));
+                        stateTokens.put(componentState, getRolloverSelectedTokens(this,
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -774,21 +744,69 @@ public class ColorSchemeUtils {
         };
     }
 
-    private static ContainerRenderColorTokens overlay(ContainerRenderColorTokens original, Color overlay,
-            int overlayAmount) {
-        Color overlayWithAlpha = RadianceColorUtilities.getAlphaColor(overlay, overlayAmount);
+    private static ContainerRenderColorTokens getRolloverUnselectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+        // Mixing in 75% of tonal container on top of base
+        return ColorSchemeUtils.overlay(
+            baseTokens,
+            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
+            0.75f);
+    }
+
+    private static ContainerRenderColorTokens getRolloverSelectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+        // Mixing in 40% of surface bright on top of base
+        return ColorSchemeUtils.overlay(
+            baseTokens,
+            colorScheme.getSurfaceBright(),
+            0.4f);
+    }
+
+    private static ContainerRenderColorTokens getPressedUnselectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+        // Mixing in 75% of tonal container on top of base
+        ContainerRenderColorTokens intermediate = ColorSchemeUtils.overlay(
+            baseTokens,
+            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
+            0.75f);
+        // And then another 50% of surface dim on top
+        return ColorSchemeUtils.overlay(
+            intermediate,
+            colorScheme.getSurfaceDim(),
+            0.5f);
+    }
+
+    private static ContainerRenderColorTokens getPressedSelectedTokens(
+        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+        // Mixing in 40% of tonal container on top of base
+        ContainerRenderColorTokens intermediate = ColorSchemeUtils.overlay(
+            baseTokens,
+            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
+            0.4f);
+        // And then another 40% of surface dim on top
+        return ColorSchemeUtils.overlay(
+            intermediate,
+            colorScheme.getSurfaceDim(),
+            0.4f);
+    }
+
+    private static ContainerRenderColorTokens overlay(ContainerRenderColorTokens original,
+        Color overlay, float overlayAmount) {
+
+        Color overlayWithAlpha = RadianceColorUtilities.getAlphaColor(
+            overlay, (int) (255 * overlayAmount));
 
         // Apply overlay on the container tokens
         Color containerLowest = RadianceColorUtilities.overlayColor(
-                original.getContainerColorTokens().getContainerLowest(), overlayWithAlpha);
+            original.getContainerColorTokens().getContainerLowest(), overlayWithAlpha);
         Color containerLow = RadianceColorUtilities.overlayColor(
-                original.getContainerColorTokens().getContainerLow(), overlayWithAlpha);
+            original.getContainerColorTokens().getContainerLow(), overlayWithAlpha);
         Color container = RadianceColorUtilities.overlayColor(
-                original.getContainerColorTokens().getContainer(), overlayWithAlpha);
+            original.getContainerColorTokens().getContainer(), overlayWithAlpha);
         Color containerHigh = RadianceColorUtilities.overlayColor(
-                original.getContainerColorTokens().getContainerHigh(), overlayWithAlpha);
+            original.getContainerColorTokens().getContainerHigh(), overlayWithAlpha);
         Color containerHighest = RadianceColorUtilities.overlayColor(
-                original.getContainerColorTokens().getContainerHighest(), overlayWithAlpha);
+            original.getContainerColorTokens().getContainerHighest(), overlayWithAlpha);
 
         // Leave on container and container outline tokens as they are
         Color onContainer = original.getOnContainerColorTokens().getOnContainer();

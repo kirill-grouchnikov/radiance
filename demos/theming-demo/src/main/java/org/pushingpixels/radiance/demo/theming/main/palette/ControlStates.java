@@ -60,14 +60,14 @@ public class ControlStates extends JFrame {
         super("Control states");
 
         this.setLayout(new FlowLayout());
-        JButton defaultButton = new JButton("active");
-        JButton button = new JButton("default");
+        JToggleButton toggleButton = new JToggleButton("selected");
+        toggleButton.setSelected(true);
+        JButton enabledButton = new JButton("enabled");
         JButton disabledButton = new JButton("disabled");
         disabledButton.setEnabled(false);
-        this.getRootPane().setDefaultButton(defaultButton);
 
-        this.add(defaultButton);
-        this.add(button);
+        this.add(toggleButton);
+        this.add(enabledButton);
         this.add(disabledButton);
 
         this.setVisible(true);
