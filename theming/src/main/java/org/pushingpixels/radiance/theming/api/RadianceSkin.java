@@ -411,6 +411,12 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public final ContainerRenderColorTokens getColorRenderTokens(Component comp,
             ComponentState componentState) {
+        if (componentState.isDisabled()) {
+            // TODO: TONAL - finalize this
+            // Use the enabled match, and alpha will be applied during rendering
+            return getColorRenderTokens(comp, componentState.getEnabledMatch());
+        }
+
         // small optimization - lookup the decoration area only if there
         // are decoration-specific scheme bundles.
         if (this.tonalColorSchemeMap.size() > 1) {

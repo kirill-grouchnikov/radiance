@@ -336,10 +336,14 @@ public class ColorSchemeUtils {
 
             @Override
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
+                if (componentState.isDisabled()) {
+                    // TODO: TONAL - finalize this
+                    return getStateRenderTokens(componentState.getEnabledMatch());
+                }
+
                 // TODO: TONAL - configurable at the skin definition level
                 ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
                 if (componentState == ComponentState.PRESSED_UNSELECTED) {
-                    // surface dim on top of muted
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getPressedUnselectedTokens(this,
                             defaultActive));
@@ -347,7 +351,6 @@ public class ColorSchemeUtils {
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.PRESSED_SELECTED) {
-                    // surface dim on top of active
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getPressedSelectedTokens(this,
                             defaultActive));
@@ -365,7 +368,6 @@ public class ColorSchemeUtils {
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
-                    // surface bright on top of active
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getRolloverSelectedTokens(this,
                             defaultActive));
@@ -379,10 +381,6 @@ public class ColorSchemeUtils {
                 }
 
                 if (componentState == ComponentState.ENABLED) {
-                    return getMutedContainerTokens();
-                }
-                if (componentState.isDisabled()) {
-                    // TODO: TONAL - revisit
                     return getMutedContainerTokens();
                 }
                 return defaultActive;
@@ -690,10 +688,14 @@ public class ColorSchemeUtils {
 
             @Override
             public ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState) {
+                if (componentState.isDisabled()) {
+                    // TODO: TONAL - finalize this
+                    return getStateRenderTokens(componentState.getEnabledMatch());
+                }
+
                 // TODO: TONAL - configurable at the skin definition level
                 ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
                 if (componentState == ComponentState.PRESSED_UNSELECTED) {
-                    // surface dim on top of muted
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getPressedUnselectedTokens(this,
                             defaultActive));
@@ -701,7 +703,6 @@ public class ColorSchemeUtils {
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.PRESSED_SELECTED) {
-                    // surface dim on top of active
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getPressedSelectedTokens(this,
                             defaultActive));
@@ -719,7 +720,6 @@ public class ColorSchemeUtils {
                     return stateTokens.get(componentState);
                 }
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
-                    // surface bright on top of active
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getRolloverSelectedTokens(this,
                             defaultActive));
@@ -733,10 +733,6 @@ public class ColorSchemeUtils {
                 }
 
                 if (componentState == ComponentState.ENABLED) {
-                    return getMutedContainerTokens();
-                }
-                if (componentState.isDisabled()) {
-                    // TODO: TONAL - revisit
                     return getMutedContainerTokens();
                 }
                 return defaultActive;

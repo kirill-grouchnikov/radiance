@@ -152,7 +152,7 @@ import java.util.*;
  * {@link ComponentState#ENABLED} will fall back to the enabled color scheme.
  * The rest of the states will fall back to the active color scheme. To change
  * the fallback behavior pass a non-null fallback color scheme to the
- * {@link ComponentState#ComponentState(String, ComponentState, RadianceThemingSlices.ComponentStateFacet[], RadianceThemingSlices.ComponentStateFacet[])}
+ * {@link ComponentState#ComponentState(String, ComponentState, ComponentState, RadianceThemingSlices.ComponentStateFacet[], RadianceThemingSlices.ComponentStateFacet[])}
  * constructor as the second parameter.
  * </p>
  *
@@ -162,64 +162,24 @@ public final class ComponentState {
     private static Set<ComponentState> allStates = new HashSet<>();
 
     /**
+     * Default. Used for enabled buttons that have been marked as
+     * <code>default</code> with {@link JRootPane#setDefaultButton(JButton)}
+     * API.
+     */
+    public static final ComponentState DEFAULT = new ComponentState("default",
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DEFAULT,
+            RadianceThemingSlices.ComponentStateFacet.ENABLE}, null);
+
+    /**
      * Disabled default. Used for disabled buttons that have been marked as
      * <code>default</code> with {@link JRootPane#setDefaultButton(JButton)}
      * API.
      */
     public static final ComponentState DISABLED_DEFAULT = new ComponentState(
             "disabled default",
+            null,
+            DEFAULT,
             new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DEFAULT},
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
-
-    /**
-     * Default. Used for enabled buttons that have been marked as
-     * <code>default</code> with {@link JRootPane#setDefaultButton(JButton)}
-     * API.
-     */
-    public static final ComponentState DEFAULT = new ComponentState("default",
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DEFAULT,
-                    RadianceThemingSlices.ComponentStateFacet.ENABLE}, null);
-
-    /**
-     * Disabled selected.
-     */
-    public static final ComponentState DISABLED_SELECTED = new ComponentState(
-            "disabled selected",
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.SELECTION},
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
-
-    /**
-     * Disabled and not selected.
-     */
-    public static final ComponentState DISABLED_UNSELECTED = new ComponentState(
-            "disabled unselected", null, new RadianceThemingSlices.ComponentStateFacet[]{
-            RadianceThemingSlices.ComponentStateFacet.ENABLE, RadianceThemingSlices.ComponentStateFacet.SELECTION});
-
-    /**
-     * Disabled and indeterminate.
-     */
-    public static final ComponentState DISABLED_INDETERMINATE = new ComponentState(
-            "disabled indeterminate",
-            ComponentState.DISABLED_SELECTED,
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.INDETERMINATE},
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
-
-    /**
-     * Disabled and determinate.
-     */
-    public static final ComponentState DISABLED_DETERMINATE = new ComponentState(
-            "disabled determinate",
-            ComponentState.DISABLED_SELECTED,
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE},
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
-
-    /**
-     * Disabled and mixed.
-     */
-    public static final ComponentState DISABLED_MIXED = new ComponentState(
-            "disabled mixed",
-            ComponentState.DISABLED_SELECTED,
-            new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.MIX},
             new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
 
     /**
@@ -245,6 +205,7 @@ public final class ComponentState {
     public static final ComponentState PRESSED_MIXED = new ComponentState(
             "pressed mixed",
             ComponentState.PRESSED_SELECTED,
+            null,
             new RadianceThemingSlices.ComponentStateFacet[]{
                     RadianceThemingSlices.ComponentStateFacet.PRESS, RadianceThemingSlices.ComponentStateFacet.ENABLE,
                     RadianceThemingSlices.ComponentStateFacet.MIX},
@@ -283,6 +244,7 @@ public final class ComponentState {
     public static final ComponentState ROLLOVER_MIXED = new ComponentState(
             "rollover mixed",
             ComponentState.ROLLOVER_SELECTED,
+            null,
             new RadianceThemingSlices.ComponentStateFacet[]{
                     RadianceThemingSlices.ComponentStateFacet.MIX,
                     RadianceThemingSlices.ComponentStateFacet.ROLLOVER, RadianceThemingSlices.ComponentStateFacet.ENABLE},
@@ -313,6 +275,7 @@ public final class ComponentState {
     public static final ComponentState DETERMINATE = new ComponentState(
             "Determinate",
             ComponentState.SELECTED,
+            null,
             new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE,
                     RadianceThemingSlices.ComponentStateFacet.DETERMINATE},
             null);
@@ -323,6 +286,7 @@ public final class ComponentState {
     public static final ComponentState INDETERMINATE = new ComponentState(
             "Indeterminate",
             ComponentState.SELECTED,
+            null,
             new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE,
                     RadianceThemingSlices.ComponentStateFacet.INDETERMINATE},
             null);
@@ -333,6 +297,7 @@ public final class ComponentState {
     public static final ComponentState MIXED = new ComponentState(
             "Mixed",
             ComponentState.SELECTED,
+            null,
             new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE,
                     RadianceThemingSlices.ComponentStateFacet.MIX},
             null);
@@ -343,6 +308,53 @@ public final class ComponentState {
     public static final ComponentState ENABLED = new ComponentState("enabled",
             new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE},
             null);
+    /**
+     * Disabled selected.
+     */
+    public static final ComponentState DISABLED_SELECTED = new ComponentState(
+        "disabled selected",
+        null,
+        ComponentState.SELECTED,
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.SELECTION},
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
+
+    /**
+     * Disabled and not selected.
+     */
+    public static final ComponentState DISABLED_UNSELECTED = new ComponentState(
+        "disabled unselected", null, ComponentState.ENABLED, null, new RadianceThemingSlices.ComponentStateFacet[]{
+        RadianceThemingSlices.ComponentStateFacet.ENABLE, RadianceThemingSlices.ComponentStateFacet.SELECTION});
+
+    /**
+     * Disabled and indeterminate.
+     */
+    public static final ComponentState DISABLED_INDETERMINATE = new ComponentState(
+        "disabled indeterminate",
+        ComponentState.DISABLED_SELECTED,
+        ComponentState.INDETERMINATE,
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.INDETERMINATE},
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
+
+    /**
+     * Disabled and determinate.
+     */
+    public static final ComponentState DISABLED_DETERMINATE = new ComponentState(
+        "disabled determinate",
+        ComponentState.DISABLED_SELECTED,
+        ComponentState.DETERMINATE,
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.DETERMINATE},
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
+
+    /**
+     * Disabled and mixed.
+     */
+    public static final ComponentState DISABLED_MIXED = new ComponentState(
+        "disabled mixed",
+        ComponentState.DISABLED_SELECTED,
+        ComponentState.MIXED,
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.MIX},
+        new RadianceThemingSlices.ComponentStateFacet[]{RadianceThemingSlices.ComponentStateFacet.ENABLE});
+
 
     /**
      * Facets that are turned on for this state. For example,
@@ -364,6 +376,8 @@ public final class ComponentState {
 
     private ComponentState hardFallback;
 
+    private ComponentState enabledMatch;
+
     /**
      * Creates a new component state.
      *
@@ -380,7 +394,7 @@ public final class ComponentState {
      */
     public ComponentState(String name, RadianceThemingSlices.ComponentStateFacet[] facetsOn,
             RadianceThemingSlices.ComponentStateFacet[] facetsOff) {
-        this(name, null, facetsOn, facetsOff);
+        this(name, null, null, facetsOn, facetsOff);
     }
 
     /**
@@ -400,7 +414,7 @@ public final class ComponentState {
      *                     {@link RadianceThemingSlices.ComponentStateFacet#ENABLE} and
      *                     {@link RadianceThemingSlices.ComponentStateFacet#SELECTION}.
      */
-    public ComponentState(String name, ComponentState hardFallback,
+    public ComponentState(String name, ComponentState hardFallback, ComponentState enabledMatch,
             RadianceThemingSlices.ComponentStateFacet[] facetsOn, RadianceThemingSlices.ComponentStateFacet[] facetsOff) {
         if (name == null) {
             throw new IllegalArgumentException(
@@ -408,6 +422,7 @@ public final class ComponentState {
         }
         this.name = name;
         this.hardFallback = hardFallback;
+        this.enabledMatch = enabledMatch;
         this.facetsTurnedOn = new HashSet<>();
         if (facetsOn != null) {
             Collections.addAll(this.facetsTurnedOn, facetsOn);
@@ -755,7 +770,11 @@ public final class ComponentState {
     }
 
     public ComponentState getHardFallback() {
-        return hardFallback;
+        return this.hardFallback;
+    }
+
+    public ComponentState getEnabledMatch() {
+        return this.enabledMatch;
     }
 
     @Override
