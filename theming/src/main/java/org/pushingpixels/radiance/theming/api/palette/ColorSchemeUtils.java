@@ -343,7 +343,8 @@ public class ColorSchemeUtils {
 
                 // TODO: TONAL - configurable at the skin definition level
                 ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
-                if (componentState == ComponentState.PRESSED_UNSELECTED) {
+                if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
+                    (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getPressedUnselectedTokens(this,
                             defaultActive));
@@ -370,6 +371,13 @@ public class ColorSchemeUtils {
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getRolloverSelectedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.ROLLOVER_ARMED) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getRolloverArmedTokens(this,
                             defaultActive));
                     }
                     return stateTokens.get(componentState);
@@ -695,7 +703,8 @@ public class ColorSchemeUtils {
 
                 // TODO: TONAL - configurable at the skin definition level
                 ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
-                if (componentState == ComponentState.PRESSED_UNSELECTED) {
+                if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
+                    (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getPressedUnselectedTokens(this,
                             defaultActive));
@@ -722,6 +731,13 @@ public class ColorSchemeUtils {
                 if (componentState == ComponentState.ROLLOVER_SELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getRolloverSelectedTokens(this,
+                            defaultActive));
+                    }
+                    return stateTokens.get(componentState);
+                }
+                if (componentState == ComponentState.ROLLOVER_ARMED) {
+                    if (!stateTokens.containsKey(componentState)) {
+                        stateTokens.put(componentState, getRolloverArmedTokens(this,
                             defaultActive));
                     }
                     return stateTokens.get(componentState);
@@ -754,6 +770,20 @@ public class ColorSchemeUtils {
         // Mixing in 40% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
+            colorScheme.getSurfaceBright(),
+            0.4f);
+    }
+
+    private static ContainerRenderColorTokens getRolloverArmedTokens(
+        RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
+        // Mixing in 40% of tonal container on top of base
+        ContainerRenderColorTokens intermediate = ColorSchemeUtils.overlay(
+            baseTokens,
+            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
+            0.4f);
+        // And then another 40% of surface bright on top
+        return ColorSchemeUtils.overlay(
+            intermediate,
             colorScheme.getSurfaceBright(),
             0.4f);
     }

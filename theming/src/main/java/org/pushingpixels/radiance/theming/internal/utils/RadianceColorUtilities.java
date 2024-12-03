@@ -375,9 +375,13 @@ public class RadianceColorUtilities {
             if (overlay != null) {
                 return overlay;
             }
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+            if (skin instanceof TonalSkin) {
+                return skin.getColorRenderTokens(comp, currState).getOnContainerColorTokens().getOnContainer();
+            } else {
+                RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
                     comp, RadianceThemingSlices.ColorSchemeAssociationKind.FOCUS, currState);
-            return colorScheme.getFocusRingColor();
+                return colorScheme.getFocusRingColor();
+            }
         }
 
         float aggrRed = 0;
@@ -389,9 +393,15 @@ public class RadianceColorUtilities {
             float alpha = activeEntry.getValue().getContribution();
             Color overlay = skin.getOverlayColor(RadianceThemingSlices.ColorOverlayType.FOCUS_INDICATION,
                     decorationAreaType, currState);
-            Color active = (overlay != null) ? overlay :
-                    RadianceColorSchemeUtilities.getColorScheme(comp, RadianceThemingSlices.ColorSchemeAssociationKind.FOCUS, activeState).
-                            getFocusRingColor();
+            Color active;
+            if (skin instanceof TonalSkin) {
+                active = (overlay != null) ? overlay :
+                    skin.getColorRenderTokens(comp, activeState).getOnContainerColorTokens().getOnContainer();
+            } else {
+                active = (overlay != null) ? overlay :
+                    RadianceColorSchemeUtilities.getColorScheme(comp,
+                        RadianceThemingSlices.ColorSchemeAssociationKind.FOCUS, activeState).getFocusRingColor();
+            }
             aggrRed += alpha * active.getRed();
             aggrGreen += alpha * active.getGreen();
             aggrBlue += alpha * active.getBlue();
