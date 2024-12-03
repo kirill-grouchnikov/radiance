@@ -29,6 +29,7 @@
  */
 package org.pushingpixels.radiance.theming.internal.utils;
 
+import org.pushingpixels.radiance.animation.api.Timeline;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
@@ -36,8 +37,11 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
+import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.DecorationPainterUtils;
 
 import javax.swing.*;
@@ -420,6 +424,9 @@ public class RadianceColorUtilities {
                 getColorBrightness(getNegativeColor(color.getRGB()))) / 255.0f;
     }
 
+    private static BladeContainerRenderColorTokens mutableRenderColorTokens =
+        new BladeContainerRenderColorTokens();
+
     /**
      * Returns the foreground text color of the specified component.
      *
@@ -451,7 +458,25 @@ public class RadianceColorUtilities {
             }
         }
 
+        // special case for modification aware buttons
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            if (button.getUI() instanceof ModificationAwareUI) {
+                ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
+                Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
+                if (modificationTimeline != null) {
+                    if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
+                        if (skin instanceof TonalSkin) {
+                            BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                                button, modificationTimeline.getTimelinePosition());
+                            return mutableRenderColorTokens.getOnContainerColorTokens().getOnContainer();
+                        }
+                    }
+                }
+            }
+        }
+
         if (skin instanceof TonalSkin) {
             ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
             if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {

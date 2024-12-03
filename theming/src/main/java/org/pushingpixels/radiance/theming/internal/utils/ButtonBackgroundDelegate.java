@@ -282,10 +282,10 @@ public class ButtonBackgroundDelegate {
 
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
-        StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
-                .getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates = modelStateInfo
-                .getStateContributionMap();
+        StateTransitionTracker.ModelStateInfo modelStateInfo =
+            stateTransitionTracker.getModelStateInfo();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateContributionMap();
 
         // Two special cases here:
         // 1. Button has flat appearance.
@@ -296,8 +296,8 @@ public class ButtonBackgroundDelegate {
         if (isFlat) {
             // Special handling of flat buttons
             extraAlpha = 0.0f;
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates
-                    .entrySet()) {
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
                 ComponentState activeState = activeEntry.getKey();
                 if (activeState.isDisabled())
                     continue;
@@ -320,8 +320,7 @@ public class ButtonBackgroundDelegate {
             RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
             RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
 
-            drawBackground(graphics, button, shaper,
-                    fillPainter, borderPainter, width, height);
+            drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height);
 
             graphics.dispose();
         }
