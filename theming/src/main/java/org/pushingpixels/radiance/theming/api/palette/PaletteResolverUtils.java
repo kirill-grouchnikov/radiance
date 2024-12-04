@@ -32,55 +32,6 @@ package org.pushingpixels.radiance.theming.api.palette;
 import java.awt.*;
 
 public class PaletteResolverUtils {
-    private static PaletteContainerColorsResolver getLightTonalPaletteColorResolver() {
-        return new PaletteContainerColorsResolver() {
-            @Override
-            public Color getContainerLowest(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(94));
-            }
-
-            @Override
-            public Color getContainerLow(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(92));
-            }
-
-            @Override
-            public Color getContainer(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(90));
-            }
-
-            @Override
-            public Color getContainerHigh(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(88));
-            }
-
-            @Override
-            public Color getContainerHighest(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(86));
-            }
-
-            @Override
-            public Color getOnContainer(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(30));
-            }
-
-            @Override
-            public Color getOnContainerVariant(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(40));
-            }
-
-            @Override
-            public Color getContainerOutline(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(50));
-            }
-
-            @Override
-            public Color getContainerOutlineVariant(Palettes palettes) {
-                return new Color(palettes.getPrimaryPalette().tone(70));
-            }
-        };
-    }
-
     public static PaletteColorResolver getLightPaletteColorResolver() {
         PaletteContainerColorsResolver surfaceContainerResolver =
             new PaletteContainerColorsResolver() {

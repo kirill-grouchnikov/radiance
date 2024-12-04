@@ -112,46 +112,46 @@ public class BladeUtils {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
         ContainerRenderColorTokens warningColorTokens = skin.getSystemColorRenderTokens(
             component, RadianceThemingSlices.SystemContainerType.WARNING);
-        ContainerRenderColorTokens errorColorTokens = skin.getSystemColorRenderTokens(
+        ContainerRenderColorTokens emergencyColorTokens = skin.getSystemColorRenderTokens(
             component, RadianceThemingSlices.SystemContainerType.EMERGENCY);
 
         bladeRenderColorTokens.containerLowest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerColorTokens().getContainerLowest(),
-            errorColorTokens.getContainerColorTokens().getContainerLowest(),
+            emergencyColorTokens.getContainerColorTokens().getContainerLowest(),
             modificationCyclePosition);
         bladeRenderColorTokens.containerLow = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerColorTokens().getContainerLow(),
-            errorColorTokens.getContainerColorTokens().getContainerLow(),
+            emergencyColorTokens.getContainerColorTokens().getContainerLow(),
             modificationCyclePosition);
         bladeRenderColorTokens.container = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerColorTokens().getContainer(),
-            errorColorTokens.getContainerColorTokens().getContainer(),
+            emergencyColorTokens.getContainerColorTokens().getContainer(),
             modificationCyclePosition);
         bladeRenderColorTokens.containerHigh = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerColorTokens().getContainerHigh(),
-            errorColorTokens.getContainerColorTokens().getContainerHigh(),
+            emergencyColorTokens.getContainerColorTokens().getContainerHigh(),
             modificationCyclePosition);
         bladeRenderColorTokens.containerHighest = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerColorTokens().getContainerHighest(),
-            errorColorTokens.getContainerColorTokens().getContainerHighest(),
+            emergencyColorTokens.getContainerColorTokens().getContainerHighest(),
             modificationCyclePosition);
 
         bladeRenderColorTokens.onContainer = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getOnContainerColorTokens().getOnContainer(),
-            errorColorTokens.getOnContainerColorTokens().getOnContainer(),
+            emergencyColorTokens.getOnContainerColorTokens().getOnContainer(),
             modificationCyclePosition);
         bladeRenderColorTokens.onContainerVariant = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
-            errorColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
+            emergencyColorTokens.getOnContainerColorTokens().getOnContainerVariant(),
             modificationCyclePosition);
 
         bladeRenderColorTokens.containerOutline = RadianceColorUtilities.getInterpolatedColor(
             warningColorTokens.getContainerOutlineColorTokens().getContainerOutline(),
-            errorColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(),
+            emergencyColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(),
             modificationCyclePosition);
 
         bladeRenderColorTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
-            + "], [" + errorColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
+            + "], [" + emergencyColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
     }
 
     public static void populateColorScheme(
