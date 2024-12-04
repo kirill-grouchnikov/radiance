@@ -31,12 +31,15 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeIconUtils;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -69,9 +72,9 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     /**
      * Associated toggle button.
      */
-    JToggleButton button;
+    protected JToggleButton button;
 
-    StateTransitionTracker stateTransitionTracker;
+    protected StateTransitionTracker stateTransitionTracker;
 
     private Rectangle viewRect = new Rectangle();
 
@@ -83,6 +86,8 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
     protected BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     protected BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
     protected BladeColorScheme mutableMarkColorScheme = new BladeColorScheme();
+
+    protected BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
 
     @Override
     protected void installListeners(final AbstractButton b) {
@@ -136,28 +141,37 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                 float visibility = stateTransitionTracker.getFacetStrength(RadianceThemingSlices.ComponentStateFacet.SELECTION);
                 float alpha = RadianceColorSchemeUtilities.getAlpha(button, currState);
 
-                // Populate color schemes based on the current transition state of the radio button.
-                BladeUtils.populateColorScheme(mutableFillColorScheme, button,
-                        modelStateInfo, currState,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX,
-                        false);
-                BladeUtils.populateColorScheme(mutableBorderColorScheme, button,
-                        modelStateInfo, currState,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
-                        false);
-                BladeUtils.populateColorScheme(mutableMarkColorScheme, button,
-                        modelStateInfo, currState,
-                        RadianceThemingSlices.ColorSchemeAssociationKind.MARK,
-                        false);
+                RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+                if (skin instanceof TonalSkin) {
+                    // TODO: TONAL - test Magellan skin and its custom configuration of mark box
+                    // colors. Also check other skins and their custom configurations of mark
+                    // colors
 
-                Graphics2D graphics = (Graphics2D) g.create();
-                graphics.translate(x, y);
-                BladeIconUtils.drawRadioButton(
-                        graphics, button, fillPainter, borderPainter,
-                        checkMarkSize, currState,
-                        mutableFillColorScheme, mutableMarkColorScheme, mutableBorderColorScheme,
-                        visibility, alpha);
-                graphics.dispose();
+                    // Populate color schemes based on the current transition state of the radio button.
+                    BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
+                        currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
+
+                    Graphics2D graphics = (Graphics2D) g.create();
+                    graphics.translate(x, y);
+                    BladeIconUtils.drawRadioButton(graphics, button, fillPainter, borderPainter,
+                        checkMarkSize, currState, mutableRenderColorTokens, visibility, alpha);
+                    graphics.dispose();
+                } else {
+                    // Populate color schemes based on the current transition state of the radio button.
+                    BladeUtils.populateColorScheme(mutableFillColorScheme, button, modelStateInfo,
+                        currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK_BOX, false);
+                    BladeUtils.populateColorScheme(mutableBorderColorScheme, button, modelStateInfo,
+                        currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
+                    BladeUtils.populateColorScheme(mutableMarkColorScheme, button, modelStateInfo,
+                        currState, RadianceThemingSlices.ColorSchemeAssociationKind.MARK, false);
+
+                    Graphics2D graphics = (Graphics2D) g.create();
+                    graphics.translate(x, y);
+                    BladeIconUtils.drawRadioButton(graphics, button, fillPainter, borderPainter,
+                        checkMarkSize, currState, mutableFillColorScheme, mutableMarkColorScheme,
+                        mutableBorderColorScheme, visibility, alpha);
+                    graphics.dispose();
+                }
             }
 
             @Override

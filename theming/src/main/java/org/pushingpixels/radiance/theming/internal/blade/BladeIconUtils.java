@@ -75,67 +75,126 @@ public class BladeIconUtils {
     }
 
     public static void drawCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
-            RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
-            RadianceColorScheme fillColorScheme, RadianceColorScheme markColorScheme,
-            RadianceColorScheme borderColorScheme, float checkMarkVisibility,
-            float checkMarkFlatness, boolean isCheckMarkFadingOut, float alpha) {
+        RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
+        RadianceColorScheme fillColorScheme, RadianceColorScheme markColorScheme,
+        RadianceColorScheme borderColorScheme, float checkMarkVisibility,
+        float checkMarkFlatness, boolean isCheckMarkFadingOut, float alpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    float cornerRadius = (float) scaleFactor *
-                            RadianceSizeUtils.getClassicButtonCornerRadius(
-                                    RadianceSizeUtils.getComponentFontSize(component));
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                float cornerRadius = (float) scaleFactor *
+                    RadianceSizeUtils.getClassicButtonCornerRadius(
+                        RadianceSizeUtils.getComponentFontSize(component));
 
-                    int contourDim = scaledWidth - 1;
-                    Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
-                            component.getComponentOrientation(),
-                            contourDim, contourDim,
-                            cornerRadius, null, 0.0f);
+                int contourDim = scaledWidth - 1;
+                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                    component.getComponentOrientation(),
+                    contourDim, contourDim,
+                    cornerRadius, null, 0.0f);
 
-                    RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                            : SimplisticSoftBorderReverseFillPainter.INSTANCE;
-                    graphics1X.setComposite(getAlphaComposite(alpha));
-                    Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
-                            component.getComponentOrientation(),
-                            contourDim + 1, contourDim + 1,
-                            cornerRadius, null, 0.5f);
-                    finalFillPainter.paintContourBackground(graphics1X, component,
-                            contourDim, contourDim,
-                            contourFill, fillColorScheme);
+                RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
+                    : SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                graphics1X.setComposite(getAlphaComposite(alpha));
+                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                    component.getComponentOrientation(),
+                    contourDim + 1, contourDim + 1,
+                    cornerRadius, null, 0.5f);
+                finalFillPainter.paintContourBackground(graphics1X, component,
+                    contourDim, contourDim,
+                    contourFill, fillColorScheme);
 
-                    Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                            RadianceOutlineUtilities.getBaseOutline(
-                                    component.getComponentOrientation(),
-                                    contourDim, contourDim, cornerRadius, null, 1.0f)
-                            : null;
-                    borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
-                            contourOuter, contourInner, borderColorScheme);
+                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                    RadianceOutlineUtilities.getBaseOutline(
+                        component.getComponentOrientation(),
+                        contourDim, contourDim, cornerRadius, null, 1.0f)
+                    : null;
+                borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
+                    contourOuter, contourInner, borderColorScheme);
 
-                    float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
-                            1.0f : checkMarkVisibility;
-                    if (finalCheckMarkVisibility > 0.0) {
-                        Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
-                        if (isCheckMarkFadingOut) {
-                            graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
-                        }
-
-                        drawCheckMarkAtScale1X(graphicsForCheckMark, scaledWidth, markColorScheme,
-                                checkMarkFlatness);
-
-                        graphicsForCheckMark.dispose();
+                float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
+                    1.0f : checkMarkVisibility;
+                if (finalCheckMarkVisibility > 0.0) {
+                    Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
+                    if (isCheckMarkFadingOut) {
+                        graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
                     }
-                });
+
+                    drawCheckMarkAtScale1X(graphicsForCheckMark, scaledWidth, markColorScheme,
+                        checkMarkFlatness);
+
+                    graphicsForCheckMark.dispose();
+                }
+            });
+        graphics.dispose();
+    }
+
+    public static void drawCheckBox(Graphics2D g, JComponent component, RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
+        ContainerRenderColorTokens renderColorTokens, float checkMarkVisibility,
+        float checkMarkFlatness, boolean isCheckMarkFadingOut, float alpha) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                float cornerRadius = (float) scaleFactor *
+                    RadianceSizeUtils.getClassicButtonCornerRadius(
+                        RadianceSizeUtils.getComponentFontSize(component));
+
+                int contourDim = scaledWidth - 1;
+                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                    component.getComponentOrientation(),
+                    contourDim, contourDim,
+                    cornerRadius, null, 0.0f);
+
+                RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
+                    : SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                graphics1X.setComposite(getAlphaComposite(alpha));
+                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                    component.getComponentOrientation(),
+                    contourDim + 1, contourDim + 1,
+                    cornerRadius, null, 0.5f);
+                finalFillPainter.paintContourBackground(graphics1X, component,
+                    contourDim, contourDim,
+                    contourFill, renderColorTokens);
+
+                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                    RadianceOutlineUtilities.getBaseOutline(
+                        component.getComponentOrientation(),
+                        contourDim, contourDim, cornerRadius, null, 1.0f)
+                    : null;
+                borderPainter.paintBorder(graphics1X, component, contourDim, contourDim,
+                    contourOuter, contourInner, renderColorTokens);
+
+                float finalCheckMarkVisibility = isCheckMarkFadingOut && (checkMarkVisibility > 0.0f) ?
+                    1.0f : checkMarkVisibility;
+                if (finalCheckMarkVisibility > 0.0) {
+                    Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
+                    if (isCheckMarkFadingOut) {
+                        graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
+                    }
+
+                    drawCheckMarkAtScale1X(graphicsForCheckMark, scaledWidth, renderColorTokens,
+                        checkMarkFlatness);
+
+                    graphicsForCheckMark.dispose();
+                }
+            });
         graphics.dispose();
     }
 
     private static void drawCheckMarkAtScale1X(Graphics2D graphics1X, int dimension,
-            RadianceColorScheme scheme, float checkMarkFlatness) {
+        RadianceColorScheme scheme, float checkMarkFlatness) {
         // create straight checkbox path
         GeneralPath path = new GeneralPath();
         path.moveTo(0.25f * dimension, 0.47f * dimension + 0.03f * dimension * checkMarkFlatness);
@@ -144,7 +203,22 @@ public class BladeIconUtils {
 
         graphics1X.setColor(scheme.getMarkColor());
         Stroke stroke = new BasicStroke((float) 0.15 * dimension, BasicStroke.CAP_ROUND,
-                BasicStroke.JOIN_ROUND);
+            BasicStroke.JOIN_ROUND);
+        graphics1X.setStroke(stroke);
+        graphics1X.draw(path);
+    }
+
+    private static void drawCheckMarkAtScale1X(Graphics2D graphics1X, int dimension,
+        ContainerRenderColorTokens renderColorTokens, float checkMarkFlatness) {
+        // create straight checkbox path
+        GeneralPath path = new GeneralPath();
+        path.moveTo(0.25f * dimension, 0.47f * dimension + 0.03f * dimension * checkMarkFlatness);
+        path.lineTo(0.48f * dimension, 0.72f * dimension - 0.22f * dimension * checkMarkFlatness);
+        path.lineTo(0.76f * dimension, 0.27f * dimension + 0.23f * dimension * checkMarkFlatness);
+
+        graphics1X.setColor(renderColorTokens.getOnContainerColorTokens().getOnContainer());
+        Stroke stroke = new BasicStroke((float) 0.15 * dimension, BasicStroke.CAP_ROUND,
+            BasicStroke.JOIN_ROUND);
         graphics1X.setStroke(stroke);
         graphics1X.draw(path);
     }
@@ -199,6 +273,61 @@ public class BladeIconUtils {
                     graphicsForCheckMark.fill(markOval);
                     graphicsForCheckMark.dispose();
                 });
+        graphics.dispose();
+    }
+
+    public static void drawRadioButton(Graphics2D g, AbstractButton button, RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int dimension, ComponentState componentState,
+        ContainerRenderColorTokens renderColorTokens, float checkMarkVisibility,
+        float alpha) {
+
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, dimension, dimension,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                int contourDim = scaledWidth;
+                Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
+
+                RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
+                    : SimplisticSoftBorderReverseFillPainter.INSTANCE;
+                graphics1X.setComposite(getAlphaComposite(alpha));
+                finalFillPainter.paintContourBackground(graphics1X, button,
+                    contourDim, contourDim,
+                    new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
+                    renderColorTokens);
+
+                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                    new Ellipse2D.Float(1.0f, 1.0f, contourDim - 2.0f, contourDim - 2.0f)
+                    : null;
+                borderPainter.paintBorder(graphics1X, button, contourDim, contourDim,
+                    contourOuter, contourInner, renderColorTokens);
+
+                float rc = contourDim / 2.0f + 0.5f;
+                float radius = contourDim / 4.5f;
+                Shape markOval = new Ellipse2D.Double(rc - radius, rc - radius, 2 * radius, 2 * radius);
+                Graphics2D graphicsForCheckMark = (Graphics2D) graphics1X.create();
+
+                if (checkMarkVisibility > 0.0) {
+                    // mark
+                    graphicsForCheckMark.setComposite(getAlphaComposite(alpha * checkMarkVisibility));
+                    graphicsForCheckMark.setColor(renderColorTokens.getOnContainerColorTokens().getOnContainer());
+                } else {
+                    // draw ghost mark holder
+                    graphicsForCheckMark.setComposite(getAlphaComposite(alpha * 0.3f));
+                    graphicsForCheckMark.setPaint(
+                        new GradientPaint(
+                            rc + radius, rc - radius,
+                            renderColorTokens.getContainerColorTokens().getContainerHigh(),
+                            rc - radius, rc + radius,
+                            renderColorTokens.getContainerColorTokens().getContainerLow()));
+                }
+                graphicsForCheckMark.fill(markOval);
+                graphicsForCheckMark.dispose();
+            });
         graphics.dispose();
     }
 
