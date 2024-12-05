@@ -32,10 +32,7 @@ package org.pushingpixels.radiance.demo.theming.main.palette;
 import org.pushingpixels.ephemeral.chroma.hct.Hct;
 import org.pushingpixels.ephemeral.chroma.palettes.TonalPalette;
 import org.pushingpixels.radiance.demo.theming.main.RadianceLogo;
-import org.pushingpixels.radiance.theming.api.RadianceColorSchemeBundle;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
-import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
-import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.*;
 import org.pushingpixels.radiance.theming.api.colorscheme.AquaColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.LightGrayColorScheme;
 import org.pushingpixels.radiance.theming.api.colorscheme.MetallicColorScheme;
@@ -119,7 +116,30 @@ public class ControlStates extends JFrame {
 
             RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(samplePalettes);
 
-            this.registerDecorationAreaColorScheme(lightColorScheme,
+            RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
+
+            Hct seedMarkHct = Hct.fromInt(0xFF20F490);
+            double seedMarkHue = seedMarkHct.getHue();
+            double seedMarkChroma = seedMarkHct.getChroma();
+
+            TonalPalette primaryMark = TonalPalette.fromHueAndChroma(seedMarkHue, seedMarkChroma);
+            TonalPalette neutralMark = TonalPalette.fromHueAndChroma(seedMarkHue, 6.0);
+            TonalPalette neutralVariantMark = TonalPalette.fromHueAndChroma(seedMarkHue, 8.0);
+
+            Palettes samplePalettesMark = Palettes.builder()
+                .setNeutralPalette(neutralMark)
+                .setNeutralVariantPalette(neutralVariantMark)
+                .setPrimaryPalette(primaryMark)
+                .build();
+
+            RadianceColorScheme2 lightMarkColorScheme =
+                ColorSchemeUtils.getLightColorScheme(samplePalettesMark);
+
+            bundle2.registerColorScheme(lightMarkColorScheme,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.getActiveStates());
+
+            this.registerDecorationAreaSchemeBundle(bundle2,
                     RadianceThemingSlices.DecorationAreaType.NONE);
 
             this.registerAsDecorationArea(

@@ -111,7 +111,8 @@ public class ButtonBackgroundDelegate {
 
         if (skin instanceof TonalSkin) {
             BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
-                    currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+                false);
 
             drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
                     mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);

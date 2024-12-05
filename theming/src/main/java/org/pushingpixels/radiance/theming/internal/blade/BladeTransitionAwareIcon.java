@@ -31,6 +31,7 @@ package org.pushingpixels.radiance.theming.internal.blade;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ComponentStateFacet;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
@@ -73,6 +74,10 @@ public class BladeTransitionAwareIcon implements Icon {
     @FunctionalInterface
     public interface ColorSchemeAssociationKindDelegate {
         ColorSchemeAssociationKind getColorSchemeAssociationKind(ComponentState state);
+
+        default RadianceThemingSlices.ContainerColorTokensAssociationKind getContainterColorTokensAssociationKind(ComponentState state) {
+            return RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
+        }
     }
 
     private static ColorSchemeAssociationKindDelegate MARK_DELEGATE =

@@ -1040,19 +1040,19 @@ public final class RadianceThemingSlices {
          * Highlight visual areas for text components.
          */
         public static final ColorSchemeAssociationKind HIGHLIGHT_TEXT =
-                new ColorSchemeAssociationKind("highlightText", HIGHLIGHT);
+            new ColorSchemeAssociationKind("highlightText", HIGHLIGHT);
 
         /**
          * Border visual areas for highlighted regions of lists, tables, trees and menus.
          */
         public static final ColorSchemeAssociationKind HIGHLIGHT_BORDER =
-                new ColorSchemeAssociationKind("highlightBorder", BORDER);
+            new ColorSchemeAssociationKind("highlightBorder", BORDER);
 
         /**
          * Visual area of marks in highlighted regions of lists, tables, trees and menus.
          */
         public static final ColorSchemeAssociationKind HIGHLIGHT_MARK =
-                new ColorSchemeAssociationKind("highlightMark", MARK);
+            new ColorSchemeAssociationKind("highlightMark", MARK);
 
         /**
          * Returns all available association kinds.
@@ -1070,6 +1070,82 @@ public final class RadianceThemingSlices {
          */
         public ColorSchemeAssociationKind getFallback() {
             return fallback;
+        }
+    }
+
+    /**
+     * Allows associating different color schemes to different visual parts of UI components. For
+     * example, the {@link JCheckBox} has three different visual areas:
+     * <ul>
+     * <li>Border - assciated with {@link #BORDER}</li>
+     * <li>Fill - associated with {@link #MARK_BOX}</li>
+     * <li>Check mark - associated with {@link #MARK}</li>
+     * </ul>
+     * <p>
+     * Applications can create custom instances of this class to further refine the control over the
+     * painting. In this case, the custom UI delegates must be created to use these new association
+     * kinds.
+     *
+     * @author Kirill Grouchnikov
+     */
+    public final static class ContainerColorTokensAssociationKind {
+        /**
+         * All known association kind values.
+         */
+        private static Set<ContainerColorTokensAssociationKind> values = new HashSet<>();
+
+        /**
+         * Name for this association kind.
+         */
+        private String name;
+
+        /**
+         * Creates a new association kind.
+         *
+         * @param name     Association kind name.
+         */
+        public ContainerColorTokensAssociationKind(String name) {
+            this.name = name;
+            values.add(this);
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+
+        /**
+         * The default visual area that is used for the inner part of most controls.
+         */
+        public static final ContainerColorTokensAssociationKind DEFAULT =
+            new ContainerColorTokensAssociationKind("default");
+
+        /**
+         * Fill visual area of the tabs.
+         */
+        public static final ContainerColorTokensAssociationKind TAB =
+            new ContainerColorTokensAssociationKind("tab");
+
+        /**
+         * Visual area of marks. Used for painting check marks of checkboxes and radio buttons, as
+         * well as arrow icons of combo boxes, spinners and more.
+         */
+        public static final ContainerColorTokensAssociationKind MARK =
+            new ContainerColorTokensAssociationKind("mark");
+
+        /**
+         * Highlight visual areas for lists, tables, trees and menus.
+         */
+        public static final ContainerColorTokensAssociationKind HIGHLIGHT =
+            new ContainerColorTokensAssociationKind("highlight");
+
+        /**
+         * Returns all available association kinds.
+         *
+         * @return All available association kinds.
+         */
+        public static Set<ContainerColorTokensAssociationKind> values() {
+            return Collections.unmodifiableSet(values);
         }
     }
 

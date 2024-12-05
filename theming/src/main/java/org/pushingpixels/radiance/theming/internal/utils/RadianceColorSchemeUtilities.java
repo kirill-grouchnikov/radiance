@@ -246,7 +246,7 @@ public class RadianceColorSchemeUtilities {
      * @return Component color scheme.
      */
     public static ContainerRenderColorTokens getRenderColorTokens(Component component,
-            RadianceThemingSlices.ColorSchemeAssociationKind associationKind,
+            RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
             ComponentState componentState) {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
 
@@ -268,7 +268,7 @@ public class RadianceColorSchemeUtilities {
                     "Radiance delegate used when Radiance is not the current LAF");
         }
         ContainerRenderColorTokens nonColorized = skin.getColorRenderTokens(component,
-                componentState);
+                associationKind, componentState);
         // TODO: TONAL - add colorization
         return nonColorized;
     }
