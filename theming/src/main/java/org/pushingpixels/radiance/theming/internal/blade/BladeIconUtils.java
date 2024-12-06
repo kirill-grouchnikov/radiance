@@ -63,13 +63,13 @@ public class BladeIconUtils {
 
         private SimplisticSoftBorderReverseFillPainter() {
             super("Simplistic Soft Border Reverse",
-                    new float[] {0.0f, 0.5f, 1.0f},
-                    new ColorSchemeSingleColorQuery[] {
-                            ColorSchemeSingleColorQuery.ULTRALIGHT,
-                            scheme -> RadianceColorUtilities.getInterpolatedColor(
-                                    scheme.getMidColor(), scheme.getUltraLightColor(), 0.5f),
-                            ColorSchemeSingleColorQuery.MID
-                    }
+                new float[] {0.0f, 0.5f, 1.0f},
+                new ColorSchemeSingleColorQuery[] {
+                    ColorSchemeSingleColorQuery.ULTRALIGHT,
+                    scheme -> RadianceColorUtilities.getInterpolatedColor(
+                        scheme.getMidColor(), scheme.getUltraLightColor(), 0.5f),
+                    ColorSchemeSingleColorQuery.MID
+                }
             );
         }
     }
@@ -157,14 +157,12 @@ public class BladeIconUtils {
                     contourDim, contourDim,
                     cornerRadius, null, 0.0f);
 
-                RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                    : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                 graphics1X.setComposite(getAlphaComposite(alpha));
                 Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
                     component.getComponentOrientation(),
                     contourDim + 1, contourDim + 1,
                     cornerRadius, null, 0.5f);
-                finalFillPainter.paintContourBackground(graphics1X, component,
+                fillPainter.paintContourBackground(graphics1X, component,
                     contourDim, contourDim,
                     contourFill, renderColorTokens);
 
@@ -292,10 +290,8 @@ public class BladeIconUtils {
                 int contourDim = scaledWidth;
                 Shape contourOuter = new Ellipse2D.Float(0.0f, 0.0f, contourDim, contourDim);
 
-                RadianceFillPainter finalFillPainter = componentState.isActive() ? fillPainter
-                    : SimplisticSoftBorderReverseFillPainter.INSTANCE;
                 graphics1X.setComposite(getAlphaComposite(alpha));
-                finalFillPainter.paintContourBackground(graphics1X, button,
+                fillPainter.paintContourBackground(graphics1X, button,
                     contourDim, contourDim,
                     new Ellipse2D.Float(0.5f, 0.5f, contourDim, contourDim),
                     renderColorTokens);

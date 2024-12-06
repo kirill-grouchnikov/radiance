@@ -296,7 +296,6 @@ public class BladeUtils {
         ContainerRenderColorTokens currColorTokens = (treatEnabledAsActive && (currState == ComponentState.ENABLED))
                 ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, currState)
                 : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, currState);
-
         Color containerLowest = currColorTokens.getContainerColorTokens().getContainerLowest();
         Color containerLow = currColorTokens.getContainerColorTokens().getContainerLow();
         Color container = currColorTokens.getContainerColorTokens().getContainer();
@@ -314,7 +313,8 @@ public class BladeUtils {
 
         if (!currState.isDisabled() && (activeStates != null) && (activeStates.size() > 1)) {
             for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry : activeStates.entrySet()) {
-                if (activeEntry.getKey() == currState) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState == currState) {
                     // Already accounted for the currently active state
                     continue;
                 }
@@ -324,9 +324,9 @@ public class BladeUtils {
                     continue;
                 }
                 // Get the color scheme that matches the contribution state
-                ContainerRenderColorTokens contributionColorTokens = (treatEnabledAsActive && (activeEntry.getKey() == ComponentState.ENABLED))
-                        ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, activeEntry.getKey())
-                        : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, activeEntry.getKey());
+                ContainerRenderColorTokens contributionColorTokens = (treatEnabledAsActive && (activeState == ComponentState.ENABLED))
+                        ? RadianceColorSchemeUtilities.getActiveRenderColorTokens(component, activeState)
+                        : RadianceColorSchemeUtilities.getRenderColorTokens(component, associationKind, activeState);
 
                 // And interpolate the colors
                 containerLowest = RadianceColorUtilities.getInterpolatedColor(containerLowest,
