@@ -30,10 +30,11 @@
 package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
-import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -45,6 +46,8 @@ public class UpdateOptimizationInfo {
     private Map<ComponentState, RadianceColorScheme> highlightSchemeMap;
 
     private Map<ComponentState, RadianceColorScheme> highlightBorderSchemeMap;
+
+    private Map<ComponentState, ContainerRenderColorTokens> highlightRenderColorTokens;
 
     private Map<ComponentState, Float> highlightAlphaMap;
 
@@ -74,8 +77,21 @@ public class UpdateOptimizationInfo {
         RadianceColorScheme result = this.highlightSchemeMap.get(state);
         if (result == null) {
             result = RadianceColorSchemeUtilities.getColorScheme(this.component,
-                    RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, state);
+                RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT, state);
             this.highlightSchemeMap.put(state, result);
+        }
+        return result;
+    }
+
+    public ContainerRenderColorTokens getHighlightColorTokens(ComponentState state) {
+        if (this.highlightRenderColorTokens == null) {
+            this.highlightRenderColorTokens = new HashMap<>();
+        }
+        ContainerRenderColorTokens result = this.highlightRenderColorTokens.get(state);
+        if (result == null) {
+            result = RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state);
+            this.highlightRenderColorTokens.put(state, result);
         }
         return result;
     }

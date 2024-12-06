@@ -41,7 +41,6 @@ import org.pushingpixels.radiance.theming.api.painter.border.ClassicTonalBorderP
 import org.pushingpixels.radiance.theming.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.ImageWrapperDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.MarbleNoiseDecorationPainter;
-import org.pushingpixels.radiance.theming.api.painter.fill.ClassicFillPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.ClassicTonalFillPainter;
 import org.pushingpixels.radiance.theming.api.palette.ColorSchemeUtils;
 import org.pushingpixels.radiance.theming.api.palette.Palettes;
@@ -157,7 +156,7 @@ public class ControlStates extends JFrame {
             decorationPainter.setTextureAlpha(0.3f);
             this.decorationPainter = decorationPainter;
 
-            this.highlightFillPainter = new ClassicFillPainter();
+            this.highlightFillPainter = new ClassicTonalFillPainter();
         }
 
         @Override
