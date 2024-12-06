@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.blade;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceOutlineUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.WidgetUtilities;
@@ -74,28 +75,53 @@ public class BladeDrawingUtils {
     }
 
     public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
-            float baseRadius, RadianceColorScheme colorScheme) {
+        float baseRadius, RadianceColorScheme colorScheme) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
-                    Color borderColor = borderPainter.getRepresentativeColor(colorScheme);
-                    graphics1X.setColor(borderColor);
-                    if (baseRadius == 0.0f) {
-                        graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
-                        graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f));
-                    } else {
-                        float scaledRadius = (float) scaleFactor * baseRadius;
-                        graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-                        graphics1X.draw(new RoundRectangle2D.Float(
-                                0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, scaledRadius));
-                    }
-                });
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(c);
+                Color borderColor = borderPainter.getRepresentativeColor(colorScheme);
+                graphics1X.setColor(borderColor);
+                if (baseRadius == 0.0f) {
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+                    graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f));
+                } else {
+                    float scaledRadius = (float) scaleFactor * baseRadius;
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+                    graphics1X.draw(new RoundRectangle2D.Float(
+                        0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, scaledRadius));
+                }
+            });
+        graphics.dispose();
+    }
+
+    public static void paintBladeSimpleBorder(Component c, Graphics2D g, int width, int height,
+        float baseRadius, ContainerRenderColorTokens renderColorTokens) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                Color borderColor = renderColorTokens.getContainerOutlineColorTokens().getContainerOutline();
+                graphics1X.setColor(borderColor);
+                if (baseRadius == 0.0f) {
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER));
+                    graphics1X.draw(new Rectangle2D.Float(0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f));
+                } else {
+                    float scaledRadius = (float) scaleFactor * baseRadius;
+                    graphics1X.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+                    graphics1X.draw(new RoundRectangle2D.Float(
+                        0.0f, 0.0f, scaledWidth - 1.0f, scaledHeight - 1.0f, scaledRadius, scaledRadius));
+                }
+            });
         graphics.dispose();
     }
 

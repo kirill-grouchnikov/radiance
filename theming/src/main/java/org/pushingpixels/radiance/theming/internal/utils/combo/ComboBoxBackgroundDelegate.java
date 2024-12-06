@@ -31,13 +31,17 @@ package org.pushingpixels.radiance.theming.internal.utils.combo;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.blade.BladeColorScheme;
+import org.pushingpixels.radiance.theming.internal.blade.BladeContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.internal.blade.BladeUtils;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
@@ -54,6 +58,7 @@ import java.util.Map;
 public class ComboBoxBackgroundDelegate {
     private BladeColorScheme mutableFillColorScheme = new BladeColorScheme();
     private BladeColorScheme mutableBorderColorScheme = new BladeColorScheme();
+    private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
 
     public void drawBackground(
             Graphics2D graphics, JComboBox combo,
@@ -64,57 +69,101 @@ public class ComboBoxBackgroundDelegate {
                 .getTransitionTracker().getModelStateInfo();
         ComponentState currState = modelStateInfo.getCurrModelState();
 
-        // Populate fill and border color schemes based on the current transition state of the button.
-        // Important - don't do it on pulsating buttons (such as close button of modified frames).
-        BladeUtils.populateColorScheme(mutableFillColorScheme, combo,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL,
-                false);
-        BladeUtils.populateColorScheme(mutableBorderColorScheme, combo,
-                modelStateInfo, currState,
-                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER,
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(combo);
+        if (skin instanceof TonalSkin) {
+            BladeUtils.populateColorTokens(mutableRenderColorTokens, combo, modelStateInfo,
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
                 false);
 
-        drawBackground(graphics, combo, fillPainter, borderPainter, width,
-                height, mutableFillColorScheme, mutableBorderColorScheme);
+            drawBackground(graphics, combo, fillPainter, borderPainter, width, height,
+                mutableRenderColorTokens);
+        } else {
+            // Populate fill and border color schemes based on the current transition state of the button.
+            // Important - don't do it on pulsating buttons (such as close button of modified frames).
+            BladeUtils.populateColorScheme(mutableFillColorScheme, combo, modelStateInfo, currState,
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
+            BladeUtils.populateColorScheme(mutableBorderColorScheme, combo, modelStateInfo, currState,
+                RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
+
+            drawBackground(graphics, combo, fillPainter, borderPainter, width, height,
+                mutableFillColorScheme, mutableBorderColorScheme);
+        }
     }
 
     private void drawBackground(Graphics2D g, JComboBox combo,
-            RadianceFillPainter fillPainter,
-            RadianceBorderPainter borderPainter, int width, int height,
-            RadianceColorScheme fillScheme, RadianceColorScheme borderScheme) {
+        RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int width, int height,
+        RadianceColorScheme fillScheme, RadianceColorScheme borderScheme) {
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
         // to not normalize coordinates to paint at full pixels, and will result in blurry
         // outlines.
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+            RenderingHints.VALUE_ANTIALIAS_ON);
         RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
-                (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
-                    int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
-                    float radius = (float) scaleFactor *
-                            RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
+                float radius = (float) scaleFactor *
+                    RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
 
-                    Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
-                            combo.getComponentOrientation(),
-                            scaledWidth - 1, scaledHeight - 1, radius, null, 0);
-                    // If the border is painted, compute a separate contour for the fill.
-                    // Otherwise pixels on the edge can "spill" outside
-                    // the contour. Those pixels will be drawn by the border painter.
-                    Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
-                            combo.getComponentOrientation(),
-                            scaledWidth, scaledHeight, radius, null, 0.5f);
-                    fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
-                            contourFill, fillScheme);
+                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                    combo.getComponentOrientation(),
+                    scaledWidth - 1, scaledHeight - 1, radius, null, 0);
+                // If the border is painted, compute a separate contour for the fill.
+                // Otherwise pixels on the edge can "spill" outside
+                // the contour. Those pixels will be drawn by the border painter.
+                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                    combo.getComponentOrientation(),
+                    scaledWidth, scaledHeight, radius, null, 0.5f);
+                fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
+                    contourFill, fillScheme);
 
-                    Shape contourInner = borderPainter.isPaintingInnerContour() ?
-                            RadianceOutlineUtilities.getBaseOutline(
-                                    combo.getComponentOrientation(),
-                                    scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
-                            : null;
-                    borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,
-                            contourOuter, contourInner, borderScheme);
-                });
+                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                    RadianceOutlineUtilities.getBaseOutline(
+                        combo.getComponentOrientation(),
+                        scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
+                    : null;
+                borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,
+                    contourOuter, contourInner, borderScheme);
+            });
+    }
+
+    private void drawBackground(Graphics2D g, JComboBox combo,
+        RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int width, int height,
+        ContainerRenderColorTokens renderColorTokens) {
+        Graphics2D graphics = (Graphics2D) g.create();
+        // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
+        // to not normalize coordinates to paint at full pixels, and will result in blurry
+        // outlines.
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        RadianceCommonCortex.paintAtScale1x(graphics, 0, 0, width, height,
+            (graphics1X, x, y, scaledWidth, scaledHeight, scaleFactor) -> {
+                int comboFontSize = RadianceSizeUtils.getComponentFontSize(combo);
+                float radius = (float) scaleFactor *
+                    RadianceSizeUtils.getClassicButtonCornerRadius(comboFontSize);
+
+                Shape contourOuter = RadianceOutlineUtilities.getBaseOutline(
+                    combo.getComponentOrientation(),
+                    scaledWidth - 1, scaledHeight - 1, radius, null, 0);
+                // If the border is painted, compute a separate contour for the fill.
+                // Otherwise pixels on the edge can "spill" outside
+                // the contour. Those pixels will be drawn by the border painter.
+                Shape contourFill = RadianceOutlineUtilities.getBaseOutline(
+                    combo.getComponentOrientation(),
+                    scaledWidth, scaledHeight, radius, null, 0.5f);
+                fillPainter.paintContourBackground(graphics1X, combo, scaledWidth, scaledHeight,
+                    contourFill, renderColorTokens);
+
+                Shape contourInner = borderPainter.isPaintingInnerContour() ?
+                    RadianceOutlineUtilities.getBaseOutline(
+                        combo.getComponentOrientation(),
+                        scaledWidth - 1, scaledHeight - 1, radius - 1, null, 1)
+                    : null;
+                borderPainter.paintBorder(graphics1X, combo, scaledWidth, scaledHeight,
+                    contourOuter, contourInner, renderColorTokens);
+            });
     }
 
     public void updateBackground(Graphics g, JComboBox combo) {
@@ -164,8 +213,7 @@ public class ComboBoxBackgroundDelegate {
             RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(combo);
             RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(combo);
 
-            drawBackground(graphics, combo,
-                    fillPainter, borderPainter, width, height);
+            drawBackground(graphics, combo, fillPainter, borderPainter, width, height);
 
             graphics.dispose();
         }

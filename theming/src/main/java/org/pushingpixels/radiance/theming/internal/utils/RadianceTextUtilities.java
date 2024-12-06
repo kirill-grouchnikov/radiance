@@ -467,6 +467,7 @@ public class RadianceTextUtilities {
 
         BackgroundPaintingUtils.update(g2d, comp, false);
 
+        // TODO - TONAL convert
         Color backgroundFillColor = getTextBackgroundFillColor(comp);
         g2d.setColor(backgroundFillColor);
 

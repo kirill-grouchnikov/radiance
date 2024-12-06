@@ -369,7 +369,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
 
     @Override
     protected ComboPopup createPopup() {
-        final RadianceComboPopup sPopup = new RadianceComboPopup(this.comboBox);
+        final RadianceComboPopup popup = new RadianceComboPopup(this.comboBox);
         final ComponentOrientation currOrientation = this.comboBox.getComponentOrientation();
 
         SwingUtilities.invokeLater(() -> {
@@ -377,8 +377,8 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
                 return;
             }
 
-            sPopup.applyComponentOrientation(currOrientation);
-            sPopup.doLayout();
+            popup.applyComponentOrientation(currOrientation);
+            popup.doLayout();
             ListCellRenderer cellRenderer = RadianceComboBoxUI.this.comboBox.getRenderer();
             if (cellRenderer instanceof Component) {
                 ((Component) cellRenderer).applyComponentOrientation(currOrientation);
@@ -389,7 +389,7 @@ public class RadianceComboBoxUI extends BasicComboBoxUI implements TransitionAwa
             }
             RadianceComboBoxUI.this.comboBox.repaint();
         });
-        return sPopup;
+        return popup;
     }
 
     @Override

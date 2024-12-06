@@ -599,6 +599,7 @@ public class RadianceColorUtilities {
             return backgr;
         }
 
+        // TODO: TONAL complete
         if (!isBackgroundUiResource) {
             // special case for issue 386 - if the colorization
             // is 1.0, return the component background

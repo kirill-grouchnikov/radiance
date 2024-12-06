@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -104,6 +105,13 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
             }
 
             @Override
+            public void drawColorSchemeIcon(Graphics2D g, ContainerRenderColorTokens renderColorTokens, float alpha) {
+                int fontSize = RadianceSizeUtils.getComponentFontSize(component);
+                BladeArrowIconUtils.drawArrow(g, fontSize, getIconDimension(), orientation,
+                    renderColorTokens, alpha);
+            }
+
+            @Override
             public Dimension getIconDimension() {
                 return iconDimension;
             }
@@ -112,12 +120,24 @@ public class BladeArrowButtonTransitionAwareIcon implements Icon {
         this.iconWidth = iconDimension.width;
         this.iconHeight = iconDimension.height;
 
-        this.colorSchemeAssociationKindDelegate = state -> {
-            // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
-            return (component instanceof JMenu) &&
-                    state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
+        this.colorSchemeAssociationKindDelegate = new BladeTransitionAwareIcon.ColorSchemeAssociationKindDelegate() {
+            @Override
+            public RadianceThemingSlices.ColorSchemeAssociationKind getColorSchemeAssociationKind(
+                ComponentState state) {
+                // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
+                return (component instanceof JMenu) && state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
                     ? RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT
                     : RadianceThemingSlices.ColorSchemeAssociationKind.MARK;
+            }
+
+            @Override
+            public RadianceThemingSlices.ContainerColorTokensAssociationKind getContainterColorTokensAssociationKind(
+                ComponentState state) {
+                // Use HIGHLIGHT for rollover menus (arrow icons) and MARK for the rest
+                return (component instanceof JMenu) && state.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ROLLOVER)
+                    ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                    : RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK;
+            }
         };
     }
 
