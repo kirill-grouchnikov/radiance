@@ -536,16 +536,31 @@ public class RadianceColorUtilities {
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
                 modelStateInfo.getStateNoSelectionContributionMap();
 
-        RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-        // use HIGHLIGHT on active menu items
-        if (currState.isActive()) {
-            currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-        }
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities
-                .getColorScheme(menuComponent, currAssocKind, currState);
-        if (currState.isDisabled() || (activeStates == null)
-                || (activeStates.size() == 1)) {
-            return colorScheme.getForegroundColor();
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(menuComponent);
+
+        if (skin instanceof TonalSkin) {
+            // use HIGHLIGHT on active menu items
+            RadianceThemingSlices.ContainerColorTokensAssociationKind currAssocKind =
+                currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                    : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
+            ContainerRenderColorTokens renderColorTokens =
+                RadianceColorSchemeUtilities.getRenderColorTokens(
+                    menuComponent, currAssocKind, currState);
+            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+                return renderColorTokens.getOnContainerColorTokens().getOnContainer();
+            }
+        } else {
+            RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind =
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
+            // use HIGHLIGHT on active menu items
+            if (currState.isActive()) {
+                currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+            }
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                menuComponent, currAssocKind, currState);
+            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+                return colorScheme.getForegroundColor();
+            }
         }
 
         float aggrRed = 0;
@@ -555,17 +570,33 @@ public class RadianceColorUtilities {
                 activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
-            RadianceThemingSlices.ColorSchemeAssociationKind assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-            // use HIGHLIGHT on active menu items
-            if (activeState.isActive()) {
-                assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+
+            if (skin instanceof TonalSkin) {
+                // use HIGHLIGHT on active menu items
+                RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
+                    activeState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                        : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
+                ContainerRenderColorTokens renderColorTokens =
+                    RadianceColorSchemeUtilities.getRenderColorTokens(
+                        menuComponent, assocKind, activeState);
+                Color activeForeground = renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                aggrRed += alpha * activeForeground.getRed();
+                aggrGreen += alpha * activeForeground.getGreen();
+                aggrBlue += alpha * activeForeground.getBlue();
+            } else {
+                RadianceThemingSlices.ColorSchemeAssociationKind assocKind =
+                    RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
+                // use HIGHLIGHT on active menu items
+                if (activeState.isActive()) {
+                    assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+                }
+                RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                    menuComponent, assocKind, activeState);
+                Color activeForeground = activeColorScheme.getForegroundColor();
+                aggrRed += alpha * activeForeground.getRed();
+                aggrGreen += alpha * activeForeground.getGreen();
+                aggrBlue += alpha * activeForeground.getBlue();
             }
-            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities
-                    .getColorScheme(menuComponent, assocKind, activeState);
-            Color activeForeground = activeColorScheme.getForegroundColor();
-            aggrRed += alpha * activeForeground.getRed();
-            aggrGreen += alpha * activeForeground.getGreen();
-            aggrBlue += alpha * activeForeground.getBlue();
         }
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
     }

@@ -31,9 +31,11 @@ package org.pushingpixels.radiance.theming.internal.utils;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.painter.BackgroundPaintingUtils;
@@ -279,8 +281,17 @@ public class RadianceTextUtilities {
     public static Color getForegroundColor(JComponent component, ComponentState state, float textAlpha) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
-        Color fgColor = toEnforceFgColor ? component.getForeground()
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        Color fgColor;
+        if (skin instanceof TonalSkin) {
+            fgColor = toEnforceFgColor ? component.getForeground()
+                : RadianceColorSchemeUtilities.getRenderColorTokens(component, state)
+                    .getOnContainerColorTokens().getOnContainer();
+
+        } else {
+            fgColor = toEnforceFgColor ? component.getForeground()
                 : RadianceColorSchemeUtilities.getColorScheme(component, state).getForegroundColor();
+        }
 
         if (textAlpha < 1.0f) {
             Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);

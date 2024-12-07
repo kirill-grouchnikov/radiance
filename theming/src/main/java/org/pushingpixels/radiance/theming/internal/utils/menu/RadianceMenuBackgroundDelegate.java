@@ -30,8 +30,12 @@
 package org.pushingpixels.radiance.theming.internal.utils.menu;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker.ModelStateInfo;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -62,8 +66,7 @@ public class RadianceMenuBackgroundDelegate {
 	 * @param textOffset
 	 *            The offset of the menu item text.
 	 */
-	public static void paintBackground(Graphics g, JComponent menuItem,
-			int textOffset) {
+	public static void paintBackground(Graphics g, JComponent menuItem, int textOffset) {
 		if (!menuItem.isShowing())
 			return;
 		int menuWidth = menuItem.getWidth();
@@ -94,9 +97,16 @@ public class RadianceMenuBackgroundDelegate {
 			if (shouldPaintGutter) {
 				graphics.setComposite(WidgetUtilities.getAlphaComposite(
 						menuItem, fillAlpha, g));
-				RadianceColorScheme scheme = RadianceColorSchemeUtilities
-						.getColorScheme(menuItem, ComponentState.ENABLED);
-				graphics.setColor(scheme.getAccentedBackgroundFillColor());
+				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
+				if (skin instanceof TonalSkin) {
+					ContainerRenderColorTokens renderColorTokens =
+						RadianceColorSchemeUtilities.getRenderColorTokens(menuItem, ComponentState.ENABLED);
+					graphics.setColor(renderColorTokens.getContainerColorTokens().getContainerLow());
+				} else {
+					RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
+						menuItem, ComponentState.ENABLED);
+					graphics.setColor(scheme.getAccentedBackgroundFillColor());
+				}
 				if (menuItem.getComponentOrientation().isLeftToRight()) {
 					graphics.fillRect(0, 0, textOffset - 2, menuHeight);
 				} else {
@@ -119,8 +129,7 @@ public class RadianceMenuBackgroundDelegate {
 	 * @param borderAlpha
 	 *            Alpha channel for painting the border.
 	 */
-	public static void paintHighlights(Graphics g, JMenuItem menuItem,
-			float borderAlpha) {
+	public static void paintHighlights(Graphics g, JMenuItem menuItem, float borderAlpha) {
 		Graphics2D graphics = (Graphics2D) g.create();
 
 		TransitionAwareUI transitionAwareUI = (TransitionAwareUI) menuItem.getUI();
@@ -152,6 +161,7 @@ public class RadianceMenuBackgroundDelegate {
 			return;
 		}
 
+		RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 		for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> stateEntry :
 				activeStates.entrySet()) {
 			ComponentState activeState = stateEntry.getKey();
@@ -161,14 +171,24 @@ public class RadianceMenuBackgroundDelegate {
 				continue;
 			}
 
-			RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
-					menuItem, ColorSchemeAssociationKind.HIGHLIGHT, activeState);
-			RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
-					menuItem, ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
 			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, alpha, g));
-            HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
-                    new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
-                    null, fillScheme, borderScheme);
+			if (skin instanceof TonalSkin) {
+				ContainerRenderColorTokens renderColorTokens =
+					RadianceColorSchemeUtilities.getRenderColorTokens(
+						menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
+						activeState);
+				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
+					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
+					null, renderColorTokens);
+			} else {
+				RadianceColorScheme fillScheme = RadianceColorSchemeUtilities.getColorScheme(
+					menuItem, ColorSchemeAssociationKind.HIGHLIGHT, activeState);
+				RadianceColorScheme borderScheme = RadianceColorSchemeUtilities.getColorScheme(
+					menuItem, ColorSchemeAssociationKind.HIGHLIGHT_BORDER, activeState);
+				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
+					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
+					null, fillScheme, borderScheme);
+			}
 			graphics.setComposite(WidgetUtilities.getAlphaComposite(menuItem, g));
 		}
 

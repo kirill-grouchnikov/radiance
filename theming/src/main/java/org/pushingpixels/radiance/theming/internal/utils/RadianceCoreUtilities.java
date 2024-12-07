@@ -42,6 +42,7 @@ import org.pushingpixels.radiance.theming.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.radiance.theming.api.painter.border.RadianceBorderPainter;
 import org.pushingpixels.radiance.theming.api.painter.decoration.RadianceDecorationPainter;
 import org.pushingpixels.radiance.theming.api.painter.fill.RadianceFillPainter;
+import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.api.tabbed.TabCloseCallback;
@@ -904,21 +905,41 @@ public class RadianceCoreUtilities {
             ComponentState componentState, Color textColor) {
         double scale = RadianceCommonCortex.getScaleFactor(comp);
 
-        RadianceThemingSlices.IconFilterStrategy iconFilterStrategy = getIconFilterStrategy(comp, componentState);
-        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                comp, componentState);
-        switch (iconFilterStrategy) {
-            case ORIGINAL:
-                return orig;
-            case THEMED_FOLLOW_TEXT:
-                Color foreground = (textColor != null) ? textColor
-                        : colorScheme.getForegroundColor();
-                return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
+        RadianceThemingSlices.IconFilterStrategy iconFilterStrategy =
+            getIconFilterStrategy(comp, componentState);
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
+        if (skin instanceof TonalSkin) {
+            ContainerRenderColorTokens renderColorTokens =
+                RadianceColorSchemeUtilities.getRenderColorTokens(comp, componentState);
+            switch (iconFilterStrategy) {
+                case ORIGINAL:
+                    return orig;
+                case THEMED_FOLLOW_TEXT:
+                    Color foreground = (textColor != null) ? textColor
+                        : renderColorTokens.getOnContainerColorTokens().getOnContainer();
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
                         comp, orig, foreground, 1.0f), scale);
-            case THEMED_FOLLOW_COLOR_SCHEME:
-                float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
-                return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
+                case THEMED_FOLLOW_COLOR_SCHEME:
+                    // TODO: TONAL - check brightness
+                    //float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
+                        comp, orig, renderColorTokens, 0.4f), scale);
+            }
+        } else {
+            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                comp, componentState);
+            switch (iconFilterStrategy) {
+                case ORIGINAL:
+                    return orig;
+                case THEMED_FOLLOW_TEXT:
+                    Color foreground = (textColor != null) ? textColor : colorScheme.getForegroundColor();
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorImage(
+                        comp, orig, foreground, 1.0f), scale);
+                case THEMED_FOLLOW_COLOR_SCHEME:
+                    float brightnessFactor = colorScheme.isDark() ? 0.2f : 0.8f;
+                    return new ScaleAwareImageWrapperIcon(RadianceImageCreator.getColorSchemeImage(
                         comp, orig, colorScheme, brightnessFactor), scale);
+            }
         }
         return null;
     }

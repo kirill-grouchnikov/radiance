@@ -419,8 +419,7 @@ public class MenuUtilities {
                     Area clip = new Area(g2d.getClip());
                     for (int i = popupIndexToStartWith; i >= 0; i--) {
                         Component popup = popups[i];
-                        // convert the popup bounds to the menu item coordinate
-                        // system
+                        // convert the popup bounds to the menu item coordinate system
                         Rectangle popupArea = SwingUtilities.convertRectangle(
                                 rootPane.getLayeredPane(), popup.getBounds(), menuItem);
                         // and subtract this area from the clip
@@ -505,8 +504,8 @@ public class MenuUtilities {
                     currX += 5 * gap;
                     // accelerator text is right-aligned
                     mli.acceleratorRect = new Rectangle(
-                            currX + popupMetrics.maxAcceleratorWidth - mli.acceleratorRect.width,
-                            mli.textRect.y, mli.acceleratorRect.width, mli.textRect.height);
+                        currX + popupMetrics.maxAcceleratorWidth - mli.acceleratorRect.width,
+                        mli.textRect.y, mli.acceleratorRect.width, mli.textRect.height);
                 }
                 if (popupMetrics.maxAcceleratorWidth > 0) {
                     currX += (popupMetrics.maxAcceleratorWidth + gap);
@@ -514,7 +513,7 @@ public class MenuUtilities {
 
                 if (arrowIcon != null) {
                     mli.arrowIconRect = new Rectangle(currX, i.top, popupMetrics.maxArrowIconWidth,
-                            arrowIcon.getIconHeight());
+                        arrowIcon.getIconHeight());
                 }
 
                 Rectangle labelRect = new Rectangle(0, 0, menuItem.getWidth(),
@@ -523,21 +522,21 @@ public class MenuUtilities {
                     labelRect = mli.textRect;
                 if (mli.iconRect != null) {
                     mli.iconRect.y = labelRect.y + (labelRect.height / 2)
-                            - (mli.iconRect.height / 2);
+                        - (mli.iconRect.height / 2);
                 }
                 if (mli.arrowIconRect != null) {
                     mli.arrowIconRect.y = labelRect.y + (labelRect.height / 2)
-                            - (mli.arrowIconRect.height / 2);
+                        - (mli.arrowIconRect.height / 2);
                 }
                 if (mli.checkIconRect != null) {
                     mli.checkIconRect.y = labelRect.y + (labelRect.height / 2)
-                            - (mli.checkIconRect.height / 2);
+                        - (mli.checkIconRect.height / 2);
                 }
             } else {
                 int currX = menuItem.getWidth() - i.right - gap / 2;
                 if (checkIcon != null) {
                     mli.checkIconRect = new Rectangle(currX - popupMetrics.maxCheckIconWidth, i.top,
-                            checkIcon.getIconWidth(), checkIcon.getIconHeight());
+                        checkIcon.getIconWidth(), checkIcon.getIconHeight());
                     int bump = (popupMetrics.maxCheckIconWidth - checkIcon.getIconWidth()) / 2;
                     mli.checkIconRect.x += bump;
                 }
@@ -547,7 +546,7 @@ public class MenuUtilities {
                 if (icon != null) {
                     // icons are center-aligned
                     mli.iconRect = new Rectangle(currX - popupMetrics.maxIconWidth, i.top,
-                            icon.getIconWidth(), icon.getIconHeight());
+                        icon.getIconWidth(), icon.getIconHeight());
                     int bump = (popupMetrics.maxIconWidth - icon.getIconWidth()) / 2;
                     mli.iconRect.x += bump;
                 }
@@ -560,7 +559,7 @@ public class MenuUtilities {
                 if (menuItem.getText() != null) {
                     // text is right-aligned
                     mli.textRect = new Rectangle(currX - mli.textRect.width, mli.textRect.y,
-                            popupMetrics.maxTextWidth, mli.textRect.height);
+                        popupMetrics.maxTextWidth, mli.textRect.height);
                     mli.text = menuItem.getText();
                 }
                 currX -= (popupMetrics.maxTextWidth + gap);
@@ -568,7 +567,7 @@ public class MenuUtilities {
                     currX -= 5 * gap;
                     // accelerator text is left-aligned
                     mli.acceleratorRect = new Rectangle(currX - popupMetrics.maxAcceleratorWidth,
-                            mli.textRect.y, mli.acceleratorRect.width, mli.textRect.height);
+                        mli.textRect.y, mli.acceleratorRect.width, mli.textRect.height);
                 }
                 if (popupMetrics.maxAcceleratorWidth > 0) {
                     currX -= (popupMetrics.maxAcceleratorWidth + gap);
@@ -576,24 +575,23 @@ public class MenuUtilities {
 
                 if (arrowIcon != null) {
                     mli.arrowIconRect = new Rectangle(currX - popupMetrics.maxArrowIconWidth, i.top,
-                            popupMetrics.maxArrowIconWidth, arrowIcon.getIconHeight());
+                        popupMetrics.maxArrowIconWidth, arrowIcon.getIconHeight());
                 }
 
-                Rectangle labelRect = new Rectangle(0, 0, menuItem.getWidth(),
-                        menuItem.getHeight());
+                Rectangle labelRect = new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight());
                 if (mli.textRect != null)
                     labelRect = mli.textRect;
                 if (mli.iconRect != null) {
                     mli.iconRect.y = labelRect.y + (labelRect.height / 2)
-                            - (mli.iconRect.height / 2);
+                        - (mli.iconRect.height / 2);
                 }
                 if (mli.arrowIconRect != null) {
                     mli.arrowIconRect.y = labelRect.y + (labelRect.height / 2)
-                            - (mli.arrowIconRect.height / 2);
+                        - (mli.arrowIconRect.height / 2);
                 }
                 if (mli.checkIconRect != null) {
                     mli.checkIconRect.y = labelRect.y + (labelRect.height / 2)
-                            - (mli.checkIconRect.height / 2);
+                        - (mli.checkIconRect.height / 2);
                 }
             }
         }

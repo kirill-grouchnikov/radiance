@@ -50,8 +50,7 @@ import java.beans.PropertyChangeListener;
  * 
  * @author Kirill Grouchnikov
  */
-public class RadianceMenuItemUI extends BasicMenuItemUI implements
-        RadianceMenu, TransitionAwareUI {
+public class RadianceMenuItemUI extends BasicMenuItemUI implements RadianceMenu, TransitionAwareUI {
 	private StateTransitionTracker stateTransitionTracker;
 
 	/**
@@ -81,8 +80,7 @@ public class RadianceMenuItemUI extends BasicMenuItemUI implements
 		super.installListeners();
 
 		// Improving performance on big menus.
-		this.radianceMenuPropertyListener = new MenuUtilities.MenuPropertyListener(
-				this.menuItem);
+		this.radianceMenuPropertyListener = new MenuUtilities.MenuPropertyListener(this.menuItem);
 		this.radianceMenuPropertyListener.install();
 
 		// fix for defect 109 - storing reference to rollover listener
@@ -112,7 +110,7 @@ public class RadianceMenuItemUI extends BasicMenuItemUI implements
 		super.installDefaults();
 
 		this.defaultTextIconGap = RadianceSizeUtils.getTextIconGap(
-		        RadianceSizeUtils.getComponentFontSize(this.menuItem));
+			RadianceSizeUtils.getComponentFontSize(this.menuItem));
 	}
 	
 	@Override
@@ -131,8 +129,7 @@ public class RadianceMenuItemUI extends BasicMenuItemUI implements
 
 		this.stateTransitionTracker.unregisterModelListeners();
 
-		this.menuItem
-				.removePropertyChangeListener(this.radiancePropertyListener);
+		this.menuItem.removePropertyChangeListener(this.radiancePropertyListener);
 		this.radiancePropertyListener = null;
 
 		super.uninstallListeners();
@@ -165,17 +162,16 @@ public class RadianceMenuItemUI extends BasicMenuItemUI implements
 
 	@Override
 	protected Dimension getPreferredMenuItemSize(JComponent c, Icon checkIcon,
-			Icon arrowIcon, int defaultTextIconGap) {
+		Icon arrowIcon, int defaultTextIconGap) {
 		Dimension superDim = super.getPreferredMenuItemSize(c, checkIcon,
-				arrowIcon, defaultTextIconGap);
-		return new Dimension(MenuUtilities.getPreferredWidth(menuItem),
-				superDim.height);
+			arrowIcon, defaultTextIconGap);
+		return new Dimension(MenuUtilities.getPreferredWidth(menuItem), superDim.height);
 	}
 
 	@Override
 	protected void paintMenuItem(Graphics g, JComponent c, Icon checkIcon,
-			Icon arrowIcon, Color background, Color foreground,
-			int defaultTextIconGap) {
+		Icon arrowIcon, Color background, Color foreground,
+		int defaultTextIconGap) {
 		MenuUtilities.paintMenuItem(g, menuItem, checkIcon, arrowIcon);
 	}
 

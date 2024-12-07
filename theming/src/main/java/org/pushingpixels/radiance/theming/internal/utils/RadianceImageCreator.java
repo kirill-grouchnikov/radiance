@@ -385,7 +385,7 @@ public final class RadianceImageCreator {
      * @return Scheme-based version of the original icon.
      */
     public static BufferedImage getColorSchemeImage(Component comp, Icon original,
-            RadianceColorScheme colorScheme, float originalBrightnessFactor) {
+        RadianceColorScheme colorScheme, float originalBrightnessFactor) {
         int w = original.getIconWidth();
         int h = original.getIconHeight();
         if ((w == 0) || (h == 0)) {
@@ -395,12 +395,32 @@ public final class RadianceImageCreator {
         BufferedImage origImage = RadianceCoreUtilities.getBlankImage(scale, w, h);
         Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         original.paintIcon(comp, origImage.getGraphics(), 0, 0);
         g2d.dispose();
 
         BufferedImage result = getColorSchemeImage(origImage, colorScheme,
-                originalBrightnessFactor, 1.0f);
+            originalBrightnessFactor, 1.0f);
+        return result;
+    }
+
+    public static BufferedImage getColorSchemeImage(Component comp, Icon original,
+        ContainerRenderColorTokens renderColorTokens, float originalBrightnessFactor) {
+        int w = original.getIconWidth();
+        int h = original.getIconHeight();
+        if ((w == 0) || (h == 0)) {
+            return null;
+        }
+        double scale = RadianceCommonCortex.getScaleFactor(comp);
+        BufferedImage origImage = RadianceCoreUtilities.getBlankImage(scale, w, h);
+        Graphics2D g2d = (Graphics2D) origImage.getGraphics().create();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+            RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        original.paintIcon(comp, origImage.getGraphics(), 0, 0);
+        g2d.dispose();
+
+        BufferedImage result = getColorSchemeImage(origImage, renderColorTokens,
+            originalBrightnessFactor, 1.0f);
         return result;
     }
 
