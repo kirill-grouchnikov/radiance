@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.SurfaceRenderColorTokens;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.ModificationAwareUI;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
@@ -689,11 +690,17 @@ public class RadianceColorUtilities {
         }
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
-        RadianceColorScheme scheme =
-                skin.getBackgroundColorScheme(DecorationPainterUtils.getDecorationType(component));
-        return (rowIndex % 2 == 0)
-                ? scheme.getBackgroundFillColor()
+        if (skin instanceof TonalSkin) {
+            SurfaceRenderColorTokens colorTokens = skin.getBackgroundRenderColorTokens(
+                DecorationPainterUtils.getDecorationType(component));
+            return (rowIndex % 2 == 0) ? colorTokens.getSurface()
+                : colorTokens.getSurfaceContainerRenderColorTokens().getContainerColorTokens().getContainerLow();
+        } else {
+            RadianceColorScheme scheme = skin.getBackgroundColorScheme(
+                DecorationPainterUtils.getDecorationType(component));
+            return (rowIndex % 2 == 0) ? scheme.getBackgroundFillColor()
                 : scheme.getAccentedBackgroundFillColor();
+        }
     }
 
     public static String encode(int number) {

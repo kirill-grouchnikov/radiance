@@ -494,6 +494,10 @@ public abstract class RadianceSkin implements RadianceTrait {
         boolean isSelected = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.SELECTION);
         boolean isArmed = componentState.isFacetActive(RadianceThemingSlices.ComponentStateFacet.ARM);
 
+        if (this instanceof TonalSkin) {
+            return ((isRollover || isSelected || isArmed)) ? 1.0f : 0.0f;
+        }
+
         if (isRollover && isSelected) {
             return 0.9f;
         }

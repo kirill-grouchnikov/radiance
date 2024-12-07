@@ -113,7 +113,8 @@ public class ControlStates extends JFrame {
                     .setPrimaryPalette(primary)
                     .build();
 
-            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(samplePalettes);
+            RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(
+                samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
 
             RadianceColorSchemeBundle2 bundle2 = new RadianceColorSchemeBundle2(lightColorScheme);
 
@@ -131,11 +132,18 @@ public class ControlStates extends JFrame {
                 .setPrimaryPalette(primaryMark)
                 .build();
 
-            RadianceColorScheme2 lightMarkColorScheme =
-                ColorSchemeUtils.getLightColorScheme(samplePalettesMark);
+            RadianceColorScheme2 lightMarkColorScheme = ColorSchemeUtils.getLightColorScheme(
+                samplePalettesMark, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
 
             bundle2.registerColorScheme(lightMarkColorScheme,
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
+                ComponentState.getActiveStates());
+
+            RadianceColorScheme2 lightHighlightColorScheme = ColorSchemeUtils.getLightColorScheme(
+                samplePalettesMark, ColorSchemeUtils.ActiveStatesContainerType.PRIMARY);
+
+            bundle2.registerColorScheme(lightHighlightColorScheme,
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
                 ComponentState.getActiveStates());
 
             this.registerDecorationAreaSchemeBundle(bundle2,

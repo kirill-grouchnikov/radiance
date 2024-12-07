@@ -53,6 +53,8 @@ public class UpdateOptimizationInfo {
 
     private RadianceColorScheme defaultScheme;
 
+    private ContainerRenderColorTokens defaultColorTokens;
+
     public RadianceThemingSlices.DecorationAreaType decorationAreaType;
 
     public boolean isInDecorationArea;
@@ -61,7 +63,9 @@ public class UpdateOptimizationInfo {
         this.component = component;
 
         this.defaultScheme = RadianceColorSchemeUtilities.getColorScheme(
-                this.component, ComponentState.ENABLED);
+            this.component, ComponentState.ENABLED);
+        this.defaultColorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
+            this.component, ComponentState.DEFAULT);
         this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.component);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.component);
@@ -124,5 +128,9 @@ public class UpdateOptimizationInfo {
 
     public RadianceColorScheme getDefaultScheme() {
         return this.defaultScheme;
+    }
+
+    public ContainerRenderColorTokens getDefaultColorTokens() {
+        return this.defaultColorTokens;
     }
 }

@@ -36,6 +36,10 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class ColorSchemeUtils {
+    public enum ActiveStatesContainerType {
+        TONAL, PRIMARY
+    }
+
     private static ContainerRenderColorTokens getContainerRenderColorTokens(
         Palettes palettes, PaletteContainerColorsResolver tonalContainerColorResolver) {
 
@@ -102,7 +106,9 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static RadianceColorScheme2 getLightColorScheme(Palettes palettes) {
+    public static RadianceColorScheme2 getLightColorScheme(
+        Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
+
         PaletteColorResolver paletteColorResolver =
                 PaletteResolverUtils.getLightPaletteColorResolver();
 
@@ -197,7 +203,10 @@ public class ColorSchemeUtils {
                 }
 
                 // TODO: TONAL - configurable at the skin definition level
-                ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
+                ContainerRenderColorTokens defaultActive =
+                    (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
+                    ? this.getPrimaryContainerTokens()
+                    : this.getTonalContainerTokens();
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {
@@ -276,7 +285,9 @@ public class ColorSchemeUtils {
         };
     }
 
-    public static RadianceColorScheme2 getDarkColorScheme(Palettes palettes) {
+    public static RadianceColorScheme2 getDarkColorScheme(
+        Palettes palettes, ActiveStatesContainerType activeStatesContainerType) {
+
         PaletteColorResolver paletteColorResolver =
                 PaletteResolverUtils.getDarkPaletteColorResolver();
 
@@ -371,7 +382,10 @@ public class ColorSchemeUtils {
                 }
 
                 // TODO: TONAL - configurable at the skin definition level
-                ContainerRenderColorTokens defaultActive = this.getTonalContainerTokens();
+                ContainerRenderColorTokens defaultActive =
+                    (activeStatesContainerType == ActiveStatesContainerType.PRIMARY)
+                        ? this.getPrimaryContainerTokens()
+                        : this.getTonalContainerTokens();
                 if ((componentState == ComponentState.PRESSED_UNSELECTED) ||
                     (componentState == ComponentState.ARMED)) {
                     if (!stateTokens.containsKey(componentState)) {

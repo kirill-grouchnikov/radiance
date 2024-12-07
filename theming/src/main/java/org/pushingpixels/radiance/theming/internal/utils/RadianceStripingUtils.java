@@ -99,10 +99,10 @@ public class RadianceStripingUtils {
      */
     public static void applyStripedBackground(JComponent component,
             int rowIndex, JComponent renderer) {
-        Color backgr = (Color) component.getClientProperty((rowIndex % 2) == 0 ? EVEN_COLOR : ODD_COLOR);
-        if (backgr == null) {
+        Color background = (Color) component.getClientProperty((rowIndex % 2) == 0 ? EVEN_COLOR : ODD_COLOR);
+        if (background == null) {
             return;
         }
-        renderer.setBackground(backgr);
+        renderer.setBackground(background);
     }
 }

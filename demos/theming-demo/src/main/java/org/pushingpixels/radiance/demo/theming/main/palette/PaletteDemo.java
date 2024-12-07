@@ -76,7 +76,8 @@ public class PaletteDemo extends JFrame {
 
         int row = 1;
 
-        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(samplePalettes);
+        RadianceColorScheme2 lightColorScheme = ColorSchemeUtils.getLightColorScheme(
+            samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
         builder.addSeparator("LIGHT").xyw(1, row, 3, CellConstraints.CENTER, CellConstraints.FILL);
         row += 2;
         builder.addROLabel("Surfaces").xy(1, row)
@@ -94,7 +95,8 @@ public class PaletteDemo extends JFrame {
         builder.addROLabel("Primary container").xy(1, row)
                 .add(new ContainerPalettePreview(lightColorScheme.getPrimaryContainerTokens())).xy(3, row);
 
-        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkColorScheme(samplePalettes);
+        RadianceColorScheme2 darkColorScheme = ColorSchemeUtils.getDarkColorScheme(
+            samplePalettes, ColorSchemeUtils.ActiveStatesContainerType.TONAL);
         row += 2;
         builder.addSeparator("DARK").xyw(1, row, 3, CellConstraints.CENTER, CellConstraints.FILL);
         row += 2;
