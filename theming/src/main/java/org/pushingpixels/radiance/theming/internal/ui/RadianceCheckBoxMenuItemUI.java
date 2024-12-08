@@ -30,6 +30,8 @@
 package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
@@ -134,6 +136,9 @@ public class RadianceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
         this.updateCheckIconIfNeeded();
         this.defaultTextIconGap = RadianceSizeUtils.getTextIconGap(RadianceSizeUtils
                 .getComponentFontSize(this.menuItem));
+
+        RadianceThemingCortex.ComponentOrParentScope.setBackgroundAppearanceStrategy(this.menuItem,
+            RadianceThemingSlices.BackgroundAppearanceStrategy.FLAT);
     }
 
     @Override
