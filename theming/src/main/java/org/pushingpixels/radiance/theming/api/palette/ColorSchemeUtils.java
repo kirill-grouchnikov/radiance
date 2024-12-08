@@ -103,6 +103,21 @@ public class ColorSchemeUtils {
                     }
                 };
             }
+
+            @Override
+            public float getContainerDisabledAlpha() {
+                return 0.4f;
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return 0.75f;
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return 0.4f;
+            }
         };
     }
 
@@ -592,6 +607,21 @@ public class ColorSchemeUtils {
                         return containerOutlineVariant;
                     }
                 };
+            }
+
+            @Override
+            public float getContainerDisabledAlpha() {
+                return 0.4f;
+            }
+
+            @Override
+            public float getOnContainerDisabledAlpha() {
+                return 0.7f;
+            }
+
+            @Override
+            public float getContainerOutlineDisabledAlpha() {
+                return 0.4f;
             }
         };
     }

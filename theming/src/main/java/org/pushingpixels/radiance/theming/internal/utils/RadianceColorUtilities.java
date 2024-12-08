@@ -436,19 +436,65 @@ public class RadianceColorUtilities {
      * @return The foreground text color of the specified component.
      */
     public static Color getForegroundColor(Component component,
-            StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = modelStateInfo.getCurrModelState();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateContributionMap();
+            modelStateInfo.getStateContributionMap();
 
         // special case for enabled buttons with no background -
         // always use the color scheme for the default state.
         if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
             if (RadianceCoreUtilities.isComponentNeverPainted(button)
-                    || !button.isContentAreaFilled()
-                    || (button instanceof JRadioButton)
-                    || (button instanceof JCheckBox)) {
+                || !button.isContentAreaFilled()
+                || (button instanceof JRadioButton)
+                || (button instanceof JCheckBox)) {
+                if (!currState.isDisabled()) {
+                    currState = ComponentState.ENABLED;
+                    activeStates = null;
+                } else {
+                    currState = ComponentState.DISABLED_UNSELECTED;
+                    activeStates = null;
+                }
+            }
+        }
+
+        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(component, currState);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return colorScheme.getForegroundColor();
+        }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+            activeStates.entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                component, activeState);
+            Color activeForeground = activeColorScheme.getForegroundColor();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+    }
+
+    public static Color getTonalForegroundColor(Component component,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currState = modelStateInfo.getCurrModelState();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateContributionMap();
+
+        // special case for enabled buttons with no background -
+        // always use the color scheme for the default state.
+        if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            if (RadianceCoreUtilities.isComponentNeverPainted(button)
+                || !button.isContentAreaFilled()
+                || (button instanceof JRadioButton)
+                || (button instanceof JCheckBox)) {
                 if (!currState.isDisabled()) {
                     currState = ComponentState.ENABLED;
                     activeStates = null;
@@ -468,59 +514,79 @@ public class RadianceColorUtilities {
                 Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
                 if (modificationTimeline != null) {
                     if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
-                        if (skin instanceof TonalSkin) {
-                            BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
-                                button, modificationTimeline.getTimelinePosition());
-                            return mutableRenderColorTokens.getOnContainerColorTokens().getOnContainer();
-                        }
+                        BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                            button, modificationTimeline.getTimelinePosition());
+                        return mutableRenderColorTokens.getOnContainerColorTokens().getOnContainer();
                     }
                 }
             }
         }
 
-        if (skin instanceof TonalSkin) {
-            ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
-            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-                return colorTokens.getOnContainerColorTokens().getOnContainer();
-            }
-
-            float aggrRed = 0;
-            float aggrGreen = 0;
-            float aggrBlue = 0;
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                    activeStates.entrySet()) {
-                ComponentState activeState = activeEntry.getKey();
-                float alpha = activeEntry.getValue().getContribution();
-                ContainerRenderColorTokens activeColorTokens =
-                        RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState);
-                Color activeForeground = activeColorTokens.getOnContainerColorTokens().getOnContainer();
-                aggrRed += alpha * activeForeground.getRed();
-                aggrGreen += alpha * activeForeground.getGreen();
-                aggrBlue += alpha * activeForeground.getBlue();
-            }
-            return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
-        } else {
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(component, currState);
-            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-                return colorScheme.getForegroundColor();
-            }
-
-            float aggrRed = 0;
-            float aggrGreen = 0;
-            float aggrBlue = 0;
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                    activeStates.entrySet()) {
-                ComponentState activeState = activeEntry.getKey();
-                float alpha = activeEntry.getValue().getContribution();
-                RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                        component, activeState);
-                Color activeForeground = activeColorScheme.getForegroundColor();
-                aggrRed += alpha * activeForeground.getRed();
-                aggrGreen += alpha * activeForeground.getGreen();
-                aggrBlue += alpha * activeForeground.getBlue();
-            }
-            return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+        ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return colorTokens.getOnContainerColorTokens().getOnContainer();
         }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+            activeStates.entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+
+            ContainerRenderColorTokens activeColorTokens =
+                RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState);
+            Color activeForeground = activeColorTokens.getOnContainerColorTokens().getOnContainer();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+    }
+
+    public static float getTonalForegroundAlpha(Component component,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currState = modelStateInfo.getCurrModelState();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateContributionMap();
+
+        // special case for enabled buttons with no background -
+        // always use the color scheme for the default state.
+        if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            if (RadianceCoreUtilities.isComponentNeverPainted(button)
+                || !button.isContentAreaFilled()
+                || (button instanceof JRadioButton)
+                || (button instanceof JCheckBox)) {
+                if (!currState.isDisabled()) {
+                    currState = ComponentState.ENABLED;
+                } else {
+                    currState = ComponentState.DISABLED_UNSELECTED;
+                }
+            }
+        }
+
+        // special case for modification aware buttons
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(component);
+        if (component instanceof AbstractButton) {
+            AbstractButton button = (AbstractButton) component;
+            if (button.getUI() instanceof ModificationAwareUI) {
+                ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
+                Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
+                if (modificationTimeline != null) {
+                    if (modificationTimeline.getState() != Timeline.TimelineState.IDLE) {
+                        BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                            button, modificationTimeline.getTimelinePosition());
+                        return currState.isDisabled()
+                            ? mutableRenderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
+                    }
+                }
+            }
+        }
+
+        ContainerRenderColorTokens renderColorTokens = skin.getColorRenderTokens(component, currState);
+        return currState.isDisabled() ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
     /**
@@ -531,74 +597,99 @@ public class RadianceColorUtilities {
      * @return The foreground text color of the specified menu component.
      */
     public static Color getMenuComponentForegroundColor(JMenuItem menuComponent,
-            StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-                modelStateInfo.getStateNoSelectionContributionMap();
+            modelStateInfo.getStateNoSelectionContributionMap();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(menuComponent);
-
-        if (skin instanceof TonalSkin) {
-            // use HIGHLIGHT on active menu items
-            RadianceThemingSlices.ContainerColorTokensAssociationKind currAssocKind =
-                currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
-                    : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
-            ContainerRenderColorTokens renderColorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(
-                    menuComponent, currAssocKind, currState);
-            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-                return renderColorTokens.getOnContainerColorTokens().getOnContainer();
-            }
-        } else {
-            RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind =
-                RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-            // use HIGHLIGHT on active menu items
-            if (currState.isActive()) {
-                currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-            }
-            RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                menuComponent, currAssocKind, currState);
-            if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
-                return colorScheme.getForegroundColor();
-            }
+        RadianceThemingSlices.ColorSchemeAssociationKind currAssocKind =
+            RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
+        // use HIGHLIGHT on active menu items
+        if (currState.isActive()) {
+            currAssocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
+        }
+        RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
+            menuComponent, currAssocKind, currState);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return colorScheme.getForegroundColor();
         }
 
         float aggrRed = 0;
         float aggrGreen = 0;
         float aggrBlue = 0;
         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
+            activeStates.entrySet()) {
             ComponentState activeState = activeEntry.getKey();
             float alpha = activeEntry.getValue().getContribution();
 
-            if (skin instanceof TonalSkin) {
-                // use HIGHLIGHT on active menu items
-                RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
-                    activeState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
-                        : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
-                ContainerRenderColorTokens renderColorTokens =
-                    RadianceColorSchemeUtilities.getRenderColorTokens(
-                        menuComponent, assocKind, activeState);
-                Color activeForeground = renderColorTokens.getOnContainerColorTokens().getOnContainer();
-                aggrRed += alpha * activeForeground.getRed();
-                aggrGreen += alpha * activeForeground.getGreen();
-                aggrBlue += alpha * activeForeground.getBlue();
-            } else {
-                RadianceThemingSlices.ColorSchemeAssociationKind assocKind =
-                    RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
-                // use HIGHLIGHT on active menu items
-                if (activeState.isActive()) {
-                    assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
-                }
-                RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
-                    menuComponent, assocKind, activeState);
-                Color activeForeground = activeColorScheme.getForegroundColor();
-                aggrRed += alpha * activeForeground.getRed();
-                aggrGreen += alpha * activeForeground.getGreen();
-                aggrBlue += alpha * activeForeground.getBlue();
+            RadianceThemingSlices.ColorSchemeAssociationKind assocKind =
+                RadianceThemingSlices.ColorSchemeAssociationKind.FILL;
+            // use HIGHLIGHT on active menu items
+            if (activeState.isActive()) {
+                assocKind = RadianceThemingSlices.ColorSchemeAssociationKind.HIGHLIGHT;
             }
+            RadianceColorScheme activeColorScheme = RadianceColorSchemeUtilities.getColorScheme(
+                menuComponent, assocKind, activeState);
+            Color activeForeground = activeColorScheme.getForegroundColor();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
         }
         return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+    }
+
+    public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateNoSelectionContributionMap();
+
+        // use HIGHLIGHT on active menu items
+        RadianceThemingSlices.ContainerColorTokensAssociationKind currAssocKind =
+            currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
+        ContainerRenderColorTokens renderColorTokens =
+            RadianceColorSchemeUtilities.getRenderColorTokens(
+                menuComponent, currAssocKind, currState);
+        if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
+            return renderColorTokens.getOnContainerColorTokens().getOnContainer();
+        }
+
+        float aggrRed = 0;
+        float aggrGreen = 0;
+        float aggrBlue = 0;
+        for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+            activeStates.entrySet()) {
+            ComponentState activeState = activeEntry.getKey();
+            float alpha = activeEntry.getValue().getContribution();
+
+            // use HIGHLIGHT on active menu items
+            RadianceThemingSlices.ContainerColorTokensAssociationKind assocKind =
+                activeState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                    : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
+            ContainerRenderColorTokens activeRenderColorTokens =
+                RadianceColorSchemeUtilities.getRenderColorTokens(
+                    menuComponent, assocKind, activeState);
+            Color activeForeground = activeRenderColorTokens.getOnContainerColorTokens().getOnContainer();
+            aggrRed += alpha * activeForeground.getRed();
+            aggrGreen += alpha * activeForeground.getGreen();
+            aggrBlue += alpha * activeForeground.getBlue();
+        }
+        return new Color((int) aggrRed, (int) aggrGreen, (int) aggrBlue);
+    }
+
+    public static float getTonalMenuComponentForegroundAlpha(JMenuItem menuComponent,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
+
+        // use HIGHLIGHT on active menu items
+        RadianceThemingSlices.ContainerColorTokensAssociationKind currAssocKind =
+            currState.isActive() ? RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT
+                : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
+        ContainerRenderColorTokens renderColorTokens =
+            RadianceColorSchemeUtilities.getRenderColorTokens(
+                menuComponent, currAssocKind, currState);
+        return currState.isDisabled() ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
     /**

@@ -31,7 +31,9 @@ package org.pushingpixels.radiance.theming.internal.ui;
 
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceSkin;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.api.shaper.RadianceButtonShaper;
 import org.pushingpixels.radiance.theming.internal.AnimationConfigurationManager;
 import org.pushingpixels.radiance.theming.internal.RadianceSynapse;
@@ -358,8 +360,14 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
      */
     private Color paintButtonText(Graphics g, AbstractButton button,
             Rectangle textRect, String text) {
-        return RadianceTextUtilities.paintText(g, button, textRect, text, (button)
-                .getDisplayedMnemonicIndex());
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+        if (skin instanceof TonalSkin) {
+            return RadianceTextUtilities.paintTonalText(g, button, textRect, text,
+                button.getDisplayedMnemonicIndex());
+        } else {
+            return RadianceTextUtilities.paintText(g, button, textRect, text,
+                button.getDisplayedMnemonicIndex());
+        }
     }
 
     /**

@@ -50,6 +50,9 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
     public Color onContainerVariant = Color.white;
     public Color containerOutline = Color.white;
     public Color containerOutlineVariant = Color.white;
+    public float containerDisabledAlpha = 0.0f;
+    public float onContainerDisabledAlpha = 0.0f;
+    public float containerOutlineDisabledAlpha = 0.0f;
     public String combinedName = "";
 
     public BladeContainerRenderColorTokens() {
@@ -116,6 +119,21 @@ public class BladeContainerRenderColorTokens implements ContainerRenderColorToke
     @Override
     public ContainerOutlineColorTokens getContainerOutlineColorTokens() {
         return this.containerOutlineColorTokens;
+    }
+
+    @Override
+    public float getContainerDisabledAlpha() {
+        return this.containerDisabledAlpha;
+    }
+
+    @Override
+    public float getOnContainerDisabledAlpha() {
+        return this.onContainerDisabledAlpha;
+    }
+
+    @Override
+    public float getContainerOutlineDisabledAlpha() {
+        return this.containerOutlineDisabledAlpha;
     }
 
     @Override

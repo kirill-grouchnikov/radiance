@@ -209,7 +209,7 @@ public class RadianceTextUtilities {
      * @param mnemonicIndex Mnemonic index.
      */
     public static Color paintText(Graphics g, AbstractButton button, Rectangle textRect, String text,
-            int mnemonicIndex) {
+        int mnemonicIndex) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
 
@@ -217,14 +217,30 @@ public class RadianceTextUtilities {
             // A slightly different path for menu items as we ignore the selection
             // state for visual consistency in menu content
             float menuItemAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                    ComponentState.getState(button.getModel(), button, true));
+                ComponentState.getState(button.getModel(), button, true));
             return paintMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
-                    stateTransitionTracker.getModelStateInfo(), menuItemAlpha);
+                stateTransitionTracker.getModelStateInfo(), menuItemAlpha);
         } else {
             float buttonAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                    ComponentState.getState(button));
+                ComponentState.getState(button));
             return paintText(g, button, textRect, text, mnemonicIndex,
-                    stateTransitionTracker.getModelStateInfo(), buttonAlpha);
+                stateTransitionTracker.getModelStateInfo(), buttonAlpha);
+        }
+    }
+
+    public static Color paintTonalText(Graphics g, AbstractButton button, Rectangle textRect, String text,
+        int mnemonicIndex) {
+        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
+        StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
+
+        if (button instanceof JMenuItem) {
+            // A slightly different path for menu items as we ignore the selection
+            // state for visual consistency in menu content
+            return paintTonalMenuItemText(g, (JMenuItem) button, textRect, text, mnemonicIndex,
+                stateTransitionTracker.getModelStateInfo());
+        } else {
+            return paintTonalText(g, button, textRect, text, mnemonicIndex,
+                stateTransitionTracker.getModelStateInfo());
         }
     }
 
@@ -249,7 +265,7 @@ public class RadianceTextUtilities {
     }
 
     public static Color paintText(Graphics g, JComponent component, Rectangle textRect, String text,
-            int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
+        int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
         Color fgColor = getForegroundColor(component, text, modelStateInfo, textAlpha);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
@@ -257,10 +273,28 @@ public class RadianceTextUtilities {
         return fgColor;
     }
 
+    public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
+        int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        Color fgColor = getTonalForegroundColor(component, text, modelStateInfo);
+
+        RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
+
+        return fgColor;
+    }
+
     public static Color paintMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
-            String text, int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
-            float textAlpha) {
+        String text, int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
+        float textAlpha) {
         Color fgColor = getMenuComponentForegroundColor(menuItem, text, modelStateInfo, textAlpha);
+
+        RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, menuItem.getFont(), fgColor, null);
+
+        return fgColor;
+    }
+
+    public static Color paintTonalMenuItemText(Graphics g, JMenuItem menuItem, Rectangle textRect,
+        String text, int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        Color fgColor = getTonalMenuComponentForegroundColor(menuItem, text, modelStateInfo);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, menuItem.getFont(), fgColor, null);
 
@@ -312,14 +346,29 @@ public class RadianceTextUtilities {
      * @return The foreground color for the specified component.
      */
     public static Color getForegroundColor(JComponent component, String text,
-            StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-                : RadianceColorUtilities.getForegroundColor(component, modelStateInfo);
+            : RadianceColorUtilities.getForegroundColor(component, modelStateInfo);
         if (textAlpha < 1.0f) {
             Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
             fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);
+        }
+        return fgColor;
+    }
+
+    public static Color getTonalForegroundColor(JComponent component, String text,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
+
+        Color fgColor = toEnforceFgColor ? component.getForeground()
+            : RadianceColorUtilities.getTonalForegroundColor(component, modelStateInfo);
+        float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
+            : RadianceColorUtilities.getTonalForegroundAlpha(component, modelStateInfo);
+        if (fgAlpha < 1.0f) {
+            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
+            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, fgAlpha);
         }
         return fgColor;
     }
@@ -337,7 +386,7 @@ public class RadianceTextUtilities {
      * @return The foreground color for the specified menu component.
      */
     public static Color getMenuComponentForegroundColor(JMenuItem menuComponent, String text,
-            StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo, float textAlpha) {
         if ((text == null) || (text.length() == 0)) {
             return null;
         }
@@ -347,6 +396,24 @@ public class RadianceTextUtilities {
         if (textAlpha < 1.0f) {
             Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(menuComponent);
             fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, textAlpha);
+        }
+        return fgColor;
+    }
+
+    public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent, String text,
+        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        if ((text == null) || (text.length() == 0)) {
+            return null;
+        }
+
+        Color fgColor = RadianceColorUtilities.getTonalMenuComponentForegroundColor(
+            menuComponent, modelStateInfo);
+        float fgAlpha = RadianceColorUtilities.getTonalMenuComponentForegroundAlpha(
+            menuComponent, modelStateInfo);
+
+        if (fgAlpha < 1.0f) {
+            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(menuComponent);
+            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, fgAlpha);
         }
         return fgColor;
     }

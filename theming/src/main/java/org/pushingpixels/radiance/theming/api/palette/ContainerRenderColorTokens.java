@@ -33,4 +33,8 @@ public interface ContainerRenderColorTokens {
     ContainerColorTokens getContainerColorTokens();
     OnContainerColorTokens getOnContainerColorTokens();
     ContainerOutlineColorTokens getContainerOutlineColorTokens();
+
+    float getContainerDisabledAlpha();
+    float getOnContainerDisabledAlpha();
+    float getContainerOutlineDisabledAlpha();
 }

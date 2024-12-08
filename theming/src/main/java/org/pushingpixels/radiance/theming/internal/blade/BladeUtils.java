@@ -150,6 +150,16 @@ public class BladeUtils {
             emergencyColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(),
             modificationCyclePosition);
 
+        bladeRenderColorTokens.containerDisabledAlpha =
+            (1.0f - modificationCyclePosition) * warningColorTokens.getContainerDisabledAlpha() +
+                modificationCyclePosition * emergencyColorTokens.getContainerDisabledAlpha();
+        bladeRenderColorTokens.onContainerDisabledAlpha =
+            (1.0f - modificationCyclePosition) * warningColorTokens.getOnContainerDisabledAlpha() +
+                modificationCyclePosition * emergencyColorTokens.getOnContainerDisabledAlpha();
+        bladeRenderColorTokens.containerOutlineDisabledAlpha =
+            (1.0f - modificationCyclePosition) * warningColorTokens.getContainerOutlineDisabledAlpha() +
+                modificationCyclePosition * emergencyColorTokens.getContainerOutlineDisabledAlpha();
+
         bladeRenderColorTokens.combinedName = "[" + warningColorTokens.hashCode() + ":" + modificationCyclePosition
             + "], [" + emergencyColorTokens.hashCode() + ":" + (1.0f - modificationCyclePosition) + "]";
     }
@@ -305,6 +315,9 @@ public class BladeUtils {
         Color onContainerVariant = currColorTokens.getOnContainerColorTokens().getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutlineColorTokens().getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant();
+        float containerDisabledAlpha = currColorTokens.getContainerDisabledAlpha();
+        float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
+        float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -347,6 +360,12 @@ public class BladeUtils {
                         contributionColorTokens.getContainerOutlineColorTokens().getContainerOutline(), 1.0f - amount);
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                         contributionColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(), 1.0f - amount);
+                containerDisabledAlpha = (1.0f - amount) * containerDisabledAlpha +
+                    amount * contributionColorTokens.getContainerDisabledAlpha();
+                onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
+                    amount * contributionColorTokens.getOnContainerDisabledAlpha();
+                containerOutlineDisabledAlpha = (1.0f - amount) * containerOutlineDisabledAlpha +
+                    amount * contributionColorTokens.getContainerOutlineDisabledAlpha();
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
@@ -363,6 +382,9 @@ public class BladeUtils {
         bladeRenderColorTokens.onContainerVariant = onContainerVariant;
         bladeRenderColorTokens.containerOutline = containerOutline;
         bladeRenderColorTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeRenderColorTokens.containerDisabledAlpha = containerDisabledAlpha;
+        bladeRenderColorTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
+        bladeRenderColorTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
 
         bladeRenderColorTokens.combinedName = nameBuilder.toString();
     }
@@ -557,6 +579,9 @@ public class BladeUtils {
         Color onContainerVariant = currColorTokens.getOnContainerColorTokens().getOnContainerVariant();
         Color containerOutline = currColorTokens.getContainerOutlineColorTokens().getContainerOutline();
         Color containerOutlineVariant = currColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant();
+        float containerDisabledAlpha = currColorTokens.getContainerDisabledAlpha();
+        float onContainerDisabledAlpha = currColorTokens.getOnContainerDisabledAlpha();
+        float containerOutlineDisabledAlpha = currColorTokens.getContainerOutlineDisabledAlpha();
 
         nameBuilder.append(currColorTokens.hashCode());
 
@@ -599,6 +624,12 @@ public class BladeUtils {
                         contributionColorTokens.getContainerOutlineColorTokens().getContainerOutline(), 1.0f - amount);
                 containerOutlineVariant = RadianceColorUtilities.getInterpolatedColor(containerOutlineVariant,
                         contributionColorTokens.getContainerOutlineColorTokens().getContainerOutlineVariant(), 1.0f - amount);
+                containerDisabledAlpha = (1.0f - amount) * containerDisabledAlpha +
+                    amount * contributionColorTokens.getContainerDisabledAlpha();
+                onContainerDisabledAlpha = (1.0f - amount) * onContainerDisabledAlpha +
+                    amount * contributionColorTokens.getOnContainerDisabledAlpha();
+                containerOutlineDisabledAlpha = (1.0f - amount) * containerOutlineDisabledAlpha +
+                    amount * contributionColorTokens.getContainerOutlineDisabledAlpha();
 
                 nameBuilder.append(", [").append(contributionColorTokens.hashCode()).append(":")
                         .append(amount).append("]");
@@ -615,6 +646,9 @@ public class BladeUtils {
         bladeRenderColorTokens.onContainerVariant = onContainerVariant;
         bladeRenderColorTokens.containerOutline = containerOutline;
         bladeRenderColorTokens.containerOutlineVariant = containerOutlineVariant;
+        bladeRenderColorTokens.containerDisabledAlpha = containerDisabledAlpha;
+        bladeRenderColorTokens.onContainerDisabledAlpha = onContainerDisabledAlpha;
+        bladeRenderColorTokens.containerOutlineDisabledAlpha = containerOutlineDisabledAlpha;
 
         bladeRenderColorTokens.combinedName = nameBuilder.toString();
     }

@@ -66,21 +66,51 @@ public class ButtonBackgroundDelegate {
     private BladeContainerRenderColorTokens mutableRenderColorTokens = new BladeContainerRenderColorTokens();
 
     private void drawBackground(
-            Graphics2D graphics, AbstractButton button,
-            RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
-            RadianceBorderPainter borderPainter, int width, int height) {
+        Graphics2D graphics, AbstractButton button,
+        RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int width, int height) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
-                .getTransitionTracker().getModelStateInfo();
+            .getTransitionTracker().getModelStateInfo();
 
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
-                RadianceSynapse.BUTTON_OPEN_SIDE);
+            RadianceSynapse.BUTTON_OPEN_SIDE);
         boolean isContentAreaFilled = button.isContentAreaFilled();
         boolean isBorderPainted = button.isBorderPainted();
 
-        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateContributionMap();
+
+        // Two special cases here:
+        // 1. Button has flat appearance.
+        // 2. Button is disabled.
+        // For both cases, we need to set custom translucency.
+        boolean isFlat = RadianceCoreUtilities.hasFlatAppearance(button);
+        float extraAlpha = 1.0f;
+        if (isFlat) {
+            // Special handling of flat buttons
+            extraAlpha = 0.0f;
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState.isDisabled())
+                    continue;
+                if (activeState == ComponentState.ENABLED)
+                    continue;
+                extraAlpha += activeEntry.getValue().getContribution();
+            }
+        } else if (!button.isEnabled()) {
+            extraAlpha = RadianceColorSchemeUtilities.getAlpha(button,
+                modelStateInfo.getCurrModelState());
+        }
+
+        if (extraAlpha == 0.0f) {
+            return;
+        }
+        Graphics2D g2d = (Graphics2D) graphics.create();
+        g2d.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, graphics));
 
         // Do we need to use attention-drawing animation?
         if (button.getUI() instanceof ModificationAwareUI) {
@@ -88,48 +118,97 @@ public class ButtonBackgroundDelegate {
             Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
             if (modificationTimeline != null) {
                 if (modificationTimeline.getState() != TimelineState.IDLE) {
-                    if (skin instanceof TonalSkin) {
-                        BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
-                            button, modificationTimeline.getTimelinePosition());
+                    BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
+                        modificationTimeline.getTimelinePosition());
+                    RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
+                        button, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
 
-                        drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
-                            mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
-                    } else {
-                        BladeUtils.populateModificationAwareColorScheme(mutableFillColorScheme,
-                            modificationTimeline.getTimelinePosition());
-                        RadianceColorScheme baseBorderScheme = RadianceColorSchemeUtilities.getColorScheme(
-                            button, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, currState);
-
-                        drawBackground(graphics, button, shaper, fillPainter, borderPainter, width,
-                            height, mutableFillColorScheme, baseBorderScheme, openSides,
-                            isContentAreaFilled, isBorderPainted);
-                    }
+                    drawBackground(g2d, button, shaper, fillPainter, borderPainter, width,
+                        height, mutableFillColorScheme, baseBorderScheme, openSides,
+                        isContentAreaFilled, isBorderPainted);
                     return;
                 }
             }
         }
 
-        if (skin instanceof TonalSkin) {
-            BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                false);
+        // Populate fill and border color schemes based on the current transition state of
+        // the button.
+        // Important - don't do it on pulsating buttons (such as close button of modified
+        // frames).
+        BladeUtils.populateColorScheme(mutableFillColorScheme, button, modelStateInfo,
+            currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
+        BladeUtils.populateColorScheme(mutableBorderColorScheme, button, modelStateInfo,
+            currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
 
-            drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
-                    mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted);
-        } else {
-            // Populate fill and border color schemes based on the current transition state of
-            // the button.
-            // Important - don't do it on pulsating buttons (such as close button of modified
-            // frames).
-            BladeUtils.populateColorScheme(mutableFillColorScheme, button, modelStateInfo,
-                    currState, RadianceThemingSlices.ColorSchemeAssociationKind.FILL, false);
-            BladeUtils.populateColorScheme(mutableBorderColorScheme, button, modelStateInfo,
-                    currState, RadianceThemingSlices.ColorSchemeAssociationKind.BORDER, false);
+        drawBackground(g2d, button, shaper, fillPainter, borderPainter, width, height,
+            mutableFillColorScheme, mutableBorderColorScheme, openSides,
+            isContentAreaFilled, isBorderPainted);
 
-            drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
-                    mutableFillColorScheme, mutableBorderColorScheme, openSides,
-                    isContentAreaFilled, isBorderPainted);
+        g2d.dispose();
+    }
+
+    private void drawTonalBackground(
+        Graphics2D graphics, AbstractButton button,
+        RadianceButtonShaper shaper, RadianceFillPainter fillPainter,
+        RadianceBorderPainter borderPainter, int width, int height) {
+        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
+        StateTransitionTracker.ModelStateInfo modelStateInfo = transitionAwareUI
+            .getTransitionTracker().getModelStateInfo();
+
+        ComponentState currState = modelStateInfo.getCurrModelState();
+
+        Set<RadianceThemingSlices.Side> openSides = RadianceCoreUtilities.getSides(button,
+            RadianceSynapse.BUTTON_OPEN_SIDE);
+        boolean isContentAreaFilled = button.isContentAreaFilled();
+        boolean isBorderPainted = button.isBorderPainted();
+        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
+            modelStateInfo.getStateContributionMap();
+
+        // Special case for flat buttons, compute the overall alpha for the combined animation
+        // states
+        float overallAlpha = 1.0f;
+        if (RadianceCoreUtilities.hasFlatAppearance(button)) {
+            // Special handling of flat buttons
+            overallAlpha = 0.0f;
+            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
+                activeStates.entrySet()) {
+                ComponentState activeState = activeEntry.getKey();
+                if (activeState.isDisabled())
+                    continue;
+                if (activeState == ComponentState.ENABLED)
+                    continue;
+                overallAlpha += activeEntry.getValue().getContribution();
+            }
         }
+
+        if (overallAlpha == 0.0f) {
+            return;
+        }
+
+        // Do we need to use attention-drawing animation?
+        if (button.getUI() instanceof ModificationAwareUI) {
+            ModificationAwareUI modificationAwareUI = (ModificationAwareUI) button.getUI();
+            Timeline modificationTimeline = modificationAwareUI.getModificationTimeline();
+            if (modificationTimeline != null) {
+                if (modificationTimeline.getState() != TimelineState.IDLE) {
+                    BladeUtils.populateModificationAwareColorTokens(mutableRenderColorTokens,
+                        button, modificationTimeline.getTimelinePosition());
+
+                    drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
+                        mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted,
+                        currState, overallAlpha);
+                    return;
+                }
+            }
+        }
+
+        BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
+            currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
+            false);
+
+        drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height,
+            mutableRenderColorTokens, openSides, isContentAreaFilled, isBorderPainted, currState,
+            overallAlpha);
     }
 
     private void drawBackground(Graphics2D g, AbstractButton button,
@@ -199,11 +278,11 @@ public class ButtonBackgroundDelegate {
     }
 
 
-    private void drawBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
-            RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
-            int height, ContainerRenderColorTokens renderColorTokens,
-            Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
-            boolean isBorderPainted) {
+    private void drawTonalBackground(Graphics2D g, AbstractButton button, RadianceButtonShaper shaper,
+        RadianceFillPainter fillPainter, RadianceBorderPainter borderPainter, int width,
+        int height, ContainerRenderColorTokens renderColorTokens,
+        Set<RadianceThemingSlices.Side> openSides, boolean isContentAreaFilled,
+        boolean isBorderPainted, ComponentState currState, float overallAlpha) {
 
         Graphics2D graphics = (Graphics2D) g.create();
         // Important - do not set KEY_STROKE_CONTROL to VALUE_STROKE_PURE, as that instructs AWT
@@ -241,6 +320,10 @@ public class ButtonBackgroundDelegate {
                         scaledWidth + deltaLeft + deltaRight + 1.0f,
                         scaledHeight + deltaTop + deltaBottom + 1.0f, scaleFactor, false) :
                         contourOuter;
+                float containerAlpha = overallAlpha *
+                    (currState.isDisabled() ? renderColorTokens.getContainerDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
+                    overallAlpha * containerAlpha, g));
                 fillPainter.paintContourBackground(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
                         scaledHeight + deltaTop + deltaBottom, contourFill, renderColorTokens);
@@ -251,6 +334,10 @@ public class ButtonBackgroundDelegate {
                         shaper.getButtonOutline(button, 1.0f,
                                 scaledWidth + deltaLeft + deltaRight,
                                 scaledHeight + deltaTop + deltaBottom, scaleFactor, true) : null;
+                float containerOutlineAlpha = overallAlpha *
+                    (currState.isDisabled() ? renderColorTokens.getContainerOutlineDisabledAlpha() : 1.0f);
+                graphics1X.setComposite(WidgetUtilities.getAlphaComposite(button,
+                    overallAlpha * containerOutlineAlpha, g));
                 borderPainter.paintBorder(graphics1X, button,
                         scaledWidth + deltaLeft + deltaRight,
                         scaledHeight + deltaTop + deltaBottom, contourOuter, contourInner,
@@ -281,50 +368,22 @@ public class ButtonBackgroundDelegate {
         int width = button.getWidth();
         int height = button.getHeight();
 
-        TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
-        StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
-        StateTransitionTracker.ModelStateInfo modelStateInfo =
-            stateTransitionTracker.getModelStateInfo();
-        Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
-            modelStateInfo.getStateContributionMap();
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-        // Two special cases here:
-        // 1. Button has flat appearance.
-        // 2. Button is disabled.
-        // For both cases, we need to set custom translucency.
-        boolean isFlat = RadianceCoreUtilities.hasFlatAppearance(button);
-        float extraAlpha = 1.0f;
-        if (isFlat) {
-            // Special handling of flat buttons
-            extraAlpha = 0.0f;
-            for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> activeEntry :
-                activeStates.entrySet()) {
-                ComponentState activeState = activeEntry.getKey();
-                if (activeState.isDisabled())
-                    continue;
-                if (activeState == ComponentState.ENABLED)
-                    continue;
-                extraAlpha += activeEntry.getValue().getContribution();
-            }
-        } else if (!button.isEnabled()) {
-            extraAlpha = RadianceColorSchemeUtilities.getAlpha(button,
-                    modelStateInfo.getCurrModelState());
-        }
+        RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
+        RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
+        RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
+        RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
 
-        if (extraAlpha > 0.0f) {
-            Graphics2D graphics = (Graphics2D) g.create();
-            graphics.setComposite(WidgetUtilities.getAlphaComposite(button, extraAlpha, g));
-            graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-
-            RadianceFillPainter fillPainter = RadianceCoreUtilities.getFillPainter(button);
-            RadianceButtonShaper shaper = RadianceCoreUtilities.getButtonShaper(button);
-            RadianceBorderPainter borderPainter = RadianceCoreUtilities.getBorderPainter(button);
-
+        if (skin instanceof TonalSkin) {
+            drawTonalBackground(graphics, button, shaper, fillPainter, borderPainter, width, height);
+        } else {
             drawBackground(graphics, button, shaper, fillPainter, borderPainter, width, height);
-
-            graphics.dispose();
         }
+
+        graphics.dispose();
     }
 
     /**
