@@ -174,9 +174,8 @@ public class RadianceCheckBoxMenuItemUI extends BasicCheckBoxMenuItemUI
     protected Dimension getPreferredMenuItemSize(JComponent c, Icon checkIcon,
             Icon arrowIcon, int defaultTextIconGap) {
         Dimension superDim = super.getPreferredMenuItemSize(c, checkIcon,
-                arrowIcon, defaultTextIconGap);
-        return new Dimension(MenuUtilities.getPreferredWidth(menuItem),
-                superDim.height);
+            arrowIcon, defaultTextIconGap);
+        return new Dimension(MenuUtilities.getPreferredWidth(menuItem), superDim.height);
     }
 
     @Override
