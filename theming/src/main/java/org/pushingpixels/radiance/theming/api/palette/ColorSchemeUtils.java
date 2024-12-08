@@ -228,7 +228,7 @@ public class ColorSchemeUtils {
                 if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getRolloverUnselectedTokens(this,
-                            getMutedContainerTokens()));
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -407,7 +407,7 @@ public class ColorSchemeUtils {
                 if (componentState == ComponentState.ROLLOVER_UNSELECTED) {
                     if (!stateTokens.containsKey(componentState)) {
                         stateTokens.put(componentState, getRolloverUnselectedTokens(this,
-                            getMutedContainerTokens()));
+                            defaultActive));
                     }
                     return stateTokens.get(componentState);
                 }
@@ -466,60 +466,45 @@ public class ColorSchemeUtils {
 
     private static ContainerRenderColorTokens getRolloverUnselectedTokens(
         RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
-        // Mixing in 75% of tonal container on top of base
+        // Mixing in 20% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
-            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
-            0.75f);
+            colorScheme.getSurfaceBright(),
+            0.2f);
     }
 
     private static ContainerRenderColorTokens getRolloverSelectedTokens(
         RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
-        // Mixing in 40% of surface bright on top of base
+        // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
             baseTokens,
             colorScheme.getSurfaceBright(),
-            0.4f);
+            0.3f);
     }
 
     private static ContainerRenderColorTokens getRolloverArmedTokens(
         RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
-        // Mixing in 40% of tonal container on top of base
-        ContainerRenderColorTokens intermediate = ColorSchemeUtils.overlay(
-            baseTokens,
-            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
-            0.4f);
-        // And then another 40% of surface bright on top
+        // Mixing in 30% of surface bright on top of base
         return ColorSchemeUtils.overlay(
-            intermediate,
+            baseTokens,
             colorScheme.getSurfaceBright(),
-            0.4f);
+            0.3f);
     }
 
     private static ContainerRenderColorTokens getPressedUnselectedTokens(
         RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
-        // Mixing in 75% of tonal container on top of base
-        ContainerRenderColorTokens intermediate = ColorSchemeUtils.overlay(
-            baseTokens,
-            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
-            0.75f);
-        // And then another 50% of surface dim on top
+        // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
-            intermediate,
+            baseTokens,
             colorScheme.getSurfaceDim(),
             0.5f);
     }
 
     private static ContainerRenderColorTokens getPressedSelectedTokens(
         RadianceColorScheme2 colorScheme, ContainerRenderColorTokens baseTokens) {
-        // Mixing in 40% of tonal container on top of base
-        ContainerRenderColorTokens intermediate = ColorSchemeUtils.overlay(
-            baseTokens,
-            colorScheme.getTonalContainerTokens().getContainerColorTokens().getContainer(),
-            0.4f);
-        // And then another 40% of surface dim on top
+        // Mixing in 50% of surface dim on top
         return ColorSchemeUtils.overlay(
-            intermediate,
+            baseTokens,
             colorScheme.getSurfaceDim(),
             0.4f);
     }
