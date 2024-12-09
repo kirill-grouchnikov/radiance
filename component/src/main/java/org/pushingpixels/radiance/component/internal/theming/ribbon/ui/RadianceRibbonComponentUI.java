@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.component.internal.theming.ribbon.ui;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.BasicRibbonComponentUI;
 import org.pushingpixels.radiance.component.internal.ui.ribbon.JRibbonComponent;
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceColorSchemeUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceCoreUtilities;
 import org.pushingpixels.radiance.theming.internal.utils.RadianceTextUtilities;
@@ -61,7 +62,8 @@ public class RadianceRibbonComponentUI extends BasicRibbonComponentUI {
         float labelAlpha = RadianceColorSchemeUtilities.getAlpha(ribbonComp, state);
         Color textColor = RadianceTextUtilities.getForegroundColor(
                 ribbonComp, state, labelAlpha);
-        icon = RadianceCoreUtilities.getFilteredIcon(ribbonComp, icon, state, textColor);
+        icon = RadianceCoreUtilities.getFilteredIcon(ribbonComp, icon, state, textColor,
+            RadianceThemingSlices.ContainerType.SURFACE);
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.translate(x, y);

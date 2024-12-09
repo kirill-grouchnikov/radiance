@@ -227,7 +227,7 @@ public class RadianceTextUtilities {
     }
 
     public static Color paintTonalText(Graphics g, AbstractButton button, Rectangle textRect, String text,
-        int mnemonicIndex) {
+        int mnemonicIndex, RadianceThemingSlices.ContainerType inactiveContainerType) {
         TransitionAwareUI transitionAwareUI = (TransitionAwareUI) button.getUI();
         StateTransitionTracker stateTransitionTracker = transitionAwareUI.getTransitionTracker();
 
@@ -238,7 +238,7 @@ public class RadianceTextUtilities {
                 stateTransitionTracker.getModelStateInfo());
         } else {
             return paintTonalText(g, button, textRect, text, mnemonicIndex,
-                stateTransitionTracker.getModelStateInfo());
+                stateTransitionTracker.getModelStateInfo(), inactiveContainerType);
         }
     }
 
@@ -263,8 +263,8 @@ public class RadianceTextUtilities {
     }
 
     public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
-        int mnemonicIndex, ComponentState state) {
-        Color fgColor = getTonalForegroundColor(component, state);
+        int mnemonicIndex, ComponentState state, RadianceThemingSlices.ContainerType inactiveContainerType) {
+        Color fgColor = getTonalForegroundColor(component, state, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
 
@@ -281,8 +281,9 @@ public class RadianceTextUtilities {
     }
 
     public static Color paintTonalText(Graphics g, JComponent component, Rectangle textRect, String text,
-        int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo) {
-        Color fgColor = getTonalForegroundColor(component, text, modelStateInfo);
+        int mnemonicIndex, StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
+        Color fgColor = getTonalForegroundColor(component, text, modelStateInfo, inactiveContainerType);
 
         RadianceTextUtilities.paintText(g, textRect, text, mnemonicIndex, component.getFont(), fgColor, null);
 
@@ -332,15 +333,17 @@ public class RadianceTextUtilities {
         return fgColor;
     }
 
-    public static Color getTonalForegroundColor(JComponent component, ComponentState state) {
+    public static Color getTonalForegroundColor(JComponent component, ComponentState state,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-                : RadianceColorSchemeUtilities.getRenderColorTokens(component, state)
-                .getOnContainerColorTokens().getOnContainer();
+                : RadianceColorSchemeUtilities.getRenderColorTokens(component, state, inactiveContainerType)
+                    .getOnContainerColorTokens().getOnContainer();
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
             : (state.isDisabled()
-                ? RadianceColorSchemeUtilities.getRenderColorTokens(component, state).getOnContainerDisabledAlpha()
+                ? RadianceColorSchemeUtilities.getRenderColorTokens(component, state, inactiveContainerType)
+                    .getOnContainerDisabledAlpha()
                 : 1.0f);
 
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
@@ -371,13 +374,14 @@ public class RadianceTextUtilities {
     }
 
     public static Color getTonalForegroundColor(JComponent component, String text,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         boolean toEnforceFgColor = (SwingUtilities.getAncestorOfClass(CellRendererPane.class, component) != null);
 
         Color fgColor = toEnforceFgColor ? component.getForeground()
-            : RadianceColorUtilities.getTonalForegroundColor(component, modelStateInfo);
+            : RadianceColorUtilities.getTonalForegroundColor(component, modelStateInfo, inactiveContainerType);
         float fgAlpha = toEnforceFgColor ? component.getForeground().getAlpha() / 255.0f
-            : RadianceColorUtilities.getTonalForegroundAlpha(component, modelStateInfo);
+            : RadianceColorUtilities.getTonalForegroundAlpha(component, modelStateInfo, inactiveContainerType);
 //        if (fgAlpha < 1.0f) {
 //            Color bgFillColor = RadianceColorUtilities.getBackgroundFillColor(component);
 //            fgColor = RadianceColorUtilities.getInterpolatedColor(fgColor, bgFillColor, fgAlpha);
@@ -419,9 +423,9 @@ public class RadianceTextUtilities {
         }
 
         Color fgColor = RadianceColorUtilities.getTonalMenuComponentForegroundColor(
-            menuComponent, modelStateInfo);
+            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.SURFACE);
         float fgAlpha = RadianceColorUtilities.getTonalMenuComponentForegroundAlpha(
-            menuComponent, modelStateInfo);
+            menuComponent, modelStateInfo, RadianceThemingSlices.ContainerType.SURFACE);
         return RadianceColorUtilities.getAlphaColor(fgColor, (int) (255.0f * fgAlpha));
     }
 

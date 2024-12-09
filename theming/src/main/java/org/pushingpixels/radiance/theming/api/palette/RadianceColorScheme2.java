@@ -30,6 +30,7 @@
 package org.pushingpixels.radiance.theming.api.palette;
 
 import org.pushingpixels.radiance.theming.api.ComponentState;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 
 import java.awt.*;
 
@@ -49,6 +50,16 @@ public interface RadianceColorScheme2 {
     ContainerRenderColorTokens getPrimaryContainerTokens();
 
     ContainerRenderColorTokens getStateRenderTokens(ComponentState componentState);
+
+    default ContainerRenderColorTokens getContainerTokens(RadianceThemingSlices.ContainerType containerType) {
+        switch (containerType) {
+            case MUTED: return this.getMutedContainerTokens();
+            case TONAL: return this.getTonalContainerTokens();
+            case PRIMARY: return this.getPrimaryContainerTokens();
+            case SURFACE:
+            default: return this.getSurfaceContainerTokens();
+        }
+    }
 
     ContainerRenderColorTokens getSystemInfoContainerTokens();
 

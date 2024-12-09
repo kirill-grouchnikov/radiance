@@ -830,6 +830,13 @@ public final class RadianceThemingSlices {
         SELECTION_FOREGROUND
     }
 
+    public enum ContainerType {
+        SURFACE,
+        MUTED,
+        TONAL,
+        PRIMARY
+    }
+
     public enum SystemContainerType {
         INFO,
         WARNING,

@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.palette.ContainerRenderColorTokens;
+import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -59,13 +60,16 @@ public class UpdateOptimizationInfo {
 
     public boolean isInDecorationArea;
 
-    public UpdateOptimizationInfo(JComponent component) {
+    public UpdateOptimizationInfo(JComponent component,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         this.component = component;
 
         this.defaultScheme = RadianceColorSchemeUtilities.getColorScheme(
             this.component, ComponentState.ENABLED);
-        this.defaultColorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
-            this.component, ComponentState.DEFAULT);
+        this.defaultColorTokens = (RadianceCoreUtilities.getSkin(component) instanceof TonalSkin)
+            ? RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
+                ComponentState.ENABLED, inactiveContainerType)
+            : null;
         this.decorationAreaType = RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(this.component);
 
         RadianceSkin skin = RadianceCoreUtilities.getSkin(this.component);
@@ -94,7 +98,8 @@ public class UpdateOptimizationInfo {
         ContainerRenderColorTokens result = this.highlightRenderColorTokens.get(state);
         if (result == null) {
             result = RadianceColorSchemeUtilities.getRenderColorTokens(this.component,
-                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state);
+                RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
+                RadianceThemingSlices.ContainerType.SURFACE);
             this.highlightRenderColorTokens.put(state, result);
         }
         return result;

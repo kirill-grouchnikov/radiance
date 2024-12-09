@@ -89,13 +89,14 @@ public class CommandButtonBackgroundDelegate {
             // No support yet for transitions between disabled and enabled / active
             // states
             Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(commandButton,
-                    regular, currentState, textColor);
+                    regular, currentState, textColor, RadianceThemingSlices.ContainerType.MUTED);
             disabledIcon.paintIcon(commandButton, g2d, 0, 0);
         } else {
             // Active states are painted on top of the icon that corresponds to the
             // enabled state
             Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(commandButton,
-                    regular, ComponentState.ENABLED, textColor);
+                    regular, ComponentState.ENABLED, textColor,
+                RadianceThemingSlices.ContainerType.MUTED);
             enabledIcon.paintIcon(commandButton, g2d, 0, 0);
             if (stateTransitionTracker.getActiveStrength() > 0.0f) {
                 for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -106,10 +107,10 @@ public class CommandButtonBackgroundDelegate {
                     float contribution = entry.getValue().getContribution();
                     if (contribution > 0.0f) {
                         Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(commandButton,
-                                regular, entry.getKey(), textColor);
+                            regular, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.MUTED);
                         if (activeIcon != enabledIcon) {
                             g2d.setComposite(WidgetUtilities.getAlphaComposite(
-                                    commandButton, contribution, g));
+                                commandButton, contribution, g));
                             activeIcon.paintIcon(commandButton, g2d, 0, 0);
                         }
                     }

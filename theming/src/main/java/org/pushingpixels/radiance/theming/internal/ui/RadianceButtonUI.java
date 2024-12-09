@@ -35,6 +35,7 @@ import org.pushingpixels.radiance.animation.api.swing.SwingRepaintCallback;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.AnimationFacet;
 import org.pushingpixels.radiance.theming.api.RadianceThemingWidget;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
@@ -420,14 +421,15 @@ public class RadianceButtonUI extends BasicButtonUI implements
             if (currentState.isDisabled()) {
                 // No support yet for transitions between disabled and enabled / active
                 // states
-                Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(b,
-                        originalIcon, currentState, this.textColor);
+                Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(b, originalIcon,
+                    currentState, this.textColor, RadianceThemingSlices.ContainerType.SURFACE);
                 disabledIcon.paintIcon(b, graphics, 0, 0);
             } else {
                 // Active states are painted on top of the icon that corresponds to the
                 // enabled state
                 Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(b,
-                        originalIcon, ComponentState.ENABLED, this.textColor);
+                    originalIcon, ComponentState.ENABLED, this.textColor,
+                    RadianceThemingSlices.ContainerType.MUTED);
                 enabledIcon.paintIcon(b, graphics, 0, 0);
                 if (stateTracker.getActiveStrength() > 0.0f) {
                     for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -438,7 +440,8 @@ public class RadianceButtonUI extends BasicButtonUI implements
                         float contribution = entry.getValue().getContribution();
                         if (contribution > 0.0f) {
                             Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(b,
-                                    originalIcon, entry.getKey(), this.textColor);
+                                originalIcon, entry.getKey(), this.textColor,
+                                RadianceThemingSlices.ContainerType.MUTED);
                             if (activeIcon != enabledIcon) {
                                 graphics.setComposite(WidgetUtilities.getAlphaComposite(b, contribution, g));
                                 activeIcon.paintIcon(b, graphics, 0, 0);
@@ -464,7 +467,7 @@ public class RadianceButtonUI extends BasicButtonUI implements
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         if (skin instanceof TonalSkin) {
             return RadianceTextUtilities.paintTonalText(g, button, textRect, text,
-                button.getDisplayedMnemonicIndex());
+                button.getDisplayedMnemonicIndex(), RadianceThemingSlices.ContainerType.MUTED);
         } else {
             return RadianceTextUtilities.paintText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());

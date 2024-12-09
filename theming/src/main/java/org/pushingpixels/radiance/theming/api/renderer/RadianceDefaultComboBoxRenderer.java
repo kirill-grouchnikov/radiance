@@ -103,7 +103,7 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
                 // applied at painting time of the label itself.
                 Color fg = (skin instanceof TonalSkin) ?
                     RadianceTextUtilities.getTonalForegroundColor(combo,
-                        ((JLabel) result).getText(), modelStateInfo) :
+                        ((JLabel) result).getText(), modelStateInfo, RadianceThemingSlices.ContainerType.MUTED) :
                     RadianceTextUtilities.getForegroundColor(combo,
                         ((JLabel) result).getText(), modelStateInfo, 1.0f);
                 result.setForeground(fg);
@@ -225,13 +225,15 @@ public class RadianceDefaultComboBoxRenderer extends RadianceDefaultListCellRend
         if (toUseHighlightKindForCurrState) {
             if (updateOptimizationInfo == null) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(list,
-                    RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state);
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
+                    RadianceThemingSlices.ContainerType.SURFACE);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }
         } else {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getRenderColorTokens(list, state);
+                return RadianceColorSchemeUtilities.getRenderColorTokens(list, state,
+                    RadianceThemingSlices.ContainerType.SURFACE);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }

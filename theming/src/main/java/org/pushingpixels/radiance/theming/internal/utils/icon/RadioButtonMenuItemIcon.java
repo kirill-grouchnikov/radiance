@@ -99,10 +99,8 @@ public class RadioButtonMenuItemIcon implements Icon, UIResource {
         if (skin instanceof TonalSkin) {
             // Populate color tokens based on the current transition state of the menu item.
             BladeUtils.populateColorTokens(mutableRenderColorTokens, this.menuItem, modelStateInfo,
-                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, false);
-            float alpha = currState.isDisabled()
-                ? mutableRenderColorTokens.getOnContainerDisabledAlpha()
-                : 1.0f;
+                currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, false,
+                RadianceThemingSlices.ContainerType.MUTED);
 
             Graphics2D graphics = (Graphics2D) g.create();
             graphics.translate(x, y);

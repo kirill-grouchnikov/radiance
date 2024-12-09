@@ -141,7 +141,7 @@ public class SeparatorPainterUtils {
                 // scheme explicitly registered for the SEPARATOR association kind.
                 renderColorTokens = RadianceColorSchemeUtilities.getDirectRenderColorTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
-                    ComponentState.ENABLED);
+                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.SURFACE);
                 if (renderColorTokens == null) {
                     // Then get a background color scheme associated with the
                     // decoration type of that separator
@@ -155,7 +155,8 @@ public class SeparatorPainterUtils {
                 // route that includes fall back in case there is no explicitly registered
                 // color scheme for the SEPARATOR association kind.
                 renderColorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(c,
-                    RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR, ComponentState.ENABLED);
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.SEPARATOR,
+                    ComponentState.ENABLED, RadianceThemingSlices.ContainerType.SURFACE);
             }
 
             paintTonalSeparator(c, g, renderColorTokens, width, height, orientation, hasShadow,
@@ -452,7 +453,8 @@ public class SeparatorPainterUtils {
                         || !skin.getOverlayPainters(decorationAreaType).isEmpty();
                 toUseAlphaColors = toUseAlphaColors || toEnforceAlphaColors;
 
-                Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(c);
+                Color backgroundFill = RadianceColorUtilities.getTonalBackgroundFillColor(
+                    c, RadianceThemingSlices.ContainerType.SURFACE);
                 Color primary = renderColorTokens.getContainerOutlineColorTokens().getContainerOutline();
                 // TODO: TONAL - verify this across light and dark skins
                 Color secondary = renderColorTokens.getContainerColorTokens().getContainerLow();

@@ -36,6 +36,7 @@ import org.pushingpixels.radiance.component.api.common.model.LabelContentModel;
 import org.pushingpixels.radiance.component.api.common.model.LabelPresentationModel;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.internal.utils.*;
 
 import javax.swing.*;
@@ -320,7 +321,7 @@ public class RadianceExoLabelUI extends ComponentUI {
             }
 
             Icon filteredIcon = RadianceCoreUtilities.getFilteredIcon(label,
-                    this.icon, state, textColor);
+                this.icon, state, textColor, RadianceThemingSlices.ContainerType.SURFACE);
             filteredIcon.paintIcon(label, g2d, 0, 0);
         }
 

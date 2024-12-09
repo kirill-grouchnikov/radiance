@@ -32,6 +32,7 @@ package org.pushingpixels.radiance.theming.internal.utils.menu;
 import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceSkin;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.palette.TonalSkin;
 import org.pushingpixels.radiance.theming.internal.animation.StateTransitionTracker;
 import org.pushingpixels.radiance.theming.internal.animation.TransitionAwareUI;
@@ -689,13 +690,13 @@ public class MenuUtilities {
                     // No support yet for transitions between disabled and enabled / active
                     // states
                     Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(menuItem,
-                            icon, currentState, textColor);
+                            icon, currentState, textColor, RadianceThemingSlices.ContainerType.SURFACE);
                     disabledIcon.paintIcon(menuItem, graphics, 0, 0);
                 } else {
                     // Active states are painted on top of the icon that corresponds to the
                     // enabled state
                     Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(menuItem,
-                            icon, ComponentState.ENABLED, textColor);
+                            icon, ComponentState.ENABLED, textColor, RadianceThemingSlices.ContainerType.SURFACE);
                     enabledIcon.paintIcon(menuItem, graphics, 0, 0);
                     if (stateTracker.getActiveStrength() > 0.0f) {
                         for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -706,7 +707,7 @@ public class MenuUtilities {
                             float contribution = entry.getValue().getContribution();
                             if (contribution > 0.0f) {
                                 Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(menuItem,
-                                        icon, entry.getKey(), textColor);
+                                        icon, entry.getKey(), textColor, RadianceThemingSlices.ContainerType.SURFACE);
                                 if (activeIcon != enabledIcon) {
                                     graphics.setComposite(WidgetUtilities.getAlphaComposite(
                                             menuItem, contribution, g));

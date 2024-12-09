@@ -149,7 +149,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
                     // Populate color schemes based on the current transition state of the radio button.
                     BladeUtils.populateColorTokens(mutableRenderColorTokens, button, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.MARK,
-                        false);
+                        false, RadianceThemingSlices.ContainerType.MUTED);
 
                     Graphics2D graphics = (Graphics2D) g.create();
                     graphics.translate(x, y);
@@ -324,7 +324,7 @@ public class RadianceRadioButtonUI extends BasicRadioButtonUI implements Transit
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         if (skin instanceof TonalSkin) {
             RadianceTextUtilities.paintTonalText(g, button, textRect, text,
-                button.getDisplayedMnemonicIndex());
+                button.getDisplayedMnemonicIndex(), RadianceThemingSlices.ContainerType.SURFACE);
         } else {
             RadianceTextUtilities.paintText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());

@@ -33,6 +33,7 @@ import org.pushingpixels.radiance.common.api.RadianceCommonCortex;
 import org.pushingpixels.radiance.common.api.icon.RadianceIconUIResource;
 import org.pushingpixels.radiance.theming.api.ComponentState;
 import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.RadianceThemingSlices;
 import org.pushingpixels.radiance.theming.api.RadianceThemingSlices.DecorationAreaType;
 import org.pushingpixels.radiance.theming.api.colorscheme.RadianceColorScheme;
 import org.pushingpixels.radiance.theming.api.icon.RadianceIconPack;
@@ -140,7 +141,8 @@ public class RadianceFileChooserUI extends MetalFileChooserUI {
             Color textColor = RadianceTextUtilities.getForegroundColor(
                     fileChooser, ComponentState.ENABLED, labelAlpha);
             icon = RadianceCoreUtilities.getFilteredIcon(fileChooser,
-                    icon, ComponentState.ENABLED, textColor);
+                icon, ComponentState.ENABLED, textColor,
+                RadianceThemingSlices.ContainerType.SURFACE);
 
             return icon;
         }

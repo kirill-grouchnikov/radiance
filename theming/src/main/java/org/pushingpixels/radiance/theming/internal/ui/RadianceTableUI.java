@@ -2124,7 +2124,7 @@ public class RadianceTableUI extends BasicTableUI implements UpdateOptimizationA
         public boolean hasRolloverAnimations;
 
         public TableUpdateOptimizationInfo() {
-            super(table);
+            super(table, RadianceThemingSlices.ContainerType.SURFACE);
             this.hasSelectionAnimations = _hasSelectionAnimations();
             this.hasRolloverAnimations = _hasRolloverAnimations();
         }

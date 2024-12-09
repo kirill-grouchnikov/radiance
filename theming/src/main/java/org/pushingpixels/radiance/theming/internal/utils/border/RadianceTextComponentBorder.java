@@ -124,7 +124,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
                 if (skin instanceof TonalSkin) {
                     BladeUtils.populateColorTokens(mutableRenderColorTokens, c, modelStateInfo,
                         currState, RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                        false);
+                        false, RadianceThemingSlices.ContainerType.MUTED);
 
                     BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f,
                         mutableRenderColorTokens);
@@ -148,7 +148,7 @@ public class RadianceTextComponentBorder implements Border, UIResource {
             ContainerRenderColorTokens renderColorTokens =
                 RadianceColorSchemeUtilities.getRenderColorTokens(c,
                     RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT,
-                    currState);
+                    currState, RadianceThemingSlices.ContainerType.MUTED);
 
             graphics.translate(x, y);
             BladeDrawingUtils.paintBladeSimpleBorder(c, graphics, width, height, 0.0f, renderColorTokens);

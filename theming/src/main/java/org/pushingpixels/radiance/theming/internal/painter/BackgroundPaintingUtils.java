@@ -123,7 +123,8 @@ public class BackgroundPaintingUtils {
             Component compForBackgroundFill =
                 ((c instanceof JTextComponent) || (c instanceof JSpinner)) ? c.getParent() : c;
             Color background = (skin instanceof TonalSkin)
-                ? RadianceColorUtilities.getTonalBackgroundFillColor(compForBackgroundFill)
+                ? RadianceColorUtilities.getTonalBackgroundFillColor(compForBackgroundFill,
+                    RadianceThemingSlices.ContainerType.SURFACE)
                 : RadianceColorUtilities.getBackgroundFillColor(compForBackgroundFill);
             graphics.setColor(background);
             graphics.fillRect(0, 0, c.getWidth(), c.getHeight());

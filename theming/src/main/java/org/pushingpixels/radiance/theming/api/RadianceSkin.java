@@ -409,11 +409,11 @@ public abstract class RadianceSkin implements RadianceTrait {
     }
 
     public final ContainerRenderColorTokens getColorRenderTokens(Component comp,
-        ComponentState componentState) {
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
             // TODO: TONAL - finalize this
             // Use the enabled match, and alpha will be applied during rendering
-            return getColorRenderTokens(comp, componentState.getEnabledMatch());
+            return getColorRenderTokens(comp, componentState.getEnabledMatch(), inactiveContainerType);
         }
 
         // small optimization - lookup the decoration area only if there
@@ -424,7 +424,7 @@ public abstract class RadianceSkin implements RadianceTrait {
                 RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 ContainerRenderColorTokens registered = this.tonalColorSchemeMap
-                    .get(decorationAreaType).getColorRenderTokens(componentState);
+                    .get(decorationAreaType).getColorRenderTokens(componentState, inactiveContainerType);
                 if (registered == null) {
                     throw new IllegalStateException("Color tokens shouldn't be null here. Please "
                         + "report this issue");
@@ -436,7 +436,7 @@ public abstract class RadianceSkin implements RadianceTrait {
 
         ContainerRenderColorTokens registered = this.tonalColorSchemeMap
             .get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getColorRenderTokens(componentState);
+            .getColorRenderTokens(componentState, inactiveContainerType);
         if (registered == null) {
             throw new IllegalStateException("Color tokens scheme shouldn't be null here. Please report " + "this issue");
         }
@@ -904,12 +904,13 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public final ContainerRenderColorTokens getColorRenderTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState) {
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
 
         if (componentState.isDisabled()) {
             // TODO: TONAL - finalize this
             // Use the enabled match, and alpha will be applied during rendering
-            return getColorRenderTokens(comp, associationKind, componentState.getEnabledMatch());
+            return getColorRenderTokens(comp, associationKind, componentState.getEnabledMatch(),
+                inactiveContainerType);
         }
 
         // small optimization - lookup the decoration area only if there
@@ -919,11 +920,11 @@ public abstract class RadianceSkin implements RadianceTrait {
                 : RadianceThemingCortex.ComponentOrParentChainScope.getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 return this.tonalColorSchemeMap.get(decorationAreaType).getColorRenderTokens(
-                    associationKind, componentState, true);
+                    associationKind, componentState, true, inactiveContainerType);
             }
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getColorRenderTokens(associationKind, componentState, true);
+            .getColorRenderTokens(associationKind, componentState, true, inactiveContainerType);
     }
 
     /**
@@ -955,7 +956,7 @@ public abstract class RadianceSkin implements RadianceTrait {
 
     public final ContainerRenderColorTokens getDirectRenderColorTokens(Component comp,
         RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-        ComponentState componentState) {
+        ComponentState componentState, RadianceThemingSlices.ContainerType inactiveContainerType) {
         // small optimization - lookup the decoration area only if there
         // are decoration-specific scheme bundles.
         if (this.tonalColorSchemeMap.size() > 1) {
@@ -964,11 +965,11 @@ public abstract class RadianceSkin implements RadianceTrait {
                 .getDecorationType(comp);
             if (this.tonalColorSchemeMap.containsKey(decorationAreaType)) {
                 return this.tonalColorSchemeMap.get(decorationAreaType)
-                    .getColorRenderTokens(associationKind, componentState, false);
+                    .getColorRenderTokens(associationKind, componentState, false, inactiveContainerType);
             }
         }
         return this.tonalColorSchemeMap.get(RadianceThemingSlices.DecorationAreaType.NONE)
-            .getColorRenderTokens(associationKind, componentState, false);
+            .getColorRenderTokens(associationKind, componentState, false, inactiveContainerType);
     }
 
     /**

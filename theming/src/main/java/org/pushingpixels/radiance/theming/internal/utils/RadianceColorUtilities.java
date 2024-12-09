@@ -381,7 +381,8 @@ public class RadianceColorUtilities {
                 return overlay;
             }
             if (skin instanceof TonalSkin) {
-                return skin.getColorRenderTokens(comp, currState).getOnContainerColorTokens().getOnContainer();
+                return skin.getColorRenderTokens(comp, currState, RadianceThemingSlices.ContainerType.MUTED)
+                    .getOnContainerColorTokens().getOnContainer();
             } else {
                 RadianceColorScheme colorScheme = RadianceColorSchemeUtilities.getColorScheme(
                     comp, RadianceThemingSlices.ColorSchemeAssociationKind.FOCUS, currState);
@@ -401,7 +402,8 @@ public class RadianceColorUtilities {
             Color active;
             if (skin instanceof TonalSkin) {
                 active = (overlay != null) ? overlay :
-                    skin.getColorRenderTokens(comp, activeState).getOnContainerColorTokens().getOnContainer();
+                    skin.getColorRenderTokens(comp, activeState, RadianceThemingSlices.ContainerType.MUTED)
+                        .getOnContainerColorTokens().getOnContainer();
             } else {
                 active = (overlay != null) ? overlay :
                     RadianceColorSchemeUtilities.getColorScheme(comp,
@@ -482,7 +484,8 @@ public class RadianceColorUtilities {
     }
 
     public static Color getTonalForegroundColor(Component component,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateContributionMap();
@@ -522,7 +525,8 @@ public class RadianceColorUtilities {
             }
         }
 
-        ContainerRenderColorTokens colorTokens = skin.getColorRenderTokens(component, currState);
+        ContainerRenderColorTokens colorTokens =
+            skin.getColorRenderTokens(component, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return colorTokens.getOnContainerColorTokens().getOnContainer();
         }
@@ -536,7 +540,8 @@ public class RadianceColorUtilities {
             float alpha = activeEntry.getValue().getContribution();
 
             ContainerRenderColorTokens activeColorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState);
+                RadianceColorSchemeUtilities.getRenderColorTokens(component, activeState,
+                    inactiveContainerType);
             Color activeForeground = activeColorTokens.getOnContainerColorTokens().getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();
@@ -546,7 +551,8 @@ public class RadianceColorUtilities {
     }
 
     public static float getTonalForegroundAlpha(Component component,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelState();
 
         // special case for enabled buttons with no background -
@@ -583,7 +589,8 @@ public class RadianceColorUtilities {
             }
         }
 
-        ContainerRenderColorTokens renderColorTokens = skin.getColorRenderTokens(component, currState);
+        ContainerRenderColorTokens renderColorTokens =
+            skin.getColorRenderTokens(component, currState, inactiveContainerType);
         return currState.isDisabled() ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
@@ -637,7 +644,8 @@ public class RadianceColorUtilities {
     }
 
     public static Color getTonalMenuComponentForegroundColor(JMenuItem menuComponent,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
         Map<ComponentState, StateTransitionTracker.StateContributionInfo> activeStates =
             modelStateInfo.getStateNoSelectionContributionMap();
@@ -648,7 +656,7 @@ public class RadianceColorUtilities {
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
         ContainerRenderColorTokens renderColorTokens =
             RadianceColorSchemeUtilities.getRenderColorTokens(
-                menuComponent, currAssocKind, currState);
+                menuComponent, currAssocKind, currState, inactiveContainerType);
         if (currState.isDisabled() || (activeStates == null) || (activeStates.size() == 1)) {
             return renderColorTokens.getOnContainerColorTokens().getOnContainer();
         }
@@ -667,7 +675,7 @@ public class RadianceColorUtilities {
                     : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
             ContainerRenderColorTokens activeRenderColorTokens =
                 RadianceColorSchemeUtilities.getRenderColorTokens(
-                    menuComponent, assocKind, activeState);
+                    menuComponent, assocKind, activeState, inactiveContainerType);
             Color activeForeground = activeRenderColorTokens.getOnContainerColorTokens().getOnContainer();
             aggrRed += alpha * activeForeground.getRed();
             aggrGreen += alpha * activeForeground.getGreen();
@@ -677,7 +685,8 @@ public class RadianceColorUtilities {
     }
 
     public static float getTonalMenuComponentForegroundAlpha(JMenuItem menuComponent,
-        StateTransitionTracker.ModelStateInfo modelStateInfo) {
+        StateTransitionTracker.ModelStateInfo modelStateInfo,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         ComponentState currState = modelStateInfo.getCurrModelStateNoSelection();
 
         // use HIGHLIGHT on active menu items
@@ -686,7 +695,7 @@ public class RadianceColorUtilities {
                 : RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT;
         ContainerRenderColorTokens renderColorTokens =
             RadianceColorSchemeUtilities.getRenderColorTokens(
-                menuComponent, currAssocKind, currState);
+                menuComponent, currAssocKind, currState, inactiveContainerType);
         return currState.isDisabled() ? renderColorTokens.getOnContainerDisabledAlpha() : 1.0f;
     }
 
@@ -766,7 +775,8 @@ public class RadianceColorUtilities {
         return backgr;
     }
 
-    public static Color getTonalBackgroundFillColor(Component component) {
+    public static Color getTonalBackgroundFillColor(Component component,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         Color backgr = component.getBackground();
         boolean isBackgroundUiResource = backgr instanceof UIResource;
 
@@ -792,7 +802,8 @@ public class RadianceColorUtilities {
 
         ContainerRenderColorTokens colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(
             component,
-            component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED);
+            component.isEnabled() ? ComponentState.ENABLED : ComponentState.DISABLED_UNSELECTED,
+            inactiveContainerType);
         if (!isBackgroundUiResource) {
             // special case for issue 386 - if the colorization
             // is 1.0, return the component background
@@ -813,9 +824,9 @@ public class RadianceColorUtilities {
                 if (!isEditable) {
                     Component parent = component.getParent();
                     if (original == parent) {
-                        return getTonalBackgroundFillColor(original.getParent());
+                        return getTonalBackgroundFillColor(original.getParent(), inactiveContainerType);
                     }
-                    return getTonalBackgroundFillColor(parent);
+                    return getTonalBackgroundFillColor(parent, inactiveContainerType);
                 }
             }
             // menu items always use the same background color so that the

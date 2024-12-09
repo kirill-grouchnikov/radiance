@@ -901,8 +901,8 @@ public class RadianceCoreUtilities {
         return RadianceCoreUtilities.getActiveIconFilterStrategy(component);
     }
 
-    public static Icon getFilteredIcon(JComponent comp, Icon orig,
-            ComponentState componentState, Color textColor) {
+    public static Icon getFilteredIcon(JComponent comp, Icon orig, ComponentState componentState,
+        Color textColor, RadianceThemingSlices.ContainerType inactiveContainerType) {
         double scale = RadianceCommonCortex.getScaleFactor(comp);
 
         RadianceThemingSlices.IconFilterStrategy iconFilterStrategy =
@@ -910,7 +910,7 @@ public class RadianceCoreUtilities {
         RadianceSkin skin = RadianceCoreUtilities.getSkin(comp);
         if (skin instanceof TonalSkin) {
             ContainerRenderColorTokens renderColorTokens =
-                RadianceColorSchemeUtilities.getRenderColorTokens(comp, componentState);
+                RadianceColorSchemeUtilities.getRenderColorTokens(comp, componentState, inactiveContainerType);
             switch (iconFilterStrategy) {
                 case ORIGINAL:
                     return orig;

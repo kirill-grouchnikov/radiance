@@ -319,13 +319,15 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
                 // No support yet for transitions between disabled and enabled / active
                 // states
                 Icon disabledIcon = RadianceCoreUtilities.getFilteredIcon(b,
-                        originalIcon, currentState, this.textColor);
+                    originalIcon, currentState, this.textColor,
+                    RadianceThemingSlices.ContainerType.MUTED);
                 disabledIcon.paintIcon(b, graphics, 0, 0);
             } else {
                 // Active states are painted on top of the icon that corresponds to the
                 // enabled state
                 Icon enabledIcon = RadianceCoreUtilities.getFilteredIcon(b,
-                        originalIcon, ComponentState.ENABLED, this.textColor);
+                    originalIcon, ComponentState.ENABLED, this.textColor,
+                    RadianceThemingSlices.ContainerType.MUTED);
                 enabledIcon.paintIcon(b, graphics, 0, 0);
                 if (stateTracker.getActiveStrength() > 0.0f) {
                     for (Map.Entry<ComponentState, StateTransitionTracker.StateContributionInfo> entry :
@@ -335,8 +337,8 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
                         }
                         float contribution = entry.getValue().getContribution();
                         if (contribution > 0.0f) {
-                            Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(b,
-                                    originalIcon, entry.getKey(), this.textColor);
+                            Icon activeIcon = RadianceCoreUtilities.getFilteredIcon(b, originalIcon,
+                                entry.getKey(), this.textColor, RadianceThemingSlices.ContainerType.MUTED);
                             if (activeIcon != enabledIcon) {
                                 graphics.setComposite(WidgetUtilities.getAlphaComposite(b, contribution, g));
                                 activeIcon.paintIcon(b, graphics, 0, 0);
@@ -363,7 +365,7 @@ public class RadianceToggleButtonUI extends BasicToggleButtonUI implements
         RadianceSkin skin = RadianceCoreUtilities.getSkin(button);
         if (skin instanceof TonalSkin) {
             return RadianceTextUtilities.paintTonalText(g, button, textRect, text,
-                button.getDisplayedMnemonicIndex());
+                button.getDisplayedMnemonicIndex(), RadianceThemingSlices.ContainerType.MUTED);
         } else {
             return RadianceTextUtilities.paintText(g, button, textRect, text,
                 button.getDisplayedMnemonicIndex());

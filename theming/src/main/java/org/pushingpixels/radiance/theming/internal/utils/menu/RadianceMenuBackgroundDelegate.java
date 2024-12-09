@@ -100,7 +100,8 @@ public class RadianceMenuBackgroundDelegate {
 				RadianceSkin skin = RadianceCoreUtilities.getSkin(menuItem);
 				if (skin instanceof TonalSkin) {
 					ContainerRenderColorTokens renderColorTokens =
-						RadianceColorSchemeUtilities.getRenderColorTokens(menuItem, ComponentState.ENABLED);
+						RadianceColorSchemeUtilities.getRenderColorTokens(menuItem,
+							ComponentState.ENABLED, RadianceThemingSlices.ContainerType.SURFACE);
 					graphics.setColor(renderColorTokens.getContainerColorTokens().getContainerLow());
 				} else {
 					RadianceColorScheme scheme = RadianceColorSchemeUtilities.getColorScheme(
@@ -176,7 +177,7 @@ public class RadianceMenuBackgroundDelegate {
 				ContainerRenderColorTokens renderColorTokens =
 					RadianceColorSchemeUtilities.getRenderColorTokens(
 						menuItem, RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-						activeState);
+						activeState, RadianceThemingSlices.ContainerType.SURFACE);
 				HighlightPainterUtils.paintHighlight(graphics, null, menuItem,
 					new Rectangle(0, 0, menuItem.getWidth(), menuItem.getHeight()), borderAlpha,
 					null, renderColorTokens);

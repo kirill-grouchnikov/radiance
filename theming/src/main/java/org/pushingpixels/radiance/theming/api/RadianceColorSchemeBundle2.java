@@ -202,22 +202,21 @@ public class RadianceColorSchemeBundle2 {
      * @return The color scheme of the component in the specified component
      * state.
      */
-    public ContainerRenderColorTokens getColorRenderTokens(ComponentState componentState) {
+    public ContainerRenderColorTokens getColorRenderTokens(ComponentState componentState,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (componentState.isDisabled()) {
-            // TODO: TONAL - finalize this
-            // Use the enabled match, and alpha will be applied during rendering
-            return getColorRenderTokens(componentState.getEnabledMatch());
+            return getColorRenderTokens(componentState.getEnabledMatch(), inactiveContainerType);
         }
 
         RadianceColorScheme2 registered = this.colorSchemeMap.get(
                 RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT).get(componentState);
         if (registered != null) {
             return componentState.isActive() ? registered.getStateRenderTokens(componentState)
-                : registered.getMutedContainerTokens();
+                : registered.getContainerTokens(inactiveContainerType);
         }
 
         return componentState.isActive() ? this.mainColorScheme.getStateRenderTokens(componentState)
-            : this.mainColorScheme.getMutedContainerTokens();
+            : this.mainColorScheme.getContainerTokens(inactiveContainerType);
     }
 
     public ContainerRenderColorTokens getSystemColorRenderTokens(
@@ -345,23 +344,25 @@ public class RadianceColorSchemeBundle2 {
      * @see #registerColorScheme(RadianceColorScheme2, ComponentState...)
      */
     public ContainerRenderColorTokens getColorRenderTokens(
-            RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
-            ComponentState componentState, boolean allowFallback) {
+        RadianceThemingSlices.ContainerColorTokensAssociationKind associationKind,
+        ComponentState componentState, boolean allowFallback,
+        RadianceThemingSlices.ContainerType inactiveContainerType) {
         if (associationKind == RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT) {
-            return this.getColorRenderTokens(componentState);
+            return this.getColorRenderTokens(componentState, inactiveContainerType);
         }
 
         if (componentState.isDisabled()) {
             // TODO: TONAL - finalize this
             // Use the enabled match, and alpha will be applied during rendering
-            return getColorRenderTokens(associationKind, componentState.getEnabledMatch(), allowFallback);
+            return getColorRenderTokens(associationKind, componentState.getEnabledMatch(),
+                allowFallback, inactiveContainerType);
         }
 
         RadianceColorScheme2 registered =
             this.colorSchemeMap.get(associationKind).get(componentState);
         if (registered != null) {
             return componentState.isActive() ? registered.getStateRenderTokens(componentState)
-                : registered.getMutedContainerTokens();
+                : registered.getContainerTokens(inactiveContainerType);
         }
 
         // for now look for the best fit only on active states
@@ -375,7 +376,7 @@ public class RadianceColorSchemeBundle2 {
             registered = this.colorSchemeMap.get(associationKind).get(bestFit);
             if (registered != null)
                 return componentState.isActive() ? registered.getStateRenderTokens(componentState)
-                    : registered.getMutedContainerTokens();
+                    : registered.getContainerTokens(inactiveContainerType);
         }
 
         if (!allowFallback) {
@@ -383,7 +384,8 @@ public class RadianceColorSchemeBundle2 {
         }
 
         return getColorRenderTokens(
-            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, componentState, true);
+            RadianceThemingSlices.ContainerColorTokensAssociationKind.DEFAULT, componentState,
+            true, inactiveContainerType);
     }
 
     /**

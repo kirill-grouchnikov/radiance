@@ -126,7 +126,6 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                             aggrRed += schemeFg.getRed() * contribution;
                             aggrGreen += schemeFg.getGreen() * contribution;
                             aggrBlue += schemeFg.getBlue() * contribution;
-
                         } else {
                             RadianceColorScheme scheme = getColorSchemeForState(list, ui, activeState);
                             Color schemeFg = scheme.getForegroundColor();
@@ -151,7 +150,7 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
                     if (isDropLocation) {
                         colorTokens = RadianceColorSchemeUtilities.getRenderColorTokens(list,
                             RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT,
-                            currState);
+                            currState, RadianceThemingSlices.ContainerType.SURFACE);
                     }
                     super.setForeground(new ColorUIResource(
                         colorTokens.getOnContainerColorTokens().getOnContainer()));
@@ -225,14 +224,16 @@ public class RadianceDefaultListCellRenderer extends DefaultListCellRenderer
         UpdateOptimizationInfo updateOptimizationInfo = ui.getUpdateOptimizationInfo();
         if (state == ComponentState.ENABLED) {
             if (updateOptimizationInfo == null) {
-                return RadianceColorSchemeUtilities.getRenderColorTokens(list, state);
+                return RadianceColorSchemeUtilities.getRenderColorTokens(list, state,
+                    RadianceThemingSlices.ContainerType.SURFACE);
             } else {
                 return updateOptimizationInfo.getDefaultColorTokens();
             }
         } else {
             if (updateOptimizationInfo == null) {
                 return RadianceColorSchemeUtilities.getRenderColorTokens(list,
-                    RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state);
+                    RadianceThemingSlices.ContainerColorTokensAssociationKind.HIGHLIGHT, state,
+                    RadianceThemingSlices.ContainerType.SURFACE);
             } else {
                 return updateOptimizationInfo.getHighlightColorTokens(state);
             }
